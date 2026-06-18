@@ -14,14 +14,12 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import { Pending, Link, Card, Heading } from "@gc-digital-talent/ui";
 import type {
   CreatePoolInput,
   CreatePoolMutation,
   FragmentType,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import type { RoleName } from "@gc-digital-talent/auth";
@@ -42,12 +40,7 @@ import YourRolesSection from "./YourRolesSection";
 export const CreatePoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment CreatePoolClassification on Classification {
     id
-    group
-    level
-    name {
-      en
-      fr
-    }
+    displayName
   }
 `);
 
@@ -85,7 +78,7 @@ export const CreatePoolCommunity_Fragment = graphql(/* GraphQL */ `
 export interface RoleObject {
   id: string;
   name: string;
-  displayName?: Maybe<string>;
+  displayName?: string | null;
 }
 
 interface FormValues {
@@ -175,10 +168,10 @@ export const CreatePoolForm = ({
   };
 
   const classificationOptions: Option[] = classifications.map(
-    ({ id, group, level, name }) => {
+    ({ id, displayName }) => {
       return {
         value: id,
-        label: `${group}-${level < 10 ? "0" : ""}${level} (${getLocalizedName(name, intl)})`,
+        label: displayName,
       };
     },
   );

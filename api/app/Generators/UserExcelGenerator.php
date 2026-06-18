@@ -52,8 +52,7 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use OpenSpout\Writer\XLSX\Writer;
 
 class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -224,52 +223,53 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         parent::__construct($fileName, $dir);
     }
 
+    // store user ids while generating users sheet
+    private array $userIds = [];
+
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->writer = new Writer();
+        $this->writer->openToFile($this->getPath());
 
-        // Users sheet
-        $usersSheet = $this->spreadsheet->getActiveSheet();
-        $usersSheet->setTitle(Lang::get('headings.user', [], $this->lang));
+        try {
 
-        // Create Career Experience sheet
-        $careerSheet = $this->spreadsheet->createSheet();
-        $careerSheet->setTitle(Lang::get('headings.career_experience', [], $this->lang));
+            // Users sheet
+            $this->writer->getCurrentSheet()->setName(Lang::get('headings.user', [], $this->lang));
+            $this->generateUsersSheet();
 
-        // Create Community Interest sheet
-        $interestSheet = $this->spreadsheet->createSheet();
-        $interestSheet->setTitle(Lang::get('headings.community_interest', [], $this->lang));
+            // Career Experience sheet
+            $careerSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $careerSheet->setName(Lang::get('headings.career_experience', [], $this->lang));
+            $this->generateCareerExperienceSheet();
 
-        // Generate data for all sheets
-        $this->generateUsersSheet($usersSheet);
-        $this->generateCareerExperienceSheet($careerSheet);
-        $this->generateCommunityInterestSheet($interestSheet);
+            // Community Interest sheet
+            $interestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $interestSheet->setName(Lang::get('headings.community_interest', [], $this->lang));
+            $this->generateCommunityInterestSheet();
+        } finally {
+
+            $this->writer->close();
+        }
 
         return $this;
     }
 
-    // store user ids while generating users sheet
-    private array $userIds = [];
-
     /**
      * Generate data for Users sheet
      */
-    private function generateUsersSheet(Worksheet $sheet): void
+    private function generateUsersSheet(): void
     {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->headerLocaleKeys);
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+        $this->writer->addRow($this->row($localizedHeaders));
 
-        $currentUser = 1;
         $query = $this->buildQuery();
-        $query->chunk(200, function ($users) use ($sheet, &$currentUser) {
+        $query->chunk(200, function ($users) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
-                $rowData = $this->buildUserRowData($user);
-                $sheet->fromArray($rowData, null, sprintf('A%d', $currentUser + 1));
-                $currentUser++;
+                $this->writer->addRow($this->row($this->buildUserRowData($user)));
             }
         });
     }
@@ -277,13 +277,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Generate data for Career Experience sheet
      */
-    private function generateCareerExperienceSheet(Worksheet $sheet): void
+    private function generateCareerExperienceSheet(): void
     {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->careerExperienceLocaleKeys);
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+        $this->writer->addRow($this->row($localizedHeaders));
 
         $userIds = $this->userIds;
 
@@ -291,21 +291,19 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             return;
         }
 
-        $this->addExperiencesToSheet($sheet, $userIds);
+        $this->addExperiencesToSheet($userIds);
     }
 
     /**
      * Add experiences to Career Experience sheet
      */
-    private function addExperiencesToSheet(Worksheet $sheet, array $userIds): void
+    private function addExperiencesToSheet(array $userIds): void
     {
-        $currentRow = 2;
-
-        $this->addWorkExperiences($sheet, $userIds, $currentRow);
-        $this->addEducationExperiences($sheet, $userIds, $currentRow);
-        $this->addAwardExperiences($sheet, $userIds, $currentRow);
-        $this->addCommunityExperiences($sheet, $userIds, $currentRow);
-        $this->addPersonalExperiences($sheet, $userIds, $currentRow);
+        $this->addWorkExperiences($userIds);
+        $this->addEducationExperiences($userIds);
+        $this->addAwardExperiences($userIds);
+        $this->addCommunityExperiences($userIds);
+        $this->addPersonalExperiences($userIds);
     }
 
     /**
@@ -445,15 +443,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Add work experiences to career experience sheet
      */
-    private function addWorkExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function addWorkExperiences(array $userIds): void
     {
         WorkExperience::whereIn('user_id', $userIds)
             ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildWorkExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row($this->buildWorkExperienceRow($exp)));
                 }
             });
     }
@@ -542,15 +538,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Add education experiences to career experience sheet
      */
-    private function addEducationExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function addEducationExperiences(array $userIds): void
     {
         EducationExperience::whereIn('user_id', $userIds)
             ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildEducationExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row($this->buildEducationExperienceRow($exp)));
                 }
             });
     }
@@ -622,15 +616,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Add award experiences to career experience sheet
      */
-    private function addAwardExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function addAwardExperiences(array $userIds): void
     {
         AwardExperience::whereIn('user_id', $userIds)
             ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildAwardExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row($this->buildAwardExperienceRow($exp)));
                 }
             });
     }
@@ -701,15 +693,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Add community experiences to career experience sheet
      */
-    private function addCommunityExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function addCommunityExperiences(array $userIds): void
     {
         CommunityExperience::whereIn('user_id', $userIds)
             ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildCommunityExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row($this->buildCommunityExperienceRow($exp)));
                 }
             });
     }
@@ -779,15 +769,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Add personal experiences to sheet
      */
-    private function addPersonalExperiences(Worksheet $sheet, array $userIds, int &$currentRow): void
+    private function addPersonalExperiences(array $userIds): void
     {
         PersonalExperience::whereIn('user_id', $userIds)
             ->with(['user', 'userSkills.skill'])
-            ->chunk(200, function ($experiences) use ($sheet, &$currentRow) {
+            ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $rowData = $this->buildPersonalExperienceRow($exp);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row($this->buildPersonalExperienceRow($exp)));
                 }
             });
     }
@@ -1079,7 +1067,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     /**
      * Generate data for Community Interest sheet
      */
-    private function generateCommunityInterestSheet(Worksheet $sheet): void
+    private function generateCommunityInterestSheet(): void
     {
         $userIds = $this->userIds;
 
@@ -1128,13 +1116,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 $communityProgramIdsMap[$cdp->community_id][] = $cdp->development_program_id;
             });
 
-        $sheet->fromArray([
+        $this->writer->addRow($this->row([
             ...$localizedHeadersPart1,
             ...$generatedHeaders,
             ...$localizedHeadersPart2,
-        ], null, 'A1');
-
-        $currentRow = 2;
+        ]));
 
         CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
@@ -1147,11 +1133,11 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
                 'user.developmentProgramUserRecords',
                 'user.developmentProgramUserRecords.educationExperience',
             ])
-            ->chunk(200, function ($interests) use ($sheet, &$currentRow, $developmentProgramIds, $communityProgramIdsMap) {
+            ->chunk(200, function ($interests) use ($developmentProgramIds, $communityProgramIdsMap) {
                 foreach ($interests as $interest) {
-                    $rowData = $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap);
-                    $sheet->fromArray($rowData, null, sprintf('A%d', $currentRow));
-                    $currentRow++;
+                    $this->writer->addRow($this->row(
+                        $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap)
+                    ));
                 }
             });
     }

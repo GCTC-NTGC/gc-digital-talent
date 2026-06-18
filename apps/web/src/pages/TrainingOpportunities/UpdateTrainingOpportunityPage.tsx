@@ -22,7 +22,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   UpdateTrainingOpportunityInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -142,7 +141,7 @@ const UpdateTrainingOpportunityForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  trainingOpportunityId: Scalars["ID"]["output"];
+  trainingOpportunityId: string;
 }
 
 const UpdateTrainingOpportunityPage_Query = graphql(/* GraphQL */ `

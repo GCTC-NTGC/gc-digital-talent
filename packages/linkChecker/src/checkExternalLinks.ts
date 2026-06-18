@@ -22,7 +22,8 @@ const DEFAULT_TIMEOUT_MS = 30000;
 const MAX_RETRIES = 2;
 const RETRY_BACKOFF_MS = 750;
 const RETRYABLE_HTTP_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
-const SECONDARY_BROWSER_PROBE_HOSTS = new Set([
+// These hosts block automated requests with 403 by design — treat 403 as alive
+const KNOWN_AUTH_REQUIRED_HOSTS = new Set([
   "connexion.canada.ca",
   "login.canada.ca",
 ]);
@@ -85,10 +86,10 @@ function shouldRetryFromError(err: unknown): boolean {
   return false;
 }
 
-function shouldUseSecondaryBrowserProbe(url: string): boolean {
+function isKnownAuthRequiredHost(url: string): boolean {
   try {
     const parsedUrl = new URL(url);
-    return SECONDARY_BROWSER_PROBE_HOSTS.has(parsedUrl.hostname.toLowerCase());
+    return KNOWN_AUTH_REQUIRED_HOSTS.has(parsedUrl.hostname.toLowerCase());
   } catch {
     return false;
   }
@@ -127,7 +128,8 @@ async function fetchLinkWithBrowserHeaders(
   }
 }
 
-function isBrokenStatus(status: number | string): boolean {
+function isBrokenStatus(status: number | string, url: string): boolean {
+  if (status === 403 && isKnownAuthRequiredHost(url)) return false;
   return status !== 200;
 }
 
@@ -159,7 +161,7 @@ async function fetchLink(
         continue;
       }
 
-      if (res.status === 403 && shouldUseSecondaryBrowserProbe(url)) {
+      if (res.status === 403 && isKnownAuthRequiredHost(url)) {
         return fetchLinkWithBrowserHeaders(url, timeoutMs);
       }
 
@@ -249,6 +251,7 @@ function isValidExternalLink(url: string): boolean {
     "https://fonts.googleapis.com",
     "https://fonts.gstatic.com",
     "https://gcxgce.sharepoint.com",
+    "http://localhost",
   ];
 
   return (
@@ -303,7 +306,7 @@ async function main() {
         results.push({ file: link.file, url: link.url, status });
       }
       // Save broken links
-      const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
+      const brokenLinks = results.filter((r) => isBrokenStatus(r.status, r.url));
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(
         brokenLinksPath,
@@ -374,7 +377,7 @@ async function main() {
       });
     }
     // create broken links file only if any broken link exist
-    const brokenLinks = results.filter((r) => isBrokenStatus(r.status));
+    const brokenLinks = results.filter((r) => isBrokenStatus(r.status, r.url));
     if (brokenLinks.length > 0) {
       const brokenLinksPath = path.resolve("external-broken-links.json");
       await fs.writeFile(

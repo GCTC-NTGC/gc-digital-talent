@@ -101,8 +101,8 @@ class PoolCandidateFactory extends BaseFactory
                     'user_id' => $user->id,
                     'skill_id' => $skill->id,
                 ], [
-                    'skill_level' => $this->randomEnum(SkillLevel::class),
-                    'when_skill_used' => $this->randomEnum(WhenSkillUsed::class),
+                    'skill_level' => $this->faker->enum(SkillLevel::class),
+                    'when_skill_used' => $this->faker->enum(WhenSkillUsed::class),
                 ]);
 
                 // Only attach to an experience if it's not already linked
@@ -148,7 +148,7 @@ class PoolCandidateFactory extends BaseFactory
 
     public function screening(?ScreeningStage $stage = null): self
     {
-        $stage = $stage?->name ?? $this->randomEnum(ScreeningStage::class);
+        $stage = $stage?->name ?? $this->faker->enum(ScreeningStage::class);
 
         return $this->submitted()->state(fn () => [
             'screening_stage' => $stage,
@@ -165,7 +165,7 @@ class PoolCandidateFactory extends BaseFactory
 
     public function disqualified(?DisqualificationReason $reason = null): self
     {
-        $reason = $reason?->name ?? $this->randomEnum(DisqualificationReason::class);
+        $reason = $reason?->name ?? $this->faker->enum(DisqualificationReason::class);
 
         return $this->submitted()->state(fn () => [
             'application_status' => ApplicationStatus::DISQUALIFIED->name,
@@ -194,7 +194,7 @@ class PoolCandidateFactory extends BaseFactory
 
     public function placed(?PlacementType $placementType = null, ?string $deptId = null): self
     {
-        $type = $placementType?->name ?? $this->randomEnum(PlacementType::class);
+        $type = $placementType?->name ?? $this->faker->enum(PlacementType::class);
         $factory = $this->qualified();
 
         // pause referrals if being placed as indeterminate
@@ -204,18 +204,23 @@ class PoolCandidateFactory extends BaseFactory
             ]);
         }
 
+        $hasPlacedStartDate = PlacementType::hasPlacedStartDate($type);
+        $isIndeterminate = $type === PlacementType::PLACED_INDETERMINATE->name;
+
         return $factory->state(fn (array $atts) => [
             'placement_type' => $type,
             'placed_at' => $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', $atts['expiry_date'] ?? 'now'),
             'placed_department_id' => $deptId ?? $this->firstOrCreate(Department::class)->id,
             'screening_stage' => null,
             'assessment_step_id' => null,
+            'placed_start_date' => $hasPlacedStartDate ? $this->faker->dateTimeBetween($atts['submitted_at'] ?? '-3 months', 'now') : null,
+            'placed_end_date' => $hasPlacedStartDate && ! $isIndeterminate ? $this->faker->dateTimeBetween('now', $atts['expiry_date']) : null,
         ]);
     }
 
     public function removed(?CandidateRemovalReason $reason = null, ?string $otherReason = null): self
     {
-        $reason = $reason?->name ?? $this->randomEnum(CandidateRemovalReason::class);
+        $reason = $reason?->name ?? $this->faker->enum(CandidateRemovalReason::class);
         $otherReason = $otherReason ?? $this->faker->sentence();
         if ($reason !== CandidateRemovalReason::OTHER->name) {
             $otherReason = null;

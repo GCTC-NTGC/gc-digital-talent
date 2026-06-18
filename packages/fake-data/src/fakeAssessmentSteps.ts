@@ -1,10 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type {
-  AssessmentStep,
-  Maybe,
-  PoolSkill,
-} from "@gc-digital-talent/graphql";
+import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import { AssessmentStepType } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
@@ -13,8 +9,8 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 const generateAssessmentStep = (
   amount: number,
   sortOrder?: number,
-  type?: Maybe<AssessmentStepType>,
-  poolSkills?: Maybe<PoolSkill>[],
+  type?: AssessmentStepType | null,
+  poolSkills?: (PoolSkill | null)[],
 ): AssessmentStep => {
   return {
     id: faker.string.uuid(),
@@ -36,8 +32,8 @@ const generateAssessmentStep = (
 
 export default (
   numToGenerate?: number,
-  type?: Maybe<AssessmentStepType>,
-  poolSkills?: Maybe<PoolSkill>[],
+  type?: AssessmentStepType | null,
+  poolSkills?: (PoolSkill | null)[],
 ): AssessmentStep[] => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate ?? 20;

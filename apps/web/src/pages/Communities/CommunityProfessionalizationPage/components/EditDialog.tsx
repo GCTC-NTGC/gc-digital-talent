@@ -14,14 +14,11 @@ import { toast } from "@gc-digital-talent/toast";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { stringifyGroupLevel } from "~/utils/classification";
-
 export const ProfessionalizationEditDialog_Query = graphql(/* GraphQL */ `
   query ProfessionalizationEditDialog {
     classifications {
       id
-      group
-      level
+      groupAndLevel
     }
   }
 `);
@@ -200,10 +197,10 @@ const EditDialog = ({
                       description: "Label for classifications multi select",
                     })}
                     options={unpackMaybes(data?.classifications).map(
-                      ({ id, group, level }) => ({
+                      ({ id, groupAndLevel }) => ({
                         value: id,
                         label:
-                          stringifyGroupLevel(group, level) ??
+                          groupAndLevel ??
                           intl.formatMessage(commonMessages.notProvided),
                       }),
                     )}

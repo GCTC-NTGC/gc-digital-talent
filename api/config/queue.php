@@ -37,8 +37,10 @@ return [
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
-            'queue' => 'default',
-            'retry_after' => 90,
+            // Slot-private queue: each App Service slot dispatches to and works only
+            // its own queue, so an idle slot's worker can't steal jobs
+            'queue' => env('QUEUE_NAME', env('DEPLOYMENT_SLOT_NAME', 'default')),
+            'retry_after' => env('QUEUE_RETRY_AFTER', 400),
             'after_commit' => false,
         ],
 
@@ -46,7 +48,7 @@ return [
             'driver' => 'beanstalkd',
             'host' => 'localhost',
             'queue' => 'default',
-            'retry_after' => 90,
+            'retry_after' => env('QUEUE_RETRY_AFTER', 400),
             'block_for' => 0,
             'after_commit' => false,
         ],

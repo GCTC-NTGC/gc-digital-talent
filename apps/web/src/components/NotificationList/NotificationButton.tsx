@@ -1,14 +1,13 @@
 import type { MouseEventHandler, ReactNode } from "react";
 import { forwardRef } from "react";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import { linkStyles } from "./styles";
 import { useMarkAsRead } from "./mutations";
 
 interface NotificationLinkProps {
-  id: Scalars["UUID"]["output"];
+  id: string;
   isUnread: boolean;
   onRead?: () => void;
   children: ReactNode;

@@ -17,8 +17,10 @@ import EducationRequirements from "~/components/EducationRequirements/EducationR
 import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
-import type { ClassificationGroup } from "~/types/classificationGroup";
-import { isClassificationGroup } from "~/types/classificationGroup";
+import {
+  isClassificationGroup,
+  type ClassificationGroup,
+} from "~/types/classificationGroup";
 
 import type { SectionProps } from "../types";
 
@@ -60,7 +62,7 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
     classification {
       id
       group
-      level
+      groupAndLevel
     }
   }
 `);
@@ -89,6 +91,7 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
+
   const logger = getLogger();
 
   let classificationGroup: ClassificationGroup;
@@ -99,11 +102,9 @@ const EducationRequirementsSection = ({
     logger.error(`Unexpected classification: ${pool.classification?.group}`);
     classificationGroup = "IT";
   }
+
   const classificationAbbr = pool.classification
-    ? wrapAbbr(
-        `${classificationGroup}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
-        intl,
-      )
+    ? wrapAbbr(pool.classification.groupAndLevel, intl)
     : "";
 
   return (

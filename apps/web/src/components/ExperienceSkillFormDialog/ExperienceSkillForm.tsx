@@ -10,11 +10,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type {
-  Experience,
-  FragmentType,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
@@ -27,7 +23,7 @@ import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants
 const TEXT_AREA_MAX_WORDS_EN = 400;
 
 const getSkillArgs = (
-  skillId: Scalars["ID"]["output"],
+  skillId: string,
   experience?: Omit<Experience, "user">,
   details?: string,
   remove?: boolean,
@@ -92,8 +88,8 @@ const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
 type FormAction = "connect" | "remove";
 
 interface FormValues {
-  experience?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  experience?: string;
+  skill?: string;
   details?: string;
   action?: FormAction;
 }

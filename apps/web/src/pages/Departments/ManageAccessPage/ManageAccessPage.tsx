@@ -9,10 +9,7 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  Scalars,
-  DepartmentMembersTeamQuery,
-} from "@gc-digital-talent/graphql";
+import type { DepartmentMembersTeamQuery } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -172,7 +169,7 @@ const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 type DepartmentMembersQueryType = NonNullable<
@@ -224,16 +221,14 @@ const DepartmentManageAccessPage = ({
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request, params }, next) => {
     const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(
-      context,
-      request,
-      [
+    requireUser(context, request, {
+      roles: [
         { name: ROLE.PlatformAdmin },
         { name: ROLE.DepartmentAdmin, teamId: teamId },
         { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
       ],
-      true,
-    );
+      strict: true,
+    });
     return await next();
   },
 ];

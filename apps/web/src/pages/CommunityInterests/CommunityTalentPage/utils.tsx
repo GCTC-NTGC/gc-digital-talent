@@ -3,11 +3,9 @@ import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
 
 import type {
-  Maybe,
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
-  InputMaybe,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -96,7 +94,7 @@ export function transformSortStateToOrderByClause(
 
 export function getClassificationSort(
   sortingState?: SortingState,
-): Maybe<SortOrder> {
+): SortOrder | null {
   const sortRule = sortingState?.find((rule) => rule.id === "classification");
   if (sortRule) {
     return sortRule.desc ? SortOrder.Desc : SortOrder.Asc;
@@ -108,25 +106,16 @@ export const usernameCell = (
   userId: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
-  firstName?: Maybe<string>,
-  lastName?: Maybe<string>,
+  firstName?: string | null,
+  lastName?: string | null,
 ): JSX.Element => {
   const userName = getFullNameLabel(firstName, lastName, intl);
   return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
 };
 
-export function classificationAccessor(
-  classificationGroup?: string,
-  classificationLevel?: number,
-): string {
-  return classificationGroup && classificationLevel
-    ? `${classificationGroup}-${classificationLevel < 10 ? "0" : ""}${classificationLevel}`
-    : "";
-}
-
 export function interestAccessor(
   intl: IntlShape,
-  interest?: Maybe<boolean>,
+  interest?: boolean | null,
 ): string {
   if (interest) {
     return intl.formatMessage(commonMessages.interested);
@@ -141,7 +130,7 @@ export function transformCommunityTalentInput(
   filterState: CommunityInterestFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<CommunityInterestFilterInput> | undefined {
+): CommunityInterestFilterInput | null | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&

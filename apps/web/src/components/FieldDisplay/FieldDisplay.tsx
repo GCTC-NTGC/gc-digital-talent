@@ -50,7 +50,7 @@ const FieldDisplay = ({
       ) : (
         <span className="block font-bold">{label}</span>
       )}
-      {children && <span>{children}</span>}
+      {children && <span className="wrap-anywhere">{children}</span>}
     </div>
   );
 };

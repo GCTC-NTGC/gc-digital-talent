@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -33,6 +33,9 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
  * @property string $status
+ * @property bool $include_nine_box
+ * @property bool $require_reference_for_advancement
+ * @property ?array $custom_instructions
  */
 class TalentNominationEvent extends Model
 {
@@ -53,7 +56,10 @@ class TalentNominationEvent extends Model
         'open_date' => 'datetime',
         'close_date' => 'datetime',
         'learn_more_url' => LocalizedString::class,
+        'include_nine_box' => 'boolean',
+        'require_reference_for_advancement' => 'boolean',
         'include_leadership_competencies' => 'boolean',
+        'custom_instructions' => LocalizedString::class,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -61,7 +67,7 @@ class TalentNominationEvent extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Community, $this> */

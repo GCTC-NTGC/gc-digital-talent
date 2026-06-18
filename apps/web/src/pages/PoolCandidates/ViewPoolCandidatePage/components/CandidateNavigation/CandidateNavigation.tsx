@@ -52,7 +52,7 @@ const CandidateNavigation = ({ candidateId }: CandidateNavigationProps) => {
   const prevState = {
     navigationState: {
       ...navigationState,
-      currentPage: navigationState.currentPage - 1,
+      currentPage: Math.max(1, navigationState.currentPage - 1),
     },
     stepName,
   };

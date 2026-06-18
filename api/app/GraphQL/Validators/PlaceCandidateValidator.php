@@ -28,9 +28,19 @@ final class PlaceCandidateValidator extends Validator
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_PLACING->name]);
         }
 
+        $placementType = $this->arg('poolCandidate.placementType');
+        $isIndeterminate = $placementType === PlacementType::PLACED_INDETERMINATE->name;
+
         return [
             'poolCandidate.department.connect' => ['uuid', 'required', Rule::exists('departments', 'id')],
             'poolCandidate.placementType' => [Rule::in(array_column(PlacementType::cases(), 'name'))],
+            'poolCandidate.placedStartDate' => [
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType), ['nullable', 'date']),
+            ],
+            'poolCandidate.placedEndDate' => [
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType) && ! $isIndeterminate,
+                    ['nullable', 'date', 'after_or_equal:poolCandidate.placedStartDate']
+                )],
         ];
     }
 

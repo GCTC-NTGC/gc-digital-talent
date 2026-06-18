@@ -42,7 +42,6 @@ import processMessages from "~/messages/processMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
 import {
-  classificationAccessor,
   classificationCell,
   poolNameAccessor,
   viewCell,
@@ -103,6 +102,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
   }
 `);
@@ -294,18 +294,21 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
       },
     ),
-    columnHelper.accessor((row) => classificationAccessor(row.classification), {
-      id: "classification",
-      header: intl.formatMessage({
-        defaultMessage: "Group and Level",
-        id: "FGUGtr",
-        description:
-          "Title displayed for the Pool table Group and Level column.",
-      }),
-      enableColumnFilter: false,
-      cell: ({ row: { original: pool } }) =>
-        classificationCell(pool.classification),
-    }),
+    columnHelper.accessor(
+      (row) => () => row.classification?.groupAndLevel ?? "",
+      {
+        id: "classification",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        enableColumnFilter: false,
+        cell: ({ row: { original: pool } }) =>
+          classificationCell(pool.classification),
+      },
+    ),
     columnHelper.accessor(
       ({ workStream }) => getLocalizedName(workStream?.name, intl),
       {
@@ -391,6 +394,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolFilterDialog

@@ -39,7 +39,7 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PoolStatus,
@@ -52,7 +52,6 @@ import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   contactEmailTag,
-  formatClassificationString,
   getFullPoolTitleLabel,
   getShortPoolTitleLabel,
   isAdvertisementVisible,
@@ -192,11 +191,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
     classification {
       id
       group
-      level
-      name {
-        en
-        fr
-      }
+      groupAndLevel
       minSalary
       maxSalary
       genericJobTitles {
@@ -307,7 +302,7 @@ const subTitle = defineMessage({
 
 interface PoolAdvertisementProps {
   poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
-  applicationId?: Scalars["ID"]["output"];
+  applicationId?: string;
   hasApplied?: boolean;
 }
 
@@ -336,10 +331,7 @@ export const PoolPoster = ({
     classification?.genericJobTitles?.filter(notEmpty) ?? [];
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
-    classificationString = formatClassificationString({
-      group: classification?.group,
-      level: classification?.level,
-    });
+    classificationString = classification.groupAndLevel;
   }
   const poolTitle = getShortPoolTitleLabel(intl, {
     workStream: pool.workStream,
@@ -1405,7 +1397,7 @@ const PoolNotFound = () => {
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `

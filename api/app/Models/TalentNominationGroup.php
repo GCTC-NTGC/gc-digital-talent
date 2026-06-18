@@ -14,8 +14,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class TalentNominationGroup
@@ -37,6 +37,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_programs_notes
  * @property string $computed_status
  * @property string $comments
+ * @property bool $consentToShareProfile
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -66,7 +67,7 @@ class TalentNominationGroup extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -157,7 +158,7 @@ class TalentNominationGroup extends Model
             $unevaluatedFieldCount > 0 => TalentNominationGroupStatus::IN_PROGRESS->name,
             $rejectedCount > 0 && $approvedCount > 0 => TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
             $rejectedCount > 0 && $approvedCount == 0 => TalentNominationGroupStatus::REJECTED->name,
-            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name,
+            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name, // @phpstan-ignore equal.alwaysTrue
             default => TalentNominationGroupStatus::IN_PROGRESS->name, // should never happen
         };
 

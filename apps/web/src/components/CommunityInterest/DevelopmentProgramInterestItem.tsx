@@ -6,7 +6,7 @@ import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircle
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 import { tv } from "tailwind-variants";
 
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
   getFragment,
@@ -22,8 +22,8 @@ interface StatusInfo {
 }
 
 const useStatusInfo = (
-  status?: Maybe<DevelopmentProgramParticipationStatus>,
-  completionDate?: Maybe<string>,
+  status?: DevelopmentProgramParticipationStatus | null,
+  completionDate?: string | null,
 ): StatusInfo => {
   const intl = useIntl();
 
@@ -122,7 +122,7 @@ const useStatusInfo = (
 const devProgram = tv({
   slots: {
     base: "mb-1.5 flex items-start gap-1.5",
-    icon: "mt-1 size-4.5 text-error dark:text-error-200",
+    icon: "mt-1 size-4.5 text-error-500 dark:text-error-200",
     caption: "text-sm",
   },
   variants: {
@@ -142,10 +142,10 @@ const devProgram = tv({
     },
     hasError: {
       true: {
-        caption: "text-error dark:text-error-100",
+        caption: "text-error-500 dark:text-error-100",
       },
       false: {
-        caption: "text-gray- dark:text-gray-100",
+        caption: "text-gray-600 dark:text-gray-100",
       },
     },
   },

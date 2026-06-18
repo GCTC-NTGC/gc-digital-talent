@@ -18,7 +18,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAbleTo('view-any-searchRequest');
+        return $user->isAbleTo('view-any-talentRequest');
     }
 
     /**
@@ -28,16 +28,16 @@ class PoolCandidateSearchRequestPolicy
      */
     public function view(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        if ($user->isAbleTo('view-any-searchRequest')) {
+        if ($user->isAbleTo('view-any-talentRequest')) {
             return true;
         }
 
-        if ($user->isAbleTo('view-own-searchRequest') && $poolCandidateSearchRequest->user_id == $user->id) {
+        if ($user->isAbleTo('view-own-talentRequest') && $poolCandidateSearchRequest->user_id == $user->id) {
             return true;
         }
 
         if (isset($poolCandidateSearchRequest->community->team)) {
-            return $user->isAbleTo('view-team-searchRequest', $poolCandidateSearchRequest->community->team);
+            return $user->isAbleTo('view-team-talentRequest', $poolCandidateSearchRequest->community->team);
         }
 
         return false;
@@ -61,12 +61,12 @@ class PoolCandidateSearchRequestPolicy
      */
     public function update(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        if ($user->isAbleTo('update-any-searchRequest')) {
+        if ($user->isAbleTo('update-any-talentRequest')) {
             return true;
         }
 
         if (isset($poolCandidateSearchRequest->community->team)) {
-            return $user->isAbleTo('update-team-searchRequest', $poolCandidateSearchRequest->community->team);
+            return $user->isAbleTo('update-team-talentRequest', $poolCandidateSearchRequest->community->team);
         }
 
         return false;
@@ -79,12 +79,12 @@ class PoolCandidateSearchRequestPolicy
      */
     public function delete(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        if ($user->isAbleTo('delete-any-searchRequest')) {
+        if ($user->isAbleTo('delete-any-talentRequest')) {
             return true;
         }
 
         if (isset($poolCandidateSearchRequest->community->team)) {
-            return $user->isAbleTo('delete-team-searchRequest', $poolCandidateSearchRequest->community->team);
+            return $user->isAbleTo('delete-team-talentRequest', $poolCandidateSearchRequest->community->team);
         }
 
         return false;
@@ -97,7 +97,7 @@ class PoolCandidateSearchRequestPolicy
      */
     public function restore(User $user, PoolCandidateSearchRequest $poolCandidateSearchRequest)
     {
-        return $user->isAbleTo('delete-any-searchRequest');
+        return $user->isAbleTo('delete-any-talentRequest');
     }
 
     /**

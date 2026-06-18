@@ -13,7 +13,6 @@ import { Ul } from "@gc-digital-talent/ui";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { stringifyGroupLevel } from "~/utils/classification";
 import adminMessages from "~/messages/adminMessages";
 
 import messages from "../../messages";
@@ -43,8 +42,7 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
     advancementReferenceFallbackName
@@ -55,8 +53,7 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
       }
     }
     advancementReferenceFallbackClassification {
-      group
-      level
+      groupAndLevel
     }
 
     # Lateral movement details
@@ -207,12 +204,7 @@ const NominationDetailsReview = ({
                   "Label for the advancement reference classification",
               })}
             >
-              {referenceClassification
-                ? stringifyGroupLevel(
-                    referenceClassification.group,
-                    referenceClassification.level,
-                  )
-                : notProvided}
+              {referenceClassification?.groupAndLevel ?? notProvided}
             </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage(labels.referencesDepartment)}

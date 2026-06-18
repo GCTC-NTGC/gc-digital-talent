@@ -19,7 +19,6 @@ import {
   useInputDescribedBy,
   inputStateStyles,
 } from "@gc-digital-talent/forms";
-import type { Maybe } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -68,7 +67,7 @@ interface ControlledInputProps {
   describedBy?: string;
   errorMessages?: Partial<ErrorMessages>;
   errorSeverities?: Partial<ErrorSeverities>;
-  defaultEmployee?: Maybe<EmployeeSearchResult>;
+  defaultEmployee?: EmployeeSearchResult | null;
   searchMessageCase?: SearchMessageCases;
 }
 

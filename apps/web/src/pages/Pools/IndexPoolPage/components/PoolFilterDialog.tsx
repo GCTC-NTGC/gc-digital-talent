@@ -5,7 +5,6 @@ import type {
   FragmentType,
   PoolStatus,
   PublishingGroup,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -18,8 +17,8 @@ import adminMessages from "~/messages/adminMessages";
 export interface FormValues {
   publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
-  classifications: Scalars["UUID"]["output"][];
-  workStreams: Scalars["UUID"]["output"][];
+  classifications: string[];
+  workStreams: string[];
 }
 
 const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
@@ -27,6 +26,7 @@ const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
     classifications {
       group
       level
+      groupAndLevel
     }
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
       value
@@ -100,9 +100,9 @@ const PoolFilterDialog = ({
           isMulti
           label={intl.formatMessage(adminMessages.classifications)}
           options={unpackMaybes(data?.classifications).map(
-            ({ group, level }) => ({
+            ({ group, level, groupAndLevel }) => ({
               value: `${group}-${level}`,
-              label: `${group}-${level < 10 ? "0" : ""}${level}`,
+              label: groupAndLevel,
             }),
           )}
         />

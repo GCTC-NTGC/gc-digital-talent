@@ -1,7 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type {
-  Maybe,
   PoolSkill,
   Skill,
   AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
@@ -10,7 +9,7 @@ import type { IconType } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
-  skill?: Maybe<Pick<Skill, "id" | "name" | "category" | "key">>;
+  skill?: Pick<Skill, "id" | "name" | "category" | "key"> | null;
 };
 
 export interface AssessmentTableRow {

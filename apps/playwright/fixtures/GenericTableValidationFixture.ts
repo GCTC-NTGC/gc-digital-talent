@@ -4,6 +4,7 @@ import { expect } from "playwright/test";
 import type {
   CandidateRemovalReason,
   FlexibleWorkLocation,
+  PlacementType,
   ScreeningStage,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -29,6 +30,7 @@ const FIELD = {
   FLEXIBLE_WORK_LOCATION_TITLE: "flexibleWorkLocationTitle",
   APPLICATION_STATUS_FILTER: "applicationStatusFilter",
   CLEAR_FILTERS: "clearFilters",
+  NO_CANDIDATES_FOUND: "noCandidatesFound",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -67,6 +69,10 @@ class GenericTableValidationFixture extends AppPage {
       }),
       [FIELD.CLEAR_FILTERS]: page.getByRole("button", {
         name: /clear all selections/i,
+      }),
+      [FIELD.NO_CANDIDATES_FOUND]: page.getByRole("heading", {
+        name: /There aren't any items here./i,
+        level: 2,
       }),
     };
     this.locPrefUpdateFixture = new LocationPreferenceUpdatePage(this.page);
@@ -254,6 +260,36 @@ class GenericTableValidationFixture extends AppPage {
       await this.selectOptionFromCombobox("Reason for removal", removalReason);
     }
     await this.locators[FIELD.SHOW_RESULTS].click();
+  }
+
+  async verifyPlacementAndReferralStatus(
+    poolId: string,
+    ctx: GraphQLContext,
+    candidateName: string,
+    expected: {
+      jobPlacement: PlacementType;
+      referralStatus: string;
+    },
+  ) {
+    const tableRows = await getPoolCandidatesTable(ctx, { poolId });
+    const poolCandidate = tableRows.find(
+      (c) => c.user.firstName === candidateName,
+    );
+
+    expect(poolCandidate!.placementType?.label.localized?.toLowerCase()).toBe(
+      expected.jobPlacement?.toLowerCase().replace(/_/g, " "),
+    );
+
+    const isAvailableForReferral =
+      expected.referralStatus.toLowerCase() === "available for referral";
+    expect(
+      poolCandidate!.isBeingReferred,
+      `Candidate referral status should match '${expected.referralStatus}'`,
+    ).toBe(isAvailableForReferral);
+  }
+
+  async noCandidatesFound() {
+    await expect(this.locators.noCandidatesFound).toBeVisible();
   }
 }
 export default GenericTableValidationFixture;

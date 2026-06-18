@@ -495,7 +495,7 @@ class ProcessActivityLogTest extends TestCase
             ->assertJsonCount(0, 'data.pool.activities.data');
     }
 
-    public function testCommunityAdminCannotViewActivities(): void
+    public function testCommunityAdminCanViewActivities(): void
     {
 
         $admin = User::factory()
@@ -506,7 +506,7 @@ class ProcessActivityLogTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->process->id,
             ])
-            ->assertJsonCount(0, 'data.pool.activities.data');
+            ->assertJsonCount($this->logsCreated, 'data.pool.activities.data');
     }
 
     public function testCommunityTalentCoordinatorCannotViewActivities(): void

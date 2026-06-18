@@ -542,6 +542,34 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "4Uwcxk",
     description: "Error message for invalid URL",
   },
+
+  [ErrorCode.CommunityDevelopmentProgramNotFound]: {
+    defaultMessage: "Development program not found in your community.",
+    id: "hD254d",
+    description: "Error message for community development program not found",
+  },
+  [ErrorCode.CommunityDevelopmentProgramNotFoundOrInvalid]: {
+    defaultMessage: "Development program not found in your community.",
+    id: "RE4+M0",
+    description:
+      "Error message for community development program not found or invalid",
+  },
+  [ErrorCode.DevelopmentProgramMustConnectOwnEducationExperience]: {
+    defaultMessage: "The selected education experience is invalid.",
+    id: "7YjaCY",
+    description:
+      "Error message for development program must connect own education experience",
+  },
+  [ErrorCode.TalentEventCannotChangeCommunity]: {
+    defaultMessage: "The community cannot be changed.",
+    id: "W1sM+z",
+    description: "Error message for talent event cannot change community",
+  },
+  [ErrorCode.TalentEventCannotChangeName]: {
+    defaultMessage: "The event name cannot be changed.",
+    id: "MJzimR",
+    description: "Error message for talent event cannot change name",
+  },
 });
 
 export const tryFindMessageDescriptor = (

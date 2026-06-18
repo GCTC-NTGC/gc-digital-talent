@@ -3,26 +3,23 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { useState } from "react";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
+  Permission,
   PlacementType,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  hasRequiredRoles,
-  ROLE_NAME,
-  useAuthorization,
-} from "@gc-digital-talent/auth";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { useHasPermissions } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import JobPlacementFormFields from "./FormFields/JobPlacementFormFields";
 import Footer from "./Footer";
+import { hasPlacedStartDate } from "../utils";
 
 const PlaceCandidate_Mutation = graphql(/* GraphQL */ `
   mutation PlaceCandidate_Mutation(
@@ -58,6 +55,8 @@ const ApplicationPlacementDialog_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    placedStartDate
+    placedEndDate
   }
 `);
 
@@ -69,7 +68,9 @@ const ApplicationPlacementOptions_Query = graphql(/** GraphQL */ `
 
 interface FormValues {
   placementType: PlacementType;
-  department?: Scalars["UUID"]["input"];
+  department?: string;
+  placedStartDate: string | null;
+  placedEndDate: string | null;
 }
 
 interface ApplicationPlacementDialogProps {
@@ -81,12 +82,13 @@ const ApplicationPlacementDialog = ({
 }: ApplicationPlacementDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
-  const { userAuthInfo } = useAuthorization();
   const application = getFragment(ApplicationPlacementDialog_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: {
       placementType: application.placementType?.value,
       department: application.placedDepartment?.id,
+      placedStartDate: application.placedStartDate ?? undefined,
+      placedEndDate: application.placedEndDate ?? undefined,
     },
   });
 
@@ -109,10 +111,10 @@ const ApplicationPlacementDialog = ({
   ) {
     label = intl.formatMessage(poolCandidateMessages.notPlaced);
   }
-  const canPlace = hasRequiredRoles({
-    toCheck: [{ name: ROLE_NAME.CommunityRecruiter }],
-    userRoles: unpackMaybes(userAuthInfo?.roleAssignments),
-  });
+  const canPlace = useHasPermissions([
+    { permission: Permission.UpdateAnyApplicationPlacement },
+    { permission: Permission.UpdateTeamApplicationPlacement },
+  ]);
 
   if (!canPlace) {
     return <span className="text-gray-600 dark:text-gray-200">{label}</span>;
@@ -134,6 +136,14 @@ const ApplicationPlacementDialog = ({
       poolCandidate: {
         placementType: formValues.placementType,
         department: { connect: formValues.department ?? "" },
+        placedStartDate: hasPlacedStartDate(formValues.placementType)
+          ? formValues.placedStartDate
+          : null,
+        placedEndDate:
+          hasPlacedStartDate(formValues.placementType) &&
+          formValues.placementType !== PlacementType.PlacedIndeterminate
+            ? formValues.placedEndDate
+            : null,
       },
     });
   };
@@ -154,6 +164,19 @@ const ApplicationPlacementDialog = ({
           handleError();
           return;
         }
+
+        methods.resetField("placedStartDate", {
+          defaultValue: hasPlacedStartDate(formValues.placementType)
+            ? formValues.placedStartDate
+            : null,
+        });
+        methods.resetField("placedEndDate", {
+          defaultValue:
+            hasPlacedStartDate(formValues.placementType) &&
+            formValues.placementType !== PlacementType.PlacedIndeterminate
+              ? formValues.placedEndDate
+              : null,
+        });
 
         toast.success(
           intl.formatMessage({

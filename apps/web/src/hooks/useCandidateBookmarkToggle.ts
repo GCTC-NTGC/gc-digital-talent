@@ -1,7 +1,6 @@
 import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 
-import type { Scalars } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useControllableState } from "@gc-digital-talent/ui";
@@ -13,7 +12,7 @@ const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
 `);
 
 interface UseCandidateBookmarkToggleArgs {
-  id: Scalars["UUID"]["output"];
+  id: string;
   name: string;
   defaultValue?: boolean;
   showToast?: boolean;

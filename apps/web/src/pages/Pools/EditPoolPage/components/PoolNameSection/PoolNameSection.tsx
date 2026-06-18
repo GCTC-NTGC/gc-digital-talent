@@ -44,11 +44,7 @@ import processMessages from "~/messages/processMessages";
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import type { FormValues, PoolNameSubmitData } from "./utils";
-import {
-  dataToFormValues,
-  formValuesToSubmitData,
-  getClassificationOptions,
-} from "./utils";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
 import type { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import CitizensNote from "./CitizensNote";
@@ -91,6 +87,8 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     department {
       id
@@ -124,12 +122,7 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
 export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment PoolClassification on Classification {
     id
-    group
-    level
-    name {
-      en
-      fr
-    }
+    displayName
   }
 `);
 
@@ -429,7 +422,12 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getClassificationOptions(classifications, intl)}
+                  options={unpackMaybes(classifications).map(
+                    ({ id, displayName }) => ({
+                      value: id,
+                      label: displayName,
+                    }),
+                  )}
                   disabled={formDisabled}
                 />
                 <Select

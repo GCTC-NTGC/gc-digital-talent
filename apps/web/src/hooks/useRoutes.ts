@@ -145,6 +145,12 @@ const getRoutes = (lang: Locales) => {
     searchRequestView: (id: string) =>
       [adminUrl, "talent-requests", id].join("/"),
 
+    // Admin - Talent Requests
+    talentRequests: () => `${adminUrl}/talent-requests`,
+    talentRequestView: (id: string) => `${adminUrl}/talent-requests/${id}`,
+    talentRequestTracking: (id: string) =>
+      `${adminUrl}/talent-requests/${id}/tracking`,
+
     // Admin - Classifications
     classificationTable: () =>
       [adminUrl, "settings", "classifications"].join("/"),

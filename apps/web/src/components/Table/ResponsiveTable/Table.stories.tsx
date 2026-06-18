@@ -14,6 +14,9 @@ import { fakeUsers } from "@gc-digital-talent/fake-data";
 import type { User } from "@gc-digital-talent/graphql";
 import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Button, Dialog } from "@gc-digital-talent/ui";
+
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
@@ -136,6 +139,99 @@ RowSelection.args = {
     cell: rowSelectCell,
   },
 };
+
+/**
+ * Bulk actions hand the selected row IDs to `onClick`. To open a dialog, the
+ * caller tracks selection with `useSelectedRows` and renders a controlled
+ * dialog *outside* the table — so it isn't unmounted when the menu closes.
+ */
+const ActionsTemplate: StoryFn<typeof Table<User>> = (args) => {
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const [isAssignOpen, setAssignOpen] = useState(false);
+  const [poolId, setPoolId] = useState("");
+
+  const closeDialog = () => {
+    setAssignOpen(false);
+    setPoolId("");
+  };
+
+  return (
+    <>
+      <Table
+        {...args}
+        caption="Table with bulk actions"
+        rowSelect={{
+          getRowId: (row) => row.id,
+          onRowSelection: setSelectedRows,
+          cell: rowSelectCell,
+        }}
+        actions={[
+          {
+            label: "Assign to pool",
+            onClick: () => setAssignOpen(true),
+          },
+          {
+            label: "Send notification",
+            onClick: (ids) => {
+              action("sendNotification")(ids);
+            },
+          },
+          {
+            label: "Archive",
+            onClick: (ids) => {
+              action("archive")(ids);
+            },
+          },
+        ]}
+      />
+      <Dialog.Root
+        open={isAssignOpen}
+        onOpenChange={(open) => {
+          if (!open) closeDialog();
+        }}
+      >
+        <Dialog.Content>
+          <Dialog.Header>Assign to pool</Dialog.Header>
+          <Dialog.Body>
+            <p className="mb-6">
+              Assigning {selectedRows.length} selected candidate(s).
+            </p>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                action("assignToPool")({ poolId, candidateIds: selectedRows });
+                closeDialog();
+              }}
+            >
+              <label className="mb-1.5 block font-bold" htmlFor="poolId">
+                Pool ID
+              </label>
+              <input
+                id="poolId"
+                name="poolId"
+                value={poolId}
+                onChange={(event) => setPoolId(event.target.value)}
+                className="w-full rounded-md border border-gray-300 p-3"
+              />
+              <Dialog.Footer>
+                <Button type="submit" color="primary">
+                  Assign
+                </Button>
+                <Dialog.Close>
+                  <Button type="button" mode="inline" color="warning">
+                    Cancel
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  );
+};
+
+export const RowSelectionWithActions = ActionsTemplate.bind({});
 
 export const InitialState = Template.bind({});
 InitialState.args = {

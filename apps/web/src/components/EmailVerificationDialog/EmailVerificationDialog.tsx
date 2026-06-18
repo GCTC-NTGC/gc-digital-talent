@@ -8,13 +8,15 @@ import { useMutation } from "urql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import type { EmailType } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
 import EmailVerification, {
   useEmailVerification,
 } from "../EmailVerification/EmailVerification";
+import WipeWorkEmailDialog from "../WorkEmailCard/RemoveWorkEmailDialog";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
@@ -79,8 +81,10 @@ const EmailVerificationForm = ({
       setSubmitVerificationCodeContextMessage: setSubmitCodeMessage,
     },
   } = useEmailVerification();
+  const auth = useAuthorization();
 
   const formMethods = useForm<FormValues>();
+  const featureFlags = useFeatureFlags();
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
     setRequestCodeMessage(null);
@@ -158,6 +162,15 @@ const EmailVerificationForm = ({
                 description: "Button to save and add email",
               })}
             />
+            {formEmailType === EmailType.Work &&
+            featureFlags.canadaLogin === true &&
+            auth.userAuthInfo?.id &&
+            initialEmailAddress ? (
+              <WipeWorkEmailDialog
+                id={auth.userAuthInfo.id}
+                workEmail={initialEmailAddress}
+              />
+            ) : null}
             <Button color="warning" mode="inline" onClick={onClickCancel}>
               {intl.formatMessage(commonMessages.cancel)}
             </Button>

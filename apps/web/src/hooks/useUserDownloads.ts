@@ -2,9 +2,8 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import type {
-  InputMaybe,
-  Scalars,
   UserFilterInput,
+  TalentRequestTrackedUserFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -14,8 +13,13 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 import useAsyncFileDownload from "./useAsyncFileDownload";
 
 interface DownloadExcelArgs {
-  ids?: Scalars["UUID"]["output"][];
-  where?: InputMaybe<UserFilterInput>;
+  ids?: string[];
+  where?: UserFilterInput | null;
+}
+
+interface DownloadTrackedUsersExcelArgs {
+  talentRequestId: string;
+  where?: TalentRequestTrackedUserFilterInput | null;
 }
 
 const DownloadUserDoc_Mutation = graphql(/* GraphQL */ `
@@ -36,6 +40,15 @@ const DownloadUsersExcel_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadTrackedUsersExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadTrackedUsersExcel(
+    $talentRequestId: UUID!
+    $where: TalentRequestTrackedUserFilterInput
+  ) {
+    downloadTrackedUsersExcel(talentRequestId: $talentRequestId, where: $where)
+  }
+`);
+
 const useUserDownloads = () => {
   const intl = useIntl();
   const paths = useApiRoutes();
@@ -47,6 +60,10 @@ const useUserDownloads = () => {
   const [{ fetching: downloadingExcel }, executeExcelMutation] = useMutation(
     DownloadUsersExcel_Mutation,
   );
+  const [
+    { fetching: downloadingTrackedUsersExcel },
+    executeTrackedUsersExcelMutation,
+  ] = useMutation(DownloadTrackedUsersExcel_Mutation);
   const [{ fetching: downloadingDoc }, executeDocMutation] = useMutation(
     DownloadUserDoc_Mutation,
   );
@@ -67,7 +84,7 @@ const useUserDownloads = () => {
     ids,
     anonymous,
   }: {
-    ids: Scalars["UUID"]["input"][];
+    ids: string[];
     anonymous: boolean;
   }) => {
     executeZipMutation({
@@ -82,7 +99,7 @@ const useUserDownloads = () => {
     id,
     anonymous,
   }: {
-    id: Scalars["UUID"]["input"];
+    id: string;
     anonymous: boolean;
   }) => {
     executeDocMutation({ id, anonymous })
@@ -96,7 +113,7 @@ const useUserDownloads = () => {
           handleDownloadError();
         }
       })
-      .catch(handleDownloadRes);
+      .catch(handleDownloadError);
   };
 
   const downloadExcel = ({ ids, where }: DownloadExcelArgs) => {
@@ -108,11 +125,22 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
+  const downloadTrackedUsersExcel = ({
+    talentRequestId,
+    where,
+  }: DownloadTrackedUsersExcelArgs) => {
+    executeTrackedUsersExcelMutation({ talentRequestId, where })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
+
   return {
     downloadZip,
     downloadingZip,
     downloadExcel,
     downloadingExcel,
+    downloadTrackedUsersExcel,
+    downloadingTrackedUsersExcel,
     downloadDoc,
     downloadingDoc: downloadingDoc || downloadingAsyncFile,
   };

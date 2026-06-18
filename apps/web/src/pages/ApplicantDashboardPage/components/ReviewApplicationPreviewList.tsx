@@ -12,7 +12,6 @@ import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import { PreviewList, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateStatusChip } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -38,10 +37,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
-        minSalary
-        maxSalary
+        groupAndLevel
       }
       closingDate
     }
@@ -102,10 +98,7 @@ const ReviewApplicationPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
+                  ? wrapAbbr(pool.classification.groupAndLevel, intl)
                   : intl.formatMessage(commonMessages.notFound),
               },
               {

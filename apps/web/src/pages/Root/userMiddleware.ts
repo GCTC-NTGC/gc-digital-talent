@@ -17,6 +17,7 @@ const UserMiddleware_Query = graphql(/** GraphQL */ `
           id
           name
           isTeamBased
+          permissions
           displayName {
             en
             fr

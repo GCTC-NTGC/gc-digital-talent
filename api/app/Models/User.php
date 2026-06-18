@@ -12,6 +12,7 @@ use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
 use App\Traits\HydratesSnapshot;
@@ -37,9 +38,9 @@ use Illuminate\Support\Str;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Scout\Searchable;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\CausesActivity;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\CausesActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -262,7 +263,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -305,6 +306,41 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class)->withTrashed();
+    }
+
+    /** @return HasMany<TalentRequestTrackedUser, $this> */
+    public function talentRequestTrackedUsers(): HasMany
+    {
+        return $this->hasMany(TalentRequestTrackedUser::class);
+    }
+
+    /**
+     * Aggregate of the user's referral history across all talent requests:
+     * the total times referred plus a breakdown of the reasons they were not selected.
+     *
+     * @return Attribute<array{referredCount: int, notSelectedReasons: array<int, array{reason: string, count: int}>}, never>
+     */
+    protected function referralSummary(): Attribute
+    {
+        return Attribute::get(function () {
+            // property (not query) so the GraphQL fields can batch it via @with
+            $rows = $this->talentRequestTrackedUsers;
+
+            return [
+                'referredCount' => $rows
+                    ->where('referral_decision', TalentRequestTrackedUserReferralDecision::REFERRED->name)
+                    ->count(),
+                'notSelectedReasons' => $rows
+                    ->whereNotNull('not_selected_reason')
+                    ->groupBy('not_selected_reason')
+                    ->map(fn ($group, $reason) => [
+                        'reason' => (string) $reason,
+                        'count' => (int) $group->count(),
+                    ])
+                    ->values()
+                    ->all(),
+            ];
+        });
     }
 
     /** @return BelongsTo<Department, $this> */
@@ -456,9 +492,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
         $classification = $this->currentClassification;
 
-        $leadingZero = $classification->level < 10 ? '0' : '';
-
-        return $classification->group.'-'.$leadingZero.$classification->level;
+        return $classification->formattedGroupAndLevel;
     }
 
     public function getDepartment()
@@ -687,7 +721,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         activity()
             ->causedBy(Auth::user())
             ->performedOn($user)
-            ->withProperties(['attributes' => $properties])
+            ->withChanges(['attributes' => $properties])
             ->event($eventName)
             ->log($eventName);
     }

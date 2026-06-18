@@ -3,12 +3,30 @@ import { useIntl } from "react-intl";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { WorkExperience } from "@gc-digital-talent/graphql";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
-import { Separator, UNICODE_CHAR } from "@gc-digital-talent/ui";
+import { Separator, type HeadingRank } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
+
+interface ClassificationSectionProps {
+  title: string;
+  headingLevel?: HeadingRank;
+  content: string;
+}
+
+const ClassificationSection = ({
+  title,
+  headingLevel,
+  content,
+}: ClassificationSectionProps) => {
+  return (
+    <ContentSection title={title} headingLevel={headingLevel}>
+      {content}
+    </ContentSection>
+  );
+};
 
 const GovContent = ({
   experience: {
@@ -64,21 +82,14 @@ const GovContent = ({
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
-          <ContentSection
+          <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-          >
-            {classification ? (
-              <>
-                {classification.group}
-                <span>{UNICODE_CHAR.HYPHEN}</span>
-                {classification.level < 10 ? "0" : ""}
-                {classification.level}
-              </>
-            ) : (
+            content={
+              classification?.groupAndLevel ??
               intl.formatMessage(commonMessages.notAvailable)
-            )}
-          </ContentSection>
+            }
+          />
         </div>
       </>
     );
@@ -108,21 +119,14 @@ const GovContent = ({
           >
             {getLocalizedName(govPositionType?.label, intl)}
           </ContentSection>
-          <ContentSection
+          <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-          >
-            {classification ? (
-              <>
-                {classification.group}
-                <span>{UNICODE_CHAR.HYPHEN}</span>
-                {classification.level < 10 ? "0" : ""}
-                {classification.level}
-              </>
-            ) : (
+            content={
+              classification?.groupAndLevel ??
               intl.formatMessage(commonMessages.notAvailable)
-            )}
-          </ContentSection>
+            }
+          />
         </div>
       </>
     );
@@ -145,21 +149,14 @@ const GovContent = ({
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
-          <ContentSection
+          <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-          >
-            {classification ? (
-              <>
-                {classification.group}
-                <span>{UNICODE_CHAR.HYPHEN}</span>
-                {classification.level < 10 ? "0" : ""}
-                {classification.level}
-              </>
-            ) : (
+            content={
+              classification?.groupAndLevel ??
               intl.formatMessage(commonMessages.notAvailable)
-            )}
-          </ContentSection>
+            }
+          />
         </div>
       </>
     );

@@ -1,6 +1,8 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router";
 
 import {
   Pending,
@@ -31,10 +33,15 @@ import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } fro
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
 import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
+import ApplicantDashboardProvider, {
+  ApplicantDashboardContext,
+} from "./ApplicantDashboardProvider";
+import { ACCORDION_ID } from "./constants";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicantDashboardPage on User {
@@ -196,6 +203,10 @@ export const DashboardPage = ({
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const { communityAccordionRef, setCommunityAccordionValue } = useContext(
+    ApplicantDashboardContext,
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -421,11 +432,21 @@ export const DashboardPage = ({
                           )}
                           href={
                             communityInterests.length > 0
-                              ? paths.applicantDashboard(
-                                  "functional-communities",
-                                )
+                              ? undefined
                               : paths.createCommunityInterest()
                           }
+                          scrollTo={
+                            communityInterests.length > 0
+                              ? PAGE_SECTION_ID.FUNCTIONAL_COMMUNITIES
+                              : undefined
+                          }
+                          onScrollTo={() => {
+                            // focus the accordion and pop it open
+                            communityAccordionRef.current?.focus();
+                            setCommunityAccordionValue(
+                              ACCORDION_ID.FUNCTIONAL_COMMUNITIES,
+                            );
+                          }}
                           asListItem={false}
                         />
                       ) : (
@@ -545,15 +566,44 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
 
 export const ApplicantDashboardPageApi = () => {
   const intl = useIntl();
+  const { hash } = useLocation();
   const [{ data, fetching, error }] = useQuery({
     query: ApplicantDashboard_Query,
     context,
   });
 
+  // Special behavior when the functional communities section hash is requested
+  const isHashFunctionalCommunities =
+    hash === `#${PAGE_SECTION_ID.FUNCTIONAL_COMMUNITIES}`;
+
+  // initialize accordion - maybe open at the start
+  const [communityAccordionValue, setCommunityAccordionValue] =
+    useState<string>(() =>
+      isHashFunctionalCommunities ? ACCORDION_ID.FUNCTIONAL_COMMUNITIES : "",
+    );
+
+  // a ref so we can focus the accordion trigger
+  const communityAccordionRef = useRef<HTMLButtonElement>(null);
+
+  // on page load (and data is available) focus the accordion if requested
+  useEffect(() => {
+    if (data?.me && isHashFunctionalCommunities) {
+      communityAccordionRef.current?.focus();
+    }
+  }, [data?.me, isHashFunctionalCommunities]);
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <DashboardPage applicantDashboardQuery={data} />
+        <ApplicantDashboardProvider
+          initialValue={{
+            communityAccordionValue,
+            setCommunityAccordionValue,
+            communityAccordionRef,
+          }}
+        >
+          <DashboardPage applicantDashboardQuery={data} />
+        </ApplicantDashboardProvider>
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>

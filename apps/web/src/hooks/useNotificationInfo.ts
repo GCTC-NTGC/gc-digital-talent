@@ -198,20 +198,32 @@ const newJobPostedNotificationToInfo = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
+  const displayNameLocalized = getLocalizedName(notification.displayName, intl);
+
   return {
-    message: intl.formatMessage({
-      defaultMessage:
-        "A new opportunity is now available! Find out if this is a fit for you and apply.",
-      id: "OlSnME",
-      description: "Message for new job posted notification",
-    }),
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "A new opportunity is now available, {displayName}. Find out if this is a fit for you and apply.",
+        id: "7KfLEe",
+        description: "Message for new job posted notification",
+      },
+      {
+        displayName: displayNameLocalized,
+      },
+    ),
     href: notification.poolId ? paths.jobPoster(notification.poolId) : "",
-    label: intl.formatMessage({
-      defaultMessage:
-        "A new opportunity is now available! Find out if this is a fit for you and apply.",
-      id: "Nm+j2a",
-      description: "Label for the new job posted notification",
-    }),
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "A new opportunity is now available, {displayName}. Find out if this is a fit for you and apply.",
+        id: "7KfLEe",
+        description: "Message for new job posted notification",
+      },
+      {
+        displayName: displayNameLocalized,
+      },
+    ),
   };
 };
 

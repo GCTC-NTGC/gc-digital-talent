@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import type {
   LocalizedArmedForcesStatus,
   LocalizedCitizenshipStatus,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -19,10 +18,10 @@ import governmentMessages from "~/messages/governmentMessages";
 import type { SnapshotProps } from "../types";
 
 export interface CitizenVeteranPrioritySnapshotV1 {
-  citizenship: Maybe<LocalizedCitizenshipStatus>;
-  armedForcesStatus: Maybe<LocalizedArmedForcesStatus>;
-  hasPriorityEntitlement?: Maybe<boolean>;
-  priorityNumber?: Maybe<string>;
+  citizenship: LocalizedCitizenshipStatus | null | undefined;
+  armedForcesStatus: LocalizedArmedForcesStatus | null | undefined;
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
 }
 
 type CitizenVeteranPriorityV1Props =

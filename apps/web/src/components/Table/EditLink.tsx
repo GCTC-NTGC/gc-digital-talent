@@ -3,7 +3,6 @@ import { useLocation } from "react-router";
 import type { ReactElement } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import type { Maybe } from "@gc-digital-talent/graphql";
 
 interface EditLinkProps {
   /** Id of the object in the table. */
@@ -11,9 +10,9 @@ interface EditLinkProps {
   /** The current url root. */
   editUrlRoot: string;
   /** Label for link text  */
-  label?: Maybe<string>;
+  label?: string | null;
   /** Visible text for the string, if you want to override default. */
-  text?: Maybe<string>;
+  text?: string | null;
 }
 
 function EditLink({

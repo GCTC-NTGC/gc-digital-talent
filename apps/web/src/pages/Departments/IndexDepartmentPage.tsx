@@ -15,11 +15,13 @@ import DepartmentTableApi from "./components/DepartmentTable";
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      { name: ROLE_NAME.DepartmentAdmin },
-      { name: ROLE_NAME.DepartmentHRAdvisor },
-    ]);
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.DepartmentAdmin },
+        { name: ROLE_NAME.DepartmentHRAdvisor },
+      ],
+    });
     return await next();
   },
 ];

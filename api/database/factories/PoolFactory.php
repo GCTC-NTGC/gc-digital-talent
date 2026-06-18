@@ -54,7 +54,7 @@ class PoolFactory extends BaseFactory
 
         // this is essentially the draft state
         return [
-            'name' => $this->localizedString($name),
+            'name' => $this->faker->localizedString($name),
             'user_id' => $adminUserId,
             'classification_id' => $classification->id,
             'department_id' => $department->id,
@@ -74,25 +74,25 @@ class PoolFactory extends BaseFactory
                 'published_at' => null,
                 'process_number' => $this->faker->word(),
                 'contact_email' => $this->faker->email(),
-                'publishing_group' => $this->randomEnum(PublishingGroup::class),
-                'opportunity_length' => $this->randomEnum(PoolOpportunityLength::class),
-                'area_of_selection' => $this->randomEnum(PoolAreaOfSelection::class),
-                'operational_requirements' => $this->randomEnum(OperationalRequirement::class, 2),
-                'key_tasks' => $this->localizedString(null, 'paragraph', true),
-                'your_impact' => $this->localizedString(null, 'paragraph', true),
-                'what_to_expect' => $this->localizedString(null, 'paragraph', true),
-                'what_to_expect_admission' => $this->localizedString(null, 'paragraph', true),
-                'about_us' => $this->localizedString(null, 'paragraph', true),
-                'special_note' => $hasSpecialNote ? $this->localizedString(null, 'paragraph', true) : null,
-                'security_clearance' => $this->randomEnum(SecurityStatus::class),
-                'advertisement_language' => $this->randomEnum(PoolLanguage::class),
+                'publishing_group' => $this->faker->enum(PublishingGroup::class),
+                'opportunity_length' => $this->faker->enum(PoolOpportunityLength::class),
+                'area_of_selection' => $this->faker->enum(PoolAreaOfSelection::class),
+                'operational_requirements' => $this->faker->enums(OperationalRequirement::class, 2),
+                'key_tasks' => $this->faker->localizedString(null, 'paragraph', true),
+                'your_impact' => $this->faker->localizedString(null, 'paragraph', true),
+                'what_to_expect' => $this->faker->localizedString(null, 'paragraph', true),
+                'what_to_expect_admission' => $this->faker->localizedString(null, 'paragraph', true),
+                'about_us' => $this->faker->localizedString(null, 'paragraph', true),
+                'special_note' => $hasSpecialNote ? $this->faker->localizedString(null, 'paragraph', true) : null,
+                'security_clearance' => $this->faker->enum(SecurityStatus::class),
+                'advertisement_language' => $this->faker->enum(PoolLanguage::class),
                 'is_remote' => $this->faker->boolean(),
                 'advertisement_location' => function ($attributes) {
                     if ($attributes['is_remote']) {
                         return null;
                     }
 
-                    return $this->localizedString(null, 'country');
+                    return $this->faker->localizedString(null, 'country');
                 },
                 'work_stream_id' => function ($attributes) {
                     $community = Community::find($attributes['community_id']);
@@ -154,7 +154,7 @@ class PoolFactory extends BaseFactory
                 ['skill_id' => $skill->id],
                 [
                     'type' => PoolSkillType::ESSENTIAL->name,
-                    'required_skill_level' => $this->randomEnum(SkillLevel::class),
+                    'required_skill_level' => $this->faker->enum(SkillLevel::class),
                 ]
             );
         });
@@ -264,7 +264,7 @@ class PoolFactory extends BaseFactory
                     ['skill_id' => $skillId],
                     [
                         'type' => $type,
-                        'required_skill_level' => $this->randomEnum(SkillLevel::class),
+                        'required_skill_level' => $this->faker->enum(SkillLevel::class),
                     ]
                 );
 
@@ -298,7 +298,7 @@ class PoolFactory extends BaseFactory
                 $pool->assessmentSteps()->create([
                     'type' => $stepType,
                     'sort_order' => ++$sortOrder,
-                    'title' => $this->localizedString(),
+                    'title' => $this->faker->localizedString(),
                 ]);
             }
 
@@ -331,7 +331,7 @@ class PoolFactory extends BaseFactory
             if (! $screeningStep) {
                 $screeningStep = $pool->assessmentSteps()->create([
                     'type' => AssessmentStepType::SCREENING_QUESTIONS_AT_APPLICATION->name,
-                    'title' => $this->localizedString(),
+                    'title' => $this->faker->localizedString(),
                 ]);
             }
 
@@ -411,7 +411,7 @@ class PoolFactory extends BaseFactory
             $poolSkill = $pool->poolSkills()->create([
                 'skill_id' => $skill->id,
                 'type' => PoolSkillType::ESSENTIAL->name,
-                'required_skill_level' => $this->randomEnum(SkillLevel::class),
+                'required_skill_level' => $this->faker->enum(SkillLevel::class),
             ]);
 
             $essentialSkillIds = collect([$poolSkill->id]);

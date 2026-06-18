@@ -5,7 +5,6 @@ import type {
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
   LocalizedLanguage,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -47,19 +46,19 @@ const getBilingualEvaluation = (
   );
 
 export interface LanguageProfileSnapshotV1 {
-  lookingForEnglish?: Maybe<boolean>;
-  lookingForFrench?: Maybe<boolean>;
-  lookingForBilingual?: Maybe<boolean>;
-  firstOfficialLanguage?: Maybe<LocalizedLanguage>;
-  secondLanguageExamCompleted?: Maybe<boolean>;
-  secondLanguageExamValidity?: Maybe<boolean>;
-  estimatedLanguageAbility?: Maybe<LocalizedEstimatedLanguageAbility>;
-  writtenLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
-  comprehensionLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
-  verbalLevel?: Maybe<LocalizedEvaluatedLanguageAbility>;
-  bilingualEvaluation?: Maybe<BilingualEvaluation>;
-  preferredLanguageForInterview?: Maybe<LocalizedLanguage>;
-  preferredLanguageForExam: Maybe<LocalizedLanguage>;
+  lookingForEnglish?: boolean | null;
+  lookingForFrench?: boolean | null;
+  lookingForBilingual?: boolean | null;
+  firstOfficialLanguage?: LocalizedLanguage | null;
+  secondLanguageExamCompleted?: boolean | null;
+  secondLanguageExamValidity?: boolean | null;
+  estimatedLanguageAbility?: LocalizedEstimatedLanguageAbility | null;
+  writtenLevel?: LocalizedEvaluatedLanguageAbility | null;
+  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null;
+  verbalLevel?: LocalizedEvaluatedLanguageAbility | null;
+  bilingualEvaluation?: BilingualEvaluation | null;
+  preferredLanguageForInterview?: LocalizedLanguage | null;
+  preferredLanguageForExam: LocalizedLanguage | null | undefined;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;

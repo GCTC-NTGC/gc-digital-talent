@@ -404,6 +404,61 @@ type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
+  value: TalentRequestInProgressDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestPositionType implements LocalizedEnumOption {
+  value: TalentRequestPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestReason implements LocalizedEnumOption {
+  value: TalentRequestReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestStatus implements LocalizedEnumOption {
+  value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
+  label: LocalizedString!
+}
+
 type LocalizedTargetRole implements LocalizedEnumOption {
   value: TargetRole!
   label: LocalizedString!
@@ -491,6 +546,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -525,6 +609,24 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+"A paginated list of TalentRequest items."
+type TalentRequestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequest items."
+  data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -930,6 +1032,174 @@ enum NotificationType {
   UserFileGenerationError
 }
 
+enum RoleName {
+  Guest
+  BaseUser
+  Applicant
+  ProcessOperator
+  CommunityRecruiter
+  CommunityAdmin
+  PlatformAdmin
+  CommunityTalentCoordinator
+  DepartmentAdmin
+  DepartmentHrAdvisor
+}
+
+enum Permission {
+  ViewAnyClassification
+  CreateAnyClassification
+  UpdateAnyClassification
+  DeleteAnyClassification
+  ViewAnyDepartment
+  CreateAnyDepartment
+  UpdateAnyDepartment
+  DeleteAnyDepartment
+  ArchiveAnyDepartment
+  ViewAnyDevelopmentProgram
+  CreateAnyDevelopmentProgram
+  UpdateAnyDevelopmentProgram
+  ViewAnyGenericJobTitle
+  CreateAnyGenericJobTitle
+  UpdateAnyGenericJobTitle
+  DeleteAnyGenericJobTitle
+  ViewAnySkill
+  CreateAnySkill
+  UpdateAnySkill
+  DeleteAnySkill
+  ViewAnySkillFamily
+  CreateAnySkillFamily
+  UpdateAnySkillFamily
+  DeleteAnySkillFamily
+  CreateAnyUser
+  ViewAnyUser
+  ViewOwnUser
+  ViewAnyUserBasicInfo
+  ViewAnyUserWorkEmail
+  UpdateAnyUser
+  UpdateAnyUserSub
+  UpdateOwnUser
+  DeleteAnyUser
+  ViewAnyApplicantProfile
+  ViewTeamApplicantProfile
+  ViewOwnApplicantProfile
+  UpdateOwnApplicantProfile
+  ViewOwnEmployeeProfile
+  UpdateOwnEmployeeProfile
+  ViewTeamDraftPool
+  ViewAnyPool
+  ViewAnyPublishedPool
+  CreateTeamDraftPool
+  UpdateTeamDraftPool
+  UpdateAnyPublishedPool
+  PublishTeamDraftPool
+  PublishAnyDraftPool
+  UpdateTeamPublishedPool
+  DeleteTeamDraftPool
+  ArchiveTeamPublishedPool
+  ArchiveAnyPublishedPool
+  ViewAnyAssessmentPlan
+  ViewTeamAssessmentPlan
+  UpdateAnyAssessmentPlan
+  UpdateTeamAssessmentPlan
+  CreateAnyApplication
+  ViewOwnApplication
+  ViewTeamSubmittedApplication
+  ViewAnySubmittedApplication
+  CreateOwnDraftApplication
+  UpdateOwnDraftApplication
+  SubmitOwnDraftApplication
+  DeleteOwnDraftApplication
+  ArchiveOwnSubmittedApplication
+  SuspendOwnSubmittedApplication
+  ViewOwnApplicationStatus
+  ViewTeamApplicationStatus
+  ViewAnyApplicationStatus
+  UpdateTeamApplicationStatus
+  UpdateAnyApplicationStatus
+  ViewAnyApplicationAssessment
+  ViewTeamApplicationAssessment
+  UpdateAnyApplicationAssessment
+  UpdateTeamApplicationAssessment
+  ViewAnyApplicationDecision
+  ViewTeamApplicationDecision
+  ViewOwnApplicationDecision
+  UpdateTeamApplicationDecision
+  UpdateAnyApplicationDecision
+  ViewAnyApplicationPlacement
+  ViewTeamApplicationPlacement
+  ViewOwnApplicationPlacement
+  UpdateTeamApplicationPlacement
+  UpdateAnyApplicationPlacement
+  ViewAnyApplicantCount
+  ViewAnyJobPosterTemplate
+  CreateAnyJobPosterTemplate
+  UpdateAnyJobPosterTemplate
+  DeleteAnyJobPosterTemplate
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
+  CreateAnyWorkStream
+  UpdateAnyWorkStream
+  ViewAnyRole
+  AssignAnyRole
+  AssignTeamRole
+  UpdateAnyRole
+  ViewAnyAnnouncement
+  UpdateAnyAnnouncement
+  ViewAnyCommunity
+  CreateAnyCommunity
+  UpdateAnyCommunity
+  UpdateTeamCommunity
+  DeleteAnyCommunity
+  UpdateAnyPlatformAdminMembership
+  UpdateAnyCommunityAdminMembership
+  UpdateTeamCommunityAdminMembership
+  UpdateAnyCommunityRecruiterMembership
+  UpdateTeamCommunityRecruiterMembership
+  UpdateAnyProcessOperatorMembership
+  UpdateTeamProcessOperatorMembership
+  UpdateAnyCommunityTalentCoordinatorMembership
+  UpdateTeamCommunityTalentCoordinatorMembership
+  UpdateAnyDepartmentAdminMembership
+  UpdateAnyDepartmentHRAdvisorMembership
+  UpdateTeamDepartmentHRAdvisorMembership
+  ViewAnyPoolTeamMembers
+  ViewTeamPoolTeamMembers
+  ViewAnyCommunityTeamMembers
+  ViewTeamCommunityTeamMembers
+  ViewAnyDepartmentTeamMembers
+  ViewTeamDepartmentTeamMembers
+  CreateAnyTrainingOpportunity
+  ViewAnyTalentNominationEvent
+  CreateAnyTalentNominationEvent
+  CreateTeamTalentNominationEvent
+  UpdateTeamTalentNominationEvent
+  ViewAnyCommunityInterest
+  ViewTeamCommunityInterest
+  ViewTeamCommunityTalent
+  DeleteOwnCommunityInterest
+  CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
+  UpdateOwnTalentNomination
+  ViewOwnTalentNomination
+  ViewTeamTalentNomination
+  ViewAnyTalentNomination
+  UpdateTeamTalentNominationGroup
+  ViewTeamTalentNominationGroup
+  ViewAnyTalentNominationGroup
+  ViewAnyBasicGovEmployeeProfile
+  ViewAnyPoolActivityLog
+  ViewTeamPoolActivityLog
+  CreateTeamCommunityDevelopmentProgram
+  UpdateTeamCommunityDevelopmentProgram
+  DeleteTeamCommunityDevelopmentProgram
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -1305,6 +1575,11 @@ enum ErrorCode {
   ROLE_NOT_FOUND
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
+  TALENT_REQUEST_INVALID_POSITION_TYPE
+  TALENT_REQUEST_INVALID_REASON
+  TALENT_REQUEST_INVALID_STATUS
+  TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
+  TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
   TALENT_EVENT_IS_CLOSED
   TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
   TALENT_EVENT_CANNOT_CHANGE_NAME
@@ -1716,6 +1991,73 @@ enum TalentNominationUserReview {
   CORRECT
   INCORRECT
   OUT_OF_DATE
+}
+
+enum TalentRequestCompletionDetail {
+  HIRE_MADE
+  PROCESS_WILL_BE_LAUNCHED
+  HIRING_MANAGER_NOT_RESPONSIVE
+  NO_CANDIDATES_FOUND
+  NO_LONGER_REQUIRED
+  DUPLICATE_REQUEST
+  NON_COMPLIANT
+}
+
+enum TalentRequestInProgressDetail {
+  INITIAL_CONVERSATION
+  TALENT_SENT
+  FOLLOW_UP_SENT
+  DISCUSSION_ONGOING
+  OTHER
+}
+
+enum TalentRequestPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum TalentRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
+enum TalentRequestSource {
+  QUALIFIED_IN_POOL
+  AT_LEVEL
+  ADVANCEMENT
+}
+
+enum TalentRequestStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {

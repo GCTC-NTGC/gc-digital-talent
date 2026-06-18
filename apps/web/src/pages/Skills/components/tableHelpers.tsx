@@ -4,20 +4,19 @@ import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
   LocalizedSkillCategory,
-  Maybe,
   Skill,
   SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 export function categoryAccessor(
-  category: Maybe<LocalizedSkillCategory>,
+  category: LocalizedSkillCategory | null,
   intl: IntlShape,
 ) {
   return category?.label ? getLocalizedName(category.label, intl) : "";
 }
 
 export function skillFamiliesCell(
-  skillFamilies: Maybe<Maybe<SkillFamily>[]> | undefined,
+  skillFamilies: (SkillFamily | null)[] | null | undefined,
   intl: IntlShape,
 ) {
   const familyNames = skillFamilies

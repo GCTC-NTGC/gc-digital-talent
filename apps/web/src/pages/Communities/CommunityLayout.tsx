@@ -91,11 +91,7 @@ const CommunityLayout = () => {
       "view",
       {
         icon: ClipboardDocumentListIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Community information",
-          id: "W0Bh1G",
-          description: "Title for community information",
-        }),
+        title: intl.formatMessage(adminMessages.details),
         link: {
           url: paths.communityView(communityId),
         },

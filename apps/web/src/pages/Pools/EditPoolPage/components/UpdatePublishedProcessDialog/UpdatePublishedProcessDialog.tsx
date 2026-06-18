@@ -42,9 +42,7 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
       fr
     }
     classification {
-      id
-      group
-      level
+      groupAndLevel
     }
   }
 `);

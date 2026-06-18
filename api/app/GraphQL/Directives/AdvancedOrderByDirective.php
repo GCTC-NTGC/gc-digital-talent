@@ -37,7 +37,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
     public static function definition(): string
     {
         return <<<'GRAPHQL'
-            directive @advancedOrderBy on FIELD_DEFINITION
+            directive @advancedOrderBy on ARGUMENT_DEFINITION | FIELD_DEFINITION
         GRAPHQL;
     }
 
@@ -159,17 +159,25 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             return null;
         }
 
-        $methodName = method_exists($builder, $scope) ? $scope : 'scope'.ucfirst($scope);
+        $isBuilderMethod = method_exists($builder, $scope);
+        $modelScopeMethod = 'scope'.ucfirst($scope);
+        $isModelScope = ! $isBuilderMethod && method_exists($builder->getModel(), $modelScopeMethod);
 
-        if (! method_exists($builder, $scope) && ! method_exists($builder->getModel(), $methodName)) {
+        if (! $isBuilderMethod && ! $isModelScope) {
             throw new UserError("Invalid scope: {$scope}");
         }
 
+        // Reflect on the method that actually runs. Builder methods take the
+        // caller arg first; Eloquent model scopes receive the query builder as
+        // their first parameter, so the caller arg is the second one.
         // NOTE: Supports backwards compatibility with existing scopes
         // Remove once poolCandidatesPaginatedAdminView has been refactored with this directive
-        $reflection = new \ReflectionMethod($builder, $scope);
+        $reflection = $isBuilderMethod
+            ? new \ReflectionMethod($builder, $scope)
+            : new \ReflectionMethod($builder->getModel(), $modelScopeMethod);
         $params = $reflection->getParameters();
-        $firstParamType = isset($params[0]) ? $params[0]->getType() : null;
+        $argParam = $isModelScope ? ($params[1] ?? null) : ($params[0] ?? null);
+        $firstParamType = $argParam?->getType();
 
         if ($firstParamType instanceof \ReflectionNamedType && $firstParamType->getName() === AdvancedOrder::class) {
             $builder->{$scope}($args);

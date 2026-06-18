@@ -39,7 +39,7 @@ class CommunityInterest extends AppPage {
       })
       .click();
 
-    await this.page.getByRole("button", { name: /save and submit/i }).click();
+    await this.page.getByRole("button", { name: /save changes/i }).click();
   }
 
   async reviewCommunityInterest(name: string) {

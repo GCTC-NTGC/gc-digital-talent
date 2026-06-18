@@ -13,7 +13,6 @@ import { TableOfContents } from "@gc-digital-talent/ui";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
 import governmentMessages from "~/messages/governmentMessages";
-import { stringifyGroupLevel } from "~/utils/classification";
 import { formattedDate } from "~/utils/dateUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -35,8 +34,7 @@ const GovernmentInformation_Fragment = graphql(/** GraphQL */ `
       }
     }
     currentClassification {
-      group
-      level
+      groupAndLevel
     }
     govPositionType {
       value
@@ -135,15 +133,8 @@ const GovernmentInformation = ({ query }: GovernmentInformationProps) => {
                 description: "Label for a process' classification",
               })}
             >
-              {!!user?.currentClassification?.group &&
-              !!user?.currentClassification?.level
-                ? wrapAbbr(
-                    stringifyGroupLevel(
-                      user?.currentClassification.group,
-                      user.currentClassification.level,
-                    ),
-                    intl,
-                  )
+              {user.currentClassification?.groupAndLevel
+                ? wrapAbbr(user.currentClassification.groupAndLevel, intl)
                 : notProvided}
             </FieldDisplay>
             <FieldDisplay

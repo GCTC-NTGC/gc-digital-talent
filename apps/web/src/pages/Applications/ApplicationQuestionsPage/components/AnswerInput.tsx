@@ -15,7 +15,7 @@ import type {
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS_EN = 200;
+const TEXT_AREA_MAX_WORDS_EN = 500;
 
 interface AnswerInputProps {
   index: number;

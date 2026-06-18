@@ -150,11 +150,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      classification {
-        id
-        group
-        level
-      }
       assessmentSteps {
         id
         title {

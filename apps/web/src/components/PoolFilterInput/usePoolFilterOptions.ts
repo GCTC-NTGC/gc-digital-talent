@@ -2,7 +2,7 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useIntl } from "react-intl";
 
-import type { PoolFilterInput, Scalars } from "@gc-digital-talent/graphql";
+import type { PoolFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { ComboboxOption } from "@gc-digital-talent/forms";
@@ -46,8 +46,7 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
       }
       paginatorInfo {
@@ -65,8 +64,8 @@ interface UsePoolFilterOptionsReturn {
 
 const usePoolFilterOptions = (
   where?: PoolFilterInput,
-  includeIds?: Scalars["UUID"]["input"][],
-  excludeIds?: Scalars["UUID"]["input"][],
+  includeIds?: string[],
+  excludeIds?: string[],
 ): UsePoolFilterOptionsReturn => {
   const intl = useIntl();
   const [{ data, fetching }] = useQuery({

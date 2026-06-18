@@ -23,5 +23,7 @@ export default function PersonalInformationSnapshot(
 
   if (!Component) return null;
 
+  // componentMap is constant, so this is always the same component, not a new one.
+  // eslint-disable-next-line react-hooks/static-components
   return <Component {...props} />;
 }

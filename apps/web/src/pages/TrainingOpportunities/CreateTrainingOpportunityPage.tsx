@@ -9,7 +9,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type {
   CreateTrainingOpportunityInput,
   FragmentType,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -39,7 +38,7 @@ import TrainingOpportunityForm from "./components/TrainingOpportunityForm";
 interface CreateTrainingOpportunityFormProps {
   handleCreateTrainingOpportunity: (
     input: CreateTrainingOpportunityInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  ) => Promise<string>;
   formOptionsQuery: FragmentType<
     typeof TrainingOpportunityFormOptions_Fragment
   >;

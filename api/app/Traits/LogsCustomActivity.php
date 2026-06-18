@@ -96,7 +96,7 @@ trait LogsCustomActivity
             ->causedBy(Auth::user())
             ->performedOn($this)
             ->event($event->value)
-            ->withProperties($properties)
+            ->withChanges($properties)
             ->log($event->value);
 
         // Reset temporary override

@@ -17,13 +17,13 @@ class Activity extends SpatieActivity
 
     protected function properties(): Attribute
     {
-        return Attribute::get(function ($value) {
-            $data = is_array($value) ? $value : json_decode($value, true);
+        return Attribute::get(function () {
+            $changes = $this->attribute_changes;
 
-            return [
-                'attributes' => $data['attributes'] ?? null,
-                'old' => $data['old'] ?? null,
-            ];
+            return collect([
+                'attributes' => $changes?->get('attributes'),
+                'old' => $changes?->get('old'),
+            ]);
         });
     }
 
@@ -47,7 +47,7 @@ class Activity extends SpatieActivity
                     $poolQuery->where('subject_type', Pool::class)
                         ->where('subject_id', $poolId);
                 })
-                    ->orWhereJsonContains('properties->attributes->pool_id', $poolId);
+                    ->orWhereJsonContains('attribute_changes->attributes->pool_id', $poolId);
             });
 
     }
@@ -201,7 +201,7 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        return $query->whereRaw('properties::text ILIKE ?', ["%$searchTerm%"]);
+        return $query->whereRaw('(properties::text ILIKE ? OR attribute_changes::text ILIKE ?)', ["%$searchTerm%", "%$searchTerm%"]);
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
@@ -231,7 +231,7 @@ class Activity extends SpatieActivity
                 })
                     ->orWhere(function ($q) use ($authorizedPoolIds) {
                         foreach ($authorizedPoolIds->get() as $pool) {
-                            $q->orWhereJsonContains('properties->attributes', ['pool_id' => $pool->id]);
+                            $q->orWhereJsonContains('attribute_changes->attributes', ['pool_id' => $pool->id]);
                         }
                     });
             });

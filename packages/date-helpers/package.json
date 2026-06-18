@@ -18,11 +18,11 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@date-fns/tz": "^1.4.1",
+    "@date-fns/tz": "^1.5.0",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
-    "date-fns": "^4.1.0",
-    "react-intl": "^10.1.7"
+    "date-fns": "^4.4.0",
+    "react-intl": "^10.1.13"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
@@ -31,6 +31,6 @@
     "timezone-mock": "^1.4.2",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.8"
   }
 }

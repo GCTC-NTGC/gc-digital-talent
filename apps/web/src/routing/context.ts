@@ -2,13 +2,13 @@ import { createContext } from "react-router";
 import type { Client } from "urql";
 import type { IntlShape } from "react-intl";
 
-import type { Maybe, UserAuthInfo } from "@gc-digital-talent/graphql";
+import type { UserAuthInfo } from "@gc-digital-talent/graphql";
 
 export type GraphqlClientContext = Client;
 
 export const graphqlClientContext = createContext<Client>();
 
-export type UserContext = Maybe<Partial<UserAuthInfo>>;
+export type UserContext = Partial<UserAuthInfo> | null;
 
 export const userContext = createContext<UserContext>(null);
 

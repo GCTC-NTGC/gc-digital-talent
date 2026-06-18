@@ -22,7 +22,6 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import type {
-  Scalars,
   Skill,
   FragmentType,
   UpdatePublishedPoolInput,
@@ -171,6 +170,8 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     poolSkills {
       id
@@ -796,7 +797,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const context: Partial<OperationContext> = {
@@ -888,14 +889,16 @@ export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
     const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
     const departmentId = res.data?.pool?.department?.teamIdForRoleAssignment;
 
-    requireUser(context, request, [
-      { name: ROLE_NAME.PlatformAdmin },
-      { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
-      { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
-      { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
-      { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
-      { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
-    ]);
+    requireUser(context, request, {
+      roles: [
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
+        { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
+        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
+        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
+      ],
+    });
     return await next();
   },
 ];

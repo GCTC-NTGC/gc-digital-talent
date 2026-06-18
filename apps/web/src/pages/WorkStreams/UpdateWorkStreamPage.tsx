@@ -23,9 +23,7 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  InputMaybe,
   LocalizedStringInput,
-  Scalars,
   UpdateWorkStreamInput,
   WorkStreamQuery,
 } from "@gc-digital-talent/graphql";
@@ -77,8 +75,8 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  name?: InputMaybe<LocalizedStringInput>;
-  plainLanguageName?: InputMaybe<LocalizedStringInput>;
+  name?: LocalizedStringInput | null;
+  plainLanguageName?: LocalizedStringInput | null;
   community: string;
   talentSearchable: boolean;
 }
@@ -300,7 +298,7 @@ export const UpdateWorkStreamForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  workStreamId: Scalars["ID"]["output"];
+  workStreamId: string;
 }
 
 const WorkStream_Query = graphql(/* GraphQL */ `

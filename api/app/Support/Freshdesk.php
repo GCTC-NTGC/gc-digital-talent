@@ -133,7 +133,7 @@ class Freshdesk
         }
 
         // we don't recognize an error so don't add a message
-        Log::error('Error when trying to create a ticket: '.$response->body());
+        Log::error('Error when trying to create a contact: '.$response->body());
         throw new ExternalServiceException();
     }
 
@@ -192,7 +192,7 @@ class Freshdesk
         }
 
         // we don't recognize an error so don't add a message
-        Log::error('Error when trying to create a ticket: '.$response->body());
+        Log::error('Error when trying to update a contact: '.$response->body());
         throw new ExternalServiceException();
     }
 }

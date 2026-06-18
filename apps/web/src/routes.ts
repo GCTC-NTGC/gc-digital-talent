@@ -418,13 +418,13 @@ export default [
 
             // Admin - Talent requests
             ...prefix("talent-requests", [
-              index(
-                "./pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage.tsx",
-              ),
-              route(
-                ":searchRequestId",
-                "./pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage.tsx",
-              ),
+              index("./pages/TalentRequests/IndexTalentRequestPage.tsx"),
+              ...prefix(":talentRequestId", [
+                layout("./pages/TalentRequests/Layout.tsx", [
+                  index("./pages/TalentRequests/Details.tsx"),
+                  route("tracking", "./pages/TalentRequests/Tracking.tsx"),
+                ]),
+              ]),
             ]),
 
             // Admin - Training opportunities

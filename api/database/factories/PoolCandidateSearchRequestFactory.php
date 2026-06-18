@@ -5,6 +5,9 @@ namespace Database\Factories;
 use App\Enums\PoolCandidateSearchPositionType;
 use App\Enums\PoolCandidateSearchRequestReason;
 use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\TalentRequestCompletionDetail;
+use App\Enums\TalentRequestInProgressDetail;
+use App\Enums\TalentRequestStatus;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
 use App\Models\Department;
@@ -35,6 +38,8 @@ class PoolCandidateSearchRequestFactory extends Factory
         $users = [User::inRandomOrder()->first(), $guestUser];
         $user = $users[array_rand($users)];
 
+        $status = $this->faker->randomElement(TalentRequestStatus::cases())->name;
+
         return [
             'full_name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail,
@@ -55,6 +60,13 @@ class PoolCandidateSearchRequestFactory extends Factory
             'user_id' => $user?->id,
             'initial_result_count' => $this->faker->optional->numberBetween(0, 999),
             'follow_up_date' => $this->faker->optional()->dateTimeBetween('-1 month', '+3 months')?->format('Y-m-d'),
+            'status' => $status,
+            'in_progress_details' => $status === TalentRequestStatus::IN_PROGRESS->name
+                ? $this->faker->optional()->randomElement(TalentRequestInProgressDetail::cases())?->name
+                : null,
+            'completion_details' => $status === TalentRequestStatus::COMPLETED->name
+                ? $this->faker->randomElement(TalentRequestCompletionDetail::cases())->name
+                : null,
         ];
     }
 }

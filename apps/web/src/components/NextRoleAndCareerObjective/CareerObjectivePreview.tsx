@@ -7,7 +7,6 @@ import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
-import { formatClassificationString } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
 
 import CareerObjectiveDialog from "./CareerObjectiveDialog";
@@ -16,13 +15,7 @@ const CareerObjectivePreview_Fragment = graphql(/* GraphQL */ `
   fragment CareerObjectivePreview on User {
     employeeProfile {
       careerObjectiveClassification {
-        id
-        group
-        level
-        name {
-          en
-          fr
-        }
+        groupAndLevel
       }
       careerObjectiveJobTitle
       careerObjectiveCommunity {
@@ -78,9 +71,7 @@ const CareerObjectivePreview = ({
   const employeeProfile = careerObjectivePreviewFragment.employeeProfile;
   const classificationName = employeeProfile?.careerObjectiveClassification
     ? wrapAbbr(
-        formatClassificationString(
-          employeeProfile.careerObjectiveClassification,
-        ),
+        employeeProfile.careerObjectiveClassification.groupAndLevel,
         intl,
       )
     : notProvided;

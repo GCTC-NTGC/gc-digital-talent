@@ -12,9 +12,11 @@ import {
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Locales } from "@gc-digital-talent/i18n";
-import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
-
-import { formatClassificationString } from "~/utils/poolUtils";
+import {
+  commonMessages,
+  getLocale,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 
 const pseaUrl: Record<Locales, string> = {
   en: "https://laws-lois.justice.gc.ca/eng/acts/p-33.01/",
@@ -24,8 +26,7 @@ const pseaUrl: Record<Locales, string> = {
 const PoolAreaOfSelectionNote_Fragment = graphql(/* GraphQL */ `
   fragment AreaOfSelectionNote on Pool {
     classification {
-      group
-      level
+      groupAndLevel
     }
     department {
       name {
@@ -315,13 +316,9 @@ const AreaOfSelectionWell = ({ poolQuery }: AreaOfSelectionNoticeProps) => {
     (l) => l.value,
   );
 
-  if (!pool.classification?.group || !pool.classification?.level) {
-    return null;
-  }
-  const classificationString = formatClassificationString({
-    group: pool.classification.group,
-    level: pool.classification.level,
-  });
+  const classificationString =
+    pool.classification?.groupAndLevel ??
+    intl.formatMessage(commonMessages.notProvided);
 
   const departmentString = getLocalizedName(pool.department?.name, intl, true);
   if (!departmentString) {

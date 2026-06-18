@@ -14,7 +14,6 @@ import type {
   UpdateJobPosterTemplateNonessentialTechnicalSkillsFragment,
   CreateJobPosterTemplateSkillInput,
   UpdateJobPosterTemplateSkillsInput,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   graphql,
@@ -120,7 +119,7 @@ const initialDataToFormValues = ({
 };
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   {
     nonessentialTechnicalSkillProficiencies,
     nonessentialTechnicalSkillsNotesEn,

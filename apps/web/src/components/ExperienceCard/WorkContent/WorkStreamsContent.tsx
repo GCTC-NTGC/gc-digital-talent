@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { Maybe, WorkStream } from "@gc-digital-talent/graphql";
+import type { WorkStream } from "@gc-digital-talent/graphql";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
@@ -17,7 +17,7 @@ import pageTitles from "~/messages/pageTitles";
 import ContentSection from "../ContentSection";
 
 interface WorkStreamsContentProps {
-  workStreams?: Maybe<WorkStream[]>;
+  workStreams?: WorkStream[] | null;
   headingLevel?: HeadingRank;
 }
 

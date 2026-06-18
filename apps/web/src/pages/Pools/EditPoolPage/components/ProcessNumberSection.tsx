@@ -2,11 +2,7 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type {
-  FragmentType,
-  Maybe,
-  UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, UpdatePoolInput } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
@@ -31,7 +27,7 @@ interface FormValues {
 }
 
 const dataToFormValues = (initialData: {
-  processNumber?: Maybe<string>;
+  processNumber?: string | null;
 }): FormValues => ({
   processNumber: initialData.processNumber ?? "",
 });

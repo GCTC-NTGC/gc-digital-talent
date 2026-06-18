@@ -2,7 +2,6 @@ import omit from "lodash/omit";
 import compact from "lodash/compact";
 
 import type {
-  Maybe,
   ProfileLanguageProfileFragment,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
@@ -12,7 +11,7 @@ import type { FormValues } from "./types";
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): UpdateUserAsUserInput => {
-  let secondLanguageExamValidity: Maybe<boolean> | undefined = null;
+  let secondLanguageExamValidity: boolean | null | undefined = null;
   switch (formValues?.secondLanguageExamValidity) {
     case "currently_valid":
       secondLanguageExamValidity = true;

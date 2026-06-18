@@ -212,6 +212,8 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       poolSkills {
         id

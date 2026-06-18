@@ -2,7 +2,6 @@ import type {
   CreateUserInput,
   User,
   UpdateUserAsUserInput,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import {
   Language,
@@ -91,7 +90,7 @@ export const Test_UpdateUserMutationDocument = /* GraphQL */ `
 
 interface UpdateUserAsUserArgs {
   user: Partial<UpdateUserAsUserInput>;
-  id: Scalars["ID"]["input"];
+  id: string;
 }
 
 export const updateUser: GraphQLRequestFunc<

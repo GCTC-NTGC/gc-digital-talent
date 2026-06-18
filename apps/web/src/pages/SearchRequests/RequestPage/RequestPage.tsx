@@ -16,7 +16,7 @@ interface LocationState {
   applicantFilter: ApplicantFilterInput;
   initialValues: SearchFormValues;
   candidateCount: number;
-  selectedClassifications?: Pick<Classification, "group" | "level">[];
+  selectedClassifications: Pick<Classification, "groupAndLevel">[];
 }
 
 export const Component = () => {

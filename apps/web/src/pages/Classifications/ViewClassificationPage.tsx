@@ -12,7 +12,7 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -23,7 +23,6 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
-import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
@@ -31,6 +30,7 @@ import messages from "./messages";
 const ViewClassification_Fragment = graphql(/* GraphQL */ `
   fragment ViewClassification on Classification {
     id
+    displayName
     name {
       en
       fr
@@ -52,7 +52,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
   const paths = useRoutes();
   const classification = getFragment(ViewClassification_Fragment, query);
 
-  const pageTitle = getClassificationName(classification, intl);
+  const pageTitle = classification.displayName;
   const subTitle = intl.formatMessage(messages.classificationInfo);
 
   const navigationCrumbs = useBreadcrumbs({
@@ -163,7 +163,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  classificationId: Scalars["ID"]["output"];
+  classificationId: string;
 }
 
 const Classification_Query = graphql(/* GraphQL */ `

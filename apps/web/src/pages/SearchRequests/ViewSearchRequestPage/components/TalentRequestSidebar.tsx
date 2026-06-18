@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import {
   getFragment,
   graphql,
+  TalentRequestStatus,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -11,14 +12,15 @@ import { parseDateTimeUtc, formatDate } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import adminMessages from "~/messages/adminMessages";
 
 import TalentRequestNotes from "./TalentRequestNotes";
-import type { TalentRequestStatusOptions } from "./TalentRequestStatus";
-import TalentRequestStatus from "./TalentRequestStatus";
 import TalentRequestFollowUpDate from "./TalentRequestFollowUpDate";
+import TalentRequestStatusDialog from "./TalentRequestStatusDialog";
+import type { TalentRequestStatusOptions } from "./TalentRequestStatusDialog";
 
-const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
-  fragment TalentRequestSidebar on PoolCandidateSearchRequest {
+const PoolCandidateSearchRequestSidebar_Fragment = graphql(/** GraphQL */ `
+  fragment PoolCandidateSearchRequestSidebar on PoolCandidateSearchRequest {
     jobTitle
     fullName
     department {
@@ -26,19 +28,28 @@ const TalentRequestSidebar_Fragment = graphql(/** GraphQL */ `
         localized
       }
     }
+    talentRequestStatus {
+      value
+      label {
+        localized
+      }
+    }
+    details {
+      localized
+    }
     requestedDate
     statusChangedAt
     email
     hrAdvisorEmail
 
-    ...TalentRequestStatus
-    ...TalentRequestNotes
-    ...TalentRequestFollowUpDate
+    ...PoolCandidateSearchRequestStatusDialog
+    ...PoolCandidateSearchRequestNotes
+    ...PoolCandidateSearchRequestFollowUpDate
   }
 `);
 
 interface TalentRequestSidebarProps {
-  query: FragmentType<typeof TalentRequestSidebar_Fragment>;
+  query: FragmentType<typeof PoolCandidateSearchRequestSidebar_Fragment>;
   optionsQuery?: TalentRequestStatusOptions;
 }
 
@@ -47,7 +58,10 @@ const TalentRequestSidebar = ({
   optionsQuery,
 }: TalentRequestSidebarProps) => {
   const intl = useIntl();
-  const talentRequest = getFragment(TalentRequestSidebar_Fragment, query);
+  const talentRequest = getFragment(
+    PoolCandidateSearchRequestSidebar_Fragment,
+    query,
+  );
   const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
@@ -64,26 +78,40 @@ const TalentRequestSidebar = ({
         </p>
       </div>
       <Card.Separator space="sm" />
-      <TalentRequestStatus query={talentRequest} optionsQuery={optionsQuery} />
-      <FieldDisplay
-        label={intl.formatMessage({
-          defaultMessage: "Last modified",
-          id: "TA5562",
-          description: "Label for the date an item was changed on",
-        })}
-        className="mb-6"
-      >
-        {talentRequest.statusChangedAt
-          ? formatDate({
-              date: parseDateTimeUtc(talentRequest.statusChangedAt),
-              formatString: "PPP p",
-              intl,
-            })
-          : intl.formatMessage(commonMessages.notAvailable)}
-      </FieldDisplay>
-      <TalentRequestFollowUpDate query={talentRequest} />
+      <div className="flex flex-col gap-y-3">
+        <TalentRequestStatusDialog
+          query={talentRequest}
+          optionsQuery={optionsQuery}
+        />
+        {talentRequest.talentRequestStatus?.value !==
+          TalentRequestStatus.New && (
+          <FieldDisplay label={intl.formatMessage(adminMessages.details)}>
+            {talentRequest.details?.localized ??
+              intl.formatMessage(commonMessages.notProvided)}
+          </FieldDisplay>
+        )}
+        {talentRequest.talentRequestStatus?.value ===
+          TalentRequestStatus.InProgress && (
+          <TalentRequestFollowUpDate query={talentRequest} />
+        )}
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Last modified",
+            id: "TA5562",
+            description: "Label for the date an item was changed on",
+          })}
+        >
+          {talentRequest.statusChangedAt
+            ? formatDate({
+                date: parseDateTimeUtc(talentRequest.statusChangedAt),
+                formatString: "PPP p",
+                intl,
+              })
+            : intl.formatMessage(commonMessages.notAvailable)}
+        </FieldDisplay>
+      </div>
       <Card.Separator space="sm" />
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col gap-y-3">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Government email",

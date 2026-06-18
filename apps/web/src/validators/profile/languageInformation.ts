@@ -4,17 +4,17 @@ import type {
   User,
   Pool,
   LocalizedLanguage,
-  Maybe,
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
-type PartialEvaluatedLanguage = Maybe<
-  Pick<LocalizedEvaluatedLanguageAbility, "value">
->;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
+type PartialEvaluatedLanguage = Pick<
+  LocalizedEvaluatedLanguageAbility,
+  "value"
+> | null;
 
 export interface PartialUser extends Pick<
   User,
@@ -25,9 +25,10 @@ export interface PartialUser extends Pick<
   | "secondLanguageExamValidity"
 > {
   firstOfficialLanguage?: PartialLanguage;
-  estimatedLanguageAbility?: Maybe<
-    Pick<LocalizedEstimatedLanguageAbility, "value">
-  >;
+  estimatedLanguageAbility?: Pick<
+    LocalizedEstimatedLanguageAbility,
+    "value"
+  > | null;
   writtenLevel?: PartialEvaluatedLanguage;
   comprehensionLevel?: PartialEvaluatedLanguage;
   verbalLevel?: PartialEvaluatedLanguage;

@@ -28,8 +28,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class Pool
@@ -69,6 +69,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property ?Community $community
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
+ * @property array $display_name
  */
 class Pool extends Model
 {
@@ -202,7 +203,7 @@ class Pool extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     public function user(): BelongsTo

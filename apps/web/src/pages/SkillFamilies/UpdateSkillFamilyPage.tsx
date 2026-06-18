@@ -33,7 +33,6 @@ import {
 import type {
   SkillFamily,
   UpdateSkillFamilyInput,
-  Scalars,
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
@@ -342,7 +341,7 @@ export const UpdateSkillFamily = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillFamilyId: Scalars["ID"]["output"];
+  skillFamilyId: string;
 }
 
 const UpdateSkillFamilyData_Query = graphql(/* GraphQL */ `

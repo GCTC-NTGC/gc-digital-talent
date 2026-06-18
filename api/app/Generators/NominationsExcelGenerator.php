@@ -35,7 +35,7 @@ use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use OpenSpout\Writer\XLSX\Writer;
 
 class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -180,24 +180,26 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->writer = new Writer();
+        $this->writer->openToFile($this->getPath());
 
-        // Nominations overview sheet
-        $overviewSheet = $this->spreadsheet->getActiveSheet();
-        $overviewSheet->setTitle($this->getExcelSheetTitle('headings.nominations_overview'));
+        try {
+            // Nominations overview sheet
+            $this->writer->getCurrentSheet()->setName($this->getExcelSheetTitle('headings.nominations_overview'));
+            $this->generateOverviewTab();
 
-        // Nominee Profiles sheet
-        $nomineeProfilesSheet = $this->spreadsheet->createSheet();
-        $nomineeProfilesSheet->setTitle($this->getExcelSheetTitle('headings.nominee_profiles'));
+            // Nominee Profiles sheet
+            $nomineeProfilesSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $nomineeProfilesSheet->setName($this->getExcelSheetTitle('headings.nominee_profiles'));
+            $this->generateNomineeProfilesTab();
 
-        // Nomination Details sheet
-        $nominationDetailsSheet = $this->spreadsheet->createSheet();
-        $nominationDetailsSheet->setTitle($this->getExcelSheetTitle('headings.nominations_details'));
-
-        // Generate data for sheets
-        $this->generateOverviewTab($overviewSheet);
-        $this->generateNomineeProfilesTab($nomineeProfilesSheet);
-        $this->generateNominationDetailsTab($nominationDetailsSheet);
+            // Nomination Details sheet
+            $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
+            $this->generateNominationDetailsTab();
+        } finally {
+            $this->writer->close();
+        }
 
         return $this;
     }
@@ -205,16 +207,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     /**
      * Generate the overview tab
      */
-    private function generateOverviewTab($sheet): void
+    private function generateOverviewTab(): void
     {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->overviewLocaleKeys);
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
-        $row = 2;
+        $this->writer->addRow($this->row($localizedHeaders));
+
         $query = $this->buildQuery();
-        $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$row) {
+        $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $consentToShare = $talentNominationGroup->consentToShareProfile;
                 $user = $talentNominationGroup->nominee;
@@ -243,8 +245,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $this->isNominatedForDevelopmentPrograms($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->development_programs_notes ?? '')) : ''),
                 ];
 
-                $sheet->fromArray($values, null, sprintf('A%d', $row));
-                $row++;
+                $this->writer->addRow($this->row($values));
             }
         });
     }
@@ -252,19 +253,18 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     /**
      * Generate the nominee profiles tab
      */
-    private function generateNomineeProfilesTab($sheet): void
+    private function generateNomineeProfilesTab(): void
     {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->userProfileHeaderKeys);
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+        $this->writer->addRow($this->row($localizedHeaders));
 
-        $row = 2;
         $processedUserIds = [];
         $query = $this->buildQuery();
 
-        $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$row, &$processedUserIds) {
+        $query->chunk(200, function ($talentNominationGroups) use (&$processedUserIds) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $user = $talentNominationGroup->nominee;
 
@@ -402,8 +402,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $this->canShare($consentToShare, $offPlatformProcesses->join(', ')),
                 ];
 
-                $sheet->fromArray($values, null, sprintf('A%d', $row));
-                $row++;
+                $this->writer->addRow($this->row($values));
             }
         });
     }
@@ -411,17 +410,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     /**
      * Generate the nomination details tab
      */
-    private function generateNominationDetailsTab($sheet): void
+    private function generateNominationDetailsTab(): void
     {
         $localizedHeaders = array_map(function ($key) {
             return $this->localizeHeading($key);
         }, $this->nominationDetailsHeaderKeys);
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+        $this->writer->addRow($this->row($localizedHeaders));
 
-        $row = 2;
         $query = $this->buildQuery();
-        $query->chunk(200, function ($talentNominationGroups) use ($sheet, &$row) {
+        $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $consentToShare = $talentNominationGroup->consentToShareProfile;
                 $user = $talentNominationGroup->nominee;
@@ -464,8 +462,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $this->canShare($consentToShare, $nomination->additional_comments ?? ''), // additional comments
                     ];
 
-                    $sheet->fromArray($values, null, sprintf('A%d', $row));
-                    $row++;
+                    $this->writer->addRow($this->row($values));
                 }
             }
         });

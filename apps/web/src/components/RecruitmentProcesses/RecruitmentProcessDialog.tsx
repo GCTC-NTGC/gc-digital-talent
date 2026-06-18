@@ -14,7 +14,6 @@ import {
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -34,8 +33,7 @@ const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
+        groupAndLevel
         minSalary
         maxSalary
       }
@@ -139,10 +137,7 @@ const RecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? wrapAbbr(
-                    getClassificationName(pool?.classification, intl),
-                    intl,
-                  )
+                ? wrapAbbr(pool.classification.groupAndLevel, intl)
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay

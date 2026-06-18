@@ -14,7 +14,6 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
 import type { ChipProps } from "@gc-digital-talent/ui";
 import type {
-  Maybe,
   AssessmentStep,
   Pool,
   ScreeningStage,
@@ -32,7 +31,7 @@ import {
 import { LEGACY_ASSESSMENT_STEP_TYPES } from "~/constants/poolCandidate";
 
 export const isLegacyAssessmentStepType = (
-  type?: Maybe<AssessmentStepType>,
+  type?: AssessmentStepType | null,
 ): boolean => {
   return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
@@ -51,7 +50,7 @@ const applicationStatusColourMap = new Map<
 ]);
 
 const getApplicationStatusChipColor = (
-  status?: Maybe<ApplicationStatus>,
+  status?: ApplicationStatus | null,
 ): ChipProps["color"] => {
   if (!status) return "gray";
   return applicationStatusColourMap.get(status) ?? "gray";
@@ -67,7 +66,7 @@ interface StatusChip {
  * assessment progress than that shown to applicants.
  */
 export const getApplicationStatusChip = (
-  status: Maybe<LocalizedApplicationStatus> | undefined,
+  status: LocalizedApplicationStatus | null | undefined,
   intl: IntlShape,
 ): StatusChip => {
   return {
@@ -244,7 +243,7 @@ export const qualifiedRecruitmentStatusDescriptions = defineMessages({
  */
 export const deadlineToApply = (
   closingDate: Pool["closingDate"],
-  status?: Maybe<CandidateStatus>,
+  status?: CandidateStatus | null,
 ): boolean => {
   const lessThanThreeDaysTillClosingDate = closingDate
     ? differenceInDays(parseDateTimeUtc(closingDate), Date.now()) < 3
@@ -257,7 +256,7 @@ export const deadlineToApply = (
 };
 
 export const getScreeningStageIndex = (
-  screeningStage?: Maybe<ScreeningStage>,
+  screeningStage?: ScreeningStage | null,
 ) => {
   if (!screeningStage) return null;
 
@@ -290,7 +289,7 @@ export const candidateStatusColorMap = new Map<
 ]);
 
 export const candidateStatusChip = (
-  status?: Maybe<LocalizedCandidateStatus>,
+  status?: LocalizedCandidateStatus | null,
 ): StatusChip | null => {
   if (!status?.label.localized) return null;
 
@@ -311,7 +310,7 @@ export const candidateInterestColorMap = new Map<
 ]);
 
 export const candidateInterestChip = (
-  interest?: Maybe<LocalizedCandidateInterest>,
+  interest?: LocalizedCandidateInterest | null,
 ): StatusChip | null => {
   if (!interest?.label?.localized || !interest.value) return null;
 

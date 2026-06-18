@@ -1,9 +1,12 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type {
-  ApplicantFilter,
-  Department,
-  PoolCandidateSearchRequest,
+import {
+  TalentRequestCompletionDetail,
+  TalentRequestInProgressDetail,
+  TalentRequestStatus,
+  type ApplicantFilter,
+  type Department,
+  type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 import {
   PoolCandidateSearchPositionType,
@@ -19,6 +22,27 @@ const generateSearchRequest = (
   departments: Department[],
   applicantFilters: ApplicantFilter[],
 ): PoolCandidateSearchRequest => {
+  const status = toLocalizedEnum(
+    faker.helpers.arrayElement<TalentRequestStatus>(
+      Object.values(TalentRequestStatus),
+    ),
+  );
+  let details = null;
+  if (status.value === TalentRequestStatus.InProgress) {
+    details = toLocalizedEnum(
+      faker.helpers.arrayElement<TalentRequestInProgressDetail>(
+        Object.values(TalentRequestInProgressDetail),
+      ),
+    ).label;
+  }
+  if (status.value === TalentRequestStatus.Completed) {
+    details = toLocalizedEnum(
+      faker.helpers.arrayElement<TalentRequestCompletionDetail>(
+        Object.values(TalentRequestCompletionDetail),
+      ),
+    ).label;
+  }
+
   return {
     id: faker.string.uuid(),
     fullName: `${faker.person.firstName()} ${faker.person.lastName()}`,
@@ -48,6 +72,8 @@ const generateSearchRequest = (
         Object.values(PoolCandidateSearchStatus),
       ),
     ),
+    talentRequestStatus: status,
+    details,
     adminNotes: faker.lorem.sentences(5),
   };
 };

@@ -17,7 +17,7 @@ use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use OpenSpout\Writer\XLSX\Writer;
 
 class CommunityInterestUserExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
@@ -68,66 +68,68 @@ class CommunityInterestUserExcelGenerator extends ExcelGenerator implements File
 
     public function generate(): self
     {
-        $this->spreadsheet = new Spreadsheet();
+        $this->writer = new Writer();
+        $this->writer->openToFile($this->getPath());
 
-        $sheet = $this->spreadsheet->getActiveSheet();
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->headerLocaleKeys);
+        try {
 
-        $sheet->fromArray($localizedHeaders, null, 'A1');
+            $localizedHeaders = array_map(function ($key) {
+                return $this->localizeHeading($key);
+            }, $this->headerLocaleKeys);
 
-        $currentCommunityInterest = 1;
-        $query = $this->buildQuery();
-        $query->chunk(200, function ($communityInterests) use ($sheet, &$currentCommunityInterest) {
-            foreach ($communityInterests as $communityInterest) {
+            $this->writer->addRow($this->row($localizedHeaders));
 
-                $user = $communityInterest->user;
-                $department = $user->department()->first();
-                $preferences = $user->getOperationalRequirements();
-                $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
-                    return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
-                });
-                $userSkills = $user->userSkills->map(function ($userSkill) {
-                    return $userSkill->skill->name[$this->lang] ?? '';
-                });
+            $query = $this->buildQuery();
+            $query->chunk(200, function ($communityInterests) {
+                foreach ($communityInterests as $communityInterest) {
 
-                $values = [
-                    $user->first_name, // First name
-                    $user->last_name, // Last name
-                    $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
-                    $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
-                    $this->lookingForLanguages($user),
-                    $this->localizeEnum($user->first_official_language, Language::class),
-                    $this->yesOrNo($user->second_language_exam_completed),
-                    $this->yesOrNo($user->second_language_exam_validity),
-                    $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
-                    $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
-                    $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
-                    $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
-                    $this->yesOrNo($user->computed_is_gov_employee), // Government employee
-                    $department->name[$this->lang] ?? '', // Department
-                    $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
-                    $user->work_email, // Work email
-                    $user->getClassification(), // Current classification
-                    $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
-                    $user->priority_number ?? '', // Priority number
-                    $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
-                    $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
-                    $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
-                    $user->location_exemptions, // Location exemptions
-                    $this->yesOrNo($user->is_woman), // Woman
-                    $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
-                    $this->yesOrNo($user->is_visible_minority), // Visible minority
-                    $this->yesOrNo($user->has_disability), // Disability
-                    $userSkills->join(', '),
-                ];
+                    $user = $communityInterest->user;
+                    $department = $user->department()->first();
+                    $preferences = $user->getOperationalRequirements();
+                    $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
+                        return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
+                    });
+                    $userSkills = $user->userSkills->map(function ($userSkill) {
+                        return $userSkill->skill->name[$this->lang] ?? '';
+                    });
 
-                // 1 is added to the key to account for the header row
-                $sheet->fromArray($values, null, sprintf('A%d', $currentCommunityInterest + 1));
-                $currentCommunityInterest++;
-            }
-        });
+                    $values = [
+                        $user->first_name, // First name
+                        $user->last_name, // Last name
+                        $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class),
+                        $this->localizeEnum($user->citizenship, CitizenshipStatus::class),
+                        $this->lookingForLanguages($user),
+                        $this->localizeEnum($user->first_official_language, Language::class),
+                        $this->yesOrNo($user->second_language_exam_completed),
+                        $this->yesOrNo($user->second_language_exam_validity),
+                        $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class), // Reading level
+                        $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class), // Writing level
+                        $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class), // Oral interaction level
+                        $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class),
+                        $this->yesOrNo($user->computed_is_gov_employee), // Government employee
+                        $department->name[$this->lang] ?? '', // Department
+                        $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class),
+                        $user->work_email, // Work email
+                        $user->getClassification(), // Current classification
+                        $this->yesOrNo($user->has_priority_entitlement), // Priority entitlement
+                        $user->priority_number ?? '', // Priority number
+                        $user->position_duration ? $this->yesOrNo($user->wouldAcceptTemporary()) : '', // Accept temporary
+                        $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class),
+                        $this->localizeEnumArray($user->location_preferences, WorkRegion::class),
+                        $user->location_exemptions, // Location exemptions
+                        $this->yesOrNo($user->is_woman), // Woman
+                        $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class),
+                        $this->yesOrNo($user->is_visible_minority), // Visible minority
+                        $this->yesOrNo($user->has_disability), // Disability
+                        $userSkills->join(', '),
+                    ];
+
+                    $this->writer->addRow($this->row($values));
+                }
+            });
+        } finally {
+            $this->writer->close();
+        }
 
         return $this;
     }

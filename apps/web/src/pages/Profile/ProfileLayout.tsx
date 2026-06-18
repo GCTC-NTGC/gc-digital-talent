@@ -21,7 +21,7 @@ interface ProfileHandle {
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   async ({ context, request }, next) => {
-    requireUser(context, request, [{ name: ROLE_NAME.Applicant }]);
+    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
     return await next();
   },
 ];

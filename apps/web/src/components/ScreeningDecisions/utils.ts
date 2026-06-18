@@ -7,9 +7,7 @@ import type {
   EducationRequirementOption,
   Experience,
   FragmentType,
-  Maybe,
   PublishingGroup,
-  Scalars,
   SkillCategory,
   SkillLevel,
   UpdateAssessmentResultInput,
@@ -172,7 +170,7 @@ export const convertApiToFormValues = (
 };
 
 export const educationJustificationContext = (
-  justification: Maybe<AssessmentResultJustification> | undefined,
+  justification: AssessmentResultJustification | null | undefined,
   intl: IntlShape,
 ) => {
   const acceptedInformationMessages = [
@@ -252,8 +250,8 @@ type ObjectValues<T> = T[keyof T];
 export type DialogType = ObjectValues<typeof DIALOG_TYPE>;
 
 export function getDialogType(
-  type?: Maybe<AssessmentStepType>,
-  poolSkillId?: Maybe<Scalars["UUID"]["output"]>,
+  type?: AssessmentStepType | null,
+  poolSkillId?: string | null,
 ): DialogType {
   if (!poolSkillId || !type) return DIALOG_TYPE.Education;
 
@@ -271,12 +269,12 @@ export function getDialogType(
 export const getSkillLevelMessage = (
   intl: IntlShape,
   poolSkill?: {
-    requiredLevel?: Maybe<SkillLevel>;
-    skill?: Maybe<{
+    requiredLevel?: SkillLevel | null;
+    skill?: {
       category: {
         value: SkillCategory;
       };
-    }>;
+    } | null;
   },
 ): string => {
   let skillLevel = "";
@@ -292,8 +290,8 @@ export const getSkillLevelMessage = (
 };
 
 export const hasAttachedExperiences = (
-  experiences?: Maybe<Maybe<Experience>[]>,
-  skill?: Maybe<{ id: Scalars["UUID"]["output"] }>,
+  experiences?: (Experience | null | undefined)[] | null,
+  skill?: { id: string } | null,
 ) => {
   if (!skill) return false;
   return getExperienceSkills(unpackMaybes(experiences), skill)?.length > 0;
@@ -301,9 +299,9 @@ export const hasAttachedExperiences = (
 
 interface GetEducationRequirementLabelArgs {
   intl: IntlShape;
-  educationRequirementOption?: Maybe<EducationRequirementOption>;
-  group?: Maybe<ClassificationGroup>;
-  publishingGroup?: Maybe<PublishingGroup>;
+  educationRequirementOption?: EducationRequirementOption | null;
+  group?: ClassificationGroup | null;
+  publishingGroup?: PublishingGroup | null;
 }
 
 export const getEducationRequirementLabel = ({

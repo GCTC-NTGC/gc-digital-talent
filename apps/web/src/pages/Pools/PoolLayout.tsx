@@ -63,13 +63,7 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
       }
     }
     classification {
-      id
-      group
-      level
-      name {
-        en
-        fr
-      }
+      groupAndLevel
     }
   }
 `);

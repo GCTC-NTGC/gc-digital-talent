@@ -27,7 +27,6 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   FragmentType,
-  Scalars,
   SkillLevel,
   WhenSkillUsed,
 } from "@gc-digital-talent/graphql";
@@ -184,7 +183,7 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UpdateUserSkillFormProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   skillQuery: FragmentType<typeof UpdateUserSkillSkill_Fragment>;
   experiencesQuery: FragmentType<typeof UpdateUserSkillExperience_Fragment>[];
   userSkillQuery?: FragmentType<typeof UpdateUserSkill_Fragment> | null;
@@ -631,7 +630,7 @@ export const UpdateUserSkillForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `

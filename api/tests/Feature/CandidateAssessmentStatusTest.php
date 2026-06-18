@@ -1080,8 +1080,10 @@ class CandidateAssessmentStatusTest extends TestCase
                     'id' => $candidate->id,
                     'poolCandidate' => [
                         'expiryDate' => config('constants.far_future_date'),
-                        'placementType' => PlacementType::UNDER_CONSIDERATION->name,
+                        'placementType' => PlacementType::PLACED_INDETERMINATE->name,
                         'department' => ['connect' => $department->id],
+                        'placedStartDate' => Carbon::now()->toDateString(),
+                        'placedEndDate' => Carbon::now()->addYear()->toDateString(),
                     ],
                 ]
             )

@@ -30,11 +30,6 @@ export default [
       "react-hooks/incompatible-library": "off",
       "react-hooks/preserve-manual-memoization": "off",
 
-      // TO DO: Enable in #16676
-      "react-hooks/static-components": "off",
-      // TO DO: Enable in #16677
-      "react-hooks/refs": "off",
-
       ...vitest.configs.recommended.rules,
       "vitest/expect-expect": [
         "error",
@@ -139,6 +134,9 @@ export default [
               "https://github.com/facebook/create-react-app/pull/8177",
             "React.FC":
               "https://github.com/facebook/create-react-app/pull/8177",
+            Maybe: "Deprecated type",
+            InputMaybe: "Deprecated type",
+            Scalars: "Deprecated type",
           },
         },
       ],

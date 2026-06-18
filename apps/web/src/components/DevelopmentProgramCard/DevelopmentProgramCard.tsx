@@ -16,8 +16,6 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
-import { formatClassificationString } from "~/utils/poolUtils";
-
 interface DevelopmentProgramCardProps {
   id: string;
   title: string;
@@ -27,7 +25,7 @@ interface DevelopmentProgramCardProps {
   edit?: ReactNode;
   remove?: ReactNode;
   actions?: boolean;
-  classificationRestrictions?: Pick<Classification, "id" | "group" | "level">[];
+  classificationRestrictions?: Pick<Classification, "id" | "groupAndLevel">[];
   setEditOpen?: Dispatch<SetStateAction<string | null>>;
   setRemoveOpen?: Dispatch<SetStateAction<string | null>>;
 }
@@ -103,7 +101,7 @@ const DevelopmentProgramCard = ({
               <Chips>
                 {classificationRestrictions.map((cr) => (
                   <Chip color="primary" key={cr.id}>
-                    {formatClassificationString(cr)}
+                    {cr.groupAndLevel}
                   </Chip>
                 ))}
               </Chips>
