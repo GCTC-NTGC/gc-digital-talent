@@ -381,7 +381,7 @@ const TalentRequestTrackedUsersTable = ({
     },
     notReferred: {
       status: intl.formatMessage(messages.notReferred),
-      icon: ArrowRightCircleIcon,
+      icon: ArchiveBoxIcon,
       disable: updatingTrackedUsersNotReferred,
       reasonType: "notReferred",
       onUpdate: async (reason) => {
@@ -395,7 +395,7 @@ const TalentRequestTrackedUsersTable = ({
     },
     selected: {
       status: intl.formatMessage(messages.selected),
-      icon: ArchiveBoxIcon,
+      icon: ArrowRightCircleIcon,
       disable: updatingTrackedUsersSelected,
       onConfirm: async () => {
         await updateTrackedUsersSelected({ ids: selectedRows });
