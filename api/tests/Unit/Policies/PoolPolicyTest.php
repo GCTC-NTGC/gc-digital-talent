@@ -251,6 +251,13 @@ class PoolPolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->viewPoolNotes($user, $this->unrelatedPool)));
     }
 
+    public function testPlatformAdminCanViewPoolNotes(): void
+    {
+        $admin = User::factory()->asAdmin()->create();
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($admin, $this->primaryPool)));
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($admin, $this->unrelatedPool)));
+    }
+
     public function testUpdateDraftReturnsFalseForPublishedPool(): void
     {
         $publishedPool = Pool::factory()
