@@ -247,8 +247,8 @@ class PoolPolicyTest extends PolicyTestCase
     public function testTeamRolesCanViewPoolNotes(string $factoryMethod): void
     {
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
-        $this->assertTrue($this->ensureBool($this->policy->updateDraft($user, $this->primaryPool)));
-        $this->assertFalse($this->ensureBool($this->policy->updateDraft($user, $this->unrelatedPool)));
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($user, $this->primaryPool)));
+        $this->assertFalse($this->ensureBool($this->policy->viewPoolNotes($user, $this->unrelatedPool)));
     }
 
     public function testUpdateDraftReturnsFalseForPublishedPool(): void
