@@ -192,6 +192,58 @@ jobs:
             fi
           done
 
+          # ── env.example scan (catch missed deployment notes) ──────────────────
+
+          ENV_DIFF=$(git diff "${PREV_TAG}..${TAG}" -- '*.env.example' || true)
+          if [ -n "$ENV_DIFF" ]; then
+            current_file=""
+            ENV_AUTO_ROWS=""
+            declare -A PR_BODY_CACHE
+            while IFS= read -r raw_line; do
+              # Track current file
+              if [[ "$raw_line" =~ ^\+\+\+[[:space:]]b/(.+)$ ]]; then
+                current_file="${BASH_REMATCH[1]}"
+                continue
+              fi
+              # Only added lines
+              [[ "$raw_line" != +* || "$raw_line" == +++* ]] && continue
+              line="${raw_line#+}"
+              # Skip comments and blanks
+              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+              # Must look like VAR=
+              var=$(echo "$line" | grep -oE '^[A-Z][A-Z0-9_]+=' | tr -d '=' || true)
+              [ -z "$var" ] && continue
+              val=$(echo "$line" | cut -d= -f2-)
+              # Find introducing PR
+              introducing_pr=$(git log "${PREV_TAG}..${TAG}" -S "${var}=" --format="%s" --no-merges \
+                | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
+              # Skip if the introducing PR already has a deployment section
+              if [ -n "$introducing_pr" ]; then
+                if [ -z "${PR_BODY_CACHE[$introducing_pr]+x}" ]; then
+                  PR_BODY_CACHE[$introducing_pr]=$(gh pr view "$introducing_pr" --json body --jq '.body' 2>/dev/null || true)
+                fi
+                pr_body="${PR_BODY_CACHE[$introducing_pr]}"
+                if echo "$pr_body" | grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)'; then
+                  continue
+                fi
+                pr_ref=" ([#${introducing_pr}](${REPO_URL}/pull/${introducing_pr}))"
+              else
+                pr_ref=""
+              fi
+              ENV_AUTO_ROWS+="| \`${var}\` | \`${current_file}\` | \`${val:-<empty>}\`${pr_ref} |"$'\n'
+            done <<< "$ENV_DIFF"
+            unset PR_BODY_CACHE
+
+            if [ -n "$ENV_AUTO_ROWS" ]; then
+              HAS_DEPLOY=true
+              DEPLOY_STEPS+="### Auto-detected: env.example changes without deployment notes"$'\n\n'
+              DEPLOY_STEPS+="> ⚠️ These variables were added to \`*.env.example\` but the introducing PR(s) had no 🚚 Deployment section. Confirm whether each needs to be set in IaC before deploy."$'\n\n'
+              DEPLOY_STEPS+="| Variable | File | Default | PR |"$'\n'
+              DEPLOY_STEPS+="|----------|------|---------|-----|"$'\n'
+              DEPLOY_STEPS+="${ENV_AUTO_ROWS}"$'\n\n---\n\n'
+            fi
+          fi
+
           # ── test plan variables ────────────────────────────────────────────
 
           PRECHECK=""
@@ -202,6 +254,14 @@ jobs:
                 PRECHECK+="- [ ] \`${var}\` updated in IaC"$'\n'
               done
             done
+            # Also add auto-detected env vars to pre-deploy checklist
+            if [ -n "${ENV_AUTO_ROWS:-}" ]; then
+              while IFS= read -r row; do
+                [ -z "$row" ] && continue
+                var=$(echo "$row" | grep -oE '\`[A-Z][A-Z0-9_]+\`' | head -1 | tr -d '`' || true)
+                [ -n "$var" ] && PRECHECK+="- [ ] \`${var}\` — confirm value and set in IaC (auto-detected from env.example)"$'\n'
+              done <<< "$ENV_AUTO_ROWS"
+            fi
           fi
           [ -z "$PRECHECK" ] && PRECHECK="- [ ] No env var changes required"
 
