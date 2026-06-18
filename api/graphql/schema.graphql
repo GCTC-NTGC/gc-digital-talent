@@ -1190,6 +1190,15 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
+  sources: [TalentRequestSource!]!
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1932,7 +1941,7 @@ type Query {
     @guard
     @canModel(ability: "viewAny")
   talentRequestTrackedUsers(
-    talentRequestId: UUID! @eq(key: "talent_request_id")
+    talentRequestId: UUID! @eq(key: "talent_request_id") @scope(name: "withSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy

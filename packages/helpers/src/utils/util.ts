@@ -1,5 +1,3 @@
-import pick from "lodash/pick";
-
 /**
  * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array in a
@@ -157,7 +155,8 @@ export function pickMap<T, K extends keyof T>(
   list: (T | null | undefined)[] | null | undefined,
   keys: K | K[],
 ): Pick<T, K>[] | undefined {
+  const keyArr = Array.isArray(keys) ? keys : [keys];
   return unpackMaybes(list).map(
-    (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    (item) => Object.fromEntries(keyArr.map((k) => [k, item[k]])) as Pick<T, K>,
   );
 }

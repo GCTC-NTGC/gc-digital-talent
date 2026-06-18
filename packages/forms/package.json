@@ -27,10 +27,10 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@hookform/error-message": "^2.0.1",
-    "@tiptap/extensions": "^3.25.0",
-    "@tiptap/extension-heading": "^3.25.0",
-    "@tiptap/react": "^3.25.0",
-    "@tiptap/starter-kit": "^3.25.0",
+    "@tiptap/extensions": "^3.26.0",
+    "@tiptap/extension-heading": "^3.26.0",
+    "@tiptap/react": "^3.26.0",
+    "@tiptap/starter-kit": "^3.26.0",
     "date-fns": "^4.4.0",
     "downshift": "^9.3.6",
     "lodash": "^4.18.1",
@@ -56,6 +56,6 @@
     "react-intl": "^10.1.13",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.8"
   }
 }
