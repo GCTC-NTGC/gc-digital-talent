@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'LOW' => 'Faible',
-    'MEDIUM' => 'Moyen',
-    'HIGH' => 'Élevé',
+    'low' => 'Faible',
+    'medium' => 'Moyen',
+    'high' => 'Élevé',
 ];
