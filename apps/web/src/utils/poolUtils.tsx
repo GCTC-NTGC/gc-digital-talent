@@ -32,7 +32,7 @@ import type {
   LocalizedPoolStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
