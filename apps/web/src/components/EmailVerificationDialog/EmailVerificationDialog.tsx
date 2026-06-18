@@ -16,7 +16,7 @@ import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
 import EmailVerification, {
   useEmailVerification,
 } from "../EmailVerification/EmailVerification";
-import WipeWorkEmailDialog from "../WorkEmailCard.tsx/RemoveWorkEmailDialog";
+import WipeWorkEmailDialog from "../WorkEmailCard/RemoveWorkEmailDialog";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {

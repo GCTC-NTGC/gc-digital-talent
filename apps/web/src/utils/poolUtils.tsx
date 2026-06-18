@@ -76,8 +76,8 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isExecPool(publishingGroup?: PublishingGroup | null): boolean {
-  return publishingGroup === PublishingGroup.ExecutiveJobs;
+export function isExecPool(group?: string | null): boolean {
+  return group === "EX";
 }
 
 interface formatClassificationStringProps {
