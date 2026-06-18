@@ -436,7 +436,9 @@ class Pool extends Model
         return $this->team?->id;
     }
 
-    /* accessor to publicly reveal early pool closure */
+    /* accessor to publicly reveal early pool closure
+    * @return bool
+    */
     public function getWasClosedEarlyAttribute()
     {
         return ! is_null($this->closing_reason);

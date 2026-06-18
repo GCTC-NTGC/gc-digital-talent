@@ -12,7 +12,7 @@ import type { PoolCardProps } from "./PoolCard";
 import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
-const nullPool: Omit<Pool, "activities" | "teamId"> = {
+const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
   __typename: "Pool",
   id: "uuid",
 };

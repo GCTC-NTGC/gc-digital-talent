@@ -125,7 +125,7 @@ const DeadlineDialogReturn = ({
   wasClosedEarly,
 }: {
   closingDate: string | null | undefined;
-  wasClosedEarly: boolean | null | undefined;
+  wasClosedEarly: boolean;
 }): ReactNode | null => {
   if (closingDate && !wasClosedEarly) {
     return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;

@@ -30,7 +30,7 @@ interface PartialUser
 
 const stepHasError = (
   user: PartialUser,
-  pool: Omit<Pool, "activities" | "teamId">,
+  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
   _application: Application_PoolCandidateFragment | null | undefined,
   browserState: ApplicationBrowserState | null | undefined,
 ) => {

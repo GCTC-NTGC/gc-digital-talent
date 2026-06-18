@@ -30,6 +30,7 @@ const closedPool = {
 };
 const nullPool = {
   id: "uuid",
+  wasClosedEarly: false,
 };
 nullPool.id = fakePool.id; // pool will never have a null id
 

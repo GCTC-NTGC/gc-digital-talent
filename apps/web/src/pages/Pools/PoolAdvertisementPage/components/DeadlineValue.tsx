@@ -10,7 +10,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface DeadlineValueProps {
   closingDate: string | null | undefined;
-  wasClosedEarly: boolean | null | undefined;
+  wasClosedEarly: boolean;
 }
 
 const DeadlineValue = ({

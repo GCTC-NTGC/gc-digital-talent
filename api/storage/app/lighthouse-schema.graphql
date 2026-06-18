@@ -1188,7 +1188,7 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   closingReason: String
-  wasClosedEarly: Boolean
+  wasClosedEarly: Boolean!
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
