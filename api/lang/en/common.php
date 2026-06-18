@@ -52,4 +52,7 @@ return [
     'completed_in' => 'Completed in ',
     'successfully_completed' => 'Successfully completed',
     'successfully_placed' => 'Candidate has been successfully placed',
+
+    // user and pool candidate terms
+    'veteran' => 'Veteran',
 ];
