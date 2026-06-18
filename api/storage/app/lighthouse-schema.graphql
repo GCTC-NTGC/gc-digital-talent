@@ -708,7 +708,7 @@ type Mutation {
   updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
   updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
-  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: TalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
