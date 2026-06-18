@@ -13,10 +13,10 @@ const subHeading = tv({
       true: { base: "flex items-center gap-x-2.5" },
     },
     size: {
-      lg: { base: "text-3xl", icon: "size-8 stroke-[1.6]" },
-      md: { base: "text-2xl", icon: "size-7 stroke-[1.6]" },
-      sm: { base: "text-xl",  icon: "size-6 stroke-[1.6]" },
-      xs: { base: "text-lg",  icon: "size-5 stroke-[1.6]" },
+      lg: { base: "mt-9 mb-3 text-3xl",    icon: "size-8 stroke-[1.6]" },
+      md: { base: "mt-6 mb-3 text-2xl",    icon: "size-7 stroke-[1.6]" },
+      sm: { base: "mt-6 mb-1.5 text-xl",   icon: "size-6 stroke-[1.6]" },
+      xs: { base: "mt-6 mb-1.5 text-lg",   icon: "size-5 stroke-[1.6]" },
     },
   },
   defaultVariants: {

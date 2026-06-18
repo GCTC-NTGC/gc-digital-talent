@@ -9,7 +9,7 @@ import headingBase from "./variants";
 const sectionHeading = tv({
   extend: headingBase,
   slots: {
-    base: "flex items-center gap-x-2.5 text-4xl",
+    base: "flex items-center gap-x-2.5 text-4xl mt-12 mb-3",
     icon: "size-9 stroke-[1.6]",
   },
 });

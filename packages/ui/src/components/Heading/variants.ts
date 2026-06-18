@@ -15,6 +15,7 @@ const headingBase = tv({
     },
     center: {
       true: { base: "justify-center text-center" },
+      xs: { base: "justify-center xs:justify-start text-center xs:text-left" },
     },
   },
 });
