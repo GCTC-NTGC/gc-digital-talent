@@ -364,6 +364,11 @@ type LocalizedSkillLevel implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedSpecialApplicationType implements LocalizedEnumOption {
+  value: SpecialApplicationType!
+  label: LocalizedString!
+}
+
 type LocalizedSupervisoryStatus implements LocalizedEnumOption {
   value: SupervisoryStatus!
   label: LocalizedString!
@@ -1929,6 +1934,17 @@ enum SkillLevel {
   INTERMEDIATE
   ADVANCED
   LEAD
+}
+
+enum SpecialApplicationType {
+  VETERAN
+  PRIORITY
+  MINISTERS_STAFF
+  ACCOMMODATION
+  TECHNICAL_SUPPORT
+  PSC_REQUEST
+  EMPLOYEE_CURRENTLY_ON_LEAVE
+  OTHER
 }
 
 enum SupervisoryStatus {
