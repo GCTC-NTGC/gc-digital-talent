@@ -4535,7 +4535,7 @@ enum Mentorship {
 
 enum NineBoxRating {
   LOW
-  MEDIUM
+  MODERATE
   HIGH
 }
 
