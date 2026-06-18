@@ -9,7 +9,7 @@ enum NineBoxRating
     use HasLocalization;
 
     case LOW;
-    case MEDIUM;
+    case MODERATE;
     case HIGH;
 
     public static function getLangFilename(): string

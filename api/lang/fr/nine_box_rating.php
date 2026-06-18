@@ -2,6 +2,6 @@
 
 return [
     'low' => 'Faible',
-    'medium' => 'Moyen',
+    'moderate' => 'Modéré',
     'high' => 'Élevé',
 ];
