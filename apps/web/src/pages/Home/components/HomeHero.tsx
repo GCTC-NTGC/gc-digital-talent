@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-import type { HeadingRank } from "@gc-digital-talent/ui";
-import { Container, Heading } from "@gc-digital-talent/ui";
+import { Container } from "@gc-digital-talent/ui";
 
 import type { ImgProps } from "~/components/GradientImage/GradientImage";
 import GradientImage from "~/components/GradientImage/GradientImage";
@@ -10,7 +9,6 @@ interface HomeHeroProps {
   callToAction?: ReactNode;
   title: string;
   subtitle?: string;
-  titleSize?: HeadingRank;
   img: ImgProps;
 }
 
@@ -19,17 +17,16 @@ const HomeHero = ({
   callToAction,
   title,
   subtitle,
-  titleSize,
 }: HomeHeroProps) => (
   <GradientImage.Wrapper className="overflow-hidden bg-[#000]">
     <Container className="relative z-[1]">
       <GradientImage.Content className="py-12 xs:pt-24 xs:pb-30 sm:pt-36 sm:pb-36 md:pt-36 md:pb-47">
         <div className="text-center text-white xs:text-left">
-          <Heading level="h1" size={titleSize} className="mt-0 mb-6">
+          <h1 className="text-6xl font-bold mt-0 mb-6">
             {title}
-          </Heading>
+          </h1>
           {subtitle && (
-            <p className="text-lg/snug font-light lg:text-xl/snug">
+            <p className="text-xl">
               {subtitle}
             </p>
           )}
