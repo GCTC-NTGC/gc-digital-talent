@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property array $flexible_work_locations
+ * @property ?string $community_id
  */
 class ApplicantFilter extends Model
 {

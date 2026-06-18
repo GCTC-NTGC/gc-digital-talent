@@ -5,7 +5,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState, useMemo, useRef } from "react";
+import { useState, useRef } from "react";
 import { useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -31,14 +31,8 @@ import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
-import Table, {
-  getTableStateFromSearchParams,
-} from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import {
-  INITIAL_STATE,
-  SEARCH_PARAM_KEY,
-} from "~/components/Table/ResponsiveTable/constants";
+import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
+import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
@@ -57,49 +51,12 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
 
 const columnHelper = createColumnHelper<TrackedUser>();
-
-export const TrackedUserSkillMatch_Fragment = graphql(/* GraphQL */ `
-  fragment TrackedUserSkillMatch on Skill {
-    id
-    key
-    name {
-      en
-      fr
-    }
-    keywords {
-      en
-      fr
-    }
-    description {
-      en
-      fr
-    }
-    category {
-      value
-      label {
-        en
-        fr
-      }
-    }
-    families {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
-  }
-`);
 
 const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersPaginated(
@@ -167,7 +124,7 @@ const defaultSortState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TrackedUserSkillMatch_Fragment>[];
+  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
 const TalentRequestTrackedUsersTable = ({
@@ -176,34 +133,17 @@ const TalentRequestTrackedUsersTable = ({
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const matchedSkills = getFragment(TrackedUserSkillMatch_Fragment, skills);
+  const matchedSkills = getFragment(
+    TalentRequestUserSkillMatch_Fragment,
+    skills,
+  );
 
-  const initialState = getTableStateFromSearchParams({
-    ...INITIAL_STATE,
-    sortState: defaultSortState,
+  const filterRef = useRef<TrackedUserFilters | undefined>(undefined);
+
+  const [paginationState, setPaginationState] = useState<PaginationState>({
+    ...INITIAL_STATE.paginationState,
+    pageIndex: INITIAL_STATE.paginationState.pageIndex + 1,
   });
-
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(
-    SEARCH_PARAM_KEY.TRACKED_USER_FILTERS,
-  );
-  const initialFilters = useMemo<TrackedUserFilters | undefined>(
-    () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as TrackedUserFilters)
-        : undefined,
-    [filtersEncoded],
-  );
-  const filterRef = useRef<TrackedUserFilters | undefined>(initialFilters);
-
-  const [paginationState, setPaginationState] = useState<PaginationState>(
-    initialState.paginationState
-      ? {
-          ...initialState.paginationState,
-          pageIndex: initialState.paginationState.pageIndex + 1,
-        }
-      : INITIAL_STATE.paginationState,
-  );
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
   const {
     downloadDoc,
@@ -216,14 +156,12 @@ const TalentRequestTrackedUsersTable = ({
     downloadingTrackedUsersExcel,
   } = useUserDownloads();
   const [searchState, setSearchState] = useState<SearchState>(
-    initialState.searchState ?? INITIAL_STATE.searchState,
+    INITIAL_STATE.searchState,
   );
   const [sortState, setSortState] = useState<SortingState | undefined>(
-    initialState.sortState ?? defaultSortState,
+    defaultSortState,
   );
-  const [filterState, setFilterState] = useState<TrackedUserFilters>(
-    initialFilters ?? {},
-  );
+  const [filterState, setFilterState] = useState<TrackedUserFilters>({});
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -342,7 +280,12 @@ const TalentRequestTrackedUsersTable = ({
     ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage(tableMessages.skillCount),
+      header: intl.formatMessage({
+        defaultMessage: "Requested skills",
+        id: "aNhUkJ",
+        description:
+          "Header for the number of user skills matching requested skills",
+      }),
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(
@@ -394,7 +337,7 @@ const TalentRequestTrackedUsersTable = ({
       data={trackedUsers}
       columns={columns}
       isLoading={fetching}
-      filterParamKey={SEARCH_PARAM_KEY.TRACKED_USER_FILTERS}
+      urlSync={false}
       nullMessage={{
         title: intl.formatMessage(talentRequestMessages.trackedUsersNullTitle),
         description: intl.formatMessage(
@@ -457,7 +400,7 @@ const TalentRequestTrackedUsersTable = ({
           <TalentRequestTrackedUsersFilterDialog
             onSubmit={handleFilterSubmit}
             resetValues={transformFilterInputToFormValues(undefined)}
-            initialValues={transformFilterInputToFormValues(initialFilters)}
+            initialValues={transformFilterInputToFormValues(undefined)}
           />
         ),
       }}

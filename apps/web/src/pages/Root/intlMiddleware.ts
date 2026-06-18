@@ -7,7 +7,7 @@ import {
   STORED_LOCALE,
 } from "@gc-digital-talent/i18n";
 
-import messages from "~/lang/frCompiled.json";
+import messages from "~/lang/frCompiled.json" with { type: "json" };
 import { intlContext } from "~/routing/context";
 
 import type { Route } from "./+types/RootRoute";
