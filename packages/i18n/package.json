@@ -31,7 +31,7 @@
     "react-router": "^7.17.0"
   },
   "devDependencies": {
-    "@formatjs/cli": "^6.16.9",
+    "@formatjs/cli": "^6.16.11",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/node": "^25.9.2",
