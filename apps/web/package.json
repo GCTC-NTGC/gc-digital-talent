@@ -56,7 +56,7 @@
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^4.4.0",
-    "graphql": "^16.14.1",
+    "graphql": "^16.14.2",
     "lodash": "^4.18.1",
     "motion": "^12.39.0",
     "react": "^19.2.7",
