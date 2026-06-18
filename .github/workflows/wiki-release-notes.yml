@@ -494,9 +494,17 @@ jobs:
 
           # ── update Home.md ─────────────────────────────────────────────────
 
-          if   [ "$HAS_BREAKING" = "true" ];    then RISKY="⛔ Yes";       HTYPE="Minor (BREAKING schema)"
-          elif [ "$MIGRATION_COUNT" -gt 0 ]; then RISKY="⚠️ Check";    HTYPE="Minor"
-          else                                     RISKY="✅ No migrations"; HTYPE="Minor"; fi
+          # Risky Rollback reflects migration safety only — not GraphQL breaking
+          # changes, which are already surfaced in the Type column.
+          HAS_RISKY_MIGRATION=false
+          echo "$MIGRATION_TABLE" | grep -qE '⚠️ Partial|⛔ No' && HAS_RISKY_MIGRATION=true
+
+          if   [ "$HAS_RISKY_MIGRATION" = "true" ]; then RISKY="⛔ Yes"
+          elif [ "$MIGRATION_COUNT"      -gt 0    ]; then RISKY="⚠️ Check"
+          else                                           RISKY="✅ No migrations"; fi
+
+          HTYPE="Minor"
+          [ "$HAS_BREAKING" = "true" ] && HTYPE="Minor (BREAKING schema)"
           [ "$HAS_DEPLOY" = "true" ] && DCOL="✅ Yes" || DCOL="—"
 
           NEW_ROW="| [${TAG}](${TAG}) | ${DATE} | ${HTYPE} | ${RISKY} | ${DCOL} |"
