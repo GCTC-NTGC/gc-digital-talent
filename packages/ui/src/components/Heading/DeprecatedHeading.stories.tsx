@@ -1,7 +1,7 @@
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
-import Heading from "./Heading";
+import Heading from "./DeprecatedHeading";
 
 export default {
   component: Heading,
