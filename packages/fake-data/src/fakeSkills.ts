@@ -5,7 +5,7 @@ import type { Skill, SkillFamily } from "@gc-digital-talent/graphql";
 import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
-import staticSkills from "./skills.json";
+import staticSkills from "./skills.json" with { type: "json" };
 import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generateSkill = (

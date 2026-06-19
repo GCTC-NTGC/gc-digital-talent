@@ -1677,6 +1677,10 @@ type TalentRequestTrackedUser {
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  sources: [TalentRequestSource!]!
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!
 }
 
@@ -2007,13 +2011,19 @@ type CandidateSearchPoolResult {
 
 input TalentRequestMatchFilterInput {
   applicantFilter: ApplicantFilterInput
+  generalSearch: String
+  name: String
+  email: String
+  priorityWeight: [PriorityWeight]
+  isGovEmployee: Boolean
+  departments: [UUID!]
   excludeTrackedByRequestId: UUID
 }
 
 type TalentRequestResult {
   id: UUID!
   user: User!
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]

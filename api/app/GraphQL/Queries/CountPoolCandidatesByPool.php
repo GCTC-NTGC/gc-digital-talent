@@ -32,7 +32,7 @@ final class CountPoolCandidatesByPool
 
         // available candidates scope (scope CANDIDATE_STATUS_QUALIFIED_AVAILABLE or CANDIDATE_STATUS_PLACED_CASUAL, or PLACED_TENTATIVE)
         $queryBuilder->whereAvailable()
-        // Only display IT & OTHER publishing group candidates
+        // Only display publishing group candidates that are not IAP
             ->whereInTalentSearchablePublishingGroup();
 
         $queryBuilder->whereHas('user', function ($userQuery) use ($filters) {
