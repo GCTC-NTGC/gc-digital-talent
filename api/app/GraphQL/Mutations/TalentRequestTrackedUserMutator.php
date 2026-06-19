@@ -25,6 +25,8 @@ class TalentRequestTrackedUserMutator
                     [
                         'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
                         'not_referred_reason' => null,
+                        'selection_decision' => null,
+                        'not_selected_reason' => null,
                     ],
                 );
             }

@@ -264,6 +264,8 @@ class TalentRequestTrackedUser extends Pivot
     {
         $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
         $this->not_referred_reason = null;
+        $this->selection_decision = null;
+        $this->not_selected_reason = null;
 
         if ($save) {
             $this->save();

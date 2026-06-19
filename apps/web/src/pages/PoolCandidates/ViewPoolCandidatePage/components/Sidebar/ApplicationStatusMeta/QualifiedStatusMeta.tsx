@@ -11,7 +11,6 @@ import { Notice, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
@@ -92,9 +91,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage(
-                      poolCandidateMessages.notReferred,
-                    )}
+                    label={intl.formatMessage(commonMessages.notReferred)}
                   >
                     {intl.formatMessage({
                       defaultMessage:

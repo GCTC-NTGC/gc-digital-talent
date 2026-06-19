@@ -3909,7 +3909,7 @@ type Mutation {
     @validator
   updateTrackedUsersNotSelected(
     ids: [UUID!]!
-    notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
+    notSelectedReason: TalentRequestTrackedUserNotSelectedReason!
   ): [TalentRequestTrackedUser!]!
     @guard
     @canModel(
