@@ -68,6 +68,16 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether the user can create special applications.
+     *
+     * @return Response|bool
+     */
+    public function createSpecialApplication(User $user)
+    {
+        return $user->isAbleTo('create-any-draftApplication');
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @return Response|bool

@@ -366,6 +366,10 @@ return [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.',
         ],
+        'create-any-draftApplication' => [
+            'en' => 'Create a draft application for anyone',
+            'fr' => 'Créer une ébauche de demande pour n\'importe qui',
+        ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
             'fr' => 'Créer sa propre candidature provisoire',
@@ -1269,6 +1273,9 @@ return [
                 'any' => ['view'],
             ],
             'application' => [
+                'any' => ['create'],
+            ],
+            'draftApplication' => [
                 'any' => ['create'],
             ],
             'submittedApplication' => [
