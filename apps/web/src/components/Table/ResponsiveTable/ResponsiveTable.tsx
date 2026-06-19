@@ -123,7 +123,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const [internalRowSelection, setRowSelection] = useRowSelection();
   let rowSelection: RowSelectionState = internalRowSelection;
   if (rowSelect?.selectedIds) {
-    rowSelection = Object.fromEntries(rowSelect.selectedIds.map((rowId) => [rowId, true]));
+    rowSelection = Object.fromEntries(
+      rowSelect.selectedIds.map((rowId) => [rowId, true]),
+    );
   }
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
