@@ -2502,6 +2502,17 @@ input CreatePoolCandidateAsAdminInput {
   isFlagged: Boolean
 }
 
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+    @rename(attribute: "special_application_type")
+  specialApplicationJustification: String!
+    @rename(attribute: "special_application_justification")
+  specialApplicationClosingDate: DateTime!
+    @rename(attribute: "special_application_closing_date")
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -2946,15 +2957,21 @@ input UpdateTalentRequestStatusInput {
 input CreateTalentRequestTrackedUserInput {
   userId: UUID! @rename(attribute: "user_id")
   talentRequestId: UUID! @rename(attribute: "talent_request_id")
-  referralDecision: TalentRequestTrackedUserReferralDecision @rename(attribute: "referral_decision")
-  notReferredReason: TalentRequestTrackedUserNotReferredReason @rename(attribute: "not_referred_reason")
+  referralDecision: TalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
 }
 
 input UpdateTalentRequestTrackedUserInput {
-  referralDecision: TalentRequestTrackedUserReferralDecision! @rename(attribute: "referral_decision")
-  notReferredReason: TalentRequestTrackedUserNotReferredReason @rename(attribute: "not_referred_reason")
-  selectionDecision: TalentRequestTrackedUserSelectionDecision @rename(attribute: "selection_decision")
-  notSelectedReason: TalentRequestTrackedUserNotSelectedReason @rename(attribute: "not_selected_reason")
+  referralDecision: TalentRequestTrackedUserReferralDecision!
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  selectionDecision: TalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notSelectedReason: TalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
 }
 
 input SkillBelongsToMany {
@@ -3595,6 +3612,14 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
+  createSpecialApplication(
+    poolCandidate: CreateSpecialApplicationInput! @spread
+  ): PoolCandidate
+    @guard
+    @canModel(ability: "createSpecialApplication")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateSpecialApplicationValidator"
+    )
   updatePoolCandidateStatus(
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread

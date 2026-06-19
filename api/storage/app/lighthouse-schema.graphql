@@ -680,6 +680,7 @@ type Mutation {
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
+  createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
   togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
@@ -2443,6 +2444,14 @@ input CreatePoolCandidateAsAdminInput {
   isFlagged: Boolean
 }
 
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+  specialApplicationJustification: String!
+  specialApplicationClosingDate: DateTime!
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -3909,6 +3918,7 @@ enum Permission {
   ViewOwnApplication
   ViewTeamSubmittedApplication
   ViewAnySubmittedApplication
+  CreateAnyDraftApplication
   CreateOwnDraftApplication
   UpdateOwnDraftApplication
   SubmitOwnDraftApplication
@@ -4420,6 +4430,7 @@ enum ErrorCode {
   DUPLICATE_USER_SKILL
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
+  SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
 }
 
 enum EstimatedLanguageAbility {
