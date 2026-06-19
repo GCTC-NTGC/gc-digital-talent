@@ -486,7 +486,7 @@ const commonMessages = defineMessages({
   },
   notReferred: {
     defaultMessage: "Not referred",
-    id: "sp0Pgt",
+    id: "UZ6zTY",
     description: "Label for a candidate that is not referred",
   },
   selected: {

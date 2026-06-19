@@ -919,6 +919,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
     "description": "The operational requirement described as travel as required."
   },
+  "UZ6zTY": {
+    "defaultMessage": "Non recommandé",
+    "description": "Label for a candidate that is not referred"
+  },
   "UZMVuy": {
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
     "description": "Casual selection for government employee type."
@@ -1682,10 +1686,6 @@
   "sotCgD": {
     "defaultMessage": "N'importe quelle langue",
     "description": "Any language"
-  },
-  "sp0Pgt": {
-    "defaultMessage": "Non recommandé",
-    "description": "Label for a candidate that is not referred"
   },
   "spoY2L": {
     "defaultMessage": "Tous les types",
