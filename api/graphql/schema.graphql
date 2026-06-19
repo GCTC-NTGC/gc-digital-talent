@@ -2936,15 +2936,21 @@ input UpdateTalentRequestStatusInput {
 input CreateTalentRequestTrackedUserInput {
   userId: UUID! @rename(attribute: "user_id")
   talentRequestId: UUID! @rename(attribute: "talent_request_id")
-  referralDecision: TalentRequestTrackedUserReferralDecision @rename(attribute: "referral_decision")
-  notReferredReason: TalentRequestTrackedUserNotReferredReason @rename(attribute: "not_referred_reason")
+  referralDecision: TalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
 }
 
 input UpdateTalentRequestTrackedUserInput {
-  referralDecision: TalentRequestTrackedUserReferralDecision! @rename(attribute: "referral_decision")
-  notReferredReason: TalentRequestTrackedUserNotReferredReason @rename(attribute: "not_referred_reason")
-  selectionDecision: TalentRequestTrackedUserSelectionDecision @rename(attribute: "selection_decision")
-  notSelectedReason: TalentRequestTrackedUserNotSelectedReason @rename(attribute: "not_selected_reason")
+  referralDecision: TalentRequestTrackedUserReferralDecision!
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  selectionDecision: TalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notSelectedReason: TalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
 }
 
 input SkillBelongsToMany {
@@ -4348,10 +4354,6 @@ type Mutation {
       model: "App\\Models\\TalentRequest"
       scopes: ["withPolicyEagerLoads"]
     )
-  downloadCommunityInterestUsersExcel(
-    ids: [UUID!]
-    where: CommunityInterestFilterInput
-  ): Boolean! @guard
   downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!
