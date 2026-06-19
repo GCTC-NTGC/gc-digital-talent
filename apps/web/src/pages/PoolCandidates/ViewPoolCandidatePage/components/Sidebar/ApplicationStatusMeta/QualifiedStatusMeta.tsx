@@ -91,9 +91,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage(
-                      commonMessages.notReferred,
-                    )}
+                    label={intl.formatMessage(commonMessages.notReferred)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
