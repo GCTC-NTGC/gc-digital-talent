@@ -6,11 +6,11 @@ import type {
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useState, useRef } from "react";
-import { useQuery } from "urql";
+import { useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
-import { Link, Chip } from "@gc-digital-talent/ui";
+import { Chip } from "@gc-digital-talent/ui";
 import {
   notEmpty,
   uniqueItems,
@@ -27,7 +27,6 @@ import {
   PriorityWeight,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -51,7 +50,9 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -105,6 +106,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
             }
           }
         }
+        ...TalentRequestEditReferralDialog
       }
       paginatorInfo {
         count
@@ -122,20 +124,25 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
 
 const defaultSortState = [{ id: "skillCount", desc: true }];
 
+const trackedUsersContext: Partial<OperationContext> = {
+  additionalTypenames: ["TalentRequestTrackedUser"],
+};
+
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
-  skills,
+  skillsQuery,
+  optionsQuery,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const matchedSkills = getFragment(
     TalentRequestUserSkillMatch_Fragment,
-    skills,
+    skillsQuery,
   );
 
   const filterRef = useRef<TrackedUserFilters | undefined>(undefined);
@@ -208,6 +215,7 @@ const TalentRequestTrackedUsersTable = ({
       first: paginationState.pageSize,
       orderBy: transformSortStateToOrderByClause(sortState),
     },
+    context: trackedUsersContext,
   });
 
   const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
@@ -248,10 +256,12 @@ const TalentRequestTrackedUsersTable = ({
         header: intl.formatMessage(commonMessages.name),
         enableSorting: false,
         meta: { isRowTitle: true },
-        cell: ({ row: { original }, getValue }) =>
-          original.user.id ? (
-            <Link href={paths.userView(original.user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestEditReferralDialog
+            query={original}
+            optionsQuery={optionsQuery}
+          />
+        ),
       },
     ),
     columnHelper.accessor(({ status }) => status?.label?.localized, {
