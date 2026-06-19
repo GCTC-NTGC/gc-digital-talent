@@ -61,14 +61,12 @@ const Or = ({ className, ...rest }: HTMLProps<HTMLDivElement>) => {
 };
 
 interface EducationRequirementsProps {
-  isIAP: boolean;
   classificationGroup: ClassificationGroup;
   headingAs?: HeadingLevel;
 }
 
 const EducationRequirements = ({
   classificationGroup,
-  isIAP,
   headingAs = "h3",
 }: EducationRequirementsProps) => {
   const intl = useIntl();
@@ -280,35 +278,17 @@ const EducationRequirements = ({
           <Or />
           <Card>
             <Heading level={headingAs} size="h6" className="mt-0 mb-3">
-              {isIAP
-                ? intl.formatMessage({
-                    defaultMessage: "High school diploma or GED",
-                    id: "CnPVJe",
-                    description:
-                      "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "2-year post-secondary",
-                    id: "TiIkSF",
-                    description:
-                      "Option for education requirement, 2-year post-secondary",
-                  })}
+              {intl.formatMessage({
+                defaultMessage: "2-year post-secondary",
+                id: "TiIkSF",
+                description:
+                  "Option for education requirement, 2-year post-secondary",
+              })}
             </Heading>
             <Text>
-              {isIAP
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "Successful completion of a standard high school diploma or GED equivalent.",
-                    id: "nWZiWr",
-                    description:
-                      "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
-                  })
-                : intl.formatMessage(
-                    applicationMessages.postSecondaryEducation,
-                    {
-                      link: qualityStandardsLink,
-                    },
-                  )}
+              {intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                link: qualityStandardsLink,
+              })}
             </Text>
           </Card>
         </Wrapper>

@@ -158,6 +158,7 @@ const generatePool = (
       data: fakePaginateData([], fakePaginatorInfo(0)),
     },
     applicantsCount: faker.number.int({ max: 99999 }),
+    wasClosedEarly: false,
   };
 };
 

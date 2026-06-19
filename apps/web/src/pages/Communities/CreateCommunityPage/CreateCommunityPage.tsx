@@ -10,9 +10,8 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/CreateCommunityPage";
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
 const CreateCommunity_Mutation = graphql(/* GraphQL */ `
@@ -35,16 +34,7 @@ const pageSubtitle = defineMessage({
   description: "Page subtitle for the create community page",
 });
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [{ name: ROLE_NAME.PlatformAdmin }],
-    });
-    return await next();
-  },
-];
-
-const Component = () => {
+const CreateCommunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
 
@@ -98,6 +88,12 @@ const Component = () => {
     </>
   );
 };
+
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
+    <CreateCommunityPage />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminCreateCommunityPage";
 

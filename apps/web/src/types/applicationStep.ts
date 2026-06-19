@@ -38,7 +38,7 @@ export interface ApplicationStepInfo {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     user: ApplicationPoolCandidateFragmentType["user"],
-    pool: Omit<Pool, "activities" | "teamId">,
+    pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
     application: ApplicationPoolCandidateFragmentType,
     browserState: ApplicationBrowserState | undefined,
   ) => boolean;

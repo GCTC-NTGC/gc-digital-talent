@@ -107,6 +107,7 @@ return [
         'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
+        'poolNotes' => 'poolNotes',
     ],
 
     /*
@@ -742,6 +743,15 @@ return [
             'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
         ],
 
+        'view-any-poolNotes' => [
+            'en' => 'View any pool\'s notes',
+            'fr' => 'Afficher les notes d\'un pool',
+        ],
+        'view-team-poolNotes' => [
+            'en' => 'View team\'s pool notes',
+            'fr' => 'Consulter les notes de l\'équipe sur la poule',
+        ],
+
         'create-team-communityDevelopmentProgram' => [
             'en' => 'Create a Community Development Program record for a team',
             'fr' => 'Créer une fiche de programme de développement communautaire pour une équipe',
@@ -1042,6 +1052,9 @@ return [
             'draftPool' => [
                 'team' => ['view', 'update'],
             ],
+            'poolNotes' => [
+                'team' => ['view'],
+            ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
             ],
@@ -1080,6 +1093,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1137,6 +1153,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['update', 'archive'],
@@ -1318,6 +1337,9 @@ return [
             'poolActivityLog' => [
                 'any' => ['view'],
             ],
+            'poolNotes' => [
+                'any' => ['view'],
+            ],
             'communityInterest' => [
                 'any' => ['view'],
             ],
@@ -1375,6 +1397,9 @@ return [
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
+            'poolNotes' => [
+                'team' => ['view'],
+            ],
             'publishedPool' => [
                 'team' => ['archive', 'update'],
             ],
@@ -1422,6 +1447,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],

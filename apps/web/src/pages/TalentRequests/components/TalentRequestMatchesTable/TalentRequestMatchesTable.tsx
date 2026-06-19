@@ -21,7 +21,6 @@ import { Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
-import useRoutes from "~/hooks/useRoutes";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -45,6 +44,8 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -89,6 +90,8 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
+
+          ...TalentRequestAddReferralDialog
         }
         sources {
           label {
@@ -116,30 +119,35 @@ const TalentRequestMatchesTable_Query = graphql(/** GraphQL */ `
   }
 `);
 
-const context: Partial<OperationContext> = {
+const optionsContext: Partial<OperationContext> = {
   requestPolicy: "cache-first",
+};
+
+const matchesContext: Partial<OperationContext> = {
+  additionalTypenames: ["TalentRequestTrackedUser"],
 };
 
 const sortInitialState: SortingState = [{ id: "skillCount", desc: true }];
 
 interface TalentRequestMatchesTableProps {
   query: FragmentType<typeof TalentRequestMatchesTable_TalentRequestFragment>;
-  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
 const TalentRequestMatchesTable = ({
   query,
-  skills,
+  skillsQuery,
+  optionsQuery,
 }: TalentRequestMatchesTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const talentRequest = getFragment(
     TalentRequestMatchesTable_TalentRequestFragment,
     query,
   );
   const [requestedSkills, setRequestedSkills] = useState<
     TalentRequestUserSkillMatchFragment[]
-  >(getFragment(TalentRequestUserSkillMatch_Fragment, skills));
+  >(getFragment(TalentRequestUserSkillMatch_Fragment, skillsQuery));
 
   const applicantFilterDefaults = useMemo(
     () => transformApplicantFilterToFormValues(talentRequest.applicantFilter),
@@ -234,7 +242,7 @@ const TalentRequestMatchesTable = ({
 
   const [{ data: optionsData, fetching: fetchingOptions }] = useQuery({
     query: TalentRequestMatchesTable_Query,
-    context,
+    context: optionsContext,
   });
 
   const columns: ColumnDef<TalentRequestResult>[] = [
@@ -243,10 +251,13 @@ const TalentRequestMatchesTable = ({
       {
         header: intl.formatMessage(commonMessages.name),
         id: "name",
-        cell: ({ row: { original: user }, getValue }) =>
-          user.id ? (
-            <Link href={paths.userView(user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestAddReferralDialog
+            talentRequestId={talentRequest.id}
+            query={original.user}
+            optionsQuery={optionsQuery}
+          />
+        ),
         meta: { isRowTitle: true },
       },
     ),
@@ -341,6 +352,7 @@ const TalentRequestMatchesTable = ({
         ? transformSortStateToOrderBy(sortState, intl)
         : undefined,
     },
+    context: matchesContext,
   });
 
   const rows = useMemo(
