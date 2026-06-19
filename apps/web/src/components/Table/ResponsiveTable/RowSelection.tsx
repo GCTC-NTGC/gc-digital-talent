@@ -33,7 +33,7 @@ import {
 } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
-import type { DownloadDef, RowSelectDef, TableAction } from "./types";
+import type { DownloadDef, TableAction } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
 
