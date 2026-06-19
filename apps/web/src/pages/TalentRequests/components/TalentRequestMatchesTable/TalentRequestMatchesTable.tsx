@@ -7,8 +7,8 @@ import {
 import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
-import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
 
 import {
   getFragment,
@@ -397,7 +397,7 @@ const TalentRequestMatchesTable = ({
   const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     referred: {
       status: intl.formatMessage(changeStatusMessages.referred),
-      icon: ArrowRightCircleIcon,
+      icon: PaperAirplaneIcon,
       disable: creatingTrackedUsersReferred,
       onConfirm: async () => {
         await createTrackedUsersReferred({
@@ -514,7 +514,7 @@ const TalentRequestMatchesTable = ({
                 label={intl.formatMessage(changeStatusMessages.changeStatus, {
                   status: intl.formatMessage(changeStatusMessages.referred),
                 })}
-                icon={ArrowRightCircleIcon}
+                icon={PaperAirplaneIcon}
               />
             ),
             onClick: () => setActiveStatus("referred"),

@@ -9,8 +9,10 @@ import { useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
-import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
-import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
 import { Chip, IconLabel } from "@gc-digital-talent/ui";
 import {
@@ -392,7 +394,7 @@ const TalentRequestTrackedUsersTable = ({
   const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     referred: {
       status: intl.formatMessage(messages.referred),
-      icon: ArrowRightCircleIcon,
+      icon: PaperAirplaneIcon,
       disable: updatingTrackedUsersReferred,
       onConfirm: async () => {
         await updateTrackedUsersReferred({ ids: selectedRows });
@@ -419,7 +421,7 @@ const TalentRequestTrackedUsersTable = ({
     },
     selected: {
       status: intl.formatMessage(messages.selected),
-      icon: ArrowRightCircleIcon,
+      icon: CheckIcon,
       disable: updatingTrackedUsersSelected,
       onConfirm: async () => {
         await updateTrackedUsersSelected({ ids: selectedRows });
@@ -429,7 +431,7 @@ const TalentRequestTrackedUsersTable = ({
     },
     notSelected: {
       status: intl.formatMessage(messages.notSelected),
-      icon: ArchiveBoxIcon,
+      icon: XMarkIcon,
       disable: updatingTrackedUsersNotSelected,
       reasonType: "notSelected",
       onUpdate: async (reason) => {
@@ -541,7 +543,7 @@ const TalentRequestTrackedUsersTable = ({
                 label={intl.formatMessage(messages.changeStatus, {
                   status: intl.formatMessage(messages.referred),
                 })}
-                icon={ArrowRightCircleIcon}
+                icon={PaperAirplaneIcon}
               />
             ),
             onClick: () => setActiveStatus("referred"),
@@ -563,7 +565,7 @@ const TalentRequestTrackedUsersTable = ({
                 label={intl.formatMessage(messages.changeStatus, {
                   status: intl.formatMessage(messages.selected),
                 })}
-                icon={ArrowRightCircleIcon}
+                icon={CheckIcon}
               />
             ),
             onClick: () => setActiveStatus("selected"),
@@ -574,7 +576,7 @@ const TalentRequestTrackedUsersTable = ({
                 label={intl.formatMessage(messages.changeStatus, {
                   status: intl.formatMessage(messages.notSelected),
                 })}
-                icon={ArchiveBoxIcon}
+                icon={XMarkIcon}
               />
             ),
             onClick: () => setActiveStatus("notSelected"),
