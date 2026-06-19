@@ -121,12 +121,10 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
   const [internalRowSelection, setRowSelection] = useRowSelection();
-  const rowSelection: RowSelectionState = rowSelect?.selectedIds
-    ? rowSelect.selectedIds.reduce<RowSelectionState>(
-        (acc, rowId) => ({ ...acc, [rowId]: true }),
-        {},
-      )
-    : internalRowSelection;
+  let rowSelection: RowSelectionState = internalRowSelection;
+  if (rowSelect?.selectedIds) {
+    rowSelection = Object.fromEntries(rowSelect.selectedIds.map((rowId) => [rowId, true]));
+  }
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
       columnIds,
