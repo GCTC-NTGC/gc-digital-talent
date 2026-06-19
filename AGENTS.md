@@ -17,25 +17,62 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 
 ## Essential Commands
 
-All commands run from the repository root:
+All commands run from the repository root. Use `ENV=dev` for development with hot reloading. Make targets run inside Docker via the maintenance container.
 
 ```bash
-# Development
-pnpm dev                    # Start dev server (runs codegen, i18n compile first)
-pnpm watch                  # Watch mode for web + graphql packages
+# Infrastructure
+make up ENV=dev             # Start containers (build + detach)
+make down                   # Stop containers
+make logs                   # Tail container logs
+make setup                  # First-time setup (runs setup.sh in container)
+make refresh ENV=dev        # Refresh everything (frontend + API)
+make refresh-frontend ENV=dev  # Refresh frontend only
+make refresh-api ENV=dev    # Refresh API only
 
-# Build
+# Development
+make watch ENV=dev          # Watch mode for web + graphql packages
+
+# Database
+make seed-fresh             # Reset and seed database (migrate:fresh --seed)
+make migrate                # Run pending migrations
+
+# Code Quality
+make lint                   # PHP (Pint) + JS (ESLint) linting
+make lint-php               # PHP linting only (Pint)
+make phpstan                # PHP static analysis
+
+# Testing
+make test                   # Run PHPUnit tests
+make test CMD="--filter=ExampleTest"  # Run specific PHP test
+
+# API Utilities
+make artisan CMD="<command>"   # Run any artisan command
+make composer CMD="<command>"  # Run any composer command
+make optimize-api              # Optimize API (caches config, routes, views)
+make queue-work                # Start queue worker
+make reverb-start              # Start Reverb WebSocket server
+```
+
+### Frontend commands (no make target yet)
+
+These run via pnpm inside the container. Use `make watch` for typical dev work.
+
+```bash
+# From inside the maintenance container, or prefix with:
+# docker compose -f docker-compose.dev.yml run -w /var/www/html --rm maintenance pnpm
+
+# development
+pnpm dev                    # Start dev server (runs codegen, i18n compile first)
 pnpm build                  # Production build
 pnpm codegen                # Regenerate GraphQL types from schema
 
-# Testing
+# testing
 pnpm test                   # Run Vitest tests once
 pnpm test:watch             # Vitest watch mode
 pnpm e2e:playwright         # Run Playwright E2E tests
 pnpm storybook              # Start Storybook on port 6006
 
-# Code Quality
-pnpm lint                   # ESLint check
+# linting/formatting
 pnpm lint:fix               # ESLint auto-fix
 pnpm prettier               # Prettier check
 pnpm prettier:fix           # Prettier auto-fix
@@ -45,20 +82,19 @@ pnpm tsc                    # TypeScript type check
 pnpm intl-extract           # Extract English strings
 pnpm intl-compile           # Compile all language files
 pnpm check-intl             # Check translation completeness
-
-# API (run inside Docker or with PHP installed)
-php artisan migrate:fresh --seed    # Reset and seed database
-php artisan lighthouse:print-schema --write  # Regenerate GraphQL schema
 ```
 
 ## Running a Single Test
 
 ```bash
-# Vitest - run specific test file
+# Vitest - run specific test file (inside container)
 pnpm vitest run apps/web/src/components/Example/Example.test.tsx
 
-# Playwright - run specific test
+# Playwright - run specific test (inside container)
 pnpm --filter @gc-digital-talent/playwright e2e -- --grep "test name"
+
+# PHPUnit - run specific test
+make test CMD="--filter=ExampleTest"
 ```
 
 ## Code Style
