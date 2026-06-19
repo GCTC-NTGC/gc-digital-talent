@@ -8,7 +8,7 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 
 ## Architecture
 
-- `/api` - Laravel 12 backend with Lighthouse GraphQL (PHP 8.4)
+- `/api` - Laravel 13 backend with Lighthouse GraphQL (PHP 8.4)
 - `/apps/web` - React 19 frontend with React Router 7 and Vite 7
 - `/apps/playwright` - E2E tests
 - `/packages` - 20+ shared npm packages (ui, forms, graphql, i18n, auth, etc.)
@@ -93,7 +93,8 @@ pnpm --filter @gc-digital-talent/playwright e2e -- --grep "test name"
 
 ## Supported Languages (i18n)
 
-English (en), French (fr), Michif (crg), Plains Cree (crk), Western Ojibway (ojw), Mi'kmaw (mic)
+English (en), French (fr) for everything.
+Michif (crg), Plains Cree (crk), Western Ojibway (ojw), Mi'kmaw (mic) in special cases.
 
 ## GraphQL Workflow
 
