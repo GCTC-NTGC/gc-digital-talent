@@ -64,8 +64,7 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
-    useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -124,21 +123,13 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
         )}
       </p>
       <p className="my-6">
-        {isIAP
-          ? intl.formatMessage({
-              defaultMessage:
-                "The program is a Government of Canada initiative specifically for First Nations, Inuit, and Métis peoples. It is a pathway to employment in the federal public service for Indigenous peoples who have a passion for Information Technology (IT). We focus on that passion, and your potential to grow and succeed in this field.",
-              id: "VHhOb/",
-              description:
-                "Description of how the hiring platform assesses candidates for IAP.",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "GC Digital Talent is a skills-based hiring system. This means that your application will emphasize your skills and how you’ve applied them in the past, helping us to better understand your fit.",
-              id: "f6UvQ4",
-              description:
-                "Description of how the skills-based hiring platform assess candidates.",
-            })}
+        {intl.formatMessage({
+          defaultMessage:
+            "GC Digital Talent is a skills-based hiring system. This means that your application will emphasize your skills and how you’ve applied them in the past, helping us to better understand your fit.",
+          id: "f6UvQ4",
+          description:
+            "Description of how the skills-based hiring platform assess candidates.",
+        })}
       </p>
       <p className="my-6">
         {intl.formatMessage({
