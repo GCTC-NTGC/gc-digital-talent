@@ -12,19 +12,4 @@ export default defineMessages({
     id: "ZAHz5C",
     description: "Status for referred candidates",
   },
-  notReferred: {
-    defaultMessage: "Not referred",
-    id: "ic7nR0",
-    description: "Status for not referred candidates",
-  },
-  selected: {
-    defaultMessage: "Selected",
-    id: "DLHaYP",
-    description: "Status for selected candidates",
-  },
-  notSelected: {
-    defaultMessage: "Not selected",
-    id: "0x9e/O",
-    description: "Status for not selected candidates",
-  },
 });

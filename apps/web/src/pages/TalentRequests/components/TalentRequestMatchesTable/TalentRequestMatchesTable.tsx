@@ -409,7 +409,7 @@ const TalentRequestMatchesTable = ({
       },
     },
     notReferred: {
-      status: intl.formatMessage(changeStatusMessages.notReferred),
+      status: intl.formatMessage(commonMessages.notReferred),
       icon: ArchiveBoxIcon,
       disable: creatingTrackedUsersNotReferred,
       reasonType: "notReferred",
@@ -523,7 +523,7 @@ const TalentRequestMatchesTable = ({
             label: (
               <IconLabel
                 label={intl.formatMessage(changeStatusMessages.changeStatus, {
-                  status: intl.formatMessage(changeStatusMessages.notReferred),
+                  status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}
               />

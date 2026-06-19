@@ -779,10 +779,6 @@
     "defaultMessage": "Votre parcours professionnel",
     "description": "Heading for career timeline section of the application review page."
   },
-  "0x9e/O": {
-    "defaultMessage": "Non sélectionné",
-    "description": "Status for not selected candidates"
-  },
   "0xMKNB": {
     "defaultMessage": "Niveau : {skillLevelName}",
     "description": "A description of a skill level"
@@ -3850,10 +3846,6 @@
   "DJL4F5": {
     "defaultMessage": "Vous n'avez pas encore ajouté de compétences constituant un atout.",
     "description": "Null message title for asset skills table."
-  },
-  "DLHaYP": {
-    "defaultMessage": "Sélectionné",
-    "description": "Status for selected candidates"
   },
   "DNLEfN": {
     "defaultMessage": "Courriel de correspondance",
@@ -8914,10 +8906,6 @@
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
   },
-  "YJ9DuG": {
-    "defaultMessage": "Pas de recommandation",
-    "description": "Dialog trigger for unpause referral status dialog"
-  },
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
@@ -11586,10 +11574,6 @@
     "defaultMessage": "Les tâches principales servent à inspirer et à guider les gestionnaires lorsqu’ils utilisent ce modèle pour créer leurs offres d’emploi. Essayez de donner quatre à huit exemples et n’oubliez pas de terminer chaque phrase par un point.",
     "description": "Lead-in text for job poster template key tasks section, paragraph 1"
   },
-  "ic7nR0": {
-    "defaultMessage": "Non recommandé",
-    "description": "Status for not referred candidates"
-  },
   "icYqDt": {
     "defaultMessage": "Bassin",
     "description": "Title of the 'Pool' column for the table on view-user page"
@@ -14077,10 +14061,6 @@
   "sozTPf": {
     "defaultMessage": "Nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
-  },
-  "sp0Pgt": {
-    "defaultMessage": "Pas de recommandation",
-    "description": "Label for not referred notice when placed indeterminate"
   },
   "spzerx": {
     "defaultMessage": "Modifier une compétence",

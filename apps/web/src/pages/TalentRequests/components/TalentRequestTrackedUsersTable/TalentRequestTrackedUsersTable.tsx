@@ -403,7 +403,7 @@ const TalentRequestTrackedUsersTable = ({
       },
     },
     notReferred: {
-      status: intl.formatMessage(messages.notReferred),
+      status: intl.formatMessage(commonMessages.notReferred),
       icon: ArchiveBoxIcon,
       disable: updatingTrackedUsersNotReferred,
       reasonType: "notReferred",
@@ -420,7 +420,7 @@ const TalentRequestTrackedUsersTable = ({
       },
     },
     selected: {
-      status: intl.formatMessage(messages.selected),
+      status: intl.formatMessage(commonMessages.selected),
       icon: CheckIcon,
       disable: updatingTrackedUsersSelected,
       onConfirm: async () => {
@@ -430,7 +430,7 @@ const TalentRequestTrackedUsersTable = ({
       },
     },
     notSelected: {
-      status: intl.formatMessage(messages.notSelected),
+      status: intl.formatMessage(commonMessages.notSelected),
       icon: XMarkIcon,
       disable: updatingTrackedUsersNotSelected,
       reasonType: "notSelected",
@@ -552,7 +552,7 @@ const TalentRequestTrackedUsersTable = ({
             label: (
               <IconLabel
                 label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.notReferred),
+                  status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}
               />
@@ -563,7 +563,7 @@ const TalentRequestTrackedUsersTable = ({
             label: (
               <IconLabel
                 label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.selected),
+                  status: intl.formatMessage(commonMessages.selected),
                 })}
                 icon={CheckIcon}
               />
@@ -574,7 +574,7 @@ const TalentRequestTrackedUsersTable = ({
             label: (
               <IconLabel
                 label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.notSelected),
+                  status: intl.formatMessage(commonMessages.notSelected),
                 })}
                 icon={XMarkIcon}
               />

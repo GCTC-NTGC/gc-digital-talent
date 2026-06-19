@@ -1683,6 +1683,10 @@
     "defaultMessage": "N'importe quelle langue",
     "description": "Any language"
   },
+  "sp0Pgt": {
+    "defaultMessage": "Non recommandé",
+    "description": "Label for a candidate that is not referred"
+  },
   "spoY2L": {
     "defaultMessage": "Tous les types",
     "description": "Select the option to sort or filter by all types"
