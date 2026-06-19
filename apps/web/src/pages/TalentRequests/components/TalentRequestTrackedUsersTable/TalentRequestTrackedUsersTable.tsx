@@ -21,13 +21,13 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
-  TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUsersPaginatedQuery,
 } from "@gc-digital-talent/graphql";
 import {
   graphql,
   getFragment,
   PriorityWeight,
+  TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
@@ -135,7 +135,18 @@ interface TalentRequestTrackedUsersTableProps {
   skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
 }
 
-type ChangeStatusKey = "selected" | "notSelected";
+type ChangeStatusKey = "referred" | "notReferred" | "selected" | "notSelected";
+
+const notReferredReasonValues = new Set<string>(
+  Object.values(TalentRequestTrackedUserNotReferredReason),
+);
+
+const isNotReferredReason = (
+  reason:
+    | TalentRequestTrackedUserNotReferredReason
+    | TalentRequestTrackedUserNotSelectedReason,
+): reason is TalentRequestTrackedUserNotReferredReason =>
+  notReferredReasonValues.has(reason);
 
 const notSelectedReasonValues = new Set<string>(
   Object.values(TalentRequestTrackedUserNotSelectedReason),
@@ -353,6 +364,10 @@ const TalentRequestTrackedUsersTable = ({
   ] as ColumnDef<TrackedUser>[];
 
   const {
+    updateTrackedUsersReferred,
+    updatingTrackedUsersReferred,
+    updateTrackedUsersNotReferred,
+    updatingTrackedUsersNotReferred,
     updateTrackedUsersSelected,
     updatingTrackedUsersSelected,
     updateTrackedUsersNotSelected,
@@ -365,6 +380,33 @@ const TalentRequestTrackedUsersTable = ({
   // Central config for status-change dialogs: selects the right UI copy and action
   // (confirm or reason-based update) based on the currently chosen status.
   const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
+    referred: {
+      status: intl.formatMessage(messages.referred),
+      icon: ArrowRightCircleIcon,
+      disable: updatingTrackedUsersReferred,
+      onConfirm: async () => {
+        await updateTrackedUsersReferred({ ids: selectedRows });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+    notReferred: {
+      status: intl.formatMessage(messages.notReferred),
+      icon: ArchiveBoxIcon,
+      disable: updatingTrackedUsersNotReferred,
+      reasonType: "notReferred",
+      onUpdate: async (reason) => {
+        if (!isNotReferredReason(reason)) {
+          return;
+        }
+        await updateTrackedUsersNotReferred({
+          ids: selectedRows,
+          notReferredReason: reason,
+        });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
     selected: {
       status: intl.formatMessage(messages.selected),
       icon: ArrowRightCircleIcon,
@@ -417,6 +459,7 @@ const TalentRequestTrackedUsersTable = ({
         rowSelect={{
           onRowSelection: setSelectedRows,
           getRowId: (row) => row.id,
+          selectedIds: selectedRows,
           cell: ({ row }) =>
             rowSelectCell({
               row,
@@ -483,6 +526,28 @@ const TalentRequestTrackedUsersTable = ({
           onPaginationChange: handlePaginationStateChange,
         }}
         actions={[
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(messages.referred),
+                })}
+                icon={ArrowRightCircleIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("referred"),
+          },
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(messages.notReferred),
+                })}
+                icon={ArchiveBoxIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("notReferred"),
+          },
           {
             label: (
               <IconLabel

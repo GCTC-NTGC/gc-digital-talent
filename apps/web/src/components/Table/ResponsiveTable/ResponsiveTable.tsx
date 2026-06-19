@@ -2,13 +2,14 @@ import { useLocation, useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import debounce from "lodash/debounce";
-import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
   getPaginationRowModel,
   useReactTable,
+  type ColumnDef,
+  type RowSelectionState,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
 import { useEffect, useId, useMemo, useRef } from "react";
@@ -119,7 +120,13 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = useRowSelection();
+  const [internalRowSelection, setRowSelection] = useRowSelection();
+  const rowSelection: RowSelectionState = rowSelect?.selectedIds
+    ? rowSelect.selectedIds.reduce<RowSelectionState>(
+        (acc, rowId) => ({ ...acc, [rowId]: true }),
+        {},
+      )
+    : internalRowSelection;
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
       columnIds,
@@ -162,7 +169,9 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     onRowSelectionChange: (updater) => {
       const newRowSelection =
         typeof updater === "function" ? updater(rowSelection) : updater;
-      setRowSelection(newRowSelection);
+      if (!rowSelect?.selectedIds) {
+        setRowSelection(newRowSelection);
+      }
       if (rowSelect?.onRowSelection) {
         const selectedIds = data
           .filter((row) => newRowSelection[rowSelect.getRowId(row)])
