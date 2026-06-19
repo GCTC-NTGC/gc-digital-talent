@@ -27,6 +27,8 @@ const TalentRequestTracking_Query = graphql(/** GraphQL */ `
         }
       }
     }
+
+    ...TalentRequestReferralDialogOptions
   }
 `);
 
@@ -44,7 +46,6 @@ const Tracking = () => {
     variables: { id: talentRequestId },
     context,
   });
-  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -62,7 +63,10 @@ const Tracking = () => {
       >
         <TalentRequestTrackedUsersTable
           talentRequestId={talentRequestId}
-          skills={skills}
+          skillsQuery={unpackMaybes(
+            data?.talentRequest?.applicantFilter?.skills,
+          )}
+          optionsQuery={data}
         />
       </TalentRequestSectionCard>
 
@@ -87,7 +91,10 @@ const Tracking = () => {
           {data?.talentRequest ? (
             <TalentRequestMatchesTable
               query={data.talentRequest}
-              skills={skills}
+              skillsQuery={unpackMaybes(
+                data?.talentRequest?.applicantFilter?.skills,
+              )}
+              optionsQuery={data}
             />
           ) : (
             <ThrowNotFound />

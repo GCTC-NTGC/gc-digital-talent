@@ -6,13 +6,13 @@ import type {
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useRef, useState } from "react";
-import { useQuery } from "urql";
+import { useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
 
-import { Link, Chip, IconLabel } from "@gc-digital-talent/ui";
+import { Chip, IconLabel } from "@gc-digital-talent/ui";
 import {
   notEmpty,
   uniqueItems,
@@ -31,7 +31,6 @@ import {
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -56,10 +55,12 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import ChangeStatusDialog from "./ChangeStatusDialog";
 import type { StatusDialogConfig } from "../../types";
 import messages from "./messages";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -113,6 +114,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
             }
           }
         }
+        ...TalentRequestEditReferralDialog
       }
       paginatorInfo {
         count
@@ -130,9 +132,14 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
 
 const defaultSortState = [{ id: "skillCount", desc: true }];
 
+const trackedUsersContext: Partial<OperationContext> = {
+  additionalTypenames: ["TalentRequestTrackedUser"],
+};
+
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
 type ChangeStatusKey = "referred" | "notReferred" | "selected" | "notSelected";
@@ -161,13 +168,13 @@ const isNotSelectedReason = (
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
-  skills,
+  skillsQuery,
+  optionsQuery,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const matchedSkills = getFragment(
     TalentRequestUserSkillMatch_Fragment,
-    skills,
+    skillsQuery,
   );
 
   const filterRef = useRef<TrackedUserFilters | undefined>(undefined);
@@ -240,6 +247,7 @@ const TalentRequestTrackedUsersTable = ({
       first: paginationState.pageSize,
       orderBy: transformSortStateToOrderByClause(sortState),
     },
+    context: trackedUsersContext,
   });
 
   const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
@@ -280,10 +288,12 @@ const TalentRequestTrackedUsersTable = ({
         header: intl.formatMessage(commonMessages.name),
         enableSorting: false,
         meta: { isRowTitle: true },
-        cell: ({ row: { original }, getValue }) =>
-          original.user.id ? (
-            <Link href={paths.userView(original.user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestEditReferralDialog
+            query={original}
+            optionsQuery={optionsQuery}
+          />
+        ),
       },
     ),
     columnHelper.accessor(({ status }) => status?.label?.localized, {
@@ -507,8 +517,7 @@ const TalentRequestTrackedUsersTable = ({
           initialState: defaultSortState,
         }}
         filter={{
-          // eslint-disable-next-line react-hooks/refs
-          state: filterRef.current,
+          state: filterState,
           component: (
             <TalentRequestTrackedUsersFilterDialog
               onSubmit={handleFilterSubmit}

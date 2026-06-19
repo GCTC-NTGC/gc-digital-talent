@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
@@ -167,6 +168,18 @@ final class SubmitTalentNominationValidator extends Validator
             'skills.*.skill_id' => [
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
             ],
+            'nine_box_performance' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
+            'nine_box_leadership_potential' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
         ];
     }
 
@@ -176,6 +189,10 @@ final class SubmitTalentNominationValidator extends Validator
             'submitted_at.prohibited' => ErrorCode::TALENT_NOMINATION_ALREADY_SUBMITTED->name,
             'skills.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.*.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
+            'nine_box_performance.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_performance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nine_box_leadership_potential.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_leadership_potential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
         ];
     }
 }
