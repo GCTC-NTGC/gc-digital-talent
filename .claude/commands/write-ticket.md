@@ -8,7 +8,10 @@ $ARGUMENTS
 
 ## Instructions
 
-Draft the issue body following every guideline below. Present the draft for review. Once approved, create it with `gh issue create --repo GCTC-NTGC/gc-digital-talent` using a HEREDOC for the body. Use the appropriate issue template via `--template` if one matches the ticket type.
+Draft the issue body following every guideline below. Present the draft for review. Once approved, create it with `gh issue create --repo GCTC-NTGC/gc-digital-talent` using a HEREDOC for the body.
+
+> [!IMPORTANT]
+> `gh issue create --template` is incompatible with `--body`/`--body-file` — the CLI errors if both are passed. Instead, read the relevant template YAML to match its section names and structure, then reproduce that structure in the `--body` content.
 
 Issue templates live in the repo at `.github/ISSUE_TEMPLATE/`. Read the relevant template YAML before drafting to match its exact field names and structure. Available templates: `accessibility.yml`, `bug_report.yml`, `copy.yml`, `documentation.yml`, `feature.yml`, `notification.yml`, `platform.yml`, `refactor.yml`, `spike.yml`, `testing.yml`, `user_interface.yml`, and `roadmap--epic-.md`.
 
