@@ -15,6 +15,17 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 
 **Frontend Structure** (`apps/web/src/`): pages/, components/, hooks/, routes.ts
 
+## Data Domains
+
+- **Users & Auth**: profiles, skills, roles, permissions
+- **Pools**: recruitment pools with candidates, assessments, status tracking
+- **Applications/Candidates**: Applications to pools aka PoolCandidates, with assessments, records of decision
+- **Assessments**: steps, results, skill evaluations
+- **Employee Profile**: community interest, work streams, skill development programs
+- **Nominations**: talent nomination events, and nominations of employees
+- **Talent requests**: requests for talent, matching and tracking candidates
+- **Communities & Departments**: organize ownership of pools, requests, and nomination events
+
 ## Essential Commands
 
 All commands run from the repository root. Use `ENV=dev` for development with hot reloading. Make targets run inside Docker via the maintenance container.
