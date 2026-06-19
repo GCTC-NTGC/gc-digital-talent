@@ -1,20 +1,27 @@
 import { useIntl } from "react-intl";
 import ChartPieIcon from "@heroicons/react/24/outline/ChartPieIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import { useQuery, type OperationContext } from "urql";
 
-import { TableOfContents, Link } from "@gc-digital-talent/ui";
-import { NotFoundError, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  TableOfContents,
+  Link,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import { graphql } from "@gc-digital-talent/graphql";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
+import type {
+  SkillPortfolioTable_SkillFragment,
+  SkillPortfolioTable_UserSkillFragment,
+} from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
 import SkillPortfolioTable from "~/components/SkillsPortfolioTable/SkillPortfolioTable";
-import { requireUser } from "~/routing/auth";
-import { graphqlClientContext, intlContext } from "~/routing/context";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-
-import type { Route } from "./+types/SkillPortfolioPage";
 
 interface PageSection {
   id: string;
@@ -25,13 +32,6 @@ type PageSections = Record<string, PageSection>;
 export const handle = {
   pageTitle: navigationMessages.skillPortfolio,
 };
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
-    return await next();
-  },
-];
 
 const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
   query SkillPortfolioPageQuery {
@@ -46,27 +46,14 @@ const SkillPortfolioPage_Query = graphql(/* GraphQL */ `
     }
   }
 `);
-
-export async function clientLoader({ context }: Route.ClientLoaderArgs) {
-  const intl = context.get(intlContext);
-  const client = context.get(graphqlClientContext);
-
-  const res = await client.query(SkillPortfolioPage_Query, {}).toPromise();
-
-  if (!res.data?.me) {
-    throw new NotFoundError(intl.formatMessage(profileMessages.userNotFound));
-  }
-
-  return {
-    user: res.data.me,
-    skills: res.data.skills,
-  };
+interface SkillPortfolioProps {
+  userSkills: FragmentType<typeof SkillPortfolioTable_UserSkillFragment>[];
+  skills: FragmentType<typeof SkillPortfolioTable_SkillFragment>[];
 }
 
-const SkillPortfolioPage = ({ loaderData }: Route.ComponentProps) => {
+const SkillPortfolio = ({ userSkills, skills }: SkillPortfolioProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { user, skills } = loaderData;
 
   const sections: PageSections = {
     manage: {
@@ -118,7 +105,7 @@ const SkillPortfolioPage = ({ loaderData }: Route.ComponentProps) => {
           </p>
           <SkillPortfolioTable
             caption={sections.manage.title}
-            userSkillsQuery={unpackMaybes(user.userSkills)}
+            userSkillsQuery={unpackMaybes(userSkills)}
             allSkillsQuery={unpackMaybes(skills)}
           />
         </TableOfContents.Section>
@@ -150,5 +137,40 @@ const SkillPortfolioPage = ({ loaderData }: Route.ComponentProps) => {
     </TableOfContents.Wrapper>
   );
 };
+
+const context: Partial<OperationContext> = {
+  additionalTypenames: ["UserSkill"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
+};
+
+const SkillPortfolioPage = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useQuery({
+    query: SkillPortfolioPage_Query,
+    context,
+  });
+
+  const userSkills = unpackMaybes(data?.me?.userSkills);
+  const skills = unpackMaybes(data?.skills);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <SkillPortfolio userSkills={userSkills} skills={skills} />
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
+    </Pending>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <SkillPortfolioPage />
+  </RequireAuth>
+);
+
+Component.displayName = "SkillPortfolioPage";
 
 export default SkillPortfolioPage;

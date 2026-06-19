@@ -24,12 +24,10 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import labels from "./labels";
 import type { ContextType } from "./ManageAccessPage/components/types";
-import type { Route } from "./+types/ViewDepartmentPage";
-import { getTeamIdInMiddleware } from "./utils";
 import messages from "./messages";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
@@ -165,22 +163,7 @@ const Department_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId: teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
-
-const Component = () => {
+const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useQuery({
@@ -224,6 +207,27 @@ const Component = () => {
         </Pending>
       </Container>
     </>
+  );
+};
+
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin },
+        { name: ROLE.DepartmentHRAdvisor },
+      ]}
+    >
+      <UpdateDepartmentPage />
+    </RequireAuth>
   );
 };
 
