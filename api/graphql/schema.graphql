@@ -721,6 +721,16 @@ type PoolCandidate {
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
+
+  # special application fields
+  specialApplicationType: LocalizedSpecialApplicationType
+    @rename(attribute: "special_application_type")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationJustification: String
+    @rename(attribute: "special_application_justification")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationClosingDate: DateTime
+    @rename(attribute: "special_application_closing_date")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1199,7 +1209,7 @@ type TalentRequestTrackedUser {
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
 
@@ -1607,7 +1617,7 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate; root is the User model
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
 }
 
@@ -1941,7 +1951,9 @@ type Query {
     @guard
     @canModel(ability: "viewAny")
   talentRequestTrackedUsers(
-    talentRequestId: UUID! @eq(key: "talent_request_id") @scope(name: "withSources")
+    talentRequestId: UUID!
+      @eq(key: "talent_request_id")
+      @scope(name: "withSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy

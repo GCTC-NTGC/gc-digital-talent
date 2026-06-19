@@ -1323,6 +1323,9 @@ type PoolCandidate {
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
   priorityVerificationExpiry: Date
+  specialApplicationType: LocalizedSpecialApplicationType
+  specialApplicationJustification: String
+  specialApplicationClosingDate: DateTime
 }
 
 type PoolCandidateWithSkillCount {
