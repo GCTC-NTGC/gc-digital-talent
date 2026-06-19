@@ -709,6 +709,8 @@ type Mutation {
   updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
   updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
+  createTalentRequestTrackedUser(input: CreateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
+  updateTalentRequestTrackedUser(id: UUID!, input: UpdateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -2780,6 +2782,20 @@ input UpdateTalentRequestStatusInput {
   inProgressDetails: TalentRequestInProgressDetail
   completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
+}
+
+input CreateTalentRequestTrackedUserInput {
+  userId: UUID!
+  talentRequestId: UUID!
+  referralDecision: TalentRequestTrackedUserReferralDecision
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+}
+
+input UpdateTalentRequestTrackedUserInput {
+  referralDecision: TalentRequestTrackedUserReferralDecision!
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+  selectionDecision: TalentRequestTrackedUserSelectionDecision
+  notSelectedReason: TalentRequestTrackedUserNotSelectedReason
 }
 
 input SkillBelongsToMany {
