@@ -2555,6 +2555,10 @@
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
     "description": "Talent portal strategy item 2 content"
   },
+  "85Y9eS": {
+    "defaultMessage": "Historique des mises en candidature",
+    "description": "Heading for the nomination history page"
+  },
   "86Y8lx": {
     "defaultMessage": "Votre nom",
     "description": "Support form name field label"
@@ -14713,6 +14717,10 @@
   "vRNv4w": {
     "defaultMessage": "Revoir la demande",
     "description": "Title for the review application dialog"
+  },
+  "vtmq4K": {
+    "defaultMessage": "Historique",
+    "description": "Link text for the history of a nominee"
   },
   "vUZf8Y": {
     "defaultMessage": "Texte de rechange en langage clair",
