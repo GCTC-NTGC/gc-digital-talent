@@ -5,7 +5,7 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQuery } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
@@ -58,7 +58,7 @@ import {
 } from "./utils";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import ChangeStatusDialog from "./ChangeStatusDialog";
-import type { StatusReasonType } from "./ChangeStatusForm";
+import type { StatusDialogConfig } from "../../types";
 import messages from "./messages";
 
 type TrackedUser =
@@ -364,21 +364,7 @@ const TalentRequestTrackedUsersTable = ({
 
   // Central config for status-change dialogs: selects the right UI copy and action
   // (confirm or reason-based update) based on the currently chosen status.
-  const statusDialogConfigs: Record<
-    ChangeStatusKey,
-    {
-      status: string;
-      icon: typeof ArrowRightCircleIcon;
-      disable: boolean;
-      onConfirm?: () => Promise<void>;
-      reasonType?: StatusReasonType;
-      onUpdate?: (
-        reason:
-          | TalentRequestTrackedUserNotReferredReason
-          | TalentRequestTrackedUserNotSelectedReason,
-      ) => Promise<void>;
-    }
-  > = {
+  const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     selected: {
       status: intl.formatMessage(messages.selected),
       icon: ArrowRightCircleIcon,

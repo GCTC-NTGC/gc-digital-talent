@@ -5,7 +5,7 @@ import {
   type SortingState,
 } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
 import ArrowRightCircleIcon from "@heroicons/react/24/solid/ArrowRightCircleIcon";
 import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
@@ -51,7 +51,7 @@ import TalentRequestMatchesFilterDialog, {
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import ChangeStatusDialog from "../TalentRequestTrackedUsersTable/ChangeStatusDialog";
-import type { StatusReasonType } from "../TalentRequestTrackedUsersTable/ChangeStatusForm";
+import type { StatusDialogConfig } from "../../types";
 import changeStatusMessages from "../TalentRequestTrackedUsersTable/messages";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
@@ -382,21 +382,7 @@ const TalentRequestMatchesTable = ({
 
   // Central config for status-change dialogs: selects the right UI copy and action
   // (confirm or reason-based update) based on the currently chosen status.
-  const statusDialogConfigs: Record<
-    ChangeStatusKey,
-    {
-      status: string;
-      icon: typeof ArrowRightCircleIcon;
-      disable: boolean;
-      onConfirm?: () => Promise<void>;
-      reasonType?: StatusReasonType;
-      onUpdate?: (
-        reason:
-          | TalentRequestTrackedUserNotReferredReason
-          | TalentRequestTrackedUserNotSelectedReason,
-      ) => Promise<void>;
-    }
-  > = {
+  const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     referred: {
       status: intl.formatMessage(changeStatusMessages.referred),
       icon: ArrowRightCircleIcon,
