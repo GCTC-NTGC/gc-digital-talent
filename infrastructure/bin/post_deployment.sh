@@ -133,10 +133,9 @@ fi
 
 # Copy nginx config and reload
 if
-    touch /etc/nginx/conf.d/default.conf && \
     /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
-        /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
-        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
+        /home/site/wwwroot/infrastructure/conf/nginx-deploy.conf \
+        /etc/nginx/conf.d/default.conf '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
     nginx -s reload ; then
     add_section_block ":white_check_mark: Set up Nginx *successful*."
 else

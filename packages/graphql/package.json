@@ -15,7 +15,7 @@
     "@graphql-codegen/cli": "^6.3.1",
     "@graphql-codegen/client-preset": "^5.3.0",
     "@parcel/watcher": "^2.5.4",
-    "graphql": "^16.14.1",
+    "graphql": "^16.14.2",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
     "urql": "^5.0.2"
