@@ -248,6 +248,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -1518,6 +1523,8 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+  nineBoxPerformance: LocalizedNineBoxRating
+  nineBoxLeadershipPotential: LocalizedNineBoxRating
 }
 
 type TalentNominationGroup {
@@ -2661,6 +2668,8 @@ input CreateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationInput {
@@ -2693,6 +2702,8 @@ input UpdateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationGroupInput {
@@ -4381,6 +4392,8 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_NOT_FOUND
   ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
+  NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -4534,6 +4547,12 @@ enum LearningOpportunitiesInterest {
 enum Mentorship {
   MENTOR
   MENTEE
+}
+
+enum NineBoxRating {
+  LOW
+  MODERATE
+  HIGH
 }
 
 enum NotificationFamily {
