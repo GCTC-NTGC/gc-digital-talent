@@ -63,6 +63,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
   const paths = useRoutes();
   const department = getFragment(DepartmentView_Fragment, query);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const { canEditAdmin } = useOutletContext<ContextType>();
 
   return (
     <>
@@ -126,19 +127,23 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.size?.label.localized ?? notProvided}
           </FieldDisplay>
         </div>
-        <CardSeparator />
-        <div className="flex justify-center xs:justify-start">
-          <Link
-            href={paths.departmentUpdate(department.id)}
-            className="font-bold"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit department information",
-              id: "os2TYf",
-              description: "Link to edit the currently viewed department",
-            })}
-          </Link>
-        </div>
+        {canEditAdmin && (
+          <>
+            <CardSeparator />
+            <div className="flex justify-center xs:justify-start">
+              <Link
+                href={paths.departmentUpdate(department.id)}
+                className="font-bold"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Edit department information",
+                  id: "os2TYf",
+                  description: "Link to edit the currently viewed department",
+                })}
+              </Link>
+            </div>
+          </>
+        )}
       </Card>
     </>
   );
