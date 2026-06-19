@@ -95,7 +95,9 @@ const Layout = ({ query }: LayoutProps) => {
     ],
   });
 
-  const isHistoryTab = location.pathname.endsWith("/history");
+  const isHistoryTab =
+    location.pathname.endsWith("/history") ||
+    location.pathname.endsWith("/history/");
 
   return (
     <>

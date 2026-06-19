@@ -24,9 +24,8 @@ const TalentNominationGroupHistoryPage = () => {
           >
             {intl.formatMessage({
               defaultMessage: "Nomination history",
-              id: "grgInC",
-              description:
-                "Heading for nominee profile page accordion sections",
+              id: "85Y9eS",
+              description: "Heading for the nomination history page",
             })}
           </Heading>
           <Button type="button" mode="inline" color="primary">
