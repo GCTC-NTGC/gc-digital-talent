@@ -2243,6 +2243,10 @@
     "defaultMessage": "Voir et gérer l'historique de vos notifications",
     "description": "Subtitle for the notifications page"
   },
+  "6grvzD": {
+    "defaultMessage": "Candidature retenue",
+    "description": "Title of the notice shown when a tracked user is selected for hiring"
+  },
   "6jBrNA": {
     "defaultMessage": "Vous pouvez lancer une nouvelle demande de talent en cliquant sur le bouton « Nouvelle demande » ou en accédant à la page « Trouver un talent » à partir du menu principal.",
     "description": "Body for notice when there are no pool candidate search requests"
@@ -5639,6 +5643,10 @@
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label for c-suite role title field"
   },
+  "KgOIh/": {
+    "defaultMessage": "Cette personne candidate a été retenue pour une embauche.",
+    "description": "Content of the notice shown when a tracked user is selected for hiring"
+  },
   "KghI8A": {
     "defaultMessage": "Postulez dès maintenant",
     "description": "Link text to apply for a pool advertisement"
@@ -5674,6 +5682,10 @@
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
+  },
+  "KsUNz1": {
+    "defaultMessage": "Voir le profil",
+    "description": "Link text to view a user's profile in a new tab"
   },
   "Ktxmhc": {
     "defaultMessage": "Options de perfectionnement professionnel offertes aux personnes proposant des nominations à titre de recommandations de possibilités de perfectionnement durant le processus de mise en candidature.",
@@ -7495,6 +7507,10 @@
     "defaultMessage": "Vous devez sélectionner une collectivité dont vous êtes membre.",
     "description": "Requirement statement"
   },
+  "S40Q+f": {
+    "defaultMessage": "Statut de suivi",
+    "description": "Label for the referral decision select in the referral dialog"
+  },
   "S4eHnR": {
     "defaultMessage": "N/D",
     "description": "An abbreviation for not available"
@@ -8458,6 +8474,10 @@
     "defaultMessage": "{skillsCount} des {filteredSkillsTotal}",
     "description": "Title displayed on the candidate skill count column."
   },
+  "WHhU4F": {
+    "defaultMessage": "Motif de non-sélection",
+    "description": "Label for the not selected reason select in the referral dialog"
+  },
   "WIbjog": {
     "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
@@ -9141,6 +9161,10 @@
   "Z0G1WA": {
     "defaultMessage": "Processus",
     "description": "Title for processes"
+  },
+  "Z0WKY2": {
+    "defaultMessage": "Profil ajouté au suivi.",
+    "description": "Success message after adding a user to a talent request's tracking list"
   },
   "Z2BMGx": {
     "defaultMessage": "Retirer l'adresse courriel professionnelle",
@@ -10690,6 +10714,10 @@
     "defaultMessage": "Le BIA a pour mission d’intégrer les talents autochtones dans la main-d’œuvre des TI du GC et de simplifier le processus d’embauche pour vous.",
     "description": "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section"
   },
+  "fHSoZb": {
+    "defaultMessage": "Décision de recommandation mise à jour.",
+    "description": "Success message after updating a tracked user referral decision"
+  },
   "fI0idr": {
     "defaultMessage": "Date de réception",
     "description": "Title displayed on the Pool Candidates table Date received column."
@@ -10829,6 +10857,10 @@
   "fhgZRX": {
     "defaultMessage": "Je signe et j’envoie ma candidature",
     "description": "Heading for sign and submit section of application review page."
+  },
+  "fhi1EG": {
+    "defaultMessage": "Examinez le profil de {userName} et modifiez son statut pour cette demande.",
+    "description": "Subtitle for talent request referral"
   },
   "fhpWug": {
     "defaultMessage": "Présentez les informations sur un cadre supérieur qui servira de référence secondaire pour confirmer que la personne candidate est prête à être promue.",
@@ -11677,6 +11709,10 @@
   "j+jnML": {
     "defaultMessage": "<strong>Ma situation correspond à l’option de deux années d’études postsecondaires.</strong>",
     "description": "Radio group option for education requirement filter in application education form."
+  },
+  "j/sEfU": {
+    "defaultMessage": "Décision de sélection",
+    "description": "Label for the selection decision select in the referral dialog"
   },
   "j357Vx": {
     "defaultMessage": "Télécharger DOCX",
@@ -13062,6 +13098,10 @@
     "defaultMessage": "Se connecter avec CléGC",
     "description": "GCKey sign in link text on the sign in page"
   },
+  "oQwEoy": {
+    "defaultMessage": "Motif de non-recommandation",
+    "description": "Label for the not referred reason select in the referral dialog"
+  },
   "oR+6vE": {
     "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
     "description": "Text for first sign in step."
@@ -14217,6 +14257,10 @@
   "tL6hvG": {
     "defaultMessage": "Modifier une collectivité",
     "description": "Short title for the edit community interest page"
+  },
+  "tNTSEV": {
+    "defaultMessage": "Erreur : impossible d'ajouter le profil au suivi.",
+    "description": "Error message when adding a user to tracking fails"
   },
   "tOohws": {
     "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes visés par l'équité en matière d'emploi.",
@@ -15768,6 +15812,10 @@
   "zcr51k": {
     "defaultMessage": "La reproduction des symboles officiels du gouvernement du Canada, y compris le mot-symbole « Canada », les armoiries du Canada et le symbole du drapeau, à des fins commerciales ou non commerciales, est interdite sans <trademarkLink>autorisation écrite</trademarkLink> au préalable.",
     "description": "Paragraph describing trademark notice section"
+  },
+  "zdEnPY": {
+    "defaultMessage": "Erreur : impossible de mettre à jour la décision de recommandation.",
+    "description": "Error message when updating a tracked user referral decision fails"
   },
   "zdeoxH": {
     "defaultMessage": "Diplôme d’études secondaires",
