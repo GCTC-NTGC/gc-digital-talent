@@ -14718,10 +14718,6 @@
     "defaultMessage": "Revoir la demande",
     "description": "Title for the review application dialog"
   },
-  "vtmq4K": {
-    "defaultMessage": "Historique",
-    "description": "Link text for the history of a nominee"
-  },
   "vUZf8Y": {
     "defaultMessage": "Texte de rechange en langage clair",
     "description": "Label for plain language alternative"
@@ -14841,6 +14837,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vtmq4K": {
+    "defaultMessage": "Historique",
+    "description": "Link text for the history of a nominee"
   },
   "vtnz6B": {
     "defaultMessage": "Décision finale",
