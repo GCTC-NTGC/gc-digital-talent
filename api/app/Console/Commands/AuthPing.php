@@ -31,13 +31,11 @@ class AuthPing extends Command
     public function handle()
     {
         $url = config('oauth.token_uri');
-        // typical payload for requesting a login in the auth callback
+        // client credentials payload for OIDC token endpoint
         $data = [
-            'grant_type' => 'authorization_code',
+            'grant_type' => 'client_credentials',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
-            'redirect_uri' => config('oauth.redirect_uri'),
-            'code' => '1', // not a real code, of course
         ];
 
         $results = $this->pingTokenUri($url, $data);
@@ -66,11 +64,10 @@ class AuthPing extends Command
             try {
                 $response = Http::asForm()->post($url, $data);
                 $transferStats = $response->transferStats;
-
                 $results->push([
                     'transferTime' => $transferStats->getTransferTime() * 1000, // s -> ms
-                    // since we don't have a real code we're expecting the invalid_grant error
-                    'success' => $response->status() == 400 && $response->json('error') == 'invalid_grant',
+                    // success: 200 response with an access_token present
+                    'success' => $response->successful() && ! is_null($response->json('access_token')),
                 ]);
             } catch (\Throwable $_) {
                 $results->push([
