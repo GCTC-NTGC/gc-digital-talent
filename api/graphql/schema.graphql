@@ -3903,7 +3903,7 @@ type Mutation {
   ): TalentRequestTrackedUser!
     @guard
     @canFind(
-      ability: "update"
+      ability: "update" # If the user can update the talent request, they can create tracked user
       find: "talent_request_id"
       model: "TalentRequest"
       scopes: ["withPolicyEagerLoads"]
