@@ -522,7 +522,10 @@ type Pool implements HasRoleAssignments {
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
-  closingReason: String @rename(attribute: "closing_reason")
+  closingReason: String
+    @rename(attribute: "closing_reason")
+    @canRoot(ability: "viewPoolNotes")
+  wasClosedEarly: Boolean!
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean @rename(attribute: "is_complete")

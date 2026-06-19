@@ -32,7 +32,7 @@ import type {
   LocalizedPoolStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
@@ -75,10 +75,6 @@ export const isAdvertisementVisible = (
     }) ?? false
   );
 };
-
-export function isIAPPool(publishingGroup?: PublishingGroup | null): boolean {
-  return publishingGroup === PublishingGroup.Iap;
-}
 
 export function isExecPool(group?: string | null): boolean {
   return group === "EX";
@@ -182,13 +178,6 @@ export const poolTitle = (
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
-
-  if (isIAPPool(pool.publishingGroup?.value)) {
-    return {
-      html: specificTitle,
-      label: specificTitle,
-    };
-  }
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
