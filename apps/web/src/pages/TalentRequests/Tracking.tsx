@@ -3,6 +3,7 @@ import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
 import { useQuery } from "urql";
 
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -12,30 +13,32 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
 import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
 import type { RouteParams } from "./types";
 
-const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
-  query TalentRequestTrackingSkills($talentRequestId: UUID!) {
-    talentRequest(id: $talentRequestId) {
+const TalentRequestTracking_Query = graphql(/** GraphQL */ `
+  query TalentRequestTracking($id: UUID!) {
+    talentRequest(id: $id) {
+      ...TalentRequestMatchesTableTalentRequest
       applicantFilter {
         skills {
-          ...TrackedUserSkillMatch
+          ...TalentRequestUserSkillMatch
         }
       }
     }
+
+    ...TalentRequestReferralDialogOptions
   }
 `);
 
 const Tracking = () => {
   const intl = useIntl();
   const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
-
-  const [{ data }] = useQuery({
-    query: TalentRequestTrackingSkills_Query,
-    variables: { talentRequestId },
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentRequestTracking_Query,
+    variables: { id: talentRequestId },
   });
-  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -53,7 +56,10 @@ const Tracking = () => {
       >
         <TalentRequestTrackedUsersTable
           talentRequestId={talentRequestId}
-          skills={skills}
+          skillsQuery={unpackMaybes(
+            data?.talentRequest?.applicantFilter?.skills,
+          )}
+          optionsQuery={data}
         />
       </TalentRequestSectionCard>
 
@@ -74,7 +80,19 @@ const Tracking = () => {
             "Description of the table showing users who match talent request criteria",
         })}
       >
-        <>{/** TODO: Add children */}</>
+        <Pending fetching={fetching} error={error}>
+          {data?.talentRequest ? (
+            <TalentRequestMatchesTable
+              query={data.talentRequest}
+              skillsQuery={unpackMaybes(
+                data?.talentRequest?.applicantFilter?.skills,
+              )}
+              optionsQuery={data}
+            />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </TalentRequestSectionCard>
     </div>
   );

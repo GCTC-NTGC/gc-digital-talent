@@ -70,7 +70,7 @@ export type SearchDef<T> = {
 } & Omit<SearchDefFormProps<T>, "onChange">;
 
 export interface SortDef {
-  /** Allows the table to manage search */
+  /** Allows the table to manage sorting */
   internal: boolean;
   initialState?: SortingState;
   /** Callback when sorting rule changes */
@@ -122,7 +122,7 @@ export interface TableAction {
 }
 
 export interface PaginationDef {
-  /** Allows the table to manage search */
+  /** Allows the table to manage pagination */
   internal: boolean;
   /** Callback for when the pagination changes */
   onPaginationChange?: (newPagination: PaginationState) => void;

@@ -225,10 +225,6 @@ export default [
                 "./pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage.tsx",
               ),
               route(
-                "self-declaration",
-                "./pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage.tsx",
-              ),
-              route(
                 "profile",
                 "./pages/Applications/ApplicationProfilePage/ApplicationProfilePage.tsx",
               ),

@@ -44,6 +44,7 @@ export default mergeConfig(
           "**/eslint.config.{js,cjs,mjs,ts}",
           "**/vite.config.{js,cjs,mjs,ts}",
           "**/*.d.ts",
+          "**/*.json",
         ],
       },
       projects: [

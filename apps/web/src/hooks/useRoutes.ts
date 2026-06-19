@@ -6,9 +6,6 @@ import { getLocale } from "@gc-digital-talent/i18n";
 import type { PageSectionId as UserProfilePageSectionId } from "~/constants/sections/userProfile";
 import type { PageSectionId as ApplicantDashboardSectionId } from "~/constants/sections/applicantDashboard";
 
-const FromIapDraftQueryKey = "fromIapDraft";
-const FromIapSuccessQueryKey = "fromIapSuccess";
-
 const createSearchQuery = (parameters: Map<string, string>): string => {
   if (parameters.size === 0) return "";
 
@@ -241,8 +238,6 @@ const getRoutes = (lang: Locales) => {
     // Application
     applicationWelcome: (applicationId: string) =>
       [baseUrl, "applications", applicationId, "welcome"].join("/"),
-    applicationSelfDeclaration: (applicationId: string) =>
-      [baseUrl, "applications", applicationId, "self-declaration"].join("/"),
     applicationProfile: (applicationId: string) =>
       [baseUrl, "applications", applicationId, "profile"].join("/"),
     applicationCareerTimeline: (applicationId: string) =>
@@ -322,17 +317,7 @@ const getRoutes = (lang: Locales) => {
       `${applicantUrl}/community-interests/${communityInterestId}`,
 
     // Profile and Applications
-    profileAndApplications: (opts?: {
-      fromIapDraft?: boolean;
-      fromIapSuccess?: boolean;
-    }) => {
-      const searchParams = new Map<string, string>();
-      if (opts?.fromIapDraft) searchParams.set(FromIapDraftQueryKey, "true");
-      if (opts?.fromIapSuccess)
-        searchParams.set(FromIapSuccessQueryKey, "true");
-
-      return applicantUrl + createSearchQuery(searchParams);
-    },
+    profileAndApplications: () => applicantUrl,
 
     // Employee profile
     employeeProfile: () => `${applicantUrl}/employee-profile`,
