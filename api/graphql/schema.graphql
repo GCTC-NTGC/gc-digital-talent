@@ -522,7 +522,10 @@ type Pool implements HasRoleAssignments {
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
-  closingReason: String @rename(attribute: "closing_reason")
+  closingReason: String
+    @rename(attribute: "closing_reason")
+    @canRoot(ability: "viewPoolNotes")
+  wasClosedEarly: Boolean!
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean @rename(attribute: "is_complete")
@@ -1203,7 +1206,7 @@ type TalentRequestTrackedUser {
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate across all talent requests
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
 
@@ -1611,7 +1614,7 @@ type TalentRequestResult {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
-  referralSummary: TalentRequestReferralSummary! # user-wide aggregate; root is the User model
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
 }
 
@@ -1945,7 +1948,9 @@ type Query {
     @guard
     @canModel(ability: "viewAny")
   talentRequestTrackedUsers(
-    talentRequestId: UUID! @eq(key: "talent_request_id") @scope(name: "withSources")
+    talentRequestId: UUID!
+      @eq(key: "talent_request_id")
+      @scope(name: "withSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy

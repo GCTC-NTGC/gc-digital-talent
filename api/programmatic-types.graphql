@@ -1195,6 +1195,8 @@ enum Permission {
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram

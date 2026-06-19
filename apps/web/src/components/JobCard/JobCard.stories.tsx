@@ -19,7 +19,7 @@ const fakedPool = fakedPools[0];
 const staticDate = new Date(parseISO(fakedPool.publishedAt!));
 Date.now = () => Number(staticDate); // set now to be static
 
-const nullPool: Omit<Pool, "activities" | "teamId"> = {
+const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
   __typename: "Pool",
   id: "uuid",
 };

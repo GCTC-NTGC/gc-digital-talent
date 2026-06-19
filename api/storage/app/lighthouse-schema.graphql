@@ -1195,6 +1195,7 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   closingReason: String
+  wasClosedEarly: Boolean!
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
@@ -3990,6 +3991,8 @@ enum Permission {
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
