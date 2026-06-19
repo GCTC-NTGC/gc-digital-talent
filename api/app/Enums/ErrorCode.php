@@ -186,4 +186,6 @@ enum ErrorCode
 
     case RATE_LIMIT;
 
+    // Special applications
+    case SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED;
 }
