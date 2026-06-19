@@ -3903,6 +3903,10 @@
     "defaultMessage": "Statut de cadre supérieur",
     "description": "Label for employee profile senior management status input"
   },
+  "DVWX9O": {
+    "defaultMessage": "Modifier le statut à {status}",
+    "description": "Label for the change status action in the talent request tracked users table"
+  },
   "DX3z2x": {
     "defaultMessage": "Autre collectivité",
     "description": "Selection or label referring to adding a community that isn't a provided option"
@@ -6130,6 +6134,10 @@
   "MdVah3": {
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
+  },
+  "MeAGh3": {
+    "defaultMessage": "Erreur: Impossible de mettre à jour les utilisateurs suivis.",
+    "description": "Toast shown when a tracked-user bulk mutation fails in Talent Requests."
   },
   "Mea0Vt": {
     "defaultMessage": "Entreprise ou organisme",
@@ -8898,10 +8906,6 @@
     "defaultMessage": "Définir et organiser les compétences",
     "description": "Heading for more info on skills"
   },
-  "YJ9DuG": {
-    "defaultMessage": "Pas de recommandation",
-    "description": "Dialog trigger for unpause referral status dialog"
-  },
   "YJIOOh": {
     "defaultMessage": "Vous n’avez pas encore mis en vedette une compétence pour cette expérience.",
     "description": "Primary message to user when no skills have been attached to experience."
@@ -9149,6 +9153,10 @@
   "ZA20CY": {
     "defaultMessage": "Tous les cadres n’ont pas eu l’occasion de gérer leurs propres processus de recrutement. Si ce domaine éveille votre intérêt, pensez à acquérir de l’expérience en participant de manière volontaire à une équipe interministérielle responsable du déroulement du processus sur la plateforme.",
     "description": "Text displayed for gaining hiring experience"
+  },
+  "ZAHz5C": {
+    "defaultMessage": "Recommandé",
+    "description": "Status for referred candidates"
   },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
@@ -10021,6 +10029,10 @@
   "czThVC": {
     "defaultMessage": "Fournissez quelques détails normalisés au sujet de votre expérience pour aider les gestionnaires à mieux comprendre le rôle qu’elle a joué dans votre cheminement de carrière.",
     "description": "Help text for the experience details section"
+  },
+  "d/aUXc": {
+    "defaultMessage": "Les renseignements des utilisateurs suivis ont été mis à jour avec succès.",
+    "description": "Toast shown when a tracked-user bulk mutation succeeds in Talent Requests."
   },
   "d0EUOF": {
     "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
@@ -12414,6 +12426,10 @@
     "defaultMessage": "Informations sur les volets de travail",
     "description": "Nav tab label for work stream information"
   },
+  "mDnvUx": {
+    "defaultMessage": "Mettre à jour le statut des personnes candidates sélectionnées pour cette demande.",
+    "description": "Subtitle for change status dialog in the talent request tracked users table"
+  },
   "mDowK/": {
     "defaultMessage": "Représentée par les expériences suivantes :",
     "description": "Lead in text for experiences that represent the users skills"
@@ -13242,6 +13258,10 @@
     "defaultMessage": "Télécharger Excel avec évaluations",
     "description": "Button label for download candidate excel with ROD data."
   },
+  "pIbTze": {
+    "defaultMessage": "Motif de non-recommandation",
+    "description": "Label for the not referred reason select field"
+  },
   "pIiisf": {
     "defaultMessage": "Si vous n’êtes pas sûr de vouloir fournir vos renseignements, ou si vous avez des questions concernant le programme d’apprentissage en <abbreviation>TI</abbreviation> pour les personnes autochtones, veuillez <link>nous contacter</link> nous serons heureux de vous rencontrer.",
     "description": "Text describing where to get help with the self-declaration form"
@@ -13894,6 +13914,10 @@
     "defaultMessage": "Vous avez des questions ou vous avez besoin d'aide? Communiquez avec notre équipe de soutien et dites-nous comment nous pouvons vous aider.",
     "description": "the 'contact support' tool description"
   },
+  "s8WaQk": {
+    "defaultMessage": "Motif de non-sélection",
+    "description": "Label for the not selected reason select field"
+  },
   "sB6W6r": {
     "defaultMessage": "peut gérer les demandes de talents;",
     "description": "Description of the permission to view/edit talent requests"
@@ -14037,10 +14061,6 @@
   "sozTPf": {
     "defaultMessage": "Nous travaillons avec <fableLink>Fable Tech Labs</fableLink> pour nous assurer que nos produits et nos fonctionnalités sont évalués par des utilisateurs qui ont besoin de technologies informatiques adaptées pour accéder au Web. Il s'agit d'une étape importante pour s'assurer que nos produits conviennent à de vraies personnes.",
     "description": "Text describing our user testing for accessibility"
-  },
-  "sp0Pgt": {
-    "defaultMessage": "Pas de recommandation",
-    "description": "Label for not referred notice when placed indeterminate"
   },
   "spzerx": {
     "defaultMessage": "Modifier une compétence",
@@ -14253,6 +14273,10 @@
   "tgtpgb": {
     "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
     "description": "Message to direct users to the talent placement page"
+  },
+  "tgu3Ip": {
+    "defaultMessage": "Les personnes candidates sélectionnées ({numOfSelectedCandidates}) seront marquées comme",
+    "description": "Message for change status dialog in the talent request tracked users table"
   },
   "tiv5J7": {
     "defaultMessage": "Enregistrer les tâches de travail",

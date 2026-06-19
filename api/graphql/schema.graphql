@@ -3938,7 +3938,7 @@ type Mutation {
     @validator
   updateTrackedUsersNotSelected(
     ids: [UUID!]!
-    notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!
+    notSelectedReason: TalentRequestTrackedUserNotSelectedReason!
   ): [TalentRequestTrackedUser!]!
     @guard
     @canModel(
@@ -4383,10 +4383,6 @@ type Mutation {
       model: "App\\Models\\TalentRequest"
       scopes: ["withPolicyEagerLoads"]
     )
-  downloadCommunityInterestUsersExcel(
-    ids: [UUID!]
-    where: CommunityInterestFilterInput
-  ): Boolean! @guard
   downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!

@@ -719,7 +719,7 @@ type Mutation {
   updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
   updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
-  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: TalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
   createTalentRequestTrackedUser(input: CreateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
   updateTalentRequestTrackedUser(id: UUID!, input: UpdateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
@@ -800,7 +800,6 @@ type Mutation {
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
-  downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
