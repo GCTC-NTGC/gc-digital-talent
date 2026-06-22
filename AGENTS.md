@@ -87,6 +87,8 @@ php artisan test --filter=ExampleTest
 
 **GraphQL**: Schema-first design. Fields in camelCase, SQL columns in snake_case. Leave most fields nullable. Use `@rename` directive for case mismatches.
 
+**Comments**: Minimal. Only comment genuinely obscure or non-obvious code. Never add meta-comments about the development process or conversation context — that belongs in commit messages and PR descriptions.
+
 **Testing**: Write tests that use components like a user would. Prefer semantic HTML targeting over `data-testid`.
 
 ## Key Dependencies
