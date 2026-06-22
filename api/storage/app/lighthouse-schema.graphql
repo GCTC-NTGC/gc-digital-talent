@@ -248,6 +248,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -708,7 +713,9 @@ type Mutation {
   updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
   updateTrackedUsersNotReferred(ids: [UUID!]!, notReferredReason: TalentRequestTrackedUserNotReferredReason!): [TalentRequestTrackedUser!]!
   updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
-  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
+  updateTrackedUsersNotSelected(ids: [UUID!]!, notSelectedReason: TalentRequestTrackedUserNotSelectedReason!): [TalentRequestTrackedUser!]!
+  createTalentRequestTrackedUser(input: CreateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
+  updateTalentRequestTrackedUser(id: UUID!, input: UpdateTalentRequestTrackedUserInput!): TalentRequestTrackedUser!
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
@@ -787,7 +794,6 @@ type Mutation {
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
   downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
-  downloadCommunityInterestUsersExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
   downloadUsersZip(ids: [UUID!]!, anonymous: Boolean!): Boolean!
@@ -1187,6 +1193,7 @@ type Pool implements HasRoleAssignments {
   screeningQuestions: [ScreeningQuestion]
   closingDate: DateTime
   closingReason: String
+  wasClosedEarly: Boolean!
   publishedAt: DateTime
   archivedAt: DateTime
   isComplete: Boolean
@@ -1515,6 +1522,8 @@ type TalentNomination {
   nominationRationale: String
   skills: [Skill]
   additionalComments: String
+  nineBoxPerformance: LocalizedNineBoxRating
+  nineBoxLeadershipPotential: LocalizedNineBoxRating
 }
 
 type TalentNominationGroup {
@@ -2655,6 +2664,8 @@ input CreateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationInput {
@@ -2687,6 +2698,8 @@ input UpdateTalentNominationInput {
   nominationRationale: String
   skills: SkillBelongsToMany
   additionalComments: String
+  nineBoxPerformance: NineBoxRating
+  nineBoxLeadershipPotential: NineBoxRating
 }
 
 input UpdateTalentNominationGroupInput {
@@ -2776,6 +2789,20 @@ input UpdateTalentRequestStatusInput {
   inProgressDetails: TalentRequestInProgressDetail
   completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
+}
+
+input CreateTalentRequestTrackedUserInput {
+  userId: UUID!
+  talentRequestId: UUID!
+  referralDecision: TalentRequestTrackedUserReferralDecision
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+}
+
+input UpdateTalentRequestTrackedUserInput {
+  referralDecision: TalentRequestTrackedUserReferralDecision!
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+  selectionDecision: TalentRequestTrackedUserSelectionDecision
+  notSelectedReason: TalentRequestTrackedUserNotSelectedReason
 }
 
 input SkillBelongsToMany {
@@ -3959,6 +3986,8 @@ enum Permission {
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
@@ -4361,6 +4390,8 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_NOT_FOUND
   ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
+  NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -4514,6 +4545,12 @@ enum LearningOpportunitiesInterest {
 enum Mentorship {
   MENTOR
   MENTEE
+}
+
+enum NineBoxRating {
+  LOW
+  MODERATE
+  HIGH
 }
 
 enum NotificationFamily {
@@ -4800,10 +4837,18 @@ enum TalentRequestStatus {
 }
 
 enum TalentRequestTrackedUserNotReferredReason {
+  MISMATCH_IN_QUALIFICATIONS
+  JOB_MISMATCHES_EXPECTATIONS
+  TOO_MANY_CANDIDATES
   OTHER
 }
 
 enum TalentRequestTrackedUserNotSelectedReason {
+  LACKS_EXPERIENCE
+  REQUIREMENT_MISMATCH
+  DECLINED_BY_CANDIDATE
+  OTHER_CANDIDATE_SELECTED
+  NO_REASON
   OTHER
 }
 

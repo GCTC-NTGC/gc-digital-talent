@@ -2,17 +2,13 @@ import { Outlet, useNavigation } from "react-router";
 
 import { Loading } from "@gc-digital-talent/ui";
 
-import graphqlClientMiddleware from "./graphqlClientMiddleware";
 import intlMiddleware from "./intlMiddleware";
 import tokenSyncMiddleware from "./tokenSyncMiddleware";
-import userMiddleware from "./userMiddleware";
 import type { Route } from "./+types/RootRoute";
 
 export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
   tokenSyncMiddleware,
   intlMiddleware,
-  graphqlClientMiddleware,
-  userMiddleware,
 ];
 
 export default function RootRoute() {
