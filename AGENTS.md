@@ -4,8 +4,8 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 
 ## Architecture
 
-- `api` - Laravel 13 backend with Lighthouse GraphQL (PHP 8.4)
-- `apps/web` - React 19 frontend with React Router 7 and Vite 7
+- `api` - Laravel backend with Lighthouse GraphQL
+- `apps/web` - React frontend with React Router and Vite
 - `apps/playwright` - E2E tests
 - `packages` - 20+ shared npm packages (ui, forms, graphql, i18n, auth, etc.)
 - `infrastructure` - Docker configuration
@@ -93,11 +93,7 @@ php artisan test --filter=ExampleTest
 
 ## Key Dependencies
 
-- **Package Manager**: pnpm (≥10.27.0)
-- **Node**: ≥24.12.0
-- **Frontend**: React 19, React Router 7, Vite 7, Tailwind CSS 4, URQL (GraphQL client)
-- **Backend**: Laravel 12, Lighthouse 6.15 (GraphQL), PostgreSQL
-- **Testing**: Vitest, Playwright, PHPUnit, Storybook 10
+See `package.json` and `api/composer.json` for current versions. Key libraries: pnpm, React, React Router, Vite, Tailwind CSS, URQL, Laravel, Lighthouse, PostgreSQL, Vitest, Playwright, PHPUnit, Storybook.
 
 ## Supported Languages (i18n)
 
