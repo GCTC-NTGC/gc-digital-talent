@@ -74,7 +74,7 @@ class PoolCandidatePolicy
      */
     public function createSpecialApplication(User $user)
     {
-        return $user->isAbleTo('create-any-draftApplication');
+        return $user->isAbleTo('create-any-specialApplication');
     }
 
     /**

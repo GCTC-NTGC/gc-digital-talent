@@ -3917,11 +3917,11 @@ enum Permission {
   ViewOwnApplication
   ViewTeamSubmittedApplication
   ViewAnySubmittedApplication
-  CreateAnyDraftApplication
   CreateOwnDraftApplication
   UpdateOwnDraftApplication
   SubmitOwnDraftApplication
   DeleteOwnDraftApplication
+  CreateAnySpecialApplication
   ArchiveOwnSubmittedApplication
   SuspendOwnSubmittedApplication
   ViewOwnApplicationStatus

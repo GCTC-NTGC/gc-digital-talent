@@ -73,6 +73,7 @@ return [
         'assessmentPlan' => 'assessmentPlan',
         'application' => 'application',
         'draftApplication' => 'draftApplication',
+        'specialApplication' => 'specialApplication',
         'submittedApplication' => 'submittedApplication',
         'applicationAssessment' => 'applicationAssessment',
         'applicationDecision' => 'applicationDecision',
@@ -366,10 +367,6 @@ return [
             'en' => 'View any submitted Applications',
             'fr' => 'Voir n\import quelle candidature soumises à n\'importe quel bassin.',
         ],
-        'create-any-draftApplication' => [
-            'en' => 'Create a draft application for anyone',
-            'fr' => 'Créer une ébauche de demande pour n\'importe qui',
-        ],
         'create-own-draftApplication' => [
             'en' => 'Begin my own Application to any Pool',
             'fr' => 'Créer sa propre candidature provisoire',
@@ -385,6 +382,10 @@ return [
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
             'fr' => 'Supprimer sa propre candidature provisoire',
+        ],
+        'create-any-specialApplication' => [
+            'en' => 'Create a special application for anyone',
+            'fr' => 'Créez une application spéciale pour n\'importe qui',
         ],
         'archive-own-submittedApplication' => [
             'en' => 'Archive Own Submitted Application',
@@ -1275,7 +1276,7 @@ return [
             'application' => [
                 'any' => ['create'],
             ],
-            'draftApplication' => [
+            'specialApplication' => [
                 'any' => ['create'],
             ],
             'submittedApplication' => [
