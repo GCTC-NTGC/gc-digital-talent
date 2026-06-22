@@ -121,7 +121,7 @@ class TalentRequestTrackedUser extends Pivot
                     ->toArray(),
                 'community' => $filter->community_id,
             ])
-            ->whereAuthorizedToView()
+            ->whereAuthorizedToView(),
         ]);
     }
 
