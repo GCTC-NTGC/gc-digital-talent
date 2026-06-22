@@ -2,8 +2,10 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\SpecialApplicationType;
 use App\Models\Pool;
 use App\Rules\PoolCandidateDraftOrNonExistent;
+use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateSpecialApplicationValidator extends Validator
@@ -34,7 +36,9 @@ final class CreateSpecialApplicationValidator extends Validator
                 'exists:users,id',
             ],
 
-            'poolCandidate.specialApplicationType' => ['required'],
+            'poolCandidate.specialApplicationType' => ['required',
+                Rule::in(array_column(SpecialApplicationType::cases(), 'name')),
+            ],
             'poolCandidate.specialApplicationJustification' => ['required'],
             'poolCandidate.specialApplicationClosingDate' => [
                 'required',
