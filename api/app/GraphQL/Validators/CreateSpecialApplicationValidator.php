@@ -21,7 +21,7 @@ final class CreateSpecialApplicationValidator extends Validator
         $poolId = $poolCandidateInput['pool']['connect'];
         $userId = $poolCandidateInput['user']['connect'];
 
-        $pool = Pool::findOrFail($poolId)->select(['closing_date'])->first();
+        $pool = Pool::query()->select('closing_date')->findOrFail($poolId);
 
         $poolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
@@ -52,7 +52,7 @@ final class CreateSpecialApplicationValidator extends Validator
             'poolCandidate.specialApplicationClosingDate' => [
                 'required',
                 'after:today',
-                'after_or_equal:'.$pool['closing_date'],
+                'after:'.$pool['closing_date'],
             ],
         ];
     }

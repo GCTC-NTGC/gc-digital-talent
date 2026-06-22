@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Lang;
 
 return [
-    'VETERAN' => Lang::get('common.veteran', [], 'fr'),
-    'PRIORITY' => 'Priority',
-    'MINISTERS_STAFF' => 'Minister\'s staff',
-    'ACCOMMODATION' => 'Accommodation',
-    'TECHNICAL_SUPPORT' => 'Technical support',
-    'PSC_REQUEST' => 'PSC request',
-    'EMPLOYEE_CURRENTLY_ON_LEAVE' => 'Employee currently on leave',
-    'OTHER' => Lang::get('common.other', [], 'fr'),
+    'veteran' => Lang::get('common.veteran', [], 'fr'),
+    'priority' => 'Priority',
+    'ministers_staff' => 'Minister\'s staff',
+    'accommodation' => 'Accommodation',
+    'technical_support' => 'Technical support',
+    'psc_request' => 'PSC request',
+    'employee_currently_on_leave' => 'Employee currently on leave',
+    'other' => Lang::get('common.other', [], 'fr'),
 ];
