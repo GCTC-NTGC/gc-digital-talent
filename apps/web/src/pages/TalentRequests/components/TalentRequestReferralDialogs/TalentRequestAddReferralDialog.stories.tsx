@@ -80,7 +80,11 @@ const meta = {
   args: {
     query: makeFragmentData(
       {
-        user: { id: user.id, firstName: user.firstName, lastName: user.lastName },
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
         sources: [
           {
             label: { localized: "Qualified in pool" },
