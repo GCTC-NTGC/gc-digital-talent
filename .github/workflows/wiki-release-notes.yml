@@ -191,9 +191,9 @@ jobs:
             # Extract body section if present
             has_body_section=false
             section=""
-            if echo "$pr_body" | grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)'; then
+            if echo "$pr_body" | grep -qiE '^##[[:space:]]+(Deployment|Deploy)'; then
               section=$(echo "$pr_body" | awk '
-                /^##[[:space:]]*(🚀|🚚|:truck:|Deployment|Deploy)/{found=1; next}
+                /^##[[:space:]]+(Deployment|Deploy)/{found=1; next}
                 found && /^##[[:space:]]/{found=0}
                 found{print}
               ')
