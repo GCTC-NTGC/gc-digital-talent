@@ -1,25 +1,18 @@
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { useQuery } from "urql";
+import { useCallback, useEffect, useRef } from "react";
 
-import {
-  DATE_SEGMENT,
-  DateInput,
-  Input,
-  RadioGroup,
-  TextArea,
-} from "@gc-digital-talent/forms";
+import { Input, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   DegreeType,
   EducationStatus,
   EducationType,
   FellowshipType,
 } from "@gc-digital-talent/graphql";
-import { nodeToString } from "@gc-digital-talent/helpers";
-import { Heading, Notice } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 import type {
   SubExperienceFormProps,
@@ -35,6 +28,7 @@ import {
   getEducationTypeOptions,
   getFellowshipTypeOptions,
 } from "./utils";
+import DateFields from "./DateFields";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 200;
@@ -46,20 +40,20 @@ const EducationFields = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
-  const todayDate = new Date();
   const [{ data }] = useQuery({ query: EducationOptions_Query });
-  // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch<EducationFormValues>({ name: "startDate" });
-  const watchEducationType = useWatch<EducationFormValues>({
+
+  const { resetField, formState } = useFormContext<EducationFormValues>();
+
+  const watchEducationType = useWatch<{ educationType: EducationType }>({
     name: "educationType",
   });
-  const watchDegreeType = useWatch<EducationFormValues>({
+  const watchDegreeType = useWatch<{ degreeType: DegreeType }>({
     name: "degreeType",
   });
-  const watchFellowshipType = useWatch<EducationFormValues>({
+  const watchFellowshipType = useWatch<{ fellowshipType: FellowshipType }>({
     name: "fellowshipType",
   });
-  const watchEducationStatus = useWatch<EducationFormValues>({
+  const watchEducationStatus = useWatch<{ educationStatus: EducationStatus }>({
     name: "educationStatus",
   });
 
@@ -78,6 +72,9 @@ const EducationFields = ({
     watchEducationType === EducationType.DegreeDiplomaCertificate &&
     (watchDegreeType === DegreeType.MastersDegree ||
       watchDegreeType === DegreeType.Phd);
+  const showOtherFellowshipTypeField =
+    watchEducationType === EducationType.Fellowship &&
+    watchFellowshipType === FellowshipType.Other;
   const showStatusField =
     !!watchEducationType &&
     (watchEducationType !== EducationType.DegreeDiplomaCertificate ||
@@ -90,26 +87,64 @@ const EducationFields = ({
   const licenseOrCertification =
     watchEducationType === EducationType.LicenseAccreditation ||
     watchEducationType === EducationType.ProfessionalCertification;
-  const startDateLabel = licenseOrCertification
-    ? watchEducationStatus === EducationStatus.InProgress
-      ? intl.formatMessage({
-          defaultMessage: "Prospective issue date",
-          id: "HYLxWg",
-          description:
-            "Label displayed on an Experience form for issue date input",
-        })
-      : intl.formatMessage({
-          defaultMessage: "Issue date",
-          id: "TTE5K9",
-          description:
-            "Label displayed on an Experience form for issue date input",
-        })
-    : labels.startDate;
+
+  const prevEducationType = useRef<EducationType | null | undefined>(
+    formState.defaultValues?.educationType,
+  );
 
   const wordCountLimits: Record<Locales, number> = {
     en: TEXT_AREA_MAX_WORDS_EN,
     fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
   } as const;
+
+  const resetDirtyField = useCallback(
+    (name: keyof EducationFormValues) =>
+      resetField(name, { defaultValue: null, keepDirty: false }),
+    [resetField],
+  );
+
+  /**
+   * Reset all fields when education type is changed
+   */
+  useEffect(() => {
+    if (prevEducationType.current !== watchEducationType) {
+      resetDirtyField("degreeType");
+      resetDirtyField("otherEducationType");
+      resetDirtyField("fellowshipType");
+      resetDirtyField("licenseOrAccreditation");
+      resetDirtyField("certification");
+      resetDirtyField("courseName");
+      resetDirtyField("educationStatus");
+    }
+    prevEducationType.current = watchEducationType;
+  }, [watchEducationType, resetDirtyField]);
+
+  /**
+   * Reset other fellowship type field when hidden
+   */
+  useEffect(() => {
+    if (!showOtherFellowshipTypeField) {
+      resetDirtyField("otherFellowshipType");
+    }
+  }, [showOtherFellowshipTypeField, resetDirtyField]);
+
+  /**
+   * Reset area of study field when hidden
+   */
+  useEffect(() => {
+    if (!showAreaOfStudyField) {
+      resetDirtyField("areaOfStudy");
+    }
+  }, [showAreaOfStudyField, resetDirtyField]);
+
+  /**
+   * Reset thesis title field when hidden
+   */
+  useEffect(() => {
+    if (!showThesisTitleField) {
+      resetDirtyField("thesisTitle");
+    }
+  }, [showThesisTitleField, resetDirtyField]);
 
   return (
     <div className="grid gap-6">
@@ -207,16 +242,15 @@ const EducationFields = ({
           }}
         />
       )}
-      {watchEducationType === EducationType.Fellowship &&
-        watchFellowshipType === FellowshipType.Other && (
-          <Input
-            id="otherFellowshipType"
-            label={labels.otherFellowshipType}
-            name="otherFellowshipType"
-            type="text"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        )}
+      {showOtherFellowshipTypeField && (
+        <Input
+          id="otherFellowshipType"
+          label={labels.otherFellowshipType}
+          name="otherFellowshipType"
+          type="text"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
+      )}
       {showAreaOfStudyField && (
         <Input
           id="areaOfStudy"
@@ -297,105 +331,27 @@ const EducationFields = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      {showDateFields && (
-        <div className="grid grid-cols-2 gap-6">
-          <DateInput
-            id="startDate"
-            legend={startDateLabel}
-            name="startDate"
-            round="floor"
-            show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: strToFormDate(todayDate.toISOString()),
-                message: intl.formatMessage(
-                  errorMessages.mustNotBeFutureStartDate,
-                ),
-              },
-            }}
+      {showDateFields && <DateFields labels={labels} />}
+      {showStatusField && !!watchEducationStatus && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "If there are any other relevant details about this experience you'd like to share, you can do so here.",
+              id: "ioYWI6",
+              description:
+                "Help text for the experience additional details field",
+            })}
+          </p>
+          <TextArea
+            id={"details"}
+            name={"details"}
+            rows={TEXT_AREA_ROWS}
+            wordLimit={wordCountLimits[locale]}
+            label={experienceLabels.details}
           />
-          {watchEducationStatus === EducationStatus.InProgress ? (
-            <DateInput
-              id="prospectiveEndDate"
-              legend={labels.expectedEndDate}
-              name="prospectiveEndDate"
-              round="ceil"
-              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                min: {
-                  value: watchStartDate ? String(watchStartDate) : "",
-                  message: intl.formatMessage(errorMessages.minDateSelfLabel, {
-                    labelSelf: nodeToString(labels.endDate).toLowerCase(),
-                    labelAssociated: nodeToString(
-                      labels.startDate,
-                    ).toLowerCase(),
-                  }),
-                },
-                max: {
-                  value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(
-                    errorMessages.mustNotBeFutureEndDate,
-                  ),
-                },
-              }}
-            />
-          ) : (
-            <DateInput
-              id="endDate"
-              legend={labels.endDate}
-              name="endDate"
-              round="ceil"
-              show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                min: {
-                  value: watchStartDate ? String(watchStartDate) : "",
-                  message: intl.formatMessage(errorMessages.minDateSelfLabel, {
-                    labelSelf: nodeToString(labels.endDate).toLowerCase(),
-                    labelAssociated: nodeToString(
-                      labels.startDate,
-                    ).toLowerCase(),
-                  }),
-                },
-                max: {
-                  value: strToFormDate(todayDate.toISOString()),
-                  message: intl.formatMessage(
-                    errorMessages.mustNotBeFutureEndDate,
-                  ),
-                },
-              }}
-            />
-          )}
-        </div>
+        </>
       )}
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
-        {intl.formatMessage({
-          defaultMessage: "Highlight additional details",
-          id: "6v+j79",
-          description: "Title for additional details section",
-        })}
-      </Heading>
-      <div>
-        <p className="mb-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "Describe <strong>key tasks</strong>, <strong>responsibilities</strong>, or <strong>other information</strong> you feel were crucial in making this experience important. Try to keep this field concise as you'll be able to provide more detailed information when linking skills to this experience.",
-            id: "yZ0kfQ",
-            description:
-              "Help text for the experience additional details field",
-          })}
-        </p>
-        <TextArea
-          id={"details"}
-          name={"details"}
-          rows={TEXT_AREA_ROWS}
-          wordLimit={wordCountLimits[locale]}
-          label={experienceLabels.details}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
-      </div>
     </div>
   );
 };

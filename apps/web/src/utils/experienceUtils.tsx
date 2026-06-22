@@ -27,6 +27,7 @@ import type {
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 import {
+  EducationStatus,
   EducationType,
   EmploymentCategory,
   GovEmployeeType,
@@ -69,39 +70,6 @@ export const getExperienceFormLabels = (
   intl: IntlShape,
   experienceType?: ExperienceType,
 ) => {
-  let currentRole = intl.formatMessage({
-    defaultMessage: "Current role",
-    id: "n4pwef",
-    description:
-      "Label displayed on an Experience form for current role bounded box",
-  });
-  switch (experienceType) {
-    case "award":
-      break;
-    case "community":
-      break;
-    case "education":
-      currentRole = intl.formatMessage({
-        defaultMessage: "Current education",
-        id: "SZeO9P",
-        description:
-          "Label displayed on Education Experience form for current education bounded box",
-      });
-      break;
-    case "personal":
-      currentRole = intl.formatMessage({
-        defaultMessage: "Current Experience",
-        id: "OAOnyY",
-        description:
-          "Label displayed on Personal Experience form for current experience bounded box",
-      });
-      break;
-    case "work":
-      break;
-    default:
-      break;
-  }
-
   let organization = intl.formatMessage(commonMessages.organization);
 
   if (experienceType === "community") {
@@ -187,7 +155,6 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Work Experience form for job title input",
     }),
-    currentRole,
     organization,
     project: intl.formatMessage({
       defaultMessage: "Project or product",
@@ -206,9 +173,10 @@ export const getExperienceFormLabels = (
       description: "Label displayed on an Experience form for issue date input",
     }),
     prospectiveIssueDate: intl.formatMessage({
-      defaultMessage: "Start date",
-      id: "Yaxm1W",
-      description: "Label displayed on an Experience form for start date input",
+      defaultMessage: "Prospective issue date",
+      id: "yKcyL9",
+      description:
+        "Label displayed on an Experience form for prospective issue date input",
     }),
     endDate: intl.formatMessage({
       defaultMessage: "End date",
@@ -220,6 +188,18 @@ export const getExperienceFormLabels = (
       id: "GUMYhp",
       description:
         "Label displayed on an Experience form for prospective end date input",
+    }),
+    expiryDate: intl.formatMessage({
+      defaultMessage: "Expiry date",
+      id: "2voWST",
+      description:
+        "Label displayed on an Experience form for expiry date input",
+    }),
+    prospectiveExpiryDate: intl.formatMessage({
+      defaultMessage: "Prospective expiry date",
+      id: "2UKk4c",
+      description:
+        "Label displayed on an Experience form for prospective expiry date input",
     }),
     dateRange: intl.formatMessage({
       defaultMessage: "Start/end date",
@@ -507,9 +487,20 @@ export const formValuesToSubmitData = (
     areaOfStudy,
     institution,
     thesisTitle,
+    otherEducationType,
+    degreeType,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType,
+    otherFellowshipType,
+    issueDate,
+    prospectiveIssueDate,
+    expectedEndDate,
+    expiryDate,
+    prospectiveExpiryDate,
     experienceTitle,
     learningDescription,
-    currentRole,
     employmentCategory,
     extSizeOfOrganization,
     extRoleSeniority,
@@ -543,6 +534,39 @@ export const formValuesToSubmitData = (
     employmentCategory === EmploymentCategory.GovernmentOfCanada &&
     govPositionType !== GovPositionType.Substantive;
 
+  // Determine dates for education experiences
+  const licenseOrCertification =
+    educationType === EducationType.LicenseAccreditation ||
+    educationType === EducationType.ProfessionalCertification;
+  let educationStartDate: string | undefined | null;
+  let educationEndDate: string | undefined | null;
+  let educationProspectiveEndDate: string | undefined | null;
+  if (educationStatus === EducationStatus.DidNotComplete) {
+    educationStartDate = null;
+    educationEndDate = null;
+    educationProspectiveEndDate = null;
+  } else if (educationStatus === EducationStatus.InProgress) {
+    if (licenseOrCertification) {
+      educationStartDate = prospectiveIssueDate;
+      educationEndDate = null;
+      educationProspectiveEndDate = prospectiveExpiryDate;
+    } else {
+      educationStartDate = startDate;
+      educationEndDate = null;
+      educationProspectiveEndDate = expectedEndDate;
+    }
+  } else {
+    if (licenseOrCertification) {
+      educationStartDate = issueDate;
+      educationEndDate = expiryDate;
+      educationProspectiveEndDate = null;
+    } else {
+      educationStartDate = startDate;
+      educationEndDate = endDate;
+      educationProspectiveEndDate = null;
+    }
+  }
+
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
       title: awardTitle,
@@ -561,7 +585,7 @@ export const formValuesToSubmitData = (
       organization,
       project,
       startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      endDate: endDate ?? null,
     },
     education: {
       educationType,
@@ -569,23 +593,30 @@ export const formValuesToSubmitData = (
       areaOfStudy,
       institution,
       thesisTitle,
-      startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      startDate: educationStartDate,
+      endDate: educationEndDate,
+      otherEducationType,
+      degreeType,
+      licenseOrAccreditation,
+      certification,
+      courseName,
+      fellowshipType,
+      otherFellowshipType,
+      prospectiveEndDate: educationProspectiveEndDate,
     },
     personal: {
       title: experienceTitle,
       organization,
       learningDescription: learningDescription,
       startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      endDate: endDate ?? null,
     },
     work: {
       role,
       organization,
       division: team,
       startDate,
-      endDate:
-        allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
+      endDate: allowExpectedEndDate || endDate ? endDate : null,
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
@@ -817,17 +848,37 @@ const getEducationExperienceDefaultValues = (
     startDate,
     endDate,
     details,
+    otherEducationType,
+    degreeType,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType,
+    otherFellowshipType,
+    prospectiveEndDate,
   } = experience;
   return {
     educationType: educationType?.value,
-    educationStatus: status?.value,
+    educationStatus:
+      status?.value === EducationStatus.Audited ? null : status?.value,
     areaOfStudy,
     institution,
     thesisTitle,
-    startDate,
-    currentRole: endDate === null,
-    endDate,
+    startDate: startDate,
+    issueDate: startDate,
+    prospectiveIssueDate: startDate,
+    endDate: endDate,
+    expiryDate: endDate,
+    expectedEndDate: prospectiveEndDate,
+    prospectiveExpiryDate: prospectiveEndDate,
     details,
+    otherEducationType,
+    degreeType: degreeType?.value,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType: fellowshipType?.value,
+    otherFellowshipType,
   };
 };
 

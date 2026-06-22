@@ -219,7 +219,25 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
+      otherEducationType
+      licenseOrAccreditation
+      certification
+      courseName
+      otherFellowshipType
+      prospectiveEndDate
       educationType {
+        value
+        label {
+          localized
+        }
+      }
+      degreeType {
+        value
+        label {
+          localized
+        }
+      }
+      fellowshipType {
         value
         label {
           localized
@@ -228,8 +246,7 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       status {
         value
         label {
-          en
-          fr
+          localized
         }
       }
       awardExperiences {

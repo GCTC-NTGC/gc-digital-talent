@@ -90,13 +90,22 @@ export type CommunityFormValues = FormValueDateRange & {
 
 export type EducationFormValues = FormValueDateRange & {
   institution: string;
-  areaOfStudy: string;
+  areaOfStudy?: string;
   thesisTitle?: string;
   educationType: EducationType;
   educationStatus: EducationStatus;
-  currentRole: boolean;
+  otherEducationType?: string;
   degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
   fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  issueDate?: Scalars["Date"]["input"];
+  prospectiveIssueDate?: Scalars["Date"]["input"];
+  expiryDate?: Scalars["Date"]["input"];
+  prospectiveExpiryDate?: Scalars["Date"]["input"];
+  expectedEndDate?: Scalars["Date"]["input"];
 };
 
 export type PersonalFormValues = FormValueDateRange & {
@@ -170,18 +179,25 @@ export interface ExperienceDetailsSubmissionData {
   description?: string;
   details?: string;
   division?: string | null;
-  currentRole?: boolean;
   endDate?: Scalars["Date"]["input"] | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string | null;
-  startDate?: Scalars["Date"]["input"];
+  startDate?: Scalars["Date"]["input"] | null;
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string | null;
   educationType?: EducationType;
+  otherEducationType?: string;
+  degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
+  fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  prospectiveEndDate?: Scalars["Date"]["input"] | null;
   employmentCategory?: EmploymentCategory | null;
   extSizeOfOrganization?: ExternalSizeOfOrganization | null;
   extRoleSeniority?: ExternalRoleSeniority | null;
@@ -274,6 +290,14 @@ export interface ExperienceDetailsDefaultValues {
   thesisTitle?: string;
   title?: string;
   educationType?: EducationType;
+  otherEducationType?: string;
+  degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
+  fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  prospectiveEndDate?: Scalars["Date"]["input"];
   employmentCategory?: EmploymentCategory;
   extSizeOfOrganization?: ExternalSizeOfOrganization;
   extRoleSeniority?: ExternalRoleSeniority;
