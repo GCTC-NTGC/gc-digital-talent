@@ -122,17 +122,17 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
         {application.applicationStatusData?.status?.value ===
           ApplicationStatus.ToAssess && <ToAssessStatusForm {...commonProps} />}
 
-        {application.applicationStatusData?.status.value ===
+        {application.applicationStatusData?.status?.value ===
           ApplicationStatus.Qualified && (
           <QualifiedStatusForm {...commonProps} query={application} />
         )}
 
-        {application.applicationStatusData?.status.value ===
+        {application.applicationStatusData?.status?.value ===
           ApplicationStatus.Disqualified && (
           <DisqualifiedStatusForm {...commonProps} query={application} />
         )}
 
-        {application.applicationStatusData?.status.value ===
+        {application.applicationStatusData?.status?.value ===
           ApplicationStatus.Removed && (
           <RemovedStatusForm {...commonProps} query={application} />
         )}
