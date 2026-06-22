@@ -57,7 +57,9 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
-import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
+import TalentRequestEditReferralDialog, {
+  type TalentRequestEditReferralDialogSourceOptions,
+} from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import ChangeStatusDialog from "./ChangeStatusDialog";
 import type { StatusDialogConfig } from "../../types";
@@ -142,6 +144,7 @@ interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
   skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
   optionsQuery?: TalentRequestReferralDialogOptions;
+  sourceOptionsQuery?: TalentRequestEditReferralDialogSourceOptions;
 }
 
 type ChangeStatusKey = "referred" | "notReferred" | "selected" | "notSelected";
@@ -172,6 +175,7 @@ const TalentRequestTrackedUsersTable = ({
   talentRequestId,
   skillsQuery,
   optionsQuery,
+  sourceOptionsQuery,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
   const matchedSkills = getFragment(
@@ -294,6 +298,7 @@ const TalentRequestTrackedUsersTable = ({
           <TalentRequestEditReferralDialog
             query={original}
             optionsQuery={optionsQuery}
+            sourceOptionsQuery={sourceOptionsQuery}
           />
         ),
       },
