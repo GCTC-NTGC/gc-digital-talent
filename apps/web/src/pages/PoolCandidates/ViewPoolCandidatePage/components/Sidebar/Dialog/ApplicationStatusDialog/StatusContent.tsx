@@ -84,7 +84,7 @@ export const Content = ({ query, reason, submitProps }: ContentProps) => {
             date: application.applicationStatusData?.statusUpdatedAt
               ? formatDate({
                   date: parseDateTimeUtc(
-                    application.applicationStatusData?.statusUpdatedAt,
+                    application.applicationStatusData.statusUpdatedAt,
                   ),
                   formatString: DATE_FORMAT_STRING,
                   intl,

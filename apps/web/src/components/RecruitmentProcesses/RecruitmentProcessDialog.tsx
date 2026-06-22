@@ -168,7 +168,7 @@ const RecruitmentProcessDialog = ({
               {recruitmentProcess.applicationStatusData?.statusUpdatedAt
                 ? formatDate({
                     date: parseDateTimeUtc(
-                      recruitmentProcess.applicationStatusData?.statusUpdatedAt,
+                      recruitmentProcess.applicationStatusData.statusUpdatedAt,
                     ),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,

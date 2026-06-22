@@ -273,7 +273,7 @@ const ReviewApplicationDialog = ({
                 className="xs:col-span-2"
                 hasError={deadlineToApply(
                   pool.closingDate,
-                  application.applicationStatusData.candidateStatus.value,
+                  CandidateStatus.Expired,
                 )}
               >
                 {pool?.closingDate

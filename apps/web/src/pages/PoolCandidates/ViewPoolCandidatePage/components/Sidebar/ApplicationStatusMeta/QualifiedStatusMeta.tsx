@@ -54,7 +54,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   const startDate = application.applicationStatusData?.placedStartDate
     ? formatDate({
         date: parseDateTimeUtc(
-          application.applicationStatusData?.placedStartDate,
+          application.applicationStatusData.placedStartDate,
         ),
         formatString: "PPP",
         intl,
@@ -63,9 +63,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
 
   const endDate = application.applicationStatusData?.placedEndDate
     ? formatDate({
-        date: parseDateTimeUtc(
-          application.applicationStatusData?.placedEndDate,
-        ),
+        date: parseDateTimeUtc(application.applicationStatusData.placedEndDate),
         formatString: "PPP",
         intl,
       })
