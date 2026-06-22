@@ -10,6 +10,7 @@ import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
 import {
   hasRequiredRoles,
+  type HasRequiredRolesArgs,
   type RoleRequirement,
 } from "./utils/hasRequiredRoles";
 import hasRole from "./utils/hasRole";
@@ -75,4 +76,5 @@ export type {
   AuthenticationState,
   RoleRequirement,
   PermissionRequirement,
+  HasRequiredRolesArgs,
 };

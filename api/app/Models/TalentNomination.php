@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
 use Database\Factories\TalentNominationFactory;
@@ -53,6 +54,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $nomination_rationale
  * @property string $additional_comments
  * @property string $talent_nomination_group_id
+ * @property ?string $nine_box_performance
+ * @property ?string $nine_box_leadership_potential
  */
 class TalentNomination extends Model
 {
@@ -85,6 +88,8 @@ class TalentNomination extends Model
             'submitted_at' => 'datetime',
             'lateral_movement_options' => 'array',
             'submitter_relationship_to_nominator' => TalentNominationSubmitterRelationshipToNominator::class,
+            'nine_box_performance' => NineBoxRating::class,
+            'nine_box_leadership_potential' => NineBoxRating::class,
         ];
     }
 

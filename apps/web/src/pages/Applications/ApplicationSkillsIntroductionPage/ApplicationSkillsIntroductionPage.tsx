@@ -51,7 +51,7 @@ const ApplicationSkillsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal, isIAP } = useApplicationContext();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -95,10 +95,7 @@ const ApplicationSkillsIntroduction = ({
             description: "Action button to move to the next step",
           })}
         </Link>
-        <Link
-          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
-          mode="inline"
-        >
+        <Link href={paths.profileAndApplications()} mode="inline">
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
         <DeleteApplicationDialog query={application} />

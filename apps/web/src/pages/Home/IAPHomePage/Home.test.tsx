@@ -5,9 +5,9 @@ import {
   expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
-import { Home } from "./Home";
+import IAPHomePage from "./Home";
 
-const renderHome = () => renderWithProviders(<Home />);
+const renderHome = () => renderWithProviders(<IAPHomePage />);
 
 describe("Basic test for Home", () => {
   it("should render", () => {

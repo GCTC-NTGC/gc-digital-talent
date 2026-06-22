@@ -5,12 +5,16 @@ import type {
   SortingState,
 } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { useState, useRef } from "react";
-import { useQuery } from "urql";
+import { useRef, useState } from "react";
+import { useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 
-import { Link, Chip } from "@gc-digital-talent/ui";
+import { Chip, IconLabel } from "@gc-digital-talent/ui";
 import {
   notEmpty,
   uniqueItems,
@@ -25,9 +29,10 @@ import {
   graphql,
   getFragment,
   PriorityWeight,
+  TalentRequestTrackedUserNotReferredReason,
+  TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -40,6 +45,7 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
+import useTrackedUsersMutations from "~/hooks/useTrackedUsersMutations";
 
 import TalentRequestTrackedUsersFilterDialog from "./TalentRequestTrackedUsersFilterDialog";
 import type { FormValues, TrackedUserFilters } from "./utils";
@@ -51,7 +57,12 @@ import {
   trackedUserReason,
   trackedUserStatusChipColor,
 } from "./utils";
+import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import ChangeStatusDialog from "./ChangeStatusDialog";
+import type { StatusDialogConfig } from "../../types";
+import messages from "./messages";
+import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
 type TrackedUser =
   TalentRequestTrackedUsersPaginatedQuery["talentRequestTrackedUsers"]["data"][number];
@@ -105,6 +116,7 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
             }
           }
         }
+        ...TalentRequestEditReferralDialog
       }
       paginatorInfo {
         count
@@ -122,20 +134,49 @@ const TalentRequestTrackedUsersPaginated_Query = graphql(/* GraphQL */ `
 
 const defaultSortState = [{ id: "skillCount", desc: true }];
 
+const trackedUsersContext: Partial<OperationContext> = {
+  additionalTypenames: ["TalentRequestTrackedUser"],
+};
+
 interface TalentRequestTrackedUsersTableProps {
   talentRequestId: string;
-  skills: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
+  optionsQuery?: TalentRequestReferralDialogOptions;
 }
+
+type ChangeStatusKey = "referred" | "notReferred" | "selected" | "notSelected";
+
+const notReferredReasonValues = new Set<string>(
+  Object.values(TalentRequestTrackedUserNotReferredReason),
+);
+
+const isNotReferredReason = (
+  reason:
+    | TalentRequestTrackedUserNotReferredReason
+    | TalentRequestTrackedUserNotSelectedReason,
+): reason is TalentRequestTrackedUserNotReferredReason =>
+  notReferredReasonValues.has(reason);
+
+const notSelectedReasonValues = new Set<string>(
+  Object.values(TalentRequestTrackedUserNotSelectedReason),
+);
+
+const isNotSelectedReason = (
+  reason:
+    | TalentRequestTrackedUserNotReferredReason
+    | TalentRequestTrackedUserNotSelectedReason,
+): reason is TalentRequestTrackedUserNotSelectedReason =>
+  notSelectedReasonValues.has(reason);
 
 const TalentRequestTrackedUsersTable = ({
   talentRequestId,
-  skills,
+  skillsQuery,
+  optionsQuery,
 }: TalentRequestTrackedUsersTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const matchedSkills = getFragment(
     TalentRequestUserSkillMatch_Fragment,
-    skills,
+    skillsQuery,
   );
 
   const filterRef = useRef<TrackedUserFilters | undefined>(undefined);
@@ -208,6 +249,7 @@ const TalentRequestTrackedUsersTable = ({
       first: paginationState.pageSize,
       orderBy: transformSortStateToOrderByClause(sortState),
     },
+    context: trackedUsersContext,
   });
 
   const trackedUsers = unpackMaybes(data?.talentRequestTrackedUsers.data);
@@ -248,10 +290,12 @@ const TalentRequestTrackedUsersTable = ({
         header: intl.formatMessage(commonMessages.name),
         enableSorting: false,
         meta: { isRowTitle: true },
-        cell: ({ row: { original }, getValue }) =>
-          original.user.id ? (
-            <Link href={paths.userView(original.user.id)}>{getValue()}</Link>
-          ) : null,
+        cell: ({ row: { original } }) => (
+          <TalentRequestEditReferralDialog
+            query={original}
+            optionsQuery={optionsQuery}
+          />
+        ),
       },
     ),
     columnHelper.accessor(({ status }) => status?.label?.localized, {
@@ -331,88 +375,231 @@ const TalentRequestTrackedUsersTable = ({
     }),
   ] as ColumnDef<TrackedUser>[];
 
+  const {
+    updateTrackedUsersReferred,
+    updatingTrackedUsersReferred,
+    updateTrackedUsersNotReferred,
+    updatingTrackedUsersNotReferred,
+    updateTrackedUsersSelected,
+    updatingTrackedUsersSelected,
+    updateTrackedUsersNotSelected,
+    updatingTrackedUsersNotSelected,
+  } = useTrackedUsersMutations();
+  const [activeStatus, setActiveStatus] = useState<ChangeStatusKey | null>(
+    null,
+  );
+
+  // Central config for status-change dialogs: selects the right UI copy and action
+  // (confirm or reason-based update) based on the currently chosen status.
+  const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
+    referred: {
+      status: intl.formatMessage(messages.referred),
+      icon: PaperAirplaneIcon,
+      disable: updatingTrackedUsersReferred,
+      onConfirm: async () => {
+        await updateTrackedUsersReferred({ ids: selectedRows });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+    notReferred: {
+      status: intl.formatMessage(commonMessages.notReferred),
+      icon: ArchiveBoxIcon,
+      disable: updatingTrackedUsersNotReferred,
+      reasonType: "notReferred",
+      onUpdate: async (reason) => {
+        if (!isNotReferredReason(reason)) {
+          return;
+        }
+        await updateTrackedUsersNotReferred({
+          ids: selectedRows,
+          notReferredReason: reason,
+        });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+    selected: {
+      status: intl.formatMessage(commonMessages.selected),
+      icon: CheckIcon,
+      disable: updatingTrackedUsersSelected,
+      onConfirm: async () => {
+        await updateTrackedUsersSelected({ ids: selectedRows });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+    notSelected: {
+      status: intl.formatMessage(commonMessages.notSelected),
+      icon: XMarkIcon,
+      disable: updatingTrackedUsersNotSelected,
+      reasonType: "notSelected",
+      onUpdate: async (reason) => {
+        if (!isNotSelectedReason(reason)) {
+          return;
+        }
+        await updateTrackedUsersNotSelected({
+          ids: selectedRows,
+          notSelectedReason: reason,
+        });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+  };
+
+  const activeDialogConfig = activeStatus
+    ? statusDialogConfigs[activeStatus]
+    : null;
+
   return (
-    <Table<TrackedUser, TrackedUserFilters>
-      caption={intl.formatMessage(talentRequestMessages.candidateTracking)}
-      data={trackedUsers}
-      columns={columns}
-      isLoading={fetching}
-      urlSync={false}
-      nullMessage={{
-        title: intl.formatMessage(talentRequestMessages.trackedUsersNullTitle),
-        description: intl.formatMessage(
-          talentRequestMessages.trackedUsersNullDescription,
-        ),
-      }}
-      rowSelect={{
-        onRowSelection: setSelectedRows,
-        getRowId: (row) => row.id,
-        cell: ({ row }) =>
-          rowSelectCell({
-            row,
-            label: getFullNameLabel(
-              row.original.user.firstName,
-              row.original.user.lastName,
-              intl,
+    <>
+      <Table<TrackedUser, TrackedUserFilters>
+        caption={intl.formatMessage(talentRequestMessages.candidateTracking)}
+        data={trackedUsers}
+        columns={columns}
+        isLoading={fetching}
+        urlSync={false}
+        nullMessage={{
+          title: intl.formatMessage(
+            talentRequestMessages.trackedUsersNullTitle,
+          ),
+          description: intl.formatMessage(
+            talentRequestMessages.trackedUsersNullDescription,
+          ),
+        }}
+        rowSelect={{
+          onRowSelection: setSelectedRows,
+          getRowId: (row) => row.id,
+          selectedIds: selectedRows,
+          cell: ({ row }) =>
+            rowSelectCell({
+              row,
+              label: getFullNameLabel(
+                row.original.user.firstName,
+                row.original.user.lastName,
+                intl,
+              ),
+            }),
+        }}
+        download={{
+          all: {
+            enable: true,
+            onClick: handleExcelDownloadAll,
+            downloading: downloadingTrackedUsersExcel,
+          },
+          spreadsheet: {
+            enable: true,
+            onClick: handleExcelDownload,
+            downloading: downloadingExcel,
+          },
+          doc: {
+            enable: true,
+            component: (
+              <DownloadDocxButton
+                inTable
+                disabled={
+                  selectedRows.length === 0 || downloadingZip || downloadingDoc
+                }
+                isDownloading={downloadingZip || downloadingDoc}
+                onClickProfile={() => handleDocDownload(false)}
+                onClickAnonymousProfile={() => handleDocDownload(true)}
+              />
             ),
-          }),
-      }}
-      download={{
-        all: {
-          enable: true,
-          onClick: handleExcelDownloadAll,
-          downloading: downloadingTrackedUsersExcel,
-        },
-        spreadsheet: {
-          enable: true,
-          onClick: handleExcelDownload,
-          downloading: downloadingExcel,
-        },
-        doc: {
-          enable: true,
+          },
+        }}
+        search={{
+          internal: false,
+          label: intl.formatMessage(adminMessages.searchByKeyword),
+          onChange: handleSearchStateChange,
+        }}
+        sort={{
+          internal: false,
+          onSortChange: setSortState,
+          initialState: defaultSortState,
+        }}
+        filter={{
+          state: filterState,
           component: (
-            <DownloadDocxButton
-              inTable
-              disabled={
-                selectedRows.length === 0 || downloadingZip || downloadingDoc
-              }
-              isDownloading={downloadingZip || downloadingDoc}
-              onClickProfile={() => handleDocDownload(false)}
-              onClickAnonymousProfile={() => handleDocDownload(true)}
+            <TalentRequestTrackedUsersFilterDialog
+              onSubmit={handleFilterSubmit}
+              resetValues={transformFilterInputToFormValues(undefined)}
+              initialValues={transformFilterInputToFormValues(undefined)}
             />
           ),
-        },
-      }}
-      search={{
-        internal: false,
-        label: intl.formatMessage(adminMessages.searchByKeyword),
-        onChange: handleSearchStateChange,
-      }}
-      sort={{
-        internal: false,
-        onSortChange: setSortState,
-        initialState: defaultSortState,
-      }}
-      filter={{
-        // eslint-disable-next-line react-hooks/refs
-        state: filterRef.current,
-        component: (
-          <TalentRequestTrackedUsersFilterDialog
-            onSubmit={handleFilterSubmit}
-            resetValues={transformFilterInputToFormValues(undefined)}
-            initialValues={transformFilterInputToFormValues(undefined)}
-          />
-        ),
-      }}
-      pagination={{
-        internal: false,
-        initialState: INITIAL_STATE.paginationState,
-        state: paginationState,
-        total: data?.talentRequestTrackedUsers.paginatorInfo.total,
-        pageSizes: [10, 20, 50, 100],
-        onPaginationChange: handlePaginationStateChange,
-      }}
-    />
+        }}
+        pagination={{
+          internal: false,
+          initialState: INITIAL_STATE.paginationState,
+          state: paginationState,
+          total: data?.talentRequestTrackedUsers.paginatorInfo.total,
+          pageSizes: [10, 20, 50, 100],
+          onPaginationChange: handlePaginationStateChange,
+        }}
+        actions={[
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(messages.referred),
+                })}
+                icon={PaperAirplaneIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("referred"),
+          },
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(commonMessages.notReferred),
+                })}
+                icon={ArchiveBoxIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("notReferred"),
+          },
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(commonMessages.selected),
+                })}
+                icon={CheckIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("selected"),
+          },
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(messages.changeStatus, {
+                  status: intl.formatMessage(commonMessages.notSelected),
+                })}
+                icon={XMarkIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("notSelected"),
+          },
+        ]}
+      />
+      {activeDialogConfig && (
+        <ChangeStatusDialog
+          open={activeStatus !== null}
+          onOpenChange={(isOpen) => {
+            if (!isOpen) setActiveStatus(null);
+          }}
+          icon={activeDialogConfig.icon}
+          status={activeDialogConfig.status}
+          numOfSelectedCandidates={selectedRows.length}
+          onCancel={() => setActiveStatus(null)}
+          onConfirm={activeDialogConfig.onConfirm}
+          reasonType={activeDialogConfig.reasonType}
+          onUpdate={activeDialogConfig.onUpdate}
+          disable={activeDialogConfig.disable}
+        />
+      )}
+    </>
   );
 };
 
