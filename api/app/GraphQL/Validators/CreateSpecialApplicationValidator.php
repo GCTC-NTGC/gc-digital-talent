@@ -17,9 +17,8 @@ final class CreateSpecialApplicationValidator extends Validator
      */
     public function rules(): array
     {
-        $poolCandidateInput = $this->arg('poolCandidate');
-        $poolId = $poolCandidateInput['pool']['connect'];
-        $userId = $poolCandidateInput['user']['connect'];
+        $poolId = $this->arg('poolCandidate.pool.connect');
+        $userId = $this->arg('poolCandidate.user.connect');
 
         $pool = Pool::query()->select('closing_date')->findOrFail($poolId);
 
