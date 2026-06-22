@@ -13,7 +13,7 @@ class TalentRequestRandomSeeder extends Seeder
      */
     public function run(): void
     {
-        $applicantFilters = ApplicantFilter::factory()->count(50)->withRelationships()->create();
+        $applicantFilters = ApplicantFilter::factory()->count(10)->withRelationships()->create();
 
         foreach ($applicantFilters as $applicantFilter) {
             TalentRequest::factory()

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
@@ -104,6 +105,8 @@ class TalentNominationFactory extends Factory
             ->state(function (array $attributes) {
                 $stepsArray = $attributes['submitted_steps'];
                 $stepsArray[] = TalentNominationStep::NOMINEE_INFORMATION->name;
+                $eventId = value($attributes['talent_nomination_event_id'], $attributes);
+                $parentEvent = TalentNominationEvent::find($eventId);
 
                 return [
                     'submitted_steps' => $stepsArray,
@@ -115,6 +118,13 @@ class TalentNominationFactory extends Factory
                     'nominee_relationship_to_nominator_other' => fn ($attributes) => $attributes['nominee_relationship_to_nominator'] === TalentNominationNomineeRelationshipToNominator::OTHER->name
                             ? $this->faker->jobTitle()
                             : null,
+                    // the nine box data might be collected on the nominee step but we're not yet sure
+                    'nine_box_performance' => fn ($_) => $parentEvent->include_nine_box
+                        ? $this->faker->enum(NineBoxRating::class)
+                        : null,
+                    'nine_box_leadership_potential' => fn ($_) => $parentEvent->include_nine_box
+                        ? $this->faker->enum(NineBoxRating::class)
+                        : null,
                 ];
             });
     }
@@ -126,7 +136,8 @@ class TalentNominationFactory extends Factory
             ->state(function (array $attributes) {
                 $stepsArray = $attributes['submitted_steps'];
                 $stepsArray[] = TalentNominationStep::NOMINATION_DETAILS->name;
-                $parentEvent = TalentNominationEvent::find($attributes['talent_nomination_event_id']);
+                $eventId = value($attributes['talent_nomination_event_id'], $attributes);
+                $parentEvent = TalentNominationEvent::find($eventId);
 
                 return [
                     'submitted_steps' => $stepsArray,

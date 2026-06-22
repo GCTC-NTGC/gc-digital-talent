@@ -36,6 +36,8 @@ export interface RowSelectDef<T> {
   onRowSelection?: (rows: string[]) => void;
   /** Determine the ID of the row selected (if index is not sufficient) */
   getRowId: (row: T) => string;
+  /** Controlled selection state — when provided the table derives its row selection from this array instead of internal state */
+  selectedIds?: string[];
 }
 
 export interface SearchFormProps<TData extends RowData> {

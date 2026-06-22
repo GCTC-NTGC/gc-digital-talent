@@ -1006,7 +1006,7 @@ const PoolCandidatesTable = ({
 
         return row.poolCandidate.isBeingReferred
           ? intl.formatMessage(poolCandidateMessages.availableForReferral)
-          : intl.formatMessage(poolCandidateMessages.notReferred);
+          : intl.formatMessage(commonMessages.notReferred);
       },
       {
         id: "referralStatus",
