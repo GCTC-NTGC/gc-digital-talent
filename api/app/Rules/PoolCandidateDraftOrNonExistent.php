@@ -16,8 +16,15 @@ class PoolCandidateDraftOrNonExistent implements ValidationRule
      *
      * @return void
      */
-    public function __construct(string $poolId, string $userId)
+    public function __construct(?string $poolId, ?string $userId)
     {
+        // do not run if ids null
+        if (! $poolId || ! $userId) {
+            $this->poolCandidate = null;
+
+            return;
+        }
+
         $this->poolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
             ->select(['submitted_at'])
