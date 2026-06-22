@@ -47,8 +47,8 @@ const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const TalentRequestEditReferralDialogSourceOptions_Fragment =
-  graphql(/* GraphQL */ `
+export const TalentRequestEditReferralDialogSourceOptions_Fragment = graphql(
+  /* GraphQL */ `
     fragment TalentRequestEditReferralDialogSourceOptions on Query {
       talentRequestSources: localizedEnumOptions(
         enumName: "TalentRequestSource"
@@ -61,7 +61,8 @@ export const TalentRequestEditReferralDialogSourceOptions_Fragment =
         }
       }
     }
-  `);
+  `,
+);
 
 export type TalentRequestEditReferralDialogSourceOptions = FragmentType<
   typeof TalentRequestEditReferralDialogSourceOptions_Fragment
