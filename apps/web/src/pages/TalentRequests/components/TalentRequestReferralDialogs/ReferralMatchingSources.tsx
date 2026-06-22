@@ -7,9 +7,10 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Ul } from "@gc-digital-talent/ui";
+import { Link, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import useRoutes from "~/hooks/useRoutes";
 
 export const ReferralMatchingPoolSource_Fragment = graphql(/* GraphQL */ `
   fragment ReferralMatchingPoolSource on PoolCandidate {
@@ -37,13 +38,14 @@ const ReferralMatchingSources = ({
 }: ReferralMatchingSourcesProps) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
-  const pools = unpackMaybes(
+  const paths = useRoutes();
+  const applications = unpackMaybes(
     matchingPoolSources?.map((q) =>
       getFragment(ReferralMatchingPoolSource_Fragment, q),
     ),
   );
 
-  if (!sourceLabels.length && !pools.length) return null;
+  if (!sourceLabels.length && !applications.length) return null;
 
   return (
     <>
@@ -65,7 +67,7 @@ const ReferralMatchingSources = ({
           notAvailable
         )}
       </FieldDisplay>
-      {pools.length > 0 && (
+      {applications.length > 0 && (
         <>
           <FieldDisplay
             className="mb-6"
@@ -78,9 +80,14 @@ const ReferralMatchingSources = ({
           >
             {sourceLabels.length > 0 ? (
               <Ul>
-                {pools.map((pool) => (
-                  <li key={pool.id}>
-                    {pool.pool.displayName?.display?.localized}
+                {applications.map((application) => (
+                  <li key={application.id}>
+                    <Link
+                      href={paths.poolCandidateApplication(application.id)}
+                      newTab
+                    >
+                      {application.pool.displayName?.display?.localized}
+                    </Link>
                   </li>
                 ))}
               </Ul>
