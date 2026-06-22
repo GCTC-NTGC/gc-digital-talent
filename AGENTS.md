@@ -102,6 +102,8 @@ php artisan test --filter=ExampleTest
 English (en), French (fr) for everything.
 Michif (crg), Plains Cree (crk), Western Ojibway (ojw), Mi'kmaw (mic) in special cases.
 
+**Do NOT generate French (or other non-English) translations.** The team maintains an internal lexicon and uses a professional translation workflow (see `documentation/translation.md`). When adding user-facing strings, write English only and leave other languages for the translation process.
+
 ## GraphQL Workflow
 
 1. Modify schema in `api/graphql/schema.graphql`
