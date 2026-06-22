@@ -23,5 +23,4 @@ export const SEARCH_PARAM_KEY = {
   FILTERS: "f",
   POOL_FILTERS: "pool-filters", // owned by PoolTable
   POOL_CANDIDATE_FILTERS: "pool-candidate-filters", // owned by PoolCandidatesTable
-  TRACKED_USER_FILTERS: "tracked-user-filters", // owned by TalentRequestTrackedUsersTable
 } as const;

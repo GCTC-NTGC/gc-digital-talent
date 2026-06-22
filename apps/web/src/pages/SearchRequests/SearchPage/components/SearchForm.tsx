@@ -318,7 +318,7 @@ export const SearchForm = ({
                         </div>
                       </Card>
                     )}
-                    {results.map(({ pool, candidateCount: resultsCount }) => (
+                    {results.map(({ pool, count: resultsCount }) => (
                       <SearchResultCard
                         key={pool.id}
                         candidateCount={resultsCount}

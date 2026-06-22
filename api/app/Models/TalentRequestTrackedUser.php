@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\UserBuilder;
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
 use SortDirection;
@@ -62,6 +64,70 @@ class TalentRequestTrackedUser extends Pivot
         return $this->belongsTo(User::class);
     }
 
+    /** @return HasManyThrough<PoolCandidate, User, $this> */
+    public function matchingQualifiedInPoolSources(): HasManyThrough
+    {
+        // talentRequest.applicantFilter.* is pre-loaded via @with on the schema field
+        $filter = $this->talentRequest->applicantFilter;
+
+        return $this->hasManyThrough(PoolCandidate::class, User::class, 'id', 'user_id', 'user_id', 'id')
+            ->whereMatchesTalentRequest([
+                'qualifiedInClassifications' => $filter->qualifiedInClassifications
+                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
+                    ->toArray(),
+                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
+                    ->map(fn ($ws) => ['id' => $ws->id])
+                    ->toArray(),
+                'community' => $filter->community_id,
+            ])
+            ->whereAuthorizedToView();
+    }
+
+    /** @return Attribute<array<string>, never> */
+    protected function sources(): Attribute
+    {
+        return Attribute::get(function (): array {
+            /** @var array<string> $sources */
+            $sources = $this->hasQualifiedInPoolSource()
+                ? [TalentRequestSource::QUALIFIED_IN_POOL->name]
+                : [];
+
+            return $sources;
+        });
+    }
+
+    private function hasQualifiedInPoolSource(): bool
+    {
+        if (isset($this->has_prequalified_source)) {
+            return (bool) $this->has_prequalified_source;
+        }
+
+        return $this->matchingQualifiedInPoolSources()->exists();
+    }
+
+    /** @return Attribute<array{}, never> */
+    protected function matchingAtLevelSources(): Attribute
+    {
+        return Attribute::get(fn (): array => []);
+    }
+
+    /** @return Attribute<array{}, never> */
+    protected function matchingAdvancementSources(): Attribute
+    {
+        return Attribute::get(fn (): array => []);
+    }
+
+    /**
+     * The user's referral summary (delegates to the User accessor so the
+     * tracked-user view can show the same user-wide aggregate).
+     *
+     * @return Attribute<array{referredCount: int, notSelectedReasons: array<int, array{reason: string, count: int}>}, never>
+     */
+    protected function referralSummary(): Attribute
+    {
+        return Attribute::get(fn () => $this->user->referral_summary);
+    }
+
     /**
      * The tracked user's current position in the referral → selection flow,
      * as a TalentRequestTrackedUserStatus name. A selection decision supersedes
@@ -107,6 +173,33 @@ class TalentRequestTrackedUser extends Pivot
                     ->join('talent_requests', 'talent_requests.applicant_filter_id', '=', 'applicant_filter_skill.applicant_filter_id')
                     ->whereColumn('talent_requests.id', 'talent_request_tracked_users.talent_request_id');
             }),
+        ]);
+    }
+
+    public function scopeWithSources(Builder $query, string $talentRequestId): Builder
+    {
+        $filter = TalentRequest::with([
+            'applicantFilter.qualifiedInClassifications',
+            'applicantFilter.qualifiedInWorkStreams',
+        ])->find($talentRequestId)?->applicantFilter;
+
+        if (! $filter) {
+            return $query;
+        }
+
+        return $query->addSelect(['has_prequalified_source' => PoolCandidate::query()
+            ->selectRaw('1')
+            ->whereColumn('pool_candidates.user_id', 'talent_request_tracked_users.user_id')
+            ->whereMatchesTalentRequest([
+                'qualifiedInClassifications' => $filter->qualifiedInClassifications
+                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
+                    ->toArray(),
+                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
+                    ->map(fn ($ws) => ['id' => $ws->id])
+                    ->toArray(),
+                'community' => $filter->community_id,
+            ])
+            ->limit(1),
         ]);
     }
 
@@ -171,6 +264,8 @@ class TalentRequestTrackedUser extends Pivot
     {
         $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
         $this->not_referred_reason = null;
+        $this->selection_decision = null;
+        $this->not_selected_reason = null;
 
         if ($save) {
             $this->save();

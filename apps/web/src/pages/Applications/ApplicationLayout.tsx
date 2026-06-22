@@ -28,11 +28,10 @@ import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-import IapContactDialog from "~/components/Dialog/IapContactDialog";
 import useRoutes from "~/hooks/useRoutes";
 import useCurrentPage from "~/hooks/useCurrentPage";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import { poolTitle, isIAPPool } from "~/utils/poolUtils";
+import { poolTitle } from "~/utils/poolUtils";
 import {
   applicationStepsToStepperArgs,
   getNextStepToSubmit,
@@ -75,7 +74,6 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     ),
   };
   const title = poolTitle(intl, application.pool);
-  const isIAP = isIAPPool(application.pool.publishingGroup?.value);
 
   const pageTitle = defineMessage({
     defaultMessage: "Apply to {poolName}",
@@ -179,11 +177,6 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
                 browserState,
               )}
             />
-            {isIAP && (
-              <div className="my-6">
-                <IapContactDialog />
-              </div>
-            )}
           </TableOfContents.Sidebar>
           <TableOfContents.Content>
             {userIsOnDisabledPage ? (

@@ -229,10 +229,6 @@ export default [
                 "./pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage.tsx",
               ),
               route(
-                "self-declaration",
-                "./pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage.tsx",
-              ),
-              route(
                 "profile",
                 "./pages/Applications/ApplicationProfilePage/ApplicationProfilePage.tsx",
               ),
@@ -409,6 +405,10 @@ export default [
                       route(
                         "career-experience",
                         "./pages/TalentNominations/NominationGroup/CareerExperience.tsx",
+                      ),
+                      route(
+                        "history",
+                        "./pages/TalentNominations/NominationGroup/History.tsx",
                       ),
                     ],
                   ),

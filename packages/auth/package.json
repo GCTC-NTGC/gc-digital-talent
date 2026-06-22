@@ -37,6 +37,6 @@
     "react": "^19.2.7",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.8"
   }
 }

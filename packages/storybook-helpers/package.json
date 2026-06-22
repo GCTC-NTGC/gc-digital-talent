@@ -17,8 +17,8 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^5.2.0",
-    "chromatic": "^17.2.0",
-    "graphql": "^16.14.1",
+    "chromatic": "^17.4.0",
+    "graphql": "^16.14.2",
     "lodash": "^4.18.1",
     "motion": "^12.39.0",
     "react-router": "^7.17.0",
@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-themes": "^10.4.2",
-    "@storybook/react-vite": "^10.4.2",
+    "@storybook/addon-themes": "^10.4.4",
+    "@storybook/react-vite": "^10.4.4",
     "eslint": "^9.20.1",
     "react": "^19.2.7",
-    "storybook": "^10.4.2",
+    "storybook": "^10.4.4",
     "tsconfig": "workspace:*"
   }
 }

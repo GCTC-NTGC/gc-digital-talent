@@ -68,9 +68,9 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
             'publishing_group' => PublishingGroup::IT_JOBS->name,
         ]);
-        $EXPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $IaPPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $user['id'],
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+            'publishing_group' => PublishingGroup::IAP->name,
         ]);
 
         PoolCandidate::factory()->count(3)->create([
@@ -103,9 +103,9 @@ class ApplicantTest extends TestCase
             'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
 
-        // Executive pool - should not appear in searches
+        // IAP pool - should not appear in searches
         PoolCandidate::factory()->create([
-            'pool_id' => $EXPool['id'],
+            'pool_id' => $IaPPool['id'],
             'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'placement_type' => PlacementType::NOT_PLACED->name,
@@ -1521,7 +1521,7 @@ class ApplicantTest extends TestCase
             ]);
     }
 
-    public function testOnlyItJobsAppear()
+    public function testOnlyNonIapJobsAppear()
     {
         $itPool = Pool::factory()->candidatesAvailableInSearch()->create([
             'user_id' => $this->adminUser->id,
@@ -1536,6 +1536,20 @@ class ApplicantTest extends TestCase
         PoolCandidate::factory()->availableInSearch()->create([
             'pool_id' => $execPool->id,
         ]);
+        $otherPool = Pool::factory()->published()->create([
+            'user_id' => $this->adminUser->id,
+            'publishing_group' => PublishingGroup::OTHER->name,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $otherPool->id,
+        ]);
+        $iapPool = Pool::factory()->published()->create([
+            'user_id' => $this->adminUser->id,
+            'publishing_group' => PublishingGroup::IAP->name,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'pool_id' => $iapPool->id,
+        ]);
 
         $this->graphQL(
             /** @lang GraphQL */
@@ -1549,7 +1563,7 @@ class ApplicantTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'countApplicantsForSearch' => 1,
+                'countApplicantsForSearch' => 3,
             ],
         ]);
     }

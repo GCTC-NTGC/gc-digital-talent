@@ -111,11 +111,7 @@ const ApplicationResumeReferralsDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button mode="text" color="warning" className="text-left">
-          {intl.formatMessage({
-            defaultMessage: "Not referred",
-            id: "YJ9DuG",
-            description: "Dialog trigger for unpause referral status dialog",
-          })}
+          {intl.formatMessage(commonMessages.notReferred)}
         </Button>
       </Dialog.Trigger>
       <Ul space="sm" className="text-gray-600 dark:text-gray-200">

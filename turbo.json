@@ -157,7 +157,15 @@
       "cache": false
     },
     "e2e:playwright": {
-      "env": ["E2E_COVERAGE"]
+      "env": [
+        "PLAYWRIGHT_ENV_FILE",
+        "BASE_URL",
+        "TESTING_ENDPOINT_SECRET",
+        "PLAYWRIGHT_PLATFORM_ADMIN_SUB",
+        "PLAYWRIGHT_COMMUNITY_ADMIN_SUB",
+        "PLAYWRIGHT_APPLICANT_SUB",
+        "E2E_COVERAGE"
+      ]
     },
     "lint": {
       "inputs": [

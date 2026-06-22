@@ -17,10 +17,10 @@ import Header from "~/components/Header/Header";
 import Footer from "~/components/Footer/Footer";
 import IAPNavMenu from "~/components/NavMenu/IAPNavMenu";
 import useLayoutTheme from "~/hooks/useLayoutTheme";
-import crgMessages from "~/lang/crgCompiled.json";
-import crkMessages from "~/lang/crkCompiled.json";
-import ojwMessages from "~/lang/ojwCompiled.json";
-import micMessages from "~/lang/micCompiled.json";
+import crgMessages from "~/lang/crgCompiled.json" with { type: "json" };
+import crkMessages from "~/lang/crkCompiled.json" with { type: "json" };
+import ojwMessages from "~/lang/ojwCompiled.json" with { type: "json" };
+import micMessages from "~/lang/micCompiled.json" with { type: "json" };
 
 import SkipLink from "./SkipLink";
 import SitewideBanner from "./SitewideBanner";

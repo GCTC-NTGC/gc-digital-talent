@@ -1,5 +1,5 @@
 import type { Messages, Locales } from "../types";
-import CommonFrench from "../lang/frCompiled.json";
+import CommonFrench from "../lang/frCompiled.json" with { type: "json" };
 import { isLocale } from "./localize";
 
 export const STORED_LOCALE = "stored_locale";
