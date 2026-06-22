@@ -138,7 +138,7 @@ class SpecialApplicationTest extends TestCase
             ->assertGraphQLValidationError('poolCandidate', ErrorCode::SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED->name);
     }
 
-    // validation rejects input if the special closing date precedes the pool's closing date
+    // validation rejects input if the special closing date precedes the pool's closing date AND/OR if it precedes today
     public function testSpecialClosingDateNotBeforePoolClose(): void
     {
         $this->actingAs($this->admin, 'api')
@@ -151,6 +151,10 @@ class SpecialApplicationTest extends TestCase
                     'specialApplicationClosingDate' => config('constants.far_past_datetime'),
                 ],
             ])
+            ->assertGraphQLValidationError(
+                'poolCandidate.specialApplicationClosingDate',
+                'The pool candidate.special application closing date field must be a date after today.'
+            )
             ->assertGraphQLValidationError(
                 'poolCandidate.specialApplicationClosingDate',
                 'The pool candidate.special application closing date field must be a date after '.$this->pool->closing_date.'.'
