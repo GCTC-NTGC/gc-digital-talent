@@ -425,6 +425,11 @@ const getRoutes = (lang: Locales) => {
       nominationGroupId: string,
     ) =>
       `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/career-experience`,
+    talentNominationGroupHistory: (
+      eventId: string,
+      nominationGroupId: string,
+    ) =>
+      `${adminUrl}/talent-events/${eventId}/nominations/${nominationGroupId}/history`,
 
     // Comptrollership
     comptrollershipExecutivesPage: () =>
