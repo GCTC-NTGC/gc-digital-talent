@@ -7,7 +7,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Separator, Ul } from "@gc-digital-talent/ui";
+import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -48,6 +48,7 @@ const ReferralMatchingSources = ({
   return (
     <>
       <FieldDisplay
+        className="mb-6"
         label={intl.formatMessage({
           defaultMessage: "Source of talent",
           id: "6eQF40",
@@ -64,10 +65,10 @@ const ReferralMatchingSources = ({
           notAvailable
         )}
       </FieldDisplay>
-      <Separator space="sm" />
       {pools.length > 0 && (
         <>
           <FieldDisplay
+            className="mb-6"
             label={intl.formatMessage({
               defaultMessage: "Qualified processes",
               id: "IfVx4x",
@@ -87,7 +88,6 @@ const ReferralMatchingSources = ({
               notAvailable
             )}
           </FieldDisplay>
-          <Separator space="sm" />
         </>
       )}
     </>
