@@ -1321,12 +1321,6 @@ type PoolCandidate {
   assessmentStep: AssessmentStep
 }
 
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate!
-  skillCount: Int
-}
-
 type PoolCandidateAdminView {
   id: ID!
   pool: Pool!

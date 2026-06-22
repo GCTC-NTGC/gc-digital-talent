@@ -708,12 +708,6 @@ type PoolCandidate {
   assessmentStep: AssessmentStep @belongsTo
 }
 
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate! @self
-  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
-}
-
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
 # Include only fields as needed for admin purposes
 type PoolCandidateAdminView {
