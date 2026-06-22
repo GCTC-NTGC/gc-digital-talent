@@ -23,6 +23,7 @@ import TalentRequestEditReferralDialog, {
   TalentRequestEditReferralDialogSourceOptions_Fragment,
 } from "./TalentRequestEditReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
+import { ReferralHistory_Fragment } from "./ReferralHistory";
 import { ReferralMatchingPoolSource_Fragment } from "./ReferralMatchingSources";
 
 const [user] = fakeUsers(1);
@@ -87,6 +88,21 @@ const mockTrackedUser = {
       ReferralMatchingPoolSource_Fragment,
     ),
   ],
+  referralSummary: makeFragmentData(
+    {
+      referredCount: 3,
+      notSelectedReasons: [
+        {
+          reason: {
+            value: TalentRequestTrackedUserNotSelectedReason.Other,
+            label: { localized: "Other" },
+          },
+          count: 2,
+        },
+      ],
+    },
+    ReferralHistory_Fragment,
+  ),
   user: {
     id: user.id,
     firstName: user.firstName,

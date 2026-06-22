@@ -21,6 +21,7 @@ import ReferralFormFields, {
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
 import ReferralDialogHeader from "./ReferralDialogHeader";
+import ReferralHistory from "./ReferralHistory";
 import ReferralMatchingSources from "./ReferralMatchingSources";
 
 const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
@@ -84,6 +85,9 @@ export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
     sources
     matchingQualifiedInPoolSources {
       ...ReferralMatchingPoolSource
+    }
+    referralSummary {
+      ...ReferralHistory
     }
     user {
       id
@@ -215,6 +219,7 @@ const TalentRequestEditReferralDialog = ({
             sourceLabels={sourceLabels}
             matchingPoolSources={trackedUser.matchingQualifiedInPoolSources}
           />
+          <ReferralHistory query={trackedUser.referralSummary} />
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(handleSubmit)}

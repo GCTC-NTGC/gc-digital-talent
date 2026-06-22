@@ -19,6 +19,7 @@ import ReferralFormFields, {
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
 import ReferralDialogHeader from "./ReferralDialogHeader";
+import ReferralHistory from "./ReferralHistory";
 import ReferralMatchingSources from "./ReferralMatchingSources";
 
 const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
@@ -51,6 +52,9 @@ export const TalentRequestAddReferralDialog_Fragment = graphql(/* GraphQL */ `
     }
     matchingQualifiedInPoolSources {
       ...ReferralMatchingPoolSource
+    }
+    referralSummary {
+      ...ReferralHistory
     }
   }
 `);
@@ -148,6 +152,7 @@ const TalentRequestAddReferralDialog = ({
             sourceLabels={sourceLabels}
             matchingPoolSources={result.matchingQualifiedInPoolSources}
           />
+          <ReferralHistory query={result.referralSummary} />
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(handleSubmit)}
