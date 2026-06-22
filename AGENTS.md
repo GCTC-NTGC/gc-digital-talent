@@ -28,66 +28,34 @@ GC Digital Talent is a government recruitment platform built as a monorepo with 
 
 ## Essential Commands
 
-All commands run from the repository root. Use `ENV=dev` for development with hot reloading. Make targets run inside Docker via the maintenance container.
+All commands run from the repository root. There are two setup paths:
+- **Docker**: Most devs use `make` targets that wrap these commands inside Docker via the maintenance container. See the `Makefile` for available targets and `infrastructure/README.md` for setup.
+- **Local**: Run commands directly if you have PHP, Node, and PostgreSQL installed locally. See `documentation/linux-setup.md`.
+
+When using Docker, either enter the maintenance container first or use the corresponding `make` target (e.g., `make lint` runs linting inside the container). Pass `ENV=dev` for hot reloading: `make up ENV=dev`.
 
 ```bash
-# Infrastructure
-make up ENV=dev             # Start containers (build + detach)
-make down                   # Stop containers
-make logs                   # Tail container logs
-make setup                  # First-time setup (runs setup.sh in container)
-make refresh ENV=dev        # Refresh everything (frontend + API)
-make refresh-frontend ENV=dev  # Refresh frontend only
-make refresh-api ENV=dev    # Refresh API only
-
 # Development
-make watch ENV=dev          # Watch mode for web + graphql packages
-
-# Database
-make seed-fresh             # Reset and seed database (migrate:fresh --seed)
-make migrate                # Run pending migrations
-
-# Code Quality
-make lint                   # PHP (Pint) + JS (ESLint) linting
-make lint-php               # PHP linting only (Pint)
-make phpstan                # PHP static analysis
-
-# Testing
-make test                   # Run PHPUnit tests
-make test CMD="--filter=ExampleTest"  # Run specific PHP test
-
-# API Utilities
-make artisan CMD="<command>"   # Run any artisan command
-make composer CMD="<command>"  # Run any composer command
-make optimize-api              # Optimize API (caches config, routes, views)
-make queue-work                # Start queue worker
-make reverb-start              # Start Reverb WebSocket server
-```
-
-### Frontend commands (no make target yet)
-
-These run via pnpm inside the container. Use `make watch` for typical dev work.
-
-```bash
-# From inside the maintenance container, or prefix with:
-# docker compose -f docker-compose.dev.yml run -w /var/www/html --rm maintenance pnpm
-
-# development
-pnpm dev                    # Start dev server (runs codegen, i18n compile first)
+pnpm dev                    # Start frontend dev server (runs codegen, i18n compile first)
 pnpm build                  # Production build
 pnpm codegen                # Regenerate GraphQL types from schema
 
-# testing
+# Database
+php artisan migrate         # Run pending migrations
+php artisan migrate:fresh --seed  # Reset and seed database
+
+# Code Quality
+pnpm lint:fix               # ESLint auto-fix
+pnpm tsc                    # TypeScript type check
+pnpm prettier:fix           # Prettier auto-fix
+./vendor/bin/pint           # PHP linting (Pint)
+./vendor/bin/phpstan        # PHP static analysis
+
+# Testing
 pnpm test                   # Run Vitest tests once
 pnpm test:watch             # Vitest watch mode
+php artisan test             # Run PHPUnit tests
 pnpm e2e:playwright         # Run Playwright E2E tests
-pnpm storybook              # Start Storybook on port 6006
-
-# linting/formatting
-pnpm lint:fix               # ESLint auto-fix
-pnpm prettier               # Prettier check
-pnpm prettier:fix           # Prettier auto-fix
-pnpm tsc                    # TypeScript type check
 
 # Internationalization
 pnpm intl-extract           # Extract English strings
@@ -95,17 +63,12 @@ pnpm intl-compile           # Compile all language files
 pnpm check-intl             # Check translation completeness
 ```
 
-## Running a Single Test
+### Running a Single Test
 
 ```bash
-# Vitest - run specific test file (inside container)
 pnpm vitest run apps/web/src/components/Example/Example.test.tsx
-
-# Playwright - run specific test (inside container)
 pnpm --filter @gc-digital-talent/playwright e2e -- --grep "test name"
-
-# PHPUnit - run specific test
-make test CMD="--filter=ExampleTest"
+php artisan test --filter=ExampleTest
 ```
 
 ## Code Style
