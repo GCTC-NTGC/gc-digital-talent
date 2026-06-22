@@ -135,7 +135,7 @@ class SpecialApplicationTest extends TestCase
                     'specialApplicationClosingDate' => config('constants.far_future_datetime'),
                 ],
             ])
-            ->assertGraphQLValidationError('id', ErrorCode::SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED->name);
+            ->assertGraphQLValidationError('poolCandidate', ErrorCode::SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED->name);
     }
 
     // validation rejects input if the special closing date precedes the pool's closing date
@@ -153,7 +153,7 @@ class SpecialApplicationTest extends TestCase
             ])
             ->assertGraphQLValidationError(
                 'poolCandidate.specialApplicationClosingDate',
-                'The pool candidate.special application closing date field must be a date after or equal to '.$this->pool->closing_date.'.'
+                'The pool candidate.special application closing date field must be a date after '.$this->pool->closing_date.'.'
             );
     }
 }

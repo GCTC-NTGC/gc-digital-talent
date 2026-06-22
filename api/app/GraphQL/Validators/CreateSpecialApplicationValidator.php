@@ -2,10 +2,8 @@
 
 namespace App\GraphQL\Validators;
 
-use App\Enums\ErrorCode;
 use App\Models\Pool;
-use App\Models\PoolCandidate;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
+use App\Rules\PoolCandidateDraftOrNonExistent;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateSpecialApplicationValidator extends Validator
@@ -23,19 +21,8 @@ final class CreateSpecialApplicationValidator extends Validator
 
         $pool = Pool::query()->select('closing_date')->findOrFail($poolId);
 
-        $poolCandidate = PoolCandidate::where('pool_id', $poolId)
-            ->where('user_id', $userId)
-            ->select(['submitted_at'])
-            ->first();
-
-        if ($poolCandidate) {
-            // existing pool candidate allowed if it wasn't submitted
-            if ($poolCandidate->submitted_at) {
-                throw ValidationException::withMessages(['id' => ErrorCode::SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED->name]);
-            }
-        }
-
         return [
+            'poolCandidate' => [new PoolCandidateDraftOrNonExistent($poolId, $userId)],
             'poolCandidate.pool.connect' => [
                 'required',
                 'uuid',
