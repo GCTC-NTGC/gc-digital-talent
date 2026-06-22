@@ -15,7 +15,7 @@ Draft the issue body following every guideline below. Present the draft for revi
 
 Issue templates live in the repo at `.github/ISSUE_TEMPLATE/`. Read the relevant template YAML before drafting to match its exact field names and structure. Available templates: `accessibility.yml`, `bug_report.yml`, `copy.yml`, `documentation.yml`, `feature.yml`, `notification.yml`, `platform.yml`, `refactor.yml`, `spike.yml`, `testing.yml`, `user_interface.yml`, and `roadmap--epic-.md`.
 
-When referring to people by name, use their role or team instead (e.g. "the product owner" not "Gray") — see memory for the exception about leadership attributions.
+When referring to people by name, use their role or team instead (e.g. "the product owner" not "Gray").
 
 ---
 
