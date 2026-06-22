@@ -622,7 +622,7 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-type PoolCandidateViewApplicationAssessmentData {
+type PoolCandidateAssessmentData {
   notes: String
   isFlagged: Boolean @rename(attribute: "is_flagged")
 
@@ -637,7 +637,7 @@ type PoolCandidateViewApplicationAssessmentData {
     @rename(attribute: "priority_verification_expiry")
 }
 
-type PoolCandidateViewApplicationStatusData {
+type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
@@ -691,10 +691,10 @@ type PoolCandidate {
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
 
-  applicationStatusData: PoolCandidateViewApplicationStatusData
+  applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
     @self
-  applicationAssessmentData: PoolCandidateViewApplicationAssessmentData
+  applicationAssessmentData: PoolCandidateAssessmentData
     @canRoot(ability: "viewApplicationAssessment")
     @self
 

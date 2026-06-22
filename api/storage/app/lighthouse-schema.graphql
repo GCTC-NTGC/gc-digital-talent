@@ -1265,7 +1265,7 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-type PoolCandidateViewApplicationAssessmentData {
+type PoolCandidateAssessmentData {
   notes: String
   isFlagged: Boolean
   veteranVerification: ClaimVerificationResult
@@ -1274,7 +1274,7 @@ type PoolCandidateViewApplicationAssessmentData {
   priorityVerificationExpiry: Date
 }
 
-type PoolCandidateViewApplicationStatusData {
+type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
@@ -1314,8 +1314,8 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   educationRequirementExperienceIds: [UUID!]
-  applicationStatusData: PoolCandidateViewApplicationStatusData
-  applicationAssessmentData: PoolCandidateViewApplicationAssessmentData
+  applicationStatusData: PoolCandidateStatusData
+  applicationAssessmentData: PoolCandidateAssessmentData
   assessmentResults: [AssessmentResult]
   assessmentStatus: AssessmentResultStatus
   assessmentStep: AssessmentStep
