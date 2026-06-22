@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
@@ -81,6 +82,47 @@ class TalentRequestTrackedUser extends Pivot
                 'community' => $filter->community_id,
             ])
             ->whereAuthorizedToView();
+    }
+
+    /**
+     * Pool candidates belonging to this tracked user's user (by user_id), without filter
+     * constraints. Constraints are applied via scopeWithMatchingQualifiedInPoolSources so
+     * Eloquent can eager-load the relation in a single batched query.
+     *
+     * @return HasMany<PoolCandidate, $this>
+     */
+    public function qualifiedPoolCandidates(): HasMany
+    {
+        return $this->hasMany(PoolCandidate::class, 'user_id', 'user_id');
+    }
+
+    /**
+     * Pre-load pool candidates for each tracked user that match the talent request filter,
+     * in a single batch query instead of one query per user.
+     */
+    public function scopeWithMatchingQualifiedInPoolSources(Builder $query, string $talentRequestId): Builder
+    {
+        $filter = TalentRequest::with([
+            'applicantFilter.qualifiedInClassifications',
+            'applicantFilter.qualifiedInWorkStreams',
+        ])->find($talentRequestId)?->applicantFilter;
+
+        if (! $filter) {
+            return $query;
+        }
+
+        return $query->with(['qualifiedPoolCandidates' => fn ($q) => $q
+            ->whereMatchesTalentRequest([
+                'qualifiedInClassifications' => $filter->qualifiedInClassifications
+                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
+                    ->toArray(),
+                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
+                    ->map(fn ($ws) => ['id' => $ws->id])
+                    ->toArray(),
+                'community' => $filter->community_id,
+            ])
+            ->whereAuthorizedToView()
+        ]);
     }
 
     /** @return Attribute<array<string>, never> */

@@ -1202,8 +1202,7 @@ type TalentRequestTrackedUser {
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @field(resolver: "MatchingQualifiedInPoolSources")
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
@@ -1951,6 +1950,7 @@ type Query {
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
       @scope(name: "withSources")
+      @scope(name: "withMatchingQualifiedInPoolSources")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
