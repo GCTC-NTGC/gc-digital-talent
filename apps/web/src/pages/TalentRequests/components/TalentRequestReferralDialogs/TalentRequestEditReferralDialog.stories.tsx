@@ -7,6 +7,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
+  TalentRequestSource,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
   TalentRequestTrackedUserReferralDecision,
@@ -19,8 +20,10 @@ import {
 
 import TalentRequestEditReferralDialog, {
   TalentRequestEditReferralDialog_Fragment,
+  TalentRequestEditReferralDialogSourceOptions_Fragment,
 } from "./TalentRequestEditReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
+import { ReferralMatchingPoolSource_Fragment } from "./ReferralMatchingSources";
 
 const [user] = fakeUsers(1);
 
@@ -54,12 +57,36 @@ const optionsQuery = makeFragmentData(
   TalentRequestReferralDialogOptions_Fragment,
 );
 
+const sourceOptionsQuery = makeFragmentData(
+  {
+    talentRequestSources: fakeLocalizedEnum(TalentRequestSource).map((opt) => ({
+      __typename: "LocalizedTalentRequestSource" as const,
+      ...toLocalizedEnum(opt.value),
+    })),
+  },
+  TalentRequestEditReferralDialogSourceOptions_Fragment,
+);
+
 const mockTrackedUser = {
   id: "tracked-user-1",
   referralDecision: null,
   selectionDecision: null,
   notReferredReason: null,
   notSelectedReason: null,
+  sources: [TalentRequestSource.QualifiedInPool],
+  matchingQualifiedInPoolSources: [
+    makeFragmentData(
+      {
+        id: "pool-candidate-1",
+        pool: {
+          displayName: {
+            display: { localized: "IT-02" },
+          },
+        },
+      },
+      ReferralMatchingPoolSource_Fragment,
+    ),
+  ],
   user: {
     id: user.id,
     firstName: user.firstName,
@@ -81,6 +108,7 @@ const meta = {
   },
   args: {
     optionsQuery,
+    sourceOptionsQuery,
     defaultOpen: true,
   },
 } satisfies Meta<typeof TalentRequestEditReferralDialog>;
