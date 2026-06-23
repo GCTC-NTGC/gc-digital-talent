@@ -112,7 +112,7 @@ export function transformApplicantFilterToFormValues(
     ),
     skills: unpackMaybes(applicantFilter?.skills).map(({ id }) => id),
     priorityWeight: [],
-    govEmployee: "",
+    govEmployee: [],
     departments: [],
   };
 }
@@ -150,7 +150,7 @@ export function transformWhereToFormValues(
     workRegions: unpackMaybes(applicantFilter?.locationPreferences),
     skills: applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id) ?? [],
     priorityWeight: unpackMaybes(input?.priorityWeight),
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     departments: unpackMaybes(input?.departments),
   };
 }
@@ -183,7 +183,7 @@ export function transformFormValuesToWhere(
       qualifiedInWorkStreams: data.streams?.map((id) => ({ id })),
     },
     priorityWeight: data.priorityWeight,
-    isGovEmployee: data.govEmployee ? true : undefined,
+    employeeVerification: data.govEmployee,
     departments: data.departments,
   };
 }

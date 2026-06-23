@@ -3,6 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 
 import {
   WorkRegion,
+  type EmployeeVerification,
   type FlexibleWorkLocation,
   type FragmentType,
   type LanguageAbility,
@@ -24,7 +25,6 @@ import {
   Checklist,
   Combobox,
   Select,
-  SwitchInput,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -108,6 +108,14 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
+    employeeVerifications: localizedEnumOptions(enumName: "EmployeeVerification") {
+      ... on LocalizedEmployeeVerification {
+        value
+        label {
+          localized
+        }
+      }
+    }
   }
 `);
 
@@ -121,7 +129,7 @@ export interface FormValues {
   operationalRequirements?: OperationalRequirement[];
   flexibleWorkLocations?: FlexibleWorkLocation[];
   workRegions?: WorkRegion[];
-  govEmployee?: string;
+  govEmployee?: EmployeeVerification[];
   departments?: string[];
   skills?: string[];
 }
@@ -306,12 +314,17 @@ const TalentRequestMatchesFilterDialog = ({
             }))}
         />
         <div className="flex flex-col gap-6 xs:col-span-3">
-          <SwitchInput
-            id="govEmployee"
+          <Checklist
+            idPrefix="govEmployee"
             name="govEmployee"
-            color="secondary"
-            value="true"
-            label={intl.formatMessage(commonMessages.governmentEmployee)}
+            legend={intl.formatMessage(commonMessages.governmentEmployee)}
+            items={narrowEnumType(
+              unpackMaybes(options?.employeeVerifications),
+              "EmployeeVerification",
+            ).map((opt) => ({
+              value: opt.value,
+              label: opt.label?.localized ?? notAvailable,
+            }))}
           />
           <Combobox
             id="departments"

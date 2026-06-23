@@ -4,6 +4,7 @@ import type {
   CandidateReferralFilter,
   CandidateRemovalReason,
   CandidateSuspendedFilter,
+  EmployeeVerification,
   FlexibleWorkLocation,
   LanguageAbility,
   OperationalRequirement,
@@ -24,7 +25,7 @@ export interface FormValues {
   referralStatuses?: CandidateReferralFilter[];
   statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
-  govEmployee?: string;
+  govEmployee?: EmployeeVerification[];
   languageAbility?: LanguageAbility;
   operationalRequirement: OperationalRequirement[];
   placementTypes: PlacementType[];
