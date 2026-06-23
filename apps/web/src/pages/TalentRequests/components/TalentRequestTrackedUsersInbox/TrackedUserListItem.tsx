@@ -10,6 +10,7 @@ import {
   getFragment,
   type FragmentType,
   TalentRequestTrackedUserStatus,
+  graphql,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -18,9 +19,56 @@ import { SkillMatchDialog } from "~/components/Table/SkillMatchDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
-
 import Inbox from "./Inbox";
-import { TalentRequestTrackedUserInboxItem_Fragment } from "./trackedUserInboxItemFragment";
+
+export const TalentRequestTrackedUserInboxItem_Fragment = graphql(
+  /* GraphQL */ `
+    fragment TalentRequestTrackedUserInboxItem on TalentRequestTrackedUser {
+      id
+      skillCount
+      status {
+        value
+        label {
+          localized
+        }
+      }
+      selectionDecision {
+        label {
+          localized
+        }
+      }
+      notReferredReason {
+        value
+        label {
+          localized
+        }
+      }
+      notSelectedReason {
+        value
+        label {
+          localized
+        }
+      }
+      sources {
+        label {
+          localized
+        }
+      }
+      user {
+        id
+        firstName
+        lastName
+        priority {
+          value
+          label {
+            localized
+          }
+        }
+      }
+      ...TalentRequestEditReferralDialog
+    }
+  `,
+);
 
 const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
   [TalentRequestTrackedUserStatus.Referred]: PaperAirplaneIcon,
@@ -97,7 +145,11 @@ const TrackedUserListItem = ({
   const priority = trackedUser.user.priority?.label?.localized ?? null;
 
   return (
-    <Inbox.Row checked={checked} onCheckedChange={onCheckedChange} label={fullName}>
+    <Inbox.Row
+      checked={checked}
+      onCheckedChange={onCheckedChange}
+      label={fullName}
+    >
       <Inbox.Row.Title>
         <TalentRequestEditReferralDialog
           query={trackedUser}
