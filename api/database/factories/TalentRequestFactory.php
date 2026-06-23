@@ -88,7 +88,7 @@ class TalentRequestFactory extends BaseFactory
 
                 PoolCandidate::factory()
                     ->availableInSearch()
-                    ->create([
+                    ->createQuietly([
                         'pool_id' => $pool->id,
                         'user_id' => $user->id,
                     ]);
