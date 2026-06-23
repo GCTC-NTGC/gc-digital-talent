@@ -45,9 +45,9 @@ import {
   AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { durationToEnumPositionDuration } from "~/utils/userUtils";
 import type { Radio } from "@gc-digital-talent/forms";
 
+import { durationToEnumPositionDuration } from "~/utils/userUtils";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -510,9 +510,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
     employmentDuration: (() => {
-      const durations = unpackMaybes(
-        input?.applicantFilter?.positionDuration,
-      );
+      const durations = unpackMaybes(input?.applicantFilter?.positionDuration);
       if (!durations.length) return undefined;
       return durations.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
@@ -583,7 +581,9 @@ export function transformFormValuesToFilterState(
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
       positionDuration: data.employmentDuration
-        ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
         : undefined,
     },
     priorityWeight: data.priorityWeight,
