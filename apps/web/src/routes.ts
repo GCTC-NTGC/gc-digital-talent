@@ -406,6 +406,10 @@ export default [
                         "career-experience",
                         "./pages/TalentNominations/NominationGroup/CareerExperience.tsx",
                       ),
+                      route(
+                        "history",
+                        "./pages/TalentNominations/NominationGroup/History.tsx",
+                      ),
                     ],
                   ),
                 ]),

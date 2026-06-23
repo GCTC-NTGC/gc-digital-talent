@@ -2547,6 +2547,10 @@
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
     "description": "Talent portal strategy item 2 content"
   },
+  "85Y9eS": {
+    "defaultMessage": "Historique des mises en candidature",
+    "description": "Heading for the nomination history page"
+  },
   "86Y8lx": {
     "defaultMessage": "Votre nom",
     "description": "Support form name field label"
@@ -14817,6 +14821,10 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
+  },
+  "vtmq4K": {
+    "defaultMessage": "Historique",
+    "description": "Link text for the history of a nominee"
   },
   "vtnz6B": {
     "defaultMessage": "Décision finale",
