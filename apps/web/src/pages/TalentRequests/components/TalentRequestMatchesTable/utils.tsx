@@ -4,6 +4,7 @@ import type { IntlShape } from "react-intl";
 import {
   getFragment,
   graphql,
+  PositionDuration,
   SortOrder,
   type AdvancedOrderByInput,
   type FragmentType,
@@ -11,7 +12,9 @@ import {
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { getLocale } from "@gc-digital-talent/i18n";
+import { EmploymentDuration, getLocale } from "@gc-digital-talent/i18n";
+
+import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
 import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
@@ -67,6 +70,7 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
       skills {
         id
       }
+      positionDuration
     }
   `,
 );
@@ -114,6 +118,13 @@ export function transformApplicantFilterToFormValues(
     priorityWeight: [],
     govEmployee: "",
     departments: [],
+    employmentDuration: (() => {
+      const durations = unpackMaybes(applicantFilter?.positionDuration);
+      if (!durations.length) return undefined;
+      return durations.includes(PositionDuration.Temporary)
+        ? EmploymentDuration.Term
+        : EmploymentDuration.Indeterminate;
+    })(),
   };
 }
 
@@ -152,6 +163,13 @@ export function transformWhereToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: unpackMaybes(input?.departments),
+    employmentDuration: (() => {
+      const durations = unpackMaybes(applicantFilter?.positionDuration);
+      if (!durations.length) return undefined;
+      return durations.includes(PositionDuration.Temporary)
+        ? EmploymentDuration.Term
+        : EmploymentDuration.Indeterminate;
+    })(),
   };
 }
 
@@ -181,6 +199,9 @@ export function transformFormValuesToWhere(
         },
       ),
       qualifiedInWorkStreams: data.streams?.map((id) => ({ id })),
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
     isGovEmployee: data.govEmployee ? true : undefined,
