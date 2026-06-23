@@ -61,6 +61,13 @@ const DateFields = ({ labels }: SubExperienceFormProps) => {
     prevEducationStatus.current = watchEducationStatus;
   }, [prevEducationStatus, watchEducationStatus, resetField]);
 
+  if (
+    watchEducationStatus === EducationStatus.DidNotComplete &&
+    licenseOrCertification
+  ) {
+    return null;
+  }
+
   return (
     <div className="grid grid-cols-2 gap-6">
       {licenseOrCertification ? (

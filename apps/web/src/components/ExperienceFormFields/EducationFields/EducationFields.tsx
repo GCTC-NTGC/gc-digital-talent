@@ -6,9 +6,9 @@ import { useCallback, useEffect, useRef } from "react";
 import { Input, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { EducationStatus } from "@gc-digital-talent/graphql";
 import {
   DegreeType,
-  EducationStatus,
   EducationType,
   FellowshipType,
 } from "@gc-digital-talent/graphql";
@@ -79,10 +79,6 @@ const EducationFields = ({
     !!watchEducationType &&
     (watchEducationType !== EducationType.DegreeDiplomaCertificate ||
       !!watchDegreeType);
-  const showDateFields =
-    showStatusField &&
-    !!watchEducationStatus &&
-    watchEducationStatus !== EducationStatus.DidNotComplete;
 
   const licenseOrCertification =
     watchEducationType === EducationType.LicenseAccreditation ||
@@ -331,9 +327,9 @@ const EducationFields = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      {showDateFields && <DateFields labels={labels} />}
       {showStatusField && !!watchEducationStatus && (
         <>
+          <DateFields labels={labels} />
           <p>
             {intl.formatMessage({
               defaultMessage:

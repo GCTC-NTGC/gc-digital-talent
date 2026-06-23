@@ -541,11 +541,7 @@ export const formValuesToSubmitData = (
   let educationStartDate: string | undefined | null;
   let educationEndDate: string | undefined | null;
   let educationProspectiveEndDate: string | undefined | null;
-  if (educationStatus === EducationStatus.DidNotComplete) {
-    educationStartDate = null;
-    educationEndDate = null;
-    educationProspectiveEndDate = null;
-  } else if (educationStatus === EducationStatus.InProgress) {
+  if (educationStatus === EducationStatus.InProgress) {
     if (licenseOrCertification) {
       educationStartDate = prospectiveIssueDate;
       educationEndDate = null;
@@ -557,9 +553,15 @@ export const formValuesToSubmitData = (
     }
   } else {
     if (licenseOrCertification) {
-      educationStartDate = issueDate;
-      educationEndDate = expiryDate;
-      educationProspectiveEndDate = null;
+      if (educationStatus === EducationStatus.DidNotComplete) {
+        educationStartDate = null;
+        educationEndDate = null;
+        educationProspectiveEndDate = null;
+      } else {
+        educationStartDate = issueDate;
+        educationEndDate = expiryDate;
+        educationProspectiveEndDate = null;
+      }
     } else {
       educationStartDate = startDate;
       educationEndDate = endDate;
