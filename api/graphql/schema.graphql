@@ -2906,7 +2906,7 @@ input CommunityExperienceInput {
   details: String
   skills: UpdateExperienceSkills @spread
 }
-input EducationExperienceInput {
+input EducationExperienceInput @validator {
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
