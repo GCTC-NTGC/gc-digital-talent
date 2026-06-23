@@ -1197,7 +1197,7 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.

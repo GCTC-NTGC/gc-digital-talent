@@ -1686,7 +1686,7 @@ type TalentRequestTrackedUser {
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
