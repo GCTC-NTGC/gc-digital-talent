@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { CheckButton } from "@gc-digital-talent/forms";
 
 const toolbar = tv({
-  base: "flex flex-wrap items-end justify-between gap-3 border-b border-gray-200 px-6 py-3 dark:border-gray-700",
+  base: "grid grid-cols-1 gap-3 border-b border-gray-200 px-6 py-4 sm:grid-cols-2 dark:border-gray-700",
 });
 
 const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -12,7 +12,7 @@ const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const actions = tv({
-  base: "flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-gray-200 px-6 py-2 dark:border-gray-700",
+  base: "flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-gray-200 px-6 pb-2 dark:border-gray-700",
 });
 
 const Actions = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -26,7 +26,7 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative isolate flex items-start gap-x-3 border-b border-gray-200 px-6 py-4 even:bg-gray-100/60 hover:bg-gray-200/60 dark:border-gray-700 dark:even:bg-gray-700/40 dark:hover:bg-gray-600/40",
+  base: "relative isolate flex cursor-pointer items-start gap-x-3 border-b border-gray-200 px-6 py-4 odd:bg-gray-100/60 hover:bg-gray-200 dark:border-gray-700 dark:odd:bg-gray-700/40 dark:hover:bg-gray-700",
 });
 const rowControl = tv({ base: "relative z-10 shrink-0" });
 const rowContent = tv({ base: "min-w-0 flex-1" });
