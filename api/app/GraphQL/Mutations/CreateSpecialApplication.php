@@ -19,6 +19,7 @@ final class CreateSpecialApplication
 
         $existingPoolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
+            ->withTrashed()
             ->first();
 
         // branch one

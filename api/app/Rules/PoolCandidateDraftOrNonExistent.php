@@ -27,6 +27,7 @@ class PoolCandidateDraftOrNonExistent implements ValidationRule
 
         $this->poolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
+            ->withTrashed()
             ->select(['submitted_at'])
             ->first();
     }
