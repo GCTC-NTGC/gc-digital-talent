@@ -200,7 +200,9 @@ export function transformFormValuesToWhere(
       ),
       qualifiedInWorkStreams: data.streams?.map((id) => ({ id })),
       positionDuration: data.employmentDuration
-        ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
         : undefined,
     },
     priorityWeight: data.priorityWeight,
