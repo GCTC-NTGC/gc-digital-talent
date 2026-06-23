@@ -9,7 +9,11 @@ import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import type { Locales } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  EmploymentDuration,
+  getLocalizedName,
+} from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -36,10 +40,12 @@ import {
   CandidateExpiryFilter,
   OrderByRelationWithColumnAggregateFunction,
   CandidateSuspendedFilter,
+  PositionDuration,
   SortOrder,
   AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { durationToEnumPositionDuration } from "~/utils/userUtils";
 import type { Radio } from "@gc-digital-talent/forms";
 
 import type useRoutes from "~/hooks/useRoutes";
@@ -503,6 +509,15 @@ export function transformPoolCandidateSearchInputToFormValues(
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    employmentDuration: (() => {
+      const durations = unpackMaybes(
+        input?.applicantFilter?.positionDuration,
+      );
+      if (!durations.length) return undefined;
+      return durations.includes(PositionDuration.Temporary)
+        ? EmploymentDuration.Term
+        : EmploymentDuration.Indeterminate;
+    })(),
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -567,6 +582,9 @@ export function transformFormValuesToFilterState(
       pools: data.pools.flatMap((id) => ({ id })),
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
