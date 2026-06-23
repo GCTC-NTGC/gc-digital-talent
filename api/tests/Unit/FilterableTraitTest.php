@@ -143,9 +143,9 @@ class FilterableTraitTest extends TestCase
                 ['whereEmail' => true],
             ],
             'calls nested scopes' => [
-                ['applicantFilter' => ['whereIsGovEmployee' => true]],
+                ['applicantFilter' => ['whereEmployeeVerificationIn' => ['VERIFIED']]],
                 [],
-                ['whereIsGovEmployee' => true],
+                ['whereEmployeeVerificationIn' => true],
             ],
             'calls mapped scopes' => [
                 ['skills' => ['id']],

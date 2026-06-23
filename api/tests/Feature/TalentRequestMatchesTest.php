@@ -338,14 +338,15 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $inDepartment->id);
     }
 
-    public function testFiltersByIsGovEmployee(): void
+    public function testFiltersByEmployeeVerification(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
 
+        // withGovEmployeeProfile creates a user with a verified work email
         $govEmployee = $this->matchingUser($pool, [], true);
-        $nonGov = $this->matchingUser($pool, [], false);
+        $this->matchingUser($pool, [], false);
 
-        $this->runMatches(['isGovEmployee' => true])
+        $this->runMatches(['employeeVerification' => ['VERIFIED']])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $govEmployee->id);
     }

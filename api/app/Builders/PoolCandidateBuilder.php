@@ -8,7 +8,6 @@ use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\EmployeeVerification;
 use App\Enums\PlacementType;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;

@@ -1456,18 +1456,27 @@ class UserTest extends TestCase
 
     public function testFilterByGovEmployee(): void
     {
-        // Create initial set of 5 users not with gov.
-        User::factory()->count(5)->create([
+        // 3 non-gov users — should never match any employeeVerification filter
+        User::factory()->count(3)->create([
             'computed_is_gov_employee' => false,
+            'work_email' => null,
         ]);
 
-        // Create two new users with the government.
-        User::factory()->count(2)->create([
-            'computed_is_gov_employee' => true,
-        ]);
+        // 2 verified gov employees (gov + work_email confirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'verified1@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+            ['work_email' => 'verified2@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+        )->create(['computed_is_gov_employee' => true]);
 
-        // Assert query no isGovEmployee filter will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+        // 2 not-verified gov employees (gov + work_email present but unconfirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'unverified1@gc.ca', 'work_email_verified_at' => null],
+            ['work_email' => 'unverified2@gc.ca', 'work_email_verified_at' => null],
+        )->create(['computed_is_gov_employee' => true]);
+
+        // 3 + 2 + 2 + 1 (platformAdmin, computed_is_gov_employee = false) = 8 total
+
+        $query =
             /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
@@ -1477,71 +1486,40 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ',
-            [
-                'where' => [],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
+        ';
+
+        // No filter returns all users
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, ['where' => []])
+            ->assertJson([
+                'data' => [
+                    'usersPaginated' => ['paginatorInfo' => ['total' => 8]],
                 ],
+            ]);
+
+        // VERIFIED filter returns only verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => ['VERIFIED']],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => true,
-                ],
-            ]
-        )->assertJson([
+        // NOT_VERIFIED filter returns only not-yet-verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => ['NOT_VERIFIED']],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to false will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => false,
-                ],
-            ]
-        )->assertJson([
+        // Both values returns all gov employees with a work email
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => ['VERIFIED', 'NOT_VERIFIED']],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 4]],
             ],
         ]);
     }
@@ -1855,7 +1833,7 @@ class UserTest extends TestCase
                     ],
                     'poolFilters' => null,
                     'isProfileComplete' => null,
-                    'isGovEmployee' => null,
+                    'employeeVerification' => null,
                     'telephone' => null,
                     'email' => null,
                     'name' => null,

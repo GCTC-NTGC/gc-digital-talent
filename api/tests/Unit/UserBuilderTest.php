@@ -35,6 +35,8 @@ class UserBuilderTest extends TestCase
             ->create([
                 'flexible_work_locations' => [],
                 'location_preferences' => [],
+                'computed_is_gov_employee' => false,
+                'work_email' => null,
             ]);
 
         $this->communityA = Community::factory()->create();
