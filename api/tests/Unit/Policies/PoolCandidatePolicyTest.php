@@ -266,4 +266,19 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->updatePlacement($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->updateReferrals($user, $this->submittedCandidate)));
     }
+
+    // --- createSpecialApplication() ---
+
+    #[DataProvider('allTeamRolesProvider')]
+    public function testTeamRolesCannotCreateSpecialApplication(string $factoryMethod): void
+    {
+        $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
+        $this->assertFalse($this->ensureBool($this->policy->createSpecialApplication($user)));
+    }
+
+    public function testPlatformAdminCanCreateSpecialApplication(): void
+    {
+        $admin = User::factory()->asAdmin()->create();
+        $this->assertTrue($this->ensureBool($this->policy->createSpecialApplication($admin)));
+    }
 }

@@ -73,6 +73,7 @@ return [
         'assessmentPlan' => 'assessmentPlan',
         'application' => 'application',
         'draftApplication' => 'draftApplication',
+        'specialApplication' => 'specialApplication',
         'submittedApplication' => 'submittedApplication',
         'applicationAssessment' => 'applicationAssessment',
         'applicationDecision' => 'applicationDecision',
@@ -381,6 +382,10 @@ return [
         'delete-own-draftApplication' => [
             'en' => 'Delete Own Draft Application',
             'fr' => 'Supprimer sa propre candidature provisoire',
+        ],
+        'create-any-specialApplication' => [
+            'en' => 'Create a special application for anyone',
+            'fr' => 'Créez une application spéciale pour n\'importe qui',
         ],
         'archive-own-submittedApplication' => [
             'en' => 'Archive Own Submitted Application',
@@ -1269,6 +1274,9 @@ return [
                 'any' => ['view'],
             ],
             'application' => [
+                'any' => ['create'],
+            ],
+            'specialApplication' => [
                 'any' => ['create'],
             ],
             'submittedApplication' => [

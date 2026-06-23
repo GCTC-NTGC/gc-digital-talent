@@ -706,6 +706,16 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
+
+  # special application fields
+  specialApplicationType: LocalizedSpecialApplicationType
+    @rename(attribute: "special_application_type")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationJustification: String
+    @rename(attribute: "special_application_justification")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationClosingDate: DateTime
+    @rename(attribute: "special_application_closing_date")
 }
 
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
@@ -2424,6 +2434,17 @@ input CreatePoolCandidateAsAdminInput {
   isFlagged: Boolean
 }
 
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+    @rename(attribute: "special_application_type")
+  specialApplicationJustification: String!
+    @rename(attribute: "special_application_justification")
+  specialApplicationClosingDate: DateTime!
+    @rename(attribute: "special_application_closing_date")
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -3523,6 +3544,14 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
+  createSpecialApplication(
+    poolCandidate: CreateSpecialApplicationInput! @spread
+  ): PoolCandidate
+    @guard
+    @canModel(ability: "createSpecialApplication")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateSpecialApplicationValidator"
+    )
   updatePoolCandidateStatus(
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
