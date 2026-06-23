@@ -112,7 +112,9 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    employeeVerifications: localizedEnumOptions(enumName: "EmployeeVerification") {
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
       ... on LocalizedEmployeeVerification {
         value
         label {

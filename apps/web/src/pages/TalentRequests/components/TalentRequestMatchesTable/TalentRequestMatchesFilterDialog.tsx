@@ -21,11 +21,7 @@ import {
   sortLocalizedEnumOptions,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
-import {
-  Checklist,
-  Combobox,
-  Select,
-} from "@gc-digital-talent/forms";
+import { Checklist, Combobox, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
@@ -108,7 +104,9 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
-    employeeVerifications: localizedEnumOptions(enumName: "EmployeeVerification") {
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
       ... on LocalizedEmployeeVerification {
         value
         label {
