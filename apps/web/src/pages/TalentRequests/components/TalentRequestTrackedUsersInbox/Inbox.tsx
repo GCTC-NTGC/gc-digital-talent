@@ -3,37 +3,8 @@ import { tv } from "tailwind-variants";
 
 import { CheckButton } from "@gc-digital-talent/forms";
 
-const root = tv({
-  base: "overflow-hidden rounded-md border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-600",
-});
-
-const Root = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
-  <div className={root({ class: className })} {...rest} />
-);
-
-const titleBar = tv({
-  base: "border-b border-gray-200 px-6 py-4 dark:border-gray-700",
-});
-const titleText = tv({ base: "text-lg font-bold" });
-const subtitleText = tv({
-  base: "mt-1 text-sm text-gray-600 dark:text-gray-200",
-});
-
-interface TitleBarProps {
-  title: ReactNode;
-  subtitle?: ReactNode;
-  className?: string;
-}
-
-const TitleBar = ({ title, subtitle, className }: TitleBarProps) => (
-  <div className={titleBar({ class: className })}>
-    <p className={titleText()}>{title}</p>
-    {subtitle ? <p className={subtitleText()}>{subtitle}</p> : null}
-  </div>
-);
-
 const toolbar = tv({
-  base: "flex flex-wrap items-center gap-3 border-b border-gray-200 px-6 py-3 dark:border-gray-700",
+  base: "flex flex-wrap items-end justify-between gap-3 border-b border-gray-200 px-6 py-3 dark:border-gray-700",
 });
 
 const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -41,7 +12,7 @@ const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const actions = tv({
-  base: "flex flex-wrap items-center gap-3 border-b border-gray-200 px-6 py-2 dark:border-gray-700",
+  base: "flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-gray-200 px-6 py-2 dark:border-gray-700",
 });
 
 const Actions = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -55,9 +26,8 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative flex items-start gap-x-3 border-b border-gray-200 px-6 py-3 last:border-b-0 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-gray-700",
+  base: "relative isolate flex items-start gap-x-3 border-b border-gray-200 px-6 py-4 even:bg-gray-100/60 hover:bg-gray-200/60 dark:border-gray-700 dark:even:bg-gray-700/40 dark:hover:bg-gray-600/40",
 });
-// Interactive children sit above the stretched row-open overlay so they stay clickable.
 const rowControl = tv({ base: "relative z-10 shrink-0" });
 const rowContent = tv({ base: "min-w-0 flex-1" });
 
@@ -95,7 +65,7 @@ const RowTitle = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const rowMeta = tv({
-  base: "mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm",
+  base: "mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
 });
 
 const RowMeta = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -111,8 +81,6 @@ const Footer = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const Inbox = {
-  Root,
-  TitleBar,
   Toolbar,
   Actions,
   List,
