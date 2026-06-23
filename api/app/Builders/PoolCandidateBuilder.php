@@ -8,6 +8,7 @@ use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
+use App\Enums\EmployeeVerification;
 use App\Enums\PlacementType;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -283,6 +284,17 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this;
+    }
+
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($employeeVerification) {
+            $query->whereEmployeeVerificationIn($employeeVerification);
+        });
     }
 
     public function whereNotesLike(?string $notes): self
