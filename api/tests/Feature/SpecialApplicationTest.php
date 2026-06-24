@@ -160,4 +160,32 @@ class SpecialApplicationTest extends TestCase
                 'The pool candidate.special application closing date field must be a date after '.$this->pool->closing_date.'.'
             );
     }
+
+    // test accessor PoolCandidate::isSpecialApplication()
+    public function testIsSpecialApplication(): void
+    {
+        $nullCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => null,
+        ]);
+        $emptyCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => '',
+        ]);
+        $setCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => SpecialApplicationType::OTHER->name,
+        ]);
+
+        // assert values as expected
+        assertSame(
+            $nullCandidate->is_special_application,
+            false,
+        );
+        assertSame(
+            $emptyCandidate->is_special_application,
+            false,
+        );
+        assertSame(
+            $setCandidate->is_special_application,
+            true,
+        );
+    }
 }

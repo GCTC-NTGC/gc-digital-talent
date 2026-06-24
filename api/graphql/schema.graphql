@@ -734,6 +734,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   specialApplicationClosingDate: DateTime
     @rename(attribute: "special_application_closing_date")
+  isSpecialApplication: Boolean
 }
 
 type PoolCandidateWithSkillCount {
