@@ -5,6 +5,7 @@ import {
   type FragmentType,
   graphql,
 } from "@gc-digital-talent/graphql";
+import { Button } from "@gc-digital-talent/ui";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -113,12 +114,14 @@ const TrackedUserListItem = ({
           query={trackedUser}
           optionsQuery={optionsQuery}
           trigger={
-            <button
+            <Button
               type="button"
-              className="block w-fit cursor-pointer text-left font-bold underline outline-none after:absolute after:inset-0 hover:no-underline focus-visible:rounded-xs focus-visible:bg-focus focus-visible:text-black"
+              mode="inline"
+              color="black"
+              className="after:absolute after:inset-0 hover:text-primary-600 dark:hover:text-primary-200"
             >
               {fullName}
-            </button>
+            </Button>
           }
         />
       </Inbox.Row.Title>
