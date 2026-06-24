@@ -930,7 +930,7 @@ class PoolCandidate extends Model
         $loggedAttributes = ['placed_at', 'placed_department_id'];
         $old = $this->only($loggedAttributes);
 
-        $this->placement_type = null;
+        $this->placement_type = PlacementType::NOT_PLACED->name;
         $this->placed_at = null;
         $this->placed_department_id = null;
         $this->pause_referrals_at = null;

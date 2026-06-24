@@ -530,6 +530,14 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
+        // NULL placement_type is semantically equivalent to NOT_PLACED
+        if (in_array(PlacementType::NOT_PLACED->name, $placementTypes)) {
+            return $this->where(function ($query) use ($placementTypes) {
+                $query->whereIn('placement_type', $placementTypes)
+                    ->orWhereNull('placement_type');
+            });
+        }
+
         return $this->whereIn('placement_type', $placementTypes);
     }
 

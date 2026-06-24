@@ -545,7 +545,7 @@ class PoolCandidateUpdateTest extends TestCase
         assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertNull($response['placedAt']);
         assertNull($response['placedDepartment']);
-        assertNull($response['placementType']);
+        assertSame($response['placementType']['value'], PlacementType::NOT_PLACED->name);
     }
 
     public function testQualifyCandidateMutation(): void
