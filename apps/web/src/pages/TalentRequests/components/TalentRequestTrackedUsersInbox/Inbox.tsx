@@ -68,7 +68,7 @@ const RowTitle = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const rowMeta = tv({
-  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
+  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600 dark:text-gray-200 [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
 });
 
 const RowMeta = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
