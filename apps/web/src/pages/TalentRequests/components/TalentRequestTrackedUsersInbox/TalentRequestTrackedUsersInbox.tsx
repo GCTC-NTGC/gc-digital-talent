@@ -11,7 +11,6 @@ import XMarkIcon from "@heroicons/react/16/solid/XMarkIcon";
 
 import {
   graphql,
-  type FragmentType,
   type TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
@@ -22,7 +21,12 @@ import {
   IconLabel,
   Notice,
 } from "@gc-digital-talent/ui";
-import { commonMessages, narrowEnumType } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  ENUM_SORT_ORDER,
+  narrowEnumType,
+  sortLocalizedEnumOptions,
+} from "@gc-digital-talent/i18n";
 import {
   notEmpty,
   unpackMaybes,
@@ -35,7 +39,6 @@ import Pagination from "~/components/Pagination";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import useUserDownloads from "~/hooks/useUserDownloads";
 
-import type { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 import Inbox from "./Inbox";
 import TrackedUserListItem from "./TrackedUserListItem";
@@ -105,7 +108,10 @@ const TalentRequestTrackedUsersInbox = ({
 }: TalentRequestTrackedUsersInboxProps) => {
   const intl = useIntl();
   const methods = useForm<FilterFormValues>({
-    defaultValues: { search: "" },
+    defaultValues: {
+      search: "",
+      status: TalentRequestTrackedUserStatus.Referred,
+    },
   });
   const selectedStatus = methods.watch("status");
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
@@ -133,9 +139,12 @@ const TalentRequestTrackedUsersInbox = ({
 
   const rows = unpackMaybes(data?.talentRequestTrackedUsers.data);
   const paginator = data?.talentRequestTrackedUsers.paginatorInfo;
-  const statusOptions = narrowEnumType(
-    unpackMaybes(data?.statuses),
-    "TalentRequestTrackedUserStatus",
+  const statusOptions = sortLocalizedEnumOptions(
+    ENUM_SORT_ORDER.TRACKED_USER_STATUS,
+    narrowEnumType(
+      unpackMaybes(data?.statuses),
+      "TalentRequestTrackedUserStatus",
+    ),
   ).map((option) => ({
     value: option.value,
     label: option.label?.localized ?? "",
@@ -207,7 +216,7 @@ const TalentRequestTrackedUsersInbox = ({
           <Select
             id="status"
             name="status"
-            enableNull
+            doNotSort
             nullSelection={intl.formatMessage({
               defaultMessage: "All statuses",
               id: "7Ex92f",
