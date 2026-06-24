@@ -26,10 +26,12 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative isolate flex cursor-pointer items-start gap-x-3 border-b border-gray-500 p-6 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
+  base: "relative isolate flex gap-x-3 border-b border-gray-500 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
 });
-const rowControl = tv({ base: "relative z-10 shrink-0" });
-const rowContent = tv({ base: "min-w-0 flex-1" });
+const rowControl = tv({
+  base: "relative inset-y-0 z-10 grid shrink-0 place-items-center pr-1.5 pl-6",
+});
+const rowContent = tv({ base: "relative min-w-0 flex-1 p-6 pl-1.5" });
 
 interface RowProps {
   checked: boolean;
@@ -52,6 +54,7 @@ const RowRoot = ({
         checked={checked}
         onToggle={() => onCheckedChange(!checked)}
         label={label}
+        className="after:absolute after:inset-0"
       />
     </div>
     <div className={rowContent()}>{children}</div>
