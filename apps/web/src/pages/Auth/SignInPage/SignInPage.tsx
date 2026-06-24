@@ -697,8 +697,8 @@ export const Component = () => {
                           <p className="font-normal text-gray-500 dark:text-gray-100">
                             {intl.formatMessage({
                               defaultMessage:
-                                "Your last sign in was before April 2026 and used a GCKey username",
-                              id: "5V6IMt",
+                                "Your last sign in was before June 2026 and used a GCKey username",
+                              id: "yE/lOi",
                               description:
                                 "Message shown under GCKey option on sign in page",
                             })}
