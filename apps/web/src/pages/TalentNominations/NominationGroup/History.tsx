@@ -13,7 +13,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-import NominationDetailsDialog from "./components/NominationDetailsDialog";
+import NominationDetailsDialog from "./components/NominationDetailsDialog/NominationDetailsDialog";
 
 const TalentNominationGroupHistory_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupHistory on TalentNominationGroup {
