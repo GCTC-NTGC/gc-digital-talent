@@ -176,6 +176,24 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
+      prospectiveEndDate
+      otherEducationType
+      degreeType {
+        value
+        label {
+          localized
+        }
+      }
+      licenseOrAccreditation
+      certification
+      courseName
+      fellowshipType {
+        value
+        label {
+          localized
+        }
+      }
+      otherFellowshipType
       educationType {
         value
         label {

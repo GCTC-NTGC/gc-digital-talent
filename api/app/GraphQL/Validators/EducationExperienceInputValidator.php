@@ -84,9 +84,9 @@ final class EducationExperienceInputValidator extends Validator
             'thesisTitle' => [
                 Rule::prohibitedIf(
                     $this->arg('educationType') !== EducationType::DEGREE_DIPLOMA_CERTIFICATE->name ||
-                    $this->arg('degreeType') !== DegreeType::HIGH_SCHOOL->name ||
-                    $this->arg('degreeType') !== DegreeType::COLLEGE_DIPLOMA->name ||
-                    $this->arg('degreeType') !== DegreeType::BACHELORS_DEGREE->name
+                    $this->arg('degreeType') === DegreeType::HIGH_SCHOOL->name ||
+                    $this->arg('degreeType') === DegreeType::COLLEGE_DIPLOMA->name ||
+                    $this->arg('degreeType') === DegreeType::BACHELORS_DEGREE->name
                 ),
             ],
             'licenseOrAccreditation' => [

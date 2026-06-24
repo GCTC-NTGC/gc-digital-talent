@@ -30,6 +30,7 @@ import {
   EducationStatus,
   EducationType,
   EmploymentCategory,
+  FellowshipType,
   GovEmployeeType,
   GovPositionType,
 } from "@gc-digital-talent/graphql";
@@ -1096,20 +1097,50 @@ export const getExperienceName = <T extends ExperienceName>(
   }
 
   if (isEducationExperience(experience)) {
-    const { educationType: type, areaOfStudy, institution } = experience;
+    const {
+      educationType: type,
+      areaOfStudy,
+      institution,
+      otherEducationType,
+      degreeType,
+      fellowshipType,
+      otherFellowshipType,
+    } = experience;
 
     // shape of type changed at some point from string to object. this is a imperfect solution.
     let educationType;
     if (typeof type !== "string") {
-      educationType =
-        type?.value === EducationType.Other
-          ? intl.formatMessage({
+      switch (type?.value) {
+        case EducationType.DegreeDiplomaCertificate:
+          educationType =
+            degreeType?.label.localized ?? getLocalizedName(type?.label, intl);
+          break;
+        case EducationType.Fellowship:
+          educationType =
+            fellowshipType?.value === FellowshipType.Other
+              ? (otherFellowshipType ??
+                intl.formatMessage({
+                  defaultMessage: "Other type of fellowship",
+                  id: "CQhXfC",
+                  description:
+                    "First part of education experience title for other type",
+                }))
+              : (fellowshipType?.label.localized ??
+                getLocalizedName(type?.label, intl));
+          break;
+        case EducationType.Other:
+          educationType =
+            otherEducationType ??
+            intl.formatMessage({
               defaultMessage: "Other type of education",
               id: "wrKBLf",
               description:
                 "First part of education experience title for other type",
-            })
-          : getLocalizedName(type?.label, intl);
+            });
+          break;
+        default:
+          educationType = getLocalizedName(type?.label, intl);
+      }
       return intl.formatMessage(
         html
           ? experienceMessages.educationAtHtml
@@ -1126,7 +1157,6 @@ export const getExperienceName = <T extends ExperienceName>(
           ? experienceMessages.educationAtWithoutTypeHtml
           : experienceMessages.educationAtWithoutType,
         {
-          educationType,
           areaOfStudy,
           institution,
         },
@@ -1227,6 +1257,12 @@ export const getExperienceDate = (
 
     return expectedEndDate
       ? `${getDateRange({ startDate, endDate, intl })} (${getExperienceFormLabels(intl, "work").expectedEndDate})`
+      : getDateRange({ startDate, endDate, intl });
+  }
+
+  if (isEducationExperience(experience)) {
+    return experience.status?.value === EducationStatus.InProgress
+      ? `${getDateRange({ startDate, endDate: experience.prospectiveEndDate, intl })} (${getExperienceFormLabels(intl, "education").expectedEndDate})`
       : getDateRange({ startDate, endDate, intl });
   }
 
