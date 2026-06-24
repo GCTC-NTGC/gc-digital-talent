@@ -4,9 +4,9 @@ namespace App\Rules;
 
 use App\Enums\ErrorCode;
 use App\Models\Pool;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Support\Carbon;
 
 class PoolNotClosed implements ValidationRule
 {
