@@ -122,6 +122,12 @@ const messages = defineMessages({
     description:
       "Help message displayed when there are no tracked users for a talent request",
   },
+  requestedSkills: {
+    defaultMessage: "Requested skills",
+    id: "aNhUkJ",
+    description:
+      "Header for the number of user skills matching requested skills",
+  },
 });
 
 export default messages;

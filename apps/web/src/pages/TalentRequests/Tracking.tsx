@@ -63,10 +63,10 @@ const Tracking = () => {
       >
         <TalentRequestTrackedUsersInbox
           talentRequestId={talentRequestId}
-          skillsQuery={unpackMaybes(
-            data?.talentRequest?.applicantFilter?.skills,
-          )}
           optionsQuery={data}
+          requestedSkillsCount={
+            data?.talentRequest?.applicantFilter?.skills?.length ?? 0
+          }
         />
       </TalentRequestSectionCard>
 

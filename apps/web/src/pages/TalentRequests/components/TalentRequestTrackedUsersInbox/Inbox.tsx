@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { CheckButton } from "@gc-digital-talent/forms";
 
 const toolbar = tv({
-  base: "grid grid-cols-1 gap-3 border-b border-gray-200 px-6 py-4 sm:grid-cols-2 dark:border-gray-700",
+  base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-3 sm:grid-cols-2 dark:border-gray-300",
 });
 
 const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -12,7 +12,7 @@ const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const actions = tv({
-  base: "flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-gray-200 px-6 pb-2 dark:border-gray-700",
+  base: "flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-gray-500 px-6 py-3 dark:border-gray-300",
 });
 
 const Actions = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
@@ -26,7 +26,7 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative isolate flex cursor-pointer items-start gap-x-3 border-b border-gray-200 px-6 py-4 odd:bg-gray-100/60 hover:bg-gray-200 dark:border-gray-700 dark:odd:bg-gray-700/40 dark:hover:bg-gray-700",
+  base: "relative isolate flex cursor-pointer items-start gap-x-3 border-b border-gray-500 p-6 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
 });
 const rowControl = tv({ base: "relative z-10 shrink-0" });
 const rowContent = tv({ base: "min-w-0 flex-1" });
@@ -65,7 +65,7 @@ const RowTitle = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const rowMeta = tv({
-  base: "mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
+  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
 });
 
 const RowMeta = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (

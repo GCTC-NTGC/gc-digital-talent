@@ -94,13 +94,13 @@ interface FilterFormValues {
 
 interface TalentRequestTrackedUsersInboxProps {
   talentRequestId: string;
-  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
   optionsQuery?: TalentRequestReferralDialogOptions;
+  requestedSkillsCount: number;
 }
 
 const TalentRequestTrackedUsersInbox = ({
   talentRequestId,
-  skillsQuery,
+  requestedSkillsCount,
   optionsQuery,
 }: TalentRequestTrackedUsersInboxProps) => {
   const intl = useIntl();
@@ -362,7 +362,7 @@ const TalentRequestTrackedUsersInbox = ({
             <TrackedUserListItem
               key={row.id}
               query={row}
-              skillsQuery={skillsQuery}
+              requestedSkillsCount={requestedSkillsCount}
               optionsQuery={optionsQuery}
               checked={selectedRows.includes(row.id)}
               onCheckedChange={handleRowCheckedChange(row.id)}

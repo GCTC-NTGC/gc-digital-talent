@@ -1,25 +1,19 @@
 import { useIntl } from "react-intl";
-import PaperAirplaneIcon from "@heroicons/react/16/solid/PaperAirplaneIcon";
-import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
-import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
-import XMarkIcon from "@heroicons/react/16/solid/XMarkIcon";
-import { tv } from "tailwind-variants";
 
-import { type IconType } from "@gc-digital-talent/ui";
 import {
   getFragment,
   type FragmentType,
-  TalentRequestTrackedUserStatus,
   graphql,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { SkillMatchDialog } from "~/components/Table/SkillMatchDialog";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 import Inbox from "./Inbox";
+import { getStatusIcon } from "./utils";
 
 export const TalentRequestTrackedUserInboxItem_Fragment = graphql(
   /* GraphQL */ `
@@ -70,47 +64,18 @@ export const TalentRequestTrackedUserInboxItem_Fragment = graphql(
   `,
 );
 
-const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
-  [TalentRequestTrackedUserStatus.Referred]: PaperAirplaneIcon,
-  [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIcon,
-  [TalentRequestTrackedUserStatus.Selected]: CheckIcon,
-  [TalentRequestTrackedUserStatus.NotSelected]: XMarkIcon,
-};
-
-const statusIconStyle = tv({
-  base: "size-4 shrink-0",
-  variants: {
-    status: {
-      [TalentRequestTrackedUserStatus.Referred]:
-        "text-primary-600 dark:text-primary-200",
-      [TalentRequestTrackedUserStatus.NotReferred]:
-        "text-gray-500 dark:text-gray-300",
-      [TalentRequestTrackedUserStatus.Selected]:
-        "text-success-600 dark:text-success-200",
-      [TalentRequestTrackedUserStatus.NotSelected]:
-        "text-error-600 dark:text-error-200",
-    },
-  },
-});
-
-const nameTrigger = tv({
-  base: "block w-fit text-left font-bold outline-none after:absolute after:inset-0 hover:underline focus-visible:rounded-xs focus-visible:bg-focus focus-visible:text-black",
-});
-
-const interactiveCell = tv({ base: "relative z-10" });
-
 interface TrackedUserListItemProps {
   query: FragmentType<typeof TalentRequestTrackedUserInboxItem_Fragment>;
-  skillsQuery: FragmentType<typeof TalentRequestUserSkillMatch_Fragment>[];
   optionsQuery?: TalentRequestReferralDialogOptions;
+  requestedSkillsCount?: number;
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
 }
 
 const TrackedUserListItem = ({
   query,
-  skillsQuery,
   optionsQuery,
+  requestedSkillsCount,
   checked,
   onCheckedChange,
 }: TrackedUserListItemProps) => {
@@ -119,20 +84,13 @@ const TrackedUserListItem = ({
     TalentRequestTrackedUserInboxItem_Fragment,
     query,
   );
-  const matchedSkills = getFragment(
-    TalentRequestUserSkillMatch_Fragment,
-    skillsQuery,
-  );
-
   const fullName = getFullNameLabel(
     trackedUser.user.firstName,
     trackedUser.user.lastName,
     intl,
   );
-
-  const statusValue = trackedUser.status?.value;
-  const statusLabel = trackedUser.status?.label?.localized;
-  const StatusIcon = statusValue ? statusIcons[statusValue] : undefined;
+  const statusInfo = getStatusIcon(trackedUser.status);
+  const StatusIcon = statusInfo?.Icon;
 
   const reason =
     trackedUser.notSelectedReason?.label?.localized ??
@@ -155,27 +113,29 @@ const TrackedUserListItem = ({
           query={trackedUser}
           optionsQuery={optionsQuery}
           trigger={
-            <button type="button" className={nameTrigger()}>
+            <button
+              type="button"
+              className="block w-fit cursor-pointer text-left font-bold underline outline-none after:absolute after:inset-0 hover:no-underline focus-visible:rounded-xs focus-visible:bg-focus focus-visible:text-black"
+            >
               {fullName}
             </button>
           }
         />
       </Inbox.Row.Title>
       <Inbox.Row.Meta>
-        {StatusIcon && statusLabel && statusValue ? (
+        {StatusIcon && statusInfo ? (
           <span className="flex items-center gap-x-1.5">
-            <StatusIcon className={statusIconStyle({ status: statusValue })} />
-            <span>{statusLabel}</span>
+            <StatusIcon className={statusInfo.className} />
+            <span>{statusInfo.label}</span>
           </span>
         ) : null}
         {reason ? <span>{reason}</span> : null}
-        <span className={interactiveCell()}>
-          <SkillMatchDialog
-            filteredSkills={[...matchedSkills]}
-            skillsCount={trackedUser.skillCount}
-            userId={trackedUser.user.id}
-            poolCandidateName={fullName}
-          />
+        <span className="flex items-center gap-x-1.5">
+          <span className="rounded border border-gray-200 p-1 dark:border-gray-700">
+            {/* eslint-disable-next-line formatjs/no-literal-string-in-jsx */}
+            {trackedUser.skillCount ?? 0}/{requestedSkillsCount ?? 0}
+          </span>
+          {intl.formatMessage(talentRequestMessages.requestedSkills)}
         </span>
         {source ? <span>{source}</span> : null}
         {priority ? <span>{priority}</span> : null}

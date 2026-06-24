@@ -54,6 +54,7 @@ import type { StatusDialogConfig } from "../../types";
 import changeStatusMessages from "../TalentRequestTrackedUsersTable/messages";
 import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -285,12 +286,7 @@ const TalentRequestMatchesTable = ({
     ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage({
-        defaultMessage: "Requested skills",
-        id: "aNhUkJ",
-        description:
-          "Header for the number of user skills matching requested skills",
-      }),
+      header: intl.formatMessage(talentRequestMessages.requestedSkills),
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(

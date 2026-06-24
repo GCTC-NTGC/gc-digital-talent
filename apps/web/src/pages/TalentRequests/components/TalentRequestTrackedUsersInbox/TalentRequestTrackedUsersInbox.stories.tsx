@@ -6,7 +6,6 @@ import {
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
-  makeFragmentData,
   PriorityWeight,
   TalentRequestSource,
   TalentRequestTrackedUserNotReferredReason,
@@ -15,7 +14,6 @@ import {
 } from "@gc-digital-talent/graphql";
 
 import TalentRequestTrackedUsersInbox from "./TalentRequestTrackedUsersInbox";
-import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
 const users = fakeUsers(4);
 
@@ -138,10 +136,6 @@ export default {
   },
 } as Meta<typeof TalentRequestTrackedUsersInbox>;
 
-const storySkills = requestSkills.map((skill) =>
-  makeFragmentData(skill, TalentRequestUserSkillMatch_Fragment),
-);
-
 const Template: StoryFn<typeof TalentRequestTrackedUsersInbox> = (args) => (
   <TalentRequestTrackedUsersInbox {...args} />
 );
@@ -149,5 +143,5 @@ const Template: StoryFn<typeof TalentRequestTrackedUsersInbox> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   talentRequestId: "tracked-users-inbox-story",
-  skillsQuery: storySkills,
+  requestedSkillsCount: requestSkills.length,
 };

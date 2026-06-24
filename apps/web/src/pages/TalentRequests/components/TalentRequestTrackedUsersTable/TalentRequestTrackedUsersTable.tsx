@@ -324,12 +324,7 @@ const TalentRequestTrackedUsersTable = ({
     ),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage({
-        defaultMessage: "Requested skills",
-        id: "aNhUkJ",
-        description:
-          "Header for the number of user skills matching requested skills",
-      }),
+      header: intl.formatMessage(talentRequestMessages.requestedSkills),
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(
