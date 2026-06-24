@@ -6,17 +6,23 @@ use App\Enums\ErrorCode;
 use App\Models\Pool;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Carbon;
 
 class PoolNotClosed implements ValidationRule
 {
+    private bool $isSpecialApplication;
+
+    private ?Carbon $specialClosingDate;
+
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $isSpecialApplication, ?Carbon $specialClosingDate)
     {
-        //
+        $this->isSpecialApplication = $isSpecialApplication;
+        $this->specialClosingDate = $specialClosingDate;
     }
 
     /**
@@ -26,9 +32,13 @@ class PoolNotClosed implements ValidationRule
     {
         /** @var Pool $pool */
         $pool = Pool::find($value);
-        $passes = is_null($pool->closing_date) || $pool->closing_date->isFuture();
 
-        if (! $passes) {
+        $passesNormally = is_null($pool->closing_date) || $pool->closing_date->isFuture();
+        $passesDueToSpecialApplication = $this->isSpecialApplication && $this->specialClosingDate && $this->specialClosingDate->isFuture();
+
+        if (
+            (! $passesNormally) && (! $passesDueToSpecialApplication)
+        ) {
             $fail(ErrorCode::APPLICATION_POOL_CLOSED->name);
         }
     }

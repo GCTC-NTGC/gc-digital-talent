@@ -11,16 +11,20 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class EmployeeWorkEmailVerified implements ValidationRule
 {
-    private $user;
+    private User $user;
+
+    private bool $isSpecialApplication;
 
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $user, bool $isSpecialApplication)
     {
         $this->user = $user;
+
+        $this->isSpecialApplication = $isSpecialApplication;
     }
 
     /**
@@ -28,6 +32,11 @@ class EmployeeWorkEmailVerified implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        // do not run this check if this is a special application
+        if ($this->isSpecialApplication === true) {
+            return;
+        }
+
         /** @var Pool $pool */
         $pool = Pool::find($value);
 

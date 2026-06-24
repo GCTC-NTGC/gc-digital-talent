@@ -11,11 +11,16 @@ use App\Rules\HasLanguageRequirements;
 use App\Rules\PoolNotClosed;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
+use Carbon\Carbon;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class SubmitApplicationValidator extends Validator
 {
-    private $application;
+    private PoolCandidate $application;
+
+    private bool $isSpecialApplication;
+
+    private ?Carbon $specialClosingDate;
 
     /**
      * Create a new rule instance.
@@ -25,6 +30,10 @@ final class SubmitApplicationValidator extends Validator
     public function __construct(PoolCandidate $application)
     {
         $this->application = $application;
+
+        $this->isSpecialApplication = $application->is_special_application;
+
+        $this->specialClosingDate = $application->special_application_closing_date;
     }
 
     /**
@@ -44,8 +53,8 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
-                new EmployeeWorkEmailVerified($this->application->user),
-                new PoolNotClosed(),
+                new EmployeeWorkEmailVerified($this->application->user, $this->isSpecialApplication),
+                new PoolNotClosed($this->isSpecialApplication, $this->specialClosingDate),
                 new QuestionsAnswered($this->application),
             ],
             'submitted_at' => ['prohibited', 'nullable'],
