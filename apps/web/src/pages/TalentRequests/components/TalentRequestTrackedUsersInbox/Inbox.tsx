@@ -70,7 +70,7 @@ const RowTitle = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const rowMeta = tv({
-  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600 dark:text-gray-200",
+  base: "mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600 dark:text-gray-200",
 });
 
 const RowMeta = ({

@@ -26,6 +26,7 @@ import {
   ENUM_SORT_ORDER,
   narrowEnumType,
   sortLocalizedEnumOptions,
+  uiMessages,
 } from "@gc-digital-talent/i18n";
 import {
   notEmpty,
@@ -217,11 +218,7 @@ const TalentRequestTrackedUsersInbox = ({
             id="status"
             name="status"
             doNotSort
-            nullSelection={intl.formatMessage({
-              defaultMessage: "All statuses",
-              id: "7Ex92f",
-              description: "Option to show tracked users of any status",
-            })}
+            nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
             label={intl.formatMessage({
               defaultMessage: "View by status",
               id: "iLlbnx",

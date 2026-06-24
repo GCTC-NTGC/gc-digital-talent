@@ -37,6 +37,7 @@ import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useTrackedUsersMutations from "~/hooks/useTrackedUsersMutations";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import {
   addSearchToWhere,
@@ -49,12 +50,10 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
-import ChangeStatusDialog from "../TalentRequestTrackedUsersTable/ChangeStatusDialog";
+import ChangeStatusDialog from "../TalentRequestReferralDialogs/ChangeStatusDialog";
 import type { StatusDialogConfig } from "../../types";
-import changeStatusMessages from "../TalentRequestTrackedUsersTable/messages";
 import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
-import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const TalentRequestMatchesTable_TalentRequestFragment = graphql(
   /** GraphQL */ `
@@ -392,7 +391,7 @@ const TalentRequestMatchesTable = ({
   // (confirm or reason-based update) based on the currently chosen status.
   const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     referred: {
-      status: intl.formatMessage(changeStatusMessages.referred),
+      status: intl.formatMessage(talentRequestMessages.referred),
       icon: PaperAirplaneIcon,
       disable: creatingTrackedUsersReferred,
       onConfirm: async () => {
@@ -507,8 +506,8 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(changeStatusMessages.changeStatus, {
-                  status: intl.formatMessage(changeStatusMessages.referred),
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                  status: intl.formatMessage(talentRequestMessages.referred),
                 })}
                 icon={PaperAirplaneIcon}
               />
@@ -518,7 +517,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(changeStatusMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}

@@ -10,7 +10,6 @@ import { Button } from "@gc-digital-talent/ui";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 import TalentRequestEditReferralDialog from "../TalentRequestReferralDialogs/TalentRequestEditReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 import Inbox from "./Inbox";

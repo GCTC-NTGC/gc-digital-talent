@@ -12,8 +12,10 @@ import type {
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
-import messages from "./messages";
-import ChangeStatusForm, { type StatusReasonType } from "./ChangeStatusForm";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
+import ChangeStatusForm from "./ChangeStatusForm";
+import type { StatusReasonType } from "../../types";
 
 interface ChangeStatusDialogProps {
   open: boolean;
@@ -58,7 +60,7 @@ const ChangeStatusDialog = ({
               "Subtitle for change status dialog in the talent request tracked users table",
           })}
         >
-          {intl.formatMessage(messages.changeStatus, { status })}
+          {intl.formatMessage(talentRequestMessages.changeStatus, { status })}
         </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6 flex flex-col gap-3">
