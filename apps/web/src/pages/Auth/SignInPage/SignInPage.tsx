@@ -125,9 +125,6 @@ export const Component = () => {
 
   const selectedMethod = methods.watch("signInMethod");
 
-  const skipMigration =
-    selectedMethod === "canadaLogin" ? "&skipmigration=true" : "";
-
   const InstructionCards = () => {
     if (selectedMethod === "canadaLogin") {
       return (
@@ -700,8 +697,8 @@ export const Component = () => {
                           <p className="font-normal text-gray-500 dark:text-gray-100">
                             {intl.formatMessage({
                               defaultMessage:
-                                "Your last sign in was before April 2026 and used a GCKey username",
-                              id: "5V6IMt",
+                                "Your last sign in was before June 2026 and used a GCKey username",
+                              id: "yE/lOi",
                               description:
                                 "Message shown under GCKey option on sign in page",
                             })}
@@ -783,7 +780,7 @@ export const Component = () => {
             )}
             <div className="mt-6 flex w-full flex-col items-center gap-6 px-4.5 xs:flex-row xs:justify-start">
               <Link
-                href={`${loginPath}${skipMigration}`}
+                href={loginPath}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
