@@ -4,7 +4,6 @@ import type { IntlShape } from "react-intl";
 import {
   getFragment,
   graphql,
-  PositionDuration,
   SortOrder,
   type AdvancedOrderByInput,
   type FragmentType,
@@ -12,9 +11,12 @@ import {
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { EmploymentDuration, getLocale } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import { durationToEnumPositionDuration } from "~/utils/userUtils";
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 
 import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
@@ -118,13 +120,9 @@ export function transformApplicantFilterToFormValues(
     priorityWeight: [],
     govEmployee: "",
     departments: [],
-    employmentDuration: (() => {
-      const durations = unpackMaybes(applicantFilter?.positionDuration);
-      if (!durations.length) return undefined;
-      return durations.includes(PositionDuration.Temporary)
-        ? EmploymentDuration.Term
-        : EmploymentDuration.Indeterminate;
-    })(),
+    employmentDuration: positionDurationToEmploymentDuration(
+      applicantFilter?.positionDuration,
+    ),
   };
 }
 
@@ -163,13 +161,9 @@ export function transformWhereToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     govEmployee: input?.isGovEmployee ? "true" : "",
     departments: unpackMaybes(input?.departments),
-    employmentDuration: (() => {
-      const durations = unpackMaybes(applicantFilter?.positionDuration);
-      if (!durations.length) return undefined;
-      return durations.includes(PositionDuration.Temporary)
-        ? EmploymentDuration.Term
-        : EmploymentDuration.Indeterminate;
-    })(),
+    employmentDuration: positionDurationToEmploymentDuration(
+      applicantFilter?.positionDuration,
+    ),
   };
 }
 

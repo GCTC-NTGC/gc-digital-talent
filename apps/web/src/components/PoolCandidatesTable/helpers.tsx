@@ -9,11 +9,7 @@ import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
 import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  EmploymentDuration,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
@@ -40,14 +36,16 @@ import {
   CandidateExpiryFilter,
   OrderByRelationWithColumnAggregateFunction,
   CandidateSuspendedFilter,
-  PositionDuration,
   SortOrder,
   AssessmentDecision,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
-import { durationToEnumPositionDuration } from "~/utils/userUtils";
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -509,13 +507,9 @@ export function transformPoolCandidateSearchInputToFormValues(
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
-    employmentDuration: (() => {
-      const durations = unpackMaybes(input?.applicantFilter?.positionDuration);
-      if (!durations.length) return undefined;
-      return durations.includes(PositionDuration.Temporary)
-        ? EmploymentDuration.Term
-        : EmploymentDuration.Indeterminate;
-    })(),
+    employmentDuration: positionDurationToEmploymentDuration(
+      input?.applicantFilter?.positionDuration,
+    ),
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
