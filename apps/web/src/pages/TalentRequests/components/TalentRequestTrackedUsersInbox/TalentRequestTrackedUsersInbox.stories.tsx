@@ -12,6 +12,7 @@ import {
   TalentRequestTrackedUserNotSelectedReason,
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
+import { Card } from "@gc-digital-talent/ui";
 
 import TalentRequestTrackedUsersInbox from "./TalentRequestTrackedUsersInbox";
 
@@ -137,7 +138,9 @@ export default {
 } as Meta<typeof TalentRequestTrackedUsersInbox>;
 
 const Template: StoryFn<typeof TalentRequestTrackedUsersInbox> = (args) => (
-  <TalentRequestTrackedUsersInbox {...args} />
+  <Card>
+    <TalentRequestTrackedUsersInbox {...args} />
+  </Card>
 );
 
 export const Default = Template.bind({});

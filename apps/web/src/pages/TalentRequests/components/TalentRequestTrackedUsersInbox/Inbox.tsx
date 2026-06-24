@@ -4,7 +4,7 @@ import { tv } from "tailwind-variants";
 import { CheckButton } from "@gc-digital-talent/forms";
 
 const toolbar = tv({
-  base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-3 sm:grid-cols-2 dark:border-gray-300",
+  base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-6 sm:grid-cols-2 dark:border-gray-300",
 });
 
 const Toolbar = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (

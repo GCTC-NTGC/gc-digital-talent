@@ -245,7 +245,7 @@ const TalentRequestTrackedUsersInbox = ({
               "Checkbox label to select all tracked users in the inbox",
           })}
         />
-        <span className="rounded-md bg-gray-100 px-2 py-0.5 text-sm font-medium dark:bg-gray-700">
+        <span className="rounded-md bg-gray-300 px-2 py-0.5 text-sm font-medium text-white dark:bg-gray-700">
           <span aria-hidden>{selectedRows.length}</span>
           <span className="sr-only">
             {intl.formatMessage(
