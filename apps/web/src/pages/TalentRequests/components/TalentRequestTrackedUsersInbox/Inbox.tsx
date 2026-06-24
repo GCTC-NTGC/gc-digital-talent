@@ -1,7 +1,9 @@
+import { Children, Fragment } from "react";
 import type { ComponentPropsWithRef, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import { CheckButton } from "@gc-digital-talent/forms";
+import { UNICODE_CHAR } from "@gc-digital-talent/ui";
 
 const toolbar = tv({
   base: "grid grid-cols-1 gap-6 border-b border-gray-500 px-6 pb-6 sm:grid-cols-2 dark:border-gray-300",
@@ -68,11 +70,26 @@ const RowTitle = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
 );
 
 const rowMeta = tv({
-  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600 dark:text-gray-200 [&>*:not(:first-child)]:before:mr-3 [&>*:not(:first-child)]:before:text-gray-400 [&>*:not(:first-child)]:before:content-['·'] dark:[&>*:not(:first-child)]:before:text-gray-200",
+  base: "flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-600 dark:text-gray-200",
 });
 
-const RowMeta = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
-  <div className={rowMeta({ class: className })} {...rest} />
+const RowMeta = ({
+  className,
+  children,
+  ...rest
+}: ComponentPropsWithRef<"div">) => (
+  <div className={rowMeta({ class: className })} {...rest}>
+    {Children.toArray(children).map((child, index) => (
+      <Fragment key={index}>
+        {index > 0 && (
+          <span className="text-gray-300 dark:text-gray-200" aria-hidden>
+            {UNICODE_CHAR.BULLET}
+          </span>
+        )}
+        {child}
+      </Fragment>
+    ))}
+  </div>
 );
 
 const Row = Object.assign(RowRoot, { Title: RowTitle, Meta: RowMeta });
