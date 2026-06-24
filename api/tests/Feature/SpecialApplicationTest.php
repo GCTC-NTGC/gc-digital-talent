@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
+use App\Enums\PoolAreaOfSelection;
+use App\Enums\PoolLanguage;
 use App\Enums\SpecialApplicationType;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -187,5 +189,51 @@ class SpecialApplicationTest extends TestCase
             $setCandidate->is_special_application,
             true,
         );
+    }
+
+    // a special application can bypass standard validation when submitting
+    public function testSpecialApplicationBypassesNormalValidation(): void
+    {
+        // pool is internal and closed
+        $this->pool->area_of_selection === PoolAreaOfSelection::EMPLOYEES->name;
+        $this->pool->advertisement_language = PoolLanguage::VARIOUS->name;
+        $this->pool->closing_date = config('constants.past_datetime');
+        $this->pool->save();
+
+        // applicant unable to apply due to both those reasons, normally
+        $this->applicant->email_verified_at = config('constants.far_past_datetime');
+        $this->applicant->work_email_verified_at = null;
+        $this->applicant->save();
+
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicant)
+            ->for($this->pool)
+            ->create([
+                'special_application_type' => SpecialApplicationType::PRIORITY->name,
+                'special_application_justification' => 'reasons',
+                'special_application_closing_date' => config('constants.far_future_datetime'),
+            ]);
+        $newPoolCandidate->submitted_at = null;
+        $newPoolCandidate->save();
+
+        // applicant able to successfully submit the application
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                mutation SubmitApplication($id: ID!, $sig: String!) {
+                    submitApplication(id: $id, signature: $sig) {
+                        signature
+                    }
+                }
+            ',
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
     }
 }
