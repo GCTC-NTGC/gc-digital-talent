@@ -6,11 +6,16 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog } from "@gc-digital-talent/ui";
+import { Button, Dialog, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
+
+import SubmissionInformationSection from "./SubmissionInformationSection";
+import NominatorInformationSection from "./NominatorInformationSection";
+import NominationDetailsSection from "./NominationDetailsSection";
+import RationaleAndAdditionalCommentsSection from "./RationaleAndAdditionalCommentsSection";
 
 const TalentNominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationDetailsDialog on TalentNomination {
@@ -107,7 +112,13 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
           )}
         </Dialog.Header>
         <Dialog.Body>
-          Body Here
+          <SubmissionInformationSection />
+          <Separator />
+          <NominatorInformationSection />
+          <Separator />
+          <NominationDetailsSection />
+          <Separator />
+          <RationaleAndAdditionalCommentsSection />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
             Footer here
           </Dialog.Footer>
