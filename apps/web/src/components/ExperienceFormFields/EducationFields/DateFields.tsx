@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
-import { useFormContext, useWatch } from "react-hook-form";
-import { useEffect, useRef } from "react";
+import { useWatch } from "react-hook-form";
 
 import { DATE_SEGMENT, DateInput } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -16,7 +15,6 @@ import type {
 const DateFields = ({ labels }: SubExperienceFormProps) => {
   const intl = useIntl();
   const todayDate = new Date();
-  const { resetField, formState } = useFormContext<EducationFormValues>();
 
   const watchStartDate = useWatch<EducationFormValues>({ name: "startDate" });
   const watchIssueDate = useWatch<EducationFormValues>({
@@ -32,34 +30,10 @@ const DateFields = ({ labels }: SubExperienceFormProps) => {
     name: "educationStatus",
   });
 
-  const prevEducationStatus = useRef<EducationStatus | null | undefined>(
-    formState.defaultValues?.educationStatus,
-  );
-
   const licenseOrCertification =
     watchEducationType === EducationType.LicenseAccreditation ||
     watchEducationType === EducationType.ProfessionalCertification;
   const inProgress = watchEducationStatus === EducationStatus.InProgress;
-
-  /**
-   * Reset date fields when education status changes
-   */
-  useEffect(() => {
-    const resetDirtyField = (name: keyof EducationFormValues) => {
-      resetField(name, { defaultValue: null, keepDirty: false });
-    };
-
-    if (prevEducationStatus.current !== watchEducationStatus) {
-      resetDirtyField("startDate");
-      resetDirtyField("issueDate");
-      resetDirtyField("prospectiveIssueDate");
-      resetDirtyField("endDate");
-      resetDirtyField("expiryDate");
-      resetDirtyField("expectedEndDate");
-      resetDirtyField("prospectiveExpiryDate");
-    }
-    prevEducationStatus.current = watchEducationStatus;
-  }, [prevEducationStatus, watchEducationStatus, resetField]);
 
   if (
     watchEducationStatus === EducationStatus.DidNotComplete &&
