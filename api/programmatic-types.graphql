@@ -2071,7 +2071,6 @@ enum TalentRequestStatus {
 enum TalentRequestTrackedUserNotReferredReason {
   MISMATCH_IN_QUALIFICATIONS
   JOB_MISMATCHES_EXPECTATIONS
-  TOO_MANY_CANDIDATES
   OTHER
 }
 
