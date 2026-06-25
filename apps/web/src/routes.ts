@@ -229,10 +229,6 @@ export default [
                 "./pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage.tsx",
               ),
               route(
-                "self-declaration",
-                "./pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage.tsx",
-              ),
-              route(
                 "profile",
                 "./pages/Applications/ApplicationProfilePage/ApplicationProfilePage.tsx",
               ),
@@ -410,6 +406,10 @@ export default [
                         "career-experience",
                         "./pages/TalentNominations/NominationGroup/CareerExperience.tsx",
                       ),
+                      route(
+                        "history",
+                        "./pages/TalentNominations/NominationGroup/History.tsx",
+                      ),
                     ],
                   ),
                 ]),
@@ -418,13 +418,13 @@ export default [
 
             // Admin - Talent requests
             ...prefix("talent-requests", [
-              index(
-                "./pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage.tsx",
-              ),
-              route(
-                ":searchRequestId",
-                "./pages/SearchRequests/ViewSearchRequestPage/ViewSearchRequestPage.tsx",
-              ),
+              index("./pages/TalentRequests/IndexTalentRequestPage.tsx"),
+              ...prefix(":talentRequestId", [
+                layout("./pages/TalentRequests/Layout.tsx", [
+                  index("./pages/TalentRequests/Details.tsx"),
+                  route("tracking", "./pages/TalentRequests/Tracking.tsx"),
+                ]),
+              ]),
             ]),
 
             // Admin - Training opportunities

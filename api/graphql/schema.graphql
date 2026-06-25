@@ -171,9 +171,6 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
-    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
@@ -397,13 +394,6 @@ type UserFileGenerationErrorNotification implements Notification {
   fileName: String
 }
 
-type MigrateOffPlatformProcessesNotification implements Notification {
-  id: ID!
-  readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime! @rename(attribute: "created_at")
-  updatedAt: DateTime! @rename(attribute: "updated_at")
-}
-
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
   id: ID!
   email: Email
@@ -522,7 +512,10 @@ type Pool implements HasRoleAssignments {
     @hasMany
     @orderBy(column: "sort_order", direction: ASC)
   closingDate: DateTime @rename(attribute: "closing_date")
-  closingReason: String @rename(attribute: "closing_reason")
+  closingReason: String
+    @rename(attribute: "closing_reason")
+    @canRoot(ability: "viewPoolNotes")
+  wasClosedEarly: Boolean!
   publishedAt: DateTime @rename(attribute: "published_at")
   archivedAt: DateTime @rename(attribute: "archived_at")
   isComplete: Boolean @rename(attribute: "is_complete")
@@ -691,6 +684,12 @@ type PoolCandidate {
     @rename(attribute: "placed_at")
     @canRoot(ability: "viewStatus")
   placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
+  placedStartDate: Date
+    @rename(attribute: "placed_start_date")
+    @canRoot(ability: "viewStatus")
+  placedEndDate: Date
+    @rename(attribute: "placed_end_date")
+    @canRoot(ability: "viewStatus")
   isBeingReferred: Boolean
   pauseReferralsAt: DateTime
     @rename(attribute: "pause_referrals_at")
@@ -715,6 +714,16 @@ type PoolCandidate {
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
+
+  # special application fields
+  specialApplicationType: LocalizedSpecialApplicationType
+    @rename(attribute: "special_application_type")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationJustification: String
+    @rename(attribute: "special_application_justification")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationClosingDate: DateTime
+    @rename(attribute: "special_application_closing_date")
 }
 
 type PoolCandidateWithSkillCount {
@@ -902,6 +911,10 @@ type TalentNominationEvent {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
   status: LocalizedTalentNominationEventStatus
+  includeNineBox: Boolean! @rename(attribute: "include_nine_box")
+  requireReferenceForAdvancement: Boolean!
+    @rename(attribute: "require_reference_for_advancement")
+  customInstructions: LocalizedString @rename(attribute: "custom_instructions")
 }
 
 type TalentNomination {
@@ -970,6 +983,10 @@ type TalentNomination {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: [Skill] @belongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: LocalizedNineBoxRating
+    @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: LocalizedNineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 type TalentNominationGroup {
@@ -1156,6 +1173,63 @@ type TalentRequest {
   statusChangedAt: DateTime @rename(attribute: "status_changed_at")
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
+  trackedUsers(
+    where: TalentRequestTrackedUserFilterInput
+  ): [TalentRequestTrackedUser!]
+    @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+}
+
+input TalentRequestTrackedUserFilterInput {
+  statuses: [TalentRequestTrackedUserStatus!] @scope(name: "whereStatusIn")
+  generalSearch: String @scope(name: "whereUserNameOrEmail")
+}
+
+type TalentRequestTrackedUser {
+  id: UUID!
+  user: User! @belongsTo
+  skillCount: Int @rename(attribute: "skill_count") # live subquery column from the withSkillCount scope - count of the user's skills matching this request's applicant filter
+  status: LocalizedTalentRequestTrackedUserStatus # computed accessor: selection decision supersedes referral decision
+  referralDecision: LocalizedTalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
+  sources: [TalentRequestSource!]!
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
+    @with(relation: "user.talentRequestTrackedUsers")
+}
+
+# Aggregate of a user's referral history: total times referred plus a breakdown of why they were not selected.
+type TalentRequestReferralSummary {
+  referredCount: Int!
+  notSelectedReasons: [TalentRequestNotSelectedReasonCount!]!
+}
+
+type TalentRequestNotSelectedReasonCount {
+  reason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  count: Int!
 }
 
 type SkillFamily {
@@ -1544,6 +1618,37 @@ type CandidateSearchPoolResult {
   candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
+input TalentRequestMatchFilterInput {
+  applicantFilter: ApplicantFilterInput
+  generalSearch: String @scope(name: "whereGeneralSearch")
+  name: String @scope(name: "whereName")
+  email: String @scope(name: "whereEmail")
+  priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
+  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  departments: [UUID!] @scope(name: "whereDepartmentsIn")
+  # NOT the filter source (filters come from applicantFilter); names the request whose tracked
+  # users to exclude. Has no effect yet.
+  excludeTrackedByRequestId: UUID
+}
+
+type TalentRequestResult {
+  id: UUID!
+  user: User! @self
+  sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
+  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  matchingQualifiedInPoolSources: [PoolCandidate!]
+  matchingAtLevelSources: [CommunityInterest!]
+  matchingAdvancementSources: [TalentNominationGroup!]
+  skillCount: Int @rename(attribute: "skill_count")
+  referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
+    @with(relation: "talentRequestTrackedUsers")
+}
+
+type TalentRequestMatchPoolCount {
+  pool: Pool!
+  count: Int!
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1678,6 +1783,22 @@ type Query {
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
+  talentRequestMatches(
+    where: TalentRequestMatchFilterInput
+      @scope(name: "whereMatchesTalentRequest")
+  ): [TalentRequestResult]!
+    @advancedOrderBy
+    @paginate(
+      defaultCount: 10
+      maxCount: 1000
+      scopes: ["whereAuthorizedToView"]
+      model: "App\\Models\\User"
+    )
+    @guard
+  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatchesByPool(
+    where: ApplicantFilterInput
+  ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
@@ -1839,7 +1960,7 @@ type Query {
     )
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
-  talentRequest(id: ID! @eq): TalentRequest
+  talentRequest(id: UUID! @eq): TalentRequest
     @find
     @guard
     @canFind(ability: "view", find: "id", scopes: ["withPolicyEagerLoads"])
@@ -1852,6 +1973,25 @@ type Query {
     )
     @guard
     @canModel(ability: "viewAny")
+  talentRequestTrackedUsers(
+    talentRequestId: UUID!
+      @eq(key: "talent_request_id")
+      @scope(name: "withTalentRequestMatches")
+    where: TalentRequestTrackedUserFilterInput
+  ): [TalentRequestTrackedUser!]
+    @advancedOrderBy
+    @paginate(
+      defaultCount: 10
+      maxCount: 500
+      scopes: ["whereAuthorizedToView", "withSkillCount"]
+    )
+    @guard
+    @canFind(
+      ability: "view"
+      find: "talentRequestId"
+      model: "App\\Models\\TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
   skillFamily(id: UUID! @eq): SkillFamily @find @canModel(ability: "view")
   skillFamilies: [SkillFamily]! @all @canModel(ability: "viewAny")
   skill(id: UUID! @eq): Skill @find @canModel(ability: "view")
@@ -2038,8 +2178,6 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2109,8 +2247,6 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2184,8 +2320,6 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2378,6 +2512,17 @@ input CreatePoolCandidateAsAdminInput {
   isFlagged: Boolean
 }
 
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+    @rename(attribute: "special_application_type")
+  specialApplicationJustification: String!
+    @rename(attribute: "special_application_justification")
+  specialApplicationClosingDate: DateTime!
+    @rename(attribute: "special_application_closing_date")
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -2433,6 +2578,8 @@ input QualifyCandidateInput {
 input PlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input QualifyAndPlaceCandidateInput {
@@ -2440,6 +2587,8 @@ input QualifyAndPlaceCandidateInput {
   placementType: PlacementType!
   department: DepartmentBelongsTo!
   pauseReferrals: PauseReferralsInput @spread
+  placedStartDate: Date
+  placedEndDate: Date
 }
 
 input CreateDepartmentInput {
@@ -2578,6 +2727,11 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo!
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  includeNineBox: Boolean @rename(attribute: "include_nine_box")
+  requireReferenceForAdvancement: Boolean
+    @rename(attribute: "require_reference_for_advancement")
+  customInstructions: LocalizedStringInput
+    @rename(attribute: "custom_instructions")
 }
 
 input UpdateTalentNominationEventInput {
@@ -2590,6 +2744,11 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "include_leadership_competencies")
   community: CommunityBelongsTo
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToManyWithPivot
+  includeNineBox: Boolean @rename(attribute: "include_nine_box")
+  requireReferenceForAdvancement: Boolean
+    @rename(attribute: "require_reference_for_advancement")
+  customInstructions: LocalizedStringInput
+    @rename(attribute: "custom_instructions")
 }
 
 input TalentNominationEventBelongsTo {
@@ -2646,6 +2805,9 @@ input CreateTalentNominationInput @validator {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: SkillBelongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: NineBoxRating @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: NineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 input UpdateTalentNominationInput @validator {
@@ -2698,6 +2860,9 @@ input UpdateTalentNominationInput @validator {
   nominationRationale: String @rename(attribute: "nomination_rationale")
   skills: SkillBelongsToMany
   additionalComments: String @rename(attribute: "additional_comments")
+  nineBoxPerformance: NineBoxRating @rename(attribute: "nine_box_performance")
+  nineBoxLeadershipPotential: NineBoxRating
+    @rename(attribute: "nine_box_leadership_potential")
 }
 
 input UpdateTalentNominationGroupInput {
@@ -2789,6 +2954,7 @@ input CreateTalentRequestInput {
 
 input UpdateTalentRequestInput {
   adminNotes: String @rename(attribute: "admin_notes")
+  followUpDate: Date @rename(attribute: "follow_up_date")
 }
 
 input UpdateTalentRequestStatusInput {
@@ -2796,6 +2962,26 @@ input UpdateTalentRequestStatusInput {
   inProgressDetails: TalentRequestInProgressDetail
   completionDetails: TalentRequestCompletionDetail
   followUpDate: Date
+}
+
+input CreateTalentRequestTrackedUserInput {
+  userId: UUID! @rename(attribute: "user_id")
+  talentRequestId: UUID! @rename(attribute: "talent_request_id")
+  referralDecision: TalentRequestTrackedUserReferralDecision
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+}
+
+input UpdateTalentRequestTrackedUserInput {
+  referralDecision: TalentRequestTrackedUserReferralDecision!
+    @rename(attribute: "referral_decision")
+  notReferredReason: TalentRequestTrackedUserNotReferredReason
+    @rename(attribute: "not_referred_reason")
+  selectionDecision: TalentRequestTrackedUserSelectionDecision
+    @rename(attribute: "selection_decision")
+  notSelectedReason: TalentRequestTrackedUserNotSelectedReason
+    @rename(attribute: "not_selected_reason")
 }
 
 input SkillBelongsToMany {
@@ -3447,6 +3633,14 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
+  createSpecialApplication(
+    poolCandidate: CreateSpecialApplicationInput! @spread
+  ): PoolCandidate
+    @guard
+    @canModel(ability: "createSpecialApplication")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateSpecialApplicationValidator"
+    )
   updatePoolCandidateStatus(
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread
@@ -3706,7 +3900,101 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
     @validator
+  createTrackedUsersReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateReferred")
+    @validator
+  createTrackedUsersNotReferred(
+    userIds: [UUID!]!
+    talentRequestId: UUID!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "update"
+      find: "talentRequestId"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkCreateNotReferred")
+    @validator
+  updateTrackedUsersReferred(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateReferred")
+    @validator
+  updateTrackedUsersNotReferred(
+    ids: [UUID!]!
+    notReferredReason: TalentRequestTrackedUserNotReferredReason!
+  ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotReferred")
+    @validator
+  updateTrackedUsersSelected(ids: [UUID!]!): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateSelected")
+    @validator
+  updateTrackedUsersNotSelected(
+    ids: [UUID!]!
+    notSelectedReason: TalentRequestTrackedUserNotSelectedReason!
+  ): [TalentRequestTrackedUser!]!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @field(resolver: "TalentRequestTrackedUserMutator@bulkUpdateNotSelected")
+    @validator
+  createTalentRequestTrackedUser(
+    input: CreateTalentRequestTrackedUserInput! @spread
+  ): TalentRequestTrackedUser!
+    @guard
+    @canFind(
+      ability: "update" # If the user can update the talent request, they can create tracked user
+      find: "talent_request_id"
+      model: "TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
+    @create
+    @validator
+  updateTalentRequestTrackedUser(
+    id: UUID!
+    input: UpdateTalentRequestTrackedUserInput! @spread
+  ): TalentRequestTrackedUser!
+    @guard
+    @canModel(
+      ability: "updateTrackedUsers"
+      model: "TalentRequest"
+      injectArgs: true
+    )
+    @update
+    @validator
 
+  # SkillFamily mutations
   createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily
     @create
     @guard
@@ -3716,7 +4004,7 @@ type Mutation {
     skillFamily: UpdateSkillFamilyInput! @spread
   ): SkillFamily @update @guard @canFind(ability: "update", find: "id")
 
-  # skill mutations
+  # Skill mutations
   createSkill(skill: CreateSkillInput! @spread): Skill
     @create
     @guard
@@ -3915,6 +4203,7 @@ type Mutation {
     @update(model: "PoolCandidate")
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
+    @validator
 
   # Job poster template mutations
   createJobPosterTemplate(
@@ -4105,10 +4394,17 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestUsersExcel(
-    ids: [UUID!]
-    where: CommunityInterestFilterInput
-  ): Boolean! @guard
+  downloadTrackedUsersExcel(
+    talentRequestId: UUID!
+    where: TalentRequestTrackedUserFilterInput
+  ): Boolean
+    @guard
+    @canFind(
+      ability: "view"
+      find: "talentRequestId"
+      model: "App\\Models\\TalentRequest"
+      scopes: ["withPolicyEagerLoads"]
+    )
   downloadNominationsExcel(
     ids: [UUID!]
     talentNominationEventId: UUID!

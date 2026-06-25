@@ -34,7 +34,7 @@ jobs:
           sudo rm -rf /usr/lib/jvm
           df -h
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Copy .env"
         working-directory: "./apps/web"
@@ -87,7 +87,7 @@ jobs:
 
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests

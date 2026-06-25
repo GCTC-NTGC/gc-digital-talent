@@ -23,7 +23,7 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -828,9 +828,9 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
   experienceType: ExperienceType;
-  experienceId: Scalars["ID"]["output"];
+  experienceId: string;
 }
 
 interface LocationState {

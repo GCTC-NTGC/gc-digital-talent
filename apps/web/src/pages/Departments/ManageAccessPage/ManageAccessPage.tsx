@@ -9,10 +9,6 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  Scalars,
-  DepartmentMembersTeamQuery,
-} from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
@@ -28,7 +24,7 @@ import {
   checkRoleDepartments,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
@@ -37,8 +33,6 @@ import type {
   DepartmentManageAccessPageFragment,
 } from "./components/types";
 import { DepartmentManageAccessPage_DepartmentFragment } from "./components/operations";
-import type { Route } from "./+types/ManageAccessPage";
-import { getTeamIdInMiddleware } from "../utils";
 
 const pageTitle = defineMessage({
   defaultMessage: "Department members",
@@ -166,29 +160,25 @@ const DepartmentMembersTable = ({
 const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
   query DepartmentMembersTeam($departmentId: UUID!) {
     department(id: $departmentId) {
+      teamIdForRoleAssignment
       ...DepartmentManageAccessPage_Department
     }
   }
 `);
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
-type DepartmentMembersQueryType = NonNullable<
-  DepartmentMembersTeamQuery["department"]
->;
-interface DepartmentManageAccessPageProps {
-  departmentQuery: DepartmentMembersQueryType;
-}
-
-const DepartmentManageAccessPage = ({
-  departmentQuery,
-}: DepartmentManageAccessPageProps) => {
+const DepartmentManageAccessPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
+  const [{ data, fetching, error }] = useQuery({
+    query: DepartmentMembersTeam_Query,
+    variables: { departmentId },
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -215,42 +205,38 @@ const DepartmentManageAccessPage = ({
       <SEO title={formattedPageTitle} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <DepartmentMembersTable departmentQuery={departmentQuery} />
+        <Pending fetching={fetching} error={error}>
+          {data?.department ? (
+            <DepartmentMembersTable departmentQuery={data.department} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </Container>
     </>
   );
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request, params }, next) => {
-    const teamId = await getTeamIdInMiddleware(context, params.departmentId);
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE.PlatformAdmin },
-        { name: ROLE.DepartmentAdmin, teamId: teamId },
-        { name: ROLE.DepartmentHRAdvisor, teamId: teamId },
-      ],
-      strict: true,
-    });
-    return await next();
-  },
-];
-
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
 const Component = () => {
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data, fetching, error }] = useQuery({
-    query: DepartmentMembersTeam_Query,
-    variables: { departmentId },
-  });
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.department ? (
-        <DepartmentManageAccessPage departmentQuery={data.department} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId },
+      ]}
+      strict
+    >
+      <DepartmentManageAccessPage />
+    </RequireAuth>
   );
 };
 

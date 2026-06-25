@@ -15,7 +15,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Scalars,
   ViewCommunityQuery,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -27,13 +26,12 @@ import useRoutes from "~/hooks/useRoutes";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import adminMessages from "~/messages/adminMessages";
 import Hero from "~/components/Hero";
-import { requireUser } from "~/routing/auth";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import type { Route } from "./+types/ViewCommunityPage";
 import type { ContextType } from "../CommunityMembersPage/components/types";
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const ViewCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
@@ -243,22 +241,8 @@ const ViewCommunityPage = ({ community }: ViewCommunityPageProps) => {
   );
 };
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, {
-      roles: [
-        { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin },
-        { name: ROLE_NAME.CommunityRecruiter },
-        { name: ROLE_NAME.CommunityTalentCoordinator },
-      ],
-    });
-    return await next();
-  },
-];
-
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const Component = () => {
+const ViewCommunityPageApiWrapper = () => {
   const intl = useIntl();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
@@ -286,6 +270,19 @@ const Component = () => {
     </Pending>
   );
 };
+
+export const Component = () => (
+  <RequireAuth
+    roles={[
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityTalentCoordinator,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
+    <ViewCommunityPageApiWrapper />
+  </RequireAuth>
+);
 
 Component.displayName = "AdminViewCommunityPage";
 

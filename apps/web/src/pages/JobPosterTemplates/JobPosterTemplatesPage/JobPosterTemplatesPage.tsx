@@ -22,7 +22,6 @@ import {
 } from "@gc-digital-talent/ui";
 import type {
   Classification,
-  Maybe,
   SupervisoryStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
@@ -122,7 +121,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
   }
 `);
 
-function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
+function assertIncludes(haystack: string[], needle?: string | null): boolean {
   if (!haystack.length || (needle && haystack.includes(needle))) return true;
 
   return false;
@@ -130,8 +129,8 @@ function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
 
 function previewMetaData(
   intl: IntlShape,
-  classification?: Maybe<Classification>,
-  workStream?: Maybe<WorkStream>,
+  classification?: Classification | null,
+  workStream?: WorkStream | null,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {

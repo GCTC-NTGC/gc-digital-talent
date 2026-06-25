@@ -484,6 +484,11 @@ const commonMessages = defineMessages({
     id: "OUcSEy",
     description: "Label for level",
   },
+  notReferred: {
+    defaultMessage: "Not referred",
+    id: "UZ6zTY",
+    description: "Label for a candidate that is not referred",
+  },
   selected: {
     defaultMessage: "Selected",
     id: "W9zlhl",
@@ -600,6 +605,16 @@ const commonMessages = defineMessages({
     id: "Q77DlA",
     description:
       "Message showing the number of days by which something is overdue",
+  },
+  startDate: {
+    defaultMessage: "Start date",
+    id: "9tH7k0",
+    description: "Label displayed before start date",
+  },
+  endDate: {
+    defaultMessage: "End date",
+    id: "JCA/2+",
+    description: "Label displayed before end date",
   },
 });
 

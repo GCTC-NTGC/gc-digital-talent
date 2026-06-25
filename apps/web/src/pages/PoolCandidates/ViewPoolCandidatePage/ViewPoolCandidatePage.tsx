@@ -5,10 +5,7 @@ import { useQuery } from "urql";
 
 import { NotFound, Pending, Heading, Sidebar } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import type {
-  Scalars,
-  PoolCandidateSnapshotQuery,
-} from "@gc-digital-talent/graphql";
+import type { PoolCandidateSnapshotQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -195,12 +192,12 @@ export const ViewPoolCandidate = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: ["AssessmentResult"],
+  additionalTypenames: ["AssessmentResult", "PoolCandidate"],
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
-  poolCandidateId: Scalars["ID"]["output"];
+  poolId: string;
+  poolCandidateId: string;
 }
 
 export const ViewPoolCandidatePage = () => {

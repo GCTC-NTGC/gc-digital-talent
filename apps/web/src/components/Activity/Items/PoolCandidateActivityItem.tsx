@@ -3,7 +3,7 @@ import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import { useIntl } from "react-intl";
 
-import type { ActivityProperties, Maybe } from "@gc-digital-talent/graphql";
+import type { ActivityProperties } from "@gc-digital-talent/graphql";
 import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 
 import type { CommonItemProps } from "./BaseActivityItem";
@@ -12,7 +12,7 @@ import { getEventInfo, parseAttributes } from "./utils";
 
 type PoolCandidateActivityItemProps = CommonItemProps;
 
-function getDescription(propsObj?: Maybe<ActivityProperties>): ReactNode {
+function getDescription(propsObj?: ActivityProperties | null): ReactNode {
   if (propsObj && "attributes" in propsObj) {
     const atts = parseAttributes(propsObj.attributes);
     if ("user_name" in atts && typeof atts.user_name === "string") {

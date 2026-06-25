@@ -43,6 +43,7 @@ class UserTestSeeder extends Seeder
                 'email' => 'admin@test.com',
                 'email_verified_at' => '2026-01-01',
                 'sub' => 'admin@test.com',
+                'work_email' => 'Dale_Monroe_Admin@gc.ca',
             ]);
         AwardExperience::factory()->create(['user_id' => $adminUser->id]);
         CommunityExperience::factory()->create(['user_id' => $adminUser->id]);
@@ -58,6 +59,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Kennedy',
                 'email' => 'platform@test.com',
                 'sub' => 'platform@test.com',
+                'work_email' => 'Dara_Kennedy_Platform@gc.ca',
             ]);
 
         User::factory()
@@ -70,6 +72,7 @@ class UserTestSeeder extends Seeder
                 'email' => 'applicant@test.com',
                 'email_verified_at' => '2026-01-01',
                 'sub' => 'applicant@test.com',
+                'work_email' => 'Gul_Fields_Applicant@gc.ca',
             ]);
 
         User::factory()
@@ -82,6 +85,7 @@ class UserTestSeeder extends Seeder
                 'email' => 'applicant-employee@test.com',
                 'email_verified_at' => '2026-01-01',
                 'sub' => 'applicant-employee@test.com',
+                'work_email' => 'Jaime_Bilodeau_Employee@gc.ca',
             ]);
 
         User::factory()
@@ -101,6 +105,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Wells',
                 'email' => 'process@test.com',
                 'sub' => 'process@test.com',
+                'work_email' => 'Hui_Wells_Process@gc.ca',
             ]);
 
         User::factory()
@@ -112,6 +117,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Holland',
                 'email' => 'recruiter@test.com',
                 'sub' => 'recruiter@test.com',
+                'work_email' => 'Ji-Min_Holland_Recruiter@gc.ca',
             ]);
 
         User::factory()
@@ -123,6 +129,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Waters',
                 'email' => 'community@test.com',
                 'sub' => 'community@test.com',
+                'work_email' => 'Kyo_Waters_Community@gc.ca',
             ]);
 
         User::factory()
@@ -134,6 +141,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Sky',
                 'email' => 'talent-coordinator@test.com',
                 'sub' => 'talent-coordinator@test.com',
+                'work_email' => 'Berlin_Sky_Coordinator@gc.ca',
             ]);
 
         User::factory()
@@ -145,6 +153,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Sackville',
                 'email' => 'department-admin@test.com',
                 'sub' => 'department-admin@test.com',
+                'work_email' => 'Brutus_Sackville_Department@gc.ca',
             ]);
 
         User::factory()
@@ -156,6 +165,7 @@ class UserTestSeeder extends Seeder
                 'last_name' => 'Bird',
                 'email' => 'department-advisor@test.com',
                 'sub' => 'department-advisor@test.com',
+                'work_email' => 'Archibald_Bird_Advisor@gc.ca',
             ]);
     }
 }

@@ -18,7 +18,7 @@ import type {
   MouseEventHandler,
   SetStateAction,
 } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { tv } from "tailwind-variants";
 
 import type { CheckButtonProps } from "@gc-digital-talent/forms";
@@ -27,13 +27,13 @@ import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
   Button,
   DownloadCsv,
+  DropdownMenu,
   Loading,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
 
-import type { DownloadDef, RowSelectDef } from "./types";
+import type { DownloadDef, TableAction } from "./types";
 import SpinnerIcon from "../../SpinnerIcon/SpinnerIcon";
 import tableMessages from "../tableMessages";
 
@@ -60,7 +60,10 @@ const Header = <TData extends object>({
   <CheckButton
     checked={table.getIsAllRowsSelected()}
     onToggle={table.toggleAllRowsSelected}
-    indeterminate={table.getIsSomeRowsSelected()}
+    indeterminate={
+      table.getSelectedRowModel().rows.length > 0 &&
+      !table.getIsAllRowsSelected()
+    }
     {...props}
     color="black"
   />
@@ -206,6 +209,10 @@ interface ActionsProps {
   onClear: MouseEventHandler;
   /** Button to trigger an async download */
   download?: DownloadDef;
+  /** Arbitrary bulk actions for the selected rows, shown in a dropdown menu */
+  actions?: TableAction[];
+  /** IDs of the currently selected rows, passed to action handlers */
+  selectedRowIds: string[];
 }
 
 /**
@@ -220,6 +227,8 @@ const Actions = ({
   count,
   onClear,
   download,
+  actions,
+  selectedRowIds,
 }: ActionsProps) => {
   const intl = useIntl();
 
@@ -325,6 +334,34 @@ const Actions = ({
                   )}
                 </span>
               )}
+              {actions?.length && selectedRowIds?.length ? (
+                <>
+                  <Bullet />
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger btnProps={actionButtonStyles}>
+                      {intl.formatMessage(tableMessages.actions)}
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Popup
+                      positionerProps={{ align: "end", collisionPadding: 2 }}
+                    >
+                      {actions.map((action, index) => (
+                        <DropdownMenu.Item
+                          key={index}
+                          onClick={() => {
+                            if (count <= 0) {
+                              handleNoRowsSelected();
+                              return;
+                            }
+                            action.onClick?.(selectedRowIds);
+                          }}
+                        >
+                          {action.label}
+                        </DropdownMenu.Item>
+                      ))}
+                    </DropdownMenu.Popup>
+                  </DropdownMenu.Root>
+                </>
+              ) : null}
             </Section>
           )}
         </Column>
@@ -397,27 +434,8 @@ type UseRowSelectionReturn = [
   setter: OnChangeFn<RowSelectionState>,
 ];
 
-type RowSelectionCallback = (s: RowSelectionState) => void;
-
-export const useRowSelection = <T,>(
-  rowSelect?: RowSelectDef<T>,
-): UseRowSelectionReturn => {
+export const useRowSelection = (): UseRowSelectionReturn => {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const rowSelectionCallbackRef = useRef<RowSelectionCallback>(() => undefined);
-
-  // Keep the newest callback in the ref for the effect to call
-  // eslint-disable-next-line react-hooks/refs
-  rowSelectionCallbackRef.current = (newRows: RowSelectionState) => {
-    if (rowSelect?.onRowSelection) {
-      const selectedRows = Object.keys(newRows)
-        .map((value) => {
-          return newRows[value] ? value : undefined;
-        })
-        .filter(notEmpty);
-
-      rowSelect.onRowSelection(selectedRows);
-    }
-  };
 
   const handleRowSelection = (
     setter: Dispatch<SetStateAction<RowSelectionState>>,
@@ -434,10 +452,6 @@ export const useRowSelection = <T,>(
 
   const setter = (updater: Updater<RowSelectionState>) =>
     handleRowSelection(setRowSelection, updater);
-
-  useEffect(() => {
-    rowSelectionCallbackRef.current(rowSelection);
-  }, [rowSelection]); // stable — callback stored in ref to avoid re-render cycle
 
   return [rowSelection, setter];
 };

@@ -27,13 +27,12 @@ import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
 import type {
   RoleAssignment,
-  Maybe,
   Classification,
   Pool,
   LocalizedPoolStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import { PublishingGroup, PoolStatus } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
 import useRoutes from "~/hooks/useRoutes";
@@ -53,8 +52,8 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: Maybe<RoleAssignment>[],
-  status?: Maybe<PoolStatus>,
+  roleAssignments: (RoleAssignment | null)[],
+  status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
     return true;
@@ -77,12 +76,8 @@ export const isAdvertisementVisible = (
   );
 };
 
-export function isIAPPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
-  return publishingGroup === PublishingGroup.Iap;
-}
-
-export function isExecPool(publishingGroup?: Maybe<PublishingGroup>): boolean {
-  return publishingGroup === PublishingGroup.ExecutiveJobs;
+export function isExecPool(group?: string | null): boolean {
+  return group === "EX";
 }
 
 interface formatClassificationStringProps {
@@ -98,9 +93,9 @@ export const formatClassificationAriaString = ({
   return tokens.join(" ");
 };
 interface formattedPoolPosterTitleProps {
-  title: Maybe<string> | undefined;
-  classification: Maybe<Pick<Classification, "groupAndLevel">> | undefined;
-  workStream?: Maybe<WorkStream>;
+  title: string | null | undefined;
+  classification: Pick<Classification, "groupAndLevel"> | null | undefined;
+  workStream?: WorkStream | null;
   short?: boolean;
   intl: IntlShape;
 }
@@ -157,10 +152,10 @@ interface PoolTitleOptions {
 
 type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Maybe<Pick<Classification, "groupAndLevel">>;
+  classification?: Pick<Classification, "groupAndLevel"> | null;
 }
 
-type PoolTitle = Maybe<PartialPoolWithClassification>;
+type PoolTitle = PartialPoolWithClassification | null;
 
 export const poolTitle = (
   intl: IntlShape,
@@ -183,13 +178,6 @@ export const poolTitle = (
     };
 
   const specificTitle = getLocalizedName(pool?.name, intl);
-
-  if (isIAPPool(pool.publishingGroup?.value)) {
-    return {
-      html: specificTitle,
-      label: specificTitle,
-    };
-  }
 
   const formattedTitle = formattedPoolPosterTitle({
     title: specificTitle,
@@ -438,7 +426,7 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: Maybe<LocalizedPoolStatus> | undefined,
+  status: LocalizedPoolStatus | null | undefined,
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {
@@ -466,7 +454,7 @@ export const getProcessStatusBadge = (
   return statusBadge;
 };
 
-export const contactEmailTag = (email?: Maybe<string>) => {
+export const contactEmailTag = (email?: string | null) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}

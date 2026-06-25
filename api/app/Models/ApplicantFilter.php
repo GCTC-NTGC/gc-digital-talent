@@ -25,6 +25,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property array $flexible_work_locations
+ * @property ?string $community_id
  */
 class ApplicantFilter extends Model
 {
@@ -77,6 +78,20 @@ class ApplicantFilter extends Model
     public function qualifiedInWorkStreams(): BelongsToMany
     {
         return $this->belongsToMany(WorkStream::class);
+    }
+
+    // Reshapes this saved filter into the array shape that the whereMatchesTalentRequest match-rule
+    // scopes expect (the same keys the live talentRequestMatches GraphQL input uses), so a stored
+    // talent request and a live search both run through the identical matching logic.
+    public function toMatchFilters(): array
+    {
+        return [
+            'qualifiedInClassifications' => $this->qualifiedInClassifications
+                ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])->toArray(),
+            'qualifiedInWorkStreams' => $this->qualifiedInWorkStreams
+                ->map(fn ($ws) => ['id' => $ws->id])->toArray(),
+            'community' => $this->community_id,
+        ];
     }
 
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */

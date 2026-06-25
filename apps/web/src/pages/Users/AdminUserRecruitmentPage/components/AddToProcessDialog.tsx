@@ -13,7 +13,7 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, PoolStatus, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -90,8 +90,8 @@ const AddToProcessDialog_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  pool: Scalars["UUID"]["input"];
-  expiryDate: Scalars["Date"]["input"];
+  pool: string;
+  expiryDate: string;
 }
 
 interface AddToProcessDialogProps {

@@ -3,12 +3,15 @@
 namespace App\Policies;
 
 use App\Models\TalentRequest;
+use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
+use App\Traits\ChecksTeamPermissions;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class TalentRequestPolicy
 {
+    use ChecksTeamPermissions;
     use HandlesAuthorization;
 
     /**
@@ -70,6 +73,48 @@ class TalentRequestPolicy
         }
 
         return false;
+    }
+
+    /**
+     * Determine whether the user can update tracked users for one or more talent requests.
+     *
+     * @param  array{ids?: array<int, string>}  $args
+     * @return Response|bool
+     */
+    public function updateTrackedUsers(User $user, array $args)
+    {
+        if ($user->isAbleTo('update-any-talentRequest')) {
+            return true;
+        }
+
+        $ids = $args['ids'] ?? (isset($args['id']) ? [$args['id']] : null);
+
+        if (! is_array($ids) || empty($ids)) {
+            return false;
+        }
+
+        $uniqueIds = array_values(array_unique($ids));
+
+        if (empty($uniqueIds)) {
+            return false;
+        }
+
+        $trackedUsers = TalentRequestTrackedUser::query()
+            ->whereIn('id', $uniqueIds)
+            ->with('talentRequest.community.team')
+            ->get();
+
+        // Deny when any requested tracked user id cannot be resolved.
+        if ($trackedUsers->count() !== count($uniqueIds)) {
+            return false;
+        }
+
+        $teams = $trackedUsers
+            ->pluck('talentRequest.community.team')
+            ->filter()
+            ->unique('id');
+
+        return $teams->isNotEmpty() && $teams->every(fn ($team) => $this->checkTeamPermission($user, [$team], 'update-team-talentRequest'));
     }
 
     /**

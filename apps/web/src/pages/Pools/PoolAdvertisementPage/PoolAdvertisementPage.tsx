@@ -39,11 +39,10 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import type { Scalars, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   PoolStatus,
-  PublishingGroup,
   PoolSkillType,
   getFragment,
 } from "@gc-digital-talent/graphql";
@@ -122,16 +121,16 @@ const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
 
 const DeadlineDialogReturn = ({
   closingDate,
-  closingReason,
+  wasClosedEarly,
 }: {
   closingDate: string | null | undefined;
-  closingReason: string | null | undefined;
+  wasClosedEarly: boolean;
 }): ReactNode | null => {
-  if (closingDate && !closingReason) {
+  if (closingDate && !wasClosedEarly) {
     return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
   }
 
-  if (closingReason) {
+  if (wasClosedEarly) {
     return <ClosedEarlyDeadlineDialog />;
   }
 
@@ -153,7 +152,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     closingDate
-    closingReason
+    wasClosedEarly
     status {
       value
       label {
@@ -302,7 +301,7 @@ const subTitle = defineMessage({
 
 interface PoolAdvertisementProps {
   poolQuery: FragmentType<typeof PoolAdvertisement_Fragment>;
-  applicationId?: Scalars["ID"]["output"];
+  applicationId?: string;
   hasApplied?: boolean;
 }
 
@@ -699,13 +698,13 @@ export const PoolPoster = ({
                   value={
                     <DeadlineValue
                       closingDate={pool.closingDate}
-                      closingReason={pool.closingReason}
+                      wasClosedEarly={pool.wasClosedEarly}
                     />
                   }
                   suffix={
                     <DeadlineDialogReturn
                       closingDate={pool.closingDate}
-                      closingReason={pool.closingReason}
+                      wasClosedEarly={pool.wasClosedEarly}
                     />
                   }
                 />
@@ -812,7 +811,6 @@ export const PoolPoster = ({
                 )}
               </Text>
               <EducationRequirements
-                isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
                 classificationGroup={classificationGroup}
               />
             </TableOfContents.Section>
@@ -1397,7 +1395,7 @@ const PoolNotFound = () => {
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const PoolAdvertisementPage_Query = graphql(/* GraphQL */ `

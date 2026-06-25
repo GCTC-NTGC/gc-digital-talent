@@ -1,12 +1,8 @@
-import type {
-  Maybe,
-  Permission,
-  RoleAssignment,
-} from "@gc-digital-talent/graphql";
+import type { Permission, RoleAssignment } from "@gc-digital-talent/graphql";
 
 export interface PermissionRequirement {
   permission: Permission;
-  teamId?: Maybe<string>;
+  teamId?: string | null | undefined;
 }
 
 /**
@@ -17,7 +13,7 @@ export interface PermissionRequirement {
  */
 const checkPermissions = (
   requirements: PermissionRequirement | PermissionRequirement[],
-  roleAssignments: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  roleAssignments: (RoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   const assignments = (roleAssignments ?? []).filter(
     (a): a is RoleAssignment => !!a && !!a.role,

@@ -11,7 +11,6 @@ import {
   Link,
   Container,
 } from "@gc-digital-talent/ui";
-import type { Scalars } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -35,7 +34,7 @@ const subTitle = defineMessage({
 });
 
 interface RouteParams extends Record<string, string> {
-  requestId: Scalars["ID"]["output"];
+  requestId: string;
 }
 
 const mailLink = (chunks: ReactNode) => (

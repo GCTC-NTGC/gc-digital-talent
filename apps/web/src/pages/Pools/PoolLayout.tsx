@@ -33,6 +33,12 @@ import { getAssessmentPlanStatus } from "~/validators/pool/assessmentPlan";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 
+export interface ContextType {
+  communityTeamId: string | null | undefined;
+  departmentTeamId: string | null | undefined;
+  teamId: string | null | undefined;
+}
+
 export const PoolLayout_Fragment = graphql(/* GraphQL */ `
   fragment PoolLayout on Pool {
     ...AssessmentPlanStatus
@@ -62,6 +68,7 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+
     classification {
       groupAndLevel
     }
@@ -179,6 +186,13 @@ const PoolLayout_Query = graphql(/* GraphQL */ `
   query PoolLayout($poolId: UUID!) {
     pool(id: $poolId) {
       ...PoolLayout
+      community {
+        teamIdForRoleAssignment
+      }
+      department {
+        teamIdForRoleAssignment
+      }
+      teamId
     }
   }
 `);
@@ -197,12 +211,24 @@ const PoolLayout = () => {
     context,
   });
 
+  const outletContext: ContextType = {
+    communityTeamId: data?.pool?.community?.teamIdForRoleAssignment,
+    departmentTeamId: data?.pool?.department?.teamIdForRoleAssignment,
+    teamId: data?.pool?.teamId,
+  };
+
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        {data?.pool ? <PoolHeader poolQuery={data.pool} /> : <ThrowNotFound />}
+        {data?.pool ? (
+          <>
+            <PoolHeader poolQuery={data.pool} />
+            <Outlet context={outletContext} />
+          </>
+        ) : (
+          <ThrowNotFound />
+        )}
       </Pending>
-      <Outlet />
     </>
   );
 };

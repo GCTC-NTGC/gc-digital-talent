@@ -5,13 +5,13 @@ import { tv } from "tailwind-variants";
 
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
 interface SkillLinkProps {
-  id?: Scalars["ID"]["output"];
+  id?: string;
   children: ReactNode;
 }
 

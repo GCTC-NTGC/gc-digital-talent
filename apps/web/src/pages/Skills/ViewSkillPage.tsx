@@ -14,7 +14,7 @@ import {
   Card,
   Container,
 } from "@gc-digital-talent/ui";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
@@ -191,7 +191,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const Skill_Query = graphql(/* GraphQL */ `
@@ -209,7 +209,7 @@ const Skill_Query = graphql(/* GraphQL */ `
 const ViewSkillPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
-  const { skillId: skillId } = useRequiredParams<RouteParams>("skillId");
+  const { skillId } = useRequiredParams<RouteParams>("skillId");
   const [{ data: skillData, fetching, error }] = useQuery({
     query: Skill_Query,
     variables: { id: skillId },

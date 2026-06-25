@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import type {
   LocalizedGovEmployeeType,
   LocalizedGovPositionType,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { GovEmployeeType } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -18,16 +17,16 @@ import { formattedDate } from "~/utils/dateUtils";
 import type { RelatedSnapshotModel, SnapshotProps } from "../types";
 
 export interface GovernmentInformationSnapshotV1 {
-  isGovEmployee?: Maybe<boolean>;
-  department?: Maybe<RelatedSnapshotModel<"name">>;
-  govEmployeeType?: Maybe<LocalizedGovEmployeeType>;
-  govPositionType?: Maybe<LocalizedGovPositionType>;
-  govEndDate?: Maybe<string>;
-  currentClassification?: Maybe<{ group: string; level: number }>;
-  hasPriorityEntitlement?: Maybe<boolean>;
-  priorityNumber?: Maybe<string>;
-  workEmail?: Maybe<string>;
-  isWorkEmailVerified?: Maybe<boolean>;
+  isGovEmployee?: boolean | null;
+  department?: RelatedSnapshotModel<"name"> | null;
+  govEmployeeType?: LocalizedGovEmployeeType | null;
+  govPositionType?: LocalizedGovPositionType | null;
+  govEndDate?: string | null;
+  currentClassification?: { group: string; level: number } | null;
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
+  workEmail?: string | null;
+  isWorkEmailVerified?: boolean | null;
 }
 
 type GovernmentInformationV1Props =

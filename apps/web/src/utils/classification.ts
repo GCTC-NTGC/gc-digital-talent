@@ -1,7 +1,7 @@
 import type { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
-import type { Classification, Maybe } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
 import { getLocalizedName, localizeSalaryRange } from "@gc-digital-talent/i18n";
 
 import { splitAndJoin } from "./nameUtils";
@@ -14,7 +14,7 @@ import { splitAndJoin } from "./nameUtils";
  */
 export const getSalaryRange = (
   locale: string,
-  classification?: Maybe<Pick<Classification, "minSalary" | "maxSalary">>,
+  classification?: Pick<Classification, "minSalary" | "maxSalary"> | null,
 ) => {
   if (!classification) return null;
 

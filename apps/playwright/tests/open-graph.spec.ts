@@ -11,11 +11,10 @@ test.describe("Open Graph", () => {
     const rawUrl: string = ogImage ?? "";
     expect(rawUrl).not.toBe("");
 
-    // Mock substitute_file.sh
-    const testUrl: string = rawUrl.replace(
-      "$APP_URL",
-      "https://talent.canada.ca",
-    );
+    const baseUrl = new URL(page.url()).origin;
+    const interpolatedUrl = rawUrl.replace("$APP_URL", baseUrl);
+    const imagePath = new URL(interpolatedUrl, baseUrl).pathname;
+    const testUrl = new URL(imagePath, baseUrl).toString();
 
     const response = await page.request.get(testUrl);
     expect(response.status()).toBe(200);

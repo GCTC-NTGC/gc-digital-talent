@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 
 import { DropdownMenu } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { Maybe, Scalars } from "@gc-digital-talent/graphql";
 
 import useNominationDownloads from "~/hooks/useNominationDownloads";
 import useUserDownloads from "~/hooks/useUserDownloads";
@@ -11,9 +10,9 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import SpinnerIcon from "../SpinnerIcon/SpinnerIcon";
 
 interface DownloadNominationDocxButtonProps {
-  id: Scalars["UUID"]["output"];
-  userId?: Scalars["UUID"]["output"];
-  consentToShareProfile?: Maybe<boolean>;
+  id: string;
+  userId?: string;
+  consentToShareProfile?: boolean | null;
 }
 
 const DownloadNominationDocxButton = ({

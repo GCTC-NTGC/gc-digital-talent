@@ -10,7 +10,6 @@ import type { ReactNode } from "react";
 import type {
   AssessmentResultStatus,
   AssessmentStep,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
@@ -95,7 +94,7 @@ export const columnHeader = (
 
 export const columnStatus = (
   assessmentStep: Pick<AssessmentStep, "id">,
-  assessmentStatus?: Maybe<AssessmentResultStatus>,
+  assessmentStatus?: AssessmentResultStatus | null,
 ): ColumnStatus => {
   const assessmentDecisionResult =
     assessmentStatus?.assessmentStepStatuses?.find(

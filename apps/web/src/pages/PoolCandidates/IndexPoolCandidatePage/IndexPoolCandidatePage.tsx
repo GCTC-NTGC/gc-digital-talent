@@ -2,7 +2,6 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Container, Pending } from "@gc-digital-talent/ui";
-import type { Scalars } from "@gc-digital-talent/graphql";
 import {
   graphql,
   CandidateExpiryFilter,
@@ -18,7 +17,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `

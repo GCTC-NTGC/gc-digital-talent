@@ -259,6 +259,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -364,6 +369,11 @@ type LocalizedSkillLevel implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedSpecialApplicationType implements LocalizedEnumOption {
+  value: SpecialApplicationType!
+  label: LocalizedString!
+}
+
 type LocalizedSupervisoryStatus implements LocalizedEnumOption {
   value: SupervisoryStatus!
   label: LocalizedString!
@@ -424,8 +434,38 @@ type LocalizedTalentRequestReason implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
 type LocalizedTalentRequestStatus implements LocalizedEnumOption {
   value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
   label: LocalizedString!
 }
 
@@ -516,6 +556,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -552,26 +621,6 @@ type PoolCandidateSearchRequestPaginator {
   data: [PoolCandidateSearchRequest!]!
 }
 
-enum NullsOrder {
-  FIRST
-  LAST
-}
-
-input RelatedOrderInput {
-  name: String!
-  column: String!
-}
-
-input AdvancedOrderByInput {
-  column: String
-  scope: String
-  relation: RelatedOrderInput
-  direction: SortOrder = ASC
-  nulls: NullsOrder
-  accentInsensitive: Boolean
-  caseInsensitive: Boolean
-}
-
 "A paginated list of TalentRequest items."
 type TalentRequestPaginator {
   "Pagination information about the list of items."
@@ -579,6 +628,15 @@ type TalentRequestPaginator {
 
   "A list of TalentRequest items."
   data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -1061,6 +1119,7 @@ enum Permission {
   UpdateOwnDraftApplication
   SubmitOwnDraftApplication
   DeleteOwnDraftApplication
+  CreateAnySpecialApplication
   ArchiveOwnSubmittedApplication
   SuspendOwnSubmittedApplication
   ViewOwnApplicationStatus
@@ -1136,6 +1195,7 @@ enum Permission {
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
   CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
   ViewOwnTalentNomination
   ViewTeamTalentNomination
@@ -1146,6 +1206,8 @@ enum Permission {
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
@@ -1451,6 +1513,7 @@ enum ErrorCode {
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
+  APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
@@ -1548,6 +1611,8 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_NOT_FOUND
   ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
+  NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -1563,6 +1628,7 @@ enum ErrorCode {
   DUPLICATE_USER_SKILL
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
+  SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
 }
 
 enum EstimatedLanguageAbility {
@@ -1702,6 +1768,12 @@ enum LearningOpportunitiesInterest {
 enum Mentorship {
   MENTOR
   MENTEE
+}
+
+enum NineBoxRating {
+  LOW
+  MODERATE
+  HIGH
 }
 
 enum NotificationFamily {
@@ -1883,6 +1955,17 @@ enum SkillLevel {
   LEAD
 }
 
+enum SpecialApplicationType {
+  VETERAN
+  PRIORITY
+  MINISTERS_STAFF
+  ACCOMMODATION
+  TECHNICAL_SUPPORT
+  PSC_REQUEST
+  EMPLOYEE_CURRENTLY_ON_LEAVE
+  OTHER
+}
+
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
@@ -1975,10 +2058,48 @@ enum TalentRequestReason {
   REQUIRED_BY_DIRECTIVE
 }
 
+enum TalentRequestSource {
+  QUALIFIED_IN_POOL
+  AT_LEVEL
+  ADVANCEMENT
+}
+
 enum TalentRequestStatus {
   NEW
   IN_PROGRESS
   COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  MISMATCH_IN_QUALIFICATIONS
+  JOB_MISMATCHES_EXPECTATIONS
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  LACKS_EXPERIENCE
+  REQUIREMENT_MISMATCH
+  DECLINED_BY_CANDIDATE
+  OTHER_CANDIDATE_SELECTED
+  NO_REASON
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
+  SELECTED
+  NOT_SELECTED
 }
 
 enum TargetRole {

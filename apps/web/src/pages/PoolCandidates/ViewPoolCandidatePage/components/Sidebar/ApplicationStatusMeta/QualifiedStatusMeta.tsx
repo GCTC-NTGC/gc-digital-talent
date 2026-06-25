@@ -8,9 +8,9 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul } from "@gc-digital-talent/ui";
+import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
@@ -28,6 +28,8 @@ const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
       value
     }
     resumeReferralsAt
+    placedStartDate
+    placedEndDate
 
     ...ApplicationPlacementDialog
     ...ApplicationPauseReferralsDialog
@@ -46,6 +48,22 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   const isPlacedIndeterminate =
     application.placementType?.value === PlacementType.PlacedIndeterminate;
 
+  const startDate = application.placedStartDate
+    ? formatDate({
+        date: parseDateTimeUtc(application.placedStartDate),
+        formatString: "PPP",
+        intl,
+      })
+    : null;
+
+  const endDate = application.placedEndDate
+    ? formatDate({
+        date: parseDateTimeUtc(application.placedEndDate),
+        formatString: "PPP",
+        intl,
+      })
+    : null;
+
   return (
     <>
       <FieldDisplay label={intl.formatMessage(commonMessages.jobPlacement)}>
@@ -54,14 +72,26 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
           <div className="flex flex-col gap-6">
             <Ul space="sm" className="text-gray-600 dark:text-gray-200">
               <li>{application.placedDepartment.name.localized}</li>
+              {startDate && (
+                <li>
+                  {intl.formatMessage(commonMessages.startDate)}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {startDate}
+                </li>
+              )}
+              {endDate && (
+                <li>
+                  {intl.formatMessage(commonMessages.endDate)}
+                  {intl.formatMessage(commonMessages.dividingColon)}
+                  {endDate}
+                </li>
+              )}
             </Ul>
             {isPlacedIndeterminate && (
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage(
-                      poolCandidateMessages.notReferred,
-                    )}
+                    label={intl.formatMessage(commonMessages.notReferred)}
                   >
                     {intl.formatMessage({
                       defaultMessage:

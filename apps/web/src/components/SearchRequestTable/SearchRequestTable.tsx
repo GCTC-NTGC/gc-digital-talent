@@ -13,7 +13,6 @@ import { useQuery } from "urql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type {
-  InputMaybe,
   PoolCandidateSearchRequestInput,
   SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
@@ -64,7 +63,7 @@ const transformSearchRequestInput = (
   filterState: PoolCandidateSearchRequestInput,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<PoolCandidateSearchRequestInput> => {
+): PoolCandidateSearchRequestInput | null | undefined => {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&

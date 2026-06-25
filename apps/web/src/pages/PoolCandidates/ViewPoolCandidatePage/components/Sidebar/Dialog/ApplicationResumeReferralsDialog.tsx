@@ -4,7 +4,7 @@ import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { toast } from "@gc-digital-talent/toast";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
@@ -39,7 +39,7 @@ const ApplicationResumeReferralsDialog_Mutation = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  id: Scalars["UUID"]["input"];
+  id: string;
 }
 
 interface ApplicationResumeReferralsDialogProps {
@@ -109,11 +109,7 @@ const ApplicationResumeReferralsDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button mode="text" color="warning" className="text-left">
-          {intl.formatMessage({
-            defaultMessage: "Not referred",
-            id: "YJ9DuG",
-            description: "Dialog trigger for unpause referral status dialog",
-          })}
+          {intl.formatMessage(commonMessages.notReferred)}
         </Button>
       </Dialog.Trigger>
       <Ul space="sm" className="text-gray-600 dark:text-gray-200">

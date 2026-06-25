@@ -89,8 +89,8 @@ const employmentCategoryDescriptions: Record<
   }),
   GOVERNMENT_OF_CANADA: defineMessage({
     defaultMessage:
-      "This was a role as an employee or a contractor at a Government of Canada department, agency, or crown corporation.",
-    id: "9XTtxd",
+      "This was a role as an employee or a contractor at a Government department or agency.",
+    id: "bdZCom",
     description:
       "Description for the goc employment category option in work experience",
   }),

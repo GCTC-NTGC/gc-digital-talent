@@ -1,12 +1,10 @@
 import type {
-  Scalars,
   ApplicantFilterInput,
   LanguageAbility,
   UserPoolFilterInput,
   Classification,
   ApplicantFilter,
   Pool,
-  Maybe,
   PoolCandidateFilter,
   PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
@@ -25,7 +23,7 @@ export type FormValues = Pick<
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
-  pool?: Scalars["ID"]["output"];
+  pool?: string;
   selectedClassifications?: Pick<
     Classification,
     "group" | "level" | "groupAndLevel"
@@ -45,17 +43,21 @@ export interface BrowserHistoryState {
 }
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
+  pools?:
+    | (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[]
+    | null;
 };
 
 export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
-  pools?: Maybe<Maybe<Omit<Pool, "activities" | "teamId">>[]>;
+  pools?:
+    | (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[]
+    | null;
 };
 
 export type PartialSearchRequest = Omit<
   PoolCandidateSearchRequest,
   "applicantFilter" | "poolCandidateFilter"
 > & {
-  applicantFilter?: Maybe<PartialApplicantFilter>;
-  poolCandidateFilter?: Maybe<PartialPoolCandidateFilter>;
+  applicantFilter?: PartialApplicantFilter | null;
+  poolCandidateFilter?: PartialPoolCandidateFilter | null;
 };

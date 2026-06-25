@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
@@ -202,7 +202,7 @@ const UpdateJobPosterTemplatePage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  jobPosterTemplateId: Scalars["ID"]["output"];
+  jobPosterTemplateId: string;
 }
 
 const UpdateJobPosterTemplatePage = () => {

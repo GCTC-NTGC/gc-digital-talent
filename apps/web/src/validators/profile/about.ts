@@ -3,13 +3,12 @@ import type {
   LocalizedArmedForcesStatus,
   LocalizedCitizenshipStatus,
   LocalizedLanguage,
-  Maybe,
   Pool,
   User,
 } from "@gc-digital-talent/graphql";
 import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 
-type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
 
 export interface PartialUser extends Pick<
   User,
@@ -24,8 +23,8 @@ export interface PartialUser extends Pick<
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;
-  citizenship?: Maybe<Pick<LocalizedCitizenshipStatus, "value">>;
-  armedForcesStatus?: Maybe<Pick<LocalizedArmedForcesStatus, "value">>;
+  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
+  armedForcesStatus?: Pick<LocalizedArmedForcesStatus, "value"> | null;
 }
 
 export function hasAllEmptyFields({
@@ -50,7 +49,7 @@ export function hasAllEmptyFields({
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Maybe<Pick<Pool, "areaOfSelection">>,
+  pool?: Pick<Pool, "areaOfSelection"> | null,
 ): boolean {
   let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
 

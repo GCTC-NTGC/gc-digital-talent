@@ -14,7 +14,6 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import type {
-  Maybe,
   Pool,
   PoolCandidatePoolNameOrderByInput,
   PoolCandidateSearchInput,
@@ -22,7 +21,6 @@ import type {
   FragmentType,
   LocalizedProvinceOrTerritory,
   Classification,
-  InputMaybe,
   LocalizedString,
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
@@ -44,6 +42,10 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -86,8 +88,8 @@ export const candidateNameCell = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
   navigationState?: CandidateNavigationState,
-  candidateFirstName?: Maybe<string>,
-  candidateLastName?: Maybe<string>,
+  candidateFirstName?: string | null,
+  candidateLastName?: string | null,
 ) => {
   const candidateName = getFullNameLabel(
     candidateFirstName,
@@ -106,7 +108,7 @@ export const candidateNameCell = (
 
 export const processCell = (
   pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Maybe<Pick<Classification, "groupAndLevel">>;
+    classification?: Pick<Classification, "groupAndLevel"> | null;
   },
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
@@ -164,9 +166,9 @@ export const candidacyStatusAccessor = (
 
 export const notesCell = (
   intl: IntlShape,
-  candidateNotes?: Maybe<string>,
-  candidateFirstName?: Maybe<string>,
-  candidateLastName?: Maybe<string>,
+  candidateNotes?: string | null,
+  candidateFirstName?: string | null,
+  candidateLastName?: string | null,
 ) =>
   candidateNotes ? (
     <Spoiler
@@ -231,7 +233,7 @@ const decisionIcon = tv({
 });
 
 export const screeningResultCell = (
-  screeningResult?: Maybe<LocalizedAssessmentDecision>,
+  screeningResult?: LocalizedAssessmentDecision | null,
   defaultMessage = "",
 ) => {
   let info: DecisionInfo = defaultDecisionInfo;
@@ -251,7 +253,7 @@ export const screeningResultCell = (
 };
 
 export const applicationStatusCell = (
-  status: Maybe<LocalizedApplicationStatus> | undefined,
+  status: LocalizedApplicationStatus | null | undefined,
   intl: IntlShape,
 ) => {
   const { label, color } = getApplicationStatusChip(status, intl);
@@ -259,7 +261,7 @@ export const applicationStatusCell = (
 };
 
 export const candidateStatusCell = (
-  status?: Maybe<LocalizedCandidateStatus>,
+  status?: LocalizedCandidateStatus | null,
 ) => {
   const chip = candidateStatusChip(status);
 
@@ -272,7 +274,7 @@ export const candidateStatusCell = (
 
 export const flagCell = (
   candidate: FragmentType<typeof PoolCandidate_FlagFragment>,
-  processTitle?: Maybe<string>,
+  processTitle?: string | null,
 ) => {
   return (
     <CandidateFlag
@@ -444,7 +446,7 @@ export function getSortOrder(
 
 export function getClaimVerificationSort(
   sortingState?: SortingState,
-): Maybe<ClaimVerificationSort> {
+): ClaimVerificationSort | null | undefined {
   if (sortingState?.find((rule) => rule.id === "priority")) {
     // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
     const sortOrder = sortingState.find((rule) => rule.id === "priority");
@@ -505,6 +507,9 @@ export function transformPoolCandidateSearchInputToFormValues(
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    employmentDuration: positionDurationToEmploymentDuration(
+      input?.applicantFilter?.positionDuration,
+    ),
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -569,6 +574,11 @@ export function transformFormValuesToFilterState(
       pools: data.pools.flatMap((id) => ({ id })),
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
@@ -597,7 +607,7 @@ export const addSearchToPoolCandidateFilterInput = (
   fancyFilterState: PoolCandidateSearchInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<PoolCandidateSearchInput> | undefined => {
+): PoolCandidateSearchInput | null | undefined => {
   if (
     fancyFilterState === undefined &&
     searchBarTerm === undefined &&
@@ -681,9 +691,9 @@ export const poolCandidateBookmarkHeader = (intl: IntlShape) => (
 
 export const poolCandidateBookmarkCell = (
   poolCandidateId: string,
-  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>,
-  firstName?: Maybe<string>,
-  lastName?: Maybe<string>,
+  userQuery?: FragmentType<typeof PoolCandidateBookmark_Fragment> | null,
+  firstName?: string | null,
+  lastName?: string | null,
 ) => {
   return (
     <PoolCandidateBookmark

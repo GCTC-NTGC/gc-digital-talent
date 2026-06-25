@@ -3,7 +3,6 @@ import type { IntlShape } from "react-intl";
 import type {
   LocalizedEnumString,
   LocalizedString,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
@@ -29,7 +28,10 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
 
-export type MaybeLocalizedEnums = Maybe<Maybe<LocalizedEnumString>[]>;
+export type MaybeLocalizedEnums =
+  | (LocalizedEnumString | null | undefined)[]
+  | null
+  | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -45,7 +47,7 @@ export interface GenericLocalizedEnum<T> {
  * @returns The full localized enum found, or null
  */
 export function getLocalizedEnumByValue(
-  value: Maybe<string> | undefined,
+  value: string | null | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
 ) {
   return localizedEnumArray?.find(
@@ -63,7 +65,7 @@ export function getLocalizedEnumByValue(
  * @returns string
  */
 export function getLocalizedEnumStringByValue(
-  value: Maybe<string> | undefined,
+  value: string | null | undefined,
   localizedEnumArray: MaybeLocalizedEnums | undefined,
   intl: IntlShape,
   emptyNotFound = false,
@@ -117,13 +119,14 @@ export function sortLocalizedEnumOptions<T extends string>(
  * @returns The found localized enum
  */
 export function enumInputToLocalizedEnum<T extends string>(
-  input: Maybe<T> | undefined,
+  input: T | null | undefined,
   localizedEnumArray?: MaybeLocalizedEnums,
 ) {
   return input
-    ? (getLocalizedEnumByValue(input, localizedEnumArray) as Maybe<
-        GenericLocalizedEnum<T>
-      >)
+    ? (getLocalizedEnumByValue(input, localizedEnumArray) as
+        | GenericLocalizedEnum<T>
+        | null
+        | undefined)
     : undefined;
 }
 
@@ -134,8 +137,8 @@ export function enumInputToLocalizedEnum<T extends string>(
  * @returns string
  */
 export function localizedEnumToInput<T>(
-  localizedEnum?: Maybe<GenericLocalizedEnum<T>>,
-): Maybe<T> | undefined {
+  localizedEnum?: GenericLocalizedEnum<T> | null,
+): T | null | undefined {
   return localizedEnum?.value;
 }
 
@@ -146,8 +149,8 @@ export function localizedEnumToInput<T>(
  * @returns Input values
  */
 export function localizedEnumArrayToInput<T>(
-  localizedEnumArray?: Maybe<Maybe<GenericLocalizedEnum<T>>[]>,
-): Maybe<Maybe<T>[] | undefined> | undefined {
+  localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
+): (T | null | undefined)[] | undefined {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),

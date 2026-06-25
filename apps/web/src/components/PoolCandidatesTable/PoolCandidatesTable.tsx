@@ -27,7 +27,6 @@ import { toast } from "@gc-digital-talent/toast";
 import type {
   PoolCandidateSearchInput,
   Pool,
-  Maybe,
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
@@ -439,12 +438,12 @@ const PoolCandidatesTable = ({
   hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Maybe<Pick<Pool, "id" | "displayName">>;
+  currentPool?: Pick<Pool, "id" | "displayName"> | null;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
   doNotUseFlag?: boolean;
-  availableSteps?: Maybe<PoolCandidateFilterDialogProps["availableSteps"]>;
+  availableSteps?: PoolCandidateFilterDialogProps["availableSteps"] | null;
   hiddenColumnIds?: string[];
 }) => {
   const intl = useIntl();
@@ -1007,7 +1006,7 @@ const PoolCandidatesTable = ({
 
         return row.poolCandidate.isBeingReferred
           ? intl.formatMessage(poolCandidateMessages.availableForReferral)
-          : intl.formatMessage(poolCandidateMessages.notReferred);
+          : intl.formatMessage(commonMessages.notReferred);
       },
       {
         id: "referralStatus",

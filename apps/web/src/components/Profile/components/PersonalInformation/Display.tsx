@@ -3,15 +3,9 @@ import { useNavigate } from "react-router";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { empty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getArmedForcesStatusesProfile,
-  getCitizenshipStatusesProfile,
-} from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import profileMessages from "~/messages/profileMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -24,36 +18,6 @@ const PersonalInformationDisplay_Fragment = graphql(/** GraphQL */ `
     email
     isEmailVerified
     telephone
-    preferredLang {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForInterview {
-      value
-      label {
-        localized
-      }
-    }
-    preferredLanguageForExam {
-      value
-      label {
-        localized
-      }
-    }
-    citizenship {
-      value
-      label {
-        localized
-      }
-    }
-    armedForcesStatus {
-      value
-      label {
-        localized
-      }
-    }
   }
 `);
 
@@ -76,18 +40,7 @@ const Display = ({
   const routes = useRoutes();
   const user = getFragment(PersonalInformationDisplay_Fragment, query);
 
-  const {
-    firstName,
-    lastName,
-    email,
-    isEmailVerified,
-    telephone,
-    preferredLang,
-    preferredLanguageForInterview,
-    preferredLanguageForExam,
-    citizenship,
-    armedForcesStatus,
-  } = user;
+  const { firstName, lastName, email, isEmailVerified, telephone } = user;
 
   const handleVerifyNowClick = async () => {
     await navigate(
@@ -154,58 +107,6 @@ const Display = ({
         ) : (
           notProvided
         )}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!preferredLang}
-        label={intl.formatMessage({
-          defaultMessage: "Communication language",
-          id: "ceofev",
-          description: "Legend text for communication language preference",
-        })}
-      >
-        {preferredLang?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!preferredLanguageForInterview}
-        label={intl.formatMessage({
-          defaultMessage: "Spoken interview language",
-          id: "ehrsDa",
-          description:
-            "Legend text for spoken interview language preference for interviews",
-        })}
-      >
-        {preferredLanguageForInterview?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!preferredLanguageForExam}
-        label={intl.formatMessage({
-          defaultMessage: "Written exam language",
-          id: "boPmF+",
-          description:
-            "Legend text for written exam language preference for exams",
-        })}
-      >
-        {preferredLanguageForExam?.label.localized ?? notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={empty(armedForcesStatus)}
-        label={intl.formatMessage(profileMessages.veteranStatus)}
-        className="xs:col-span-2 sm:col-span-3"
-      >
-        {armedForcesStatus?.value
-          ? intl.formatMessage(
-              getArmedForcesStatusesProfile(armedForcesStatus.value, false),
-            )
-          : notProvided}
-      </FieldDisplay>
-      <FieldDisplay
-        hasError={!citizenship}
-        label={intl.formatMessage(profileMessages.citizenship)}
-        className="xs:col-span-2 sm:col-span-3"
-      >
-        {citizenship?.value
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
-          : notProvided}
       </FieldDisplay>
     </div>
   );

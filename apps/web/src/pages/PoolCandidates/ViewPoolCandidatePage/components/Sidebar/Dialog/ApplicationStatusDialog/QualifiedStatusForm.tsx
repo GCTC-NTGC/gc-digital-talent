@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Dialog } from "@gc-digital-talent/ui";
 import { HiddenInput } from "@gc-digital-talent/forms";
@@ -19,7 +19,7 @@ const QualifiedStatusForm_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  id: Scalars["UUID"]["input"];
+  id: string;
 }
 
 const mutationMessages: MutationMessages = {

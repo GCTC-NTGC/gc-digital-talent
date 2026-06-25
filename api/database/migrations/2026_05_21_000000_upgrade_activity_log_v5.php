@@ -14,16 +14,35 @@ return new class() extends Migration
             $table->dropColumn('batch_uuid');
         });
 
-        DB::table('activity_log')->whereNotNull('properties')->eachById(function ($row) {
-            $properties = json_decode($row->properties, true);
-            $changes = array_intersect_key($properties, array_flip(['attributes', 'old']));
-            $remaining = array_diff_key($properties, array_flip(['attributes', 'old']));
+        // Extract 'attributes' and 'old' keys from properties into attribute_changes
+        DB::statement("
+            UPDATE activity_log
+            SET attribute_changes = (
+                CASE
+                    WHEN jsonb_exists_any(properties::jsonb, ARRAY['attributes', 'old'])
+                    THEN (
+                        SELECT jsonb_object_agg(key, value)
+                        FROM jsonb_each(properties::jsonb)
+                        WHERE key IN ('attributes', 'old')
+                    )
+                    ELSE NULL
+                END
+            )::text::json
+            WHERE properties IS NOT NULL
+        ");
 
-            DB::table('activity_log')->where('id', $row->id)->update([
-                'attribute_changes' => empty($changes) ? null : json_encode($changes),
-                'properties' => empty($remaining) ? null : json_encode($remaining),
-            ]);
-        });
+        // Remove those keys from properties, nulling out empty objects
+        DB::statement("
+            UPDATE activity_log
+            SET properties = (
+                CASE
+                    WHEN (properties::jsonb - 'attributes' - 'old') = '{}'::jsonb
+                    THEN NULL
+                    ELSE (properties::jsonb - 'attributes' - 'old')::text::json
+                END
+            )
+            WHERE properties IS NOT NULL
+        ");
     }
 
     public function down(): void

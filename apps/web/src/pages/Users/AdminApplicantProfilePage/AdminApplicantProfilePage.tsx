@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
@@ -280,7 +280,7 @@ const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminApplicantProfilePage = () => {

@@ -16,7 +16,6 @@ import {
 import type {
   Classification,
   LocalizedEnumString,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
@@ -42,8 +41,12 @@ const ApplicantFilters = ({
   selectedClassifications,
   flexibleWorkLocationOptions,
 }: {
-  applicantFilter?: Maybe<PartialApplicantFilter>;
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
+  applicantFilter?: PartialApplicantFilter | null;
+  selectedClassifications?: (
+    | Pick<Classification, "groupAndLevel">
+    | null
+    | undefined
+  )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
@@ -276,8 +279,12 @@ const ApplicantFilters = ({
 };
 
 interface SearchRequestFiltersProps {
-  filters?: Maybe<PartialApplicantFilter | PartialPoolCandidateFilter>;
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
+  filters?: PartialApplicantFilter | PartialPoolCandidateFilter | null;
+  selectedClassifications?: (
+    | Pick<Classification, "groupAndLevel">
+    | null
+    | undefined
+  )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }
 

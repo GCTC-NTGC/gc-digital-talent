@@ -10,8 +10,6 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
 use Tests\TestCase;
 
 class PoolCandidatesExcelTest extends TestCase
@@ -78,36 +76,21 @@ class PoolCandidatesExcelTest extends TestCase
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
 
-    // A free-text field starting with "=" must not be typed as a formula. An
-    // invalid formula like "= To become more involved" crashed PhpSpreadsheet
-    // with a TypeError when the writer tried to calculate it. The binder lives
-    // on the Spreadsheet instance because generate() runs in a queue worker,
-    // not where the generator was constructed.
+    // A free-text field starting with "=" must be written as text, not a formula.
+    // OpenSpout's Cell::fromValue auto-detects it as a FormulaCell and emits an
+    // <f> element, which Excel renders as #NAME? (or a live HYPERLINK injection).
     public function testNeutralizesFormulaInjection(): void
     {
-        // arrange
-        $adminUser = User::factory()
-            ->asApplicant()
-            ->asAdmin()
-            ->create();
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
 
-        $targetUser = User::factory()
-            ->asApplicant()
-            ->withNonGovProfile()
-            ->create();
-
-        // Exact shape of the value that crashed in production: an invalid formula.
+        // Same shape as the value that broke generation in production.
         $payload = '= To become more involved';
-
         $application = PoolCandidate::factory()
             ->availableInSearch()
             ->withSnapshot()
-            ->create([
-                'user_id' => $targetUser->id,
-                'notes' => $payload,
-            ]);
+            ->create(['user_id' => $targetUser->id, 'notes' => $payload]);
 
-        // act
         $fileName = sprintf('%s_%s', __('filename.candidates_rod'), date('Y-m-d_His'));
         $generator = new PoolCandidateExcelGenerator(
             fileName: $fileName,
@@ -115,20 +98,13 @@ class PoolCandidatesExcelTest extends TestCase
             lang: 'en',
             withROD: true,
         );
-
         $generator
             ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$application->id])
             ->setFilters([]);
-
-        // Simulate the queue worker: the process running generate() has the
-        // default global binder, so the fix must not rely on construction-time state.
-        Cell::setValueBinder(new DefaultValueBinder());
-
         $generator->generate()->write();
 
-        // assert: the file was produced (write() above would have thrown the
-        // TypeError before the fix) and the value is text, not a formula element
+        // gather the workbook xml (worksheets + shared strings)
         $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
         $zip = new \ZipArchive();
         $zip->open($path);
@@ -141,7 +117,7 @@ class PoolCandidatesExcelTest extends TestCase
         }
         $zip->close();
 
-        $this->assertStringContainsString('To become more involved', $xml, 'Payload text was not written to the file');
-        $this->assertStringNotContainsString('<f>', $xml, 'Payload was written as a formula element');
+        $this->assertStringContainsString('To become more involved', $xml, 'Notes value was not written');
+        $this->assertStringNotContainsString('<f>', $xml, 'Notes value was written as a formula element');
     }
 }

@@ -16,6 +16,7 @@ use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
+use OpenSpout\Reader\XLSX\Reader;
 use Tests\TestCase;
 
 class UserExcelGeneratorTest extends TestCase
@@ -101,11 +102,11 @@ class UserExcelGeneratorTest extends TestCase
             ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$employee->id])
             ->setFilters([]);
-        $generator->generate();
+        $generator->generate()->write();
 
-        // assert: read headers from community interest sheet (index 2)
-        $sheet = $generator->getSpreadsheet()->getSheet(2);
-        $headers = array_values(array_filter($sheet->rangeToArray('A1:Z1')[0]));
+        // assert: read headers from community interest sheet (sheet index 2, 0-based)
+        [$headers] = $this->readSheetRows('test_headers', sheetIndex: 2, rowCount: 1);
+        $headers = array_values(array_filter($headers));
 
         $programName = $program->name['en'];
         $expectedLinkedHeader = $programName.' - '.Lang::get('headings.linked_experience', [], 'en');
@@ -113,7 +114,6 @@ class UserExcelGeneratorTest extends TestCase
         $this->assertContains($programName, $headers, 'Development program name header missing');
         $this->assertContains($expectedLinkedHeader, $headers, 'Linked experience header missing');
 
-        // paired: linked experience header must immediately follow the program name header
         $programIndex = array_search($programName, $headers);
         $this->assertEquals($programIndex + 1, array_search($expectedLinkedHeader, $headers), 'Linked experience header must immediately follow program name header');
     }
@@ -158,19 +158,17 @@ class UserExcelGeneratorTest extends TestCase
             ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$employee->id])
             ->setFilters([]);
-        $generator->generate();
+        $generator->generate()->write();
 
         // assert: find status and linked experience columns by header
-        $sheet = $generator->getSpreadsheet()->getSheet(2);
-        $headers = $sheet->rangeToArray('A1:Z1')[0];
+        [$headers, $dataRow] = $this->readSheetRows('test_linked', sheetIndex: 2, rowCount: 2);
+
         $programName = $program->name['en'];
         $statusColIndex = array_search($programName, $headers);
         $linkedColIndex = array_search($programName.' - '.Lang::get('headings.linked_experience', [], 'en'), $headers);
 
         $this->assertNotFalse($statusColIndex, 'Status column header not found');
         $this->assertNotFalse($linkedColIndex, 'Linked experience column header not found');
-
-        $dataRow = $sheet->rangeToArray('A2:Z2')[0];
 
         $this->assertEquals(
             Lang::get('common.successfully_completed', [], 'en'),
@@ -217,14 +215,48 @@ class UserExcelGeneratorTest extends TestCase
             ->setAuthenticatedUserId($adminUser->id)
             ->setIds([$employee->id])
             ->setFilters([]);
-        $generator->generate();
+        $generator->generate()->write();
 
         // assert
-        $sheet = $generator->getSpreadsheet()->getSheet(2);
-        $headers = $sheet->rangeToArray('A1:Z1')[0];
+        [$headers, $dataRow] = $this->readSheetRows('test_no_linked', sheetIndex: 2, rowCount: 2);
         $linkedColIndex = array_search($program->name['en'].' - '.Lang::get('headings.linked_experience', [], 'en'), $headers);
 
-        $dataRow = $sheet->rangeToArray('A2:Z2')[0];
-        $this->assertNull($dataRow[$linkedColIndex], 'Linked experience column should be null when no experience is linked');
+        $this->assertNull($dataRow[$linkedColIndex] ?: null, 'Linked experience column should be null when no experience is linked');
+    }
+
+    /**
+     * Read the first $rowCount rows from a specific sheet of a generated test file.
+     * Returns an array of rows, each row being an array of cell values.
+     *
+     * @return array<int, array<int, mixed>>
+     */
+    private function readSheetRows(string $fileName, int $sheetIndex, int $rowCount): array
+    {
+        $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
+
+        $reader = new Reader();
+        $reader->open($path);
+
+        $rows = [];
+        $currentSheet = 0;
+
+        foreach ($reader->getSheetIterator() as $sheet) {
+            if ($currentSheet === $sheetIndex) {
+                $currentRow = 0;
+                foreach ($sheet->getRowIterator() as $row) {
+                    $rows[] = $row->toArray();
+                    $currentRow++;
+                    if ($currentRow >= $rowCount) {
+                        break;
+                    }
+                }
+                break;
+            }
+            $currentSheet++;
+        }
+
+        $reader->close();
+
+        return $rows;
     }
 }

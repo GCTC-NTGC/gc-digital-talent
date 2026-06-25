@@ -35,7 +35,19 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
-      - uses: actions/checkout@v6
+      - name: Reclaim space on runner
+        run: |
+          sudo rm -rf /usr/local/android
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/lib/jvm
+          df -h
+
+      - uses: actions/checkout@v7
       - name: "Copy .env"
         working-directory: "./apps/web"
         run: |
@@ -58,6 +70,12 @@ jobs:
       - name: "Setup: all workspaces"
         working-directory: ./
         run: pnpm run build:fresh
+
+      - name: Clean up build artifacts
+        run: |
+          rm -rf ~/.cache
+          pnpm store prune
+          df -h
 
       - name: "Run ESlint: all workspaces"
         working-directory: ./

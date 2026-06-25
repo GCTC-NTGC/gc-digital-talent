@@ -5,8 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -108,19 +106,19 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
-  nominationOptions: Maybe<NominationOption>[];
-  advancementReference: Maybe<Scalars["UUID"]["input"]>;
+  nominationOptions: (NominationOption | null)[];
+  advancementReference: string | null;
   advancementReferenceReview?: TalentNominationUserReview;
-  advancementReferenceFallbackWorkEmail: Maybe<string>;
-  advancementReferenceFallbackName: Maybe<string>;
-  advancementReferenceFallbackClassification: Scalars["UUID"]["input"];
-  advancementReferenceFallbackClassificationGroup: Maybe<string>;
-  advancementReferenceFallbackClassificationLevel: Maybe<string>;
-  advancementReferenceFallbackDepartment: Scalars["UUID"]["input"];
-  lateralMovementOptions: Maybe<TalentNominationLateralMovementOption[]>;
-  lateralMovementOptionsOther: Maybe<string>;
-  communityDevelopmentPrograms: Scalars["UUID"]["input"][];
-  developmentProgramOptionsOther: Maybe<string>;
+  advancementReferenceFallbackWorkEmail: string | null;
+  advancementReferenceFallbackName: string | null;
+  advancementReferenceFallbackClassification: string;
+  advancementReferenceFallbackClassificationGroup: string | null;
+  advancementReferenceFallbackClassificationLevel: string | null;
+  advancementReferenceFallbackDepartment: string;
+  lateralMovementOptions: TalentNominationLateralMovementOption[] | null;
+  lateralMovementOptionsOther: string | null;
+  communityDevelopmentPrograms: string[];
+  developmentProgramOptionsOther: string | null;
 }
 
 type DetailsFieldsOptionsFragmentType = FragmentType<
@@ -690,7 +688,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     return null;
   };
 
-  let nominationOptions: Maybe<NominationOption>[] = [];
+  let nominationOptions: (NominationOption | null)[] = [];
   if (talentNomination?.nominateForAdvancement) {
     nominationOptions = [...nominationOptions, "advancement"];
   }
@@ -705,7 +703,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     !!talentNomination.advancementReference?.id ||
     !!talentNomination.advancementReferenceFallbackName;
 
-  let defaultReference: Maybe<string> | undefined;
+  let defaultReference: string | null | undefined;
 
   if (referenceSet) {
     defaultReference = talentNomination.advancementReference?.id ?? null;

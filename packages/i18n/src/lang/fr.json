@@ -307,6 +307,10 @@
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
   },
+  "8FkvT5": {
+    "defaultMessage": "La valeur du champ de statut de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid status"
+  },
   "8RX9iJ": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement)",
     "description": "The operational requirement described as occasional overtime."
@@ -338,6 +342,10 @@
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
+  },
+  "9tH7k0": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed before start date"
   },
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
@@ -559,6 +567,10 @@
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
+  "JCA/2+": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed before end date"
+  },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
@@ -679,6 +691,10 @@
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
   },
+  "NXyprm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme terminé.",
+    "description": "Error message for talent request completion details required"
+  },
   "Nf2jAz": {
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
@@ -750,6 +766,10 @@
   "PKkPSW": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
     "description": "The operational requirement described as occasional overtime."
+  },
+  "PLVEUB": {
+    "defaultMessage": "La valeur du champ du type de poste de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid position type"
   },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
@@ -910,6 +930,10 @@
   "U3QEUu": {
     "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
     "description": "The operational requirement described as travel as required."
+  },
+  "UZ6zTY": {
+    "defaultMessage": "Non recommandé",
+    "description": "Label for a candidate that is not referred"
   },
   "UZMVuy": {
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
@@ -1082,6 +1106,10 @@
   "a+twlj": {
     "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
+  },
+  "a02YvL": {
+    "defaultMessage": "La valeur du champ du motif de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid reason"
   },
   "a5edSg": {
     "defaultMessage": "Jour",
@@ -1610,6 +1638,10 @@
   "rH9RNh": {
     "defaultMessage": "Intérêt",
     "description": "Expressed interest"
+  },
+  "rNmajm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme en cours.",
+    "description": "Error message for talent request in progress details required"
   },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",

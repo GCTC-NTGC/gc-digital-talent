@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script is run after the deployment is complete to help set up the environment in the app service.
-# It sends a message to a slack webook URI.
+# It sends a message to a slack webhook URI.
 
 SLACK_WEBHOOK_URI=$1
 
@@ -92,6 +92,26 @@ if [ "${#CLEANED_STDOUT}" -gt "2500" ] ; then
 fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
+# Laravel RolePermission seeder
+ROLEPERMISSION_SEEDER_STDOUT=$(php artisan db:seed --class=RolePermissionSeeder --no-interaction --force --no-ansi)
+ROLEPERMISSION_SEEDER_STATUS=$?
+
+if [ $ROLEPERMISSION_SEEDER_STATUS -eq 0 ]; then
+    add_section_block ":white_check_mark: RolePermission seeder *successful*."
+else
+    add_section_block ":X: RolePermission seeder *failed*. $MENTION"
+fi
+
+# Include the stdout from the seeder as its own block, cleaned to make Slack happy
+ROLEPERMISSION_SEEDER_CLEANED_STDOUT=${ROLEPERMISSION_SEEDER_STDOUT//[^a-zA-Z0-9_ $'\n']/}
+
+# Slack has a max size of 3000 characters
+# https://api.slack.com/reference/block-kit/blocks#section
+if [ "${#ROLEPERMISSION_SEEDER_CLEANED_STDOUT}" -gt "2500" ] ; then
+    ROLEPERMISSION_SEEDER_CLEANED_STDOUT="${ROLEPERMISSION_SEEDER_CLEANED_STDOUT:0:2500}..."
+fi
+add_section_block "$TRIPLE_BACK_TICK $ROLEPERMISSION_SEEDER_CLEANED_STDOUT $TRIPLE_BACK_TICK"
+
 # Load Laravel Scheduler cron
 # For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
 # Write to a drop-in file in /etc/cron.d/ (overwrite) so re-runs are idempotent and changes are always applied
@@ -113,10 +133,9 @@ fi
 
 # Copy nginx config and reload
 if
-    touch /etc/nginx/conf.d/default.conf && \
     /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
-        /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
-        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
+        /home/site/wwwroot/infrastructure/conf/nginx-deploy.conf \
+        /etc/nginx/conf.d/default.conf '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
     nginx -s reload ; then
     add_section_block ":white_check_mark: Set up Nginx *successful*."
 else

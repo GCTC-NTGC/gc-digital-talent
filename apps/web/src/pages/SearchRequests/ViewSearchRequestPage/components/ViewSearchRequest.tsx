@@ -35,7 +35,7 @@ import TalentRequestSidebar from "./TalentRequestSidebar";
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
-    ...TalentRequestSidebar
+    ...PoolCandidateSearchRequestSidebar
 
     id
     fullName

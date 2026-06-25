@@ -5,8 +5,6 @@ import { useCallback, useEffect } from "react";
 
 import type {
   FragmentType,
-  Maybe,
-  Scalars,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -43,18 +41,18 @@ import labels from "../labels";
 type SubmitterRole = "nominator" | "on-behalf";
 
 interface FormValues extends BaseFormValues {
-  submitter?: Scalars["UUID"]["input"];
+  submitter?: string;
   role?: SubmitterRole;
   submitterRelationshipToNominator?: TalentNominationSubmitterRelationshipToNominator;
   submitterRelationshipToNominatorOther?: string;
-  nominator?: Maybe<Scalars["UUID"]["input"]>;
+  nominator?: string | null;
   nominatorReview?: TalentNominationUserReview;
   nominatorFallbackWorkEmail?: string;
   nominatorFallbackName?: string;
-  nominatorFallbackClassification?: Scalars["UUID"]["input"];
+  nominatorFallbackClassification?: string;
   nominatorFallbackClassificationGroup?: string;
   nominatorFallbackClassificationLevel?: string;
-  nominatorFallbackDepartment?: Scalars["UUID"]["input"];
+  nominatorFallbackDepartment?: string;
 }
 
 const NominatorEmployee_Fragment = graphql(/* GraphQL */ `
@@ -413,7 +411,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
     talentNomination.submitter?.id === talentNomination.nominator?.id;
 
   let defaultRole: SubmitterRole | undefined;
-  let defaultNominator: Maybe<string> | undefined;
+  let defaultNominator: string | null | undefined;
   if (talentNomination.submitter?.id && nominatorSet) {
     defaultRole = submitterIsNominator ? "nominator" : "on-behalf";
   }

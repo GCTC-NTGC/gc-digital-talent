@@ -9,7 +9,6 @@ import type {
   ApplicantFilterInput,
   Classification,
   CandidateCountQueryVariables,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
@@ -41,11 +40,11 @@ export const getClassificationAriaLabel = ({
  * from applicant filters and location state.
  *
  * As well as transforming it to a useable string.
- * @param {Maybe<Classification[]>} selectedClassifications
+ * @param {Classification[] | null | undefined} selectedClassifications
  * @returns {string}
  */
 const getCurrentClassification = (
-  selectedClassifications?: Maybe<Pick<Classification, "groupAndLevel">[]>,
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
 ): string => {
   return selectedClassifications && selectedClassifications?.length > 0
     ? selectedClassifications[0].groupAndLevel
@@ -122,7 +121,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[],
+  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
 

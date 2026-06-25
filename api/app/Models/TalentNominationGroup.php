@@ -37,6 +37,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $development_programs_notes
  * @property string $computed_status
  * @property string $comments
+ * @property bool $consentToShareProfile
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -157,7 +158,7 @@ class TalentNominationGroup extends Model
             $unevaluatedFieldCount > 0 => TalentNominationGroupStatus::IN_PROGRESS->name,
             $rejectedCount > 0 && $approvedCount > 0 => TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
             $rejectedCount > 0 && $approvedCount == 0 => TalentNominationGroupStatus::REJECTED->name,
-            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name,
+            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name, // @phpstan-ignore equal.alwaysTrue
             default => TalentNominationGroupStatus::IN_PROGRESS->name, // should never happen
         };
 

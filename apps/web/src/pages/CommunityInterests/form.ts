@@ -1,6 +1,5 @@
 import type {
   CreateCommunityInterestWithDevelopmentProgramsInput,
-  Maybe,
   UpdateCommunityInterestFormData_FragmentFragment,
   UpdateCommunityInterestWithDevelopmentProgramsInput,
   UpsertDevelopmentProgramUserInput,
@@ -196,7 +195,7 @@ export function formValuesToApiUpdateInput(
 
 interface DevelopmentProgramSlice {
   id: string;
-  name?: Maybe<{ localized?: Maybe<string> }>;
+  name?: { localized?: string | null | undefined } | null;
 }
 
 export function apiDataToFormValues(

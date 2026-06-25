@@ -12,7 +12,7 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType, Scalars } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -163,7 +163,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  classificationId: Scalars["ID"]["output"];
+  classificationId: string;
 }
 
 const Classification_Query = graphql(/* GraphQL */ `

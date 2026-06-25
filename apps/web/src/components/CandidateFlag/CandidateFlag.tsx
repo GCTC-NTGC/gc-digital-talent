@@ -3,7 +3,7 @@ import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import type { FragmentType, Maybe } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -31,7 +31,7 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
 
 interface CandidateFlagProps {
   candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
-  processTitle?: Maybe<string>;
+  processTitle?: string | null;
   onFlagChange?: (newIsFlagged: boolean) => void;
   flagged?: boolean;
   size?: "sm" | "md" | "lg";
