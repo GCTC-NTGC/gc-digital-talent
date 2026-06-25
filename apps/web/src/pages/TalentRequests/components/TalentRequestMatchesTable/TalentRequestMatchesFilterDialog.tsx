@@ -14,15 +14,19 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   ENUM_SORT_ORDER,
+  EmploymentDuration,
+  getEmploymentDuration,
   getEmploymentEquityGroup,
   narrowEnumType,
   navigationMessages,
   sortLocalizedEnumOptions,
+  type TEmploymentDuration,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 import {
   Checklist,
   Combobox,
+  enumToOptions,
   Select,
   SwitchInput,
 } from "@gc-digital-talent/forms";
@@ -116,6 +120,7 @@ export interface FormValues {
   streams?: string[];
   pools?: string[];
   languageAbility?: LanguageAbility;
+  employmentDuration?: TEmploymentDuration;
   equity?: string[];
   priorityWeight?: PriorityWeight[];
   operationalRequirements?: OperationalRequirement[];
@@ -214,20 +219,42 @@ const TalentRequestMatchesFilterDialog = ({
       </Heading>
 
       <div className="grid gap-6 xs:grid-cols-3">
-        <Select
-          id="languageAbility"
-          name="languageAbility"
-          enableNull
-          nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-          options={narrowEnumType(
-            unpackMaybes(options?.languageAbilities),
-            "LanguageAbility",
-          ).map((languageAbility) => ({
-            value: languageAbility.value,
-            label: languageAbility.label?.localized ?? notAvailable,
-          }))}
-        />
+        <div>
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            enableNull
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+            options={narrowEnumType(
+              unpackMaybes(options?.languageAbilities),
+              "LanguageAbility",
+            ).map((languageAbility) => ({
+              value: languageAbility.value,
+              label: languageAbility.label?.localized ?? notAvailable,
+            }))}
+            className="mb-6"
+          />
+          <Select
+            id="employmentDuration"
+            name="employmentDuration"
+            enableNull
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Any duration",
+              id: "Swq+OD",
+              description: "Option label for allowing any employment duration",
+            })}
+            label={intl.formatMessage({
+              defaultMessage: "Duration preferences",
+              id: "2ingb6",
+              description: "Label for the employment duration field",
+            })}
+            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getEmploymentDuration(value, "short")),
+            }))}
+          />
+        </div>
         <Checklist
           idPrefix="equity"
           name="equity"
@@ -264,18 +291,6 @@ const TalentRequestMatchesFilterDialog = ({
           }))}
         />
         <Checklist
-          idPrefix="operationalRequirements"
-          name="operationalRequirements"
-          legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={narrowEnumType(
-            unpackMaybes(options?.operationalRequirements),
-            "OperationalRequirement",
-          ).map((operationalRequirement) => ({
-            value: operationalRequirement.value,
-            label: operationalRequirement.label?.localized ?? notAvailable,
-          }))}
-        />
-        <Checklist
           idPrefix="flexibleWorkLocations"
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
@@ -288,6 +303,18 @@ const TalentRequestMatchesFilterDialog = ({
           ).map((flexibleWorkLocation) => ({
             value: flexibleWorkLocation.value,
             label: flexibleWorkLocation.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Checklist
+          idPrefix="operationalRequirements"
+          name="operationalRequirements"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={narrowEnumType(
+            unpackMaybes(options?.operationalRequirements),
+            "OperationalRequirement",
+          ).map((operationalRequirement) => ({
+            value: operationalRequirement.value,
+            label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
         <Checklist
