@@ -3,12 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
-use App\Models\AwardExperience;
-use App\Models\CommunityExperience;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
 use App\Models\PoolCandidate;
-use App\Models\WorkExperience;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -21,58 +16,31 @@ final class UpdateApplicationValidator extends Validator
      */
     public function rules(): array
     {
-        $applicationId = $this->arg('id');
-
-        $poolCandidate = PoolCandidate::query()->select('user_id')->findOrFail($applicationId);
-
-        $userId = $poolCandidate->user_id;
-
-        $userAwardExperienceIds = AwardExperience::where('user_id', $userId)
-            ->select(['id'])
-            ->get()
-            ->pluck('id')
-            ->toArray();
-        $userCommunityExperienceIds = CommunityExperience::where('user_id', $userId)
-            ->select(['id'])
-            ->get()
-            ->pluck('id')
-            ->toArray();
-        $userEducationExperienceIds = EducationExperience::where('user_id', $userId)
-            ->select(['id'])
-            ->get()
-            ->pluck('id')
-            ->toArray();
-        $userPersonalExperienceIds = PersonalExperience::where('user_id', $userId)
-            ->select(['id'])
-            ->get()
-            ->pluck('id')
-            ->toArray();
-        $userWorkExperienceIds = WorkExperience::where('user_id', $userId)
-            ->select(['id'])
-            ->get()
-            ->pluck('id')
-            ->toArray();
+        $userId = PoolCandidate::query()
+            ->select('user_id')
+            ->findOrFail($this->arg('id'))
+            ->user_id;
 
         return [
             'application.educationRequirementAwardExperiences.sync.*' => [
                 'uuid',
-                Rule::in($userAwardExperienceIds),
+                Rule::exists('award_experiences', 'id')->where('user_id', $userId),
             ],
             'application.educationRequirementCommunityExperiences.sync.*' => [
                 'uuid',
-                Rule::in($userCommunityExperienceIds),
+                Rule::exists('community_experiences', 'id')->where('user_id', $userId),
             ],
             'application.educationRequirementEducationExperiences.sync.*' => [
                 'uuid',
-                Rule::in($userEducationExperienceIds),
+                Rule::exists('education_experiences', 'id')->where('user_id', $userId),
             ],
             'application.educationRequirementPersonalExperiences.sync.*' => [
                 'uuid',
-                Rule::in($userPersonalExperienceIds),
+                Rule::exists('personal_experiences', 'id')->where('user_id', $userId),
             ],
             'application.educationRequirementWorkExperiences.sync.*' => [
                 'uuid',
-                Rule::in($userWorkExperienceIds),
+                Rule::exists('work_experiences', 'id')->where('user_id', $userId),
             ],
         ];
     }
@@ -83,11 +51,11 @@ final class UpdateApplicationValidator extends Validator
     public function messages(): array
     {
         return [
-            'application.educationRequirementAwardExperiences.sync.*.in' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
-            'application.educationRequirementCommunityExperiences.sync.*.in' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
-            'application.educationRequirementEducationExperiences.sync.*.in' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
-            'application.educationRequirementPersonalExperiences.sync.*.in' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
-            'application.educationRequirementWorkExperiences.sync.*.in' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
+            'application.educationRequirementAwardExperiences.sync.*.exists' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
+            'application.educationRequirementCommunityExperiences.sync.*.exists' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
+            'application.educationRequirementEducationExperiences.sync.*.exists' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
+            'application.educationRequirementPersonalExperiences.sync.*.exists' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
+            'application.educationRequirementWorkExperiences.sync.*.exists' => ErrorCode::APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT->name,
         ];
     }
 }
