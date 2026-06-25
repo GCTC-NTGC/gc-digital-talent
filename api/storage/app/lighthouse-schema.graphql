@@ -932,7 +932,6 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
@@ -2182,7 +2181,6 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -2229,7 +2227,6 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -2282,7 +2279,6 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany

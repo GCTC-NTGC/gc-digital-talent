@@ -101,7 +101,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property Notification $unreadNotifications
  * @property Collection<Notification> $notifications
- * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?WorkExperience $latest_current_government_work_experience
  * @property ?WorkExperience $current_substantive_experiences
