@@ -10,6 +10,7 @@ use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CommunityInterestAdditionalDuty;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\DegreeType;
 use App\Enums\DepartmentSize;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\EducationStatus;
@@ -21,6 +22,7 @@ use App\Enums\ExecCoaching;
 use App\Enums\ExperienceType;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FellowshipType;
 use App\Enums\FinanceChiefRole;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
@@ -179,6 +181,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'area_of_study',
         'education_status',
         'thesis_title',
+        'license_accreditation',
+        'certification',
+        'course_name',
         'community_project_or_product',
         'personal_learning_experience_description',
         'personal_learning_organization_platform',
@@ -513,19 +518,22 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // 26: area_study
             '', // 27: education_status
             '', // 28: thesis_title
+            '', // 29: license_accreditation,
+            '', // 30: certification,
+            '', // 31: course_name,
 
             // Community/Personal fields - empty for work
-            '', // 29: community_project_or_product
-            '', // 30: personal learning experience description
-            '', // 31: personal learning organization, platform, or theme
+            '', // 32: community_project_or_product
+            '', // 33: personal learning experience description
+            '', // 34: personal learning organization, platform, or theme
 
             // Award fields - empty for work
-            '', // 32: award_recipient
-            '', // 33: issuing_org
-            '', // 34: awarded_scope
-            '', // 35: project_name
-            '', // 36: related_experience
-            '', // 37: date_awarded
+            '', // 35: award_recipient
+            '', // 36: issuing_org
+            '', // 37: awarded_scope
+            '', // 38: project_name
+            '', // 39: related_experience
+            '', // 40: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -560,8 +568,25 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildEducationExperienceRow(EducationExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+        $isCurrent = $exp->status === EducationStatus::IN_PROGRESS->name;
+        $numberOfMonths = $this->calculateMonths($exp->start_date, $isCurrent ? $exp->prospective_end_date : $exp->end_date);
+
+        $educationType = '';
+        switch ($exp->education_type) {
+            case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
+                $educationType = $this->localizeEnum($exp->degree_type, DegreeType::class);
+                break;
+            case EducationType::FELLOWSHIP->name:
+                $educationType = $exp->fellowship_type === FellowshipType::OTHER->name
+                    ? $exp->other_fellowship_type
+                    : $this->localizeEnum($exp->fellowship_type, FellowshipType::class);
+                break;
+            case EducationType::OTHER->name:
+                $educationType = $exp->other_education_type ?? $this->localize('headings.other_type_of_education');
+                break;
+            default:
+                $educationType = $this->localizeEnum($exp->education_type, EducationType::class);
+        }
 
         return [
             $exp->user->id,
@@ -590,10 +615,14 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
-            $this->localizeEnum($exp->type, EducationType::class),  // education type
+            $educationType,  // education type
             $exp->area_of_study ?? '', // area of study
             $this->localizeEnum($exp->status, EducationStatus::class), // education status
             $exp->thesis_title ?? '', // thesis title
+            $exp->license_or_accreditation ?? '', // license_accreditation,
+            $exp->certification ?? '', // certification
+            $exp->course_name ?? '', // course_name
+
             // Community/Personal fields - empty for education
             '', // community_project_or_product
             '', // personal learning experience description
@@ -675,6 +704,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
 
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
@@ -757,6 +789,10 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
+
             $exp->project ?? '', // community_project_or_product
             // Personal
             '', // personal learning experience description
@@ -838,6 +874,9 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
             '', // Community project or product
             $exp->learning_description ?? '', // personal learning experience description
             $exp->organization, // personal learning organization, platform, or theme
