@@ -368,8 +368,8 @@
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 2,
-        "maxSalary": 70338,
-        "minSalary": 80642,
+        "maxSalary": 80642,
+        "minSalary": 70338,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
