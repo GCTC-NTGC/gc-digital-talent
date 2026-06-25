@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rev-list:*)",
+      "Bash(gh release:*)",
+      "Bash(git log:*)",
+      "Bash(gh issue list:*)",
+      "Bash(sort:*)",
+      "Bash(cat)"
+    ]
+  }
+}
