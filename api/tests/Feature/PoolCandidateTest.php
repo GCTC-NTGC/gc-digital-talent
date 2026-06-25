@@ -3,14 +3,10 @@
 namespace Tests\Feature;
 
 use App\Facades\Notify;
-use App\Models\AwardExperience;
 use App\Models\Community;
 use App\Models\Department;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Skill;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
