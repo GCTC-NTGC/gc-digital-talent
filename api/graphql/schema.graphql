@@ -171,9 +171,6 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
-    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
@@ -395,13 +392,6 @@ type UserFileGenerationErrorNotification implements Notification {
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
   fileName: String
-}
-
-type MigrateOffPlatformProcessesNotification implements Notification {
-  id: ID!
-  readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime! @rename(attribute: "created_at")
-  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
@@ -724,6 +714,16 @@ type PoolCandidate {
   priorityVerificationExpiry: Date
     @rename(attribute: "priority_verification_expiry")
     @canRoot(ability: "viewNotes")
+
+  # special application fields
+  specialApplicationType: LocalizedSpecialApplicationType
+    @rename(attribute: "special_application_type")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationJustification: String
+    @rename(attribute: "special_application_justification")
+    @canRoot(ability: "viewAssessment")
+  specialApplicationClosingDate: DateTime
+    @rename(attribute: "special_application_closing_date")
 }
 
 type PoolCandidateWithSkillCount {
@@ -1198,14 +1198,25 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [TalentRequestSource!]!
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1604,15 +1615,11 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [LocalizedTalentRequestSource!]! @field(resolver: "Sources")
-  # the matching records behind each source kind (filtered to the search, gated by view auth).
+  sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
-    @field(resolver: "MatchingQualifiedInPoolSources")
   matchingAtLevelSources: [CommunityInterest!]
-    @field(resolver: "MatchingAtLevelSources")
   matchingAdvancementSources: [TalentNominationGroup!]
-    @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
@@ -1950,7 +1957,7 @@ type Query {
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
-      @scope(name: "withSources")
+      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -2152,8 +2159,6 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2223,8 +2228,6 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2298,8 +2301,6 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2490,6 +2491,17 @@ input CreatePoolCandidateAsAdminInput {
   status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
   notes: String
   isFlagged: Boolean
+}
+
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+    @rename(attribute: "special_application_type")
+  specialApplicationJustification: String!
+    @rename(attribute: "special_application_justification")
+  specialApplicationClosingDate: DateTime!
+    @rename(attribute: "special_application_closing_date")
 }
 
 input UpdateClassificationInput {
@@ -3591,6 +3603,14 @@ type Mutation {
     @guard
     @canModel(ability: "create")
     @injectNow(name: "submitted_at")
+  createSpecialApplication(
+    poolCandidate: CreateSpecialApplicationInput! @spread
+  ): PoolCandidate
+    @guard
+    @canModel(ability: "createSpecialApplication")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateSpecialApplicationValidator"
+    )
   updatePoolCandidateStatus(
     id: UUID!
     poolCandidate: UpdatePoolCandidateStatusInput! @spread

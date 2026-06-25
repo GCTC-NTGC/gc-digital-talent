@@ -363,6 +363,11 @@ type LocalizedSkillLevel implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedSpecialApplicationType implements LocalizedEnumOption {
+  value: SpecialApplicationType!
+  label: LocalizedString!
+}
+
 type LocalizedSupervisoryStatus implements LocalizedEnumOption {
   value: SupervisoryStatus!
   label: LocalizedString!
@@ -680,6 +685,7 @@ type Mutation {
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
   createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
+  createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
   togglePoolCandidateUserBookmark(poolCandidateId: UUID!): Boolean
@@ -931,7 +937,6 @@ type User {
   authInfo: UserAuthInfo
   enabledEmailNotifications: [NotificationFamily]
   enabledInAppNotifications: [NotificationFamily]
-  oldOffPlatformRecruitmentProcesses: String @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
@@ -1096,13 +1101,6 @@ type UserFileGenerationErrorNotification implements Notification {
   createdAt: DateTime!
   updatedAt: DateTime!
   fileName: String
-}
-
-type MigrateOffPlatformProcessesNotification implements Notification {
-  id: ID!
-  readAt: DateTime
-  createdAt: DateTime!
-  updatedAt: DateTime!
 }
 
 type UserPublicProfile {
@@ -1330,6 +1328,9 @@ type PoolCandidate {
   veteranVerificationExpiry: Date
   priorityVerification: ClaimVerificationResult
   priorityVerificationExpiry: Date
+  specialApplicationType: LocalizedSpecialApplicationType
+  specialApplicationJustification: String
+  specialApplicationClosingDate: DateTime
 }
 
 type PoolCandidateWithSkillCount {
@@ -2185,7 +2186,6 @@ input CreateUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -2232,7 +2232,6 @@ input UpdateUserAsAdminInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -2285,7 +2284,6 @@ input UpdateUserAsUserInput {
   locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   positionDuration: [PositionDuration]
-  oldOffPlatformRecruitmentProcesses: String
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -2437,6 +2435,14 @@ input CreatePoolCandidateAsAdminInput {
   status: ApplicationStatus = TO_ASSESS
   notes: String
   isFlagged: Boolean
+}
+
+input CreateSpecialApplicationInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  specialApplicationType: SpecialApplicationType!
+  specialApplicationJustification: String!
+  specialApplicationClosingDate: DateTime!
 }
 
 input UpdateClassificationInput {
@@ -3909,6 +3915,7 @@ enum Permission {
   UpdateOwnDraftApplication
   SubmitOwnDraftApplication
   DeleteOwnDraftApplication
+  CreateAnySpecialApplication
   ArchiveOwnSubmittedApplication
   SuspendOwnSubmittedApplication
   ViewOwnApplicationStatus
@@ -4421,6 +4428,7 @@ enum ErrorCode {
   DUPLICATE_USER_SKILL
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
+  SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
 }
 
 enum EstimatedLanguageAbility {
@@ -4746,6 +4754,17 @@ enum SkillLevel {
   LEAD
 }
 
+enum SpecialApplicationType {
+  VETERAN
+  PRIORITY
+  MINISTERS_STAFF
+  ACCOMMODATION
+  TECHNICAL_SUPPORT
+  PSC_REQUEST
+  EMPLOYEE_CURRENTLY_ON_LEAVE
+  OTHER
+}
+
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
@@ -4853,7 +4872,6 @@ enum TalentRequestStatus {
 enum TalentRequestTrackedUserNotReferredReason {
   MISMATCH_IN_QUALIFICATIONS
   JOB_MISMATCHES_EXPECTATIONS
-  TOO_MANY_CANDIDATES
   OTHER
 }
 

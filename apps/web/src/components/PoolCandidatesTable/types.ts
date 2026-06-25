@@ -14,12 +14,14 @@ import type {
   ScreeningStage,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
 
 export interface FormValues {
   assessmentSteps: string[];
   classifications: string[];
   community?: string;
   departments: string[];
+  employmentDuration?: TEmploymentDuration;
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
   referralStatuses?: CandidateReferralFilter[];

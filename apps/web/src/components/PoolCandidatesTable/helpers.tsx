@@ -42,6 +42,10 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -503,6 +507,9 @@ export function transformPoolCandidateSearchInputToFormValues(
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
     languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    employmentDuration: positionDurationToEmploymentDuration(
+      input?.applicantFilter?.positionDuration,
+    ),
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -567,6 +574,11 @@ export function transformFormValuesToFilterState(
       pools: data.pools.flatMap((id) => ({ id })),
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
