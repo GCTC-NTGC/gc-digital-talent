@@ -4166,6 +4166,7 @@ type Mutation {
     @update(model: "PoolCandidate")
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
+    @validator
 
   # Job poster template mutations
   createJobPosterTemplate(
