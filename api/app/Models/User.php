@@ -15,6 +15,7 @@ use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HasTalentRequestSources;
 use App\Traits\HydratesSnapshot;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -125,6 +126,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasRolesAndPermissions {
         roles as baseRoles;
     }
+    use HasTalentRequestSources;
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;

@@ -8,7 +8,7 @@ use App\Enums\CandidateSuspendedFilter;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
-use App\Models\PoolCandidate;
+use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
@@ -361,11 +361,15 @@ class UserBuilder extends Builder
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        // grouped so source branches OR together without affecting the filters below
-        $this->where(fn ($query) => $query->orWhereHas(
-            'poolCandidates',
-            fn ($candidate) => $candidate->whereMatchesTalentRequest($filters)
-        ));
+        // keep only users who match at least one source
+        $this->where(function ($query) use ($filters) {
+            foreach (TalentRequestSource::cases() as $source) {
+                if (! $relation = $source->matchRelation()) {
+                    continue; // not implemented yet
+                }
+                $query->orWhereHas($relation, fn ($r) => $r->whereMatchesTalentRequest($filters));
+            }
+        });
 
         // user-level attribute and location filters
         $this->whereHasDiploma($filters['hasDiploma'] ?? null)
@@ -381,18 +385,27 @@ class UserBuilder extends Builder
             );
 
         $this->addSkillCountSelect($skillIds);
-        $this->addTalentRequestSourceFlags($filters);
-
-        // the matched, view-authorized candidacies for the matchingPreQualifiedSources field
-        $this->with(['poolCandidates' => fn ($candidate) => $candidate
-            ->whereMatchesTalentRequest($filters)
-            ->whereAuthorizedToView()
-            ->with('pool')]);
+        $this->withTalentRequestMatches($filters);
 
         $excludeTrackedByRequestId = $args['excludeTrackedByRequestId'] ?? null;
         if ($excludeTrackedByRequestId) {
             $this->whereDoesntHave('talentRequestTrackedUsers', fn ($trackedUsers) => $trackedUsers
                 ->where('talent_request_id', $excludeTrackedByRequestId));
+        }
+
+        return $this;
+    }
+
+    // eager-load each source's matched, view-authorized records onto the user
+    public function withTalentRequestMatches(array $filters): self
+    {
+        foreach (TalentRequestSource::cases() as $source) {
+            if (! $relation = $source->matchRelation()) {
+                continue; // not implemented yet
+            }
+            $this->with([$relation => fn ($r) => $r
+                ->whereMatchesTalentRequest($filters)
+                ->whereAuthorizedToView()]);
         }
 
         return $this;
@@ -416,16 +429,6 @@ class UserBuilder extends Builder
     public function orderBySkillCount(array $args): self
     {
         return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
-    }
-
-    // a presence flag (1 or null) per source kind, read by the Sources resolver
-    private function addTalentRequestSourceFlags(array $filters): self
-    {
-        return $this->addSelect(['has_prequalified_source' => PoolCandidate::query()
-            ->whereColumn('pool_candidates.user_id', 'users.id')
-            ->whereMatchesTalentRequest($filters)
-            ->selectRaw('1')
-            ->limit(1)]);
     }
 
     // Always selects a skill_count column so the field is resolvable: the real count of the

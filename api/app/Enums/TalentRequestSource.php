@@ -16,4 +16,13 @@ enum TalentRequestSource
     {
         return 'talent_request_source';
     }
+
+    // the User relation holding this source's matched records, or null if not implemented yet
+    public function matchRelation(): ?string
+    {
+        return match ($this) {
+            self::QUALIFIED_IN_POOL => 'matchingQualifiedInPoolSources',
+            default => null,
+        };
+    }
 }
