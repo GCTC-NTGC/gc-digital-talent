@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
@@ -346,7 +347,7 @@ class TalentRequestMatchesTest extends TestCase
         $govEmployee = $this->matchingUser($pool, [], true);
         $this->matchingUser($pool, [], false);
 
-        $this->runMatches(['employeeVerification' => ['VERIFIED']])
+        $this->runMatches(['employeeVerification' => [EmployeeVerification::VERIFIED->name]])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $govEmployee->id);
     }

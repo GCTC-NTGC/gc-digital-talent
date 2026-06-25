@@ -9,6 +9,7 @@ use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EmployeeVerification;
 use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Facades\Notify;
@@ -448,7 +449,7 @@ class PoolCandidateSearchTest extends TestCase
             $query,
             [
                 'where' => [
-                    'employeeVerification' => ['VERIFIED'],
+                    'employeeVerification' => [EmployeeVerification::VERIFIED->name],
                 ],
             ]
         )->assertJson([

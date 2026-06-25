@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\EmploymentCategory;
 use App\Enums\ErrorCode;
 use App\Enums\FlexibleWorkLocation;
@@ -1498,7 +1499,7 @@ class UserTest extends TestCase
 
         // VERIFIED filter returns only verified gov employees
         $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
-            'where' => ['employeeVerification' => ['VERIFIED']],
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name]],
         ])->assertJson([
             'data' => [
                 'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
@@ -1507,7 +1508,7 @@ class UserTest extends TestCase
 
         // NOT_VERIFIED filter returns only not-yet-verified gov employees
         $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
-            'where' => ['employeeVerification' => ['NOT_VERIFIED']],
+            'where' => ['employeeVerification' => [EmployeeVerification::NOT_VERIFIED->name]],
         ])->assertJson([
             'data' => [
                 'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
@@ -1516,7 +1517,7 @@ class UserTest extends TestCase
 
         // Both values returns all gov employees with a work email
         $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
-            'where' => ['employeeVerification' => ['VERIFIED', 'NOT_VERIFIED']],
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name, EmployeeVerification::NOT_VERIFIED->name]],
         ])->assertJson([
             'data' => [
                 'usersPaginated' => ['paginatorInfo' => ['total' => 4]],
