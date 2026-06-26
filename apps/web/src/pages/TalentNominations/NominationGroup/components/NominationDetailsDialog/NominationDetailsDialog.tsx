@@ -39,6 +39,7 @@ const TalentNominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
     ...TalentNominationDetailsDialogSubmissionInformation
     ...TalentNominationDetailsDialogNominatorInformation
     ...TalentNominationDetailsDialogNominationDetails
+    ...TalentNominationDetailsDialogRationaleAndAdditionalComments
   }
 `);
 
@@ -121,7 +122,7 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
           <Separator space="sm" />
           <NominationDetailsSection query={nomination} />
           <Separator space="sm" />
-          <RationaleAndAdditionalCommentsSection />
+          <RationaleAndAdditionalCommentsSection query={nomination} />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
             Footer here
           </Dialog.Footer>
