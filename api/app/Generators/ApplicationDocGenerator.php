@@ -290,7 +290,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                     : $this->localizeEnum($educationExperience->fellowship_type, FellowshipType::class);
                 break;
             case EducationType::OTHER->name:
-                $educationType = $experience->other_education_type ?? $this->localize('headings.other_type_of_education');
+                $educationType = $educationExperience->other_education_type ?? $this->localize('headings.other_type_of_education');
                 break;
             default:
                 $educationType = $this->localizeEnum($educationExperience->education_type, EducationType::class);
