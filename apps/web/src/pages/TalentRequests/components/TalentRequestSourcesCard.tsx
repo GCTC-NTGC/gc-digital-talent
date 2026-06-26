@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import {
   getFragment,
@@ -76,7 +76,7 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
         id: "RBSXa2",
         description: "Description of the talent request users sources",
       })}
-      icon={ClipboardDocumentListIcon}
+      icon={FolderOpenIcon}
       color="secondary"
     >
       <div className="grid gap-6 sm:grid-cols-2">
