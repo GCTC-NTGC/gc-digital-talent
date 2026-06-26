@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Dialog, IconLabel, type IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import messages from "../messages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 interface StatusDialogLayoutProps {
   open: boolean;
@@ -37,7 +37,7 @@ const StatusDialogLayout = ({
               "Subtitle for the change status dialog in the tracked users inbox",
           })}
         >
-          {intl.formatMessage(messages.changeStatus, { status: statusLabel })}
+          {intl.formatMessage(talentRequestMessages.changeStatus, { status: statusLabel })}
         </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6 flex flex-col gap-3">

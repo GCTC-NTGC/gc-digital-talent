@@ -139,6 +139,18 @@ const messages = defineMessages({
     id: "ZAHz5C",
     description: "Status for referred candidates",
   },
+  updateSuccess: {
+    defaultMessage: "Tracked users updated successfully.",
+    id: "p6y+4U",
+    description:
+      "Toast shown when a tracked-user bulk status change succeeds in the inbox",
+  },
+  updateError: {
+    defaultMessage: "Error: failed to update tracked users.",
+    id: "Us+OYQ",
+    description:
+      "Toast shown when a tracked-user bulk status change fails in the inbox",
+  },
 });
 
 export default messages;

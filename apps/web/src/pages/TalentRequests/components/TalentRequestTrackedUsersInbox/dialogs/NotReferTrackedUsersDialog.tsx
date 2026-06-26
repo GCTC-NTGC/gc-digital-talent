@@ -18,7 +18,8 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import messages from "../messages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
 import StatusDialogLayout from "./StatusDialogLayout";
 import { type StatusDialogProps, trackedUsersMutationContext } from "./shared";
 
@@ -83,10 +84,10 @@ const NotReferTrackedUsersDialog = ({
       result.error ||
       !(result.data?.updateTrackedUsersNotReferred?.length ?? 0)
     ) {
-      toast.error(intl.formatMessage(messages.updateError));
+      toast.error(intl.formatMessage(talentRequestMessages.updateError));
       return;
     }
-    toast.success(intl.formatMessage(messages.updateSuccess));
+    toast.success(intl.formatMessage(talentRequestMessages.updateSuccess));
     onCompleted();
   };
 

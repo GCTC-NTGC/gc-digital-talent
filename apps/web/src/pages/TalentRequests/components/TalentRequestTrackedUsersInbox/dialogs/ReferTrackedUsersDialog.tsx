@@ -7,7 +7,8 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 
-import messages from "../messages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
 import StatusDialogLayout from "./StatusDialogLayout";
 import { type StatusDialogProps, trackedUsersMutationContext } from "./shared";
 
@@ -37,10 +38,10 @@ const ReferTrackedUsersDialog = ({
       result.error ||
       !(result.data?.updateTrackedUsersReferred?.length ?? 0)
     ) {
-      toast.error(intl.formatMessage(messages.updateError));
+      toast.error(intl.formatMessage(talentRequestMessages.updateError));
       return;
     }
-    toast.success(intl.formatMessage(messages.updateSuccess));
+    toast.success(intl.formatMessage(talentRequestMessages.updateSuccess));
     onCompleted();
   };
 
@@ -49,7 +50,7 @@ const ReferTrackedUsersDialog = ({
       open={open}
       onOpenChange={onOpenChange}
       icon={PaperAirplaneIcon}
-      statusLabel={intl.formatMessage(messages.referred)}
+      statusLabel={intl.formatMessage(talentRequestMessages.referred)}
       selectedCount={selectedIds.length}
     >
       <Dialog.Footer>

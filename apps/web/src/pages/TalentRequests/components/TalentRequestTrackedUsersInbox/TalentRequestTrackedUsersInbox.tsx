@@ -45,7 +45,6 @@ import useUserDownloads from "~/hooks/useUserDownloads";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 import Inbox from "./Inbox";
 import TrackedUserListItem from "./TrackedUserListItem";
-import messages from "./messages";
 import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
 import NotReferTrackedUsersDialog from "./dialogs/NotReferTrackedUsersDialog";
 import SelectTrackedUsersDialog from "./dialogs/SelectTrackedUsersDialog";
@@ -287,15 +286,15 @@ const TalentRequestTrackedUsersInbox = ({
             <DropdownMenu.Item onClick={() => setOpenDialog("refer")}>
               <IconLabel
                 icon={PaperAirplaneIcon}
-                label={intl.formatMessage(messages.changeStatus, {
-                  status: intl.formatMessage(messages.referred),
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                  status: intl.formatMessage(talentRequestMessages.referred),
                 })}
               />
             </DropdownMenu.Item>
             <DropdownMenu.Item onClick={() => setOpenDialog("notRefer")}>
               <IconLabel
                 icon={ArchiveBoxIcon}
-                label={intl.formatMessage(messages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
               />
@@ -303,7 +302,7 @@ const TalentRequestTrackedUsersInbox = ({
             <DropdownMenu.Item onClick={() => setOpenDialog("select")}>
               <IconLabel
                 icon={CheckIcon}
-                label={intl.formatMessage(messages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
                   status: intl.formatMessage(commonMessages.selected),
                 })}
               />
@@ -311,7 +310,7 @@ const TalentRequestTrackedUsersInbox = ({
             <DropdownMenu.Item onClick={() => setOpenDialog("notSelect")}>
               <IconLabel
                 icon={XMarkIcon}
-                label={intl.formatMessage(messages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.changeStatus, {
                   status: intl.formatMessage(commonMessages.notSelected),
                 })}
               />
