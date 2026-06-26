@@ -124,7 +124,24 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
           <Separator space="sm" />
           <RationaleAndAdditionalCommentsSection query={nomination} />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
-            Footer here
+            <Button onClick={() => setIsOpen(false)}>
+              {intl.formatMessage({
+                defaultMessage: "Okay",
+                id: "A3B+r/",
+                description: "Okay",
+              })}
+            </Button>
+            <Button
+              mode="inline"
+              color="warning"
+              onClick={() => setIsOpen(false)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                id: "6PdOcy",
+                description: "Cancel",
+              })}
+            </Button>
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
