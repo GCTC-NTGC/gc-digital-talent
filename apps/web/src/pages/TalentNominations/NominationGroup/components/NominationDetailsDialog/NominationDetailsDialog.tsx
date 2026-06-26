@@ -11,6 +11,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 import SubmissionInformationSection from "./SubmissionInformationSection";
 import NominatorInformationSection from "./NominatorInformationSection";
@@ -53,17 +54,15 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const nomineeName =
-    nomination.nominee?.firstName ??
-    intl.formatMessage(commonMessages.notFound);
+  const nullMessage = intl.formatMessage(commonMessages.notFound);
 
-  const nominatorName =
-    (nomination.nominator
-      ? `${nomination.nominator.firstName} ${nomination.nominator.lastName}`.trim()
-      : nomination.nominatorFallbackName) ??
-    intl.formatMessage(commonMessages.notFound);
-
-  const eventName = nomination.talentNominationEvent.name.localized;
+  const nominatorName = nomination.nominator
+    ? getFullNameLabel(
+        nomination.nominator.firstName,
+        nomination.nominator.lastName,
+        intl,
+      )
+    : nomination.nominatorFallbackName;
 
   const nominationOptionMessages = [
     nomination.nominateForAdvancement
@@ -77,11 +76,10 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
       : null,
   ];
 
-  const nominationOptions =
-    nominationOptionMessages
-      .filter(notEmpty)
-      .map((message) => intl.formatMessage(message).toLocaleLowerCase())
-      .join(", ") ?? intl.formatMessage(commonMessages.notFound);
+  const nominationOptions = nominationOptionMessages
+    .filter(notEmpty)
+    .map((message) => intl.formatMessage(message).toLocaleLowerCase())
+    .join(", ");
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -98,8 +96,8 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
               description: "Subtitle for the nomination details dialog",
             },
             {
-              nominationOptions,
-              nominatorName,
+              nominationOptions: nominationOptions || nullMessage,
+              nominatorName: nominatorName ?? nullMessage,
             },
           )}
         >
@@ -110,8 +108,9 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
               description: "Title for the nomination details dialog",
             },
             {
-              nomineeName,
-              eventName,
+              nomineeName: nomination.nominee?.firstName ?? nullMessage,
+              eventName:
+                nomination.talentNominationEvent.name.localized ?? nullMessage,
             },
           )}
         </Dialog.Header>

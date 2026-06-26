@@ -9,6 +9,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const TalentNominationDetailsDialogNominatorInformation_Fragment = graphql(
   /* GraphQL */ `
@@ -56,7 +57,11 @@ const NominatorInformationSection = ({
   );
 
   const nominatorName = nomination.nominator
-    ? `${nomination.nominator.firstName} ${nomination.nominator.lastName}`.trim()
+    ? getFullNameLabel(
+        nomination.nominator.firstName,
+        nomination.nominator.lastName,
+        intl,
+      )
     : nomination.nominatorFallbackName;
 
   const nominatorWorkEmail = nomination.nominator

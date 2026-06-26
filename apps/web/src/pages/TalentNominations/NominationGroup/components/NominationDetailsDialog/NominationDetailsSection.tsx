@@ -12,6 +12,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const TalentNominationDetailsDialogNominationDetails_Fragment = graphql(
   /* GraphQL */ `
@@ -60,7 +61,11 @@ const NominationDetailsSection = ({ query }: NominationDetailsSectionProps) => {
   );
 
   const referenceName = nomination.advancementReference
-    ? `${nomination.advancementReference.firstName} ${nomination.advancementReference.lastName}`.trim()
+    ? getFullNameLabel(
+        nomination.advancementReference.firstName,
+        nomination.advancementReference.lastName,
+        intl,
+      )
     : nomination.advancementReferenceFallbackName;
 
   const referenceWorkEmail = nomination.advancementReference

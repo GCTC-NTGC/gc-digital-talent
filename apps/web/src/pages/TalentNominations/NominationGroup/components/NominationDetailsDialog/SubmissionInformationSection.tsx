@@ -15,6 +15,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import { getFullNameLabel } from "~/utils/nameUtils";
 
 const TalentNominationDetailsDialogSubmissionInformation_Fragment = graphql(
   /* GraphQL */ `
@@ -67,6 +68,14 @@ const SubmissionInformationSection = ({
       ? nomination.submitterRelationshipToNominatorOther
       : nomination.submitterRelationshipToNominator?.label.localized;
 
+  const submitterName = nomination.submitter
+    ? getFullNameLabel(
+        nomination.submitter.firstName,
+        nomination.submitter.lastName,
+        intl,
+      )
+    : nullMessage;
+
   return (
     <div>
       <Heading level="h3" size="h6" className="mt-0 mb-6">
@@ -100,8 +109,7 @@ const SubmissionInformationSection = ({
             description: "Submitter’s name field",
           })}
         >
-          {`${nomination.submitter?.firstName} ${nomination.submitter?.lastName}`.trim() ??
-            nullMessage}
+          {submitterName ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
@@ -115,8 +123,8 @@ const SubmissionInformationSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Submitter’s classification",
-            id: "flOYCm",
-            description: "Submitter’s work email field",
+            id: "4JKjmh",
+            description: "Submitter’s classification email field",
           })}
         >
           {nomination.submitter?.classification?.groupAndLevel ?? nullMessage}
