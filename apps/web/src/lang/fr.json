@@ -11574,10 +11574,6 @@
     "defaultMessage": "Modifier les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
   },
-  "ifqj46": {
-    "defaultMessage": "Le Programme d'apprentissage en TI pour les personnes autochtones a pour but d'aider à éliminer les obstacles en matière d'emploi pour les personnes autochtones dans le domaine numérique au sein du gouvernement du Canada. Devenez un partenaire de recrutement dès aujourd'hui et découvrez comment vous pouvez renforcer votre équipe en embauchant des talents autochtones en informatique et aider à bâtir à une fonction publique plus inclusive. Votre participation contribue à l'objectif plus large de promouvoir l'inclusion, l'équité et la réconciliation au Canada.",
-    "description": "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card"
-  },
   "igTwND": {
     "defaultMessage": "Nous contacter - ConnexionCanada",
     "description": "CanadaLogin contact us link"
@@ -12153,10 +12149,6 @@
   "kvxHHl": {
     "defaultMessage": "Français essentiel",
     "description": "French essential language requirement"
-  },
-  "kyM6sV": {
-    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
-    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
   },
   "kyOGve": {
     "defaultMessage": "Note spéciale relative aux compétences comportementales essentielles",
@@ -15700,10 +15692,6 @@
   "zVGK45": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
     "description": "Label for when an employee was found but not verified"
-  },
-  "zVGzWa": {
-    "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
-    "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
   },
   "zWR47V": {
     "defaultMessage": "La collectivité n'a pas été supprimée. Veuillez réessayer.",

@@ -1192,14 +1192,25 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [TalentRequestSource!]!
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1598,15 +1609,11 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [LocalizedTalentRequestSource!]! @field(resolver: "Sources")
-  # the matching records behind each source kind (filtered to the search, gated by view auth).
+  sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
-    @field(resolver: "MatchingQualifiedInPoolSources")
   matchingAtLevelSources: [CommunityInterest!]
-    @field(resolver: "MatchingAtLevelSources")
   matchingAdvancementSources: [TalentNominationGroup!]
-    @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
@@ -1900,7 +1907,7 @@ type Query {
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
-      @scope(name: "withSources")
+      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -4116,6 +4123,7 @@ type Mutation {
     @update(model: "PoolCandidate")
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
+    @validator
 
   # Job poster template mutations
   createJobPosterTemplate(

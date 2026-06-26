@@ -570,6 +570,35 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "MJzimR",
     description: "Error message for talent event cannot change name",
   },
+  [ErrorCode.TalentRequestInvalidPositionType]: {
+    defaultMessage:
+      "The talent request position type field value is not valid.",
+    id: "PLVEUB",
+    description: "Error message for talent request invalid position type",
+  },
+  [ErrorCode.TalentRequestInvalidReason]: {
+    defaultMessage: "The talent request reason field value is not valid.",
+    id: "a02YvL",
+    description: "Error message for talent request invalid reason",
+  },
+  [ErrorCode.TalentRequestInvalidStatus]: {
+    defaultMessage: "The talent request status field value is not valid.",
+    id: "8FkvT5",
+    description: "Error message for talent request invalid status",
+  },
+  [ErrorCode.TalentRequestInProgressDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to in progress.",
+    id: "rNmajm",
+    description:
+      "Error message for talent request in progress details required",
+  },
+  [ErrorCode.TalentRequestCompletionDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to complete.",
+    id: "NXyprm",
+    description: "Error message for talent request completion details required",
+  },
 });
 
 export const tryFindMessageDescriptor = (
