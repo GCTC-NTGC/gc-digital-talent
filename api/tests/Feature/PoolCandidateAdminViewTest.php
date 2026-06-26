@@ -81,7 +81,7 @@ class PoolCandidateAdminViewTest extends TestCase
         /** GraphQL */
         '
         query PoolCandidates ($orderByBase: PoolCandidatesBaseSort!) {
-            poolCandidatesPaginatedAdminViewAdminView(first: 100, orderByBase: $orderByBase) {
+            poolCandidatesPaginatedAdminView(first: 100, orderByBase: $orderByBase) {
                 paginatorInfo {
                     total
                 }
@@ -630,7 +630,7 @@ class PoolCandidateAdminViewTest extends TestCase
             /** @lang GraphQL */
             '
             query PoolCandidates($orderBy: PoolCandidatePoolNameOrderByInput) {
-                poolCandidatesPaginatedAdminViewAdminView(orderByPoolName: $orderBy) {
+                poolCandidatesPaginatedAdminView(orderByPoolName: $orderBy) {
                     data {
                         id
                         poolCandidate {
