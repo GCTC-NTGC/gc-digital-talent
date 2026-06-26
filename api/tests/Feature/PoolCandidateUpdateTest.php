@@ -107,6 +107,7 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
+              placementType { value }
             }
           }
     GRAPHQL;
@@ -233,6 +234,7 @@ class PoolCandidateUpdateTest extends TestCase
               id
               status { value }
               expiryDate
+              placementType { value }
             }
           }
     ';
@@ -527,7 +529,7 @@ class PoolCandidateUpdateTest extends TestCase
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         $this->poolCandidate->application_status = ApplicationStatus::QUALIFIED->name;
-        $this->poolCandidate->placement_type = null;
+        $this->poolCandidate->placement_type = PlacementType::NOT_PLACED->name;
         $this->poolCandidate->save();
 
         $this->actingAs($this->candidateUser, 'api')
@@ -671,6 +673,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
+        assertSame($response['placementType']['value'], PlacementType::NOT_PLACED->name);
     }
 
     public function testDisqualifyCandidateMutation(): void
@@ -741,7 +744,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
-
+        assertNull($response['placementType']);
     }
 
     public function testPoolCandidateReinstatement(): void

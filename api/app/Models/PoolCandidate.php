@@ -79,6 +79,11 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $assessment_step_id
  * @property ?string $screening_stage
  * @property ?string $disqualification_reason
+ * Placement fields are subfields of the QUALIFIED status — they are only
+ * meaningful when application_status is QUALIFIED, similar to how removal_reason
+ * is a subfield of REMOVED and screening_stage is a subfield of TO_ASSESS.
+ * See: https://www.figma.com/board/FjnhpNxpCicPA3tejTTar9/Application-Status---Flowchart
+ *
  * @property ?string $placement_type
  * @property bool $is_expired
  * @property bool $is_suspended
@@ -817,6 +822,7 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->placement_type = PlacementType::NOT_PLACED->name;
 
         $this->save();
 
@@ -960,6 +966,13 @@ class PoolCandidate extends Model
         $this->status_updated_at = Carbon::now();
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
+
+        $this->placement_type = null;
+        $this->placed_at = null;
+        $this->placed_department_id = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
+
         $this->resumeReferrals();
 
         $this->save();
