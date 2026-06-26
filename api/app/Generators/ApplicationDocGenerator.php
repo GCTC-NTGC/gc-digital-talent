@@ -2,8 +2,10 @@
 
 namespace App\Generators;
 
+use App\Enums\DegreeType;
 use App\Enums\EducationRequirementOption;
 use App\Enums\EducationType;
+use App\Enums\FellowshipType;
 use App\Enums\PoolSkillType;
 use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\AwardExperience;
@@ -273,19 +275,33 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
      */
     private function formatEducationTitle(Experience $educationExperience): string
     {
-
         if (! $educationExperience instanceof EducationExperience) {
             return $educationExperience->getTitle();
         }
-        $degreeType = $educationExperience->type
-        ? $this->localizeEnum($educationExperience->type, EducationType::class)
-        : null;
+
+        $educationType = '';
+        switch ($educationExperience->education_type) {
+            case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
+                $educationType = $this->localizeEnum($educationExperience->degree_type, DegreeType::class);
+                break;
+            case EducationType::FELLOWSHIP->name:
+                $educationType = $educationExperience->fellowship_type === FellowshipType::OTHER->name
+                    ? $educationExperience->other_fellowship_type
+                    : $this->localizeEnum($educationExperience->fellowship_type, FellowshipType::class);
+                break;
+            case EducationType::OTHER->name:
+                $educationType = $experience->other_education_type ?? $this->localize('headings.other_type_of_education');
+                break;
+            default:
+                $educationType = $this->localizeEnum($educationExperience->education_type, EducationType::class);
+        }
+
         $titleComponents = [];
-        if ($degreeType) {
-            $titleComponents[] = $degreeType;
+        if ($educationType) {
+            $titleComponents[] = $educationType;
         }
         if ($educationExperience->area_of_study) {
-            $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '')
+            $titleComponents[] = ($educationType ? $this->localize('common.in').' ' : '')
             .$educationExperience->area_of_study;
         }
         if ($educationExperience->institution) {
