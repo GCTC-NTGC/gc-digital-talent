@@ -982,8 +982,7 @@ const PoolCandidatesTable = ({
     ),
     columnHelper.accessor(
       ({ poolCandidate: { placementType } }) =>
-        placementType?.label?.localized ??
-        intl.formatMessage(poolCandidateMessages.notPlaced),
+        placementType?.label?.localized,
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
