@@ -94,8 +94,7 @@ const TrackedUserListItem = ({
 
   const reason =
     trackedUser.notSelectedReason?.label?.localized ??
-    trackedUser.notReferredReason?.label?.localized ??
-    null;
+    trackedUser.notReferredReason?.label?.localized;
 
   const source =
     trackedUser.sources.flatMap((s) => s.label.localized).join(", ") || null;
