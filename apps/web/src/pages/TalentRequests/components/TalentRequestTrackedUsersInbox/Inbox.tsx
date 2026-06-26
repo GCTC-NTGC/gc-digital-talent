@@ -28,7 +28,7 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative isolate flex gap-x-3 border-b border-gray-500 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
+  base: "relative isolate flex border-b border-gray-500 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
 });
 const rowControl = tv({
   base: "relative inset-y-0 z-10 grid shrink-0 place-items-center pr-1.5 pl-6",

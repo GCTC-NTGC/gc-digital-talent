@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
+import { tv } from "tailwind-variants";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
 import PaperAirplaneIcon from "@heroicons/react/16/solid/PaperAirplaneIcon";
@@ -89,6 +90,16 @@ const TalentRequestTrackedUsersInbox_Query = graphql(/* GraphQL */ `
 const trackedUsersContext: Partial<OperationContext> = {
   additionalTypenames: ["TalentRequestTrackedUser"],
 };
+
+const selectionCounter = tv({
+  base: "rounded-md px-2 py-0.5 text-sm font-medium",
+  variants: {
+    hasSelection: {
+      true: "bg-primary-500 text-white dark:bg-primary-300 dark:text-black",
+      false: "bg-gray-300 text-white dark:bg-gray-700",
+    },
+  },
+});
 
 type DialogKind = "refer" | "notRefer" | "select" | "notSelect";
 
@@ -243,7 +254,7 @@ const TalentRequestTrackedUsersInbox = ({
               "Checkbox label to select all tracked users in the inbox",
           })}
         />
-        <span className="rounded-md bg-gray-300 px-2 py-0.5 text-sm font-medium text-white dark:bg-gray-700">
+        <span className={selectionCounter({ hasSelection })}>
           <span aria-hidden>{selectedRows.length}</span>
           <span className="sr-only">
             {intl.formatMessage(
