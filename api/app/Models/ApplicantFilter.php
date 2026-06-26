@@ -42,6 +42,7 @@ class ApplicantFilter extends Model
         'position_duration' => 'array',
         'qualified_streams' => 'array',
         'flexible_work_locations' => 'array',
+        'talent_sources' => 'array',
     ];
 
     /** @return BelongsToMany<Classification, $this> */
@@ -91,6 +92,7 @@ class ApplicantFilter extends Model
             'qualifiedInWorkStreams' => $this->qualifiedInWorkStreams
                 ->map(fn ($ws) => ['id' => $ws->id])->toArray(),
             'community' => $this->community_id,
+            'talentSources' => $this->talent_sources,
         ];
     }
 
