@@ -5,24 +5,36 @@ import { useEffect } from "react";
 import { getLogger } from "@gc-digital-talent/logger";
 import { Loading } from "@gc-digital-talent/ui";
 import { notEmpty, UnauthorizedError } from "@gc-digital-talent/helpers";
-import type { RoleName } from "@gc-digital-talent/auth";
-import { useAuthentication, useAuthorization } from "@gc-digital-talent/auth";
+import type { RoleName, RoleRequirement } from "@gc-digital-talent/auth";
+import {
+  hasRequiredRoles,
+  useAuthentication,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import useNavContext from "../NavContext/useNavContext";
 
-interface RequireAuthProps {
+interface RequireAuthPropsForRoleNames {
   children: ReactNode;
   roles: RoleName[];
+  rolesRequirements?: never;
   loginPath?: string;
+  strict?: never;
 }
 
-const RequireAuth = ({
-  children,
-  roles: authorizedRoleNames,
-  loginPath,
-}: RequireAuthProps) => {
+interface RequireAuthPropsForRoleRequirements {
+  children: ReactNode;
+  roles?: never;
+  rolesRequirements: RoleRequirement[];
+  loginPath?: string;
+  strict?: boolean;
+}
+
+const RequireAuth = (
+  props: RequireAuthPropsForRoleNames | RequireAuthPropsForRoleRequirements,
+) => {
   const location = useLocation();
   const logger = getLogger();
   const { loggedIn } = useAuthentication();
@@ -30,18 +42,41 @@ const RequireAuth = ({
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const loginRedirectPath = loginPath ?? paths.login();
+  const loginRedirectPath = props.loginPath ?? paths.login();
   const navContext = useNavContext();
 
   const userRoleNames = roleAssignments
     ?.map((a) => a.role?.name)
     .filter(notEmpty);
 
-  const isAuthorized =
-    isLoaded &&
-    authorizedRoleNames.some((authorizedRoleName) =>
-      userRoleNames?.includes(authorizedRoleName),
-    );
+  let isAuthorized: boolean;
+  let authorizedRoleNames: RoleName[];
+
+  // branch 1: role names provided
+  if ("roles" in props) {
+    authorizedRoleNames = props.roles ?? [];
+    isAuthorized =
+      isLoaded &&
+      authorizedRoleNames?.some((authorizedRoleName) =>
+        userRoleNames?.includes(authorizedRoleName),
+      );
+  } // branch 2: role requirements provided
+  else if ("rolesRequirements" in props) {
+    const authorizedRoleRequirements = props.rolesRequirements ?? [];
+    authorizedRoleNames = authorizedRoleRequirements.map((r) => r.name);
+    isAuthorized =
+      isLoaded &&
+      hasRequiredRoles({
+        toCheck: authorizedRoleRequirements,
+        userRoles: roleAssignments,
+        strict: props.strict,
+      });
+  }
+  // unexpected branch
+  else {
+    authorizedRoleNames = [];
+    isAuthorized = false;
+  }
 
   useEffect(() => {
     if (!loggedIn) {
@@ -82,7 +117,7 @@ const RequireAuth = ({
     throw new UnauthorizedError();
   }
 
-  return <>{children}</>;
+  return <>{props.children}</>;
 };
 
 export default RequireAuth;

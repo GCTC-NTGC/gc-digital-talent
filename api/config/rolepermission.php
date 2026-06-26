@@ -90,6 +90,7 @@ return [
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
+        'pastTalentNomination' => 'pastTalentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
@@ -106,6 +107,7 @@ return [
         'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
+        'poolNotes' => 'poolNotes',
     ],
 
     /*
@@ -693,6 +695,10 @@ return [
             'en' => 'Create a draft talent nomination as the submitter',
             'fr' => 'Créer un projet de nomination de talents en tant qu\'auteur de la proposition',
         ],
+        'create-own-pastTalentNomination' => [
+            'en' => 'Create a past talent nomination as the submitter',
+            'fr' => 'Créer une nomination de talent passée en tant que soumissionnaire',
+        ],
         'update-own-talentNomination' => [
             'en' => 'Update a draft talent nomination as the submitter',
             'fr' => 'Mise à jour d\'un projet de nomination de talent en tant que déposant',
@@ -735,6 +741,15 @@ return [
         'view-team-poolActivityLog' => [
             'en' => 'View team Pool Activity Log',
             'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
+        ],
+
+        'view-any-poolNotes' => [
+            'en' => 'View any pool\'s notes',
+            'fr' => 'Afficher les notes d\'un pool',
+        ],
+        'view-team-poolNotes' => [
+            'en' => 'View team\'s pool notes',
+            'fr' => 'Consulter les notes de l\'équipe sur la poule',
         ],
 
         'create-team-communityDevelopmentProgram' => [
@@ -1037,6 +1052,9 @@ return [
             'draftPool' => [
                 'team' => ['view', 'update'],
             ],
+            'poolNotes' => [
+                'team' => ['view'],
+            ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
             ],
@@ -1075,6 +1093,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1133,6 +1154,9 @@ return [
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
+            'poolNotes' => [
+                'team' => ['view'],
+            ],
             'publishedPool' => [
                 'team' => ['update', 'archive'],
             ],
@@ -1165,6 +1189,9 @@ return [
             ],
             'talentNomination' => [
                 'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
             ],
             'talentNominationGroup' => [
                 'team' => ['view', 'update'],
@@ -1310,6 +1337,9 @@ return [
             'poolActivityLog' => [
                 'any' => ['view'],
             ],
+            'poolNotes' => [
+                'any' => ['view'],
+            ],
             'communityInterest' => [
                 'any' => ['view'],
             ],
@@ -1327,6 +1357,9 @@ return [
             ],
             'talentNomination' => [
                 'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
             ],
             'communityInterest' => [
                 'team' => ['view'],
@@ -1363,6 +1396,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive', 'update'],
@@ -1411,6 +1447,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],

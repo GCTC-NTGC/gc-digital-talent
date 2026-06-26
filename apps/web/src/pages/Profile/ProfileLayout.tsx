@@ -9,22 +9,13 @@ import { Container } from "@gc-digital-talent/ui";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
-import { requireUser } from "~/routing/auth";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
-
-import type { Route } from "./+types/ProfileLayout";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 interface ProfileHandle {
   pageTitle?: MessageDescriptor;
 }
-
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  async ({ context, request }, next) => {
-    requireUser(context, request, { roles: [{ name: ROLE_NAME.Applicant }] });
-    return await next();
-  },
-];
 
 const ProfileLayout = () => {
   const intl = useIntl();
@@ -59,7 +50,7 @@ const ProfileLayout = () => {
   });
 
   return (
-    <>
+    <RequireAuth rolesRequirements={[{ name: ROLE_NAME.Applicant }]}>
       <SEO title={pageTitle} description={description} />
       <Hero
         title={pageTitle}
@@ -83,7 +74,7 @@ const ProfileLayout = () => {
       <Container className="mt-18">
         <Outlet />
       </Container>
-    </>
+    </RequireAuth>
   );
 };
 

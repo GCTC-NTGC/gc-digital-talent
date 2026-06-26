@@ -32,7 +32,6 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";
-import { isIAPPool } from "~/utils/poolUtils";
 
 import type { FormValues } from "./types";
 
@@ -307,7 +306,6 @@ interface GetEducationRequirementLabelArgs {
 export const getEducationRequirementLabel = ({
   intl,
   group,
-  publishingGroup,
   educationRequirementOption,
 }: GetEducationRequirementLabelArgs): ReactNode => {
   const locale = getLocale(intl);
@@ -320,7 +318,6 @@ export const getEducationRequirementLabel = ({
     intl,
     locale,
     classificationGroup,
-    isIAPPool(publishingGroup),
   )?.find(({ value }) => value === educationRequirementOption);
 
   return option?.label ?? intl.formatMessage(commonMessages.notAvailable);

@@ -7,7 +7,7 @@ export interface RoleRequirement {
   teamId?: string | null;
 }
 
-interface HasRequiredRolesArgs {
+export interface HasRequiredRolesArgs {
   toCheck: RoleRequirement | RoleRequirement[];
   userRoles: (RoleAssignment | null | undefined)[] | null | undefined;
   /** * When true, if a role is team-based, a matching teamId MUST be provided

@@ -26,25 +26,25 @@
     "@gc-digital-talent/toast": "workspace:*",
     "@urql/core": "^5.2.0",
     "@urql/exchange-auth": "^2.2.1",
-    "graphql": "^16.14.0",
+    "graphql": "^16.14.2",
     "jwt-decode": "^4.0.0",
     "lodash": "^4.18.1",
     "pusher-js": "^8.5.0",
-    "react-intl": "^10.1.11",
+    "react-intl": "^10.1.13",
     "urql": "^5.0.2"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@types/lodash": "^4.17.24",
-    "@types/node": "^25.9.1",
-    "@types/react": "^19.2.15",
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
     "eslint": "^9.20.1",
     "jsdom": "^29.1.1",
-    "react": "^19.2.6",
+    "react": "^19.2.7",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16",
+    "vitest": "^4.1.8",
     "wonka": "^6.3.6"
   }
 }

@@ -24,11 +24,11 @@
   "dependencies": {
     "@dr.pogodin/react-helmet": "^3.2.2",
     "@gc-digital-talent/rich-text-elements": "workspace:*",
-    "axe-core": "^4.11.4",
-    "react-intl": "^10.1.11",
-    "react-router": "^7.15.1",
-    "vite": "^8.0.14",
-    "vitest": "^4.0.16",
+    "axe-core": "^4.12.0",
+    "react-intl": "^10.1.13",
+    "react-router": "^7.17.0",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8",
     "vitest-axe": "1.0.0-pre.5",
     "vitest-fail-on-console": "^0.10.1"
   },
@@ -37,10 +37,10 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.17",
     "eslint": "^9.20.1",
     "jsdom": "^29.1.1",
-    "react": "^19.2.6",
+    "react": "^19.2.7",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3"
   }

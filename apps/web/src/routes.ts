@@ -229,10 +229,6 @@ export default [
                 "./pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage.tsx",
               ),
               route(
-                "self-declaration",
-                "./pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage.tsx",
-              ),
-              route(
                 "profile",
                 "./pages/Applications/ApplicationProfilePage/ApplicationProfilePage.tsx",
               ),
@@ -418,9 +414,7 @@ export default [
 
             // Admin - Talent requests
             ...prefix("talent-requests", [
-              index(
-                "./pages/SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage.tsx",
-              ),
+              index("./pages/TalentRequests/IndexTalentRequestPage.tsx"),
               ...prefix(":talentRequestId", [
                 layout("./pages/TalentRequests/Layout.tsx", [
                   index("./pages/TalentRequests/Details.tsx"),

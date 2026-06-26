@@ -5,7 +5,7 @@
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
-      "tokenExpiry": 600,
+      "tokenExpiry": 3600,
       "requestMappings": [
         {
           "requestParam": "client_id",

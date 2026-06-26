@@ -10,7 +10,6 @@ import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
-  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
@@ -177,9 +176,6 @@ const EditCommunityMemberDialog = forwardRef<
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select roles",
                     id: "Cn73yN",

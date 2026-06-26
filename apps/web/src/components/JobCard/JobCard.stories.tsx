@@ -19,7 +19,7 @@ const fakedPool = fakedPools[0];
 const staticDate = new Date(parseISO(fakedPool.publishedAt!));
 Date.now = () => Number(staticDate); // set now to be static
 
-const nullPool: Omit<Pool, "activities" | "teamId"> = {
+const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
   __typename: "Pool",
   id: "uuid",
 };
@@ -187,6 +187,21 @@ const nullCard = {
   poolQuery: makeFragmentData(nullPool, JobCard_Fragment),
 };
 
+const longTitleStr = faker.lorem.sentence(30);
+const longTitle = {
+  poolQuery: makeFragmentData(
+    {
+      ...fakedPool,
+      name: {
+        en: `${longTitleStr} EN`,
+        fr: `${longTitleStr} FR`,
+        localized: `${longTitleStr} LOCALIZED`,
+      },
+    },
+    JobCard_Fragment,
+  ),
+};
+
 const Template: StoryFn<typeof JobCard> = () => (
   <div className="flex flex-col gap-6">
     <JobCard {...open} />
@@ -197,6 +212,7 @@ const Template: StoryFn<typeof JobCard> = () => (
     <JobCard {...all} />
     <JobCard {...deadlineApproaching} />
     <JobCard {...closed} />
+    <JobCard {...longTitle} />
     <JobCard {...nullCard} />
   </div>
 );

@@ -9,7 +9,7 @@ import { isEducationExperience } from "~/utils/experienceUtils";
 
 const stepHasError = (
   _user: ApplicationPoolCandidateFragmentType["user"],
-  _pool: Omit<Pool, "activities" | "teamId">,
+  _pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
   application: ApplicationPoolCandidateFragmentType,
 ) => {
   return (

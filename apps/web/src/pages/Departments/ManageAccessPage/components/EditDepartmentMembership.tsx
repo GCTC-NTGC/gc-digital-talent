@@ -8,11 +8,7 @@ import { useOutletContext } from "react-router";
 import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   RoleInput,
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
@@ -185,9 +181,6 @@ const EditDepartmentMembershipDialog = forwardRef<
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select roles",
                     id: "Cn73yN",

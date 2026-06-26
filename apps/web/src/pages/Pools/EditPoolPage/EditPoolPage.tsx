@@ -6,6 +6,7 @@ import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import type { JSX } from "react";
 import { useMemo } from "react";
+import { useOutletContext } from "react-router";
 
 import {
   NotFound,
@@ -50,8 +51,7 @@ import { hasAllEmptyFields as specialNoteIsNull } from "~/validators/process/spe
 import processMessages from "~/messages/processMessages";
 import { getAdvertisementStatus } from "~/utils/poolUtils";
 import ProcessPreviewLink from "~/components/ProcessPreviewLink/ProcessPreviewLink";
-import { requireUser } from "~/routing/auth";
-import { graphqlClientContext } from "~/routing/context";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type {
   PoolClassification_Fragment,
@@ -92,7 +92,7 @@ import type { WhatToExpectAdmissionSubmitData } from "./components/WhatToExpectA
 import WhatToExpectAdmissionSection from "./components/WhatToExpectAdmissionSection/WhatToExpectAdmissionSection";
 import type { ContactEmailSubmitData } from "./components/ContactEmailSection/ContactEmailSection";
 import ContactEmailSection from "./components/ContactEmailSection/ContactEmailSection";
-import type { Route } from "./+types/EditPoolPage";
+import type { ContextType } from "../PoolLayout";
 
 export const EditPool_Fragment = graphql(/* GraphQL */ `
   fragment EditPool on Pool {
@@ -864,46 +864,31 @@ export const EditPoolPage = () => {
   );
 };
 
-const PoolTeams_Query = graphql(/** GraphQL */ `
-  query PoolTeams($id: UUID!) {
-    pool(id: $id) {
-      community {
-        teamIdForRoleAssignment
-      }
-      department {
-        teamIdForRoleAssignment
-      }
-      teamId
-    }
+export const Component = () => {
+  const { communityTeamId, departmentTeamId, teamId } =
+    useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
   }
-`);
 
-export const clientMiddleware: Route.ClientMiddlewareFunction[] = [
-  // eslint-disable-next-line @typescript-eslint/no-shadow
-  async ({ context, request, params }, next) => {
-    const client = context.get(graphqlClientContext);
-    const res = await client
-      .query(PoolTeams_Query, { id: params.poolId })
-      .toPromise();
-
-    const communityId = res.data?.pool?.community?.teamIdForRoleAssignment;
-    const departmentId = res.data?.pool?.department?.teamIdForRoleAssignment;
-
-    requireUser(context, request, {
-      roles: [
+  return (
+    <RequireAuth
+      rolesRequirements={[
         { name: ROLE_NAME.PlatformAdmin },
-        { name: ROLE_NAME.CommunityAdmin, teamId: communityId },
-        { name: ROLE_NAME.CommunityRecruiter, teamId: communityId },
-        { name: ROLE_NAME.ProcessOperator, teamId: res.data?.pool?.teamId },
-        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentId },
-        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentId },
-      ],
-    });
-    return await next();
-  },
-];
-
-export const Component = () => <EditPoolPage />;
+        { name: ROLE_NAME.CommunityAdmin, teamId: communityTeamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId: communityTeamId },
+        { name: ROLE_NAME.ProcessOperator, teamId: teamId },
+        { name: ROLE_NAME.DepartmentAdmin, teamId: departmentTeamId },
+        { name: ROLE_NAME.DepartmentHRAdvisor, teamId: departmentTeamId },
+      ]}
+      strict
+    >
+      <EditPoolPage />
+    </RequireAuth>
+  );
+};
 
 Component.displayName = "AdminEditPoolPage";
 

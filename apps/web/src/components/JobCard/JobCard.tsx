@@ -326,7 +326,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           </p>
         </div>
         <Link
-          className="justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
+          className="shrink-0 justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
           color="primary"
           mode="solid"
           href={paths.jobPoster(pool.id)}

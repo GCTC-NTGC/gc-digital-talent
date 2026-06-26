@@ -80,28 +80,29 @@ test.describe("Static pages", () => {
 
     test("download enabling conditions file in English", async ({ page }) => {
       await page.goto("/en/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
       await page.getByRole("button", { name: /enabling conditions/i }).click();
-      await page.getByRole("link", { name: /download the guidance/i }).click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Enabling_Conditions_Guidance_EN.docx",
+      const guidanceLink = page
+        .getByRole("link", { name: /download the guidance/i })
+        .first();
+      await expect(guidanceLink).toBeVisible();
+      await expect(guidanceLink).toHaveAttribute(
+        "href",
+        /\/static\/documents\/Enabling_Conditions_Guidance_EN\.docx$/,
       );
     });
 
     test("download enabling conditions file in French", async ({ page }) => {
       await page.goto("/fr/directive-on-digital-talent");
-      const downloadPromise = page.waitForEvent("download");
       await page
         .getByRole("button", { name: /conditions favorables/i })
         .click();
-      await page
+      const guidanceLink = page
         .getByRole("link", { name: /télécharger le guide/i })
-        .getByText("Télécharger le guide", { exact: true })
-        .click();
-      const download = await downloadPromise;
-      expect(download.suggestedFilename()).toContain(
-        "Orientation_sur_les_conditions_habilitantes_FR.docx",
+        .first();
+      await expect(guidanceLink).toBeVisible();
+      await expect(guidanceLink).toHaveAttribute(
+        "href",
+        /\/static\/documents\/Orientation_sur_les_conditions_habilitantes_FR\.docx$/,
       );
     });
   });

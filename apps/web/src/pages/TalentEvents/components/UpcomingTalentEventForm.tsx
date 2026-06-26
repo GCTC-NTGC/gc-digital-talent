@@ -17,10 +17,6 @@ import {
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import {
-  DATE_FORMAT_STRING,
-  formatDate,
-} from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -251,18 +247,6 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
           name="openDate"
           legend={intl.formatMessage(adminMessages.openingDate)}
           rules={{
-            min: {
-              value: formatDate({
-                date: new Date(),
-                formatString: DATE_FORMAT_STRING,
-                intl,
-              }),
-              message: intl.formatMessage({
-                defaultMessage: "Opening date must be after today.",
-                id: "9pivu5",
-                description: "Error message for closing date",
-              }),
-            },
             required: intl.formatMessage(errorMessages.required),
           }}
         />
