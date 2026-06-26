@@ -450,7 +450,7 @@ const TrainingAndDevelopmentOpportunities = ({
                       }
                       skillCount={linkedExp.skills?.length}
                       experienceType={
-                        linkedExp.type?.label?.localized ??
+                        linkedExp.educationType?.label?.localized ??
                         intl.formatMessage(experienceMessages.education)
                       }
                       iconLabel={intl.formatMessage({
