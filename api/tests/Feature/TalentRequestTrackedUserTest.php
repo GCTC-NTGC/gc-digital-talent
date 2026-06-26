@@ -1682,6 +1682,50 @@ class TalentRequestTrackedUserTest extends TestCase
             ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
     }
 
+    public function testSourcesCorrectWhenMatchingSourcesFieldNotRequested(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        // sources must resolve from the matched relation even when the matching*Sources fields are not selected
+        $sourcesOnlyQuery = <<<'GRAPHQL'
+            query SourcesOnly($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
+                    data {
+                        user { id }
+                        sources
+                    }
+                }
+            }
+        GRAPHQL;
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($sourcesOnlyQuery, ['talentRequestId' => $request->id])
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name]);
+    }
+
     public function testMatchingQualifiedInPoolSourcesOnlyIncludesFilterMatchingPools(): void
     {
         $matchingClass = Classification::factory()->create();

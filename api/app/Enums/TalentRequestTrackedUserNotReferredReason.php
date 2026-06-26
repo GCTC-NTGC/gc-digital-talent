@@ -10,7 +10,6 @@ enum TalentRequestTrackedUserNotReferredReason
 
     case MISMATCH_IN_QUALIFICATIONS;
     case JOB_MISMATCHES_EXPECTATIONS;
-    case TOO_MANY_CANDIDATES;
     case OTHER;
 
     public static function getLangFilename(): string
