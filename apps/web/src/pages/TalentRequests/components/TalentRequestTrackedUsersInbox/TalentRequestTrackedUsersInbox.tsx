@@ -19,6 +19,7 @@ import {
   DropdownMenu,
   IconButton,
   IconLabel,
+  Loading,
   Notice,
 } from "@gc-digital-talent/ui";
 import {
@@ -351,7 +352,13 @@ const TalentRequestTrackedUsersInbox = ({
         </DropdownMenu.Root>
       </Inbox.Actions>
 
-      {isEmpty ? (
+      {fetching && (
+        <Loading inline live="polite">
+          {intl.formatMessage(commonMessages.loading)}
+        </Loading>
+      )}
+
+      {isEmpty && (
         <Notice.Root className="m-6">
           <Notice.Title>
             {intl.formatMessage(talentRequestMessages.trackedUsersNullTitle)}
@@ -362,7 +369,9 @@ const TalentRequestTrackedUsersInbox = ({
             )}
           </Notice.Content>
         </Notice.Root>
-      ) : (
+      )}
+
+      {!fetching && !isEmpty && (
         <Inbox.List>
           {rows.map((row) => (
             <TrackedUserListItem
