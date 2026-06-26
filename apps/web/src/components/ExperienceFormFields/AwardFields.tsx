@@ -66,10 +66,22 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
           educationType {
             value
             label {
-              en
-              fr
+              localized
             }
           }
+          degreeType {
+            label {
+              localized
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              localized
+            }
+          }
+          otherFellowshipType
+          otherEducationType
           areaOfStudy
           institution
         }

@@ -1111,8 +1111,7 @@ export const getExperienceName = <T extends ExperienceName>(
     if (typeof type !== "string") {
       switch (type?.value) {
         case EducationType.DegreeDiplomaCertificate:
-          educationType =
-            degreeType?.label.localized ?? getLocalizedName(type?.label, intl);
+          educationType = degreeType?.label.localized ?? type?.label.localized;
           break;
         case EducationType.Fellowship:
           educationType =
@@ -1124,8 +1123,7 @@ export const getExperienceName = <T extends ExperienceName>(
                   description:
                     "First part of education experience title for other type",
                 }))
-              : (fellowshipType?.label.localized ??
-                getLocalizedName(type?.label, intl));
+              : (fellowshipType?.label.localized ?? type?.label.localized);
           break;
         case EducationType.Other:
           educationType =
@@ -1138,7 +1136,7 @@ export const getExperienceName = <T extends ExperienceName>(
             });
           break;
         default:
-          educationType = getLocalizedName(type?.label, intl);
+          educationType = type?.label.localized;
       }
       return intl.formatMessage(
         html

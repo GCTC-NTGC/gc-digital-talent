@@ -56,7 +56,23 @@ const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
     ... on EducationExperience {
       educationType {
         value
+        label {
+          localized
+        }
       }
+      degreeType {
+        label {
+          localized
+        }
+      }
+      fellowshipType {
+        value
+        label {
+          localized
+        }
+      }
+      otherFellowshipType
+      otherEducationType
       areaOfStudy
       institution
     }

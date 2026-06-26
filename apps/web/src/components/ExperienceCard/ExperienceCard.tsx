@@ -113,10 +113,23 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           educationType {
             value
             label {
-              en
-              fr
+              localized
             }
           }
+          degreeType {
+            value
+            label {
+              localized
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              localized
+            }
+          }
+          otherFellowshipType
+          otherEducationType
           areaOfStudy
           institution
         }
@@ -198,16 +211,12 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
         value
         label {
           localized
-          en
-          fr
         }
       }
       status {
         value
         label {
           localized
-          en
-          fr
         }
       }
     }
