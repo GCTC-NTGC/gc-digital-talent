@@ -401,9 +401,12 @@ class CommunityInterest extends Model
             });
         }
 
+        $community = $filters['community'] ?? null;
+        $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
+
         return $query
             ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
-            ->communities(isset($filters['community']) ? [$filters['community']] : null);
+            ->communities($communityId ? [$communityId] : null);
     }
 
     private function addSkillCountSelect(Builder $query, ?array $skillIds): Builder

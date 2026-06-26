@@ -291,8 +291,19 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
-            $query->whereQualifiedInClassificationsIn($classifications);
+        return $this->where(function (self $query) use ($classifications) {
+            $query->whereHas('poolCandidates', function ($query) use ($classifications) {
+                $query->whereQualifiedInClassificationsIn($classifications);
+            })->orWhereHas('currentClassification', function ($query) use ($classifications) {
+                $query->where(function ($q) use ($classifications) {
+                    foreach ($classifications as $classification) {
+                        $q->orWhere(function ($q) use ($classification) {
+                            $q->where('group', $classification['group'])
+                                ->where('level', $classification['level']);
+                        });
+                    }
+                });
+            });
         });
     }
 
@@ -441,16 +452,25 @@ class UserBuilder extends Builder
     }
 
     /**
-     * Return users who have a PoolCandidate in a given community
+     * Return users who have a PoolCandidate or CommunityInterest in a given community
      */
-    public function whereHasPoolCandidateCommunity(?string $communityId): self
+    public function whereHasTalentRequestCommunity(mixed $communityId): self
     {
+        // @pluck is not applied for nested ApplicantFilterInput; extract the id if it arrives as an IdInput array.
+        if (is_array($communityId)) {
+            $communityId = $communityId['id'] ?? null;
+        }
+
         if (empty($communityId)) {
             return $this;
         }
 
-        return $this->whereHas('poolCandidates', function ($query) use ($communityId) {
-            return $query->whereHasPoolCandidateCommunity($communityId);
+        return $this->where(function (self $query) use ($communityId) {
+            $query->whereHas('poolCandidates', function ($query) use ($communityId) {
+                return $query->whereHasPoolCandidateCommunity($communityId);
+            })->orWhereHas('communityInterests', function ($query) use ($communityId) {
+                $query->where('community_id', $communityId);
+            });
         });
     }
 

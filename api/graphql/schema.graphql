@@ -1524,7 +1524,7 @@ input ApplicantFilterInput {
   qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
-    @scope(name: "whereHasPoolCandidateCommunity")
+    @scope(name: "whereHasTalentRequestCommunity")
     @pluck(key: "id")
   talentSources: [TalentRequestSource!]
 }
@@ -1617,7 +1617,8 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
+  sources: [LocalizedTalentRequestSource!]!
+    @method(name: "talentRequestSources")
   # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
