@@ -373,6 +373,39 @@ class CommunityInterest extends Model
         return $query;
     }
 
+    // Called as ->whereAuthorizedToView() by the talent-request eager-load path.
+    // Void return discards the model instance that scopeAuthorizedToView returns in the
+    // admin case, so callScope falls back to the builder rather than propagating the model.
+    public function scopeWhereAuthorizedToView(Builder $query, ?array $args = null): void
+    {
+        $this->scopeAuthorizedToView($query, $args);
+    }
+
+    public static function scopeWhereMatchesTalentRequest(Builder $query, ?array $filters): Builder
+    {
+        $filters ??= [];
+        $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
+
+        if (! empty($qualifiedInClassifications)) {
+            $query->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
+                $userQuery->whereHas('currentClassification', function (Builder $classQuery) use ($qualifiedInClassifications) {
+                    $classQuery->where(function (Builder $q) use ($qualifiedInClassifications) {
+                        foreach ($qualifiedInClassifications as $classification) {
+                            $q->orWhere(function (Builder $q) use ($classification) {
+                                $q->where('group', $classification['group'])
+                                    ->where('level', $classification['level']);
+                            });
+                        }
+                    });
+                });
+            });
+        }
+
+        return $query
+            ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->communities(isset($filters['community']) ? [$filters['community']] : null);
+    }
+
     private function addSkillCountSelect(Builder $query, ?array $skillIds): Builder
     {
         return $query->addSelect([
