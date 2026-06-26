@@ -28,7 +28,7 @@ const List = ({ className, ...rest }: ComponentPropsWithRef<"ul">) => (
 );
 
 const row = tv({
-  base: "relative isolate flex border-b border-gray-500 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
+  base: "relative isolate flex border-b border-gray-500 last:border-b-0 odd:bg-gray-100/50 even:bg-white dark:border-gray-300 dark:odd:bg-gray-700/50 dark:even:bg-gray-600",
 });
 const rowControl = tv({
   base: "relative inset-y-0 z-10 grid shrink-0 place-items-center pr-1.5 pl-6",
@@ -94,7 +94,7 @@ const RowMeta = ({
 
 const Row = Object.assign(RowRoot, { Title: RowTitle, Meta: RowMeta });
 
-const footer = tv({ base: "px-6 py-3" });
+const footer = tv({ base: "border-t border-gray-500 px-6 py-3 dark:border-gray-300" });
 
 const Footer = ({ className, ...rest }: ComponentPropsWithRef<"div">) => (
   <div className={footer({ class: className })} {...rest} />
