@@ -624,7 +624,6 @@ class PoolCandidateAdminViewTest extends TestCase
             ]);
     }
 
-
     public function testOrderByPoolName(): void
     {
         $query =
@@ -846,5 +845,4 @@ class PoolCandidateAdminViewTest extends TestCase
             ])->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityCandidate->id]);
     }
-
 }
