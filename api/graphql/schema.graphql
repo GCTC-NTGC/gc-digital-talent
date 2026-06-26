@@ -1108,6 +1108,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 type PoolCandidateSearchRequest {
@@ -1201,7 +1202,7 @@ type TalentRequestTrackedUser {
     @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
     @with(relation: "user")
@@ -1525,6 +1526,7 @@ input ApplicantFilterInput {
   community: IdInput
     @scope(name: "whereHasPoolCandidateCommunity")
     @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
 }
 
 input PoolCandidateSearchInput {
@@ -1616,7 +1618,7 @@ type TalentRequestResult {
   id: UUID!
   user: User! @self
   sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
