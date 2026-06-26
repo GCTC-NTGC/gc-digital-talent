@@ -1310,10 +1310,7 @@ type PoolCandidate {
   assessmentStep: AssessmentStep
   statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
-
-  "Placement fields are subfields of the QUALIFIED status — null when the candidate is not qualified."
   placementType: LocalizedPlacementType
-
   placedAt: DateTime
   placedDepartment: Department
   placedStartDate: Date
