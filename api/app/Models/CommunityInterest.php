@@ -404,9 +404,9 @@ class CommunityInterest extends Model
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
 
-        return $query
-            ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
-            ->communities($communityId ? [$communityId] : null);
+        self::scopeWorkStreams($query, array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'));
+
+        return self::scopeCommunities($query, $communityId ? [$communityId] : null);
     }
 
     private function addSkillCountSelect(Builder $query, ?array $skillIds): Builder

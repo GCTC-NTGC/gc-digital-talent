@@ -1615,6 +1615,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
+  talentSources: [TalentRequestSource!]
 }
 
 type PoolCandidateSearchRequest {
@@ -1953,6 +1954,7 @@ input ApplicantFilterInput {
   qualifiedInClassifications: [ClassificationFilterInput]
   qualifiedInWorkStreams: [IdInput]
   community: IdInput
+  talentSources: [TalentRequestSource!]
 }
 
 input PoolCandidateSearchInput {
