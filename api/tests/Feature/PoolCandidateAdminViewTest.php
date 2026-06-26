@@ -454,7 +454,7 @@ class PoolCandidateAdminViewTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QuerypoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
                 poolCandidatesPaginatedAdminView(where: $where, orderBy: [$orderBy]) {
                     data {
                         id
@@ -792,7 +792,7 @@ class PoolCandidateAdminViewTest extends TestCase
         $query =
         /** @lang GraphQL */
         '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QuerypoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
+            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!) {
                 poolCandidatesPaginatedAdminView(where: $where, orderBy: [$orderBy]) {
                     data {
                         id
