@@ -159,7 +159,9 @@ const TalentRequestTrackedUsersInbox = ({
     ),
   ).map((option) => ({
     value: option.value,
-    label: option.label?.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    label:
+      option.label?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
   }));
 
   const selectedUserIds = uniqueItems(
