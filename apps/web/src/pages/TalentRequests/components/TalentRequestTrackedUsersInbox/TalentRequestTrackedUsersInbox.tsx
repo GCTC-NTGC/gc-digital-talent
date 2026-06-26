@@ -38,6 +38,7 @@ import {
 
 import adminMessages from "~/messages/adminMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import tableMessages from "~/components/Table/tableMessages";
 import Pagination from "~/components/Pagination";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import useUserDownloads from "~/hooks/useUserDownloads";
@@ -248,12 +249,7 @@ const TalentRequestTrackedUsersInbox = ({
           checked={allSelected}
           indeterminate={hasSelection && !allSelected}
           onToggle={() => handleToggleAll(!allSelected)}
-          label={intl.formatMessage({
-            defaultMessage: "Select all",
-            id: "gh6ehW",
-            description:
-              "Checkbox label to select all tracked users in the inbox",
-          })}
+          label={intl.formatMessage(tableMessages.selectAll)}
         />
         <span className={selectionCounter({ hasSelection })}>
           <span aria-hidden>{selectedRows.length}</span>
@@ -275,12 +271,7 @@ const TalentRequestTrackedUsersInbox = ({
               <IconButton
                 color="black"
                 icon={EllipsisVerticalIcon}
-                label={intl.formatMessage({
-                  defaultMessage: "Actions",
-                  id: "o2VwGs",
-                  description:
-                    "Button to open bulk actions for selected tracked users",
-                })}
+                label={intl.formatMessage(tableMessages.actions)}
               />
             }
           />
@@ -326,12 +317,7 @@ const TalentRequestTrackedUsersInbox = ({
               <IconButton
                 color="black"
                 icon={ArrowDownTrayIcon}
-                label={intl.formatMessage({
-                  defaultMessage: "Download",
-                  id: "lzFj9M",
-                  description:
-                    "Button to open download options for selected tracked users",
-                })}
+                label={intl.formatMessage(commonMessages.download)}
               />
             }
           />

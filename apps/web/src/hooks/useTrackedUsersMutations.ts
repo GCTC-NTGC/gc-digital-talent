@@ -9,6 +9,8 @@ import type {
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
 const CreateTrackedUsersReferred_Mutation = graphql(/* GraphQL */ `
   mutation CreateTrackedUsersReferred(
     $userIds: [UUID!]!
@@ -156,14 +158,7 @@ const useTrackedUsersMutations = () => {
   };
 
   const handleUpdateSuccess = () => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Tracked users updated successfully.",
-        id: "d/aUXc",
-        description:
-          "Toast shown when a tracked-user bulk mutation succeeds in Talent Requests.",
-      }),
-    );
+    toast.success(intl.formatMessage(talentRequestMessages.updateSuccess));
   };
 
   const createTrackedUsersReferred = async ({
