@@ -135,7 +135,7 @@ class CommunityInterest extends Model
 
     // scope the query to CommunityInterests the current user can view
     // own interest or belongs to your community and consentToShareProfile is TRUE
-    public function scopeAuthorizedToView(Builder $query, ?array $args = null)
+    public function scopeAuthorizedToView(Builder $query, ?array $args = null): Builder
     {
         /** @var User | null */
         $user = Auth::user();
@@ -146,7 +146,7 @@ class CommunityInterest extends Model
 
         // can see any community interest - return with no filters added
         if ($user?->isAbleTo('view-any-communityInterest')) {
-            return $this;
+            return $query;
         }
 
         // we might want to add some filters for some candidates
@@ -179,11 +179,13 @@ class CommunityInterest extends Model
 
         $filterCountAfter = count($query->getQuery()->wheres);
         if ($filterCountAfter > $filterCountBefore) {
-            return;
+            return $query;
         }
 
         // fall through - query will return nothing
         $query->where('id', null);
+
+        return $query;
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder
@@ -373,12 +375,9 @@ class CommunityInterest extends Model
         return $query;
     }
 
-    // Called as ->whereAuthorizedToView() by the talent-request eager-load path.
-    // Void return discards the model instance that scopeAuthorizedToView returns in the
-    // admin case, so callScope falls back to the builder rather than propagating the model.
-    public function scopeWhereAuthorizedToView(Builder $query, ?array $args = null): void
+    public function scopeWhereAuthorizedToView(Builder $query, ?array $args = null): Builder
     {
-        $this->scopeAuthorizedToView($query, $args);
+        return $this->scopeAuthorizedToView($query, $args);
     }
 
     public static function scopeWhereMatchesTalentRequest(Builder $query, ?array $filters): Builder
