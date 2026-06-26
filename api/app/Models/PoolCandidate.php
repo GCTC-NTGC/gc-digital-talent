@@ -79,11 +79,6 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $assessment_step_id
  * @property ?string $screening_stage
  * @property ?string $disqualification_reason
- * Placement fields are subfields of the QUALIFIED status — they are only
- * meaningful when application_status is QUALIFIED, similar to how removal_reason
- * is a subfield of REMOVED and screening_stage is a subfield of TO_ASSESS.
- * See: https://www.figma.com/board/FjnhpNxpCicPA3tejTTar9/Application-Status---Flowchart
- *
  * @property ?string $placement_type
  * @property bool $is_expired
  * @property bool $is_suspended
