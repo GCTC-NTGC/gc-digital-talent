@@ -28,8 +28,12 @@ class PoolCandidateBuilder extends Builder
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
      */
-    public function whereHasPoolCandidateCommunity(?string $communityId): self
+    public function whereInCommunity(mixed $communityId): self
     {
+        if (is_array($communityId)) {
+            $communityId = $communityId['id'] ?? null;
+        }
+
         if (empty($communityId)) {
             return $this;
         }
@@ -137,7 +141,7 @@ class PoolCandidateBuilder extends Builder
             ->whereInTalentSearchablePublishingGroup()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
             ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
-            ->whereHasPoolCandidateCommunity($filters['community'] ?? null)
+            ->whereInCommunity($filters['community'] ?? null)
             ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', $pools));
     }
 

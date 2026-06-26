@@ -454,7 +454,7 @@ class UserBuilder extends Builder
     /**
      * Return users who have a PoolCandidate or CommunityInterest in a given community
      */
-    public function whereHasTalentRequestCommunity(mixed $communityId): self
+    public function whereInCommunity(mixed $communityId): self
     {
         // @pluck is not applied for nested ApplicantFilterInput; extract the id if it arrives as an IdInput array.
         if (is_array($communityId)) {
@@ -467,7 +467,7 @@ class UserBuilder extends Builder
 
         return $this->where(function (self $query) use ($communityId) {
             $query->whereHas('poolCandidates', function ($query) use ($communityId) {
-                return $query->whereHasPoolCandidateCommunity($communityId);
+                return $query->whereInCommunity($communityId);
             })->orWhereHas('communityInterests', function ($query) use ($communityId) {
                 $query->where('community_id', $communityId);
             });

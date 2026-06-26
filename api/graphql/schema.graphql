@@ -1524,7 +1524,7 @@ input ApplicantFilterInput {
   qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput
-    @scope(name: "whereHasTalentRequestCommunity")
+    @scope(name: "whereInCommunity")
     @pluck(key: "id")
   talentSources: [TalentRequestSource!]
 }
