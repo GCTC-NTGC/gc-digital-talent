@@ -159,7 +159,13 @@ const AwardFields = ({
     if (relatedExperienceType) {
       setValue("relatedExperienceType", relatedExperienceType.__typename);
     }
-  }, [watchAwardedTo, watchRelatedExperienceId, resetField]);
+  }, [
+    watchAwardedTo,
+    watchRelatedExperienceId,
+    resetField,
+    myExperiences,
+    setValue,
+  ]);
 
   return (
     <>
