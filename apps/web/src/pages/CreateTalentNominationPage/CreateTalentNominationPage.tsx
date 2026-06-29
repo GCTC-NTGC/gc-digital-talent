@@ -7,6 +7,10 @@ import { useMutation } from "urql";
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import {
+  canAccessProtectedEndpoint,
+  protectedEndpointContext,
+} from "@gc-digital-talent/client";
+import {
   tryFindMessageDescriptor,
   errorMessages,
 } from "@gc-digital-talent/i18n";
@@ -55,6 +59,13 @@ const CreateTalentNominationPage = () => {
     id: "VMcxoH",
     description: "Toast for error during nomination creation",
   });
+  const protectedEndpointUnavailableMessage = intl.formatMessage({
+    defaultMessage:
+      "This nomination action requires access to the secure network. Please connect and try again.",
+    id: "zQaG0N",
+    description:
+      "Toast for nomination actions that require secure network access",
+  });
 
   // We use this ref to make sure we only try to apply once
   const mutationCounter = useRef<number>(0);
@@ -100,47 +111,66 @@ const CreateTalentNominationPage = () => {
         connect: nominationEventId,
       },
     };
-    executeCreateMutation({ talentNomination: mutationInput })
-      .then(async (result) => {
-        if (result.data?.createTalentNomination) {
-          const { id } = result.data.createTalentNomination;
-          // Redirect user to the talent nomination if it exists
-          const newPath = paths.talentNomination(id);
-          if (!result.error) {
-            await navigateWithToast(newPath, () =>
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Nomination created successfully",
-                  id: "qWew0O",
-                  description: "Toast for successful nomination creation",
-                }),
-              ),
-            );
-          } else {
-            const messageDescriptor = tryFindMessageDescriptor(
-              result.error.message,
-            );
-            const message = intl.formatMessage(
-              messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
-            );
-            await navigateWithToast(newPath, () => toast.error(message));
-          }
-        } else if (result.error?.message) {
-          const messageDescriptor = tryFindMessageDescriptor(
-            result.error.message,
-          );
-          const errorMessage = intl.formatMessage(
-            messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
-          );
-          await navigateWithToast(redirectPath, () =>
-            toast.error(errorMessage),
-          );
-        } else {
-          // Fallback to generic message
-          await navigateWithToast(redirectPath, () =>
-            toast.error(genericErrorMessage),
+    canAccessProtectedEndpoint()
+      .then((canAccess) => {
+        if (!canAccess) {
+          return navigateWithToast(redirectPath, () =>
+            toast.error(protectedEndpointUnavailableMessage),
           );
         }
+
+        return executeCreateMutation(
+          { talentNomination: mutationInput },
+          { context: protectedEndpointContext() },
+        )
+          .then(async (result) => {
+            if (result.data?.createTalentNomination) {
+              const { id } = result.data.createTalentNomination;
+              // Redirect user to the talent nomination if it exists
+              const newPath = paths.talentNomination(id);
+              if (!result.error) {
+                await navigateWithToast(newPath, () =>
+                  toast.success(
+                    intl.formatMessage({
+                      defaultMessage: "Nomination created successfully",
+                      id: "qWew0O",
+                      description: "Toast for successful nomination creation",
+                    }),
+                  ),
+                );
+              } else {
+                const messageDescriptor = tryFindMessageDescriptor(
+                  result.error.message,
+                );
+                const message = intl.formatMessage(
+                  messageDescriptor ??
+                    errorMessages.unknownErrorRequestErrorTitle,
+                );
+                await navigateWithToast(newPath, () => toast.error(message));
+              }
+            } else if (result.error?.message) {
+              const messageDescriptor = tryFindMessageDescriptor(
+                result.error.message,
+              );
+              const errorMessage = intl.formatMessage(
+                messageDescriptor ??
+                  errorMessages.unknownErrorRequestErrorTitle,
+              );
+              await navigateWithToast(redirectPath, () =>
+                toast.error(errorMessage),
+              );
+            } else {
+              // Fallback to generic message
+              await navigateWithToast(redirectPath, () =>
+                toast.error(genericErrorMessage),
+              );
+            }
+          })
+          .catch(() =>
+            navigateWithToast(redirectPath, () =>
+              toast.error(genericErrorMessage),
+            ),
+          );
       })
       .catch(() =>
         navigateWithToast(redirectPath, () => toast.error(genericErrorMessage)),

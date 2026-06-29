@@ -9,6 +9,7 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
+import { protectedEndpointContext } from "@gc-digital-talent/client";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -109,6 +110,7 @@ const NominateTalentPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: NominateTalent_Query,
     variables: { id },
+    context: protectedEndpointContext(),
   });
 
   const isSubmitted = !!data?.talentNomination?.submittedAt;

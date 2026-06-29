@@ -2,6 +2,7 @@ import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 
+import { protectedEndpointContext } from "@gc-digital-talent/client";
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -60,7 +61,10 @@ const useMutations = (): UseMutationsReturn => {
     talentNomination,
     intent,
   ) => {
-    return executeUpdateMutation({ id, talentNomination })
+    return executeUpdateMutation(
+      { id, talentNomination },
+      { context: protectedEndpointContext() },
+    )
       .then(async (res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -100,7 +104,10 @@ const useMutations = (): UseMutationsReturn => {
       return await navigate(paths.applicantDashboard());
     }
 
-    return executeSubmitMutation({ id })
+    return executeSubmitMutation(
+      { id },
+      { context: protectedEndpointContext() },
+    )
       .then((res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);

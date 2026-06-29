@@ -474,4 +474,40 @@ class TalentNominationTest extends TestCase
                 'id' => $nomination->id,
             ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
     }
+
+    public function testCommunityTalentCoordinatorCanCreatePastNominationOnProtectedEndpoint()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+
+        $communityTalentCoordinator = User::factory()
+            ->state([
+                'computed_is_gov_employee' => true,
+                'work_email' => 'coordinator@gc.ca',
+                'work_email_verified_at' => now(),
+            ])
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($event->community_id)
+            ->create();
+
+        $this->actingAs($communityTalentCoordinator, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $event->id,
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonStructure([
+                'data' => [
+                    'createTalentNomination' => [
+                        'id',
+                    ],
+                ],
+            ]);
+    }
 }

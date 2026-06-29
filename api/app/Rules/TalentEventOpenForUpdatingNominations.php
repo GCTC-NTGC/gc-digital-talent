@@ -7,7 +7,6 @@ use App\Models\TalentNomination;
 use App\Models\User;
 use Carbon\Carbon;
 use Closure;
-use Database\Helpers\TeamHelpers;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,10 +29,9 @@ class TalentEventOpenForUpdatingNominations implements ValidationRule
                     $user = Auth::user();
 
                     if ((bool) $user) {
-                        $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'create-own-pastTalentNomination');
-                        $communityTeamId = $nomination->talentNominationEvent?->community?->team?->id;
+                        $communityTeam = $nomination->talentNominationEvent?->community?->team;
 
-                        if ((bool) $communityTeamId && in_array($communityTeamId, $teamIds, true)) {
+                        if ((bool) $communityTeam && $user->isAbleTo('create-own-pastTalentNomination', $communityTeam)) {
                             return;
                         }
                     }
