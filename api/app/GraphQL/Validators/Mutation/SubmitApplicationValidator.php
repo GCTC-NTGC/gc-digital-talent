@@ -8,7 +8,7 @@ use App\Rules\EmployeeWorkEmailVerified;
 use App\Rules\HasEducationRequirement;
 use App\Rules\HasEssentialSkills;
 use App\Rules\HasLanguageRequirements;
-use App\Rules\PoolNotClosed;
+use App\Rules\PoolOpenForApplication;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
 use Carbon\Carbon;
@@ -58,7 +58,7 @@ final class SubmitApplicationValidator extends Validator
                     // do not run this verification for special applications
                     [new EmployeeWorkEmailVerified($this->application->user)],
                 ),
-                new PoolNotClosed($this->isSpecialApplication, $this->specialClosingDate),
+                new PoolOpenForApplication($this->isSpecialApplication, $this->specialClosingDate),
                 new QuestionsAnswered($this->application),
             ],
             'submitted_at' => ['prohibited', 'nullable'],

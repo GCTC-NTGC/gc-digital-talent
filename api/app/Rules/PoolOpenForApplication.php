@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 
-class PoolNotClosed implements ValidationRule
+class PoolOpenForApplication implements ValidationRule
 {
     private bool $isSpecialApplication;
 
