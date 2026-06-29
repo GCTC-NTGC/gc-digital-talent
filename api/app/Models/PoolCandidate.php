@@ -89,6 +89,9 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $pause_referrals_reason
  * @property ?Carbon $placed_start_date
  * @property ?Carbon $placed_end_date
+ * @property ?string $special_application_type
+ * @property ?string $special_application_justification
+ * @property ?Carbon $special_application_closing_date
  */
 class PoolCandidate extends Model
 {
@@ -122,6 +125,7 @@ class PoolCandidate extends Model
         'resume_referrals_at' => 'datetime',
         'placed_start_date' => 'date',
         'placed_end_date' => 'date',
+        'special_application_closing_date' => 'datetime',
     ];
 
     /**
@@ -156,6 +160,9 @@ class PoolCandidate extends Model
         'pause_referrals_reason',
         'placed_start_date',
         'placed_end_date',
+        'special_application_type',
+        'special_application_justification',
+        'special_application_closing_date',
     ];
 
     protected $touches = ['user'];

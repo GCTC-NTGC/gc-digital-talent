@@ -15,6 +15,7 @@ use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HasTalentRequestSources;
 use App\Traits\HydratesSnapshot;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -101,7 +102,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property Notification $unreadNotifications
  * @property Collection<Notification> $notifications
- * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?WorkExperience $latest_current_government_work_experience
  * @property ?WorkExperience $current_substantive_experiences
@@ -125,6 +125,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasRolesAndPermissions {
         roles as baseRoles;
     }
+    use HasTalentRequestSources;
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;

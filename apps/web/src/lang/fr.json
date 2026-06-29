@@ -283,10 +283,6 @@
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
   },
-  "/0kzjJ": {
-    "defaultMessage": "Nous avons modifié la manière dont nous recueillons les renseignements sur les processus de recrutement hors plateforme. Les renseignements présentés ici seront supprimés à partir du 31 décembre 2025. Veuillez utiliser notre nouveau format et ajouter chaque processus pour lequel vous avez été qualifié(e) en utilisant le bouton « Ajouter un processus hors plateforme ».",
-    "description": "Message informing the user about the update to off-platform processes"
-  },
   "/0vaTK": {
     "defaultMessage": "Vous n’avez pas encore d'expérience liée aux études.",
     "description": "Message shown when there are no education experiences to link to a development program"
@@ -1062,10 +1058,6 @@
   "1yMApi": {
     "defaultMessage": "L'employée ou l'employé travaille sur place au moins trois jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
-  },
-  "1yrLje": {
-    "defaultMessage": "Avant de supprimer ces renseignements, assurez-vous d'avoir ajouté vos processus de recrutement hors plateforme en utilisant le nouveau bouton « Ajouter un processus hors plateforme » sur votre tableau de bord.",
-    "description": "Explanation of delete old off platform processes dialog part 1"
   },
   "1zsfA7": {
     "defaultMessage": "Confirmation de l'adresse courriel professionnelle",
@@ -1971,10 +1963,6 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
-  "5V6IMt": {
-    "defaultMessage": "Votre dernière connexion remonte à avant avril 2026 et utilisait un nom d’utilisateur CléGC.",
-    "description": "Message shown under GCKey option on sign in page"
-  },
   "5W/J8m": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
     "description": "Confirmation question for reverting a decision of an application"
@@ -2546,6 +2534,10 @@
   "84rSVg": {
     "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
     "description": "Talent portal strategy item 2 content"
+  },
+  "85Y9eS": {
+    "defaultMessage": "Historique des mises en candidature",
+    "description": "Heading for the nomination history page"
   },
   "86Y8lx": {
     "defaultMessage": "Votre nom",
@@ -6050,10 +6042,6 @@
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
-  },
-  "MCLe8z": {
-    "defaultMessage": "Vous pouvez également choisir de supprimer ces renseignements maintenant.",
-    "description": "Button text for opening dialog to delete old off-platform process data."
   },
   "ME4sNt": {
     "defaultMessage": "Sauvegarder « À propos de nous »",
@@ -10038,10 +10026,6 @@
     "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
     "description": "Text for fourth sign up -> mfa step."
   },
-  "d0T0Xq": {
-    "defaultMessage": "Nous avons mis à jour la manière dont nous recueillons des informations sur les processus de recrutement hors plateforme réussis. Veuillez saisir à nouveau vos informations en utilisant notre nouveau format afin d’éviter de les perdre.",
-    "description": "Notification for migrating off platform processes"
-  },
   "d1FYv4": {
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
@@ -11270,10 +11254,6 @@
     "defaultMessage": "Événement de mise en candidature {eventId} introuvable.",
     "description": "Message displayed for talent nomination event not found."
   },
-  "hO8vGS": {
-    "defaultMessage": "Supprimer les informations stockées dans l'ancien format",
-    "description": "Dialog header informing of purpose"
-  },
   "hOnqmx": {
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
     "description": "Description of the 'disqualified' application status"
@@ -11593,10 +11573,6 @@
   "ifVyI/": {
     "defaultMessage": "Modifier les informations sur le groupe de compétences",
     "description": "Link text to edit a skill family"
-  },
-  "ifqj46": {
-    "defaultMessage": "Le Programme d'apprentissage en TI pour les personnes autochtones a pour but d'aider à éliminer les obstacles en matière d'emploi pour les personnes autochtones dans le domaine numérique au sein du gouvernement du Canada. Devenez un partenaire de recrutement dès aujourd'hui et découvrez comment vous pouvez renforcer votre équipe en embauchant des talents autochtones en informatique et aider à bâtir à une fonction publique plus inclusive. Votre participation contribue à l'objectif plus large de promouvoir l'inclusion, l'équité et la réconciliation au Canada.",
-    "description": "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card"
   },
   "igTwND": {
     "defaultMessage": "Nous contacter - ConnexionCanada",
@@ -12173,10 +12149,6 @@
   "kvxHHl": {
     "defaultMessage": "Français essentiel",
     "description": "French essential language requirement"
-  },
-  "kyM6sV": {
-    "defaultMessage": "Pensez-vous embaucher une apprentie ou un apprenti en TI autochtone?",
-    "description": "Title for IT Apprenticeship Program for Indigenous Peoples search card"
   },
   "kyOGve": {
     "defaultMessage": "Note spéciale relative aux compétences comportementales essentielles",
@@ -13750,10 +13722,6 @@
     "defaultMessage": "Le Corps d’innovation vous attend à bras ouverts! Le GSN recrute les personnes de talent très recherchées qui savent s’adapter et se montrent très compétentes dans le numérique au gouvernement. Pendant un an, les personnes retenues développeront leur réseau et diversifieront leur expérience au moyen d’affectations temporaires au MDN. Elles pourront trouver le poste rêvé au MDN ou acquérir des compétences utiles en vue de leur prochaine offre d’emploi.",
     "description": "Paragraph describing the innovation corps"
   },
-  "rOMDmX": {
-    "defaultMessage": "Confirmez-vous vouloir supprimer les renseignements sur les processus hors plateforme stockés dans l'ancien format?",
-    "description": "Explanation of delete old off platform processes dialog part 2"
-  },
   "rOl7Xv": {
     "defaultMessage": "Les renseignements essentiels du profil de la personne candidate, y compris ses coordonnées, ses niveaux et évaluations linguistiques et l'équité en matière d'emploi.",
     "description": "Subtitle for basic profile information section"
@@ -14818,6 +14786,10 @@
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
   },
+  "vtmq4K": {
+    "defaultMessage": "Historique",
+    "description": "Link text for the history of a nominee"
+  },
   "vtnz6B": {
     "defaultMessage": "Décision finale",
     "description": "Label for an applications final decision"
@@ -15349,6 +15321,10 @@
     "defaultMessage": "Les cadres du Gouvernement du Canada dans la fonction de contrôleur ou dans d’autres domaines intéressés par une carrière dans la gestion financière ou l’approvisionnement sont invités à créer un profil.",
     "description": "List item one other content"
   },
+  "yE/lOi": {
+    "defaultMessage": "Votre dernière connexion remonte à avant juin 2026 et utilisait un nom d’utilisateur CléGC.",
+    "description": "Message shown under GCKey option on sign in page"
+  },
   "yExs/j": {
     "defaultMessage": "Nous sommes désolés, mais nous ne pouvons pas trouver la page que vous cherchez.",
     "description": "Title for the 404 page not found page."
@@ -15716,10 +15692,6 @@
   "zVGK45": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
     "description": "Label for when an employee was found but not verified"
-  },
-  "zVGzWa": {
-    "defaultMessage": "Visitez la page du gestionnaire du Programme d'apprentissage en TI pour les personnes autochtones",
-    "description": "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page"
   },
   "zWR47V": {
     "defaultMessage": "La collectivité n'a pas été supprimée. Veuillez réessayer.",

@@ -25,7 +25,7 @@ jobs:
     env:
       PNPM_VERSION: "10.27.0"
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           # Chromatic requires full git history.
           fetch-depth: 0
@@ -61,7 +61,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v17.5.0
+        uses: chromaui/action@v17.6.0
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.
