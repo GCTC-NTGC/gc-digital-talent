@@ -15,27 +15,45 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import NominationDetailsDialog from "./components/NominationDetailsDialog/NominationDetailsDialog";
 
-const TalentNominationGroupHistory_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationGroupHistory on TalentNominationGroup {
-    id
-    nominations {
+const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
       id
-      ...TalentNominationDetailsDialog
+      nominations {
+        id
+        ...TalentNominationDetailsDialogNomination
+      }
     }
+  `,
+);
+
+const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationGroupHistoryOptions on Query {
+    ...TalentNominationDetailsDialogOptions
   }
 `);
 
 interface TalentNominationGroupHistoryProps {
-  query: FragmentType<typeof TalentNominationGroupHistory_Fragment>;
+  nominationGroupQuery: FragmentType<
+    typeof TalentNominationGroupHistoryNominationGroup_Fragment
+  >;
+  optionsQuery: FragmentType<
+    typeof TalentNominationGroupHistoryOptions_Fragment
+  >;
 }
 
 const TalentNominationGroupHistory = ({
-  query,
+  nominationGroupQuery,
+  optionsQuery,
 }: TalentNominationGroupHistoryProps) => {
   const intl = useIntl();
   const talentNominationGroup = getFragment(
-    TalentNominationGroupHistory_Fragment,
-    query,
+    TalentNominationGroupHistoryNominationGroup_Fragment,
+    nominationGroupQuery,
+  );
+  const options = getFragment(
+    TalentNominationGroupHistoryOptions_Fragment,
+    optionsQuery,
   );
   return (
     <>
@@ -55,7 +73,11 @@ const TalentNominationGroupHistory = ({
         </Heading>
 
         {talentNominationGroup.nominations?.map((nomination) => (
-          <NominationDetailsDialog query={nomination} key={nomination.id} />
+          <NominationDetailsDialog
+            nominationQuery={nomination}
+            key={nomination.id}
+            optionsQuery={options}
+          />
         ))}
       </Card>
     </>
@@ -65,8 +87,9 @@ const TalentNominationGroupHistory = ({
 const TalentNominationHistoryPage_Query = graphql(/* GraphQL */ `
   query TalentNominationHistoryPage($talentNominationGroupId: UUID!) {
     talentNominationGroup(id: $talentNominationGroupId) {
-      ...TalentNominationGroupHistory
+      ...TalentNominationGroupHistoryNominationGroup
     }
+    ...TalentNominationGroupHistoryOptions
   }
 `);
 
@@ -86,7 +109,10 @@ const TalentNominationGroupHistoryPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNominationGroup ? (
-        <TalentNominationGroupHistory query={data.talentNominationGroup} />
+        <TalentNominationGroupHistory
+          nominationGroupQuery={data.talentNominationGroup}
+          optionsQuery={data}
+        />
       ) : (
         <ThrowNotFound />
       )}

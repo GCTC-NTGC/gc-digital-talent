@@ -18,8 +18,8 @@ import NominatorInformationSection from "./NominatorInformationSection";
 import NominationDetailsSection from "./NominationDetailsSection";
 import RationaleAndAdditionalCommentsSection from "./RationaleAndAdditionalCommentsSection";
 
-const TalentNominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationDetailsDialog on TalentNomination {
+const TalentNominationDetailsDialogNomination_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationDetailsDialogNomination on TalentNomination {
     id
     talentNominationEvent {
       name {
@@ -39,18 +39,39 @@ const TalentNominationDetailsDialog_Fragment = graphql(/* GraphQL */ `
     nominateForDevelopmentPrograms
     ...TalentNominationDetailsDialogSubmissionInformation
     ...TalentNominationDetailsDialogNominatorInformation
-    ...TalentNominationDetailsDialogNominationDetails
+    ...TalentNominationDetailsDialogNominationDetailsNomination
     ...TalentNominationDetailsDialogRationaleAndAdditionalComments
   }
 `);
 
+const TalentNominationDetailsDialogOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationDetailsDialogOptions on Query {
+    ...TalentNominationDetailsDialogNominationDetailsOptions
+  }
+`);
+
 interface NominationDetailsDialogProps {
-  query: FragmentType<typeof TalentNominationDetailsDialog_Fragment>;
+  nominationQuery: FragmentType<
+    typeof TalentNominationDetailsDialogNomination_Fragment
+  >;
+  optionsQuery: FragmentType<
+    typeof TalentNominationDetailsDialogOptions_Fragment
+  >;
 }
 
-const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
+const NominationDetailsDialog = ({
+  nominationQuery,
+  optionsQuery,
+}: NominationDetailsDialogProps) => {
   const intl = useIntl();
-  const nomination = getFragment(TalentNominationDetailsDialog_Fragment, query);
+  const nomination = getFragment(
+    TalentNominationDetailsDialogNomination_Fragment,
+    nominationQuery,
+  );
+  const options = getFragment(
+    TalentNominationDetailsDialogOptions_Fragment,
+    optionsQuery,
+  );
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -119,7 +140,10 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
           <Separator space="sm" />
           <NominatorInformationSection query={nomination} />
           <Separator space="sm" />
-          <NominationDetailsSection query={nomination} />
+          <NominationDetailsSection
+            nominationQuery={nomination}
+            optionsQuery={options}
+          />
           <Separator space="sm" />
           <RationaleAndAdditionalCommentsSection query={nomination} />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
