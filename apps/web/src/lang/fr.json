@@ -2215,10 +2215,6 @@
     "defaultMessage": "Postes bilingues (français et anglais)",
     "description": "Bilingual Positions message"
   },
-  "6eQF40": {
-    "defaultMessage": "Source de talent",
-    "description": "Heading for the source of the matching user"
-  },
   "6eih3b": {
     "defaultMessage": "notes pour {name}",
     "description": "Link text suffix to read more notes for a search request"
@@ -11846,10 +11842,6 @@
     "defaultMessage": "Mettre à jour mon profil",
     "description": "Link text to direct users to the profile page when signed in"
   },
-  "jg4bu1": {
-    "defaultMessage": "Source des talents",
-    "description": "Heading for section outling the source criteria for users in a talent request"
-  },
   "jgysHD": {
     "defaultMessage": "Lier l’expérience",
     "description": "Button to confirm linking the selected education experience to a development program"
@@ -13649,6 +13641,10 @@
   "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
+  },
+  "qy4Ohw": {
+    "defaultMessage": "Source de talent",
+    "description": "Heading for the source of the matching user."
   },
   "qytMp/": {
     "defaultMessage": "Salon de l’emploi de la Semaine de la carrière — Université d’Ottawa",

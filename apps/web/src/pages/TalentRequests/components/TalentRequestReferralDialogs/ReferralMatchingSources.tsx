@@ -11,6 +11,7 @@ import { Link, Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import useRoutes from "~/hooks/useRoutes";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const ReferralMatchingPoolSource_Fragment = graphql(/* GraphQL */ `
   fragment ReferralMatchingPoolSource on PoolCandidate {
@@ -51,11 +52,7 @@ const ReferralMatchingSources = ({
     <>
       <FieldDisplay
         className="mb-6"
-        label={intl.formatMessage({
-          defaultMessage: "Source of talent",
-          id: "6eQF40",
-          description: "Heading for the source of the matching user",
-        })}
+        label={intl.formatMessage(talentRequestMessages.sourceOfTalent)}
       >
         {sourceLabels.length > 0 ? (
           <Ul>

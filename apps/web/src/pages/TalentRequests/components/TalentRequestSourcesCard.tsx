@@ -65,12 +65,7 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
 
   return (
     <TalentRequestSectionCard
-      title={intl.formatMessage({
-        defaultMessage: "Source of talent",
-        id: "jg4bu1",
-        description:
-          "Heading for section outling the source criteria for users in a talent request",
-      })}
+      title={intl.formatMessage(talentRequestMessages.sourceOfTalent)}
       subtitle={intl.formatMessage({
         defaultMessage: "This is where your candidates come from.",
         id: "RBSXa2",
