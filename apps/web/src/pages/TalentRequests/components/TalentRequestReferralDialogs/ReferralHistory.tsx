@@ -72,8 +72,8 @@ const ReferralHistory = ({ query }: ReferralHistoryProps) => {
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "{count, plural, one {This candidate has been referred # time.} other {This candidate has been referred # times.}}",
-                id: "rXoCy5",
+                  "{count, plural, one {This candidate has been referred once.} other {This candidate has been referred # times.}}",
+                id: "ewKmEe",
                 description:
                   "Count of how many times a user has been referred across all talent requests",
               },
@@ -84,8 +84,8 @@ const ReferralHistory = ({ query }: ReferralHistoryProps) => {
             <>
               <p className="mb-3">
                 {intl.formatMessage({
-                  defaultMessage: "Reasons why this candidate was not selected",
-                  id: "D135F4",
+                  defaultMessage: "Reasons this candidate was not selected",
+                  id: "wRDpHo",
                   description:
                     "Lead-in for the list of not-selected reasons in referral history",
                 })}
