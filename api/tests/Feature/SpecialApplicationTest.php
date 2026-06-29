@@ -195,7 +195,7 @@ class SpecialApplicationTest extends TestCase
     public function testSpecialApplicationBypassesNormalValidation(): void
     {
         // pool is internal and closed
-        $this->pool->area_of_selection === PoolAreaOfSelection::EMPLOYEES->name;
+        $this->pool->area_of_selection = PoolAreaOfSelection::EMPLOYEES->name;
         $this->pool->advertisement_language = PoolLanguage::VARIOUS->name;
         $this->pool->closing_date = config('constants.past_datetime');
         $this->pool->save();
