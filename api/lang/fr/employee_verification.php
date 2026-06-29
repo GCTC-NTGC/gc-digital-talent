@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'verified' => 'Verified government employee',
-    'not_verified' => 'Not-verified government employee',
+    'verified' => 'Employé du gouvernement vérifié',
+    'not_verified' => 'Employé du gouvernement non vérifié',
 ];
