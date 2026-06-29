@@ -22,6 +22,9 @@ const TalentNominationDetailsDialogRationaleAndAdditionalComments_Fragment =
         }
       }
       additionalComments
+      talentNominationEvent {
+        includeLeadershipCompetencies
+      }
     }
   `);
 
@@ -59,22 +62,24 @@ const RationaleAndAdditionalCommentsSection = ({
             description: "Label for a nomination's rationale",
           })}
         >
-          {nomination.nominationRationale}
+          {nomination.nominationRationale ?? nullMessage}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Top 3 key leadership competencies",
-            id: "6M8rIa",
-            description:
-              "Label for a nominations leadership skill competencies",
-          })}
-        >
-          <Ul space="lg" className="mt-1.5">
-            {nomination.skills?.filter(notEmpty).map((skill) => (
-              <li key={skill.id}>{skill.name.localized ?? nullMessage}</li>
-            ))}
-          </Ul>
-        </FieldDisplay>
+        {nomination.talentNominationEvent.includeLeadershipCompetencies ? (
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Top 3 key leadership competencies",
+              id: "6M8rIa",
+              description:
+                "Label for a nominations leadership skill competencies",
+            })}
+          >
+            <Ul space="lg" className="mt-1.5">
+              {nomination.skills?.filter(notEmpty).map((skill) => (
+                <li key={skill.id}>{skill.name.localized ?? nullMessage}</li>
+              ))}
+            </Ul>
+          </FieldDisplay>
+        ) : null}
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Additional comments",
@@ -83,7 +88,7 @@ const RationaleAndAdditionalCommentsSection = ({
               "Label for additional comments on a nomination's rationale",
           })}
         >
-          {nomination.additionalComments}
+          {nomination.additionalComments ?? nullMessage}
         </FieldDisplay>
       </div>
     </div>
