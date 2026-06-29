@@ -164,6 +164,11 @@ type LocalizedEducationType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedEmployeeVerification implements LocalizedEnumOption {
+  value: EmployeeVerification!
+  label: LocalizedString!
+}
+
 type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
@@ -1485,6 +1490,11 @@ enum EducationType {
 enum EmailType {
   CONTACT
   WORK
+}
+
+enum EmployeeVerification {
+  VERIFIED
+  NOT_VERIFIED
 }
 
 enum EmploymentCategory {

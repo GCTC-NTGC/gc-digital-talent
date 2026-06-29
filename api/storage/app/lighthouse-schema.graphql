@@ -158,6 +158,11 @@ type LocalizedEducationType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedEmployeeVerification implements LocalizedEnumOption {
+  value: EmployeeVerification!
+  label: LocalizedString!
+}
+
 type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
@@ -1922,7 +1927,7 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput
   poolFilters: [UserPoolFilterInput]
   isProfileComplete: Boolean
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   telephone: String
   email: String
   workEmail: String
@@ -1986,7 +1991,7 @@ input PoolCandidateSearchInput {
   generalSearch: String
   name: String
   notes: String
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   departments: [UUID!]
   priorityWeight: [PriorityWeight]
   statuses: [ApplicationStatus]
@@ -2050,7 +2055,7 @@ input TalentRequestMatchFilterInput {
   name: String
   email: String
   priorityWeight: [PriorityWeight]
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   departments: [UUID!]
   excludeTrackedByRequestId: UUID
 }
@@ -4319,6 +4324,11 @@ enum EducationType {
 enum EmailType {
   CONTACT
   WORK
+}
+
+enum EmployeeVerification {
+  VERIFIED
+  NOT_VERIFIED
 }
 
 enum EmploymentCategory {
