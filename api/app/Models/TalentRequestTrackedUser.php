@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
 use SortDirection;
@@ -60,6 +61,25 @@ class TalentRequestTrackedUser extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /** @return HasManyThrough<PoolCandidate, User, $this> */
+    public function matchingQualifiedInPoolSources(): HasManyThrough
+    {
+        // talentRequest.applicantFilter.* is pre-loaded via @with on the schema field
+        $filter = $this->talentRequest->applicantFilter;
+
+        return $this->hasManyThrough(PoolCandidate::class, User::class, 'id', 'user_id', 'user_id', 'id')
+            ->whereMatchesTalentRequest([
+                'qualifiedInClassifications' => $filter->qualifiedInClassifications
+                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
+                    ->toArray(),
+                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
+                    ->map(fn ($ws) => ['id' => $ws->id])
+                    ->toArray(),
+                'community' => $filter->community_id,
+            ])
+            ->whereAuthorizedToView();
     }
 
     /** @return Attribute<array<string>, never> */
