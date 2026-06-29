@@ -20,7 +20,7 @@ describe("protected endpoint exchange", () => {
   test("uses protected endpoint when operation context forces it", () => {
     const context = buildContext({
       forceProtectedEndpoint: true,
-    } as Partial<OperationContext>);
+    } satisfies Partial<OperationContext>);
 
     expect(
       shouldUseProtectedEndpoint("/en/communities/talent-events", context),

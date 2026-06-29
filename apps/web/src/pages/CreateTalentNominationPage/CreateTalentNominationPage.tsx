@@ -60,7 +60,7 @@ const CreateTalentNominationPage = () => {
   const protectedEndpointUnavailableMessage = intl.formatMessage({
     defaultMessage:
       "This nomination action requires access to the secure network. Please connect and try again.",
-    id: "zQaG0N",
+    id: "BE7G7g",
     description:
       "Toast for nomination actions that require secure network access",
   });
