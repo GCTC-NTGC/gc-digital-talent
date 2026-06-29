@@ -2,15 +2,19 @@
 
 namespace App\Builders;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\PriorityWeight;
+use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +23,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * @template TModelClass of \Illuminate\Database\Eloquent\Model
  *
- * @extends \Illuminate\Database\Eloquent\Builder<TModelClass>
+ * @extends Builder<TModelClass>
  */
 class UserBuilder extends Builder
 {
@@ -135,7 +139,7 @@ class UserBuilder extends Builder
             $poolFilters[$index] = [
                 'poolId' => $poolId,
                 'expiryStatus' => CandidateExpiryFilter::ACTIVE->name,
-                'statuses' => PoolCandidateStatus::qualifiedEquivalentGroup(),
+                'statuses' => [ApplicationStatus::QUALIFIED->name],
                 'suspendedStatus' => CandidateSuspendedFilter::ACTIVE->name,
             ];
         }
@@ -352,6 +356,91 @@ class UserBuilder extends Builder
         });
     }
 
+    // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
+    public function whereMatchesTalentRequest(?array $args): self
+    {
+        $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
+        $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
+
+        // keep only users who match at least one of the request's selected sources
+        $this->where(function ($query) use ($filters) {
+            foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+            }
+        });
+
+        // user-level attribute and location filters
+        $this->whereHasDiploma($filters['hasDiploma'] ?? null)
+            ->whereEquityIn($filters['equity'] ?? null)
+            ->whereLanguageAbility($filters['languageAbility'] ?? null)
+            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
+            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
+            ->whereSkillsAdditive($skillIds)
+            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
+            ->whereFlexibleLocationAndRegionSpecialMatching(
+                $filters['locationPreferences'] ?? null,
+                $filters['flexibleWorkLocations'] ?? null
+            );
+
+        $this->addSkillCountSelect($skillIds);
+        $this->withTalentRequestMatches($filters);
+
+        $excludeTrackedByRequestId = $args['excludeTrackedByRequestId'] ?? null;
+        if ($excludeTrackedByRequestId) {
+            $this->whereDoesntHave('talentRequestTrackedUsers', fn ($trackedUsers) => $trackedUsers
+                ->where('talent_request_id', $excludeTrackedByRequestId));
+        }
+
+        return $this;
+    }
+
+    // eager-load each selected source's matched, view-authorized records onto the user
+    public function withTalentRequestMatches(array $filters): self
+    {
+        foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
+            $this->with([$source->matchRelation() => fn ($r) => $r
+                ->whereMatchesTalentRequest($filters)
+                ->whereAuthorizedToView()]);
+        }
+
+        return $this;
+    }
+
+    public function wherePriorityWeightIn(?array $priorityWeights): self
+    {
+        if (empty($priorityWeights)) {
+            return $this;
+        }
+
+        // priority_weight is a generated column on users (10/20/30/40)
+        $weights = array_map(
+            fn ($priorityWeight) => PriorityWeight::weight($priorityWeight),
+            $priorityWeights
+        );
+
+        return $this->whereIn('priority_weight', $weights);
+    }
+
+    public function orderBySkillCount(array $args): self
+    {
+        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
+    }
+
+    // Always selects a skill_count column so the field is resolvable: the real count of the
+    // user's skills matching the filter, or null when no skills filter was supplied. Both
+    // branches are sub-selects so Laravel keeps users.* alongside the aliased column.
+    private function addSkillCountSelect(array $skillIds): self
+    {
+        $count = empty($skillIds)
+            ? DB::query()->selectRaw('null')
+            : DB::table('user_skills')
+                ->selectRaw('count(*)')
+                ->whereColumn('user_skills.user_id', 'users.id')
+                ->whereIn('user_skills.skill_id', $skillIds);
+
+        return $this->addSelect(['skill_count' => $count]);
+    }
+
     /**
      * Return users who have a PoolCandidate in a given community
      */
@@ -479,9 +568,20 @@ class UserBuilder extends Builder
         return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
     }
 
+    // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
+    public function whereWorkEmailSearch(?array $args): self
+    {
+        return $this->whereWorkEmail($args['search'] ?? null);
+    }
+
     public function whereExactWorkEmail(string $email): self
     {
         return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+    }
+
+    public function whereWorkEmailIsVerified(): self
+    {
+        return $this->whereNotNull('work_email_verified_at');
     }
 
     public function whereIsGovEmployee(?bool $isGovEmployee): self
@@ -498,6 +598,34 @@ class UserBuilder extends Builder
         return $this->where('computed_is_gov_employee', true)
             ->whereNotNull('work_email')
             ->whereNotNull('work_email_verified_at');
+    }
+
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        $hasVerified = in_array(EmployeeVerification::VERIFIED->name, $employeeVerification);
+        $hasNotVerified = in_array(EmployeeVerification::NOT_VERIFIED->name, $employeeVerification);
+
+        if ($hasVerified && $hasNotVerified) {
+            return $this->where(function ($query) {
+                $query->whereIsVerifiedGovEmployee()
+                    ->orWhere(function ($q) {
+                        $q->where('computed_is_gov_employee', true)
+                            ->whereNotNull('work_email');
+                    });
+            });
+        }
+
+        if ($hasVerified) {
+            return $this->whereIsVerifiedGovEmployee();
+        }
+
+        return $this->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNull('work_email_verified_at');
     }
 
     public function whereRoleIn(?array $roleIds): self
@@ -563,7 +691,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -637,7 +765,7 @@ class UserBuilder extends Builder
 
     public function whereAuthorizedToViewBasicInfo(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         // special case: can see any basic info - return all users with no filters added
@@ -753,6 +881,38 @@ class UserBuilder extends Builder
                 ->from('users')
                 ->orderByDesc('search_rank');
         }
+
+        return $this;
+    }
+
+    /*
+     * Find the existing users that would be possible to migrate to
+     */
+    public function whereIsPossibleMigrationTarget(string $sourceUserId, ?string $email, ?string $telephone): self
+    {
+        // can't be same account
+        $this->whereNot('id', $sourceUserId);
+
+        // must have matching email in backup
+        $this->where(new Expression('trim(email_backup)'), 'ilike', trim($email));
+
+        // must have matching phone number, ignoring leading 1s
+        $normalizedTelephone = preg_replace('/\D+/', '', $telephone ?? '');
+        $normalizedTelephone = ltrim($normalizedTelephone, '01');
+        $this->where(
+            new Expression("ltrim(regexp_replace(telephone,'\\D+', '', 'g'), '01')"),
+            $normalizedTelephone
+        );
+
+        // can't be logged into CanadaLogin last
+        $this->where(function ($subQuery) {
+            $subQuery
+                ->whereNull('last_sign_in_iss')
+                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
+        });
+
+        // can't be soft deleted
+        // handled by global scope
 
         return $this;
     }

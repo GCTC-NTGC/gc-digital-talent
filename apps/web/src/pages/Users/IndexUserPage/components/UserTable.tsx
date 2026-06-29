@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
-import {
+import type {
   ColumnDef,
   PaginationState,
   SortingState,
-  createColumnHelper,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import isEqual from "lodash/isEqual";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
 
@@ -17,13 +17,14 @@ import {
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import { User, UserFilterInput, graphql } from "@gc-digital-talent/graphql";
+import type { User, UserFilterInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import { getFullNameHtml, getFullNameLabel } from "~/utils/nameUtils";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -44,7 +45,8 @@ import {
   transformUserFilterInputToFormValues,
   transformUserInput,
 } from "./utils";
-import UserFilterDialog, { FormValues } from "./UserFilterDialog";
+import type { FormValues } from "./UserFilterDialog";
+import UserFilterDialog from "./UserFilterDialog";
 
 const columnHelper = createColumnHelper<User>();
 
@@ -129,8 +131,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
               id
               name
               displayName {
-                en
-                fr
+                localized
               }
             }
           }
@@ -467,7 +468,7 @@ const UserTable = ({ title }: UserTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.usersPaginated?.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
@@ -495,6 +496,7 @@ const UserTable = ({ title }: UserTableProps) => {
         initialState: defaultState.sortState,
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <UserFilterDialog

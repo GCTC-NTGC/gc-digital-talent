@@ -16,7 +16,7 @@ final class DeleteSkillValidator extends Validator
     {
 
         return [
-            'id' => [new SkillNotUsedByActivePool],
+            'id' => [new SkillNotUsedByActivePool()],
         ];
     }
 

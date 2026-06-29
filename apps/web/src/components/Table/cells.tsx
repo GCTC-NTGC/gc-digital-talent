@@ -1,12 +1,13 @@
-import { IntlShape } from "react-intl";
-import { AriaAttributes, JSX } from "react";
+import type { IntlShape } from "react-intl";
+import type { AriaAttributes, JSX } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
-import Actions, { ActionsProps } from "./Actions";
-import CommaList, { CommaListProps } from "./CommaList";
+import type { ActionsProps } from "./Actions";
+import Actions from "./Actions";
+import type { CommaListProps } from "./CommaList";
+import CommaList from "./CommaList";
 import EditLink from "./EditLink";
 import ViewLink from "./ViewLink";
 
@@ -21,8 +22,8 @@ function commaListCell(props: CommaListProps) {
 function editCell(
   id: string,
   editUrlRoot: string,
-  label?: Maybe<string>,
-  text?: Maybe<string>,
+  label?: string | null,
+  text?: string | null,
 ) {
   return (
     <EditLink id={id} editUrlRoot={editUrlRoot} label={label} text={text} />
@@ -49,7 +50,7 @@ function jsxCell(element: JSX.Element | null): JSX.Element | null {
   return element ?? null;
 }
 
-function emailCell(email?: Maybe<string>) {
+function emailCell(email?: string | null) {
   if (!email) return null;
   return (
     <Link external color="black" href={`mailto:${email}`}>
@@ -58,7 +59,7 @@ function emailCell(email?: Maybe<string>) {
   );
 }
 
-function phoneCell(telephone?: Maybe<string>) {
+function phoneCell(telephone?: string | null) {
   if (!telephone) return null;
   return (
     <Link
@@ -73,13 +74,14 @@ function phoneCell(telephone?: Maybe<string>) {
 }
 
 function dateCell(
-  value: Maybe<Scalars["DateTime"]["output"]> | undefined,
+  value: string | null | undefined,
   intl: IntlShape,
+  formatString?: string,
 ): string {
   return value
     ? formatDate({
         date: parseDateTimeUtc(value),
-        formatString: "PPP p",
+        formatString: formatString ?? "PPP p",
         intl,
       })
     : "";

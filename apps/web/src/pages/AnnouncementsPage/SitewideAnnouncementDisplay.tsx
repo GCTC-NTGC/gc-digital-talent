@@ -5,7 +5,7 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { SitewideAnnouncement } from "@gc-digital-talent/graphql";
+import type { SitewideAnnouncement } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
@@ -26,28 +26,33 @@ const SitewideAnnouncementDisplay = ({
   }
 
   const notProvided = intl.formatMessage(commonMessages.notProvided);
-  const { isEnabled, publishDate, expiryDate, title, message } = initialData;
+  const { isEnabled, isDismissible, publishDate, expiryDate, title, message } =
+    initialData;
   const { en: titleEn, fr: titleFr } = title;
   const { en: messageEn, fr: messageFr } = message;
   return (
-    <div className="grid gap-6 xs:grid-cols-2">
-      <ToggleForm.FieldDisplay
-        label={intl.formatMessage(labels.isEnabled)}
-        className="xs:col-span-2"
-      >
+    <div className="grid grid-cols-2 gap-6">
+      <ToggleForm.FieldDisplay label={intl.formatMessage(labels.isEnabled)}>
         {isEnabled
+          ? intl.formatMessage(commonMessages.yes)
+          : intl.formatMessage(commonMessages.no)}
+      </ToggleForm.FieldDisplay>
+      <ToggleForm.FieldDisplay label={intl.formatMessage(labels.isDismissible)}>
+        {isDismissible
           ? intl.formatMessage(commonMessages.yes)
           : intl.formatMessage(commonMessages.no)}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!publishDate}
         label={intl.formatMessage(labels.publishDateUtc)}
+        className="col-span-2 xs:col-span-1"
       >
         {publishDate ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!publishDate}
         label={intl.formatMessage(labels.publishDateLocal)}
+        className="col-span-2 xs:col-span-1"
       >
         {publishDate
           ? formatDate({
@@ -60,12 +65,14 @@ const SitewideAnnouncementDisplay = ({
       <ToggleForm.FieldDisplay
         hasError={!expiryDate}
         label={intl.formatMessage(labels.expiryDateUtc)}
+        className="col-span-2 xs:col-span-1"
       >
         {expiryDate ?? notProvided}
       </ToggleForm.FieldDisplay>
       <ToggleForm.FieldDisplay
         hasError={!expiryDate}
         label={intl.formatMessage(labels.expiryDateLocal)}
+        className="col-span-2 xs:col-span-1"
       >
         {expiryDate
           ? formatDate({
@@ -79,6 +86,7 @@ const SitewideAnnouncementDisplay = ({
         hasError={!titleEn}
         label={intl.formatMessage(commonMessages.title)}
         appendLanguageToLabel={"en"}
+        className="col-span-2 xs:col-span-1"
       >
         {titleEn ?? notProvided}
       </ToggleForm.FieldDisplay>
@@ -86,6 +94,7 @@ const SitewideAnnouncementDisplay = ({
         hasError={!titleFr}
         label={intl.formatMessage(commonMessages.title)}
         appendLanguageToLabel={"fr"}
+        className="col-span-2 xs:col-span-1"
       >
         {titleFr ?? notProvided}
       </ToggleForm.FieldDisplay>
@@ -93,6 +102,7 @@ const SitewideAnnouncementDisplay = ({
         hasError={!messageEn}
         label={intl.formatMessage(labels.message)}
         appendLanguageToLabel={"en"}
+        className="col-span-2 xs:col-span-1"
       >
         {messageEn ? (
           <RichTextRenderer node={htmlToRichTextJSON(messageEn)} />
@@ -104,6 +114,7 @@ const SitewideAnnouncementDisplay = ({
         hasError={!messageFr}
         label={intl.formatMessage(labels.message)}
         appendLanguageToLabel={"fr"}
+        className="col-span-2 xs:col-span-1"
       >
         {messageFr ? (
           <RichTextRenderer node={htmlToRichTextJSON(messageFr)} />

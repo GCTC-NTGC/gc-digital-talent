@@ -1,5 +1,5 @@
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
-import { Skill, User } from "@gc-digital-talent/graphql";
+import type { Skill, User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import AdminUser from "~/fixtures/AdminUser";
@@ -64,7 +64,7 @@ test.describe("User skills", () => {
     await adminUser.goToSkills(user.id);
 
     await adminUser.page.getByRole("button", { name: /show 10/i }).click();
-    await adminUser.page.getByRole("menuitemradio", { name: /50/i }).click();
+    await adminUser.page.getByRole("menuitemradio", { name: /^50$/i }).click();
     await adminUser.page.keyboard.press("Escape");
 
     await expect(

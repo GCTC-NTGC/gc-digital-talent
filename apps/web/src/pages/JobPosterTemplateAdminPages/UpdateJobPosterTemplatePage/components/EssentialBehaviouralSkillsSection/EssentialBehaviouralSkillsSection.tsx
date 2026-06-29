@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import sortBy from "lodash/sortBy";
@@ -7,16 +8,17 @@ import sortBy from "lodash/sortBy";
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   FragmentType,
-  getFragment,
   UpdateJobPosterTemplateInput,
   UpdateJobPosterTemplateEssentialBehaviouralSkillsFragment,
-  PoolSkillType,
   CreateJobPosterTemplateSkillInput,
   UpdateJobPosterTemplateSkillsInput,
-  Scalars,
+} from "@gc-digital-talent/graphql";
+import {
+  graphql,
+  getFragment,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -24,11 +26,10 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
-import { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
+import type { ListItem as SkillProficiencyListItem } from "~/components/SkillProficiencyList/SkillProficiencyList";
 
-import EssentialBehaviouralSkillsForm, {
-  FormValues,
-} from "../../../components/EssentialBehaviouralSkillsForm";
+import type { FormValues } from "../../../components/EssentialBehaviouralSkillsForm";
+import EssentialBehaviouralSkillsForm from "../../../components/EssentialBehaviouralSkillsForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 import { isEssentialBehaviouralSkill } from "../../utils";
@@ -116,7 +117,7 @@ const initialDataToFormValues = ({
 };
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   {
     essentialBehaviouralSkillProficiencies,
     essentialBehaviouralSkillsNotesEn,

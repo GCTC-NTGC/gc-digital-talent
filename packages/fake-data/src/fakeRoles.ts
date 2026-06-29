@@ -1,4 +1,4 @@
-import { Role } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
 
 import toLocalizedString from "./fakeLocalizedString";
 

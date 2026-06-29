@@ -1,30 +1,28 @@
-import { JSX, ReactNode } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import type { JSX, ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
-  Locales,
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
-
-import { formatClassificationString } from "~/utils/poolUtils";
 
 import Text from "./Text";
 
 const PoolWhoCanApplyText_Fragment = graphql(/* GraphQL */ `
   fragment WhoCanApplyText on Pool {
     classification {
-      group
-      level
+      groupAndLevel
     }
     department {
       name {
@@ -159,12 +157,8 @@ const WhoCanApplyText = ({ poolQuery }: WhoCanApplyTextProps) => {
     pool.selectionLimitations?.map((l) => l.value) ?? [];
 
   const classificationString =
-    !!pool.classification?.group && !!pool.classification?.level
-      ? formatClassificationString({
-          group: pool.classification.group,
-          level: pool.classification.level,
-        })
-      : intl.formatMessage(commonMessages.notProvided);
+    pool.classification?.groupAndLevel ??
+    intl.formatMessage(commonMessages.notProvided);
 
   const departmentName = getLocalizedName(pool.department?.name, intl, true);
 

@@ -5,7 +5,7 @@ import ArchiveBoxIcon from "@heroicons/react/24/solid/ArchiveBoxIcon";
 import { Dialog, Button } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
 
-import { ProcessDialogProps } from "./types";
+import type { ProcessDialogProps } from "./types";
 
 interface ArchiveProcessDialogProps extends ProcessDialogProps {
   onArchive: () => Promise<void>;

@@ -3,10 +3,14 @@ import { useQuery } from "urql";
 
 import { localizedEnumToOptions, RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import { CafFieldsOptionsQuery, graphql } from "@gc-digital-talent/graphql";
+import type { CafFieldsOptionsQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 
 const CafFieldsOptions_Query = graphql(/* GraphQL */ `
   query CafFieldsOptions {

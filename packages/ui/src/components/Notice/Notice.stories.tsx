@@ -1,11 +1,12 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker/locale/en";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 import { action } from "storybook/actions";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import Notice, { NoticeProps } from "./Notice";
+import type { NoticeProps } from "./Notice";
+import Notice from "./Notice";
 import Button from "../Button";
 import Link from "../Link";
 import { Container } from "../Container/Container";
@@ -156,7 +157,9 @@ const Template = (props: NoticeProps) => {
 
 export const Default: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
   },
   render: (args) => (
     <Container>
@@ -167,7 +170,9 @@ export const Default: StoryObj<typeof Notice.Root> = {
 
 export const Card: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     mode: "card",
   },
   render: (args) => (
@@ -192,7 +197,9 @@ export const Basic: StoryObj<typeof Notice.Root> = {
 
 export const Small: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     small: true,
     color: "gray",
   },
@@ -262,7 +269,9 @@ export const Small: StoryObj<typeof Notice.Root> = {
 
 export const NoIcon: StoryObj<typeof Notice.Root> = {
   args: {
-    onDismiss: () => action("dismiss")(),
+    onDismiss: () => {
+      action("dismiss")();
+    },
     color: "gray",
   },
   render: (args) => (
@@ -337,6 +346,73 @@ export const NonDismissible: StoryObj<typeof Notice.Root> = {
           <Notice.Title icon={AcademicCapIcon} as="h2">
             Non-Dismissible (inline)
           </Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+        <Notice.Root {...args} mode="card">
+          <Notice.Title icon={AcademicCapIcon} as="h2">
+            Non-Dismissible (card)
+          </Notice.Title>
+          <Notice.Content>
+            <p>{faker.lorem.paragraph()}</p>
+          </Notice.Content>
+          <Notice.Actions>
+            <Button
+              mode="inline"
+              size="sm"
+              color={args.color === "gray" ? "black" : args.color}
+            >
+              Button
+            </Button>
+            <Link
+              mode="inline"
+              color={args.color === "gray" ? "black" : args.color}
+              href="#"
+              size="sm"
+            >
+              Link
+            </Link>
+          </Notice.Actions>
+          <Notice.Footer>
+            <p>{faker.lorem.sentence()}</p>
+          </Notice.Footer>
+        </Notice.Root>
+      </div>
+    </Container>
+  ),
+};
+
+export const NonDismissibleNoIcon: StoryObj<typeof Notice.Root> = {
+  args: {
+    small: false,
+    color: "gray",
+  },
+  render: (args) => (
+    <Container>
+      <div className="flex flex-col gap-y-6">
+        <Notice.Root {...args} mode="inline">
+          <Notice.Title as="h2">Non-Dismissible (inline)</Notice.Title>
           <Notice.Content>
             <p>{faker.lorem.paragraph()}</p>
           </Notice.Content>

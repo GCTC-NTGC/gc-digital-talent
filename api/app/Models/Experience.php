@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
@@ -16,8 +17,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  *
  * @property string $id
  * @property string $user_id
- * @property \Illuminate\Support\Carbon $created_at
- * @property \Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 abstract class Experience extends Model
 {
@@ -54,7 +55,7 @@ abstract class Experience extends Model
 
     public function skills(): HasManyDeep
     {
-        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill)->skill())
+        return $this->hasManyDeepFromRelations($this->userSkills(), (new UserSkill())->skill())
             ->withPivot('experience_skill', ['created_at', 'updated_at', 'details'])
             ->whereNull('experience_skill.deleted_at')
             ->withTrashed(); // from the deep relation $this->userSkills->skills fetch soft deleted skills but not userSkills
@@ -205,7 +206,7 @@ abstract class Experience extends Model
                     'details' => 'details',
                 ];
 
-                $model = new $hydrationModel;
+                $model = new $hydrationModel();
                 $experiences[] = self::hydrateFields($experience, $fields, $model);
             }
         }

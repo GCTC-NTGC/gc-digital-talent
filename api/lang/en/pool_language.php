@@ -8,4 +8,5 @@ return [
     'english' => Lang::get('common.english_only', [], 'en'),
     'french' => Lang::get('common.french_only', [], 'en'),
     'various' => 'Various (English or French)',
+    'various_bilingual' => 'Various (Bilingual)',
 ];

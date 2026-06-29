@@ -22,12 +22,29 @@ const communityInterestQuery = makeFragmentData(
     ...mockCommunityInterests[0],
     jobInterest: false,
     trainingInterest: true,
+    user: {
+      developmentProgramUserRecords:
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
+          (interest, index) => {
+            return {
+              id: index.toString(),
+              developmentProgram: {
+                id: interest.developmentProgram.id,
+              },
+              participationStatus: interest.participationStatus,
+              completionDate: interest.completionDate,
+            };
+          },
+        ),
+    },
   },
   CommunityInterest_Fragment,
 );
+
 const communityInterestOptionsQuery = makeFragmentData(
   {
-    financeChiefDuties: [
+    communityInterestAdditionalDuties: [
       { value: "1", label: { localized: "Duty 1" } },
       { value: "2", label: { localized: "Duty 2" } },
     ],

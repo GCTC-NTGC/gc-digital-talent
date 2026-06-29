@@ -2,10 +2,10 @@ import { useIntl } from "react-intl";
 
 import { Notice } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Maybe, Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 interface SkillDescriptionProps {
-  skill?: Maybe<Skill>;
+  skill?: Skill | null;
 }
 
 const SkillDescription = ({ skill }: SkillDescriptionProps) => {

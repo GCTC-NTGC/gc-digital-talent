@@ -1,6 +1,6 @@
 import { pipe, tap } from "wonka";
 import type { Exchange } from "@urql/core";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";

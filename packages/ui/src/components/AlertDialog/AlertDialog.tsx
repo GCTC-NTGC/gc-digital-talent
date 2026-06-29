@@ -2,12 +2,8 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/alert-dialog
  */
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
-import {
-  forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from "react";
+import type { ComponentRef, ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
 import Separator from "../Separator";
 

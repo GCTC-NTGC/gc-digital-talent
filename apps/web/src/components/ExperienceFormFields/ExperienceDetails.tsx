@@ -4,7 +4,10 @@ import { useIntl } from "react-intl";
 import { Heading } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
-import { AllExperienceFormValues, ExperienceType } from "~/types/experience";
+import type {
+  AllExperienceFormValues,
+  ExperienceType,
+} from "~/types/experience";
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";

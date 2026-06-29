@@ -1,6 +1,7 @@
 import { act, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { Provider as GraphqlProvider, GraphQLRequest } from "urql";
+import type { GraphQLRequest } from "urql";
+import { Provider as GraphqlProvider } from "urql";
 import { fromValue } from "wonka";
 import { Kind } from "graphql";
 import { vi } from "vitest";
@@ -10,10 +11,8 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
-import {
-  EmployeeInformationForm,
-  EmployeeInformationFormProps,
-} from "./EmployeeInformationPage";
+import type { EmployeeInformationFormProps } from "./EmployeeInformationPage";
+import { EmployeeInformationForm } from "./EmployeeInformationPage";
 import { getFakeWorkFieldOptionsResponse } from "./testUtils";
 
 export const tryGetOperationName = (request: GraphQLRequest): string | null => {

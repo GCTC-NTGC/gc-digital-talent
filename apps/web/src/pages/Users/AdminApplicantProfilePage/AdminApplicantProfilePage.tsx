@@ -3,12 +3,8 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Accordion,
   Button,
@@ -24,7 +20,7 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
-import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import type { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
 
 import { SECTION_KEY } from "./types";
 import PersonalAndContactInformation, {
@@ -39,6 +35,9 @@ import WorkPreferences, {
 import DiversityEquityInclusion, {
   DEI_ID,
 } from "./components/DiversityEquityInclusion";
+import CitizenVeteranPriority, {
+  CITIZEN_VETERAN_PRIORITY_ID,
+} from "./components/CitizenVeteranPriority";
 import GovernmentInformation, {
   GOV_INFO_ID,
 } from "./components/GovernmentInformation";
@@ -51,6 +50,7 @@ const AdminApplicantProfile_Fragment = graphql(/** GraphQL */ `
     ...LanguageProfile
     ...AdminWorkPreferences
     ...DiversityEquityInclusion
+    ...CitizenVeteranPriority
     ...GovernmentInformation
   }
 `);
@@ -115,6 +115,17 @@ const AdminApplicantProfile = ({
                   </TableOfContents.AnchorLink>
                 </TableOfContents.ListItem>
                 <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={CITIZEN_VETERAN_PRIORITY_ID}>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Citizenship, veteran status and priority entitlements",
+                      id: "ltYqKQ",
+                      description:
+                        "Title for the citizen/veteran/priority section",
+                    })}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
                   <TableOfContents.AnchorLink id={GOV_INFO_ID}>
                     {intl.formatMessage(profileMessages.govEmployeeInformation)}
                   </TableOfContents.AnchorLink>
@@ -170,9 +181,11 @@ const AdminApplicantProfile = ({
               id={PERSONAL_CONTACT_INFO_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(
-                  profileMessages.personalAndContactInformation,
-                )}
+                <span className="font-normal">
+                  {intl.formatMessage(
+                    profileMessages.personalAndContactInformation,
+                  )}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <PersonalAndContactInformation query={user} />
@@ -184,7 +197,9 @@ const AdminApplicantProfile = ({
               id={LANGUAGE_PROFILE_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(profileMessages.languageProfile)}
+                <span className="font-normal">
+                  {intl.formatMessage(profileMessages.languageProfile)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <LanguageProfile query={user} />
@@ -196,7 +211,9 @@ const AdminApplicantProfile = ({
               id={WORK_PREFERENCES_ID}
             >
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(navigationMessages.workPreferences)}
+                <span className="font-normal">
+                  {intl.formatMessage(navigationMessages.workPreferences)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <WorkPreferences query={user} optionsQuery={optionsQuery} />
@@ -205,18 +222,42 @@ const AdminApplicantProfile = ({
 
             <Accordion.Item value={SECTION_KEY.DEI} id={DEI_ID}>
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(
-                  navigationMessages.diversityEquityInclusion,
-                )}
+                <span className="font-normal">
+                  {intl.formatMessage(
+                    navigationMessages.diversityEquityInclusion,
+                  )}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <DiversityEquityInclusion query={user} />
               </Accordion.Content>
             </Accordion.Item>
 
+            <Accordion.Item
+              value={SECTION_KEY.CITIZEN_VETERAN_PRIORITY_ID}
+              id={CITIZEN_VETERAN_PRIORITY_ID}
+            >
+              <Accordion.Trigger as="h3">
+                <span className="font-normal">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Citizenship, veteran status and priority entitlements",
+                    id: "ltYqKQ",
+                    description:
+                      "Title for the citizen/veteran/priority section",
+                  })}
+                </span>
+              </Accordion.Trigger>
+              <Accordion.Content>
+                <CitizenVeteranPriority query={user} />
+              </Accordion.Content>
+            </Accordion.Item>
+
             <Accordion.Item value={SECTION_KEY.GOV_INFO} id={GOV_INFO_ID}>
               <Accordion.Trigger as="h3">
-                {intl.formatMessage(profileMessages.govEmployeeInformation)}
+                <span className="font-normal">
+                  {intl.formatMessage(profileMessages.govEmployeeInformation)}
+                </span>
               </Accordion.Trigger>
               <Accordion.Content>
                 <GovernmentInformation query={user} />
@@ -239,7 +280,7 @@ const AdminApplicantProfilePage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminApplicantProfilePage = () => {

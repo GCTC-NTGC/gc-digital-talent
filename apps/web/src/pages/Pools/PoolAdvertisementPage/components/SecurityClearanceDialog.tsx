@@ -1,17 +1,18 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/solid/InformationCircleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
+import type { HeadingProps } from "@gc-digital-talent/ui";
 import {
   Button,
   Dialog,
   Heading,
-  HeadingProps,
   IconButton,
   Link,
   Ul,
 } from "@gc-digital-talent/ui";
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 const securityScreenConsentFormLink = (locale: Locales, chunks: ReactNode) => (
   <Link
@@ -207,18 +208,18 @@ const SecurityClearanceDialog = () => {
               )}
             </p>
           </div>
+          <Dialog.Footer>
+            <Dialog.Close>
+              <Button color="primary">
+                {intl.formatMessage({
+                  defaultMessage: "Close",
+                  id: "4p0QdF",
+                  description: "Button text used to close an open modal",
+                })}
+              </Button>
+            </Dialog.Close>
+          </Dialog.Footer>
         </Dialog.Body>
-        <Dialog.Footer>
-          <Dialog.Close>
-            <Button color="primary">
-              {intl.formatMessage({
-                defaultMessage: "Close",
-                id: "4p0QdF",
-                description: "Button text used to close an open modal",
-              })}
-            </Button>
-          </Dialog.Close>
-        </Dialog.Footer>
       </Dialog.Content>
     </Dialog.Root>
   );

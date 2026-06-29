@@ -1,20 +1,19 @@
 import { Slot } from "@radix-ui/react-slot";
 import * as TogglePrimitive from "@radix-ui/react-toggle";
-import {
+import type {
   HTMLProps,
   ReactNode,
-  forwardRef,
-  useCallback,
-  useId,
   ComponentRef,
   ComponentPropsWithoutRef,
   HTMLAttributes,
   MouseEventHandler,
   ReactElement,
 } from "react";
+import { forwardRef, useCallback, useId } from "react";
 import { tv } from "tailwind-variants";
 
-import Heading, { HeadingProps } from "../Heading";
+import type { HeadingProps } from "../Heading";
+import Heading from "../Heading";
 import useControllableState from "../../hooks/useControllableState";
 import {
   ToggleSectionProvider,

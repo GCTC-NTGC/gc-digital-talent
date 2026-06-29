@@ -1,38 +1,44 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { fakeExperiences } from "@gc-digital-talent/fake-data";
+import { Container } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import CareerTimeline, {
-  CareerTimelineExperience_Fragment,
-} from "./components/CareerTimeline";
+import { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 
-export default {
-  component: CareerTimeline,
-  args: {
-    userId: "test",
-    experiencesQuery: [],
-    applicationsQuery: [],
-  },
-} as Meta<typeof CareerTimeline>;
-
-const CareerTimelineTemplate: StoryFn<typeof CareerTimeline> = (args) => {
-  return <CareerTimeline {...args} />;
-};
-
-export const NoExperiences = CareerTimelineTemplate.bind({});
-export const WithExperiences = CareerTimelineTemplate.bind({});
-export const NoExperiencesMissingSkills = CareerTimelineTemplate.bind({});
-export const WithExperiencesMissingSkills = CareerTimelineTemplate.bind({});
+import { CareerTimeline } from "./CareerTimelinePage";
 
 const mockExperiences = fakeExperiences(10);
 
-NoExperiences.args = {
-  experiencesQuery: [],
+const meta = {
+  component: CareerTimeline,
+  decorators: [
+    (Comp) => (
+      <Container className="mt-18">
+        <Comp />
+      </Container>
+    ),
+  ],
+  args: {
+    userId: "test",
+    experiencesQuery: [],
+  },
+} satisfies Meta<typeof CareerTimeline>;
+
+export default meta;
+
+type Story = StoryObj<typeof CareerTimeline>;
+
+export const WithExperiences: Story = {
+  args: {
+    experiencesQuery: mockExperiences.map((experience) =>
+      makeFragmentData(experience, CareerTimelineSectionExperience_Fragment),
+    ),
+  },
 };
 
-WithExperiences.args = {
-  experiencesQuery: mockExperiences.map((experience) =>
-    makeFragmentData(experience, CareerTimelineExperience_Fragment),
-  ),
+export const NoExperiences: Story = {
+  args: {
+    experiencesQuery: [],
+  },
 };

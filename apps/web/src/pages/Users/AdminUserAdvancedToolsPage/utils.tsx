@@ -1,18 +1,18 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { DefaultValues, FieldValues, useForm } from "react-hook-form";
+import type { DefaultValues, FieldValues } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import {
+import type {
   Community,
   Department,
   FragmentType,
-  getFragment,
-  graphql,
   Pool,
   Role,
   Team,
   UpdateUserRolesInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Chip, Chips } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -113,7 +113,7 @@ export const getRoleTableFragments = ({
   return { user, options: unpackMaybes(options.roles) };
 };
 
-export const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
+const UpdateUserRoles_Mutation = graphql(/* GraphQL */ `
   mutation UpdateUserRoles($input: UpdateUserRolesInput!) {
     updateUserRoles(updateUserRolesInput: $input) {
       id
@@ -196,7 +196,7 @@ export type DepartmentTeamable = Pick<
 
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
-export type Teamable =
+type Teamable =
   | PoolTeamable
   | CommunityTeamable
   | TeamTeamable

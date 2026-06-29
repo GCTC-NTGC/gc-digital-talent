@@ -1,14 +1,14 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import CheckCircleIcon from "@heroicons/react/24/outline/CheckCircleIcon";
 import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/outline/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTriangleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { IconType } from "../../types";
-import { AlertType } from "./types";
+import type { IconType } from "../../types";
+import type { AlertType } from "./types";
 
 export const iconMap: Record<AlertType, IconType> = {
   success: CheckCircleIcon,

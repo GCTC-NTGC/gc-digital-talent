@@ -1,18 +1,18 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Submit } from "@gc-digital-talent/forms";
-import {
-  graphql,
+import type {
   CreateDepartmentInput,
-  Scalars,
   LocalizedStringInput,
   DepartmentSize,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   Heading,
@@ -25,12 +25,13 @@ import {
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import FormFields from "./FormFields";
-import { DepartmentType, departmentTypeToInput } from "./utils";
+import type { DepartmentType } from "./utils";
+import { departmentTypeToInput } from "./utils";
 
 interface FormValues {
   name?: LocalizedStringInput;
@@ -63,9 +64,7 @@ const CreateDepartmentOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface CreateDepartmentProps {
-  handleCreateDepartment: (
-    data: CreateDepartmentInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateDepartment: (data: CreateDepartmentInput) => Promise<string>;
 }
 
 export const CreateDepartmentForm = ({
@@ -210,8 +209,8 @@ const CreateDepartmentPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
     <CreateDepartmentPage />
   </RequireAuth>
 );

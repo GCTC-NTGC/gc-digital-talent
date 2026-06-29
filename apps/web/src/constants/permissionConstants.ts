@@ -1,4 +1,5 @@
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   viewCandidates: [
@@ -17,7 +18,12 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.DepartmentAdmin,
     ROLE_NAME.DepartmentHRAdvisor,
   ],
-  createProcess: [ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin],
+  createProcess: [
+    ROLE_NAME.CommunityRecruiter,
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.DepartmentAdmin,
+    ROLE_NAME.DepartmentHRAdvisor,
+  ],
   viewRequests: [
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityAdmin,
@@ -30,6 +36,7 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
     ROLE_NAME.PlatformAdmin,
   ],
   viewCommunityTalent: [
+    ROLE_NAME.CommunityAdmin,
     ROLE_NAME.CommunityRecruiter,
     ROLE_NAME.CommunityTalentCoordinator,
     ROLE_NAME.PlatformAdmin,
@@ -37,6 +44,11 @@ const permissionConstants: Readonly<Record<string, RoleName[]>> = {
   viewCommunityTalentNominations: [
     ROLE_NAME.CommunityTalentCoordinator,
     ROLE_NAME.PlatformAdmin,
+    ROLE_NAME.CommunityAdmin,
+  ],
+  submitPastTalentNomination: [
+    ROLE_NAME.CommunityAdmin,
+    ROLE_NAME.CommunityTalentCoordinator,
   ],
 };
 

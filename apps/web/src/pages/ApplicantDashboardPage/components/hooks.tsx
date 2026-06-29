@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { ChipProps } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface MetaDataTalentNominationChipProps {

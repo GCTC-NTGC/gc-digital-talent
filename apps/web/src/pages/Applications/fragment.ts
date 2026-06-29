@@ -4,8 +4,18 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment Application_PoolCandidate on PoolCandidate {
     id
     submittedAt
+    status {
+      value
+    }
+
+    ...ApplicationSnapshot
+    ...DeleteApplicationDialog
+
     user {
-      ...UserProfile
+      ...ProfileWorkPreferences
+      ...ProfileDiversityEquityInclusion
+      ...ProfileCitizenVeteranPriority
+      ...ProfileLanguageProfile
       ...ProfilePersonalInformation
       ...ContactEmailCard
       ...WorkEmailCard
@@ -202,6 +212,8 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       poolSkills {
         id

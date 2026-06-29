@@ -1,4 +1,4 @@
-import { FocusEventHandler } from "react";
+import type { FocusEventHandler } from "react";
 import { tv } from "tailwind-variants";
 
 export const root = tv({

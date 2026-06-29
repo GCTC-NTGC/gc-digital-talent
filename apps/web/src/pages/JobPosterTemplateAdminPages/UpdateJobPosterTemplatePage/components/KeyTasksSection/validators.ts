@@ -1,4 +1,4 @@
-import { UpdateJobPosterTemplateKeyTasksFragment } from "@gc-digital-talent/graphql";
+import type { UpdateJobPosterTemplateKeyTasksFragment } from "@gc-digital-talent/graphql";
 
 export const hasAllEmptyFields = ({
   tasks,

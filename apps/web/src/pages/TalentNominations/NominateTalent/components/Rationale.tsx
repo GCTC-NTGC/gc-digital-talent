@@ -1,12 +1,10 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
-  Maybe,
-  Scalars,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -19,17 +17,18 @@ import {
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import labels from "../labels";
 
 interface FormValues extends BaseFormValues {
-  nominationRationale?: Maybe<string>;
-  skills?: Scalars["UUID"]["input"][];
-  additionalComments?: Maybe<string>;
+  nominationRationale?: string | null;
+  skills?: string[];
+  additionalComments?: string | null;
 }
 
 const NominateTalentSkills_Fragment = graphql(/* GraphQL */ `
@@ -102,7 +101,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         ),
       }}
     >
-      <SubHeading level="h2" icon={ChatBubbleBottomCenterTextIcon}>
+      <SubHeading icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}
       </SubHeading>
       <p className="my-6">

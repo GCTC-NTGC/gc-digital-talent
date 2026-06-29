@@ -7,3 +7,4 @@ parameters:
   level: 5
   paths:
     - app
+  ignoreErrors:

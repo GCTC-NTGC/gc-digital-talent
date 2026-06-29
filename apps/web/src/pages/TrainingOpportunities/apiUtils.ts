@@ -1,11 +1,11 @@
-import {
+import type {
   CourseFormat,
   CourseLanguage,
   CreateTrainingOpportunityInput,
-  graphql,
   TrainingOpportunityViewFragment,
   UpdateTrainingOpportunityInput,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 export const TrainingOpportunityForm_Fragment = graphql(/* GraphQL */ `
   fragment TrainingOpportunityView on TrainingOpportunity {

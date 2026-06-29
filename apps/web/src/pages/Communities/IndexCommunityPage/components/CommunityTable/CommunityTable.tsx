@@ -1,4 +1,5 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
@@ -6,12 +7,11 @@ import { useQuery } from "urql";
 import { Pending } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   CommunityTable_CommunityFragment as CommunityTableCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -20,7 +20,7 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import { checkRole } from "~/utils/communityUtils";
 import adminMessages from "~/messages/adminMessages";
 
-import { MyRoleTeam } from "./types";
+import type { MyRoleTeam } from "./types";
 import {
   myRolesAccessor,
   myRolesCell,
@@ -118,7 +118,7 @@ export const CommunityTable = ({
       pagination={{
         internal: true,
         total: data.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       search={{
         internal: true,

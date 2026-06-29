@@ -1,18 +1,17 @@
 import omit from "lodash/omit";
 import compact from "lodash/compact";
 
-import {
-  Maybe,
+import type {
   ProfileLanguageProfileFragment,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
 ): UpdateUserAsUserInput => {
-  let secondLanguageExamValidity: Maybe<boolean> | undefined = null;
+  let secondLanguageExamValidity: boolean | null | undefined = null;
   switch (formValues?.secondLanguageExamValidity) {
     case "currently_valid":
       secondLanguageExamValidity = true;
@@ -39,6 +38,8 @@ export const formValuesToSubmitData = (
     firstOfficialLanguage: formValues.firstOfficialLanguage ?? undefined,
     secondLanguageExamCompleted: formValues.secondLanguageExamCompleted,
     secondLanguageExamValidity,
+    preferredLanguageForInterview: formValues.preferredLanguageForInterview,
+    preferredLanguageForExam: formValues.preferredLanguageForExam,
   };
 
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
@@ -91,5 +92,7 @@ export const dataToFormValues = (
     firstOfficialLanguage: data?.firstOfficialLanguage?.value,
     secondLanguageExamCompleted: data?.secondLanguageExamCompleted,
     secondLanguageExamValidity,
+    preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
+    preferredLanguageForExam: data?.preferredLanguageForExam?.value,
   };
 };

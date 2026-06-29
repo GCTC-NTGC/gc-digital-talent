@@ -10,6 +10,7 @@ use GraphQL\Language\AST\NonNullTypeNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Nuwave\Lighthouse\CacheControl\CacheControlServiceProvider;
 use Nuwave\Lighthouse\Exceptions\DefinitionException;
@@ -28,7 +29,7 @@ class PaginationManipulator
      * for a relation, as the model is not required for resolving
      * that directive and the user may choose a different type.
      *
-     * @var class-string<\Illuminate\Database\Eloquent\Model>|null
+     * @var class-string<Model>|null
      */
     protected ?string $modelClass = null;
 
@@ -39,7 +40,7 @@ class PaginationManipulator
     /**
      * Set the model class to use for code generation.
      *
-     * @param  class-string<\Illuminate\Database\Eloquent\Model>|null  $modelClass
+     * @param  class-string<Model>|null  $modelClass
      */
     public function setModelClass(?string $modelClass): self
     {
@@ -109,8 +110,11 @@ GRAPHQL
                     "The {$fieldTypeName} node."
                     node: {$fieldTypeName}!
 
-                    "A unique cursor that can be used for pagination."
-                    cursor: String!
+                    "A unique cursor that can be used for forward pagination."
+                    nextCursor: String!
+
+                    "A unique cursor that can be used for reverse pagination."
+                    previousCursor: String!
                 }
 GRAPHQL
             );

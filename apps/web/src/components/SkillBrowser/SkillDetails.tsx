@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import type { SkillCategory } from "@gc-digital-talent/graphql";
 
 import UserSkillFormFields from "../UserSkillFormFields/UserSkillFormFields";
 

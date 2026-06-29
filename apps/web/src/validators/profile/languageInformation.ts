@@ -1,20 +1,20 @@
 import isEmpty from "lodash/isEmpty";
 
-import {
+import type {
   User,
   Pool,
   LocalizedLanguage,
-  Maybe,
   LocalizedEstimatedLanguageAbility,
   LocalizedEvaluatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
-type PartialEvaluatedLanguage = Maybe<
-  Pick<LocalizedEvaluatedLanguageAbility, "value">
->;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
+type PartialEvaluatedLanguage = Pick<
+  LocalizedEvaluatedLanguageAbility,
+  "value"
+> | null;
 
 export interface PartialUser extends Pick<
   User,
@@ -25,20 +25,31 @@ export interface PartialUser extends Pick<
   | "secondLanguageExamValidity"
 > {
   firstOfficialLanguage?: PartialLanguage;
-  estimatedLanguageAbility?: Maybe<
-    Pick<LocalizedEstimatedLanguageAbility, "value">
-  >;
+  estimatedLanguageAbility?: Pick<
+    LocalizedEstimatedLanguageAbility,
+    "value"
+  > | null;
   writtenLevel?: PartialEvaluatedLanguage;
   comprehensionLevel?: PartialEvaluatedLanguage;
   verbalLevel?: PartialEvaluatedLanguage;
+  preferredLanguageForInterview?: PartialLanguage;
+  preferredLanguageForExam?: PartialLanguage;
 }
 
 export function hasAllEmptyFields({
   lookingForEnglish,
   lookingForFrench,
   lookingForBilingual,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
-  return !lookingForEnglish && !lookingForFrench && !lookingForBilingual;
+  return (
+    !lookingForEnglish &&
+    !lookingForFrench &&
+    !lookingForBilingual &&
+    !preferredLanguageForInterview &&
+    !preferredLanguageForExam
+  );
 }
 
 export function hasEmptyRequiredFields({
@@ -52,6 +63,8 @@ export function hasEmptyRequiredFields({
   writtenLevel,
   comprehensionLevel,
   verbalLevel,
+  preferredLanguageForInterview,
+  preferredLanguageForExam,
 }: PartialUser): boolean {
   return !!(
     (!lookingForEnglish && !lookingForFrench && !lookingForBilingual) ||
@@ -62,7 +75,9 @@ export function hasEmptyRequiredFields({
         secondLanguageExamValidity === undefined ||
         isEmpty(writtenLevel) ||
         isEmpty(comprehensionLevel) ||
-        isEmpty(verbalLevel)))
+        isEmpty(verbalLevel))) ||
+    isEmpty(preferredLanguageForInterview) ||
+    isEmpty(preferredLanguageForExam)
   );
 }
 

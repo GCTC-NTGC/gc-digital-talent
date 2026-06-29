@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Notice, NoticeProps } from "@gc-digital-talent/ui";
+import type { NoticeProps } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 interface ToastMessageObject {
   title: ReactNode;

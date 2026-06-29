@@ -43,10 +43,6 @@
     "defaultMessage": "Sélectionnez {label}",
     "description": "Text to check checkbox button"
   },
-  "/l02AA": {
-    "defaultMessage": "Nom affiché",
-    "description": "Label displayed for a display name field"
-  },
   "/pptJd": {
     "defaultMessage": "Commis aux écritures et aux règlements",
     "description": "Full name of abbreviation for CR"
@@ -123,6 +119,10 @@
     "defaultMessage": "Juin",
     "description": "Name of the sixth month"
   },
+  "1go1mo": {
+    "defaultMessage": "Une erreur s’est produite lors de l’interruption des recommandations. Communiquez avec le service de soutien si ce problème persiste.",
+    "description": "Error message that pausing referrals for a candidate failed"
+  },
   "1i0PsT": {
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
@@ -187,6 +187,10 @@
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
   },
+  "4Uwcxk": {
+    "defaultMessage": "URL invalide",
+    "description": "Error message for invalid URL"
+  },
   "4WvSir": {
     "defaultMessage": "Agrandir tout",
     "description": "Generic link text to expand all accordions in a section"
@@ -212,7 +216,7 @@
     "description": "Not supported status"
   },
   "5RTQe6": {
-    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Une fois celle-ci terminée, vous recevrez une notification.",
+    "defaultMessage": "Préparation de votre fichier pour le téléchargement. Vous recevrez une notification lorsqu’il sera prêt.",
     "description": "Message to user when they request a file for download"
   },
   "5Skje0": {
@@ -283,6 +287,10 @@
     "defaultMessage": "Chaque évaluation doit inclure une ou plusieurs compétences à des fins d’évaluation",
     "description": "Error message that the pool advertisement assessments are lacking a skill"
   },
+  "7YjaCY": {
+    "defaultMessage": "L’expérience d’études sélectionnée n’est pas valide.",
+    "description": "Error message for development program must connect own education experience"
+  },
   "7hUWc+": {
     "defaultMessage": "Créer un profil",
     "description": "Link text for users to create a profile"
@@ -298,6 +306,10 @@
   "7woRF/": {
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
+  },
+  "8FkvT5": {
+    "defaultMessage": "La valeur du champ de statut de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid status"
   },
   "8RX9iJ": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement)",
@@ -330,6 +342,10 @@
   "9hjEsr": {
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
+  },
+  "9tH7k0": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed before start date"
   },
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
@@ -427,6 +443,10 @@
     "defaultMessage": "Une erreur s’est produite dans le téléchargement de votre fichier. Si ce message d’erreur persiste, veuillez communiquer avec l’équipe de soutien.",
     "description": "Message for when the download request failed"
   },
+  "DTw8xg": {
+    "defaultMessage": "Modifier les détails",
+    "description": "Label for button to edit details"
+  },
   "DUjO/t": {
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Title for remote, hybrid or on-site"
@@ -454,6 +474,10 @@
   "EZgD5d": {
     "defaultMessage": "Non disponible",
     "description": "Message displayed when specific information is not available"
+  },
+  "F6BSah": {
+    "defaultMessage": "La date de fin de l’interruption ne peut être ultérieure à la date d’expiration du bassin",
+    "description": "Error message for pause referral status end date input"
   },
   "F6j96P": {
     "defaultMessage": "Refaire",
@@ -543,9 +567,17 @@
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
+  "JCA/2+": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed before end date"
+  },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
+  },
+  "JPBRgs": {
+    "defaultMessage": "Une erreur est survenue lors de l'annulation de la décision finale. Le candidat a été placé.",
+    "description": "Error message that reverting the final decision for a placed candidate failed"
   },
   "JQfTpr": {
     "defaultMessage": "Recrutement",
@@ -603,8 +635,12 @@
     "defaultMessage": "Vitrine de compétences",
     "description": "Name of the skill showcase page"
   },
+  "MJzimR": {
+    "defaultMessage": "Le nom de l’événement ne peut pas être modifié.",
+    "description": "Error message for talent event cannot change name"
+  },
   "MQB4IA": {
-    "defaultMessage": "Enregistrer et continuez",
+    "defaultMessage": "Enregistrer et continuer",
     "description": "Button text to save a form step and continue to the next one"
   },
   "Mco0Km": {
@@ -643,6 +679,10 @@
     "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the veteran status date cannot be in the past."
   },
+  "NG15dv": {
+    "defaultMessage": "État de recommandation",
+    "description": "Label for the referral status field display"
+  },
   "NQspkZ": {
     "defaultMessage": "Tableau de bord de la collectivité",
     "description": "Name of the community dashboard page"
@@ -650,6 +690,10 @@
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
+  },
+  "NXyprm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme terminé.",
+    "description": "Error message for talent request completion details required"
   },
   "Nf2jAz": {
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
@@ -723,9 +767,17 @@
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
+  "PLVEUB": {
+    "defaultMessage": "La valeur du champ du type de poste de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid position type"
+  },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
+  },
+  "PPOcri": {
+    "defaultMessage": "Candidat introuvable",
+    "description": "Error message for when a pool candidate could not be found"
   },
   "PPSXML": {
     "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
@@ -738,6 +790,10 @@
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
     "description": "Prefix when a step has been completed."
+  },
+  "Q77DlA": {
+    "defaultMessage": "{daysOverdue, plural, one {# jour en retard} other {# jours en retard}}",
+    "description": "Message showing the number of days by which something is overdue"
   },
   "QP+Skh": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires régulièrement.",
@@ -766,6 +822,10 @@
   "QtzRCh": {
     "defaultMessage": "Statut",
     "description": "Title for status"
+  },
+  "RE4+M0": {
+    "defaultMessage": "Le programme de perfectionnement est introuvable dans votre collectivité.",
+    "description": "Error message for community development program not found or invalid"
   },
   "RgCSri": {
     "defaultMessage": "J'affirme que je suis membre d'une Première Nation (inscrit ou non inscrit), Inuk (Inuit) ou Métis.",
@@ -848,7 +908,7 @@
     "description": "Label for a created at date"
   },
   "TiIkSF": {
-    "defaultMessage": "Deux années post-secondaire",
+    "defaultMessage": "Deux années d'études postsecondaires",
     "description": "Option for education requirement, 2-year post-secondary"
   },
   "TnmQ2Q": {
@@ -870,6 +930,10 @@
   "U3QEUu": {
     "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
     "description": "The operational requirement described as travel as required."
+  },
+  "UZ6zTY": {
+    "defaultMessage": "Non recommandé",
+    "description": "Label for a candidate that is not referred"
   },
   "UZMVuy": {
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
@@ -899,9 +963,17 @@
     "defaultMessage": "Soumis",
     "description": "Item's state is submitted"
   },
+  "VpjQL1": {
+    "defaultMessage": "Confirmation des membres du personnel",
+    "description": "Label for status of employee verification"
+  },
   "VqrVpT": {
     "defaultMessage": "Mise à jour impossible – cette adresse courriel est déjà utilisée.",
     "description": "Error message that the given email address is already in use when updating."
+  },
+  "W1sM+z": {
+    "defaultMessage": "La collectivité ne peut pas être modifiée.",
+    "description": "Error message for talent event cannot change community"
   },
   "W2CzAY": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (régulièrement)",
@@ -996,7 +1068,7 @@
     "description": "Link text to the dashboard page"
   },
   "YHqVoj": {
-    "defaultMessage": "Soumettez",
+    "defaultMessage": "Soumettre",
     "description": "Default text for submit button."
   },
   "YSNrLG": {
@@ -1035,6 +1107,10 @@
     "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
   },
+  "a02YvL": {
+    "defaultMessage": "La valeur du champ du motif de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid reason"
+  },
   "a5edSg": {
     "defaultMessage": "Jour",
     "description": "Label for a day of the month input field"
@@ -1070,6 +1146,10 @@
   "cCWdDX": {
     "defaultMessage": "Lire davantage <hidden> {context}</hidden>",
     "description": "Button text to expand truncated text to view all contents"
+  },
+  "cHgzmF": {
+    "defaultMessage": "Cette action est réservée au personnel vérifié.",
+    "description": "Error message for when a user is not verified"
   },
   "cO535E": {
     "defaultMessage": "Erreur : échec de la création du compte.",
@@ -1251,6 +1331,10 @@
     "defaultMessage": "S'affiche sur la page « Trouver des talents »",
     "description": "Message for when a specific item shows up as an option when searching talent"
   },
+  "hD254d": {
+    "defaultMessage": "Le programme de perfectionnement est introuvable dans votre collectivité.",
+    "description": "Error message for community development program not found"
+  },
   "hpBnAk": {
     "defaultMessage": "Vous ne pouvez pas désarchiver un bassin à moins que son statut indique qu'il soit archivé.",
     "description": "Error message when attempting to un-archive a pool with an invalid status."
@@ -1280,7 +1364,7 @@
     "description": "declare self to be a CAF member"
   },
   "ijGl5r": {
-    "defaultMessage": "Souhaitez-vous poursuivre?",
+    "defaultMessage": "Voulez-vous continuer?",
     "description": "A request to confirm that the user wants to continue"
   },
   "imR1U4": {
@@ -1386,6 +1470,10 @@
   "ldthVj": {
     "defaultMessage": "Août",
     "description": "Name of the eighth month"
+  },
+  "ltYqKQ": {
+    "defaultMessage": "Citoyenneté, statut d’ancien combattant et droits de priorité",
+    "description": "Title for the citizen/veteran/priority section"
   },
   "m/VZ/H": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
@@ -1551,6 +1639,10 @@
     "defaultMessage": "Intérêt",
     "description": "Expressed interest"
   },
+  "rNmajm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme en cours.",
+    "description": "Error message for talent request in progress details required"
+  },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
@@ -1675,6 +1767,10 @@
     "defaultMessage": "J'accepte d'avoir un emploi où je dois détenir un permis de conduire valide ou profiter d'une mobilité personnelle qui est normalement associée à la possession d'un permis de conduire valide.",
     "description": "The operational requirement described as driver's license."
   },
+  "uzB/k/": {
+    "defaultMessage": "Tableau de bord du ministère",
+    "description": "Name of the department dashboard page"
+  },
   "vGENdP": {
     "defaultMessage": "Alerte d’information :",
     "description": "Descriptor for an info alert"
@@ -1682,6 +1778,10 @@
   "vMc12L": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
     "description": "The talent nomination lateral movement option description for policy experience"
+  },
+  "vNVMlM": {
+    "defaultMessage": "« {text} »",
+    "description": "Text within double quotes"
   },
   "vOCLQA": {
     "defaultMessage": "Incomplet",

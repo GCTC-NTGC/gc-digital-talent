@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 export interface Quote {
@@ -8,6 +8,7 @@ export interface Quote {
 
 const useQuote = (): Quote => {
   const intl = useIntl();
+  const [rand] = useState<number>(() => Math.random());
 
   const quotes: Quote[] = [
     {
@@ -32,7 +33,7 @@ const useQuote = (): Quote => {
     },
   ];
 
-  return quotes[Math.floor(Math.random() * quotes.length)];
+  return quotes[Math.floor(rand * quotes.length)];
 };
 
 export default useQuote;

@@ -1,16 +1,14 @@
 import { empty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedArmedForcesStatus,
   LocalizedCitizenshipStatus,
   LocalizedLanguage,
-  Maybe,
   Pool,
-  PoolAreaOfSelection,
   User,
 } from "@gc-digital-talent/graphql";
-import { checkFeatureFlag } from "@gc-digital-talent/env";
+import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 
-type PartialLanguage = Maybe<Pick<LocalizedLanguage, "value">>;
+type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
 
 export interface PartialUser extends Pick<
   User,
@@ -25,8 +23,8 @@ export interface PartialUser extends Pick<
   preferredLang?: PartialLanguage;
   preferredLanguageForInterview?: PartialLanguage;
   preferredLanguageForExam?: PartialLanguage;
-  citizenship?: Maybe<Pick<LocalizedCitizenshipStatus, "value">>;
-  armedForcesStatus?: Maybe<Pick<LocalizedArmedForcesStatus, "value">>;
+  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
+  armedForcesStatus?: Pick<LocalizedArmedForcesStatus, "value"> | null;
 }
 
 export function hasAllEmptyFields({
@@ -51,21 +49,14 @@ export function hasAllEmptyFields({
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Maybe<Pick<Pool, "areaOfSelection">>,
+  pool?: Pick<Pool, "areaOfSelection"> | null,
 ): boolean {
-  const applicationEmailVerification = checkFeatureFlag(
-    "FEATURE_APPLICATION_EMAIL_VERIFICATION",
-  );
-
-  // Refactor after feature flag is turned on #15052
   let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
 
-  if (applicationEmailVerification) {
-    if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
-      isWorkEmailVerifiedForInternalJobs =
-        !!applicant.workEmail && applicant.isWorkEmailVerified;
-    }
-  } // Refactor after feature flag is turned on #15052
+  if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
+    isWorkEmailVerifiedForInternalJobs =
+      !!applicant.workEmail && applicant.isWorkEmailVerified;
+  }
 
   return (
     !applicant.firstName ||
@@ -77,7 +68,7 @@ export function hasEmptyRequiredFields(
     !applicant.preferredLanguageForExam ||
     !applicant.citizenship ||
     empty(applicant.armedForcesStatus) ||
-    (applicationEmailVerification && !applicant.isEmailVerified) ||
+    !applicant.isEmailVerified ||
     !isWorkEmailVerifiedForInternalJobs
   );
 }

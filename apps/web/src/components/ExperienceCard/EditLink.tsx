@@ -1,7 +1,8 @@
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Link, Button, ButtonProps } from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
+import { Link, Button } from "@gc-digital-talent/ui";
 
 interface EditLinkProps {
   children: ReactNode;

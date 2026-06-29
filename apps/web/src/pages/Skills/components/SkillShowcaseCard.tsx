@@ -3,15 +3,15 @@ import { useMutation } from "urql";
 
 import { getLocalizedName, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { CardRepeater, useCardRepeaterContext } from "@gc-digital-talent/ui";
-import {
+import type {
   UpdateUserSkillRankingsInput,
   Skill,
-  SkillCategory,
   UserSkill,
 } from "@gc-digital-talent/graphql";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import RemoveDialog from "./RemoveDialog";
 import { UpdateUserSkillRankings_Mutation } from "../operations";

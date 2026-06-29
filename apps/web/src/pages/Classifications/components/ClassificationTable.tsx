@@ -1,38 +1,32 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 import { useLocation } from "react-router";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link, Pending } from "@gc-digital-talent/ui";
-import {
-  graphql,
+import type {
   FragmentType,
-  getFragment,
   ClassificationTableRowFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { getClassificationName } from "~/utils/poolUtils";
 
 export const ClassificationTableRow_Fragment = graphql(/* GraphQL */ `
   fragment ClassificationTableRow on Classification {
     id
-    name {
-      en
-      fr
-    }
     group
     level
+    displayName
     minSalary
     maxSalary
-    displayName {
-      localized
-    }
     isAvailableInSearch
   }
 `);
@@ -60,7 +54,7 @@ export const ClassificationTable = ({
       enableColumnFilter: false,
       header: intl.formatMessage(adminMessages.id),
     }),
-    columnHelper.accessor((row) => getClassificationName(row, intl), {
+    columnHelper.accessor((row) => row.displayName, {
       id: "name",
       meta: {
         isRowTitle: true,
@@ -104,12 +98,6 @@ export const ClassificationTable = ({
           "Title displayed for the Classification table Maximum Salary column.",
       }),
     }),
-    columnHelper.accessor((row) => row.displayName?.localized, {
-      id: "displayName",
-      enableColumnFilter: false,
-      sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.displayName),
-    }),
     columnHelper.accessor((row) => row.isAvailableInSearch, {
       id: "isAvailableInSearch",
       enableColumnFilter: false,
@@ -137,7 +125,7 @@ export const ClassificationTable = ({
       pagination={{
         internal: true,
         total: classifications.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       sort={{
         internal: true,

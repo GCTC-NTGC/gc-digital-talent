@@ -5,24 +5,20 @@ import { useOutletContext } from "react-router";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Pending, NotFound, Heading } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import { ArchiveDepartment } from "./components/ArchiveDepartment";
 import { RestoreDepartment } from "./components/RestoreDepartment";
-import { ContextType } from "./ManageAccessPage/components/types";
+import type { ContextType } from "./ManageAccessPage/components/types";
 
 export const DepartmentAdvancedTools_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentAdvancedTools on Department {
@@ -83,7 +79,7 @@ export const AdvancedToolsDepartment = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const AdvancedToolsDepartment_Query = graphql(/* GraphQL */ `
@@ -159,8 +155,8 @@ const AdvancedToolsDepartmentPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
     <AdvancedToolsDepartmentPage />
   </RequireAuth>
 );

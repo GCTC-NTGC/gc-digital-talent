@@ -4,11 +4,13 @@ import SparklesIcon from "@heroicons/react/20/solid/SparklesIcon";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -49,7 +51,7 @@ const ApplicationSkillsIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal, isIAP } = useApplicationContext();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -93,12 +95,10 @@ const ApplicationSkillsIntroduction = ({
             description: "Action button to move to the next step",
           })}
         </Link>
-        <Link
-          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
-          mode="inline"
-        >
+        <Link href={paths.profileAndApplications()} mode="inline">
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

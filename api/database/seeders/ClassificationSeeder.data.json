@@ -2,10 +2,6 @@
   "data": {
     "classifications": [
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ALL 01",
         "isAvailableInSearch": false,
         "level": 9,
@@ -17,10 +13,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 1,
@@ -32,10 +24,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 2,
@@ -47,10 +35,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Advisor or Analyst",
-          "fr": "Conseiller(ère) ou analyste"
-        },
         "group": "AS",
         "isAvailableInSearch": true,
         "level": 3,
@@ -62,10 +46,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 4,
@@ -77,10 +57,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Senior Advisor or Analyst",
-          "fr": "Conseiller(ère) principal(e) ou analyste"
-        },
         "group": "AS",
         "isAvailableInSearch": true,
         "level": 5,
@@ -92,10 +68,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 6,
@@ -107,10 +79,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 7,
@@ -122,10 +90,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AS",
         "isAvailableInSearch": false,
         "level": 8,
@@ -137,10 +101,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 1,
@@ -152,10 +112,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 2,
@@ -167,10 +123,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 3,
@@ -182,10 +134,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 4,
@@ -197,10 +145,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 5,
@@ -212,10 +156,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 6,
@@ -227,10 +167,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 7,
@@ -242,10 +178,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ASG",
         "isAvailableInSearch": false,
         "level": 8,
@@ -257,10 +189,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "AUTRE OTHER",
         "isAvailableInSearch": false,
         "level": 1,
@@ -272,10 +200,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CR",
         "isAvailableInSearch": false,
         "level": 1,
@@ -287,10 +211,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CR",
         "isAvailableInSearch": false,
         "level": 2,
@@ -302,10 +222,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CR",
         "isAvailableInSearch": false,
         "level": 3,
@@ -317,10 +233,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Clerk",
-          "fr": "Commis"
-        },
         "group": "CR",
         "isAvailableInSearch": true,
         "level": 4,
@@ -332,10 +244,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CR",
         "isAvailableInSearch": false,
         "level": 5,
@@ -347,10 +255,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CS",
         "isAvailableInSearch": false,
         "level": 1,
@@ -362,10 +266,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CS",
         "isAvailableInSearch": false,
         "level": 2,
@@ -377,10 +277,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CS",
         "isAvailableInSearch": false,
         "level": 3,
@@ -392,10 +288,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CS",
         "isAvailableInSearch": false,
         "level": 4,
@@ -407,10 +299,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CS",
         "isAvailableInSearch": false,
         "level": 5,
@@ -422,10 +310,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CT FIN",
         "isAvailableInSearch": false,
         "level": 1,
@@ -437,10 +321,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CT FIN",
         "isAvailableInSearch": false,
         "level": 2,
@@ -452,10 +332,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CT FIN",
         "isAvailableInSearch": false,
         "level": 3,
@@ -467,10 +343,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "CT FIN",
         "isAvailableInSearch": false,
         "level": 4,
@@ -482,130 +354,94 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "EC",
         "isAvailableInSearch": false,
         "level": 1,
-        "maxSalary": 64597,
-        "minSalary": 55567,
+        "maxSalary": 73087,
+        "minSalary": 62871,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Research Analyst",
-          "fr": "Analyste de recherche"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 2,
-        "maxSalary": 71275,
-        "minSalary": 62168,
+        "maxSalary": 80642,
+        "minSalary": 70338,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Analyst",
-          "fr": "Analyste"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 3,
-        "maxSalary": 77696,
-        "minSalary": 68666,
+        "maxSalary": 87907,
+        "minSalary": 77690,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Analyst or Economist",
-          "fr": "Analyste ou économiste"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 4,
-        "maxSalary": 85778,
-        "minSalary": 74122,
+        "maxSalary": 97051,
+        "minSalary": 83862,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Analyst or Advisor",
-          "fr": "Analyste ou conseiller(ère)"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 5,
-        "maxSalary": 101999,
-        "minSalary": 88618,
+        "maxSalary": 115404,
+        "minSalary": 100265,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Advisor or Economist",
-          "fr": "Conseiller(ère) ou économiste"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 6,
-        "maxSalary": 116116,
-        "minSalary": 100121,
+        "maxSalary": 131375,
+        "minSalary": 113278,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Senior Advisor",
-          "fr": "Conseiller(ère) principal(e)"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 7,
-        "maxSalary": 129869,
-        "minSalary": 113124,
+        "maxSalary": 146936,
+        "minSalary": 127991,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "Expert Advisor",
-          "fr": "Expert(e)-conseil"
-        },
         "group": "EC",
         "isAvailableInSearch": true,
         "level": 8,
-        "maxSalary": 140571,
-        "minSalary": 122991,
+        "maxSalary": 159046,
+        "minSalary": 139155,
         "name": {
           "en": "Economics and Social Science Services",
           "fr": "économique et services de sciences sociales"
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "EX",
         "isAvailableInSearch": false,
         "level": 1,
@@ -617,10 +453,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "EX",
         "isAvailableInSearch": false,
         "level": 2,
@@ -632,10 +464,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Digital Leader",
-          "fr": "Chef de file du numérique"
-        },
         "group": "EX",
         "isAvailableInSearch": true,
         "level": 3,
@@ -647,10 +475,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Digital Leader",
-          "fr": "Chef de file du numérique"
-        },
         "group": "EX",
         "isAvailableInSearch": true,
         "level": 4,
@@ -662,10 +486,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "EX",
         "isAvailableInSearch": false,
         "level": 5,
@@ -677,10 +497,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Technician",
-          "fr": "Technicien(ne)"
-        },
         "group": "IT",
         "isAvailableInSearch": true,
         "level": 1,
@@ -692,10 +508,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Analyst",
-          "fr": "Analyste"
-        },
         "group": "IT",
         "isAvailableInSearch": true,
         "level": 2,
@@ -707,10 +519,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Technical Advisor or Team Leader",
-          "fr": "Conseiller(ère) technique ou Chef d'équipe"
-        },
         "group": "IT",
         "isAvailableInSearch": true,
         "level": 3,
@@ -722,10 +530,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Senior Advisor or Manager",
-          "fr": "Conseiller(ère) principal(e) ou Gestionnaire"
-        },
         "group": "IT",
         "isAvailableInSearch": true,
         "level": 4,
@@ -737,10 +541,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Director or Senior Strategist",
-          "fr": "Directeur(trice) ou Stratège principal(e)"
-        },
         "group": "IT",
         "isAvailableInSearch": true,
         "level": 5,
@@ -752,10 +552,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITCSIS",
         "isAvailableInSearch": false,
         "level": 6,
@@ -767,10 +563,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITCSIS",
         "isAvailableInSearch": false,
         "level": 7,
@@ -782,10 +574,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITCSIS",
         "isAvailableInSearch": false,
         "level": 9,
@@ -797,10 +585,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITS",
         "isAvailableInSearch": false,
         "level": 3,
@@ -812,10 +596,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITS",
         "isAvailableInSearch": false,
         "level": 4,
@@ -827,10 +607,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITS",
         "isAvailableInSearch": false,
         "level": 5,
@@ -842,10 +618,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITS",
         "isAvailableInSearch": false,
         "level": 6,
@@ -857,10 +629,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "ITS",
         "isAvailableInSearch": false,
         "level": 7,
@@ -872,10 +640,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 1,
@@ -887,10 +651,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 2,
@@ -902,10 +662,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 3,
@@ -917,10 +673,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 4,
@@ -932,10 +684,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 5,
@@ -947,10 +695,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "MG AFS",
         "isAvailableInSearch": false,
         "level": 6,
@@ -962,10 +706,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 1,
@@ -977,10 +717,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 2,
@@ -992,10 +728,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 3,
@@ -1007,10 +739,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 4,
@@ -1022,10 +750,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 5,
@@ -1037,10 +761,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PG",
         "isAvailableInSearch": false,
         "level": 6,
@@ -1052,10 +772,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Junior Officer",
-          "fr": "Agent(e) subalterne"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 1,
@@ -1067,10 +783,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Junior Analyst",
-          "fr": "Analyste subalterne"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 2,
@@ -1082,10 +794,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Officer",
-          "fr": "Agent(e)"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 3,
@@ -1097,10 +805,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Analyst",
-          "fr": "Analyste"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 4,
@@ -1112,10 +816,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Senior Analyst",
-          "fr": "Analyste principal(e)"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 5,
@@ -1127,10 +827,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "Manager",
-          "fr": "Gestionnaire"
-        },
         "group": "PM",
         "isAvailableInSearch": true,
         "level": 6,
@@ -1142,10 +838,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "PM",
         "isAvailableInSearch": false,
         "level": 7,
@@ -1157,10 +849,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "SP",
         "isAvailableInSearch": false,
         "level": 1,
@@ -1172,10 +860,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "SP",
         "isAvailableInSearch": false,
         "level": 2,
@@ -1187,10 +871,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "SP",
         "isAvailableInSearch": false,
         "level": 3,
@@ -1202,10 +882,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "SP",
         "isAvailableInSearch": false,
         "level": 4,
@@ -1217,10 +893,6 @@
         }
       },
       {
-        "displayName": {
-          "en": "",
-          "fr": ""
-        },
         "group": "SP",
         "isAvailableInSearch": false,
         "level": 5,

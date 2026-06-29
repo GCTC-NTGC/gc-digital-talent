@@ -1,4 +1,4 @@
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker/locale/en";
 

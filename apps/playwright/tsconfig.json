@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "jsx": "react-jsx",
-    "module": "ES2020",
+    "module": "ESNext",
     "resolveJsonModule": true,
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
@@ -13,6 +12,7 @@
     }
   },
   "include": [
+    "e2e-coverage-teardown.ts",
     "eslint.config.mjs",
     "playwright.config.ts",
     "constants",

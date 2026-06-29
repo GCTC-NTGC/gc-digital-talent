@@ -6,7 +6,8 @@ import {
   getMentorshipInterest,
   getLearningOpportunitiesInterest,
 } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import { Ul, Notice } from "@gc-digital-talent/ui";
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {

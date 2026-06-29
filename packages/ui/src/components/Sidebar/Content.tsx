@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 interface ContentProps {

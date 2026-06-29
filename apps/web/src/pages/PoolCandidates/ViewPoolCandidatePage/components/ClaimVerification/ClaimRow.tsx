@@ -2,13 +2,9 @@ import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/20/solid/InformationCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
-import { PropsWithoutRef, ReactNode, SVGProps } from "react";
+import type { PropsWithoutRef, ReactNode, SVGProps } from "react";
 
-import {
-  ClaimVerificationResult,
-  Maybe,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { ClaimVerificationResult } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -18,7 +14,7 @@ import {
 
 interface VerificationMessageProps {
   result: ClaimVerificationResult;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
+  expiry?: string | null;
 }
 
 const VerificationMessage = ({ result, expiry }: VerificationMessageProps) => {
@@ -97,7 +93,7 @@ const VerificationIcon = ({ result, ...rest }: VerificationIconProps) => {
 interface ClaimRowProps {
   result?: ClaimVerificationResult | null;
   title: ReactNode;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
+  expiry?: string | null;
   children: ReactNode;
 }
 

@@ -1,6 +1,4 @@
-import { ReactNode } from "react";
-
-import { Maybe } from "@gc-digital-talent/graphql";
+import type { ReactNode } from "react";
 
 type ErrorMessageKey =
   | "NO_PROFILE"
@@ -19,8 +17,8 @@ export type ErrorSeverities = Record<ErrorMessageKey, ErrorSeverity>;
 export interface EmployeeSearchResult {
   id: string;
   workEmail: string;
-  firstName?: Maybe<string>;
-  lastName?: Maybe<string>;
-  role?: Maybe<string>;
-  department?: Maybe<string>;
+  firstName?: string | null;
+  lastName?: string | null;
+  role?: string | null;
+  department?: string | null;
 }

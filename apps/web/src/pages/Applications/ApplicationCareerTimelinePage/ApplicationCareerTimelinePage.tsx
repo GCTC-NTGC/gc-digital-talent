@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
 import {
@@ -15,34 +16,29 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  Experience,
-  ApplicationStep,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import type { Experience } from "@gc-digital-talent/graphql";
+import { ApplicationStep, makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { ExperienceForDate, ExperienceType } from "~/types/experience";
-import {
-  deriveExperienceType,
-  SimpleAnyExperience,
-} from "~/utils/experienceUtils";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { ExperienceForDate, ExperienceType } from "~/types/experience";
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
+import { deriveExperienceType } from "~/utils/experienceUtils";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
 import applicationMessages from "~/messages/applicationMessages";
-import ExperienceSortAndFilter, {
-  FormValues as ExperienceSortAndFilterFormValues,
-} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 type SortOptions = "date_desc" | "type_asc";
 
@@ -180,8 +176,7 @@ export const ApplicationCareerTimeline = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { followingPageUrl, currentStepOrdinal, isIAP } =
-    useApplicationContext();
+  const { followingPageUrl, currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -193,7 +188,7 @@ export const ApplicationCareerTimeline = ({
     followingPageUrl ?? paths.applicationEducation(application.id);
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
   const applicationWasSubmitted = !!application.submittedAt;
 
   const methods = useForm<FormValues>();
@@ -429,6 +424,7 @@ export const ApplicationCareerTimeline = ({
             <Link mode="inline" href={cancelPath} color="primary">
               {intl.formatMessage(applicationMessages.saveQuit)}
             </Link>
+            <DeleteApplicationDialog query={application} />
           </div>
         </form>
       </FormProvider>

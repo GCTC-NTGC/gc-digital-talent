@@ -1,7 +1,7 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { Role } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
 
 export const getTeamBasedRoleOptions = (roles: Role[], intl: IntlShape) => {
   return roles.map((role) => ({

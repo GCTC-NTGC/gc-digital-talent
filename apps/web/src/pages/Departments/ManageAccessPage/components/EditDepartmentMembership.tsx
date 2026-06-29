@@ -1,9 +1,5 @@
-import {
-  useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  forwardRef,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { useState, forwardRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -12,12 +8,8 @@ import { useOutletContext } from "react-router";
 import { Dialog, Button, DropdownMenu } from "@gc-digital-talent/ui";
 import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  commonMessages,
-  errorMessages,
-  formMessages,
-} from "@gc-digital-talent/i18n";
-import {
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import type {
   RoleInput,
   DepartmentManageAccessPage_DepartmentFragment as DepartmentManageAccessPageDepartmentFragmentType,
 } from "@gc-digital-talent/graphql";
@@ -25,9 +17,9 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
-import { DepartmentMember } from "~/utils/departmentUtils";
+import type { DepartmentMember } from "~/utils/departmentUtils";
 
-import { DepartmentManageAccessFormValues, ContextType } from "./types";
+import type { DepartmentManageAccessFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserDepartmentRoles_Mutation } from "./operations";
@@ -189,9 +181,6 @@ const EditDepartmentMembershipDialog = forwardRef<
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select roles",
                     id: "Cn73yN",

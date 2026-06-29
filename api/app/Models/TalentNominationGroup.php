@@ -5,22 +5,24 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
+use Database\Factories\TalentNominationGroupFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class TalentNominationGroup
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property string $nominee_id
  * @property string $talent_nomination_event_id
  * @property int $advancement_nomination_count
@@ -35,13 +37,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $development_programs_notes
  * @property string $computed_status
  * @property string $comments
+ * @property bool $consentToShareProfile
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
  */
 class TalentNominationGroup extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationGroupFactory> */
+    /** @use HasFactory<TalentNominationGroupFactory> */
     use HasFactory;
 
     use LogsActivity;
@@ -64,7 +67,7 @@ class TalentNominationGroup extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -100,8 +103,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_advancement)->count();
             }
         );
@@ -114,8 +115,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_lateral_movement)->count();
             }
         );
@@ -128,8 +127,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('nominations');
-
                 return $this->nominations->filter(fn (TalentNomination $nomination) => $nomination->nominate_for_development_programs)->count();
             }
         );
@@ -161,7 +158,7 @@ class TalentNominationGroup extends Model
             $unevaluatedFieldCount > 0 => TalentNominationGroupStatus::IN_PROGRESS->name,
             $rejectedCount > 0 && $approvedCount > 0 => TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
             $rejectedCount > 0 && $approvedCount == 0 => TalentNominationGroupStatus::REJECTED->name,
-            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name,
+            $rejectedCount == 0 && $approvedCount > 0 => TalentNominationGroupStatus::APPROVED->name, // @phpstan-ignore equal.alwaysTrue
             default => TalentNominationGroupStatus::IN_PROGRESS->name, // should never happen
         };
 
@@ -180,7 +177,7 @@ class TalentNominationGroup extends Model
 
     public function scopeAuthorizedToView(Builder $query, ?array $args = null): void
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -214,8 +211,6 @@ class TalentNominationGroup extends Model
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                $this->loadMissing('talentNominationEvent');
-
                 // get the nominee's user id
                 $userId = $this->nominee_id;
                 // get the community id from the talent nomination event
@@ -237,5 +232,10 @@ class TalentNominationGroup extends Model
         });
 
         return $query;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

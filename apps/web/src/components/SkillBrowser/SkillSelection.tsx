@@ -6,7 +6,7 @@ import { Notice } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
-import { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
@@ -15,7 +15,7 @@ import {
   getFilteredFamilies,
   getFilteredSkills,
 } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 interface SkillSelectionProps {
   skills: Skill[];

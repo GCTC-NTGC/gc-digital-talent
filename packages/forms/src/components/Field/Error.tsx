@@ -1,4 +1,5 @@
-import { Notice, NoticeProps } from "@gc-digital-talent/ui";
+import type { NoticeProps } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 const Error = ({ children, ...rest }: Omit<NoticeProps, "color">) => {
   return (

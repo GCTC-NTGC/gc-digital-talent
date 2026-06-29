@@ -17,10 +17,9 @@ import {
   Notice,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
+import type { AssessmentStep, FragmentType } from "@gc-digital-talent/graphql";
 import {
-  AssessmentStep,
   AssessmentStepType,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";

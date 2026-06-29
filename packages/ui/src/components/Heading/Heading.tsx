@@ -1,8 +1,9 @@
-import { HTMLAttributes, forwardRef } from "react";
+import type { HTMLAttributes } from "react";
+import { forwardRef } from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 
-import { IconType } from "../../types";
-import { HeadingRef } from "./types";
+import type { IconType } from "../../types";
+import type { HeadingRef } from "./types";
 
 const heading = tv({
   slots: {
@@ -41,7 +42,7 @@ const heading = tv({
     },
     color: {
       primary: {
-        icon: "text-primary iap:dark:text-primary-200",
+        icon: "text-primary-500 dark:text-primary-300 iap:dark:text-primary-200",
       },
       secondary: {
         icon: "text-secondary iap:dark:text-secondary-100",
@@ -54,9 +55,6 @@ const heading = tv({
       },
       error: {
         icon: "text-error",
-      },
-      black: {
-        icon: "text-black",
       },
     },
     // Center align text

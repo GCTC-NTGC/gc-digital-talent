@@ -1,19 +1,15 @@
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import { useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Link, Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import profileMessages from "~/messages/profileMessages";
@@ -24,11 +20,11 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useRoutes from "~/hooks/useRoutes";
 
-import { SectionProps } from "../../types";
+import type { SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { formValuesToSubmitData, dataToFormValues } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";

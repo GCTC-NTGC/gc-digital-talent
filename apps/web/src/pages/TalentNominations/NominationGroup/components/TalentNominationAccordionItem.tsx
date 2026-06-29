@@ -1,7 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationLateralMovementOption,
@@ -13,8 +13,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { formatClassificationString } from "~/utils/poolUtils";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import adminMessages from "~/messages/adminMessages";
 
 import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
@@ -37,10 +37,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     id
 
     talentNominationEvent {
-      developmentPrograms {
-        id
-        name {
-          localized
+      communityDevelopmentPrograms(trashed: WITH) {
+        developmentProgram {
+          id
+          name {
+            localized
+          }
         }
       }
       includeLeadershipCompetencies
@@ -67,15 +69,13 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
         }
       }
       classification {
-        group
-        level
+        groupAndLevel
       }
     }
     advancementReferenceFallbackWorkEmail
     advancementReferenceFallbackName
     advancementReferenceFallbackClassification {
-      group
-      level
+      groupAndLevel
     }
     advancementReferenceFallbackDepartment {
       name {
@@ -91,10 +91,12 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     }
     lateralMovementOptionsOther
 
-    developmentPrograms {
-      id
-      name {
-        localized
+    communityDevelopmentPrograms(trashed: WITH) {
+      developmentProgram {
+        id
+        name {
+          localized
+        }
       }
     }
     developmentProgramOptionsOther
@@ -111,16 +113,6 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
     additionalComments
   }
 `);
-
-// util wrapper to handle nulls
-function formatMaybeClassificationString(
-  param: Parameters<typeof formatClassificationString>[0] | null | undefined,
-) {
-  if (param == null) {
-    return null;
-  }
-  return formatClassificationString(param);
-}
 
 interface TalentNominationAccordionItemProps {
   query: FragmentType<typeof TalentNominationAccordionItem_Fragment>;
@@ -220,15 +212,19 @@ const TalentNominationAccordionItem = ({
   }));
 
   const developmentProgramIdsInThisNomination =
-    talentNomination.developmentPrograms?.map((program) => program.id) ?? [];
+    talentNomination.communityDevelopmentPrograms?.map(
+      (cdp) => cdp.developmentProgram.id,
+    ) ?? [];
 
   const developmentProgramListItems =
-    talentNomination.talentNominationEvent.developmentPrograms?.map(
-      (program) => ({
-        key: program.id,
-        value: developmentProgramIdsInThisNomination.includes(program.id),
+    talentNomination.talentNominationEvent.communityDevelopmentPrograms?.map(
+      (cdp) => ({
+        key: cdp.developmentProgram.id,
+        value: developmentProgramIdsInThisNomination.includes(
+          cdp.developmentProgram.id,
+        ),
         label:
-          program.name?.localized ??
+          cdp.developmentProgram.name?.localized ??
           intl.formatMessage(commonMessages.notFound),
       }),
     ) ?? [];
@@ -258,6 +254,8 @@ const TalentNominationAccordionItem = ({
       intl,
     );
   }
+
+  const notFound = intl.formatMessage(commonMessages.notFound);
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -350,13 +348,12 @@ const TalentNominationAccordionItem = ({
                       nominationLabels.referencesClassification,
                     )}
                   >
-                    {(advancementReferenceIsAUser
-                      ? formatMaybeClassificationString(
-                          talentNomination.advancementReference?.classification,
-                        )
-                      : formatMaybeClassificationString(
-                          talentNomination.advancementReferenceFallbackClassification,
-                        )) ?? intl.formatMessage(commonMessages.notFound)}
+                    {advancementReferenceIsAUser
+                      ? (talentNomination.advancementReference?.classification
+                          ?.groupAndLevel ?? notFound)
+                      : (talentNomination
+                          .advancementReferenceFallbackClassification
+                          ?.groupAndLevel ?? notFound)}
                   </FieldDisplay>
                   <FieldDisplay
                     label={intl.formatMessage(
@@ -439,7 +436,7 @@ const TalentNominationAccordionItem = ({
         {/* fields only rendered if nominated for development programs */}
         {talentNomination.nominateForDevelopmentPrograms ? (
           <Accordion.Root mode="simple" type="multiple">
-            <Accordion.Item value="Development program recommendations">
+            <Accordion.Item value="Recommended development opportunities">
               <Accordion.Trigger
                 as="h4"
                 subtitle={intl.formatMessage({
@@ -449,11 +446,9 @@ const TalentNominationAccordionItem = ({
                   description: "Trigger subtitle for development programs",
                 })}
               >
-                {intl.formatMessage({
-                  defaultMessage: "Development program recommendations",
-                  id: "nF//P1",
-                  description: "Trigger title for development programs",
-                })}
+                {intl.formatMessage(
+                  adminMessages.developmentOpportunitiesRecommended,
+                )}
               </Accordion.Trigger>
               <Accordion.Content>
                 <div className="grid gap-6">

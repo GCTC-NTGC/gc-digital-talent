@@ -1,15 +1,11 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useState } from "react";
 
-import {
-  ClaimVerificationResult,
-  Maybe,
-  Scalars,
-  UpdatePoolCandidateClaimVerificationInput,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { UpdatePoolCandidateClaimVerificationInput } from "@gc-digital-talent/graphql";
+import { ClaimVerificationResult, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { DateInput, RadioGroup } from "@gc-digital-talent/forms";
@@ -20,7 +16,7 @@ import profileMessages from "~/messages/profileMessages";
 
 interface FormValues {
   result: ClaimVerificationResult;
-  expiry?: Scalars["DateTime"]["input"];
+  expiry?: string;
 }
 
 const UpdateClaimVerification_Mutation = graphql(/* GraphQL */ `
@@ -38,10 +34,10 @@ const todayDate = new Date();
 
 interface ClaimVerificationDialogProps {
   context: "veteran" | "priority";
-  id: Scalars["UUID"]["output"];
-  result?: Maybe<ClaimVerificationResult>;
-  expiry?: Maybe<Scalars["DateTime"]["output"]>;
-  priorityNumber?: Maybe<string>;
+  id: string;
+  result?: ClaimVerificationResult | null;
+  expiry?: string | null;
+  priorityNumber?: string | null;
 }
 
 const ClaimVerificationDialog = ({

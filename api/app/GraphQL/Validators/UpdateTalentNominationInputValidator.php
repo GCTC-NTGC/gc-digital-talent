@@ -44,7 +44,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'nullable',
                 'string',
             ],
-            'nominatorFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'nominatorFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex()],
             'nominatorFallbackName' => ['nullable', 'string'],
             'nominatorFallbackClassification.connect' => [
                 'uuid',
@@ -89,7 +89,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'nullable',
                 Rule::in(array_column(TalentNominationUserReview::cases(), 'name')),
             ],
-            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex],
+            'advancementReferenceFallbackWorkEmail' => ['nullable', new GovernmentEmailRegex()],
             'advancementReferenceFallbackName' => ['string', 'nullable'],
             'advancementReferenceFallbackClassification.connect' => [
                 'uuid',
@@ -112,10 +112,10 @@ final class UpdateTalentNominationInputValidator extends Validator
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->arg('lateralMovementOptions') ?? [])),
             ],
 
-            'developmentPrograms' => ['required_array_keys:sync'],
-            'developmentPrograms.sync' => [
+            'communityDevelopmentPrograms' => ['required_array_keys:sync'],
+            'communityDevelopmentPrograms.sync' => [
                 'array',
-                'exists:development_programs,id',
+                'exists:community_development_program,id',
             ],
             'developmentProgramOptionsOther' => ['string', 'nullable'],
 
@@ -145,7 +145,7 @@ final class UpdateTalentNominationInputValidator extends Validator
             'advancementReference.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_NOT_FOUND->name,
             'advancementReferenceFallbackClassification.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND->name,
             'advancementReferenceFallbackDepartment.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND->name,
-            'developmentPrograms.sync.exists' => ErrorCode::DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'communityDevelopmentPrograms.sync.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
             'skills.sync.exists' => ErrorCode::SKILL_NOT_FOUND->name,
             'skills.sync.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.sync.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,

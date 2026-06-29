@@ -76,7 +76,7 @@ class TalentNominationReceivedTest extends TestCase
 
         $talentNominationEvent = TalentNominationEvent::factory()->create();
 
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create(['talent_nomination_event_id' => $talentNominationEvent->id]);
@@ -103,7 +103,7 @@ class TalentNominationReceivedTest extends TestCase
 
         $talentNominationEvent = TalentNominationEvent::factory()->create();
 
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create(['talent_nomination_event_id' => $talentNominationEvent->id]);
@@ -124,7 +124,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly in English, for the submitter message, with a real nominator
     public function testSetsGcNotifyEmailFieldsSubmitterEn(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -156,7 +156,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly in French, for the submitter message, with a real nominator
     public function testSetsGcNotifyEmailFieldsSubmitterFr(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -187,7 +187,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly, for the submitter message, with a fallback nominator
     public function testSetsGcNotifyEmailFieldsSubmitterFallbackNominator(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -204,7 +204,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly in English, for the nominator message, with a real nominator
     public function testSetsGcNotifyEmailFieldsNominatorEn(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -236,7 +236,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly in French, for the nominator message, with a real nominator
     public function testSetsGcNotifyEmailFieldsNominatorFr(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -267,7 +267,7 @@ class TalentNominationReceivedTest extends TestCase
     // builds GC Notify email message correctly, for the nominator message, with a fallback nominator
     public function testSetsGcNotifyEmailFieldsNominatorFallbackNominator(): void
     {
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedRationale()
             ->create([
@@ -308,7 +308,7 @@ class TalentNominationReceivedTest extends TestCase
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
@@ -347,7 +347,7 @@ class TalentNominationReceivedTest extends TestCase
         $nominator = TalentNominationReceivedTest::makeGovEmployee('nominator');
 
         Event::fake([TalentNominationSubmitted::class]);
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
@@ -396,7 +396,7 @@ class TalentNominationReceivedTest extends TestCase
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([
@@ -436,7 +436,7 @@ class TalentNominationReceivedTest extends TestCase
         $submitter = TalentNominationReceivedTest::makeGovEmployee('submitter');
 
         Event::fake([TalentNominationSubmitted::class]);
-        /** @var \App\Models\TalentNomination */
+        /** @var TalentNomination */
         $talentNomination = TalentNomination::factory()
             ->submittedReviewAndSubmit()
             ->create([

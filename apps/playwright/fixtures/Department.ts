@@ -1,12 +1,11 @@
-import { Locator, type Page } from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 
-import {
+import type {
   CreateDepartmentInput,
-  DepartmentSize,
-  InputMaybe,
   LocalizedStringInput,
   UpdateDepartmentInput,
 } from "@gc-digital-talent/graphql";
+import { DepartmentSize } from "@gc-digital-talent/graphql";
 
 import dConfig from "~/constants/config";
 import { loginBySub } from "~/utils/auth";
@@ -140,7 +139,7 @@ class Department extends AppPage {
     await this.waitForGraphqlResponse("UpdateDepartment");
   }
 
-  async fillName(name?: InputMaybe<LocalizedStringInput>) {
+  async fillName(name?: LocalizedStringInput | null) {
     if (name?.en) {
       await this.locators.nameEn.fill(name.en);
     }

@@ -17,13 +17,13 @@ class Activity extends SpatieActivity
 
     protected function properties(): Attribute
     {
-        return Attribute::get(function ($value) {
-            $data = is_array($value) ? $value : json_decode($value, true);
+        return Attribute::get(function () {
+            $changes = $this->attribute_changes;
 
-            return [
-                'attributes' => $data['attributes'] ?? null,
-                'old' => $data['old'] ?? null,
-            ];
+            return collect([
+                'attributes' => $changes?->get('attributes'),
+                'old' => $changes?->get('old'),
+            ]);
         });
     }
 
@@ -47,7 +47,7 @@ class Activity extends SpatieActivity
                     $poolQuery->where('subject_type', Pool::class)
                         ->where('subject_id', $poolId);
                 })
-                    ->orWhereJsonContains('properties->attributes->pool_id', $poolId);
+                    ->orWhereJsonContains('attribute_changes->attributes->pool_id', $poolId);
             });
 
     }
@@ -201,12 +201,12 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        return $query->whereRaw('properties::text ILIKE ?', ["%$searchTerm%"]);
+        return $query->whereRaw('(properties::text ILIKE ? OR attribute_changes::text ILIKE ?)', ["%$searchTerm%", "%$searchTerm%"]);
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
     {
-        /** @var \App\Models\User | null */
+        /** @var ?User $user */
         $user = Auth::user();
 
         if ($user?->isAbleTo('view-any-poolActivityLog')) {
@@ -216,21 +216,27 @@ class Activity extends SpatieActivity
         if ($user?->isAbleTo('view-team-poolActivityLog')) {
             $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-poolActivityLog');
 
-            return $query->whereHasMorph(
-                'subject',
-                [Pool::class],
-                function ($poolQuery) use ($teamIds) {
-                    return $poolQuery->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+            $authorizedPoolIds = Pool::query()
+                ->where(function ($q) use ($teamIds) {
+                    $q->whereHas('team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('community.team', fn ($sub) => $sub->whereIn('id', $teamIds))
+                        ->orWhereHas('department.team', fn ($sub) => $sub->whereIn('id', $teamIds));
+                })
+                ->select('id');
+
+            return $query->where(function (Builder $authQuery) use ($authorizedPoolIds) {
+                $authQuery->where(function ($q) use ($authorizedPoolIds) {
+                    $q->where('subject_type', (new Pool())->getMorphClass())
+                        ->whereIn('subject_id', $authorizedPoolIds);
+                })
+                    ->orWhere(function ($q) use ($authorizedPoolIds) {
+                        foreach ($authorizedPoolIds->get() as $pool) {
+                            $q->orWhereJsonContains('attribute_changes->attributes', ['pool_id' => $pool->id]);
+                        }
                     });
-                }
-            );
+            });
         }
 
-        return $query->where('id', null);
+        return $query->whereRaw('1 = 0');
     }
 }

@@ -1,4 +1,5 @@
-import { RefObject, useEffect, useRef } from "react";
+import type { RefObject } from "react";
+import { useEffect, useRef } from "react";
 
 interface UseScrollToOnMountOptions extends ScrollToOptions {
   preventAutoFocus?: boolean;
@@ -21,8 +22,7 @@ function useScrollToOnMount<TRef extends HTMLElement>(
       el.current.focus({ preventScroll: false });
       window.scrollTo(restOpts);
     }
-    // NOTE: This is an on mount hook
-  }, []);
+  }, [opts]);
 
   return el;
 }

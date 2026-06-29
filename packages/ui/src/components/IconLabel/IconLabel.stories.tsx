@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import { faker } from "@faker-js/faker";
 

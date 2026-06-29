@@ -26,7 +26,6 @@ function useIsSmallScreen(threshold: string): boolean {
     const handler = () => setIsSmallScreen(mql.matches);
 
     mql.addEventListener("change", handler);
-    setIsSmallScreen(mql.matches);
 
     return () => {
       mql.removeEventListener("change", handler);

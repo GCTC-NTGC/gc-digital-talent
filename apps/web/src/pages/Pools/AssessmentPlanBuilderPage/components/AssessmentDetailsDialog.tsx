@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
-import { ReactNode, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import { useState, useEffect } from "react";
 
 import { Button, Chip, Chips, Dialog, Notice } from "@gc-digital-talent/ui";
 import {
@@ -10,27 +11,27 @@ import {
   getLocalizedName,
   uiMessages,
 } from "@gc-digital-talent/i18n";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Select,
   Input,
   Repeater,
   TextArea,
   Checklist,
-  CheckboxOption,
   Field,
   alphaSortOptions,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
+import type {
+  PoolSkill,
+  ScreeningQuestion,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   graphql,
   AssessmentStepType,
-  Maybe,
-  PoolSkill,
-  ScreeningQuestion,
-  Scalars,
   PoolSkillType,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -151,22 +152,22 @@ type DialogMode = "regular" | "screening_question";
 type DialogAction = "create" | "update";
 
 interface FormValues {
-  id?: Maybe<Scalars["ID"]["output"]>;
-  poolId?: Maybe<Scalars["ID"]["output"]>;
-  typeOfAssessment?: Maybe<AssessmentStepType>;
-  assessmentTitleEn?: Maybe<string>;
-  assessmentTitleFr?: Maybe<string>;
+  id?: string | null;
+  poolId?: string | null;
+  typeOfAssessment?: AssessmentStepType | null;
+  assessmentTitleEn?: string | null;
+  assessmentTitleFr?: string | null;
   screeningQuestionFieldArray?: {
     id: string | null;
     screeningQuestion: {
-      id?: Maybe<Scalars["ID"]["output"]>;
-      sortOrder?: Maybe<number>;
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
+      id?: string | null;
+      sortOrder?: number | null;
+      en?: string | null;
+      fr?: string | null;
     };
   }[];
-  assessedSkills?: Maybe<Scalars["ID"]["output"][]>;
-  assessedSkillsScreeningQuestions?: Maybe<Scalars["ID"]["output"][]>;
+  assessedSkills?: string[] | null;
+  assessedSkillsScreeningQuestions?: string[] | null;
 }
 
 interface InitialValues extends Omit<
@@ -217,7 +218,7 @@ interface AssessmentDetailsDialogProps {
 const AssessmentDetailsDialog = ({
   initialValues,
   poolSkillsQuery,
-  disallowStepTypes = [],
+  disallowStepTypes,
   trigger,
   onError,
 }: AssessmentDetailsDialogProps) => {
@@ -486,7 +487,7 @@ const AssessmentDetailsDialog = ({
     stringsData?.assessmentStepTypes?.filter((stepType) => {
       const value = (stepType.value ?? "") as AssessmentStepType;
       return (
-        allowedStepTypes.includes(value) && !disallowStepTypes.includes(value)
+        allowedStepTypes.includes(value) && !disallowStepTypes?.includes(value)
       );
     }),
     intl,

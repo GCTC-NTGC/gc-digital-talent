@@ -1,5 +1,7 @@
-import { useState, ReactNode } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import type { ReactNode } from "react";
+import { useState } from "react";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 
@@ -7,11 +9,14 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
 import EmailVerification, {
   useEmailVerification,
 } from "../EmailVerification/EmailVerification";
+import WipeWorkEmailDialog from "../WorkEmailCard/RemoveWorkEmailDialog";
 
 const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   mutation EmailVerificationSubmitACode($code: String!) {
@@ -21,7 +26,7 @@ const EmailVerificationSubmitACode_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const subtitles: Record<EmailType, MessageDescriptor> = {
+const subtitles: Record<EmailType, MessageDescriptor> = {
   WORK: defineMessage({
     defaultMessage:
       "Verify your Government of Canada work email to confirm your status as an employee.",
@@ -36,7 +41,7 @@ export const subtitles: Record<EmailType, MessageDescriptor> = {
   }),
 };
 
-export const descriptions: Record<EmailType, MessageDescriptor> = {
+const descriptions: Record<EmailType, MessageDescriptor> = {
   WORK: defineMessage({
     defaultMessage:
       "To verify your work email, the domain must match a known Government of Canada email pattern (e.g. @canada.ca, @department.gc.ca, etc.).",
@@ -76,8 +81,10 @@ const EmailVerificationForm = ({
       setSubmitVerificationCodeContextMessage: setSubmitCodeMessage,
     },
   } = useEmailVerification();
+  const auth = useAuthorization();
 
   const formMethods = useForm<FormValues>();
+  const featureFlags = useFeatureFlags();
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
     setRequestCodeMessage(null);
@@ -155,6 +162,15 @@ const EmailVerificationForm = ({
                 description: "Button to save and add email",
               })}
             />
+            {formEmailType === EmailType.Work &&
+            featureFlags.canadaLogin === true &&
+            auth.userAuthInfo?.id &&
+            initialEmailAddress ? (
+              <WipeWorkEmailDialog
+                id={auth.userAuthInfo.id}
+                workEmail={initialEmailAddress}
+              />
+            ) : null}
             <Button color="warning" mode="inline" onClick={onClickCancel}>
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
@@ -165,7 +181,7 @@ const EmailVerificationForm = ({
   );
 };
 
-export interface EmailVerificationDialogProps {
+interface EmailVerificationDialogProps {
   emailType: EmailType;
   emailAddress: string | null;
   onVerificationSuccess?: () => void;
@@ -173,7 +189,7 @@ export interface EmailVerificationDialogProps {
   defaultOpen?: boolean;
 }
 
-export const EmailVerificationDialog = ({
+const EmailVerificationDialog = ({
   emailType: dialogEmailType,
   emailAddress: initialEmailAddress,
   onVerificationSuccess,

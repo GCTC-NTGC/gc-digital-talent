@@ -14,24 +14,21 @@ import {
   Ul,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME as ROLE } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import labels from "./labels";
-import { ContextType } from "./ManageAccessPage/components/types";
+import type { ContextType } from "./ManageAccessPage/components/types";
+import messages from "./messages";
 
 export const DepartmentView_Fragment = graphql(/* GraphQL */ `
   fragment DepartmentView on Department {
@@ -64,6 +61,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
   const paths = useRoutes();
   const department = getFragment(DepartmentView_Fragment, query);
   const notProvided = intl.formatMessage(commonMessages.notProvided);
+  const { canEditAdmin } = useOutletContext<ContextType>();
 
   return (
     <>
@@ -127,26 +125,30 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
             {department.size?.label.localized ?? notProvided}
           </FieldDisplay>
         </div>
-        <CardSeparator />
-        <div className="flex justify-center xs:justify-start">
-          <Link
-            href={paths.departmentUpdate(department.id)}
-            className="font-bold"
-          >
-            {intl.formatMessage({
-              defaultMessage: "Edit department information",
-              id: "os2TYf",
-              description: "Link to edit the currently viewed department",
-            })}
-          </Link>
-        </div>
+        {canEditAdmin && (
+          <>
+            <CardSeparator />
+            <div className="flex justify-center xs:justify-start">
+              <Link
+                href={paths.departmentUpdate(department.id)}
+                className="font-bold"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Edit department information",
+                  id: "os2TYf",
+                  description: "Link to edit the currently viewed department",
+                })}
+              </Link>
+            </div>
+          </>
+        )}
       </Card>
     </>
   );
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const Department_Query = graphql(/* GraphQL */ `
@@ -161,7 +163,7 @@ const Department_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const ViewDepartmentPage = () => {
+const UpdateDepartmentPage = () => {
   const intl = useIntl();
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
   const [{ data: departmentData, fetching, error }] = useQuery({
@@ -196,14 +198,9 @@ const ViewDepartmentPage = () => {
               headingMessage={intl.formatMessage(commonMessages.notFound)}
             >
               <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage: "Department {departmentId} not found.",
-                    id: "8Otaw9",
-                    description: "Message displayed for department not found.",
-                  },
-                  { departmentId },
-                )}
+                {intl.formatMessage(messages.departmentNotFound, {
+                  departmentId,
+                })}
               </p>
             </NotFound>
           )}
@@ -213,17 +210,26 @@ const ViewDepartmentPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <ViewDepartmentPage />
-  </RequireAuth>
-);
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin },
+        { name: ROLE.DepartmentHRAdvisor },
+      ]}
+    >
+      <UpdateDepartmentPage />
+    </RequireAuth>
+  );
+};
 
 Component.displayName = "AdminUpdateDepartmentPage";
 

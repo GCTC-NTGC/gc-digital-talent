@@ -57,12 +57,14 @@ return [
     'resources' => [
         'classification' => 'classification',
         'department' => 'department',
+        'developmentProgram' => 'developmentProgram',
         'genericJobTitle' => 'genericJobTitle',
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
         'user' => 'user',
         'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
+        'userWorkEmail' => 'userWorkEmail',
         'employeeProfile' => 'employeeProfile',
         'applicantProfile' => 'applicantProfile',
         'draftPool' => 'draftPool',
@@ -71,6 +73,7 @@ return [
         'assessmentPlan' => 'assessmentPlan',
         'application' => 'application',
         'draftApplication' => 'draftApplication',
+        'specialApplication' => 'specialApplication',
         'submittedApplication' => 'submittedApplication',
         'applicationAssessment' => 'applicationAssessment',
         'applicationDecision' => 'applicationDecision',
@@ -78,7 +81,7 @@ return [
         'applicationStatus' => 'applicationStatus', // TODO: remove - to be replaced by applicationAssessment and applicationDecision, but can't be fully removed until after #8671.
         'applicantCount' => 'applicantCount',
         'jobPosterTemplate' => 'jobPosterTemplate',
-        'searchRequest' => 'searchRequest',
+        'talentRequest' => 'talentRequest',
         'role' => 'role',
         'announcement' => 'announcement',
         'community' => 'community',
@@ -88,11 +91,13 @@ return [
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
+        'pastTalentNomination' => 'pastTalentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
+        'communityDevelopmentProgram' => 'communityDevelopmentProgram',
 
         'platformAdminMembership' => 'platformAdminMembership',
         'communityAdminMembership' => 'communityAdminMembership',
@@ -103,6 +108,7 @@ return [
         'departmentHRAdvisorMembership' => 'departmentHRAdvisorMembership',
 
         'poolActivityLog' => 'poolActivityLog',
+        'poolNotes' => 'poolNotes',
     ],
 
     /*
@@ -150,6 +156,19 @@ return [
         'archive-any-department' => [
             'en' => 'Archive any Department',
             'fr' => 'Archiver tout ministère',
+        ],
+
+        'view-any-developmentProgram' => [
+            'en' => 'View Any Development program',
+            'fr' => 'Visionner tout programme de perfectionnement',
+        ],
+        'create-any-developmentProgram' => [
+            'en' => 'Create Any Development program',
+            'fr' => 'Créer tout programme de perfectionnement',
+        ],
+        'update-any-developmentProgram' => [
+            'en' => 'Update Any Development program',
+            'fr' => 'Mettre à jour tout programme de perfectionnement',
         ],
 
         'view-any-genericJobTitle' => [
@@ -218,6 +237,10 @@ return [
         'view-any-userBasicInfo' => [
             'en' => 'View basic info of any User',
             'fr' => 'Afficher les informations de base de tout utilisateur',
+        ],
+        'view-any-userWorkEmail' => [
+            'en' => 'View the work email of any User',
+            'fr' => 'Afficher l\'adresse e-mail professionnelle de n\'importe quel utilisateur',
         ],
         'update-any-user' => [
             'en' => 'Update Any User (does not include updating the "sub" field or role assignments)',
@@ -360,6 +383,10 @@ return [
             'en' => 'Delete Own Draft Application',
             'fr' => 'Supprimer sa propre candidature provisoire',
         ],
+        'create-any-specialApplication' => [
+            'en' => 'Create a special application for anyone',
+            'fr' => 'Créez une application spéciale pour n\'importe qui',
+        ],
         'archive-own-submittedApplication' => [
             'en' => 'Archive Own Submitted Application',
             'fr' => 'Archiver sa propre candidature présentée',
@@ -468,36 +495,36 @@ return [
             'fr' => 'Supprimer un modèle d\'offre d\'emploi',
         ],
 
-        'create-any-searchRequest' => [
-            'en' => 'Create Any SearchRequest',
+        'create-any-talentRequest' => [
+            'en' => 'Create Any TalentRequest',
             'fr' => 'Créer toute demande de recherche',
         ],
-        'view-team-searchRequest' => [
-            'en' => 'View SearchRequests submitted to this Team',
+        'view-team-talentRequest' => [
+            'en' => 'View TalentRequests submitted to this Team',
             'fr' => 'Voir les demandes de recherche soumises à cette équipe',
         ],
-        'update-team-searchRequest' => [
-            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+        'update-team-talentRequest' => [
+            'en' => 'Update the notes or status of TalentRequests submitted to this Team',
             'fr' => 'Mettre à jour les notes ou le statut des demandes de recherche soumises à cette équipe.',
         ],
-        'delete-team-searchRequest' => [
-            'en' => 'Delete SearchRequests submitted to this Team',
+        'delete-team-talentRequest' => [
+            'en' => 'Delete TalentRequests submitted to this Team',
             'fr' => 'Supprimer une demande de recherche d’équipe',
         ],
-        'view-any-searchRequest' => [
-            'en' => 'View any SearchRequests',
+        'view-any-talentRequest' => [
+            'en' => 'View any TalentRequests',
             'fr' => 'Voir n\'import quelles demandes de recherche',
         ],
-        'update-any-searchRequest' => [
-            'en' => 'Update the notes or status of SearchRequests submitted to this Team',
+        'update-any-talentRequest' => [
+            'en' => 'Update the notes or status of TalentRequests submitted to this Team',
             'fr' => 'Mettre à jour les notes ou le statut de n\'import quelle demande de recherche',
         ],
-        'delete-any-searchRequest' => [
-            'en' => 'Delete SearchRequests submitted to this Team',
+        'delete-any-talentRequest' => [
+            'en' => 'Delete TalentRequests submitted to this Team',
             'fr' => 'Supprimer n\'import quelle demande de recherche',
         ],
-        'view-own-searchRequest' => [
-            'en' => 'View own SearchRequests',
+        'view-own-talentRequest' => [
+            'en' => 'View own TalentRequests',
             'fr' => 'Voir ses propres demandes de recherche',
         ],
 
@@ -673,6 +700,10 @@ return [
             'en' => 'Create a draft talent nomination as the submitter',
             'fr' => 'Créer un projet de nomination de talents en tant qu\'auteur de la proposition',
         ],
+        'create-own-pastTalentNomination' => [
+            'en' => 'Create a past talent nomination as the submitter',
+            'fr' => 'Créer une nomination de talent passée en tant que soumissionnaire',
+        ],
         'update-own-talentNomination' => [
             'en' => 'Update a draft talent nomination as the submitter',
             'fr' => 'Mise à jour d\'un projet de nomination de talent en tant que déposant',
@@ -715,6 +746,28 @@ return [
         'view-team-poolActivityLog' => [
             'en' => 'View team Pool Activity Log',
             'fr' => 'Afficher le journal d\'activité du pool d\'équipes',
+        ],
+
+        'view-any-poolNotes' => [
+            'en' => 'View any pool\'s notes',
+            'fr' => 'Afficher les notes d\'un pool',
+        ],
+        'view-team-poolNotes' => [
+            'en' => 'View team\'s pool notes',
+            'fr' => 'Consulter les notes de l\'équipe sur la poule',
+        ],
+
+        'create-team-communityDevelopmentProgram' => [
+            'en' => 'Create a Community Development Program record for a team',
+            'fr' => 'Créer une fiche de programme de développement communautaire pour une équipe',
+        ],
+        'update-team-communityDevelopmentProgram' => [
+            'en' => 'Update a Community Development Program record for a team',
+            'fr' => 'Mettre à jour la fiche d\'un programme de développement communautaire pour une équipe',
+        ],
+        'delete-team-communityDevelopmentProgram' => [
+            'en' => 'Delete a Community Development Program record for a team',
+            'fr' => 'Supprimer une fiche du programme de développement communautaire pour une équipe',
         ],
     ],
 
@@ -875,6 +928,9 @@ return [
             'department' => [
                 'any' => ['view'],
             ],
+            'developmentProgram' => [
+                'any' => ['view'],
+            ],
             'genericJobTitle' => [
                 'any' => ['view'],
             ],
@@ -899,7 +955,7 @@ return [
             'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['create'],
             ],
             'talentNominationEvent' => [
@@ -917,6 +973,9 @@ return [
             'department' => [
                 'any' => ['view'],
             ],
+            'developmentProgram' => [
+                'any' => ['view'],
+            ],
             'genericJobTitle' => [
                 'any' => ['view'],
             ],
@@ -941,7 +1000,7 @@ return [
             'jobPosterTemplate' => [
                 'any' => ['view'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['create'],
             ],
             'announcement' => [
@@ -983,7 +1042,7 @@ return [
             'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'own' => ['view'],
             ],
             'user' => [
@@ -997,6 +1056,9 @@ return [
             ],
             'draftPool' => [
                 'team' => ['view', 'update'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
@@ -1028,11 +1090,17 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'applicantProfile' => [
                 'team' => ['view'],
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete'],
+            ],
+            'poolNotes' => [
+                'team' => ['view'],
             ],
             'publishedPool' => [
                 'team' => ['archive'],
@@ -1055,7 +1123,7 @@ return [
             'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
             'communityTeamMembers' => [
@@ -1082,14 +1150,23 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'applicantProfile' => [
                 'team' => ['view'],
             ],
             'draftPool' => [
                 'team' => ['view', 'create', 'update', 'delete', 'publish'],
             ],
+            'poolNotes' => [
+                'team' => ['view'],
+            ],
             'publishedPool' => [
                 'team' => ['update', 'archive'],
+            ],
+            'poolActivityLog' => [
+                'team' => ['view'],
             ],
             'assessmentPlan' => [
                 'team' => ['view', 'update'],
@@ -1109,11 +1186,20 @@ return [
             'applicationPlacement' => [
                 'team' => ['view', 'update'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'team' => ['view', 'update', 'delete'],
             ],
             'talentNominationEvent' => [
                 'team' => ['create', 'update'],
+            ],
+            'talentNomination' => [
+                'team' => ['view'],
+            ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
+            ],
+            'talentNominationGroup' => [
+                'team' => ['view', 'update'],
             ],
             'community' => [
                 'team' => ['update'],
@@ -1139,26 +1225,32 @@ return [
             'communityTalentCoordinatorMembership' => [
                 'team' => ['update'],
             ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
+            ],
         ],
 
         'platform_admin' => [
             'classification' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'department' => [
-                'any' => ['create', 'view', 'update', 'delete', 'archive'],
+                'any' => ['create', 'update', 'delete', 'archive'],
+            ],
+            'developmentProgram' => [
+                'any' => ['create', 'update'],
             ],
             'genericJobTitle' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skill' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'skillFamily' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'community' => [
-                'any' => ['create', 'view', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
             'user' => [
                 'any' => ['create', 'view', 'update', 'delete'], // create needs to remain for playwright tests.
@@ -1167,6 +1259,9 @@ return [
                 'any' => ['update'],
             ],
             'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'userWorkEmail' => [
                 'any' => ['view'],
             ],
             'applicantProfile' => [
@@ -1179,6 +1274,9 @@ return [
                 'any' => ['view'],
             ],
             'application' => [
+                'any' => ['create'],
+            ],
+            'specialApplication' => [
                 'any' => ['create'],
             ],
             'submittedApplication' => [
@@ -1197,16 +1295,16 @@ return [
                 'any' => ['view'],
             ],
             'jobPosterTemplate' => [
-                'any' => ['view', 'create', 'update', 'delete'],
+                'any' => ['create', 'update', 'delete'],
             ],
-            'searchRequest' => [
+            'talentRequest' => [
                 'any' => ['view'],
             ],
             'role' => [
-                'any' => ['view', 'assign'],
+                'any' => ['assign'],
             ],
             'announcement' => [
-                'any' => ['view', 'update'],
+                'any' => ['update'],
             ],
             'platformAdminMembership' => [
                 'any' => ['update'],
@@ -1247,6 +1345,9 @@ return [
             'poolActivityLog' => [
                 'any' => ['view'],
             ],
+            'poolNotes' => [
+                'any' => ['view'],
+            ],
             'communityInterest' => [
                 'any' => ['view'],
             ],
@@ -1265,6 +1366,9 @@ return [
             'talentNomination' => [
                 'team' => ['view'],
             ],
+            'pastTalentNomination' => [
+                'own' => ['create'],
+            ],
             'communityInterest' => [
                 'team' => ['view'],
             ],
@@ -1277,10 +1381,16 @@ return [
             'talentNominationGroup' => [
                 'team' => ['update', 'view'],
             ],
+            'communityDevelopmentProgram' => [
+                'team' => ['create', 'update', 'delete'],
+            ],
         ],
 
         'department_admin' => [
             'userBasicInfo' => [
+                'any' => ['view'],
+            ],
+            'userWorkEmail' => [
                 'any' => ['view'],
             ],
             'processOperatorMembership' => [
@@ -1293,10 +1403,13 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
                 'team' => ['view'],
             ],
             'publishedPool' => [
-                'team' => ['archive'],
+                'team' => ['archive', 'update'],
             ],
             'poolTeamMembers' => [
                 'team' => ['view'],
@@ -1305,7 +1418,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],
@@ -1331,6 +1444,9 @@ return [
             'userBasicInfo' => [
                 'any' => ['view'],
             ],
+            'userWorkEmail' => [
+                'any' => ['view'],
+            ],
             'processOperatorMembership' => [
                 'team' => ['update'],
             ],
@@ -1338,6 +1454,9 @@ return [
                 'team' => ['view'],
             ],
             'draftPool' => [
+                'team' => ['view', 'create', 'update', 'delete', 'publish'],
+            ],
+            'poolNotes' => [
                 'team' => ['view'],
             ],
             'publishedPool' => [
@@ -1350,7 +1469,7 @@ return [
                 'team' => ['view'],
             ],
             'assessmentPlan' => [
-                'team' => ['view'],
+                'team' => ['view', 'update'],
             ],
             'applicantProfile' => [
                 'team' => ['view'],

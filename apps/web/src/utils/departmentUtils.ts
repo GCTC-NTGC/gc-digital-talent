@@ -1,6 +1,6 @@
-import { RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
+import type {
   Role,
   RoleAssignment,
   UserPublicProfile,

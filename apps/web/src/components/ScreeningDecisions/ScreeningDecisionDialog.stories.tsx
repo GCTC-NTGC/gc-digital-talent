@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
 
 import {
@@ -17,16 +17,18 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import {
-  AssessmentDecision,
-  AssessmentDecisionLevel,
+import type {
   AssessmentResult,
-  AssessmentResultJustification,
-  AssessmentStepType,
-  makeFragmentData,
   Pool,
   PoolCandidate,
   User,
+} from "@gc-digital-talent/graphql";
+import {
+  AssessmentDecision,
+  AssessmentDecisionLevel,
+  AssessmentResultJustification,
+  AssessmentStepType,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 
 import ScreeningDecisionDialog, {

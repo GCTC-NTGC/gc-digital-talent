@@ -1,7 +1,10 @@
-import { useLocation, Link, LinkProps, Location } from "react-router";
-import { useState, useEffect, MouseEvent, KeyboardEvent } from "react";
+import type { LinkProps, Location } from "react-router";
+import { useLocation, Link } from "react-router";
+import type { MouseEvent, KeyboardEvent } from "react";
+import { useEffect } from "react";
 
-import { BaseButtonLinkProps, btn } from "../../utils/btnStyles";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import { btn } from "../../utils/btnStyles";
 
 type ClickEvent =
   | MouseEvent<HTMLAnchorElement | undefined>
@@ -63,7 +66,6 @@ const ScrollToLink = ({
   ...rest
 }: ScrollToLinkProps) => {
   const { pathname, hash, search, state } = useLocation() as Location<unknown>;
-  const [targetSection, setTargetSection] = useState<HTMLElement | null>(null);
   const Icon = icon;
   const UtilityIcon = utilityIcon;
   const { base, leadingIcon, trailingIcon, label } = btn({
@@ -73,20 +75,21 @@ const ScrollToLink = ({
     size,
     disabled,
   });
-  const offsetEl = document.getElementById(offsetId);
 
   useEffect(() => {
-    if (hash && hash === `#${to}`) {
-      scrollToSection(targetSection, offsetEl);
+    if (hash === `#${to}`) {
+      const targetSection = document.getElementById(to);
+      const offsetEl = document.getElementById(offsetId);
+      if (targetSection) {
+        scrollToSection(targetSection, offsetEl);
+      }
     }
-  }, [pathname, hash, to, targetSection, offsetEl]);
-
-  useEffect(() => {
-    const section = document.getElementById(to.toString());
-    setTargetSection(section);
-  }, [to]);
+  }, [pathname, hash, to, offsetId]);
 
   const handleClick = (e: ClickEvent) => {
+    const targetSection = document.getElementById(to);
+    const offsetEl = document.getElementById(offsetId);
+
     scrollToSection(targetSection, offsetEl);
     if (onScrollTo) {
       onScrollTo(e, targetSection);

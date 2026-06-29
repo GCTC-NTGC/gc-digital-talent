@@ -1,18 +1,14 @@
 import { useIntl } from "react-intl";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import {
-  Heading,
-  PreviewList,
-  PreviewMetaData,
-  Notice,
-} from "@gc-digital-talent/ui";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
+import { Heading, PreviewList, Notice } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,

@@ -58,7 +58,7 @@ trait LogsCustomActivity
      * Models can override this to add custom data, e.g. user name.
      *
      * @param  array  $properties  Properties to log (by reference)
-     * @param  \App\Enums\ActivityEvent  $event  The event type
+     * @param  ActivityEvent  $event  The event type
      */
     protected function customizeActivityProperties(array &$properties, ActivityEvent $event): void
     {
@@ -68,7 +68,7 @@ trait LogsCustomActivity
     /**
      * Log a model activity event.
      *
-     * @param  \App\Enums\ActivityEvent  $event  The activity event to record
+     * @param  ActivityEvent  $event  The activity event to record
      * @param  array|null  $atts  Attribute changes (optional)
      * @param  array|null  $old  Old attributes prior to change (optional)
      */
@@ -96,7 +96,7 @@ trait LogsCustomActivity
             ->causedBy(Auth::user())
             ->performedOn($this)
             ->event($event->value)
-            ->withProperties($properties)
+            ->withChanges($properties)
             ->log($event->value);
 
         // Reset temporary override

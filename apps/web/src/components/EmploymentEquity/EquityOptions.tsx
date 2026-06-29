@@ -9,9 +9,8 @@ import {
   getEmploymentEquityStatement,
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedIndigenousCommunity,
-  Maybe,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
@@ -22,11 +21,13 @@ import type { EquityKeys, UserMutationPromise } from "./types";
 import IndigenousEquityOption from "./IndigenousEquityOption";
 
 interface EquityOptionsProps {
-  hasDisability?: Maybe<boolean>;
-  indigenousCommunities?: Maybe<Maybe<LocalizedIndigenousCommunity>[]>;
-  indigenousDeclarationSignature?: Maybe<string>;
-  isVisibleMinority?: Maybe<boolean>;
-  isWoman?: Maybe<boolean>;
+  hasDisability?: boolean | null;
+  indigenousCommunities?:
+    | (LocalizedIndigenousCommunity | null | undefined)[]
+    | null;
+  indigenousDeclarationSignature?: string | null;
+  isVisibleMinority?: boolean | null;
+  isWoman?: boolean | null;
   isDisabled?: boolean;
   onAdd: (key: EquityKeys) => UserMutationPromise;
   onRemove: (key: EquityKeys) => UserMutationPromise;
@@ -34,9 +35,9 @@ interface EquityOptionsProps {
   inApplication: boolean;
 }
 
-const resolveMaybe = (value: Maybe<boolean> | undefined): boolean => !!value;
+const resolveMaybe = (value: boolean | null | undefined): boolean => !!value;
 const resolveMaybeArray = <T,>(
-  value: Maybe<(Maybe<T> | undefined)[]> | undefined,
+  value: (T | null | undefined)[] | null | undefined,
 ): T[] => {
   return value?.filter(notEmpty) ?? [];
 };

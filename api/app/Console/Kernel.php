@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AuthPing;
 use App\Console\Commands\PruneUserGeneratedFiles;
+use App\Console\Commands\ResumeReferrals;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use App\Console\Commands\SendNotificationsPoolPublished;
 use Illuminate\Console\Scheduling\Schedule;
@@ -40,6 +42,18 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Toronto')
             ->dailyAt('3:00')
             ->appendOutputTo(storage_path('logs/send-notifications-pool-published.log'));
+
+        // Unpause candidate referrals if date is up, every day at 1:00 AM
+        $schedule->command(ResumeReferrals::class)
+            ->timezone('America/Toronto')
+            ->dailyAt('1:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/resume-referrals.log'));
+
+        // Check the health of the auth provider
+        $schedule->command(AuthPing::class)
+            ->everyFiveMinutes()
+            ->appendOutputTo(storage_path('logs/auth-ping.log'));
     }
 
     /**

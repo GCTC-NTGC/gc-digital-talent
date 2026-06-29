@@ -10,7 +10,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "tsc": "tsc --project tsconfig.json --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
@@ -26,15 +27,16 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
-    "urql": "^5.0.1"
+    "urql": "^5.0.2"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/react": "^19.2.14",
+    "@types/react": "^19.2.17",
     "eslint": "^9.20.1",
-    "react": "^19.2.4",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.7",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.16"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.8"
   }
 }

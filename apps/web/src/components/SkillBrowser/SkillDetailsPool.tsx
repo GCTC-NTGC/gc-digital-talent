@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import { errorMessages, getSkillLevelMessages } from "@gc-digital-talent/i18n";
 import { RadioGroup } from "@gc-digital-talent/forms";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import type { SkillCategory } from "@gc-digital-talent/graphql";
 
 import { getSortedSkillLevels } from "~/utils/skillUtils";
 

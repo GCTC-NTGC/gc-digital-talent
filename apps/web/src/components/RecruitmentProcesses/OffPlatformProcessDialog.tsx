@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
@@ -12,15 +13,17 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   Classification,
   CreateOffPlatformRecruitmentProcessInput,
   FragmentType,
+  OffPlatformRecruitmentProcess,
+  UpdateOffPlatformRecruitmentProcessInput,
+} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
   HiringPlatform,
-  OffPlatformRecruitmentProcess,
-  UpdateOffPlatformRecruitmentProcessInput,
 } from "@gc-digital-talent/graphql";
 import {
   Combobox,
@@ -32,7 +35,6 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 import ClassificationInput from "~/components/ClassificationInput/ClassificationInput";
 
@@ -50,6 +52,8 @@ export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
     }
     classifications {
       ...ClassificationInput
+
+      groupAndLevel
     }
     hiringPlatforms: localizedEnumStrings(enumName: "HiringPlatform") {
       value
@@ -271,7 +275,7 @@ const OffPlatformProcessDialog = ({
                     },
                     {
                       classification: process.classification
-                        ? getClassificationName(process.classification, intl)
+                        ? process.classification.groupAndLevel
                         : intl.formatMessage(commonMessages.notFound),
                       departmentName: process.department.name.localized,
                     },
@@ -286,7 +290,7 @@ const OffPlatformProcessDialog = ({
                     },
                     {
                       classification: process.classification
-                        ? getClassificationName(process.classification, intl)
+                        ? process.classification.groupAndLevel
                         : intl.formatMessage(commonMessages.notFound),
                     },
                   )

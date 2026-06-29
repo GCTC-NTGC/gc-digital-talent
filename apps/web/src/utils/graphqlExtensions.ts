@@ -1,8 +1,8 @@
-import { GraphQLErrorExtensions } from "graphql";
+import type { GraphQLErrorExtensions } from "graphql";
 
 // corresponds to the ClientSafeTooManyRequestsException
 const tooManyRequestsKey = "too_many_requests";
-export interface TooManyRequestsExtension {
+interface TooManyRequestsExtension {
   remaining_seconds: number;
 }
 
@@ -18,7 +18,7 @@ export function getTooManyRequestsExtension(
 
 // corresponds to the ValidationException
 const validationKey = "validation";
-export type ValidationExtension = Record<string, string[]>;
+type ValidationExtension = Record<string, string[]>;
 
 export function getValidationExtension(
   extensions: GraphQLErrorExtensions,

@@ -1,4 +1,4 @@
-import {
+import type {
   Pool,
   Experience,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
@@ -9,7 +9,7 @@ import { skillRequirementsIsIncomplete } from "~/validators/profile";
 
 const stepHasError = (
   user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Omit<Pool, "activities" | "teamId">,
+  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
 ) => {
   const applicantExperiences: Omit<Experience, "user">[] | undefined =
     user?.experiences?.filter(notEmpty);

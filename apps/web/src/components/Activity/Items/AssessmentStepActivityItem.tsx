@@ -1,24 +1,20 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import {
-  ActivityProperties,
-  getFragment,
-  Maybe,
-} from "@gc-digital-talent/graphql";
-import { getLocale, Locales } from "@gc-digital-talent/i18n";
+import type { ActivityProperties } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
 
-import BaseItem, {
-  BaseItem_Fragment,
-  CommonItemProps,
-} from "./BaseActivityItem";
+import type { CommonItemProps } from "./BaseActivityItem";
+import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
 import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 
-export type AssessmentStepActivityItemProps = CommonItemProps;
+type AssessmentStepActivityItemProps = CommonItemProps;
 
 function getDescription(
   locale: Locales,
-  propsObj?: Maybe<ActivityProperties>,
+  propsObj?: ActivityProperties | null,
 ): ReactNode {
   let desc: ReactNode;
   if (propsObj) {

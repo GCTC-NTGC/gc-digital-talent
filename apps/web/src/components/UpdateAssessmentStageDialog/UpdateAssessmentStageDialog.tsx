@@ -1,14 +1,14 @@
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
-  FragmentType,
   getFragment,
   graphql,
-  Maybe,
   ScreeningStage,
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -24,7 +24,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const hiddenSteps = [
   AssessmentStepType.ApplicationScreening,
@@ -33,9 +33,9 @@ const hiddenSteps = [
 ];
 
 function getStepLabel(
-  title?: Maybe<string>,
-  typeLocalized?: Maybe<string>,
-  order?: Maybe<number>,
+  title?: string | null,
+  typeLocalized?: string | null,
+  order?: number | null,
 ): string | null {
   if (!title && !typeLocalized) {
     return null;
@@ -173,7 +173,11 @@ const UpdateAssessmentStageDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         {trigger ?? (
-          <Button mode="inline" className="font-normal">
+          <Button
+            mode="inline"
+            color="warning"
+            className="text-left font-normal"
+          >
             {label}
           </Button>
         )}

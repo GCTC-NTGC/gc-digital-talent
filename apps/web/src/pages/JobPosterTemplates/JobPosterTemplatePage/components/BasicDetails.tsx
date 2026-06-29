@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
-import pick from "lodash/pick";
 import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
-import { graphql, FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocale,
@@ -10,7 +10,6 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Card, Heading, Link } from "@gc-digital-talent/ui";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
@@ -27,8 +26,7 @@ const JobPosterTemplateBasicDetails_Fragment = graphql(/* GraphQL */ `
       fr
     }
     classification {
-      group
-      level
+      displayName
     }
     workStream {
       name {
@@ -94,13 +92,8 @@ const BasicDetails = ({ jobPosterTemplateQuery }: BasicDetailsProps) => {
           <FieldDisplay
             label={intl.formatMessage(jobPosterTemplateMessages.classification)}
           >
-            {jobPosterTemplate.classification?.group &&
-            jobPosterTemplate.classification?.level
-              ? getClassificationName(
-                  pick(jobPosterTemplate.classification, ["group", "level"]),
-                  intl,
-                )
-              : intl.formatMessage(commonMessages.notFound)}
+            {jobPosterTemplate.classification?.displayName ??
+              intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <FieldDisplay
             label={intl.formatMessage(jobPosterTemplateMessages.workStream)}

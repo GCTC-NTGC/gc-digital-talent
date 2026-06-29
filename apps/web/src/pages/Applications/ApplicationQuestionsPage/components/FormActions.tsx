@@ -2,14 +2,18 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 
 import { Button, Separator } from "@gc-digital-talent/ui";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import applicationMessages from "~/messages/applicationMessages";
 
+import DeleteApplicationDialog from "../../components/DeleteApplicationDialog/DeleteApplicationDialog";
+
 interface FormActionsProps {
   disabled?: boolean;
+  application: Application_PoolCandidateFragment;
 }
 
-const FormActions = ({ disabled = false }: FormActionsProps) => {
+const FormActions = ({ application, disabled = false }: FormActionsProps) => {
   const intl = useIntl();
   const {
     register,
@@ -43,6 +47,7 @@ const FormActions = ({ disabled = false }: FormActionsProps) => {
         >
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Button>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

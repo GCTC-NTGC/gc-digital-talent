@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
-import { SkillFamily, Skill } from "@gc-digital-talent/graphql";
+import type { SkillFamily, Skill } from "@gc-digital-talent/graphql";
 
-import staticSkillFamilies from "./skillFamilies.json";
+import staticSkillFamilies from "./skillFamilies.json" with { type: "json" };
 import toLocalizedString from "./fakeLocalizedString";
 
 export const getStaticSkillFamilies = (): SkillFamily[] =>

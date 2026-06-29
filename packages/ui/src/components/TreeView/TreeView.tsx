@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const item = tv({
   base: `relative z-0 ml-6 pt-3 pl-6 not-last:border-l not-last:border-l-gray before:absolute before:top-0 before:left-0 before:h-[calc(50%+0.375rem)] before:border-b before:border-b-gray last:before:-z-[1] last:before:block last:before:border-l last:before:border-l-gray`,

@@ -4,9 +4,12 @@ namespace App\Rules;
 
 use App\Enums\ErrorCode;
 use App\Models\TalentNomination;
+use App\Models\User;
 use Carbon\Carbon;
 use Closure;
+use Database\Helpers\TeamHelpers;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Support\Facades\Auth;
 
 class TalentEventOpenForUpdatingNominations implements ValidationRule
 {
@@ -23,6 +26,18 @@ class TalentEventOpenForUpdatingNominations implements ValidationRule
                 $now = Carbon::now();
 
                 if ($now > $eventClosing) {
+                    /** @var User | null */
+                    $user = Auth::user();
+
+                    if ((bool) $user) {
+                        $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'create-own-pastTalentNomination');
+                        $communityTeamId = $nomination->talentNominationEvent?->community?->team?->id;
+
+                        if ((bool) $communityTeamId && in_array($communityTeamId, $teamIds, true)) {
+                            return;
+                        }
+                    }
+
                     $fail(ErrorCode::TALENT_EVENT_IS_CLOSED->name);
                 }
             }

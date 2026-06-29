@@ -3,8 +3,10 @@ import { useIntl } from "react-intl";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import { BaseCTAProps, cta } from "./utils";
-import BaseLink, { BaseLinkProps } from "../Link/BaseLink";
+import type { BaseCTAProps } from "./utils";
+import { cta } from "./utils";
+import type { BaseLinkProps } from "../Link/BaseLink";
+import BaseLink from "../Link/BaseLink";
 
 type NewTabWrapperProps = Pick<BaseLinkProps, "newTab" | "children">;
 

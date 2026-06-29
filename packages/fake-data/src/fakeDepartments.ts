@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { Department } from "@gc-digital-talent/graphql";
+import type { Department } from "@gc-digital-talent/graphql";
 
 export default (): Department[] => {
   faker.seed(0); // repeatable results

@@ -1,35 +1,35 @@
 import { useQuery } from "urql";
 import { useMemo, useState } from "react";
-import {
+import type {
   ColumnDef,
-  createColumnHelper,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
-import {
+import type {
   DeadlineStatus,
-  graphql,
   OrderByClause,
-  SortOrder,
   TrainingOpportunitiesFilterInput,
   TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
+import { graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
   getLocalizedName,
-  Locales,
 } from "@gc-digital-talent/i18n";
-import { Chip, ChipProps, Link } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
 
 import Table, {
   getTableStateFromSearchParams,
 } from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { InitialState } from "~/components/Table/ResponsiveTable/types";
+import type { InitialState } from "~/components/Table/ResponsiveTable/types";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
 import accessors from "~/components/Table/accessors";
@@ -286,7 +286,7 @@ const TrainingOpportunitiesTable = ({
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.trainingOpportunitiesPaginated?.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },

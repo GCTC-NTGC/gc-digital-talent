@@ -1,11 +1,11 @@
 import { useIntl } from "react-intl";
-import { CombinedError } from "urql";
-import { FieldError } from "react-hook-form";
+import type { CombinedError } from "urql";
+import type { FieldError } from "react-hook-form";
 import { tv } from "tailwind-variants";
 
 import { extractValidationMessageKeys } from "@gc-digital-talent/client";
 
-import {
+import type {
   ErrorMessages,
   ErrorSeverity,
   ErrorSeverities,

@@ -1,14 +1,14 @@
-import {
+import type {
   DetailedHTMLProps,
   InputHTMLAttributes,
   FieldsetHTMLAttributes,
   ReactNode,
 } from "react";
-import { RegisterOptions } from "react-hook-form";
+import type { RegisterOptions } from "react-hook-form";
 
-import { NoticeProps } from "@gc-digital-talent/ui";
+import type { NoticeProps } from "@gc-digital-talent/ui";
 
-import { LabelProps } from "./components/Field";
+import type { LabelProps } from "./components/Field";
 
 export type FieldLabels = Record<string, ReactNode>;
 

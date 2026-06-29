@@ -1,7 +1,8 @@
-import { JSX } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { JSX } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { PolymorphicProps } from "../../types";
+import type { PolymorphicProps } from "../../types";
 
 const grid = tv({
   base: [

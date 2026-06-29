@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Casts\LocalizedString;
 use App\Enums\TalentNominationEventStatus;
 use Carbon\Carbon;
+use Database\Factories\TalentNominationEventFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,8 +14,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class Talent nomination event
@@ -29,12 +32,17 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $community_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property string $status
+ * @property bool $include_nine_box
+ * @property bool $require_reference_for_advancement
+ * @property ?array $custom_instructions
  */
 class TalentNominationEvent extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationEventFactory> */
+    /** @use HasFactory<TalentNominationEventFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -48,7 +56,10 @@ class TalentNominationEvent extends Model
         'open_date' => 'datetime',
         'close_date' => 'datetime',
         'learn_more_url' => LocalizedString::class,
+        'include_nine_box' => 'boolean',
+        'require_reference_for_advancement' => 'boolean',
         'include_leadership_competencies' => 'boolean',
+        'custom_instructions' => LocalizedString::class,
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -56,7 +67,7 @@ class TalentNominationEvent extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Community, $this> */
@@ -65,10 +76,20 @@ class TalentNominationEvent extends Model
         return $this->belongsTo(Community::class);
     }
 
-    /** @return BelongsToMany<DevelopmentProgram, $this> */
-    public function developmentPrograms(): BelongsToMany
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this, CommunityDevelopmentProgramTalentNominationEvent> */
+    public function communityDevelopmentPrograms(): BelongsToMany
     {
-        return $this->belongsToMany(DevelopmentProgram::class);
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination_event')
+            ->using(CommunityDevelopmentProgramTalentNominationEvent::class)
+            ->withPivot(['description_for_nominations']);
+    }
+
+    // allow for downloads and the like to skip working with the pivot
+    // will fetch with soft deleted intermediate CommunityDevelopmentProgram
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram())
+            ->withTrashed('community_development_program.deleted_at');
     }
 
     protected function status(): Attribute
@@ -113,7 +134,7 @@ class TalentNominationEvent extends Model
             return;
         }
 
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user?->isAbleTo('update-team-talentNominationEvent')) {
@@ -139,5 +160,10 @@ class TalentNominationEvent extends Model
     public function talentNominationGroups(): HasMany
     {
         return $this->hasMany(TalentNominationGroup::class);
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['community.team']);
     }
 }

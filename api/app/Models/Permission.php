@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Carbon;
 use Laratrust\Models\Permission as LaratrustPermission;
 
 /**
@@ -11,8 +12,8 @@ use Laratrust\Models\Permission as LaratrustPermission;
  * @property string $name
  * @property array $display_name
  * @property array $description
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class Permission extends LaratrustPermission
 {

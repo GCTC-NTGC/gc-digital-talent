@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
-import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 import { useNavigate, useOutletContext } from "react-router";
+import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Submit, Input, TextArea } from "@gc-digital-talent/forms";
@@ -10,6 +10,7 @@ import {
   errorMessages,
   commonMessages,
   formMessages,
+  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   Pending,
@@ -18,14 +19,13 @@ import {
   CardSeparator,
   Heading,
   Link,
+  Notice,
 } from "@gc-digital-talent/ui";
-import {
-  Scalars,
-  graphql,
+import type {
   FragmentType,
-  getFragment,
   UpdateCommunityInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -33,11 +33,11 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import adminMessages from "~/messages/adminMessages";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import { ContextType } from "../CommunityMembersPage/components/types";
+import type { ContextType } from "../CommunityMembersPage/components/types";
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
 const TEXT_AREA_MAX_WORDS_FR = Math.round(
@@ -49,8 +49,11 @@ interface FormValues {
   nameFr: string;
   descriptionEn: string;
   descriptionFr: string;
+  informationUrlEn: string;
+  informationUrlFr: string;
   mandateAuthorityEn: string;
   mandateAuthorityFr: string;
+  contactEmail: string;
 }
 
 const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
@@ -65,6 +68,11 @@ const UpdateCommunityPage_CommunityFragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    informationUrl {
+      en
+      fr
+    }
+    contactEmail
     mandateAuthority {
       en
       fr
@@ -80,6 +88,9 @@ const apiDataToFormValues = (
   nameFr: apiData?.name?.fr ?? "",
   descriptionEn: apiData?.description?.en ?? "",
   descriptionFr: apiData?.description?.fr ?? "",
+  informationUrlEn: apiData?.informationUrl?.en ?? "",
+  informationUrlFr: apiData?.informationUrl?.fr ?? "",
+  contactEmail: apiData?.contactEmail ?? "",
   mandateAuthorityEn: apiData?.mandateAuthority?.en ?? "",
   mandateAuthorityFr: apiData?.mandateAuthority?.fr ?? "",
 });
@@ -94,6 +105,11 @@ const formValuesToApiData = (formValues: FormValues): UpdateCommunityInput => ({
     en: formValues.descriptionEn,
     fr: formValues.descriptionFr,
   },
+  informationUrl: {
+    en: formValues.informationUrlEn,
+    fr: formValues.informationUrlFr,
+  },
+  contactEmail: formValues.contactEmail,
   mandateAuthority: {
     en: formValues.mandateAuthorityEn,
     fr: formValues.mandateAuthorityFr,
@@ -131,8 +147,8 @@ const CommunityForm = ({
           }),
         );
       })
-      .catch(() => {
-        throw new Error("Failed to save community");
+      .catch((error: unknown) => {
+        throw new Error("Failed to save community", { cause: error });
       });
   };
   return (
@@ -141,18 +157,18 @@ const CommunityForm = ({
         onSubmit={handleSubmit(handleSave)}
         className="flex flex-col gap-y-6"
       >
-        <Card>
+        <Card space="lg">
           <Heading
             level="h2"
-            color="secondary"
-            icon={IdentificationIcon}
+            color="primary"
+            icon={QueueListIcon}
             center
             className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"
           >
             {intl.formatMessage({
               defaultMessage: "Community information",
-              id: "IqZ6W0",
-              description: "Heading for the 'edit a community' form",
+              id: "+OOFwz",
+              description: "Title for community form",
             })}
           </Heading>
           <div className="grid gap-6 xs:grid-cols-2">
@@ -160,7 +176,12 @@ const CommunityForm = ({
               id="nameEn"
               name="nameEn"
               autoComplete="off"
-              label={intl.formatMessage(commonMessages.name)}
+              label={intl.formatMessage({
+                defaultMessage: "Community name",
+                id: "3K2EZB",
+                description:
+                  "Label displayed on the community form information name field",
+              })}
               appendLanguageToLabel={"en"}
               type="text"
               rules={{
@@ -171,7 +192,12 @@ const CommunityForm = ({
               id="nameFr"
               name="nameFr"
               autoComplete="off"
-              label={intl.formatMessage(commonMessages.name)}
+              label={intl.formatMessage({
+                defaultMessage: "Community name",
+                id: "3K2EZB",
+                description:
+                  "Label displayed on the community form information name field",
+              })}
               appendLanguageToLabel={"fr"}
               type="text"
               rules={{
@@ -199,34 +225,108 @@ const CommunityForm = ({
               wordLimit={TEXT_AREA_MAX_WORDS_FR}
             />
             <Input
+              id="informationUrlEn"
+              name="informationUrlEn"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"en"}
+              type="url"
+            />
+            <Input
+              id="informationUrlFr"
+              name="informationUrlFr"
+              label={intl.formatMessage({
+                defaultMessage: "External link to information",
+                id: "fWNqcM",
+                description:
+                  "Label displayed on the community form information URL field",
+              })}
+              appendLanguageToLabel={"fr"}
+              type="url"
+            />
+            <div className="xs:col-span-2">
+              <Input
+                id="contactEmail"
+                name="contactEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "Generic contact email",
+                  id: "iVe7JX",
+                  description:
+                    "Label displayed on the community form contact email field",
+                })}
+                type="email"
+              />
+            </div>
+            <div className="xs:col-span-2">
+              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
+                {community.key}
+              </FieldDisplay>
+              <Notice.Root className="mt-2">
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "The key is not editable once a community is created. Reach out to the support team for further information.",
+                      id: "U/NCbh",
+                      description: "Description for notice for key field",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            </div>
+          </div>
+          <CardSeparator />
+          <Heading level="h3" className="xs:justify-start xs:text-left">
+            {intl.formatMessage({
+              defaultMessage: "Mandate authority",
+              id: "83aYHF",
+              description:
+                "Label displayed on the community form mandate authority field",
+            })}
+          </Heading>
+          <p className="mb-8">
+            {intl.formatMessage({
+              defaultMessage:
+                "Please identify the name or position of the delegated officer with the mandate authority to permit this community to collect data on participating users. By completing this field, you acknowledge that the community has the correct approvals for data collection.",
+              id: "saf66z",
+              description: "Description for mandate authority fields",
+            })}
+          </p>
+          <div className="grid gap-6 xs:grid-cols-2">
+            <Input
               id="mandateAuthorityEn"
               name="mandateAuthorityEn"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority",
-                id: "83aYHF",
+                defaultMessage: "Delegated officer or entity",
+                id: "KRXSAf",
                 description:
                   "Label displayed on the community form mandate authority field",
               })}
               appendLanguageToLabel={"en"}
               type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="mandateAuthorityFr"
               name="mandateAuthorityFr"
               label={intl.formatMessage({
-                defaultMessage: "Mandate authority",
-                id: "83aYHF",
+                defaultMessage: "Delegated officer or entity",
+                id: "KRXSAf",
                 description:
                   "Label displayed on the community form mandate authority field",
               })}
               appendLanguageToLabel={"fr"}
               type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
-            <div className="xs:col-span-2">
-              <FieldDisplay label={intl.formatMessage(adminMessages.key)}>
-                {community.key}
-              </FieldDisplay>
-            </div>
           </div>
           <CardSeparator />
           <div className="flex flex-col items-center gap-6 xs:flex-row">
@@ -249,7 +349,7 @@ const CommunityForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
 const UpdateCommunityPage_Query = graphql(/* GraphQL */ `
@@ -259,7 +359,6 @@ const UpdateCommunityPage_Query = graphql(/* GraphQL */ `
         en
         fr
       }
-
       ...UpdateCommunityPage_Community
     }
   }
@@ -273,13 +372,13 @@ const UpdateCommunity_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const UpdateCommunity = () => {
+export const UpdateCommunityPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { communityId } = useRequiredParams<RouteParams>("communityId");
   const [{ data, fetching, error }] = useQuery({
     query: UpdateCommunityPage_Query,
-    variables: { id: communityId || "" },
+    variables: { id: communityId },
   });
 
   const [{ fetching: isSubmitting }, executeMutation] = useMutation(
@@ -304,8 +403,8 @@ export const UpdateCommunity = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Edit<hidden> community</hidden>",
-        id: "/zsCRf",
-        description: "Breadcrumb title for the edit skill page link.",
+        id: "xk9i5D",
+        description: "Breadcrumb title for the edit community page link.",
       }),
       url: paths.communityUpdate(communityId),
     },
@@ -317,10 +416,29 @@ export const UpdateCommunity = () => {
     description: "Page title for the edit community page.",
   });
 
+  const pageSubtitle = intl.formatMessage(
+    {
+      defaultMessage: "Edit details about the {name}",
+      id: "NnfXYj",
+      description: "Description for update community",
+    },
+    {
+      name:
+        getLocalizedName(data?.community?.name, intl) ??
+        intl.formatMessage(commonMessages.notFound),
+    },
+  );
+
   return (
     <>
-      <SEO title={pageTitle} />
-      <Hero title={pageTitle} crumbs={crumbs} overlap centered>
+      <SEO title={pageTitle} description={pageSubtitle} />
+      <Hero
+        title={pageTitle}
+        subtitle={pageSubtitle}
+        crumbs={crumbs}
+        overlap
+        centered
+      >
         <div className="mb-18">
           <Pending fetching={fetching} error={error}>
             {data?.community ? (
@@ -352,11 +470,26 @@ export const UpdateCommunity = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
-    <UpdateCommunity />
-  </RequireAuth>
-);
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
+  return (
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+      ]}
+      strict
+    >
+      <UpdateCommunityPage />
+    </RequireAuth>
+  );
+};
 
 Component.displayName = "AdminUpdateCommunityPage";
 

@@ -3,11 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Community;
+use App\Models\WorkStream;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\WorkStream>
+ * @extends Factory<WorkStream>
  */
 class WorkStreamFactory extends Factory
 {

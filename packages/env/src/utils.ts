@@ -1,4 +1,4 @@
-import { HasServerConfig } from "./types";
+import type { HasServerConfig } from "./types";
 
 function isStringTrue(str: string | undefined): boolean {
   return str?.toLocaleUpperCase() === "TRUE";
@@ -40,11 +40,11 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  applicationEmailVerification: checkFeatureFlag(
-    "FEATURE_APPLICATION_EMAIL_VERIFICATION",
-  ),
-  holidayMessage: checkFeatureFlag("FEATURE_HOLIDAY_MESSAGE"),
-  gcSignIn: checkFeatureFlag("FEATURE_GCSI"),
+  canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
+  graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
+  activityTimer: checkFeatureFlag("FEATURE_ACTIVITY_TIMER"),
+  authInAppMigration: checkFeatureFlag("FEATURE_AUTH_IN_APP_MIGRATION"),
+  talentRequests: checkFeatureFlag("FEATURE_TALENT_REQUESTS"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

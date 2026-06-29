@@ -4,7 +4,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import PlusCircleIcon from "@heroicons/react/24/solid/PlusCircleIcon";
 import { useMutation, useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   ThrowNotFound,
@@ -25,12 +25,13 @@ import {
 import { BasicForm } from "@gc-digital-talent/forms";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   FragmentType,
-  Scalars,
-  SkillCategory,
   SkillLevel,
   WhenSkillUsed,
+} from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -182,7 +183,7 @@ export const UpdateUserSkill_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UpdateUserSkillFormProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   skillQuery: FragmentType<typeof UpdateUserSkillSkill_Fragment>;
   experiencesQuery: FragmentType<typeof UpdateUserSkillExperience_Fragment>[];
   userSkillQuery?: FragmentType<typeof UpdateUserSkill_Fragment> | null;
@@ -629,7 +630,7 @@ export const UpdateUserSkillForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const UpdateUserSkill_Query = graphql(/* GraphQL */ `

@@ -6,15 +6,14 @@ import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircle
 import BuildingLibraryIcon from "@heroicons/react/20/solid/BuildingLibraryIcon";
 import { tv } from "tailwind-variants";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   DevelopmentProgramParticipationStatus,
-  FragmentType,
   getFragment,
   graphql,
-  Maybe,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { IconType } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 interface StatusInfo {
@@ -23,8 +22,8 @@ interface StatusInfo {
 }
 
 const useStatusInfo = (
-  status?: Maybe<DevelopmentProgramParticipationStatus>,
-  completionDate?: Maybe<string>,
+  status?: DevelopmentProgramParticipationStatus | null,
+  completionDate?: string | null,
 ): StatusInfo => {
   const intl = useIntl();
 
@@ -33,11 +32,7 @@ const useStatusInfo = (
     message: intl.formatMessage(commonMessages.missingInformation),
   };
 
-  if (
-    !status ||
-    (!completionDate &&
-      status === DevelopmentProgramParticipationStatus.Completed)
-  ) {
+  if (!status) {
     return defaultStatusInfo;
   }
 
@@ -101,17 +96,22 @@ const useStatusInfo = (
       DevelopmentProgramParticipationStatus.Completed,
       {
         Icon: CheckCircleIcon,
-        message: intl.formatMessage(
-          {
-            defaultMessage: "Completed in {date}",
-            id: "RXFGuE",
-            description:
-              "Message when a user has completed a development program",
-          },
-          {
-            date,
-          },
-        ),
+        message: date
+          ? intl.formatMessage(
+              {
+                defaultMessage: "Completed in {date}",
+                id: "RXFGuE",
+                description:
+                  "Message when a user has completed a development program",
+              },
+              { date },
+            )
+          : intl.formatMessage({
+              defaultMessage: "Successfully completed",
+              id: "Xe2a91",
+              description:
+                "Message when a user has completed a development program with no recorded date",
+            }),
       },
     ],
   ]);
@@ -122,7 +122,7 @@ const useStatusInfo = (
 const devProgram = tv({
   slots: {
     base: "mb-1.5 flex items-start gap-1.5",
-    icon: "mt-1 size-4.5 text-error dark:text-error-200",
+    icon: "mt-1 size-4.5 text-error-500 dark:text-error-200",
     caption: "text-sm",
   },
   variants: {
@@ -142,17 +142,17 @@ const devProgram = tv({
     },
     hasError: {
       true: {
-        caption: "text-error dark:text-error-100",
+        caption: "text-error-500 dark:text-error-100",
       },
       false: {
-        caption: "text-gray- dark:text-gray-100",
+        caption: "text-gray-600 dark:text-gray-100",
       },
     },
   },
 });
 
 const CommunityInterestDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
-  fragment CommunityInterestDevelopmentProgramInterest on DevelopmentProgramInterest {
+  fragment CommunityInterestDevelopmentProgramUser on DevelopmentProgramUser {
     participationStatus
     completionDate
   }
@@ -184,11 +184,7 @@ const DevelopmentProgramInterestItem = ({
     caption,
   } = devProgram({
     status: developmentProgramInterest?.participationStatus ?? undefined,
-    hasError:
-      !developmentProgramInterest?.participationStatus ||
-      (developmentProgramInterest?.participationStatus ===
-        DevelopmentProgramParticipationStatus.Completed &&
-        !developmentProgramInterest?.completionDate),
+    hasError: !developmentProgramInterest?.participationStatus,
   });
 
   return (

@@ -1,4 +1,5 @@
-import { defineMessages, MessageDescriptor } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
@@ -204,6 +205,18 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     description:
       "Error message that reverting the final decision for a candidate failed",
   },
+  [ErrorCode.InvalidRevertDecisionPlaced]: {
+    defaultMessage:
+      "An error occurred while reverting final decision. Candidate has been placed.",
+    id: "JPBRgs",
+    description:
+      "Error message that reverting the final decision for a placed candidate failed",
+  },
+  [ErrorCode.CandidateNotFound]: {
+    defaultMessage: "Candidate not found.",
+    id: "PPOcri",
+    description: "Error message for when a pool candidate could not be found",
+  },
   [ErrorCode.InvalidStatusPlacing]: {
     defaultMessage:
       "An error occurred while placing the candidate. Contact support if this problem persists.",
@@ -215,6 +228,17 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
       "An error occurred while placing the candidate. Contact support if this problem persists.",
     id: "8kUa5H",
     description: "Error message that placing a candidate failed",
+  },
+  [ErrorCode.InvalidPauseReferral]: {
+    defaultMessage:
+      "An error occurred while pausing referrals. Contact support if this problem persists.",
+    id: "1go1mo",
+    description: "Error message that pausing referrals for a candidate failed",
+  },
+  [ErrorCode.InvalidUnpauseAtDate]: {
+    defaultMessage: "Pause end date can’t be after expiry date of pool.",
+    id: "F6BSah",
+    description: "Error message for pause referral status end date input",
   },
 
   // pool updating
@@ -488,6 +512,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "m/VZ/H",
     description: "Error message for when a user is not verified",
   },
+  [ErrorCode.YouMustBeVerifiedEmployeeForAction]: {
+    defaultMessage: "You must be a verified employee to perform this action.",
+    id: "cHgzmF",
+    description: "Error message for when a user is not verified",
+  },
   [ErrorCode.TalentEventIsClosed]: {
     defaultMessage:
       "The deadline for this talent management event has passed. You can no longer submit a nomination.",
@@ -507,6 +536,68 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "OJVUdM",
     description:
       "Error message for when user submits an application to an internal pool with an unverified work email",
+  },
+  [ErrorCode.InvalidUrl]: {
+    defaultMessage: "Invalid URL",
+    id: "4Uwcxk",
+    description: "Error message for invalid URL",
+  },
+
+  [ErrorCode.CommunityDevelopmentProgramNotFound]: {
+    defaultMessage: "Development program not found in your community.",
+    id: "hD254d",
+    description: "Error message for community development program not found",
+  },
+  [ErrorCode.CommunityDevelopmentProgramNotFoundOrInvalid]: {
+    defaultMessage: "Development program not found in your community.",
+    id: "RE4+M0",
+    description:
+      "Error message for community development program not found or invalid",
+  },
+  [ErrorCode.DevelopmentProgramMustConnectOwnEducationExperience]: {
+    defaultMessage: "The selected education experience is invalid.",
+    id: "7YjaCY",
+    description:
+      "Error message for development program must connect own education experience",
+  },
+  [ErrorCode.TalentEventCannotChangeCommunity]: {
+    defaultMessage: "The community cannot be changed.",
+    id: "W1sM+z",
+    description: "Error message for talent event cannot change community",
+  },
+  [ErrorCode.TalentEventCannotChangeName]: {
+    defaultMessage: "The event name cannot be changed.",
+    id: "MJzimR",
+    description: "Error message for talent event cannot change name",
+  },
+  [ErrorCode.TalentRequestInvalidPositionType]: {
+    defaultMessage:
+      "The talent request position type field value is not valid.",
+    id: "PLVEUB",
+    description: "Error message for talent request invalid position type",
+  },
+  [ErrorCode.TalentRequestInvalidReason]: {
+    defaultMessage: "The talent request reason field value is not valid.",
+    id: "a02YvL",
+    description: "Error message for talent request invalid reason",
+  },
+  [ErrorCode.TalentRequestInvalidStatus]: {
+    defaultMessage: "The talent request status field value is not valid.",
+    id: "8FkvT5",
+    description: "Error message for talent request invalid status",
+  },
+  [ErrorCode.TalentRequestInProgressDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to in progress.",
+    id: "rNmajm",
+    description:
+      "Error message for talent request in progress details required",
+  },
+  [ErrorCode.TalentRequestCompletionDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to complete.",
+    id: "NXyprm",
+    description: "Error message for talent request completion details required",
   },
 });
 

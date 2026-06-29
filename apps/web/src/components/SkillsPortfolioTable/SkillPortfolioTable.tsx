@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { ColumnDef, createColumnHelper, Row } from "@tanstack/react-table";
+import type { ColumnDef, Row } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useMutation } from "urql";
 
 import {
@@ -9,13 +10,15 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 import { useAuthorization } from "@gc-digital-talent/auth";
-import {
+import type {
   FragmentType,
+  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
+} from "@gc-digital-talent/graphql";
+import {
   getFragment,
   graphql,
   SkillCategory,
   SkillLevel,
-  SkillPortfolioTable_UserSkillFragment as SkillPortfolioTableUserSkillFragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -290,7 +293,7 @@ const SkillPortfolioTable = ({
       pagination={{
         internal: true,
         total: userSkills.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       nullMessage={{
         title: intl.formatMessage({

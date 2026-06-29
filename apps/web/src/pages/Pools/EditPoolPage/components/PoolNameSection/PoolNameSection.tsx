@@ -1,5 +1,7 @@
-import { JSX, useEffect } from "react";
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import type { JSX } from "react";
+import { useEffect } from "react";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
@@ -12,8 +14,8 @@ import {
   sortOpportunityLength,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
-  CheckboxOption,
   Checklist,
   Input,
   RadioGroup,
@@ -21,9 +23,9 @@ import {
   Submit,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   PoolStatus,
-  FragmentType,
   getFragment,
   graphql,
   PoolSelectionLimitation,
@@ -41,15 +43,9 @@ import processMessages from "~/messages/processMessages";
 
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
-import {
-  FormValues,
-  PoolNameSubmitData,
-  dataToFormValues,
-  formValuesToSubmitData,
-  getClassificationOptions,
-  getDepartmentOptions,
-} from "./utils";
-import { SectionProps } from "../../types";
+import type { FormValues, PoolNameSubmitData } from "./utils";
+import { dataToFormValues, formValuesToSubmitData } from "./utils";
+import type { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import CitizensNote from "./CitizensNote";
 
@@ -91,6 +87,8 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
+      displayName
     }
     department {
       id
@@ -124,27 +122,12 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
 export const PoolClassification_Fragment = graphql(/* GraphQL */ `
   fragment PoolClassification on Classification {
     id
-    group
-    level
-    name {
-      en
-      fr
-    }
-  }
-`);
-
-export const PoolDepartment_Fragment = graphql(/* GraphQL */ `
-  fragment PoolDepartment on Department {
-    id
-    name {
-      en
-      fr
-    }
+    displayName
   }
 `);
 
 const PoolNameOptions_Query = graphql(/* GraphQL */ `
-  query PoolNameOptions($communityIds: [UUID!]) {
+  query PoolNameOptions {
     publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
       value
       label {
@@ -152,11 +135,14 @@ const PoolNameOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    workStreams(whereCommunityIn: $communityIds) {
+    workStreams {
       id
       name {
         en
         fr
+      }
+      community {
+        id
       }
     }
     opportunityLengths: localizedEnumStrings(
@@ -239,13 +225,11 @@ interface PoolNameSectionProps extends SectionProps<
   FragmentType<typeof EditPoolName_Fragment>
 > {
   classificationsQuery: FragmentType<typeof PoolClassification_Fragment>[];
-  departmentsQuery: FragmentType<typeof PoolDepartment_Fragment>[];
 }
 
 const PoolNameSection = ({
   poolQuery,
   classificationsQuery,
-  departmentsQuery,
   sectionMetadata,
   onSave,
 }: PoolNameSectionProps): JSX.Element => {
@@ -253,7 +237,6 @@ const PoolNameSection = ({
   const pool = getFragment(EditPoolName_Fragment, poolQuery);
   const [{ data }] = useQuery({
     query: PoolNameOptions_Query,
-    variables: { communityIds: unpackMaybes([pool?.community?.id]) },
   });
   const isNull = isInNullState(pool);
   const emptyRequired = hasEmptyRequiredFields(pool);
@@ -267,7 +250,14 @@ const PoolNameSection = ({
     PoolClassification_Fragment,
     classificationsQuery,
   );
-  const departments = getFragment(PoolDepartment_Fragment, departmentsQuery);
+
+  // if community selected, limited streams, otherwise can pick any
+  const workStreams = unpackMaybes(data?.workStreams);
+  const workStreamsFiltered = pool?.community?.id
+    ? workStreams.filter(
+        (stream) => stream.community?.id === pool?.community?.id,
+      )
+    : workStreams;
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(pool),
@@ -432,7 +422,12 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={getClassificationOptions(classifications, intl)}
+                  options={unpackMaybes(classifications).map(
+                    ({ id, displayName }) => ({
+                      value: id,
+                      label: displayName,
+                    }),
+                  )}
                   disabled={formDisabled}
                 />
                 <Select
@@ -442,12 +437,10 @@ const PoolNameSection = ({
                   nullSelection={intl.formatMessage(
                     uiMessages.nullSelectionOption,
                   )}
-                  options={unpackMaybes(data?.workStreams).map(
-                    (workStream) => ({
-                      value: workStream.id,
-                      label: getLocalizedName(workStream?.name, intl),
-                    }),
-                  )}
+                  options={workStreamsFiltered.map((workStream) => ({
+                    value: workStream.id,
+                    label: getLocalizedName(workStream?.name, intl),
+                  }))}
                   disabled={formDisabled}
                 />
                 <Input
@@ -476,16 +469,6 @@ const PoolNameSection = ({
                 />
               </div>
               <div className="mb-6 grid gap-6">
-                <Select
-                  id="department"
-                  label={intl.formatMessage(commonMessages.department)}
-                  name="department"
-                  nullSelection={intl.formatMessage(
-                    uiMessages.nullSelectionOption,
-                  )}
-                  options={getDepartmentOptions(departments, intl)}
-                  disabled={formDisabled}
-                />
                 <Select
                   id="opportunityLength"
                   name="opportunityLength"

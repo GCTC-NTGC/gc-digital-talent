@@ -1,6 +1,6 @@
-import { To } from "react-router";
+import type { To } from "react-router";
 
-import { HeadingRank } from "./types";
+import type { HeadingRank } from "./types";
 
 /**
  * Increment a heading rank to a higher rank (h1 ➡️ h2 for example)

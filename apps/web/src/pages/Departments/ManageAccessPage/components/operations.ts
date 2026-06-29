@@ -42,7 +42,7 @@ export const DepartmentManageAccessPage_DepartmentFragment = graphql(
         }
         user {
           id
-          email
+          workEmail
           firstName
           lastName
         }

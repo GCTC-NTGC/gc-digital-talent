@@ -14,6 +14,13 @@
 
 .PHONY: setup_all refresh_all setup_api refresh_api optimize_api setup_web refresh_web git_clean compose_up compose_down queue_work
 
+# Environment selection: use `make -f Makefile.nix ENV=dev` for development with hot reloading
+ifeq ($(ENV),dev)
+COMPOSE_FLAGS := -f docker-compose.yml -f docker-compose.dev.yml
+else
+COMPOSE_FLAGS := -f docker-compose.yml
+endif
+
 setup_all: setup_api setup_web
 
 refresh_all: refresh_api refresh_web
@@ -56,10 +63,13 @@ git_clean:
 	sudo git clean -xdf
 
 compose_up:
-	docker compose up --detach
+	docker compose $(COMPOSE_FLAGS) up --detach
 
 compose_down:
-	docker compose down
+	docker compose $(COMPOSE_FLAGS) down
 
 queue_work:
 	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+
+reverb-start:
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start"

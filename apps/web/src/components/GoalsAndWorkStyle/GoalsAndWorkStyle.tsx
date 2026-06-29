@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion } from "@gc-digital-talent/ui";
 
 import Display from "./Display";
 
-export const GoalsAndWorkStyle_Fragment = graphql(/* GraphQL */ `
+const GoalsAndWorkStyle_Fragment = graphql(/* GraphQL */ `
   fragment GoalsAndWorkStyle on EmployeeProfile {
     ...GoalsAndWorkStyleDisplay
   }

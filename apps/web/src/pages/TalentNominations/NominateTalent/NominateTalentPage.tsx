@@ -21,7 +21,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import Nominator from "./components/Nominator";
 import Nominee from "./components/Nominee";
 import Details from "./components/Details";
@@ -77,6 +77,7 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
       ...NominateTalentRationale
       ...NominateTalentReviewAndSubmit
       ...NominateTalentSuccess
+      ...NominateTalentInstructions
     }
 
     ...NomineeFieldOptions
@@ -91,8 +92,8 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
 
 const subTitle = defineMessage({
   defaultMessage:
-    "Nominate talent for advancement, lateral movement, or development programs.",
-  id: "4adKE5",
+    "Nominate talent for advancement, lateral movement, or development opportunities.",
+  id: "OoPiFu",
   description: "Subtitle for the form to nominate talent",
 });
 
@@ -139,7 +140,14 @@ const NominateTalentPage = () => {
         );
       }
     }
-  }, [isSubmitted, fetching, current, location.state]);
+  }, [
+    isSubmitted,
+    fetching,
+    current,
+    location.state,
+    data?.talentNomination?.submittedSteps,
+    setSearchParams,
+  ]);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -190,7 +198,7 @@ const NominateTalentPage = () => {
                 <Navigation navigationQuery={data.talentNomination} />
               </TableOfContents.Sidebar>
               <TableOfContents.Content>
-                <Instructions />
+                <Instructions instructionsQuery={data.talentNomination} />
                 <Nominator
                   nominatorQuery={data.talentNomination}
                   optionsQuery={data}

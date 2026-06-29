@@ -1,8 +1,8 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { empty } from "@gc-digital-talent/helpers";
 
-import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
+import type { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
 export const getSelfDeclarationLabels = (intl: IntlShape) => ({
   isIndigenous: intl.formatMessage({

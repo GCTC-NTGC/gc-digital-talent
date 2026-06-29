@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import sortBy from "lodash/sortBy";
 import { useMutation } from "urql";
@@ -11,12 +11,11 @@ import {
   Notice,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { AssessmentStep, FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
-  AssessmentStep,
   AssessmentStepType,
   PoolStatus,
-  FragmentType,
   getFragment,
 } from "@gc-digital-talent/graphql";
 
@@ -101,6 +100,8 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+type StepState = Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">[];
+
 interface OrganizeSectionProps {
   poolQuery: FragmentType<typeof OrganizeSectionPool_Fragment>;
   pageIsLoading: boolean;
@@ -116,14 +117,14 @@ const OrganizeSection = ({
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
   );
-  const [steps, setSteps] =
-    useState<Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">[]>(
-      initialSteps,
-    );
+  const [steps, setSteps] = useState<StepState>(initialSteps);
+  const [prevInitialSteps, setPrevInitialSteps] =
+    useState<StepState>(initialSteps);
 
-  useEffect(() => {
+  if (initialSteps !== prevInitialSteps) {
     setSteps(initialSteps);
-  }, [initialSteps]);
+    setPrevInitialSteps(initialSteps);
+  }
 
   const resetSteps = () => {
     setSteps(initialSteps);

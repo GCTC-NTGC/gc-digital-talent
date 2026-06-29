@@ -10,24 +10,20 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { COMMUNITY_ROLES, RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { COMMUNITY_ROLES } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import {
-  CommunityAssignment,
-  getRoleTableFragments,
-  RoleTableProps,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { CommunityAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
-  roleIds: Scalars["UUID"]["input"][];
-  teamId: Maybe<Scalars["UUID"]["input"]>;
-  userId: Scalars["UUID"]["input"];
+  roleIds: string[];
+  teamId: string | null;
+  userId: string;
 }
 
 interface EditCommunityRoleDialogProps extends RoleTableProps {

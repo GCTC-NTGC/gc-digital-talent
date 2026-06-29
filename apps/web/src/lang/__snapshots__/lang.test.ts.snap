@@ -48,36 +48,14 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Nominate talent",
     "fr": [
       "Nommez un talent",
-      "Présentez une mise en candidature"
-    ]
-  },
-  {
-    "en": "Not interested",
-    "fr": [
-      "Non intéressé(e)",
-      "Ce programme ne m'intéresse pas",
-      "Pas d'intérêt"
+      "Présenter une mise en candidature"
     ]
   },
   {
     "en": "Add department role",
     "fr": [
-      "Ajouter un rôle dans un ministère",
+      "Ajouter un rôle lié à un ministère",
       "Ajouter un rôle dans le ministère :"
-    ]
-  },
-  {
-    "en": "cloud computing",
-    "fr": [
-      "intégration de systèmes",
-      "l'informatique en nuage;"
-    ]
-  },
-  {
-    "en": "Citizenship status",
-    "fr": [
-      "Statut de citoyenneté",
-      "Statut de citoyen"
     ]
   },
   {
@@ -91,7 +69,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Community roles",
     "fr": [
       "Rôles dans la collectivité",
-      "Rôles dans des collectivités"
+      "Rôles dans les collectivités"
     ]
   },
   {
@@ -116,17 +94,11 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "cyber security",
+    "en": "Not interested",
     "fr": [
-      "la cybersécurité;",
-      "cybersécurité"
-    ]
-  },
-  {
-    "en": "Submit",
-    "fr": [
-      "Soumettre",
-      "Soumettez"
+      "Ce programme ne m'intéresse pas",
+      "Non intéressé(e)",
+      "Pas d'intérêt"
     ]
   },
   {
@@ -167,29 +139,16 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Archive department",
     "fr": [
-      "Archivez le ministère",
+      "Archiver le ministère",
       "Archivage du ministère"
-    ]
-  },
-  {
-    "en": "Remove candidate",
-    "fr": [
-      "Supprimer le (la) candidat(e)",
-      "Supprimez le (la) candidat(e)"
-    ]
-  },
-  {
-    "en": "Remove from process",
-    "fr": [
-      "Retirez du processus",
-      "Retirer du processus"
     ]
   },
   {
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
-      "Présenter une demande"
+      "Présenter une demande",
+      "Faire une demande"
     ]
   },
   {
@@ -230,7 +189,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Add process role",
     "fr": [
-      "Ajouter un rôle dans le processus",
+      "Ajouter un rôle lié à un processus",
       "Ajouter des rôles dans des processus"
     ]
   },
@@ -277,6 +236,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Welcome back",
+    "fr": [
+      "Bon retour!",
+      "Bon retour"
+    ]
+  },
+  {
     "en": "Request a voucher",
     "fr": [
       "Demander un bon",
@@ -288,13 +254,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Créer un groupe de compétences",
       "Créer le groupe de compétences"
-    ]
-  },
-  {
-    "en": "Remove from community",
-    "fr": [
-      "Retirez de la collectivité",
-      "Retirer de la collectivité"
     ]
   },
   {

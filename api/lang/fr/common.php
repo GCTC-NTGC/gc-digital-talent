@@ -36,7 +36,7 @@ return [
     // position types
     'en_only' => 'Postes en anglais uniquement',
     'fr_only' => 'Postes en français uniquement',
-    'bilingual' => 'Postes bilingues',
+    'bilingual_positions' => 'Postes bilingues',
     'skill_showcase_text' => 'La vitrine de compétences permet aux utilisateurs de présenter des listes qui mettent en valeur leurs points forts, leurs points faibles ainsi que leurs occasions de développement. Ces listes offrent un aperçu global de leurs compétences et indiquent les domaines dans lesquels ils souhaitent progresser ou acquérir de nouvelles compétences.',
     'not_available' => 'Non disponible',
     'advancement' => 'Avancement',
@@ -48,8 +48,12 @@ return [
     'off_platform_processes_text' => 'Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d\'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d\'embauche ou de placement.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Exigences en matière de compétences',
-    'expired' => 'Expiré',
     'interested_in_program' => 'Ce programme m\'intéresse',
     'currently_enrolled' => 'Programme en cours',
     'completed_in' => 'Achevé en ',
+    'successfully_completed' => 'Complété avec succès',
+    'successfully_placed' => 'Placement effectué avec succès',
+
+    // user and pool candidate terms
+    'veteran' => 'Vétéran',
 ];

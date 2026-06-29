@@ -9,11 +9,24 @@ export function getFeatureFlagConfig(flags: Partial<FeatureFlags>) {
     path: path.resolve(__dirname, "..", "..", "web", ".env"),
     quiet: true,
   });
-  const env = { ...parsed, ...flags };
+  const env: Record<string, unknown> = { ...parsed, ...flags };
 
   let body = `let data = new Map();`;
   Object.keys(env).forEach((key) => {
-    const value = env[key] ? String(env[key]) : undefined;
+    const raw = env[key];
+    let value: string | undefined;
+
+    if (
+      typeof raw === "string" ||
+      typeof raw === "number" ||
+      typeof raw === "boolean"
+    ) {
+      value = String(raw);
+    } else if (typeof raw === "object" && raw !== null) {
+      value = JSON.stringify(raw);
+    } else {
+      value = undefined;
+    }
     if (typeof value !== "undefined") {
       body = `${body} data.set("${key}", "${value}");`;
     }

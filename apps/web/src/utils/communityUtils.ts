@@ -1,7 +1,6 @@
-import { RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Maybe,
+import type {
   Role,
   RoleAssignment,
   UserPublicProfile,
@@ -51,7 +50,7 @@ export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
  */
 export const checkRole = (
   roles: RoleName[] | null,
-  userRoleAssignments: Maybe<RoleAssignment[]>,
+  userRoleAssignments: RoleAssignment[] | null,
   communityId?: string,
 ): boolean => {
   if (!roles) {

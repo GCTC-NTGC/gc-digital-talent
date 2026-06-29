@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
-import { PaginationState, Table } from "@tanstack/react-table";
+import type { PaginationState, Table } from "@tanstack/react-table";
 
 import Pagination from "~/components/Pagination";
 
-import { PaginationDef } from "./types";
+import type { PaginationDef } from "./types";
 
 interface TablePaginationProps<T> {
   label: string;

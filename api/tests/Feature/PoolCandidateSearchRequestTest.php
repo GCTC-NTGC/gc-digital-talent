@@ -13,6 +13,7 @@ use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\Fluent\AssertableJson;
+use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -66,7 +67,7 @@ class PoolCandidateSearchRequestTest extends TestCase
      * Run generic mutation with input
      *
      * @param   array<mixed>    CreatePoolCandidateSearchRequestInput
-     * @return \Illuminate\Testing\TestResponse
+     * @return TestResponse
      */
     private function runCreateMutation($input)
     {

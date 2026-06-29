@@ -1,9 +1,9 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { differenceInDays } from "date-fns/differenceInDays";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
+import type { EquitySelections } from "@gc-digital-talent/graphql";
 import {
-  EquitySelections,
-  Maybe,
   PoolCandidateSearchPositionType,
   PositionDuration,
 } from "@gc-digital-talent/graphql";
@@ -11,7 +11,7 @@ import {
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 export const positionDurationToEmploymentDuration = (
-  durations?: Maybe<PositionDuration | undefined>[],
+  durations?: (PositionDuration | null | undefined)[] | null,
 ): string => {
   if (durations?.includes(PositionDuration.Temporary)) {
     return EmploymentDuration.Term;
@@ -22,7 +22,7 @@ export const positionDurationToEmploymentDuration = (
 };
 
 export const hasDiplomaToEducationLevel = (
-  hasDiploma: Maybe<boolean> | undefined,
+  hasDiploma: boolean | null | undefined,
   intl: IntlShape,
 ): string =>
   hasDiploma
@@ -41,7 +41,7 @@ export const hasDiplomaToEducationLevel = (
       });
 
 export const equitySelectionsToDescriptions = (
-  equity: Maybe<EquitySelections> | undefined,
+  equity: EquitySelections | null | undefined,
   intl: IntlShape,
 ): string[] => [
   ...(equity?.isWoman
@@ -86,7 +86,7 @@ export const equitySelectionsToDescriptions = (
 ];
 
 export const positionTypeToYesNoSupervisoryStatement = (
-  positionType: Maybe<PoolCandidateSearchPositionType> | undefined,
+  positionType: PoolCandidateSearchPositionType | null | undefined,
   intl: IntlShape,
 ): string | null => {
   if (positionType == PoolCandidateSearchPositionType.TeamLead) {
@@ -96,4 +96,15 @@ export const positionTypeToYesNoSupervisoryStatement = (
     return intl.formatMessage(talentRequestMessages.supervisoryPositionNo);
   }
   return null;
+};
+
+export const followUpDateOverdueInfo = (
+  followUpDate?: Date | null,
+  compareTo?: Date,
+) => {
+  const now = compareTo ?? new Date();
+  const daysOverdue = followUpDate ? differenceInDays(now, followUpDate) : -1;
+  const isOverdue = daysOverdue >= 0;
+
+  return { daysOverdue, isOverdue };
 };

@@ -4,11 +4,13 @@ import StarIcon from "@heroicons/react/20/solid/StarIcon";
 import { Heading, Link, Separator } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 export const getPageInfo: GetPageNavInfo = ({
   application,
@@ -50,7 +52,7 @@ const ApplicationCareerTimelineIntroduction = ({
 }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { currentStepOrdinal, isIAP } = useApplicationContext();
+  const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -91,12 +93,10 @@ const ApplicationCareerTimelineIntroduction = ({
             description: "Link text to continue the application process",
           })}
         </Link>
-        <Link
-          mode="inline"
-          href={paths.profileAndApplications({ fromIapDraft: isIAP })}
-        >
+        <Link mode="inline" href={paths.profileAndApplications()}>
           {intl.formatMessage(applicationMessages.saveQuit)}
         </Link>
+        <DeleteApplicationDialog query={application} />
       </div>
     </>
   );

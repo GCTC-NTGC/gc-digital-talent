@@ -1,4 +1,5 @@
-import { Button, ButtonProps } from "@gc-digital-talent/ui";
+import type { ButtonProps } from "@gc-digital-talent/ui";
+import { Button } from "@gc-digital-talent/ui";
 
 type PageButtonProps = Omit<ButtonProps, "mode" | "ref">;
 

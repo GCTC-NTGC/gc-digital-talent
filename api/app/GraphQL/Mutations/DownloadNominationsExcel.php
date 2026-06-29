@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Generators\NominationsExcelGenerator;
 use App\Jobs\GenerateUserFile;
 use App\Models\TalentNominationEvent;
+use App\Support\FilePath;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -32,7 +33,7 @@ final class DownloadNominationsExcel
 
         try {
             $generator = new NominationsExcelGenerator(
-                fileName: sprintf('%s_%s_%s', str_replace(' ', '', $talentNominationEventName), strtolower(Lang::get('common.nominations')), date('Y-m-d_His')),
+                fileName: FilePath::sanitize(sprintf('%s_%s_%s', str_replace(' ', '', $talentNominationEventName), strtolower(Lang::get('common.nominations')), date('Y-m-d_His'))),
                 talentNominationEventId: $talentNominationEventId,
                 dir: $user->id,
                 lang: App::getLocale(),

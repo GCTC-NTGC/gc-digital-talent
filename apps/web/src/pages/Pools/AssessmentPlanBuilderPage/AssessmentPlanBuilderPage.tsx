@@ -1,6 +1,7 @@
 import { defineMessage, useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
-import { ReactNode } from "react";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
+import type { ReactNode } from "react";
 
 import {
   commonMessages,
@@ -15,12 +16,8 @@ import {
   TableOfContents,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -132,7 +129,7 @@ export const AssessmentPlanBuilder = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
@@ -141,6 +138,9 @@ const AssessmentPlanBuilderPage_Query = graphql(/* GraphQL */ `
     pool(id: $poolId) {
       ...AssessmentPlanBuilderPool
       community {
+        teamIdForRoleAssignment
+      }
+      department {
         teamIdForRoleAssignment
       }
       teamIdForRoleAssignment
@@ -186,6 +186,13 @@ export const AssessmentPlanBuilderPage = () => {
         (authorizedRoleAssignment.role?.name === ROLE_NAME.CommunityAdmin &&
           authorizedRoleAssignment.team?.id ===
             queryData?.pool?.community?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name === ROLE_NAME.DepartmentAdmin &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.department?.teamIdForRoleAssignment) ||
+        (authorizedRoleAssignment.role?.name ===
+          ROLE_NAME.DepartmentHRAdvisor &&
+          authorizedRoleAssignment.team?.id ===
+            queryData?.pool?.department?.teamIdForRoleAssignment) ||
         authorizedRoleAssignment.role?.name === ROLE_NAME.PlatformAdmin,
     ) ?? false;
 
@@ -249,6 +256,8 @@ export const Component = () => (
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.ProcessOperator,
+      ROLE_NAME.DepartmentAdmin,
+      ROLE_NAME.DepartmentHRAdvisor,
     ]}
   >
     <AssessmentPlanBuilderPage />

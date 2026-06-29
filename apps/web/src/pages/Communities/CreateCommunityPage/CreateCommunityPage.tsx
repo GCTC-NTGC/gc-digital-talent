@@ -1,15 +1,16 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { graphql, CreateCommunityInput } from "@gc-digital-talent/graphql";
+import type { CreateCommunityInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CreateCommunityForm from "./components/CreateCommunityForm";
 
@@ -27,6 +28,12 @@ const pageTitle = defineMessage({
   description: "Page title for the create community page",
 });
 
+const pageSubtitle = defineMessage({
+  defaultMessage: "Add a community to the platform.",
+  id: "EgYtVO",
+  description: "Page subtitle for the create community page",
+});
+
 const CreateCommunityPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -34,6 +41,7 @@ const CreateCommunityPage = () => {
   const [, executeMutation] = useMutation(CreateCommunity_Mutation);
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
+  const formattedPageSubtitle = intl.formatMessage(pageSubtitle);
 
   const handleSubmit = async (values: CreateCommunityInput) => {
     return executeMutation({
@@ -65,9 +73,10 @@ const CreateCommunityPage = () => {
 
   return (
     <>
-      <SEO title={formattedPageTitle} />
+      <SEO title={formattedPageTitle} description={formattedPageSubtitle} />
       <Hero
         title={formattedPageTitle}
+        subtitle={formattedPageSubtitle}
         crumbs={navigationCrumbs}
         overlap
         centered
@@ -80,8 +89,8 @@ const CreateCommunityPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
     <CreateCommunityPage />
   </RequireAuth>
 );

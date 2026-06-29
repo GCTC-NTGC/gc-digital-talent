@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 /**
  * Class AwardExperience
@@ -13,12 +14,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $user_id
  * @property string $title
  * @property string $issued_by
- * @property ?\Illuminate\Support\Carbon $awarded_date
+ * @property ?Carbon $awarded_date
  * @property string $awarded_to
  * @property string $awarded_scope
  * @property string $details
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property string $project_name
  * @property Experience $relatedExperience
  */

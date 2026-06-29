@@ -1681,12 +1681,9 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID!, $pool: CreatePoolInput!) {
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
                 createPool(userId: $userId, communityId: $communityId, pool: $pool) {
                     id
-                    owner {
-                        id
-                    }
                     community {
                         id
                     }
@@ -1713,14 +1710,110 @@ class PoolTest extends TestCase
             );
 
         $response->assertJsonFragment([
-            'owner' => ['id' => $this->communityRecruiter->id],
-        ])->assertJsonFragment([
             'community' => ['id' => $this->community->id],
         ])->assertJsonFragment([
             'classification' => ['id' => $classification->id],
         ])->assertJsonFragment([
             'department' => ['id' => $department->id],
         ]);
+    }
+
+    // can create a pool as department role, no community attached
+    public function testCreatePoolNoCommunity()
+    {
+        $classification = Classification::factory()->create();
+        $department = Department::factory()->create();
+
+        $departmentAdmin = User::factory()
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($departmentAdmin, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'userId' => $departmentAdmin->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $department->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertJsonFragment([
+            'community' => null,
+        ])->assertJsonFragment([
+            'classification' => ['id' => $classification->id],
+        ])->assertJsonFragment([
+            'department' => ['id' => $department->id],
+        ]);
+    }
+
+    // test user with community and department roles submitting an invalid pairing
+    public function testCreatePoolInvalidDepartmentCommunityPair()
+    {
+        $classification = Classification::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $department = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+
+        $testUser = User::factory()
+            ->asCommunityAdmin($this->community->id)
+            ->asDepartmentAdmin($department->id)
+            ->create();
+
+        $response = $this->actingAs($testUser, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
+                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+                    id
+                    community {
+                        id
+                    }
+                    classification {
+                        id
+                    }
+                    department {
+                        id
+                    }
+                }
+            }',
+                [
+                    'communityId' => $otherCommunity->id,
+                    'userId' => $testUser->id,
+                    'pool' => [
+                        'classification' => [
+                            'connect' => $classification->id,
+                        ],
+                        'department' => [
+                            'connect' => $otherDepartment->id,
+                        ],
+                    ],
+                ]
+            );
+
+        $response->assertGraphQLValidationError('pool', ErrorCode::INVALID_COMMUNITY_DEPARTMENT_COMBO->name);
     }
 
     public function testDuplicatePool()

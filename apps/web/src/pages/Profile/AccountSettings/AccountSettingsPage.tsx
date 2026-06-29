@@ -1,79 +1,43 @@
 import { useIntl, defineMessage } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { useMutation, useQuery } from "urql";
+import { useQuery } from "urql";
 
 import {
   Container,
+  Link,
   NotFound,
   Pending,
+  Separator,
   TableOfContents,
 } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
-import { SectionProps } from "~/components/Profile/types";
-import StatusItem, { Status } from "~/components/StatusItem/StatusItem";
-import { aboutSectionHasEmptyRequiredFields } from "~/validators/profile";
+import type { Status } from "~/components/StatusItem/StatusItem";
+import StatusItem from "~/components/StatusItem/StatusItem";
 import messages from "~/messages/profileMessages";
-import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
 
-import AccountManagement from "./AccountManagement";
 import NotificationSettings from "./NotificationSettings";
+import AccountAndContactInformation from "./AccountAndContactInformation";
 
-const PersonalInformation_Fragment = graphql(/** GraphQL */ `
+export const PersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInformation on User {
     id
-    firstName
-    lastName
-    telephone
-    email
-    isEmailVerified
-    workEmail
-    isWorkEmailVerified
-    preferredLang {
-      value
-    }
-    preferredLanguageForInterview {
-      value
-    }
-    preferredLanguageForExam {
-      value
-    }
-    citizenship {
-      value
-    }
-    armedForcesStatus {
-      value
-    }
     enabledEmailNotifications
     enabledInAppNotifications
-    ...ProfilePersonalInformation
-    ...ContactEmailCard
-    ...WorkEmailCard
+    ...AccountAndContactInformation
   }
 `);
 
-const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
-  mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
-    updateUserAsUser(id: $id, user: $user) {
-      id
-    }
-  }
-`);
-
-export type SectionKey =
-  | "personalInfo"
-  | "notificationSettings"
-  | "accountManagement";
+export type SectionKey = "accountAndContact" | "notificationSettings";
 
 interface Section {
   id: string;
@@ -88,8 +52,9 @@ const pageTitle = defineMessage({
 });
 
 const subTitle = defineMessage({
-  defaultMessage: "Learn about GCKey and manage your notifications.",
-  id: "HR2ouB",
+  defaultMessage:
+    "Update your personal and employee information, manage notifications, and update your availability.",
+  id: "SdglrJ",
   description: "Subtitle for the account settings page.",
 });
 
@@ -97,7 +62,9 @@ interface AccountSettingsProps {
   personalInfoQuery: FragmentType<typeof PersonalInformation_Fragment>;
 }
 
-const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
+export const AccountSettings = ({
+  personalInfoQuery,
+}: AccountSettingsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
 
@@ -117,16 +84,14 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
   const formattedSubTitle = intl.formatMessage(subTitle);
 
   const sections: Record<SectionKey, Section> = {
-    personalInfo: {
-      id: "personal-info",
+    accountAndContact: {
+      id: "account-and-contact",
       title: intl.formatMessage({
-        defaultMessage: "Personal and contact information",
-        id: "BWh6S1",
-        description: "Title for the personal and contact information section",
+        defaultMessage: "Account and contact information",
+        id: "sx79Vq",
+        description:
+          "Title for the account and contact information information section",
       }),
-      status: aboutSectionHasEmptyRequiredFields(personalInfo)
-        ? "error"
-        : "success",
     },
     notificationSettings: {
       id: "notification-settings",
@@ -134,14 +99,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
         defaultMessage: "Notification settings",
         id: "mZ1C/0",
         description: "Title for the notification settings.",
-      }),
-    },
-    accountManagement: {
-      id: "account-management",
-      title: intl.formatMessage({
-        defaultMessage: "Account management",
-        id: "efBMD2",
-        description: "Title for the account management.",
       }),
     },
   };
@@ -154,24 +111,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
       },
     ],
   });
-
-  const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
-    ProfileUpdateUser_Mutation,
-  );
-
-  const handleUpdate: SectionProps["onUpdate"] = async (userId, userData) => {
-    return executeUpdateMutation({
-      id: userId,
-      user: userData,
-    }).then((res) => res.data?.updateUserAsUser);
-  };
-
-  const sectionProps = {
-    query: personalInfo,
-    isUpdating,
-    onUpdate: handleUpdate,
-    pool: null,
-  };
 
   return (
     <>
@@ -188,10 +127,7 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
               {Object.values(sections).map((section) => {
                 if (section.status) {
                   return (
-                    <TableOfContents.ListItem
-                      key={section.id}
-                      className="-ml-7px list-none"
-                    >
+                    <TableOfContents.ListItem key={section.id}>
                       <StatusItem
                         asListItem={false}
                         title={section.title}
@@ -210,16 +146,19 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
                 );
               })}
             </TableOfContents.List>
+            <Separator space="sm" />
+            <div className="flex flex-col gap-y-3">
+              <Link href={paths.profile()}>
+                {intl.formatMessage(navigationMessages.applicantProfile)}
+              </Link>
+              <Link href={paths.employeeProfile()}>
+                {intl.formatMessage(navigationMessages.employeeProfileGC)}
+              </Link>
+            </div>
           </TableOfContents.Navigation>
           <TableOfContents.Content>
-            <TableOfContents.Section id={sections.personalInfo.id}>
-              <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
-                <div className="col-span-2">
-                  <PersonalInformation {...sectionProps} />
-                </div>
-                <ContactEmailCard query={personalInfo} />
-                <WorkEmailCard query={personalInfo} />
-              </div>
+            <TableOfContents.Section id={sections.accountAndContact.id}>
+              <AccountAndContactInformation query={personalInfo} />
             </TableOfContents.Section>
             <TableOfContents.Section
               id={sections.notificationSettings.id}
@@ -246,29 +185,6 @@ const AccountSettings = ({ personalInfoQuery }: AccountSettingsProps) => {
                 enabledEmailNotifications={enabledEmailNotifications}
                 enabledInAppNotifications={enabledInAppNotifications}
               />
-            </TableOfContents.Section>
-            <TableOfContents.Section
-              id={sections.accountManagement.id}
-              className="mt-12 xs:mt-18"
-            >
-              <TableOfContents.Heading
-                size="h3"
-                icon={Cog8ToothIcon}
-                color="primary"
-                className="mt-0 mb-6"
-              >
-                {sections.accountManagement.title}
-              </TableOfContents.Heading>
-              <p className="mb-6">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "This section focuses on general account management and information related to how we link to your GCKey.",
-                  id: "G6PxDn",
-                  description:
-                    "Subtitle for account management section on account settings page.",
-                })}
-              </p>
-              <AccountManagement />
             </TableOfContents.Section>
           </TableOfContents.Content>
         </TableOfContents.Wrapper>

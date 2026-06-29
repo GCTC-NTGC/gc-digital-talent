@@ -2,19 +2,20 @@ import { useState } from "react";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
-import { HeadingRank, Link, Notice } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Link, Notice } from "@gc-digital-talent/ui";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
-import ExperienceSortAndFilter, {
-  FormValues as ExperienceSortAndFilterFormValues,
-} from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import type { FormValues as ExperienceSortAndFilterFormValues } from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
+import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import useRoutes from "~/hooks/useRoutes";
 import experienceMessages from "~/messages/experienceMessages";
 
-const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
+export const CareerTimelineSectionExperience_Fragment = graphql(/** GraphQL */ `
   fragment CareerTimelineSectionExperience on Experience {
     id
     ...ExperienceCard

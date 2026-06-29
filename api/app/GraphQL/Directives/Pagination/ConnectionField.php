@@ -8,6 +8,7 @@ use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ObjectType;
 use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Pagination\AbstractCursorPaginator;
 use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Execution\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -51,12 +52,24 @@ class ConnectionField
 
         $values = new Collection(array_values($paginator->items()));
 
-        return $values->map(static function ($item, int $index) use ($returnTypeFields): array {
+        return $values->map(static function ($item, int $index) use ($returnTypeFields, $paginator): array {
             $data = [];
             foreach ($returnTypeFields as $field) {
                 switch ($field->name) {
-                    case 'cursor':
-                        $data['cursor'] = null; // Not available from CursorPaginator
+                    case 'nextCursor':
+                        if ($paginator instanceof AbstractCursorPaginator) {
+                            $data['nextCursor'] = $paginator->getCursorForItem($item)->encode();
+                        } else {
+                            $data['nextCursor'] = '';
+                        }
+                        break;
+
+                    case 'previousCursor':
+                        if ($paginator instanceof AbstractCursorPaginator) {
+                            $data['previousCursor'] = $paginator->getCursorForItem($item, false)->encode();
+                        } else {
+                            $data['previousCursor'] = '';
+                        }
                         break;
 
                     case 'node':

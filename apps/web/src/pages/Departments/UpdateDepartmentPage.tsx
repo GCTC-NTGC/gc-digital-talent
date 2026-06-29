@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -19,34 +20,33 @@ import {
   CardSeparator,
   Card,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   DepartmentSize,
   FragmentType,
   LocalizedStringInput,
-  Maybe,
-  Scalars,
   UpdateDepartmentInput,
-  getFragment,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import FormFields, { DepartmentFormOptions_Fragment } from "./FormFields";
-import { DepartmentType, departmentTypeToInput } from "./utils";
+import type { DepartmentFormOptions_Fragment } from "./FormFields";
+import FormFields from "./FormFields";
+import type { DepartmentType } from "./utils";
+import { departmentTypeToInput } from "./utils";
 
 interface FormValues {
   name?: LocalizedStringInput;
-  departmentNumber: Maybe<number>;
-  orgIdentifier: Maybe<number>;
-  size: Maybe<DepartmentSize>;
+  departmentNumber: number | null;
+  orgIdentifier: number | null;
+  size: DepartmentSize | null;
   departmentType: DepartmentType[] | boolean;
 }
 
@@ -194,7 +194,7 @@ export const UpdateDepartmentForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
 const Department_Query = graphql(/* GraphQL */ `
@@ -311,8 +311,8 @@ const UpdateDepartmentPage = () => {
   );
 };
 
-export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.PlatformAdmin]}>
+const Component = () => (
+  <RequireAuth rolesRequirements={[{ name: ROLE_NAME.PlatformAdmin }]}>
     <UpdateDepartmentPage />
   </RequireAuth>
 );

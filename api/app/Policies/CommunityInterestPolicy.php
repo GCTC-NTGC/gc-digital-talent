@@ -17,8 +17,6 @@ class CommunityInterestPolicy
             return true;
         }
 
-        $communityInterest->loadMissing('community.team');
-
         return ($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id) ||
             (! is_null($communityInterest->community->team)
             && $user->isAbleTo('view-team-communityInterest', $communityInterest->community->team));
@@ -68,8 +66,6 @@ class CommunityInterestPolicy
         if (($user->isAbleTo('view-own-employeeProfile') && $user->id === $communityInterest->user_id)) {
             return true;
         }
-
-        $communityInterest->loadMissing('community.team');
 
         return ! is_null($communityInterest->community->team)
             && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team);

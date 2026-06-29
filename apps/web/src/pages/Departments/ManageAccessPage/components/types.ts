@@ -1,18 +1,14 @@
-import {
-  FragmentType,
-  RoleAssignment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
 
-import Hero from "~/components/Hero";
+import type Hero from "~/components/Hero";
 
-import { DepartmentManageAccessPage_DepartmentFragment } from "./operations";
+import type { DepartmentManageAccessPage_DepartmentFragment } from "./operations";
 
 export interface DepartmentManageAccessFormValues {
-  departmentId: Scalars["UUID"]["output"];
-  userId: Scalars["UUID"]["output"];
-  userDisplay: Scalars["UUID"]["output"];
-  roles: Scalars["UUID"]["output"][];
+  departmentId: string;
+  userId: string;
+  userDisplay: string;
+  roles: string[];
 }
 
 export type DepartmentManageAccessPageFragment = FragmentType<
@@ -21,7 +17,7 @@ export type DepartmentManageAccessPageFragment = FragmentType<
 
 export interface ContextType {
   departmentName: string;
-  teamId: Scalars["UUID"]["output"] | null | undefined;
+  teamId: string | null | undefined;
   navTabs: React.ComponentProps<typeof Hero>["navTabs"];
   navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
   roleAssignmentsFiltered: RoleAssignment[];

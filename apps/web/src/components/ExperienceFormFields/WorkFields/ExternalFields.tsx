@@ -7,13 +7,14 @@ import {
   RadioGroup,
 } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
-import {
-  ExternalWorkFieldOptionsQuery,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { ExternalWorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import { SubExperienceFormProps } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 
 import SupervisoryFields from "./SupervisoryFields";
 

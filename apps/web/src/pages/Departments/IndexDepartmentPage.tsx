@@ -5,14 +5,14 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import DepartmentTableApi from "./components/DepartmentTable";
 
-export const DepartmentPage = () => {
+const IndexDepartmentPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
   const formattedPageTitle = intl.formatMessage(pageTitles.departments);
@@ -37,15 +37,15 @@ export const DepartmentPage = () => {
   );
 };
 
-export const Component = () => (
+const Component = () => (
   <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
+    rolesRequirements={[
+      { name: ROLE_NAME.PlatformAdmin },
+      { name: ROLE_NAME.DepartmentAdmin },
+      { name: ROLE_NAME.DepartmentHRAdvisor },
     ]}
   >
-    <DepartmentPage />
+    <IndexDepartmentPage />
   </RequireAuth>
 );
 

@@ -3,12 +3,13 @@ import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 import { action } from "storybook/actions";
 
-import { SwitchProps } from "@gc-digital-talent/ui";
+import type { SwitchProps } from "@gc-digital-talent/ui";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import SwitchInput, { SwitchInputProps } from "./SwitchInput";
+import type { SwitchInputProps } from "./SwitchInput";
+import SwitchInput from "./SwitchInput";
 
 interface SwitchInputArgs extends SwitchInputProps {
   defaultValues?: Record<string, boolean>;

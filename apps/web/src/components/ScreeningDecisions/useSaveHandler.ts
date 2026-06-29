@@ -1,12 +1,8 @@
 import { useMutation } from "urql";
 
-import {
-  AssessmentResultType,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { AssessmentResultType, graphql } from "@gc-digital-talent/graphql";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import {
   convertFormValuesToApiCreateInput,
   convertFormValuesToApiUpdateInput,
@@ -34,10 +30,10 @@ const UpdateAssessmentResult_Mutation = graphql(/* GraphQL */ `
 
 interface UseMutationArgs {
   isEducation?: boolean;
-  resultId?: Scalars["UUID"]["output"];
-  stepId: Scalars["UUID"]["output"];
-  candidateId: Scalars["UUID"]["output"];
-  poolSkillId?: Scalars["UUID"]["output"];
+  resultId?: string;
+  stepId: string;
+  candidateId: string;
+  poolSkillId?: string;
 }
 
 const useSaveHandler = ({

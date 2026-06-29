@@ -2,11 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Contracts\SubscriptionNotification;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class UserFileGenerationError extends Notification
+class UserFileGenerationError extends Notification implements SubscriptionNotification
 {
     use Queueable;
 
@@ -35,5 +36,10 @@ class UserFileGenerationError extends Notification
         return [
             'fileName' => $this->fileName,
         ];
+    }
+
+    public function toSubscriptionArray(User $user): array
+    {
+        return $this->toArray($user);
     }
 }

@@ -1,7 +1,6 @@
 import { empty } from "@gc-digital-talent/helpers";
-import {
+import type {
   LocalizedString,
-  Maybe,
   Pool,
   PoolLanguage,
   SecurityStatus,
@@ -13,7 +12,7 @@ export enum LocationOption {
   SpecificLocation = "SPECIFIC_LOCATION",
 }
 
-const getLocationOption = (isRemote: Maybe<boolean> | undefined) => {
+const getLocationOption = (isRemote: boolean | null | undefined) => {
   if (empty(isRemote) || isRemote) {
     return LocationOption.RemoteOptional;
   }

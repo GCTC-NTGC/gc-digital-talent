@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Enums\ErrorCode;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
@@ -24,6 +25,10 @@ final class SubmitTalentNominationValidator extends Validator
      */
     public function __construct(TalentNomination $nomination)
     {
+        $nomination->load(['communityDevelopmentPrograms' => function ($query) {
+            $query->withTrashed();
+        }]);
+
         $this->nomination = $nomination;
     }
 
@@ -59,7 +64,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'required_if:nominator_id,null',
                 'prohibited_unless:nominator_id,null',
                 'nullable',
-                new GovernmentEmailRegex,
+                new GovernmentEmailRegex(),
             ],
             'nominator_fallback_name' => [
                 'required_if:nominator_id,null',
@@ -105,7 +110,7 @@ final class SubmitTalentNominationValidator extends Validator
             ],
             'nominate_for_development_programs' => [
                 'required',
-                Rule::when(fn () => $this->nomination->developmentPrograms->count() > 0 || ! empty($this->nomination->development_program_options_other),
+                Rule::when(fn () => $this->nomination->communityDevelopmentPrograms->count() > 0 || ! empty($this->nomination->development_program_options_other),
                     ['accepted'],
                     ['declined']),
             ],
@@ -124,7 +129,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'prohibited_unless:advancement_reference_id,null',
                 'required_with:advancement_reference_fallback_name,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
                 'nullable',
-                new GovernmentEmailRegex,
+                new GovernmentEmailRegex(),
             ],
             'advancement_reference_fallback_name' => [
                 'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_classification_id,advancement_reference_fallback_department_id',
@@ -149,7 +154,7 @@ final class SubmitTalentNominationValidator extends Validator
                 Rule::prohibitedIf(! in_array(TalentNominationLateralMovementOption::OTHER->name, $this->nomination->lateral_movement_options)),
             ],
 
-            'development_programs' => ['array'],
+            'community_development_programs' => ['array'],
             'development_program_options_other' => [
                 'prohibited_unless:nominate_for_development_programs,true',
             ],
@@ -163,6 +168,18 @@ final class SubmitTalentNominationValidator extends Validator
             'skills.*.skill_id' => [
                 Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray()),
             ],
+            'nine_box_performance' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
+            'nine_box_leadership_potential' => [
+                Rule::when(fn () => $this->nomination->talentNominationEvent->include_nine_box,
+                    ['required', Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
         ];
     }
 
@@ -172,6 +189,10 @@ final class SubmitTalentNominationValidator extends Validator
             'submitted_at.prohibited' => ErrorCode::TALENT_NOMINATION_ALREADY_SUBMITTED->name,
             'skills.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.*.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
+            'nine_box_performance.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_performance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nine_box_leadership_potential.required' => ErrorCode::NINE_BOX_RATINGS_REQUIRED_FOR_EVENT->name,
+            'nine_box_leadership_potential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
         ];
     }
 }

@@ -1,7 +1,8 @@
 import { type Page, expect } from "@playwright/test";
 
-import { FeatureFlags, getFeatureFlagConfig } from "~/utils/featureFlags";
-import { GraphQLOperation } from "~/utils/graphql";
+import type { FeatureFlags } from "~/utils/featureFlags";
+import { getFeatureFlagConfig } from "~/utils/featureFlags";
+import type { GraphQLOperation } from "~/utils/graphql";
 /**
  * App Page
  *

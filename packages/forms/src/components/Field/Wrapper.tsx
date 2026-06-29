@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
+import type { DetailedHTMLProps, HtmlHTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 const wrapper = tv({

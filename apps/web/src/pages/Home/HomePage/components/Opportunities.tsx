@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Heading, CardFlat } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";

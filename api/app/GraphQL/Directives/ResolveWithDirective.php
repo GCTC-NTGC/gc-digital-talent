@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives;
 
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
+use Nuwave\Lighthouse\Execution\Arguments\ArgumentSet;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgResolver;
@@ -36,12 +37,12 @@ GRAPHQL;
      * ArgumentSets represent nested input types.
      * This function will leave scalars and arrays of scalars alone, and convert ArgumentSets into named php arrays.
      *
-     * @param  mixed|\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet|array<\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
+     * @param  mixed|ArgumentSet|array<ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
      * @return mixed
      */
     public function toPlainValue($value)
     {
-        $arg = new Argument;
+        $arg = new Argument();
         $arg->value = $value;
 
         return $arg->toPlain();
@@ -49,7 +50,7 @@ GRAPHQL;
 
     /**
      * @param  mixed  $root  The result of the parent resolver.
-     * @param  mixed|\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet|array<\Nuwave\Lighthouse\Execution\Arguments\ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
+     * @param  mixed|ArgumentSet|array<ArgumentSet>  $value  The slice of arguments that belongs to this nested resolver.
      * @return mixed
      */
     public function __invoke(mixed $root, mixed $value)

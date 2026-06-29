@@ -3,8 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
-use Exception;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class ReinstateCandidate
 {
@@ -13,13 +11,9 @@ final class ReinstateCandidate
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::findOrFail($args['id']);
+        $candidate = PoolCandidate::find($args['id']);
 
-        try {
-            $candidate->reinstate();
-        } catch (Exception $e) {
-            throw ValidationException::withMessages(['id' => $e->getMessage()]);
-        }
+        $candidate->reinstate();
 
         return $candidate;
     }

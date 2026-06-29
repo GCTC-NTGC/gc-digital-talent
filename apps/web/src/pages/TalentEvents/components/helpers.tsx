@@ -1,16 +1,14 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Chip, ChipProps, Link } from "@gc-digital-talent/ui";
-import {
-  LocalizedTalentNominationEventStatus,
-  Maybe,
-  TalentNominationEventStatus,
-} from "@gc-digital-talent/graphql";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Chip, Link } from "@gc-digital-talent/ui";
+import type { LocalizedTalentNominationEventStatus } from "@gc-digital-talent/graphql";
+import { TalentNominationEventStatus } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 
 const getTalentNominationEventStatusColor = (
-  talentNominationEventStatus?: Maybe<TalentNominationEventStatus>,
+  talentNominationEventStatus?: TalentNominationEventStatus | null,
 ): ChipProps["color"] => {
   switch (talentNominationEventStatus) {
     case TalentNominationEventStatus.Active:
@@ -26,7 +24,8 @@ const getTalentNominationEventStatusColor = (
 
 export const statusCell = (
   talentNominationEventStatus:
-    | Maybe<LocalizedTalentNominationEventStatus>
+    | LocalizedTalentNominationEventStatus
+    | null
     | undefined,
 ) => {
   const color = getTalentNominationEventStatusColor(

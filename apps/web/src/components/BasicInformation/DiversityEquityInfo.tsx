@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEmploymentEquityGroup,
@@ -9,7 +10,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
-export const DiversityEquityInfo_Fragment = graphql(/* GraphQL */ `
+const DiversityEquityInfo_Fragment = graphql(/* GraphQL */ `
   fragment DiversityEquityInfo on User {
     isWoman
     hasDisability

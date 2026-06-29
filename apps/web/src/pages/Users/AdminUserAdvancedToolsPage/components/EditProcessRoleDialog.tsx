@@ -10,24 +10,19 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import { Scalars, Maybe } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import {
-  getRoleTableFragments,
-  PoolAssignment,
-  RoleTableProps,
-  useUpdateRolesMutation,
-} from "../utils";
+import type { PoolAssignment, RoleTableProps } from "../utils";
+import { getRoleTableFragments, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
-  roleIds: Scalars["UUID"]["input"][];
-  teamId: Maybe<Scalars["UUID"]["input"]>;
-  userId: Scalars["UUID"]["input"];
+  roleIds: string[];
+  teamId: string | null;
+  userId: string;
 }
 
 interface EditProcessRoleDialogProps extends RoleTableProps {

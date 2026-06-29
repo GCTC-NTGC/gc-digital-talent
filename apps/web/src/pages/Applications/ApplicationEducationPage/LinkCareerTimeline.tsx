@@ -1,16 +1,16 @@
 import uniqueId from "lodash/uniqueId";
 import { defineMessages, useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Checklist, CheckboxOption } from "@gc-digital-talent/forms";
+import type { CheckboxOption } from "@gc-digital-talent/forms";
+import { Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
-import {
-  Classification,
-  EducationRequirementOption,
-} from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
+import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   getExperienceName,
   isAwardExperience,
@@ -18,7 +18,6 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-  SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 
 const essentialExperienceMessages = defineMessages({

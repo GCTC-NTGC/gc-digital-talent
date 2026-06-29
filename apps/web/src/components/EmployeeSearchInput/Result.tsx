@@ -6,7 +6,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import adminMessages from "~/messages/adminMessages";
 
 import FieldDisplay from "../FieldDisplay/FieldDisplay";
-import { EmployeeSearchResult } from "./types";
+import type { EmployeeSearchResult } from "./types";
 
 export type SearchMessageCases = "base" | "emailNotification";
 

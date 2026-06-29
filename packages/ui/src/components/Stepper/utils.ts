@@ -1,11 +1,8 @@
-import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
-import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
-import { MessageDescriptor } from "react-intl";
-import { tv, VariantProps } from "tailwind-variants";
+import type { MessageDescriptor } from "react-intl";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
-
-import { IconType } from "../../types";
 
 export const step = tv({
   slots: {
@@ -61,15 +58,6 @@ export const step = tv({
 export type StepVariants = VariantProps<typeof step>;
 
 export type StepState = StepVariants["state"];
-
-export const getIconFromState = (state: StepState) => {
-  const iconMap = new Map<StepState, IconType | undefined>([
-    ["completed", CheckIcon],
-    ["error", XMarkIcon],
-  ]);
-
-  return iconMap.get(state);
-};
 
 export const messageMap = new Map<
   Omit<StepState, "disabled">,

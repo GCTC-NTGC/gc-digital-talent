@@ -5,20 +5,16 @@ import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import ChatBubbleLeftRightIcon from "@heroicons/react/24/outline/ChatBubbleLeftRightIcon";
 import { differenceInDays } from "date-fns/differenceInDays";
 import { isPast } from "date-fns/isPast";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import { tv } from "tailwind-variants";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Maybe,
-  PoolLanguage,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import type { HeadingLevel } from "@gc-digital-talent/ui";
 import {
   Card,
   Heading,
-  HeadingLevel,
   Link,
   IconLabel,
   UNICODE_CHAR,
@@ -37,8 +33,13 @@ import {
   getShortPoolTitleLabel,
 } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import AreaOfSelectionFlag from "./AreaOfSelectionRibbon";
+
+const postedOnDate = tv({
+  base: "flex items-center gap-3 text-gray-600 dark:text-gray-200",
+});
 
 export const JobCard_Fragment = graphql(/* GraphQL */ `
   fragment JobCard on Pool {
@@ -69,8 +70,7 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
     }
     classification {
       id
-      group
-      level
+      groupAndLevel
       minSalary
       maxSalary
     }
@@ -123,14 +123,16 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
 const PostedOnDate = ({
   publishedAt,
   applicantsCount,
+  className,
 }: {
-  publishedAt?: Maybe<string>;
-  applicantsCount?: Maybe<number>;
+  publishedAt?: string | null;
+  applicantsCount?: number | null;
+  className?: string;
 }) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   return (
-    <div className="flex items-center gap-3 text-gray-600 dark:text-gray-200">
+    <div className={postedOnDate({ class: className })}>
       <p>
         {intl.formatMessage(
           {
@@ -150,7 +152,7 @@ const PostedOnDate = ({
         )}
       </p>
       <span
-        className="text-gray-500 xs:inline-block dark:text-gray-200"
+        className="hidden text-gray-500 xxs:inline-block dark:text-gray-200"
         aria-hidden
       >
         {UNICODE_CHAR.BULLET}
@@ -169,6 +171,15 @@ const PostedOnDate = ({
   );
 };
 
+const closeDate = tv({
+  base: "font-bold",
+  variants: {
+    deadlineNear: {
+      true: "text-error-600 dark:text-error-100",
+    },
+  },
+});
+
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
   headingLevel?: HeadingLevel;
@@ -179,6 +190,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const pool = getFragment(JobCard_Fragment, poolQuery);
+  const now = useStableDate();
 
   const department = pool.department?.name.localized;
   const location = pool.isRemote
@@ -186,6 +198,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
     : pool.location?.localized;
   const salaryRange = getSalaryRange(locale, pool.classification);
   const languageRequirement = pool.language?.value;
+  const localizedLanguageLabel = pool.language?.label.localized;
 
   const bilingual = intl.formatMessage(commonMessages.bilingual);
 
@@ -216,25 +229,32 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         </span>
       </>,
     ],
-    [PoolLanguage.English, languageRequirement],
-    [PoolLanguage.French, languageRequirement],
-    [PoolLanguage.Various, languageRequirement],
+    [PoolLanguage.VariousBilingual, localizedLanguageLabel],
+    [PoolLanguage.English, localizedLanguageLabel],
+    [PoolLanguage.French, localizedLanguageLabel],
+    [PoolLanguage.Various, localizedLanguageLabel],
   ]);
-
-  const deadline = pool.closingDate
-    ? differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) < 3 &&
-      differenceInDays(parseDateTimeUtc(pool.closingDate), Date.now()) > 0
-    : null;
-
-  const poolIsClosed = pool.closingDate
-    ? isPast(parseDateTimeUtc(pool.closingDate))
-    : false;
 
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
+  const deadlineUtc = pool.closingDate && parseDateTimeUtc(pool.closingDate);
+  const deadlineIn = deadlineUtc ? differenceInDays(deadlineUtc, now) : null;
+  const deadlineNear = Boolean(
+    deadlineIn !== null && deadlineIn <= 3 && deadlineIn >= 0,
+  );
+  const poolIsClosed = deadlineUtc ? isPast(deadlineUtc) : false;
+  const deadline = deadlineUtc
+    ? formatDate({
+        date: deadlineUtc,
+        formatString: DATE_FORMAT_LOCALIZED,
+        intl,
+        timeZone: "Canada/Pacific",
+      })
+    : notAvailable;
+
   return (
-    <Card className="relative pb-10">
-      <div className="mr-6 mb-6 flex items-center justify-between">
+    <Card className="relative mt-1.5 pb-10">
+      <div className="mr-6 mb-6 flex items-start justify-between">
         {pool.areaOfSelection && (
           <div className="-ml-8 flex flex-col gap-1.5 sm:flex-row sm:gap-0">
             <AreaOfSelectionFlag
@@ -252,7 +272,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           />
         </div>
       </div>
-      <div className="relative mx-6 flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
+      <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
             level={headingLevel}
@@ -269,19 +289,18 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <div className="flex flex-col gap-3 font-normal text-gray-700 dark:text-gray-100">
             <IconLabel label={department} icon={BuildingOfficeIcon} />
             <IconLabel label={location} icon={MapPinIcon} />
-            <IconLabel label={salaryRange} icon={CurrencyDollarIcon} />
+            <IconLabel
+              label={
+                salaryRange ?? intl.formatMessage(commonMessages.notAvailable)
+              }
+              icon={CurrencyDollarIcon}
+            />
             <IconLabel
               label={languageLabel.get(languageRequirement)}
               icon={ChatBubbleLeftRightIcon}
             />
           </div>
-          <p
-            className={
-              deadline
-                ? "font-bold text-error-600 dark:text-error-100"
-                : "font-bold"
-            }
-          >
+          <p className={closeDate({ deadlineNear })}>
             {poolIsClosed
               ? intl.formatMessage(
                   {
@@ -291,14 +310,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                       "Message informing user applications won't be accepted after closing date",
                   },
                   {
-                    closingDate: pool.closingDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )
               : intl.formatMessage(
@@ -308,20 +320,13 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
                     description: "Message to apply to the pool before deadline",
                   },
                   {
-                    closingDate: pool.closingDate
-                      ? formatDate({
-                          date: parseDateTimeUtc(pool.closingDate),
-                          formatString: DATE_FORMAT_LOCALIZED,
-                          intl,
-                          timeZone: "Canada/Pacific",
-                        })
-                      : notAvailable,
+                    closingDate: deadline,
                   },
                 )}
           </p>
         </div>
         <Link
-          className="justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
+          className="shrink-0 justify-self-end after:absolute after:inset-0 after:content-[''] xs:self-end"
           color="primary"
           mode="solid"
           href={paths.jobPoster(pool.id)}
@@ -372,6 +377,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
           <PostedOnDate
             publishedAt={pool.publishedAt}
             applicantsCount={pool.applicantsCount}
+            className="flex-col items-start xxs:flex-row xxs:items-center"
           />
         </div>
       </div>

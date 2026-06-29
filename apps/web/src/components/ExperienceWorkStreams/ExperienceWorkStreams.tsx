@@ -19,9 +19,9 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import pageTitles from "~/messages/pageTitles";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
-import { WorkFormValues } from "~/types/experience";
+import type { WorkFormValues } from "~/types/experience";
 
-import { WorkStreamsWithCommunity } from "./types";
+import type { WorkStreamsWithCommunity } from "./types";
 import ExperienceWorkStreamsEditDialog from "./ExperienceWorkStreamsEditDialog";
 
 const ExperienceWorkStreamsCommunity_Query = graphql(/* GraphQL */ `

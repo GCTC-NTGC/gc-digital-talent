@@ -1,41 +1,96 @@
-import { useIntl } from "react-intl";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { ThrowNotFound, Pending } from "@gc-digital-talent/ui";
+import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
-import { graphql } from "@gc-digital-talent/graphql";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
+import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
+import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
-import CareerTimeline from "./components/CareerTimeline";
+const pageTitle = defineMessage({
+  defaultMessage: "Career timeline",
+  id: "TUfJUD",
+  description: "Name of Career timeline page",
+});
+
+export const handle = {
+  pageTitle,
+};
 
 export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
-  query CareerTimelineExperiences($id: UUID!) {
-    user(id: $id) {
+  query CareerTimelineExperiences {
+    me {
       id
       experiences {
-        ...CareerTimelineExperience
+        ...CareerTimelineSectionExperience
       }
     }
   }
 `);
 
+interface CareerTimelineProps {
+  userId: string;
+  experiencesQuery: FragmentType<
+    typeof CareerTimelineSectionExperience_Fragment
+  >[];
+}
+
+export const CareerTimeline = ({
+  userId,
+  experiencesQuery,
+}: CareerTimelineProps) => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <Heading
+        icon={BookmarkSquareIcon}
+        color="error"
+        size="h3"
+        className="mt-0 mb-6 font-normal"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Manage your career timeline",
+          id: "eZYP/W",
+          description:
+            "Titles for a page section to manage your career timeline",
+        })}
+      </Heading>
+      <p className="mb-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+          id: "0m3FMH",
+          description: "Descriptive paragraph for the career timeline page.",
+        })}
+      </p>
+      <div className="mb-18">
+        <CareerTimelineSection
+          experiencesQuery={experiencesQuery}
+          userId={userId}
+        />
+      </div>
+    </>
+  );
+};
+
 const CareerTimelinePage = () => {
   const intl = useIntl();
-  const { userAuthInfo } = useAuthorization();
   const [{ data, fetching, error }] = useQuery({
     query: CareerTimelineExperiences_Query,
-    variables: { id: userAuthInfo?.id ?? "" },
   });
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.user ? (
+      {data?.me ? (
         <CareerTimeline
-          userId={data?.user.id}
-          experiencesQuery={unpackMaybes(data?.user.experiences)}
+          userId={data?.me.id}
+          experiencesQuery={unpackMaybes(data?.me.experiences)}
         />
       ) : (
         <ThrowNotFound

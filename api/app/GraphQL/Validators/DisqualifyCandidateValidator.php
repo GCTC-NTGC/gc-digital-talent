@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\GraphQL\Validators;
 
 use App\Enums\ApplicationStatus;
+use App\Enums\DisqualificationReason;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
 use App\Models\PoolCandidate;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -29,8 +29,7 @@ final class DisqualifyCandidateValidator extends Validator
         }
 
         return [
-            // NOTE: Back compat for pool candidate status
-            'reason' => [Rule::in(PoolCandidateStatus::unsuccessfulGroup())],
+            'reason' => [Rule::in(array_column(DisqualificationReason::cases(), 'name'))],
         ];
     }
 

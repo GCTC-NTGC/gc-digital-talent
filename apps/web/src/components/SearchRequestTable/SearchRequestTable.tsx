@@ -1,46 +1,49 @@
 import { useRef, useMemo, useState } from "react";
-import {
+import type {
   ColumnDef,
   PaginationState,
   SortingState,
-  createColumnHelper,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 import { useQuery } from "urql";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  InputMaybe,
+import type {
   PoolCandidateSearchRequestInput,
-  graphql,
   SearchRequestTableQuery as SearchRequestTableQueryType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import {
-  classificationAccessor,
+  classificationsAccessor,
   classificationsCell,
   detailsCell,
+  followUpDateCell,
   jobTitleCell,
   notesCell,
+  statusCell,
 } from "./components/helpers";
 import cells from "../Table/cells";
 import accessors from "../Table/accessors";
-import { SearchState } from "../Table/ResponsiveTable/types";
+import type { SearchState } from "../Table/ResponsiveTable/types";
 import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "../Table/ResponsiveTable/constants";
 import SearchRequestFilterDialog from "./components/SearchRequestFilterDialog";
+import type { FormValues } from "./components/utils";
 import {
-  FormValues,
   transformFormValuesToSearchRequestFilterInput,
   transformSearchRequestFilterInputToFormValues,
   transformSortStateToOrderByClause,
@@ -60,7 +63,7 @@ const transformSearchRequestInput = (
   filterState: PoolCandidateSearchRequestInput,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<PoolCandidateSearchRequestInput> => {
+): PoolCandidateSearchRequestInput | null | undefined => {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -88,7 +91,7 @@ const transformSearchRequestInput = (
         ? searchBarTerm
         : undefined,
     // from filter
-    status: filterState?.status,
+    talentRequestStatus: filterState?.talentRequestStatus,
     departments: filterState?.departments,
     classifications: filterState?.classifications,
     workStreams: filterState?.workStreams,
@@ -122,8 +125,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
           id
           qualifiedInClassifications {
             id
-            group
-            level
+            groupAndLevel
           }
           qualifiedInWorkStreams {
             id
@@ -160,13 +162,16 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
             fr
           }
         }
+        followUpDate
         requestedDate
-        status {
+        talentRequestStatus {
           value
           label {
-            en
-            fr
+            localized
           }
+        }
+        details {
+          localized
         }
         statusChangedAt
         wasEmpty
@@ -188,6 +193,7 @@ const SearchRequestTable_Query = graphql(/* GraphQL */ `
 const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const now = useStableDate();
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
   const initialFilters = useMemo(
@@ -246,8 +252,24 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         ),
     }),
     columnHelper.accessor(
+      ({ talentRequestStatus }) => talentRequestStatus?.label.localized ?? null,
+      {
+        id: "status",
+        header: intl.formatMessage(commonMessages.status),
+        enableColumnFilter: false,
+        cell: ({ row: { original } }) =>
+          statusCell(original.talentRequestStatus),
+      },
+    ),
+    columnHelper.accessor(({ details }) => details?.localized, {
+      id: "details",
+      header: intl.formatMessage(adminMessages.details),
+      enableColumnFilter: false,
+      enableSorting: false,
+    }),
+    columnHelper.accessor(
       (row) =>
-        classificationAccessor(
+        classificationsAccessor(
           row.applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
         ),
       {
@@ -316,14 +338,16 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         enableSorting: false,
       },
     ),
-    columnHelper.accessor(
-      ({ status }) => getLocalizedName(status?.label, intl, true),
-      {
-        id: "status",
-        header: intl.formatMessage(commonMessages.status),
-        enableColumnFilter: false,
-      },
-    ),
+    columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
+      id: "followUpDate",
+      enableColumnFilter: false,
+      header: intl.formatMessage(talentRequestMessages.followUpDate),
+      cell: ({
+        row: {
+          original: { followUpDate },
+        },
+      }) => followUpDateCell(followUpDate, now, intl),
+    }),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate),
       {
@@ -358,7 +382,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
     columnHelper.accessor("additionalComments", {
       id: "additionalComments",
       enableSorting: false,
-      header: intl.formatMessage(adminMessages.details),
+      header: intl.formatMessage(talentRequestMessages.additionalComments),
       cell: ({ row: { original: searchRequest } }) =>
         detailsCell(
           {
@@ -449,7 +473,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.poolCandidateSearchRequestsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
@@ -466,6 +490,7 @@ const SearchRequestTable = ({ title }: SearchRequestTableProps) => {
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <SearchRequestFilterDialog

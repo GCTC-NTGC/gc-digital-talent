@@ -1,5 +1,6 @@
-import { HTMLProps, ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { HTMLProps, ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const scrollbarWrapper = tv({
   base: "sticky",

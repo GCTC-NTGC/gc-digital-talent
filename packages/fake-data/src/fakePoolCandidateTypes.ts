@@ -1,6 +1,6 @@
-import { PoolCandidate } from "@gc-digital-talent/graphql";
+import type { PoolCandidate } from "@gc-digital-talent/graphql";
 
-import {
+import type {
   GeneratedAwardExperience,
   GeneratedCommunityExperience,
   GeneratedEducationExperience,

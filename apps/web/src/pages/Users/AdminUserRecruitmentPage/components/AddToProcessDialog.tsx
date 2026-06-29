@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
 import { Dialog, Button, Notice } from "@gc-digital-talent/ui";
@@ -12,13 +13,8 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  PoolStatus,
-  FragmentType,
-  getFragment,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, PoolStatus, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -72,8 +68,7 @@ const AvailableProcessesToAddTo_Query = graphql(/* GraphQL */ `
         }
         classification {
           id
-          group
-          level
+          groupAndLevel
         }
       }
     }
@@ -95,8 +90,8 @@ const AddToProcessDialog_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  pool: Scalars["UUID"]["input"];
-  expiryDate: Scalars["Date"]["input"];
+  pool: string;
+  expiryDate: string;
 }
 
 interface AddToProcessDialogProps {

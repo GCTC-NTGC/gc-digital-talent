@@ -4,6 +4,7 @@ import fakeClassifications from "./fakeClassifications";
 import fakeCommunities from "./fakeCommunities";
 import fakeCommunityInterests from "./fakeCommunityInterests";
 import fakeDepartments from "./fakeDepartments";
+import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
 import toLocalizedEnum, { fakeLocalizedEnum } from "./fakeLocalizedEnum";
 import fakeApplicantFilters from "./fakeApplicantFilters";
@@ -14,6 +15,7 @@ import fakeRoles from "./fakeRoles";
 import fakeSearchRequests from "./fakeSearchRequests";
 import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
 import fakeSkills, { getStaticSkills } from "./fakeSkills";
+import fakeTalentRequests from "./fakeTalentRequests";
 import fakeTeams from "./fakeTeams";
 import fakeUsers, { fakeApplicants, fakeUser } from "./fakeUsers";
 import fakeUserSkills from "./fakeUserSkills";
@@ -28,6 +30,7 @@ export {
   fakeCommunities,
   fakeCommunityInterests,
   fakeDepartments,
+  fakeDevelopmentPrograms,
   fakeExperiences,
   fakePools,
   fakePoolSkills,
@@ -37,6 +40,7 @@ export {
   fakeApplicantFilters,
   fakeSkillFamilies,
   fakeSkills,
+  fakeTalentRequests,
   fakeTeams,
   fakeUsers,
   fakeUser,

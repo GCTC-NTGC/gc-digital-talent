@@ -13,7 +13,7 @@ import IAPNavMenu from "../NavMenu/IAPNavMenu";
 import SitewideBanner from "./SitewideBanner";
 import SkipLink from "./SkipLink";
 import MainNavMenu from "../NavMenu/MainNavMenu";
-import { Project } from "../SEO/Favicon";
+import type { Project } from "../SEO/Favicon";
 
 interface LayoutProps {
   project: Project;

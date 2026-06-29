@@ -1,4 +1,4 @@
-import { Download } from "@playwright/test";
+import type { Download } from "@playwright/test";
 
 import AppPage from "./AppPage";
 

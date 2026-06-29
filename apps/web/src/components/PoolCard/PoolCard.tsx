@@ -1,26 +1,21 @@
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
 import CalendarIcon from "@heroicons/react/24/outline/CalendarIcon";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import { tv } from "tailwind-variants";
 
-import {
-  Heading,
-  HeadingRank,
-  Link,
-  Chip,
-  Chips,
-  Card,
-} from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Heading, Link, Chip, Chips, Card } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import {
   getLocale,
   getLocalizedName,
   commonMessages,
 } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
   PoolSkillType,
@@ -62,8 +57,7 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     }
     classification {
       id
-      group
-      level
+      groupAndLevel
       minSalary
       maxSalary
     }
@@ -195,10 +189,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
   );
 
   const classificationAbbr = pool.classification
-    ? wrapAbbr(
-        `${pool.classification.group}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
-        intl,
-      )
+    ? wrapAbbr(pool.classification.groupAndLevel, intl)
     : "";
   const salaryRange = getSalaryRange(locale, pool.classification);
 

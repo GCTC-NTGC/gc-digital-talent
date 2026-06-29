@@ -1,11 +1,11 @@
+import type { ApplicantFilter } from "@gc-digital-talent/graphql";
 import {
-  ApplicantFilter,
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
 } from "@gc-digital-talent/graphql";
 
 import { transformFormValuesToFilterState } from "./helpers";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 
 const defaultFormValues: FormValues = {
   publishingGroups: [],
@@ -21,7 +21,7 @@ const defaultFormValues: FormValues = {
   priorityWeight: [],
   expiryStatus: CandidateExpiryFilter.Active,
   suspendedStatus: CandidateSuspendedFilter.Active,
-  govEmployee: "",
+  govEmployee: [],
   community: "",
   assessmentSteps: [],
   statuses: [],

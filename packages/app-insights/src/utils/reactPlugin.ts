@@ -16,8 +16,7 @@ const reactPlugin = new ReactPlugin();
  */
 const appInsights = new AppInsights.ApplicationInsights({
   config: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    extensions: [reactPlugin as any], // https://github.com/microsoft/applicationinsights-react-js/issues/32#issuecomment-1641631226
+    extensions: [reactPlugin],
     enableAutoRouteTracking: true,
     autoTrackPageVisitTime: true,
     disableFetchTracking: false,

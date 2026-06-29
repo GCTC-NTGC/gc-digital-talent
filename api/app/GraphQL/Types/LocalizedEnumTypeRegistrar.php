@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Types;
 
+use App\Contracts\HasLocalization;
 use App\Discoverers\EnumDiscoverer;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\ObjectType;
@@ -41,7 +42,7 @@ final class LocalizedEnumTypeRegistrar implements TypeRegistrarInterface
             ])
         );
 
-        /** @var array<class-string<\UnitEnum&\App\Contracts\HasLocalization>> $localizedEnums */
+        /** @var array<class-string<\UnitEnum&HasLocalization>> $localizedEnums */
         $localizedEnums = EnumDiscoverer::discoverLocalizedEnums();
 
         foreach ($localizedEnums as $enum) {

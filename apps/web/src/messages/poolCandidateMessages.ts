@@ -104,6 +104,11 @@ const messages = defineMessages({
     description:
       "Description for the offer in progress candidate placement type",
   },
+  availableForReferral: {
+    defaultMessage: "Available for referral",
+    id: "ILThW5",
+    description: "A candidate is being referred for new positions",
+  },
 });
 
 export default messages;

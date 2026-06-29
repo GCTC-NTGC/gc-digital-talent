@@ -1,17 +1,14 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode, useMemo } from "react";
+import type { IntlShape } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import { useMemo } from "react";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useQuery } from "urql";
 import CalendarIcon from "@heroicons/react/24/solid/CalendarIcon";
 import { useSearchParams } from "react-router";
-import BellAlertIcon from "@heroicons/react/24/outline/BellAlertIcon";
 
-import {
-  commonMessages,
-  getLocale,
-  getLocalizedName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { MetadataItemProps } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -21,16 +18,12 @@ import {
   Link,
   Loading,
   Metadata,
-  MetadataItemProps,
   UNICODE_CHAR,
   Notice,
+  Ul,
 } from "@gc-digital-talent/ui";
-import {
-  CourseLanguage,
-  graphql,
-  SortOrder,
-  TrainingOpportunity,
-} from "@gc-digital-talent/graphql";
+import type { TrainingOpportunity } from "@gc-digital-talent/graphql";
+import { CourseLanguage, graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -43,7 +36,6 @@ import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
-import { wrapAbbr } from "~/utils/nameUtils";
 import PinnedIcon from "~/components/Svg/PinnedIcon";
 
 import CourseLanguageChip from "./CourseLanguageChip";
@@ -105,27 +97,6 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const externalLinkAccessor = ({
-  href,
-  chunks,
-  bold = false,
-}: {
-  href: string;
-  chunks: ReactNode;
-  bold?: boolean;
-}) => {
-  return (
-    <Link
-      href={href}
-      color="primary"
-      external
-      {...(bold ? { className: "font-bold" } : {})}
-    >
-      {chunks}
-    </Link>
-  );
-};
 
 const pageSubtitle = defineMessage({
   defaultMessage:
@@ -277,7 +248,6 @@ const unselectedFilterStyle: Record<string, string> = {
 
 export const Component = () => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const paths = useRoutes();
   const [opportunityLanguage, setOpportunityLanguage] = useLangSearchParam();
 
@@ -312,9 +282,6 @@ export const Component = () => {
   const trainingOpportunities = unpackMaybes(
     data?.trainingOpportunitiesPaginated.data,
   );
-
-  const shouldShowTemporaryCourseNotice =
-    Date.now() < new Date("2026-04-01").valueOf();
 
   return (
     <>
@@ -351,32 +318,13 @@ export const Component = () => {
           })}
         </p>
         <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "The training opportunities on this page are supported by the <itTrainingFundLink><abbreviation>IT</abbreviation> Community Training and Development Fund</itTrainingFundLink> and are available only to <abbreviation>IT</abbreviation>-classified employees who are covered by the <itCollectiveAgreementLink><abbreviation>IT</abbreviation> collective agreement.</itCollectiveAgreementLink>",
-              id: "6c89Fd",
-              description:
-                "Second paragraph of it training opportunities section",
-            },
-            {
-              itTrainingFundLink: (chunks: ReactNode) =>
-                externalLinkAccessor({
-                  href: paths.itTrainingFund(),
-                  chunks,
-                  bold: true,
-                }),
-              itCollectiveAgreementLink: (chunks: ReactNode) =>
-                externalLinkAccessor({
-                  href:
-                    locale === "en"
-                      ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
-                      : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
-                  chunks,
-                }),
-              abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "Training opportunities supported by the fund are available to eligible IT-classified employees. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access training. Employees represented by PIPSC will have priority when spaces are limited. Depending on the opportunities being applied for, there may be additional eligibility requirements listed.",
+            id: "TIOZdw",
+            description:
+              "Second paragraph of it training opportunities section",
+          })}
         </p>
         <Heading
           size="h3"
@@ -385,49 +333,61 @@ export const Component = () => {
           className="mt-18 mb-6"
         >
           {intl.formatMessage({
-            defaultMessage: "Apply and share your profile",
-            id: "WPS1Ic",
-            description: "Title for apply and share your profile section",
+            defaultMessage: "Apply now",
+            id: "rzRITR",
+            description: "Title for apply section",
           })}
         </Heading>
         <p className="mb-3">
           {intl.formatMessage({
             defaultMessage:
-              "To express your interest, complete the application form and agree to share your GC Digital Talent profile. Your profile helps us confirm your employment status, classification, identification with employment equity groups, and required experience. Before you apply, take a moment to review and update your information or create a profile if you don’t have one yet.",
-            id: "bjwTpe",
-            description: "First paragraph of apply and share section",
+              "To be considered, you must submit an application and meet all eligibility requirements. Participants will be selected based on eligibility, required skills or experience, departmental and regional representation, and employment equity considerations within the Government of Canada’s IT workforce. If needed, a randomized selection process may also be used. We’ll contact you within 5 business days of the application closing date. If you’re selected, you’ll then have 3 business days to confirm your participation. For the Choose your own course option, we will notify you within 14 days of receiving your application. The start date of the course must be within 90 days of you submitting your application.",
+            id: "n4cmd3",
+            description: "First paragraph of apply section",
           })}
         </p>
         <p className="mb-3">
           {intl.formatMessage({
-            defaultMessage:
-              "We’ll select participants based on eligibility, necessary skills or experience, and representation of employment equity groups in the GC’s IT workforce. We’ll contact you within 8 business days of the application closing date. If you’re selected, you’ll then have 3 business days to confirm your participation.",
-            id: "pcAgJh",
-            description: "Second paragraph of apply and share section",
+            defaultMessage: "To be eligible, employees must:",
+            id: "DZ795j",
+            description: "Second paragraph of apply section",
           })}
         </p>
-        {/* This notice can be removed after April 1st, 2026.
-        https://github.com/GCTC-NTGC/gc-digital-talent/issues/15438 */}
-        {shouldShowTemporaryCourseNotice && (
-          <Notice.Root color="warning" className="mt-18">
-            <Notice.Title icon={BellAlertIcon}>
+        <p className="mb-3">
+          <Ul space="md">
+            <li>
               {intl.formatMessage({
-                defaultMessage: `Important Notice: Closing of the "Choose your own course" option for the fiscal year 2025/2026`,
-                id: "i9skPs",
-                description:
-                  "Title for a notice about no more choose your own course options for the year.",
+                defaultMessage:
+                  "Be IT-classified or acting in an IT role for a minimum of four months plus one day",
+                id: "A66erX",
+                description: "First item in list of apply section",
               })}
-            </Notice.Title>
-            <Notice.Content>
+            </li>
+            <li>
               {intl.formatMessage({
-                defaultMessage: `As we approach the end of the fiscal year, we are carefully managing the remaining funds available for training opportunities. Due to the volume of training requests, we are closing the "Choose your own course" offer to new applications. Remaining requests will be evaluated in the order they were received, based on available funds. The budget will reset with the new fiscal year on April 1, 2026 and we encourage you to apply at that time.`,
-                id: "cF0+Id",
-                description:
-                  "Body for a notice about no more choose your own course options for the year.",
+                defaultMessage: "Have an active Navigar account",
+                id: "A5HTBD",
+                description: "Second item in list of apply section",
               })}
-            </Notice.Content>
-          </Notice.Root>
-        )}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Have completed all required prerequisites (course-dependent)",
+                id: "a3GTSe",
+                description: "Third item in list of apply section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Be available to attend at least 80% of the scheduled training",
+                id: "hUf6+2",
+                description: "Fourth item in list of apply section",
+              })}
+            </li>
+          </Ul>
+        </p>
         <div
           role="group"
           aria-labelledby="langFilter"

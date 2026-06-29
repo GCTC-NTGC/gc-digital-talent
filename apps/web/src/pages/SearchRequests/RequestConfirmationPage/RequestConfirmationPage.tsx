@@ -1,4 +1,5 @@
-import { ReactNode, useRef } from "react";
+import type { ReactNode } from "react";
+import { useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 
@@ -10,7 +11,6 @@ import {
   Link,
   Container,
 } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -34,7 +34,7 @@ const subTitle = defineMessage({
 });
 
 interface RouteParams extends Record<string, string> {
-  requestId: Scalars["ID"]["output"];
+  requestId: string;
 }
 
 const mailLink = (chunks: ReactNode) => (

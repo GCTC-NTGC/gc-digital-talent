@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { fakeCommunities } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
@@ -7,7 +7,7 @@ import {
   CommunityTable,
   CommunityTable_CommunityFragment,
 } from "./CommunityTable";
-import { MyRoleTeam } from "./types";
+import type { MyRoleTeam } from "./types";
 
 const mockCommunities = fakeCommunities();
 

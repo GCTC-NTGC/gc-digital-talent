@@ -1,5 +1,6 @@
-import { HTMLProps } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { HTMLProps } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 export type ListItemProps = HTMLProps<HTMLLIElement>;
 

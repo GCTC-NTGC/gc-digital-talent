@@ -3,12 +3,8 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Maybe,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateBookmarkToggle from "~/hooks/useCandidateBookmarkToggle";
@@ -23,9 +19,9 @@ export const PoolCandidateBookmark_Fragment = graphql(/* GraphQL */ `
 
 interface PoolCandidateBookmarkProps {
   poolCandidateId: string;
-  userQuery?: Maybe<FragmentType<typeof PoolCandidateBookmark_Fragment>>;
-  firstName?: Maybe<string>;
-  lastName?: Maybe<string>;
+  userQuery?: FragmentType<typeof PoolCandidateBookmark_Fragment> | null;
+  firstName?: string | null;
+  lastName?: string | null;
   size?: "sm" | "md" | "lg";
 }
 
@@ -46,11 +42,9 @@ const PoolCandidateBookmark = ({
 
   const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
     useCandidateBookmarkToggle({
-      poolCandidateId,
+      id: poolCandidateId,
       defaultValue: isBookmarkedDefaultValue,
-      candidateInfo: {
-        candidateName: poolCandidateName,
-      },
+      name: poolCandidateName,
     });
 
   return (

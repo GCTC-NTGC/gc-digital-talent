@@ -1,4 +1,5 @@
-import { expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
 
@@ -48,7 +49,9 @@ class ProfilePage extends AppPage {
 
   async updatePriorityEntitlements() {
     await this.page
-      .getByRole("button", { name: /edit priority entitlements/i })
+      .getByRole("button", {
+        name: /edit citizenship, veteran status and priority entitlements/i,
+      })
       .click();
     await this.page
       .getByRole("radio", { name: /yes, I do have a priority entitlement./i })

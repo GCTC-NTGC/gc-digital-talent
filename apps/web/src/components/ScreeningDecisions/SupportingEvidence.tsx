@@ -1,20 +1,19 @@
 import { useIntl } from "react-intl";
 
+import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
 import {
-  Experience,
-  FragmentType,
   getFragment,
   graphql,
   makeFragmentData,
-  Scalars,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Heading } from "@gc-digital-talent/ui";
 
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
-import { DialogType } from "./useDialogType";
+import type { DialogType } from "./utils";
 import { DIALOG_TYPE } from "./utils";
 
 const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
@@ -26,7 +25,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: Omit<Experience, "user">[];
-  skillId?: Scalars["UUID"]["output"];
+  skillId?: string;
   dialogType: DialogType;
 }
 
@@ -47,7 +46,7 @@ const SupportingEvidence = ({
   const experiencesFiltered =
     dialogType === DIALOG_TYPE.Education
       ? experiences.filter((experience) =>
-          educationRequirementExperienceIds?.includes(experience.id),
+          educationRequirementExperienceIds.includes(experience.id),
         )
       : experiences.filter((experience) =>
           experience.skills?.some((skill) => skill?.id === skillId),
@@ -55,14 +54,14 @@ const SupportingEvidence = ({
 
   return (
     <>
-      <p className="mb-3">
+      <Heading level="h3" size="h6" className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
           description:
             "Header for supporting evidence section in screening decision dialog.",
         })}
-      </p>
+      </Heading>
       {experiencesFiltered.length > 0 ? (
         experiencesFiltered.map((experience) => (
           <div className="mb-3" key={experience.id}>
@@ -71,7 +70,7 @@ const SupportingEvidence = ({
                 experience,
                 ExperienceCard_Fragment,
               )}
-              headingLevel="h3"
+              headingLevel="h4"
               showEdit={false}
               {...(skillId && {
                 showSkills: { id: skillId },

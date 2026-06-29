@@ -1,6 +1,10 @@
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { DetailedHTMLProps, TextareaHTMLAttributes, FocusEvent } from "react";
+import type {
+  DetailedHTMLProps,
+  TextareaHTMLAttributes,
+  FocusEvent,
+} from "react";
 import { tv } from "tailwind-variants";
 
 import { errorMessages } from "@gc-digital-talent/i18n";
@@ -67,14 +71,12 @@ const TextArea = ({
   const intl = useIntl();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

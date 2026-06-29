@@ -1,16 +1,13 @@
-import { createContext, ReactNode, useMemo } from "react";
+import type { ReactNode } from "react";
+import { createContext, useMemo } from "react";
 
-import {
-  Maybe,
-  RoleAssignment,
-  UserAuthInfo,
-} from "@gc-digital-talent/graphql";
+import type { RoleAssignment, UserAuthInfo } from "@gc-digital-talent/graphql";
 
 type SimpleRoleAssignment = Exclude<RoleAssignment, "teamable">;
 
 export interface AuthorizationState {
-  roleAssignments: Maybe<SimpleRoleAssignment[]>;
-  userAuthInfo?: Maybe<UserAuthInfo>;
+  roleAssignments: SimpleRoleAssignment[] | null;
+  userAuthInfo?: UserAuthInfo | null;
   isLoaded: boolean;
 }
 
@@ -21,8 +18,8 @@ export const AuthorizationContext = createContext<AuthorizationState>({
 });
 
 interface AuthorizationContainerProps {
-  roleAssignments: Maybe<SimpleRoleAssignment[]>;
-  userAuthInfo?: Maybe<UserAuthInfo>;
+  roleAssignments: SimpleRoleAssignment[] | null;
+  userAuthInfo?: UserAuthInfo | null;
   isLoaded: boolean;
   children?: ReactNode;
 }

@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class Screening Question
@@ -18,8 +19,8 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $assessment_step_id
  * @property array $question
  * @property int $sort_order
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class ScreeningQuestion extends Model
 {
@@ -48,7 +49,7 @@ class ScreeningQuestion extends Model
         return LogOptions::defaults()
             ->logOnly((['*']))
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Pool, $this> */

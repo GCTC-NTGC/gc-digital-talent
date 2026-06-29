@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import MegaphoneOutlineIcon from "@heroicons/react/24/outline/MegaphoneIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useQuery } from "urql";
 
 import {

@@ -5,10 +5,10 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import pageTitles from "~/messages/pageTitles";
 import Hero from "~/components/Hero";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CommunityTableApi from "./components/CommunityTable/CommunityTable";
 

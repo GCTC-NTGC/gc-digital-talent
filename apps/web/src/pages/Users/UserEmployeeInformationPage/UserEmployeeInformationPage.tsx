@@ -12,12 +12,8 @@ import {
   Notice,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -25,29 +21,34 @@ import SEO from "~/components/SEO/SEO";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import CommunityInterest, {
-  CommunityInterestOptions_Fragment,
-} from "~/components/CommunityInterest/CommunityInterest";
-import { NextRoleAndCareerObjective_Fragment } from "~/components/NextRoleAndCareerObjective/NextRoleAndCareerObjective";
+import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
+import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
+import EmployeeVerificationSection from "~/components/EmployeeVerificationSection/EmployeeVerificationSection";
 
-import CareerDevelopmentSection, {
-  CareerDevelopmentOptions_Fragment,
-} from "./components/CareerDevelopmentSection";
+import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
+import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
 import NextRoleAndCareerObjective from "./components/NextRoleAndCareerObjective";
 import GoalsWorkStyleSection from "./components/GoalsWorkStyleSection";
 import DownloadButton from "../DownloadButton";
 
 const SECTION_ID = {
+  EMPLOYEE_VERIFICATION: "employee-verification",
   COMMUNITY_INTEREST: "community-interest-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE_AND_CAREER_OBJECTIVE: "next-role-and-career-objective-section",
   GOALS_WORK_STYLE: "goals-work-style-section",
-  WORKFORCE_ADJUSTMENT_SECTION: "workforce-adjustment-section",
 };
 
-const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
-  fragment UserEmployeeInformation on EmployeeProfile {
+const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeInformationUser on User {
+    ...UserEmployeeVerification
+    ...NextRoleAndCareerObjective
+  }
+`);
+
+const EmployeeInformationEmployeeProfile_Fragment = graphql(/* GraphQL */ `
+  fragment EmployeeInformationEmployeeProfile on EmployeeProfile {
     communityInterests {
       id
       community {
@@ -63,15 +64,17 @@ const UserEmployeeInformation_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface UserEmployeeInformationProps {
-  userId: Scalars["UUID"]["output"];
-  employeeProfileQuery: FragmentType<typeof UserEmployeeInformation_Fragment>;
+  userId: string;
+  employeeProfileQuery: FragmentType<
+    typeof EmployeeInformationEmployeeProfile_Fragment
+  >;
   communityInterestOptionsQuery: FragmentType<
     typeof CommunityInterestOptions_Fragment
   >;
   careerDevelopmentOptionsQuery: FragmentType<
     typeof CareerDevelopmentOptions_Fragment
   >;
-  userQuery: FragmentType<typeof NextRoleAndCareerObjective_Fragment>;
+  userQuery: FragmentType<typeof EmployeeInformationUser_Fragment>;
 }
 
 export const UserEmployeeInformation = ({
@@ -84,14 +87,21 @@ export const UserEmployeeInformation = ({
   const intl = useIntl();
 
   const employeeProfile = getFragment(
-    UserEmployeeInformation_Fragment,
+    EmployeeInformationEmployeeProfile_Fragment,
     employeeProfileQuery,
   );
+
+  const user = getFragment(EmployeeInformationUser_Fragment, userQuery);
 
   return (
     <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
         <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+              {intl.formatMessage(commonMessages.employeeVerification)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink id={SECTION_ID.COMMUNITY_INTEREST}>
               {intl.formatMessage(commonMessages.communityInterest)}
@@ -142,13 +152,16 @@ export const UserEmployeeInformation = ({
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <div className="flex flex-col gap-y-6">
+          <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+            <EmployeeVerificationSection userQuery={user} context="admin" />
+          </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
               level="h2"
               size="h3"
               icon={FlagIcon}
               color="secondary"
-              className="mt-0 font-normal sm:justify-start sm:text-left"
+              className="font-normal sm:justify-start sm:text-left"
             >
               {intl.formatMessage(commonMessages.communityInterest)}
             </Heading>
@@ -171,8 +184,10 @@ export const UserEmployeeInformation = ({
                       key={communityInterest.id}
                     >
                       <Accordion.Trigger as="h3">
-                        {communityInterest.community?.name?.localized ??
-                          intl.formatMessage(commonMessages.notAvailable)}
+                        <span className="font-normal">
+                          {communityInterest.community?.name?.localized ??
+                            intl.formatMessage(commonMessages.notAvailable)}
+                        </span>
                       </Accordion.Trigger>
                       <Accordion.Content>
                         <CommunityInterest
@@ -278,7 +293,7 @@ export const UserEmployeeInformation = ({
               </Accordion.Trigger>
               <Accordion.Content>
                 <NextRoleAndCareerObjective
-                  nextRoleAndCareerObjectiveQuery={userQuery}
+                  nextRoleAndCareerObjectiveQuery={user}
                   sectionKey={SECTION_ID.NEXT_ROLE_AND_CAREER_OBJECTIVE}
                   nextRoleDialogSubtitle={intl.formatMessage({
                     defaultMessage:
@@ -336,9 +351,9 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
     user(id: $id, trashed: WITH) {
       isGovEmployee
       employeeProfile {
-        ...UserEmployeeInformation
+        ...EmployeeInformationEmployeeProfile
       }
-      ...NextRoleAndCareerObjective
+      ...EmployeeInformationUser
     }
     ...CareerDevelopmentOptions
     ...CommunityInterestOptions
@@ -346,7 +361,7 @@ const UserEmployeeInformationPage_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const UserEmployeeInformationPage = () => {

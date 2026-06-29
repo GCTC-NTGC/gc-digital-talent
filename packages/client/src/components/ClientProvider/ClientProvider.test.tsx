@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { vi } from "vitest";
-import { CombinedError } from "urql";
+import type { CombinedError } from "urql";
 import isEqual from "lodash/isEqual";
 
 import { extractErrorMessages } from "../../utils/errors";

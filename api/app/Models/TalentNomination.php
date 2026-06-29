@@ -2,24 +2,30 @@
 
 namespace App\Models;
 
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Observers\TalentNominationObserver;
+use Database\Factories\TalentNominationFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Carbon;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
+use Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 /**
  * Class TalentNomination
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $submitted_steps
  * @property string $talent_nomination_event_id
- * @property \Illuminate\Support\Carbon $submitted_at
+ * @property Carbon $submitted_at
  * @property string $submitter_id
  * @property object $submitter_relationship_to_nominator
  * @property string $submitter_relationship_to_nominator_other
@@ -48,12 +54,15 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property string $nomination_rationale
  * @property string $additional_comments
  * @property string $talent_nomination_group_id
+ * @property ?string $nine_box_performance
+ * @property ?string $nine_box_leadership_potential
  */
 class TalentNomination extends Model
 {
-    /** @use HasFactory<\Database\Factories\TalentNominationFactory> */
+    /** @use HasFactory<TalentNominationFactory> */
     use HasFactory;
 
+    use HasRelationships;
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -79,6 +88,8 @@ class TalentNomination extends Model
             'submitted_at' => 'datetime',
             'lateral_movement_options' => 'array',
             'submitter_relationship_to_nominator' => TalentNominationSubmitterRelationshipToNominator::class,
+            'nine_box_performance' => NineBoxRating::class,
+            'nine_box_leadership_potential' => NineBoxRating::class,
         ];
     }
 
@@ -87,7 +98,7 @@ class TalentNomination extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /**
@@ -150,6 +161,20 @@ class TalentNomination extends Model
     public function advancementReferenceFallbackDepartment(): BelongsTo
     {
         return $this->belongsTo(Department::class, 'advancement_reference_fallback_department_id');
+    }
+
+    /** @return BelongsToMany<CommunityDevelopmentProgram, $this> */
+    public function communityDevelopmentPrograms(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityDevelopmentProgram::class, 'community_development_program_talent_nomination');
+    }
+
+    // allow for downloads and the like to skip working with the pivot
+    // will fetch with soft deleted intermediate CommunityDevelopmentProgram
+    public function developmentProgramsThroughPivot(): HasManyDeep
+    {
+        return $this->hasManyDeepFromRelations($this->communityDevelopmentPrograms(), (new CommunityDevelopmentProgram())->developmentProgram())
+            ->withTrashed('community_development_program.deleted_at');
     }
 
     /** @return BelongsToMany<DevelopmentProgram, $this> */
@@ -220,5 +245,10 @@ class TalentNomination extends Model
     public function isOwn(User $user)
     {
         return $this->submitter_id === $user->id;
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['talentNominationEvent']);
     }
 }

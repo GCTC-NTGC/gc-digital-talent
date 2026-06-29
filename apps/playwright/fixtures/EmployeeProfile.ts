@@ -1,7 +1,6 @@
-import { expect, Page } from "@playwright/test";
+import type { Page } from "@playwright/test";
 
 import AppPage from "./AppPage";
-import ApplicantDashboardPage from "./ApplicantDashboardPage";
 
 type ObjectValues<T> = T[keyof T];
 
@@ -132,32 +131,6 @@ class EmployeeProfile extends AppPage {
     await this.page
       .getByRole("button", { name: /save career development preferences/i })
       .click();
-  }
-
-  async verifyUnlockEmployeeToolsDialog() {
-    const dialog = this.page.getByRole("dialog", {
-      name: /unlock employee tools/i,
-    });
-    const cancelButton = dialog.getByRole("button", { name: /cancel/i });
-    await expect(dialog).toBeVisible();
-    const actions = [
-      { name: /verify work email/i, url: /\/en\/applicant\/settings/ },
-      { name: /add gc work experience/i, url: /\/en\/applicant\/settings/ },
-    ];
-    for (const action of actions) {
-      const btn = dialog.getByRole("button", { name: action.name });
-      if (await btn.count()) {
-        await Promise.all([this.page.waitForURL(action.url), btn.click()]);
-        const dashboardPage = new ApplicantDashboardPage(this.page);
-        await dashboardPage.goToDashboard();
-        await this.page
-          .getByRole("link", { name: /employee verification/i })
-          .click();
-        await expect(dialog).toBeVisible();
-      }
-    }
-    await expect(cancelButton).toBeVisible();
-    await cancelButton.click();
   }
 }
 

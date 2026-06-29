@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script is run after the deployment is complete to help set up the environment in the app service.
-# It sends a message to a slack webook URI.
+# It sends a message to a slack webhook URI.
 
 SLACK_WEBHOOK_URI=$1
 
@@ -27,8 +27,16 @@ fi
 # First block is the header
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
-# Configure PHP CLI
-if echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini ; then
+# Remove bad source file (see: https://github.com/GCTC-NTGC/gc-digital-talent/issues/16650)
+# This block can be removed once the base image stops shipping with this file present.
+if rm -f /etc/apt/sources.list.d/nginx.list ; then
+    add_section_block ":white_check_mark: Remove bad source *successful*."
+else
+    add_section_block ":X: Remove bad source *failed*.. $MENTION"
+fi
+
+# Configure PHP CLI — write to a drop-in file (not append) so re-runs are idempotent
+if echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/memory-limit.ini ; then
     add_section_block ":white_check_mark: Configure PHP CLI *successful*."
 else
     add_section_block ":X: Configure PHP CLI *failed*. $MENTION"
@@ -84,9 +92,33 @@ if [ "${#CLEANED_STDOUT}" -gt "2500" ] ; then
 fi
 add_section_block "$TRIPLE_BACK_TICK $CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
+# Laravel RolePermission seeder
+ROLEPERMISSION_SEEDER_STDOUT=$(php artisan db:seed --class=RolePermissionSeeder --no-interaction --force --no-ansi)
+ROLEPERMISSION_SEEDER_STATUS=$?
+
+if [ $ROLEPERMISSION_SEEDER_STATUS -eq 0 ]; then
+    add_section_block ":white_check_mark: RolePermission seeder *successful*."
+else
+    add_section_block ":X: RolePermission seeder *failed*. $MENTION"
+fi
+
+# Include the stdout from the seeder as its own block, cleaned to make Slack happy
+ROLEPERMISSION_SEEDER_CLEANED_STDOUT=${ROLEPERMISSION_SEEDER_STDOUT//[^a-zA-Z0-9_ $'\n']/}
+
+# Slack has a max size of 3000 characters
+# https://api.slack.com/reference/block-kit/blocks#section
+if [ "${#ROLEPERMISSION_SEEDER_CLEANED_STDOUT}" -gt "2500" ] ; then
+    ROLEPERMISSION_SEEDER_CLEANED_STDOUT="${ROLEPERMISSION_SEEDER_CLEANED_STDOUT:0:2500}..."
+fi
+add_section_block "$TRIPLE_BACK_TICK $ROLEPERMISSION_SEEDER_CLEANED_STDOUT $TRIPLE_BACK_TICK"
+
 # Load Laravel Scheduler cron
 # For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
-if echo "  *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run" >> /etc/crontab ; then
+# Write to a drop-in file in /etc/cron.d/ (overwrite) so re-runs are idempotent and changes are always applied
+if cat > /etc/cron.d/gc-digital-talent << 'EOF'
+  *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run
+EOF
+then
     add_section_block ":white_check_mark: Laravel Scheduler cron setup *successful*."
 else
     add_section_block ":X: Laravel Scheduler cron setup *failed*. $MENTION"
@@ -101,10 +133,9 @@ fi
 
 # Copy nginx config and reload
 if
-    touch /etc/nginx/conf.d/default.conf && \
     /home/site/wwwroot/infrastructure/bin/substitute_file.sh \
-        /home/site/wwwroot/infrastructure/conf/nginx-conf-deploy/default \
-        /etc/nginx/sites-available/default '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
+        /home/site/wwwroot/infrastructure/conf/nginx-deploy.conf \
+        /etc/nginx/conf.d/default.conf '$NGINX_PORT $ROBOTS_FILENAME $HTTP_DISGUISED_HOST' && \
     nginx -s reload ; then
     add_section_block ":white_check_mark: Set up Nginx *successful*."
 else

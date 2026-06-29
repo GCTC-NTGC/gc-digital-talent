@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use App\Casts\LocalizedString;
+use Database\Factories\WorkStreamFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 /**
@@ -17,12 +19,12 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
  * @property array $plain_language_name
  * @property Community $community
  * @property bool $talent_searchable
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class WorkStream extends Model
 {
-    /** @use HasFactory<\Database\Factories\WorkStreamFactory> */
+    /** @use HasFactory<WorkStreamFactory> */
     use HasFactory;
 
     use HasJsonRelationships;

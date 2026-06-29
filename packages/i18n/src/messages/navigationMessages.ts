@@ -111,6 +111,11 @@ const navigationMessages = defineMessages({
     id: "NQspkZ",
     description: "Name of the community dashboard page",
   },
+  departmentDashboard: {
+    defaultMessage: "Department dashboard",
+    id: "uzB/k/",
+    description: "Name of the department dashboard page",
+  },
   contactUs: {
     defaultMessage: "Contact us",
     id: "sQt/7l",
@@ -221,6 +226,11 @@ const navigationMessages = defineMessages({
     defaultMessage: "Personal information",
     id: "g8Ur9z",
     description: "applicant dashboard card title for profile card",
+  },
+  citizenVeteranPriority: {
+    defaultMessage: "Citizenship, veteran status and priority entitlements",
+    id: "ltYqKQ",
+    description: "Title for the citizen/veteran/priority section",
   },
 });
 

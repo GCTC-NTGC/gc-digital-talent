@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import { RootProps } from "./Root";
+import type { RootProps } from "./Root";
 import Ul from "../List/Ul";
 import Button from "../Button";
 import Link from "../Link";

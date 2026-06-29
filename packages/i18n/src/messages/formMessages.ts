@@ -177,6 +177,11 @@ const formMessages = defineMessages({
     id: "W9SXxj",
     description: "Label for the links to change how the list is sorted",
   },
+  editDetails: {
+    defaultMessage: "Edit details",
+    id: "DTw8xg",
+    description: "Label for button to edit details",
+  },
 });
 
 export default formMessages;

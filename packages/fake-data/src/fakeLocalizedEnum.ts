@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import toLocalizedString from "./fakeLocalizedString";
 

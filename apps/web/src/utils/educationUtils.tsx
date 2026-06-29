@@ -1,15 +1,15 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import uniqueId from "lodash/uniqueId";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 import { Link, Ul } from "@gc-digital-talent/ui";
-import { Radio } from "@gc-digital-talent/forms";
+import type { Radio } from "@gc-digital-talent/forms";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
 import applicationMessages from "~/messages/applicationMessages";
-import { ClassificationGroup } from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
 
 export const foreignDegreeLink = (chunks: ReactNode, locale: Locales) => {
   const href =
@@ -83,20 +83,17 @@ const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
   );
 };
 
-const appliedWorkListMessages = (isIAP = false) => [
+const appliedWorkListMessages = () => [
   applicationMessages.onTheJobLearning,
   applicationMessages.nonConventionalTraining,
   applicationMessages.formalEducation,
-  isIAP
-    ? applicationMessages.otherExperience
-    : applicationMessages.otherFieldExperience,
+  applicationMessages.otherFieldExperience,
 ];
 
 export const getEducationRequirementOptions = (
   intl: IntlShape,
   locale: Locales,
   classificationGroup: ClassificationGroup,
-  isIAP = false,
 ): Radio[] => {
   switch (classificationGroup) {
     case "EC":
@@ -284,28 +281,20 @@ export const getEducationRequirementOptions = (
       return [
         {
           value: EducationRequirementOption.AppliedWork,
-          label: isIAP
-            ? intl.formatMessage({
-                defaultMessage:
-                  "<strong>I meet the applied experience option</strong>",
-                id: "kukr/B",
-                description:
-                  "Radio group option for education requirement filter in application education form - IAP variant.",
-              })
-            : intl.formatMessage({
-                defaultMessage:
-                  "<strong>I meet the applied work experience option</strong>",
-                id: "SNwPLZ",
-                description:
-                  "Radio group option for education requirement filter in application education form.",
-              }),
+          label: intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the applied work experience option</strong>",
+            id: "SNwPLZ",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
           contentBelow: (
             <>
               <p className="mb-3">
                 {intl.formatMessage(applicationMessages.appliedWorkExperience)}
               </p>
               <Ul space="md">
-                {appliedWorkListMessages(isIAP).map((value) => (
+                {appliedWorkListMessages().map((value) => (
                   <li key={uniqueId()}>{intl.formatMessage(value)}</li>
                 ))}
               </Ul>
@@ -314,38 +303,18 @@ export const getEducationRequirementOptions = (
         },
         {
           value: EducationRequirementOption.Education,
-          label: isIAP
-            ? intl.formatMessage({
-                defaultMessage:
-                  "<strong>I have a high school diploma or equivalent (e.g. GED)</strong>",
-                id: "8IIIER",
-                description:
-                  "Radio group option for education requirement filter in IAP application education form.",
-              })
-            : intl.formatMessage({
-                defaultMessage:
-                  "<strong>I meet the 2-year post-secondary option</strong>",
-                id: "j+jnML",
-                description:
-                  "Radio group option for education requirement filter in application education form.",
-              }),
+          label: intl.formatMessage({
+            defaultMessage:
+              "<strong>I meet the 2-year post-secondary option</strong>",
+            id: "j+jnML",
+            description:
+              "Radio group option for education requirement filter in application education form.",
+          }),
           contentBelow: (
             <p>
-              {isIAP
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "Successful completion of a standard high school diploma or GED equivalent.",
-                    id: "nIJlba",
-                    description:
-                      "Message under radio button in IAP application education page.",
-                  })
-                : intl.formatMessage(
-                    applicationMessages.postSecondaryEducation,
-                    {
-                      link: (msg: ReactNode) =>
-                        qualityStandardsLink(msg, locale),
-                    },
-                  )}
+              {intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                link: (msg: ReactNode) => qualityStandardsLink(msg, locale),
+              })}
             </p>
           ),
         },

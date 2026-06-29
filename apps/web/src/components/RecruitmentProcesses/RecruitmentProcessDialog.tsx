@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 import { Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import {
@@ -13,7 +14,6 @@ import {
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
 
@@ -33,8 +33,7 @@ const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
+        groupAndLevel
         minSalary
         maxSalary
       }
@@ -138,10 +137,7 @@ const RecruitmentProcessDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? wrapAbbr(
-                    getClassificationName(pool?.classification, intl),
-                    intl,
-                  )
+                ? wrapAbbr(pool.classification.groupAndLevel, intl)
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay

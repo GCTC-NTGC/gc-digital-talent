@@ -1,11 +1,11 @@
 /* eslint-disable testing-library/no-debugging-utils */
 import { getLogger } from "@gc-digital-talent/logger";
-import { Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 
-import { AuthenticationState } from "../types";
+import type { AuthenticationState } from "../types";
 import { ACCESS_TOKEN, ID_TOKEN, REFRESH_TOKEN } from "../const";
 import logoutAndRefreshPage, { getLogoutVars } from "./logout";
-import { TokenSet } from "./setTokensFromLocation";
+import type { TokenSet } from "./setTokensFromLocation";
 import getTokenRefreshPath from "./getTokenRefreshPath";
 import { getLogoutChannel } from "./logoutChannel";
 

@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Pending, Sidebar, ThrowNotFound } from "@gc-digital-talent/ui";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -17,7 +18,7 @@ import pageTitles from "~/messages/pageTitles";
 import AdminContentWrapper from "~/components/AdminContentWrapper/AdminContentWrapper";
 import permissionConstants from "~/constants/permissionConstants";
 
-import { RouteParams } from "./types";
+import type { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
 import { detailTabMessages } from "./messages";
 
@@ -43,6 +44,7 @@ interface LayoutProps {
 
 const Layout = ({ query }: LayoutProps) => {
   const intl = useIntl();
+  const location = useLocation();
   const paths = useRoutes();
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
@@ -93,6 +95,10 @@ const Layout = ({ query }: LayoutProps) => {
     ],
   });
 
+  const isHistoryTab =
+    location.pathname.endsWith("/history") ||
+    location.pathname.endsWith("/history/");
+
   return (
     <>
       <SEO title={nomineeName} description={description} />
@@ -128,6 +134,21 @@ const Layout = ({ query }: LayoutProps) => {
             ),
             label: intl.formatMessage(navigationMessages.careerExperience),
           },
+          ...(isHistoryTab
+            ? [
+                {
+                  url: paths.talentNominationGroupHistory(
+                    talentNominationGroup.talentNominationEvent.id,
+                    talentNominationGroupId,
+                  ),
+                  label: intl.formatMessage({
+                    defaultMessage: "History",
+                    id: "vtmq4K",
+                    description: "Link text for the history of a nominee",
+                  }),
+                },
+              ]
+            : []),
         ]}
       />
       <AdminContentWrapper>

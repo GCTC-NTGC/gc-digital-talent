@@ -1,18 +1,21 @@
 import { useIntl } from "react-intl";
 
 import { TextArea } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   getLocale,
   getLocalizedName,
-  Locales,
 } from "@gc-digital-talent/i18n";
-import { GeneralQuestion, ScreeningQuestion } from "@gc-digital-talent/graphql";
+import type {
+  GeneralQuestion,
+  ScreeningQuestion,
+} from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 const TEXT_AREA_ROWS = 3;
-const TEXT_AREA_MAX_WORDS_EN = 200;
+const TEXT_AREA_MAX_WORDS_EN = 500;
 
 interface AnswerInputProps {
   index: number;

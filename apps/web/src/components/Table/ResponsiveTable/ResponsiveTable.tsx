@@ -1,14 +1,15 @@
-import { useSearchParams } from "react-router";
+import { useLocation, useSearchParams } from "react-router";
 import { useIntl } from "react-intl";
 import isEqual from "lodash/isEqual";
 import debounce from "lodash/debounce";
-import type { ColumnDef } from "@tanstack/react-table";
 import {
   getCoreRowModel,
   getFilteredRowModel,
   getSortedRowModel,
   getPaginationRowModel,
   useReactTable,
+  type ColumnDef,
+  type RowSelectionState,
 } from "@tanstack/react-table";
 import isEmpty from "lodash/isEmpty";
 import { useEffect, useId, useMemo, useRef } from "react";
@@ -19,7 +20,8 @@ import { Loading, useAnnouncer } from "@gc-digital-talent/ui";
 import Table from "./Table";
 import SearchForm from "./SearchForm";
 import ColumnDialog from "./ColumnDialog";
-import NullMessage, { NullMessageProps } from "./NullMessage";
+import type { NullMessageProps } from "./NullMessage";
+import NullMessage from "./NullMessage";
 import RowSelection, {
   getRowSelectionColumn,
   useRowSelection,
@@ -38,6 +40,7 @@ import type {
   SearchDef,
   SearchState,
   SortDef,
+  TableAction,
 } from "./types";
 import { getColumnHeader } from "./utils";
 
@@ -66,11 +69,14 @@ interface TableProps<TData, TFilters> {
   pagination?: PaginationDef;
   /** Download buttons */
   download?: DownloadDef;
+  /** Arbitrary bulk actions for selected rows, shown in a dropdown menu */
+  actions?: TableAction[];
   /** Enable the "add item" button */
   add?: AddDef;
   filter?: FilterDef<TFilters>;
   /** Should this sync state in the URL? */
   urlSync?: boolean;
+  filterParamKey?: string;
 }
 
 const ResponsiveTable = <TData extends object, TFilters = object>({
@@ -85,18 +91,28 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   search,
   sort,
   download,
+  actions,
   add,
   pagination,
   filter,
   urlSync = true,
+  filterParamKey = SEARCH_PARAM_KEY.FILTERS,
 }: TableProps<TData, TFilters>) => {
   const id = useId();
   const intl = useIntl();
-  const isFirstRender = useRef(true);
+  const location = useLocation();
+  // Store location state so we don't lose it when
+  // syncing state with the URL
+  const locationStateRef = useRef<unknown>(location.state);
+  locationStateRef.current = location.state;
+  // Tracks the URL params this table last wrote. Compared against desired state before
+  // each write so back-button navigation (which changes URL but not table state) doesn't
+  // trigger a competing setSearchParams call during the route transition.
+  const lastWrittenTableParamsRef = useRef<Record<string, string | null>>({});
   const { announce } = useAnnouncer();
   const hasUpdatedRows = useRef<boolean>(false);
   const [, setSearchParams] = useSearchParams();
-  const isInternalSearch = search && search.internal;
+  const isInternalSearch = !!search?.internal;
   const memoizedColumns = useMemo(() => {
     if (!rowSelect) return columns;
     // Inject the selection column if it is enabled
@@ -104,7 +120,13 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
   }, [columns, intl, rowSelect]);
   const columnIds = memoizedColumns.map((column) => column.id).filter(notEmpty);
 
-  const [rowSelection, setRowSelection] = useRowSelection<TData>(rowSelect);
+  const [internalRowSelection, setRowSelection] = useRowSelection();
+  let rowSelection: RowSelectionState = internalRowSelection;
+  if (rowSelect?.selectedIds) {
+    rowSelection = Object.fromEntries(
+      rowSelect.selectedIds.map((rowId) => [rowId, true]),
+    );
+  }
   const { state, initialState, initialParamState, updaters } =
     useControlledTableState({
       columnIds,
@@ -144,7 +166,19 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onRowSelectionChange: setRowSelection, // Note: We should probably do the state sync here
+    onRowSelectionChange: (updater) => {
+      const newRowSelection =
+        typeof updater === "function" ? updater(rowSelection) : updater;
+      if (!rowSelect?.selectedIds) {
+        setRowSelection(newRowSelection);
+      }
+      if (rowSelect?.onRowSelection) {
+        const selectedIds = data
+          .filter((row) => newRowSelection[rowSelect.getRowId(row)])
+          .map((row) => rowSelect.getRowId(row));
+        rowSelect.onRowSelection(selectedIds);
+      }
+    },
     ...updaters,
   });
 
@@ -168,7 +202,6 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
 
   useEffect(() => {
     if (urlSync) {
-      const currentParams = new URLSearchParams(window.location.search);
       const newParams = new URLSearchParams(window.location.search);
 
       let searchState: SearchState = {
@@ -257,22 +290,30 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
         isEmpty(filter?.state) ||
         isEqual(filter?.initialState, filter?.state)
       ) {
-        newParams.delete(SEARCH_PARAM_KEY.FILTERS);
+        newParams.delete(filterParamKey);
       } else {
-        newParams.set(SEARCH_PARAM_KEY.FILTERS, JSON.stringify(filter?.state));
+        newParams.set(filterParamKey, JSON.stringify(filter?.state));
       }
 
-      if (
-        !isEqual(
-          Object.fromEntries(currentParams),
-          Object.fromEntries(newParams),
-        )
-      ) {
-        if (isFirstRender.current) {
-          isFirstRender.current = false;
-          return;
-        }
-        setSearchParams(newParams, { replace: true });
+      // Only write if the table's desired params changed — not if unrelated URL state changed.
+      const managedKeys = [
+        SEARCH_PARAM_KEY.SORT_RULE,
+        SEARCH_PARAM_KEY.HIDDEN_COLUMNS,
+        SEARCH_PARAM_KEY.PAGE_SIZE,
+        SEARCH_PARAM_KEY.PAGE,
+        SEARCH_PARAM_KEY.SEARCH_COLUMN,
+        SEARCH_PARAM_KEY.SEARCH_TERM,
+        filterParamKey,
+      ];
+      const desiredTableParams: Record<string, string | null> =
+        Object.fromEntries(managedKeys.map((key) => [key, newParams.get(key)]));
+
+      if (!isEqual(desiredTableParams, lastWrittenTableParamsRef.current)) {
+        setSearchParams(newParams, {
+          replace: true,
+          state: locationStateRef.current,
+        });
+        lastWrittenTableParamsRef.current = desiredTableParams;
       }
     }
   }, [
@@ -292,6 +333,7 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
     urlSync,
     filter?.state,
     filter?.initialState,
+    filterParamKey,
   ]);
 
   useEffect(() => {
@@ -357,6 +399,8 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
       debouncedAnnouncement(totalRows ?? 0);
     }
     // Note, exhaustive-deps causes over announcing
+    // Fix by memoizing the announcement and cancel debounce in cleanup
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalRows]);
 
   return (
@@ -404,13 +448,17 @@ const ResponsiveTable = <TData extends object, TFilters = object>({
                 ))}
               </Table.Body>
             </Table.Table>
-            {(!!rowSelect || !!download?.all) && (
+            {(!!rowSelect || !!download?.all || !!actions?.length) && (
               <RowSelection.Actions
                 {...{
                   rowSelect: !!rowSelect,
                   download,
+                  actions,
+                  selectedRowIds: table
+                    .getSelectedRowModel()
+                    .rows.map((row) => row.id),
                   isLoading,
-                  count: Object.values(rowSelection).length,
+                  count: table.getSelectedRowModel().rows.length,
                   onClear: () => table.resetRowSelection(),
                 }}
               />

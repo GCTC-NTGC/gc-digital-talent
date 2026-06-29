@@ -1,4 +1,4 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 // parameters for the formatDate function
 export interface FormatDateOptions {

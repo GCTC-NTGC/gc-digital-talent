@@ -1,0 +1,48 @@
+# Development reverse proxy
+# Routes API requests to Laravel and all other requests to Vite dev server
+
+server {
+    listen 8080;
+    listen [::]:8080;
+    server_name localhost;
+    absolute_redirect off;
+
+    # local auth - proxy to mock-auth server
+    location ^~ /oxauth {
+        proxy_pass "http://mock-auth:8080";
+        proxy_set_header X-Forwarded-Proto http;
+        proxy_set_header Host localhost:8000;
+    }
+
+    # api - proxy to Laravel dev server
+    location = /graphql        { proxy_pass "http://api:8080"; }
+    location = /admin/graphql  { proxy_pass "http://api:8080"; }
+    location = /login          { proxy_pass "http://api:8080"; }
+    location = /register       { proxy_pass "http://api:8080"; }
+    location = /auth-callback  {
+        proxy_pass "http://api:8080";
+        proxy_buffers 16 32k;
+        proxy_buffer_size 64k;
+        proxy_busy_buffers_size 64k;
+    }
+    location = /refresh          { proxy_pass "http://api:8080"; }
+    location = /sector-identifier { proxy_pass "http://api:8080"; }
+    location ^~ /api/            { proxy_pass "http://api:8080"; }
+
+    # WebSocket support for Vite HMR and React Router dev server
+    location ~ ^/(__vite_hmr|__react-router) {
+        proxy_pass "http://web:3000";
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 86400;
+    }
+
+    # all other requests go to Vite dev server
+    location / {
+        proxy_pass "http://web:3000";
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}

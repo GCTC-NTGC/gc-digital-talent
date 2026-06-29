@@ -10,9 +10,14 @@ import useAuthorization from "./hooks/useAuthorization";
 import apiRoutes, { useApiRoutes } from "./hooks/useApiRoutes";
 import {
   hasRequiredRoles,
+  type HasRequiredRolesArgs,
   type RoleRequirement,
 } from "./utils/hasRequiredRoles";
 import hasRole from "./utils/hasRole";
+import checkPermissions, {
+  type PermissionRequirement,
+} from "./utils/checkPermissions";
+import useHasPermissions from "./hooks/useHasPermissions";
 import { narrowTeamableType } from "./utils/narrowTeamableType";
 import {
   ACCESS_TOKEN,
@@ -20,7 +25,6 @@ import {
   ID_TOKEN,
   POST_LOGOUT_OVERRIDE_PATH_KEY,
   ROLE_NAME,
-  RoleName,
   LOGOUT_REASON_KEY,
   NAV_ROLE_KEY,
   COMMUNITY_ROLES,
@@ -28,9 +32,9 @@ import {
   PROCESS_ACTIVITY_LOG_ROLES,
   DEPARTMENT_ROLES,
 } from "./const";
-import type { LogoutReason } from "./const";
+import type { LogoutReason, RoleName } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
-import { AuthenticationState } from "./types";
+import type { AuthenticationState } from "./types";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {
@@ -45,6 +49,8 @@ export {
   apiRoutes,
   hasRole,
   hasRequiredRoles,
+  checkPermissions,
+  useHasPermissions,
   narrowTeamableType,
   getAuthenticationState,
   setTokensFromLocation,
@@ -64,4 +70,11 @@ export {
   DEPARTMENT_ROLES,
 };
 
-export type { RoleName, LogoutReason, AuthenticationState, RoleRequirement };
+export type {
+  RoleName,
+  LogoutReason,
+  AuthenticationState,
+  RoleRequirement,
+  PermissionRequirement,
+  HasRequiredRolesArgs,
+};

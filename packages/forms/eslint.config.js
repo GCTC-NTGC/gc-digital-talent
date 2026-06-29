@@ -18,6 +18,7 @@ export default [
               ignoreExports: [
                 "src/index.{ts,tsx}",
                 "src/**/*.stories.@(js|jsx|ts|tsx|mdx)",
+                "vitest.config.ts",
               ],
             },
           ]

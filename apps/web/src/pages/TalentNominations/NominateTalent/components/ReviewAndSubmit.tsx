@@ -2,18 +2,18 @@ import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMag
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
-import { Separator } from "@gc-digital-talent/ui";
+import { Card, CardSeparator } from "@gc-digital-talent/ui";
 
 import pageTitles from "~/messages/pageTitles";
 
 import useCurrentStep from "../useCurrentStep";
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
 import useMutations from "../useMutations";
@@ -58,30 +58,32 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <SubHeading level="h2" icon={DocumentMagnifyingGlassIcon}>
-          {intl.formatMessage(pageTitles.reviewAndSubmit)}
-        </SubHeading>
-        <p className="my-6">
-          {intl.formatMessage({
-            defaultMessage:
-              "Please review all the information collected as a part of your nomination form before submitting. Each section contains a link to edit the associated step, should you need to make changes.",
-            id: "Lqm83x",
-            description: "Subtitle for submit step of a talent nomination",
-          })}
-        </p>
-        <Separator orientation="horizontal" decorative />
-        <NominatorReview nominatorQuery={talentNomination} />
-        <Separator orientation="horizontal" decorative />
-        <NomineeReview nomineeQuery={talentNomination} />
-        <Separator orientation="horizontal" decorative />
-        <NominationDetailsReview detailsQuery={talentNomination} />
-        <Separator orientation="horizontal" decorative />
-        <RationaleReview rationaleQuery={talentNomination} />
-        <Actions />
-      </form>
-    </FormProvider>
+    <Card>
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <SubHeading icon={DocumentMagnifyingGlassIcon}>
+            {intl.formatMessage(pageTitles.reviewAndSubmit)}
+          </SubHeading>
+          <p className="my-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "Please review all the information collected as a part of your nomination form before submitting. Each section contains a link to edit the associated step, should you need to make changes.",
+              id: "Lqm83x",
+              description: "Subtitle for submit step of a talent nomination",
+            })}
+          </p>
+          <CardSeparator decorative />
+          <NominatorReview nominatorQuery={talentNomination} />
+          <CardSeparator decorative />
+          <NomineeReview nomineeQuery={talentNomination} />
+          <CardSeparator decorative />
+          <NominationDetailsReview detailsQuery={talentNomination} />
+          <CardSeparator decorative />
+          <RationaleReview rationaleQuery={talentNomination} />
+          <Actions />
+        </form>
+      </FormProvider>
+    </Card>
   );
 };
 

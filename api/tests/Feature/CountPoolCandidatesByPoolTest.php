@@ -47,7 +47,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'user_id' => $user,
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'placement_type' => PlacementType::NOT_PLACED->name,
-            'referring' => $available,
+            'pause_referrals_at' => $available ? null : config('constants.past_date'),
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
         ];
     }
@@ -677,7 +677,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
     }
 
-    public function testOnlyItJobsAppear()
+    public function testOnlyNonIapJobsAppear()
     {
         $user = User::factory()->create([]);
 
@@ -687,14 +687,26 @@ class CountPoolCandidatesByPoolTest extends TestCase
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($itPool, $user, true));
 
-        // Note: Should not appear in results
         $execPool = Pool::factory()->create([
             ...$this->poolData(),
             'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
         ]);
         PoolCandidate::factory()->create($this->poolCandidateData($execPool, $user, true));
 
-        $this->graphQL(
+        $otherPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => PublishingGroup::OTHER->name,
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($otherPool, $user, true));
+
+        // Note: Should not appear in results
+        $iapPool = Pool::factory()->create([
+            ...$this->poolData(),
+            'publishing_group' => PublishingGroup::IAP->name,
+        ]);
+        PoolCandidate::factory()->create($this->poolCandidateData($iapPool, $user, true));
+
+        $response = $this->graphQL(
             /** @lang GraphQL */
             '
                 query ($where: ApplicantFilterInput) {
@@ -708,20 +720,30 @@ class CountPoolCandidatesByPoolTest extends TestCase
                 'where' => [
                     'pools' => [
                         ['id' => $itPool->id],
-                        ['id' => $execPool->id], // Should not show up
+                        ['id' => $execPool->id],
+                        ['id' => $otherPool->id],
+                        ['id' => $iapPool->id], // Should not show up
                     ],
                 ],
             ]
-        )->assertSimilarJson([
-            'data' => [
-                'countPoolCandidatesByPool' => [
-                    [
-                        'pool' => ['id' => $itPool->id],
-                        'candidateCount' => 1,
-                    ],
-                ],
+        );
+
+        $pools = $response->json('data.countPoolCandidatesByPool');
+
+        $this->assertEqualsCanonicalizing([
+            [
+                'pool' => ['id' => $itPool->id],
+                'candidateCount' => 1,
             ],
-        ]);
+            [
+                'pool' => ['id' => $execPool->id],
+                'candidateCount' => 1,
+            ],
+            [
+                'pool' => ['id' => $otherPool->id],
+                'candidateCount' => 1,
+            ],
+        ], $pools);
     }
 
     // candidates with one of three statuses should be found by this query
@@ -883,7 +905,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
         PoolCandidate::factory()->availableInSearch()
             ->create([
                 'pool_id' => $pool->id,
-                'referring' => false,
+                'pause_referrals_at' => config('constants.past_date'),
             ]);
 
         // Expected

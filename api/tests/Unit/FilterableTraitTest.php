@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\EmployeeVerification;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\Filterable;
 use Illuminate\Support\Arr;
@@ -14,7 +15,7 @@ class FilterableTraitTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->trait = new class
+        $this->trait = new class()
         {
             use Filterable;
 
@@ -39,7 +40,7 @@ class FilterableTraitTest extends TestCase
     public function testApplyFilters(array $filters, array $scopeMap, $expected): void
     {
 
-        $model = new class extends PoolCandidate
+        $model = new class() extends PoolCandidate
         {
             private $calledScopes = [];
 
@@ -143,9 +144,9 @@ class FilterableTraitTest extends TestCase
                 ['whereEmail' => true],
             ],
             'calls nested scopes' => [
-                ['applicantFilter' => ['whereIsGovEmployee' => true]],
+                ['applicantFilter' => ['whereEmployeeVerificationIn' => [EmployeeVerification::VERIFIED->name]]],
                 [],
-                ['whereIsGovEmployee' => true],
+                ['whereEmployeeVerificationIn' => true],
             ],
             'calls mapped scopes' => [
                 ['skills' => ['id']],

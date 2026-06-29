@@ -9,15 +9,15 @@ import { toast } from "@gc-digital-talent/toast";
 import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import processMessages from "~/messages/processMessages";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
-import ApplicationApi, { ApplicationPageProps } from "../ApplicationApi";
-import { useApplicationContext } from "../ApplicationContext";
+import type { ApplicationPageProps } from "../ApplicationApi";
+import ApplicationApi from "../ApplicationApi";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import AnswerInput from "./components/AnswerInput";
 import FormActions from "./components/FormActions";
 
@@ -53,10 +53,9 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { isIAP } = useApplicationContext();
   const [{ fetching: mutating }, executeMutation] =
     useUpdateApplicationMutation();
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
 
   const screeningQuestions =
     application.pool.screeningQuestions?.filter(notEmpty) ?? [];
@@ -230,7 +229,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           ))}
         </>
       )}
-      <FormActions disabled={mutating} />
+      <FormActions disabled={mutating} application={application} />
     </BasicForm>
   );
 };

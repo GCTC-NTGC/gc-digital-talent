@@ -9,18 +9,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Training Opportunity
  *
  * @property string $id
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $title
  * @property string $course_language
- * @property ?\Illuminate\Support\Carbon $registration_deadline
- * @property ?\Illuminate\Support\Carbon $training_start
- * @property ?\Illuminate\Support\Carbon $training_end
+ * @property ?Carbon $registration_deadline
+ * @property ?Carbon $training_start
+ * @property ?Carbon $training_end
  * @property array $description
  * @property array $application_url
  * @property string $course_format

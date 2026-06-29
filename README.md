@@ -51,6 +51,31 @@ Then, follow the instructions in [`/maintenance/README.md`](/maintenance/README.
 > [!TIP]
 > If using Docker Desktop, make sure virtualization is enabled in your machine's BIOS.
 
+#### Development Environment (with Hot Reloading)
+
+For a better development experience with Hot Module Replacement (HMR) and automatic reloading, add `ENV=dev` to any make command:
+
+```bash
+# Start the development environment
+make up ENV=dev
+
+# Run setup scripts (first time only)
+make setup ENV=dev
+
+# View logs
+make logs ENV=dev
+
+# Stop the containers
+make down ENV=dev
+```
+
+This development setup uses separate containers:
+- **api**: Laravel's built-in dev server (auto-reloads on PHP changes)
+- **web**: Vite dev server with HMR (instant UI updates)
+- **nginx-proxy**: Routes requests to the appropriate container
+
+Access the application at: http://localhost:8000
+
 ## Thanks
 
 <a href="https://www.chromatic.com/"><img src="https://user-images.githubusercontent.com/321738/84662277-e3db4f80-af1b-11ea-88f5-91d67a5e59f6.png" width="153" height="30" alt="Chromatic" /></a>

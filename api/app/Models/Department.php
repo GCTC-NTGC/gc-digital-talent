@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 use Staudenmeir\EloquentJsonRelations\Relations\Postgres\HasManyThrough;
 
@@ -24,10 +25,10 @@ use Staudenmeir\EloquentJsonRelations\Relations\Postgres\HasManyThrough;
  * @property bool $is_science
  * @property bool $is_regulatory
  * @property string $size
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
- * @property ?\Illuminate\Support\Carbon $archived_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
+ * @property ?Carbon $archived_at
  */
 class Department extends Model
 {

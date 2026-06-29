@@ -10,13 +10,13 @@ import {
   Pending,
   NotFound,
   Heading,
-  Link,
   Separator,
   Container,
   Card,
+  Sidebar,
 } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -29,150 +29,14 @@ import pageTitles from "~/messages/pageTitles";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
-import { PartialSearchRequest } from "~/types/searchRequest";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
-import UpdateSearchRequest from "./UpdateSearchRequest";
-
-const ManagerInfo = ({
-  searchRequest,
-}: {
-  searchRequest: PartialSearchRequest;
-}) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const {
-    fullName,
-    department,
-    email,
-    managerJobTitle,
-    hrAdvisorEmail,
-    status,
-    requestedDate,
-    statusChangedAt,
-  } = searchRequest;
-
-  return (
-    <>
-      <Heading level="h2" size="h4" className="mt-0">
-        {intl.formatMessage({
-          defaultMessage: "Manager information",
-          id: "eyR6B+",
-          description:
-            "Heading for the manager info section of the single search request view.",
-        })}
-      </Heading>
-      <Card>
-        <div className="grid gap-6 wrap-break-word sm:grid-cols-4">
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.fullName)}
-              content={fullName}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Government email",
-                id: "wLVo1I",
-                description:
-                  "Title for the government email block in the manager info section of the single search request view.",
-              })}
-              content={
-                email ? (
-                  <Link external href={`mailto:${email}`}>
-                    {email}
-                  </Link>
-                ) : null
-              }
-            />
-          </div>
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.department)}
-              content={department?.name?.[locale]}
-            />
-            <FilterBlock
-              title={intl.formatMessage(adminMessages.jobTitle)}
-              content={
-                managerJobTitle ??
-                intl.formatMessage(adminMessages.noneProvided)
-              }
-            />
-          </div>
-          <div className="border-r-black/20 sm:border-r sm:pr-6 dark:border-r-white/20">
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Date received",
-                id: "m0Qcow",
-                description:
-                  "Title displayed on the search request table requested date column.",
-              })}
-              content={
-                requestedDate
-                  ? formatDate({
-                      date: parseDateTimeUtc(requestedDate),
-                      formatString: "PPP p",
-                      intl,
-                    })
-                  : null
-              }
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "HR advisor email",
-                id: "PD7anu",
-                description:
-                  "Title for the government email block in the manager info section of the single search request view.",
-              })}
-              content={
-                hrAdvisorEmail ? (
-                  <Link external href={`mailto:${hrAdvisorEmail}`}>
-                    {hrAdvisorEmail}
-                  </Link>
-                ) : (
-                  intl.formatMessage(commonMessages.notApplicable)
-                )
-              }
-            />
-          </div>
-          <div>
-            <FilterBlock
-              title={intl.formatMessage(commonMessages.status)}
-              content={
-                status?.label
-                  ? getLocalizedName(status.label, intl)
-                  : intl.formatMessage(commonMessages.notApplicable)
-              }
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Status change",
-                id: "IUoUqs",
-                description:
-                  "Title for the request status last changed at date block.",
-              })}
-              content={
-                statusChangedAt
-                  ? formatDate({
-                      date: parseDateTimeUtc(statusChangedAt),
-                      formatString: "PPP p",
-                      intl,
-                    })
-                  : intl.formatMessage({
-                      defaultMessage: "(Not changed)",
-                      id: "rfDHc0",
-                      description: "Null state, nothing changed yet.",
-                    })
-              }
-            />
-          </div>
-        </div>
-      </Card>
-    </>
-  );
-};
+import TalentRequestSidebar from "./TalentRequestSidebar";
 
 const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   fragment ViewSearchRequest_SearchRequest on PoolCandidateSearchRequest {
+    ...PoolCandidateSearchRequestSidebar
+
     id
     fullName
     email
@@ -207,12 +71,10 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
       id
       classifications {
         id
-        name {
-          en
-          fr
-        }
         group
         level
+        groupAndLevel
+        displayName
       }
       hasDiploma
       equity {
@@ -252,6 +114,8 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
         workStream {
           id
@@ -343,16 +207,16 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           id
           group
           level
+          groupAndLevel
+          displayName
         }
       }
       qualifiedInClassifications {
         id
-        name {
-          en
-          fr
-        }
         group
         level
+        groupAndLevel
+        displayName
       }
       qualifiedInWorkStreams {
         id
@@ -373,6 +237,13 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const TalentRequestOptions_Fragment = graphql(/** GraphQL */ `
+  fragment TalentRequestOptions on Query {
+    ...FlexibleWorkLocationOptionsFragment
+    ...TalentRequestStatusOptions
+  }
+`);
+
 const pageTitle = defineMessage({
   defaultMessage: "Request",
   id: "WYJnLs",
@@ -383,14 +254,12 @@ interface SingleSearchRequestProps {
   searchRequestQuery: FragmentType<
     typeof ViewSearchRequest_SearchRequestFragment
   >;
-  flexibleLocationOptionsQuery:
-    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
-    | undefined;
+  optionsQuery?: FragmentType<typeof TalentRequestOptions_Fragment>;
 }
 
 export const ViewSearchRequest = ({
   searchRequestQuery,
-  flexibleLocationOptionsQuery,
+  optionsQuery,
 }: SingleSearchRequestProps) => {
   const intl = useIntl();
   const routes = useRoutes();
@@ -412,9 +281,10 @@ export const ViewSearchRequest = ({
     reason,
   } = searchRequest;
 
+  const options = getFragment(TalentRequestOptions_Fragment, optionsQuery);
   const locationOptionsData = getFragment(
     FlexibleWorkLocationOptions_Fragment,
-    flexibleLocationOptionsQuery,
+    options,
   );
   const locationOptionsDataUnpacked = unpackMaybes(
     locationOptionsData?.flexibleWorkLocation,
@@ -458,96 +328,102 @@ export const ViewSearchRequest = ({
         subtitle={subTitle}
         crumbs={navigationCrumbs}
       />
-      <Container className="mt-18">
-        {wasEmpty && (
-          <p className="mb-6">
-            {intl.formatMessage({
-              defaultMessage:
-                "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
-              id: "ruEs9/",
-              description:
-                "Message to admins that a search request resulted in no candidates being found",
-            })}
-          </p>
-        )}
-
-        <ManagerInfo searchRequest={searchRequest} />
-
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Request information",
-            id: "/3mqz9",
-            description:
-              "Heading for the request information section of the single search request view.",
-          })}
-        </Heading>
-        <Card>
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Reason for talent request",
-              id: "enffKD",
-              description: "Label for the reason for submitting the request.",
-            })}
-            content={getLocalizedName(reason?.label, intl, true)}
-          />
-          <Separator space="sm" />
-          <SearchRequestFilters
-            filters={abstractFilter}
-            flexibleWorkLocationOptions={locationOptionsDataUnpacked}
-          />
-          <Separator space="sm" />
-
-          <div className="grid gap-6 sm:grid-cols-2">
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Position job title",
-                id: "OI7Bc7",
-                description: "Label for an opportunity's job title.",
-              })}
-              content={jobTitle}
+      <Container size="full" className="mt-18">
+        <Sidebar.Wrapper scrollbar>
+          <Sidebar.Sidebar scrollbar>
+            <TalentRequestSidebar
+              query={searchRequest}
+              optionsQuery={options}
             />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Type of position",
-                id: "nZT/WM",
-                description: "Label for an opportunity's position type.",
+          </Sidebar.Sidebar>
+          <Sidebar.Content>
+            {wasEmpty && (
+              <p className="mb-6">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This request did not result in any matches, let us know more about this in the comments field at the end of this form.",
+                  id: "ruEs9/",
+                  description:
+                    "Message to admins that a search request resulted in no candidates being found",
+                })}
+              </p>
+            )}
+            <Heading level="h2" size="h4" className="mt-0">
+              {intl.formatMessage({
+                defaultMessage: "Request information",
+                id: "/3mqz9",
+                description:
+                  "Heading for the request information section of the single search request view.",
               })}
-              content={
-                positionType?.label
-                  ? getLocalizedName(positionType.label, intl)
-                  : intl.formatMessage(adminMessages.noneProvided)
-              }
-            />
-          </div>
-          <FilterBlock
-            title={intl.formatMessage(talentRequestMessages.additionalComments)}
-            content={additionalComments}
-          />
-        </Card>
-      </Container>
-      <Container size="full" className="mb-18">
-        <Heading level="h2" size="h4">
-          {intl.formatMessage({
-            defaultMessage: "Candidate results",
-            id: "bQ4iDW",
-            description:
-              "Heading for the candidate results section of the single search request view.",
-          })}
-        </Heading>
-        {abstractFilter ? (
-          <SingleSearchRequestTableApi filter={abstractFilter} />
-        ) : (
-          <>
-            {intl.formatMessage({
-              defaultMessage: "Request doesn't include a filter!",
-              id: "hmacO5",
-              description: "Null state for a request not including a filter.",
-            })}
-          </>
-        )}
-      </Container>
-      <Container className="mb-18">
-        <UpdateSearchRequest initialSearchRequest={searchRequest} />
+            </Heading>
+            <Card>
+              <FilterBlock
+                title={intl.formatMessage({
+                  defaultMessage: "Reason for talent request",
+                  id: "enffKD",
+                  description:
+                    "Label for the reason for submitting the request.",
+                })}
+                content={getLocalizedName(reason?.label, intl, true)}
+              />
+              <Separator space="sm" />
+              <SearchRequestFilters
+                filters={abstractFilter}
+                flexibleWorkLocationOptions={locationOptionsDataUnpacked}
+              />
+              <Separator space="sm" />
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Position job title",
+                    id: "OI7Bc7",
+                    description: "Label for an opportunity's job title.",
+                  })}
+                  content={jobTitle}
+                />
+                <FilterBlock
+                  title={intl.formatMessage({
+                    defaultMessage: "Type of position",
+                    id: "nZT/WM",
+                    description: "Label for an opportunity's position type.",
+                  })}
+                  content={
+                    positionType?.label
+                      ? getLocalizedName(positionType.label, intl)
+                      : intl.formatMessage(adminMessages.noneProvided)
+                  }
+                />
+              </div>
+              <FilterBlock
+                title={intl.formatMessage(
+                  talentRequestMessages.additionalComments,
+                )}
+                content={additionalComments}
+              />
+            </Card>
+            <Heading level="h2" size="h4">
+              {intl.formatMessage({
+                defaultMessage: "Candidate results",
+                id: "bQ4iDW",
+                description:
+                  "Heading for the candidate results section of the single search request view.",
+              })}
+            </Heading>
+            {abstractFilter ? (
+              <SingleSearchRequestTableApi filter={abstractFilter} />
+            ) : (
+              <>
+                {intl.formatMessage({
+                  defaultMessage: "Request doesn't include a filter!",
+                  id: "hmacO5",
+                  description:
+                    "Null state for a request not including a filter.",
+                })}
+              </>
+            )}
+          </Sidebar.Content>
+        </Sidebar.Wrapper>
       </Container>
     </>
   );
@@ -563,7 +439,7 @@ const ViewSearchRequest_Query = graphql(/* GraphQL */ `
 
 const ViewSearchRequestPageOptions_Query = graphql(/* GraphQL */ `
   query ViewSearchRequestPageOptions {
-    ...FlexibleWorkLocationOptionsFragment
+    ...TalentRequestOptions
   }
 `);
 
@@ -592,7 +468,7 @@ const ViewSearchRequestApi = ({
       {searchRequestData?.poolCandidateSearchRequest ? (
         <ViewSearchRequest
           searchRequestQuery={searchRequestData.poolCandidateSearchRequest}
-          flexibleLocationOptionsQuery={optionsData}
+          optionsQuery={optionsData}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>

@@ -2,9 +2,11 @@
 
 namespace App\Contracts;
 
+use Lcobucci\JWT\Configuration;
+
 interface BearerTokenService
 {
-    public function fastSigner(): \Lcobucci\JWT\Configuration;
+    public function fastSigner(): Configuration;
 
     public function verifyJwtWithIntrospection(string $accessToken);
 

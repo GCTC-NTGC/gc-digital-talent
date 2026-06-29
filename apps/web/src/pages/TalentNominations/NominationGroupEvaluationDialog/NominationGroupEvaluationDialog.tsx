@@ -1,33 +1,48 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import { useMutation, useQuery } from "urql";
 
+import type { StatusButtonProps } from "@gc-digital-talent/ui";
 import {
   Dialog,
-  IconButton,
-  IconButtonProps,
   Pending,
   ThrowNotFound,
+  StatusButton,
 } from "@gc-digital-talent/ui";
-import {
-  graphql,
-  Scalars,
+import type {
+  FragmentType,
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  TalentNominationGroupStatus,
+} from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { dialogMessages, formMessages } from "./messages";
-import { convertFormValuesToMutationInput, FormValues } from "./form";
+import type { FormValues } from "./form";
+import { convertFormValuesToMutationInput } from "./form";
 import NominationGroupEvaluationForm from "./components/NominationGroupEvaluationForm";
 
-const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
-  query NominationGroupEvaluationDialog_Query($talentNominationGroupId: UUID!) {
-    talentNominationGroup(id: $talentNominationGroupId) {
-      ...NominationGroupEvaluationForm
-      id
+const NominationGroupEvaluationDialog_Fragment = graphql(/** GraphQL */ `
+  fragment NominationGroupEvaluationDialog on TalentNominationGroup {
+    id
+    status {
+      value
+      label {
+        localized
+      }
     }
+    ...NominationGroupEvaluationForm
+  }
+`);
+
+const NominationGroupEvaluationDialog_Query = graphql(/* GraphQL */ `
+  query NominationGroupEvaluationDialogFormOptions {
     ...NominationGroupEvaluationFormOptions
   }
 `);
@@ -46,24 +61,33 @@ const NominationGroupEvaluationDialog_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export interface NominationGroupEvaluationDialogProps {
-  triggerColor: IconButtonProps["color"];
-  triggerClassName: string;
-  talentNominationGroupId: string;
+const statusColorMap = new Map<
+  TalentNominationGroupStatus,
+  StatusButtonProps["color"]
+>([
+  [TalentNominationGroupStatus.InProgress, "primary"],
+  [TalentNominationGroupStatus.Rejected, "error"],
+  [TalentNominationGroupStatus.Approved, "success"],
+  [TalentNominationGroupStatus.PartiallyApproved, "success"],
+]);
+
+interface NominationGroupEvaluationDialogProps {
+  query: FragmentType<typeof NominationGroupEvaluationDialog_Fragment>;
 }
 
 const NominationGroupEvaluationDialog = ({
-  triggerColor,
-  triggerClassName,
-  talentNominationGroupId,
+  query,
 }: NominationGroupEvaluationDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
+  const nominationGroup = getFragment(
+    NominationGroupEvaluationDialog_Fragment,
+    query,
+  );
 
   const [{ data: queryData, fetching: queryFetching, error: queryError }] =
     useQuery({
       query: NominationGroupEvaluationDialog_Query,
-      variables: { talentNominationGroupId },
       pause: !open,
     });
 
@@ -73,7 +97,7 @@ const NominationGroupEvaluationDialog = ({
 
   // run the mutation
   const updateTalentNominationGroup = async (
-    id: Scalars["UUID"]["input"],
+    id: string,
     talentNominationGroup: UpdateTalentNominationGroupInput,
   ) =>
     executeMutation({ id, talentNominationGroup }).then((result) => {
@@ -89,7 +113,7 @@ const NominationGroupEvaluationDialog = ({
   ) => {
     if (mutationFetching) return; // avoid multiple submits
     const mutationInput = convertFormValuesToMutationInput(formValues);
-    await updateTalentNominationGroup(talentNominationGroupId, mutationInput)
+    await updateTalentNominationGroup(nominationGroup.id, mutationInput)
       .then(() => {
         toast.success(intl.formatMessage(formMessages.submissionSuccessful));
         setOpen(false);
@@ -102,13 +126,18 @@ const NominationGroupEvaluationDialog = ({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <IconButton
-          color={triggerColor}
-          className={triggerClassName}
+        <StatusButton
+          color={statusColorMap.get(
+            nominationGroup?.status?.value ??
+              TalentNominationGroupStatus.InProgress,
+          )}
           icon={PencilSquareIcon}
-          size="lg"
-          label={intl.formatMessage(dialogMessages.title)}
-        />
+          aria-label={intl.formatMessage(dialogMessages.title)}
+          block
+        >
+          {nominationGroup?.status?.label?.localized ??
+            intl.formatMessage(commonMessages.notProvided)}
+        </StatusButton>
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header subtitle={intl.formatMessage(dialogMessages.subtitle)}>
@@ -116,10 +145,10 @@ const NominationGroupEvaluationDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <Pending fetching={queryFetching} error={queryError} inline>
-            {queryData?.talentNominationGroup?.id ? (
+            {queryData ? (
               <NominationGroupEvaluationForm
                 onSubmit={handleSubmit}
-                talentNominationGroupQuery={queryData.talentNominationGroup}
+                talentNominationGroupQuery={nominationGroup}
                 talentNominationGroupOptionsQuery={queryData}
               />
             ) : (

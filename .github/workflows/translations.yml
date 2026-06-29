@@ -26,8 +26,8 @@ jobs:
       PNPM_VERSION: "10.27.0"
 
     steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
@@ -125,14 +125,27 @@ jobs:
             exit 0;
           fi
 
-      - name: "Upload untranslated files: all workspaces"
+      - name: "Stage untranslated files for upload"
         if: always()
-        uses: actions/upload-artifact@v6
+        run: |
+          mkdir -p staging_untranslated
+
+          if [ -f "apps/web/src/lang/untranslated.json" ]; then
+            cp apps/web/src/lang/untranslated.json staging_untranslated/web.json
+          fi
+
+          if [ -f "packages/i18n/src/lang/untranslated.json" ]; then
+            cp packages/i18n/src/lang/untranslated.json staging_untranslated/i18n.json
+          fi
+
+          if [ -f "api/storage/app/intlErrors.json" ]; then
+            cp api/storage/app/intlErrors.json staging_untranslated/api.json
+          fi
+
+      - name: "Upload untranslated files"
+        if: always()
+        uses: actions/upload-artifact@v7
         with:
           name: untranslated
-          path: |
-            apps/**/lang/untranslated.json
-            packages/**/lang/untranslated.json
-            !packages/node_modules/**
-            api/**/intlErrors.json
+          path: staging_untranslated/
           if-no-files-found: ignore

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-deprecated */
 import { useIntl } from "react-intl";
-import uniqBy from "lodash/unionBy";
+import uniqBy from "lodash/uniqBy";
 import { useLocation } from "react-router";
 
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type { RoleName } from "@gc-digital-talent/auth";
 import {
   hasRole,
   ROLE_NAME,
-  RoleName,
   useAuthentication,
   useAuthorization,
 } from "@gc-digital-talent/auth";
@@ -276,12 +276,13 @@ const useMainNavLinks = () => {
 
   const manageAuthAccountLink = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
   const ManageAuthAccount =
-    featureFlags.gcSignIn && manageAuthAccountLink ? (
+    featureFlags.canadaLogin && manageAuthAccountLink ? (
       <NavItem
         key="manageAuthAccount"
         href={manageAuthAccountLink}
         title={intl.formatMessage(authMessages.manageAuthAccount)}
         subMenu
+        newTab
       />
     ) : null;
 

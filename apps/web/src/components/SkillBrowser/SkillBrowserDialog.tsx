@@ -1,18 +1,15 @@
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
-import { ReactNode, useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 
-import {
-  Button,
-  ButtonProps,
-  Dialog,
-  IconType,
-  Link,
-} from "@gc-digital-talent/ui";
+import type { ButtonProps, IconType } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Skill, SkillCategory } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
+import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
 import SkillSelection from "./SkillSelection";
@@ -21,7 +18,7 @@ import {
   getSkillBrowserDialogMessages,
   showDetails,
 } from "./utils";
-import { SkillBrowserDialogContext, FormValues } from "./types";
+import type { SkillBrowserDialogContext, FormValues } from "./types";
 import SkillDetailsPool from "./SkillDetailsPool";
 import useRoutes from "../../hooks/useRoutes";
 

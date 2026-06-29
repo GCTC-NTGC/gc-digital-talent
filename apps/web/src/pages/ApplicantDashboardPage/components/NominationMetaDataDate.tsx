@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { JSX } from "react";
+import type { JSX } from "react";
 import { endOfDay } from "date-fns/endOfDay";
 import { isPast } from "date-fns/isPast";
 

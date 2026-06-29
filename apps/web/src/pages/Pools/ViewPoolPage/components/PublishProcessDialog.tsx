@@ -7,9 +7,9 @@ import {
   relativeClosingDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import { Pool } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 
-import { ProcessDialogProps } from "./types";
+import type { ProcessDialogProps } from "./types";
 
 interface PublishProcessDialogProps extends ProcessDialogProps {
   closingDate: Pool["closingDate"];

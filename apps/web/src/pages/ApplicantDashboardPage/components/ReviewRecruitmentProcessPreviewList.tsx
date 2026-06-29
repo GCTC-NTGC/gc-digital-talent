@@ -1,24 +1,23 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
-  FragmentType,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type { PreviewMetaData } from "@gc-digital-talent/ui";
 import {
   Heading,
   Pending,
   PreviewList,
-  PreviewMetaData,
   Separator,
   Notice,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getClassificationName } from "~/utils/poolUtils";
 import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
@@ -26,12 +25,10 @@ import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatf
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
@@ -54,10 +51,7 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
           localized
         }
         classification {
-          group
-          level
-          minSalary
-          maxSalary
+          displayName
         }
       }
     }
@@ -122,10 +116,7 @@ const ReviewRecruitmentProcessPreviewList = ({
                 key: "classification",
                 type: "text",
                 children: pool?.classification
-                  ? wrapAbbr(
-                      getClassificationName(pool?.classification, intl),
-                      intl,
-                    )
+                  ? wrapAbbr(pool.classification.displayName, intl)
                   : intl.formatMessage(commonMessages.notFound),
               },
               {
@@ -208,22 +199,6 @@ const ReviewRecruitmentProcessPreviewList = ({
             description: "Off-platform section information",
           })}
         </p>
-        {user?.oldOffPlatformRecruitmentProcesses ? (
-          <div className="mb-6 rounded-md border p-6">
-            <p className="mb-3">{user.oldOffPlatformRecruitmentProcesses}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-100">
-              {intl.formatMessage({
-                defaultMessage:
-                  "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button.",
-                id: "/0kzjJ",
-                description:
-                  "Message informing the user about the update to off-platform processes",
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-              })}{" "}
-              <DeleteOldOffPlatformProcessesDialog userId={user.id} />
-            </p>
-          </div>
-        ) : null}
         <OffPlatformRecruitmentProcessList
           processesQuery={user?.offPlatformRecruitmentProcesses ?? []}
           editDialogQuery={offPlatformProcessData}

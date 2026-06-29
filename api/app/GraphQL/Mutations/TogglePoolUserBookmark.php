@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Pool;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 final class TogglePoolUserBookmark
@@ -12,9 +13,9 @@ final class TogglePoolUserBookmark
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
-        /** @var \App\Models\Pool */
+        /** @var Pool */
         $pool = Pool::find($args['pool_id']);
         $user->poolBookmarks()->toggle($pool->id);
 

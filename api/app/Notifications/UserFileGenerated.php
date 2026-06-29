@@ -2,11 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Contracts\SubscriptionNotification;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class UserFileGenerated extends Notification
+class UserFileGenerated extends Notification implements SubscriptionNotification
 {
     use Queueable;
 
@@ -35,5 +36,15 @@ class UserFileGenerated extends Notification
         return [
             'fileName' => $this->fileName,
         ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSubscriptionArray(User $user): array
+    {
+        return $this->toArray($user);
     }
 }

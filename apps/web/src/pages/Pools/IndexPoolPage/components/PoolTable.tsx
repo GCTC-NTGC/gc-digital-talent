@@ -1,13 +1,14 @@
-import {
+import type {
   ColumnDef,
   PaginationState,
   SortingState,
-  createColumnHelper,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
-import { SubmitHandler } from "react-hook-form";
+import { useSearchParams } from "react-router";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -16,13 +17,12 @@ import {
   getLocalizedName,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   FragmentType,
-  getFragment,
-  graphql,
   PoolFilterInput,
   PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -33,7 +33,8 @@ import {
   INITIAL_STATE,
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
+import { parseFilterParam } from "~/components/Table/ResponsiveTable/utils";
 import accessors from "~/components/Table/accessors";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
@@ -41,12 +42,7 @@ import processMessages from "~/messages/processMessages";
 import permissionConstants from "~/constants/permissionConstants";
 
 import {
-  classificationAccessor,
   classificationCell,
-  emailLinkAccessor,
-  fullNameCell,
-  ownerEmailAccessor,
-  ownerNameAccessor,
   poolNameAccessor,
   viewCell,
   transformPoolInput,
@@ -59,7 +55,8 @@ import {
   getOrderByColumnSort,
   getWorkStreamNameSort,
 } from "./helpers";
-import PoolFilterDialog, { FormValues } from "./PoolFilterDialog";
+import type { FormValues } from "./PoolFilterDialog";
+import PoolFilterDialog from "./PoolFilterDialog";
 import { PoolBookmark_Fragment } from "./PoolBookmark";
 
 const columnHelper = createColumnHelper<PoolTablePoolFragmentType>();
@@ -105,12 +102,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       id
       group
       level
-    }
-    owner {
-      id
-      firstName
-      lastName
-      email
+      groupAndLevel
     }
   }
 `);
@@ -182,20 +174,19 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   const [sortState, setSortState] = useState<SortingState | undefined>(
     initialState.sortState ?? [{ id: "createdDate", desc: false }],
   );
-  const searchParams = new URLSearchParams(window.location.search);
-  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
+
+  const [searchParams] = useSearchParams();
+  // Uses pool-specific key
+  const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.POOL_FILTERS);
   const initialFilters = useMemo(
     () =>
-      filtersEncoded
-        ? (JSON.parse(filtersEncoded) as PoolFilterInput)
-        : initialFilterInput,
+      parseFilterParam<PoolFilterInput>(filtersEncoded) ?? initialFilterInput,
     [filtersEncoded, initialFilterInput],
   );
   const filterRef = useRef<PoolFilterInput | undefined>(initialFilters);
   const [filterState, setFilterState] = useState<PoolFilterInput | undefined>(
     initialFilters,
   );
-
   const handlePaginationStateChange = ({
     pageIndex,
     pageSize,
@@ -303,18 +294,21 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
       },
     ),
-    columnHelper.accessor((row) => classificationAccessor(row.classification), {
-      id: "classification",
-      header: intl.formatMessage({
-        defaultMessage: "Group and Level",
-        id: "FGUGtr",
-        description:
-          "Title displayed for the Pool table Group and Level column.",
-      }),
-      enableColumnFilter: false,
-      cell: ({ row: { original: pool } }) =>
-        classificationCell(pool.classification),
-    }),
+    columnHelper.accessor(
+      (row) => () => row.classification?.groupAndLevel ?? "",
+      {
+        id: "classification",
+        header: intl.formatMessage({
+          defaultMessage: "Group and Level",
+          id: "FGUGtr",
+          description:
+            "Title displayed for the Pool table Group and Level column.",
+        }),
+        enableColumnFilter: false,
+        cell: ({ row: { original: pool } }) =>
+          classificationCell(pool.classification),
+      },
+    ),
     columnHelper.accessor(
       ({ workStream }) => getLocalizedName(workStream?.name, intl),
       {
@@ -343,45 +337,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     columnHelper.accessor("processNumber", {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
-    }),
-    columnHelper.accessor((row) => ownerNameAccessor(row), {
-      id: "ownerName",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Name",
-        id: "AWk4BX",
-        description: "Title displayed for the Pool table Owner Name column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        fullNameCell(
-          {
-            owner: {
-              firstName: pool.owner?.firstName,
-              lastName: pool.owner?.lastName,
-            },
-          },
-          intl,
-        ),
-    }),
-    columnHelper.accessor((row) => ownerEmailAccessor(row), {
-      id: "ownerEmail",
-      // Note: Being removed with communities
-      enableColumnFilter: false,
-      header: intl.formatMessage({
-        defaultMessage: "Owner Email",
-        id: "pe5WkF",
-        description: "Title displayed for the Pool table Owner Email column",
-      }),
-      cell: ({ row: { original: pool } }) =>
-        emailLinkAccessor(
-          {
-            owner: {
-              email: pool.owner?.email,
-            },
-          },
-          intl,
-        ),
     }),
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
@@ -421,13 +376,8 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       data={filteredData}
       columns={columns}
       isLoading={fetching}
-      hiddenColumnIds={[
-        "id",
-        "publishedAt",
-        "createdDate",
-        "ownerEmail",
-        "ownerName",
-      ]}
+      filterParamKey={SEARCH_PARAM_KEY.POOL_FILTERS}
+      hiddenColumnIds={["id", "publishedAt", "createdDate"]}
       search={{
         internal: false,
         label: intl.formatMessage({
@@ -444,6 +394,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       }}
       filter={{
         initialState: initialFilterInput,
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <PoolFilterDialog
@@ -461,7 +412,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.poolsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: handlePaginationStateChange,
       }}
       add={

@@ -94,6 +94,14 @@
       ],
       "overrideName": true,
       "icon": "terminal-ubuntu"
+    },
+    "Xdebug": {
+      "path": "/bin/bash",
+      "overrideName": true,
+      "icon": "terminal-linux",
+      "env": {
+        "XDEBUG_SESSION": "1"
+      }
     }
   },
   "terminal.integrated.profiles.osx": {

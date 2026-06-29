@@ -3,9 +3,10 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
 import { Checkbox, TextArea } from "@gc-digital-talent/forms";
-import { errorMessages, Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   SkillCategory,
@@ -13,10 +14,11 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
-import SkillProficiencyList, {
+import type {
   ListItem as SkillProficiencyListItem,
   SkillProficiencyListProps,
 } from "~/components/SkillProficiencyList/SkillProficiencyList";
+import SkillProficiencyList from "~/components/SkillProficiencyList/SkillProficiencyList";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";
 
 import { insertionIndexBySkillName } from "./utils";

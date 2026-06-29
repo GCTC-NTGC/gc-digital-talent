@@ -5,6 +5,7 @@ namespace App\Generators;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Style\Font;
 
 abstract class DocGenerator extends FileGenerator implements FileGeneratorInterface
 {
@@ -50,7 +51,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
     protected function setup()
     {
 
-        $this->doc = new PhpWord;
+        $this->doc = new PhpWord();
 
         $this->doc->addTitleStyle(1, ['size' => 22, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
         $this->doc->addTitleStyle(2, ['size' => 18, 'bold' => true], ['spaceBefore' => 240, 'spaceAfter' => 120]);
@@ -60,7 +61,7 @@ abstract class DocGenerator extends FileGenerator implements FileGeneratorInterf
 
         $this->strong = ['bold' => true];
 
-        $this->linkStyle = ['color' => '#003632', 'underline' => \PhpOffice\PhpWord\Style\Font::UNDERLINE_SINGLE];
+        $this->linkStyle = ['color' => '#003632', 'underline' => Font::UNDERLINE_SINGLE];
     }
 
     public function setExtension(?string $ext)

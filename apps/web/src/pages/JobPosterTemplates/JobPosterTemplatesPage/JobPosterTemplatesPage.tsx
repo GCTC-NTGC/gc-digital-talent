@@ -1,5 +1,6 @@
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
-import { IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
 import { useCallback, useMemo } from "react";
@@ -19,13 +20,12 @@ import {
   Notice,
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Classification,
-  graphql,
-  Maybe,
   SupervisoryStatus,
   WorkStream,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   alphaSortOptions,
   Checklist,
@@ -69,6 +69,7 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
     supervisoryStatuses: localizedEnumStrings(enumName: "SupervisoryStatus") {
       value
@@ -112,13 +113,15 @@ const JobPosterTemplates_Query = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       referenceId
     }
   }
 `);
 
-function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
+function assertIncludes(haystack: string[], needle?: string | null): boolean {
   if (!haystack.length || (needle && haystack.includes(needle))) return true;
 
   return false;
@@ -126,15 +129,15 @@ function assertIncludes(haystack: string[], needle?: Maybe<string>): boolean {
 
 function previewMetaData(
   intl: IntlShape,
-  classification?: Maybe<Classification>,
-  workStream?: Maybe<WorkStream>,
+  classification?: Classification | null,
+  workStream?: WorkStream | null,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {
     metaData.push({
       key: classification.id,
       type: "chip",
-      children: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+      children: classification.groupAndLevel,
     } satisfies PreviewMetaData);
   }
 
@@ -365,7 +368,7 @@ const JobPosterTemplatesPage = () => {
                         .sort((a, b) => a.level - b.level)
                         .map((classification) => ({
                           value: classification.id,
-                          label: `${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`,
+                          label: classification.groupAndLevel,
                         }))}
                     />
                     <Checklist

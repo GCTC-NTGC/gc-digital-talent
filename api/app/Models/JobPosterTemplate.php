@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Carbon;
 
 /**
  * Class JobPosterTemplate
@@ -26,9 +28,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $essential_technical_skills_notes
  * @property array $essential_behavioural_skills_notes
  * @property array $nonessential_technical_skills_notes
- * @property ?\Illuminate\Database\Eloquent\Relations\Pivot $jobPosterTemplateSkills
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?Pivot $jobPosterTemplateSkills
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class JobPosterTemplate extends Model
 {

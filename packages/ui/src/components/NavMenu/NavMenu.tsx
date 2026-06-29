@@ -3,24 +3,21 @@
  */
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import { useLocation } from "react-router";
-import {
-  forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  useRef,
-  useEffect,
-} from "react";
+import type { ComponentRef, ComponentPropsWithoutRef } from "react";
+import { forwardRef, useRef, useEffect } from "react";
 import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 
-import OurLink, { LinkProps as BaseLinkProps } from "../Link/Link";
-import OurIconLink, {
-  IconLinkProps as BaseIconLinkProps,
-} from "../Link/IconLink";
+import type { LinkProps as BaseLinkProps } from "../Link/Link";
+import OurLink from "../Link/Link";
+import type { IconLinkProps as BaseIconLinkProps } from "../Link/IconLink";
+import OurIconLink from "../Link/IconLink";
 import { useNavMenuContext } from "./NavMenuProvider";
-import Button, { ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
 
 const Root = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Root>,
@@ -111,36 +108,52 @@ const List = forwardRef<
   </NavigationMenuPrimitive.List>
 ));
 
+const item = tv({
+  base: "w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline!",
+});
+
 const Item = forwardRef<
   ComponentRef<typeof NavigationMenuPrimitive.Item>,
   ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <NavigationMenuPrimitive.Item
     ref={forwardedRef}
-    {...props}
-    className={`w-full sm:relative sm:w-auto data-[state=active]:[&_span]:font-bold! data-[state=active]:[&_span]:no-underline! ${props.className}`}
+    className={item({ class: className })}
+    {...rest}
   />
 ));
 
 const useActiveLink = (
   href: BaseLinkProps["href"],
   hasIcon?: boolean,
-  el?: HTMLAnchorElement | null,
+  ref?: React.RefObject<HTMLAnchorElement | null>,
 ): { isActive: boolean } => {
   const { pathname } = useLocation();
-  const linkRef = useRef<HTMLAnchorElement>(null);
-
   const isActive = pathname === href;
 
   useEffect(() => {
+    const el = ref?.current;
     if (el) {
+      // Synchronize Radix-style state on the parent element
       el.parentElement?.setAttribute(
         "data-state",
         isActive ? "active" : "inactive",
       );
-      linkRef.current?.setAttribute("data-icon", hasIcon ? "true" : "false");
+
+      // Toggle boolean attributes for Tailwind variants
+      if (isActive) {
+        el.setAttribute("data-active", "true");
+      } else {
+        el.removeAttribute("data-active");
+      }
+
+      if (hasIcon) {
+        el.setAttribute("data-icon", "true");
+      } else {
+        el.removeAttribute("data-icon");
+      }
     }
-  }, [isActive, hasIcon, el]);
+  }, [isActive, hasIcon, ref]);
 
   return { isActive };
 };
@@ -196,7 +209,7 @@ const IconLink = forwardRef<
   IconLinkProps
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
-  const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+  const { isActive } = useActiveLink(href, !!icon, linkRef);
   const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
@@ -259,7 +272,7 @@ const Link = forwardRef<
     forwardedRef,
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
-    const { isActive } = useActiveLink(href, !!icon, linkRef.current);
+    const { isActive } = useActiveLink(href, !!icon, linkRef);
     const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 

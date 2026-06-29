@@ -1,33 +1,33 @@
-import { useIntl, defineMessage, MessageDescriptor } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl, defineMessage } from "react-intl";
 import { useQuery } from "urql";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect, useRef } from "react";
 
+import type { FieldLabels, Radio } from "@gc-digital-talent/forms";
 import {
   DATE_SEGMENT,
   DateInput,
-  FieldLabels,
   Input,
-  Radio,
   RadioGroup,
   TextArea,
 } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   narrowEnumType,
   getLocale,
-  Locales,
 } from "@gc-digital-talent/i18n";
 import { Loading, Notice } from "@gc-digital-talent/ui";
-import {
-  EmploymentCategory,
-  graphql,
-  WorkFieldOptionsQuery,
-} from "@gc-digital-talent/graphql";
+import type { WorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
+import { EmploymentCategory, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes, nodeToString } from "@gc-digital-talent/helpers";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -89,8 +89,8 @@ const employmentCategoryDescriptions: Record<
   }),
   GOVERNMENT_OF_CANADA: defineMessage({
     defaultMessage:
-      "This was a role as an employee or a contractor at a Government of Canada department, agency, or crown corporation.",
-    id: "9XTtxd",
+      "This was a role as an employee or a contractor at a Government department or agency.",
+    id: "bdZCom",
     description:
       "Description for the goc employment category option in work experience",
   }),

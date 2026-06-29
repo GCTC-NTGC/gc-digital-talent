@@ -32,7 +32,7 @@ GRAPHQL;
     }
 
     /**
-     * @throws \Nuwave\Lighthouse\Exceptions\DefinitionException
+     * @throws DefinitionException
      */
     public function handleField(FieldValue $fieldValue): void
     {

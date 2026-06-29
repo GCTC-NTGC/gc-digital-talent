@@ -6,7 +6,7 @@ namespace App\GraphQL\Validators;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
-use App\Enums\PoolCandidateStatus;
+use App\Enums\PlacementType;
 use App\Models\PoolCandidate;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -28,10 +28,19 @@ final class PlaceCandidateValidator extends Validator
             throw ValidationException::withMessages(['id' => ErrorCode::INVALID_STATUS_PLACING->name]);
         }
 
+        $placementType = $this->arg('poolCandidate.placementType');
+        $isIndeterminate = $placementType === PlacementType::PLACED_INDETERMINATE->name;
+
         return [
             'poolCandidate.department.connect' => ['uuid', 'required', Rule::exists('departments', 'id')],
-            // NOTE: Back compat for pool candidate status
-            'poolCandidate.placementType' => [Rule::in(PoolCandidateStatus::placedGroup())],
+            'poolCandidate.placementType' => [Rule::in(array_column(PlacementType::cases(), 'name'))],
+            'poolCandidate.placedStartDate' => [
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType), ['nullable', 'date']),
+            ],
+            'poolCandidate.placedEndDate' => [
+                Rule::when(fn (): bool => PlacementType::hasPlacedStartDate($placementType) && ! $isIndeterminate,
+                    ['nullable', 'date', 'after_or_equal:poolCandidate.placedStartDate']
+                )],
         ];
     }
 

@@ -1,12 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react-vite";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import EducationRequirements from "./EducationRequirements";
 
 const meta = {
   component: EducationRequirements,
-  args: {
-    isIAP: false,
-  },
 } satisfies Meta<typeof EducationRequirements>;
 
 export default meta;

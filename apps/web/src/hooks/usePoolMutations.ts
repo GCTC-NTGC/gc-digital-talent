@@ -3,14 +3,13 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  graphql,
+import type {
   UpdatePoolInput,
-  Scalars,
   CreatePoolSkillInput,
   UpdatePoolSkillInput,
   UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -187,10 +186,7 @@ const usePoolMutations = (returnPath?: string) => {
   const [{ fetching: extendFetching }, executeExtendMutation] =
     useMutation(ExtendPool_Mutation);
 
-  const extend = async (
-    id: string,
-    closingDate: Scalars["DateTime"]["input"],
-  ) => {
+  const extend = async (id: string, closingDate: string) => {
     await executeExtendMutation({ id, closingDate })
       .then((result) => {
         if (result.data?.changePoolClosingDate) {

@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
@@ -84,24 +85,60 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->publishingGroups($publishingGroups);
         });
     }
 
     /**
-     * Scope is IT & OTHER Publishing Groups
+     * Filter Publishing Groups
      *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT and OTHER publishing groups
+     * Restrict a query by excluding specific publishing groups
+     */
+    public function wherePublishingGroupsNotIn(?array $publishingGroups): self
+    {
+        if (empty($publishingGroups)) {
+            return $this;
+        }
+
+        return $this->whereDoesntHave('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var PoolBuilder $query */
+            $query->publishingGroups($publishingGroups);
+        });
+    }
+
+    /**
+     * Scope is not IAP Publishing Group
+     *
+     * Restrict a query by pool candidates that are for pools not
+     * containing IAP publishing group
      */
     public function whereInTalentSearchablePublishingGroup(): self
     {
-        return $this->wherePublishingGroupsIn([
-            PublishingGroup::IT_JOBS->name,
-            PublishingGroup::OTHER->name,
+        return $this->wherePublishingGroupsNotIn([
+            PublishingGroup::IAP->name,
         ]);
 
+    }
+
+    // A candidacy that satisfies a talent request: available, talent-searchable, and matching
+    // the request's pool-level constraints. Shared by the User membership check and the
+    // constrained eager-load so they cannot drift.
+    public function whereMatchesTalentRequest(?array $filters): self
+    {
+        $filters ??= [];
+
+        // Match the request's pool-level constraints: classification, work stream, community,
+        // and specific pools. Skills are not matched here — this scope only decides whether a
+        // pool fits the request; whether the user has the requested skills is matched separately
+        // on the user. pools and community arrive as plain ids; workStreams arrives as objects,
+        // so its id is pulled out first.
+        return $this->whereAvailable()
+            ->whereInTalentSearchablePublishingGroup()
+            ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
+            ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->whereHasPoolCandidateCommunity($filters['community'] ?? null)
+            ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', $pools));
     }
 
     /**
@@ -248,6 +285,17 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($employeeVerification) {
+            $query->whereEmployeeVerificationIn($employeeVerification);
+        });
+    }
+
     public function whereNotesLike(?string $notes): self
     {
         if (empty($notes)) {
@@ -274,7 +322,7 @@ class PoolCandidateBuilder extends Builder
                 $query->whereIn('placement_type', PlacementType::searchable())
                     ->orWhereNull('placement_type');
             })
-            ->where('referring', true)
+            ->whereNull('pause_referrals_at')
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
@@ -311,6 +359,69 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this;
+    }
+
+    /**
+     * The candidate whose referral status is NULL or blank should not be present
+     * when filter with referral status as 'Not referred' or 'Available' for referral
+     *
+     * The referral status filter are exclusively for qualified candidate status only
+     */
+    public function whereReferralStatusIn(?array $referralStatuses): self
+    {
+        if (empty($referralStatuses)) {
+            return $this;
+        }
+
+        $hasReferring = in_array(CandidateReferralFilter::REFERRING->name, $referralStatuses, true);
+        $hasNotReferring = in_array(CandidateReferralFilter::NOT_REFERRING->name, $referralStatuses, true);
+
+        // only has referring
+        if ($hasReferring && ! $hasNotReferring) {
+            return $this->whereBeingReferred();
+        }
+
+        // only has not referring
+        if (! $hasReferring && $hasNotReferring) {
+            return $this->whereNotBeingReferred();
+        }
+
+        // both selected
+        if ($hasReferring && $hasNotReferring) {
+            return $this->where(function ($query) {
+                $query->whereBeingReferred()
+                    ->orWhere(function ($query) {
+                        $query->whereNotBeingReferred();
+                    });
+            });
+        }
+
+        // none selected - no filtering
+        return $this;
+    }
+
+    public function whereBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where(function ($query) use ($now) {
+            $query->whereNull('pause_referrals_at')
+                ->orWhere('pause_referrals_at', '>', $now)
+                ->orWhere('resume_referrals_at', '<=', $now);
+        })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
+    }
+
+    public function whereNotBeingReferred(): self
+    {
+        $now = now();
+
+        return $this->where('pause_referrals_at', '<=', $now)
+            ->where(function ($query) use ($now) {
+                $query->whereNull('resume_referrals_at')
+                    ->orWhere('resume_referrals_at', '>', $now);
+            })
+            ->where('application_status', ApplicationStatus::QUALIFIED->name);
     }
 
     public function whereSuspendedStatus(?string $suspendedStatus): self
@@ -500,7 +611,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($streams) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->whereWorkStreamsIn($streams);
         });
     }
@@ -527,7 +638,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         return $this->whereHas('pool', function (Builder $query) use ($processNumber) {
-            /** @var \App\Builders\PoolBuilder $query */
+            /** @var PoolBuilder $query */
             $query->processNumber($processNumber);
         });
     }
@@ -563,7 +674,7 @@ class PoolCandidateBuilder extends Builder
             return $this;
         }
 
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if ($user && ! empty($args['useBookmark'])) {
@@ -576,7 +687,7 @@ class PoolCandidateBuilder extends Builder
         }
 
         if (! empty($args['useFlag'])) {
-            $this->orderBy('is_flagged', 'DESC');
+            $this->orderBy('is_flagged', 'desc');
         }
 
         return $this;
@@ -619,7 +730,7 @@ class PoolCandidateBuilder extends Builder
 
             $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
 
-            $this->orderByRaw($order)->orderBy('submitted_at', 'ASC');
+            $this->orderByRaw($order)->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -636,11 +747,13 @@ class PoolCandidateBuilder extends Builder
     {
         extract($args);
 
+        $locale ??= app()->getLocale();
+
         if (isset($order) && isset($locale)) {
             return
             $this->withMax('pool', 'name->'.$locale)
                 ->orderBy('pool_max_name'.$locale, $order)
-                ->orderBy('submitted_at', 'ASC');
+                ->orderBy('submitted_at', 'asc');
         }
 
         return $this;
@@ -659,7 +772,7 @@ class PoolCandidateBuilder extends Builder
             ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
             ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
             ->orderByRaw("departments.name->>'$locale' $order")
-            ->orderBy('submitted_at', 'ASC');
+            ->orderBy('submitted_at', 'asc');
     }
 
     public function orderByScreeningStage(?string $order): self
@@ -678,12 +791,17 @@ class PoolCandidateBuilder extends Builder
         return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
     }
 
+    public function withPolicyEagerLoads(): self
+    {
+        return $this->with(['pool.team', 'pool.community.team', 'pool.department.team']);
+    }
+
     /**
      * Scope the query to PoolCandidate's the current user can view
      */
     public function whereAuthorizedToView(?array $args = null): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (isset($args['userId'])) {
@@ -737,7 +855,7 @@ class PoolCandidateBuilder extends Builder
     // main authorization scope for viewing PoolCandidateAdminView
     public function whereAuthorizedToViewPoolCandidateAdminView(): self
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
 
         if (! $user) {

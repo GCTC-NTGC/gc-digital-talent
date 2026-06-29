@@ -339,7 +339,7 @@ class EmployeeProfileTest extends TestCase
 
     public function testCannotEditAnotherUsersEmployeeProfile()
     {
-        /** @var \App\Models\User $otherUser */
+        /** @var User $otherUser */
         $otherUser = User::factory()->create();
 
         $this->actingAs($otherUser, 'api')

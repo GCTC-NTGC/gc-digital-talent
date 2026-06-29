@@ -1,6 +1,9 @@
-import { CreateDepartmentInput, Department } from "@gc-digital-talent/graphql";
+import type {
+  CreateDepartmentInput,
+  Department,
+} from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
 const Test_DepartmentsQueryDocument = /* GraphQL */ `
   query Test_Departments {
@@ -23,10 +26,10 @@ const Test_DepartmentsQueryDocument = /* GraphQL */ `
  */
 export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
   return await ctx
-    .post(Test_DepartmentsQueryDocument)
-    .then(
-      (res: GraphQLResponse<"departments", Department[]>) => res.departments,
-    );
+    .post<
+      GraphQLResponse<"departments", Department[]>
+    >(Test_DepartmentsQueryDocument)
+    .then((res) => res.departments);
 };
 
 const Test_DeleteDepartmentMutationDocument = /* GraphQL */ `
@@ -46,14 +49,14 @@ export const deleteDepartment: GraphQLRequestFunc<
   DeleteDepartmentArgs
 > = async (ctx, { id }) => {
   return await ctx
-    .post(Test_DeleteDepartmentMutationDocument, {
-      isPrivileged: true,
-      variables: { id },
-    })
-    .then(
-      (res: GraphQLResponse<"deleteDepartment", Department>) =>
-        res.deleteDepartment,
-    );
+    .post<GraphQLResponse<"deleteDepartment", Department>>(
+      Test_DeleteDepartmentMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then((res) => res.deleteDepartment);
 };
 
 const Test_CreateDepartmentMutationDocument = /* GraphQL */ `
@@ -69,12 +72,12 @@ export const createDepartment: GraphQLRequestFunc<
   CreateDepartmentInput
 > = async (ctx, department) => {
   return await ctx
-    .post(Test_CreateDepartmentMutationDocument, {
-      isPrivileged: true,
-      variables: { department },
-    })
-    .then(
-      (res: GraphQLResponse<"createDepartment", Department>) =>
-        res.createDepartment,
-    );
+    .post<GraphQLResponse<"createDepartment", Department>>(
+      Test_CreateDepartmentMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { department },
+      },
+    )
+    .then((res) => res.createDepartment);
 };

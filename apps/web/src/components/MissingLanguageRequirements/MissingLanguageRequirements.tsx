@@ -1,21 +1,14 @@
 import { useIntl } from "react-intl";
 import ExclamationTriangleIcon from "@heroicons/react/24/solid/ExclamationTriangleIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import {
-  Chip,
-  ChipProps,
-  Chips,
-  Heading,
-  HeadingRank,
-} from "@gc-digital-talent/ui";
-import { Pool } from "@gc-digital-talent/graphql";
+import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
+import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
+import type { Pool } from "@gc-digital-talent/graphql";
 
-import {
-  getMissingLanguageRequirements,
-  PartialUser,
-} from "~/utils/languageUtils";
+import type { PartialUser } from "~/utils/languageUtils";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 const reqBlock = tv({ base: "flex gap-x-3 rounded-md p-6" });
 

@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Community;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class CommunityPolicy
 {
@@ -14,7 +15,7 @@ class CommunityPolicy
      * Determine whether the user can view any models.
      * Everyone is allowed to view the communities
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewAny(?User $user)
     {
@@ -24,7 +25,7 @@ class CommunityPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function view(?User $user, Community $community)
     {
@@ -34,7 +35,7 @@ class CommunityPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function create(User $user)
     {
@@ -44,7 +45,7 @@ class CommunityPolicy
     /**
      * Determine whether the user can update models.
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function update(User $user, Community $community)
     {
@@ -54,12 +55,10 @@ class CommunityPolicy
     /**
      * Determine whether the user can view the team members of a specific communities team
      *
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @return Response|bool
      */
     public function viewTeamMembers(User $user, Community $community)
     {
-        $community->loadMissing('team');
-
         return $user->isAbleTo('view-any-communityTeamMembers') || $user->isAbleTo('view-team-communityTeamMembers', $community->team);
     }
 }

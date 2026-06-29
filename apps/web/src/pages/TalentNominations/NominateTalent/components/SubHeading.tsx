@@ -1,4 +1,5 @@
-import { Heading, HeadingProps, HeadingRef } from "@gc-digital-talent/ui";
+import type { HeadingProps, HeadingRef } from "@gc-digital-talent/ui";
+import { Heading } from "@gc-digital-talent/ui";
 
 import useScrollToOnMount from "~/hooks/useScrollToOnMount";
 
@@ -18,7 +19,7 @@ const SubHeading = ({ preventAutoFocus, ...rest }: SubHeadingProps) => {
     <Heading
       ref={headingRef}
       level="h2"
-      color="secondary"
+      color="primary"
       className="mt-0 font-normal"
       {...rest}
     />

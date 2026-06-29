@@ -27,7 +27,7 @@ import {
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
+import type { GetPageNavInfo } from "~/types/applicationStep";
 import applicationMessages from "~/messages/applicationMessages";
 import {
   categorizeSkill,
@@ -39,10 +39,11 @@ import SkillTree from "~/components/SkillTree/SkillTree";
 import processMessages from "~/messages/processMessages";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import { useApplicationContext } from "../ApplicationContext";
 import ReviewSection from "./ReviewSection";
 import useApplication from "../useApplication";
+import DeleteApplicationDialog from "../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 const Application_SubmitMutation = graphql(/* GraphQL */ `
   mutation Application_Submit($id: ID!, $signature: String!) {
@@ -99,8 +100,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
   const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
-  const { currentStepOrdinal, followingPageUrl, isIAP } =
-    useApplicationContext();
+  const { currentStepOrdinal, followingPageUrl } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
     paths,
@@ -175,7 +175,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       });
   };
 
-  const cancelPath = paths.profileAndApplications({ fromIapDraft: isIAP });
+  const cancelPath = paths.profileAndApplications();
   const editPaths = {
     careerTimeline: paths.applicationCareerTimeline(application.id),
     education: paths.applicationEducation(application.id),
@@ -318,11 +318,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
         </div>
       </ReviewSection>
       <ReviewSection
-        title={intl.formatMessage({
-          defaultMessage: "Minimum experience or equivalent education",
-          id: "LvYEdh",
-          description: "Title for Minimum experience or equivalent education",
-        })}
+        title={intl.formatMessage(processMessages.minEducationRequirement)}
         path={editPaths.education}
         editLinkAriaLabel={intl.formatMessage({
           defaultMessage: "Edit education requirements",
@@ -638,6 +634,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
                 <Link mode="inline" href={cancelPath}>
                   {intl.formatMessage(applicationMessages.saveQuit)}
                 </Link>
+                <DeleteApplicationDialog query={application} />
               </div>
             </form>
           </FormProvider>

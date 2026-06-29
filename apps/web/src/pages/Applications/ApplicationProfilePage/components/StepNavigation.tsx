@@ -5,25 +5,20 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
-import {
-  ApplicationStep,
-  Application_PoolCandidateFragment,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import { ApplicationStep } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import applicationMessages from "~/messages/applicationMessages";
-import {
-  getMissingLanguageRequirements,
-  PartialUser as LanguageUser,
-} from "~/utils/languageUtils";
-import {
-  hasEmptyRequiredFields as hasEmptyDEIRequiredFields,
-  PartialUser as DeiUser,
-} from "~/validators/profile/diversityEquityInclusion";
+import type { PartialUser as LanguageUser } from "~/utils/languageUtils";
+import { getMissingLanguageRequirements } from "~/utils/languageUtils";
+import type { PartialUser as DeiUser } from "~/validators/profile/diversityEquityInclusion";
+import { hasEmptyRequiredFields as hasEmptyDEIRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import { useProfileFormContext } from "~/components/Profile/components/ProfileFormContext";
 
 import useUpdateApplicationMutation from "../../useUpdateApplicationMutation";
 import { useApplicationContext } from "../../ApplicationContext";
+import DeleteApplicationDialog from "../../components/DeleteApplicationDialog/DeleteApplicationDialog";
 
 interface ProfileActionFormValues {
   action: "continue" | "quit";
@@ -46,7 +41,7 @@ const StepNavigation = ({
   const { dirtySections } = useProfileFormContext();
   const [{ fetching: submitting }, executeSubmitMutation] =
     useUpdateApplicationMutation();
-  const { followingPageUrl, isIAP } = useApplicationContext();
+  const { followingPageUrl } = useApplicationContext();
   const nextStepPath =
     followingPageUrl ?? paths.applicationCareerTimelineIntro(application.id);
   const methods = useForm<ProfileActionFormValues>({
@@ -93,7 +88,7 @@ const StepNavigation = ({
 
     if (!hasDirtySections) {
       if (values.action === "quit") {
-        await navigate(paths.profileAndApplications({ fromIapDraft: isIAP }));
+        await navigate(paths.profileAndApplications());
         return true;
       }
 
@@ -180,6 +175,7 @@ const StepNavigation = ({
           >
             {intl.formatMessage(applicationMessages.saveQuit)}
           </Button>
+          <DeleteApplicationDialog query={application} />
         </div>
       </form>
     </FormProvider>

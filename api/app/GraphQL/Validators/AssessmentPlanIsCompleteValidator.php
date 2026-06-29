@@ -19,12 +19,12 @@ final class AssessmentPlanIsCompleteValidator extends Validator
             'assessment_steps.*.id' => [
                 'uuid',
                 'exists:assessment_steps,id',
-                new AssessmentStepComplete,
+                new AssessmentStepComplete(),
             ],
             'pool_skills.*.id' => [
                 'uuid',
                 'exists:pool_skill,id',
-                new PoolSkillIsAssessed,
+                new PoolSkillIsAssessed(),
             ],
         ];
     }

@@ -6,12 +6,12 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
+import type { EditPoolCoreRequirementsFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-import { DisplayProps } from "../../types";
+import type { DisplayProps } from "../../types";
 
 const grid = tv({
   base: "grid gap-6 xs:grid-cols-2",

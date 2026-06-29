@@ -1,17 +1,17 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
-import { Maybe } from "@gc-digital-talent/graphql";
 
-import Heading, { HeadingLevel } from "../Heading";
+import type { HeadingLevel } from "../Heading";
+import Heading from "../Heading";
 import Step from "./Step";
-import { StepType } from "./types";
-import { StepState } from "./utils";
+import type { StepType } from "./types";
+import type { StepState } from "./utils";
 
 const deriveStepState = (
   stepIndex: number,
-  currentIndex?: Maybe<number>,
+  currentIndex?: number | null,
   completed?: boolean | null,
   disabled?: boolean | null,
   error?: boolean | null,
@@ -40,7 +40,8 @@ export interface StepperProps {
   headingLevel?: HeadingLevel;
   subTitle?: ReactNode;
   label: string;
-  steps: Maybe<StepType[]>;
+  steps: StepType[] | null;
+  readOnly?: boolean;
 }
 
 const Stepper = ({
@@ -49,6 +50,7 @@ const Stepper = ({
   subTitle,
   label,
   steps,
+  readOnly = false,
 }: StepperProps) => {
   const intl = useIntl();
   let maxIndex: number | undefined;
@@ -83,8 +85,13 @@ const Stepper = ({
               href={href}
               label={stepLabel}
               state={
-                deriveStepState(stepIndex, index, completed, disabled, error) ??
-                "default"
+                deriveStepState(
+                  stepIndex,
+                  index,
+                  completed,
+                  readOnly || disabled,
+                  error,
+                ) ?? "default"
               }
               last={stepIndex === maxIndex}
             />

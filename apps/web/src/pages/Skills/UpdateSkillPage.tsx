@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
@@ -32,16 +33,14 @@ import {
   CardSeparator,
   Card,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Skill,
   UpdateSkillInput,
   UpdateSkillMutation,
-  Scalars,
   SkillCategory,
-  graphql,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -360,7 +359,7 @@ export const UpdateSkillForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  skillId: Scalars["ID"]["output"];
+  skillId: string;
 }
 
 const UpdateSkillData_Query = graphql(/* GraphQL */ `
@@ -445,8 +444,8 @@ export const UpdateSkill = () => {
         ? [
             {
               label: intl.formatMessage({
-                defaultMessage: "Edit<hidden> community</hidden>",
-                id: "/zsCRf",
+                defaultMessage: "Edit<hidden> skill</hidden>",
+                id: "M2LfhH",
                 description: "Breadcrumb title for the edit skill page link.",
               }),
               url: routes.skillUpdate(skillId),

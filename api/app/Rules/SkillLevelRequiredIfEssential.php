@@ -10,6 +10,7 @@ use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Translation\PotentiallyTranslatedString;
 
 /**
  * This rule is for ensuring a skills requiredLevel in a job template is
@@ -41,7 +42,7 @@ class SkillLevelRequiredIfEssential implements DataAwareRule, ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param  \Closure(string): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param  Closure(string): PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $incomingLevel, Closure $fail): void
     {

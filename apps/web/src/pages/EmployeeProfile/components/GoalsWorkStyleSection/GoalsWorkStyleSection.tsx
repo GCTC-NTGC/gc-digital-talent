@@ -2,26 +2,29 @@ import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
+import {
+  Button,
+  CardSeparator,
+  Notice,
+  ToggleSection,
+} from "@gc-digital-talent/ui";
 import { Submit, TextArea } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   formMessages,
   getLocale,
-  Locales,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  FragmentType,
-  getFragment,
-  EmployeeProfile,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, EmployeeProfile } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
 
 import { hasAllEmptyFields } from "~/validators/employeeProfile/goalsWorkStyle";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
@@ -60,6 +63,7 @@ interface GoalsWorkStyleSectionProps {
   employeeProfileQuery: FragmentType<
     typeof EmployeeProfileGoalsWorkStyle_Fragment
   >;
+  isVerifiedGovEmployee: boolean;
 }
 
 const TEXT_AREA_MAX_WORDS_EN = 200;
@@ -71,6 +75,7 @@ const wordCountLimits: Record<Locales, number> = {
 
 const GoalsWorkStyleSection = ({
   employeeProfileQuery,
+  isVerifiedGovEmployee,
 }: GoalsWorkStyleSectionProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
@@ -84,12 +89,22 @@ const GoalsWorkStyleSection = ({
     employeeProfileQuery,
   );
   const isNull = hasAllEmptyFields(employeeProfile);
-  const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
+  const {
+    isEditing,
+    setIsEditing,
+    icon: verifiedIcon,
+  } = useToggleSectionInfo({
     isNull,
     emptyRequired: false,
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });
+
+  const icon: SectionIcon = isVerifiedGovEmployee
+    ? verifiedIcon
+    : {
+        icon: LockClosedIcon,
+      };
 
   const handleError = () => {
     toast.error(
@@ -176,13 +191,15 @@ const GoalsWorkStyleSection = ({
         level="h3"
         size="h4"
         toggle={
-          <ToggleForm.LabelledTrigger
-            sectionTitle={intl.formatMessage({
-              defaultMessage: "Your goals and work style",
-              id: "0c/3Iw",
-              description: "Title for goals and work style section",
-            })}
-          />
+          isVerifiedGovEmployee ? (
+            <ToggleForm.LabelledTrigger
+              sectionTitle={intl.formatMessage({
+                defaultMessage: "Your goals and work style",
+                id: "0c/3Iw",
+                description: "Title for goals and work style section",
+              })}
+            />
+          ) : undefined
         }
         className="font-bold"
       >
@@ -194,63 +211,94 @@ const GoalsWorkStyleSection = ({
       </ToggleSection.Header>
       <p>{subtitle}</p>
       <ToggleSection.Content>
-        <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay />
-          ) : (
-            <Display employeeProfile={employeeProfile} />
-          )}
-        </ToggleSection.InitialContent>
-        <ToggleSection.OpenContent>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-y-6">
-                <TextArea
-                  id="aboutYou"
-                  label={intl.formatMessage(employeeProfileMessages.aboutYou)}
-                  name="aboutYou"
-                  wordLimit={wordCountLimits[locale]}
-                />
-                <CardSeparator space="none" />
-                <TextArea
-                  id="learningGoals"
-                  label={intl.formatMessage(
-                    employeeProfileMessages.learningGoals,
-                  )}
-                  name="learningGoals"
-                  wordLimit={wordCountLimits[locale]}
-                />
-                <CardSeparator space="none" />
-                <TextArea
-                  id="workStyle"
-                  label={intl.formatMessage(employeeProfileMessages.workStyle)}
-                  name="workStyle"
-                  wordLimit={wordCountLimits[locale]}
-                />
-                <CardSeparator space="none" />
-                <div className="flex flex-wrap items-center gap-6">
-                  <Submit
-                    text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Save goals and work style",
-                      id: "PkE/Ir",
-                      description:
-                        "Text on a button to save goals and work style form",
-                    })}
-                    color="secondary"
-                    mode="solid"
-                    isSubmitting={fetching}
-                  />
-                  <ToggleSection.Close>
-                    <Button mode="inline" type="button" color="warning">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </ToggleSection.Close>
-                </div>
-              </div>
-            </form>
-          </FormProvider>
-        </ToggleSection.OpenContent>
+        {isVerifiedGovEmployee ? (
+          <>
+            <ToggleSection.InitialContent>
+              {isNull ? (
+                <ToggleForm.NullDisplay />
+              ) : (
+                <Display employeeProfile={employeeProfile} />
+              )}
+            </ToggleSection.InitialContent>
+            <ToggleSection.OpenContent>
+              <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(handleSave)}>
+                  <div className="flex flex-col gap-y-6">
+                    <TextArea
+                      id="aboutYou"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.aboutYou,
+                      )}
+                      name="aboutYou"
+                      wordLimit={wordCountLimits[locale]}
+                    />
+                    <CardSeparator space="none" />
+                    <TextArea
+                      id="learningGoals"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.learningGoals,
+                      )}
+                      name="learningGoals"
+                      wordLimit={wordCountLimits[locale]}
+                    />
+                    <CardSeparator space="none" />
+                    <TextArea
+                      id="workStyle"
+                      label={intl.formatMessage(
+                        employeeProfileMessages.workStyle,
+                      )}
+                      name="workStyle"
+                      wordLimit={wordCountLimits[locale]}
+                    />
+                    <CardSeparator space="none" />
+                    <div className="flex flex-wrap items-center gap-6">
+                      <Submit
+                        text={intl.formatMessage(formMessages.saveChanges)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Save goals and work style",
+                          id: "PkE/Ir",
+                          description:
+                            "Text on a button to save goals and work style form",
+                        })}
+                        color="secondary"
+                        mode="solid"
+                        isSubmitting={fetching}
+                      />
+                      <ToggleSection.Close>
+                        <Button mode="inline" type="button" color="warning">
+                          {intl.formatMessage(commonMessages.cancel)}
+                        </Button>
+                      </ToggleSection.Close>
+                    </div>
+                  </div>
+                </form>
+              </FormProvider>
+            </ToggleSection.OpenContent>
+          </>
+        ) : (
+          <Notice.Root>
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This tool is available to Government of Canada employees",
+                id: "xHQdue",
+                description:
+                  "Notice title on sections for employee profile page when not a verified employee.",
+              })}
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools.",
+                  id: "TIuM+L",
+                  description:
+                    "Notice description on sections for employee profile page when not a verified employee.",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        )}
       </ToggleSection.Content>
     </ToggleSection.Root>
   );

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 import CloudIcon from "@heroicons/react/24/outline/CloudIcon";
@@ -11,7 +12,8 @@ import {
   errorMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { graphql, CreateClassificationInput } from "@gc-digital-talent/graphql";
+import type { CreateClassificationInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { Card, CardSeparator, Heading, Link } from "@gc-digital-talent/ui";
 
@@ -81,10 +83,6 @@ export const CreateClassification = () => {
       level: Number(data.level),
       minSalary: Number(data.minSalary),
       maxSalary: Number(data.maxSalary),
-      displayName: {
-        en: data.displayName?.en,
-        fr: data.displayName?.fr,
-      },
       isAvailableInSearch: data.isAvailableInSearch ?? false,
     };
     return executeMutation({ classification })
@@ -219,22 +217,6 @@ export const CreateClassification = () => {
                     label={intl.formatMessage(commonMessages.onFindTalent)}
                   />
                 </div>
-                <Input
-                  id="displayName_en"
-                  name="displayName.en"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"en"}
-                  type="text"
-                />
-                <Input
-                  id="displayName_fr"
-                  name="displayName.fr"
-                  autoComplete="off"
-                  label={intl.formatMessage(commonMessages.displayName)}
-                  appendLanguageToLabel={"fr"}
-                  type="text"
-                />
               </div>
               <CardSeparator />
               <div className="flex flex-col items-center gap-6 text-center xs:flex-row xs:text-left">

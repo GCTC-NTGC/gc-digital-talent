@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { IconType } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
 
 const ThreeBarsIcon: IconType = forwardRef(() => (
   <svg

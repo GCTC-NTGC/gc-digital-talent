@@ -1,10 +1,15 @@
-import { ReactElement, ReactNode } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ReactElement, ReactNode } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { IconType } from "../../types";
-import Link, { LinkProps } from "../Link";
-import { HeadingLevel } from "../Heading";
+import type { IconType } from "../../types";
+import type { LinkProps } from "../Link";
+import Link from "../Link";
+import type { HeadingLevel } from "../Heading";
+import type { ButtonProps } from "../Button";
+import type { BaseButtonLinkProps } from "../../utils/btnStyles";
+import Button from "../Button";
 
 interface ItemProps {
   children?: ReactNode;
@@ -106,13 +111,45 @@ const root = tv({
 
 type RootVariants = VariantProps<typeof root>;
 
+interface LinkAction {
+  href: LinkProps["href"];
+  onClick?: never;
+}
+
+interface ButtonAction {
+  onClick: ButtonProps["onClick"];
+  href?: never;
+}
+
+type TaskCardAction = LinkAction | ButtonAction;
+
+interface TaskCardActionProps extends BaseButtonLinkProps {
+  action: TaskCardAction;
+  children: ReactNode;
+}
+
+const TaskCardAction = ({ action, ...rest }: TaskCardActionProps) => {
+  if ("onClick" in action) {
+    return (
+      <Button onClick={action.onClick} type="button" {...rest} mode="inline" />
+    );
+  }
+
+  if ("href" in action) {
+    return <Link href={action.href} {...rest} mode="inline" />;
+  }
+
+  return null;
+};
+
+type RootAction = TaskCardAction & {
+  label: ReactNode;
+};
+
 export interface RootProps extends RootVariants {
   icon?: IconType;
   title: ReactNode;
-  link?: {
-    label: string;
-    href: LinkProps["href"];
-  };
+  action?: RootAction;
   headingAs?: HeadingLevel;
   children?: ReactElement<ItemProps> | ReactElement<ItemProps>[]; // Restricts children to only expected items;
 }
@@ -122,7 +159,7 @@ const Root = ({
   title,
   headingColor = "primary",
   locked = false,
-  link,
+  action,
   headingAs,
   children,
 }: RootProps) => {
@@ -133,14 +170,13 @@ const Root = ({
         <TaskCardHeading {...{ icon, headingAs, locked }}>
           {title}
         </TaskCardHeading>
-        {link ? (
-          <Link
+        {action ? (
+          <TaskCardAction
+            action={action}
             color={locked ? "black" : headingColor}
-            href={link.href}
-            className="text-nowrap"
           >
-            {link.label}
-          </Link>
+            {action.label}
+          </TaskCardAction>
         ) : null}
       </div>
       {/* content */}

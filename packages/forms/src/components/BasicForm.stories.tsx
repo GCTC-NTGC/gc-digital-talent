@@ -1,7 +1,7 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import BasicForm from "./BasicForm";
 import Repeater from "./Repeater/Repeater";
@@ -21,7 +21,9 @@ const labels = {
 export default {
   component: BasicForm,
   args: {
-    onSubmit: (values) => action("onSubmit")(values),
+    onSubmit: (values) => {
+      action("onSubmit")(values);
+    },
     labels,
   },
 } as Meta<typeof BasicForm>;

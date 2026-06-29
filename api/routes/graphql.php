@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Middleware\AcceptLanguageMiddleware;
+use App\Http\Middleware\AuditQueryMiddleware;
+use App\Http\Middleware\SlowQueryLoggerMiddleware;
 use Illuminate\Support\Facades\Route;
+use Nuwave\Lighthouse\Http\GraphQLController;
+use Nuwave\Lighthouse\Http\Middleware\AcceptJson;
+use Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,32 +26,32 @@ Route::middleware([
     // Nuwave\Lighthouse\Http\Middleware\EnsureXHR::class,
 
     // Always set the `Accept: application/json` header.
-    Nuwave\Lighthouse\Http\Middleware\AcceptJson::class,
+    AcceptJson::class,
 
     // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
     // middleware, this delegates auth and permission checks to the field level.
-    Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
+    AttemptAuthentication::class,
 
     // Logs every incoming GraphQL query.
     // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
 
     // Logs incoming GraphQL queries made by an admin
-    App\Http\Middleware\AuditQueryMiddleware::class,
+    AuditQueryMiddleware::class,
 
     // Logs slow running GraphQL queries
-    App\Http\Middleware\SlowQueryLoggerMiddleware::class,
+    SlowQueryLoggerMiddleware::class,
 
     // Set the app locale
-    App\Http\Middleware\AcceptLanguageMiddleware::class,
+    AcceptLanguageMiddleware::class,
 
     // Throttles based on RateLimiter in RouteServiceProvider.
     'throttle:graphql',
 ])->group(function () {
     // regular access to the graphql controller
-    Route::post('/graphql', Nuwave\Lighthouse\Http\GraphQLController::class)
+    Route::post('/graphql', GraphQLController::class)
         ->name('graphql');
 
     // "privileged" access to the graphql controller through a protected path
-    Route::post('/admin/graphql', Nuwave\Lighthouse\Http\GraphQLController::class)
+    Route::post('/admin/graphql', GraphQLController::class)
         ->name('graphql-protected');
 });

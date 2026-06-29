@@ -22,9 +22,11 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
+use Lcobucci\JWT\Validation\Constraint\PermittedFor;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
+use Throwable;
 
 class SignInCanadaBearerTokenService implements BearerTokenService
 {
@@ -59,14 +61,14 @@ class SignInCanadaBearerTokenService implements BearerTokenService
     // get a configuration property from the openid configuration json document
     private function getConfigProperty(string $propertyName): string
     {
-        $jsonString = Cache::remember('openid_config_json_string', 60, function () { // only get content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $jsonString = Cache::remember('openid_config_json_string', config('oauth.config_cache_time'), function () { // only get content every so often (default: 30min)
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($this->configUri);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get config');
             }
 
@@ -90,14 +92,14 @@ class SignInCanadaBearerTokenService implements BearerTokenService
         }
 
         $jwks_uri = $this->getConfigProperty('jwks_uri');
-        $jsonString = Cache::remember('jwks_json_string', 60, function () use ($jwks_uri) { // only get jwks content every minute
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+        $jsonString = Cache::remember('jwks_json_string', config('oauth.config_cache_time'), function () use ($jwks_uri) { // only get jwks content every so often (default: 30min)
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->get($jwks_uri);
 
             if ($response->failed()) {
                 Log::error('Failed when GETting the JWKS in getConfiguration');
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get config');
             }
 
@@ -150,7 +152,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
         } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Exception $exception) {
+            $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
                 return $exception instanceof ConnectionException;
             }, throw: false)->asForm()
                 ->withToken($accessToken)
@@ -168,7 +170,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
                 } else {
                     Log::debug($errorMessageToLog);
                 }
-                Log::debug((string) $response->getBody());
+                Log::debug($response->body());
                 throw new Exception('Failed to get introspection');
             }
 
@@ -178,7 +180,8 @@ class SignInCanadaBearerTokenService implements BearerTokenService
             if ($isTokenActive && is_numeric($expiryVal)) {
                 $expiryTimestamp = intval($expiryVal);
                 $nowTimestamp = $this->clock->now()->getTimestamp();
-                $cacheTime = min(10, $expiryTimestamp - $nowTimestamp); // cache for a few seconds, or up to expiry time
+                // cache for a few seconds (default: 120), or up to expiry time
+                $cacheTime = min(config('oauth.introspection_cache_time'), $expiryTimestamp - $nowTimestamp);
                 if ($cacheTime > 0) {
                     Cache::put($cacheKey, $isTokenActive, $cacheTime);
                 }
@@ -205,6 +208,7 @@ class SignInCanadaBearerTokenService implements BearerTokenService
         assert($token instanceof UnencryptedToken);
         $config = $config->withValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
+            new PermittedFor(strval(config('oauth.client_id'))),
             new RelatedTo($token->claims()->get('sub')),
             new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($config->signer(), $config->verificationKey()),

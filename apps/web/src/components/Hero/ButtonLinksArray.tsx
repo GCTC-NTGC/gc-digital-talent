@@ -1,6 +1,7 @@
 import { tv } from "tailwind-variants";
 
-import { IconType, CTALink, CTALinkProps } from "@gc-digital-talent/ui";
+import type { IconType, CTALinkProps } from "@gc-digital-talent/ui";
+import { CTALink } from "@gc-digital-talent/ui";
 
 const list = tv({
   base: "flex flex-wrap justify-center gap-3",

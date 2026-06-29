@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { JSX } from "react";
+import type { JSX } from "react";
 import BriefcaseIcon from "@heroicons/react/20/solid/BriefcaseIcon";
 import PresentationChartLineIcon from "@heroicons/react/20/solid/PresentationChartLineIcon";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";

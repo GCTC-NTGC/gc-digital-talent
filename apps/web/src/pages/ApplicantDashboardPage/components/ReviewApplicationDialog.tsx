@@ -1,9 +1,9 @@
 import { useIntl } from "react-intl";
 import { useState } from "react";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
-  FragmentType,
   getFragment,
   graphql,
   PoolAreaOfSelection,
@@ -30,7 +30,6 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import processMessages from "~/messages/processMessages";
-import { getClassificationName } from "~/utils/poolUtils";
 import {
   candidateStatusColorMap,
   deadlineToApply,
@@ -59,8 +58,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
       classification {
-        group
-        level
+        groupAndLevel
         minSalary
         maxSalary
       }
@@ -117,7 +115,6 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
           }
         }
       }
-      screeningQuestionsCount
       opportunityLength {
         label {
           localized
@@ -237,10 +234,7 @@ const ReviewApplicationDialog = ({
               label={intl.formatMessage(talentRequestMessages.classification)}
             >
               {pool?.classification
-                ? wrapAbbr(
-                    getClassificationName(pool?.classification, intl),
-                    intl,
-                  )
+                ? wrapAbbr(pool.classification.groupAndLevel, intl)
                 : nullMessage}
             </FieldDisplay>
             <FieldDisplay

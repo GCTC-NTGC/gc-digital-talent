@@ -1,6 +1,6 @@
-import { JSX } from "react";
+import type { JSX } from "react";
 
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
 import useApplication from "./useApplication";
 

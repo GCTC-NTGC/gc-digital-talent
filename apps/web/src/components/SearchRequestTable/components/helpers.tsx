@@ -1,36 +1,43 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import {
   Link,
   Chip,
   Spoiler,
   Chips,
-  UNICODE_CHAR,
+  type ChipProps,
 } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  Classification,
-  Maybe,
-  PoolCandidateSearchRequest,
+  TalentRequestStatus,
+  type Classification,
+  type LocalizedTalentRequestStatus,
+  type PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
+import {
+  DATE_FORMAT_LOCALIZED,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
+import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
+import cells from "~/components/Table/cells";
 
-export function classificationAccessor(
+export function classificationsAccessor(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[]>
+    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
     | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
-    ?.map((c) => `${c.group}-${c.level < 10 ? "0" : ""}${c.level}`)
+    ?.map((c) => c.groupAndLevel)
     ?.join(", ");
 }
 
 export function classificationsCell(
   classifications:
-    | Maybe<Maybe<Pick<Classification, "group" | "level">>[] | undefined>
+    | (Pick<Classification, "id" | "groupAndLevel"> | null | undefined)[]
     | undefined,
   intl: IntlShape,
 ) {
@@ -39,16 +46,8 @@ export function classificationsCell(
     : [];
   const chipsArray = filteredClassifications.map((classification) => {
     return (
-      <Chip
-        key={`${classification.group}-${classification.level < 10 ? "0" : ""}${classification.level}`}
-        color="primary"
-      >
-        <>
-          {classification.group}
-          <span>{UNICODE_CHAR.HYPHEN}</span>
-          {classification.level < 10 ? "0" : ""}
-          {classification.level}
-        </>
+      <Chip key={classification.id} color="primary">
+        {classification.groupAndLevel}
       </Chip>
     );
   });
@@ -114,3 +113,36 @@ export const detailsCell = (
       )}
     />
   ) : null;
+
+export const followUpDateCell = (
+  followUpDate: string | null | undefined,
+  now: Date,
+  intl: IntlShape,
+) => {
+  if (!followUpDate) return null;
+
+  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
+    parseDateTimeUtc(followUpDate),
+    now,
+  );
+
+  return isOverdue ? (
+    <Chip color="error">
+      {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+    </Chip>
+  ) : (
+    cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)
+  );
+};
+
+const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
+  [TalentRequestStatus.New]: "warning",
+  [TalentRequestStatus.InProgress]: "primary",
+  [TalentRequestStatus.Completed]: "gray",
+} as const;
+
+export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
+  if (!status) return null;
+
+  return <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>;
+};

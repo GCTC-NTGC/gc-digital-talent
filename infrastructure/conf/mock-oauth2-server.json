@@ -5,13 +5,13 @@
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
-      "tokenExpiry": 600,
+      "tokenExpiry": 3600,
       "requestMappings": [
         {
           "requestParam": "client_id",
           "match": "fake-development-client-key",
           "claims": {
-            "aud": "00000000-0000-0000-0123-456789abcdef",
+            "aud": "fake-development-client-key",
             "code": "00000000-0000-0000-0123-456789abcdef",
             "scope": [
               "openid",
@@ -26,7 +26,7 @@
           "match": "e2e",
           "claims": {
             "sub": "${sub}",
-            "aud": "00000000-0000-0000-0123-456789abcdef",
+            "aud": "fake-development-client-key",
             "code": "00000000-0000-0000-0123-456789abcdef",
             "scope": [
               "openid",

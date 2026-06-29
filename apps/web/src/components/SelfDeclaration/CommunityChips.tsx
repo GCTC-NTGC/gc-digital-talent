@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { Chips, Chip } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
-import { FirstNationsStatus } from "~/utils/indigenousDeclaration";
+import type { FirstNationsStatus } from "~/utils/indigenousDeclaration";
 
 import { getCommunityLabel } from "./utils";
 

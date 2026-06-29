@@ -1,10 +1,11 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { faker } from "@faker-js/faker";
+import { parseISO } from "date-fns/parseISO";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
+import type { Pool } from "@gc-digital-talent/graphql";
 import {
   makeFragmentData,
-  Pool,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
 } from "@gc-digital-talent/graphql";
@@ -15,7 +16,10 @@ import JobCard, { JobCard_Fragment } from "./JobCard";
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
-const nullPool: Omit<Pool, "activities" | "teamId"> = {
+const staticDate = new Date(parseISO(fakedPool.publishedAt!));
+Date.now = () => Number(staticDate); // set now to be static
+
+const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
   __typename: "Pool",
   id: "uuid",
 };
@@ -150,7 +154,9 @@ const deadlineApproaching = {
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
-      closingDate: faker.date.soon({ days: 2 }).toISOString(),
+      closingDate: faker.date
+        .soon({ days: 2, refDate: staticDate })
+        .toISOString(),
     },
     JobCard_Fragment,
   ),
@@ -171,7 +177,7 @@ const closed = {
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
-      closingDate: faker.date.past().toISOString(),
+      closingDate: faker.date.past({ refDate: staticDate }).toISOString(),
     },
     JobCard_Fragment,
   ),
@@ -179,6 +185,21 @@ const closed = {
 
 const nullCard = {
   poolQuery: makeFragmentData(nullPool, JobCard_Fragment),
+};
+
+const longTitleStr = faker.lorem.sentence(30);
+const longTitle = {
+  poolQuery: makeFragmentData(
+    {
+      ...fakedPool,
+      name: {
+        en: `${longTitleStr} EN`,
+        fr: `${longTitleStr} FR`,
+        localized: `${longTitleStr} LOCALIZED`,
+      },
+    },
+    JobCard_Fragment,
+  ),
 };
 
 const Template: StoryFn<typeof JobCard> = () => (
@@ -191,6 +212,7 @@ const Template: StoryFn<typeof JobCard> = () => (
     <JobCard {...all} />
     <JobCard {...deadlineApproaching} />
     <JobCard {...closed} />
+    <JobCard {...longTitle} />
     <JobCard {...nullCard} />
   </div>
 );

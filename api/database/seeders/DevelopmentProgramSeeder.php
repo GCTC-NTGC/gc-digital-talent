@@ -90,6 +90,14 @@ class DevelopmentProgramSeeder extends Seeder
                         'en' => $model->descriptionForProfile?->en,
                         'fr' => $model->descriptionForProfile?->fr,
                     ],
+                    'information_url' => [
+                        'en' => '',
+                        'fr' => '',
+                    ],
+                    'abbreviation' => [
+                        'en' => '',
+                        'fr' => '',
+                    ],
                 ]
             )->eligibleClassifications()->sync($classificationIds);
         }

@@ -1,4 +1,4 @@
-import { IconProps } from "@gc-digital-talent/ui";
+import type { IconProps } from "@gc-digital-talent/ui";
 
 const UnreadBellAlertIcon = (props: IconProps) => (
   <svg

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import { graphql, Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { useApiRoutes } from "@gc-digital-talent/auth";
@@ -27,7 +27,7 @@ const useNominationDownloads = () => {
     toast.error(intl.formatMessage(errorMessages.downloadRequestFailed));
   };
 
-  const downloadDoc = ({ id }: { id: Scalars["UUID"]["input"] }) => {
+  const downloadDoc = ({ id }: { id: string }) => {
     executeDocMutation({ id })
       .then(async (res) => {
         if (res?.data?.downloadNominationDoc) {

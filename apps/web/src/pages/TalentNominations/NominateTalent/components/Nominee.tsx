@@ -3,12 +3,10 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
-  Maybe,
-  Scalars,
   TalentNominationNomineeRelationshipToNominator,
   TalentNominationStep,
   TalentNominationUserReview,
@@ -23,18 +21,19 @@ import {
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
 
-import { BaseFormValues } from "../types";
+import type { BaseFormValues } from "../types";
 import useCurrentStep from "../useCurrentStep";
-import UpdateForm, { SubmitDataTransformer } from "./UpdateForm";
+import type { SubmitDataTransformer } from "./UpdateForm";
+import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 
 interface FormValues extends BaseFormValues {
-  nominee: Scalars["UUID"]["input"];
+  nominee: string;
   nomineeReview: TalentNominationUserReview;
   nomineeRelationshipToNominator: TalentNominationNomineeRelationshipToNominator;
-  nomineeRelationshipToNominatorOther?: Maybe<string>;
+  nomineeRelationshipToNominatorOther?: string | null;
 }
 
 const NomineeFieldOptions_Fragment = graphql(/* GraphQL */ `
@@ -210,7 +209,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
           talentNomination.nomineeRelationshipToNominatorOther ?? "",
       }}
     >
-      <SubHeading level="h2" icon={UserCircleIcon}>
+      <SubHeading icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}
       </SubHeading>
       <p className="my-6">

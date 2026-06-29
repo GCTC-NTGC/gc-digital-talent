@@ -20,17 +20,20 @@ import {
   narrowEnumType,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import type { GovFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import {
   GovContractorType,
   GovEmployeeType,
-  GovFieldOptionsQuery,
   GovPositionType,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { Loading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { SubExperienceFormProps, WorkFormValues } from "~/types/experience";
+import type {
+  SubExperienceFormProps,
+  WorkFormValues,
+} from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
 
 import SupervisoryFields from "./SupervisoryFields";

@@ -8,14 +8,14 @@ import { formMessages, getLocale } from "@gc-digital-talent/i18n";
 import useFieldState from "../../hooks/useFieldState";
 import Field from "../Field";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
-import { CommonInputProps, HTMLInputProps } from "../../types";
+import type { CommonInputProps, HTMLInputProps } from "../../types";
 import {
   getErrorMessage,
   getMinMaxValue,
   getMultiDefaultValue,
   getSingleDefaultValue,
 } from "./utils";
-import { BaseProps, ComboboxValue } from "./types";
+import type { BaseProps, ComboboxValue } from "./types";
 import Single from "./Single";
 import Multi from "./Multi";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
@@ -72,7 +72,6 @@ const Combobox = ({
   } = useFormContext<Record<string, ComboboxValue>>();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(name || "", !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const isRequired = !!rules?.required;
   const defaultValue = defaultValues?.[name];
@@ -81,7 +80,6 @@ const Combobox = ({
     id,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

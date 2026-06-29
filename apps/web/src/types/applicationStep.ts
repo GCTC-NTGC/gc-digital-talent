@@ -1,22 +1,25 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import {
+import type {
   ApplicationStep,
   Pool,
-  Scalars,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
+import type useRoutes from "~/hooks/useRoutes";
 
-import { PageNavInfo } from "./pages";
+import type { PageNavInfo } from "./pages";
 
 interface GetApplicationStepInfoArgs {
   application: ApplicationPoolCandidateFragmentType;
   paths: ReturnType<typeof useRoutes>;
-  resourceId?: Scalars["ID"]["output"];
+  resourceId?: string;
   intl: IntlShape;
   stepOrdinal?: number;
+}
+
+export interface ApplicationBrowserState {
+  languagePresetNoticeIsVisible: boolean;
 }
 
 export interface ApplicationStepInfo {
@@ -35,8 +38,9 @@ export interface ApplicationStepInfo {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     user: ApplicationPoolCandidateFragmentType["user"],
-    pool: Omit<Pool, "activities" | "teamId">,
+    pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
     application: ApplicationPoolCandidateFragmentType,
+    browserState: ApplicationBrowserState | undefined,
   ) => boolean;
 }
 

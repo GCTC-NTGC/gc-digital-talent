@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import type { DetailedHTMLProps, InputHTMLAttributes } from "react";
 import { tv } from "tailwind-variants";
 
 import { inputStyles } from "../../styles";

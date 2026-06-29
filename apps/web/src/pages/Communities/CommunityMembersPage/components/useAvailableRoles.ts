@@ -1,7 +1,8 @@
 import { useQuery } from "urql";
 import { useMemo } from "react";
 
-import { Role, graphql } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 

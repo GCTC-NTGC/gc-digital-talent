@@ -1,4 +1,4 @@
-import { FocusEvent } from "react";
+import type { FocusEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { tv } from "tailwind-variants";
@@ -6,7 +6,7 @@ import { tv } from "tailwind-variants";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import Field from "../Field";
-import { CommonInputProps, HTMLInputProps } from "../../types";
+import type { CommonInputProps, HTMLInputProps } from "../../types";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
@@ -55,14 +55,12 @@ const Input = ({
   } = useFormContext();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(id, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const isInvalid = fieldState === "invalid";
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     describedBy,
     show: {
       error: isInvalid,
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

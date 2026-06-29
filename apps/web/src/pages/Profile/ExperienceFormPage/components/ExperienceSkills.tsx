@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
+import { useClient } from "urql";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
-import { Skill } from "@gc-digital-talent/graphql";
+import { graphql, type Skill } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 import NullExperienceType from "~/components/ExperienceFormFields/NullExperienceType";
+
+const TrashedExperienceSkill_Query = graphql(/** GraphQL */ `
+  query TrashedExperienceSkill($where: TrashedExperienceSkillInput!) {
+    trashedExperienceSkill(where: $where) {
+      details
+    }
+  }
+`);
 
 interface ExperienceSkillValues {
   experienceType?: ExperienceType;
@@ -17,19 +26,23 @@ interface ExperienceSkillValues {
 }
 
 type AccordionStates = "learn-more" | "";
+
 interface ExperienceSkillsProps {
   skills: Skill[];
   experienceType?: ExperienceType;
+  experienceId?: string;
 }
 
 const ExperienceSkills = ({
   skills,
   experienceType,
+  experienceId,
 }: ExperienceSkillsProps) => {
   const intl = useIntl();
   const { control, watch } = useFormContext<ExperienceSkillValues>();
   const type = watch("experienceType");
   const derivedType = type ?? experienceType;
+  const client = useClient();
   const watchedSkills: FormSkills = watch("skills");
   const { fields, remove, append } = useFieldArray({
     control,
@@ -39,9 +52,25 @@ const ExperienceSkills = ({
   const [accordionState, setAccordionState] = useState<AccordionStates>("");
 
   // Note: Needed for function colouring
-  // eslint-disable-next-line @typescript-eslint/require-await
   const handleAddSkill = async (values: SkillBrowserDialogFormValues) => {
     const skillId = values.skill;
+    let details = "";
+    if (experienceId && skillId) {
+      const { data, error } = await client
+        .query(TrashedExperienceSkill_Query, {
+          where: {
+            experienceId,
+            skillId,
+            restore: true,
+          },
+        })
+        .toPromise();
+
+      if (!error && data?.trashedExperienceSkill?.details) {
+        details = data.trashedExperienceSkill.details;
+      }
+    }
+
     const skill = skills.find(({ id }) => id === skillId);
 
     if (skill) {
@@ -49,7 +78,7 @@ const ExperienceSkills = ({
         {
           skillId: skill.id,
           name: skill.name,
-          details: "",
+          details,
         },
         { shouldFocus: false },
       );
@@ -179,10 +208,7 @@ const ExperienceSkills = ({
             />
           </div>
           {watchedSkills && watchedSkills.length > 0 ? (
-            <SkillsInDetail
-              skills={fields as FormSkills}
-              onDelete={handleRemoveSkill}
-            />
+            <SkillsInDetail skills={fields} onDelete={handleRemoveSkill} />
           ) : (
             <Notice.Root className="mt-6 text-center">
               <Notice.Title>

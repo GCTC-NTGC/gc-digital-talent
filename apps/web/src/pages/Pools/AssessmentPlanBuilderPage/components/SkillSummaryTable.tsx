@@ -1,21 +1,24 @@
-import { JSX } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { IntlShape, useIntl } from "react-intl";
+import type { JSX } from "react";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  AssessmentStepType,
+import type {
   FragmentType,
   LocalizedAssessmentStepType,
-  Maybe,
-  PoolSkillType,
   Skill,
+  SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
+  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
+} from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType,
+  PoolSkillType,
   SkillCategory,
   getFragment,
   graphql,
-  SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
-  SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
 import { Chip } from "@gc-digital-talent/ui";
 
@@ -85,7 +88,7 @@ interface SkillSummaryTableProps {
 
 const CheckIconElement = (
   skill: Skill | null | undefined,
-  assessmentStepType: Maybe<LocalizedAssessmentStepType> | undefined,
+  assessmentStepType: LocalizedAssessmentStepType | null | undefined,
 ): JSX.Element | null => {
   const intl = useIntl();
   if (!skill) {

@@ -94,6 +94,11 @@ type LocalizedCandidateInterest implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCandidateReferralFilter implements LocalizedEnumOption {
+  value: CandidateReferralFilter!
+  label: LocalizedString!
+}
+
 type LocalizedCandidateRemovalReason implements LocalizedEnumOption {
   value: CandidateRemovalReason!
   label: LocalizedString!
@@ -111,6 +116,11 @@ type LocalizedCandidateSuspendedFilter implements LocalizedEnumOption {
 
 type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   value: CitizenshipStatus!
+  label: LocalizedString!
+}
+
+type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
+  value: CommunityInterestAdditionalDuty!
   label: LocalizedString!
 }
 
@@ -154,6 +164,11 @@ type LocalizedEducationType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedEmployeeVerification implements LocalizedEnumOption {
+  value: EmployeeVerification!
+  label: LocalizedString!
+}
+
 type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
@@ -186,16 +201,6 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
-  label: LocalizedString!
-}
-
-type LocalizedFinalDecision implements LocalizedEnumOption {
-  value: FinalDecision!
-  label: LocalizedString!
-}
-
-type LocalizedFinanceChiefDuty implements LocalizedEnumOption {
-  value: FinanceChiefDuty!
   label: LocalizedString!
 }
 
@@ -259,6 +264,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -266,6 +276,11 @@ type LocalizedOperationalRequirement implements LocalizedEnumOption {
 
 type LocalizedOrganizationTypeInterest implements LocalizedEnumOption {
   value: OrganizationTypeInterest!
+  label: LocalizedString!
+}
+
+type LocalizedPauseReferralsLength implements LocalizedEnumOption {
+  value: PauseReferralsLength!
   label: LocalizedString!
 }
 
@@ -291,11 +306,6 @@ type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
 
 type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
   value: PoolCandidateSearchStatus!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateStatus implements LocalizedEnumOption {
-  value: PoolCandidateStatus!
   label: LocalizedString!
 }
 
@@ -364,6 +374,11 @@ type LocalizedSkillLevel implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedSpecialApplicationType implements LocalizedEnumOption {
+  value: SpecialApplicationType!
+  label: LocalizedString!
+}
+
 type LocalizedSupervisoryStatus implements LocalizedEnumOption {
   value: SupervisoryStatus!
   label: LocalizedString!
@@ -401,6 +416,61 @@ type LocalizedTalentNominationSubmitterRelationshipToNominator implements Locali
 
 type LocalizedTalentNominationUserReview implements LocalizedEnumOption {
   value: TalentNominationUserReview!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestCompletionDetail implements LocalizedEnumOption {
+  value: TalentRequestCompletionDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestInProgressDetail implements LocalizedEnumOption {
+  value: TalentRequestInProgressDetail!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestPositionType implements LocalizedEnumOption {
+  value: TalentRequestPositionType!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestReason implements LocalizedEnumOption {
+  value: TalentRequestReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestSource implements LocalizedEnumOption {
+  value: TalentRequestSource!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestStatus implements LocalizedEnumOption {
+  value: TalentRequestStatus!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotReferredReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotReferredReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserNotSelectedReason implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserNotSelectedReason!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserReferralDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserReferralDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserSelectionDecision implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserSelectionDecision!
+  label: LocalizedString!
+}
+
+type LocalizedTalentRequestTrackedUserStatus implements LocalizedEnumOption {
+  value: TalentRequestTrackedUserStatus!
   label: LocalizedString!
 }
 
@@ -491,6 +561,35 @@ type UserPublicProfilePaginator {
   data: [UserPublicProfile!]!
 }
 
+enum NullsOrder {
+  FIRST
+  LAST
+}
+
+input RelatedOrderInput {
+  name: String!
+  column: String!
+}
+
+input AdvancedOrderByInput {
+  column: String
+  scope: String
+  relation: RelatedOrderInput
+  direction: SortOrder = ASC
+  nulls: NullsOrder
+  accentInsensitive: Boolean
+  caseInsensitive: Boolean
+}
+
+"A paginated list of TalentRequestResult items."
+type TalentRequestResultPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestResult items."
+  data: [TalentRequestResult!]!
+}
+
 "A paginated list of Pool items."
 type PoolPaginator {
   "Pagination information about the list of items."
@@ -525,6 +624,24 @@ type PoolCandidateSearchRequestPaginator {
 
   "A list of PoolCandidateSearchRequest items."
   data: [PoolCandidateSearchRequest!]!
+}
+
+"A paginated list of TalentRequest items."
+type TalentRequestPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequest items."
+  data: [TalentRequest!]!
+}
+
+"A paginated list of TalentRequestTrackedUser items."
+type TalentRequestTrackedUserPaginator {
+  "Pagination information about the list of items."
+  paginatorInfo: PaginatorInfo!
+
+  "A list of TalentRequestTrackedUser items."
+  data: [TalentRequestTrackedUser!]!
 }
 
 "A paginated list of Notification items."
@@ -925,6 +1042,182 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
+enum RoleName {
+  Guest
+  BaseUser
+  Applicant
+  ProcessOperator
+  CommunityRecruiter
+  CommunityAdmin
+  PlatformAdmin
+  CommunityTalentCoordinator
+  DepartmentAdmin
+  DepartmentHrAdvisor
+}
+
+enum Permission {
+  ViewAnyClassification
+  CreateAnyClassification
+  UpdateAnyClassification
+  DeleteAnyClassification
+  ViewAnyDepartment
+  CreateAnyDepartment
+  UpdateAnyDepartment
+  DeleteAnyDepartment
+  ArchiveAnyDepartment
+  ViewAnyDevelopmentProgram
+  CreateAnyDevelopmentProgram
+  UpdateAnyDevelopmentProgram
+  ViewAnyGenericJobTitle
+  CreateAnyGenericJobTitle
+  UpdateAnyGenericJobTitle
+  DeleteAnyGenericJobTitle
+  ViewAnySkill
+  CreateAnySkill
+  UpdateAnySkill
+  DeleteAnySkill
+  ViewAnySkillFamily
+  CreateAnySkillFamily
+  UpdateAnySkillFamily
+  DeleteAnySkillFamily
+  CreateAnyUser
+  ViewAnyUser
+  ViewOwnUser
+  ViewAnyUserBasicInfo
+  ViewAnyUserWorkEmail
+  UpdateAnyUser
+  UpdateAnyUserSub
+  UpdateOwnUser
+  DeleteAnyUser
+  ViewAnyApplicantProfile
+  ViewTeamApplicantProfile
+  ViewOwnApplicantProfile
+  UpdateOwnApplicantProfile
+  ViewOwnEmployeeProfile
+  UpdateOwnEmployeeProfile
+  ViewTeamDraftPool
+  ViewAnyPool
+  ViewAnyPublishedPool
+  CreateTeamDraftPool
+  UpdateTeamDraftPool
+  UpdateAnyPublishedPool
+  PublishTeamDraftPool
+  PublishAnyDraftPool
+  UpdateTeamPublishedPool
+  DeleteTeamDraftPool
+  ArchiveTeamPublishedPool
+  ArchiveAnyPublishedPool
+  ViewAnyAssessmentPlan
+  ViewTeamAssessmentPlan
+  UpdateAnyAssessmentPlan
+  UpdateTeamAssessmentPlan
+  CreateAnyApplication
+  ViewOwnApplication
+  ViewTeamSubmittedApplication
+  ViewAnySubmittedApplication
+  CreateOwnDraftApplication
+  UpdateOwnDraftApplication
+  SubmitOwnDraftApplication
+  DeleteOwnDraftApplication
+  CreateAnySpecialApplication
+  ArchiveOwnSubmittedApplication
+  SuspendOwnSubmittedApplication
+  ViewOwnApplicationStatus
+  ViewTeamApplicationStatus
+  ViewAnyApplicationStatus
+  UpdateTeamApplicationStatus
+  UpdateAnyApplicationStatus
+  ViewAnyApplicationAssessment
+  ViewTeamApplicationAssessment
+  UpdateAnyApplicationAssessment
+  UpdateTeamApplicationAssessment
+  ViewAnyApplicationDecision
+  ViewTeamApplicationDecision
+  ViewOwnApplicationDecision
+  UpdateTeamApplicationDecision
+  UpdateAnyApplicationDecision
+  ViewAnyApplicationPlacement
+  ViewTeamApplicationPlacement
+  ViewOwnApplicationPlacement
+  UpdateTeamApplicationPlacement
+  UpdateAnyApplicationPlacement
+  ViewAnyApplicantCount
+  ViewAnyJobPosterTemplate
+  CreateAnyJobPosterTemplate
+  UpdateAnyJobPosterTemplate
+  DeleteAnyJobPosterTemplate
+  CreateAnyTalentRequest
+  ViewTeamTalentRequest
+  UpdateTeamTalentRequest
+  DeleteTeamTalentRequest
+  ViewAnyTalentRequest
+  UpdateAnyTalentRequest
+  DeleteAnyTalentRequest
+  ViewOwnTalentRequest
+  CreateAnyWorkStream
+  UpdateAnyWorkStream
+  ViewAnyRole
+  AssignAnyRole
+  AssignTeamRole
+  UpdateAnyRole
+  ViewAnyAnnouncement
+  UpdateAnyAnnouncement
+  ViewAnyCommunity
+  CreateAnyCommunity
+  UpdateAnyCommunity
+  UpdateTeamCommunity
+  DeleteAnyCommunity
+  UpdateAnyPlatformAdminMembership
+  UpdateAnyCommunityAdminMembership
+  UpdateTeamCommunityAdminMembership
+  UpdateAnyCommunityRecruiterMembership
+  UpdateTeamCommunityRecruiterMembership
+  UpdateAnyProcessOperatorMembership
+  UpdateTeamProcessOperatorMembership
+  UpdateAnyCommunityTalentCoordinatorMembership
+  UpdateTeamCommunityTalentCoordinatorMembership
+  UpdateAnyDepartmentAdminMembership
+  UpdateAnyDepartmentHRAdvisorMembership
+  UpdateTeamDepartmentHRAdvisorMembership
+  ViewAnyPoolTeamMembers
+  ViewTeamPoolTeamMembers
+  ViewAnyCommunityTeamMembers
+  ViewTeamCommunityTeamMembers
+  ViewAnyDepartmentTeamMembers
+  ViewTeamDepartmentTeamMembers
+  CreateAnyTrainingOpportunity
+  ViewAnyTalentNominationEvent
+  CreateAnyTalentNominationEvent
+  CreateTeamTalentNominationEvent
+  UpdateTeamTalentNominationEvent
+  ViewAnyCommunityInterest
+  ViewTeamCommunityInterest
+  ViewTeamCommunityTalent
+  DeleteOwnCommunityInterest
+  CreateOwnTalentNomination
+  CreateOwnPastTalentNomination
+  UpdateOwnTalentNomination
+  ViewOwnTalentNomination
+  ViewTeamTalentNomination
+  ViewAnyTalentNomination
+  UpdateTeamTalentNominationGroup
+  ViewTeamTalentNominationGroup
+  ViewAnyTalentNominationGroup
+  ViewAnyBasicGovEmployeeProfile
+  ViewAnyPoolActivityLog
+  ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
+  CreateTeamCommunityDevelopmentProgram
+  UpdateTeamCommunityDevelopmentProgram
+  DeleteTeamCommunityDevelopmentProgram
+}
+
 enum ActivityEvent {
   CREATED
   UPDATED
@@ -1078,6 +1371,11 @@ enum CandidateInterest {
   EXPIRED
 }
 
+enum CandidateReferralFilter {
+  REFERRING
+  NOT_REFERRING
+}
+
 enum CandidateRemovalReason {
   REQUESTED_TO_BE_WITHDRAWN
   NOT_RESPONSIVE
@@ -1116,6 +1414,17 @@ enum ClaimVerificationResult {
   ACCEPTED
   REJECTED
   UNVERIFIED
+}
+
+enum CommunityInterestAdditionalDuty {
+  CORPORATE_COMMUNICATIONS
+  FACILITIES_MANAGEMENT_AND_SECURITY
+  HUMAN_RESOURCES
+  INFORMATION_TECHNOLOGY
+  MATERIEL_MANAGEMENT
+  PROCUREMENT
+  PROJECT_MANAGEMENT
+  REAL_PROPERTY_MANAGEMENT
 }
 
 enum CourseFormat {
@@ -1183,6 +1492,11 @@ enum EmailType {
   WORK
 }
 
+enum EmployeeVerification {
+  VERIFIED
+  NOT_VERIFIED
+}
+
 enum EmploymentCategory {
   EXTERNAL_ORGANIZATION
   GOVERNMENT_OF_CANADA
@@ -1194,6 +1508,7 @@ enum ErrorCode {
   EXPIRY_DATE_REQUIRED
   EXPIRY_DATE_AFTER_TODAY
   ARRAY_CONTAINS_DUPLICATES
+  INVALID_URL
   APPLICATION_ALREADY_SUBMITTED
   APPLICATION_NOT_SUBMITTED
   APPLICATION_EDUCATION_REQUIREMENT_INCOMPLETE
@@ -1208,6 +1523,7 @@ enum ErrorCode {
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
+  APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
@@ -1227,9 +1543,12 @@ enum ErrorCode {
   DEPARTMENT_NUMBER_IN_USE
   DEPARTMENT_NOT_FOUND
   DEPARTMENT_MUST_NOT_BE_ARCHIVED
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND
+  COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID
   DEVELOPMENT_PROGRAM_NOT_FOUND
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_REQUIRED
   DEVELOPMENT_PROGRAM_COMPLETION_DATE_PROHIBITED
+  DEVELOPMENT_PROGRAM_MUST_CONNECT_OWN_EDUCATION_EXPERIENCE
   ENUM_NOT_FOUND
   ENUM_NOT_LOCALIZED
   ESSENTIAL_SKILL_REQUIRES_LEVEL
@@ -1254,10 +1573,13 @@ enum ErrorCode {
   CHANGE_JUSTIFICATION_REQUIRED
   UNARCHIVE_POOL_INVALID_STATUS
   ARCHIVE_POOL_INVALID_STATUS
+  INVALID_COMMUNITY_DEPARTMENT_COMBO
   INVALID_STATUS_DISQUALIFICATION
   INVALID_STATUS_PLACING
   INVALID_STATUS_QUALIFICATION
   INVALID_STATUS_REVERT_FINAL_DECISION
+  INVALID_REVERT_DECISION_PLACED
+  CANDIDATE_NOT_FOUND
   CANDIDATE_NOT_PLACED
   CANDIDATE_UNEXPECTED_STATUS
   REMOVE_CANDIDATE_ALREADY_PLACED
@@ -1267,6 +1589,8 @@ enum ErrorCode {
   SCREENING_STAGE_NOT_UNDER_ASSESSMENT
   ASSESSMENT_STEP_PROHIBITED
   ASSESSMENT_STEP_CANDIDATE_SAME_POOL
+  INVALID_PAUSE_REFERRAL
+  INVALID_UNPAUSE_AT_DATE
   POOL_SKILL_NOT_ESSENTIAL_AND_ASSET_TYPES
   POOL_SKILL_NOT_VALID
   TEAM_ID_REQUIRED
@@ -1275,7 +1599,14 @@ enum ErrorCode {
   ROLE_NOT_FOUND
   SCREENING_QUESTION_NOT_FOUND
   SKILL_NOT_FOUND
+  TALENT_REQUEST_INVALID_POSITION_TYPE
+  TALENT_REQUEST_INVALID_REASON
+  TALENT_REQUEST_INVALID_STATUS
+  TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
+  TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
   TALENT_EVENT_IS_CLOSED
+  TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
+  TALENT_EVENT_CANNOT_CHANGE_NAME
   TALENT_NOMINATION_ALREADY_SUBMITTED
   NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE
   NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE
@@ -1290,6 +1621,8 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_NOT_FOUND
   ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
+  NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -1298,12 +1631,14 @@ enum ErrorCode {
   TOO_MANY_SUBSTANTIVE_EXPERIENCES
   NOT_GOVERNMENT_EMAIL
   NOT_VERIFIED_GOVERNMENT_EMPLOYEE
+  YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION
   EMAIL_ADDRESS_IN_USE
   SUB_IN_USE
   VERIFICATION_FAILED
   DUPLICATE_USER_SKILL
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
+  SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
 }
 
 enum EstimatedLanguageAbility {
@@ -1351,30 +1686,6 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
-}
-
-enum FinalDecision {
-  DISQUALIFIED
-  DISQUALIFIED_PENDING
-  DISQUALIFIED_REMOVED
-  QUALIFIED
-  QUALIFIED_EXPIRED
-  QUALIFIED_PENDING
-  QUALIFIED_PLACED
-  QUALIFIED_REMOVED
-  REMOVED
-  TO_ASSESS
-  TO_ASSESS_REMOVED
-}
-
-enum FinanceChiefDuty {
-  CORPORATE_COMMUNICATIONS
-  FACILITIES_MANAGEMENT_AND_SECURITY
-  HUMAN_RESOURCES
-  INFORMATION_TECHNOLOGY
-  MATERIEL_MANAGEMENT
-  PROCUREMENT
-  REAL_PROPERTY_MANAGEMENT
 }
 
 enum FinanceChiefRole {
@@ -1469,6 +1780,12 @@ enum Mentorship {
   MENTEE
 }
 
+enum NineBoxRating {
+  LOW
+  MODERATE
+  HIGH
+}
+
 enum NotificationFamily {
   SYSTEM_MESSAGE
   APPLICATION_UPDATE
@@ -1508,10 +1825,20 @@ enum OverallAssessmentStatus {
   QUALIFIED
 }
 
+enum PauseReferralsLength {
+  ONE_MONTH
+  THREE_MONTHS
+  SIX_MONTHS
+  ONE_YEAR
+  UNTIL_EXPIRY
+  OTHER
+}
+
 enum PlacementType {
   NOT_PLACED
   UNDER_CONSIDERATION
   PLACED_TENTATIVE
+  PLACED_ACTING
   PLACED_CASUAL
   PLACED_TERM
   PLACED_INDETERMINATE
@@ -1543,33 +1870,11 @@ enum PoolCandidateSearchStatus {
   NOT_COMPLIANT
 }
 
-enum PoolCandidateStatus {
-  DRAFT
-  DRAFT_EXPIRED
-  NEW_APPLICATION
-  APPLICATION_REVIEW
-  SCREENED_IN
-  SCREENED_OUT_APPLICATION
-  SCREENED_OUT_NOT_INTERESTED
-  SCREENED_OUT_NOT_RESPONSIVE
-  UNDER_ASSESSMENT
-  SCREENED_OUT_ASSESSMENT
-  QUALIFIED_AVAILABLE
-  QUALIFIED_UNAVAILABLE
-  QUALIFIED_WITHDREW
-  UNDER_CONSIDERATION
-  PLACED_TENTATIVE
-  PLACED_CASUAL
-  PLACED_TERM
-  PLACED_INDETERMINATE
-  EXPIRED
-  REMOVED
-}
-
 enum PoolLanguage {
   ENGLISH
   FRENCH
   VARIOUS
+  VARIOUS_BILINGUAL
   BILINGUAL_INTERMEDIATE
   BILINGUAL_ADVANCED
 }
@@ -1660,6 +1965,17 @@ enum SkillLevel {
   LEAD
 }
 
+enum SpecialApplicationType {
+  VETERAN
+  PRIORITY
+  MINISTERS_STAFF
+  ACCOMMODATION
+  TECHNICAL_SUPPORT
+  PSC_REQUEST
+  EMPLOYEE_CURRENTLY_ON_LEAVE
+  OTHER
+}
+
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
@@ -1722,6 +2038,80 @@ enum TalentNominationUserReview {
   OUT_OF_DATE
 }
 
+enum TalentRequestCompletionDetail {
+  HIRE_MADE
+  PROCESS_WILL_BE_LAUNCHED
+  HIRING_MANAGER_NOT_RESPONSIVE
+  NO_CANDIDATES_FOUND
+  NO_LONGER_REQUIRED
+  DUPLICATE_REQUEST
+  NON_COMPLIANT
+}
+
+enum TalentRequestInProgressDetail {
+  INITIAL_CONVERSATION
+  TALENT_SENT
+  FOLLOW_UP_SENT
+  DISCUSSION_ONGOING
+  OTHER
+}
+
+enum TalentRequestPositionType {
+  INDIVIDUAL_CONTRIBUTOR
+  TEAM_LEAD
+}
+
+enum TalentRequestReason {
+  IMMEDIATE_HIRE
+  UPCOMING_NEED
+  GENERAL_INTEREST
+  REQUIRED_BY_DIRECTIVE
+}
+
+enum TalentRequestSource {
+  QUALIFIED_IN_POOL
+  AT_LEVEL
+  ADVANCEMENT
+}
+
+enum TalentRequestStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TalentRequestTrackedUserNotReferredReason {
+  MISMATCH_IN_QUALIFICATIONS
+  JOB_MISMATCHES_EXPECTATIONS
+  OTHER
+}
+
+enum TalentRequestTrackedUserNotSelectedReason {
+  LACKS_EXPERIENCE
+  REQUIREMENT_MISMATCH
+  DECLINED_BY_CANDIDATE
+  OTHER_CANDIDATE_SELECTED
+  NO_REASON
+  OTHER
+}
+
+enum TalentRequestTrackedUserReferralDecision {
+  REFERRED
+  NOT_REFERRED
+}
+
+enum TalentRequestTrackedUserSelectionDecision {
+  SELECTED
+  NOT_SELECTED
+}
+
+enum TalentRequestTrackedUserStatus {
+  NOT_REFERRED
+  REFERRED
+  SELECTED
+  NOT_SELECTED
+}
+
 enum TargetRole {
   INDIVIDUAL_CONTRIBUTOR
   MANAGER
@@ -1732,6 +2122,10 @@ enum TargetRole {
   ASSISTANT_DEPUTY_MINISTER
   DEPUTY_MINISTER
   OTHER
+}
+
+enum TbsSecurityLoggingEventId {
+  EMAIL_SENT
 }
 
 enum TimeFrame {

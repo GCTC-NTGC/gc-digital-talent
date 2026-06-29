@@ -1,16 +1,16 @@
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip, Chips } from "@gc-digital-talent/ui";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import {
-  Maybe,
-  ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType } from "@gc-digital-talent/graphql";
 
 import RemovePoolMembershipDialog from "./RemovePoolMembershipDialog";
-import { ManageAccessPagePoolFragmentRoleType, PoolTeamMember } from "./types";
+import type {
+  ManageAccessPagePoolFragmentRoleType,
+  PoolTeamMember,
+} from "./types";
 
 function orderRoles(
   roles: ManageAccessPagePoolFragmentRoleType[],
@@ -43,7 +43,7 @@ export const actionCell = (
 );
 
 export function emailLinkCell(
-  email: Maybe<string> | undefined,
+  email: string | null | undefined,
   intl: IntlShape,
 ) {
   if (email) {
@@ -66,7 +66,10 @@ export function emailLinkCell(
 }
 
 export function roleCell(
-  roles: Maybe<Maybe<ManageAccessPagePoolFragmentRoleType>[]>,
+  roles:
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);
@@ -82,7 +85,10 @@ export function roleCell(
 }
 
 export function roleAccessor(
-  roles: Maybe<Maybe<ManageAccessPagePoolFragmentRoleType>[]>,
+  roles:
+    | (ManageAccessPagePoolFragmentRoleType | null | undefined)[]
+    | null
+    | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);

@@ -15,26 +15,19 @@ on:
       - api/**
   merge_group:
     branches: [main]
-# Concurrency is used to cancel other currently-running jobs, to preserve
-# compute resources and cumulative build hours. (ie. If you push twice in a
-# row, this will cancel the previous run.)
-# See: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+
 concurrency:
-  # This scopes the group to:
-  # - the same workflow,
-  # - the same event type, and
-  # - the same branch name
-  # e.g., my-workflow-pull_request-feature/123-my-thing
-  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}-${{ github.job }}
   cancel-in-progress: true
 
 jobs:
   playwright:
-    name: Playwright
+    name: Playwright (${{ matrix.project }} ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
+        project: ${{ fromJSON('["chromium"]') }}
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     env:
@@ -43,6 +36,9 @@ jobs:
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
       PNPM_VERSION: "10.27.0"
+      PLAYWRIGHT_WORKERS: "25%"
+      PLAYWRIGHT_RETRIES: "1"
+      E2E_COVERAGE: "true"
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
       GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN: ${{ vars.GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN }}
       GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN }}
@@ -55,7 +51,7 @@ jobs:
         run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # We no longer user docker layer caching as it made runs take longer.
       # See: https://github.com/satackey/action-docker-layer-caching/issues/305
@@ -67,7 +63,7 @@ jobs:
       - name: "Run: setup.sh"
         run: docker compose run --rm maintenance bash setup.sh -c
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
 
@@ -80,18 +76,39 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install Playwright system dependencies
+        run: npx playwright install-deps chromium webkit
+
       - name: Install Playwright Browsers
-        run: npx playwright install chromium webkit --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium webkit
 
       - name: Start queue for downloads
         run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work" &
 
       - name: Run Tests
-        run: pnpm run e2e:playwright --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
-      - uses: actions/upload-artifact@v6
+        run: pnpm run e2e:playwright --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+
+      - name: Upload E2E coverage to Codecov
+        if: ${{ !cancelled() && github.actor != 'dependabot[bot]' }}
+        uses: codecov/codecov-action@v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./apps/playwright/coverage
+          flags: e2etests
+          fail_ci_if_error: false
+
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
-          name: blob-report-${{ matrix.shardIndex }}
+          name: blob-report-${{ matrix.project }}-${{ matrix.shardIndex }}
           path: ./apps/playwright/blob-report
           retention-days: 1
 
@@ -103,10 +120,10 @@ jobs:
     env:
       PNPM_VERSION: "10.27.0"
     steps:
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with:
           node-version-file: ".nvmrc"
@@ -117,7 +134,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           path: all-blob-reports
           pattern: blob-report-*
@@ -127,7 +144,7 @@ jobs:
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
       - name: Upload HTML report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: html-report--attempt-${{ github.run_attempt }}
           path: playwright-report

@@ -1,17 +1,13 @@
 import { useNavigate } from "react-router";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
-import {
-  Input,
-  OptGroupOrOption,
-  Select,
-  Submit,
-  SwitchInput,
-} from "@gc-digital-talent/forms";
+import type { OptGroupOrOption } from "@gc-digital-talent/forms";
+import { Input, Select, Submit, SwitchInput } from "@gc-digital-talent/forms";
 import {
   errorMessages,
   commonMessages,
@@ -25,16 +21,13 @@ import {
   CardSeparator,
   Card,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   FragmentType,
-  InputMaybe,
   LocalizedStringInput,
-  Scalars,
   UpdateWorkStreamInput,
   WorkStreamQuery,
-  getFragment,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -82,8 +75,8 @@ export const WorkStreamUpdate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  name?: InputMaybe<LocalizedStringInput>;
-  plainLanguageName?: InputMaybe<LocalizedStringInput>;
+  name?: LocalizedStringInput | null;
+  plainLanguageName?: LocalizedStringInput | null;
   community: string;
   talentSearchable: boolean;
 }
@@ -305,7 +298,7 @@ export const UpdateWorkStreamForm = ({
 };
 
 interface RouteParams extends Record<string, string> {
-  workStreamId: Scalars["ID"]["output"];
+  workStreamId: string;
 }
 
 const WorkStream_Query = graphql(/* GraphQL */ `

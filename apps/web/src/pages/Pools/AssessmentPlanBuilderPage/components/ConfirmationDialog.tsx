@@ -4,10 +4,9 @@ import { useIntl } from "react-intl";
 
 import { AlertDialog, Button, IconButton, Notice } from "@gc-digital-talent/ui";
 import { formMessages } from "@gc-digital-talent/i18n";
-import { Maybe } from "@gc-digital-talent/graphql";
 
 interface ConfirmationDialogProps {
-  assessmentTitle?: Maybe<string>;
+  assessmentTitle?: string | null;
   onRemove: () => Promise<void>;
 }
 

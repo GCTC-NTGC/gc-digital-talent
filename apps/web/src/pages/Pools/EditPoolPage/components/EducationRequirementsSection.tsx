@@ -1,15 +1,12 @@
 import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
-import { ReactNode, JSX } from "react";
+import type { ReactNode, JSX } from "react";
 
 import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
-import { Locales, getLocale } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  PublishingGroup,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { getLocale } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
@@ -17,11 +14,11 @@ import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
-  ClassificationGroup,
   isClassificationGroup,
+  type ClassificationGroup,
 } from "~/types/classificationGroup";
 
-import { SectionProps } from "../types";
+import type { SectionProps } from "../types";
 
 const qualityStandardsLink = (chunks: ReactNode, locale: Locales) => {
   const href =
@@ -61,7 +58,7 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
     classification {
       id
       group
-      level
+      groupAndLevel
     }
   }
 `);
@@ -90,6 +87,7 @@ const EducationRequirementsSection = ({
     emptyRequired: isNull, // Not a required field
     fallbackIcon: TagIcon,
   });
+
   const logger = getLogger();
 
   let classificationGroup: ClassificationGroup;
@@ -100,11 +98,9 @@ const EducationRequirementsSection = ({
     logger.error(`Unexpected classification: ${pool.classification?.group}`);
     classificationGroup = "IT";
   }
+
   const classificationAbbr = pool.classification
-    ? wrapAbbr(
-        `${classificationGroup}-${pool.classification.level < 10 ? "0" : ""}${pool.classification.level}`,
-        intl,
-      )
+    ? wrapAbbr(pool.classification.groupAndLevel, intl)
     : "";
 
   return (
@@ -157,10 +153,7 @@ const EducationRequirementsSection = ({
           </Notice.Content>
         </Notice.Root>
       ) : (
-        <EducationRequirements
-          isIAP={pool.publishingGroup?.value === PublishingGroup.Iap}
-          classificationGroup={classificationGroup}
-        />
+        <EducationRequirements classificationGroup={classificationGroup} />
       )}
     </div>
   );

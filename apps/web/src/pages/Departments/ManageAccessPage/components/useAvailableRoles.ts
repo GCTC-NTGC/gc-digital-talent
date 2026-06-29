@@ -2,13 +2,15 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useOutletContext } from "react-router";
 
-import { Role, graphql } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, RoleName } from "@gc-digital-talent/auth";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { checkRoleDepartments } from "~/utils/departmentUtils";
 
-import { ContextType } from "./types";
+import type { ContextType } from "./types";
 
 const DepartmentMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
   query AvailableDepartmentRoles {
@@ -59,7 +61,7 @@ const useAvailableRoles = ({
       array.push(ROLE_NAME.DepartmentHRAdvisor);
     }
     return uniqueItems(array);
-  }, [roleAssignmentsFiltered]);
+  }, [departmentId, roleAssignmentsFiltered]);
 
   const roles: Role[] = useMemo(
     () =>

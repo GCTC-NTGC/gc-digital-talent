@@ -1,18 +1,19 @@
+import type {
+  CreateUserInput,
+  User,
+  UpdateUserAsUserInput,
+} from "@gc-digital-talent/graphql";
 import {
   Language,
   ProvinceOrTerritory,
   PositionDuration,
   CitizenshipStatus,
   ArmedForcesStatus,
-  CreateUserInput,
-  User,
-  UpdateUserAsUserInput,
-  Scalars,
   FlexibleWorkLocation,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getRoles } from "./roles";
 
 export const defaultUser: Partial<CreateUserInput> = {
@@ -56,16 +57,19 @@ export const createUser: GraphQLRequestFunc<
   Partial<CreateUserInput>
 > = async (ctx, user) => {
   return ctx
-    .post(Test_CreateUserMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        user: {
-          ...defaultUser,
-          ...user,
+    .post<GraphQLResponse<"createUser", User>>(
+      Test_CreateUserMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          user: {
+            ...defaultUser,
+            ...user,
+          },
         },
       },
-    })
-    .then((res: GraphQLResponse<"createUser", User>) => res.createUser);
+    )
+    .then((res) => res.createUser);
 };
 
 const Test_UpdateUserRolesMutationDocument = /* GraphQL */ `
@@ -86,7 +90,7 @@ export const Test_UpdateUserMutationDocument = /* GraphQL */ `
 
 interface UpdateUserAsUserArgs {
   user: Partial<UpdateUserAsUserInput>;
-  id: Scalars["ID"]["input"];
+  id: string;
 }
 
 export const updateUser: GraphQLRequestFunc<
@@ -94,15 +98,16 @@ export const updateUser: GraphQLRequestFunc<
   UpdateUserAsUserArgs
 > = async (ctx, { id, user }) => {
   return ctx
-    .post(Test_UpdateUserMutationDocument, {
-      variables: {
-        id,
-        user,
+    .post<GraphQLResponse<"updateUserAsUser", User>>(
+      Test_UpdateUserMutationDocument,
+      {
+        variables: {
+          id,
+          user,
+        },
       },
-    })
-    .then(
-      (res: GraphQLResponse<"updateUserAsUser", User>) => res.updateUserAsUser,
-    );
+    )
+    .then((res) => res.updateUserAsUser);
 };
 
 type RoleInput = string | [string, string];
@@ -249,8 +254,8 @@ export const Test_MeQueryDocument = /* GraphQL */ `
 
 export const me: GraphQLRequestFunc<User> = async (ctx) => {
   return ctx
-    .post(Test_MeQueryDocument)
-    .then((res: GraphQLResponse<"me", User>) => res.me);
+    .post<GraphQLResponse<"me", User>>(Test_MeQueryDocument)
+    .then((res) => res.me);
 };
 
 // eslint-disable-next-line camelcase
@@ -271,9 +276,9 @@ export const deleteUser: GraphQLRequestFunc<User, DeleteUserArgs> = async (
   { id },
 ) => {
   return await ctx
-    .post(Test_DeleteUser, {
+    .post<GraphQLResponse<"deleteUser", User>>(Test_DeleteUser, {
       isPrivileged: true,
       variables: { id },
     })
-    .then((res: GraphQLResponse<"deleteUser", User>) => res.deleteUser);
+    .then((res) => res.deleteUser);
 };

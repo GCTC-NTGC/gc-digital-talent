@@ -15,7 +15,7 @@ final class UpdateUserAsUserInputValidator extends Validator
     public function rules(): array
     {
         return [
-            'indigenousCommunities' => [new IsStatusOrNonStatus],
+            'indigenousCommunities' => [new IsStatusOrNonStatus()],
         ];
     }
 

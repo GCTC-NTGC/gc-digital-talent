@@ -1,38 +1,34 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
 
 import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import { ROLE_NAME as ROLE, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  getFragment,
-  graphql,
-  Scalars,
-  DepartmentMembersTeamQuery,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import type { DepartmentMember } from "~/utils/departmentUtils";
 import {
   checkRoleDepartments,
-  DepartmentMember,
   groupRoleAssignmentsByUserDepartments,
 } from "~/utils/departmentUtils";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddDepartmentMembershipDialog from "./components/AddDepartmentMembership";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import {
+import type {
   ContextType,
   DepartmentManageAccessPageFragment,
 } from "./components/types";
@@ -63,7 +59,7 @@ const DepartmentMembersTable = ({
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
   const hasPlatformAdmin = checkRoleDepartments(
-    [ROLE_NAME.PlatformAdmin],
+    [ROLE.PlatformAdmin],
     roleAssignments,
   );
 
@@ -86,11 +82,11 @@ const DepartmentMembersTable = ({
         },
       },
     ),
-    columnHelper.accessor("email", {
-      id: "email",
-      header: intl.formatMessage(commonMessages.email),
+    columnHelper.accessor("workEmail", {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ row: { original: member } }) =>
-        emailLinkCell(member.email, intl),
+        emailLinkCell(member.workEmail, intl),
     }),
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
@@ -136,7 +132,7 @@ const DepartmentMembersTable = ({
         pagination={{
           internal: true,
           total: data.length,
-          pageSizes: [10, 20, 50],
+          pageSizes: [10, 20, 50, 100, 500],
         }}
         search={{
           internal: true,
@@ -145,10 +141,7 @@ const DepartmentMembersTable = ({
         {...((canEditAdmin || canEditAdvisor) && {
           add: {
             component: (
-              <AddDepartmentMembershipDialog
-                department={department}
-                members={members}
-              />
+              <AddDepartmentMembershipDialog department={department} />
             ),
           },
           nullMessage: {
@@ -167,29 +160,25 @@ const DepartmentMembersTable = ({
 const DepartmentMembersTeam_Query = graphql(/* GraphQL */ `
   query DepartmentMembersTeam($departmentId: UUID!) {
     department(id: $departmentId) {
+      teamIdForRoleAssignment
       ...DepartmentManageAccessPage_Department
     }
   }
 `);
 
 interface RouteParams extends Record<string, string> {
-  departmentId: Scalars["ID"]["output"];
+  departmentId: string;
 }
 
-type DepartmentMembersQueryType = NonNullable<
-  DepartmentMembersTeamQuery["department"]
->;
-interface DepartmentManageAccessPageProps {
-  departmentQuery: DepartmentMembersQueryType;
-}
-
-const DepartmentManageAccessPage = ({
-  departmentQuery,
-}: DepartmentManageAccessPageProps) => {
+const DepartmentManageAccessPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { departmentId } = useRequiredParams<RouteParams>("departmentId");
+  const [{ data, fetching, error }] = useQuery({
+    query: DepartmentMembersTeam_Query,
+    variables: { departmentId },
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -216,41 +205,40 @@ const DepartmentManageAccessPage = ({
       <SEO title={formattedPageTitle} />
       <Hero title={departmentName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <DepartmentMembersTable departmentQuery={departmentQuery} />
+        <Pending fetching={fetching} error={error}>
+          {data?.department ? (
+            <DepartmentMembersTable departmentQuery={data.department} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </Container>
     </>
   );
 };
 
 // Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const DepartmentManageAccessPageApiWrapper = () => {
-  const { departmentId } = useRequiredParams<RouteParams>("departmentId");
-  const [{ data, fetching, error }] = useQuery({
-    query: DepartmentMembersTeam_Query,
-    variables: { departmentId },
-  });
+const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.department ? (
-        <DepartmentManageAccessPage departmentQuery={data.department} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE.PlatformAdmin },
+        { name: ROLE.DepartmentAdmin, teamId },
+        { name: ROLE.DepartmentHRAdvisor, teamId },
+      ]}
+      strict
+    >
+      <DepartmentManageAccessPage />
+    </RequireAuth>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.PlatformAdmin,
-      ROLE_NAME.DepartmentAdmin,
-      ROLE_NAME.DepartmentHRAdvisor,
-    ]}
-  >
-    <DepartmentManageAccessPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "ManageAccessDepartmentPage";
 

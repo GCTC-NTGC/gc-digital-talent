@@ -1,5 +1,6 @@
 import { useFormContext } from "react-hook-form";
-import { Fragment, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 import { tv } from "tailwind-variants";
 
 import Checkbox from "../Checkbox/Checkbox";
@@ -54,12 +55,10 @@ const Checklist = ({
     formState: { errors },
   } = useFormContext();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

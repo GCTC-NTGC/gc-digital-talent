@@ -1,5 +1,5 @@
-import { GraphQLError } from "graphql";
-import { CombinedError } from "urql";
+import type { GraphQLError } from "graphql";
+import type { CombinedError } from "urql";
 
 interface ErrorWithDebugMessage extends Error {
   debugMessage?: string;

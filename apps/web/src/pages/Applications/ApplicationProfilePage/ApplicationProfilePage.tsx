@@ -7,29 +7,25 @@ import {
   Separator,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import {
-  graphql,
-  PoolAreaOfSelection,
-  UserProfileFragment,
-} from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import useRoutes from "~/hooks/useRoutes";
-import { GetPageNavInfo } from "~/types/applicationStep";
-import { SectionProps } from "~/components/Profile/types";
+import type { GetPageNavInfo } from "~/types/applicationStep";
+import type { SectionProps } from "~/components/Profile/types";
 import ProfileFormProvider from "~/components/Profile/components/ProfileFormContext";
 import PersonalInformation from "~/components/Profile/components/PersonalInformation/PersonalInformation";
 import WorkPreferences from "~/components/Profile/components/WorkPreferences/WorkPreferences";
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
-import GovernmentInformation from "~/components/Profile/components/GovernmentInformation/GovernmentInformation";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
-import PriorityEntitlements from "~/components/Profile/components/PriorityEntitlements/PriorityEntitlements";
+import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
+import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
+import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
 import StepNavigation from "./components/StepNavigation";
-import { ApplicationPageProps } from "../ApplicationApi";
+import type { ApplicationPageProps } from "../ApplicationApi";
 import stepHasError from "../profileStep/profileStepValidation";
 import { useApplicationContext } from "../ApplicationContext";
 import useApplication from "../useApplication";
@@ -78,7 +74,6 @@ export const getPageInfo: GetPageNavInfo = ({
 export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const { applicationEmailVerification } = useFeatureFlags();
   const { currentStepOrdinal } = useApplicationContext();
   const pageInfo = getPageInfo({
     intl,
@@ -86,6 +81,9 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     application,
     stepOrdinal: currentStepOrdinal,
   });
+
+  const [languagePresetNoticeIsVisible, setLanguagePresetNoticeIsVisible] =
+    useLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, false);
 
   const [{ fetching: isUpdating }, executeUpdateMutation] = useMutation(
     Application_UpdateProfileMutation,
@@ -99,7 +97,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
   };
 
   const sectionProps = {
-    query: application.user as UserProfileFragment,
+    query: application.user,
     isUpdating,
     onUpdate: handleUpdate,
     pool: application.pool,
@@ -123,46 +121,43 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
           <div className="col-span-2">
             <PersonalInformation {...sectionProps} query={application.user} />
           </div>
-          {/* Refactor after feature flag is turned on #15052 */}
-          {applicationEmailVerification && (
-            <>
-              {!application.user.isEmailVerified && (
-                <Notice.Root color="error" className="col-span-2">
-                  <Notice.Content>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "A verified contact email is required",
-                        id: "O7ubAh",
-                        description:
-                          "Error message displayed during application when missing a verified email",
-                      })}
-                    </p>
-                  </Notice.Content>
-                </Notice.Root>
-              )}
-              {application.pool.areaOfSelection?.value ===
-                PoolAreaOfSelection.Employees && (
-                <>
-                  {(!application.user.isWorkEmailVerified ||
-                    !application.user.workEmail) && (
-                    <Notice.Root color="error" className="col-span-2">
-                      <Notice.Content>
-                        <p>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
-                            id: "KWgx7f",
-                            description:
-                              "Body for a message informing the user that a contact email is required.",
-                          })}
-                        </p>
-                      </Notice.Content>
-                    </Notice.Root>
-                  )}
-                </>
-              )}
-            </>
-          )}
+          <>
+            {!application.user.isEmailVerified && (
+              <Notice.Root color="error" className="col-span-2">
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "A verified contact email is required",
+                      id: "O7ubAh",
+                      description:
+                        "Error message displayed during application when missing a verified email",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            )}
+            {application.pool.areaOfSelection?.value ===
+              PoolAreaOfSelection.Employees && (
+              <>
+                {(!application.user.isWorkEmailVerified ||
+                  !application.user.workEmail) && (
+                  <Notice.Root color="error" className="col-span-2">
+                    <Notice.Content>
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                          id: "KWgx7f",
+                          description:
+                            "Body for a message informing the user that a contact email is required.",
+                        })}
+                      </p>
+                    </Notice.Content>
+                  </Notice.Root>
+                )}
+              </>
+            )}
+          </>
           <ContactEmailCard query={application.user} />
           <WorkEmailCard query={application.user} />
         </div>
@@ -170,10 +165,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         <div>
           <DiversityEquityInclusion {...sectionProps} />
         </div>
-        <PriorityEntitlements {...sectionProps} />
-        <GovernmentInformation
-          query={application.user as UserProfileFragment}
-        />
+        <CitizenVeteranPriority {...sectionProps} />
         <LanguageProfile
           {...sectionProps}
           application={{
@@ -181,13 +173,19 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
             pool: application.pool,
             user: application.user,
           }}
+          languagePresetNoticeIsVisible={languagePresetNoticeIsVisible}
+          setLanguagePresetNoticeIsVisible={setLanguagePresetNoticeIsVisible}
         />
       </div>
       <Separator />
       <StepNavigation
         application={application}
         user={application.user}
-        isValid={!stepHasError(application.user, application.pool)}
+        isValid={
+          !stepHasError(application.user, application.pool, null, {
+            languagePresetNoticeIsVisible,
+          })
+        }
       />
     </ProfileFormProvider>
   );

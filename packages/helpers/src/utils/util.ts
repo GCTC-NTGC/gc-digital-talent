@@ -1,7 +1,3 @@
-import pick from "lodash/pick";
-
-import { InputMaybe, Maybe } from "@gc-digital-talent/graphql";
-
 /**
  * Returns true if value is not null or undefined.
  * Can be used to filter nulls and undefined values out of an array in a
@@ -92,7 +88,7 @@ export function insertBetween<T>(separator: T, arr: T[]): T[] {
  * @param s String value from an input
  * @returns The possibly-transformed-to-null input string
  */
-export const emptyToNull = (s?: InputMaybe<string>): string | null =>
+export const emptyToNull = (s?: string | null): string | null =>
   empty(s) || s === "" ? null : s;
 
 /**
@@ -150,16 +146,17 @@ export function assertUnreachable(value: never): never {
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data?: Maybe<(Maybe<T> | undefined)[]>): T[] {
+export function unpackMaybes<T>(data?: (T | null | undefined)[] | null): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
 // Apply pick to each element of an array.
 export function pickMap<T, K extends keyof T>(
-  list: Maybe<Maybe<T>[]> | null | undefined,
+  list: (T | null | undefined)[] | null | undefined,
   keys: K | K[],
 ): Pick<T, K>[] | undefined {
+  const keyArr = Array.isArray(keys) ? keys : [keys];
   return unpackMaybes(list).map(
-    (item) => pick(item, keys) as Pick<T, K>, // I think this type coercion is safe? But I'm not sure why its not the default...
+    (item) => Object.fromEntries(keyArr.map((k) => [k, item[k]])) as Pick<T, K>,
   );
 }

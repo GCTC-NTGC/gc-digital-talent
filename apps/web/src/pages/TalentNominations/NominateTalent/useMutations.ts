@@ -2,17 +2,15 @@ import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 
-import {
-  graphql,
-  UpdateTalentNominationInput,
-} from "@gc-digital-talent/graphql";
+import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
 
-import { RouteParams, SubmitIntent } from "./types";
+import type { RouteParams, SubmitIntent } from "./types";
 import useCurrentStep from "./useCurrentStep";
 
 const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `

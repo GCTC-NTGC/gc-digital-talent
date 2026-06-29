@@ -1,17 +1,17 @@
 import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
-import { format, FormatOptions } from "date-fns/format";
+import type { FormatOptions } from "date-fns/format";
+import { format } from "date-fns/format";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
 import { fr } from "date-fns/locale/fr";
-import { Locale } from "date-fns/locale";
+import type { Locale } from "date-fns/locale";
 import { tz, TZDate } from "@date-fns/tz";
 
 import { getLocale, dateMessages } from "@gc-digital-talent/i18n";
-import { Scalars } from "@gc-digital-talent/graphql";
 
-import { FormatDateOptions } from "./types";
+import type { FormatDateOptions } from "./types";
 import {
   DATETIME_FORMAT_LOCALIZED,
   DATETIME_FORMAT_STRING,
@@ -144,11 +144,11 @@ export const formDateTimeStringToDate = (value: string, fallback?: Date) => {
 
 // Convert a DateTime from one zone to another
 export const convertDateTimeZone = (
-  sourceDateTime: Scalars["DateTime"]["input"],
+  sourceDateTime: string,
   sourceTimeZone: string,
   targetTimeZone: string,
   targetFormatString?: string,
-): Scalars["DateTime"]["output"] => {
+): string => {
   const dateObject = parseISO(sourceDateTime, {
     in: tz(sourceTimeZone),
   });
@@ -161,9 +161,7 @@ export const convertDateTimeZone = (
 };
 
 // Convert a DateTime scalar to a Date by stripping off the time
-export const convertDateTimeToDate = (
-  d: Scalars["DateTime"]["input"],
-): Scalars["Date"]["output"] => {
+export const convertDateTimeToDate = (d: string): string => {
   return d.substring(0, DATE_FORMAT_STRING.length);
 };
 
@@ -173,7 +171,7 @@ export const convertDateTimeToDate = (
  * Adds a timezone offset if we think it does not exist
  * to support parsing the date into users local timezone properly
  */
-export const parseDateTimeUtc = (d: Scalars["DateTime"]["input"]): Date => {
+export const parseDateTimeUtc = (d: string): Date => {
   let dateWithTimezone: string = d;
   // 1970-01-01 00:00:00 = 19 chars
   // 1970-01-01 = 10 chars

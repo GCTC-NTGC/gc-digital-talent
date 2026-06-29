@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import { Color, HeadingRank, IconType, IconProps } from "./types";
+import type { Color, HeadingRank, IconType, IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -8,16 +8,20 @@ import Alert, { type AlertProps } from "./components/Alert/Alert";
 import AlertDialog from "./components/AlertDialog";
 import Announcer, { useAnnouncer } from "./components/Announcer/Announcer";
 import Button, { type ButtonProps } from "./components/Button";
+import Caption from "./components/Caption";
 import Counter from "./components/Button/Counter";
 import Breadcrumbs, {
   type BreadcrumbsProps,
 } from "./components/Breadcrumbs/Breadcrumbs";
 import { Container } from "./components/Container/Container";
 import Crumb from "./components/Breadcrumbs/Crumb";
-import CTAButton, { CTAButtonProps } from "./components/CallToAction/CTAButton";
-import CTALink, { CTALinkProps } from "./components/CallToAction/CTALink";
+import type { CTAButtonProps } from "./components/CallToAction/CTAButton";
+import CTAButton from "./components/CallToAction/CTAButton";
+import type { CTALinkProps } from "./components/CallToAction/CTALink";
+import CTALink from "./components/CallToAction/CTALink";
 import Card, { type CardProps } from "./components/Card/Card";
-import CardFlat, { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
+import type { CardFlatProps } from "./components/Card/CardFlat/CardFlat";
+import CardFlat from "./components/Card/CardFlat/CardFlat";
 import CardRepeater, {
   useCardRepeaterContext,
 } from "./components/CardRepeater/CardRepeater";
@@ -29,11 +33,12 @@ import DescriptionList from "./components/DescriptionList/DescriptionList";
 import Dialog from "./components/Dialog/Dialog";
 import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish/Flourish";
-import Heading, {
+import type {
   HeadingProps,
   HeadingLevel,
   HeadingRef,
 } from "./components/Heading";
+import Heading from "./components/Heading";
 import IconButton, {
   type IconButtonProps,
 } from "./components/Button/IconButton";
@@ -53,7 +58,8 @@ import Link, {
 import Ol from "./components/List/Ol";
 import Ul from "./components/List/Ul";
 import Loading, { type LoadingProps } from "./components/Loading";
-import Metadata, { MetadataItemProps } from "./components/Metadata/Metadata";
+import type { MetadataItemProps } from "./components/Metadata/Metadata";
+import Metadata from "./components/Metadata/Metadata";
 import NavMenu from "./components/NavMenu/NavMenu";
 import NavMenuProvider from "./components/NavMenu/NavMenuProvider";
 import NavTabs from "./components/Tabs/NavTabs";
@@ -70,19 +76,26 @@ import ResourceBlock from "./components/ResourceBlock";
 import Separator, {
   type SeparatorProps,
 } from "./components/Separator/Separator";
-import Sidebar, { SidebarProps } from "./components/Sidebar";
-import Spoiler, { SpoilerProps } from "./components/Spoiler/Spoiler";
-import Stepper, { StepperProps } from "./components/Stepper/Stepper";
-import { StepType } from "./components/Stepper/types";
-import Switch, { SwitchProps } from "./components/Switch/Switch";
-import TableOfContents, {
-  type TocAnchorLinkProps,
+import type { StatusButtonProps } from "./components/Button/StatusButton";
+import StatusButton from "./components/Button/StatusButton";
+import type { SidebarProps } from "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
+import type { SpoilerProps } from "./components/Spoiler/Spoiler";
+import Spoiler from "./components/Spoiler/Spoiler";
+import type { StepperProps } from "./components/Stepper/Stepper";
+import Stepper from "./components/Stepper/Stepper";
+import type { StepType } from "./components/Stepper/types";
+import type { SwitchProps } from "./components/Switch/Switch";
+import Switch from "./components/Switch/Switch";
+import type {
   TocHeadingProps,
   TocSectionProps,
   TocListItemProps,
   TocListProps,
   TocSidebarProps,
+  TocAnchorLinkProps,
 } from "./components/TableOfContents";
+import TableOfContents from "./components/TableOfContents";
 import Tabs from "./components/Tabs/Tabs";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
@@ -129,6 +142,7 @@ export type {
   SeparatorProps,
   SidebarProps,
   SpoilerProps,
+  StatusButtonProps,
   StepperProps,
   StepType,
   SwitchProps,
@@ -149,6 +163,7 @@ export {
   Breadcrumbs,
   Crumb,
   Button,
+  Caption,
   Card,
   CardFlat,
   CardRepeater,
@@ -192,6 +207,7 @@ export {
   Separator,
   Sidebar,
   Spoiler,
+  StatusButton,
   Stepper,
   Switch,
   TableOfContents,

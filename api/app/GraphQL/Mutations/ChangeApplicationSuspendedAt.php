@@ -17,7 +17,7 @@ final class ChangeApplicationSuspendedAt
     {
         // grab the specific application, validate to ensure it has been submitted
         $application = PoolCandidate::find($args['id']);
-        $suspensionValidator = new ChangeApplicationSuspendedAtValidator;
+        $suspensionValidator = new ChangeApplicationSuspendedAtValidator();
         $validator = Validator::make($application->toArray(), $suspensionValidator->rules(), $suspensionValidator->messages());
         if ($validator->fails()) {
             throw new ValidationException($validator->errors()->first(), $validator);

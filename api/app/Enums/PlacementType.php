@@ -11,6 +11,7 @@ enum PlacementType
     case NOT_PLACED;
     case UNDER_CONSIDERATION;
     case PLACED_TENTATIVE;
+    case PLACED_ACTING;
     case PLACED_CASUAL;
     case PLACED_TERM;
     case PLACED_INDETERMINATE;
@@ -23,6 +24,7 @@ enum PlacementType
             PlacementType::PLACED_TENTATIVE->name,
             PlacementType::PLACED_CASUAL->name,
             PlacementType::PLACED_TERM->name,
+            PlacementType::PLACED_ACTING->name,
         ];
     }
 
@@ -40,7 +42,15 @@ enum PlacementType
             PlacementType::PLACED_TENTATIVE->name,
             PlacementType::PLACED_CASUAL->name,
             PlacementType::PLACED_TERM->name,
+            PlacementType::PLACED_ACTING->name,
         ];
+    }
+
+    public static function hasPlacedStartDate(string $typeName): bool
+    {
+        return $typeName !== self::NOT_PLACED->name &&
+            $typeName !== self::UNDER_CONSIDERATION->name &&
+            $typeName !== self::PLACED_TENTATIVE->name;
     }
 
     public static function getLangFilename(): string

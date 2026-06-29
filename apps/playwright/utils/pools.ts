@@ -1,23 +1,26 @@
-import {
+import type {
   AssessmentStep,
   AssessmentStepInput,
   CreatePoolSkillInput,
   LocalizedString,
   Pool,
+  PoolSkill,
+  UpdatePoolInput,
+} from "@gc-digital-talent/graphql";
+import {
+  AssessmentStepType,
   PoolAreaOfSelection,
   PoolLanguage,
   PoolOpportunityLength,
-  PoolSkill,
   PoolSkillType,
   PublishingGroup,
   SecurityStatus,
   SkillCategory,
   SkillLevel,
-  UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
-import { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
@@ -96,19 +99,22 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   }
 
   return ctx
-    .post(Test_CreatePoolMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        userId,
-        teamId,
-        communityId,
-        pool: {
-          classification: { connect: classificationId },
-          department: { connect: departmentId },
+    .post<GraphQLResponse<"createPool", Pool>>(
+      Test_CreatePoolMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          userId,
+          teamId,
+          communityId,
+          pool: {
+            classification: { connect: classificationId },
+            department: { connect: departmentId },
+          },
         },
       },
-    })
-    .then((res: GraphQLResponse<"createPool", Pool>) => res.createPool);
+    )
+    .then((res) => res.createPool);
 };
 
 const Test_UpdatePoolMutationDocument = /* GraphQL */ `
@@ -129,14 +135,17 @@ export const updatePool: GraphQLRequestFunc<Pool, UpdatePoolArgs> = async (
   { poolId, pool },
 ) => {
   return ctx
-    .post(Test_UpdatePoolMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        poolId,
-        pool,
+    .post<GraphQLResponse<"updatePool", Pool>>(
+      Test_UpdatePoolMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          poolId,
+          pool,
+        },
       },
-    })
-    .then((res: GraphQLResponse<"updatePool", Pool>) => {
+    )
+    .then((res) => {
       return res.updatePool;
     });
 };
@@ -168,13 +177,16 @@ export const createPoolSkill: GraphQLRequestFunc<
   }
 
   return ctx
-    .post(Test_CreatePoolSkillMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        poolSkill,
+    .post<GraphQLResponse<"createPoolSkill", PoolSkill>>(
+      Test_CreatePoolSkillMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          poolSkill,
+        },
       },
-    })
-    .then((res: GraphQLResponse<"createPoolSkill", PoolSkill>) => {
+    )
+    .then((res) => {
       return res.createPoolSkill;
     });
 };
@@ -193,11 +205,100 @@ export const publishPool: GraphQLRequestFunc<Pool, string> = async (
   id,
 ) => {
   return ctx
-    .post(Test_PublishPoolMutationDocument, {
-      isPrivileged: true,
-      variables: { id },
-    })
-    .then((res: GraphQLResponse<"publishPool", Pool>) => res.publishPool);
+    .post<GraphQLResponse<"publishPool", Pool>>(
+      Test_PublishPoolMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then((res) => res.publishPool);
+};
+
+const Test_AddAssessmentStepMutationDocument = /* GraphQL */ `
+  mutation Test_AddAssessmentStep(
+    $poolId: UUID!
+    $assessmentStep: AssessmentStepInput!
+  ) {
+    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+      id
+    }
+  }
+`;
+interface AddAssessmentPlanToPoolArgs {
+  poolId: string;
+  assessmentStep: AssessmentStepInput;
+}
+
+export const createAssessmentStep: GraphQLRequestFunc<
+  AssessmentStep,
+  AddAssessmentPlanToPoolArgs
+> = async (ctx, { poolId, assessmentStep }) => {
+  return ctx
+    .post<GraphQLResponse<"createAssessmentStep", AssessmentStep>>(
+      Test_AddAssessmentStepMutationDocument,
+      {
+        isPrivileged: true,
+        variables: {
+          poolId,
+          assessmentStep,
+        },
+      },
+    )
+    .then((res) => {
+      return res.createAssessmentStep;
+    });
+};
+
+const Test_PoolSkillsQueryDocument = /* GraphQL */ `
+  query PoolSkills($poolId: UUID!) {
+    pool(id: $poolId) {
+      id
+      poolSkills {
+        id
+        skill {
+          id
+          name {
+            en
+            fr
+          }
+          category {
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface GetPoolSkillsArgs {
+  poolId: string;
+  categories?: SkillCategory[];
+}
+
+/**
+ * Get Pool Skills
+ *
+ * Get all pool skills for a specific pool.
+ */
+export const getPoolSkills: GraphQLRequestFunc<
+  PoolSkill[],
+  GetPoolSkillsArgs
+> = async (ctx, { poolId, categories }) => {
+  const poolSkills = await ctx
+    .post<GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>>(
+      Test_PoolSkillsQueryDocument,
+      {
+        isPrivileged: true,
+        variables: { poolId },
+      },
+    )
+    .then((res) => res.pool.poolSkills);
+  return poolSkills.filter(
+    (ps) =>
+      ps.skill?.category?.value !== undefined &&
+      (!categories || categories.includes(ps.skill.category.value)),
+  );
 };
 
 interface CreateAndPublishPoolArgs {
@@ -291,7 +392,22 @@ export const createAndPublishPool: GraphQLRequestFunc<
         });
       }
     }
-
+    const poolSkillsID = await getPoolSkills(ctx, { poolId: pool.id }).then(
+      (poolSkills) => poolSkills.map((ps) => ps.id),
+    );
+    await createAssessmentStep(ctx, {
+      poolId: pool.id,
+      assessmentStep: {
+        type: AssessmentStepType.InterviewIndividual,
+        title: {
+          en: "Test Individual Interview [EN]",
+          fr: "Test Individual Interview [FR]",
+        },
+        poolSkills: {
+          sync: poolSkillsID,
+        },
+      },
+    });
     return await publishPool(ctx, pool.id);
   });
 };
@@ -313,11 +429,14 @@ export const deletePool: GraphQLRequestFunc<Pool, DeletePoolArgs> = async (
   { id },
 ) => {
   return await ctx
-    .post(Test_DeletePoolMutationDocument, {
-      isPrivileged: true,
-      variables: { id },
-    })
-    .then((res: GraphQLResponse<"deletePool", Pool>) => res.deletePool);
+    .post<GraphQLResponse<"deletePool", Pool>>(
+      Test_DeletePoolMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then((res) => res.deletePool);
 };
 
 export const createAndPublishInternalPool: GraphQLRequestFunc<
@@ -333,79 +452,30 @@ export const createAndPublishInternalPool: GraphQLRequestFunc<
   });
 };
 
-const Test_AddAssessmentStepMutationDocument = /* GraphQL */ `
-  mutation Test_AddAssessmentStep(
-    $poolId: UUID!
-    $assessmentStep: AssessmentStepInput!
-  ) {
-    createAssessmentStep(poolId: $poolId, assessmentStep: $assessmentStep) {
+const Test_ChangePoolClosingDateMutationDocument = /* GraphQL */ `
+  mutation Test_ChangePoolClosingDate($id: ID!, $closingDate: DateTime!) {
+    changePoolClosingDate(id: $id, closingDate: $closingDate) {
       id
     }
   }
 `;
-interface AddAssessmentPlanToPoolArgs {
-  poolId: string;
-  assessmentStep: AssessmentStepInput;
+
+interface ChangePoolClosingDateArgs {
+  id: string;
+  closingDate: string;
 }
 
-export const createAssessmentStep: GraphQLRequestFunc<
-  AssessmentStep,
-  AddAssessmentPlanToPoolArgs
-> = async (ctx, { poolId, assessmentStep }) => {
-  return ctx
-    .post(Test_AddAssessmentStepMutationDocument, {
-      isPrivileged: true,
-      variables: {
-        poolId,
-        assessmentStep,
+export const changePoolClosingDate: GraphQLRequestFunc<
+  Pool,
+  ChangePoolClosingDateArgs
+> = async (ctx, { id, closingDate }) => {
+  return await ctx
+    .post<GraphQLResponse<"changePoolClosingDate", Pool>>(
+      Test_ChangePoolClosingDateMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id, closingDate },
       },
-    })
-    .then((res: GraphQLResponse<"createAssessmentStep", AssessmentStep>) => {
-      return res.createAssessmentStep;
-    });
-};
-
-const Test_PoolSkillsQueryDocument = /* GraphQL */ `
-  query PoolSkills($poolId: UUID!) {
-    pool(id: $poolId) {
-      id
-      poolSkills {
-        id
-        skill {
-          id
-          name {
-            en
-            fr
-          }
-          category {
-            value
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface GetPoolSkillsArgs {
-  poolId: string;
-}
-
-/**
- * Get Pool Skills
- *
- * Get all pool skills for a specific pool.
- */
-export const getPoolSkills: GraphQLRequestFunc<
-  PoolSkill[],
-  GetPoolSkillsArgs
-> = async (ctx, { poolId }) => {
-  return ctx
-    .post(Test_PoolSkillsQueryDocument, {
-      isPrivileged: true,
-      variables: { poolId },
-    })
-    .then(
-      (res: GraphQLResponse<"pool", { id: string; poolSkills: PoolSkill[] }>) =>
-        res.pool.poolSkills,
-    );
+    )
+    .then((res) => res.changePoolClosingDate);
 };

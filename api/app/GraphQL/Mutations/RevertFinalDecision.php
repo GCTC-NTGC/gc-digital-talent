@@ -11,7 +11,7 @@ final class RevertFinalDecision
      */
     public function __invoke($_, array $args)
     {
-        $candidate = PoolCandidate::findOrFail($args['id']);
+        $candidate = PoolCandidate::find($args['id']);
 
         $candidate->revertFinalDecision();
 

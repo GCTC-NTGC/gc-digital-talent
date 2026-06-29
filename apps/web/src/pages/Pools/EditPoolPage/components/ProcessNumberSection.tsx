@@ -2,14 +2,8 @@ import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Maybe,
-  PoolStatus,
-  UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, UpdatePoolInput } from "@gc-digital-talent/graphql";
+import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import { Input, Submit } from "@gc-digital-talent/forms";
@@ -20,7 +14,7 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useCanUserEditPool from "~/hooks/useCanUserEditPool";
 
 import { useEditPoolContext } from "./EditPoolContext";
-import { PublishedEditableSectionProps, SectionProps } from "../types";
+import type { PublishedEditableSectionProps, SectionProps } from "../types";
 import UpdatePublishedProcessDialog, {
   type FormValues as UpdateFormValues,
 } from "./UpdatePublishedProcessDialog/UpdatePublishedProcessDialog";
@@ -33,7 +27,7 @@ interface FormValues {
 }
 
 const dataToFormValues = (initialData: {
-  processNumber?: Maybe<string>;
+  processNumber?: string | null;
 }): FormValues => ({
   processNumber: initialData.processNumber ?? "",
 });

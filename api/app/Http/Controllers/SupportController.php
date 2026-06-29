@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\ApiKeyNotFoundException;
 use App\Exceptions\ExternalServiceException;
+use App\Http\Requests\StoreSupportTicketRequest;
 use App\Support\Freshdesk;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -13,7 +13,7 @@ use function Safe\parse_url;
 
 class SupportController extends Controller
 {
-    public function createTicket(Request $request)
+    public function createTicket(StoreSupportTicketRequest $request)
     {
         // what language does the user want to use?
         $requestedLanguage = $request->header('Accept-Language');

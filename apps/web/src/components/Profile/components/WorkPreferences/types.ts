@@ -1,15 +1,4 @@
-import { UpdateUserAsUserInput, User } from "@gc-digital-talent/graphql";
-
-export type PartialUser = Pick<
-  User,
-  | "currentCity"
-  | "currentProvince"
-  | "acceptedOperationalRequirements"
-  | "positionDuration"
-  | "locationPreferences"
-  | "flexibleWorkLocations"
-  | "locationExemptions"
->;
+import type { UpdateUserAsUserInput } from "@gc-digital-talent/graphql";
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,

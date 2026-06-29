@@ -1,8 +1,12 @@
 import { useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 
-import { getIconFromState, messageMap, StepVariants, step } from "./utils";
+import type { StepVariants } from "./utils";
+import { messageMap, step } from "./utils";
 import Link from "../Link";
+import type { IconType } from "../../types";
 
 interface StepLinkProps {
   children: ReactNode;
@@ -43,6 +47,8 @@ const StepLink = ({
   );
 };
 
+type StepState = NonNullable<StepVariants["state"]>;
+
 interface StepProps
   extends
     Omit<StepLinkProps, "children" | "state">,
@@ -50,6 +56,17 @@ interface StepProps
   last?: boolean;
   label: ReactNode;
 }
+
+const ICON_MAP: Record<StepState, IconType | null> = {
+  completed: CheckIcon,
+  error: XMarkIcon,
+
+  // No icon states
+  active: null,
+  disabled: null,
+  "active-error": null,
+  default: null,
+};
 
 const Step = ({
   label,
@@ -59,7 +76,7 @@ const Step = ({
   state,
 }: StepProps) => {
   const intl = useIntl();
-  const Icon = getIconFromState(state);
+  const Icon = ICON_MAP[state];
   const message = messageMap.get(state);
   const { link, icon, tail, text } = step({ state });
   const ariaLabel = message ? intl.formatMessage(message, { label }) : label;

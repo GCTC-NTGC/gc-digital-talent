@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
 import { composeStories } from "@storybook/react-vite";
 
 import {
@@ -6,7 +6,8 @@ import {
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
 
-import PreviewList, { RootProps } from "./PreviewList";
+import type { RootProps } from "./PreviewList";
+import PreviewList from "./PreviewList";
 import * as stories from "./PreviewList.stories";
 
 const { Default } = composeStories(stories);

@@ -1,7 +1,8 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import { makeFragmentData, Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
+import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -29,6 +30,7 @@ const closedPool = {
 };
 const nullPool = {
   id: "uuid",
+  wasClosedEarly: false,
 };
 nullPool.id = fakePool.id; // pool will never have a null id
 
@@ -36,7 +38,7 @@ const closedEarlyPool = {
   ...fakePool,
   status: { value: PoolStatus.Closed, label: {} },
   publishedAt: FAR_PAST_DATE,
-  closingReason: "reason",
+  wasClosedEarly: true,
   closingDate: FAR_PAST_DATE,
 };
 

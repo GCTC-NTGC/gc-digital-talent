@@ -1,7 +1,5 @@
-import { Scalars } from "@gc-digital-talent/graphql";
-
 export interface RouteParams extends Record<string, string> {
-  id: Scalars["ID"]["output"];
+  id: string;
 }
 
 export type SubmitIntent = "save-draft" | "next-step";

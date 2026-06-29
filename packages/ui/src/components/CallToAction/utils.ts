@@ -1,6 +1,7 @@
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
-import { IconType } from "../../types";
+import type { IconType } from "../../types";
 
 export const cta = tv({
   slots: {

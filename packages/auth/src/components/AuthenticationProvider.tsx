@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { useLocale } from "@gc-digital-talent/i18n";
 

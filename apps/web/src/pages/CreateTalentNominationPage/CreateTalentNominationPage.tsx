@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/refs */
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
@@ -10,18 +11,15 @@ import {
   errorMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import {
-  CreateTalentNominationInput,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { CreateTalentNominationInput } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 interface RouteParams extends Record<string, string> {
-  id: Scalars["ID"]["output"];
+  id: string;
 }
 
 const CreateTalentNomination_Mutation = graphql(/* GraphQL */ `

@@ -1,9 +1,10 @@
-import { ReactNode, createContext, useEffect, useMemo } from "react";
+import type { ReactNode } from "react";
+import { createContext, useEffect, useMemo } from "react";
 
-import { Locales } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
 
 import { ACCESS_TOKEN } from "../const";
-import { AuthenticationState } from "../types";
+import type { AuthenticationState } from "../types";
 import getAuthenticationState from "../utils/authenticationState";
 import { getLogoutVars } from "../utils/logout";
 

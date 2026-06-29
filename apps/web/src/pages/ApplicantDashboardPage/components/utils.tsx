@@ -1,15 +1,14 @@
-import { IntlShape, MessageDescriptor } from "react-intl";
-import uniq from "lodash/uniq";
-import { ReactNode } from "react";
+import type { IntlShape, MessageDescriptor } from "react-intl";
+import type { ReactNode } from "react";
 
 import {
   CandidateInterest,
   CandidateStatus,
-  Maybe,
   PoolCandidateSearchStatus,
 } from "@gc-digital-talent/graphql";
 import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
-import { ChipProps, Link } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import {
@@ -72,7 +71,7 @@ export function deriveSingleString<T>(
   const localizedStrings = values.map(localizedMapper);
   localizedStrings.sort((a, b) => compareStrings(a, b, "asc"));
 
-  const uniqueStrings = uniq(localizedStrings);
+  const uniqueStrings = [...new Set(localizedStrings)];
   const joinedStrings = uniqueStrings.join(", ");
 
   return joinedStrings;
@@ -98,7 +97,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
   [CandidateStatus.Removed, applicationStatusDescriptions.REMOVED],
 ]);
 
-export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
+const contactEmailTag = (chunks: ReactNode, email?: string | null) => {
   return email ? (
     <Link external href={`mailto:${email}`}>
       {email}
@@ -109,9 +108,9 @@ export const contactEmailTag = (chunks: ReactNode, email?: Maybe<string>) => {
 };
 
 interface CandidateStatusDescArgs {
-  status?: Maybe<CandidateStatus>;
+  status?: CandidateStatus | null;
   employeesOnly?: boolean;
-  contactEmail?: Maybe<string>;
+  contactEmail?: string | null;
   intl: IntlShape;
 }
 
@@ -154,7 +153,7 @@ const candidateInterestDescMap = new Map<CandidateInterest, MessageDescriptor>([
 ]);
 
 interface CandidateInterestDescArgs {
-  interest?: Maybe<CandidateInterest>;
+  interest?: CandidateInterest | null;
   intl: IntlShape;
 }
 

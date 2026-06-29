@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 
 import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
-import { FragmentType, getFragment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Heading, Link } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -29,10 +30,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   } = getFragment(InitialData_Fragment, initialDataQuery);
 
   // I don't want the name appended so not using the helper
-  const classificationString =
-    classification?.group && classification?.level
-      ? `${classification.group}-${classification.level.toString().padStart(2, "0")}`
-      : null;
+  const classificationString = classification?.groupAndLevel ?? null;
 
   const titleEn = `${classificationString} ${name?.en}`.trim();
   const subtitleEn = `${supervisoryStatus?.label.en} in the ${workStream?.community?.name?.en}, ${workStream?.name?.en}`;

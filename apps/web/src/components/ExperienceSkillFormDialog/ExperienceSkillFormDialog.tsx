@@ -1,17 +1,16 @@
 import { useIntl } from "react-intl";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
+import type {
   Skill,
   Experience,
-  Scalars,
-  graphql,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
 
@@ -24,8 +23,8 @@ const ExperienceSkillFormDialogExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface FormValues {
-  experience?: Scalars["ID"]["output"];
-  skill?: Scalars["ID"]["output"];
+  experience?: string;
+  skill?: string;
   details?: string;
 }
 

@@ -5,12 +5,13 @@ namespace App\Models;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Traits\LogsCustomActivity;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class PoolSkill
@@ -77,7 +78,7 @@ class PoolSkill extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<Skill, $this> */
@@ -103,5 +104,10 @@ class PoolSkill extends Model
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
+    }
+
+    public static function scopeWithPolicyEagerLoads(Builder $query): Builder
+    {
+        return $query->with(['pool.team', 'pool.community.team', 'pool.department.team']);
     }
 }

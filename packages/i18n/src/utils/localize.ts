@@ -1,9 +1,10 @@
-import { createPath, parsePath, Path } from "history";
+import type { Path } from "history";
+import { createPath, parsePath } from "history";
 import type { IntlShape } from "react-intl";
 
-import type { LocalizedString, Maybe } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-import { Locales } from "../types";
+import type { Locales } from "../types";
 import { commonMessages } from "../messages";
 
 export function isLocale(locale?: string): locale is Locales {
@@ -59,7 +60,7 @@ export function localeRedirect(locale: Locales) {
 }
 
 export const getLocalizedName = (
-  name: Maybe<LocalizedString> | undefined,
+  name: LocalizedString | null | undefined,
   intl: IntlShape,
   emptyNotFound = false,
 ): string => {
@@ -91,8 +92,8 @@ export const localizeCurrency = (
 };
 
 export const localizeSalaryRange = (
-  min: Maybe<number> | undefined,
-  max: Maybe<number> | undefined,
+  min: number | null | undefined,
+  max: number | null | undefined,
   locale: string,
   currency = "USD",
 ) => {

@@ -1,12 +1,11 @@
 import { useIntl } from "react-intl";
 
-import {
-  FinanceChiefDuty,
+import type {
+  CommunityInterestAdditionalDuty,
   FinanceChiefRole,
   FragmentType,
-  getFragment,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -17,6 +16,15 @@ import DevelopmentProgramInterestItem from "./DevelopmentProgramInterestItem";
 export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterest on CommunityInterest {
     id
+    user {
+      developmentProgramUserRecords {
+        id
+        developmentProgram {
+          id
+        }
+        ...CommunityInterestDevelopmentProgramUser
+      }
+    }
     community {
       id
       key
@@ -26,7 +34,7 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
-      developmentPrograms {
+      associatedDevelopmentPrograms {
         id
         name {
           localized
@@ -39,29 +47,26 @@ export const CommunityInterest_Fragment = graphql(/* GraphQL */ `
     workStreams {
       id
     }
-    interestInDevelopmentPrograms {
-      developmentProgram {
-        id
-      }
-      ...CommunityInterestDevelopmentProgramInterest
-    }
     jobInterest
     trainingInterest
     additionalInformation
     financeIsChief
-    financeAdditionalDuties {
+    communityInterestAdditionalDuties {
       value
     }
     financeOtherRoles {
       value
     }
     financeOtherRolesOther
+    procurementIsSDO
   }
 `);
 
 export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
   fragment CommunityInterestOptions on Query {
-    financeChiefDuties: localizedEnumStrings(enumName: "FinanceChiefDuty") {
+    communityInterestAdditionalDuties: localizedEnumStrings(
+      enumName: "CommunityInterestAdditionalDuty"
+    ) {
       value
       label {
         localized
@@ -75,6 +80,7 @@ export const CommunityInterestOptions_Fragment = graphql(/* GraphQL */ `
     }
   }
 `);
+
 interface CommunityInterestProps {
   communityInterestQuery: FragmentType<typeof CommunityInterest_Fragment>;
   communityInterestOptionsQuery: FragmentType<
@@ -102,11 +108,15 @@ const CommunityInterest = ({
     communityInterest.community.workStreams,
   );
   const communityDevelopmentPrograms = unpackMaybes(
-    communityInterest?.community.developmentPrograms,
+    communityInterest?.community.associatedDevelopmentPrograms,
   );
   const interestedWorkStreams = unpackMaybes(
     communityInterest?.workStreams,
   ).flatMap((workStream) => workStream.id);
+
+  const usersDevelopmentProgramRecords = unpackMaybes(
+    communityInterest.user?.developmentProgramUserRecords,
+  );
 
   const asterisk =
     context === "applicant"
@@ -246,17 +256,17 @@ const CommunityInterest = ({
                 ),
               )
               .map((developmentProgram) => {
-                const interestedProgram =
-                  communityInterest?.interestInDevelopmentPrograms?.find(
-                    (interest) =>
-                      interest?.developmentProgram?.id ===
-                      developmentProgram.id,
-                  );
+                const interestedProgram = usersDevelopmentProgramRecords.find(
+                  (record) =>
+                    record?.developmentProgram.id === developmentProgram.id,
+                );
 
                 return (
                   <DevelopmentProgramInterestItem
                     key={developmentProgram.id}
-                    developmentProgramInterestQuery={interestedProgram}
+                    developmentProgramInterestQuery={
+                      interestedProgram ?? undefined
+                    }
                     label={developmentProgram?.name?.localized ?? notAvailable}
                   />
                 );
@@ -264,104 +274,169 @@ const CommunityInterest = ({
           </Ul>
         </>
       )}
-      {!!communityInterest?.additionalInformation ||
-      communityInterest.community.key === "finance" ? (
+      {communityInterest.community.key === "finance" ||
+      communityInterest.community.key === "procurement" ||
+      communityInterest?.additionalInformation ? (
+        <Separator orientation="horizontal" decorative space="sm" />
+      ) : null}
+      <>
+        {/* Some fields only appear for the finance community */}
+        {communityInterest.community.key === "finance" ? (
+          <>
+            <p className="mb-1.5 font-bold">
+              {intl.formatMessage({
+                defaultMessage: "CFO status",
+                id: "2KQdGz",
+                description:
+                  "Bounding box label for the finance chief checkbox",
+              })}
+            </p>
+            <BoolCheckIcon
+              value={communityInterest.financeIsChief}
+              className="mb-6"
+            >
+              {communityInterest.financeIsChief
+                ? intl.formatMessage({
+                    defaultMessage: "I'm a Chief Financial Officer (CFO).",
+                    id: "duKO+o",
+                    description: "Message when user is a finance chief",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "I'm not a Chief Financial Officer (CFO).",
+                    id: "+/6UIs",
+                    description: "Message when user is not a finance chief",
+                  })}
+            </BoolCheckIcon>
+            {communityInterest.financeIsChief ? (
+              <>
+                <p className="mb-1.5 font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Additional duties",
+                    id: "E32ToC",
+                    description:
+                      "Label for additional duties of a finance chief",
+                  })}
+                </p>
+                <Ul unStyled space="md" className="mb-6">
+                  {communityInterestOptions.communityInterestAdditionalDuties?.map(
+                    (dutyOption) => (
+                      <li key={dutyOption.value}>
+                        <BoolCheckIcon
+                          value={communityInterest.communityInterestAdditionalDuties
+                            ?.map((selectedDuty) => selectedDuty.value)
+                            .includes(
+                              dutyOption.value as CommunityInterestAdditionalDuty,
+                            )}
+                        >
+                          {dutyOption.label.localized}
+                        </BoolCheckIcon>
+                      </li>
+                    ),
+                  )}
+                </Ul>
+                <p className="mb-1.5 font-bold">
+                  {intl.formatMessage({
+                    defaultMessage: "Other roles",
+                    id: "z20NMR",
+                    description: "Label for other roles of a finance chief",
+                  })}
+                </p>
+                <Ul unStyled space="md" className="mb-6">
+                  {communityInterestOptions.financeChiefRoles?.map(
+                    (roleOption) => (
+                      <li key={roleOption.value}>
+                        <BoolCheckIcon
+                          value={communityInterest.financeOtherRoles
+                            ?.map((selectedRole) => selectedRole.value)
+                            .includes(roleOption.value as FinanceChiefRole)}
+                        >
+                          {roleOption.label.localized}
+                        </BoolCheckIcon>
+                      </li>
+                    ),
+                  )}
+                </Ul>
+                {communityInterest.financeOtherRolesOther ? (
+                  <>
+                    <p className="mb-1.5 font-bold">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Other senior designated official (SDO) position",
+                        id: "q8ztSV",
+                        description: "Label for the 'Other role' input",
+                      })}
+                    </p>
+                    <p className="mb-6">
+                      {communityInterest.financeOtherRolesOther}
+                    </p>
+                  </>
+                ) : null}
+              </>
+            ) : null}
+          </>
+        ) : null}
+      </>
+      {/* Some fields only appear for the Procurement community */}
+      {communityInterest.community.key === "procurement" ? (
         <>
-          <Separator orientation="horizontal" decorative space="sm" />
-          {/* Some fields only appear for the finance community */}
-          {communityInterest.community.key === "finance" ? (
+          <p className="mb-1.5 font-bold">
+            {intl.formatMessage({
+              defaultMessage: "Senior Designated Official (SDO) role",
+              id: "U1GjYG",
+              description: "Bounding box label for the SDO checkbox",
+            })}
+          </p>
+          <BoolCheckIcon
+            value={communityInterest.procurementIsSDO}
+            className="mb-6"
+          >
+            {communityInterest.procurementIsSDO
+              ? intl.formatMessage({
+                  defaultMessage: "I'm a Senior Designated Official (SDO).",
+                  id: "oAC+SM",
+                  description:
+                    "Message when user is a Senior Designated Official",
+                })
+              : intl.formatMessage({
+                  defaultMessage: "I'm not a Senior Designated Official (SDO).",
+                  id: "WWJRlj",
+                  description:
+                    "Message when user is not a Senior Designated Official",
+                })}
+          </BoolCheckIcon>
+          {communityInterest.procurementIsSDO ? (
             <>
               <p className="mb-1.5 font-bold">
                 {intl.formatMessage({
-                  defaultMessage: "CFO status",
-                  id: "2KQdGz",
-                  description:
-                    "Bounding box label for the finance chief checkbox",
+                  defaultMessage: "Additional duties",
+                  id: "E32ToC",
+                  description: "Label for additional duties of a finance chief",
                 })}
               </p>
-              <BoolCheckIcon
-                value={communityInterest.financeIsChief}
-                className="mb-6"
-              >
-                {communityInterest.financeIsChief
-                  ? intl.formatMessage({
-                      defaultMessage: "I'm a Chief Financial Officer (CFO).",
-                      id: "duKO+o",
-                      description: "Message when user is a finance chief",
-                    })
-                  : intl.formatMessage({
-                      defaultMessage:
-                        "I'm not a Chief Financial Officer (CFO).",
-                      id: "+/6UIs",
-                      description: "Message when user is not a finance chief",
-                    })}
-              </BoolCheckIcon>
-              {communityInterest.financeIsChief ? (
-                <>
-                  <p className="mb-1.5 font-bold">
-                    {intl.formatMessage({
-                      defaultMessage: "Additional duties",
-                      id: "E32ToC",
-                      description:
-                        "Label for additional duties of a finance chief",
-                    })}
-                  </p>
-                  <Ul unStyled space="md" className="mb-6">
-                    {communityInterestOptions.financeChiefDuties?.map(
-                      (dutyOption) => (
-                        <li key={dutyOption.value}>
-                          <BoolCheckIcon
-                            value={communityInterest.financeAdditionalDuties
-                              ?.map((selectedDuty) => selectedDuty.value)
-                              .includes(dutyOption.value as FinanceChiefDuty)}
-                          >
-                            {dutyOption.label.localized}
-                          </BoolCheckIcon>
-                        </li>
-                      ),
-                    )}
-                  </Ul>
-                  <p className="mb-1.5 font-bold">
-                    {intl.formatMessage({
-                      defaultMessage: "Other roles",
-                      id: "z20NMR",
-                      description: "Label for other roles of a finance chief",
-                    })}
-                  </p>
-                  <Ul unStyled space="md" className="mb-6">
-                    {communityInterestOptions.financeChiefRoles?.map(
-                      (roleOption) => (
-                        <li key={roleOption.value}>
-                          <BoolCheckIcon
-                            value={communityInterest.financeOtherRoles
-                              ?.map((selectedRole) => selectedRole.value)
-                              .includes(roleOption.value as FinanceChiefRole)}
-                          >
-                            {roleOption.label.localized}
-                          </BoolCheckIcon>
-                        </li>
-                      ),
-                    )}
-                  </Ul>
-                  {communityInterest.financeOtherRolesOther ? (
-                    <>
-                      <p className="mb-1.5 font-bold">
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Other senior delegated official (SDO) position",
-                          id: "qQYO+V",
-                          description: "Label for the 'Other role' input",
-                        })}
-                      </p>
-                      <p className="mb-6">
-                        {communityInterest.financeOtherRolesOther}
-                      </p>
-                    </>
-                  ) : null}
-                </>
-              ) : null}
+              <Ul unStyled space="md" className="mb-6">
+                {communityInterestOptions.communityInterestAdditionalDuties?.map(
+                  (dutyOption) => (
+                    <li key={dutyOption.value}>
+                      <BoolCheckIcon
+                        value={communityInterest.communityInterestAdditionalDuties
+                          ?.map((selectedDuty) => selectedDuty.value)
+                          .includes(
+                            dutyOption.value as CommunityInterestAdditionalDuty,
+                          )}
+                      >
+                        {dutyOption.label.localized}
+                      </BoolCheckIcon>
+                    </li>
+                  ),
+                )}
+              </Ul>
             </>
           ) : null}
+        </>
+      ) : null}
+
+      {communityInterest?.additionalInformation ? (
+        <>
           <p className="mb-1.5 font-bold">
             {intl.formatMessage({
               defaultMessage: "Additional information",

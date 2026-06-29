@@ -1,8 +1,9 @@
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { Pool, SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
+import { SkillCategory, PoolSkillType } from "@gc-digital-talent/graphql";
 
+import type { AddedSkill } from "~/utils/skillUtils";
 import {
-  AddedSkill,
   filterPoolSkillsByType,
   filterSkillsByCategory,
   getMissingSkills,
@@ -14,7 +15,7 @@ interface ApplicantExperience {
 
 export function isIncomplete(
   applicantExperiences: ApplicantExperience[] | null | undefined,
-  pool: Omit<Pool, "activities" | "teamId">,
+  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
 ): boolean {
   const poolEssentialTechnicalSkills = filterSkillsByCategory(
     filterPoolSkillsByType(pool.poolSkills, PoolSkillType.Essential),

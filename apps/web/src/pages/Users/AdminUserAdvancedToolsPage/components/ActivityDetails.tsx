@@ -1,7 +1,8 @@
 import { defineMessage, useIntl } from "react-intl";
 import CalendarDaysIcon from "@heroicons/react/24/outline/CalendarDaysIcon";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Card, TableOfContents } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";

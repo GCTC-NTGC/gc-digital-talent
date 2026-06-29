@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 
-import Svg, { SVGProps } from "./Svg";
+import type { SVGProps } from "./Svg";
+import Svg from "./Svg";
 
 const PinnedIcon = forwardRef<SVGSVGElement, SVGProps>(
   (props, forwardedRef) => (

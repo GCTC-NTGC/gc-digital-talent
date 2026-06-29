@@ -1,23 +1,22 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Accordion } from "@gc-digital-talent/ui";
 
 import CareerDevelopmentPreferences from "../CareerDevelopmentPreferences/CareerDevelopmentPreferences";
 
-export const TalentManagementPreferences_Fragment = graphql(/* GraphQL */ `
+const TalentManagementPreferences_Fragment = graphql(/* GraphQL */ `
   fragment TalentManagementPreferences on EmployeeProfile {
     ...CareerDevelopmentPreferences
   }
 `);
 
-export const TalentManagementPreferencesOptions_Fragment = graphql(
-  /* GraphQL */ `
-    fragment TalentManagementPreferencesOptions on Query {
-      ...CareerDevelopmentPreferencesOptions
-    }
-  `,
-);
+const TalentManagementPreferencesOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentManagementPreferencesOptions on Query {
+    ...CareerDevelopmentPreferencesOptions
+  }
+`);
 
 interface TalentManagementPreferencesProps {
   talentManagementPreferencesQuery: FragmentType<

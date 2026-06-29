@@ -50,10 +50,6 @@ class ApplicationDocGeneratorTest extends TestCase
         Classification::factory()->create([
             'group' => 'XX',
             'level' => 1,
-            'display_name' => [
-                'en' => 'Snapshot dept EN',
-                'fr' => 'Snapshot dept FR',
-            ],
         ]);
 
         $community = Community::where('key', 'digital')->sole();

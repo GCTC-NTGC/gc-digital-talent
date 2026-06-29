@@ -2,12 +2,8 @@
  * Documentation: https://www.radix-ui.com/docs/primitives/components/toggle-group
  */
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
-import {
-  forwardRef,
-  ComponentRef,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from "react";
+import type { ComponentRef, ComponentPropsWithoutRef, ReactNode } from "react";
+import { forwardRef } from "react";
 
 const Item = forwardRef<
   ComponentRef<typeof ToggleGroupPrimitive.Item>,

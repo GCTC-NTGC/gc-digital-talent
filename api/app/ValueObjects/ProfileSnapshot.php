@@ -92,7 +92,7 @@ class ProfileSnapshot implements Castable
 
     public static function castUsing(array $args): CastsAttributes
     {
-        return new class implements CastsAttributes
+        return new class() implements CastsAttributes
         {
             public function get(Model $model, string $key, mixed $value, array $attributes): ?array
             {

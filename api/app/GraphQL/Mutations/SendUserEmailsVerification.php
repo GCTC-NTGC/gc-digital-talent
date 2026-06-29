@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\ErrorCode;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
+use App\Models\User;
 use App\Notifications\VerifyEmails;
 use GraphQL\Error\Error;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ final class SendUserEmailsVerification
      */
     public function __invoke($_, array $args)
     {
-        /** @var \App\Models\User | null */
+        /** @var User | null */
         $user = Auth::user();
         $emailAddress = $args['emailAddress'];
         $emailTypes = $args['emailTypes'];

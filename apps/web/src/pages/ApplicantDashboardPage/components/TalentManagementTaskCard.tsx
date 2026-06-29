@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
 import Cog8ToothIcon from "@heroicons/react/24/outline/Cog8ToothIcon";
-import { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { AccordionMetaData } from "@gc-digital-talent/ui";
 import {
   Accordion,
-  AccordionMetaData,
   Link,
   PreviewList,
   TaskCard,
@@ -46,6 +47,11 @@ const shouldRenderCreatedDateComputation = (
   return false;
 };
 
+const ACCORDION_ID = {
+  TALENT_NOMINATIONS: "your_talent_nominations",
+  TALENT_REQUESTS: "your_talent_requests",
+} as const;
+
 const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment TalentManagementTaskCard on User {
     talentNominationsAsSubmitter {
@@ -79,6 +85,10 @@ const TalentManagementTaskCard = ({
 }: TalentManagementTaskCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const [talentNominationsAccordionValue, setTalentNominationsAccordionValue] =
+    useState<string>("");
+  const [talentRequestsAccordionValue, setTalentRequestsAccordionValue] =
+    useState<string>("");
 
   const talentManagementTaskCardFragment = getFragment(
     TalentManagementTaskCard_Fragment,
@@ -134,6 +144,19 @@ const TalentManagementTaskCard = ({
     talentManagementTaskCardFragment.poolCandidateSearchRequests,
   );
 
+  const isAcccordionOpen =
+    talentNominationsAccordionValue === "" &&
+    talentRequestsAccordionValue === "";
+  const handleToggleAccordions = () => {
+    if (isAcccordionOpen) {
+      setTalentNominationsAccordionValue(ACCORDION_ID.TALENT_NOMINATIONS);
+      setTalentRequestsAccordionValue(ACCORDION_ID.TALENT_REQUESTS);
+    } else {
+      setTalentNominationsAccordionValue("");
+      setTalentRequestsAccordionValue("");
+    }
+  };
+
   return (
     <>
       <div className="flex flex-col gap-6">
@@ -146,12 +169,35 @@ const TalentManagementTaskCard = ({
           })}
           headingColor="success"
           headingAs="h2"
+          action={{
+            label: isAcccordionOpen
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "Expand all<hidden> talent management sections</hidden>",
+                  id: "v0zjE/",
+                  description:
+                    "Button text to show all talent management sections",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "Collapse all<hidden> talent management sections</hidden>",
+                  id: "z3lg25",
+                  description:
+                    "Button text to hide all talent management sections",
+                }),
+            onClick: handleToggleAccordions,
+          }}
         >
           <>
             {sortedNominations.length > 0 && (
               <TaskCard.Item>
-                <Accordion.Root type="multiple">
-                  <Accordion.Item value="your_talent_nominations">
+                <Accordion.Root
+                  type="single"
+                  collapsible
+                  value={talentNominationsAccordionValue}
+                  onValueChange={setTalentNominationsAccordionValue}
+                >
+                  <Accordion.Item value={ACCORDION_ID.TALENT_NOMINATIONS}>
                     <Accordion.Trigger
                       as="h3"
                       subtitle={intl.formatMessage({
@@ -226,8 +272,13 @@ const TalentManagementTaskCard = ({
           <>
             {poolCandidateSearchRequests.length > 0 && (
               <TaskCard.Item>
-                <Accordion.Root type="multiple">
-                  <Accordion.Item value="your_talent_requests">
+                <Accordion.Root
+                  type="single"
+                  collapsible
+                  value={talentRequestsAccordionValue}
+                  onValueChange={setTalentRequestsAccordionValue}
+                >
+                  <Accordion.Item value={ACCORDION_ID.TALENT_REQUESTS}>
                     <Accordion.Trigger
                       as="h3"
                       subtitle={intl.formatMessage(

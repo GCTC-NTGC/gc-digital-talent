@@ -16,11 +16,9 @@ use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
-use App\Enums\ErrorCode;
-use App\Enums\FinalDecision;
 use App\Enums\OverallAssessmentStatus;
+use App\Enums\PauseReferralsLength;
 use App\Enums\PlacementType;
-use App\Enums\PoolCandidateStatus;
 use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ScreeningStage;
@@ -29,7 +27,6 @@ use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\LogsCustomActivity;
 use App\ValueObjects\ProfileSnapshot;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,41 +39,40 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Lang;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 /**
  * Class PoolCandidate
  *
  * @property string $id
- * @property ?\Illuminate\Support\Carbon $expiry_date
- * @property ?\Illuminate\Support\Carbon $archived_at
- * @property ?\Illuminate\Support\Carbon $submitted_at
+ * @property ?Carbon $expiry_date
+ * @property ?Carbon $archived_at
+ * @property ?Carbon $submitted_at
  * @property ?string $signature
- * @property ?string $pool_candidate_status
  * @property ?string $application_status
  * @property ?int $status_weight
  * @property string $pool_id
  * @property string $user_id
- * @property ?\Illuminate\Support\Carbon $suspended_at
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
+ * @property ?Carbon $suspended_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
  * @property array $submitted_steps
  * @property ?string $education_requirement_option
  * @property ?bool $is_flagged
- * @property ?\Illuminate\Support\Carbon $placed_at
+ * @property ?Carbon $placed_at
  * @property ?string $placed_department_id
- * @property ?\Illuminate\Support\Carbon $status_updated_at
+ * @property ?Carbon $status_updated_at
  * @property ?string $removal_reason
  * @property ?string $removal_reason_other
  * @property ?string $veteran_verification
- * @property ?\Illuminate\Support\Carbon $veteran_verification_expiry
+ * @property ?Carbon $veteran_verification_expiry
  * @property ?string $priority_verification
- * @property ?\Illuminate\Support\Carbon $priority_verification_expiry
+ * @property ?Carbon $priority_verification_expiry
  * @property array $computed_assessment_status
- * @property ?int $computed_final_decision_weight
- * @property ?string $computed_final_decision
  * @property array<string, mixed> $profile_snapshot
  * @property array $flexible_work_locations
  * @property array<string> $education_requirement_experience_ids
@@ -88,7 +84,14 @@ use Spatie\Activitylog\Traits\LogsActivity;
  * @property bool $is_suspended
  * @property bool $is_open_to_jobs
  * @property bool $is_hired
- * @property bool $referring
+ * @property ?Carbon $pause_referrals_at
+ * @property ?Carbon $resume_referrals_at
+ * @property ?string $pause_referrals_reason
+ * @property ?Carbon $placed_start_date
+ * @property ?Carbon $placed_end_date
+ * @property ?string $special_application_type
+ * @property ?string $special_application_justification
+ * @property ?Carbon $special_application_closing_date
  */
 class PoolCandidate extends Model
 {
@@ -118,6 +121,11 @@ class PoolCandidate extends Model
         'veteran_verification_expiry' => 'date',
         'priority_verification_expiry' => 'date',
         'computed_assessment_status' => 'array',
+        'pause_referrals_at' => 'datetime',
+        'resume_referrals_at' => 'datetime',
+        'placed_start_date' => 'date',
+        'placed_end_date' => 'date',
+        'special_application_closing_date' => 'datetime',
     ];
 
     /**
@@ -134,7 +142,6 @@ class PoolCandidate extends Model
         'signature',
         'profile_snapshot',
         'expiry_date',
-        'pool_candidate_status',
         'application_status',
         'submitted_steps',
         'education_requirement_option',
@@ -147,7 +154,15 @@ class PoolCandidate extends Model
         'assessment_step_id',
         'removal_reason',
         'disqualification_reason',
-        'computed_final_decision',
+        'placement_type',
+        'pause_referrals_at',
+        'resume_referrals_at',
+        'pause_referrals_reason',
+        'placed_start_date',
+        'placed_end_date',
+        'special_application_type',
+        'special_application_justification',
+        'special_application_closing_date',
     ];
 
     protected $touches = ['user'];
@@ -196,7 +211,7 @@ class PoolCandidate extends Model
         return LogOptions::defaults()
             ->logOnly(['*'])
             ->logOnlyDirty()
-            ->dontSubmitEmptyLogs();
+            ->dontLogEmptyChanges();
     }
 
     /** @return BelongsTo<User, $this> */
@@ -333,8 +348,6 @@ class PoolCandidate extends Model
     {
         $category = PriorityWeight::OTHER;
 
-        $this->loadMissing(['user']);
-
         if ($this->user->has_priority_entitlement && $this->priority_verification !== ClaimVerificationResult::REJECTED->name) {
             $category = PriorityWeight::PRIORITY_ENTITLEMENT;
         } elseif ($this->user->armed_forces_status == ArmedForcesStatus::VETERAN->name && $this->veteran_verification !== ClaimVerificationResult::REJECTED->name) {
@@ -404,8 +417,6 @@ class PoolCandidate extends Model
      * Candidate interest
      *
      * Computation of a candidates interest in a process after being qualified
-     *
-     *  TO DO: Fix up the references to final_decision in #14389
      */
     public function candidateInterest(): Attribute
     {
@@ -471,6 +482,46 @@ class PoolCandidate extends Model
         });
     }
 
+    /*
+    * Determine if the candidate being referred
+    *
+    * @return bool
+    */
+    public function isBeingReferred(): Attribute
+    {
+        return Attribute::get(function () {
+            if ($this->application_status !== ApplicationStatus::QUALIFIED->name) {
+                return null;
+            }
+
+            $hasNotStartedPause = is_null($this->pause_referrals_at) || $this->pause_referrals_at->isFuture();
+            $hasAlreadyResumed = $this->resume_referrals_at?->isPast();
+
+            return $hasNotStartedPause || $hasAlreadyResumed;
+        });
+    }
+
+    /**
+     * Determine result of the first step (application screening)
+     * of the assessment status
+     */
+    public function screeningResult(): Attribute
+    {
+        return Attribute::get(function () {
+
+            if (! $this->pool?->screening_step?->id) {
+                return null;
+            }
+
+            $result = Arr::first(
+                $this->computed_assessment_status['assessmentStepStatuses'],
+                fn ($status) => $status['step'] === $this->pool->screening_step->id
+            );
+
+            return $result ? $result['decision'] : null;
+        });
+    }
+
     /**
      * Determine if a PoolCandidate is in draft mode
      *
@@ -479,6 +530,29 @@ class PoolCandidate extends Model
     public function isDraft()
     {
         return is_null($this->submitted_at) || $this->submitted_at->isFuture();
+    }
+
+    protected function isBookmarked(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                /** @var User | null */
+                $user = Auth::user();
+                if (! $user) {
+                    return null;
+                }
+
+                static $bookmarkedIds = null;
+
+                if ($bookmarkedIds === null) {
+                    $bookmarkedIds = $user->poolCandidateBookmarks()
+                        ->pluck('pool_candidate_id')
+                        ->all();
+                }
+
+                return in_array($this->id, $bookmarkedIds);
+            }
+        );
     }
 
     /**
@@ -703,7 +777,6 @@ class PoolCandidate extends Model
 
         $this->signature = $signature;
         $this->submitted_at = Carbon::now();
-        $this->pool_candidate_status = PoolCandidateStatus::NEW_APPLICATION->name;
         $this->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->setInsertSubmittedStepAttribute(ApplicationStep::REVIEW_AND_SUBMIT->name);
 
@@ -725,7 +798,6 @@ class PoolCandidate extends Model
         $this->computed_assessment_status = $assessmentStatus;
         $this->screening_stage = ScreeningStage::NEW_APPLICATION->name;
         $this->assessment_step_id = null;
-        $this->computed_final_decision_weight = 40;
 
         $this->save();
 
@@ -739,16 +811,12 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
         $this->application_status = ApplicationStatus::QUALIFIED->name;
         $this->expiry_date = $expiryDate;
         $this->status_updated_at = Carbon::now();
-        $this->computed_final_decision = FinalDecision::QUALIFIED->name;
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
-
-        $this->computed_final_decision_weight = 10;
 
         $this->save();
 
@@ -762,16 +830,17 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        $this->pool_candidate_status = $reason;
         $this->application_status = ApplicationStatus::DISQUALIFIED->name;
         $this->disqualification_reason = $reason;
         $this->status_updated_at = Carbon::now();
-        $this->computed_final_decision = FinalDecision::DISQUALIFIED->name;
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
-
-        $this->computed_final_decision_weight = 210;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -779,11 +848,17 @@ class PoolCandidate extends Model
     }
 
     // mark the pool candidate as placed
-    public function place(string $placementType, string $departmentId)
+    public function place(string $placementType, string $departmentId, ?Carbon $placedStartDate = null, ?Carbon $placedEndDate = null)
     {
         $this->disableLogging();
 
-        $this->pool_candidate_status = $placementType;
+        // Make sure candidate is being referred when not being placed as indeterminate
+        if ($placementType !== PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pause_referrals_at = null;
+            $this->pause_referrals_reason = null;
+            $this->resume_referrals_at = null;
+        }
+
         $this->placement_type = $placementType;
         $this->placed_at = Carbon::now();
         $this->placed_department_id = $departmentId;
@@ -791,8 +866,12 @@ class PoolCandidate extends Model
         $this->screening_stage = null;
         $this->assessment_step_id = null;
 
-        $this->computed_final_decision = FinalDecision::QUALIFIED_PLACED->name;
-        $this->computed_final_decision_weight = 30;
+        if ($this->placement_type === PlacementType::PLACED_INDETERMINATE->name) {
+            $this->pauseReferrals(PauseReferralsLength::OTHER->name, Lang::get('common.successfully_placed'), null);
+        }
+
+        $this->placed_start_date = $placedStartDate;
+        $this->placed_end_date = $placedEndDate;
 
         $this->save();
 
@@ -806,18 +885,6 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        if ($this->application_status === ApplicationStatus::DRAFT->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
-
-        if ($this->application_status === ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
-        }
-
-        if (! empty($this->placement_type) && $this->placement_type !== PlacementType::NOT_PLACED->name) {
-            throw new Exception(ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
-        }
-
         $this->application_status = ApplicationStatus::REMOVED->name;
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = $reason;
@@ -827,37 +894,11 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
-
-        $decision = match ($this->computed_final_decision) {
-            FinalDecision::TO_ASSESS->name => FinalDecision::TO_ASSESS_REMOVED->name,
-            FinalDecision::DISQUALIFIED->name, FinalDecision::DISQUALIFIED_PENDING->name => FinalDecision::DISQUALIFIED_REMOVED->name,
-            FinalDecision::QUALIFIED->name, FinalDecision::QUALIFIED_PLACED->name, FinalDecision::QUALIFIED_EXPIRED->name, FinalDecision::QUALIFIED_PENDING->name => FinalDecision::QUALIFIED_REMOVED->name,
-            default => FinalDecision::REMOVED->name
-        };
-
-        $this->computed_final_decision = $decision;
-        $this->computed_final_decision_weight = 240;
-
-        // Update the candidates status based on the current status
-        // or throw an error if the candidate is already placed or removed
-        switch ($this->pool_candidate_status) {
-            case PoolCandidateStatus::SCREENED_OUT_APPLICATION->name:
-            case PoolCandidateStatus::SCREENED_OUT_ASSESSMENT->name:
-                $this->pool_candidate_status = PoolCandidateStatus::SCREENED_OUT_NOT_RESPONSIVE->name;
-                break;
-            case PoolCandidateStatus::QUALIFIED_AVAILABLE->name:
-            case PoolCandidateStatus::EXPIRED->name:
-                $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_UNAVAILABLE->name;
-                break;
-            case PoolCandidateStatus::NEW_APPLICATION->name:
-            case PoolCandidateStatus::APPLICATION_REVIEW->name:
-            case PoolCandidateStatus::SCREENED_IN->name:
-            case PoolCandidateStatus::UNDER_ASSESSMENT->name:
-                $this->pool_candidate_status = PoolCandidateStatus::REMOVED->name;
-                break;
-            default:
-                // PASS: Do nothing
-        }
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -871,18 +912,11 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        if ($this->application_status !== ApplicationStatus::REMOVED->name) {
-            throw new Exception(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
-        }
-
         $this->status_updated_at = Carbon::now();
         $this->removal_reason = null;
         $this->removal_reason_other = null;
         $this->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
-        $this->pool_candidate_status = PoolCandidateStatus::APPLICATION_REVIEW->name;
-        $this->computed_final_decision = FinalDecision::TO_ASSESS->name;
-        $this->computed_final_decision_weight = 40;
 
         $this->save();
 
@@ -893,15 +927,17 @@ class PoolCandidate extends Model
     {
         $this->disableLogging();
 
-        $loggedAttributes = ['pool_candidate_status', 'placed_at', 'placed_department_id'];
+        $loggedAttributes = ['placed_at', 'placed_department_id'];
         $old = $this->only($loggedAttributes);
 
-        $this->pool_candidate_status = PoolCandidateStatus::QUALIFIED_AVAILABLE->name;
-        $this->computed_final_decision = FinalDecision::QUALIFIED->name;
-        $this->computed_final_decision_weight = 10;
         $this->placement_type = null;
         $this->placed_at = null;
         $this->placed_department_id = null;
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
 
         $this->save();
 
@@ -919,14 +955,12 @@ class PoolCandidate extends Model
         $loggedAttributes = ['application_status', 'expiry_date', 'status_updated_at', 'screening_stage'];
         $old = $this->only($loggedAttributes);
 
-        $this->pool_candidate_status = PoolCandidateStatus::UNDER_ASSESSMENT->name;
         $this->application_status = ApplicationStatus::TO_ASSESS->name;
         $this->expiry_date = null;
         $this->status_updated_at = Carbon::now();
-        $this->computed_final_decision = FinalDecision::TO_ASSESS->name;
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
-        $this->computed_final_decision_weight = 40;
+        $this->resumeReferrals();
 
         $this->save();
 
@@ -940,5 +974,35 @@ class PoolCandidate extends Model
     {
         $properties['attributes']['user_name'] = $this->user->fullName ?? null;
         $properties['attributes']['pool_id'] = $this->pool->id ?? null;
+    }
+
+    public function pauseReferrals(?string $pauseReferralsLength = null, ?string $reason = null, ?Carbon $referralResumeAt = null)
+    {
+        $now = Carbon::now();
+
+        $lengthOfTime = match ($pauseReferralsLength) {
+            PauseReferralsLength::ONE_MONTH->name => $now->addMonth(),
+            PauseReferralsLength::THREE_MONTHS->name => $now->addMonths(3),
+            PauseReferralsLength::SIX_MONTHS->name => $now->addMonths(6),
+            PauseReferralsLength::ONE_YEAR->name => $now->addYear(),
+            PauseReferralsLength::UNTIL_EXPIRY->name => $this->expiry_date,
+            PauseReferralsLength::OTHER->name => $referralResumeAt,
+            default => null,
+        };
+
+        $this->pause_referrals_at = Carbon::now();
+        $this->pause_referrals_reason = $reason;
+        $this->resume_referrals_at = $lengthOfTime;
+
+        $this->save();
+    }
+
+    public function resumeReferrals()
+    {
+        $this->pause_referrals_at = null;
+        $this->pause_referrals_reason = null;
+        $this->resume_referrals_at = null;
+
+        $this->save();
     }
 }

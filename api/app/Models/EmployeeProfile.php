@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 /**
  * Class EmployeeProfile
@@ -42,11 +43,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property ?string $next_role_c_suite_role_title
  * @property ?string $career_objective_c_suite_role_title
  * @property ?bool $eligible_retirement_year_known
- * @property ?\Illuminate\Support\Carbon $eligible_retirement_year
- * @property ?\App\Models\Classification $nextRoleClassification
- * @property ?\App\Models\Community $nextRoleCommunity
- * @property ?\App\Models\Classification $careerObjectiveClassification
- * @property ?\App\Models\Community $careerObjectiveCommunity
+ * @property ?Carbon $eligible_retirement_year
+ * @property ?Classification $nextRoleClassification
+ * @property ?Community $nextRoleCommunity
+ * @property ?Classification $careerObjectiveClassification
+ * @property ?Community $careerObjectiveCommunity
  */
 class EmployeeProfile extends Model
 {
@@ -138,7 +139,7 @@ class EmployeeProfile extends Model
     /** @return HasOne<User, $this> */
     public function userPublicProfile(): HasOne
     {
-        return $this->hasOne(User::class, 'id')->select(['id', 'email', 'first_name', 'last_name']);
+        return $this->hasOne(User::class, 'id')->select(['id', 'email', 'work_email', 'first_name', 'last_name']);
     }
 
     /** @return HasMany<CommunityInterest, $this> */

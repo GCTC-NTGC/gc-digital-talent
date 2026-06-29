@@ -4,12 +4,10 @@ namespace Database\Factories;
 
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityDevelopmentProgram;
 use App\Models\DevelopmentProgram;
-use Database\Helpers\FactoryHelpers;
-use ErrorException;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DevelopmentProgramFactory extends Factory
+class DevelopmentProgramFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -26,35 +24,45 @@ class DevelopmentProgramFactory extends Factory
     public function definition()
     {
         return [
-            'name' => FactoryHelpers::toFakeLocalizedString($this->faker->company()),
-            'description_for_profile' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
-            'description_for_nominations' => FactoryHelpers::toFakeLocalizedString($this->faker->sentence()),
+            'name' => $this->faker->localizedString($this->faker->company()),
+            'description_for_profile' => $this->faker->localizedString($this->faker->sentence()),
+            'description_for_nominations' => $this->faker->localizedString($this->faker->sentence()),
             'community_id' => function () {
                 $community = Community::inRandomOrder()->firstOr(fn () => Community::factory()->withWorkStreams()->create());
 
                 return $community->id;
             },
+            'information_url' => $this->faker->localizedString($this->faker->url()),
+            'abbreviation' => $this->faker->localizedString(strtoupper($this->faker->text(5))),
         ];
     }
 
-    public function configure()
+    // create a CommunityDevelopmentProgram record
+    public function withCommunity(string $communityId)
     {
-        return $this
-            ->afterMaking(function (DevelopmentProgram $model) {
-                // https://laravel.com/docs/10.x/eloquent-factories#belongs-to-relationships
-                if (is_null($model->community_id)) {
-                    throw new ErrorException('community_id must be set to use this factory.  Try calling this factory with the `for` method to specify the parent community.');
-                }
-            });
+        return $this->afterCreating(function (DevelopmentProgram $program) use ($communityId) {
+            CommunityDevelopmentProgram::create(
+                [
+                    'community_id' => $communityId,
+                    'development_program_id' => $program->id,
+                ]
+            );
+        });
     }
 
-    public function withEligibleClassifications(?int $min = 1, ?int $max = 3)
+    public function withCommunityAndClassifications(string $communityId, ?int $min = 1, ?int $max = 3)
     {
         $count = $this->faker->numberBetween($min, $max);
 
-        return $this->afterCreating(function (DevelopmentProgram $program) use ($count) {
+        return $this->afterCreating(function (DevelopmentProgram $program) use ($communityId, $count) {
+            $communityDevelopmentProgram = CommunityDevelopmentProgram::create(
+                [
+                    'community_id' => $communityId,
+                    'development_program_id' => $program->id,
+                ]
+            );
             $classifications = Classification::inRandomOrder()->limit($count)->get();
-            $program->eligibleClassifications()->sync($classifications);
+            $communityDevelopmentProgram->classifications()->sync($classifications);
         });
     }
 }

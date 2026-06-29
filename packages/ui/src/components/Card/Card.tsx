@@ -1,18 +1,23 @@
-import { ComponentPropsWithoutRef } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 import Separator from "../Separator";
-import { SeparatorProps } from "../Separator/Separator";
+import type { SeparatorProps } from "../Separator/Separator";
 import { Grid, GridItem } from "./CardGrid";
 
 const card = tv({
-  base: "rounded-md bg-white text-black shadow-xl dark:bg-gray-600 dark:text-white",
+  base: "rounded-md bg-white text-black dark:bg-gray-600 dark:text-white",
   variants: {
     space: {
       xs: "p-3",
       sm: "p-4",
       md: "p-6",
       lg: "p-6 sm:p-9",
+    },
+    shadow: {
+      true: "shadow-xl",
+      false: "shadow-none",
     },
   },
 });
@@ -24,12 +29,19 @@ export interface CardProps
   as?: "article" | "div";
 }
 
-const Card = ({ as = "div", space = "md", className, ...rest }: CardProps) => {
+const Card = ({
+  as = "div",
+  space = "md",
+  shadow = true,
+  className,
+  ...rest
+}: CardProps) => {
   const El = as;
   return (
     <El
       className={card({
         space,
+        shadow,
         class: [className, `group Card--${space}`],
       })}
       {...rest}

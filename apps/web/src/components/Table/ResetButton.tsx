@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
-import { HTMLProps } from "react";
+import type { HTMLProps } from "react";
 
 const ResetButton = (props: Omit<HTMLProps<HTMLButtonElement>, "children">) => {
   const intl = useIntl();

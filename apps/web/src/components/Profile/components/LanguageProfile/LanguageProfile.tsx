@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import LanguageIcon from "@heroicons/react/24/outline/LanguageIcon";
 import { useQuery } from "urql";
 
@@ -7,12 +7,8 @@ import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "~/components/MissingLanguageRequirements";
 import profileMessages from "~/messages/profileMessages";
@@ -23,11 +19,11 @@ import {
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import { SectionProps } from "../../types";
+import type { SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import NullDisplay from "./NullDisplay";
 import Display from "./Display";
 import FormFields from "./FormFields";
@@ -61,12 +57,26 @@ const ProfileLanguageProfile_Fragment = graphql(/** GraphQL */ `
     verbalLevel {
       value
     }
+    preferredLanguageForInterview {
+      value
+      label {
+        localized
+      }
+    }
+    preferredLanguageForExam {
+      value
+      label {
+        localized
+      }
+    }
     ...LanguageProfileDisplay
   }
 `);
 
 interface LanguageProfileProps extends SectionProps<Pick<Pool, "id">> {
   query: FragmentType<typeof ProfileLanguageProfile_Fragment>;
+  languagePresetNoticeIsVisible: boolean;
+  setLanguagePresetNoticeIsVisible: (isVisible: boolean) => void;
 }
 
 const LanguageProfile = ({
@@ -75,11 +85,15 @@ const LanguageProfile = ({
   onUpdate,
   isUpdating,
   pool,
+  languagePresetNoticeIsVisible,
+  setLanguagePresetNoticeIsVisible,
 }: LanguageProfileProps) => {
   const intl = useIntl();
   const user = getFragment(ProfileLanguageProfile_Fragment, query);
   const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
+  const hasUnacknowledgedNotices = languagePresetNoticeIsVisible;
+  const emptyRequired =
+    hasEmptyRequiredFields(user) || hasUnacknowledgedNotices;
   const { labels, isEditing, setIsEditing, icon, title } = useSectionInfo({
     section: "language",
     isNull,
@@ -163,7 +177,11 @@ const LanguageProfile = ({
       )}
       <ToggleSection.Content>
         <ToggleSection.InitialContent>
-          {isNull ? <NullDisplay /> : <Display query={user} />}
+          {isNull ? (
+            <NullDisplay />
+          ) : (
+            <Display query={user} context="applicant-view" />
+          )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           {fetching ? (
@@ -176,7 +194,13 @@ const LanguageProfile = ({
                 defaultValues: dataToFormValues(user),
               }}
             >
-              <FormFields labels={labels} optionsQuery={data} />
+              <FormFields
+                labels={labels}
+                optionsQuery={data}
+                setLanguagePresetNoticeIsVisible={
+                  setLanguagePresetNoticeIsVisible
+                }
+              />
               <FormActions isUpdating={isUpdating} />
             </BasicForm>
           )}

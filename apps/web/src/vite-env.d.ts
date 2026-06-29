@@ -6,6 +6,7 @@ declare const API_PROTECTED_URI: string;
 declare const BUILD_DATE: string;
 declare const VERSION: string;
 declare const COMMIT_HASH: string;
+declare const REVERB_APP_KEY: string;
 
 declare const APP_TITLE: string;
 declare const APP_DESCRIPTION: string;

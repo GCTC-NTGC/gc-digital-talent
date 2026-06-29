@@ -50,7 +50,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
             $notification = new AdHocEmail($this->argument('templateIdEn'), $this->argument('templateIdFr'));
 
             $users->chunk(200, function (Collection $chunkOfUsers) use (&$successCount, &$failureCount, $progressBar, $notification) {
-                /** @var \App\Models\User $user */
+                /** @var User $user */
                 foreach ($chunkOfUsers as $user) {
                     try {
                         $user->notify($notification);

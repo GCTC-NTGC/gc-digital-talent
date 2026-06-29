@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 
-import { Maybe, WorkStream } from "@gc-digital-talent/graphql";
-import { HeadingRank, Separator, Ul } from "@gc-digital-talent/ui";
+import type { WorkStream } from "@gc-digital-talent/graphql";
+import type { HeadingRank } from "@gc-digital-talent/ui";
+import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
   groupBy,
   sortAlphaBy,
@@ -16,7 +17,7 @@ import pageTitles from "~/messages/pageTitles";
 import ContentSection from "../ContentSection";
 
 interface WorkStreamsContentProps {
-  workStreams?: Maybe<WorkStream[]>;
+  workStreams?: WorkStream[] | null;
   headingLevel?: HeadingRank;
 }
 

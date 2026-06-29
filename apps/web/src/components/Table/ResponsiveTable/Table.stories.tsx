@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { StoryFn, Meta } from "@storybook/react-vite";
+import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
-import {
+import type {
   ColumnDef,
-  createColumnHelper,
   CellContext,
   SortingState,
   PaginationState,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import { Language, User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
+import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { Button, Dialog } from "@gc-digital-talent/ui";
+
+import useSelectedRows from "~/hooks/useSelectedRows";
 
 import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
-import { SearchState } from "./types";
+import type { SearchState } from "./types";
 
 const mockUsers = fakeUsers(100);
 const columnHelper = createColumnHelper<User>();
@@ -37,7 +41,7 @@ const defaultSortProps = {
 const defaultPaginationProps = {
   internal: true,
   total: mockUsers.length,
-  pageSizes: [10, 20, 50, 100],
+  pageSizes: [10, 20, 50, 100, 500],
   onPaginationChange: (newPagination: PaginationState) => {
     action("onPaginationChange")(newPagination);
   },
@@ -129,10 +133,105 @@ export const RowSelection = Template.bind({});
 RowSelection.args = {
   rowSelect: {
     getRowId: (row) => row.id,
-    onRowSelection: (rows) => action("onRowSelection")(rows),
+    onRowSelection: (rows) => {
+      action("onRowSelection")(rows);
+    },
     cell: rowSelectCell,
   },
 };
+
+/**
+ * Bulk actions hand the selected row IDs to `onClick`. To open a dialog, the
+ * caller tracks selection with `useSelectedRows` and renders a controlled
+ * dialog *outside* the table — so it isn't unmounted when the menu closes.
+ */
+const ActionsTemplate: StoryFn<typeof Table<User>> = (args) => {
+  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const [isAssignOpen, setAssignOpen] = useState(false);
+  const [poolId, setPoolId] = useState("");
+
+  const closeDialog = () => {
+    setAssignOpen(false);
+    setPoolId("");
+  };
+
+  return (
+    <>
+      <Table
+        {...args}
+        caption="Table with bulk actions"
+        rowSelect={{
+          getRowId: (row) => row.id,
+          onRowSelection: setSelectedRows,
+          cell: rowSelectCell,
+        }}
+        actions={[
+          {
+            label: "Assign to pool",
+            onClick: () => setAssignOpen(true),
+          },
+          {
+            label: "Send notification",
+            onClick: (ids) => {
+              action("sendNotification")(ids);
+            },
+          },
+          {
+            label: "Archive",
+            onClick: (ids) => {
+              action("archive")(ids);
+            },
+          },
+        ]}
+      />
+      <Dialog.Root
+        open={isAssignOpen}
+        onOpenChange={(open) => {
+          if (!open) closeDialog();
+        }}
+      >
+        <Dialog.Content>
+          <Dialog.Header>Assign to pool</Dialog.Header>
+          <Dialog.Body>
+            <p className="mb-6">
+              Assigning {selectedRows.length} selected candidate(s).
+            </p>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                action("assignToPool")({ poolId, candidateIds: selectedRows });
+                closeDialog();
+              }}
+            >
+              <label className="mb-1.5 block font-bold" htmlFor="poolId">
+                Pool ID
+              </label>
+              <input
+                id="poolId"
+                name="poolId"
+                value={poolId}
+                onChange={(event) => setPoolId(event.target.value)}
+                className="w-full rounded-md border border-gray-300 p-3"
+              />
+              <Dialog.Footer>
+                <Button type="submit" color="primary">
+                  Assign
+                </Button>
+                <Dialog.Close>
+                  <Button type="button" mode="inline" color="warning">
+                    Cancel
+                  </Button>
+                </Dialog.Close>
+              </Dialog.Footer>
+            </form>
+          </Dialog.Body>
+        </Dialog.Content>
+      </Dialog.Root>
+    </>
+  );
+};
+
+export const RowSelectionWithActions = ActionsTemplate.bind({});
 
 export const InitialState = Template.bind({});
 InitialState.args = {
@@ -173,7 +272,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       .then((res) => {
         setSearchState(res);
       })
-      .catch((err) => action("search error")(err))
+      .catch((err) => {
+        action("search error")(err);
+      })
       .finally(() => setLoading(false));
   };
 
@@ -185,7 +286,9 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
         const newSelection = mockUsers.filter(({ id }) => rows.includes(id));
         setRowSelection(newSelection);
       })
-      .catch((err) => action("selection error")(err))
+      .catch((err) => {
+        action("selection error")(err);
+      })
       .finally(() => setLoading(false));
   };
 

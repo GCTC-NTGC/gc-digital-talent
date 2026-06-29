@@ -2,11 +2,14 @@ import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/20/solid/ExclamationCircleIcon";
 import ExclamationTriangleIcon from "@heroicons/react/20/solid/ExclamationTriangleIcon";
 import QuestionMarkCircleIcon from "@heroicons/react/20/solid/QuestionMarkCircleIcon";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
+import type { ComponentProps } from "react";
 
-import { Link, IconType, ScrollToLink } from "@gc-digital-talent/ui";
+import type { IconType } from "@gc-digital-talent/ui";
+import { Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status =
   | "error"
@@ -55,12 +58,14 @@ type StatusVariants = Pick<VariantProps<typeof statusItem>, "color">;
 const StatusItemTitle = ({
   href,
   scrollTo,
+  onScrollTo,
   children,
   color,
   ...rest
 }: {
   href?: string;
   scrollTo?: string;
+  onScrollTo?: ComponentProps<typeof ScrollToLink>["onScrollTo"];
   className?: string;
   children?: React.ReactElement;
   color?: StatusVariants["color"];
@@ -73,15 +78,19 @@ const StatusItemTitle = ({
     );
   }
   if (scrollTo) {
+    const defaultHandleScrollTo: ComponentProps<
+      typeof ScrollToLink
+    >["onScrollTo"] = (_, section) => {
+      if (section) {
+        section.focus();
+      }
+    };
+
     return (
       <ScrollToLink
         to={scrollTo}
         color={color}
-        onScrollTo={(_, section) => {
-          if (section) {
-            section.focus();
-          }
-        }}
+        onScrollTo={onScrollTo ?? defaultHandleScrollTo}
         {...rest}
       >
         {children}
@@ -99,6 +108,7 @@ interface StatusItemProps {
   iconColor?: StatusVariants["color"];
   href?: string;
   scrollTo?: string;
+  onScrollTo?: ComponentProps<typeof ScrollToLink>["onScrollTo"];
   hiddenContextPrefix?: string;
   asListItem?: boolean;
   itemCount?: number;
@@ -113,6 +123,7 @@ const StatusItem = ({
   iconColor = "black",
   href,
   scrollTo,
+  onScrollTo,
   hiddenContextPrefix,
   asListItem = true,
   itemCount,
@@ -182,6 +193,7 @@ const StatusItem = ({
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
+          onScrollTo={onScrollTo}
           color={effectiveTitleColor}
           className="text-left"
         >

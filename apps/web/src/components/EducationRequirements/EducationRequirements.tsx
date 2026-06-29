@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
-import { HTMLProps, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import { Link, Heading, HeadingLevel, Card, Ul } from "@gc-digital-talent/ui";
+import type { HeadingLevel } from "@gc-digital-talent/ui";
+import { Link, Heading, Card, Ul } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
 
@@ -14,7 +15,7 @@ import {
   foreignDegreeLink,
   postSecondaryLink,
 } from "~/utils/educationUtils";
-import { ClassificationGroup } from "~/types/classificationGroup";
+import type { ClassificationGroup } from "~/types/classificationGroup";
 
 type TextProps = HTMLProps<HTMLParagraphElement>;
 
@@ -60,14 +61,12 @@ const Or = ({ className, ...rest }: HTMLProps<HTMLDivElement>) => {
 };
 
 interface EducationRequirementsProps {
-  isIAP: boolean;
   classificationGroup: ClassificationGroup;
   headingAs?: HeadingLevel;
 }
 
 const EducationRequirements = ({
   classificationGroup,
-  isIAP,
   headingAs = "h3",
 }: EducationRequirementsProps) => {
   const intl = useIntl();
@@ -279,35 +278,17 @@ const EducationRequirements = ({
           <Or />
           <Card>
             <Heading level={headingAs} size="h6" className="mt-0 mb-3">
-              {isIAP
-                ? intl.formatMessage({
-                    defaultMessage: "High school diploma or GED",
-                    id: "CnPVJe",
-                    description:
-                      "Title for the education requirements (IT Apprenticeship Program for Indigenous Peoples)",
-                  })
-                : intl.formatMessage({
-                    defaultMessage: "2-year post-secondary",
-                    id: "TiIkSF",
-                    description:
-                      "Option for education requirement, 2-year post-secondary",
-                  })}
+              {intl.formatMessage({
+                defaultMessage: "2-year post-secondary",
+                id: "TiIkSF",
+                description:
+                  "Option for education requirement, 2-year post-secondary",
+              })}
             </Heading>
             <Text>
-              {isIAP
-                ? intl.formatMessage({
-                    defaultMessage:
-                      "Successful completion of a standard high school diploma or GED equivalent.",
-                    id: "nWZiWr",
-                    description:
-                      "Education requirement (IT Apprenticeship Program for Indigenous Peoples)",
-                  })
-                : intl.formatMessage(
-                    applicationMessages.postSecondaryEducation,
-                    {
-                      link: qualityStandardsLink,
-                    },
-                  )}
+              {intl.formatMessage(applicationMessages.postSecondaryEducation, {
+                link: qualityStandardsLink,
+              })}
             </Text>
           </Card>
         </Wrapper>

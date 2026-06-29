@@ -1,10 +1,11 @@
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   ScreeningStage,
@@ -26,7 +27,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getScreeningStageIndex } from "~/utils/poolCandidate";
 import applicationMessages from "~/messages/applicationMessages";
 
-import { FormValues } from "./types";
+import type { FormValues } from "./types";
 import CandidateFacingScreeningStageNotice from "./CandidateFacingScreeningStageNotice";
 import MoveToPreviousStepNotice from "./MoveToPreviousStepNotice";
 
@@ -136,7 +137,11 @@ const UpdateScreeningStageDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
         {trigger ?? (
-          <Button mode="inline" className="font-normal">
+          <Button
+            mode="inline"
+            color="warning"
+            className="text-left font-normal"
+          >
             {label}
           </Button>
         )}

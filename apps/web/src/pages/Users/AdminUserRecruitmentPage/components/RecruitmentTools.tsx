@@ -2,7 +2,8 @@ import { defineMessage, useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
 
 import { Heading, TableOfContents } from "@gc-digital-talent/ui";
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import AddToProcessDialog from "./AddToProcessDialog";
 

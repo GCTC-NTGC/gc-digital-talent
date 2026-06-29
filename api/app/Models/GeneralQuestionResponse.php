@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * Class General Question Response
@@ -12,9 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $pool_candidate_id
  * @property string $general_question_id
  * @property string $answer
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  */
 class GeneralQuestionResponse extends Model
 {

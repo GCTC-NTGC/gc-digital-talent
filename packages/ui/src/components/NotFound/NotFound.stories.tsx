@@ -1,5 +1,5 @@
-import { StoryFn, Meta } from "@storybook/react-vite";
-import { ReactNode } from "react";
+import type { StoryFn, Meta } from "@storybook/react-vite";
+import type { ReactNode } from "react";
 
 import NotFound from "./NotFound";
 

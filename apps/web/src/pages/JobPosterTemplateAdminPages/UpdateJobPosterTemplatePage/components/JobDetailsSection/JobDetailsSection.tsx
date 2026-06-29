@@ -1,20 +1,19 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 
 import { Button, CardSeparator, ToggleSection } from "@gc-digital-talent/ui";
 import { Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   FragmentType,
-  getFragment,
   UpdateJobPosterTemplateJobDetailsFragment,
   UpdateJobPosterTemplateInput,
   SupervisoryStatus,
-  Scalars,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { emptyToNull, notEmpty } from "@gc-digital-talent/helpers";
 
@@ -22,7 +21,8 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import Trigger from "~/components/ToggleForm/Trigger";
 
-import JobDetailsForm, { FormValues } from "../../../components/JobDetailsForm";
+import type { FormValues } from "../../../components/JobDetailsForm";
+import JobDetailsForm from "../../../components/JobDetailsForm";
 import Display from "./Display";
 import { hasAllEmptyFields, hasEmptyRequiredFields } from "./validators";
 
@@ -56,6 +56,7 @@ export const InitialData_Fragment = graphql(/* GraphQL */ `
       id
       group
       level
+      groupAndLevel
     }
     workStream {
       id
@@ -117,7 +118,7 @@ const initialDataToFormValues = ({
 });
 
 const formValuesToMutationInput = (
-  id: Scalars["UUID"]["input"],
+  id: string,
   {
     jobTitleEn,
     jobTitleFr,

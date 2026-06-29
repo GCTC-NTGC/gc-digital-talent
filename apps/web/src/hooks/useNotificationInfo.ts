@@ -1,11 +1,11 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
+import type { ReactNode } from "react";
 
-import {
+import type {
   ApplicationDeadlineApproachingNotification,
   ApplicationDeadlineExtendedNotification,
   ApplicationStatusChangedNotification,
-  MigrateOffPlatformProcessesNotification,
   NewJobPostedNotification,
   Notification,
   SystemNotification,
@@ -24,7 +24,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { getLogger } from "@gc-digital-talent/logger";
-import { GraphqlType } from "@gc-digital-talent/helpers";
+import type { GraphqlType } from "@gc-digital-talent/helpers";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "./useRoutes";
@@ -197,20 +197,32 @@ const newJobPostedNotificationToInfo = (
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
+  const displayNameLocalized = getLocalizedName(notification.displayName, intl);
+
   return {
-    message: intl.formatMessage({
-      defaultMessage:
-        "A new opportunity is now available! Find out if this is a fit for you and apply.",
-      id: "OlSnME",
-      description: "Message for new job posted notification",
-    }),
+    message: intl.formatMessage(
+      {
+        defaultMessage:
+          "A new opportunity is now available, {displayName}. Find out if this is a fit for you and apply.",
+        id: "7KfLEe",
+        description: "Message for new job posted notification",
+      },
+      {
+        displayName: displayNameLocalized,
+      },
+    ),
     href: notification.poolId ? paths.jobPoster(notification.poolId) : "",
-    label: intl.formatMessage({
-      defaultMessage:
-        "A new opportunity is now available! Find out if this is a fit for you and apply.",
-      id: "Nm+j2a",
-      description: "Label for the new job posted notification",
-    }),
+    label: intl.formatMessage(
+      {
+        defaultMessage:
+          "A new opportunity is now available, {displayName}. Find out if this is a fit for you and apply.",
+        id: "7KfLEe",
+        description: "Message for new job posted notification",
+      },
+      {
+        displayName: displayNameLocalized,
+      },
+    ),
   };
 };
 
@@ -277,30 +289,6 @@ const userFileGeneratedNotificationToInfo = (
   };
 };
 
-const migrateOffPlatformProcessesNotificationMessage = defineMessage({
-  defaultMessage:
-    "We’ve updated how we collect details about successful off-platform recruitment processes. Please re-enter yours using our new format to avoid losing them.",
-  id: "d0T0Xq",
-  description: "Notification for migrating off platform processes",
-});
-
-function isMigrateOffPlatformProcessesNotification(
-  notification: GraphqlType,
-): notification is MigrateOffPlatformProcessesNotification {
-  return notification.__typename === "MigrateOffPlatformProcessesNotification";
-}
-
-const migrateOffPlatformProcessesNotificationToInfo = (
-  paths: ReturnType<typeof useRoutes>,
-  intl: IntlShape,
-): NotificationInfo => {
-  return {
-    message: intl.formatMessage(migrateOffPlatformProcessesNotificationMessage),
-    href: paths.applicantDashboard(),
-    label: intl.formatMessage(migrateOffPlatformProcessesNotificationMessage),
-  };
-};
-
 const useNotificationInfo = (
   notification: Notification & GraphqlType,
 ): NotificationInfo | null => {
@@ -347,10 +335,6 @@ const useNotificationInfo = (
 
   if (isSystemNotification(notification)) {
     return systemNotificationToInfo(notification, intl);
-  }
-
-  if (isMigrateOffPlatformProcessesNotification(notification)) {
-    return migrateOffPlatformProcessesNotificationToInfo(paths, intl);
   }
 
   logger.warning(

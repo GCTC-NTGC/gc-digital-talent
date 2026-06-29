@@ -2,12 +2,8 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useWatch } from "react-hook-form";
 
-import {
-  ActivityEvent,
-  graphql,
-  Maybe,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { ActivityEvent } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -17,18 +13,17 @@ import { Heading } from "@gc-digital-talent/ui";
 import { Combobox, DateInput } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import FilterDialog, {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
+import FilterDialog from "~/components/FilterDialog/FilterDialog";
 
 import CandidatesFilterInput from "./CandidatesFilterInput";
 import AssessmentMembersFilterInput from "./AssessmentMembersFilterInput";
 
 export interface FormValues {
-  from?: Maybe<Scalars["DateTime"]["input"]>;
-  to?: Maybe<Scalars["DateTime"]["input"]>;
-  causers?: Scalars["UUID"]["input"][];
-  candidates?: Scalars["UUID"]["input"][];
+  from?: string | null;
+  to?: string | null;
+  causers?: string[];
+  candidates?: string[];
   events?: ActivityEvent[];
 }
 

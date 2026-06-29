@@ -1,7 +1,8 @@
-import { NavLink, NavLinkProps } from "react-router";
+import type { NavLinkProps } from "react-router";
+import { NavLink } from "react-router";
 import { tv } from "tailwind-variants";
 
-import { LinkProps } from "./Link";
+import type { LinkProps } from "./Link";
 
 const navLink = tv({
   base: "focus-visible:focus border-none bg-transparent text-base outline-none hover:text-secondary-600 focus-visible:text-black iap:dark:hover:text-secondary-100",

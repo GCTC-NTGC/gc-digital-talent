@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { Outlet } from "react-router";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import { useQuery } from "urql";
+import CheckBadgeIcon from "@heroicons/react/24/outline/CheckBadgeIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -10,15 +11,16 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import { PageNavInfo } from "~/types/pages";
+import type { PageNavInfo } from "~/types/pages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { checkRole } from "~/utils/communityUtils";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import pageTitles from "~/messages/pageTitles";
+import adminMessages from "~/messages/adminMessages";
 
-import { ContextType } from "./CommunityMembersPage/components/types";
+import type { ContextType } from "./CommunityMembersPage/components/types";
 
-type PageNavKeys = "manage-access" | "view";
+type PageNavKeys = "manage-access" | "view" | "professionalization";
 
 const CommunityLayoutCommunityName_Query = graphql(/* GraphQL */ `
   query CommunityName($id: UUID!) {
@@ -66,15 +68,20 @@ const CommunityLayout = () => {
 
   const roleAssignmentsFiltered =
     data?.myAuth?.roleAssignments?.filter(notEmpty) ?? [];
-  const canAdminManageAccess = checkRole(
+  const canAdminManageAccessAndEditCommunity = checkRole(
     [ROLE_NAME.PlatformAdmin, ROLE_NAME.CommunityAdmin],
     roleAssignmentsFiltered,
     communityId,
   );
   const canViewManageAccess =
-    canAdminManageAccess ||
+    canAdminManageAccessAndEditCommunity ||
     checkRole(
       [ROLE_NAME.CommunityTalentCoordinator],
+      roleAssignmentsFiltered,
+      communityId,
+    ) ||
+    checkRole(
+      [ROLE_NAME.CommunityRecruiter],
       roleAssignmentsFiltered,
       communityId,
     );
@@ -84,17 +91,23 @@ const CommunityLayout = () => {
       "view",
       {
         icon: ClipboardDocumentListIcon,
-        title: intl.formatMessage({
-          defaultMessage: "Community information",
-          id: "W0Bh1G",
-          description: "Title for community information",
-        }),
+        title: intl.formatMessage(adminMessages.details),
         link: {
           url: paths.communityView(communityId),
         },
       },
     ],
   ]);
+
+  if (canAdminManageAccessAndEditCommunity) {
+    pages.set("professionalization", {
+      icon: CheckBadgeIcon,
+      title: intl.formatMessage(adminMessages.professionalization),
+      link: {
+        url: paths.communityProfessionalization(communityId),
+      },
+    });
+  }
 
   if (canViewManageAccess) {
     pages.set("manage-access", {
@@ -133,7 +146,7 @@ const CommunityLayout = () => {
       url: page.link.url,
     })),
     navigationCrumbs: navigationCrumbs,
-    canAdminManageAccess,
+    canAdminManageAccessAndEditCommunity,
   };
 
   // No actual shared UI - this is just used as a context provider

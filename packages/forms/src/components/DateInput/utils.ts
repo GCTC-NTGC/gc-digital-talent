@@ -1,16 +1,12 @@
 import { format } from "date-fns/format";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import { getDaysInMonth } from "date-fns/getDaysInMonth";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
 import { formDateStringToDate } from "@gc-digital-talent/date-helpers";
 
-import {
-  DateSegment,
-  DATE_SEGMENT,
-  SegmentObject,
-  RoundingMethod,
-} from "./types";
+import type { DateSegment, SegmentObject, RoundingMethod } from "./types";
+import { DATE_SEGMENT } from "./types";
 
 /**
  * Split the form value into each segment

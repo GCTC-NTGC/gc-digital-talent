@@ -31,6 +31,11 @@ export default defineMessages({
     id: "+d/NdU",
     description: "Title for departments",
   },
+  developmentPrograms: {
+    defaultMessage: "Development programs",
+    id: "SfNeqY",
+    description: "Title for development programs",
+  },
   processes: {
     defaultMessage: "Processes",
     id: "Mi+AuD",

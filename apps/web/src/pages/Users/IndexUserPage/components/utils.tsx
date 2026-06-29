@@ -1,5 +1,5 @@
-import { IntlShape } from "react-intl";
-import { SortingState } from "@tanstack/react-table";
+import type { IntlShape } from "react-intl";
+import type { SortingState } from "@tanstack/react-table";
 
 import {
   notEmpty,
@@ -7,19 +7,21 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
-import {
-  InputMaybe,
+import type {
   OrderByClause,
-  PositionDuration,
   RoleAssignment,
+  UserFilterInput,
+} from "@gc-digital-talent/graphql";
+import {
+  PositionDuration,
   SortOrder,
   Trashed,
-  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
 
-import { FormValues, OTHER_FILTER, OtherFilter } from "./UserFilterDialog";
+import type { FormValues, OtherFilter } from "./UserFilterDialog";
+import { OTHER_FILTER } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
 export function rolesAccessor(
@@ -45,7 +47,7 @@ export function transformUserInput(
   filterState: UserFilterInput | undefined,
   searchBarTerm: string | undefined,
   searchType: string | undefined,
-): InputMaybe<UserFilterInput> | undefined {
+): UserFilterInput | null | undefined {
   if (
     filterState === undefined &&
     searchBarTerm === undefined &&
@@ -64,7 +66,7 @@ export function transformUserInput(
 
     // from fancy filter
     applicantFilter: filterState?.applicantFilter,
-    isGovEmployee: filterState?.isGovEmployee,
+    employeeVerification: filterState?.employeeVerification,
     isProfileComplete: filterState?.isProfileComplete,
     poolFilters: filterState?.poolFilters,
     roles: filterState?.roles,
@@ -116,7 +118,7 @@ export function transformFormValuesToUserFilterInput(
           ])
         : undefined,
     },
-    isGovEmployee: data.govEmployee ? true : undefined,
+    employeeVerification: data.govEmployee,
     isProfileComplete: data.otherFilters.includes(OTHER_FILTER.PROFILE_COMPLETE)
       ? true
       : undefined,
@@ -157,7 +159,7 @@ export function transformUserFilterInputToFormValues(
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     pools: unpackMaybes(
       input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
     ),

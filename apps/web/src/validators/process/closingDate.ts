@@ -1,7 +1,8 @@
 import { isPast } from "date-fns/isPast";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
-import { Pool, PoolStatus } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 export function hasEmptyRequiredFields({
   closingDate,

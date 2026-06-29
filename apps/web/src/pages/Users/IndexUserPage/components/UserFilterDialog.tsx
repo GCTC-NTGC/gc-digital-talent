@@ -1,10 +1,11 @@
 import { useIntl } from "react-intl";
-import { OperationContext, useQuery } from "urql";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
+import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
   ENUM_SORT_ORDER,
   EmploymentDuration,
-  TEmploymentDuration,
   commonMessages,
   getEmploymentDuration,
   narrowEnumType,
@@ -15,22 +16,20 @@ import {
   Checklist,
   Combobox,
   Select,
-  SwitchInput,
   enumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
+import type {
+  EmployeeVerification,
   FlexibleWorkLocation,
-  graphql,
   LanguageAbility,
   OperationalRequirement,
-  WorkRegion,
 } from "@gc-digital-talent/graphql";
+import { graphql, WorkRegion } from "@gc-digital-talent/graphql";
 import { Heading } from "@gc-digital-talent/ui";
 
-import FilterDialog, {
-  CommonFilterDialogProps,
-} from "~/components/FilterDialog/FilterDialog";
+import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
+import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 
@@ -52,7 +51,7 @@ export interface FormValues {
   flexibleWorkLocations: FlexibleWorkLocation[];
   employmentDuration?: TEmploymentDuration;
   skills: string[];
-  govEmployee: string;
+  govEmployee: EmployeeVerification[];
   roles: string[];
   otherFilters: OtherFilter[];
 }
@@ -107,6 +106,16 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
     }
     workRegions: localizedEnumOptions(enumName: "WorkRegion") {
       ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
+      ... on LocalizedEmployeeVerification {
         value
         label {
           localized
@@ -233,11 +242,17 @@ const UserFilterDialog = ({
             label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
-        <SwitchInput
-          id="govEmployee"
+        <Checklist
+          idPrefix="govEmployee"
           name="govEmployee"
-          value="true"
-          label={intl.formatMessage(commonMessages.governmentEmployee)}
+          legend={intl.formatMessage(commonMessages.governmentEmployee)}
+          items={narrowEnumType(
+            unpackMaybes(data?.employeeVerifications),
+            "EmployeeVerification",
+          ).map((opt) => ({
+            value: opt.value,
+            label: opt.label?.localized ?? notAvailable,
+          }))}
         />
         <Combobox
           id="skills"

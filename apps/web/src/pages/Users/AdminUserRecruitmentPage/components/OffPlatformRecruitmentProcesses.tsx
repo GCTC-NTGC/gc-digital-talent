@@ -1,7 +1,8 @@
 import GlobeAltIcon from "@heroicons/react/24/outline/GlobeAltIcon";
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { Card, TableOfContents } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

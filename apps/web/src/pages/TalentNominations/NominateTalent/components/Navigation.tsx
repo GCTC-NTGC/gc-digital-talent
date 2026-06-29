@@ -1,9 +1,11 @@
-import { defineMessage, MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 
-import { Stepper, StepType } from "@gc-digital-talent/ui";
+import type { StepType } from "@gc-digital-talent/ui";
+import { Stepper } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   TalentNominationStep,
@@ -19,7 +21,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import useCurrentStep, { stepOrder } from "../useCurrentStep";
-import { RouteParams } from "../types";
+import type { RouteParams } from "../types";
 
 const stepLabels = new Map<TalentNominationStep, MessageDescriptor>([
   [
@@ -77,7 +79,7 @@ const includesAll = (
   values: TalentNominationStep[],
 ) => values.every((v) => arr.includes(v));
 
-const NominateTalentNavigation_Fragment = graphql(/* GraphQL */ `
+export const NominateTalentNavigation_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentNavigation on TalentNomination {
     submittedSteps
     talentNominationEvent {
@@ -100,22 +102,24 @@ const Navigation = ({ navigationQuery }: NavigationProps) => {
     navigationQuery,
   );
 
-  let prevSteps: TalentNominationStep[] = [];
   const steps: StepType[] = unpackMaybes(
-    stepOrder.map((key) => {
+    stepOrder.map((key, i) => {
       const label = stepLabels.get(key);
       if (!label) return null;
-      const step = {
+
+      // Purely derive previous steps based on current index
+      const prevSteps = stepOrder.slice(0, i);
+      const submittedSteps = talentNomination.submittedSteps ?? [];
+
+      return {
         label: intl.formatMessage(label),
         href: `${paths.talentNomination(id)}?step=${key}`,
-        completed: talentNomination.submittedSteps?.includes(key),
+        completed: submittedSteps.includes(key),
         disabled:
           prevSteps.length > 0
-            ? !includesAll(talentNomination.submittedSteps ?? [], prevSteps)
+            ? !includesAll(submittedSteps, prevSteps)
             : false,
       };
-      prevSteps = [...prevSteps, key];
-      return step;
     }),
   );
 

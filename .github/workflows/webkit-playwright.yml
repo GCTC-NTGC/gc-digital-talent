@@ -1,0 +1,130 @@
+name: Weekly Webkit-Playwright Execution
+
+on:
+  schedule:
+    # Runs every Monday at 8 AM
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}-${{ github.job }}
+  cancel-in-progress: true
+
+jobs:
+  playwright:
+    name: Playwright (${{ matrix.project }} ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        project: ${{ fromJSON('["webkit"]') }}
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    env:
+      # Use native docker command within docker compose
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      # Use buildkit to speed up docker command
+      DOCKER_BUILDKIT: 1
+      PNPM_VERSION: "10.27.0"
+      PLAYWRIGHT_WORKERS: "25%"
+      PLAYWRIGHT_RETRIES: "1"
+      GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
+      GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN: ${{ vars.GCNOTIFY_TEMPLATE_VERIFY_EMAIL_EN }}
+      GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_EN }}
+      GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_FR: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_SUBMITTER_FR }}
+      GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_EN: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_EN }}
+      GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR: ${{ vars.GCNOTIFY_TEMPLATE_NOMINATION_RECEIVED_NOMINATOR_FR }}
+    steps:
+      # See: https://github.com/satackey/action-docker-layer-caching/issues/139#issuecomment-1007316528
+      - name: reclaim space on runner
+        run: rm -rf /usr/local/android /usr/share/dotnet /usr/local/share/boost /opt/ghc
+
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # We no longer user docker layer caching as it made runs take longer.
+      # See: https://github.com/satackey/action-docker-layer-caching/issues/305
+
+      - name: Serve app via docker compose
+        # Need to include --build as we're caching layers.
+        run: docker compose up --detach --build
+
+      - name: "Run: setup.sh"
+        run: docker compose run --rm maintenance bash setup.sh -c
+
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+
+      # Fix some issue with cache in setup-node
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Install Playwright system dependencies
+        run: npx playwright install-deps chromium webkit
+
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium webkit
+
+      - name: Start queue for downloads
+        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work" &
+
+      - name: Run Tests
+        run: pnpm run e2e:playwright --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: blob-report-${{ matrix.project }}-${{ matrix.shardIndex }}
+          path: ./apps/playwright/blob-report
+          retention-days: 1
+
+  merge-reports:
+    # Merge reports after playwright-tests, even if some shards have failed
+    if: ${{ !cancelled() }}
+    needs: [playwright]
+    runs-on: ubuntu-24.04
+    env:
+      PNPM_VERSION: "10.27.0"
+    steps:
+      - uses: pnpm/action-setup@v5
+        with:
+          version: ${{ env.PNPM_VERSION }}
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+
+      # Fix some issue with cache in setup-node
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v8
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v7
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14

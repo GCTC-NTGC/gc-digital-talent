@@ -1,38 +1,36 @@
 import { faker } from "@faker-js/faker/locale/en";
-import pick from "lodash/pick";
 
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import {
-  PoolStatus,
+import type {
   Classification,
   Pool,
-  PoolLanguage,
-  User,
-  UserPublicProfile,
-  PublishingGroup,
-  SecurityStatus,
   Skill,
   GeneralQuestion,
   ScreeningQuestion,
+  PoolSkill,
+  Department,
+  WorkStream,
+} from "@gc-digital-talent/graphql";
+import {
+  PoolStatus,
+  PoolLanguage,
+  PublishingGroup,
+  SecurityStatus,
   AssessmentStepType,
   PoolSkillType,
-  PoolSkill,
   SkillLevel,
-  Department,
   PoolOpportunityLength,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 
 import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeGeneralQuestions from "./fakeGeneralQuestions";
-import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
@@ -43,7 +41,6 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 import fakeWorkStreams from "./fakeWorkStreams";
 
 const generatePool = (
-  users: User[],
   skills: Skill[],
   classifications: Classification[],
   departments: Department[],
@@ -55,7 +52,6 @@ const generatePool = (
 ): Pool => {
   faker.seed(index); // repeatable results
 
-  const ownerUser: User = faker.helpers.arrayElement<User>(users);
   const essentialSkills = faker.helpers.arrayElements(
     skills,
     essentialSkillCount > 0
@@ -97,12 +93,6 @@ const generatePool = (
   );
   return {
     id: faker.string.uuid(),
-    owner: pick(ownerUser, [
-      "id",
-      "email",
-      "firstName",
-      "lastName",
-    ]) as UserPublicProfile,
     name: {
       en: englishName || `${faker.company.catchPhrase()} EN`,
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
@@ -168,6 +158,7 @@ const generatePool = (
       data: fakePaginateData([], fakePaginatorInfo(0)),
     },
     applicantsCount: faker.number.int({ max: 99999 }),
+    wasClosedEarly: false,
   };
 };
 
@@ -179,13 +170,10 @@ export default (
   workStreams = fakeWorkStreams(),
   essentialSkillCount = -1,
 ): Pool[] => {
-  const users = fakeUsers();
-
   return Array.from({ length: numToGenerate }, (_, index) => {
     switch (index) {
       case 0:
         return generatePool(
-          users,
           skills,
           classifications,
           departments,
@@ -197,7 +185,6 @@ export default (
         );
       case 1:
         return generatePool(
-          users,
           skills,
           classifications,
           departments,
@@ -209,7 +196,6 @@ export default (
         );
       default:
         return generatePool(
-          users,
           skills,
           classifications,
           departments,

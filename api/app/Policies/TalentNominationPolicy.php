@@ -2,9 +2,11 @@
 
 namespace App\Policies;
 
+use App\Enums\ErrorCode;
 use App\Models\TalentNomination;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class TalentNominationPolicy
 {
@@ -26,7 +28,6 @@ class TalentNominationPolicy
         }
 
         // can view if the nomination is submitted and is for an event in their community
-        $talentNomination->loadMissing('talentNominationEvent');
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')
             ->where('teamable_id', $talentNomination->talentNominationEvent->community_id)
@@ -41,13 +42,20 @@ class TalentNominationPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $actor): bool
+    public function create(User $actor): Response
     {
-        if ($actor->isVerifiedGovEmployee && $actor->isAbleTo('create-own-talentNomination')) {
-            return true;
+        // early returns
+        if (! $actor->isVerifiedGovEmployee) {
+            return Response::deny(ErrorCode::YOU_MUST_BE_VERIFIED_EMPLOYEE_FOR_ACTION->name);
         }
 
-        return false;
+        // regular permission checks
+        if ($actor->isAbleTo('create-own-talentNomination')) {
+            return Response::allow();
+        }
+
+        // fall through
+        return Response::deny();
     }
 
     /**

@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import { useOutletContext } from "react-router";
@@ -8,31 +9,26 @@ import { Container, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import {
-  CommunityMembersTeamQuery,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import {
-  groupRoleAssignmentsByUser,
-  CommunityMember,
-  checkRole,
-} from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
+import { groupRoleAssignmentsByUser, checkRole } from "~/utils/communityUtils";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import tableMessages from "~/components/Table/tableMessages";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import adminMessages from "~/messages/adminMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import AddCommunityMemberDialog from "./components/AddCommunityMemberDialog";
 import { actionCell, emailLinkCell, roleAccessor, roleCell } from "./helpers";
-import { CommunityMembersPageFragment, ContextType } from "./components/types";
+import type {
+  CommunityMembersPageFragment,
+  ContextType,
+} from "./components/types";
 import { CommunityMembersPage_CommunityFragment } from "./components/operations";
 
 const pageTitle = defineMessage({
@@ -53,7 +49,8 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     CommunityMembersPage_CommunityFragment,
     communityQuery,
   );
-  const { canAdminManageAccess } = useOutletContext<ContextType>();
+  const { canAdminManageAccessAndEditCommunity } =
+    useOutletContext<ContextType>();
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
@@ -80,11 +77,11 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         },
       },
     ),
-    columnHelper.accessor("email", {
-      id: "email",
-      header: intl.formatMessage(commonMessages.email),
+    columnHelper.accessor("workEmail", {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ row: { original: member } }) =>
-        emailLinkCell(member.email, intl),
+        emailLinkCell(member.workEmail, intl),
     }),
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
@@ -97,7 +94,7 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
     }),
   ] as ColumnDef<CommunityMember>[];
 
-  if (canAdminManageAccess) {
+  if (canAdminManageAccessAndEditCommunity) {
     columns.splice(
       1,
       0,
@@ -130,20 +127,15 @@ const CommunityMembers = ({ communityQuery }: CommunityMembersProps) => {
         pagination={{
           internal: true,
           total: data.length,
-          pageSizes: [10, 20, 50],
+          pageSizes: [10, 20, 50, 100, 500],
         }}
         search={{
           internal: true,
           label: intl.formatMessage(adminMessages.searchByKeyword),
         }}
-        {...(canAdminManageAccess && {
+        {...(canAdminManageAccessAndEditCommunity && {
           add: {
-            component: (
-              <AddCommunityMemberDialog
-                community={community}
-                members={members}
-              />
-            ),
+            component: <AddCommunityMemberDialog community={community} />,
           },
           nullMessage: {
             description: intl.formatMessage({
@@ -167,18 +159,19 @@ const CommunityMembersTeam_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  communityId: Scalars["ID"]["output"];
+  communityId: string;
 }
 
-interface CommunityMembersPageProps {
-  community: NonNullable<CommunityMembersTeamQuery["community"]>;
-}
-
-const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
+const CommunityMembersPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
 
   const { communityId } = useRequiredParams<RouteParams>("communityId");
+
+  const [{ data, fetching, error }] = useQuery({
+    query: CommunityMembersTeam_Query,
+    variables: { communityId },
+  });
 
   const formattedPageTitle = intl.formatMessage(pageTitle);
 
@@ -205,42 +198,40 @@ const CommunityMembersPage = ({ community }: CommunityMembersPageProps) => {
       <SEO title={formattedPageTitle} />
       <Hero title={communityName} crumbs={crumbs} navTabs={navTabs} />
       <Container className="my-12">
-        <CommunityMembers communityQuery={community} />
+        <Pending fetching={fetching} error={error}>
+          {data?.community ? (
+            <CommunityMembers communityQuery={data.community} />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </Container>
     </>
   );
 };
 
-// Since the SEO and Hero need API-loaded data, we wrap the entire page in a Pending
-const CommunityMembersPageApiWrapper = () => {
-  const { communityId } = useRequiredParams<RouteParams>("communityId");
-  const [{ data, fetching, error }] = useQuery({
-    query: CommunityMembersTeam_Query,
-    variables: { communityId },
-  });
+export const Component = () => {
+  const { teamId } = useOutletContext<ContextType>();
+
+  // wait for outlet to load
+  if (teamId === undefined) {
+    return null;
+  }
+
   return (
-    <Pending fetching={fetching} error={error}>
-      {data?.community ? (
-        <CommunityMembersPage community={data.community} />
-      ) : (
-        <ThrowNotFound />
-      )}
-    </Pending>
+    <RequireAuth
+      rolesRequirements={[
+        { name: ROLE_NAME.PlatformAdmin },
+        { name: ROLE_NAME.CommunityAdmin, teamId },
+        { name: ROLE_NAME.CommunityRecruiter, teamId },
+        { name: ROLE_NAME.CommunityTalentCoordinator, teamId },
+      ]}
+      strict
+    >
+      <CommunityMembersPage />
+    </RequireAuth>
   );
 };
-
-export const Component = () => (
-  <RequireAuth
-    roles={[
-      ROLE_NAME.CommunityAdmin,
-      ROLE_NAME.CommunityRecruiter,
-      ROLE_NAME.CommunityTalentCoordinator,
-      ROLE_NAME.PlatformAdmin,
-    ]}
-  >
-    <CommunityMembersPageApiWrapper />
-  </RequireAuth>
-);
 
 Component.displayName = "AdminCommunityMembersPage";
 

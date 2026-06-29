@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { makeFragmentData } from "@gc-digital-talent/graphql";

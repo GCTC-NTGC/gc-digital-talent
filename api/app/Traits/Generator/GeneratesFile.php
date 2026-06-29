@@ -2,6 +2,7 @@
 
 namespace App\Traits\Generator;
 
+use App\Traits\HasLocalization;
 use Illuminate\Support\Facades\Lang;
 
 trait GeneratesFile
@@ -43,7 +44,7 @@ trait GeneratesFile
         $enumCases = array_column($enum::cases(), 'name');
         $valueInCases = in_array(strtoupper($value), $enumCases);
 
-        /** @use \App\Traits\HasLocalization<UnitEnum> $enum */
+        /** @use HasLocalization<UnitEnum> $enum */
         return $valueInCases ?
         $enum::localizedString($value, $subKey)[$this->lang] ?? $default
         : strtoupper($value);

@@ -1,17 +1,16 @@
 import orderBy from "lodash/orderBy";
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  Maybe,
+import type {
   Role,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 
 import EditCommunityMemberDialog from "./components/EditCommunityMemberDialog";
 import RemoveCommunityMemberDialog from "./components/RemoveCommunityMemberDialog";
@@ -76,7 +75,7 @@ export const actionCell = (
 };
 
 export function emailLinkCell(
-  email: Maybe<string> | undefined,
+  email: string | null | undefined,
   intl: IntlShape,
 ) {
   if (email) {
@@ -98,7 +97,10 @@ export function emailLinkCell(
   );
 }
 
-export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
+export function roleCell(
+  roles: (Role | null | undefined)[] | null | undefined,
+  intl: IntlShape,
+) {
   const nonEmptyRoles = unpackMaybes(roles);
   const roleItems = nonEmptyRoles
     ? orderRoles(nonEmptyRoles, intl).map((role) => (
@@ -109,7 +111,10 @@ export function roleCell(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
   return roleItems ? <Ul>{roleItems}</Ul> : null;
 }
 
-export function roleAccessor(roles: Maybe<Maybe<Role>[]>, intl: IntlShape) {
+export function roleAccessor(
+  roles: (Role | null | undefined)[] | null | undefined,
+  intl: IntlShape,
+) {
   const nonEmptyRoles = roles?.filter(notEmpty);
 
   return nonEmptyRoles

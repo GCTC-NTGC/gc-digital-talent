@@ -20,16 +20,19 @@ final readonly class DownloadApplicationDoc
         throw_unless(is_string($user?->id), UnauthorizedException::class);
 
         try {
-            $targetApplicant = PoolCandidate::findOrFail($args['id'])->load([
+            /** @var PoolCandidate $targetApplicant */
+            $targetApplicant = PoolCandidate::with([
                 'educationRequirementAwardExperiences',
                 'educationRequirementCommunityExperiences',
                 'educationRequirementEducationExperiences',
                 'educationRequirementPersonalExperiences',
                 'educationRequirementWorkExperiences',
-                'pool' => ['poolSkills', 'poolSkills.skill'],
-                'screeningQuestionResponses' => ['screeningQuestion'],
-                'generalQuestionResponses' => ['generalQuestion'],
-            ]);
+                'pool.poolSkills.skill',
+                'screeningQuestionResponses.screeningQuestion',
+                'generalQuestionResponses.generalQuestion',
+            ])
+                ->findOrFail($args['id']);
+
             $generator = new ApplicationDocGenerator(
                 candidate: $targetApplicant,
                 dir: $user->id,

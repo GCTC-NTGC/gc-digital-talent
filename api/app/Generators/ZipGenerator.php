@@ -61,7 +61,7 @@ abstract class ZipGenerator extends FileGenerator implements FileGeneratorInterf
     public function write()
     {
         try {
-            $zip = new ZipArchive;
+            $zip = new ZipArchive();
             $zipPath = $this->getPath();
             if ($zip->open($zipPath, ZipArchive::CREATE)) {
                 foreach ($this->files as $name => $path) {

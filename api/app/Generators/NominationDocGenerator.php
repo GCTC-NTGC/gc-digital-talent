@@ -4,11 +4,10 @@ namespace App\Generators;
 
 use App\Models\TalentNominationGroup;
 use App\Traits\Generator\GeneratesNominationDoc;
-use App\Traits\Generator\GeneratesUserDoc;
 
 class NominationDocGenerator extends DocGenerator implements FileGeneratorInterface
 {
-    use GeneratesNominationDoc, GeneratesUserDoc;
+    use GeneratesNominationDoc;
 
     public function __construct(protected TalentNominationGroup $talentNominationGroup, public ?string $dir, protected ?string $lang)
     {

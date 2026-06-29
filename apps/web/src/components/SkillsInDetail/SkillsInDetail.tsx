@@ -4,11 +4,11 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 
 import { Button, Card } from "@gc-digital-talent/ui";
 import { TextArea } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   getLocale,
   errorMessages,
   getLocalizedName,
-  Locales,
 } from "@gc-digital-talent/i18n";
 
 import type { FormSkills } from "~/types/experience";

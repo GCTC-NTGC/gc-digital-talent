@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
@@ -28,16 +29,14 @@ import {
   Link,
   Pending,
 } from "@gc-digital-talent/ui";
-import {
+import type {
   Skill,
   SkillFamily,
   CreateSkillInput,
   SkillCategory,
-  graphql,
-  Scalars,
-  getFragment,
   FragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -77,9 +76,7 @@ interface FormValues extends Pick<Skill, "description"> {
 interface CreateSkillFormProps {
   families: SkillFamily[];
   optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
-  handleCreateSkill: (
-    data: CreateSkillInput,
-  ) => Promise<Scalars["UUID"]["output"]>;
+  handleCreateSkill: (data: CreateSkillInput) => Promise<string>;
 }
 
 export const CreateSkillForm = ({

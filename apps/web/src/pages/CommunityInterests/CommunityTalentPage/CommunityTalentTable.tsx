@@ -1,22 +1,21 @@
 import { useMemo, useRef, useState } from "react";
-import {
+import type {
   ColumnDef,
   PaginationState,
   SortingState,
-  createColumnHelper,
 } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 import isEqual from "lodash/isEqual";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  graphql,
+import type {
   CommunityTalentTableCommunityInterestFragment as CommunityTalentTableCommunityInterestFragmentType,
-  getFragment,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getEmploymentDuration,
@@ -35,7 +34,7 @@ import useRoutes from "~/hooks/useRoutes";
 import cells from "~/components/Table/cells";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
-import { SearchState } from "~/components/Table/ResponsiveTable/types";
+import type { SearchState } from "~/components/Table/ResponsiveTable/types";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
@@ -46,14 +45,11 @@ import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
 
-import CommunityTalentFilterDialog, {
-  FormValues,
-} from "./components/CommunityTalentFilterDialog";
+import type { FormValues } from "./components/CommunityTalentFilterDialog";
+import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
 import {
-  classificationAccessor,
   getClassificationSort,
   interestAccessor,
-  removeDuplicateIds,
   transformCommunityInterestFilterInputToFormValues,
   transformCommunityTalentInput,
   transformFormValuesToCommunityInterestFilterInput,
@@ -85,8 +81,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
         lookingForFrench
         lookingForBilingual
         currentClassification {
-          group
-          level
+          groupAndLevel
         }
         positionDuration
         flexibleWorkLocations {
@@ -259,7 +254,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
-    const uniqueIds = removeDuplicateIds(selectedRows);
+    const uniqueIds = extractUserIdsFromSelectedRows(selectedRows);
     if (uniqueIds.length === 1) {
       downloadDoc({
         id: uniqueIds[0],
@@ -437,11 +432,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         communityInterest: {
           user: { currentClassification },
         },
-      }) =>
-        classificationAccessor(
-          currentClassification?.group,
-          currentClassification?.level,
-        ),
+      }) => currentClassification?.groupAndLevel ?? "",
       {
         id: "classification",
         header: intl.formatMessage(processMessages.classification),
@@ -686,12 +677,13 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
         total: data?.communityInterestsPaginated.paginatorInfo.total,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
         },
       }}
       filter={{
+        // eslint-disable-next-line react-hooks/refs
         state: filterRef.current,
         component: (
           <CommunityTalentFilterDialog

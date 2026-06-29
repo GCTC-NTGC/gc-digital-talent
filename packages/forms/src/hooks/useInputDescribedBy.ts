@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 /** Keys for the different types of descriptions we are using */
-type InputDescription = "error" | "context" | "unsaved";
+type InputDescription = "error" | "context";
 
 /** Contains the IDs used for each description element */
 export type DescriptionIds = Record<InputDescription, string>;
@@ -15,7 +15,6 @@ interface UseInputDescribedByArgs {
   show: {
     error?: boolean;
     context?: ReactNode;
-    unsaved?: boolean;
   };
 }
 
@@ -37,13 +36,12 @@ type UseInputDescribedBy = (
  * and input based on the visible descriptions
  */
 const useInputDescribedBy: UseInputDescribedBy = ({
-  show: { error, context, unsaved },
+  show: { error, context },
   id,
   describedBy,
 }) => {
   const contextId = `context-${id}`;
   const errorId = `error-${id}`;
-  const unsavedId = `unsaved-${id}`;
 
   const ariaDescribedByArray = [];
 
@@ -59,10 +57,6 @@ const useInputDescribedBy: UseInputDescribedBy = ({
     ariaDescribedByArray.push(contextId);
   }
 
-  if (unsaved) {
-    ariaDescribedByArray.push(unsavedId);
-  }
-
   const ariaDescribedBy = ariaDescribedByArray.length
     ? ariaDescribedByArray.join(" ")
     : undefined;
@@ -71,7 +65,6 @@ const useInputDescribedBy: UseInputDescribedBy = ({
     {
       context: contextId,
       error: errorId,
-      unsaved: unsavedId,
     },
     ariaDescribedBy,
   ];

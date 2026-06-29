@@ -2,7 +2,7 @@
 // NOTE: `a` needed here to avoid styling, etc
 import { IntlProvider, useIntl } from "react-intl";
 import { useLocation } from "react-router";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 import HomeIcon from "@heroicons/react/24/outline/HomeIcon";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
@@ -22,7 +22,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 
-import messages from "~/lang/frCompiled.json";
+import messages from "~/lang/frCompiled.json" with { type: "json" };
 import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";

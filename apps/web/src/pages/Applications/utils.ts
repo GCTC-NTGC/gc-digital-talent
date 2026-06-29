@@ -1,13 +1,11 @@
-import { IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
 
-import { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
-import useRoutes from "~/hooks/useRoutes";
-import { ApplicationStepInfo } from "~/types/applicationStep";
-import { isIAPPool } from "~/utils/poolUtils";
+import type useRoutes from "~/hooks/useRoutes";
+import type { ApplicationStepInfo } from "~/types/applicationStep";
 
 import welcomeStepInfo from "./welcomeStep/welcomeStepInfo";
-import selfDeclarationStepInfo from "./selfDeclarationStep/selfDeclarationStepInfo";
 import careerTimelineStepInfo from "./careerTimelineStep/careerTimelineStepInfo";
 import educationStepInfo from "./educationStep/educationStepInfo";
 import profileStepInfo from "./profileStep/profileStepInfo";
@@ -37,9 +35,6 @@ export const getApplicationSteps = ({
   // build the order of step functions to call
   const stepInfoFunctions = [
     welcomeStepInfo,
-    ...(isIAPPool(application.pool.publishingGroup?.value)
-      ? [selfDeclarationStepInfo]
-      : []),
     profileStepInfo,
     careerTimelineStepInfo,
     educationStepInfo,

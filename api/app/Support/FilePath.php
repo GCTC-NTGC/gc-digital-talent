@@ -12,13 +12,13 @@ class FilePath
     {
         // Remove dots to prevent directory traversal and double extensions
         if ($preserveExtension && str_contains($input, '.')) {
-            $parts = explode('.', $input);
-            $extension = array_pop($parts);
-            // Replace internal dots with spaces, then join back to the extension
-            $name = implode(' ', $parts).'.'.$extension;
+            $lastDot = strrpos($input, '.');
+            $extension = substr($input, $lastDot + 1);
+            // Replace internal dots (e.g. version numbers like 2.72.2) with underscores
+            $name = str_replace('.', '_', substr($input, 0, $lastDot)).'.'.$extension;
         } else {
             // No dots allowed at all (prevents double extensions)
-            $name = str_replace('.', ' ', $input);
+            $name = str_replace('.', '_', $input);
         }
 
         // Keep French letters, numbers, spaces, and dashes

@@ -12,12 +12,12 @@ import {
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
+import type { Locales } from "@gc-digital-talent/i18n";
 import {
   errorMessages,
   sortAwardedTo,
   sortAwardedScope,
   getLocale,
-  Locales,
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
@@ -25,7 +25,10 @@ import { AwardedScope, AwardedTo, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Loading } from "@gc-digital-talent/ui";
 
-import { AwardFormValues, SubExperienceFormProps } from "~/types/experience";
+import type {
+  AwardFormValues,
+  SubExperienceFormProps,
+} from "~/types/experience";
 import {
   getExperienceFormLabels,
   getExperienceName,

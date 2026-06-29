@@ -35,7 +35,7 @@ return [
     'featured_skills' => 'Featured skills:',
     'en_only' => 'English-only positions',
     'fr_only' => 'French-only positions',
-    'bilingual' => 'Bilingual positions',
+    'bilingual_positions' => 'Bilingual positions',
     'skill_showcase_text' => 'The skill showcase allows a candidate to provide a curated series of lists that highlight their specific strengths, weaknesses, and skill growth opportunities. These lists can provide you with insight into a candidate\'s broader skillset and where they might be interested in learning new skills.',
     'not_available' => 'Not available',
     'advancement' => 'Advancement',
@@ -47,8 +47,12 @@ return [
     'off_platform_processes_text' => 'Recruitment processes that the nominee has qualified in on other Government of Canada platforms. Note that this information is provided by the nominee without verification. Please ensure you verify the validity of process information before using it for hiring or placement purposes.',
     'nominations' => 'Nominations',
     'skill_requirements' => 'Skill requirements',
-    'expired' => 'Expired',
     'interested_in_program' => 'Interested in this program',
     'currently_enrolled' => 'Currently enrolled',
     'completed_in' => 'Completed in ',
+    'successfully_completed' => 'Successfully completed',
+    'successfully_placed' => 'Candidate has been successfully placed',
+
+    // user and pool candidate terms
+    'veteran' => 'Veteran',
 ];

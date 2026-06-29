@@ -1,10 +1,11 @@
-import { Meta, StoryFn } from "@storybook/react-vite";
+import type { Meta, StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { faker } from "@faker-js/faker";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 
-import PreviewList, { MetaDataProps } from "./PreviewList";
+import type { MetaDataProps } from "./PreviewList";
+import PreviewList from "./PreviewList";
 
 faker.seed(0);
 
@@ -126,7 +127,9 @@ Default.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
       />
@@ -136,7 +139,9 @@ Default.args = {
         action={
           <PreviewList.Button
             label="View preview button two"
-            onClick={() => action("preview button two clicked")()}
+            onClick={() => {
+              action("preview button two clicked")();
+            }}
           />
         }
       />
@@ -146,7 +151,9 @@ Default.args = {
         action={
           <PreviewList.Button
             label="View preview button three"
-            onClick={() => action("preview button three clicked")()}
+            onClick={() => {
+              action("preview button three clicked")();
+            }}
           />
         }
       />
@@ -163,7 +170,9 @@ WithChildren.args = {
       action={
         <PreviewList.Button
           label="View preview button one"
-          onClick={() => action("preview button one clicked")()}
+          onClick={() => {
+            action("preview button one clicked")();
+          }}
         />
       }
     >
@@ -182,7 +191,9 @@ SingleTimelineExperience.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
         mode="experience"
@@ -205,7 +216,9 @@ MultipleTimelineExperiences.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
         mode="experience"
@@ -220,7 +233,9 @@ MultipleTimelineExperiences.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
         mode="experience"
@@ -235,7 +250,9 @@ MultipleTimelineExperiences.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
         mode="experience"
@@ -250,7 +267,9 @@ MultipleTimelineExperiences.args = {
         action={
           <PreviewList.Button
             label="View preview button one"
-            onClick={() => action("preview button one clicked")()}
+            onClick={() => {
+              action("preview button one clicked")();
+            }}
           />
         }
         mode="experience"

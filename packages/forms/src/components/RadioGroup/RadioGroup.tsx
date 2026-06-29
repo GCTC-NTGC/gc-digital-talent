@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useReducedMotion } from "motion/react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 import Field from "../Field";
@@ -90,13 +90,11 @@ const RadioGroup = ({
   useRegisterFormLabel(name, legend);
   const shouldReduceMotion = useReducedMotion();
   const fieldState = useFieldState(name, !trackUnsaved);
-  const isUnsaved = fieldState === "dirty" && trackUnsaved;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id: idPrefix,
     describedBy,
     show: {
       error: fieldState === "invalid",
-      unsaved: trackUnsaved && isUnsaved,
       context,
     },
   });

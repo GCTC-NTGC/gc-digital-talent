@@ -9,7 +9,7 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    files: ["**/*.{ts,tsx,mjs}"],
+    files: ["**/*.{ts,tsx,mts}"],
     rules: {
       "import/no-unused-modules": (() => {
         // Trigger warning on CI only, because of performance issues locally
@@ -18,16 +18,18 @@ export default [
             1,
             {
               unusedExports: true,
-              ignoreExports: [
-                "src/index.ts",
-                "src/config/index.mjs",
-                "src/config/config.d.ts",
-              ],
+              ignoreExports: ["src/index.ts", "src/config/index.ts"],
             },
           ];
         }
         return "off";
       })(),
+    },
+  },
+  {
+    files: ["src/config/**/*.ts"],
+    rules: {
+      "import/extensions": ["error", "ignorePackages", { ts: "always" }],
     },
   },
 ];

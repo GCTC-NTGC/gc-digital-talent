@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { ReactNode, Fragment } from "react";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 
 import {
   Button,
@@ -10,11 +11,8 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType,
-  graphql,
-  PoolSkillType,
-} from "@gc-digital-talent/graphql";
+import type { SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType } from "@gc-digital-talent/graphql";
+import { graphql, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -43,8 +41,7 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
       }
     }
     classification {
-      group
-      level
+      groupAndLevel
     }
     name {
       en
@@ -116,7 +113,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           classification: pool.classification,
         })}
       </p>
-      <p className="mt-3 mb-6 flex gap-x-3">
+
+      <p className="mt-3 mb-6 flex flex-col gap-y-1 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3">
         <span>
           {intl.formatMessage(
             {
@@ -138,9 +136,11 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
                 : intl.formatMessage(commonMessages.notAvailable),
             },
           )}
+          <span aria-hidden className="ml-3 hidden sm:inline">
+            {UNICODE_CHAR.BULLET}
+          </span>
         </span>
-        <span aria-hidden>{UNICODE_CHAR.BULLET}</span>
-        <span className="font-bold text-primary-600 dark:text-primary-200">
+        <span className="font-bold whitespace-nowrap text-primary-600 dark:text-primary-200">
           {intl.formatMessage(
             {
               defaultMessage: `{candidateCount, plural,
@@ -167,11 +167,15 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
             "Text showing the essentials skills assessed during the process",
         })}
       </p>
-      <p className="flex flex-wrap gap-x-3 text-sm">
+      <p className="flex flex-col gap-x-2 gap-y-1.5 text-sm sm:flex-row sm:flex-wrap">
         {essentialSkills.length > 0
           ? essentialSkills.map((skill, index) => (
               <Fragment key={skill.id}>
-                {index !== 0 && <span aria-hidden>{UNICODE_CHAR.BULLET}</span>}
+                {index !== 0 && (
+                  <span aria-hidden className="hidden sm:inline">
+                    {UNICODE_CHAR.BULLET}
+                  </span>
+                )}
                 <span
                   key={skill.id}
                   className="text-gray-600 dark:text-gray-200"
@@ -183,7 +187,7 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           : null}
       </p>
       <Separator space="sm" />
-      <div className="mt-6 flex items-center gap-6">
+      <div className="mt-6 flex flex-wrap items-center justify-start gap-6">
         <Button
           color="primary"
           type="submit"

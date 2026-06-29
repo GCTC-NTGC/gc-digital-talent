@@ -1,5 +1,5 @@
-import { IntlShape } from "react-intl";
-import { ReactNode } from "react";
+import type { IntlShape } from "react-intl";
+import type { ReactNode } from "react";
 
 import { nodeToString } from "@gc-digital-talent/helpers";
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { StoryFn } from "@storybook/react-vite";
+import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { isAfter } from "date-fns/isAfter";
 import { parseISO } from "date-fns/parseISO";
@@ -11,7 +11,7 @@ import {
   formDateStringToDate,
   DATE_FORMAT_STRING,
 } from "@gc-digital-talent/date-helpers";
-import { Pool } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -21,7 +21,8 @@ import Form from "../BasicForm";
 import Submit from "../Submit";
 import Input from "../Input/Input";
 import { DATE_SEGMENT } from "./types";
-import DateInput, { DateInputProps } from "./DateInput";
+import type { DateInputProps } from "./DateInput";
+import DateInput from "./DateInput";
 
 export default {
   component: DateInput,
@@ -192,16 +193,17 @@ interface AsyncArgs extends DateInputProps {
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(true);
   const [pool, setPool] = useState<Pool | null>(null);
 
   useEffect(() => {
-    setFetching(true);
     mockQuery()
       .then((res: Pool) => {
         setPool(res);
       })
-      .catch((err) => action("error")(err))
+      .catch((err) => {
+        action("error")(err);
+      })
       .finally(() => {
         setFetching(false);
       });

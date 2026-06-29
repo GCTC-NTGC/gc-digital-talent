@@ -12,7 +12,7 @@ final class Notification
     /**
      * The type registry.
      *
-     * @var \Nuwave\Lighthouse\Schema\TypeRegistry
+     * @var TypeRegistry
      */
     protected $typeRegistry;
 

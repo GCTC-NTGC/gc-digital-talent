@@ -7,6 +7,7 @@ use App\Exceptions\EmailAttachmentException;
 use App\Exceptions\InvalidBulkRowDataException;
 use App\Exceptions\NotFutureDateException;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -89,7 +90,7 @@ class Client
      *                              ]
      *                              ]
      * @param  string  $template  ID of the template to use
-     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
+     * @param  Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      */
     public function sendBulkEmail($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -116,7 +117,7 @@ class Client
      *                              ]
      *                              ]
      * @param  string  $template  ID of the template to use
-     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
+     * @param  Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      */
     public function sendBulkSms($name, $rows, $template, $scheduleFor = null, $replyTo = null)
@@ -212,7 +213,7 @@ class Client
      * @param  string  $name  Used to identify this bulk of notifications later on.
      * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
+     * @param  Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
@@ -244,7 +245,7 @@ class Client
      * @param  string  $name  Used to identify this bulk of notifications later on.
      * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
+     * @param  Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */
@@ -286,7 +287,7 @@ class Client
      * @param  string  $name  Used to identify this bulk of notifications later on.
      * @param  array<mixed>  $rows  The recipient of the notification
      * @param  string  $template  Template of the notification
-     * @param  \Illuminate\Support\Carbon  $scheduleFor  (optional)
+     * @param  Carbon  $scheduleFor  (optional)
      * @param  string  $replyTo  (optional) ID for a reply to email address
      * @return array<mixed> The partial payload
      */

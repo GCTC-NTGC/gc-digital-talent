@@ -3,7 +3,8 @@ import {
   expectNoAccessibilityErrors,
 } from "@gc-digital-talent/vitest-helpers";
 
-import Alert, { AlertProps } from "./Alert";
+import type { AlertProps } from "./Alert";
+import Alert from "./Alert";
 
 const defaultProps = {
   title: "Alert test",

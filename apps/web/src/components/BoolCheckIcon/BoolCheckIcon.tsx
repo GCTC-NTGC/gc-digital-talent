@@ -1,9 +1,8 @@
 import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import CheckCircleIcon from "@heroicons/react/20/solid/CheckCircleIcon";
-import { ReactNode, useId } from "react";
+import type { ReactNode } from "react";
+import { useId } from "react";
 import { tv } from "tailwind-variants";
-
-import { Maybe } from "@gc-digital-talent/graphql";
 
 const boolCheck = tv({
   slots: {
@@ -21,14 +20,14 @@ const boolCheck = tv({
 type DivProps = React.ComponentPropsWithoutRef<"div">;
 
 interface BothLabelsRequiredProps extends DivProps {
-  value?: Maybe<boolean>;
+  value?: boolean | null;
   trueLabel: string;
   falseLabel: string;
   children: ReactNode;
 }
 
 interface NoLabelsAllowedProps extends DivProps {
-  value?: Maybe<boolean>;
+  value?: boolean | null;
   trueLabel?: undefined;
   falseLabel?: undefined;
   children: ReactNode;

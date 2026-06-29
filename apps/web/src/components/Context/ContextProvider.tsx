@@ -1,6 +1,7 @@
 import { HelmetProvider } from "@dr.pogodin/react-helmet";
 import { MotionConfig, LazyMotion, domAnimation } from "motion/react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
+import ReactDOM from "react-dom";
 
 import { AppInsightsProvider } from "@gc-digital-talent/app-insights";
 import {
@@ -14,9 +15,12 @@ import { Announcer } from "@gc-digital-talent/ui";
 import { ThemeProvider } from "@gc-digital-talent/theme";
 import Toast from "@gc-digital-talent/toast";
 
-import frMessages from "~/lang/frCompiled.json";
+import frMessages from "~/lang/frCompiled.json" with { type: "json" };
 
 import NavContextProvider from "../NavContext/NavContextProvider";
+import ActivityContainer from "../ActivityContext/ActivityContainer";
+
+const ToastPortal = () => ReactDOM.createPortal(<Toast />, document.body);
 
 interface ContextContainerProps {
   children: ReactNode;
@@ -27,18 +31,20 @@ const ContextContainer = ({ children }: ContextContainerProps) => (
     <HelmetProvider>
       <AuthenticationProvider>
         <LanguageProvider messages={frMessages}>
-          <Toast />
+          <ToastPortal />
           <ThemeProvider>
             <ClientProvider>
               <AppInsightsProvider>
                 <AuthorizationProvider>
-                  <NavContextProvider>
-                    <LazyMotion features={domAnimation}>
-                      <MotionConfig reducedMotion="user">
-                        <Announcer>{children}</Announcer>
-                      </MotionConfig>
-                    </LazyMotion>
-                  </NavContextProvider>
+                  <ActivityContainer>
+                    <NavContextProvider>
+                      <LazyMotion features={domAnimation}>
+                        <MotionConfig reducedMotion="user">
+                          <Announcer>{children}</Announcer>
+                        </MotionConfig>
+                      </LazyMotion>
+                    </NavContextProvider>
+                  </ActivityContainer>
                 </AuthorizationProvider>
               </AppInsightsProvider>
             </ClientProvider>

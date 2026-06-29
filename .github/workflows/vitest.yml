@@ -19,22 +19,29 @@ jobs:
 
     steps:
       - name: Get number of CPU cores
-        uses: SimenB/github-actions-cpu-cores@v2
+        uses: SimenB/github-actions-cpu-cores@v3
         id: cpu-cores
 
-      - uses: actions/checkout@v6
-
-      - name: Remove unused deps
+      - name: Reclaim space on runner
         run: |
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /usr/share/dotnet
+          rm -rf /usr/local/android
+          rm -rf /usr/share/dotnet
+          rm -rf /usr/local/share/boost
+          rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/lib/jvm
+          df -h
+
+      - uses: actions/checkout@v7
 
       - name: "Copy .env"
         working-directory: "./apps/web"
         run: |
           cp .env.example .env
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v5
         with:
           version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
@@ -80,7 +87,7 @@ jobs:
 
       - name: "Upload coverage report to Codecov"
         if: github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests

@@ -1,8 +1,11 @@
 import { useEffect } from "react";
-import { Location, useLocation, useNavigate, useParams } from "react-router";
+import type { Location } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { OperationContext, useQuery } from "urql";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
+import type { OperationContext } from "urql";
+import { useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
 import {
@@ -20,12 +23,8 @@ import {
   formMessages,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import {
-  FragmentType,
-  Scalars,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { useAuthorization } from "@gc-digital-talent/auth";
 import { Submit } from "@gc-digital-talent/forms";
@@ -335,6 +334,8 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
         id
         group
         level
+        groupAndLevel
+        displayName
       }
       department {
         id
@@ -644,6 +645,7 @@ export const ExperienceForm = ({
                 <TableOfContents.Section id="skills">
                   <ExperienceSkills
                     experienceType={experienceType}
+                    experienceId={experienceId}
                     skills={[...skills]}
                   />
                 </TableOfContents.Section>
@@ -809,9 +811,9 @@ const ExperienceFormData_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
   experienceType: ExperienceType;
-  experienceId: Scalars["ID"]["output"];
+  experienceId: string;
 }
 
 interface LocationState {

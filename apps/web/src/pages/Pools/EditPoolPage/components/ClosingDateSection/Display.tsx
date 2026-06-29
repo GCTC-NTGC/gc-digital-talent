@@ -6,12 +6,12 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import { EditPoolClosingDateFragment } from "@gc-digital-talent/graphql";
+import type { EditPoolClosingDateFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 
-import { DisplayProps } from "../../types";
+import type { DisplayProps } from "../../types";
 
 const Display = ({ pool }: DisplayProps<EditPoolClosingDateFragment>) => {
   const intl = useIntl();

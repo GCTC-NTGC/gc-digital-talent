@@ -4,13 +4,8 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import { IconButton } from "@gc-digital-talent/ui";
-import {
-  FragmentType,
-  LocalizedString,
-  Maybe,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
@@ -34,7 +29,7 @@ const TogglePoolUserBookmark_Mutation = graphql(/* GraphQL */ `
 interface PoolBookmarkProps {
   user: FragmentType<typeof PoolBookmark_Fragment>;
   poolId: string;
-  poolName?: Maybe<LocalizedString>;
+  poolName?: LocalizedString | null;
   size?: "sm" | "md" | "lg";
 }
 

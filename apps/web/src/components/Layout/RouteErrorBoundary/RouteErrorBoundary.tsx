@@ -12,7 +12,7 @@ import useErrorMessages from "~/hooks/useErrorMessages";
 import darkPug from "~/assets/img/404_pug_dark.webp";
 import lightPug from "~/assets/img/404_pug_light.webp";
 
-export const RouteErrorBoundary = () => {
+const RouteErrorBoundary = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { mode } = useTheme();

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Heading, Link, Image } from "@gc-digital-talent/ui";
 

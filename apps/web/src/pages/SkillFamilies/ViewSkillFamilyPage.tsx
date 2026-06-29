@@ -14,12 +14,8 @@ import {
   CardSeparator,
   Container,
 } from "@gc-digital-talent/ui";
-import {
-  Scalars,
-  graphql,
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
@@ -187,7 +183,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
 };
 
 interface RouteParams extends Record<string, string> {
-  skillFamilyId: Scalars["ID"]["output"];
+  skillFamilyId: string;
 }
 
 const ViewSkillFamily_Query = graphql(/* GraphQL */ `

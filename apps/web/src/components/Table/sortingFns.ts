@@ -1,4 +1,4 @@
-import { SortingFn } from "@tanstack/react-table";
+import type { SortingFn } from "@tanstack/react-table";
 
 import { normalizeString } from "@gc-digital-talent/helpers";
 

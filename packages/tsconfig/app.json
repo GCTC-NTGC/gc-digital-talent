@@ -2,7 +2,9 @@
   "extends": "./base.json",
   "compilerOptions": {
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     }
   }
 }

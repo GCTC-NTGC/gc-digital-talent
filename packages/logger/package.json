@@ -10,7 +10,8 @@
   "scripts": {
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "lint": "eslint \"src/**/*.ts*\""
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "@gc-digital-talent/app-insights": "workspace:*",
@@ -20,6 +21,6 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   }
 }

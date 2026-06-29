@@ -1,18 +1,9 @@
 import { useIntl } from "react-intl";
 import { m } from "motion/react";
-import orderBy from "lodash/orderBy";
 import { useSearchParams } from "react-router";
-import { useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { Container, Link, Pending, Image } from "@gc-digital-talent/ui";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import {
-  graphql,
-  PublishingGroup,
-  FragmentType,
-  getFragment,
-} from "@gc-digital-talent/graphql";
+import { Container, Link, Image } from "@gc-digital-talent/ui";
 
 import useQuote from "~/hooks/useQuote";
 import iapHeroImg from "~/assets/img/iap-hero.webp";
@@ -38,7 +29,6 @@ import CTAButtons from "./components/CTAButtons";
 import LanguageSelector from "./components/LanguageSelector";
 import Step from "./components/Step";
 import Quote from "./components/Quote";
-import ApplyLink from "./components/ApplyLink";
 import {
   BarChart,
   Calendar,
@@ -59,22 +49,11 @@ const mailLink = (chunks: ReactNode) => (
   </Link>
 );
 
-export const IAPHome_PoolFragment = graphql(/* GraphQL */ `
-  fragment IAPHome_PoolFragment on Pool {
-    id
-  }
-`);
-
-interface HomeProps {
-  query?: FragmentType<typeof IAPHome_PoolFragment>;
-}
-
-export const Home = ({ query }: HomeProps) => {
+export const Component = () => {
   const intl = useIntl();
   const quote = useQuote();
   const [searchParams] = useSearchParams();
   const locale = searchParams.get("locale");
-  const latestPool = getFragment(IAPHome_PoolFragment, query);
   /**
    * Language swapping is a little rough here,
    * m.div adds a fade to smooth things out a bit
@@ -134,7 +113,7 @@ export const Home = ({ query }: HomeProps) => {
             </div>
           </div>
           <div className="xs:--x-1/2 relative z-[1] order-3 my-6 min-w-72 px-12 xs:absolute xs:bottom-1/5 xs:left-1/2 xs:z-[2]">
-            {latestPool ? <ApplyLink id={latestPool.id} /> : <ApplyDialog />}
+            <ApplyDialog />
           </div>
         </div>
         {/* About section */}
@@ -212,7 +191,7 @@ export const Home = ({ query }: HomeProps) => {
                       })}
                     </p>
                     <div className="mt-12">
-                      <CTAButtons latestPoolId={latestPool?.id} />
+                      <CTAButtons />
                     </div>
                   </div>
                 </div>
@@ -298,7 +277,7 @@ export const Home = ({ query }: HomeProps) => {
                     })}
                   </p>
                   <div className="sm:sr-only">
-                    <CTAButtons latestPoolId={latestPool?.id} />
+                    <CTAButtons />
                   </div>
                 </div>
               </div>
@@ -465,11 +444,7 @@ export const Home = ({ query }: HomeProps) => {
                         description: "Application box content",
                       })}
                     </p>
-                    {latestPool ? (
-                      <ApplyLink id={latestPool.id} />
-                    ) : (
-                      <ApplyDialog />
-                    )}
+                    <ApplyDialog />
                   </div>
                 </div>
               </div>
@@ -767,46 +742,6 @@ export const Home = ({ query }: HomeProps) => {
         </div>
       </div>
     </m.div>
-  );
-};
-
-const IAPHomePage_Query = graphql(/* GraphQL */ `
-  query IAPHomePage_Query(
-    $closingAfter: DateTime
-    $publishingGroup: PublishingGroup
-  ) {
-    publishedPools(
-      closingAfter: $closingAfter
-      publishingGroup: $publishingGroup
-    ) {
-      publishedAt
-      ...IAPHome_PoolFragment
-    }
-  }
-`);
-
-const now = nowUTCDateTime();
-
-export const Component = () => {
-  const [{ data, fetching, error }] = useQuery({
-    query: IAPHomePage_Query,
-    variables: { closingAfter: now, publishingGroup: PublishingGroup.Iap },
-  });
-
-  const pools = orderBy(
-    data?.publishedPools.filter(
-      (pool) => typeof pool !== `undefined` && !!pool,
-    ),
-    ["publishedAt"],
-    ["desc"],
-  ); // Order by date in desc order
-
-  const latestPool = pools && pools.length > 0 ? pools[0] : undefined; // get latest pool (most recent published_at date)
-
-  return (
-    <Pending fetching={fetching} error={error}>
-      <Home query={latestPool} />
-    </Pending>
   );
 };
 

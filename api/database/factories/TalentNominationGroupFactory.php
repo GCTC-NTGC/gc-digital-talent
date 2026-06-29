@@ -3,10 +3,11 @@
 namespace Database\Factories;
 
 use App\Enums\TalentNominationGroupDecision;
+use App\Models\TalentNominationGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TalentNominationGroup>
+ * @extends Factory<TalentNominationGroup>
  */
 class TalentNominationGroupFactory extends Factory
 {

@@ -1,12 +1,8 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import {
-  FragmentType,
-  getFragment,
-  graphql,
-  Scalars,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Pending,
@@ -99,7 +95,7 @@ const AdminUserSkillsPage_Query = graphql(/** GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  userId: Scalars["ID"]["output"];
+  userId: string;
 }
 
 const AdminUserSkillsPage = () => {

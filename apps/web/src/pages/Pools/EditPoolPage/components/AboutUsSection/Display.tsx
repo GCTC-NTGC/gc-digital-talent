@@ -3,13 +3,13 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice } from "@gc-digital-talent/ui";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
-import { EditPoolAboutUsFragment } from "@gc-digital-talent/graphql";
+import type { EditPoolAboutUsFragment } from "@gc-digital-talent/graphql";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import processMessages from "~/messages/processMessages";
 import { hasAllEmptyFields } from "~/validators/process/aboutUs";
 
-import { DisplayProps } from "../../types";
+import type { DisplayProps } from "../../types";
 
 const Display = ({ pool, subtitle }: DisplayProps<EditPoolAboutUsFragment>) => {
   const intl = useIntl();

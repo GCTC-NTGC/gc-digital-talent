@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # The init scripts aren't checked out yet when the database is initialized.  Run the ones we need manually afterwards.
       - name: Initialize database
@@ -77,7 +77,7 @@ jobs:
 
       - name: Upload coverage report to Codecov
         if: github.actor != 'dependabot[bot]'
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage.xml

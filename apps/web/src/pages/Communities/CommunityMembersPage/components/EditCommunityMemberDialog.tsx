@@ -1,9 +1,5 @@
-import {
-  useState,
-  ComponentPropsWithoutRef,
-  ComponentRef,
-  forwardRef,
-} from "react";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { useState, forwardRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
@@ -14,20 +10,19 @@ import { Combobox } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import {
   commonMessages,
-  errorMessages,
   formMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import {
+import type {
   RoleInput,
   CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
 } from "@gc-digital-talent/graphql";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
-import { CommunityMember } from "~/utils/communityUtils";
+import type { CommunityMember } from "~/utils/communityUtils";
 import RolesAndPermissionsPageMessage from "~/components/RolesAndPermissionsPageMessage/RolesAndPermissionsPageMessage";
 
-import { CommunityMemberFormValues, ContextType } from "./types";
+import type { CommunityMemberFormValues, ContextType } from "./types";
 import { getTeamBasedRoleOptions } from "./utils";
 import useAvailableRoles from "./useAvailableRoles";
 import { UpdateUserCommunityRoles_Mutation } from "./operations";
@@ -181,9 +176,6 @@ const EditCommunityMemberDialog = forwardRef<
                     description:
                       "Label for the input to add roles to a user's community membership",
                   })}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
                   placeholder={intl.formatMessage({
                     defaultMessage: "Select roles",
                     id: "Cn73yN",

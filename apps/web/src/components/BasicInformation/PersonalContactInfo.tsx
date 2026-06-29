@@ -1,12 +1,14 @@
 import { useIntl } from "react-intl";
 
-import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import profileMessages from "~/messages/profileMessages";
 
-export const PersonalContact_Fragment = graphql(/* GraphQL */ `
+const PersonalContact_Fragment = graphql(/* GraphQL */ `
   fragment PersonalContact on User {
     firstName
     lastName
@@ -81,11 +83,7 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
       </FieldDisplay>
       <FieldDisplay
         className="col-span-2"
-        label={intl.formatMessage({
-          defaultMessage: "Citizenship status",
-          id: "ycXoSE",
-          description: "Label for citizenship status field",
-        })}
+        label={intl.formatMessage(profileMessages.citizenship)}
       >
         {citizenship?.label.localized ?? notProvided}
       </FieldDisplay>

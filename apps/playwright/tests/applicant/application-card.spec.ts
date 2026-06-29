@@ -4,11 +4,10 @@ import {
   PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
+import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
 import {
   CandidateRemovalReason,
-  PoolCandidate,
   SkillCategory,
-  User,
 } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
@@ -18,7 +17,8 @@ import {
   removeCandidate,
 } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, deletePool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
@@ -63,8 +63,9 @@ test.describe("Application card", () => {
       },
     });
 
+    const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
-      userId: createdUser?.id ?? "",
+      userId: admin?.id ?? "",
       skillIds: skill ? [skill.id] : undefined,
       name: {
         en: `${poolName} (EN)`,
@@ -78,7 +79,6 @@ test.describe("Application card", () => {
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
-      userId: applicant.id,
       poolId: pool.id,
       personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
       signature: `${applicant.firstName} signature`,

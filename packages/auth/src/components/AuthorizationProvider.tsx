@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import { Pending } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -18,6 +18,7 @@ const authorizationQuery = graphql(/** GraphQL */ `
           id
           name
           isTeamBased
+          permissions
           displayName {
             en
             fr

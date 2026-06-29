@@ -1,4 +1,5 @@
-import { Notice, NoticeProps } from "@gc-digital-talent/ui";
+import type { NoticeProps } from "@gc-digital-talent/ui";
+import { Notice } from "@gc-digital-talent/ui";
 
 const Context = ({ children, ...rest }: NoticeProps) => (
   <Notice.Root small {...rest}>

@@ -82,7 +82,9 @@ export const Default: StoryObj<typeof TableOfContents.Wrapper> = {
           mode="solid"
           color="primary"
           block
-          onClick={() => action("Button clicked")()}
+          onClick={() => {
+            action("Button clicked")();
+          }}
         >
           {faker.lorem.word()}
         </Button>

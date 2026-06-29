@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
 
-import { Locales } from "../types";
+import type { Locales } from "../types";
 
 function useLocale(): Locales {
   const location = useLocation();

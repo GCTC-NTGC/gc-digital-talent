@@ -1,25 +1,29 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router";
 
 import { notEmpty } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
-import {
-  graphql,
+import type {
   TalentEventTableRowFragment,
   FragmentType,
-  getFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import useRoutes from "~/hooks/useRoutes";
+import { checkRole } from "~/utils/teamUtils";
+import adminMessages from "~/messages/adminMessages";
 
 import { nominationsCell, statusCell } from "./helpers";
 
 const columnHelper = createColumnHelper<TalentEventTableRowFragment>();
 
-export const TalentEventTableRow_Fragment = graphql(/* GraphQL */ `
+const TalentEventTableRow_Fragment = graphql(/* GraphQL */ `
   fragment TalentEventTableRow on TalentNominationEvent {
     id
     name {
@@ -44,7 +48,7 @@ interface TalentEventTableProps {
   title: string;
 }
 
-export const TalentEventTable = ({
+const TalentEventTable = ({
   talentNominationEventQuery,
   title,
 }: TalentEventTableProps) => {
@@ -54,6 +58,9 @@ export const TalentEventTable = ({
     TalentEventTableRow_Fragment,
     talentNominationEventQuery,
   );
+
+  const { pathname, search, hash } = useLocation();
+  const currentUrl = `${pathname}${search}${hash}`;
 
   const columns = [
     columnHelper.accessor((row) => row?.name?.localized, {
@@ -96,11 +103,7 @@ export const TalentEventTable = ({
     }),
     columnHelper.accessor("openDate", {
       id: "openDate",
-      header: intl.formatMessage({
-        defaultMessage: "Opening date",
-        id: "qaZ6OZ",
-        description: "Header for Opening date",
-      }),
+      header: intl.formatMessage(adminMessages.openingDate),
       cell: ({
         row: {
           original: { openDate },
@@ -134,6 +137,12 @@ export const TalentEventTable = ({
 
   const data = talentNominationEvents.filter(notEmpty);
 
+  const { roleAssignments } = useAuthorization();
+  const canCreateMembers = checkRole(
+    [ROLE_NAME.CommunityAdmin, ROLE_NAME.CommunityTalentCoordinator],
+    roleAssignments,
+  );
+
   return (
     <Table<TalentEventTableRowFragment>
       data={data}
@@ -145,8 +154,32 @@ export const TalentEventTable = ({
       pagination={{
         internal: true,
         total: data.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
+      {...(canCreateMembers
+        ? {
+            add: {
+              linkProps: {
+                href: routes.createTalentManagementEvent(),
+                label: intl.formatMessage({
+                  defaultMessage: "Create talent nomination event",
+                  id: "Ju0qLf",
+                  description: "Button text to create talent nomination event",
+                }),
+                from: currentUrl,
+              },
+            },
+            nullMessage: {
+              description: intl.formatMessage({
+                defaultMessage:
+                  'Use the "Create talent nomination event" button to get started.',
+                id: "eVffLG",
+                description:
+                  "Instructions for adding a talent nomination event item",
+              }),
+            },
+          }
+        : undefined)}
     />
   );
 };

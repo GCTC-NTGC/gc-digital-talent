@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ComponentProps } from "react";
+import type { ComponentProps } from "react";
 
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 

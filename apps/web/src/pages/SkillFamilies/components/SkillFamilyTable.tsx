@@ -1,4 +1,5 @@
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
@@ -6,7 +7,8 @@ import { useQuery } from "urql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Pending } from "@gc-digital-talent/ui";
-import { SkillFamily, graphql } from "@gc-digital-talent/graphql";
+import type { SkillFamily } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -77,7 +79,7 @@ export const SkillFamilyTable = ({
       pagination={{
         internal: true,
         total: data.length,
-        pageSizes: [10, 20, 50],
+        pageSizes: [10, 20, 50, 100, 500],
       }}
       sort={{
         internal: true,

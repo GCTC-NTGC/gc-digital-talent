@@ -6,12 +6,8 @@ import {
   formDateStringToDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Maybe, Scalars } from "@gc-digital-talent/graphql";
 
-export function formattedDate(
-  date: Scalars["Date"]["output"],
-  intl: IntlShape,
-) {
+export function formattedDate(date: string, intl: IntlShape) {
   let dateString = date;
 
   // handle accidental passing in nulls/undefined/empty string
@@ -37,8 +33,8 @@ export function getDateRange({
   startDate,
   intl,
 }: {
-  endDate: Maybe<Scalars["Date"]["output"]> | undefined;
-  startDate: Maybe<Scalars["Date"]["output"]> | undefined;
+  endDate: string | null | undefined;
+  startDate: string | null | undefined;
   intl: IntlShape;
 }): string {
   if (!startDate) return "";

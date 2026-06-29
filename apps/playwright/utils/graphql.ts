@@ -1,6 +1,8 @@
-import { APIRequestContext, request } from "@playwright/test";
+import type { APIRequestContext } from "@playwright/test";
+import { request } from "@playwright/test";
 
-import { AuthTokens, getTokenForSub } from "./auth";
+import type { AuthTokens } from "./auth";
+import { getTokenForSub } from "./auth";
 
 interface GraphQLRequestOptions {
   variables?: Record<string, unknown>;
@@ -68,15 +70,19 @@ export class GraphQLContext {
    */
   async post<R>(query: string, opts?: GraphQLRequestOptions) {
     const headers = this.getHeaders();
-    const json: PostResponse<R> = await this.ctx
-      .post(this.getEndpoint(opts?.isPrivileged), {
-        headers,
-        data: {
-          query,
-          variables: opts?.variables,
-        },
-      })
-      .then((res) => res.json() as PostResponse<R>);
+    const res = await this.ctx.post(this.getEndpoint(opts?.isPrivileged), {
+      headers,
+      data: {
+        query,
+        variables: opts?.variables,
+      },
+    });
+
+    const json = (await res.json()) as PostResponse<R>;
+
+    if (!json.data) {
+      throw new Error("GraphQL response contained no data");
+    }
 
     return json.data;
   }

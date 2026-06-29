@@ -43,7 +43,7 @@ export const ManageAccessPage_PoolFragment = graphql(/* GraphQL */ `
         id
         firstName
         lastName
-        email
+        workEmail
       }
     }
   }

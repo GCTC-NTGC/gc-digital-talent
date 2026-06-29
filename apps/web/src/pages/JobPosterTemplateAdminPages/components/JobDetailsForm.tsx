@@ -1,22 +1,19 @@
 import { useIntl } from "react-intl";
 import { useId } from "react";
 
+import type { Option } from "@gc-digital-talent/forms";
 import {
   Input,
   localizedEnumToOptions,
-  Option,
   RadioGroup,
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
-import { errorMessages, Locales, uiMessages } from "@gc-digital-talent/i18n";
+import type { Locales } from "@gc-digital-talent/i18n";
+import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  Classification,
-  FragmentType,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { Classification, FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 import jobPosterTemplateMessages from "~/messages/jobPosterTemplateMessages";

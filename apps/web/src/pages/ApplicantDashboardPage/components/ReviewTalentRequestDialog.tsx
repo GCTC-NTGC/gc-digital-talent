@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
-import { ReactNode, useState } from "react";
+import type { ReactNode } from "react";
+import { useState } from "react";
 
 import {
   Accordion,
@@ -13,10 +14,8 @@ import {
   Ul,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getEmploymentDuration } from "@gc-digital-talent/i18n";
-import {
-  graphql,
-  ReviewTalentRequestDialogQuery,
-} from "@gc-digital-talent/graphql";
+import type { ReviewTalentRequestDialogQuery } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -26,7 +25,6 @@ import {
   positionDurationToEmploymentDuration,
   positionTypeToYesNoSupervisoryStatement,
 } from "~/utils/searchRequestUtils";
-import { formatClassificationString } from "~/utils/poolUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { deriveChipSettings, deriveSingleString } from "./utils";
@@ -47,8 +45,7 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
       applicantFilter {
         hasDiploma
         qualifiedInClassifications {
-          group
-          level
+          groupAndLevel
         }
         qualifiedInWorkStreams {
           name {
@@ -148,7 +145,10 @@ const ReviewTalentRequestDialogContent = ({
             label={intl.formatMessage(talentRequestMessages.classification)}
           >
             {classifications.length > 0
-              ? deriveSingleString(classifications, formatClassificationString)
+              ? deriveSingleString(
+                  classifications,
+                  ({ groupAndLevel }): string => groupAndLevel,
+                )
               : nullMessage}
           </FieldDisplay>
 

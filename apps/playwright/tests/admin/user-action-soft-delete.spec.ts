@@ -1,4 +1,4 @@
-import { User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import AdminUser from "~/fixtures/AdminUser";

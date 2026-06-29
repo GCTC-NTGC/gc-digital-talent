@@ -1,10 +1,17 @@
 import { useIntl } from "react-intl";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 import { useMutation } from "urql";
 import { useEffect } from "react";
+import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { Button, Separator, ToggleSection } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Notice,
+  Separator,
+  ToggleSection,
+} from "@gc-digital-talent/ui";
 import {
   Checklist,
   DATE_SEGMENT,
@@ -25,17 +32,15 @@ import {
   getMentorshipStatus,
   MentorshipStatus,
 } from "@gc-digital-talent/i18n";
-import {
-  graphql,
+import type {
   FragmentType,
-  getFragment,
   EmployeeProfile,
   UpdateEmployeeProfileInput,
   TimeFrame,
   OrganizationTypeInterest,
   LearningOpportunitiesInterest,
-  Scalars,
 } from "@gc-digital-talent/graphql";
+import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import {
   boolToYesNo,
   UnauthorizedError,
@@ -49,6 +54,7 @@ import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
 } from "~/validators/employeeProfile/careerDevelopment";
+import type { SectionIcon } from "~/hooks/useToggleSectionInfo";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import messages from "~/messages/careerDevelopmentMessages";
@@ -123,7 +129,7 @@ export interface FormValues extends Pick<
   promotionMoveOrganizationType?: OrganizationTypeInterest[] | null;
   learningOpportunitiesInterest?: LearningOpportunitiesInterest[] | null;
   eligibleRetirementYearKnown?: "yes" | "no";
-  eligibleRetirementYear?: Scalars["Date"]["input"] | null;
+  eligibleRetirementYear?: string | null;
   mentorshipStatus?: string | null;
   execInterest?: "yes" | "no";
   execCoachingStatus?: string | null;
@@ -136,11 +142,13 @@ interface CareerDevelopmentSectionProps {
   careerDevelopmentOptionsQuery: FragmentType<
     typeof EmployeeProfileCareerDevelopmentOptions_Fragment
   >;
+  isVerifiedGovEmployee: boolean;
 }
 
 const CareerDevelopmentSection = ({
   employeeProfileQuery,
   careerDevelopmentOptionsQuery,
+  isVerifiedGovEmployee,
 }: CareerDevelopmentSectionProps) => {
   const intl = useIntl();
   const { userAuthInfo } = useAuthorization();
@@ -160,12 +168,22 @@ const CareerDevelopmentSection = ({
 
   const careerDevelopmentMessages = messages(intl);
   const isNull = hasAllEmptyFields(employeeProfile);
-  const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
+  const {
+    isEditing,
+    setIsEditing,
+    icon: verifiedIcon,
+  } = useToggleSectionInfo({
     isNull,
     emptyRequired: hasEmptyRequiredFields(employeeProfile),
     fallbackIcon: QuestionMarkCircleIcon,
     optional: true,
   });
+
+  const icon: SectionIcon = isVerifiedGovEmployee
+    ? verifiedIcon
+    : {
+        icon: LockClosedIcon,
+      };
 
   const handleError = () => {
     toast.error(
@@ -312,13 +330,15 @@ const CareerDevelopmentSection = ({
         level="h3"
         size="h4"
         toggle={
-          <ToggleForm.LabelledTrigger
-            sectionTitle={intl.formatMessage({
-              defaultMessage: "Career development preferences",
-              id: "Ey8cB4",
-              description: "Title for career development preferences section",
-            })}
-          />
+          isVerifiedGovEmployee ? (
+            <ToggleForm.LabelledTrigger
+              sectionTitle={intl.formatMessage({
+                defaultMessage: "Career development preferences",
+                id: "Ey8cB4",
+                description: "Title for career development preferences section",
+              })}
+            />
+          ) : undefined
         }
         className="font-bold"
       >
@@ -330,325 +350,374 @@ const CareerDevelopmentSection = ({
       </ToggleSection.Header>
       <p>{subtitle}</p>
       <ToggleSection.Content>
-        <ToggleSection.InitialContent>
-          {isNull ? (
-            <ToggleForm.NullDisplay />
-          ) : (
-            <Display
-              employeeProfileQuery={employeeProfileQuery}
-              careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
-            />
-          )}
-        </ToggleSection.InitialContent>
-        <ToggleSection.OpenContent>
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(handleSave)}>
-              <div className="flex flex-col gap-6">
-                <RadioGroup
-                  idPrefix="lateralMoveInterest"
-                  legend={careerDevelopmentMessages.lateralMoveInterest}
-                  name="lateralMoveInterest"
-                  id="lateralMoveInterest"
-                  items={[
-                    {
-                      value: "no",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m not looking for lateral movement right now.",
-                        id: "55IkTu",
-                        description:
-                          "The lateral move interest described as not interested.",
-                      }),
-                    },
-                    {
-                      value: "yes",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m interested in receiving opportunities for jobs at, or equivalent to, my current group and level.",
-                        id: "1TFJ+r",
-                        description:
-                          "The lateral move interest described as interested.",
-                      }),
-                    },
-                  ]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
+        {isVerifiedGovEmployee ? (
+          <>
+            <ToggleSection.InitialContent>
+              {isNull ? (
+                <ToggleForm.NullDisplay />
+              ) : (
+                <Display
+                  employeeProfileQuery={employeeProfileQuery}
+                  careerDevelopmentOptionsQuery={careerDevelopmentOptionsQuery}
                 />
-                {watchLateralMoveInterest === "yes" && (
-                  <>
+              )}
+            </ToggleSection.InitialContent>
+            <ToggleSection.OpenContent>
+              <FormProvider {...methods}>
+                <form onSubmit={handleSubmit(handleSave)}>
+                  <div className="flex flex-col gap-6">
                     <RadioGroup
-                      idPrefix="lateralMoveTimeFrame"
-                      name="lateralMoveTimeFrame"
-                      legend={careerDevelopmentMessages.lateralMoveTimeFrame}
-                      items={localizedEnumToOptions(
-                        careerDevelopmentOptions?.timeFrame,
-                        intl,
-                      )}
+                      idPrefix="lateralMoveInterest"
+                      legend={careerDevelopmentMessages.lateralMoveInterest}
+                      name="lateralMoveInterest"
+                      id="lateralMoveInterest"
+                      items={[
+                        {
+                          value: "no",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I’m not looking for lateral movement right now.",
+                            id: "55IkTu",
+                            description:
+                              "The lateral move interest described as not interested.",
+                          }),
+                        },
+                        {
+                          value: "yes",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I’m interested in receiving opportunities for jobs at, or equivalent to, my current group and level.",
+                            id: "1TFJ+r",
+                            description:
+                              "The lateral move interest described as interested.",
+                          }),
+                        },
+                      ]}
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
                     />
-                    <Checklist
-                      idPrefix="lateralMoveOrganizationType"
-                      name="lateralMoveOrganizationType"
-                      legend={
-                        careerDevelopmentMessages.lateralMoveOrganizationType
-                      }
-                      items={localizedEnumToOptions(
-                        careerDevelopmentOptions?.organizationTypeInterest,
-                        intl,
-                      )}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                  </>
-                )}
-                <Separator space="none" decorative />
-                <RadioGroup
-                  idPrefix="promotionMoveInterest"
-                  legend={careerDevelopmentMessages.promotionMoveInterest}
-                  name="promotionMoveInterest"
-                  id="promotionMoveInterest"
-                  items={[
-                    {
-                      value: "no",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m not looking for a promotion or advancement right now.",
-                        id: "tXLRmG",
-                        description:
-                          "The promotion move interest described as not interested.",
-                      }),
-                    },
-                    {
-                      value: "yes",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I’m interested in receiving opportunities for promotion and advancement.",
-                        id: "2tAqF/",
-                        description:
-                          "The promotion move interest described as interested.",
-                      }),
-                    },
-                  ]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                {watchPromotionMoveInterest === "yes" && (
-                  <>
+                    {watchLateralMoveInterest === "yes" && (
+                      <>
+                        <RadioGroup
+                          idPrefix="lateralMoveTimeFrame"
+                          name="lateralMoveTimeFrame"
+                          legend={
+                            careerDevelopmentMessages.lateralMoveTimeFrame
+                          }
+                          items={localizedEnumToOptions(
+                            careerDevelopmentOptions?.timeFrame,
+                            intl,
+                          )}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                          }}
+                        />
+                        <Checklist
+                          idPrefix="lateralMoveOrganizationType"
+                          name="lateralMoveOrganizationType"
+                          legend={
+                            careerDevelopmentMessages.lateralMoveOrganizationType
+                          }
+                          items={localizedEnumToOptions(
+                            careerDevelopmentOptions?.organizationTypeInterest,
+                            intl,
+                          )}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                          }}
+                        />
+                      </>
+                    )}
+                    <Separator space="none" decorative />
                     <RadioGroup
-                      idPrefix="promotionMoveTimeFrame"
-                      name="promotionMoveTimeFrame"
-                      legend={careerDevelopmentMessages.promotionMoveTimeFrame}
-                      items={localizedEnumToOptions(
-                        careerDevelopmentOptions?.timeFrame,
-                        intl,
-                      )}
+                      idPrefix="promotionMoveInterest"
+                      legend={careerDevelopmentMessages.promotionMoveInterest}
+                      name="promotionMoveInterest"
+                      id="promotionMoveInterest"
+                      items={[
+                        {
+                          value: "no",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I’m not looking for a promotion or advancement right now.",
+                            id: "tXLRmG",
+                            description:
+                              "The promotion move interest described as not interested.",
+                          }),
+                        },
+                        {
+                          value: "yes",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I’m interested in receiving opportunities for promotion and advancement.",
+                            id: "2tAqF/",
+                            description:
+                              "The promotion move interest described as interested.",
+                          }),
+                        },
+                      ]}
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
                       }}
                     />
-                    <Checklist
-                      idPrefix="promotionMoveOrganizationType"
-                      name="promotionMoveOrganizationType"
-                      legend={
-                        careerDevelopmentMessages.promotionMoveOrganizationType
-                      }
-                      items={localizedEnumToOptions(
-                        careerDevelopmentOptions?.organizationTypeInterest,
-                        intl,
-                      )}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                    />
-                  </>
-                )}
-                <Separator space="none" decorative />
+                    {watchPromotionMoveInterest === "yes" && (
+                      <>
+                        <RadioGroup
+                          idPrefix="promotionMoveTimeFrame"
+                          name="promotionMoveTimeFrame"
+                          legend={
+                            careerDevelopmentMessages.promotionMoveTimeFrame
+                          }
+                          items={localizedEnumToOptions(
+                            careerDevelopmentOptions?.timeFrame,
+                            intl,
+                          )}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                          }}
+                        />
+                        <Checklist
+                          idPrefix="promotionMoveOrganizationType"
+                          name="promotionMoveOrganizationType"
+                          legend={
+                            careerDevelopmentMessages.promotionMoveOrganizationType
+                          }
+                          items={localizedEnumToOptions(
+                            careerDevelopmentOptions?.organizationTypeInterest,
+                            intl,
+                          )}
+                          rules={{
+                            required: intl.formatMessage(
+                              errorMessages.required,
+                            ),
+                          }}
+                        />
+                      </>
+                    )}
+                    <Separator space="none" decorative />
 
-                <Checklist
-                  idPrefix="learningOpportunitiesInterest"
-                  name="learningOpportunitiesInterest"
-                  legend={
-                    careerDevelopmentMessages.learningOpportunitiesInterest
-                  }
-                  items={unpackMaybes(
-                    careerDevelopmentOptions?.learningOpportunitiesInterest,
-                  ).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(
-                      getLearningOpportunitiesInterest(value),
-                    ),
-                  }))}
-                />
-                <Separator space="none" decorative />
-                <RadioGroup
-                  idPrefix="eligibleRetirementYearKnown"
-                  legend={careerDevelopmentMessages.eligibleRetirementYearKnown}
-                  name="eligibleRetirementYearKnown"
-                  id="eligibleRetirementYearKnown"
-                  items={[
-                    {
-                      value: "yes",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I know the year in which I'm eligible to retire.",
-                        id: "f0dhMc",
-                        description:
-                          "The eligible retirement year described as known.",
-                      }),
-                    },
-                    {
-                      value: "no",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I'm not sure about the year I'm eligible to retire.",
-                        id: "a5YBuH",
-                        description:
-                          "The eligible retirement year described as unknown.",
-                      }),
-                    },
-                  ]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                {watchRetirementYearKnown === "yes" && (
-                  <DateInput
-                    id="eligibleRetirementYear"
-                    name="eligibleRetirementYear"
-                    legend={careerDevelopmentMessages.eligibleRetirementYear}
-                    rules={{
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: strToFormDate(currentYear.toISOString()),
-                        message: intl.formatMessage(errorMessages.futureDate),
-                      },
-                      max: {
-                        value: strToFormDate(maxRetirementYear.toISOString()),
-                        message: intl.formatMessage(errorMessages.maxDate, {
-                          date: maxRetirementYear.getFullYear(),
-                        }),
-                      },
-                    }}
-                    show={[DATE_SEGMENT.Year]}
-                  />
-                )}
-                <Separator space="none" decorative />
-                <RadioGroup
-                  idPrefix="mentorshipStatus"
-                  name="mentorshipStatus"
-                  legend={careerDevelopmentMessages.mentorshipStatus}
-                  items={[
-                    { value: MentorshipStatus.NOT_PARTICIPATING },
-                    ...unpackMaybes(careerDevelopmentOptions?.mentorship),
-                    { value: MentorshipStatus.MENTEE_AND_MENTOR },
-                  ].map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getMentorshipStatus(value)),
-                  }))}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Checklist
-                  idPrefix="mentorshipInterest"
-                  name="mentorshipInterest"
-                  legend={careerDevelopmentMessages.mentorshipInterest}
-                  items={unpackMaybes(careerDevelopmentOptions?.mentorship).map(
-                    ({ value }) => ({
-                      value,
-                      label: intl.formatMessage(getMentorshipInterest(value)),
-                    }),
-                  )}
-                />
-                <RadioGroup
-                  idPrefix="execInterest"
-                  name="execInterest"
-                  legend={careerDevelopmentMessages.execInterest}
-                  items={[
-                    {
-                      value: "no",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I'm not interested in executive-level opportunities.",
-                        id: "vFV5N8",
-                        description:
-                          "The executive interest described as not interested.",
-                      }),
-                    },
-                    {
-                      value: "yes",
-                      label: intl.formatMessage({
-                        defaultMessage:
-                          "I'd like to be considered for executive-level opportunities.",
-                        id: "WoZ3pB",
-                        description:
-                          "The executive interest described as interested.",
-                      }),
-                    },
-                  ]}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  context={careerDevelopmentMessages.execInterestContext}
-                />
-                <RadioGroup
-                  idPrefix="execCoachingStatus"
-                  name="execCoachingStatus"
-                  legend={careerDevelopmentMessages.execCoachingStatus}
-                  items={[
-                    { value: ExecCoachingStatus.NOT_PARTICIPATING },
-                    ...unpackMaybes(careerDevelopmentOptions?.execCoaching),
-                    { value: ExecCoachingStatus.LEARNING_AND_COACHING },
-                  ].map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getExecCoachingStatus(value)),
-                  }))}
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                />
-                <Checklist
-                  idPrefix="execCoachingInterest"
-                  name="execCoachingInterest"
-                  legend={careerDevelopmentMessages.execCoachingInterest}
-                  items={unpackMaybes(
-                    careerDevelopmentOptions?.execCoaching,
-                  ).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getExecCoachingInterest(value)),
-                  }))}
-                  context={
-                    careerDevelopmentMessages.execCoachingInterestContext
-                  }
-                />
-                <div className="flex flex-wrap items-center gap-6">
-                  <Submit
-                    text={intl.formatMessage(formMessages.saveChanges)}
-                    aria-label={intl.formatMessage({
-                      defaultMessage: "Save career development preferences",
-                      id: "rBtIUo",
-                      description:
-                        "Text on a button to save career development preferences form",
-                    })}
-                    color="secondary"
-                    mode="solid"
-                    isSubmitting={fetching}
-                  />
-                  <ToggleSection.Close>
-                    <Button mode="inline" type="button" color="warning">
-                      {intl.formatMessage(commonMessages.cancel)}
-                    </Button>
-                  </ToggleSection.Close>
-                </div>
-              </div>
-            </form>
-          </FormProvider>
-        </ToggleSection.OpenContent>
+                    <Checklist
+                      idPrefix="learningOpportunitiesInterest"
+                      name="learningOpportunitiesInterest"
+                      legend={
+                        careerDevelopmentMessages.learningOpportunitiesInterest
+                      }
+                      items={unpackMaybes(
+                        careerDevelopmentOptions?.learningOpportunitiesInterest,
+                      ).map(({ value }) => ({
+                        value,
+                        label: intl.formatMessage(
+                          getLearningOpportunitiesInterest(value),
+                        ),
+                      }))}
+                    />
+                    <Separator space="none" decorative />
+                    <RadioGroup
+                      idPrefix="eligibleRetirementYearKnown"
+                      legend={
+                        careerDevelopmentMessages.eligibleRetirementYearKnown
+                      }
+                      name="eligibleRetirementYearKnown"
+                      id="eligibleRetirementYearKnown"
+                      items={[
+                        {
+                          value: "yes",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I know the year in which I'm eligible to retire.",
+                            id: "f0dhMc",
+                            description:
+                              "The eligible retirement year described as known.",
+                          }),
+                        },
+                        {
+                          value: "no",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I'm not sure about the year I'm eligible to retire.",
+                            id: "a5YBuH",
+                            description:
+                              "The eligible retirement year described as unknown.",
+                          }),
+                        },
+                      ]}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                    {watchRetirementYearKnown === "yes" && (
+                      <DateInput
+                        id="eligibleRetirementYear"
+                        name="eligibleRetirementYear"
+                        legend={
+                          careerDevelopmentMessages.eligibleRetirementYear
+                        }
+                        rules={{
+                          required: intl.formatMessage(errorMessages.required),
+                          min: {
+                            value: strToFormDate(currentYear.toISOString()),
+                            message: intl.formatMessage(
+                              errorMessages.futureDate,
+                            ),
+                          },
+                          max: {
+                            value: strToFormDate(
+                              maxRetirementYear.toISOString(),
+                            ),
+                            message: intl.formatMessage(errorMessages.maxDate, {
+                              date: maxRetirementYear.getFullYear(),
+                            }),
+                          },
+                        }}
+                        show={[DATE_SEGMENT.Year]}
+                      />
+                    )}
+                    <Separator space="none" decorative />
+                    <RadioGroup
+                      idPrefix="mentorshipStatus"
+                      name="mentorshipStatus"
+                      legend={careerDevelopmentMessages.mentorshipStatus}
+                      items={[
+                        { value: MentorshipStatus.NOT_PARTICIPATING },
+                        ...unpackMaybes(careerDevelopmentOptions?.mentorship),
+                        { value: MentorshipStatus.MENTEE_AND_MENTOR },
+                      ].map(({ value }) => ({
+                        value,
+                        label: intl.formatMessage(getMentorshipStatus(value)),
+                      }))}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                    <Checklist
+                      idPrefix="mentorshipInterest"
+                      name="mentorshipInterest"
+                      legend={careerDevelopmentMessages.mentorshipInterest}
+                      items={unpackMaybes(
+                        careerDevelopmentOptions?.mentorship,
+                      ).map(({ value }) => ({
+                        value,
+                        label: intl.formatMessage(getMentorshipInterest(value)),
+                      }))}
+                    />
+                    <RadioGroup
+                      idPrefix="execInterest"
+                      name="execInterest"
+                      legend={careerDevelopmentMessages.execInterest}
+                      items={[
+                        {
+                          value: "no",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I'm not interested in executive-level opportunities.",
+                            id: "vFV5N8",
+                            description:
+                              "The executive interest described as not interested.",
+                          }),
+                        },
+                        {
+                          value: "yes",
+                          label: intl.formatMessage({
+                            defaultMessage:
+                              "I'd like to be considered for executive-level opportunities.",
+                            id: "WoZ3pB",
+                            description:
+                              "The executive interest described as interested.",
+                          }),
+                        },
+                      ]}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                      context={careerDevelopmentMessages.execInterestContext}
+                    />
+                    <RadioGroup
+                      idPrefix="execCoachingStatus"
+                      name="execCoachingStatus"
+                      legend={careerDevelopmentMessages.execCoachingStatus}
+                      items={[
+                        { value: ExecCoachingStatus.NOT_PARTICIPATING },
+                        ...unpackMaybes(careerDevelopmentOptions?.execCoaching),
+                        { value: ExecCoachingStatus.LEARNING_AND_COACHING },
+                      ].map(({ value }) => ({
+                        value,
+                        label: intl.formatMessage(getExecCoachingStatus(value)),
+                      }))}
+                      rules={{
+                        required: intl.formatMessage(errorMessages.required),
+                      }}
+                    />
+                    <Checklist
+                      idPrefix="execCoachingInterest"
+                      name="execCoachingInterest"
+                      legend={careerDevelopmentMessages.execCoachingInterest}
+                      items={unpackMaybes(
+                        careerDevelopmentOptions?.execCoaching,
+                      ).map(({ value }) => ({
+                        value,
+                        label: intl.formatMessage(
+                          getExecCoachingInterest(value),
+                        ),
+                      }))}
+                      context={
+                        careerDevelopmentMessages.execCoachingInterestContext
+                      }
+                    />
+                    <div className="flex flex-wrap items-center gap-6">
+                      <Submit
+                        text={intl.formatMessage(formMessages.saveChanges)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Save career development preferences",
+                          id: "rBtIUo",
+                          description:
+                            "Text on a button to save career development preferences form",
+                        })}
+                        color="secondary"
+                        mode="solid"
+                        isSubmitting={fetching}
+                      />
+                      <ToggleSection.Close>
+                        <Button mode="inline" type="button" color="warning">
+                          {intl.formatMessage(commonMessages.cancel)}
+                        </Button>
+                      </ToggleSection.Close>
+                    </div>
+                  </div>
+                </form>
+              </FormProvider>
+            </ToggleSection.OpenContent>
+          </>
+        ) : (
+          <Notice.Root>
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This tool is available to Government of Canada employees",
+                id: "xHQdue",
+                description:
+                  "Notice title on sections for employee profile page when not a verified employee.",
+              })}
+            </Notice.Title>
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools.",
+                  id: "TIuM+L",
+                  description:
+                    "Notice description on sections for employee profile page when not a verified employee.",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        )}
       </ToggleSection.Content>
     </ToggleSection.Root>
   );

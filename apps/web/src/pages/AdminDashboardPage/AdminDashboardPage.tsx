@@ -1,4 +1,5 @@
-import { defineMessage, IntlShape, useIntl } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import RocketLaunchIcon from "@heroicons/react/24/outline/RocketLaunchIcon";
 import BookOpenIcon from "@heroicons/react/24/outline/BookOpenIcon";
@@ -16,19 +17,10 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import {
-  useAuthorization,
-  hasRole,
-  ROLE_NAME,
-  RoleName,
-} from "@gc-digital-talent/auth";
-import {
-  Maybe,
-  Role,
-  RoleAssignment,
-  User,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import type { RoleName } from "@gc-digital-talent/auth";
+import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
+import type { Role, RoleAssignment, User } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
@@ -62,7 +54,7 @@ interface RoleChipsProps {
 // short-circuit hasRole if no roles were required so an empty array
 const hasRolesHandleNoRolesRequired = (
   checkRole: RoleName | RoleName[],
-  userRoles: Maybe<(Maybe<RoleAssignment> | undefined)[]> | undefined,
+  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;
@@ -169,6 +161,11 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     {
       label: intl.formatMessage(adminMessages.departments),
       href: adminRoutes.departmentTable(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(adminMessages.developmentPrograms),
+      href: adminRoutes.developmentProgramTable(),
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {

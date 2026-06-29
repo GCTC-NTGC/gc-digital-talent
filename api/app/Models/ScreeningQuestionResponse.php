@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * Class Screening Question Response
@@ -13,9 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $pool_candidate_id
  * @property string $screening_question_id
  * @property string $answer
- * @property \Illuminate\Support\Carbon $created_at
- * @property ?\Illuminate\Support\Carbon $updated_at
- * @property ?\Illuminate\Support\Carbon $deleted_at
+ * @property Carbon $created_at
+ * @property ?Carbon $updated_at
+ * @property ?Carbon $deleted_at
  */
 class ScreeningQuestionResponse extends Model
 {

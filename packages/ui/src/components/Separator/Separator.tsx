@@ -1,9 +1,11 @@
 import * as SeparatorPrimitive from "@radix-ui/react-separator";
-import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from "react";
-import { tv, VariantProps } from "tailwind-variants";
+import type { ComponentPropsWithoutRef, ComponentRef } from "react";
+import { forwardRef } from "react";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const separator = tv({
-  base: "bg-gray",
+  base: "bg-gray-200 dark:bg-gray-700",
   variants: {
     space: {
       none: "",

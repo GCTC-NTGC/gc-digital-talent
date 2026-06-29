@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 
-import { Link, LinkProps } from "@gc-digital-talent/ui";
-import { Scalars } from "@gc-digital-talent/graphql";
+import type { LinkProps } from "@gc-digital-talent/ui";
+import { Link } from "@gc-digital-talent/ui";
 
 import useRoutes from "~/hooks/useRoutes";
 
 export interface ApplicationLinkProps {
-  poolId: Scalars["ID"]["output"];
-  applicationId?: Scalars["ID"]["output"];
+  poolId: string;
+  applicationId?: string;
   hasApplied?: boolean;
   canApply?: boolean;
   linkProps?: Omit<LinkProps, "ref" | "href">;

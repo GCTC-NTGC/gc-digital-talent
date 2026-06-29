@@ -6,7 +6,6 @@
   "files": [
     "app.json",
     "base.json",
-    "e2e.json",
-    "lib.json"
+    "e2e.json"
   ]
 }

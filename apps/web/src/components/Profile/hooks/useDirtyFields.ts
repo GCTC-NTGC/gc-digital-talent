@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFormState } from "react-hook-form";
 
 import { useProfileFormContext } from "../components/ProfileFormContext";
-import { SectionKey } from "../types";
+import type { SectionKey } from "../types";
 
 const useDirtyFields = (section: SectionKey): void => {
   const { toggleDirty } = useProfileFormContext();
@@ -16,7 +16,7 @@ const useDirtyFields = (section: SectionKey): void => {
      *
      * This is necessary to facilitate validating all of the forms at once
      */
-  }, [isDirty]);
+  }, [isDirty, section, toggleDirty]);
 };
 
 export default useDirtyFields;

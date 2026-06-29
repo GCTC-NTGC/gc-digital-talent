@@ -1,40 +1,41 @@
-import { MessageDescriptor, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 
 import {
   Checklist,
   Combobox,
+  enumToOptions,
   HiddenInput,
   RadioGroup,
-  SwitchInput,
   Select,
 } from "@gc-digital-talent/forms";
+import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
 import {
-  FragmentType,
   getFragment,
   graphql,
   WorkRegion,
-  AssessmentStep,
   AssessmentStepType,
   ApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  ENUM_SORT_ORDER,
+  EmploymentDuration,
+  getEmploymentDuration,
   getEmploymentEquityGroup,
   navigationMessages,
   narrowEnumType,
   sortLocalizedEnumOptions,
-  ENUM_SORT_ORDER,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
 import adminMessages from "~/messages/adminMessages";
 import applicationMessages from "~/messages/applicationMessages";
 
-import FilterDialog, {
-  CommonFilterDialogProps,
-} from "../FilterDialog/FilterDialog";
-import { FormValues } from "./types";
+import type { CommonFilterDialogProps } from "../FilterDialog/FilterDialog";
+import FilterDialog from "../FilterDialog/FilterDialog";
+import type { FormValues } from "./types";
 import PoolFilterInput from "../PoolFilterInput/PoolFilterInput";
 import tableMessages from "./tableMessages";
 import { candidateSuspendedFilterToCustomOptions } from "./helpers";
@@ -44,6 +45,7 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     classifications {
       group
       level
+      groupAndLevel
     }
     skills {
       id
@@ -137,6 +139,14 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    referralFilters: localizedEnumOptions(enumName: "CandidateReferralFilter") {
+      ... on LocalizedCandidateReferralFilter {
+        value
+        label {
+          localized
+        }
+      }
+    }
     removalReasons: localizedEnumOptions(enumName: "CandidateRemovalReason") {
       ... on LocalizedCandidateRemovalReason {
         value
@@ -165,6 +175,16 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     }
     workRegions: localizedEnumOptions(enumName: "WorkRegion") {
       ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
+      ... on LocalizedEmployeeVerification {
         value
         label {
           localized
@@ -264,9 +284,9 @@ const PoolCandidateFilterDialog = ({
               isMulti
               label={intl.formatMessage(adminMessages.classifications)}
               options={unpackMaybes(data?.classifications).map(
-                ({ group, level }) => ({
+                ({ group, level, groupAndLevel }) => ({
                   value: `${group}-${level}`,
-                  label: `${group}-${level < 10 ? "0" : ""}${level}`,
+                  label: groupAndLevel,
                 }),
               )}
             />
@@ -411,6 +431,20 @@ const PoolCandidateFilterDialog = ({
           )}
         />
       </div>
+      <Combobox
+        id="referralStatuses"
+        name="referralStatuses"
+        isMulti
+        doNotSort
+        label={intl.formatMessage(tableMessages.referralStatus)}
+        options={narrowEnumType(
+          unpackMaybes(data?.referralFilters),
+          "CandidateReferralFilter",
+        ).map((referralFilter) => ({
+          value: referralFilter.value,
+          label: referralFilter.label?.localized ?? notAvailable,
+        }))}
+      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
@@ -422,20 +456,42 @@ const PoolCandidateFilterDialog = ({
       </Heading>
 
       <div className="grid gap-6 xs:grid-cols-3">
-        <Select
-          id="languageAbility"
-          name="languageAbility"
-          enableNull
-          nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-          options={narrowEnumType(
-            unpackMaybes(data?.languageAbilities),
-            "LanguageAbility",
-          ).map((languageAbility) => ({
-            value: languageAbility.value,
-            label: languageAbility.label?.localized ?? notAvailable,
-          }))}
-        />
+        <div>
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            enableNull
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+            options={narrowEnumType(
+              unpackMaybes(data?.languageAbilities),
+              "LanguageAbility",
+            ).map((languageAbility) => ({
+              value: languageAbility.value,
+              label: languageAbility.label?.localized ?? notAvailable,
+            }))}
+            className="mb-6"
+          />
+          <Select
+            id="employmentDuration"
+            name="employmentDuration"
+            enableNull
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Any duration",
+              id: "Swq+OD",
+              description: "Option label for allowing any employment duration",
+            })}
+            label={intl.formatMessage({
+              defaultMessage: "Duration preferences",
+              id: "2ingb6",
+              description: "Label for the employment duration field",
+            })}
+            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getEmploymentDuration(value, "short")),
+            }))}
+          />
+        </div>
         <Checklist
           idPrefix="equity"
           name="equity"
@@ -472,18 +528,6 @@ const PoolCandidateFilterDialog = ({
           }))}
         />
         <Checklist
-          idPrefix="operationalRequirement"
-          name="operationalRequirement"
-          legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={narrowEnumType(
-            unpackMaybes(data?.operationalRequirements),
-            "OperationalRequirement",
-          ).map((operationalRequirement) => ({
-            value: operationalRequirement.value,
-            label: operationalRequirement.label?.localized ?? notAvailable,
-          }))}
-        />
-        <Checklist
           idPrefix="flexibleWorkLocations"
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
@@ -496,6 +540,18 @@ const PoolCandidateFilterDialog = ({
           ).map((flexibleWorkLocation) => ({
             value: flexibleWorkLocation.value,
             label: flexibleWorkLocation.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Checklist
+          idPrefix="operationalRequirement"
+          name="operationalRequirement"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={narrowEnumType(
+            unpackMaybes(data?.operationalRequirements),
+            "OperationalRequirement",
+          ).map((operationalRequirement) => ({
+            value: operationalRequirement.value,
+            label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
         <Checklist
@@ -514,12 +570,17 @@ const PoolCandidateFilterDialog = ({
             }))}
         />
         <div className="flex flex-col gap-6 xs:col-span-3">
-          <SwitchInput
-            id="govEmployee"
+          <Checklist
+            idPrefix="govEmployee"
             name="govEmployee"
-            color="secondary"
-            value="true"
-            label={intl.formatMessage(commonMessages.governmentEmployee)}
+            legend={intl.formatMessage(commonMessages.governmentEmployee)}
+            items={narrowEnumType(
+              unpackMaybes(data?.employeeVerifications),
+              "EmployeeVerification",
+            ).map((opt) => ({
+              value: opt.value,
+              label: opt.label?.localized ?? notAvailable,
+            }))}
           />
           <Combobox
             id="departments"

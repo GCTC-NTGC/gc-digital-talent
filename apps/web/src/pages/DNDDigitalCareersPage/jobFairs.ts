@@ -1,4 +1,5 @@
-import { defineMessages, IntlShape } from "react-intl";
+import type { IntlShape } from "react-intl";
+import { defineMessages } from "react-intl";
 
 import {
   DATE_FORMAT_LOCALIZED,

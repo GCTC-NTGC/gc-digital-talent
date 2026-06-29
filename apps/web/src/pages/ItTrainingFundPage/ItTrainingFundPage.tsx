@@ -2,7 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import {
   Card,
@@ -23,15 +23,6 @@ import image2 from "~/assets/img/person-in-plaid-smiling.webp";
 import image3 from "~/assets/img/person-typing-at-computer.webp";
 import SEO from "~/components/SEO/SEO";
 import pageTitles from "~/messages/pageTitles";
-import { wrapAbbr } from "~/utils/nameUtils";
-
-const externalLinkAccessor = (href: string, chunks: ReactNode) => {
-  return (
-    <Link href={href} external>
-      {chunks}
-    </Link>
-  );
-};
 
 const pageTitle = defineMessage(pageTitles.itTrainingFund);
 
@@ -56,6 +47,13 @@ export const Component = () => {
     en: "https://navigar.ca/",
     fr: "https://navigar.ca/fr/",
   } as const;
+
+  /* no French version available */
+  const navigarLink = (chunks: ReactNode) => (
+    <Link external href="https://app.navigar.ca/home">
+      {chunks}
+    </Link>
+  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -94,25 +92,13 @@ export const Component = () => {
           })}
         </Heading>
         <p className="mb-6">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "The Government of Canada is committed to supporting the development of its <abbreviation>IT</abbreviation> professionals. With the <strong><abbreviation>IT</abbreviation> Community Training and Development Fund</strong>, <abbreviation>IT</abbreviation>-classified employees who are covered by the <link><abbreviation>IT</abbreviation> collective agreement</link> now have increased access to a wide range of learning opportunities to build and deepen their <abbreviation>IT</abbreviation> skills.",
-              id: "AcpYdi",
-              description:
-                "First paragraph describing investing in future talent",
-            },
-            {
-              link: (chunks: ReactNode) =>
-                externalLinkAccessor(
-                  locale === "en"
-                    ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
-                    : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
-                  chunks,
-                ),
-              abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "The Government of Canada is committed to supporting the development of its IT professionals. With the IT Community Training and Development Fund, eligible IT-classified employees now have increased access to a wide range of learning opportunities to build and deepen their IT skills.",
+            id: "8TZbgw",
+            description:
+              "First paragraph describing investing in future talent",
+          })}
         </p>
         {/* What is the IT Community Training and Development Fund? */}
         <Heading
@@ -129,24 +115,12 @@ export const Component = () => {
           })}
         </Heading>
         <p className="my-9">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "The fund is a financial commitment to support the professional growth of the Government of Canada's <abbreviation>IT</abbreviation> staff. It was established under the <link><abbreviation>IT</abbreviation> collective agreement</link> signed between the PIPSC <abbreviation>IT</abbreviation> group and the Treasury Board of Canada Secretariat in December 2023. The fund allocates $4.725 million each year for training and development for the duration of the agreement.",
-              id: "sMCVdo",
-              description: "First paragraph describing the training fund",
-            },
-            {
-              link: (chunks: ReactNode) =>
-                externalLinkAccessor(
-                  locale == "en"
-                    ? "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-eng.aspx?id=31"
-                    : "https://www.tbs-sct.canada.ca/agreements-conventions/view-visualiser-fra.aspx?id=31",
-                  chunks,
-                ),
-              abbreviation: (text: ReactNode) => wrapAbbr(text, intl),
-            },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "The IT Community Training and Development Fund supports enterprise wide professional development for the Government of Canada’s IT workforce. Established in December 2023, the fund provides an annual allocation of $4.725 million to enable training and skills development opportunities across the federal public service.",
+            id: "2lsIjY",
+            description: "First paragraph describing the training fund",
+          })}
         </p>
         <div className="my-9 grid items-start gap-12 xs:grid-cols-2 xs:gap-18 sm:grid-cols-3">
           <CardFlat
@@ -160,8 +134,8 @@ export const Component = () => {
             <p className="mb-3">
               {intl.formatMessage({
                 defaultMessage:
-                  "The goal is to provide additional comprehensive, consistent, and high-quality training opportunities to:",
-                id: "Ta28fI",
+                  "The fund is intended to complement departmental training budgets by providing additional, consistent, and high-quality training opportunities that:",
+                id: "1lw0Uw",
                 description: "title for a list of fund objectives",
               })}
             </p>
@@ -201,8 +175,8 @@ export const Component = () => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Training opportunities supported by the fund are available to IT-classified employees covered by the IT collective agreement. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access training. Employees represented by PIPSC will have priority when spaces are limited.",
-                id: "oY+SWP",
+                  "Training opportunities supported by the fund are available to IT-classified employees. Both employees represented by the Professional Institute of the Public Service of Canada (PIPSC) and unrepresented employees may access training. Employees represented by PIPSC will have priority when spaces are limited.",
+                id: "L8riJd",
                 description: "Description for the employee eligibility card",
               })}
             </p>
@@ -218,8 +192,8 @@ export const Component = () => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "The management of the fund is the responsibility of the Interdepartmental Joint Consultation Committee, co-chaired by the Office of the Chief Information Officer and the PIPSC IT group.",
-                id: "fKQsbL",
+                  "The management of the fund is the responsibility of the Interdepartmental Joint Consultation Committee (IJCC), co-chaired by the Office of the Chief Information Officer (OCIO) and the PIPSC IT group.",
+                id: "KuNZB9",
                 description: "Description for the fund management card",
               })}
             </p>
@@ -288,13 +262,18 @@ export const Component = () => {
                     })}
                   </li>
                   <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "<strong>How to access it</strong>: Available through Navigar, a smart online skills development tool. All eligible IT-classified employees will receive their Navigar account activation email.",
-                      id: "jT46zb",
-                      description:
-                        "An item in a list of points about online learning",
-                    })}
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "<strong>How to access it</strong>: Available through Navigar, a smart online skills development tool. If you haven't already, you can activate your account by accessing the <link>Navigar homepage</link>.",
+                        id: "y0jr2a",
+                        description:
+                          "An item in a list of points about online learning",
+                      },
+                      {
+                        link: navigarLink,
+                      },
+                    )}
                   </li>
                 </Ul>
               </div>
@@ -348,8 +327,8 @@ export const Component = () => {
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "<strong>Who it is for</strong>: All eligible IT-classified employees who prefer structured learning and want to gain or deepen expertise in specific high-demand areas.",
-                        id: "CDO5vW",
+                          "<strong>Who it is for</strong>: All eligible IT-classified employees who want to gain or deepen expertise in specific high-demand areas.",
+                        id: "5JByxj",
                         description:
                           "An item in a list of points about instructor-led classes",
                       })}
@@ -357,8 +336,8 @@ export const Component = () => {
                     <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "<strong>How to apply</strong>: Spaces are limited. You need to apply and meet the prerequisites to participate.",
-                        id: "BlFUsz",
+                          "<strong>How to apply</strong>: Spaces are limited. To be considered, you must submit an application and meet all eligibility requirements and any prerequisites.",
+                        id: "MiiHtw",
                         description:
                           "An item in a list of points about instructor-led classes",
                       })}
@@ -428,8 +407,8 @@ export const Component = () => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
-                        "<strong>Who it is for</strong>: IT-classified employees seeking to enhance their qualifications and career growth.",
-                      id: "ixxGIm",
+                        "<strong>Who it is for</strong>: All eligible IT-classified employees seeking to enhance their qualifications and career growth.",
+                      id: "1yCxmK",
                       description:
                         "An item in a list of points about cert exams",
                     })}
@@ -437,8 +416,8 @@ export const Component = () => {
                   <li>
                     {intl.formatMessage({
                       defaultMessage:
-                        "<strong>How to apply</strong>: Access is limited. You need to request a voucher and meet the prerequisites.",
-                      id: "vmVdJt",
+                        "<strong>How to apply</strong>: To be considered, you must submit an application and meet all eligibility requirements. You must be prepared to write the exam within 60 days of submitting your application.",
+                      id: "nkbzX2",
                       description:
                         "An item in a list of points about cert exams",
                     })}

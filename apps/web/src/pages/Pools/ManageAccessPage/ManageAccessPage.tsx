@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 
@@ -7,7 +8,7 @@ import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { getFragment, graphql, Scalars } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -24,7 +25,10 @@ import {
   roleAccessor,
   roleCell,
 } from "./components/helpers";
-import { ManageAccessPageFragment, PoolTeamMember } from "./components/types";
+import type {
+  ManageAccessPageFragment,
+  PoolTeamMember,
+} from "./components/types";
 import { ManageAccessPage_PoolFragment } from "./components/operations";
 import AddPoolMembershipDialog from "./components/AddPoolMembershipDialog";
 
@@ -73,11 +77,11 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
         },
       },
     ),
-    columnHelper.accessor("email", {
-      id: "email",
-      header: intl.formatMessage(commonMessages.email),
+    columnHelper.accessor("workEmail", {
+      id: "workEmail",
+      header: intl.formatMessage(commonMessages.workEmail),
       cell: ({ row: { original: member } }) =>
-        emailLinkCell(member.email, intl),
+        emailLinkCell(member.workEmail, intl),
     }),
     columnHelper.accessor((member) => roleAccessor(member.roles, intl), {
       id: "roles",
@@ -121,7 +125,7 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
         pagination={{
           internal: true,
           total: data.length,
-          pageSizes: [10, 20, 50],
+          pageSizes: [10, 20, 50, 100, 500],
         }}
         search={{
           internal: true,
@@ -160,7 +164,7 @@ const ManageAccessPage_PoolQuery = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const ManageAccessPoolPage = () => {

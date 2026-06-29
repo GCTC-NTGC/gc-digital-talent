@@ -1,5 +1,3 @@
-import { WorkExperience } from "@gc-digital-talent/graphql";
-
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
@@ -27,8 +25,8 @@ test("Can edit work experience", async ({ appPage }) => {
   const applicantCtx = await graphql.newContext("applicant@test.com");
   const applicant = await me(applicantCtx, {});
 
-  const workExperience = applicant.experiences?.find(
-    (ex: WorkExperience) => ex?.role === role,
+  const workExperience = applicant.experiences?.find((ex) =>
+    Boolean(ex && "role" in ex && ex.role === role),
   );
 
   await experiencePage.editWorkExperience(`${workExperience?.id}`, {

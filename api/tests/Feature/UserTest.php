@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\EmploymentCategory;
 use App\Enums\ErrorCode;
 use App\Enums\FlexibleWorkLocation;
@@ -1456,18 +1457,27 @@ class UserTest extends TestCase
 
     public function testFilterByGovEmployee(): void
     {
-        // Create initial set of 5 users not with gov.
-        User::factory()->count(5)->create([
+        // 3 non-gov users — should never match any employeeVerification filter
+        User::factory()->count(3)->create([
             'computed_is_gov_employee' => false,
+            'work_email' => null,
         ]);
 
-        // Create two new users with the government.
-        User::factory()->count(2)->create([
-            'computed_is_gov_employee' => true,
-        ]);
+        // 2 verified gov employees (gov + work_email confirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'verified1@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+            ['work_email' => 'verified2@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+        )->create(['computed_is_gov_employee' => true]);
 
-        // Assert query no isGovEmployee filter will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+        // 2 not-verified gov employees (gov + work_email present but unconfirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'unverified1@gc.ca', 'work_email_verified_at' => null],
+            ['work_email' => 'unverified2@gc.ca', 'work_email_verified_at' => null],
+        )->create(['computed_is_gov_employee' => true]);
+
+        // 3 + 2 + 2 + 1 (platformAdmin, computed_is_gov_employee = false) = 8 total
+
+        $query =
             /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
@@ -1477,71 +1487,40 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ',
-            [
-                'where' => [],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
+        ';
+
+        // No filter returns all users
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, ['where' => []])
+            ->assertJson([
+                'data' => [
+                    'usersPaginated' => ['paginatorInfo' => ['total' => 8]],
                 ],
+            ]);
+
+        // VERIFIED filter returns only verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name]],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => true,
-                ],
-            ]
-        )->assertJson([
+        // NOT_VERIFIED filter returns only not-yet-verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::NOT_VERIFIED->name]],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to false will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => false,
-                ],
-            ]
-        )->assertJson([
+        // Both values returns all gov employees with a work email
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name, EmployeeVerification::NOT_VERIFIED->name]],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 4]],
             ],
         ]);
     }
@@ -1658,7 +1637,7 @@ class UserTest extends TestCase
         ]);
         // User status inactive - should not appear in searches
         PoolCandidate::factory()->qualified()->for($pool1)->create([
-            'referring' => false,
+            'pause_referrals_at' => config('constants.past_date'),
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
@@ -1729,7 +1708,7 @@ class UserTest extends TestCase
         ]);
         User::factory()->create([
             'first_name' => 'dan',
-            'last_name' => 'man',
+            'last_name' => 'manny',
             'email' => 'dan@user.com',
             'telephone' => '99999',
         ]);
@@ -1791,7 +1770,7 @@ class UserTest extends TestCase
             ], 1],
             'assert email filter with partial email returns correct count' => [['email' => 'user.com'], 4],
             'assert more than one search term results in AND filtering' => [['generalSearch' => 'sam 67890'], 1],
-            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'man'], 1],
+            'assert filtering for last name in general search returns correct count' => [['generalSearch' => 'manny'], 1],
             'assert filtering general search and name search (both subqueries) filter as AND' => [[
                 'generalSearch' => '@user.com',
                 'name' => 'zak',
@@ -1855,7 +1834,7 @@ class UserTest extends TestCase
                     ],
                     'poolFilters' => null,
                     'isProfileComplete' => null,
-                    'isGovEmployee' => null,
+                    'employeeVerification' => null,
                     'telephone' => null,
                     'email' => null,
                     'name' => null,
@@ -2311,5 +2290,72 @@ class UserTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    // When a user is deleted, their email and work email is backed up and cleared
+    public function testUserDeleteBacksUpTheEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'testuser@example.com',
+            'work_email' => 'workuser@gc.ca',
+        ]);
+
+        $user->delete();
+        $user->refresh();
+
+        $this->assertNull($user->email);
+        $this->assertNull($user->work_email);
+        $this->assertEquals('testuser@example.com', $user->email_backup);
+        $this->assertEquals('workuser@gc.ca', $user->work_email_backup);
+    }
+
+    // When a user is restored, if their backed up email and work email are unused then they are restored
+    public function testUserRestoreUnusedEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'restoreuser@example.com',
+            'email_verified_at' => '2000-01-01',
+            'work_email' => 'restorework@gc.ca',
+            'work_email_verified_at' => '2000-01-01',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        // Simulate restore when no other user uses these emails
+        $user->restore();
+        $user->refresh();
+
+        $this->assertEquals('restoreuser@example.com', $user->email);
+        $this->assertNull($user->email_verified_at);
+        $this->assertEquals('restorework@gc.ca', $user->work_email);
+        $this->assertNull($user->work_email_verified_at);
+        $this->assertNull($user->email_backup);
+        $this->assertNull($user->work_email_backup);
+    }
+
+    // When a user is restored, if their backed up email and work email are already used then they remain null
+    public function testUserDoesntRestoreUsedEmailAndWorkEmail()
+    {
+        $user = User::factory()->create([
+            'email' => 'used@example.com',
+            'work_email' => 'usedwork@gc.ca',
+        ]);
+        $user->delete();
+        $user->refresh();
+
+        // Create a user with the email that will block restoration
+        $blocker = User::factory()->create([
+            'email' => 'used@example.com',
+            'work_email' => 'usedwork@gc.ca',
+        ]);
+
+        // Now, try to restore the user, but the emails are already in use
+        $user->restore();
+        $user->refresh();
+
+        $this->assertNull($user->email);
+        $this->assertNull($user->work_email);
+        $this->assertEquals('used@example.com', $user->email_backup);
+        $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
     }
 }

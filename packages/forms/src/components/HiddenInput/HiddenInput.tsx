@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 
-import { CommonInputProps } from "../../types";
+import type { CommonInputProps } from "../../types";
 
 export interface HiddenInputProps extends Pick<CommonInputProps, "rules"> {
   name: string;

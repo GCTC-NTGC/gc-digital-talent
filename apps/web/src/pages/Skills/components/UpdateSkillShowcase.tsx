@@ -1,32 +1,34 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useId, useState, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { useId, useState } from "react";
 
+import type {
+  IconType,
+  BreadcrumbsProps,
+  ButtonProps,
+} from "@gc-digital-talent/ui";
 import {
   TableOfContents,
-  IconType,
   Separator,
   CardRepeater,
   Link,
-  BreadcrumbsProps,
-  ButtonProps,
   Container,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import {
+import type {
   UpdateUserSkillRankingsInput,
-  Scalars,
-  graphql,
   UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
   UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
-import { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
+import type { FormValues as SkillBrowserDialogFormValues } from "~/components/SkillBrowser/types";
 
 import {
   CreateUserSkill_Mutation,
@@ -102,7 +104,7 @@ export interface FormValues {
 }
 
 interface UpdateSkillShowcaseProps {
-  userId: Scalars["UUID"]["output"];
+  userId: string;
   allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
   allSkills: UpdateSkillShowcaseSkillFragmentType[];
   initialData: FormValues;

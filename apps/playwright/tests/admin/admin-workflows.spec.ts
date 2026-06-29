@@ -1,4 +1,4 @@
-import AppPage from "~/fixtures/AppPage";
+import type AppPage from "~/fixtures/AppPage";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 

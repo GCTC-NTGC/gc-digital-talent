@@ -1,4 +1,4 @@
-import { ScreeningStage } from "@gc-digital-talent/graphql";
+import type { ScreeningStage } from "@gc-digital-talent/graphql";
 
 export interface FormValues {
   screeningStage: ScreeningStage;

@@ -1,5 +1,5 @@
 {
-  "extends": "tsconfig/react-lib.json",
-  "include": ["env.d.ts", "src"],
+  "extends": "tsconfig/base.json",
+  "include": ["env.d.ts", "src", "vitest.config.ts"],
   "exclude": ["**/node_modules", "**/.*/"]
 }

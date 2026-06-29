@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import { Location, useLocation } from "react-router";
+import type { Location } from "react-router";
+import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
-import {
-  graphql,
+import type {
   ApplicantFilterInput,
-  CandidateSearchPoolResult,
   SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { FormValues, LocationState } from "~/types/searchRequest";
+import type { FormValues, LocationState } from "~/types/searchRequest";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
 
@@ -37,6 +38,7 @@ export const useInitialFilters = (): UseInitialState => {
   };
 };
 
+// TODO: Remove this query once talentRequests feature flag is turned on.
 const CandidateCount_Query = graphql(/* GraphQL */ `
   query CandidateCount($where: ApplicantFilterInput) {
     countApplicantsForSearch(where: $where)
@@ -50,17 +52,32 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
   }
 `);
 
+const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
+  query CountTalentRequestMatches($where: ApplicantFilterInput) {
+    countTalentRequestMatches(where: $where)
+    countTalentRequestMatchesByPool(where: $where) {
+      pool {
+        id
+        ...SearchResultCard_Pool
+      }
+      count
+    }
+  }
+`);
+
 interface UseCandidateCountReturn {
   fetching: boolean;
   candidateCount: number;
-  results?: (Pick<CandidateSearchPoolResult, "candidateCount"> & {
+  results?: {
+    count: number;
     pool: SearchResultCard_PoolFragment;
-  })[];
+  }[];
 }
 
 export const useCandidateCount = (
   filters: ApplicantFilterInput,
 ): UseCandidateCountReturn => {
+  const { talentRequests } = useFeatureFlags();
   const intl = useIntl();
   const { announce } = useAnnouncer();
 
@@ -71,12 +88,21 @@ export const useCandidateCount = (
 
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
+  // TODO: Remove this query once talentRequests feature flag is turned on.
   const [{ data, fetching }] = useQuery({
     query: CandidateCount_Query,
     variables: queryArgs,
   });
 
-  const candidateCount = data?.countApplicantsForSearch ?? 0;
+  const [{ data: talentRequestData, fetching: talentRequestFetching }] =
+    useQuery({
+      query: CountTalentRequestMatches_Query,
+      variables: queryArgs,
+    });
+
+  const candidateCount = talentRequests
+    ? (talentRequestData?.countTalentRequestMatches ?? 0)
+    : (data?.countApplicantsForSearch ?? 0);
 
   /**
    * Announce the candidate count to users in a less verbose way
@@ -112,8 +138,15 @@ export const useCandidateCount = (
   }, [announceCandidateCount, candidateCount]);
 
   return {
-    fetching,
+    fetching: talentRequests ? talentRequestFetching : fetching,
     candidateCount,
-    results: data?.countPoolCandidatesByPool ?? [],
+    results: talentRequests
+      ? (talentRequestData?.countTalentRequestMatchesByPool ?? [])
+      : (data?.countPoolCandidatesByPool ?? []).map(
+          ({ pool, candidateCount: count }) => ({
+            pool,
+            count,
+          }),
+        ),
   };
 };

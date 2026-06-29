@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { tv, VariantProps } from "tailwind-variants";
+import type { VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 const flags: Record<string, string> = {
   en: "🇬🇧",

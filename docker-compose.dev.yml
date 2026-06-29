@@ -1,0 +1,90 @@
+# Development Docker Compose configuration with hot reloading
+#
+# Usage:
+#   make up ENV=dev
+#
+# Access the application at: http://localhost:8000
+
+services:
+  webserver:
+    profiles:
+      - disabled
+
+  api:
+    build:
+      context: ./
+      dockerfile: infrastructure/dev/api.Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./api:/var/www/html/api
+      - ./.git:/var/www/html/.git:ro
+    env_file:
+      - ./api/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-so", "/dev/null", "http://localhost:8080"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 15s
+
+  # Ensures ./node_modules exists and is owned by the host user before the
+  # web container starts. Docker creates missing bind-mount directories as
+  # root; this service corrects that so pnpm install can write to it.
+  node-init:
+    image: alpine
+    command: chown "${UID:-1000}:${GID:-1000}" /node_modules
+    volumes:
+      - ./node_modules:/node_modules
+
+  web:
+    build:
+      context: ./
+      dockerfile: infrastructure/dev/web.Dockerfile
+    restart: unless-stopped
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./apps:/var/www/html/apps
+      - ./packages:/var/www/html/packages
+      - ./package.json:/var/www/html/package.json
+      - ./pnpm-lock.yaml:/var/www/html/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/var/www/html/pnpm-workspace.yaml
+      - ./.npmrc:/var/www/html/.npmrc
+      - ./turbo.json:/var/www/html/turbo.json
+      - ./.git:/var/www/html/.git:ro
+      - ./node_modules:/var/www/html/node_modules
+      # Share the API storage directory for GraphQL codegen to access the lighthouse schema
+      - ./api/storage/app:/var/www/html/api/storage/app:ro
+    env_file:
+      - ./apps/web/.env
+    environment:
+      # Disable devServer redirect since nginx proxy handles routing
+      DOCKER_DEV: "true"
+    depends_on:
+      node-init:
+        condition: service_completed_successfully
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000', r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]
+      interval: 5s
+      timeout: 10s
+      retries: 60
+      start_period: 60s
+
+  # Nginx reverse proxy to route requests between api and web
+  nginx-proxy:
+    image: nginx:alpine
+    restart: unless-stopped
+    volumes:
+      - ./infrastructure/dev/default:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8000:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+      web:
+        condition: service_healthy

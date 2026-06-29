@@ -4,7 +4,10 @@ import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
-dotenv.config({ path: path.resolve(__dirname, ".env"), quiet: true });
+dotenv.config({
+  path: path.resolve(__dirname, process.env.PLAYWRIGHT_ENV_FILE ?? ".env"),
+  quiet: true,
+});
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -16,13 +19,19 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : "25%",
+  retries: process.env.CI ? Number(process.env.PLAYWRIGHT_RETRIES ?? 1) : 0,
+  /* Keep CI parallelism configurable with a conservative default to avoid shard oversubscription. */
+  workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? "blob"
+    ? [
+        ["blob"],
+        ["junit", { outputFile: "test-results/results.xml" }],
+        ["html", { open: "never", outputFolder: "playwright-report" }],
+      ]
     : [["line"], ["html", { open: "on-failure" }]],
+  globalTeardown:
+    process.env.E2E_COVERAGE === "true" ? "./e2e-coverage-teardown" : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
   expect: { timeout: Number(process.env.EXPECT_TIMEOUT ?? 15000) }, // 15 seconds
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -40,9 +49,43 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // UAT projects — only registered when TESTING_ENDPOINT_SECRET is set.
+    // Without it these projects fail immediately, breaking local runs.
+    ...(process.env.TESTING_ENDPOINT_SECRET
+      ? [
+          {
+            name: "setup-admin",
+            testMatch: /admin\.setup\.ts/,
+          },
+          {
+            name: "setup-applicant",
+            testMatch: /applicant\.setup\.ts/,
+          },
+          {
+            name: "uat-admin",
+            use: {
+              ...devices["Desktop Chrome"],
+              storageState: ".auth/admin.json",
+            },
+            testMatch: /uat-admin\.spec\.ts/,
+            dependencies: ["setup-admin"],
+          },
+          {
+            name: "uat-applicant",
+            use: {
+              ...devices["Desktop Chrome"],
+              storageState: ".auth/applicant.json",
+            },
+            testMatch: /uat-applicant\.spec\.ts/,
+            dependencies: ["setup-applicant"],
+          },
+        ]
+      : []),
+
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
     },
 
     // {
@@ -53,6 +96,7 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
+      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */

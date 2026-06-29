@@ -12,7 +12,8 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
-import graphql, { GraphQLContext } from "~/utils/graphql";
+import type { GraphQLContext } from "~/utils/graphql";
+import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 import { defaultWorkExperience } from "~/utils/experiences";
@@ -122,7 +123,7 @@ test.describe("Applicant dashboard update", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.updateDashboard(isGovEmployee);
   });
 
   test("validate applicant dashboard update for non-government employee", async ({
@@ -135,6 +136,6 @@ test.describe("Applicant dashboard update", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await dashboardPage.verifyDashboardUpdate(isGovEmployee);
+    await dashboardPage.updateDashboard(isGovEmployee);
   });
 });

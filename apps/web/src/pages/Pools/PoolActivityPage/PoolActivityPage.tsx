@@ -2,9 +2,9 @@ import { useIntl } from "react-intl";
 import RectangleStackIcon from "@heroicons/react/24/outline/RectangleStackIcon";
 import { useQuery } from "urql";
 import { useSearchParams } from "react-router";
-import { SubmitHandler } from "react-hook-form";
+import type { SubmitHandler } from "react-hook-form";
 
-import { graphql, Maybe, Scalars } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import {
   Container,
   Heading,
@@ -24,9 +24,8 @@ import {
 import Pagination from "~/components/Pagination";
 import { SEARCH_PARAM_KEY } from "~/components/Table/ResponsiveTable/constants";
 
-import PoolActivityFilterDialog, {
-  FormValues,
-} from "./components/PoolActivityFilterDialog";
+import type { FormValues } from "./components/PoolActivityFilterDialog";
+import PoolActivityFilterDialog from "./components/PoolActivityFilterDialog";
 import {
   getTotalPages,
   safeGetFilters,
@@ -35,7 +34,7 @@ import {
 } from "./utils";
 
 interface RouteParams extends Record<string, string> {
-  poolId: Scalars["ID"]["output"];
+  poolId: string;
 }
 
 const resetValues: FormValues = {
@@ -129,7 +128,7 @@ const PoolActivityPage = () => {
     setSearchParams(params);
   };
 
-  const handleSearch = (term?: Maybe<string>) => {
+  const handleSearch = (term?: string | null) => {
     const params = new URLSearchParams(searchParams);
     if (term) {
       params.set(SEARCH_PARAM_KEY.SEARCH_TERM, term);
