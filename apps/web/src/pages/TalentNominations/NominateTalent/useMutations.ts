@@ -2,7 +2,6 @@ import { useMutation } from "urql";
 import { useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 
-import { protectedEndpointContext } from "@gc-digital-talent/client";
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -10,6 +9,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
+import { getProtectedOperationContext } from "~/utils/protectedUrqlContext";
 
 import type { RouteParams, SubmitIntent } from "./types";
 import useCurrentStep from "./useCurrentStep";
@@ -63,7 +63,7 @@ const useMutations = (): UseMutationsReturn => {
   ) => {
     return executeUpdateMutation(
       { id, talentNomination },
-      { context: protectedEndpointContext() },
+      getProtectedOperationContext(),
     )
       .then(async (res) => {
         if (res.error?.message) {
@@ -104,10 +104,7 @@ const useMutations = (): UseMutationsReturn => {
       return await navigate(paths.applicantDashboard());
     }
 
-    return executeSubmitMutation(
-      { id },
-      { context: protectedEndpointContext() },
-    )
+    return executeSubmitMutation({ id }, getProtectedOperationContext())
       .then((res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);

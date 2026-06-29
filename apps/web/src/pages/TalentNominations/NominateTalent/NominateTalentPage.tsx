@@ -9,7 +9,6 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { protectedEndpointContext } from "@gc-digital-talent/client";
 import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
@@ -21,6 +20,7 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { getProtectedQueryContextOptions } from "~/utils/protectedUrqlContext";
 
 import type { RouteParams } from "./types";
 import Nominator from "./components/Nominator";
@@ -110,7 +110,7 @@ const NominateTalentPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: NominateTalent_Query,
     variables: { id },
-    context: protectedEndpointContext(),
+    ...getProtectedQueryContextOptions(),
   });
 
   const isSubmitted = !!data?.talentNomination?.submittedAt;

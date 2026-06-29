@@ -6,10 +6,7 @@ import { useMutation } from "urql";
 
 import { Loading } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  canAccessProtectedEndpoint,
-  protectedEndpointContext,
-} from "@gc-digital-talent/client";
+import { canAccessProtectedEndpoint } from "@gc-digital-talent/client";
 import {
   tryFindMessageDescriptor,
   errorMessages,
@@ -21,6 +18,7 @@ import { graphql } from "@gc-digital-talent/graphql";
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { getProtectedOperationContext } from "~/utils/protectedUrqlContext";
 
 interface RouteParams extends Record<string, string> {
   id: string;
@@ -121,7 +119,7 @@ const CreateTalentNominationPage = () => {
 
         return executeCreateMutation(
           { talentNomination: mutationInput },
-          { context: protectedEndpointContext() },
+          getProtectedOperationContext(),
         )
           .then(async (result) => {
             if (result.data?.createTalentNomination) {
