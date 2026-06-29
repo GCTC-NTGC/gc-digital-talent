@@ -29,6 +29,7 @@ const TalentRequestTracking_Query = graphql(/** GraphQL */ `
     }
 
     ...TalentRequestReferralDialogOptions
+    ...TalentRequestEditReferralDialogSourceOptions
   }
 `);
 
@@ -67,6 +68,7 @@ const Tracking = () => {
             data?.talentRequest?.applicantFilter?.skills,
           )}
           optionsQuery={data}
+          sourceOptionsQuery={data}
         />
       </TalentRequestSectionCard>
 

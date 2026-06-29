@@ -1615,7 +1615,8 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [LocalizedTalentRequestSource!]! @method(name: "talentRequestSources")
+  sources: [LocalizedTalentRequestSource!]!
+    @method(name: "talentRequestSources")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
