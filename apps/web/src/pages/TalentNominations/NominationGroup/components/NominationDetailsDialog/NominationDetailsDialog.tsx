@@ -124,22 +124,14 @@ const NominationDetailsDialog = ({ query }: NominationDetailsDialogProps) => {
           <RationaleAndAdditionalCommentsSection query={nomination} />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
             <Button onClick={() => setIsOpen(false)}>
-              {intl.formatMessage({
-                defaultMessage: "Okay",
-                id: "A3B+r/",
-                description: "Okay",
-              })}
+              {intl.formatMessage(commonMessages.okay)}
             </Button>
             <Button
               mode="inline"
               color="warning"
               onClick={() => setIsOpen(false)}
             >
-              {intl.formatMessage({
-                defaultMessage: "Cancel",
-                id: "6PdOcy",
-                description: "Cancel",
-              })}
+              {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </Dialog.Footer>
         </Dialog.Body>

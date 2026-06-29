@@ -87,16 +87,17 @@ const NominationDetailsSection = ({ query }: NominationDetailsSectionProps) => {
       <Heading level="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Nomination details",
-          id: "zGyHtH",
-          description: "Nomination details section heading",
+          id: "gD98oQ",
+          description: "Heading for details step of a talent nomination",
         })}
       </Heading>
       <div className="grid gap-6 xs:grid-cols-2">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nomination options",
-            id: "itUHim",
-            description: "Nomination options field",
+            id: "khfdlt",
+            description:
+              "Label for the nomination options checklist on the details step",
           })}
           className="xs:col-span-2"
         >
@@ -119,8 +120,8 @@ const NominationDetailsSection = ({ query }: NominationDetailsSectionProps) => {
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Reference’s name",
-            id: "zZVYD0",
-            description: "Reference’s name field",
+            id: "x4/XMp",
+            description: "Label for the text input for the reference's name",
           })}
         >
           {referenceName ?? nullMessage}
@@ -128,26 +129,27 @@ const NominationDetailsSection = ({ query }: NominationDetailsSectionProps) => {
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Reference’s work email",
-            id: "712zpF",
-            description: "Reference’s work email field",
+            id: "aqlXBz",
+            description: "Reference work email field",
           })}
         >
           {referenceWorkEmail ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Reference’s classification",
-            id: "xzN9C5",
-            description: "Reference’s classification field",
+            defaultMessage: "Reference's classification",
+            id: "TiDfH2",
+            description:
+              "Label for the reference's input field in nominations details step",
           })}
         >
           {referenceClassification ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Reference’s department or agency",
-            id: "vmU8ug",
-            description: "Reference’s department or agency field",
+            defaultMessage: "Reference's department or agency",
+            id: "lgF8zK",
+            description: "Label for a reference's department",
           })}
         >
           {referenceDepartment ?? nullMessage}

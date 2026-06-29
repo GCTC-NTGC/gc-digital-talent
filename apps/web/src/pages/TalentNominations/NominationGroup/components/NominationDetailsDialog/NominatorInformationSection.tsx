@@ -83,16 +83,16 @@ const NominatorInformationSection = ({
       <Heading level="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Nominator information",
-          id: "scSFPb",
-          description: "Nominator information section heading",
+          id: "vJD6dl",
+          description: "Heading for nominator step of a talent nomination",
         })}
       </Heading>
       <div className="grid gap-6 xs:grid-cols-2">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nominator’s name",
-            id: "hmlTxw",
-            description: "Nominator’s name field",
+            id: "exPEA1",
+            description: "Label for the text input for the nominators name",
           })}
         >
           {nominatorName ?? nullMessage}
@@ -100,17 +100,18 @@ const NominatorInformationSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nominator’s work email",
-            id: "2J/v8D",
-            description: "Nominator’s work email field",
+            id: "5HhVG9",
+            description:
+              "Label for the text input for the nominators work email",
           })}
         >
           {nominatorWorkEmail ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Nominator’s classification",
-            id: "GVXxU2",
-            description: "Nominator’s classification field",
+            defaultMessage: "Nominator's classification",
+            id: "b44Vd5",
+            description: "Label for the nominator's classification",
           })}
         >
           {nominatorClassification ?? nullMessage}
@@ -118,8 +119,8 @@ const NominatorInformationSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nominator’s department or agency",
-            id: "LU+BI4",
-            description: "Nominator’s department or agency field",
+            id: "AdmbBO",
+            description: "Label for a nominators department",
           })}
         >
           {nominatorDepartment ?? nullMessage}

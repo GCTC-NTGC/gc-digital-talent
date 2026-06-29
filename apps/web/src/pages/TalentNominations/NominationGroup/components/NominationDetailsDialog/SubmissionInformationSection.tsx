@@ -89,8 +89,9 @@ const SubmissionInformationSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Date received",
-            id: "cN3yIo",
-            description: "Date received field",
+            id: "m0Qcow",
+            description:
+              "Title displayed on the search request table requested date column.",
           })}
           className="xs:col-span-2"
         >
@@ -104,36 +105,36 @@ const SubmissionInformationSection = ({
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Submitter’s name",
-            id: "15YYrg",
-            description: "Submitter’s name field",
+            defaultMessage: "Submitter's name",
+            id: "rgmr0x",
+            description: "Label for the submitter's name",
           })}
         >
           {submitterName ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Submitter’s work email",
-            id: "BP1zn9",
-            description: "Submitter’s work email field",
+            defaultMessage: "Submitter's work email",
+            id: "/Wgawu",
+            description: "Label for the submitter's work email",
           })}
         >
           {nomination.submitter?.workEmail ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Submitter’s classification",
-            id: "4JKjmh",
-            description: "Submitter’s classification email field",
+            defaultMessage: "Submitter's classification",
+            id: "iC/wHw",
+            description: "Label for the submitter's classification",
           })}
         >
           {nomination.submitter?.classification?.groupAndLevel ?? nullMessage}
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Submitter’s department or agency",
-            id: "YewVE0",
-            description: "Submitter’s department or agency field",
+            defaultMessage: "Submitter's department or agency",
+            id: "oljVrD",
+            description: "Label for the submitter's department/agency",
           })}
         >
           {nomination.submitter?.department?.name.localized ?? nullMessage}

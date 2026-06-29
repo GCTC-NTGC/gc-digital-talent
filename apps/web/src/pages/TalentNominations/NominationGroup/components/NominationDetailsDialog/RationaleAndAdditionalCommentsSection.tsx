@@ -47,16 +47,16 @@ const RationaleAndAdditionalCommentsSection = ({
       <Heading level="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Rationale and additional comments",
-          id: "13uPGf",
-          description: "Rationale and additional comments section heading",
+          id: "LA0AM1",
+          description: "Heading for rationale step of a talent nomination",
         })}
       </Heading>
       <div className="flex flex-col gap-6">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Nomination rationale",
-            id: "V+/xH8",
-            description: "Nomination rationale field",
+            id: "jokoVA",
+            description: "Label for a nomination's rationale",
           })}
         >
           {nomination.nominationRationale}
@@ -64,8 +64,9 @@ const RationaleAndAdditionalCommentsSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Top 3 key leadership competencies",
-            id: "LTk61y",
-            description: "Top 3 key leadership competencies field",
+            id: "6M8rIa",
+            description:
+              "Label for a nominations leadership skill competencies",
           })}
         >
           <Ul space="lg" className="mt-1.5">
@@ -77,8 +78,9 @@ const RationaleAndAdditionalCommentsSection = ({
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Additional comments",
-            id: "W5B1BZ",
-            description: "Additional comments field",
+            id: "IBLDnY",
+            description:
+              "Label for additional comments on a nomination's rationale",
           })}
         >
           {nomination.additionalComments}
