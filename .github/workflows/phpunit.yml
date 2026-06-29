@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # The init scripts aren't checked out yet when the database is initialized.  Run the ones we need manually afterwards.
       - name: Initialize database

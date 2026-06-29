@@ -4,9 +4,9 @@ import { useIntl } from "react-intl";
 import {
   Checklist,
   Combobox,
+  enumToOptions,
   HiddenInput,
   RadioGroup,
-  SwitchInput,
   Select,
 } from "@gc-digital-talent/forms";
 import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
@@ -20,11 +20,13 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   commonMessages,
+  ENUM_SORT_ORDER,
+  EmploymentDuration,
+  getEmploymentDuration,
   getEmploymentEquityGroup,
   navigationMessages,
   narrowEnumType,
   sortLocalizedEnumOptions,
-  ENUM_SORT_ORDER,
 } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
@@ -173,6 +175,16 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
     }
     workRegions: localizedEnumOptions(enumName: "WorkRegion") {
       ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
+      ... on LocalizedEmployeeVerification {
         value
         label {
           localized
@@ -444,20 +456,42 @@ const PoolCandidateFilterDialog = ({
       </Heading>
 
       <div className="grid gap-6 xs:grid-cols-3">
-        <Select
-          id="languageAbility"
-          name="languageAbility"
-          enableNull
-          nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
-          label={intl.formatMessage(commonMessages.workingLanguageAbility)}
-          options={narrowEnumType(
-            unpackMaybes(data?.languageAbilities),
-            "LanguageAbility",
-          ).map((languageAbility) => ({
-            value: languageAbility.value,
-            label: languageAbility.label?.localized ?? notAvailable,
-          }))}
-        />
+        <div>
+          <Select
+            id="languageAbility"
+            name="languageAbility"
+            enableNull
+            nullSelection={intl.formatMessage(commonMessages.anyLanguage)}
+            label={intl.formatMessage(commonMessages.workingLanguageAbility)}
+            options={narrowEnumType(
+              unpackMaybes(data?.languageAbilities),
+              "LanguageAbility",
+            ).map((languageAbility) => ({
+              value: languageAbility.value,
+              label: languageAbility.label?.localized ?? notAvailable,
+            }))}
+            className="mb-6"
+          />
+          <Select
+            id="employmentDuration"
+            name="employmentDuration"
+            enableNull
+            nullSelection={intl.formatMessage({
+              defaultMessage: "Any duration",
+              id: "Swq+OD",
+              description: "Option label for allowing any employment duration",
+            })}
+            label={intl.formatMessage({
+              defaultMessage: "Duration preferences",
+              id: "2ingb6",
+              description: "Label for the employment duration field",
+            })}
+            options={enumToOptions(EmploymentDuration).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getEmploymentDuration(value, "short")),
+            }))}
+          />
+        </div>
         <Checklist
           idPrefix="equity"
           name="equity"
@@ -494,18 +528,6 @@ const PoolCandidateFilterDialog = ({
           }))}
         />
         <Checklist
-          idPrefix="operationalRequirement"
-          name="operationalRequirement"
-          legend={intl.formatMessage(navigationMessages.workPreferences)}
-          items={narrowEnumType(
-            unpackMaybes(data?.operationalRequirements),
-            "OperationalRequirement",
-          ).map((operationalRequirement) => ({
-            value: operationalRequirement.value,
-            label: operationalRequirement.label?.localized ?? notAvailable,
-          }))}
-        />
-        <Checklist
           idPrefix="flexibleWorkLocations"
           name="flexibleWorkLocations"
           legend={intl.formatMessage(navigationMessages.flexibleWorkLocations)}
@@ -518,6 +540,18 @@ const PoolCandidateFilterDialog = ({
           ).map((flexibleWorkLocation) => ({
             value: flexibleWorkLocation.value,
             label: flexibleWorkLocation.label?.localized ?? notAvailable,
+          }))}
+        />
+        <Checklist
+          idPrefix="operationalRequirement"
+          name="operationalRequirement"
+          legend={intl.formatMessage(navigationMessages.workPreferences)}
+          items={narrowEnumType(
+            unpackMaybes(data?.operationalRequirements),
+            "OperationalRequirement",
+          ).map((operationalRequirement) => ({
+            value: operationalRequirement.value,
+            label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
         <Checklist
@@ -536,12 +570,17 @@ const PoolCandidateFilterDialog = ({
             }))}
         />
         <div className="flex flex-col gap-6 xs:col-span-3">
-          <SwitchInput
-            id="govEmployee"
+          <Checklist
+            idPrefix="govEmployee"
             name="govEmployee"
-            color="secondary"
-            value="true"
-            label={intl.formatMessage(commonMessages.governmentEmployee)}
+            legend={intl.formatMessage(commonMessages.governmentEmployee)}
+            items={narrowEnumType(
+              unpackMaybes(data?.employeeVerifications),
+              "EmployeeVerification",
+            ).map((opt) => ({
+              value: opt.value,
+              label: opt.label?.localized ?? notAvailable,
+            }))}
           />
           <Combobox
             id="departments"
