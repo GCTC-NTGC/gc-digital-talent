@@ -12,6 +12,7 @@ use App\Rules\PoolNotClosed;
 use App\Rules\QuestionsAnswered;
 use App\Rules\UserProfileComplete;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class SubmitApplicationValidator extends Validator
@@ -53,7 +54,10 @@ final class SubmitApplicationValidator extends Validator
                 new HasLanguageRequirements($this->application->pool),
             ],
             'pool_id' => [
-                new EmployeeWorkEmailVerified($this->application->user, $this->isSpecialApplication),
+                Rule::when(fn () => $this->isSpecialApplication === false,
+                    // do not run this verification for special applications
+                    [new EmployeeWorkEmailVerified($this->application->user)],
+                ),
                 new PoolNotClosed($this->isSpecialApplication, $this->specialClosingDate),
                 new QuestionsAnswered($this->application),
             ],

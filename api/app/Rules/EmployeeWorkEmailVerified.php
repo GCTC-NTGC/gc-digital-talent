@@ -13,18 +13,14 @@ class EmployeeWorkEmailVerified implements ValidationRule
 {
     private User $user;
 
-    private bool $isSpecialApplication;
-
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct(User $user, bool $isSpecialApplication)
+    public function __construct(User $user)
     {
         $this->user = $user;
-
-        $this->isSpecialApplication = $isSpecialApplication;
     }
 
     /**
@@ -32,11 +28,6 @@ class EmployeeWorkEmailVerified implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        // do not run this check if this is a special application
-        if ($this->isSpecialApplication === true) {
-            return;
-        }
-
         /** @var Pool $pool */
         $pool = Pool::find($value);
 
