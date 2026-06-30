@@ -1317,6 +1317,7 @@ type PoolCandidate {
   specialApplicationType: LocalizedSpecialApplicationType
   specialApplicationJustification: String
   specialApplicationClosingDate: DateTime
+  isSpecialApplication: Boolean
 }
 
 type PoolCandidateAdminView {

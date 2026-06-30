@@ -173,7 +173,10 @@ class PoolCandidatePolicy
      */
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->id === $poolCandidate->user_id && $user->isAbleTo('delete-own-draftApplication');
+        return
+            $poolCandidate->isDraft() &&
+            $user->id === $poolCandidate->user_id &&
+            $user->isAbleTo('delete-own-draftApplication');
     }
 
     public function viewStatus(User $user, PoolCandidate $poolCandidate)

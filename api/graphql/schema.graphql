@@ -724,6 +724,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   specialApplicationClosingDate: DateTime
     @rename(attribute: "special_application_closing_date")
+  isSpecialApplication: Boolean
 }
 
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
