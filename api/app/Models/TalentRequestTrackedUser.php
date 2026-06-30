@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Builders\UserBuilder;
-use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
@@ -86,35 +85,8 @@ class TalentRequestTrackedUser extends Pivot
     /** @return Attribute<array<string>, never> */
     protected function sources(): Attribute
     {
-        return Attribute::get(function (): array {
-            /** @var array<string> $sources */
-            $sources = $this->hasQualifiedInPoolSource()
-                ? [TalentRequestSource::QUALIFIED_IN_POOL->name]
-                : [];
-
-            return $sources;
-        });
-    }
-
-    private function hasQualifiedInPoolSource(): bool
-    {
-        if (isset($this->has_prequalified_source)) {
-            return (bool) $this->has_prequalified_source;
-        }
-
-        return $this->matchingQualifiedInPoolSources()->exists();
-    }
-
-    /** @return Attribute<array{}, never> */
-    protected function matchingAtLevelSources(): Attribute
-    {
-        return Attribute::get(fn (): array => []);
-    }
-
-    /** @return Attribute<array{}, never> */
-    protected function matchingAdvancementSources(): Attribute
-    {
-        return Attribute::get(fn (): array => []);
+        return Attribute::get(fn (): array => $this->user
+            ->talentRequestSources($this->talentRequest->applicantFilter?->toMatchFilters() ?? []));
     }
 
     /**
@@ -176,31 +148,15 @@ class TalentRequestTrackedUser extends Pivot
         ]);
     }
 
-    public function scopeWithSources(Builder $query, string $talentRequestId): Builder
+    public function scopeWithTalentRequestMatches(Builder $query, string $talentRequestId): Builder
     {
         $filter = TalentRequest::with([
             'applicantFilter.qualifiedInClassifications',
             'applicantFilter.qualifiedInWorkStreams',
         ])->find($talentRequestId)?->applicantFilter;
 
-        if (! $filter) {
-            return $query;
-        }
-
-        return $query->addSelect(['has_prequalified_source' => PoolCandidate::query()
-            ->selectRaw('1')
-            ->whereColumn('pool_candidates.user_id', 'talent_request_tracked_users.user_id')
-            ->whereMatchesTalentRequest([
-                'qualifiedInClassifications' => $filter->qualifiedInClassifications
-                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
-                    ->toArray(),
-                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
-                    ->map(fn ($ws) => ['id' => $ws->id])
-                    ->toArray(),
-                'community' => $filter->community_id,
-            ])
-            ->limit(1),
-        ]);
+        return $query->when($filter, fn (Builder $query) => $query
+            ->with(['user' => fn ($user) => $user->withTalentRequestMatches($filter->toMatchFilters())]));
     }
 
     /**

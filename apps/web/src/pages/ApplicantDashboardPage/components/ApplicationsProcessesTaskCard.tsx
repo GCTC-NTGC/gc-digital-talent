@@ -27,7 +27,6 @@ const ACCORDION_ID = {
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsProcessesTaskCard on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import UserIcon from "@heroicons/react/24/outline/UserIcon";
 
 import {
   getFragment,
@@ -109,7 +109,7 @@ const TalentRequestCriteriaCard = ({
         id: "aOpiSU",
         description: "Description of the talent request criteria submitted",
       })}
-      icon={ClipboardDocumentListIcon}
+      icon={UserIcon}
       color="secondary"
     >
       <div className="grid gap-6 sm:grid-cols-2">

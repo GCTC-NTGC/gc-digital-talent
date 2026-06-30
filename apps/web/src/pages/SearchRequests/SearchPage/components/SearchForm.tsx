@@ -6,19 +6,13 @@ import { useState, useEffect } from "react";
 
 import {
   Button,
-  Card,
   Container,
   Heading,
-  Link,
   Loading,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  unpackMaybes,
-  notEmpty,
-  buildMailToUri,
-} from "@gc-digital-talent/helpers";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
@@ -123,53 +117,6 @@ export const SearchForm = ({
     setValue("count", candidateCount);
   };
 
-  const hireAnApprenticeEmailUri = buildMailToUri(
-    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
-    intl.formatMessage({
-      defaultMessage: "I'm interested in offering an apprenticeship",
-      id: "HqtjhD",
-      description: "Subject line of a manager's email for apprenticeship",
-    }),
-    [
-      intl.formatMessage({
-        defaultMessage:
-          "To best support you in your journey to hire an IT Apprentice, please let us know if you",
-        id: "ZKss5S",
-        description: "Paragraph 1 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
-        id: "ipKAvI",
-        description: "Paragraph 2 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
-        id: "18pJdz",
-        description: "Paragraph 3 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage: "3. Other…",
-        id: "Fz49kD",
-        description: "Paragraph 4 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
-        id: "x45gSl",
-        description: "Paragraph 5 of a manager's email for apprenticeship",
-      }),
-    ].join("\n"),
-  );
-
-  const selectedClassificationIsIT1 = applicantFilter.qualifiedInClassifications
-    ?.filter(notEmpty)
-    .some(
-      (classification) =>
-        classification.group === "IT" && classification.level === 1,
-    );
-
   return (
     <Container className="my-18">
       <FormProvider {...methods}>
@@ -269,55 +216,6 @@ export const SearchForm = ({
                     {intl.formatMessage(commonMessages.dividingColon)}
                   </p>
                   <div className="flex flex-col gap-y-6">
-                    {selectedClassificationIsIT1 && (
-                      <Card className="rounded-l-none border-l-12 border-l-error">
-                        <p className="text-lg font-bold lg:text-xl">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "Have you considered hiring an Indigenous IT apprentice?",
-                            id: "kyM6sV",
-                            description:
-                              "Title for IT Apprenticeship Program for Indigenous Peoples search card",
-                          })}
-                        </p>
-                        <p className="mt-5 mb-6 flex gap-x-3">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers Indigenous peoples face when it comes to finding employment in the Government of Canada's digital workforce. Become a hiring partner today and discover how you can strengthen your team with Indigenous IT talent and help build a more inclusive public service. Your participation contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
-                            id: "ifqj46",
-                            description:
-                              "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
-                          })}
-                        </p>
-                        <Separator space="sm" />
-                        <div className="mt-6 flex flex-wrap items-center gap-6">
-                          <Link
-                            mode="solid"
-                            color="error"
-                            href={hireAnApprenticeEmailUri}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Contact the team",
-                              id: "gJ7CQw",
-                              description: "Link to send an email to the team",
-                            })}
-                          </Link>
-                          <Link
-                            mode="inline"
-                            color="error"
-                            href={paths.iapManager()}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Visit the IT Apprenticeship Program for Indigenous Peoples manager page",
-                              id: "zVGzWa",
-                              description:
-                                "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page",
-                            })}
-                          </Link>
-                        </div>
-                      </Card>
-                    )}
                     {results.map(({ pool, count: resultsCount }) => (
                       <SearchResultCard
                         key={pool.id}

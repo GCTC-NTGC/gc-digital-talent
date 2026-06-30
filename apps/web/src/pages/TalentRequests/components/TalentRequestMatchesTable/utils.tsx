@@ -13,6 +13,11 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocale } from "@gc-digital-talent/i18n";
 
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
+
 import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
 export const locationAccessor = (
@@ -67,6 +72,7 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
       skills {
         id
       }
+      positionDuration
     }
   `,
 );
@@ -112,8 +118,11 @@ export function transformApplicantFilterToFormValues(
     ),
     skills: unpackMaybes(applicantFilter?.skills).map(({ id }) => id),
     priorityWeight: [],
-    govEmployee: "",
+    govEmployee: [],
     departments: [],
+    employmentDuration: positionDurationToEmploymentDuration(
+      applicantFilter?.positionDuration,
+    ),
   };
 }
 
@@ -150,8 +159,11 @@ export function transformWhereToFormValues(
     workRegions: unpackMaybes(applicantFilter?.locationPreferences),
     skills: applicantFilter?.skills?.filter(notEmpty).map(({ id }) => id) ?? [],
     priorityWeight: unpackMaybes(input?.priorityWeight),
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     departments: unpackMaybes(input?.departments),
+    employmentDuration: positionDurationToEmploymentDuration(
+      applicantFilter?.positionDuration,
+    ),
   };
 }
 
@@ -181,9 +193,14 @@ export function transformFormValuesToWhere(
         },
       ),
       qualifiedInWorkStreams: data.streams?.map((id) => ({ id })),
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
-    isGovEmployee: data.govEmployee ? true : undefined,
+    employeeVerification: data.govEmployee,
     departments: data.departments,
   };
 }

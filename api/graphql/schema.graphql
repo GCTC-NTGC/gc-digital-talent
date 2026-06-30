@@ -171,9 +171,6 @@ type User {
     @rename(attribute: "enabled_email_notifications")
   enabledInAppNotifications: [NotificationFamily]
     @rename(attribute: "enabled_in_app_notifications")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
-    @deprecated(reason: "Replaced by offPlatformRecruitmentProcess model")
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
 
   # Bookmarks
@@ -395,13 +392,6 @@ type UserFileGenerationErrorNotification implements Notification {
   updatedAt: DateTime! @rename(attribute: "updated_at")
 
   fileName: String
-}
-
-type MigrateOffPlatformProcessesNotification implements Notification {
-  id: ID!
-  readAt: DateTime @rename(attribute: "read_at")
-  createdAt: DateTime! @rename(attribute: "created_at")
-  updatedAt: DateTime! @rename(attribute: "updated_at")
 }
 
 type UserPublicProfile @model(class: "\\App\\Models\\User") {
@@ -716,12 +706,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   specialApplicationClosingDate: DateTime
     @rename(attribute: "special_application_closing_date")
-}
-
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate! @self
-  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
+  isSpecialApplication: Boolean
 }
 
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
@@ -1190,14 +1175,25 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [TalentRequestSource!]!
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAtLevelSources: [CommunityInterest!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   matchingAdvancementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "user")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
+    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1439,7 +1435,7 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
   isProfileComplete: Boolean @scope(name: "whereProfileComplete")
-  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
   telephone: String @scope(name: "whereTelephone")
   email: String @scope(name: "whereEmail")
   workEmail: String @scope(name: "whereWorkEmail")
@@ -1514,7 +1510,7 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   notes: String @scope(name: "whereNotesLike")
-  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
@@ -1586,7 +1582,7 @@ input TalentRequestMatchFilterInput {
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
   priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
-  isGovEmployee: Boolean @scope(name: "whereIsGovEmployee")
+  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
@@ -1596,15 +1592,12 @@ input TalentRequestMatchFilterInput {
 type TalentRequestResult {
   id: UUID!
   user: User! @self
-  sources: [LocalizedTalentRequestSource!]! @field(resolver: "Sources")
-  # the matching records behind each source kind (filtered to the search, gated by view auth).
+  sources: [LocalizedTalentRequestSource!]!
+    @method(name: "talentRequestSources")
   # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
-    @field(resolver: "MatchingQualifiedInPoolSources")
   matchingAtLevelSources: [CommunityInterest!]
-    @field(resolver: "MatchingAtLevelSources")
   matchingAdvancementSources: [TalentNominationGroup!]
-    @field(resolver: "MatchingAdvancementSources")
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
@@ -1800,50 +1793,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidatesPaginated(
-    where: PoolCandidateSearchInput
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: ClaimVerificationSort @scope
-    orderByEmployeeDepartment: SortOrder @scope
-    orderByScreeningStage: SortOrder @scope
-    orderBy: _
-      @orderBy(
-        relations: [
-          {
-            relation: "user"
-            columns: [
-              "priority_weight"
-              "first_name"
-              "email"
-              "preferred_lang"
-              "preferred_language_for_interview"
-              "preferred_language_for_exam"
-              "current_city"
-            ]
-          }
-          { relation: "pool", columns: ["process_number"] }
-          { relation: "assessmentStep", columns: ["sort_order"] }
-        ]
-      )
-      @with(
-        relations: [
-          "user:id,first_name,last_name,email,preferred_lang.computed_department"
-          "user.poolCandidates.pool.team"
-          "user.poolCandidates.pool.community.team"
-          "user.communityInterests.community.team"
-          "pool:id,process_number"
-          "skills:id,name"
-        ]
-      ) # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
-    @guard
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
-      model: "App\\Models\\PoolCandidate"
-    )
-    @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
@@ -1942,7 +1891,7 @@ type Query {
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
-      @scope(name: "withSources")
+      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -2144,8 +2093,6 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2215,8 +2162,6 @@ input UpdateUserAsAdminInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -2290,8 +2235,6 @@ input UpdateUserAsUserInput @validator {
   acceptedOperationalRequirements: [OperationalRequirement]
     @rename(attribute: "accepted_operational_requirements")
   positionDuration: [PositionDuration] @rename(attribute: "position_duration")
-  oldOffPlatformRecruitmentProcesses: String
-    @rename(attribute: "off_platform_recruitment_processes")
 
   # Experiences
   workExperiences: WorkExperienceHasMany
@@ -4164,6 +4107,7 @@ type Mutation {
     @update(model: "PoolCandidate")
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
+    @validator
 
   # Job poster template mutations
   createJobPosterTemplate(

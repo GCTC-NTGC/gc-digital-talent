@@ -13,14 +13,17 @@ use App\Enums\PauseReferralsLength;
 use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Facades\Notify;
+use App\Models\AwardExperience;
 use App\Models\Community;
 use App\Models\CommunityExperience;
 use App\Models\Department;
 use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
 use App\Models\User;
+use App\Models\WorkExperience;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -31,6 +34,7 @@ use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertNull;
 use function PHPUnit\Framework\assertSame;
@@ -414,6 +418,75 @@ class PoolCandidateUpdateTest extends TestCase
         $response->assertJsonFragment(['id' => $communityExperienceIds[2]]);
         $experiencesAttached = $response->json('data.updateApplication.educationRequirementExperiences');
         assertEquals(3, count($experiencesAttached));
+    }
+
+    // test UpdateApplicationValidator
+    public function testEducationRequirementExperienceValidation(): void
+    {
+        $updateApplication =
+            /** @lang GraphQL */
+            '
+            mutation updateApplication($id: ID!, $application: UpdateApplicationInput!) {
+                updateApplication(id: $id, application: $application) {
+                    id
+                    educationRequirementOption { value }
+                    educationRequirementExperiences {
+                        id
+                    }
+                }
+            }
+        ';
+
+        // create experience for other user ids
+        $otherAwardExperienceId = AwardExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+        $otherCommunityExperienceId = CommunityExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+        $otherEducationExperienceId = EducationExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+        $otherPersonalExperienceId = PersonalExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+        $otherWorkExperienceId = WorkExperience::factory()->create(['user_id' => $this->applicantUser->id])->id;
+
+        $this->poolCandidate->submitted_at = null;
+        $this->poolCandidate->education_requirement_option = null;
+        $this->poolCandidate->save();
+
+        // assert validation active
+        $response = $this->actingAs($this->candidateUser, 'api')->graphQL($updateApplication, [
+            'id' => $this->poolCandidate->id,
+            'application' => [
+                'educationRequirementOption' => EducationRequirementOption::EDUCATION->name,
+                'educationRequirementAwardExperiences' => [
+                    'sync' => [$otherAwardExperienceId],
+                ],
+                'educationRequirementCommunityExperiences' => [
+                    'sync' => [$otherCommunityExperienceId],
+                ],
+                'educationRequirementEducationExperiences' => [
+                    'sync' => [$otherEducationExperienceId],
+                ],
+                'educationRequirementPersonalExperiences' => [
+                    'sync' => [$otherPersonalExperienceId],
+                ],
+                'educationRequirementWorkExperiences' => [
+                    'sync' => [$otherWorkExperienceId],
+                ],
+            ],
+        ]);
+
+        $responseValidationErrorsArray = $response->json('errors')[0]['extensions']['validation'];
+
+        // count is exactly 5
+        assertSame(count($responseValidationErrorsArray), 5);
+
+        // equal to expected
+        assertEqualsCanonicalizing(
+            $responseValidationErrorsArray,
+            [
+                'application.educationRequirementAwardExperiences.sync.0' => ['APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT'],
+                'application.educationRequirementCommunityExperiences.sync.0' => ['APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT'],
+                'application.educationRequirementEducationExperiences.sync.0' => ['APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT'],
+                'application.educationRequirementPersonalExperiences.sync.0' => ['APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT'],
+                'application.educationRequirementWorkExperiences.sync.0' => ['APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT'],
+            ]
+        );
     }
 
     public function testRecordDecisionCandidateMutationPermissions(): void

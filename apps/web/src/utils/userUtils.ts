@@ -5,6 +5,7 @@ import type {
   LocalizedEvaluatedLanguageAbility,
   LocalizedProvinceOrTerritory,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PositionDuration } from "@gc-digital-talent/graphql";
 import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
 import {
@@ -24,6 +25,17 @@ export function durationToEnumPositionDuration(
     return PositionDuration.Permanent;
   }
   return undefined;
+}
+
+export function positionDurationToEmploymentDuration(
+  positionDuration?: (PositionDuration | null | undefined)[] | null,
+): TEmploymentDuration | undefined {
+  const durations = unpackMaybes(positionDuration);
+  if (!durations.length) return undefined;
+
+  return durations.includes(PositionDuration.Temporary)
+    ? EmploymentDuration.Term
+    : EmploymentDuration.Indeterminate;
 }
 
 export const getEvaluatedLanguageLevels = (
