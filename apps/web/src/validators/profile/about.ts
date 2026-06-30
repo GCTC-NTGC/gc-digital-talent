@@ -50,10 +50,15 @@ export function hasAllEmptyFields({
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
   pool?: Pick<Pool, "areaOfSelection"> | null,
+  isSpecialApplication?: boolean | null,
 ): boolean {
   let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
 
-  if (pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees) {
+  if (
+    /* special application bypasses work email verification  */
+    pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
+    isSpecialApplication !== true
+  ) {
     isWorkEmailVerifiedForInternalJobs =
       !!applicant.workEmail && applicant.isWorkEmailVerified;
   }
