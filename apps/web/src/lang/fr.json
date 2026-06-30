@@ -890,13 +890,13 @@
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
   },
-  "1OOvpY": {
-    "defaultMessage": "Accéder à votre compte existant",
-    "description": "Heading for section of the signin page showing the create steps"
-  },
   "1NdwmN": {
     "defaultMessage": "Nom du projet",
     "description": "Label displayed on Award form for awarded to project name input"
+  },
+  "1OOvpY": {
+    "defaultMessage": "Accéder à votre compte existant",
+    "description": "Heading for section of the signin page showing the create steps"
   },
   "1PYGkw": {
     "defaultMessage": "Télécharger Excel profils",

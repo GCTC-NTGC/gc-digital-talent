@@ -21,7 +21,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  * @property string $project_name
- * @property Experience $relatedExperience
+ * @property ?Experience $relatedExperience
  */
 class AwardExperience extends Experience
 {

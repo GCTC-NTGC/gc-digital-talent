@@ -7,10 +7,7 @@ import type { CafFieldsOptionsQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import type {
-  SubExperienceFormProps,
-  WorkFormValues,
-} from "~/types/experience";
+import type { SubExperienceFormProps } from "~/types/experience";
 
 const CafFieldsOptions_Query = graphql(/* GraphQL */ `
   query CafFieldsOptions {

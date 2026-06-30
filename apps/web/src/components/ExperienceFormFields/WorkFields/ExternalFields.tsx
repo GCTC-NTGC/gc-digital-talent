@@ -11,10 +11,7 @@ import type { ExternalWorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
 
-import type {
-  SubExperienceFormProps,
-  WorkFormValues,
-} from "~/types/experience";
+import type { SubExperienceFormProps } from "~/types/experience";
 
 import SupervisoryFields from "./SupervisoryFields";
 
