@@ -726,12 +726,6 @@ type PoolCandidate {
     @rename(attribute: "special_application_closing_date")
 }
 
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate! @self
-  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
-}
-
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
 # Include only fields as needed for admin purposes
 type PoolCandidateAdminView {
@@ -1816,50 +1810,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidatesPaginated(
-    where: PoolCandidateSearchInput
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: ClaimVerificationSort @scope
-    orderByEmployeeDepartment: SortOrder @scope
-    orderByScreeningStage: SortOrder @scope
-    orderBy: _
-      @orderBy(
-        relations: [
-          {
-            relation: "user"
-            columns: [
-              "priority_weight"
-              "first_name"
-              "email"
-              "preferred_lang"
-              "preferred_language_for_interview"
-              "preferred_language_for_exam"
-              "current_city"
-            ]
-          }
-          { relation: "pool", columns: ["process_number"] }
-          { relation: "assessmentStep", columns: ["sort_order"] }
-        ]
-      )
-      @with(
-        relations: [
-          "user:id,first_name,last_name,email,preferred_lang.computed_department"
-          "user.poolCandidates.pool.team"
-          "user.poolCandidates.pool.community.team"
-          "user.communityInterests.community.team"
-          "pool:id,process_number"
-          "skills:id,name"
-        ]
-      ) # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
-    @guard
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
-      model: "App\\Models\\PoolCandidate"
-    )
-    @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
