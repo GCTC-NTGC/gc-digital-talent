@@ -35,3 +35,11 @@ export const formMessages = {
   }),
   developmentPrograms: adminMessages.developmentOpportunitiesRecommended,
 };
+
+export const historyTabMessages = defineMessages({
+  history: {
+    defaultMessage: "History",
+    id: "vtmq4K",
+    description: "Link text for the history of a nominee",
+  },
+});
