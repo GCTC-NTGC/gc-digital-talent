@@ -285,6 +285,17 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($employeeVerification) {
+            $query->whereEmployeeVerificationIn($employeeVerification);
+        });
+    }
+
     public function whereNotesLike(?string $notes): self
     {
         if (empty($notes)) {

@@ -153,6 +153,11 @@ type LocalizedEducationType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedEmployeeVerification implements LocalizedEnumOption {
+  value: EmployeeVerification!
+  label: LocalizedString!
+}
+
 type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
@@ -1897,7 +1902,7 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput
   poolFilters: [UserPoolFilterInput]
   isProfileComplete: Boolean
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   telephone: String
   email: String
   workEmail: String
@@ -1961,7 +1966,7 @@ input PoolCandidateSearchInput {
   generalSearch: String
   name: String
   notes: String
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   departments: [UUID!]
   priorityWeight: [PriorityWeight]
   statuses: [ApplicationStatus]
@@ -2025,7 +2030,7 @@ input TalentRequestMatchFilterInput {
   name: String
   email: String
   priorityWeight: [PriorityWeight]
-  isGovEmployee: Boolean
+  employeeVerification: [EmployeeVerification]
   departments: [UUID!]
   excludeTrackedByRequestId: UUID
 }
@@ -4278,6 +4283,11 @@ enum EmailType {
   WORK
 }
 
+enum EmployeeVerification {
+  VERIFIED
+  NOT_VERIFIED
+}
+
 enum EmploymentCategory {
   EXTERNAL_ORGANIZATION
   GOVERNMENT_OF_CANADA
@@ -4304,6 +4314,7 @@ enum ErrorCode {
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
+  APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP

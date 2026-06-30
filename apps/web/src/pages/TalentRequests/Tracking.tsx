@@ -29,6 +29,7 @@ const TalentRequestTracking_Query = graphql(/** GraphQL */ `
     }
 
     ...TalentRequestReferralDialogOptions
+    ...TalentRequestEditReferralDialogSourceOptions
   }
 `);
 

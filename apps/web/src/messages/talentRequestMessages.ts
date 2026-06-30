@@ -151,6 +151,11 @@ const messages = defineMessages({
     description:
       "Toast shown when a tracked-user bulk status change fails in the inbox",
   },
+  sourceOfTalent: {
+    defaultMessage: "Source of talent",
+    id: "qy4Ohw",
+    description: "Heading for the source of the matching user.",
+  },
 });
 
 export default messages;

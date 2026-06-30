@@ -98,9 +98,8 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
-
-          ...TalentRequestAddReferralDialog
         }
+        ...TalentRequestAddReferralDialog
         sources {
           label {
             localized
@@ -276,7 +275,7 @@ const TalentRequestMatchesTable = ({
         cell: ({ row: { original } }) => (
           <TalentRequestAddReferralDialog
             talentRequestId={talentRequest.id}
-            query={original.user}
+            query={original}
             optionsQuery={optionsQuery}
           />
         ),

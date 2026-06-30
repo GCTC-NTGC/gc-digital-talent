@@ -541,7 +541,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     referralStatuses: unpackMaybes(input?.referralStatuses),
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
     assessmentSteps: unpackMaybes(
@@ -584,7 +584,7 @@ export function transformFormValuesToFilterState(
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
     referralStatuses: data.referralStatuses,
-    isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    employeeVerification: data.govEmployee,
     departments: data.departments,
     publishingGroups: data.publishingGroups,
     appliedClassifications: data.classifications.map((classification) => {
@@ -635,7 +635,7 @@ export const addSearchToPoolCandidateFilterInput = (
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
     referralStatuses: fancyFilterState?.referralStatuses,
-    isGovEmployee: fancyFilterState?.isGovEmployee,
+    employeeVerification: fancyFilterState?.employeeVerification,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,

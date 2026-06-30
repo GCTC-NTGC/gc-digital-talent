@@ -23,8 +23,17 @@ const requestSkills = fakeSkills(5);
 const claimedSkillIds = requestSkills.slice(0, 3).map((skill) => skill.id);
 const matchedSkillCount = claimedSkillIds.length;
 
+const sharedTrackedUserFields = {
+  sources: [],
+  matchingQualifiedInPoolSources: [],
+  referralDecision: null,
+  selectionDecision: null,
+  referralSummary: null,
+};
+
 const trackedUsers = [
   {
+    ...sharedTrackedUserFields,
     id: "tracked-user-1",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.Referred),
@@ -39,6 +48,7 @@ const trackedUsers = [
     },
   },
   {
+    ...sharedTrackedUserFields,
     id: "tracked-user-2",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotReferred),
@@ -55,6 +65,7 @@ const trackedUsers = [
     },
   },
   {
+    ...sharedTrackedUserFields,
     id: "tracked-user-3",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.Selected),
@@ -69,6 +80,7 @@ const trackedUsers = [
     },
   },
   {
+    ...sharedTrackedUserFields,
     id: "tracked-user-4",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotSelected),

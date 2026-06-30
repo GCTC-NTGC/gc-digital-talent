@@ -66,7 +66,7 @@ export function transformUserInput(
 
     // from fancy filter
     applicantFilter: filterState?.applicantFilter,
-    isGovEmployee: filterState?.isGovEmployee,
+    employeeVerification: filterState?.employeeVerification,
     isProfileComplete: filterState?.isProfileComplete,
     poolFilters: filterState?.poolFilters,
     roles: filterState?.roles,
@@ -118,7 +118,7 @@ export function transformFormValuesToUserFilterInput(
           ])
         : undefined,
     },
-    isGovEmployee: data.govEmployee ? true : undefined,
+    employeeVerification: data.govEmployee,
     isProfileComplete: data.otherFilters.includes(OTHER_FILTER.PROFILE_COMPLETE)
       ? true
       : undefined,
@@ -159,7 +159,7 @@ export function transformUserFilterInputToFormValues(
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     pools: unpackMaybes(
       input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
     ),
