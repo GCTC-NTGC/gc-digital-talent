@@ -56,9 +56,17 @@ watch:
 lint:
 	$(DOCKER_API) "php ./vendor/bin/pint"
 	$(DOCKER_PNPM) lint
+	$(DOCKER_PNPM) run tsc
+	$(DOCKER_PNPM) run prettier -- --write
 
 lint-php:
 	$(DOCKER_API) "vendor/bin/pint"
+
+tsc:
+	$(DOCKER_PNPM) run tsc
+
+prettier:
+	$(DOCKER_PNPM) run prettier -- --write
 
 phpstan:
 	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"
