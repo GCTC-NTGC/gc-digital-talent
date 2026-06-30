@@ -1946,7 +1946,7 @@ type Query {
       scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"]
     )
     @guard
-    @canModel(ability: "viewAny")
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
