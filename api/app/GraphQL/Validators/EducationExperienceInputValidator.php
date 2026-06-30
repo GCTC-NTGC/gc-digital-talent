@@ -23,6 +23,7 @@ final class EducationExperienceInputValidator extends Validator
 
         return [
             'educationType' => [
+                'sometimes',
                 'required',
                 Rule::in(array_column(EducationType::cases(), 'name')),
             ],
@@ -45,6 +46,7 @@ final class EducationExperienceInputValidator extends Validator
                 ),
             ],
             'institution' => [
+                'sometimes',
                 'required',
             ],
             'fellowshipType' => [
@@ -114,6 +116,7 @@ final class EducationExperienceInputValidator extends Validator
                 ),
             ],
             'status' => [
+                'sometimes',
                 'required',
                 Rule::in([
                     EducationStatus::IN_PROGRESS->name,
@@ -124,6 +127,7 @@ final class EducationExperienceInputValidator extends Validator
                 ]),
             ],
             'startDate' => [
+                'sometimes',
                 'nullable',
                 'date',
                 Rule::requiredIf(
@@ -148,9 +152,9 @@ final class EducationExperienceInputValidator extends Validator
                 ),
             ],
             'endDate' => [
+                'sometimes',
                 'nullable',
                 'date',
-                'before_or_equal:today',
                 'after_or_equal:'.$this->arg('startDate'),
                 Rule::requiredIf(
                     $this->arg('status') !== EducationStatus::IN_PROGRESS->name && (
@@ -163,6 +167,11 @@ final class EducationExperienceInputValidator extends Validator
                         $this->arg('status') === EducationStatus::DID_NOT_COMPLETE->name &&
                         $licenseOrCertification
                     )
+                ),
+                Rule::when(
+                    ! $licenseOrCertification, [
+                        'before_or_equal:today',
+                    ]
                 ),
             ],
             'prospectiveEndDate' => [

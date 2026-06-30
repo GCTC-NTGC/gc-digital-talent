@@ -75,6 +75,8 @@ const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
       otherEducationType
       areaOfStudy
       institution
+      licenseOrAccreditation
+      certification
     }
     ... on PersonalExperience {
       title

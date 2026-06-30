@@ -217,7 +217,7 @@ test.describe("Application", () => {
       })
       .click();
     await application.connectExperience(
-      "Certification in QA Testing from Playwright University",
+      "Professional certification in QA Testing from Playwright University",
     );
 
     await application.page
@@ -229,7 +229,7 @@ test.describe("Application", () => {
       })
       .click();
     await application.connectExperience(
-      "Certification in QA Testing from Playwright University",
+      "Professional certification in QA Testing from Playwright University",
     );
 
     await expect(
@@ -382,7 +382,7 @@ test.describe("Application", () => {
         .first()
         .click();
       await application.connectExperience(
-        "Certification in QA Testing from Playwright University",
+        "Professional certification in QA Testing from Playwright University",
       );
       await expect(
         application.page.getByText(

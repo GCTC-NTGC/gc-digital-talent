@@ -132,6 +132,8 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           otherEducationType
           areaOfStudy
           institution
+          licenseOrAccreditation
+          certification
         }
         ... on PersonalExperience {
           user {

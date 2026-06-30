@@ -84,6 +84,8 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
           otherEducationType
           areaOfStudy
           institution
+          licenseOrAccreditation
+          certification
         }
         ... on PersonalExperience {
           __typename

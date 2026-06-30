@@ -1104,14 +1104,28 @@ export const getExperienceName = <T extends ExperienceName>(
       degreeType,
       fellowshipType,
       otherFellowshipType,
+      licenseOrAccreditation,
+      certification,
     } = experience;
 
-    // shape of type changed at some point from string to object. this is a imperfect solution.
-    let educationType;
-    if (typeof type !== "string") {
+    // shape of type changed at some point from string to object. this is an imperfect solution.
+    if (typeof type === "string") {
+      return intl.formatMessage(
+        html
+          ? experienceMessages.educationAtWithoutTypeHtml
+          : experienceMessages.educationAtWithoutType,
+        {
+          areaOfStudy,
+          institution,
+        },
+      );
+    } else {
+      let educationType;
+      let subject;
       switch (type?.value) {
         case EducationType.DegreeDiplomaCertificate:
           educationType = degreeType?.label.localized ?? type?.label.localized;
+          subject = areaOfStudy;
           break;
         case EducationType.Fellowship:
           educationType =
@@ -1124,6 +1138,7 @@ export const getExperienceName = <T extends ExperienceName>(
                     "First part of education experience title for other type",
                 }))
               : (fellowshipType?.label.localized ?? type?.label.localized);
+          subject = areaOfStudy;
           break;
         case EducationType.Other:
           educationType =
@@ -1134,9 +1149,19 @@ export const getExperienceName = <T extends ExperienceName>(
               description:
                 "First part of education experience title for other type",
             });
+          subject = areaOfStudy;
+          break;
+        case EducationType.ProfessionalCertification:
+          educationType = type?.label.localized;
+          subject = certification;
+          break;
+        case EducationType.LicenseAccreditation:
+          educationType = type?.label.localized;
+          subject = licenseOrAccreditation;
           break;
         default:
           educationType = type?.label.localized;
+          subject = areaOfStudy;
       }
       return intl.formatMessage(
         html
@@ -1144,17 +1169,7 @@ export const getExperienceName = <T extends ExperienceName>(
           : experienceMessages.educationAt,
         {
           educationType,
-          areaOfStudy,
-          institution,
-        },
-      );
-    } else {
-      return intl.formatMessage(
-        html
-          ? experienceMessages.educationAtWithoutTypeHtml
-          : experienceMessages.educationAtWithoutType,
-        {
-          areaOfStudy,
+          areaOfStudy: subject,
           institution,
         },
       );

@@ -52,35 +52,43 @@ class ApplicationPage extends AppPage {
       .selectOption({ label: "Education and certificates" });
 
     await this.page
-      .getByRole("combobox", { name: /type of education/i })
-      .selectOption({ label: "Certification" });
-
-    await this.page
-      .getByRole("textbox", { name: /area of study/i })
-      .fill("QA Testing");
+      .getByRole("group", {
+        name: /type of education or certificate/i,
+      })
+      .getByRole("radio", { name: /professional certification/i })
+      .click();
 
     // conditional datalist attribute means this field could be a textbox or combobox
     await this.page.getByLabel(/institution/i).fill("Playwright University");
 
-    const startDate = this.page.getByRole("group", {
-      name: /start date/i,
+    await this.page
+      .getByRole("textbox", { name: /certification/i })
+      .fill("QA Testing");
+
+    await this.page
+      .getByRole("group", {
+        name: /completion status/i,
+      })
+      .getByRole("radio", { name: /completed/i })
+      .click();
+
+    const issueDate = this.page.getByRole("group", {
+      name: /issue date/i,
     });
 
-    await startDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
-    await startDate
+    await issueDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
+    await issueDate
       .getByRole("combobox", { name: /month/i })
       .selectOption("01");
 
-    const endDate = this.page.getByRole("group", {
-      name: /end date/i,
+    const expiryDate = this.page.getByRole("group", {
+      name: /expiry date/i,
     });
 
-    await endDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
-    await endDate.getByRole("combobox", { name: /month/i }).selectOption("02");
-
-    await this.page
-      .getByRole("combobox", { name: /status/i })
-      .selectOption({ label: "Successful Completion (Credential Awarded)" });
+    await expiryDate.getByRole("spinbutton", { name: /year/i }).fill("2001");
+    await expiryDate
+      .getByRole("combobox", { name: /month/i })
+      .selectOption("02");
 
     await this.page
       .getByRole("textbox", { name: /additional details/i })

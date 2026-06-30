@@ -225,7 +225,7 @@ export const Test_MeQueryDocument = /* GraphQL */ `
           thesisTitle
           startDate
           endDate
-          type {
+          educationType {
             value
           }
           status {
