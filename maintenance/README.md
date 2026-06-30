@@ -22,7 +22,7 @@ To set up a local development environment, run these commands from anywhere in r
 ## Environment Maintenance
 
 To refresh each subproject after they have been setup run one of the refresh scripts:
-sdf
+
 - `docker compose run --rm maintenance bash refresh_api.sh`
 - `docker compose run --rm maintenance bash refresh_frontend.sh`
 
@@ -39,7 +39,7 @@ In order to compile and render UI for development, you have two options:
 
 ### Logging into the UI
 
-- From progect root run `pnpm run watch`
+- From project root run `pnpm run watch`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and refresh your page
 
