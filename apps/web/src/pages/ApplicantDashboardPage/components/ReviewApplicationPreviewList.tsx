@@ -31,6 +31,8 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    isSpecialApplication
+    specialApplicationClosingDate
     pool {
       id
       name {
@@ -76,8 +78,15 @@ const ReviewApplicationPreviewList = ({
       {applications.length ? (
         <PreviewList.Root>
           {sortedApplications.map((application) => {
-            const { id, pool, submittedAt, statusUpdatedAt, candidateStatus } =
-              application;
+            const {
+              id,
+              pool,
+              submittedAt,
+              statusUpdatedAt,
+              candidateStatus,
+              isSpecialApplication,
+              specialApplicationClosingDate,
+            } = application;
             const statusChip = candidateStatusChip(candidateStatus);
 
             let applicationMetadata: PreviewMetaData[] = [];
@@ -110,6 +119,10 @@ const ReviewApplicationPreviewList = ({
                     submittedAt={submittedAt}
                     assessedDate={statusUpdatedAt}
                     status={candidateStatus?.value}
+                    isSpecialApplication={isSpecialApplication}
+                    specialApplicationClosingDate={
+                      specialApplicationClosingDate
+                    }
                   />
                 ),
               },

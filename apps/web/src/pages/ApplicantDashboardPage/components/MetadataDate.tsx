@@ -32,6 +32,8 @@ interface ApplicationDateProps {
   submittedAt?: string | null;
   assessedDate?: string | null;
   status?: CandidateStatus | null;
+  isSpecialApplication?: boolean | null;
+  specialApplicationClosingDate?: string | null;
 }
 
 export const ApplicationDate = ({
@@ -39,12 +41,24 @@ export const ApplicationDate = ({
   submittedAt,
   assessedDate,
   status,
+  isSpecialApplication = false,
+  specialApplicationClosingDate,
 }: ApplicationDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
   if (status === CandidateStatus.Draft || status === CandidateStatus.Expired) {
-    const deadlineClose = deadlineToApply(closingDate, status);
+    let applicationCutOffDate = closingDate;
+
+    if (isSpecialApplication && specialApplicationClosingDate) {
+      // select the future most of the two
+      applicationCutOffDate =
+        closingDate && closingDate > specialApplicationClosingDate
+          ? closingDate
+          : specialApplicationClosingDate;
+    }
+
+    const deadlineClose = deadlineToApply(applicationCutOffDate, status);
 
     return (
       <span
@@ -58,9 +72,9 @@ export const ApplicationDate = ({
           description: "Label for deadline metadata",
         })}
         {intl.formatMessage(commonMessages.dividingColon)}
-        {closingDate
+        {applicationCutOffDate
           ? formatDate({
-              date: parseDateTimeUtc(closingDate),
+              date: parseDateTimeUtc(applicationCutOffDate),
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
               timeZone: "Canada/Pacific",
