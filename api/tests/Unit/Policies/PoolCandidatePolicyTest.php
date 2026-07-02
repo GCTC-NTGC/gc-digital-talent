@@ -79,6 +79,15 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->delete($owner, $draft)));
     }
 
+    public function testOwnerCannotChangeSubmittedApplication(): void
+    {
+        $owner = User::factory()->asApplicant()->create();
+        $submitted = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create(['submitted_at' => config('constants.past_date')]);
+
+        $this->assertFalse($this->ensureBool($this->policy->update($owner, $submitted)));
+        $this->assertFalse($this->ensureBool($this->policy->delete($owner, $submitted)));
+    }
+
     public function testOwnerCanArchiveAndSuspendSubmittedApplication(): void
     {
         $owner = User::factory()->asApplicant()->create();
