@@ -2,7 +2,6 @@ import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
-import { isPast } from "date-fns/isPast";
 
 import type {
   FragmentType,
@@ -30,7 +29,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -714,7 +713,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
   }
 
   const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+  const isPastEvent = isPastDateTime(closeDate);
 
   return (
     <UpdateForm<FormValues>

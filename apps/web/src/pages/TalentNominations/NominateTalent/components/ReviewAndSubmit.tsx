@@ -1,7 +1,6 @@
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
-import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -10,7 +9,7 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { Card, CardSeparator } from "@gc-digital-talent/ui";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import pageTitles from "~/messages/pageTitles";
 
@@ -53,7 +52,7 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   );
 
   const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+  const isPastEvent = isPastDateTime(closeDate);
 
   const [fetching, { submit }] = useMutations({
     forceProtectedEndpoint: isPastEvent,

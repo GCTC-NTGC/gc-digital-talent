@@ -1,6 +1,5 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
-import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -15,7 +14,7 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -97,7 +96,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
   }
 
   const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+  const isPastEvent = isPastDateTime(closeDate);
 
   return (
     <UpdateForm<FormValues>

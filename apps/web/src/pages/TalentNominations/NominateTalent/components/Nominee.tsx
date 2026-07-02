@@ -2,7 +2,6 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
-import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -18,7 +17,7 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -204,7 +203,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
   }
 
   const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+  const isPastEvent = isPastDateTime(closeDate);
 
   return (
     <UpdateForm<FormValues>

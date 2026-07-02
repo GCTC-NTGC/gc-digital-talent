@@ -2,7 +2,6 @@ import DocumentCheckIcon from "@heroicons/react/24/outline/DocumentCheckIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
-import { isPast } from "date-fns/isPast";
 
 import type {
   FragmentType,
@@ -25,7 +24,7 @@ import {
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Notice } from "@gc-digital-talent/ui";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -430,7 +429,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
   }
 
   const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+  const isPastEvent = isPastDateTime(closeDate);
 
   return (
     <UpdateForm<FormValues>

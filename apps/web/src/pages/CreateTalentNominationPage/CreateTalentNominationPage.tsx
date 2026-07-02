@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "urql";
-import { isPast } from "date-fns/isPast";
 
 import { Loading, NotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
@@ -15,7 +14,7 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { CreateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -78,8 +77,7 @@ const CreateTalentNomination = ({
     toastFunction();
   };
 
-  const parsedCloseDate = parseDateTimeUtc(nominationEventCloseDate);
-  const eventAlreadyClosed = isPast(parsedCloseDate);
+  const eventAlreadyClosed = isPastDateTime(nominationEventCloseDate);
 
   // if the event already closed than we need to use the protected endpoint to use elevated permissions
   const queryContext = eventAlreadyClosed
