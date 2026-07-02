@@ -1,5 +1,6 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
+import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -14,6 +15,7 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -50,6 +52,10 @@ const NominateTalentRationale_Fragment = graphql(/* GraphQL */ `
     additionalComments
     talentNominationEvent {
       includeLeadershipCompetencies
+    }
+    talentNominationEvent {
+      id
+      closeDate
     }
   }
 `);
@@ -90,6 +96,9 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -100,6 +109,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
           talentNomination?.skills?.flatMap((skill) => skill?.id),
         ),
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}

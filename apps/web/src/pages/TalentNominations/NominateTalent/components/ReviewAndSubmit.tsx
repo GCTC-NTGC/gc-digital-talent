@@ -1,6 +1,7 @@
 import DocumentMagnifyingGlassIcon from "@heroicons/react/24/outline/DocumentMagnifyingGlassIcon";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
+import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -9,6 +10,7 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { Card, CardSeparator } from "@gc-digital-talent/ui";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import pageTitles from "~/messages/pageTitles";
 
@@ -28,6 +30,10 @@ const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
     ...NomineeReview
     ...NominationDetailsReview
     ...RationaleReview
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -40,12 +46,18 @@ interface ReviewAndSubmitProps {
 const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
-  const [fetching, { submit }] = useMutations();
 
   const talentNomination = getFragment(
     NominateTalentReviewAndSubmit_Fragment,
     reviewAndSubmitQuery,
   );
+
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+
+  const [fetching, { submit }] = useMutations({
+    forceProtectedEndpoint: isPastEvent,
+  });
 
   const methods = useForm<BaseFormValues>({ disabled: fetching });
 

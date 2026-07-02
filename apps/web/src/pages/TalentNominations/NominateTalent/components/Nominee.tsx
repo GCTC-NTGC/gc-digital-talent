@@ -2,6 +2,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
+import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -17,6 +18,7 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -168,6 +170,10 @@ const NominateTalentNominee_Fragment = graphql(/* GraphQL */ `
       value
     }
     nomineeRelationshipToNominatorOther
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -197,6 +203,9 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -208,6 +217,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
         nomineeRelationshipToNominatorOther:
           talentNomination.nomineeRelationshipToNominatorOther ?? "",
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}

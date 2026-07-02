@@ -1,11 +1,14 @@
 import { useMutation } from "urql";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  tryFindMessageDescriptor,
+} from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
@@ -43,7 +46,11 @@ interface TalentNominationMutations {
 
 type UseMutationsReturn = [boolean, TalentNominationMutations];
 
-const useMutations = (): UseMutationsReturn => {
+interface useMutationsOptions {
+  forceProtectedEndpoint: boolean;
+}
+
+const useMutations = (options: useMutationsOptions): UseMutationsReturn => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
   const paths = useRoutes();
@@ -56,15 +63,15 @@ const useMutations = (): UseMutationsReturn => {
   const [{ fetching: submitting }, executeSubmitMutation] = useMutation(
     NominateTalentSubmit_Mutation,
   );
+  const queryContext = options.forceProtectedEndpoint
+    ? getProtectedOperationContext()
+    : undefined;
 
   const update: TalentNominationMutations["update"] = async (
     talentNomination,
     intent,
   ) => {
-    return executeUpdateMutation(
-      { id, talentNomination },
-      getProtectedOperationContext(),
-    )
+    return executeUpdateMutation({ id, talentNomination }, queryContext)
       .then(async (res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -87,15 +94,16 @@ const useMutations = (): UseMutationsReturn => {
 
         throw new Error(intl.formatMessage(errorMessages.error));
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
+      .catch((error: Error) => {
+        const messageDescriptor =
+          tryFindMessageDescriptor(error.message) ??
+          defineMessage({
             defaultMessage: "Error updating talent nomination",
             id: "UlK+Qm",
             description:
               "Error message displayed when a talent nomination could not be updated",
-          }),
-        );
+          });
+        toast.error(intl.formatMessage(messageDescriptor));
       });
   };
 
@@ -104,7 +112,7 @@ const useMutations = (): UseMutationsReturn => {
       return await navigate(paths.applicantDashboard());
     }
 
-    return executeSubmitMutation({ id }, getProtectedOperationContext())
+    return executeSubmitMutation({ id }, queryContext)
       .then((res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -123,15 +131,16 @@ const useMutations = (): UseMutationsReturn => {
 
         throw new Error(intl.formatMessage(errorMessages.error));
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
+      .catch((error: Error) => {
+        const messageDescriptor =
+          tryFindMessageDescriptor(error.message) ??
+          defineMessage({
             defaultMessage: "Error submitting talent nomination",
             id: "afkBMh",
             description:
               "Error message displayed when a talent nomination could not be submitted",
-          }),
-        );
+          });
+        toast.error(intl.formatMessage(messageDescriptor));
       });
   };
 

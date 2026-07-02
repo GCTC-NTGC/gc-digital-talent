@@ -20,7 +20,6 @@ import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
-import { getProtectedQueryContextOptions } from "~/utils/protectedUrqlContext";
 
 import type { RouteParams } from "./types";
 import Nominator from "./components/Nominator";
@@ -110,7 +109,6 @@ const NominateTalentPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: NominateTalent_Query,
     variables: { id },
-    ...getProtectedQueryContextOptions(),
   });
 
   const isSubmitted = !!data?.talentNomination?.submittedAt;

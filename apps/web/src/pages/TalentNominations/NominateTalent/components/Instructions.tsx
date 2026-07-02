@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
 import type { ReactNode } from "react";
 import { useNavigate } from "react-router";
+import { isPast } from "date-fns/isPast";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -13,6 +14,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
 import { useHasPermissions } from "@gc-digital-talent/auth";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -50,7 +52,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   });
 
   const closeDate = data?.talentNominationEvent?.closeDate;
-  const isPastEvent = closeDate ? new Date() > new Date(closeDate) : false;
+  const isPastEvent = !!closeDate && isPast(parseDateTimeUtc(closeDate));
   const showDialogue = isPastEvent && canNominatePast && !showForm;
 
   const handleToNomination = () => {
@@ -134,7 +136,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   }
 
   return (
-    <UpdateForm>
+    <UpdateForm isPastEvent={isPastEvent}>
       <SubHeading icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",
