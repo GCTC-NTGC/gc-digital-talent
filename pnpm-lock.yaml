@@ -37,7 +37,7 @@ importers:
         version: 4.1.9(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
       '@vitest/browser-playwright':
         specifier: ^4.1.8
-        version: 4.1.9(playwright@1.61.0)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
+        version: 4.1.9(playwright@1.61.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
       '@vitest/coverage-v8':
         specifier: ^4.1.8
         version: 4.1.9(@vitest/browser@4.1.9)(vitest@4.1.9)
@@ -45,8 +45,8 @@ importers:
         specifier: ^29.1.1
         version: 29.1.1
       playwright:
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       prettier-plugin-tailwindcss:
         specifier: ^0.8.0
         version: 0.8.0(prettier@3.8.4)
@@ -67,7 +67,7 @@ importers:
     dependencies:
       '@axe-core/playwright':
         specifier: ^4.11.3
-        version: 4.11.3(playwright-core@1.61.0)
+        version: 4.11.3(playwright-core@1.61.1)
     devDependencies:
       '@gc-digital-talent/date-helpers':
         specifier: workspace:*
@@ -82,8 +82,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/graphql
       '@playwright/test':
-        specifier: ^1.61.0
-        version: 1.61.0
+        specifier: ^1.61.1
+        version: 1.61.1
       '@types/node':
         specifier: ^25.9.2
         version: 25.9.3
@@ -586,7 +586,7 @@ importers:
         version: 7.16.2(eslint@9.39.2(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-turbo:
         specifier: ^2.9.18
-        version: 2.9.18(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.18)
+        version: 2.9.18(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.2)
       globals:
         specifier: ^17.6.0
         version: 17.6.0
@@ -3090,8 +3090,8 @@ packages:
     resolution: {integrity: sha512-tmmZ3lQxAe/k/+rNnXQRawJ4NjxO2hqiOLTHvWchtGZULp4RyFeh6aU4XdOYBFe2KE1oShQTv4AblOs2iOrNnQ==}
     engines: {node: '>= 10.0.0'}
 
-  '@playwright/test@1.61.0':
-    resolution: {integrity: sha512-cKA5B6lpFEMyMGjxF54QihfYpB4FkEGH+qZhtArDEG+wezQAJY8Pq6C7T1SjWz+FFzt3TbyoXBQYk/0292TdJA==}
+  '@playwright/test@1.61.1':
+    resolution: {integrity: sha512-8nKv6+0RJSL9FE4jYOEGXnPeM/Hg12qZpmqzZjRh3qM0Y7c3z1mrOTfFLids72RDQYVh9WpLEfR5WdpNX4fkig==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4252,9 +4252,19 @@ packages:
   '@tiptap/starter-kit@3.26.0':
     resolution: {integrity: sha512-o34EtMfqtBaljdmeElZsRG/067oGx9Zcq+j2GWo71KlZe22ga/ALexeTf1c+ETsjCxSTKR6eyQ4RZvz/2JpYfg==}
 
+  '@turbo/darwin-64@2.10.2':
+    resolution: {integrity: sha512-wBM3ObqOWnKUDmg7QfUFDkDHPFUAJmrYlYqmEM8jMPAPA/I6wRJIbWimeQUqhOiQ8xPKhzyWM+xaiUP0wz8FEQ==}
+    cpu: [x64]
+    os: [darwin]
+
   '@turbo/darwin-64@2.9.18':
     resolution: {integrity: sha512-9f27peFu16ur8c0v9nUFUEyBnbKuuFsUTjHFWfmwGfzySBXbHwzU44QhZon6Mznz0cHsIr3984NQj/bVrnGSRw==}
     cpu: [x64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.10.2':
+    resolution: {integrity: sha512-/Cq0joWnuMjDPfhjbFP4sv+C/7gkQ415zlaO4XUzD5EZxbtrKgXKvuuydMvogG8GeUnN1aDltW71RlmEfpjbyw==}
+    cpu: [arm64]
     os: [darwin]
 
   '@turbo/darwin-arm64@2.9.18':
@@ -4262,9 +4272,19 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@turbo/linux-64@2.10.2':
+    resolution: {integrity: sha512-mMsf5IIhiKuceEXNstd25IbadjBXZ0amxzFOqliEzJX6HyeeHdBQPVSY583PWqYDyqM/FB8d5ZjkthfBSeuH3Q==}
+    cpu: [x64]
+    os: [linux]
+
   '@turbo/linux-64@2.9.18':
     resolution: {integrity: sha512-zCdIDtz69AnbYh913elJRRoF3QY5aa2HNnf+4rAkc7bQ+tWujiDkCNV7stazOUPggaDvhKIf2Z87qHftTeXSkw==}
     cpu: [x64]
+    os: [linux]
+
+  '@turbo/linux-arm64@2.10.2':
+    resolution: {integrity: sha512-Wcng1i2kaKmXutmwxT9MUoYZvdaIekXAdlGr4+0TpgbhGLw7nDuEcRBFrxb5BbRoX1d1q8SpdRxLc45TvDZIdQ==}
+    cpu: [arm64]
     os: [linux]
 
   '@turbo/linux-arm64@2.9.18':
@@ -4272,9 +4292,19 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@turbo/windows-64@2.10.2':
+    resolution: {integrity: sha512-SsNhM7Ho7EpAdwtrJKBOic9Hso23vu6Dp0gAfLOvUFjPzurr/sGQlXZEvr6z89ne4RDOypTwz5CBDrixpMKtXw==}
+    cpu: [x64]
+    os: [win32]
+
   '@turbo/windows-64@2.9.18':
     resolution: {integrity: sha512-m0kDhZANxSNz9ck1ybogFscHabriAsp4eDFNrN/1H5WrgTF7b3VlcPZnhuO3v2+E2KnCbeAc+UUT10BZZHdDKw==}
     cpu: [x64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.10.2':
+    resolution: {integrity: sha512-Gf+S7ICAdimT/n02bOuVWKvhHnct/HYjZg3oBNIz5hZ9ZyWHbQim9J3P5Qip8WpX0ksxF7eaBVziJCuLnjhqDg==}
+    cpu: [arm64]
     os: [win32]
 
   '@turbo/windows-arm64@2.9.18':
@@ -6776,13 +6806,13 @@ packages:
   pkg-types@2.3.1:
     resolution: {integrity: sha512-y+ichcgc2LrADuhLNAx8DFjVfgz91pRxfZdI3UDhxHvcVEZsenLO+7XaU5vOp0u/7V/wZ+plyuQxtrDlZJ+yeg==}
 
-  playwright-core@1.61.0:
-    resolution: {integrity: sha512-caX7TrY3Ml6egyDX0WUcTHDxodl/b51y5wJOdCEA36QviK/s2g081hvmGs8eaE3DWb6NYZQ6BjO/QkNRPenoPA==}
+  playwright-core@1.61.1:
+    resolution: {integrity: sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.61.0:
-    resolution: {integrity: sha512-Z+7BeeqQPRRzklHsVFP4KTGIyMxKUmfeRA4WisM6G3/XW6nwGeX6fX9qYaDa+CiUqpOkb2f6X3nar05R3kSuJQ==}
+  playwright@1.61.1:
+    resolution: {integrity: sha512-DWnY5o3YbLWK4GovuAVwpqL+1VwGNdUGrRr++8j8PtQQzvAVZUIMjKQ90fY689sEJZJBbZVw1rXaOKSTitkzPQ==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7580,6 +7610,10 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  turbo@2.10.2:
+    resolution: {integrity: sha512-wTExrNrRjB8qzIcg+ZLm0A3GFNLDsWNwdS/RBXB0FPrBDyzk3i96Yx+TxWZC7a0k1SIreFB8ciUbxjmEqTH8IQ==}
+    hasBin: true
+
   turbo@2.9.18:
     resolution: {integrity: sha512-bwabv6PupzeavybzEoArBAkwq5fnzwf8OFnRtpHwnviFWuwJPFxtyH+aVp36TmIqK3aYYgtTJ3J0m2ysxxSzQg==}
     hasBin: true
@@ -8052,10 +8086,10 @@ snapshots:
 
   '@asamuzakjp/nwsapi@2.3.9': {}
 
-  '@axe-core/playwright@4.11.3(playwright-core@1.61.0)':
+  '@axe-core/playwright@4.11.3(playwright-core@1.61.1)':
     dependencies:
       axe-core: 4.11.4
-      playwright-core: 1.61.0
+      playwright-core: 1.61.1
 
   '@babel/code-frame@7.29.0':
     dependencies:
@@ -9743,9 +9777,9 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.6
       '@parcel/watcher-win32-x64': 2.5.6
 
-  '@playwright/test@1.61.0':
+  '@playwright/test@1.61.1':
     dependencies:
-      playwright: 1.61.0
+      playwright: 1.61.1
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -10392,7 +10426,7 @@ snapshots:
       storybook: 10.4.4(@testing-library/dom@10.4.1)(@types/react@19.2.17)(prettier@3.8.4)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
     optionalDependencies:
       '@vitest/browser': 4.1.9(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
-      '@vitest/browser-playwright': 4.1.9(playwright@1.61.0)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
+      '@vitest/browser-playwright': 4.1.9(playwright@1.61.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
       '@vitest/runner': 4.1.9
       vitest: 4.1.9(@types/node@25.9.3)(@vitest/browser-playwright@4.1.9)(@vitest/coverage-v8@4.1.9)(jsdom@29.1.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))
     transitivePeerDependencies:
@@ -10826,19 +10860,37 @@ snapshots:
       '@tiptap/extensions': 3.26.0(@tiptap/core@3.27.0(@tiptap/pm@3.27.0))(@tiptap/pm@3.27.0)
       '@tiptap/pm': 3.27.0
 
+  '@turbo/darwin-64@2.10.2':
+    optional: true
+
   '@turbo/darwin-64@2.9.18':
+    optional: true
+
+  '@turbo/darwin-arm64@2.10.2':
     optional: true
 
   '@turbo/darwin-arm64@2.9.18':
     optional: true
 
+  '@turbo/linux-64@2.10.2':
+    optional: true
+
   '@turbo/linux-64@2.9.18':
+    optional: true
+
+  '@turbo/linux-arm64@2.10.2':
     optional: true
 
   '@turbo/linux-arm64@2.9.18':
     optional: true
 
+  '@turbo/windows-64@2.10.2':
+    optional: true
+
   '@turbo/windows-64@2.9.18':
+    optional: true
+
+  '@turbo/windows-arm64@2.10.2':
     optional: true
 
   '@turbo/windows-arm64@2.9.18':
@@ -11206,11 +11258,11 @@ snapshots:
       '@urql/core': 5.2.0(graphql@16.14.2)
       wonka: 6.3.6
 
-  '@vitest/browser-playwright@4.1.9(playwright@1.61.0)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)':
+  '@vitest/browser-playwright@4.1.9(playwright@1.61.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)':
     dependencies:
       '@vitest/browser': 4.1.9(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
       '@vitest/mocker': 4.1.9(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))
-      playwright: 1.61.0
+      playwright: 1.61.1
       tinyrainbow: 3.1.0
       vitest: 4.1.9(@types/node@25.9.3)(@vitest/browser-playwright@4.1.9)(@vitest/coverage-v8@4.1.9)(jsdom@29.1.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))
     transitivePeerDependencies:
@@ -12383,11 +12435,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.9.18(eslint@9.39.2(jiti@2.7.0))(turbo@2.9.18):
+  eslint-plugin-turbo@2.9.18(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.2):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.2(jiti@2.7.0)
-      turbo: 2.9.18
+      turbo: 2.10.2
 
   eslint-scope@8.4.0:
     dependencies:
@@ -13630,11 +13682,11 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  playwright-core@1.61.0: {}
+  playwright-core@1.61.1: {}
 
-  playwright@1.61.0:
+  playwright@1.61.1:
     dependencies:
-      playwright-core: 1.61.0
+      playwright-core: 1.61.1
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -14542,6 +14594,15 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
+  turbo@2.10.2:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.10.2
+      '@turbo/darwin-arm64': 2.10.2
+      '@turbo/linux-64': 2.10.2
+      '@turbo/linux-arm64': 2.10.2
+      '@turbo/windows-64': 2.10.2
+      '@turbo/windows-arm64': 2.10.2
+
   turbo@2.9.18:
     optionalDependencies:
       '@turbo/darwin-64': 2.9.18
@@ -14824,7 +14885,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 25.9.3
-      '@vitest/browser-playwright': 4.1.9(playwright@1.61.0)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
+      '@vitest/browser-playwright': 4.1.9(playwright@1.61.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.46.0)(tsx@4.22.4)(yaml@2.8.3))(vitest@4.1.9)
       '@vitest/coverage-v8': 4.1.9(@vitest/browser@4.1.9)(vitest@4.1.9)
       jsdom: 29.1.1
     transitivePeerDependencies:
