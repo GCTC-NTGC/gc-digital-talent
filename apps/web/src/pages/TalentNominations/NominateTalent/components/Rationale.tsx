@@ -50,10 +50,8 @@ const NominateTalentRationale_Fragment = graphql(/* GraphQL */ `
     nominationRationale
     additionalComments
     talentNominationEvent {
-      includeLeadershipCompetencies
-    }
-    talentNominationEvent {
       id
+      includeLeadershipCompetencies
       closeDate
     }
   }
