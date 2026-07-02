@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Enums\ErrorCode;
 use App\Enums\SpecialApplicationType;
 use App\Models\Pool;
 use App\Rules\PoolCandidateDraftOrNonExistent;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreateSpecialApplicationValidator extends Validator
@@ -20,7 +23,18 @@ final class CreateSpecialApplicationValidator extends Validator
         $poolId = $this->arg('poolCandidate.pool.connect');
         $userId = $this->arg('poolCandidate.user.connect');
 
-        $pool = Pool::query()->select('closing_date')->findOrFail($poolId);
+        $pool = Pool::query()->select(['published_at', 'closing_date', 'archived_at'])->findOrFail($poolId);
+
+        if (
+            // block un-published or archived, including blocks of future published_at and allowing future archived_at
+            is_null($pool['published_at']) ||
+            Carbon::now()->lt($pool['published_at']) ||
+            (
+                (! is_null($pool['archived_at'])) && Carbon::now()->gte($pool['archived_at'])
+            )
+        ) {
+            throw ValidationException::withMessages(['pool_state' => ErrorCode::SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED->name]);
+        }
 
         return [
             'poolCandidate' => [new PoolCandidateDraftOrNonExistent($poolId, $userId)],
