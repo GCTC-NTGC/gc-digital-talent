@@ -52,7 +52,7 @@
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@microsoft/applicationinsights-web": "^3.4.2",
-    "@react-router/node": "^7.17.0",
+    "@react-router/node": "^8.0.1",
     "@tailwindcss/vite": "^4.3.1",
     "@tanstack/react-table": "^8.21.3",
     "date-fns": "^4.4.0",
