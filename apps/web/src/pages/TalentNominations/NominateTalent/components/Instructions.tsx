@@ -28,6 +28,9 @@ export const NominateTalentInstructions_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       id
       closeDate
+      community {
+        teamIdForRoleAssignment
+      }
     }
   }
 `);
@@ -49,6 +52,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
 
   const canNominatePast = useHasPermissions({
     permission: Permission.CreateOwnPastTalentNomination,
+    teamId: data?.talentNominationEvent?.community?.teamIdForRoleAssignment,
   });
 
   const closeDate = data?.talentNominationEvent?.closeDate;
