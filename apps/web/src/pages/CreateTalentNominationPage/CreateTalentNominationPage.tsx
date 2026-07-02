@@ -2,27 +2,25 @@
 import { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
-import { useMutation } from "urql";
+import { useMutation, useQuery } from "urql";
+import { isPast } from "date-fns/isPast";
 
-import { Loading } from "@gc-digital-talent/ui";
+import { Loading, NotFound, Pending } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { canAccessProtectedEndpoint } from "@gc-digital-talent/client";
 import {
   tryFindMessageDescriptor,
   errorMessages,
+  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { CreateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { getProtectedOperationContext } from "~/utils/protectedUrqlContext";
-
-interface RouteParams extends Record<string, string> {
-  id: string;
-}
 
 const CreateTalentNomination_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentNomination(
@@ -34,14 +32,20 @@ const CreateTalentNomination_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+interface CreateTalentNominationProps {
+  nominationEventId: string;
+  nominationEventCloseDate: string;
+}
+
 /**
  * Note: This is not a real page
  * it exists only to create a talent nomination
  * and forward a user on
  */
-const CreateTalentNominationPage = () => {
-  const { nominationEventId } =
-    useRequiredParams<RouteParams>("nominationEventId");
+const CreateTalentNomination = ({
+  nominationEventId,
+  nominationEventCloseDate,
+}: CreateTalentNominationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -50,19 +54,12 @@ const CreateTalentNominationPage = () => {
   );
 
   // Store path to redirect to later on
-  let redirectPath = paths.talentManagementEvents();
+  const errorRedirectPath = paths.talentManagementEvents();
 
   const genericErrorMessage = intl.formatMessage({
     defaultMessage: "Failed to create nomination",
     id: "VMcxoH",
     description: "Toast for error during nomination creation",
-  });
-  const protectedEndpointUnavailableMessage = intl.formatMessage({
-    defaultMessage:
-      "This nomination action requires access to the secure network. Please connect and try again.",
-    id: "BE7G7g",
-    description:
-      "Toast for nomination actions that require secure network access",
   });
 
   // We use this ref to make sure we only try to apply once
@@ -81,27 +78,15 @@ const CreateTalentNominationPage = () => {
     toastFunction();
   };
 
-  /**
-   * Store if the talent nomination can be created
-   *
-   * haveRequiredDataToCreateNewTalentNomination - We need some data to create the new talent nomination
-   * mutationCounter.current - Keep track of how many times we've applied - we should only do it once
-   */
-  const haveRequiredDataToCreateNewTalentNomination = nominationEventId;
+  const parsedCloseDate = parseDateTimeUtc(nominationEventCloseDate);
+  const eventAlreadyClosed = isPast(parsedCloseDate);
 
-  if (!haveRequiredDataToCreateNewTalentNomination) {
-    if (!nominationEventId) {
-      redirectPath = paths.talentManagementEvents();
-    }
-    void navigateWithToast(redirectPath, () =>
-      toast.error(genericErrorMessage),
-    );
-  }
+  // if the event already closed than we need to use the protected endpoint to use elevated permissions
+  const queryContext = eventAlreadyClosed
+    ? getProtectedOperationContext()
+    : undefined;
 
-  if (
-    mutationCounter.current === 0 &&
-    haveRequiredDataToCreateNewTalentNomination
-  ) {
+  if (mutationCounter.current === 0) {
     mutationCounter.current += 1;
 
     const mutationInput: CreateTalentNominationInput = {
@@ -109,70 +94,54 @@ const CreateTalentNominationPage = () => {
         connect: nominationEventId,
       },
     };
-    canAccessProtectedEndpoint()
-      .then((canAccess) => {
-        if (!canAccess) {
-          return navigateWithToast(redirectPath, () =>
-            toast.error(protectedEndpointUnavailableMessage),
+
+    executeCreateMutation({ talentNomination: mutationInput }, queryContext)
+      .then(async (result) => {
+        if (result.data?.createTalentNomination) {
+          const { id } = result.data.createTalentNomination;
+          // Redirect user to the talent nomination if it exists
+          const newPath = paths.talentNomination(id);
+          if (!result.error) {
+            await navigateWithToast(newPath, () =>
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage: "Nomination created successfully",
+                  id: "qWew0O",
+                  description: "Toast for successful nomination creation",
+                }),
+              ),
+            );
+          } else {
+            const messageDescriptor = tryFindMessageDescriptor(
+              result.error.message,
+            );
+            const message = intl.formatMessage(
+              messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
+            );
+            await navigateWithToast(newPath, () => toast.error(message));
+          }
+        } else if (result.error?.message) {
+          const messageDescriptor = tryFindMessageDescriptor(
+            result.error.message,
+          );
+          const errorMessage = intl.formatMessage(
+            messageDescriptor ?? errorMessages.unknownErrorRequestErrorTitle,
+          );
+          await navigateWithToast(errorRedirectPath, () =>
+            toast.error(errorMessage),
+          );
+        } else {
+          // Fallback to generic message
+          await navigateWithToast(errorRedirectPath, () =>
+            toast.error(genericErrorMessage),
           );
         }
-
-        return executeCreateMutation(
-          { talentNomination: mutationInput },
-          getProtectedOperationContext(),
-        )
-          .then(async (result) => {
-            if (result.data?.createTalentNomination) {
-              const { id } = result.data.createTalentNomination;
-              // Redirect user to the talent nomination if it exists
-              const newPath = paths.talentNomination(id);
-              if (!result.error) {
-                await navigateWithToast(newPath, () =>
-                  toast.success(
-                    intl.formatMessage({
-                      defaultMessage: "Nomination created successfully",
-                      id: "qWew0O",
-                      description: "Toast for successful nomination creation",
-                    }),
-                  ),
-                );
-              } else {
-                const messageDescriptor = tryFindMessageDescriptor(
-                  result.error.message,
-                );
-                const message = intl.formatMessage(
-                  messageDescriptor ??
-                    errorMessages.unknownErrorRequestErrorTitle,
-                );
-                await navigateWithToast(newPath, () => toast.error(message));
-              }
-            } else if (result.error?.message) {
-              const messageDescriptor = tryFindMessageDescriptor(
-                result.error.message,
-              );
-              const errorMessage = intl.formatMessage(
-                messageDescriptor ??
-                  errorMessages.unknownErrorRequestErrorTitle,
-              );
-              await navigateWithToast(redirectPath, () =>
-                toast.error(errorMessage),
-              );
-            } else {
-              // Fallback to generic message
-              await navigateWithToast(redirectPath, () =>
-                toast.error(genericErrorMessage),
-              );
-            }
-          })
-          .catch(() =>
-            navigateWithToast(redirectPath, () =>
-              toast.error(genericErrorMessage),
-            ),
-          );
       })
-      .catch(() =>
-        navigateWithToast(redirectPath, () => toast.error(genericErrorMessage)),
-      );
+      .catch(() => {
+        return navigateWithToast(errorRedirectPath, () =>
+          toast.error(genericErrorMessage),
+        );
+      });
   }
 
   /**
@@ -186,9 +155,58 @@ const CreateTalentNominationPage = () => {
   return <Loading />;
 };
 
+const CreateTalentNomination_Query = graphql(/* GraphQL */ `
+  query CreateTalentNominationQuery($nominationEventId: UUID!) {
+    talentNominationEvent(id: $nominationEventId) {
+      id
+      closeDate
+    }
+  }
+`);
+
+interface RouteParams extends Record<string, string> {
+  id: string;
+}
+
+const CreateTalentNominationApi = () => {
+  const intl = useIntl();
+  const { nominationEventId } =
+    useRequiredParams<RouteParams>("nominationEventId");
+
+  const [{ data, fetching, error }] = useQuery({
+    query: CreateTalentNomination_Query,
+    variables: { nominationEventId },
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.talentNominationEvent ? (
+        <CreateTalentNomination
+          nominationEventId={data?.talentNominationEvent?.id}
+          nominationEventCloseDate={data?.talentNominationEvent?.closeDate}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Talent nomination event {eventId} not found.",
+                id: "hNIQyO",
+                description:
+                  "Message displayed for talent nomination event not found.",
+              },
+              { eventId: nominationEventId },
+            )}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
+  );
+};
+
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CreateTalentNominationPage />
+    <CreateTalentNominationApi />
   </RequireAuth>
 );
 
