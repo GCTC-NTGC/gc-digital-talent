@@ -7,17 +7,12 @@ import type { OperationContext } from "@urql/core";
 
 const FORCE_PROTECTED_ENDPOINT_CONTEXT_KEY = "forceProtectedEndpoint";
 
-// Pass the result as the `context` option on a useQuery/useMutation call to force the protected endpoint.
-export const protectedEndpointContext = (): Partial<OperationContext> =>
-  ({
-    [FORCE_PROTECTED_ENDPOINT_CONTEXT_KEY]: true,
-  }) satisfies Partial<OperationContext>;
+export const protectedEndpointContext = (): Partial<OperationContext> => ({
+  [FORCE_PROTECTED_ENDPOINT_CONTEXT_KEY]: true,
+});
 
-// Cast required because OperationContext has no index signature for custom keys.
 export const hasForcedProtectedEndpoint = (
   context: OperationContext,
 ): boolean => {
-  return Boolean(
-    (context as Record<string, unknown>)[FORCE_PROTECTED_ENDPOINT_CONTEXT_KEY],
-  );
+  return Boolean(context[FORCE_PROTECTED_ENDPOINT_CONTEXT_KEY]);
 };
