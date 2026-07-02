@@ -33,20 +33,7 @@ import ApplicationSidebar, {
 
 const application = fakePoolCandidates(1)[0];
 
-type ApplicationSidebarData = Pick<
-  PoolCandidate,
-  | "status"
-  | "placementType"
-  | "placedDepartment"
-  | "disqualificationReason"
-  | "removalReason"
-  | "expiryDate"
-  | "screeningStage"
-  | "assessmentStep"
-  | "pauseReferralsAt"
-  | "resumeReferralsAt"
-  | "pauseReferralsReason"
->;
+type ApplicationSidebarData = Pick<PoolCandidate, "applicationStatusData">;
 
 const makeApplication = (data?: ApplicationSidebarData) =>
   makeFragmentData(
@@ -154,7 +141,9 @@ type Story = StoryObj<typeof ApplicationSidebar>;
 export const ToAsses: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.ToAssess),
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.ToAssess),
+      },
     }),
   },
 };
@@ -162,10 +151,12 @@ export const ToAsses: Story = {
 export const Disqualified: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Disqualified),
-      disqualificationReason: toLocalizedEnum(
-        DisqualificationReason.ScreenedOutApplication,
-      ),
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Disqualified),
+        disqualificationReason: toLocalizedEnum(
+          DisqualificationReason.ScreenedOutApplication,
+        ),
+      },
     }),
   },
 };
@@ -173,8 +164,10 @@ export const Disqualified: Story = {
 export const Removed: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Removed),
-      removalReason: toLocalizedEnum(CandidateRemovalReason.Ineligible),
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Removed),
+        removalReason: toLocalizedEnum(CandidateRemovalReason.Ineligible),
+      },
     }),
   },
 };
@@ -182,10 +175,12 @@ export const Removed: Story = {
 export const QualifiedUnpaused: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Qualified),
-      pauseReferralsAt: null,
-      resumeReferralsAt: null,
-      pauseReferralsReason: null,
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Qualified),
+        pauseReferralsAt: null,
+        resumeReferralsAt: null,
+        pauseReferralsReason: null,
+      },
     }),
   },
 };
@@ -193,7 +188,11 @@ export const QualifiedUnpaused: Story = {
 export const QualifiedPaused: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Qualified),
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Qualified),
+        pauseReferralsAt: "2001-01-01",
+        resumeReferralsAt: "2050-12-31",
+      },
     }),
   },
 };
@@ -201,9 +200,11 @@ export const QualifiedPaused: Story = {
 export const Placed: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Qualified),
-      placementType: toLocalizedEnum(PlacementType.PlacedTerm),
-      placedDepartment: fakeDepartments()[0],
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Qualified),
+        placementType: toLocalizedEnum(PlacementType.PlacedTerm),
+        placedDepartment: fakeDepartments()[0],
+      },
     }),
   },
 };
@@ -211,9 +212,11 @@ export const Placed: Story = {
 export const PlacedIndeterminate: Story = {
   args: {
     query: makeApplication({
-      status: toLocalizedEnum(ApplicationStatus.Qualified),
-      placementType: toLocalizedEnum(PlacementType.PlacedIndeterminate),
-      placedDepartment: fakeDepartments()[0],
+      applicationStatusData: {
+        status: toLocalizedEnum(ApplicationStatus.Qualified),
+        placementType: toLocalizedEnum(PlacementType.PlacedIndeterminate),
+        placedDepartment: fakeDepartments()[0],
+      },
     }),
   },
 };
