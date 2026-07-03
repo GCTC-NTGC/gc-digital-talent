@@ -1,8 +1,15 @@
 import FolderIcon from "@heroicons/react/24/outline/FolderIcon";
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
+import { useState } from "react";
 
-import { Card, Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Card,
+  Heading,
+  Pending,
+  ThrowNotFound,
+  Button,
+} from "@gc-digital-talent/ui";
 import {
   getFragment,
   graphql,
@@ -14,6 +21,7 @@ import permissionConstants from "~/constants/permissionConstants";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import NominationDetailsDialog from "./components/NominationDetailsDialog/NominationDetailsDialog";
+import { detailTabMessages } from "./messages";
 
 const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   /* GraphQL */ `
@@ -51,13 +59,25 @@ const TalentNominationGroupHistory = ({
     TalentNominationGroupHistoryNominationGroup_Fragment,
     nominationGroupQuery,
   );
+
   const options = getFragment(
     TalentNominationGroupHistoryOptions_Fragment,
     optionsQuery,
   );
+
+  const nominationGroups = [talentNominationGroup];
+
+  const eventKeys = nominationGroups.map((group) => group.id);
+
+  const [expandedValues, setExpandedValues] = useState<string[]>([]);
+
+  const toggleExpanded = () => {
+    setExpandedValues(expandedValues.length > 0 ? [] : eventKeys);
+  };
+
   return (
-    <>
-      <Card space="lg">
+    <Card space="lg" className="rounded-b-none pb-0 sm:pb-0">
+      <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
         <Heading
           icon={FolderIcon}
           level="h2"
@@ -72,15 +92,36 @@ const TalentNominationGroupHistory = ({
           })}
         </Heading>
 
-        {talentNominationGroup.nominations?.map((nomination) => (
-          <NominationDetailsDialog
-            nominationQuery={nomination}
-            key={nomination.id}
-            optionsQuery={options}
-          />
-        ))}
-      </Card>
-    </>
+        <Button
+          type="button"
+          mode="inline"
+          color="primary"
+          onClick={toggleExpanded}
+        >
+          {intl.formatMessage(
+            expandedValues.length > 0
+              ? detailTabMessages.collapseNominations
+              : detailTabMessages.expandNominations,
+          )}
+        </Button>
+      </div>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "This tab allows you to review the nominee's nomination history by event. Current nominations appear first and you can expand each event to see available nominations as needed.",
+          id: "qo3/Sp",
+          description: "Description for the nomination history page",
+        })}
+      </p>
+      <Card.Separator space="sm" />
+      {talentNominationGroup.nominations?.map((nomination) => (
+        <NominationDetailsDialog
+          nominationQuery={nomination}
+          key={nomination.id}
+          optionsQuery={options}
+        />
+      ))}
+    </Card>
   );
 };
 
