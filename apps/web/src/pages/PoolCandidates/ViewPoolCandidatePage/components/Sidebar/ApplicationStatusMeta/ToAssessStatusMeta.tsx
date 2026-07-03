@@ -14,8 +14,10 @@ import applicationMessages from "~/messages/applicationMessages";
 
 const ToAssessStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ToAssessStatusMeta on PoolCandidate {
-    screeningStage {
-      value
+    applicationStatusData {
+      screeningStage {
+        value
+      }
     }
 
     ...UpdateScreeningStageDialog
@@ -41,7 +43,7 @@ const ToAssessStatusMeta = ({ query }: ToAssessStatusMetaProps) => {
       <FieldDisplay
         label={intl.formatMessage(applicationMessages.assessmentStage)}
       >
-        {application.screeningStage?.value ===
+        {application.applicationStatusData?.screeningStage?.value ===
         ScreeningStage.UnderAssessment ? (
           <UpdateAssessmentStageDialog query={application} />
         ) : (

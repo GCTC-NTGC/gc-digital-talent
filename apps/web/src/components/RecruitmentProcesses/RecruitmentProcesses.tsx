@@ -15,8 +15,10 @@ import { recruitmentProcessesTitle } from "./utils";
 const RecruitmentProcesses_Fragment = graphql(/* GraphQL */ `
   fragment RecruitmentProcesses on User {
     poolCandidates {
-      status {
-        value
+      applicationStatusData {
+        status {
+          value
+        }
       }
       pool {
         id
@@ -50,7 +52,8 @@ const RecruitmentProcesses = ({
   );
   const recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
-        ({ status }) => status?.value === ApplicationStatus.Qualified,
+        ({ applicationStatusData }) =>
+          applicationStatusData?.status?.value === ApplicationStatus.Qualified,
       )
     : []; // filter for qualified recruitment processes
 

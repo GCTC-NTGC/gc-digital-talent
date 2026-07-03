@@ -44,10 +44,12 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
 
       id
       profileSnapshot
-      status {
-        value
-        label {
-          localized
+      applicationStatusData {
+        status {
+          value
+          label {
+            localized
+          }
         }
       }
       assessmentStep {

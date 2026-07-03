@@ -74,15 +74,17 @@ class PoolCandidateUpdateTest extends TestCase
         mutation placeCandidate($id: UUID!, $poolCandidate: PlaceCandidateInput!) {
             placeCandidate(id: $id, poolCandidate: $poolCandidate) {
                 id
-                status { value }
-                placementType { value }
-                placedAt
-                placedDepartment {
-                    id
+                applicationStatusData {
+                    status { value }
+                    placementType { value }
+                    placedAt
+                    placedDepartment {
+                        id
+                    }
+                    pauseReferralsAt
+                    resumeReferralsAt
+                    pauseReferralsReason
                 }
-                pauseReferralsAt
-                resumeReferralsAt
-                pauseReferralsReason
             }
         }
     GRAPHQL;
@@ -95,8 +97,10 @@ class PoolCandidateUpdateTest extends TestCase
         mutation disqualifyCandidate($id: UUID!, $reason: DisqualificationReason!) {
             disqualifyCandidate(id: $id, reason: $reason) {
               id
-              status { value }
-              disqualificationReason { value }
+              applicationStatusData{
+                status { value }
+                disqualificationReason { value }
+              }
             }
           }
     GRAPHQL;
@@ -105,7 +109,9 @@ class PoolCandidateUpdateTest extends TestCase
         mutation revertFinalDecision($id: UUID!) {
             revertFinalDecision(id: $id) {
               id
-              status { value }
+              applicationStatusData {
+                status { value }
+              }
               expiryDate
             }
           }
@@ -114,9 +120,11 @@ class PoolCandidateUpdateTest extends TestCase
     protected $removeMutationDocument = <<<'GRAPHQL'
         mutation removeTest($id: UUID!, $removalReason: CandidateRemovalReason!, $removalReasonOther: String) {
             removeCandidate (id: $id, removalReason: $removalReason, removalReasonOther: $removalReasonOther){
-                status { value }
-                removalReason { value }
-                removalReasonOther
+                applicationStatusData{
+                    status { value }
+                    removalReason { value }
+                    removalReasonOther
+                }
             }
         }
     GRAPHQL;
@@ -125,9 +133,11 @@ class PoolCandidateUpdateTest extends TestCase
         mutation pauseCandidateReferrals($id: UUID!, $pauseReferrals: PauseReferralsInput!) {
             pauseCandidateReferrals (id: $id, pauseReferrals: $pauseReferrals){
                 id
-                pauseReferralsAt
-                resumeReferralsAt
-                pauseReferralsReason
+                applicationStatusData {
+                    pauseReferralsAt
+                    resumeReferralsAt
+                    pauseReferralsReason
+                }
             }
         }
     GRAPHQL;
@@ -136,9 +146,11 @@ class PoolCandidateUpdateTest extends TestCase
         mutation resumeCandidateReferrals($id: UUID!) {
             resumeCandidateReferrals (id: $id){
                 id
-                pauseReferralsAt
-                resumeReferralsAt
-                pauseReferralsReason
+                applicationStatusData {
+                    pauseReferralsAt
+                    resumeReferralsAt
+                    pauseReferralsReason
+                }
             }
         }
     GRAPHQL;
@@ -215,11 +227,13 @@ class PoolCandidateUpdateTest extends TestCase
         mutation revertPlaceCandidate($id: UUID!) {
             revertPlaceCandidate(id: $id) {
                 id
-                status { value }
-                placementType { value }
-                placedAt
-                placedDepartment {
-                    id
+                applicationStatusData {
+                    status { value }
+                    placementType { value }
+                    placedAt
+                    placedDepartment {
+                        id
+                    }
                 }
             }
         }
@@ -231,7 +245,9 @@ class PoolCandidateUpdateTest extends TestCase
         mutation qualifyCandidate($id: UUID!, $poolCandidate: QualifyCandidateInput!) {
             qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
               id
-              status { value }
+              applicationStatusData {
+                status { value }
+              }
               expiryDate
             }
           }
@@ -242,9 +258,11 @@ class PoolCandidateUpdateTest extends TestCase
             '
         mutation reinstateTest($id: UUID!) {
             reinstateCandidate (id: $id){
-                status { value }
-                removalReason { value }
-                removalReasonOther
+                applicationStatusData {
+                    status { value }
+                    removalReason { value }
+                    removalReasonOther
+                }
             }
         }
     ';
@@ -578,9 +596,9 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.placeCandidate');
 
-        assertSame($response['placementType']['value'], PlacementType::PLACED_CASUAL->name);
-        assertNotNull($response['placedAt']);
-        assertSame($response['placedDepartment']['id'], $department->id);
+        assertSame($response['applicationStatusData']['placementType']['value'], PlacementType::PLACED_CASUAL->name);
+        assertNotNull($response['applicationStatusData']['placedAt']);
+        assertSame($response['applicationStatusData']['placedDepartment']['id'], $department->id);
     }
 
     public function testRevertPlaceCandidateMutation(): void
@@ -615,10 +633,10 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertPlaceCandidate');
 
-        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
-        assertNull($response['placedAt']);
-        assertNull($response['placedDepartment']);
-        assertNull($response['placementType']);
+        assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::QUALIFIED->name);
+        assertNull($response['applicationStatusData']['placedAt']);
+        assertNull($response['applicationStatusData']['placedDepartment']);
+        assertNull($response['applicationStatusData']['placementType']);
     }
 
     public function testQualifyCandidateMutation(): void
@@ -669,7 +687,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.qualifyCandidate');
 
-        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
+        assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
     }
 
@@ -703,8 +721,8 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.disqualifyCandidate');
 
-        assertSame($response['status']['value'], ApplicationStatus::DISQUALIFIED->name);
-        assertSame($response['disqualificationReason']['value'], DisqualificationReason::SCREENED_OUT_APPLICATION->name);
+        assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::DISQUALIFIED->name);
+        assertSame($response['applicationStatusData']['disqualificationReason']['value'], DisqualificationReason::SCREENED_OUT_APPLICATION->name);
     }
 
     public function testRevertFinalDecisionMutation(): void
@@ -727,7 +745,7 @@ class PoolCandidateUpdateTest extends TestCase
             )
             ->json('data.qualifyCandidate');
 
-        assertSame($response['status']['value'], ApplicationStatus::QUALIFIED->name);
+        assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
 
         // candidate reverted successfully
@@ -739,7 +757,7 @@ class PoolCandidateUpdateTest extends TestCase
                 ]
             )->json('data.revertFinalDecision');
 
-        assertSame($response['status']['value'], ApplicationStatus::TO_ASSESS->name);
+        assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
 
     }
@@ -808,10 +826,12 @@ class PoolCandidateUpdateTest extends TestCase
         mutation updatePoolCandidateClaimVerification($id: UUID!, $poolCandidate: UpdatePoolCandidateClaimVerificationInput!) {
             updatePoolCandidateClaimVerification (id: $id, poolCandidate: $poolCandidate){
                 id
-                veteranVerification
-                veteranVerificationExpiry
-                priorityVerification
-                priorityVerificationExpiry
+                applicationAssessmentData {
+                    veteranVerification
+                    veteranVerificationExpiry
+                    priorityVerification
+                    priorityVerificationExpiry
+                }
             }
         }
     ';
@@ -1082,9 +1102,9 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->assertSame(
             [
-                'pauseReferralsAt' => Carbon::parse($res['pauseReferralsAt'])->format('Y-m-d'),
-                'resumeReferralsAt' => $res['resumeReferralsAt'],
-                'pauseReferralsReason' => $res['pauseReferralsReason'],
+                'pauseReferralsAt' => Carbon::parse($res['applicationStatusData']['pauseReferralsAt'])->format('Y-m-d'),
+                'resumeReferralsAt' => $res['applicationStatusData']['resumeReferralsAt'],
+                'pauseReferralsReason' => $res['applicationStatusData']['pauseReferralsReason'],
             ],
             [
                 'pauseReferralsAt' => $now,
@@ -1167,9 +1187,9 @@ class PoolCandidateUpdateTest extends TestCase
             ->graphQL($this->pauseCandidateReferralsMutation, $input)
             ->json('data.pauseCandidateReferrals');
 
-        $pauseAt = Carbon::parse($response['pauseReferralsAt'])->format('Y-m-d');
-        $unpauseAt = Carbon::parse($response['resumeReferralsAt'])->format('Y-m-d');
-        $pauseReason = $response['pauseReferralsReason'];
+        $pauseAt = Carbon::parse($response['applicationStatusData']['pauseReferralsAt'])->format('Y-m-d');
+        $unpauseAt = Carbon::parse($response['applicationStatusData']['resumeReferralsAt'])->format('Y-m-d');
+        $pauseReason = $response['applicationStatusData']['pauseReferralsReason'];
         assertSame($pauseAt, $now);
         assertSame($unpauseAt, Carbon::now()->addMonth()->format('Y-m-d'));
         assertSame($pauseReason, 'Maternity leave');
@@ -1220,7 +1240,9 @@ class PoolCandidateUpdateTest extends TestCase
 
         $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($this->revertFinalDecisionMutation, ['id' => $this->poolCandidate->id])
-            ->assertJsonFragment(['status' => ['value' => ApplicationStatus::TO_ASSESS->name]]);
+            ->assertJsonFragment([
+                'applicationStatusData' => ['status' => ['value' => ApplicationStatus::TO_ASSESS->name]],
+            ]);
 
         $this->poolCandidate = $this->poolCandidate->fresh();
 
