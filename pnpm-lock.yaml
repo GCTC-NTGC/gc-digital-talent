@@ -223,8 +223,8 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
     devDependencies:
       '@faker-js/faker':
         specifier: ^10.5.0
@@ -366,8 +366,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -436,8 +436,8 @@ importers:
         specifier: ^10.1.14
         version: 10.1.14(@types/react@19.2.17)(react@19.2.7)
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -764,8 +764,8 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
 
   packages/helpers:
     dependencies:
@@ -785,8 +785,8 @@ importers:
         specifier: ^19.2.7
         version: 19.2.7(react@19.2.7)
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -999,8 +999,8 @@ importers:
         specifier: ^7.17.0
         version: 7.17.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
       wonka:
         specifier: ^6.3.6
         version: 6.3.6
@@ -1175,8 +1175,8 @@ importers:
         specifier: ^3.2.2
         version: 3.2.2(tailwind-merge@3.6.0)(tailwindcss@4.3.1)
       urql:
-        specifier: ^5.0.2
-        version: 5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
+        specifier: ^5.0.3
+        version: 5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7)
     devDependencies:
       '@faker-js/faker':
         specifier: ^10.5.0
@@ -7710,8 +7710,8 @@ packages:
   urlpattern-polyfill@10.1.0:
     resolution: {integrity: sha512-IGjKp/o0NL3Bso1PymYURCJxMPNAf/ILOpendP9f5B6e1rTJgdgiOvgfoT8VxCAdY+Wisb9uhGaJJf3yZ2V9nw==}
 
-  urql@5.0.2:
-    resolution: {integrity: sha512-hiBR9GNbMPMZpv9Yd40EMCc94d8eAkGcmt5jcrKVfp26ScjluAQLCEKetJ4SXLy5DJG59Y6gbuA+2yquzh20/w==}
+  urql@5.0.3:
+    resolution: {integrity: sha512-gWywgPjduTCUqWKofW6YLOy1auxe0uJN/vHa44eXGKn+f+QHNb308ZEZnKBLZ4F+jRrguaJy9CdtecTZJQWPCg==}
     peerDependencies:
       '@urql/core': ^6.0.0
       react: '>= 16.8.0'
@@ -14805,7 +14805,7 @@ snapshots:
 
   urlpattern-polyfill@10.1.0: {}
 
-  urql@5.0.2(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7):
+  urql@5.0.3(@urql/core@5.2.0(graphql@16.14.2))(react@19.2.7):
     dependencies:
       '@urql/core': 5.2.0(graphql@16.14.2)
       react: 19.2.7
