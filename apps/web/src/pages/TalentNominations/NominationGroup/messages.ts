@@ -38,8 +38,8 @@ export const formMessages = {
 
 export const historyTabMessages = defineMessages({
   history: {
-    defaultMessage: "History",
-    id: "vtmq4K",
-    description: "Link text for the history of a nominee",
+    defaultMessage: "Nomination history",
+    id: "85Y9eS",
+    description: "Heading for the nomination history page",
   },
 });
