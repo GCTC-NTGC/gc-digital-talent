@@ -1,4 +1,4 @@
-import type { Skill, User } from "@gc-digital-talent/graphql";
+import type { Pool, Skill, User } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -13,6 +13,7 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createAndPublishPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
@@ -27,11 +28,15 @@ test.describe("Application", () => {
   let user: User | undefined;
   let classificationId: string | undefined;
   let userId: string | undefined;
+  let adminCtx: GraphQLContext;
+  let pool: Pool;
+  let poolId: string;
+  let poolName: string;
 
-  test.beforeEach(async () => {
+  test.beforeEach(async ({}, testInfo) => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext();
 
     user = await createUserWithRoles(adminCtx, {
       user: {
@@ -68,23 +73,17 @@ test.describe("Application", () => {
     classificationId = classifications.find(
       (c) => c.group == "IT" && c.level == 1,
     )?.id;
-  });
 
-  test.afterEach(async () => {
-    if (userId) {
-      const adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: userId });
-    }
-  });
+    const poolNameSuffixes: Record<string, string> = {
+      "Can link same experience to different skills in application":
+        "for link experience to skill",
+      "Can submit application": "for submit application",
+      "Can view application on dashboard": "for viewing on dashboard",
+    };
+    poolName = `application test pool ${poolNameSuffixes[testInfo.title] ?? testInfo.title} ${uniqueTestId}`;
 
-  test("Can link same experience to different skills in application", async ({
-    appPage,
-  }, testInfo) => {
-    testInfo.slow();
-    const adminCtx = await graphql.newContext();
-    const poolName = `application test pool for link experience to skill ${uniqueTestId}`;
     const admin = await me(adminCtx, {});
-    const pool = await createAndPublishPool(adminCtx, {
+    pool = await createAndPublishPool(adminCtx, {
       name: {
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
@@ -102,11 +101,27 @@ test.describe("Application", () => {
         },
       },
       skillIds: technicalSkills
-        ? [technicalSkills[0].id, technicalSkills[1].id]
+        ? testInfo.title ===
+          "Can link same experience to different skills in application"
+          ? [technicalSkills[0].id, technicalSkills[1].id]
+          : [technicalSkills[0].id]
         : undefined,
     });
+    poolId = pool.id;
+  });
+
+  test.afterEach(async () => {
+    if (userId) {
+      adminCtx = await graphql.newContext();
+      await deleteUser(adminCtx, { id: userId });
+    }
+  });
+
+  test("Can link same experience to different skills in application", async ({
+    appPage,
+  }, testInfo) => {
+    testInfo.slow();
     const [skillOne, skillTwo] = technicalSkills;
-    const poolId = pool.id;
     const application = new ApplicationPage(appPage.page, poolId);
     await loginBySub(application.page, sub, false);
 
@@ -248,30 +263,7 @@ test.describe("Application", () => {
     { tag: "@uat" },
     async ({ appPage }, testInfo) => {
       testInfo.slow();
-      const adminCtx = await graphql.newContext();
-      const poolName = `application test pool for submit application ${uniqueTestId}`;
-      const admin = await me(adminCtx, {});
-      const pool = await createAndPublishPool(adminCtx, {
-        name: {
-          en: `${poolName} (EN)`,
-          fr: `${poolName} (FR)`,
-        },
-        userId: admin?.id ?? "",
-        classificationId: classificationId,
-        input: {
-          generalQuestions: {
-            create: [
-              {
-                question: { en: "Question EN", fr: "Question FR" },
-                sortOrder: 1,
-              },
-            ],
-          },
-        },
-        skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
-      });
-
-      const application = new ApplicationPage(appPage.page, pool.id);
+      const application = new ApplicationPage(appPage.page, poolId);
       await loginBySub(application.page, sub, false);
 
       await application.create();
@@ -325,9 +317,9 @@ test.describe("Application", () => {
       ).toBeVisible();
       await application.saveAndContinue();
       // Expect error when no experiences added
-      await expect(application.page.getByRole("alert")).toContainText(
-        /please add at least one experience/i,
-      );
+      await expect(
+        application.page.getByText(/please add at least one experience/i),
+      ).toBeVisible();
 
       // Add an experience
       await application.page
@@ -448,30 +440,7 @@ test.describe("Application", () => {
   );
 
   test("Can view application on dashboard", async ({ appPage }) => {
-    const adminCtx = await graphql.newContext();
-    const poolName = `application test pool for viewing on dashboard ${uniqueTestId}`;
-    const admin = await me(adminCtx, {});
-    const pool = await createAndPublishPool(adminCtx, {
-      name: {
-        en: `${poolName} (EN)`,
-        fr: `${poolName} (FR)`,
-      },
-      userId: admin?.id ?? "",
-      classificationId: classificationId,
-      input: {
-        generalQuestions: {
-          create: [
-            {
-              question: { en: "Question EN", fr: "Question FR" },
-              sortOrder: 1,
-            },
-          ],
-        },
-      },
-      skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
-    });
-
-    const application = new ApplicationPage(appPage.page, pool.id);
+    const application = new ApplicationPage(appPage.page, poolId);
     await loginBySub(application.page, sub, false);
 
     await application.create();

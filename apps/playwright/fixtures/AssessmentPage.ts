@@ -13,9 +13,9 @@ import type {
   AssessmentDecisionLevel,
   AssessmentResultJustification,
   CandidateRemovalReason,
-  DisqualificationReason,
 } from "../../../packages/graphql/src/gql/graphql";
 import {
+  DisqualificationReason,
   ApplicationStatus,
   AssessmentDecision,
   AssessmentResultType,
@@ -45,6 +45,19 @@ class AssessmentPage extends AppPage {
     [ScreeningStage.ApplicationReview, /application review/i],
     [ScreeningStage.ScreenedIn, /application retained/i],
     [ScreeningStage.UnderAssessment, /advanced to assessment/i],
+  ]);
+  static readonly disqualifiedReasonMap = new Map<
+    DisqualificationReason,
+    RegExp
+  >([
+    [
+      DisqualificationReason.ScreenedOutApplication,
+      /screened out an application/i,
+    ],
+    [
+      DisqualificationReason.ScreenedOutAssessment,
+      /unsuccessful during assessment/i,
+    ],
   ]);
 
   constructor(page: Page) {
@@ -314,10 +327,19 @@ class AssessmentPage extends AppPage {
 
       case ApplicationStatus.Disqualified:
         if (disqualifiedDecision) {
-          const keyword = disqualifiedDecision.split("_")[0];
-          await dialog
-            .getByRole("radio", { name: new RegExp(keyword, "i") })
-            .check();
+          const group = dialog.getByRole("group", {
+            name: /disqualified decision/i,
+          });
+          await expect(group).toBeVisible();
+
+          const labelPattern =
+            AssessmentPage.disqualifiedReasonMap.get(disqualifiedDecision);
+          if (!labelPattern) {
+            throw new Error(
+              `No radio label mapped for disqualification reason: ${disqualifiedDecision}`,
+            );
+          }
+          await group.getByRole("radio", { name: labelPattern }).check();
         }
         break;
 
