@@ -140,7 +140,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
               /* special application bypasses work email verification  */
               application.pool.areaOfSelection?.value ===
                 PoolAreaOfSelection.Employees &&
-                application.isSpecialApplication !== true && (
+                !application.isSpecialApplication && (
                   <>
                     {(!application.user.isWorkEmailVerified ||
                       !application.user.workEmail) && (

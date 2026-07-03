@@ -57,7 +57,7 @@ export function hasEmptyRequiredFields(
   if (
     /* special application bypasses work email verification  */
     pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
-    isSpecialApplication !== true
+    !isSpecialApplication
   ) {
     isWorkEmailVerifiedForInternalJobs =
       !!applicant.workEmail && applicant.isWorkEmailVerified;
