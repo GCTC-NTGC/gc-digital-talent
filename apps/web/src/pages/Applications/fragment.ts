@@ -308,6 +308,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
     }
     signature
+    isSpecialApplication
   }
 `);
 

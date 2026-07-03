@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
+import { format } from "date-fns/format";
 
 import {
   DATE_FORMAT_LOCALIZED,
+  DATETIME_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -32,6 +34,8 @@ interface ApplicationDateProps {
   submittedAt?: string | null;
   assessedDate?: string | null;
   status?: CandidateStatus | null;
+  isSpecialApplication?: boolean | null;
+  specialApplicationClosingDate?: string | null;
 }
 
 export const ApplicationDate = ({
@@ -39,12 +43,36 @@ export const ApplicationDate = ({
   submittedAt,
   assessedDate,
   status,
+  isSpecialApplication = false,
+  specialApplicationClosingDate,
 }: ApplicationDateProps) => {
   const intl = useIntl();
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
   if (status === CandidateStatus.Draft || status === CandidateStatus.Expired) {
-    const deadlineClose = deadlineToApply(closingDate, status);
+    const parsedClosingDate = closingDate
+      ? parseDateTimeUtc(closingDate)
+      : null;
+
+    let applicationCutOffDate = parsedClosingDate;
+
+    if (isSpecialApplication && specialApplicationClosingDate) {
+      const parsedSpecialClosingDate = parseDateTimeUtc(
+        specialApplicationClosingDate,
+      );
+
+      // select the future most of the two
+      applicationCutOffDate =
+        parsedClosingDate &&
+        parsedClosingDate.valueOf() > parsedSpecialClosingDate.valueOf()
+          ? applicationCutOffDate
+          : parsedSpecialClosingDate;
+    }
+
+    const formattedCutoff = applicationCutOffDate
+      ? format(applicationCutOffDate, DATETIME_FORMAT_STRING)
+      : null;
+    const deadlineClose = deadlineToApply(formattedCutoff, status);
 
     return (
       <span
@@ -58,9 +86,9 @@ export const ApplicationDate = ({
           description: "Label for deadline metadata",
         })}
         {intl.formatMessage(commonMessages.dividingColon)}
-        {closingDate
+        {applicationCutOffDate
           ? formatDate({
-              date: parseDateTimeUtc(closingDate),
+              date: applicationCutOffDate,
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
               timeZone: "Canada/Pacific",
