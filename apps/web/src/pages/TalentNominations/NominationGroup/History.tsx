@@ -4,6 +4,7 @@ import { useQuery } from "urql";
 import { useState } from "react";
 
 import {
+  Accordion,
   Card,
   Heading,
   Pending,
@@ -15,12 +16,13 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
-import NominationDetailsDialog from "./components/NominationDetailsDialog/NominationDetailsDialog";
+import NominationEventAccordionItem from "./components/NominationEventAccordionItem";
 import { detailTabMessages } from "./messages";
 
 const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
@@ -29,8 +31,8 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
       id
       nominations {
         id
-        ...TalentNominationDetailsDialogNomination
       }
+      ...NominationEventAccordionItem
     }
   `,
 );
@@ -59,13 +61,18 @@ const TalentNominationGroupHistory = ({
     TalentNominationGroupHistoryNominationGroup_Fragment,
     nominationGroupQuery,
   );
-
   const options = getFragment(
     TalentNominationGroupHistoryOptions_Fragment,
     optionsQuery,
   );
 
   const nominationGroups = [talentNominationGroup];
+
+  //get total number of nominations across all nomination groups
+  const nominationCount = nominationGroups.reduce(
+    (total: number, group) => total + unpackMaybes(group.nominations).length,
+    0,
+  );
 
   const eventKeys = nominationGroups.map((group) => group.id);
 
@@ -91,19 +98,20 @@ const TalentNominationGroupHistory = ({
             description: "Heading for the nomination history page",
           })}
         </Heading>
-
-        <Button
-          type="button"
-          mode="inline"
-          color="primary"
-          onClick={toggleExpanded}
-        >
-          {intl.formatMessage(
-            expandedValues.length > 0
-              ? detailTabMessages.collapseNominations
-              : detailTabMessages.expandNominations,
-          )}
-        </Button>
+        {nominationCount > 0 && (
+          <Button
+            type="button"
+            mode="inline"
+            color="primary"
+            onClick={toggleExpanded}
+          >
+            {intl.formatMessage(
+              expandedValues.length > 0
+                ? detailTabMessages.collapseNominations
+                : detailTabMessages.expandNominations,
+            )}
+          </Button>
+        )}
       </div>
       <p>
         {intl.formatMessage({
@@ -114,13 +122,32 @@ const TalentNominationGroupHistory = ({
         })}
       </p>
       <Card.Separator space="sm" />
-      {talentNominationGroup.nominations?.map((nomination) => (
-        <NominationDetailsDialog
-          nominationQuery={nomination}
-          key={nomination.id}
-          optionsQuery={options}
-        />
-      ))}
+
+      {nominationCount > 0 ? (
+        <Accordion.Root
+          type="multiple"
+          value={expandedValues}
+          onValueChange={setExpandedValues}
+        >
+          {nominationGroups.map((nominationGroup) => (
+            <NominationEventAccordionItem
+              key={nominationGroup.id}
+              nominationGroupQuery={nominationGroup}
+              optionsQuery={options}
+            />
+          ))}
+        </Accordion.Root>
+      ) : (
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This user hasn’t been nominated for any talent management events.",
+            id: "YrY6SE",
+            description:
+              "Message displayed when a nominee has no nominations to show in their history",
+          })}
+        </p>
+      )}
     </Card>
   );
 };
