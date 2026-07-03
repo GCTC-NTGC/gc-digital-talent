@@ -1003,6 +1003,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
 }
 
 type Team implements HasRoleAssignments {
@@ -1435,7 +1436,8 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
   isProfileComplete: Boolean @scope(name: "whereProfileComplete")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   telephone: String @scope(name: "whereTelephone")
   email: String @scope(name: "whereEmail")
   workEmail: String @scope(name: "whereWorkEmail")
@@ -1510,7 +1512,8 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   notes: String @scope(name: "whereNotesLike")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
@@ -1582,7 +1585,8 @@ input TalentRequestMatchFilterInput {
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
   priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.

@@ -238,4 +238,10 @@ class TalentNominationGroup extends Model
     {
         return $query->with(['talentNominationEvent']);
     }
+
+    /** @return BelongsTo<Classification, $this> */
+    public function classificationAtTimeOfAdvancementApproval(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class);
+    }
 }
