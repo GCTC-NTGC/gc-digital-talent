@@ -434,7 +434,7 @@ jobs:
 
           {
             if [ -n "$HIGHLIGHTS" ]; then
-              echo "## Highlights"
+              echo "## 🌟 Highlights"
               echo ""
               printf "%s" "$HIGHLIGHTS"
               echo ""
