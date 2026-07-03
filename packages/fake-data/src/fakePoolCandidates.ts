@@ -59,34 +59,40 @@ const generatePoolCandidate = (
       ),
     ),
     expiryDate,
-    status: toLocalizedEnum(
-      faker.helpers.arrayElement<ApplicationStatus>(
-        Object.values(ApplicationStatus),
+    applicationStatusData: {
+      status: toLocalizedEnum(
+        faker.helpers.arrayElement<ApplicationStatus>(
+          Object.values(ApplicationStatus),
+        ),
       ),
-    ),
+      screeningStage: toLocalizedEnum(
+        faker.helpers.arrayElement<ScreeningStage>(
+          Object.values(ScreeningStage),
+        ),
+      ),
+      statusUpdatedAt: faker.date
+        .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+        .toISOString()
+        .substring(0, 10),
+      pauseReferralsAt: faker.date.past().toISOString(),
+      resumeReferralsAt: expiryDate,
+      pauseReferralsReason: faker.lorem.sentence(),
+    },
     archivedAt: faker.helpers.maybe(() =>
       faker.date.past().toISOString().substring(0, 10),
     ),
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
-    isFlagged: faker.datatype.boolean(0.2),
+    applicationAssessmentData: {
+      isFlagged: faker.datatype.boolean(0.2),
+    },
     generalQuestionResponses,
     screeningQuestionResponses,
-    screeningStage: toLocalizedEnum(
-      faker.helpers.arrayElement<ScreeningStage>(Object.values(ScreeningStage)),
-    ),
     assessmentStep: pool.assessmentSteps?.[0] ?? null,
     assessmentStatus: {
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     },
-    statusUpdatedAt: faker.date
-      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-      .toISOString()
-      .substring(0, 10),
-    pauseReferralsAt: faker.date.past().toISOString(),
-    resumeReferralsAt: expiryDate,
-    pauseReferralsReason: faker.lorem.sentence(),
   };
 };
 

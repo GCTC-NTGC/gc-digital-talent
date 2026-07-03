@@ -35,15 +35,17 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      statusUpdatedAt
-      candidateInterest {
-        value
-        label {
-          localized
+      applicationStatusData {
+        statusUpdatedAt
+        candidateInterest {
+          value
+          label {
+            localized
+          }
         }
-      }
-      status {
-        value
+        status {
+          value
+        }
       }
       pool {
         id
@@ -82,7 +84,8 @@ const ReviewRecruitmentProcessPreviewList = ({
 
   const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ status }) => status?.value === ApplicationStatus.Qualified,
+    ({ applicationStatusData }) =>
+      applicationStatusData?.status?.value === ApplicationStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
@@ -94,8 +97,9 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, statusUpdatedAt, candidateInterest } =
-              recruitmentProcess;
+            const { id, pool, applicationStatusData } = recruitmentProcess;
+            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
+            const candidateInterest = applicationStatusData?.candidateInterest;
             const interestChip = candidateInterestChip(candidateInterest);
 
             let applicationMetadata: PreviewMetaData[] = [];

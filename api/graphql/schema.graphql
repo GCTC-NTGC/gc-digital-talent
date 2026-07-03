@@ -612,6 +612,44 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
+type PoolCandidateAssessmentData {
+  notes: String
+  isFlagged: Boolean @rename(attribute: "is_flagged")
+
+  # claim verification
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
+type PoolCandidateStatusData {
+  status: LocalizedApplicationStatus @rename(attribute: "application_status")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusWeight: Int @rename(attribute: "status_weight")
+  screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
+  removalReason: LocalizedCandidateRemovalReason
+    @rename(attribute: "removal_reason")
+  removalReasonOther: String @rename(attribute: "removal_reason_other")
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
+  disqualificationReason: LocalizedDisqualificationReason
+    @rename(attribute: "disqualification_reason")
+  placementType: LocalizedPlacementType @rename(attribute: "placement_type")
+  placedAt: DateTime @rename(attribute: "placed_at")
+  placedDepartment: Department @belongsTo
+  placedStartDate: Date @rename(attribute: "placed_start_date")
+  placedEndDate: Date @rename(attribute: "placed_end_date")
+  isBeingReferred: Boolean
+  pauseReferralsAt: DateTime @rename(attribute: "pause_referrals_at")
+  resumeReferralsAt: DateTime @rename(attribute: "resume_referrals_at")
+  pauseReferralsReason: String @rename(attribute: "pause_referrals_reason")
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -620,32 +658,11 @@ type PoolCandidate {
   expiryDate: Date @rename(attribute: "expiry_date")
 
   category: PoolCandidateCategory @with(relation: "user")
-  status: LocalizedApplicationStatus
-    @rename(attribute: "application_status")
-    @canRoot(ability: "viewStatus")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
-  statusWeight: Int
-    @rename(attribute: "status_weight")
-    @canRoot(ability: "viewStatus")
-  screeningStage: LocalizedScreeningStage
-    @rename(attribute: "screening_stage")
-    @canRoot(ability: "viewStatus")
-  notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isFlagged: Boolean
-    @rename(attribute: "is_flagged")
-    @canRoot(ability: "viewNotes")
   isBookmarked: Boolean
-  removalReason: LocalizedCandidateRemovalReason
-    @rename(attribute: "removal_reason")
-    @canRoot(ability: "viewStatus")
-  removalReasonOther: String
-    @rename(attribute: "removal_reason_other")
-    @canRoot(ability: "viewStatus")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -663,6 +680,14 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  applicationStatusData: PoolCandidateStatusData
+    @canRoot(ability: "viewApplicationStatus")
+    @self
+  applicationAssessmentData: PoolCandidateAssessmentData
+    @canRoot(ability: "viewApplicationAssessment")
+    @self
+
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -671,49 +696,6 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  statusUpdatedAt: DateTime
-    @rename(attribute: "status_updated_at")
-    @canRoot(ability: "viewStatus")
-  disqualificationReason: LocalizedDisqualificationReason
-    @rename(attribute: "disqualification_reason")
-    @canRoot(ability: "viewStatus")
-  placementType: LocalizedPlacementType
-    @rename(attribute: "placement_type")
-    @canRoot(ability: "viewStatus")
-  placedAt: DateTime
-    @rename(attribute: "placed_at")
-    @canRoot(ability: "viewStatus")
-  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
-  placedStartDate: Date
-    @rename(attribute: "placed_start_date")
-    @canRoot(ability: "viewStatus")
-  placedEndDate: Date
-    @rename(attribute: "placed_end_date")
-    @canRoot(ability: "viewStatus")
-  isBeingReferred: Boolean
-  pauseReferralsAt: DateTime
-    @rename(attribute: "pause_referrals_at")
-    @canRoot(ability: "viewStatus")
-  resumeReferralsAt: DateTime
-    @rename(attribute: "resume_referrals_at")
-    @canRoot(ability: "viewStatus")
-  pauseReferralsReason: String
-    @rename(attribute: "pause_referrals_reason")
-    @canRoot(ability: "viewStatus")
-
-  # claim verification
-  veteranVerification: ClaimVerificationResult
-    @rename(attribute: "veteran_verification")
-    @canRoot(ability: "viewNotes")
-  veteranVerificationExpiry: Date
-    @rename(attribute: "veteran_verification_expiry")
-    @canRoot(ability: "viewNotes")
-  priorityVerification: ClaimVerificationResult
-    @rename(attribute: "priority_verification")
-    @canRoot(ability: "viewNotes")
-  priorityVerificationExpiry: Date
-    @rename(attribute: "priority_verification_expiry")
-    @canRoot(ability: "viewNotes")
 
   # special application fields
   specialApplicationType: LocalizedSpecialApplicationType
