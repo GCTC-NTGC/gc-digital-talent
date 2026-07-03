@@ -1,0 +1,877 @@
+<title>Canada Login Migration — Deployment Slot Architecture</title>
+
+<style>
+:root {
+  --ground: #0F1E2D;
+  --surface: #162738;
+  --surface-raised: #1E3347;
+  --text: #DCE8F0;
+  --text-muted: #7A9AB5;
+  --text-faint: #3D5A73;
+  --accent: #00C896;
+  --accent-dim: rgba(0,200,150,0.1);
+  --amber: #E8A030;
+  --amber-dim: rgba(232,160,48,0.1);
+  --red: #F05050;
+  --red-dim: rgba(240,80,80,0.1);
+  --border: rgba(220,232,240,0.08);
+  --border-strong: rgba(220,232,240,0.16);
+  --mono: ui-monospace,'Cascadia Code','Source Code Pro',Menlo,Consolas,monospace;
+  --sans: system-ui,-apple-system,'Segoe UI',Helvetica,sans-serif;
+  --max: 860px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--ground);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 2rem;}
+
+/* All headings in monospace — the deliberate choice */
+h1,h2,h3,h4{font-family:var(--mono);font-weight:600;letter-spacing:-0.02em;line-height:1.2;color:var(--text);}
+h1{font-size:clamp(1.9rem,5vw,3rem);}
+h2{font-size:1.35rem;}
+h3{font-size:0.95rem;font-weight:500;}
+h4{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);}
+
+p{color:var(--text-muted);margin-bottom:1rem;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--text);font-weight:600;}
+code{font-family:var(--mono);font-size:0.85em;background:rgba(220,232,240,0.06);padding:0.1em 0.35em;border-radius:2px;color:var(--text-muted);}
+a{color:var(--accent);text-decoration:none;}
+ul{color:var(--text-muted);font-size:0.88rem;padding-left:1.25rem;display:flex;flex-direction:column;gap:0.4rem;}
+
+/* ── HEADER ── */
+header{border-bottom:1px solid var(--border);padding:1.2rem 0;}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;}
+.brand{font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;}
+.brand em{color:var(--accent);font-style:normal;}
+.doc-badge{font-family:var(--mono);font-size:0.65rem;color:var(--text-faint);letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border-strong);padding:0.25em 0.65em;border-radius:2px;}
+
+/* ── HERO ── */
+#hero{padding:5rem 0 4rem;border-bottom:1px solid var(--border);}
+.eyebrow{font-family:var(--mono);font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem;display:flex;align-items:center;gap:0.75rem;}
+.eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--accent);}
+.hero-sub{font-size:1rem;color:var(--text-muted);max-width:540px;margin-bottom:3rem;}
+
+/* ── ARCH DIAGRAM ── */
+.arch-diagram{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2.5rem 2rem;position:relative;overflow:hidden;}
+.arch-diagram::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent) 0%,transparent 60%);}
+.arch-top{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2rem;flex-wrap:wrap;gap:0.5rem;}
+.arch-node{background:var(--surface-raised);border:1px solid var(--border-strong);border-radius:4px;padding:0.9rem 1.1rem;font-family:var(--mono);font-size:0.75rem;text-align:center;min-width:140px;}
+.arch-node.green{border-color:rgba(0,200,150,0.4);}
+.arch-node.amber{border-color:rgba(232,160,48,0.4);}
+.arch-node-eyebrow{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:0.3rem;}
+.arch-node-name{color:var(--text);font-weight:600;margin-bottom:0.25rem;}
+.arch-node-detail{color:var(--text-faint);font-size:0.68rem;word-break:break-all;}
+.arch-node-detail.green{color:var(--accent);}
+.arch-node-detail.amber{color:var(--amber);}
+
+/* Traffic connector */
+.connector{display:flex;flex-direction:column;align-items:center;gap:0.2rem;padding:0 0.5rem;}
+.conn-line{height:1px;width:70px;background:var(--border-strong);position:relative;overflow:visible;}
+.conn-line::after{content:'▶';position:absolute;right:-9px;top:-8px;font-size:0.65rem;color:var(--text-faint);}
+.traffic-dot{width:5px;height:5px;background:var(--accent);border-radius:50%;position:absolute;top:-2px;left:0;animation:flow 2.4s linear infinite;}
+.traffic-dot.d2{animation-delay:1.2s;}
+@keyframes flow{0%{left:0;opacity:0;}6%{opacity:1;}94%{opacity:1;}100%{left:calc(100% - 5px);opacity:0;}}
+@media(prefers-reduced-motion:reduce){.traffic-dot{display:none;}}
+.conn-label{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.06em;}
+
+/* Slot pair */
+.arch-slots{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;margin-top:0.5rem;}
+.swap-col{display:flex;flex-direction:column;align-items:center;gap:0.3rem;}
+.swap-icon{font-size:1.1rem;color:var(--accent);opacity:0.55;animation:pulse 3s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:0.35;}50%{opacity:0.75;}}
+@media(prefers-reduced-motion:reduce){.swap-icon{animation:none;opacity:0.55;}}
+.swap-label{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.08em;text-transform:uppercase;}
+.arch-divider{border:none;border-top:1px dashed var(--border);margin:1.5rem 0;}
+.arch-db{display:flex;justify-content:center;margin-top:1rem;}
+.db-node{background:var(--surface-raised);border:1px solid var(--border-strong);border-radius:4px;padding:0.75rem 1.5rem;font-family:var(--mono);font-size:0.72rem;text-align:center;min-width:300px;}
+.db-label{font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);margin-bottom:0.25rem;}
+.db-name{color:var(--text);font-weight:600;margin-bottom:0.15rem;}
+.db-note{color:var(--text-faint);font-size:0.65rem;}
+
+/* ── SECTIONS ── */
+section{padding:4rem 0;border-bottom:1px solid var(--border);}
+.section-tag{font-family:var(--mono);font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.6rem;}
+.section-header{margin-bottom:2.5rem;}
+.section-desc{font-size:0.92rem;max-width:580px;}
+
+/* ── SLOT CARDS ── */
+.slot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2.5rem;}
+@media(max-width:600px){.slot-grid{grid-template-columns:1fr;}}
+.slot-card{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:1.5rem;}
+.slot-card.main{border-top:2px solid var(--accent);}
+.slot-card.pilot{border-top:2px solid var(--amber);}
+.slot-badge{display:inline-block;font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.2em 0.5em;border-radius:2px;margin-bottom:0.9rem;}
+.slot-badge.main{background:var(--accent-dim);color:var(--accent);}
+.slot-badge.pilot{background:var(--amber-dim);color:var(--amber);}
+.slot-card h3{margin-bottom:1rem;}
+.slot-row{display:flex;flex-direction:column;gap:0.1rem;margin-bottom:0.7rem;}
+.slot-key{font-family:var(--mono);font-size:0.58rem;color:var(--text-faint);letter-spacing:0.1em;text-transform:uppercase;}
+.slot-val{font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);word-break:break-all;}
+
+/* ── TABLES ── */
+.data-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin:1rem 0 1.5rem;}
+.data-table th{text-align:left;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);}
+.data-table td{padding:0.65rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:top;}
+.data-table tr:last-child td{border-bottom:none;}
+.data-table .t-name{font-family:var(--mono);font-size:0.78rem;color:var(--accent);white-space:nowrap;}
+.data-table .t-desc{color:var(--text-muted);}
+.badge{display:inline-block;font-family:var(--mono);font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.15em 0.45em;border-radius:2px;border:1px solid;}
+.badge.slot{border-color:var(--amber);color:var(--amber);}
+.badge.shared{border-color:var(--text-faint);color:var(--text-faint);}
+
+/* ── LIFECYCLE STEPS ── */
+.lifecycle{position:relative;}
+.lifecycle::before{content:'';position:absolute;left:1.1rem;top:2rem;bottom:2rem;width:1px;background:var(--border);}
+.step{display:grid;grid-template-columns:3.2rem 1fr;gap:1.25rem;padding:1.2rem 0;}
+.step-n{font-family:var(--mono);font-size:0.62rem;font-weight:700;color:var(--accent);background:var(--surface);border:1px solid var(--border);border-radius:50%;width:2.2rem;height:2.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;}
+.step-body h3{padding-top:0.3rem;margin-bottom:0.35rem;}
+.step-body p{font-size:0.86rem;}
+
+/* ── CODE BLOCKS ── */
+.code{background:#080F18;border:1px solid var(--border);border-radius:4px;padding:1rem 1.25rem;font-family:var(--mono);font-size:0.76rem;color:var(--text-muted);overflow-x:auto;margin:0.75rem 0;line-height:1.65;}
+.code .cm{color:var(--text-faint);}
+.code .pr{color:var(--accent);user-select:none;}
+.code .kw{color:var(--amber);}
+.code .st{color:#85C1A0;}
+
+/* ── CALLOUTS ── */
+.callout{border-left:3px solid;padding:1rem 1.25rem;border-radius:0 4px 4px 0;margin:1.25rem 0;font-size:0.88rem;}
+.callout.warn{border-color:var(--amber);background:var(--amber-dim);}
+.callout.info{border-color:var(--accent);background:var(--accent-dim);}
+.callout.danger{border-color:var(--red);background:var(--red-dim);}
+.callout-label{font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.4rem;}
+.callout.warn .callout-label{color:var(--amber);}
+.callout.info .callout-label{color:var(--accent);}
+.callout.danger .callout-label{color:var(--red);}
+
+/* ── BG DIAGRAM ── */
+.bg-diagram{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2rem;margin:2rem 0;}
+.bg-flow{display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;align-items:start;}
+@media(max-width:560px){.bg-flow{grid-template-columns:1fr;}.bg-divider{display:none;}}
+.bg-slot{background:var(--surface-raised);border:1px solid var(--border);border-radius:4px;padding:1.25rem;font-family:var(--mono);font-size:0.76rem;}
+.bg-slot.live{border-top:2px solid var(--accent);}
+.bg-slot.staging{border-top:2px solid var(--amber);}
+.bg-slot-tag{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;}
+.bg-slot.live .bg-slot-tag{color:var(--accent);}
+.bg-slot.staging .bg-slot-tag{color:var(--amber);}
+.bg-slot-name{color:var(--text);font-weight:600;margin-bottom:0.2rem;}
+.bg-slot-state{color:var(--text-faint);font-size:0.68rem;}
+.bg-slot-note{margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid var(--border);font-size:0.65rem;color:var(--text-faint);}
+.bg-divider{display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:2.5rem;gap:0.3rem;}
+.bg-swap-icon{font-size:1.3rem;color:var(--accent);animation:pulse 3s ease-in-out infinite;}
+.bg-swap-label{font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(10px);transition:opacity 0.45s ease,transform 0.45s ease;}
+.reveal.on{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
+
+/* ── FOOTER ── */
+footer{padding:3rem 0;text-align:center;}
+footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text-faint);}
+</style>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <div class="brand">GC<em>·</em>Digital Talent</div>
+      <div class="doc-badge">Technical Reference</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="eyebrow">Azure App Service · Production</div>
+    <h1>Canada Login Migration<br>via Deployment Slots</h1>
+    <p class="hero-sub">
+      How GC Digital Talent de-risked the Canada Login migration in production —
+      phasing access through platform admins and power users before general public rollout,
+      and how to replicate this pattern for other government organizations.
+    </p>
+
+    <div class="arch-diagram reveal">
+      <div style="text-align:center;margin-bottom:1.5rem;">
+        <span style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint);">
+          Production Azure App Service
+        </span>
+      </div>
+
+      <!-- Internet → App Service -->
+      <div class="arch-top">
+        <div class="arch-node">
+          <div class="arch-node-eyebrow">Incoming</div>
+          <div class="arch-node-name">Internet</div>
+        </div>
+        <div class="connector">
+          <div class="conn-line" style="position:relative;width:80px;">
+            <div class="traffic-dot"></div>
+            <div class="traffic-dot d2"></div>
+          </div>
+          <div class="conn-label">HTTPS · DNS routing</div>
+        </div>
+        <div class="arch-node">
+          <div class="arch-node-eyebrow">Azure</div>
+          <div class="arch-node-name">App Service Front End</div>
+          <div class="arch-node-detail">CNAME per custom domain</div>
+        </div>
+      </div>
+
+      <hr class="arch-divider">
+
+      <!-- Two slots -->
+      <div class="arch-slots">
+        <div class="arch-node amber">
+          <div class="arch-node-eyebrow">Pilot Slot · Deployed First</div>
+          <div class="arch-node-name">Admins &amp; Power Users</div>
+          <div class="arch-node-detail amber">talentcloud-pilot.canada.ca</div>
+          <div class="arch-node-detail" style="margin-top:0.5rem;">Separate CL OAuth client · JWT</div>
+        </div>
+        <div class="swap-col">
+          <div style="font-family:var(--mono);font-size:0.62rem;color:var(--text-faint);letter-spacing:0.08em;text-transform:uppercase;writing-mode:vertical-rl;padding:0.5rem 0;">independent deployments</div>
+        </div>
+        <div class="arch-node green">
+          <div class="arch-node-eyebrow">Main Slot · Deployed After</div>
+          <div class="arch-node-name">General Public</div>
+          <div class="arch-node-detail green">talentcloud.canada.ca</div>
+          <div class="arch-node-detail" style="margin-top:0.5rem;">Separate CL OAuth client · JWT</div>
+        </div>
+      </div>
+
+      <!-- Shared DB -->
+      <div class="arch-db">
+        <div class="db-node">
+          <div class="db-label">Shared · Production</div>
+          <div class="db-name">PostgreSQL Database</div>
+          <div class="db-note">One database, both slots — a user authenticated through either slot resolves to the same record</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01 SLOT CONFIGURATION -->
+<section id="config">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">01 — Current Setup</div>
+      <h2>Slot configuration</h2>
+      <p class="section-desc">
+        Two production slots run side by side on the same App Service. Platform admins and power users
+        onboarded to Canada Login through the pilot slot first — issues surfaced and resolved there
+        before general public traffic was ever touched.
+      </p>
+    </div>
+
+    <div class="slot-grid reveal">
+      <div class="slot-card main">
+        <div class="slot-badge main">Main · Production</div>
+        <h3>Main slot</h3>
+        <div class="slot-row">
+          <span class="slot-key">Audience</span>
+          <span class="slot-val">General public (migrated after pilot validated)</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">OAuth Client</span>
+          <span class="slot-val">Dedicated CL client (JWT access tokens)</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">Startup Command</span>
+          <span class="slot-val">post_deployment.sh &lt;slack_webhook&gt;</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">nginx port</span>
+          <span class="slot-val">8080 (HTTPS)</span>
+        </div>
+      </div>
+
+      <div class="slot-card pilot">
+        <div class="slot-badge pilot">Pilot · CL Migration</div>
+        <h3>Pilot slot</h3>
+        <div class="slot-row">
+          <span class="slot-key">Audience</span>
+          <span class="slot-val">Platform admins → power users (phased)</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">OAuth Client</span>
+          <span class="slot-val">Dedicated CL client (JWT access tokens)</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">Startup Command</span>
+          <span class="slot-val">post_deployment.sh &lt;slack_webhook&gt;</span>
+        </div>
+        <div class="slot-row">
+          <span class="slot-key">nginx port</span>
+          <span class="slot-val">8080 (HTTPS)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h4 style="margin-bottom:1rem;">Slot-specific App Settings</h4>
+      <p style="font-size:0.85rem;margin-bottom:1rem;">
+        Tick <strong>Deployment slot setting</strong> in Azure Portal for each of these.
+        They are pinned to the slot — each slot maintains its own independent configuration and is deployed to separately.
+      </p>
+      <table class="data-table">
+        <thead>
+          <tr><th>Variable</th><th>What it controls</th><th>Scope</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name">APP_URL</td>
+            <td class="t-desc">Laravel app URL — must match the slot's custom domain exactly, no trailing slash. A trailing slash bakes into the config cache and produces double-slash redirects.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">OAUTH_CLIENT_ID</td>
+            <td class="t-desc">Canada Login client ID for this slot. Validated against the <code>aud</code> claim in every incoming JWT. The pilot slot's value must differ from the main slot's.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">OAUTH_CLIENT_SECRET</td>
+            <td class="t-desc">Client secret for this slot's CL registration. Separate credential, separate rotation cycle.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">OAUTH_REDIRECT_URI</td>
+            <td class="t-desc">OAuth callback URL — must match a redirect URI registered with CL for this client. Both <code>/en/auth/callback</code> and <code>/fr/auth/callback</code> should be registered.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">DEPLOYMENT_SLOT_NAME</td>
+            <td class="t-desc">Used as the Laravel queue name for this slot's workers. Must be unique per slot. Without this, workers from one slot pick up jobs dispatched by the other — because both slots connect to the same Redis/queue backend. This caused a production download failure before the fix was applied.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">SLACK_WEBHOOK_URI</td>
+            <td class="t-desc">Passed to <code>post_deployment.sh</code> as <code>$1</code>. Receives step-by-step deployment status. Route pilot deploys to a different Slack channel than main.</td>
+            <td><span class="badge slot">slot</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">DATABASE_URL</td>
+            <td class="t-desc">PostgreSQL connection string. Both slots share one database in the current setup — changes made in either slot's deployment affect both immediately.</td>
+            <td><span class="badge shared">shared</span></td>
+          </tr>
+          <tr>
+            <td class="t-name">OAUTH_DISCOVERY_URI</td>
+            <td class="t-desc">Canada Login OIDC discovery endpoint. Same across slots in the same CL environment (UAT or production).</td>
+            <td><span class="badge shared">shared</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 02 POST-DEPLOYMENT LIFECYCLE -->
+<section id="lifecycle">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">02 — Deployment</div>
+      <h2>Post-deployment lifecycle</h2>
+      <p class="section-desc">
+        <code>infrastructure/bin/post_deployment.sh</code> runs as the startup command on every deployment.
+        Steps are sequential and idempotent — re-running on an already-deployed slot is safe.
+        Each step's outcome is reported to Slack.
+      </p>
+    </div>
+
+    <div class="lifecycle reveal">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div class="step-body">
+          <h3>Remove stale nginx apt source</h3>
+          <p>Deletes <code>/etc/apt/sources.list.d/nginx.list</code> — a bad file shipped in the base image that breaks <code>apt-get update</code>. Can be removed from the script once the base image is updated.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div class="step-body">
+          <h3>Configure PHP CLI memory limit</h3>
+          <p>Writes <code>memory_limit=256M</code> to a drop-in config file using overwrite (not append), so re-runs don't accumulate duplicate directives.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div class="step-body">
+          <h3>Install runtime packages</h3>
+          <p>Installs <code>supervisor</code>, <code>cron</code>, and <code>postgresql-client</code> via apt. These are absent from the base image and required for queue workers, the scheduler, and DB connectivity.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div class="step-body">
+          <h3>Laravel optimize</h3>
+          <p>Creates storage directories, sets permissions, prints the Lighthouse GraphQL schema, then runs <code>php artisan optimize</code> to compile the config, route, and view caches.</p>
+          <div class="callout warn">
+            <div class="callout-label">Config cache bakes env vars at this moment</div>
+            <p>If <code>APP_URL</code> has a trailing slash in App Settings when optimize runs, it appears in the cache with a trailing slash — causing double-slash redirects throughout the app. Fix the App Setting first, then run <code>php artisan config:clear &amp;&amp; php artisan optimize</code> in the slot's SSH session.</p>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">05</div>
+        <div class="step-body">
+          <h3>Database migrations</h3>
+          <p>Runs <code>php artisan migrate --force --no-interaction</code> against the shared PostgreSQL database. Output is captured and forwarded to Slack (capped at 2 500 characters). Because both slots share the DB, migrations run here affect live traffic immediately.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">06</div>
+        <div class="step-body">
+          <h3>RolePermission seeder</h3>
+          <p>Syncs role and permission records to match the current codebase definition. Safe to re-run — upserts, does not delete user role assignments.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">07</div>
+        <div class="step-body">
+          <h3>Laravel Scheduler cron</h3>
+          <p>Writes (overwrites) <code>/etc/cron.d/gc-digital-talent</code> — runs <code>php artisan schedule:run</code> every minute as <code>www-data</code>. Overwrite-on-run keeps it idempotent.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">08</div>
+        <div class="step-body">
+          <h3>Supervisor setup</h3>
+          <p>Runs <code>setup_supervisor.sh</code> — registers Laravel Horizon (queue workers) and Reverb (WebSockets) under supervisord, then starts the supervisor daemon.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">09</div>
+        <div class="step-body">
+          <h3>nginx config reload</h3>
+          <p>Substitutes <code>$NGINX_PORT</code>, <code>$ROBOTS_FILENAME</code>, and <code>$HTTP_DISGUISED_HOST</code> into the nginx config via <code>substitute_file.sh</code>, then reloads nginx. The CSP nonce placeholder (<code>**CSP_NONCE**</code>) — injected by Vite at build time — is handled separately by an nginx <code>sub_filter</code> at request-serve time.</p>
+          <div class="code">
+<span class="cm"># Verify nginx is up in the slot's SSH session</span>
+<span class="pr">$ </span>curl -sk https://localhost:8080/ | head -3</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-n">10</div>
+        <div class="step-body">
+          <h3>Frontend env substitution</h3>
+          <p>Runs <code>substitute_file.sh</code> on <code>apps/web/dist/client/index.html</code> with no variable list — replacing all environment variable placeholders with their live values. This is how <code>APP_URL</code>, <code>OAUTH_CLIENT_ID</code>, and other client-visible config reach the SPA without a frontend rebuild per environment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 CANADA LOGIN -->
+<section id="canada-login">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">03 — Identity</div>
+      <h2>Canada Login OAuth requirements</h2>
+      <p class="section-desc">
+        Both slots connect to the same database. A user who logs in through the pilot slot and again
+        through the main slot must resolve to the same database record — same roles, same profile, same history.
+        This makes <strong>sub consistency a hard architectural requirement</strong>, not just a configuration detail.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="callout danger">
+        <div class="callout-label">Architectural requirement — consistent sub across clients</div>
+        <p>
+          Because both slots share one database, the user record is the join point between them.
+          Canada Login must return the <strong>same <code>sub</code> identifier</strong> for a given person
+          regardless of which OAuth client they authenticated through. If Canada Login is configured
+          for pairwise subjects (different <code>sub</code> per client), a user logging in through the
+          pilot slot creates a separate database row — different from their main-slot record — with no
+          role assignments. They appear unauthorized even after a successful login.
+          Request <strong>public subject type</strong> (shared <code>sub</code>) explicitly when registering
+          any new OAuth client for a slot.
+        </p>
+      </div>
+
+      <table class="data-table" style="margin-top:1.5rem;">
+        <thead>
+          <tr><th>Requirement</th><th>Failure mode if missing</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">JWT access tokens</td>
+            <td class="t-desc"><code>isTokenProbablyExpired.ts</code> calls <code>jwtDecode()</code> on every access token. Opaque tokens are not valid JWTs — the decode throws, the frontend treats the token as expired, no <code>Authorization</code> header is sent, and the backend returns null for every authenticated query. Request JWT tokens explicitly when registering the client with the CL team.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Matching OAUTH_CLIENT_ID</td>
+            <td class="t-desc"><code>CanadaLoginBearerTokenService::validateAndGetClaims()</code> validates the JWT <code>aud</code> claim against the <code>OAUTH_CLIENT_ID</code> App Setting. If the slot's setting holds the wrong client ID, every JWT is rejected with a validation failure — the user is authenticated at CL but unauthorized in the app.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Shared sub across slots</td>
+            <td class="t-desc">The user record in the shared database is keyed on <code>sub</code>. Role assignments, profile data, and application history all attach to that record. Because both slots read from the same database, a user logging in through the pilot slot must produce the same <code>sub</code> as they would through the main slot — otherwise they land on a blank record with no roles and appear unauthorized. This is the consequence of the shared-DB design and is non-negotiable.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Registered redirect URIs</td>
+            <td class="t-desc">Both <code>/en/auth/callback</code> and <code>/fr/auth/callback</code> on the slot's domain must be registered with CL. A mismatch causes the OAuth flow to fail at the CL side before the app is involved.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SHARED INFRA ANALYSIS -->
+<section id="shared-infra">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">03b — Shared Infrastructure</div>
+      <h2>Analysing slot isolation before you replicate</h2>
+      <p class="section-desc">
+        Slots share a database but each has its own local filesystem.
+        This combination produced a silent production failure with file downloads.
+        The fix — <code>DEPLOYMENT_SLOT_NAME</code> as a unique queue name — is the pattern
+        to apply whenever slots share a queue backend but not a filesystem.
+        Before replicating this architecture, run the same analysis for every shared resource.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <div class="callout danger">
+        <div class="callout-label">Lesson learned — filesystem locality + shared queue</div>
+        <p>
+          Both slots share the same queue backend. Workers on either slot race to pick up every dispatched job.
+          The problem: each slot has its own local filesystem. So what happened with large file downloads:
+        </p>
+        <ol style="color:var(--text-muted);font-size:0.86rem;padding-left:1.25rem;margin-top:0.75rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <li>Job inserted into the DB queue — dispatched from the main slot</li>
+          <li>A free worker on the <em>pilot slot</em> raced and won the job</li>
+          <li>The file was written to the <strong>pilot slot's local filesystem</strong></li>
+          <li>The success notification was stored in the <strong>shared database</strong></li>
+          <li>The main slot (serving 100% of traffic) read the notification from the DB and showed the download link — but the file existed on a different machine's disk</li>
+          <li>User clicks download → 404. Logs also missing, because they were written to the other slot.</li>
+        </ol>
+        <p style="margin-top:0.75rem;">
+          <strong>Fix:</strong> <code>DEPLOYMENT_SLOT_NAME</code> set to a unique value per slot, used as the Laravel queue name.
+          Workers only consume from their own named queue — jobs dispatched on a slot are always processed
+          by that slot's own workers, and the generated file lands on the same filesystem the user is served from.
+        </p>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.5rem;">
+        <div class="callout-label">Known follow-up — queue priorities for long-running jobs</div>
+        <p>
+          File generation jobs share the same queue as short-lived jobs (emails, notifications, subscriptions).
+          Because the file generation timeout was bumped to handle large datasets, <code>retry_after</code> must be set
+          higher than that timeout — which means all jobs on the same queue, including fast ones, sit in the retry window
+          longer than necessary if a worker crashes mid-file.
+        </p>
+        <p style="margin-top:0.6rem;">
+          The right fix is a <strong>separate named queue for long-running jobs</strong> with its own higher timeout,
+          while short-lived jobs stay on a standard queue with a short retry window.
+          Workers can be given queue priority order so they drain urgent work first:
+        </p>
+        <div style="background:#080F18;border:1px solid var(--border);border-radius:4px;padding:0.85rem 1.1rem;font-family:var(--mono);font-size:0.75rem;color:var(--text-muted);margin-top:0.75rem;overflow-x:auto;">
+          <span style="color:var(--text-faint);"># Workers check 'high' queue first, then fall through to 'default', then 'low'</span><br>
+          <span style="color:var(--accent);">$ </span>php artisan queue:work --queue=high,default,low
+        </div>
+        <p style="margin-top:0.6rem;">
+          Both queue names should still incorporate <code>DEPLOYMENT_SLOT_NAME</code> as a prefix to maintain slot isolation
+          — e.g. <code>pilot-high</code>, <code>pilot-default</code>.
+        </p>
+      </div>
+
+      <h4 style="margin:2rem 0 1rem;">Shared-infrastructure checklist for any slot architecture</h4>
+      <p style="font-size:0.88rem;margin-bottom:1.25rem;">
+        For each resource both slots share, ask: <em>can a request or job from one slot be processed or served by the other, and would that be incorrect?</em>
+        If yes, you need slot-level isolation for that resource.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Shared resource</th><th>Risk if not isolated</th><th>Isolation strategy</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Queue backend (Redis / DB)</td>
+            <td class="t-desc">Workers on either slot race to pick up every job. Each slot has its own local filesystem. A job that writes a file on slot B is invisible to slot A — the user sees a download link (from the shared DB notification) but gets a 404 (file on the wrong disk). <strong>We hit this.</strong></td>
+            <td class="t-desc"><code>DEPLOYMENT_SLOT_NAME</code> as the Laravel queue name, unique per slot. Workers only consume their own slot's queue.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Database</td>
+            <td class="t-desc">A user logging in through the pilot slot creates a separate record if their <code>sub</code> differs — mismatched identity, missing roles. <strong>We hit this too.</strong></td>
+            <td class="t-desc">Canada Login public subject type — same <code>sub</code> across all clients. No DB-level change needed once CL is configured correctly.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Redis cache</td>
+            <td class="t-desc">One slot caches a response that the other slot serves — stale or wrong-version data returned to users.</td>
+            <td class="t-desc">Cache key prefix per slot: <code>CACHE_PREFIX={DEPLOYMENT_SLOT_NAME}</code> in Laravel config.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Blob / file storage</td>
+            <td class="t-desc">Generated files (exports, uploads) written by one slot are readable by the other — version conflicts, overwritten outputs.</td>
+            <td class="t-desc">Storage path prefix or container per slot using <code>DEPLOYMENT_SLOT_NAME</code>.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Session store</td>
+            <td class="t-desc">A session created on the pilot slot is resumed on the main slot — auth state mismatch, unexpected logouts.</td>
+            <td class="t-desc">If sessions are in Redis, apply the same key-prefix strategy as cache. Or use database sessions (already isolated by the shared-DB design).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 04 REPLICATION -->
+<section id="replication">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">04 — Replication</div>
+      <h2>Deploying this pattern for another organization</h2>
+      <p class="section-desc">
+        A step-by-step guide for replicating this phased migration model in another government
+        organization's production Azure App Service. The pilot slot approach lets you validate
+        Canada Login with a small internal audience before any public-facing traffic is affected.
+      </p>
+    </div>
+
+    <div class="lifecycle reveal">
+      <div class="step">
+        <div class="step-n">1</div>
+        <div class="step-body">
+          <h3>Create the App Service slot</h3>
+          <p>In Azure Portal: App Service → Deployment slots → Add slot. Name it <code>cl-pilot</code>. Select <em>Do not clone settings</em> — you will configure them independently to avoid inheriting the wrong OAuth values.</p>
+          <div class="code">
+<span class="cm"># Or via Azure CLI</span>
+<span class="pr">$ </span>az webapp deployment slot create \
+    --name &lt;app-service-name&gt; \
+    --resource-group &lt;rg-name&gt; \
+    --slot cl-pilot</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">2</div>
+        <div class="step-body">
+          <h3>Configure slot-specific App Settings</h3>
+          <p>Portal → cl-pilot → Configuration → Application settings. Add these five and tick <strong>Deployment slot setting</strong> on each:</p>
+          <div class="code">
+APP_URL                =  https://&lt;pilot-custom-domain&gt;
+OAUTH_CLIENT_ID        =  &lt;cl-pilot-client-id&gt;
+OAUTH_CLIENT_SECRET    =  &lt;cl-pilot-client-secret&gt;
+OAUTH_REDIRECT_URI     =  https://&lt;pilot-custom-domain&gt;/auth/callback
+SLACK_WEBHOOK_URI      =  &lt;pilot-slack-channel-webhook&gt;</div>
+          <div class="callout info">
+            <div class="callout-label">Tip</div>
+            <p>All other settings — database URL, mail config, CL discovery URI — should <em>not</em> be marked slot-specific. They inherit from the parent App Service and are shared across both slots.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">3</div>
+        <div class="step-body">
+          <h3>Set the startup command</h3>
+          <p>Portal → cl-pilot → Configuration → General settings → Startup Command:</p>
+          <div class="code">post_deployment.sh $(SLACK_WEBHOOK_URI)</div>
+          <p>The script is included in the deployment artifact at <code>infrastructure/bin/post_deployment.sh</code>. Azure passes this to the container init process on every deployment and restart.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">4</div>
+        <div class="step-body">
+          <h3>Register a Canada Login client for the pilot slot</h3>
+          <p>
+            Both slots share one database, so a user must resolve to the same record regardless of which slot they log in through.
+            The CL client registration must reflect this. Contact the Canada Login team with these explicit requirements:
+          </p>
+          <ul style="margin-top:0.5rem;">
+            <li>Subject type: <strong>public</strong> — shared <code>sub</code> across all clients for your organization. Not pairwise. This is mandatory for the shared-DB architecture to work correctly.</li>
+            <li>Access token format: <strong>JWT</strong> (not opaque / reference tokens)</li>
+            <li>Redirect URIs: <code>https://&lt;pilot-domain&gt;/en/auth/callback</code> and <code>/fr/auth/callback</code></li>
+            <li>Scopes: same as the organization's main production CL client</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">5</div>
+        <div class="step-body">
+          <h3>Add the custom domain and TLS</h3>
+          <p>Add the pilot domain as a custom hostname on the <code>cl-pilot</code> slot. Add a CNAME from your pilot subdomain to the slot's default Azure hostname (<code>&lt;app&gt;-cl-pilot.azurewebsites.net</code>). Bind TLS — App Service Managed Certificate works for non-production slots.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">6</div>
+        <div class="step-body">
+          <h3>Deploy the artifact to the pilot slot</h3>
+          <p>In your Azure DevOps pipeline, add a deployment step targeting the slot by name. The build artifact is the same zip produced by the existing pipeline — no separate build needed.</p>
+          <div class="code">
+<span class="kw">- task:</span> AzureWebApp@1
+  <span class="kw">displayName:</span> <span class="st">'Deploy to CL pilot slot'</span>
+  <span class="kw">inputs:</span>
+    azureSubscription: <span class="st">'$(AZURE_SUBSCRIPTION)'</span>
+    appType: webAppLinux
+    appName: <span class="st">'&lt;your-app-service-name&gt;'</span>
+    deployToSlotOrASE: <span class="kw">true</span>
+    resourceGroupName: <span class="st">'$(RESOURCE_GROUP)'</span>
+    slotName: <span class="st">'cl-pilot'</span>
+    package: <span class="st">'$(Pipeline.Workspace)/gcDigitalTalent/*.zip'</span>
+    startUpCommand: <span class="st">'post_deployment.sh $(SLACK_WEBHOOK_URI)'</span></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-n">7</div>
+        <div class="step-body">
+          <h3>Verify the deployment</h3>
+          <p>SSH into the pilot slot and confirm post-deployment completed cleanly:</p>
+          <div class="code">
+<span class="cm"># Confirm APP_URL has no trailing slash in config cache</span>
+<span class="pr">$ </span>cd /home/site/wwwroot/api && php artisan config:show app | grep url
+
+<span class="cm"># Confirm nginx is serving</span>
+<span class="pr">$ </span>curl -sk https://localhost:8080/ | head -3
+
+<span class="cm"># Confirm the OAuth client ID in the config cache</span>
+<span class="pr">$ </span>php artisan config:show services | grep oauth</div>
+          <div class="callout warn">
+            <div class="callout-label">Common issue — double-slash redirect</div>
+            <p>If login redirects to <code>//en/applicant</code>, the config cache has a trailing slash in APP_URL. Fix the App Setting, then SSH in and run: <code>php artisan config:clear &amp;&amp; php artisan optimize</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 DEPLOYMENT MODEL -->
+<section id="deployment-model">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-tag">05 — Deployment Model</div>
+      <h2>Phased migration — not blue-green, not a slot swap</h2>
+      <p class="section-desc">
+        This architecture is a <strong>phased migration model</strong>. Each slot is an independent deployment target
+        with its own CI/CD pipeline step. There is no slot swap. Users are not randomly split — they are deliberately
+        onboarded group by group through a separate domain until the full migration is validated.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <h4 style="margin-bottom:1.25rem;">How the phased rollout worked</h4>
+      <p style="font-size:0.88rem;margin-bottom:1.5rem;">
+        The goal was to migrate users to Canada Login gradually, with each group validating the integration
+        before the next group onboarded. Issues surfaced and were resolved at each phase — the general public
+        never experienced the bugs that earlier groups uncovered.
+      </p>
+
+      <div class="lifecycle">
+        <div class="step">
+          <div class="step-n">1</div>
+          <div class="step-body">
+            <h3>Pilot slot deployed and configured</h3>
+            <p>The <code>cl-pilot</code> slot was created on the existing App Service. A separate Canada Login OAuth client was registered for the pilot domain. The same application code was deployed to both slots — the only difference was the slot-specific configuration (OAuth client, <code>APP_URL</code>, <code>DEPLOYMENT_SLOT_NAME</code>).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <div class="step-body">
+            <h3>Phase 1 — Platform admins</h3>
+            <p>Internal platform administrators were directed to the pilot domain. They authenticated through Canada Login on the pilot slot while general public traffic continued unaffected on the main slot. Issues found at this phase: opaque tokens (resolved by CL team), <code>sub</code> mismatch (CL configured pairwise instead of public — resolved), double-slash redirect (trailing slash in <code>APP_URL</code> — resolved in config).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <div class="step-body">
+            <h3>Phase 2 — Power users</h3>
+            <p>After the admin phase was stable, power users were onboarded to the pilot slot. This broadened the test surface — more varied workflows, more edge cases — while still keeping the general public on the unaffected main slot. The filesystem/queue race condition surfaced and was resolved at this phase (PR #16924).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <div class="step-body">
+            <h3>Phase 3 — General public (main slot)</h3>
+            <p>With all known issues resolved, the main slot was migrated to Canada Login. The general public onboarded to CL through the main domain. The migration was smooth — every failure mode had already been caught and fixed in the pilot phase. The pilot slot remained available as a staging environment for future CL-related testing.</p>
+          </div>
+        </div>
+      </div>
+
+      <h4 style="margin:2.5rem 0 1.25rem;">Why this is not blue-green deployment</h4>
+
+      <table class="data-table" style="margin-bottom:1.5rem;">
+        <thead>
+          <tr><th></th><th>This architecture</th><th>True blue-green</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Database</td>
+            <td class="t-desc">Both slots share one PostgreSQL database. A schema migration deployed to either slot affects both immediately. There is no isolation at the data layer.</td>
+            <td class="t-desc">Each environment has its own independent database. The green environment can run a different schema version from blue without affecting live data.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Code versions</td>
+            <td class="t-desc">Both slots run the same codebase. Deploying a new version to the pilot slot makes that version query the same shared database as the main slot — incompatible schema changes would break the main slot immediately.</td>
+            <td class="t-desc">Blue and green can run entirely different application versions, including schema-incompatible changes. Rollback reverts both the code and the data layer.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Traffic routing</td>
+            <td class="t-desc">Users are deliberately directed to a slot by domain — platform admins to the pilot domain, public to the main domain. There is no automatic traffic split or atomic cut-over.</td>
+            <td class="t-desc">Traffic is atomically switched from blue to green. All users hit the new environment at once. Rollback is a second atomic switch.</td>
+          </tr>
+          <tr>
+            <td class="t-name" style="color:var(--text);white-space:normal;">Rollback</td>
+            <td class="t-desc">Rolling back to the previous configuration requires a redeployment. Database migrations applied during deployment are not reverted — they must be designed to be backward-compatible.</td>
+            <td class="t-desc">Rollback is instant — switch traffic back to blue. The blue database is still in the pre-migration state. No redeployment required.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout info">
+        <div class="callout-label">Why this model was the right choice for CL migration</div>
+        <p>
+          The goal was not to run two different versions of the application simultaneously — it was to
+          <strong>validate Canada Login integration with a real but controlled user group</strong> before
+          exposing the general public to it. A separate database per slot would have complicated user identity
+          (the <code>sub</code> consistency requirement) without adding any benefit. The shared-DB model
+          is the correct choice here: one database means one source of truth, and a user who logs in
+          through either slot is always the same person with the same roles and history.
+          The slot exists to give a controlled group of users a separately-configured OAuth entry point —
+          not to run a different codebase.
+        </p>
+      </div>
+
+      <div class="callout warn" style="margin-top:1.25rem;">
+        <div class="callout-label">Schema migration constraint</div>
+        <p>
+          Because both slots share the database, any migration deployed to either slot takes effect immediately
+          for both. Migrations must be designed to be backward-compatible with the code currently running
+          on the other slot — the expand-contract pattern: add the new column before removing the old one,
+          never drop a column in the same deployment that stops writing to it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>GC Digital Talent · Azure Infrastructure Reference · Internal use</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } }),
+  { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+);
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 4) * 60 + 'ms';
+  obs.observe(el);
+});
+</script>
+
