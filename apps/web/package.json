@@ -51,7 +51,7 @@
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/ui": "workspace:*",
     "@heroicons/react": "^2.2.0",
-    "@microsoft/applicationinsights-web": "^3.4.1",
+    "@microsoft/applicationinsights-web": "^3.4.2",
     "@react-router/node": "^7.17.0",
     "@tailwindcss/vite": "^4.3.1",
     "@tanstack/react-table": "^8.21.3",
@@ -64,7 +64,7 @@
     "react-focus-on": "^3.10.2",
     "react-hook-form": "^7.78.0",
     "react-idle-timer": "^5.7.3",
-    "react-intl": "^10.1.13",
+    "react-intl": "^10.1.14",
     "react-router": "^7.17.0",
     "react-to-print": "^3.3.0",
     "tailwind-merge": "^3.6.0",
@@ -73,7 +73,7 @@
     "urql": "^5.0.2"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.4.0",
+    "@faker-js/faker": "^10.5.0",
     "@formatjs/cli": "^6.16.11",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",

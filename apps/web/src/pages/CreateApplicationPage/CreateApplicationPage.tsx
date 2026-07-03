@@ -29,8 +29,10 @@ const CreateApplicationApplications_Query = graphql(/* GraphQL */ `
       id
       poolCandidates {
         id
-        status {
-          value
+        applicationStatusData {
+          status {
+            value
+          }
         }
         archivedAt
         submittedAt

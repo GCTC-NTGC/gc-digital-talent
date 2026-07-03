@@ -23,12 +23,14 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationPreviewList on PoolCandidate {
     ...ReviewApplicationDialog
     id
-    statusUpdatedAt
     submittedAt
-    candidateStatus {
-      value
-      label {
-        localized
+    applicationStatusData {
+      statusUpdatedAt
+      candidateStatus {
+        value
+        label {
+          localized
+        }
       }
     }
     isSpecialApplication
@@ -66,10 +68,10 @@ const ReviewApplicationPreviewList = ({
   const sortedApplications = unpackMaybes(applications).sort(
     (a, b) =>
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        a?.candidateStatus?.value ?? null,
+        a?.applicationStatusData?.candidateStatus?.value ?? null,
       ) -
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        b?.candidateStatus?.value ?? null,
+        b?.applicationStatusData?.candidateStatus?.value ?? null,
       ),
   );
 
@@ -82,11 +84,13 @@ const ReviewApplicationPreviewList = ({
               id,
               pool,
               submittedAt,
-              statusUpdatedAt,
-              candidateStatus,
+              applicationStatusData,
               isSpecialApplication,
               specialApplicationClosingDate,
             } = application;
+
+            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
+            const candidateStatus = applicationStatusData?.candidateStatus;
             const statusChip = candidateStatusChip(candidateStatus);
 
             let applicationMetadata: PreviewMetaData[] = [];

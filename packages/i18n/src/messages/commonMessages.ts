@@ -105,6 +105,11 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  okay: {
+    defaultMessage: "Okay",
+    id: "91hRYX",
+    description: "Proceed with the current action",
+  },
   cancel: {
     defaultMessage: "Cancel",
     id: "atqjXB",
