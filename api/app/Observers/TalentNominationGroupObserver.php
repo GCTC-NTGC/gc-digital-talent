@@ -23,12 +23,19 @@ class TalentNominationGroupObserver
     public function updated(TalentNominationGroup $talentNominationGroup): void
     {
         // if advancement decision changes to approved then record the classification
-        if ($talentNominationGroup->getOriginal('advancement_decision') != TalentNominationGroupDecision::APPROVED->name &&
+        if ($talentNominationGroup->getOriginal('advancement_decision') !== TalentNominationGroupDecision::APPROVED->name &&
             $talentNominationGroup->advancement_decision === TalentNominationGroupDecision::APPROVED->name) {
             $talentNominationGroup->loadMissing('nominee');
             $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->associate($talentNominationGroup->nominee->currentClassification);
-            $talentNominationGroup->saveQuietly();
         }
+
+        // if advancement decision changes from approved then clear the classification
+        if ($talentNominationGroup->getOriginal('advancement_decision') === TalentNominationGroupDecision::APPROVED->name &&
+           $talentNominationGroup->advancement_decision !== TalentNominationGroupDecision::APPROVED->name) {
+            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->dissociate();
+        }
+
+        $talentNominationGroup->saveQuietly();
 
         TalentNominationGroup::withoutEvents(function () use ($talentNominationGroup) {
             $talentNominationGroup->updateStatus();
