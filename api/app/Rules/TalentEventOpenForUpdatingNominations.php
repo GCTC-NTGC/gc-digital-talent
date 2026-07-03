@@ -29,7 +29,7 @@ class TalentEventOpenForUpdatingNominations implements ValidationRule
                     $user = Auth::user();
 
                     if ((bool) $user) {
-                        $communityTeam = $nomination->talentNominationEvent?->community?->team;
+                        $communityTeam = $nomination->talentNominationEvent->community?->team;
 
                         if ((bool) $communityTeam && $user->isAbleTo('create-own-pastTalentNomination', $communityTeam)) {
                             return;
