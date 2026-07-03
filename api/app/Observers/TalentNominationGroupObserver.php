@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
 
 class TalentNominationGroupObserver
@@ -21,6 +22,14 @@ class TalentNominationGroupObserver
      */
     public function updated(TalentNominationGroup $talentNominationGroup): void
     {
+        // if advancement decision changes to approved then record the classification
+        if ($talentNominationGroup->getOriginal('advancement_decision') != TalentNominationGroupDecision::APPROVED->name &&
+            $talentNominationGroup->advancement_decision === TalentNominationGroupDecision::APPROVED->name) {
+            $talentNominationGroup->loadMissing('nominee');
+            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->associate($talentNominationGroup->nominee->currentClassification);
+            $talentNominationGroup->saveQuietly();
+        }
+
         TalentNominationGroup::withoutEvents(function () use ($talentNominationGroup) {
             $talentNominationGroup->updateStatus();
         });
