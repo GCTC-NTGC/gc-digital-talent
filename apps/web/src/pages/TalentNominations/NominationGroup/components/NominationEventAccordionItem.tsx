@@ -138,7 +138,7 @@ const NominationEventAccordionItem = ({
         as="h3"
         subtitle={
           decisionChips.length > 0 ? (
-            <span className="flex flex-wrap items-center gap-1.5">
+            <span className="mt-1.5 flex flex-wrap items-center gap-1.5">
               {decisionChips.map(({ key, decision, label }) => {
                 const { color, icon } = decisionAppearance(decision);
                 return (
@@ -147,6 +147,7 @@ const NominationEventAccordionItem = ({
                   </Chip>
                 );
               })}
+              <span className="ml-2 text-gray-400">•</span>
               <Button
                 type="button"
                 mode="inline"
@@ -157,7 +158,7 @@ const NominationEventAccordionItem = ({
                   e.stopPropagation();
                   downloadDoc({ id: nominationGroup.id });
                 }}
-                className="ml-2 font-normal text-gray"
+                className="ml-1 font-normal text-gray"
               >
                 {intl.formatMessage(commonMessages.download)}
               </Button>

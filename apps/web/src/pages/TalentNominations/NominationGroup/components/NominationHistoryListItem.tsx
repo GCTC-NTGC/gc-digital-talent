@@ -92,17 +92,27 @@ const NominationHistoryListItem = ({
     .map((message) => intl.formatMessage(message).toLocaleLowerCase())
     .join(", ");
 
-  const title = intl.formatMessage(
-    {
-      defaultMessage: "Nominated for {nominationOptions} by {nominatorName}",
-      id: "Vq0BPN",
-      description: "Subtitle for the nomination details dialog",
-    },
-    {
-      nominationOptions:
-        nominationOptions || intl.formatMessage(commonMessages.notProvided),
-      nominatorName,
-    },
+  const title = (
+    <>
+      <span className="font-normal">
+        {intl.formatMessage({
+          defaultMessage: "Nominated for",
+          id: "FQURJV",
+          description: "Label prefix for nomination",
+        })}
+      </span>
+      <span className="mx-1 font-bold">
+        {nominationOptions || intl.formatMessage(commonMessages.notProvided)}
+      </span>
+      <span className="font-normal">
+        {intl.formatMessage({
+          defaultMessage: "by",
+          id: "ANtD92",
+          description: "Label for 'by' in nomination",
+        })}
+        <span className="ml-1">{nominatorName}</span>
+      </span>
+    </>
   );
 
   // get the decision based on submittedAt
