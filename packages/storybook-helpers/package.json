@@ -16,7 +16,7 @@
     "@dr.pogodin/react-helmet": "^3.2.2",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
-    "@urql/core": "^5.2.0",
+    "@urql/core": "^6.0.2",
     "chromatic": "^17.7.1",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
