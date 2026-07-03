@@ -1,7 +1,9 @@
 import { useIntl } from "react-intl";
+import { format } from "date-fns/format";
 
 import {
   DATE_FORMAT_LOCALIZED,
+  DATETIME_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -48,17 +50,29 @@ export const ApplicationDate = ({
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
   if (status === CandidateStatus.Draft || status === CandidateStatus.Expired) {
-    let applicationCutOffDate = closingDate;
+    const parsedClosingDate = closingDate
+      ? parseDateTimeUtc(closingDate)
+      : null;
+
+    let applicationCutOffDate = parsedClosingDate;
 
     if (isSpecialApplication && specialApplicationClosingDate) {
+      const parsedSpecialClosingDate = parseDateTimeUtc(
+        specialApplicationClosingDate,
+      );
+
       // select the future most of the two
       applicationCutOffDate =
-        closingDate && closingDate > specialApplicationClosingDate
-          ? closingDate
-          : specialApplicationClosingDate;
+        parsedClosingDate &&
+        parsedClosingDate.valueOf() > parsedSpecialClosingDate.valueOf()
+          ? applicationCutOffDate
+          : parsedSpecialClosingDate;
     }
 
-    const deadlineClose = deadlineToApply(applicationCutOffDate, status);
+    const formattedCutoff = applicationCutOffDate
+      ? format(applicationCutOffDate, DATETIME_FORMAT_STRING)
+      : null;
+    const deadlineClose = deadlineToApply(formattedCutoff, status);
 
     return (
       <span
@@ -74,7 +88,7 @@ export const ApplicationDate = ({
         {intl.formatMessage(commonMessages.dividingColon)}
         {applicationCutOffDate
           ? formatDate({
-              date: parseDateTimeUtc(applicationCutOffDate),
+              date: applicationCutOffDate,
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
               timeZone: "Canada/Pacific",
