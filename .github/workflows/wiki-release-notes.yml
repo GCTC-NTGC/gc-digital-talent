@@ -10,6 +10,10 @@ on:
         description: 'Release tag to document (e.g. v2.72.2)'
         required: true
         type: string
+      prev_tag:
+        description: 'Override previous tag (e.g. v2.74.2 to combine skipped releases)'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -38,7 +42,10 @@ jobs:
         run: |
           set -euo pipefail
 
-          PREV_TAG=$(git tag --sort=-version:refname | grep -A1 "^${TAG}$" | tail -1)
+          PREV_TAG="${{ inputs.prev_tag }}"
+          if [ -z "$PREV_TAG" ]; then
+            PREV_TAG=$(git tag --sort=-version:refname | grep -A1 "^${TAG}$" | tail -1)
+          fi
           WIKI_DIR=/tmp/gc-wiki
           OUT="${WIKI_DIR}/${TAG}.md"
 
@@ -240,7 +247,7 @@ jobs:
           if [ -n "$ENV_DIFF" ]; then
             current_file=""
             ENV_AUTO_ROWS=""
-            declare -A PR_META_CACHE
+            PR_BODY_CACHE_DIR=$(mktemp -d)
             while IFS= read -r raw_line; do
               if [[ "$raw_line" =~ ^\+\+\+[[:space:]]b/(.+)$ ]]; then
                 current_file="${BASH_REMATCH[1]}"; continue
@@ -256,12 +263,13 @@ jobs:
               if [ -n "$introducing_pr" ]; then
                 # Skip if this PR already has the deployment label (handled above)
                 echo " ${LABELED_PRS} " | grep -q " ${introducing_pr} " && continue
-                # Skip if it has a body section
-                if [ -z "${PR_META_CACHE[$introducing_pr]+x}" ]; then
-                  PR_META_CACHE[$introducing_pr]=$(gh pr view "$introducing_pr" \
-                    --json body --jq '.body' 2>/dev/null | tr -d '\r' || true)
+                # Cache PR body to a temp file to avoid redundant API calls
+                cache_file="${PR_BODY_CACHE_DIR}/${introducing_pr}.txt"
+                if [ ! -f "$cache_file" ]; then
+                  gh pr view "$introducing_pr" \
+                    --json body --jq '.body' 2>/dev/null | tr -d '\r' > "$cache_file" || true
                 fi
-                if echo "${PR_META_CACHE[$introducing_pr]}" | grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)'; then
+                if grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)' "$cache_file" 2>/dev/null; then
                   continue
                 fi
                 pr_ref=" ([#${introducing_pr}](${REPO_URL}/pull/${introducing_pr}))"
@@ -270,7 +278,7 @@ jobs:
               fi
               ENV_AUTO_ROWS+="| \`${var}\` | \`${current_file}\` | \`${val:-<empty>}\`${pr_ref} |"$'\n'
             done <<< "$ENV_DIFF"
-            unset PR_META_CACHE
+            rm -rf "$PR_BODY_CACHE_DIR"
 
             if [ -n "$ENV_AUTO_ROWS" ]; then
               HAS_DEPLOY=true
@@ -509,12 +517,18 @@ jobs:
 
           NEW_ROW="| [${TAG}](${TAG}) | ${DATE} | ${HTYPE} | ${RISKY} | ${DCOL} |"
 
+          # Remove any existing row for this tag (makes re-runs idempotent)
+          sed -i "/\[${TAG}\]/d" "${WIKI_DIR}/Home.md"
+
           # Insert new row immediately after the table header separator line
           awk -v row="$NEW_ROW" '
             BEGIN { done=0 }
             /^\|[-| ]+\|/ && !done { print; print row; done=1; next }
             { print }
           ' "${WIKI_DIR}/Home.md" > /tmp/home_new.md && mv /tmp/home_new.md "${WIKI_DIR}/Home.md"
+
+          # Remove any stale Structure block entry for this tag, then re-add
+          sed -i "/^${TAG}[[:space:]]/d" "${WIKI_DIR}/Home.md"
 
           # Prepend tag to the Structure code block (after the Home ← line)
           awk -v tag="$TAG" '
