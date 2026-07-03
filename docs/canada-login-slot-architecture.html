@@ -351,8 +351,8 @@ footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text-faint);}
           </tr>
           <tr>
             <td class="t-name">SLACK_WEBHOOK_URI</td>
-            <td class="t-desc">Passed to <code>post_deployment.sh</code> as <code>$1</code>. Receives step-by-step deployment status. Route pilot deploys to a different Slack channel than main.</td>
-            <td><span class="badge slot">slot</span></td>
+            <td class="t-desc">Passed to <code>post_deployment.sh</code> as <code>$1</code>. Receives step-by-step deployment status. Shared across slots — both slots post deployment notifications to the same Slack channel.</td>
+            <td><span class="badge shared">shared</span></td>
           </tr>
           <tr>
             <td class="t-name">DATABASE_URL</td>
@@ -654,13 +654,12 @@ footer p{font-family:var(--mono);font-size:0.68rem;color:var(--text-faint);}
         <div class="step-n">2</div>
         <div class="step-body">
           <h3>Configure slot-specific App Settings</h3>
-          <p>Portal → cl-pilot → Configuration → Application settings. Add these five and tick <strong>Deployment slot setting</strong> on each:</p>
+          <p>Portal → cl-pilot → Configuration → Application settings. Add these four and tick <strong>Deployment slot setting</strong> on each:</p>
           <div class="code">
 APP_URL                =  https://&lt;pilot-custom-domain&gt;
 OAUTH_CLIENT_ID        =  &lt;cl-pilot-client-id&gt;
 OAUTH_CLIENT_SECRET    =  &lt;cl-pilot-client-secret&gt;
-OAUTH_REDIRECT_URI     =  https://&lt;pilot-custom-domain&gt;/auth/callback
-SLACK_WEBHOOK_URI      =  &lt;pilot-slack-channel-webhook&gt;</div>
+OAUTH_REDIRECT_URI     =  https://&lt;pilot-custom-domain&gt;/auth/callback</div>
           <div class="callout info">
             <div class="callout-label">Tip</div>
             <p>All other settings — database URL, mail config, CL discovery URI — should <em>not</em> be marked slot-specific. They inherit from the parent App Service and are shared across both slots.</p>
