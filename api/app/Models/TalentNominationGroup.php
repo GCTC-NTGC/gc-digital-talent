@@ -5,10 +5,8 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
-use Database\Factories\TalentNominationGroupFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -44,9 +42,6 @@ use Spatie\Activitylog\Support\LogOptions;
  */
 class TalentNominationGroup extends Model
 {
-    /** @use HasFactory<TalentNominationGroupFactory> */
-    use HasFactory;
-
     use LogsActivity;
 
     protected $keyType = 'string';
