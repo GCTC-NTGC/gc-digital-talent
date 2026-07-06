@@ -15,11 +15,17 @@ class PoolPolicyTest extends PolicyTestCase
 
     protected Pool $primaryPool;
 
+    protected Pool $unrelatedPool;
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->policy = new PoolPolicy();
         $this->primaryPool = Pool::factory()
+            ->for(Community::factory()->create())
+            ->for(Department::factory()->create())
+            ->create();
+        $this->unrelatedPool = Pool::factory()
             ->for(Community::factory()->create())
             ->for(Department::factory()->create())
             ->create();
@@ -233,6 +239,23 @@ class PoolPolicyTest extends PolicyTestCase
     {
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
         $this->assertTrue($this->ensureBool($this->policy->updateDraft($user, $this->primaryPool)));
+    }
+
+    // --- viewPoolNotes() ---
+
+    #[DataProvider('allTeamRolesProvider')]
+    public function testTeamRolesCanViewPoolNotes(string $factoryMethod): void
+    {
+        $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($user, $this->primaryPool)));
+        $this->assertFalse($this->ensureBool($this->policy->viewPoolNotes($user, $this->unrelatedPool)));
+    }
+
+    public function testPlatformAdminCanViewPoolNotes(): void
+    {
+        $admin = User::factory()->asAdmin()->create();
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($admin, $this->primaryPool)));
+        $this->assertTrue($this->ensureBool($this->policy->viewPoolNotes($admin, $this->unrelatedPool)));
     }
 
     public function testUpdateDraftReturnsFalseForPublishedPool(): void

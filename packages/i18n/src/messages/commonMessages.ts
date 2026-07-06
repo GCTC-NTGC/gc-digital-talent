@@ -105,6 +105,11 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  okay: {
+    defaultMessage: "Okay",
+    id: "91hRYX",
+    description: "Proceed with the current action",
+  },
   cancel: {
     defaultMessage: "Cancel",
     id: "atqjXB",
@@ -483,6 +488,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Level",
     id: "OUcSEy",
     description: "Label for level",
+  },
+  notReferred: {
+    defaultMessage: "Not referred",
+    id: "UZ6zTY",
+    description: "Label for a candidate that is not referred",
   },
   selected: {
     defaultMessage: "Selected",

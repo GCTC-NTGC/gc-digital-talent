@@ -24,9 +24,11 @@ const ApplicationResumeReferralsDialog_Fragment = graphql(/** GraphQL */ `
       firstName
       lastName
     }
-    pauseReferralsAt
-    resumeReferralsAt
-    pauseReferralsReason
+    applicationStatusData {
+      pauseReferralsAt
+      resumeReferralsAt
+      pauseReferralsReason
+    }
   }
 `);
 
@@ -109,11 +111,7 @@ const ApplicationResumeReferralsDialog = ({
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button mode="text" color="warning" className="text-left">
-          {intl.formatMessage({
-            defaultMessage: "Not referred",
-            id: "YJ9DuG",
-            description: "Dialog trigger for unpause referral status dialog",
-          })}
+          {intl.formatMessage(commonMessages.notReferred)}
         </Button>
       </Dialog.Trigger>
       <Ul space="sm" className="text-gray-600 dark:text-gray-200">
@@ -126,7 +124,7 @@ const ApplicationResumeReferralsDialog = ({
             },
             {
               resumeReferralsAt: strToFormDate(
-                application.resumeReferralsAt ?? "",
+                application.applicationStatusData?.resumeReferralsAt ?? "",
               ),
             },
           )}
@@ -169,7 +167,12 @@ const ApplicationResumeReferralsDialog = ({
                   })}
                 >
                   <Ul space="sm">
-                    <li>{strToFormDate(application.pauseReferralsAt ?? "")}</li>
+                    <li>
+                      {strToFormDate(
+                        application.applicationStatusData?.pauseReferralsAt ??
+                          "",
+                      )}
+                    </li>
                   </Ul>
                 </FieldDisplay>
                 <FieldDisplay
@@ -181,7 +184,10 @@ const ApplicationResumeReferralsDialog = ({
                 >
                   <Ul space="sm">
                     <li>
-                      {strToFormDate(application.resumeReferralsAt ?? "")}
+                      {strToFormDate(
+                        application.applicationStatusData?.resumeReferralsAt ??
+                          "",
+                      )}
                     </li>
                   </Ul>
                 </FieldDisplay>
@@ -195,7 +201,8 @@ const ApplicationResumeReferralsDialog = ({
                   <Ul space="sm">
                     <li>
                       {intl.formatMessage(commonMessages.quotes, {
-                        text: application.pauseReferralsReason,
+                        text: application.applicationStatusData
+                          ?.pauseReferralsReason,
                       })}
                     </li>
                   </Ul>

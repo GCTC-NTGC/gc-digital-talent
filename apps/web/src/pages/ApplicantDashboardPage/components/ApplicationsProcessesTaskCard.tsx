@@ -27,14 +27,15 @@ const ACCORDION_ID = {
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsProcessesTaskCard on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
     poolCandidates {
       ...ReviewApplicationPreviewList
-      status {
-        value
+      applicationStatusData {
+        status {
+          value
+        }
       }
     }
     ...ReviewRecruitmentProcessPreviewList
@@ -78,7 +79,8 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.poolCandidates,
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ status }) => status?.value === ApplicationStatus.Qualified,
+    ({ applicationStatusData }) =>
+      applicationStatusData?.status?.value === ApplicationStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

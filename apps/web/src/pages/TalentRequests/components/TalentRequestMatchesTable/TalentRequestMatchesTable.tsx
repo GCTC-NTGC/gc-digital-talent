@@ -7,6 +7,8 @@ import {
 import { useIntl } from "react-intl";
 import { useMemo, useRef, useState } from "react";
 import { useQuery, type OperationContext } from "urql";
+import PaperAirplaneIcon from "@heroicons/react/24/outline/PaperAirplaneIcon";
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
 
 import {
   getFragment,
@@ -14,10 +16,12 @@ import {
   type FragmentType,
   type TalentRequestMatchingUsersQuery,
   type TalentRequestMatchFilterInput,
+  type TalentRequestTrackedUserNotSelectedReason,
   type TalentRequestUserSkillMatchFragment,
+  TalentRequestTrackedUserNotReferredReason,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Link } from "@gc-digital-talent/ui";
+import { IconLabel, Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { INITIAL_STATE } from "~/components/Table/ResponsiveTable/constants";
@@ -32,6 +36,7 @@ import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
+import useTrackedUsersMutations from "~/hooks/useTrackedUsersMutations";
 
 import {
   addSearchToWhere,
@@ -44,6 +49,9 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import ChangeStatusDialog from "../TalentRequestTrackedUsersTable/ChangeStatusDialog";
+import type { StatusDialogConfig } from "../../types";
+import changeStatusMessages from "../TalentRequestTrackedUsersTable/messages";
 import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
@@ -90,9 +98,8 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
-
-          ...TalentRequestAddReferralDialog
         }
+        ...TalentRequestAddReferralDialog
         sources {
           label {
             localized
@@ -135,6 +142,19 @@ interface TalentRequestMatchesTableProps {
   optionsQuery?: TalentRequestReferralDialogOptions;
 }
 
+type ChangeStatusKey = "referred" | "notReferred";
+
+const notReferredReasonValues = new Set<string>(
+  Object.values(TalentRequestTrackedUserNotReferredReason),
+);
+
+const isNotReferredReason = (
+  reason:
+    | TalentRequestTrackedUserNotReferredReason
+    | TalentRequestTrackedUserNotSelectedReason,
+): reason is TalentRequestTrackedUserNotReferredReason =>
+  notReferredReasonValues.has(reason);
+
 const TalentRequestMatchesTable = ({
   query,
   skillsQuery,
@@ -168,7 +188,8 @@ const TalentRequestMatchesTable = ({
     ...INITIAL_STATE.paginationState,
     pageIndex: INITIAL_STATE.paginationState.pageIndex + 1,
   });
-  const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const { selectedRows, hasSelected, setSelectedRows } =
+    useSelectedRows<string>([]);
   const {
     downloadDoc,
     downloadingDoc,
@@ -254,7 +275,7 @@ const TalentRequestMatchesTable = ({
         cell: ({ row: { original } }) => (
           <TalentRequestAddReferralDialog
             talentRequestId={talentRequest.id}
-            query={original.user}
+            query={original}
             optionsQuery={optionsQuery}
           />
         ),
@@ -360,83 +381,173 @@ const TalentRequestMatchesTable = ({
     [data?.talentRequestMatches.data],
   );
 
-  const hasSelectedRows = selectedRows.length > 0;
+  const {
+    createTrackedUsersReferred,
+    creatingTrackedUsersReferred,
+    createTrackedUsersNotReferred,
+    creatingTrackedUsersNotReferred,
+  } = useTrackedUsersMutations();
+  const [activeStatus, setActiveStatus] = useState<ChangeStatusKey | null>(
+    null,
+  );
+
+  // Central config for status-change dialogs: selects the right UI copy and action
+  // (confirm or reason-based update) based on the currently chosen status.
+  const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
+    referred: {
+      status: intl.formatMessage(changeStatusMessages.referred),
+      icon: PaperAirplaneIcon,
+      disable: creatingTrackedUsersReferred,
+      onConfirm: async () => {
+        await createTrackedUsersReferred({
+          userIds: selectedRows,
+          talentRequestId: talentRequest.id,
+        });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+    notReferred: {
+      status: intl.formatMessage(commonMessages.notReferred),
+      icon: ArchiveBoxIcon,
+      disable: creatingTrackedUsersNotReferred,
+      reasonType: "notReferred",
+      onUpdate: async (reason) => {
+        if (!isNotReferredReason(reason)) {
+          return;
+        }
+        await createTrackedUsersNotReferred({
+          userIds: selectedRows,
+          talentRequestId: talentRequest.id,
+          notReferredReason: reason,
+        });
+        setSelectedRows([]);
+        setActiveStatus(null);
+      },
+    },
+  };
+
+  const activeDialogConfig = activeStatus
+    ? statusDialogConfigs[activeStatus]
+    : null;
 
   return (
-    <Table<TalentRequestResult>
-      caption={intl.formatMessage({
-        defaultMessage: "Matching candidates",
-        id: "pX4FBO",
-        description: "Title for users matching talent request criteria",
-      })}
-      data={rows}
-      columns={columns}
-      isLoading={fetching || fetchingOptions}
-      urlSync={false}
-      search={{
-        internal: false,
-        onChange: handleSearchStateChange,
-        label: intl.formatMessage(adminMessages.searchByKeyword),
-      }}
-      filter={{
-        initialState: defaultWhere,
-        // eslint-disable-next-line react-hooks/refs
-        state: filterRef.current,
-        component: (
-          <TalentRequestMatchesFilterDialog
-            query={optionsData}
-            onSubmit={handleFilterSubmit}
-            initialValues={applicantFilterDefaults}
-            resetValues={applicantFilterDefaults}
-          />
-        ),
-      }}
-      pagination={{
-        internal: false,
-        initialState: INITIAL_STATE.paginationState,
-        state: paginationState,
-        total: data?.talentRequestMatches?.paginatorInfo.total,
-        pageSizes: [10, 20, 50, 100],
-        onPaginationChange: handlePaginationStateChange,
-      }}
-      rowSelect={{
-        onRowSelection: setSelectedRows,
-        getRowId: (row) => row.id,
-        cell: ({ row }) =>
-          rowSelectCell({
-            row,
-            label: getFullNameLabel(
-              row.original.user.firstName,
-              row.original.user.lastName,
-              intl,
-            ),
-          }),
-      }}
-      download={{
-        spreadsheet: {
-          enable: true,
-          onClick: handleExcelDownload,
-          downloading: downloadingExcel,
-        },
-        doc: {
-          enable: true,
+    <>
+      <Table<TalentRequestResult>
+        caption={intl.formatMessage({
+          defaultMessage: "Matching candidates",
+          id: "pX4FBO",
+          description: "Title for users matching talent request criteria",
+        })}
+        data={rows}
+        columns={columns}
+        isLoading={fetching || fetchingOptions}
+        urlSync={false}
+        search={{
+          internal: false,
+          onChange: handleSearchStateChange,
+          label: intl.formatMessage(adminMessages.searchByKeyword),
+        }}
+        filter={{
+          initialState: defaultWhere,
+          // eslint-disable-next-line react-hooks/refs
+          state: filterRef.current,
           component: (
-            <DownloadDocxButton
-              inTable
-              disabled={!hasSelectedRows || downloadingZip || downloadingDoc}
-              isDownloading={downloadingZip || downloadingDoc}
-              onClickProfile={() => handleDocDownload(false)}
-              onClickAnonymousProfile={() => handleDocDownload(true)}
+            <TalentRequestMatchesFilterDialog
+              query={optionsData}
+              onSubmit={handleFilterSubmit}
+              initialValues={applicantFilterDefaults}
+              resetValues={applicantFilterDefaults}
             />
           ),
-        },
-      }}
-      sort={{
-        internal: false,
-        onSortChange: setSortState,
-        initialState: sortInitialState,
-      }}
-    />
+        }}
+        pagination={{
+          internal: false,
+          initialState: INITIAL_STATE.paginationState,
+          state: paginationState,
+          total: data?.talentRequestMatches?.paginatorInfo.total,
+          pageSizes: [10, 20, 50, 100],
+          onPaginationChange: handlePaginationStateChange,
+        }}
+        rowSelect={{
+          onRowSelection: setSelectedRows,
+          getRowId: (row) => row.id,
+          cell: ({ row }) =>
+            rowSelectCell({
+              row,
+              label: getFullNameLabel(
+                row.original.user.firstName,
+                row.original.user.lastName,
+                intl,
+              ),
+            }),
+        }}
+        download={{
+          spreadsheet: {
+            enable: true,
+            onClick: handleExcelDownload,
+            downloading: downloadingExcel,
+          },
+          doc: {
+            enable: true,
+            component: (
+              <DownloadDocxButton
+                inTable
+                disabled={!hasSelected || downloadingZip || downloadingDoc}
+                isDownloading={downloadingZip || downloadingDoc}
+                onClickProfile={() => handleDocDownload(false)}
+                onClickAnonymousProfile={() => handleDocDownload(true)}
+              />
+            ),
+          },
+        }}
+        sort={{
+          internal: false,
+          onSortChange: setSortState,
+          initialState: sortInitialState,
+        }}
+        actions={[
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(changeStatusMessages.changeStatus, {
+                  status: intl.formatMessage(changeStatusMessages.referred),
+                })}
+                icon={PaperAirplaneIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("referred"),
+          },
+          {
+            label: (
+              <IconLabel
+                label={intl.formatMessage(changeStatusMessages.changeStatus, {
+                  status: intl.formatMessage(commonMessages.notReferred),
+                })}
+                icon={ArchiveBoxIcon}
+              />
+            ),
+            onClick: () => setActiveStatus("notReferred"),
+          },
+        ]}
+      />
+      {activeDialogConfig && (
+        <ChangeStatusDialog
+          open={activeStatus !== null}
+          onOpenChange={(isOpen) => {
+            if (!isOpen) setActiveStatus(null);
+          }}
+          icon={activeDialogConfig.icon}
+          status={activeDialogConfig.status}
+          numOfSelectedCandidates={selectedRows.length}
+          onCancel={() => setActiveStatus(null)}
+          onConfirm={activeDialogConfig.onConfirm}
+          reasonType={activeDialogConfig.reasonType}
+          onUpdate={activeDialogConfig.onUpdate}
+          disable={activeDialogConfig.disable}
+        />
+      )}
+    </>
   );
 };
 

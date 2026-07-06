@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\EmployeeVerification;
 use App\Models\PoolCandidate;
 use App\Traits\Generator\Filterable;
 use Illuminate\Support\Arr;
@@ -143,9 +144,9 @@ class FilterableTraitTest extends TestCase
                 ['whereEmail' => true],
             ],
             'calls nested scopes' => [
-                ['applicantFilter' => ['whereIsGovEmployee' => true]],
+                ['applicantFilter' => ['whereEmployeeVerificationIn' => [EmployeeVerification::VERIFIED->name]]],
                 [],
-                ['whereIsGovEmployee' => true],
+                ['whereEmployeeVerificationIn' => true],
             ],
             'calls mapped scopes' => [
                 ['skills' => ['id']],

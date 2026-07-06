@@ -121,16 +121,16 @@ const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
 
 const DeadlineDialogReturn = ({
   closingDate,
-  closingReason,
+  wasClosedEarly,
 }: {
   closingDate: string | null | undefined;
-  closingReason: string | null | undefined;
+  wasClosedEarly: boolean;
 }): ReactNode | null => {
-  if (closingDate && !closingReason) {
+  if (closingDate && !wasClosedEarly) {
     return <DeadlineDialog deadline={parseDateTimeUtc(closingDate)} />;
   }
 
-  if (closingReason) {
+  if (wasClosedEarly) {
     return <ClosedEarlyDeadlineDialog />;
   }
 
@@ -152,7 +152,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     closingDate
-    closingReason
+    wasClosedEarly
     status {
       value
       label {
@@ -698,13 +698,13 @@ export const PoolPoster = ({
                   value={
                     <DeadlineValue
                       closingDate={pool.closingDate}
-                      closingReason={pool.closingReason}
+                      wasClosedEarly={pool.wasClosedEarly}
                     />
                   }
                   suffix={
                     <DeadlineDialogReturn
                       closingDate={pool.closingDate}
-                      closingReason={pool.closingReason}
+                      wasClosedEarly={pool.wasClosedEarly}
                     />
                   }
                 />

@@ -19,6 +19,8 @@ import ReferralFormFields, {
   type TalentRequestReferralDialogOptions,
 } from "./ReferralFormFields";
 import ReferralDialogHeader from "./ReferralDialogHeader";
+import ReferralHistory from "./ReferralHistory";
+import ReferralMatchingSources from "./ReferralMatchingSources";
 
 const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentRequestTrackedUser(
@@ -37,10 +39,23 @@ const CreateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
 `);
 
 export const TalentRequestAddReferralDialog_Fragment = graphql(/* GraphQL */ `
-  fragment TalentRequestAddReferralDialog on User {
-    id
-    firstName
-    lastName
+  fragment TalentRequestAddReferralDialog on TalentRequestResult {
+    user {
+      id
+      firstName
+      lastName
+    }
+    sources {
+      label {
+        localized
+      }
+    }
+    matchingQualifiedInPoolSources {
+      ...ReferralMatchingPoolSource
+    }
+    referralSummary {
+      ...ReferralHistory
+    }
   }
 `);
 
@@ -61,12 +76,14 @@ const TalentRequestAddReferralDialog = ({
 }: TalentRequestAddReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
-  const user = getFragment(TalentRequestAddReferralDialog_Fragment, query);
+  const result = getFragment(TalentRequestAddReferralDialog_Fragment, query);
+  const { user } = result;
   const [{ fetching }, executeMutation] = useMutation(
     CreateTalentRequestTrackedUser_Mutation,
   );
 
   const userName = getFullNameLabel(user.firstName, user.lastName, intl);
+  const sourceLabels = result.sources.map((s) => s.label.localized ?? "");
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -131,6 +148,11 @@ const TalentRequestAddReferralDialog = ({
       <Dialog.Content>
         <ReferralDialogHeader userName={userName} />
         <Dialog.Body>
+          <ReferralMatchingSources
+            sourceLabels={sourceLabels}
+            matchingPoolSources={result.matchingQualifiedInPoolSources}
+          />
+          <ReferralHistory query={result.referralSummary} />
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit(handleSubmit)}

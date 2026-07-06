@@ -164,6 +164,11 @@ type LocalizedEducationType implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedEmployeeVerification implements LocalizedEnumOption {
+  value: EmployeeVerification!
+  label: LocalizedString!
+}
+
 type LocalizedEmploymentCategory implements LocalizedEnumOption {
   value: EmploymentCategory!
   label: LocalizedString!
@@ -256,6 +261,11 @@ type LocalizedLearningOpportunitiesInterest implements LocalizedEnumOption {
 
 type LocalizedMentorship implements LocalizedEnumOption {
   value: Mentorship!
+  label: LocalizedString!
+}
+
+type LocalizedNineBoxRating implements LocalizedEnumOption {
+  value: NineBoxRating!
   label: LocalizedString!
 }
 
@@ -361,6 +371,11 @@ type LocalizedSkillCategory implements LocalizedEnumOption {
 
 type LocalizedSkillLevel implements LocalizedEnumOption {
   value: SkillLevel!
+  label: LocalizedString!
+}
+
+type LocalizedSpecialApplicationType implements LocalizedEnumOption {
+  value: SpecialApplicationType!
   label: LocalizedString!
 }
 
@@ -584,15 +599,6 @@ type PoolPaginator {
   data: [Pool!]!
 }
 
-"A paginated list of PoolCandidateWithSkillCount items."
-type PoolCandidateWithSkillCountPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of PoolCandidateWithSkillCount items."
-  data: [PoolCandidateWithSkillCount!]!
-}
-
 "A paginated list of PoolCandidateAdminViewWithSkillCount items."
 type PoolCandidateAdminViewWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -699,72 +705,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByUserColumn {
-  PRIORITY_WEIGHT
-  FIRST_NAME
-  EMAIL
-  PREFERRED_LANG
-  PREFERRED_LANGUAGE_FOR_INTERVIEW
-  PREFERRED_LANGUAGE_FOR_EXAM
-  CURRENT_CITY
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.user."
-input QueryPoolCandidatesPaginatedOrderByUser {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByUserColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByPoolColumn {
-  PROCESS_NUMBER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.pool."
-input QueryPoolCandidatesPaginatedOrderByPool {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByPoolColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByAssessmentStepColumn {
-  SORT_ORDER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.assessmentStep."
-input QueryPoolCandidatesPaginatedOrderByAssessmentStep {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByAssessmentStepColumn
-}
-
-"Order by clause for Query.poolCandidatesPaginated.orderBy."
-input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  user: QueryPoolCandidatesPaginatedOrderByUser
-
-  "Aggregate specification."
-  pool: QueryPoolCandidatesPaginatedOrderByPool
-
-  "Aggregate specification."
-  assessmentStep: QueryPoolCandidatesPaginatedOrderByAssessmentStep
 }
 
 "Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
@@ -1109,6 +1049,7 @@ enum Permission {
   UpdateOwnDraftApplication
   SubmitOwnDraftApplication
   DeleteOwnDraftApplication
+  CreateAnySpecialApplication
   ArchiveOwnSubmittedApplication
   SuspendOwnSubmittedApplication
   ViewOwnApplicationStatus
@@ -1195,6 +1136,8 @@ enum Permission {
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
+  ViewAnyPoolNotes
+  ViewTeamPoolNotes
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
@@ -1474,6 +1417,11 @@ enum EmailType {
   WORK
 }
 
+enum EmployeeVerification {
+  VERIFIED
+  NOT_VERIFIED
+}
+
 enum EmploymentCategory {
   EXTERNAL_ORGANIZATION
   GOVERNMENT_OF_CANADA
@@ -1500,6 +1448,7 @@ enum ErrorCode {
   APPLICATION_SIGNATURE_REQUIRED
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
+  APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
@@ -1597,6 +1546,8 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_NOT_FOUND
   ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
+  NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
+  NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -1612,6 +1563,7 @@ enum ErrorCode {
   DUPLICATE_USER_SKILL
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
+  SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
 }
 
 enum EstimatedLanguageAbility {
@@ -1750,6 +1702,12 @@ enum LearningOpportunitiesInterest {
 enum Mentorship {
   MENTOR
   MENTEE
+}
+
+enum NineBoxRating {
+  LOW
+  MODERATE
+  HIGH
 }
 
 enum NotificationFamily {
@@ -1931,6 +1889,17 @@ enum SkillLevel {
   LEAD
 }
 
+enum SpecialApplicationType {
+  VETERAN
+  PRIORITY
+  MINISTERS_STAFF
+  ACCOMMODATION
+  TECHNICAL_SUPPORT
+  PSC_REQUEST
+  EMPLOYEE_CURRENTLY_ON_LEAVE
+  OTHER
+}
+
 enum SupervisoryStatus {
   INDIVIDUAL_CONTRIBUTOR
   SUPERVISOR
@@ -2036,10 +2005,17 @@ enum TalentRequestStatus {
 }
 
 enum TalentRequestTrackedUserNotReferredReason {
+  MISMATCH_IN_QUALIFICATIONS
+  JOB_MISMATCHES_EXPECTATIONS
   OTHER
 }
 
 enum TalentRequestTrackedUserNotSelectedReason {
+  LACKS_EXPERIENCE
+  REQUIREMENT_MISMATCH
+  DECLINED_BY_CANDIDATE
+  OTHER_CANDIDATE_SELECTED
+  NO_REASON
   OTHER
 }
 

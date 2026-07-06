@@ -11,7 +11,6 @@ import { Notice, Ul } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
@@ -20,17 +19,19 @@ import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferra
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
-    placedDepartment {
-      name {
-        localized
+    applicationStatusData {
+      placedDepartment {
+        name {
+          localized
+        }
       }
+      placementType {
+        value
+      }
+      resumeReferralsAt
+      placedStartDate
+      placedEndDate
     }
-    placementType {
-      value
-    }
-    resumeReferralsAt
-    placedStartDate
-    placedEndDate
 
     ...ApplicationPlacementDialog
     ...ApplicationPauseReferralsDialog
@@ -47,19 +48,22 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   const intl = useIntl();
   const application = getFragment(QualifiedStatusMeta_Fragment, query);
   const isPlacedIndeterminate =
-    application.placementType?.value === PlacementType.PlacedIndeterminate;
+    application.applicationStatusData?.placementType?.value ===
+    PlacementType.PlacedIndeterminate;
 
-  const startDate = application.placedStartDate
+  const startDate = application.applicationStatusData?.placedStartDate
     ? formatDate({
-        date: parseDateTimeUtc(application.placedStartDate),
+        date: parseDateTimeUtc(
+          application.applicationStatusData.placedStartDate,
+        ),
         formatString: "PPP",
         intl,
       })
     : null;
 
-  const endDate = application.placedEndDate
+  const endDate = application.applicationStatusData?.placedEndDate
     ? formatDate({
-        date: parseDateTimeUtc(application.placedEndDate),
+        date: parseDateTimeUtc(application.applicationStatusData.placedEndDate),
         formatString: "PPP",
         intl,
       })
@@ -69,10 +73,15 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
     <>
       <FieldDisplay label={intl.formatMessage(commonMessages.jobPlacement)}>
         <ApplicationPlacementDialog query={application} />
-        {application.placedDepartment && (
+        {application.applicationStatusData?.placedDepartment && (
           <div className="flex flex-col gap-6">
             <Ul space="sm" className="text-gray-600 dark:text-gray-200">
-              <li>{application.placedDepartment.name.localized}</li>
+              <li>
+                {
+                  application.applicationStatusData?.placedDepartment.name
+                    .localized
+                }
+              </li>
               {startDate && (
                 <li>
                   {intl.formatMessage(commonMessages.startDate)}
@@ -92,9 +101,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               <Notice.Root>
                 <Notice.Content>
                   <FieldDisplay
-                    label={intl.formatMessage(
-                      poolCandidateMessages.notReferred,
-                    )}
+                    label={intl.formatMessage(commonMessages.notReferred)}
                   >
                     {intl.formatMessage({
                       defaultMessage:
@@ -112,7 +119,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
       </FieldDisplay>
       {!isPlacedIndeterminate && (
         <FieldDisplay label={intl.formatMessage(commonMessages.referralStatus)}>
-          {application.resumeReferralsAt ? (
+          {application.applicationStatusData?.resumeReferralsAt ? (
             <ApplicationResumeReferralsDialog query={application} />
           ) : (
             <ApplicationPauseReferralsDialog query={application} />

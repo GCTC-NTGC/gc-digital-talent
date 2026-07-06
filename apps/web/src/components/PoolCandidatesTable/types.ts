@@ -4,6 +4,7 @@ import type {
   CandidateReferralFilter,
   CandidateRemovalReason,
   CandidateSuspendedFilter,
+  EmployeeVerification,
   FlexibleWorkLocation,
   LanguageAbility,
   OperationalRequirement,
@@ -13,18 +14,20 @@ import type {
   ScreeningStage,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
+import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
 
 export interface FormValues {
   assessmentSteps: string[];
   classifications: string[];
   community?: string;
   departments: string[];
+  employmentDuration?: TEmploymentDuration;
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
   referralStatuses?: CandidateReferralFilter[];
   statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
-  govEmployee?: string;
+  govEmployee?: EmployeeVerification[];
   languageAbility?: LanguageAbility;
   operationalRequirement: OperationalRequirement[];
   placementTypes: PlacementType[];

@@ -30,6 +30,7 @@ const closedPool = {
 };
 const nullPool = {
   id: "uuid",
+  wasClosedEarly: false,
 };
 nullPool.id = fakePool.id; // pool will never have a null id
 
@@ -37,7 +38,7 @@ const closedEarlyPool = {
   ...fakePool,
   status: { value: PoolStatus.Closed, label: {} },
   publishedAt: FAR_PAST_DATE,
-  closingReason: "reason",
+  wasClosedEarly: true,
   closingDate: FAR_PAST_DATE,
 };
 

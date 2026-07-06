@@ -23,6 +23,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
+use App\Enums\SpecialApplicationType;
 use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\LogsCustomActivity;
@@ -89,6 +90,10 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $pause_referrals_reason
  * @property ?Carbon $placed_start_date
  * @property ?Carbon $placed_end_date
+ * @property ?string $special_application_type
+ * @property ?string $special_application_justification
+ * @property ?Carbon $special_application_closing_date
+ * @property bool $is_special_application
  */
 class PoolCandidate extends Model
 {
@@ -122,6 +127,7 @@ class PoolCandidate extends Model
         'resume_referrals_at' => 'datetime',
         'placed_start_date' => 'date',
         'placed_end_date' => 'date',
+        'special_application_closing_date' => 'datetime',
     ];
 
     /**
@@ -156,6 +162,9 @@ class PoolCandidate extends Model
         'pause_referrals_reason',
         'placed_start_date',
         'placed_end_date',
+        'special_application_type',
+        'special_application_justification',
+        'special_application_closing_date',
     ];
 
     protected $touches = ['user'];
@@ -546,6 +555,18 @@ class PoolCandidate extends Model
                 return in_array($this->id, $bookmarkedIds);
             }
         );
+    }
+
+    /**
+     * Determine if a PoolCandidate is a "special application"
+     */
+    public function isSpecialApplication(): Attribute
+    {
+        return Attribute::get(function () {
+            return
+                $this->special_application_type &&
+                in_array($this->special_application_type, array_column(SpecialApplicationType::cases(), 'name'));
+        });
     }
 
     /**

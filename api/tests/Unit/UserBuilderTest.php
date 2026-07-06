@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\WorkRegion;
 use App\Models\Community;
@@ -34,6 +35,8 @@ class UserBuilderTest extends TestCase
             ->create([
                 'flexible_work_locations' => [],
                 'location_preferences' => [],
+                'computed_is_gov_employee' => false,
+                'work_email' => null,
             ]);
 
         $this->communityA = Community::factory()->create();
@@ -196,5 +199,79 @@ class UserBuilderTest extends TestCase
             $onsiteUserInAtl->id,
             $allUserInQc->id,
         ], $userIds);
+    }
+
+    public function testWhereEmployeeVerificationIn(): void
+    {
+        // Non-gov employee — not a government employee at all
+        $nonGovUser = User::factory()->create([
+            'computed_is_gov_employee' => false,
+            'work_email' => null,
+            'work_email_verified_at' => null,
+        ]);
+
+        // Gov employee with no work email entered — not verified, no email
+        $govNoEmail = User::factory()->create([
+            'computed_is_gov_employee' => true,
+            'work_email' => null,
+            'work_email_verified_at' => null,
+        ]);
+
+        // Gov employee who submitted a work email but hasn't verified it yet
+        $govUnverifiedEmail = User::factory()->create([
+            'computed_is_gov_employee' => true,
+            'work_email' => 'unverified@gc.ca',
+            'work_email_verified_at' => null,
+        ]);
+
+        // Gov employee who has a verified work email — fully verified
+        $govVerifiedEmail = User::factory()->create([
+            'computed_is_gov_employee' => true,
+            'work_email' => 'verified@gc.ca',
+            'work_email_verified_at' => '2023-01-01',
+        ]);
+
+        // Empty array — skip filter, return all users
+        $ids = User::whereEmployeeVerificationIn([])->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $this->platformAdmin->id,
+            $nonGovUser->id,
+            $govNoEmail->id,
+            $govUnverifiedEmail->id,
+            $govVerifiedEmail->id,
+        ], $ids);
+
+        // Null — same as empty, skip filter
+        $ids = User::whereEmployeeVerificationIn(null)->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $this->platformAdmin->id,
+            $nonGovUser->id,
+            $govNoEmail->id,
+            $govUnverifiedEmail->id,
+            $govVerifiedEmail->id,
+        ], $ids);
+
+        // VERIFIED only — must have computed_is_gov_employee + work_email + work_email_verified_at
+        // Uses string names to match how Lighthouse passes enum values from GraphQL input.
+        $ids = User::whereEmployeeVerificationIn([EmployeeVerification::VERIFIED->name])->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $govVerifiedEmail->id,
+        ], $ids);
+
+        // NOT_VERIFIED only — gov employee + work_email present but not yet verified
+        $ids = User::whereEmployeeVerificationIn([EmployeeVerification::NOT_VERIFIED->name])->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $govUnverifiedEmail->id,
+        ], $ids);
+
+        // Both — gov employees who have a work email (verified or not)
+        $ids = User::whereEmployeeVerificationIn([
+            EmployeeVerification::VERIFIED->name,
+            EmployeeVerification::NOT_VERIFIED->name,
+        ])->pluck('id')->toArray();
+        assertEqualsCanonicalizing([
+            $govUnverifiedEmail->id,
+            $govVerifiedEmail->id,
+        ], $ids);
     }
 }
