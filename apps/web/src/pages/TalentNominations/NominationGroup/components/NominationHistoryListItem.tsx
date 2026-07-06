@@ -97,8 +97,8 @@ const NominationHistoryListItem = ({
       <span className="font-normal">
         {intl.formatMessage({
           defaultMessage: "Nominated for",
-          id: "FQURJV",
-          description: "Label prefix for nomination",
+          id: "OODa6h",
+          description: "Nominated for header",
         })}
       </span>
       <span className="mx-1 font-bold">
@@ -158,10 +158,12 @@ const NominationHistoryListItem = ({
             id: "rNw6z5",
             description: "Label for received date",
           })}
-          <NominationMetaDataDate
-            closeDate={nomination.talentNominationEvent.closeDate}
-            submittedAt={nomination.submittedAt}
-          />
+          <span className="ml-1">
+            <NominationMetaDataDate
+              closeDate={nomination.talentNominationEvent.closeDate}
+              submittedAt={nomination.submittedAt}
+            />
+          </span>
         </span>
       ),
     },

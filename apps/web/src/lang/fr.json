@@ -13846,6 +13846,10 @@
     "defaultMessage": "impossible de marquer les notifications comme lues.",
     "description": "Message announced to assistive technology when error occurred making notifications as read"
   },
+  "rNw6z5": {
+    "defaultMessage": "Reçue",
+    "description": "Label for received date"
+  },
   "rpM/Sw": {
     "defaultMessage": "Gérer les modèles d’emploi",
     "description": "Long title for the index job poster template page"
