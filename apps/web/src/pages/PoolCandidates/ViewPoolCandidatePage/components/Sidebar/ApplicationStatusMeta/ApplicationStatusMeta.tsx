@@ -12,8 +12,10 @@ import QualifiedStatusMeta from "./QualifiedStatusMeta";
 
 const ApplicationStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusMeta on PoolCandidate {
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
     }
     ...ToAssessStatusMeta
     ...QualifiedStatusMeta
@@ -31,18 +33,20 @@ const ApplicationStatusMeta = ({ query }: ApplicationStatusMetaProps) => {
 
   return (
     <>
-      {application?.status?.value === ApplicationStatus.ToAssess && (
+      {application?.applicationStatusData?.status?.value ===
+        ApplicationStatus.ToAssess && (
         <ToAssessStatusMeta query={application} />
       )}
-      {application?.status?.value === ApplicationStatus.Qualified && (
+      {application?.applicationStatusData?.status?.value ===
+        ApplicationStatus.Qualified && (
         <QualifiedStatusMeta query={application} />
       )}
-      {application?.status?.value === ApplicationStatus.Disqualified && (
+      {application?.applicationStatusData?.status?.value ===
+        ApplicationStatus.Disqualified && (
         <DisqualifiedStatusMeta query={application} />
       )}
-      {application?.status?.value === ApplicationStatus.Removed && (
-        <RemovedStatusMeta query={application} />
-      )}
+      {application?.applicationStatusData?.status?.value ===
+        ApplicationStatus.Removed && <RemovedStatusMeta query={application} />}
     </>
   );
 };

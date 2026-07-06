@@ -995,6 +995,10 @@
     "defaultMessage": "Note spéciale<hidden> relative aux compétences techniques constituant un atout</hidden>",
     "description": "The nonessential technical skills special note for a job poster template"
   },
+  "1l/JbH": {
+    "defaultMessage": "Mise en candidature de {nomineeName} pour {eventName}",
+    "description": "Title for the nomination details dialog"
+  },
   "1lw0Uw": {
     "defaultMessage": "Le fonds vise à compléter les budgets ministériels de formation en offrant des possibilités de formation supplémentaires, uniformes et de grande qualité qui permettent :",
     "description": "title for a list of fund objectives"
@@ -8310,6 +8314,10 @@
     "defaultMessage": "Toute personne ayant la citoyenneté canadienne",
     "description": "Canadian citizen only application criteria"
   },
+  "Vq0BPN": {
+    "defaultMessage": "Mise en candidature pour {nominationOptions} par {nominatorName}",
+    "description": "Subtitle for the nomination details dialog"
+  },
   "VrLfLw": {
     "defaultMessage": "Courriel du (de la) conseiller(-ère) en RH",
     "description": "Input label asking for the HR advisor's email address."
@@ -9517,6 +9525,10 @@
   "auSzlQ": {
     "defaultMessage": "Vous recevrez un suivi sur votre demande dans 5 à 10 jours ouvrables. Si vous n’avez pas eu de nos nouvelles ou avez des questions, vous pouvez nous joindre, à : <strong>recruitmentimit-recrutementgiti@tbs-sct.gc.ca</strong>",
     "description": "Description of expected follow up time and contact information for an existing request"
+  },
+  "avQilV": {
+    "defaultMessage": "Renseignements sur la soumission",
+    "description": "Submission information section heading"
   },
   "awEvCF": {
     "defaultMessage": "Nom du (de la) candidat(e)",
@@ -14841,6 +14853,10 @@
   "w3BYPV": {
     "defaultMessage": "Passez en revue votre parcours professionnel",
     "description": "Page title for the application career timeline page"
+  },
+  "w4FBPx": {
+    "defaultMessage": "Lien avec la personne qui présente la mise en candidature",
+    "description": "Submitter’s relationship to the nominator field"
   },
   "w4SSBu": {
     "defaultMessage": "<strong>Le terme autochtone </strong>: désigne une personne reconnue comme membre « d’un des peuples autochtones du Canada » au sens de l’article 35 de la Loi constitutionnelle de 1982, qui stipule en outre qu’aux fins de la Constitution, les « peuples autochtones du Canada comprennent les Autochtones, les Inuits et les Métis du Canada ». Cette politique (conforme aux pratiques canadiennes générales) considère que le terme « Autochtones » dans la Constitution est désormais remplacé par le terme « Premières Nations ».",
