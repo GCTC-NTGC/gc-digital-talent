@@ -145,8 +145,8 @@ const TalentRequestEditReferralDialog = ({
   );
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const sourceLabels = trackedUser.sources.map(
-    (value) =>
-      sourceOptions.find((o) => o.value === value)?.label.localized ??
+    (source) =>
+      sourceOptions.find((o) => o.value === source.value)?.label.localized ??
       notAvailable,
   );
 

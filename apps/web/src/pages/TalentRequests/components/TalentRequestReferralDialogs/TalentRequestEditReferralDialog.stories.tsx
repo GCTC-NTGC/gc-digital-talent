@@ -74,7 +74,7 @@ const mockTrackedUser = {
   selectionDecision: null,
   notReferredReason: null,
   notSelectedReason: null,
-  sources: [TalentRequestSource.QualifiedInPool],
+  sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
   matchingQualifiedInPoolSources: [
     makeFragmentData(
       {
