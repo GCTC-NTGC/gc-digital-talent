@@ -23,14 +23,18 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationPreviewList on PoolCandidate {
     ...ReviewApplicationDialog
     id
-    statusUpdatedAt
     submittedAt
-    candidateStatus {
-      value
-      label {
-        localized
+    applicationStatusData {
+      statusUpdatedAt
+      candidateStatus {
+        value
+        label {
+          localized
+        }
       }
     }
+    isSpecialApplication
+    specialApplicationClosingDate
     pool {
       id
       name {
@@ -64,10 +68,10 @@ const ReviewApplicationPreviewList = ({
   const sortedApplications = unpackMaybes(applications).sort(
     (a, b) =>
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        a?.candidateStatus?.value ?? null,
+        a?.applicationStatusData?.candidateStatus?.value ?? null,
       ) -
       ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        b?.candidateStatus?.value ?? null,
+        b?.applicationStatusData?.candidateStatus?.value ?? null,
       ),
   );
 
@@ -76,8 +80,17 @@ const ReviewApplicationPreviewList = ({
       {applications.length ? (
         <PreviewList.Root>
           {sortedApplications.map((application) => {
-            const { id, pool, submittedAt, statusUpdatedAt, candidateStatus } =
-              application;
+            const {
+              id,
+              pool,
+              submittedAt,
+              applicationStatusData,
+              isSpecialApplication,
+              specialApplicationClosingDate,
+            } = application;
+
+            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
+            const candidateStatus = applicationStatusData?.candidateStatus;
             const statusChip = candidateStatusChip(candidateStatus);
 
             let applicationMetadata: PreviewMetaData[] = [];
@@ -110,6 +123,10 @@ const ReviewApplicationPreviewList = ({
                     submittedAt={submittedAt}
                     assessedDate={statusUpdatedAt}
                     status={candidateStatus?.value}
+                    isSpecialApplication={isSpecialApplication}
+                    specialApplicationClosingDate={
+                      specialApplicationClosingDate
+                    }
                   />
                 ),
               },

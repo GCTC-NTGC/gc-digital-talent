@@ -24,9 +24,11 @@ const ApplicationResumeReferralsDialog_Fragment = graphql(/** GraphQL */ `
       firstName
       lastName
     }
-    pauseReferralsAt
-    resumeReferralsAt
-    pauseReferralsReason
+    applicationStatusData {
+      pauseReferralsAt
+      resumeReferralsAt
+      pauseReferralsReason
+    }
   }
 `);
 
@@ -122,7 +124,7 @@ const ApplicationResumeReferralsDialog = ({
             },
             {
               resumeReferralsAt: strToFormDate(
-                application.resumeReferralsAt ?? "",
+                application.applicationStatusData?.resumeReferralsAt ?? "",
               ),
             },
           )}
@@ -165,7 +167,12 @@ const ApplicationResumeReferralsDialog = ({
                   })}
                 >
                   <Ul space="sm">
-                    <li>{strToFormDate(application.pauseReferralsAt ?? "")}</li>
+                    <li>
+                      {strToFormDate(
+                        application.applicationStatusData?.pauseReferralsAt ??
+                          "",
+                      )}
+                    </li>
                   </Ul>
                 </FieldDisplay>
                 <FieldDisplay
@@ -177,7 +184,10 @@ const ApplicationResumeReferralsDialog = ({
                 >
                   <Ul space="sm">
                     <li>
-                      {strToFormDate(application.resumeReferralsAt ?? "")}
+                      {strToFormDate(
+                        application.applicationStatusData?.resumeReferralsAt ??
+                          "",
+                      )}
                     </li>
                   </Ul>
                 </FieldDisplay>
@@ -191,7 +201,8 @@ const ApplicationResumeReferralsDialog = ({
                   <Ul space="sm">
                     <li>
                       {intl.formatMessage(commonMessages.quotes, {
-                        text: application.pauseReferralsReason,
+                        text: application.applicationStatusData
+                          ?.pauseReferralsReason,
                       })}
                     </li>
                   </Ul>

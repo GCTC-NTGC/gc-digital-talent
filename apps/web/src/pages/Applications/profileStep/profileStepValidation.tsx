@@ -35,7 +35,11 @@ const stepHasError = (
   browserState: ApplicationBrowserState | null | undefined,
 ) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(user, pool) ||
+    aboutSectionHasEmptyRequiredFields(
+      user,
+      pool,
+      _application?.isSpecialApplication,
+    ) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
     priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||
