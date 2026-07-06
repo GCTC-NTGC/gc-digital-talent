@@ -257,7 +257,7 @@ class SpecialApplicationTest extends TestCase
                 ],
             ])
             ->assertGraphQLValidationError(
-                'pool_state',
+                'poolCandidate.pool.connect',
                 ErrorCode::SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED->name,
             );
 
@@ -319,7 +319,7 @@ class SpecialApplicationTest extends TestCase
                 ],
             ])
             ->assertGraphQLValidationError(
-                'pool_state',
+                'poolCandidate.pool.connect',
                 ErrorCode::SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED->name,
             );
     }
