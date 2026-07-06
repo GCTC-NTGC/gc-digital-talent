@@ -134,7 +134,7 @@ const NominationEventAccordionItem = ({
 
   return (
     <Accordion.Item value={nominationGroup.id}>
-      <div className="pl-4">
+      <div className="xxs:pl-1 sm:pl-4">
         <Accordion.Trigger
           as="h3"
           title={eventName}

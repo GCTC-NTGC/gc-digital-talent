@@ -94,7 +94,7 @@ const TalentNominationGroupHistory = ({
         }
         space="lg"
       >
-        <div className="flex flex-col items-center justify-between gap-y-6 xs:flex-row xs:gap-x-3 xs:gap-y-0">
+        <div className="flex flex-row items-center gap-y-6 xxs:items-start xxs:justify-between sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={FolderIcon}
             level="h2"
