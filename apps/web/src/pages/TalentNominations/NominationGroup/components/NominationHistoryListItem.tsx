@@ -9,6 +9,11 @@ import {
 import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import talentNominationMessages from "~/messages/talentNominationMessages";
@@ -28,7 +33,15 @@ const NominationMetaDataDate = ({
   if (!submittedAt) {
     return <>{intl.formatMessage(commonMessages.notProvided)}</>;
   }
-  return <>{intl.formatDate(submittedAt)}</>;
+  return (
+    <>
+      {formatDate({
+        date: parseDateTimeUtc(submittedAt),
+        formatString: DATE_FORMAT_LOCALIZED,
+        intl,
+      })}{" "}
+    </>
+  );
 };
 
 const NominationHistoryListItem_Fragment = graphql(/* GraphQL */ `
