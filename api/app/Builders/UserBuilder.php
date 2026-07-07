@@ -5,6 +5,7 @@ namespace App\Builders;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
@@ -617,6 +618,34 @@ class UserBuilder extends Builder
         return $this->where('computed_is_gov_employee', true)
             ->whereNotNull('work_email')
             ->whereNotNull('work_email_verified_at');
+    }
+
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        $hasVerified = in_array(EmployeeVerification::VERIFIED->name, $employeeVerification);
+        $hasNotVerified = in_array(EmployeeVerification::NOT_VERIFIED->name, $employeeVerification);
+
+        if ($hasVerified && $hasNotVerified) {
+            return $this->where(function ($query) {
+                $query->whereIsVerifiedGovEmployee()
+                    ->orWhere(function ($q) {
+                        $q->where('computed_is_gov_employee', true)
+                            ->whereNotNull('work_email');
+                    });
+            });
+        }
+
+        if ($hasVerified) {
+            return $this->whereIsVerifiedGovEmployee();
+        }
+
+        return $this->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNull('work_email_verified_at');
     }
 
     public function whereRoleIn(?array $roleIds): self

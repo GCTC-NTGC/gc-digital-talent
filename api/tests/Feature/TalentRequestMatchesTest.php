@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
@@ -340,14 +341,15 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $inDepartment->id);
     }
 
-    public function testFiltersByIsGovEmployee(): void
+    public function testFiltersByEmployeeVerification(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
 
+        // withGovEmployeeProfile creates a user with a verified work email
         $govEmployee = $this->matchingUser($pool, [], true);
-        $nonGov = $this->matchingUser($pool, [], false);
+        $this->matchingUser($pool, [], false);
 
-        $this->runMatches(['isGovEmployee' => true])
+        $this->runMatches(['employeeVerification' => [EmployeeVerification::VERIFIED->name]])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $govEmployee->id);
     }

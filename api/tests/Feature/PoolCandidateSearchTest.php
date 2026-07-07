@@ -9,6 +9,7 @@ use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateRemovalReason;
 use App\Enums\CandidateSuspendedFilter;
 use App\Enums\CitizenshipStatus;
+use App\Enums\EmployeeVerification;
 use App\Enums\PlacementType;
 use App\Enums\ScreeningStage;
 use App\Facades\Notify;
@@ -425,12 +426,12 @@ class PoolCandidateSearchTest extends TestCase
             }
         ';
 
-        // assert all 8 returned
+        // assert all 8 returned with no filter
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
-                    'isGovEmployee' => null,
+                    'employeeVerification' => null,
                 ],
             ]
         )->assertJson([
@@ -443,12 +444,12 @@ class PoolCandidateSearchTest extends TestCase
             ],
         ]);
 
-        // assert the 5 govEmployee = true models returned
+        // withGovEmployeeProfile creates users with a verified work email — assert 5 returned
         $this->actingAs($this->processOperator, 'api')->graphQL(
             $query,
             [
                 'where' => [
-                    'isGovEmployee' => true,
+                    'employeeVerification' => [EmployeeVerification::VERIFIED->name],
                 ],
             ]
         )->assertJson([

@@ -122,6 +122,11 @@ const messages = defineMessages({
     description:
       "Help message displayed when there are no tracked users for a talent request",
   },
+  sourceOfTalent: {
+    defaultMessage: "Source of talent",
+    id: "qy4Ohw",
+    description: "Heading for the source of the matching user.",
+  },
 });
 
 export default messages;

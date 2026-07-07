@@ -7,6 +7,7 @@ import {
 } from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
+  TalentRequestSource,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserReferralDecision,
   TalentRequestTrackedUserSelectionDecision,
@@ -21,6 +22,8 @@ import TalentRequestAddReferralDialog, {
   TalentRequestAddReferralDialog_Fragment,
 } from "./TalentRequestAddReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
+import { ReferralHistory_Fragment } from "./ReferralHistory";
+import { ReferralMatchingPoolSource_Fragment } from "./ReferralMatchingSources";
 
 const [user] = fakeUsers(1);
 
@@ -50,6 +53,10 @@ const optionsQuery = makeFragmentData(
       __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
       ...toLocalizedEnum(opt.value),
     })),
+    talentRequestSources: fakeLocalizedEnum(TalentRequestSource).map((opt) => ({
+      __typename: "LocalizedTalentRequestSource" as const,
+      ...toLocalizedEnum(opt.value),
+    })),
   },
   TalentRequestReferralDialogOptions_Fragment,
 );
@@ -72,7 +79,46 @@ const meta = {
   },
   args: {
     query: makeFragmentData(
-      { id: user.id, firstName: user.firstName, lastName: user.lastName },
+      {
+        user: {
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+        },
+        sources: [
+          {
+            label: { localized: "Qualified in pool" },
+          },
+        ],
+        matchingQualifiedInPoolSources: [
+          makeFragmentData(
+            {
+              id: "pool-candidate-1",
+              pool: {
+                displayName: {
+                  display: { localized: "IT-02" },
+                },
+              },
+            },
+            ReferralMatchingPoolSource_Fragment,
+          ),
+        ],
+        referralSummary: makeFragmentData(
+          {
+            referredCount: 3,
+            notSelectedReasons: [
+              {
+                reason: {
+                  value: TalentRequestTrackedUserNotSelectedReason.Other,
+                  label: { localized: "Other" },
+                },
+                count: 2,
+              },
+            ],
+          },
+          ReferralHistory_Fragment,
+        ),
+      },
       TalentRequestAddReferralDialog_Fragment,
     ),
     talentRequestId: "talent-request-1",

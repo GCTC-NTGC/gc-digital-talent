@@ -104,10 +104,6 @@ export default [
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
-            route(
-              ":poolId/create-application",
-              "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
-            ),
             route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 

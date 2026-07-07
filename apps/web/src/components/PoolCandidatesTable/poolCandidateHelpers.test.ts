@@ -21,7 +21,7 @@ const defaultFormValues: FormValues = {
   priorityWeight: [],
   expiryStatus: CandidateExpiryFilter.Active,
   suspendedStatus: CandidateSuspendedFilter.Active,
-  govEmployee: "",
+  govEmployee: [],
   community: "",
   assessmentSteps: [],
   statuses: [],
