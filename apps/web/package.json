@@ -58,7 +58,7 @@
     "date-fns": "^4.4.0",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
-    "motion": "^12.42.0",
+    "motion": "^12.42.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-focus-on": "^3.10.2",
