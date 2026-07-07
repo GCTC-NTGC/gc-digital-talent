@@ -1075,23 +1075,23 @@ class PoolCandidateUpdateTest extends TestCase
             ->graphQL($this->removeMutationDocument, $input)
             ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
 
-        // Cant remove placed
-        $this->poolCandidate->update([
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::PLACED_CASUAL->name,
-        ]);
-        $this->actingAs($this->communityAdminUser, 'api')
-            ->graphQL($this->removeMutationDocument, $input)
-            ->assertGraphQLValidationError('id', ErrorCode::REMOVE_CANDIDATE_ALREADY_PLACED->name);
-
-        // Can remove qualified
+        // Cant remove qualified (only TO_ASSESS can be removed)
         $this->poolCandidate->update([
             'application_status' => ApplicationStatus::QUALIFIED->name,
             'placement_type' => PlacementType::NOT_PLACED->name,
         ]);
         $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($this->removeMutationDocument, $input)
-            ->assertJsonFragment($res);
+            ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+
+        // Cant remove disqualified
+        $this->poolCandidate->update([
+            'application_status' => ApplicationStatus::DISQUALIFIED->name,
+            'placement_type' => null,
+        ]);
+        $this->actingAs($this->communityAdminUser, 'api')
+            ->graphQL($this->removeMutationDocument, $input)
+            ->assertGraphQLValidationError('id', ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
 
         // Can remove to assess
         $this->poolCandidate->update([
