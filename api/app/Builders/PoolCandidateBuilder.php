@@ -130,7 +130,7 @@ class PoolCandidateBuilder extends Builder
     // constrained eager-load so they cannot drift.
     public function whereMatchesTalentRequest(?array $filters): self
     {
-        $filters ??= [];
+        $filters = $filters ? ($filters['applicantFilter'] ?? $filters) : [];
 
         // Match the request's pool-level constraints: classification, work stream, community,
         // and specific pools. Skills are not matched here — this scope only decides whether a

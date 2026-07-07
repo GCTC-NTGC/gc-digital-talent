@@ -292,19 +292,8 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where(function (self $query) use ($classifications) {
-            $query->whereHas('poolCandidates', function ($query) use ($classifications) {
-                $query->whereQualifiedInClassificationsIn($classifications);
-            })->orWhereHas('currentClassification', function ($query) use ($classifications) {
-                $query->where(function ($q) use ($classifications) {
-                    foreach ($classifications as $classification) {
-                        $q->orWhere(function ($q) use ($classification) {
-                            $q->where('group', $classification['group'])
-                                ->where('level', $classification['level']);
-                        });
-                    }
-                });
-            });
+        return $this->whereHas('poolCandidates', function ($query) use ($classifications) {
+            $query->whereQualifiedInClassificationsIn($classifications);
         });
     }
 

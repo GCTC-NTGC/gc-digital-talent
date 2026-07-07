@@ -1757,9 +1757,9 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
   countTalentRequestMatchesByPool(
-    where: ApplicantFilterInput
+    where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
