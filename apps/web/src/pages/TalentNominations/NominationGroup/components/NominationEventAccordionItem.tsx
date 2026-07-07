@@ -169,15 +169,7 @@ const NominationEventAccordionItem = ({
         >
           <span>{eventName}</span>
           <span className="ml-1 font-normal text-gray">
-            {intl.formatMessage(
-              {
-                defaultMessage: "({count})",
-                id: "VhXxsC",
-                description:
-                  "Number of nominations shown in the accordion header",
-              },
-              { count: nominations.length },
-            )}
+            {`(${nominations.length})`}
           </span>
         </Accordion.Trigger>
 

@@ -4887,6 +4887,10 @@
     "defaultMessage": "À l'étape d'évaluation",
     "description": "Status label for an application under assessment"
   },
+  "HqKGaJ": {
+    "defaultMessage": "Consulter les détails de la mise en candidature de {nominatorName}",
+    "description": "Label for the nomination details dialog trigger"
+  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
