@@ -97,7 +97,9 @@ class AuthController extends Controller
         ]);
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
-            Log::error('Failed when POSTing to the token URI in authCallback');
+            Log::error('Failed when POSTing to the token URI in authCallback',
+                ['status' => $tokenResponse->status(), 'body-preview' => Str::limit($tokenResponse->body(), 500)]
+            );
             Log::debug($tokenResponse->body());
 
             return response('Failed to get token', 400);
@@ -290,13 +292,11 @@ class AuthController extends Controller
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';
-
-            $errorMessageToLog = 'Failed when POSTing to the token URI in refresh '.$errorCode;
-            if (! $isNormalErrorCode) {
-                Log::error($errorMessageToLog);
-            } else {
-                Log::debug($errorMessageToLog);
-            }
+            Log::log(
+                level: $isNormalErrorCode ? 'debug' : 'error',
+                message: 'Failed when POSTing to the token URI in refresh',
+                context: ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
+            );
             Log::debug($response->body());
 
             return response('Failed to get token', 400);

@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 // We're using two JWT management libraries here (Jose & Lcobucci), which each
 // offer different functionality related to constraints and JWKS.
 // TODO: Consider consolidating into a single library, or migrating to a new
@@ -73,7 +74,9 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
+                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty',
+                        ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
+                    );
                     Log::debug($response->body());
                     throw new Exception('Failed to get config');
                 }
@@ -107,7 +110,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the JWKS in getConfiguration');
+                    Log::error('Failed when GETting the JWKS in getConfiguration',
+                        ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]);
                     Log::debug($response->body());
                     throw new Exception('Failed to get config');
                 }
@@ -167,7 +171,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         assert($response instanceof Response);
 
         if ($response->failed()) {
-            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body());
+            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body(),
+                ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]);
             throw new Exception('Failed to get introspection');
         }
 
