@@ -12,7 +12,7 @@ import {
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty, empty } from "@gc-digital-talent/helpers";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
