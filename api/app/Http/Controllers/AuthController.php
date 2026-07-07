@@ -86,21 +86,23 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
-            return $exception instanceof ConnectionException;
-        }, throw: false)->asForm()->post(config('oauth.token_uri'), [
+        $tokenPayload = [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
-        ]);
+        ];
+        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
+            return $exception instanceof ConnectionException;
+        }, throw: false)->asForm()->post(config('oauth.token_uri'), $tokenPayload);
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback',
                 ['status' => $tokenResponse->status(), 'body-preview' => Str::limit($tokenResponse->body(), 500)]
             );
             Log::debug($tokenResponse->body());
+            Log::debug($tokenPayload);
 
             return response('Failed to get token', 400);
         }
@@ -278,16 +280,17 @@ class AuthController extends Controller
         }
 
         $refreshToken = $request->query('refresh_token');
+        $payload = [
+            'grant_type' => 'refresh_token',
+            'client_id' => config('oauth.client_id'),
+            'client_secret' => config('oauth.client_secret'),
+            'refresh_token' => $refreshToken,
+        ];
         $response =
         Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
-            ->post(config('oauth.token_uri'), [
-                'grant_type' => 'refresh_token',
-                'client_id' => config('oauth.client_id'),
-                'client_secret' => config('oauth.client_secret'),
-                'refresh_token' => $refreshToken,
-            ]);
+            ->post(config('oauth.token_uri'), $payload);
         assert($response instanceof Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
@@ -298,6 +301,7 @@ class AuthController extends Controller
                 context: ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
             );
             Log::debug($response->body());
+            Log::debug($payload);
 
             return response('Failed to get token', 400);
         }
