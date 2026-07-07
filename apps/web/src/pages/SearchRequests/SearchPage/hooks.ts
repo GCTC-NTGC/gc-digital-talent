@@ -53,7 +53,7 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
 `);
 
 const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
-  query CountTalentRequestMatches($where: ApplicantFilterInput) {
+  query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
     countTalentRequestMatches(where: $where)
     countTalentRequestMatchesByPool(where: $where) {
       pool {
@@ -86,6 +86,11 @@ export const useCandidateCount = (
     [filters],
   );
 
+  const talentRequestQueryArgs = useMemo(
+    () => ({ where: { applicantFilter: queryArgs.where } }),
+    [queryArgs.where],
+  );
+
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   // TODO: Remove this query once talentRequests feature flag is turned on.
@@ -97,7 +102,7 @@ export const useCandidateCount = (
   const [{ data: talentRequestData, fetching: talentRequestFetching }] =
     useQuery({
       query: CountTalentRequestMatches_Query,
-      variables: queryArgs,
+      variables: talentRequestQueryArgs,
     });
 
   const candidateCount = talentRequests
