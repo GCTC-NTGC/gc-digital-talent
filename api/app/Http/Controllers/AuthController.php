@@ -99,7 +99,7 @@ class AuthController extends Controller
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
             Log::error('Failed when POSTing to the token URI in authCallback',
-                ['status' => $tokenResponse->status(), 'body-preview' => Str::limit($tokenResponse->body(), 500)]
+                ['status' => $tokenResponse->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $tokenResponse->body()), 500)]
             );
             Log::debug($tokenResponse->body());
             Log::debug([...$tokenPayload, 'client_secret' => Str::mask($tokenPayload['client_secret'], '*', 0)]);
@@ -298,7 +298,7 @@ class AuthController extends Controller
             Log::log(
                 level: $isNormalErrorCode ? 'debug' : 'error',
                 message: 'Failed when POSTing to the token URI in refresh',
-                context: ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
+                context: ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]
             );
             Log::debug($response->body());
             Log::debug([...$payload, 'client_secret' => Str::mask($payload['client_secret'], '*', 0)]);
