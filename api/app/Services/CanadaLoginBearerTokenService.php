@@ -75,7 +75,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
                 if ($response->failed()) {
                     Log::error('Failed when GETting the OpenID configuration in getConfigProperty',
-                        ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
+                        ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]
                     );
                     Log::debug($response->body());
                     throw new Exception('Failed to get config');
@@ -111,7 +111,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
                 if ($response->failed()) {
                     Log::error('Failed when GETting the JWKS in getConfiguration',
-                        ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]);
+                        ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]);
                     Log::debug($response->body());
                     throw new Exception('Failed to get config');
                 }
@@ -159,20 +159,22 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
         // make api call to introspect endpoint
         $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+        $payload = [
+            'client_id' => config('oauth.client_id'),
+            'client_secret' => config('oauth.client_secret'),
+            'token' => $accessToken,
+        ];
         $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
             ->withToken($accessToken)  // required by mockauth but not CanadaLogin
-            ->post($introspectionUri, [
-                'client_id' => config('oauth.client_id'),
-                'client_secret' => config('oauth.client_secret'),
-                'token' => $accessToken,
-            ]);
+            ->post($introspectionUri, $payload);
         assert($response instanceof Response);
 
         if ($response->failed()) {
             Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body(),
-                ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]);
+                ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]);
+            Log::debug($response->body());
             throw new Exception('Failed to get introspection');
         }
 
