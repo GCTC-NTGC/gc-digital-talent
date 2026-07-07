@@ -29,7 +29,7 @@ class CanRemoveCandidate implements ValidationRule
 
             return;
         }
-        
+
         if ($candidate->application_status !== ApplicationStatus::TO_ASSESS->name) {
             $fail(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
 
