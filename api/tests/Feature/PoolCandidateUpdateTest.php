@@ -111,9 +111,9 @@ class PoolCandidateUpdateTest extends TestCase
               id
               applicationStatusData {
                 status { value }
+                placementType { value }
               }
               expiryDate
-              placementType { value }
             }
           }
     GRAPHQL;
@@ -248,9 +248,9 @@ class PoolCandidateUpdateTest extends TestCase
               id
               applicationStatusData {
                 status { value }
+                placementType { value }
               }
               expiryDate
-              placementType { value }
             }
           }
     ';
@@ -691,7 +691,7 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::QUALIFIED->name);
         assertSame($response['expiryDate'], config('constants.far_future_date'));
-        assertSame($response['placementType']['value'], PlacementType::NOT_PLACED->name);
+        assertSame($response['applicationStatusData']['placementType']['value'], PlacementType::NOT_PLACED->name);
     }
 
     public function testDisqualifyCandidateMutation(): void
@@ -762,7 +762,93 @@ class PoolCandidateUpdateTest extends TestCase
 
         assertSame($response['applicationStatusData']['status']['value'], ApplicationStatus::TO_ASSESS->name);
         assertNull($response['expiryDate']);
-        assertNull($response['placementType']);
+        assertNull($response['applicationStatusData']['placementType']);
+    }
+
+    /**
+     * Regression test for #17071: placement_type must be managed as a subfield of QUALIFIED status.
+     */
+    public function testPlacementTypeLifecycle(): void
+    {
+        $qualifyMutation = <<<'GRAPHQL'
+            mutation qualifyCandidate($id: UUID!, $poolCandidate: QualifyCandidateInput!) {
+                qualifyCandidate(id: $id, poolCandidate: $poolCandidate) {
+                    id
+                    applicationStatusData {
+                        status { value }
+                        placementType { value }
+                    }
+                }
+            }
+        GRAPHQL;
+
+        $revertFinalDecisionMutation = <<<'GRAPHQL'
+            mutation revertFinalDecision($id: UUID!) {
+                revertFinalDecision(id: $id) {
+                    id
+                    applicationStatusData {
+                        status { value }
+                        placementType { value }
+                    }
+                }
+            }
+        GRAPHQL;
+
+        $candidate = $this->poolCandidate;
+
+        // 1. New application has null placement_type
+        assertNull($candidate->placement_type, 'New application should have null placement_type');
+
+        // 2. Qualifying sets placement_type to NOT_PLACED
+        $candidate->application_status = ApplicationStatus::TO_ASSESS->name;
+        $candidate->save();
+
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($qualifyMutation, [
+                'id' => $candidate->id,
+                'poolCandidate' => [
+                    'expiryDate' => config('constants.far_future_date'),
+                ],
+            ])->json('data.qualifyCandidate');
+
+        assertSame(PlacementType::NOT_PLACED->name, $response['applicationStatusData']['placementType']['value'],
+            'Qualifying should set placement_type to NOT_PLACED');
+
+        // 3. Reverting final decision nullifies placement_type
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($revertFinalDecisionMutation, ['id' => $candidate->id])
+            ->json('data.revertFinalDecision');
+
+        assertNull($response['applicationStatusData']['placementType'],
+            'Reverting final decision should nullify placement_type');
+
+        // 4. Re-qualify, place, then revertPlacement sets NOT_PLACED (not null)
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($qualifyMutation, [
+                'id' => $candidate->id,
+                'poolCandidate' => [
+                    'expiryDate' => config('constants.far_future_date'),
+                ],
+            ])->json('data.qualifyCandidate');
+
+        assertSame(PlacementType::NOT_PLACED->name, $response['applicationStatusData']['placementType']['value']);
+
+        $department = Department::factory()->create();
+        $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->placeCandidateMutation, [
+                'id' => $candidate->id,
+                'poolCandidate' => [
+                    'placementType' => PlacementType::PLACED_CASUAL->name,
+                    'department' => ['connect' => $department->id],
+                ],
+            ])->json('data.placeCandidate');
+
+        $response = $this->actingAs($this->communityRecruiterUser, 'api')
+            ->graphQL($this->revertPlaceCandidateMutation, ['id' => $candidate->id])
+            ->json('data.revertPlaceCandidate');
+
+        assertSame(PlacementType::NOT_PLACED->name, $response['applicationStatusData']['placementType']['value'],
+            'Reverting placement should set placement_type to NOT_PLACED, not null');
     }
 
     public function testPoolCandidateReinstatement(): void
@@ -1244,7 +1330,10 @@ class PoolCandidateUpdateTest extends TestCase
         $this->actingAs($this->communityAdminUser, 'api')
             ->graphQL($this->revertFinalDecisionMutation, ['id' => $this->poolCandidate->id])
             ->assertJsonFragment([
-                'applicationStatusData' => ['status' => ['value' => ApplicationStatus::TO_ASSESS->name]],
+                'applicationStatusData' => [
+                    'status' => ['value' => ApplicationStatus::TO_ASSESS->name],
+                    'placementType' => null,
+                ],
             ]);
 
         $this->poolCandidate = $this->poolCandidate->fresh();
