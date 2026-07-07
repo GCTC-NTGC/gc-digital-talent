@@ -102,11 +102,13 @@ const CreateSpecialApplicationDialogUser_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface AddToProcessDialogProps {
+interface CreateSpecialApplicationDialogProps {
   query?: FragmentType<typeof CreateSpecialApplicationDialogUser_Fragment>;
 }
 
-const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
+const CreateSpecialApplicationDialog = ({
+  query,
+}: CreateSpecialApplicationDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const [open, setOpen] = useState(false);
