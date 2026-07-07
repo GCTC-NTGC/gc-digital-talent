@@ -197,6 +197,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
             $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
             $this->generateNominationDetailsTab();
+
+            // Career experience sheet
+            $careerExperienceSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $careerExperienceSheet->setName($this->getExcelSheetTitle('headings.career_experience'));
+            $this->generateCareerExperienceTab();
         } finally {
             $this->writer->close();
         }
@@ -467,6 +472,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             }
         });
     }
+
+    /**
+     * Generate the career experience tab
+     */
+    private function generateCareerExperienceTab() {}
 
     /**
      * Helper to check if nominated for advancement
