@@ -14,7 +14,7 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
 import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
-import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
+import TalentRequestTrackedUsersInbox from "./components/TalentRequestTrackedUsersInbox/TalentRequestTrackedUsersInbox";
 import type { RouteParams } from "./types";
 
 const TalentRequestTracking_Query = graphql(/** GraphQL */ `
@@ -62,13 +62,12 @@ const Tracking = () => {
             "Description of the candidates being tracked by a talent request",
         })}
       >
-        <TalentRequestTrackedUsersTable
+        <TalentRequestTrackedUsersInbox
           talentRequestId={talentRequestId}
-          skillsQuery={unpackMaybes(
-            data?.talentRequest?.applicantFilter?.skills,
-          )}
           optionsQuery={data}
-          sourceOptionsQuery={data}
+          requestedSkillsCount={
+            data?.talentRequest?.applicantFilter?.skills?.length ?? 0
+          }
         />
       </TalentRequestSectionCard>
 

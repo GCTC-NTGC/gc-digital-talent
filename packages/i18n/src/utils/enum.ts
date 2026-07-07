@@ -25,6 +25,7 @@ import {
   SecurityStatus,
   WorkRegion,
   TalentRequestStatus,
+  TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -240,6 +241,12 @@ export const ENUM_SORT_ORDER = {
     PauseReferralsLength.OneYear,
     PauseReferralsLength.UntilExpiry,
     PauseReferralsLength.Other,
+  ],
+  TRACKED_USER_STATUS: [
+    TalentRequestTrackedUserStatus.Referred,
+    TalentRequestTrackedUserStatus.NotReferred,
+    TalentRequestTrackedUserStatus.Selected,
+    TalentRequestTrackedUserStatus.NotSelected,
   ],
 };
 

@@ -13,7 +13,9 @@ import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
   fragment PoolCandidate_Flag on PoolCandidate {
     id
-    isFlagged
+    applicationAssessmentData {
+      isFlagged
+    }
     user {
       id
       firstName
@@ -57,7 +59,7 @@ const CandidateFlag = ({
       id: candidate.id,
       onChange: onFlagChange,
       value: flagged,
-      defaultValue: candidate?.isFlagged ?? false,
+      defaultValue: candidate?.applicationAssessmentData?.isFlagged ?? false,
       name: candidateName,
       processTitle:
         processTitle ??

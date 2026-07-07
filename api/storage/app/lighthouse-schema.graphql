@@ -1268,37 +1268,23 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-type PoolCandidate {
-  id: ID!
-  pool: Pool!
-  user: User!
-  expiryDate: Date
-  category: PoolCandidateCategory
+type PoolCandidateAssessmentData {
+  notes: String
+  isFlagged: Boolean
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
+}
+
+type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
-  notes: String
-  archivedAt: DateTime
-  submittedAt: DateTime
-  suspendedAt: DateTime
-  deletedDate: DateTime
-  isFlagged: Boolean
-  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
-  profileSnapshot: JSON
-  signature: String
-  submittedSteps: [ApplicationStep!]
-  generalQuestionResponses: [GeneralQuestionResponse]
-  screeningQuestionResponses: [ScreeningQuestionResponse]
-  educationRequirementOption: LocalizedEducationRequirementOption
-  educationRequirementExperiences: [Experience]
-  educationRequirementExperienceIds: [UUID!]
-  assessmentResults: [AssessmentResult]
-  assessmentStatus: AssessmentResultStatus
-  assessmentStep: AssessmentStep
   statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
   placementType: LocalizedPlacementType
@@ -1310,10 +1296,32 @@ type PoolCandidate {
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
   pauseReferralsReason: String
-  veteranVerification: ClaimVerificationResult
-  veteranVerificationExpiry: Date
-  priorityVerification: ClaimVerificationResult
-  priorityVerificationExpiry: Date
+}
+
+type PoolCandidate {
+  id: ID!
+  pool: Pool!
+  user: User!
+  expiryDate: Date
+  category: PoolCandidateCategory
+  archivedAt: DateTime
+  submittedAt: DateTime
+  suspendedAt: DateTime
+  deletedDate: DateTime
+  isBookmarked: Boolean
+  profileSnapshot: JSON
+  signature: String
+  submittedSteps: [ApplicationStep!]
+  generalQuestionResponses: [GeneralQuestionResponse]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+  educationRequirementOption: LocalizedEducationRequirementOption
+  educationRequirementExperiences: [Experience]
+  educationRequirementExperienceIds: [UUID!]
+  applicationStatusData: PoolCandidateStatusData
+  applicationAssessmentData: PoolCandidateAssessmentData
+  assessmentResults: [AssessmentResult]
+  assessmentStatus: AssessmentResultStatus
+  assessmentStep: AssessmentStep
   specialApplicationType: LocalizedSpecialApplicationType
   specialApplicationJustification: String
   specialApplicationClosingDate: DateTime
@@ -1673,7 +1681,7 @@ type TalentRequestTrackedUser {
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
@@ -4336,6 +4344,7 @@ enum ErrorCode {
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
   SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
+  SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED
 }
 
 enum EstimatedLanguageAbility {

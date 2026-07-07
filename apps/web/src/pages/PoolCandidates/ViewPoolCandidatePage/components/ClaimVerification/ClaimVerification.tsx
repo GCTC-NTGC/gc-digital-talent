@@ -26,10 +26,12 @@ const ClaimVerification_Fragment = graphql(/* GraphQL */ `
     user {
       priorityNumber
     }
-    veteranVerification
-    veteranVerificationExpiry
-    priorityVerification
-    priorityVerificationExpiry
+    applicationAssessmentData {
+      veteranVerification
+      veteranVerificationExpiry
+      priorityVerification
+      priorityVerificationExpiry
+    }
   }
 `);
 
@@ -45,11 +47,11 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
   );
 
   const hasEitherClaim =
-    !!claimVerification.veteranVerification ||
-    !!claimVerification.priorityVerification;
+    !!claimVerification.applicationAssessmentData?.veteranVerification ||
+    !!claimVerification.applicationAssessmentData?.priorityVerification;
   const hasBothClaims =
-    !!claimVerification.priorityVerification &&
-    !!claimVerification.veteranVerification;
+    !!claimVerification.applicationAssessmentData?.priorityVerification &&
+    !!claimVerification.applicationAssessmentData?.veteranVerification;
 
   return (
     <>
@@ -76,29 +78,50 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
       {hasEitherClaim ? (
         <>
           <ClaimRow
-            expiry={claimVerification.priorityVerificationExpiry}
-            result={claimVerification.priorityVerification}
+            expiry={
+              claimVerification.applicationAssessmentData
+                ?.priorityVerificationExpiry
+            }
+            result={
+              claimVerification.applicationAssessmentData?.priorityVerification
+            }
             title={intl.formatMessage(profileMessages.priorityStatus)}
           >
             <ClaimVerificationDialog
               context="priority"
               priorityNumber={claimVerification.user.priorityNumber}
               id={claimVerification.id}
-              result={claimVerification.priorityVerification}
-              expiry={claimVerification.priorityVerificationExpiry}
+              result={
+                claimVerification.applicationAssessmentData
+                  ?.priorityVerification
+              }
+              expiry={
+                claimVerification.applicationAssessmentData
+                  ?.priorityVerificationExpiry
+              }
             />
           </ClaimRow>
           <ClaimSeparator show={hasBothClaims} />
           <ClaimRow
-            expiry={claimVerification.veteranVerificationExpiry}
-            result={claimVerification.veteranVerification}
+            expiry={
+              claimVerification.applicationAssessmentData
+                ?.veteranVerificationExpiry
+            }
+            result={
+              claimVerification.applicationAssessmentData?.veteranVerification
+            }
             title={intl.formatMessage(profileMessages.veteranStatus)}
           >
             <ClaimVerificationDialog
               context="veteran"
               id={claimVerification.id}
-              result={claimVerification.veteranVerification}
-              expiry={claimVerification.veteranVerificationExpiry}
+              result={
+                claimVerification.applicationAssessmentData?.veteranVerification
+              }
+              expiry={
+                claimVerification.applicationAssessmentData
+                  ?.veteranVerificationExpiry
+              }
             />
           </ClaimRow>
         </>
