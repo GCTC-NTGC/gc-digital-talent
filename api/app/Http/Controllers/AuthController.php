@@ -102,7 +102,7 @@ class AuthController extends Controller
                 ['status' => $tokenResponse->status(), 'body-preview' => Str::limit($tokenResponse->body(), 500)]
             );
             Log::debug($tokenResponse->body());
-            Log::debug($tokenPayload);
+            Log::debug([...$tokenPayload, 'client_secret' => Str::mask($tokenPayload['client_secret'], '*', 0)]);
 
             return response('Failed to get token', 400);
         }
@@ -301,7 +301,7 @@ class AuthController extends Controller
                 context: ['status' => $response->status(), 'body-preview' => Str::limit($response->body(), 500)]
             );
             Log::debug($response->body());
-            Log::debug($payload);
+            Log::debug([...$payload, 'client_secret' => Str::mask($payload['client_secret'], '*', 0)]);
 
             return response('Failed to get token', 400);
         }
