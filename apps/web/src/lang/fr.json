@@ -887,10 +887,6 @@
     "defaultMessage": "En savoir plus sur le rôle que cette personne candidate vise comme principal objectif de carrière.",
     "description": "Subtitle for dialog viewing career objective info"
   },
-  "1M398Y": {
-    "defaultMessage": "Ajouter l'utilisateur au processus de recrutement",
-    "description": "Submit button text for adding user to process"
-  },
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
@@ -5650,10 +5646,6 @@
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
-  },
-  "KqodT+": {
-    "defaultMessage": "Ajouter {name} à un processus de recrutement",
-    "description": "Title for adding user to a process"
   },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
