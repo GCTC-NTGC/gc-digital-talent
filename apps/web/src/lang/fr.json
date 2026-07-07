@@ -6139,10 +6139,6 @@
     "defaultMessage": "Modifier votre parcours professionnel",
     "description": "Edit link text for career timeline section of the application review page."
   },
-  "MeAGh3": {
-    "defaultMessage": "Erreur: Impossible de mettre à jour les utilisateurs suivis.",
-    "description": "Toast shown when a tracked-user bulk mutation fails in Talent Requests."
-  },
   "Mea0Vt": {
     "defaultMessage": "Entreprise ou organisme",
     "description": "Label for the contracting firm or agency text field"

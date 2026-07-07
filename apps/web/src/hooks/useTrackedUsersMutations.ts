@@ -145,14 +145,7 @@ const useTrackedUsersMutations = () => {
   ] = useMutation(UpdateTrackedUsersNotSelected_Mutation);
 
   const handleUpdateError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: failed to update tracked users.",
-        id: "MeAGh3",
-        description:
-          "Toast shown when a tracked-user bulk mutation fails in Talent Requests.",
-      }),
-    );
+    toast.error(intl.formatMessage(talentRequestMessages.updateError));
 
     return Promise.reject(new Error("Failed to update tracked users."));
   };
