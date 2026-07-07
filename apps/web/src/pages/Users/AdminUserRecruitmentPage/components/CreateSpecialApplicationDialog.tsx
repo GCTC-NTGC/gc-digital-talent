@@ -216,14 +216,15 @@ const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
           subtitle={intl.formatMessage({
             defaultMessage:
               "Add a draft application to a recruitment process on behalf of this user.",
-            id: "7tIB6E",
-            description: "Title for adding user to a process",
+            id: "COhjc7",
+            description:
+              "Subtitle for creating a special application for a user",
           })}
         >
           {intl.formatMessage({
             defaultMessage: "Create special application",
-            id: "IS8OFH",
-            description: "Title for adding user to a process",
+            id: "FJDA+9",
+            description: "Title for creating a special application for a user",
           })}
         </Dialog.Header>
         <Dialog.Body>
@@ -244,8 +245,8 @@ const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
           <p className="mt-5 text-base font-bold text-black dark:text-white">
             {intl.formatMessage({
               defaultMessage: "User details",
-              id: "ZTvxKE",
-              description: "Abc",
+              id: "XnXcun",
+              description: "Labels for user details block",
             })}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
@@ -292,8 +293,8 @@ const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
                 }}
                 legend={intl.formatMessage({
                   defaultMessage: "Extended closing date",
-                  id: "9sStNh",
-                  description: "Abc",
+                  id: "PGTy2Q",
+                  description: "Special closing date label",
                 })}
               />
               <Select
@@ -301,8 +302,8 @@ const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
                 id="specialApplicationType"
                 label={intl.formatMessage({
                   defaultMessage: "Type of special application",
-                  id: "RVp8s8",
-                  description: "Abc",
+                  id: "2DPbjc",
+                  description: "Special application type label",
                 })}
                 name="specialApplicationType"
                 nullSelection={intl.formatMessage(
@@ -331,18 +332,18 @@ const CreateSpecialApplicationDialog = ({ query }: AddToProcessDialogProps) => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Dialog.Footer>
-                <Button disabled={fetching} type="submit" color="error">
+                <Button disabled={fetching} type="submit" color="warning">
                   {fetching
                     ? intl.formatMessage(commonMessages.saving)
                     : intl.formatMessage({
-                        defaultMessage: "Add user to recruitment process",
-                        id: "1M398Y",
+                        defaultMessage: "Create special application",
+                        id: "v3Nfqj",
                         description:
-                          "Submit button text for adding user to process",
+                          "Submit button text for creating a special application for a user",
                       })}
                 </Button>
                 <Dialog.Close>
-                  <Button type="button" color="warning" mode="inline">
+                  <Button type="button" color="primary" mode="inline">
                     {intl.formatMessage(formMessages.cancelGoBack)}
                   </Button>
                 </Dialog.Close>
