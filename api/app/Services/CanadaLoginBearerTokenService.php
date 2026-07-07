@@ -175,6 +175,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
             Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body(),
                 ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]);
             Log::debug($response->body());
+            Log::debug([...$payload, 'client_secret' => Str::mask($payload['client_secret'], '*', 0)]);
             throw new Exception('Failed to get introspection');
         }
 
