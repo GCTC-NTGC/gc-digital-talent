@@ -491,8 +491,8 @@ type Query {
   workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
-  countTalentRequestMatches(where: ApplicantFilterInput): Int!
-  countTalentRequestMatchesByPool(where: ApplicantFilterInput): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
+  countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
