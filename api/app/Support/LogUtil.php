@@ -12,10 +12,13 @@ use Illuminate\Support\Str;
  */
 class LogUtil
 {
-    // Pull some stats from a response to add as an array to the logging context
+    // Pull some details from a response to add as an array to the logging context
     public static function responseContext(Response $response): array
     {
-        return ['status' => $response->status(), 'body-preview' => Str::limit(Str::squish($response->body()), 500)];
+        return [
+            'status' => $response->status(),
+            'body-preview' => Str::limit(Str::squish($response->body()), 500),
+        ];
     }
 
     // Take a string and prepare it for logging by removing newlines
