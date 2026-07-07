@@ -28,13 +28,13 @@ class SyncTalentRequests extends Command
                 status_changed_at, created_at, updated_at, deleted_at
             )
             SELECT
-                id, full_name, email, job_title, hr_advisor_email, manager_job_title,
-                position_type, reason, additional_comments, was_empty, initial_result_count,
-                applicant_filter_id, department_id, community_id, user_id, admin_notes,
-                status, in_progress_details, completion_details, follow_up_date,
-                request_status_changed_at, created_at, updated_at, deleted_at
-            FROM pool_candidate_search_requests
-            WHERE applicant_filter_id IS NOT NULL
+                pcsr.id, pcsr.full_name, pcsr.email, pcsr.job_title, pcsr.hr_advisor_email, pcsr.manager_job_title,
+                pcsr.position_type, pcsr.reason, pcsr.additional_comments, pcsr.was_empty, pcsr.initial_result_count,
+                pcsr.applicant_filter_id, pcsr.department_id, pcsr.community_id, pcsr.user_id, pcsr.admin_notes,
+                pcsr.status, pcsr.in_progress_details, pcsr.completion_details, pcsr.follow_up_date,
+                pcsr.request_status_changed_at, pcsr.created_at, pcsr.updated_at, pcsr.deleted_at
+            FROM pool_candidate_search_requests AS pcsr
+            WHERE pcsr.applicant_filter_id IS NOT NULL
             ON CONFLICT (id) DO UPDATE SET
                 status = EXCLUDED.status,
                 in_progress_details = EXCLUDED.in_progress_details,
