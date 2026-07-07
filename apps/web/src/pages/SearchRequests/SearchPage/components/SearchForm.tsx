@@ -12,7 +12,7 @@ import {
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes, notEmpty, empty } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
@@ -95,7 +95,10 @@ export const SearchForm = ({
   }, [classifications, watch]);
 
   const handleSubmit = async (values: FormValues) => {
-    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    let poolIds = values.pool ? [{ id: values.pool }] : [];
+    if (values.allPools && results && results?.length > 0) {
+      poolIds = results.flatMap((result) => ({ id: result.pool.id }));
+    }
 
     await navigate(paths.request(), {
       state: {
