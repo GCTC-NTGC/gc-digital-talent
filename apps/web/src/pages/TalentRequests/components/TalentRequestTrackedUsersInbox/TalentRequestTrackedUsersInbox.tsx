@@ -256,8 +256,9 @@ const TalentRequestTrackedUsersInbox = ({
           <span className="sr-only">
             {intl.formatMessage(
               {
-                defaultMessage: "{count} selected",
-                id: "/aTQpq",
+                defaultMessage:
+                  "{count, plural, =0 {# selected} one {# selected} other {# selected}}",
+                id: "0oeDL5",
                 description: "Count of selected tracked users in the inbox",
               },
               { count: selectedRows.length },
