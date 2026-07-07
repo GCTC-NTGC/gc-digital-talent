@@ -90,7 +90,7 @@ class TalentRequestTrackedUserTest extends TestCase
             talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
                 data {
                     user { id }
-                    sources
+                    sources { value }
                     matchingQualifiedInPoolSources { pool { id } }
                     matchingAtLevelSources { id }
                     matchingAdvancementSources { id }
@@ -1662,7 +1662,8 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
-            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name)
             ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
     }
 
@@ -1678,7 +1679,7 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
-            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [])
+            ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.sources')
             ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
     }
 
@@ -1715,7 +1716,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
                     data {
                         user { id }
-                        sources
+                        sources { value }
                     }
                 }
             }
@@ -1723,7 +1724,8 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($sourcesOnlyQuery, ['talentRequestId' => $request->id])
-            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name]);
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name);
     }
 
     public function testMatchingQualifiedInPoolSourcesOnlyIncludesFilterMatchingPools(): void
@@ -1765,7 +1767,8 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
-            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources', [TalentRequestSource::QUALIFIED_IN_POOL->name])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name)
             ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources')
             ->assertJsonPath('data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources.0.pool.id', $matchingPool->id);
     }
@@ -1844,7 +1847,7 @@ class TalentRequestTrackedUserTest extends TestCase
                     talentRequest(id: $id) {
                         trackedUsers {
                             user { id }
-                            sources
+                            sources { value }
                         }
                     }
                 }
@@ -1853,7 +1856,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $byUser = collect($response->json('data.talentRequest.trackedUsers'))
             ->keyBy(fn ($row) => $row['user']['id']);
 
-        $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], $byUser[$withCandidacy->id]['sources']);
-        $this->assertEquals([], $byUser[$withoutCandidacy->id]['sources']);
+        $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], array_column($byUser[$withCandidacy->id]['sources'], 'value'));
+        $this->assertEquals([], array_column($byUser[$withoutCandidacy->id]['sources'], 'value'));
     }
 }
