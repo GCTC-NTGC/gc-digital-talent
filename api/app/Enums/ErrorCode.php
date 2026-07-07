@@ -189,4 +189,5 @@ enum ErrorCode
 
     // Special applications
     case SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED;
+    case SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED;
 }
