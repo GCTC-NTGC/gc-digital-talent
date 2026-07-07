@@ -202,6 +202,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $careerExperienceSheet = $this->writer->addNewSheetAndMakeItCurrent();
             $careerExperienceSheet->setName($this->getExcelSheetTitle('headings.career_experience'));
             $this->generateCareerExperienceTab();
+
+            // Community Interest sheet
+            $communityInterestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $communityInterestSheet->setName($this->getExcelSheetTitle('headings.community_interest'));
+            $this->generateCommunityInterestTab();
         } finally {
             $this->writer->close();
         }
@@ -477,6 +482,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      * Generate the career experience tab
      */
     private function generateCareerExperienceTab() {}
+
+    /**
+     * Generate the community interest tab
+     */
+    private function generateCommunityInterestTab() {}
 
     /**
      * Helper to check if nominated for advancement
