@@ -23,6 +23,7 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
         id
         ...TalentNominationDetailsDialogNomination
       }
+      ...TalentNominationDetailsDialogNominationGroup
     }
   `,
 );
@@ -75,6 +76,7 @@ const TalentNominationGroupHistory = ({
         {talentNominationGroup.nominations?.map((nomination) => (
           <NominationDetailsDialog
             nominationQuery={nomination}
+            nominationGroupQuery={talentNominationGroup}
             key={nomination.id}
             optionsQuery={options}
           />

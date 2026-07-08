@@ -44,6 +44,15 @@ const TalentNominationDetailsDialogNomination_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const TalentNominationDetailsDialogNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment TalentNominationDetailsDialogNominationGroup on TalentNominationGroup {
+      id
+      ...TalentNominationDetailsDialogNominationDetailsNominationGroup
+    }
+  `,
+);
+
 const TalentNominationDetailsDialogOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationDetailsDialogOptions on Query {
     ...TalentNominationDetailsDialogNominationDetailsOptions
@@ -54,6 +63,9 @@ interface NominationDetailsDialogProps {
   nominationQuery: FragmentType<
     typeof TalentNominationDetailsDialogNomination_Fragment
   >;
+  nominationGroupQuery: FragmentType<
+    typeof TalentNominationDetailsDialogNominationGroup_Fragment
+  >;
   optionsQuery: FragmentType<
     typeof TalentNominationDetailsDialogOptions_Fragment
   >;
@@ -61,12 +73,17 @@ interface NominationDetailsDialogProps {
 
 const NominationDetailsDialog = ({
   nominationQuery,
+  nominationGroupQuery,
   optionsQuery,
 }: NominationDetailsDialogProps) => {
   const intl = useIntl();
   const nomination = getFragment(
     TalentNominationDetailsDialogNomination_Fragment,
     nominationQuery,
+  );
+  const nominationGroup = getFragment(
+    TalentNominationDetailsDialogNominationGroup_Fragment,
+    nominationGroupQuery,
   );
   const options = getFragment(
     TalentNominationDetailsDialogOptions_Fragment,
@@ -142,6 +159,7 @@ const NominationDetailsDialog = ({
           <Separator space="sm" />
           <NominationDetailsSection
             nominationQuery={nomination}
+            nominationGroupQuery={nominationGroup}
             optionsQuery={options}
           />
           <Separator space="sm" />
