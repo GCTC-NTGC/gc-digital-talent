@@ -15,6 +15,7 @@ import {
   Accordion,
   Button,
   Chip,
+  UNICODE_CHAR,
   type ChipProps,
   type IconType,
   PreviewList,
@@ -145,11 +146,15 @@ const NominationEventAccordionItem = ({
                   const { color, icon } = decisionAppearance(decision);
                   return (
                     <Chip key={key} color={color} icon={icon}>
-                      {intl.formatMessage(label)}
+                      <span className="font-normal">
+                        {intl.formatMessage(label)}
+                      </span>
                     </Chip>
                   );
                 })}
-                <span className="ml-2 text-gray-400">•</span>
+                <span className="ml-2 text-gray-400">
+                  {UNICODE_CHAR.BULLET}
+                </span>
                 <Button
                   type="button"
                   mode="inline"
@@ -159,7 +164,7 @@ const NominationEventAccordionItem = ({
                     e.stopPropagation();
                     downloadDoc({ id: nominationGroup.id });
                   }}
-                  className="ml-1 font-normal text-black"
+                  className="ml-1 font-normal text-black dark:text-white"
                 >
                   {intl.formatMessage(commonMessages.download)}
                 </Button>
@@ -168,7 +173,7 @@ const NominationEventAccordionItem = ({
           }
         >
           <span>{eventName}</span>
-          <span className="ml-1 font-normal text-gray">
+          <span className="ml-1.5 font-normal text-gray-500 dark:text-gray-200">
             {`(${nominations.length})`}
           </span>
         </Accordion.Trigger>

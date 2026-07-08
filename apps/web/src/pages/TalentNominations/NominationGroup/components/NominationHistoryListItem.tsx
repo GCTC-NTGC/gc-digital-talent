@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
 import {
   getFragment,
@@ -19,7 +20,6 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 
 import NominationDetailsDialog from "./NominationDetailsDialog/NominationDetailsDialog";
-import ComputedIcon from "./ComputedIcon";
 
 interface NominationMetaDataDateProps {
   closeDate: string;
@@ -155,7 +155,7 @@ const NominationHistoryListItem = ({
       type: "text",
       children: (
         <span className="flex items-center">
-          <ComputedIcon count={1} decision={decision} />
+          <CheckIcon className="mr-1 h-5 w-5 text-success" />
           {statusText}
         </span>
       ),

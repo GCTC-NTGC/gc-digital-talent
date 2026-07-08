@@ -118,7 +118,7 @@ const TalentNominationGroupHistory = ({
             </Button>
           )}
         </div>
-        <p>
+        <p className="mt-3">
           {intl.formatMessage({
             defaultMessage:
               "This tab allows you to review the nominee's nomination history by event. Current nominations appear first and you can expand each event to see available nominations as needed.",
