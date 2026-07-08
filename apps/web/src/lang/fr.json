@@ -3143,10 +3143,6 @@
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
   },
-  "ANtD92": {
-    "defaultMessage": "par",
-    "description": "Label for 'by' in nomination"
-  },
   "AOrJqm": {
     "defaultMessage": "J'ai compris, allons-y!",
     "description": "Link text to continue the application process"
