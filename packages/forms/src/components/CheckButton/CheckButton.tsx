@@ -34,6 +34,7 @@ export interface CheckButtonProps extends CheckButtonVariants {
   label: string;
   indeterminate?: boolean;
   onToggle: () => void;
+  className?: string;
 }
 
 const CheckButton = ({
@@ -42,6 +43,7 @@ const CheckButton = ({
   onToggle,
   indeterminate = false,
   color = "black",
+  className,
 }: CheckButtonProps) => {
   const intl = useIntl();
   const { btn, icon: iconStyles } = checkBtn({ color });
@@ -57,7 +59,11 @@ const CheckButton = ({
   }
 
   return (
-    <button type="button" onClick={() => onToggle()} className={btn()}>
+    <button
+      type="button"
+      onClick={() => onToggle()}
+      className={btn({ class: className })}
+    >
       <span className="sr-only">
         {checked
           ? intl.formatMessage(formMessages.deselectCheck, { label })

@@ -14,6 +14,8 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 
+import type { StatusReasonType } from "../../types";
+
 const labels = (intl: IntlShape) => ({
   notReferredReason: intl.formatMessage({
     defaultMessage: "Not referred reason",
@@ -53,8 +55,6 @@ interface FormValues {
     | TalentRequestTrackedUserNotReferredReason
     | TalentRequestTrackedUserNotSelectedReason;
 }
-
-export type StatusReasonType = "notReferred" | "notSelected";
 
 interface ChangeStatusFormProps {
   reasonType: StatusReasonType;
