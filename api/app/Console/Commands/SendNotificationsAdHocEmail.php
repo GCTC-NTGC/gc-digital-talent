@@ -105,7 +105,7 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
         }
 
         if ($notifyAllUsers) {
-            return User::query();
+            return User::whereNotNull('email');
         }
 
         throw new \InvalidArgumentException('Unexpected function end point for options: '.json_encode($options));
