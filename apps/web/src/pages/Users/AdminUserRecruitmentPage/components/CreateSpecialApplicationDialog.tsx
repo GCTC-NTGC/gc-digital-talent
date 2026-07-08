@@ -23,7 +23,6 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import {
   createSpecialApplicationDialogFormValuesToSubmitData,
@@ -197,10 +196,8 @@ const CreateSpecialApplicationDialog = ({
 
   const fullName = getFullNameLabel(user?.firstName, user?.lastName, intl);
   const todayDate = new Date();
-  const TEXT_AREA_MAX_WORDS_EN = 200;
-  const TEXT_AREA_MAX_WORDS_FR = Math.round(
-    TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD,
-  );
+  const TEXT_AREA_MAX_WORDS_EN = 500;
+  const TEXT_AREA_MAX_WORDS_FR = 650;
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
