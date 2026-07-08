@@ -39,7 +39,7 @@ const NominationMetaDataDate = ({
         date: parseDateTimeUtc(submittedAt),
         formatString: DATE_FORMAT_LOCALIZED,
         intl,
-      })}{" "}
+      })}
     </>
   );
 };
@@ -106,26 +106,25 @@ const NominationHistoryListItem = ({
     .join(", ");
 
   const title = (
-    <>
-      <span className="font-normal">
-        {intl.formatMessage({
-          defaultMessage: "Nominated for",
-          id: "OODa6h",
-          description: "Nominated for header",
-        })}
-      </span>
-      <span className="mx-1 font-bold">
-        {nominationOptions || intl.formatMessage(commonMessages.notProvided)}
-      </span>
-      <span className="font-normal">
-        {intl.formatMessage({
-          defaultMessage: "by",
-          id: "ANtD92",
-          description: "Label for 'by' in nomination",
-        })}
-        <span className="ml-1">{nominatorName}</span>
-      </span>
-    </>
+    <span className="font-normal">
+      {intl.formatMessage(
+        {
+          defaultMessage:
+            "Nominated for {nominationOptions} by {nominatorName}",
+          id: "Vq0BPN",
+          description: "Subtitle for the nomination details dialog",
+        },
+        {
+          nominationOptions: (
+            <span className="font-bold">
+              {nominationOptions ||
+                intl.formatMessage(commonMessages.notProvided)}
+            </span>
+          ),
+          nominatorName: <span className="font-normal">{nominatorName}</span>,
+        },
+      )}
+    </span>
   );
 
   // get the decision based on submittedAt
