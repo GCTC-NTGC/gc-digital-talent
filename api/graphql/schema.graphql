@@ -639,6 +639,7 @@ type PoolCandidateStatusData {
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
+  # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
   placementType: LocalizedPlacementType @rename(attribute: "placement_type")
   placedAt: DateTime @rename(attribute: "placed_at")
   placedDepartment: Department @belongsTo

@@ -540,7 +540,6 @@ class PoolCandidateBuilder extends Builder
 
     public function wherePlacementTypeIn(?array $placementTypes): self
     {
-
         if (empty($placementTypes)) {
             return $this;
         }
