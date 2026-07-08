@@ -1085,6 +1085,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 type PoolCandidateSearchRequest {
@@ -1178,7 +1179,7 @@ type TalentRequestTrackedUser {
     @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
     @with(relation: "user")
@@ -1435,7 +1436,8 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
   isProfileComplete: Boolean @scope(name: "whereProfileComplete")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   telephone: String @scope(name: "whereTelephone")
   email: String @scope(name: "whereEmail")
   workEmail: String @scope(name: "whereWorkEmail")
@@ -1499,9 +1501,8 @@ input ApplicantFilterInput {
   # should be considered qualifiedWorkStreams
   qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
-    @scope(name: "whereHasPoolCandidateCommunity")
-    @pluck(key: "id")
+  community: IdInput @scope(name: "whereInCommunity") @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
 }
 
 input PoolCandidateSearchInput {
@@ -1510,7 +1511,8 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   notes: String @scope(name: "whereNotesLike")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
@@ -1582,7 +1584,8 @@ input TalentRequestMatchFilterInput {
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
   priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
@@ -1594,7 +1597,7 @@ type TalentRequestResult {
   user: User! @self
   sources: [LocalizedTalentRequestSource!]!
     @method(name: "talentRequestSources")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
@@ -1754,9 +1757,9 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
   countTalentRequestMatchesByPool(
-    where: ApplicantFilterInput
+    where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
