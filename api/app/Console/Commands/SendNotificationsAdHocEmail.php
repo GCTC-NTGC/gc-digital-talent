@@ -138,10 +138,13 @@ class SendNotificationsAdHocEmail extends Command implements PromptsForMissingIn
             }
         }
 
-        $builder = User::whereJsonContains('enabled_email_notifications', $notificationFamilies[0]);
-        for ($i = 1; $i < count($notificationFamilies); $i++) {
-            $builder->orWhereJsonContains('enabled_email_notifications', $notificationFamilies[$i]);
-        }
+        $builder = User::whereNotNull('email')
+            ->where(function (Builder $query) use ($notificationFamilies) {
+                $query->whereJsonContains('enabled_email_notifications', $notificationFamilies[0]);
+                for ($i = 1; $i < count($notificationFamilies); $i++) {
+                    $query->orWhereJsonContains('enabled_email_notifications', $notificationFamilies[$i]);
+                }
+            });
 
         return $builder;
     }
