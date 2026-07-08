@@ -591,21 +591,18 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
     }
 
-    private function atLevelQuery(): string
-    {
-        return <<<'GRAPHQL'
-            query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
-                talentRequestMatches(where: $where) {
-                    data {
-                        user { id }
-                        sources { value }
-                        matchingAtLevelSources { id }
-                    }
-                    paginatorInfo { total }
+    protected string $atLevelQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingAtLevelSources { id }
                 }
+                paginatorInfo { total }
             }
-            GRAPHQL;
-    }
+        }
+        GRAPHQL;
 
     public function testAtLevelSourceMatchesUserWithCommunityInterest(): void
     {
@@ -621,7 +618,7 @@ class TalentRequestMatchesTest extends TestCase
         User::factory()->create();
 
         $this->actingAs($this->admin, 'api')
-            ->graphQL($this->atLevelQuery(), ['where' => []])
+            ->graphQL($this->atLevelQuery, ['where' => []])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
@@ -645,7 +642,7 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         $this->actingAs($this->admin, 'api')
-            ->graphQL($this->atLevelQuery(), [
+            ->graphQL($this->atLevelQuery, [
                 'where' => ['applicantFilter' => ['community' => ['id' => $matching->id]]],
             ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
@@ -667,7 +664,7 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         $this->actingAs($this->admin, 'api')
-            ->graphQL($this->atLevelQuery(), [
+            ->graphQL($this->atLevelQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name]]],
             ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
@@ -689,7 +686,7 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         $this->actingAs($this->admin, 'api')
-            ->graphQL($this->atLevelQuery(), [
+            ->graphQL($this->atLevelQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]]],
             ])
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
@@ -711,7 +708,7 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         $userIds = $this->actingAs($this->admin, 'api')
-            ->graphQL($this->atLevelQuery(), [
+            ->graphQL($this->atLevelQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [
                     TalentRequestSource::QUALIFIED_IN_POOL->name,
                     TalentRequestSource::AT_LEVEL->name,
