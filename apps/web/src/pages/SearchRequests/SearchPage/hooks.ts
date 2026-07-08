@@ -86,11 +86,6 @@ export const useCandidateCount = (
     [filters],
   );
 
-  const talentRequestQueryArgs = useMemo(
-    () => ({ where: { applicantFilter: queryArgs.where } }),
-    [queryArgs.where],
-  );
-
   // Fetches the number of pool candidates by pool to display on pool cards AND
   // Fetches the total number of candidates, since some pool candidates will correspond to the same user.
   // TODO: Remove this query once talentRequests feature flag is turned on.
@@ -102,7 +97,7 @@ export const useCandidateCount = (
   const [{ data: talentRequestData, fetching: talentRequestFetching }] =
     useQuery({
       query: CountTalentRequestMatches_Query,
-      variables: talentRequestQueryArgs,
+      variables: { where: { applicantFilter: queryArgs.where } },
     });
 
   const candidateCount = talentRequests
