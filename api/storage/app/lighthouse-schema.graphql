@@ -1541,6 +1541,7 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification
 }
 
 type Team implements HasRoleAssignments {

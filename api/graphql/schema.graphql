@@ -1004,6 +1004,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
 }
 
 type Team implements HasRoleAssignments {
