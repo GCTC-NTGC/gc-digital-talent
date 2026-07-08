@@ -4,7 +4,10 @@ import { useState } from "react";
 import type { RegisterOptions } from "react-hook-form";
 
 import { Combobox } from "@gc-digital-talent/forms";
-import type { PoolFilterInput as TPoolFilterInput } from "@gc-digital-talent/graphql";
+import {
+  PoolStatus,
+  type PoolFilterInput as TPoolFilterInput,
+} from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 
@@ -37,6 +40,7 @@ const PoolFilterInput = ({
     fetching: poolsFetching,
   } = usePoolFilterOptions(
     {
+      statuses: [PoolStatus.Published, PoolStatus.Closed, PoolStatus.Archived],
       ...filterInput,
       generalSearch: query || undefined,
     },
