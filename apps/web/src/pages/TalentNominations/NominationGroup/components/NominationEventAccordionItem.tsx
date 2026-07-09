@@ -98,6 +98,13 @@ const NominationEventAccordionItem = ({
     nominationGroupQuery,
   );
 
+  // Get decisions from the nomination group
+  const advancementDecision = nominationGroup.advancementDecision?.value;
+  const lateralMovementDecision =
+    nominationGroup.lateralMovementDecision?.value;
+  const developmentProgramsDecision =
+    nominationGroup.developmentProgramsDecision?.value;
+
   // sort nominations
   const nominations = unpackMaybes(nominationGroup.nominations);
   nominations.sort(
@@ -113,19 +120,19 @@ const NominationEventAccordionItem = ({
     {
       key: "advancement",
       count: nominationGroup.advancementNominationCount ?? 0,
-      decision: nominationGroup.advancementDecision?.value,
+      decision: advancementDecision,
       label: talentNominationMessages.nominateForAdvancement,
     },
     {
       key: "lateral-movement",
       count: nominationGroup.lateralMovementNominationCount ?? 0,
-      decision: nominationGroup.lateralMovementDecision?.value,
+      decision: lateralMovementDecision,
       label: talentNominationMessages.nominateForLateralMovement,
     },
     {
       key: "development",
       count: nominationGroup.developmentProgramsNominationCount ?? 0,
-      decision: nominationGroup.developmentProgramsDecision?.value,
+      decision: developmentProgramsDecision,
       label: talentNominationMessages.development,
     },
   ].filter((chip) => chip.count > 0);
@@ -186,6 +193,9 @@ const NominationEventAccordionItem = ({
                 key={nomination.id}
                 nominationQuery={nomination}
                 optionsQuery={optionsQuery}
+                advancementDecision={advancementDecision}
+                lateralMovementDecision={lateralMovementDecision}
+                developmentProgramsDecision={developmentProgramsDecision}
               />
             ))}
           </PreviewList.Root>
