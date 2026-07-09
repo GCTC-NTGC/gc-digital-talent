@@ -15,6 +15,7 @@ import {
   Accordion,
   Button,
   Chip,
+  wrapParens,
   UNICODE_CHAR,
   type ChipProps,
   type IconType,
@@ -174,7 +175,7 @@ const NominationEventAccordionItem = ({
         >
           <span>{eventName}</span>
           <span className="ml-1.5 font-normal text-gray-500 dark:text-gray-200">
-            {`(${nominations.length})`}
+            {wrapParens(nominations.length)}
           </span>
         </Accordion.Trigger>
 
