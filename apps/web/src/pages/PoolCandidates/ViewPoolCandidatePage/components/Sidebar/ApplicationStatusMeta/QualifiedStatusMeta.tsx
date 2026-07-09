@@ -8,9 +8,14 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Notice, Ul } from "@gc-digital-talent/ui";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  formatDate,
+  isDateStringExpired,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
+import messages from "~/messages/poolCandidateMessages";
 
 import ApplicationExpiryDateDialog from "../Dialog/ApplicationExpiryDateDialog";
 import ApplicationPlacementDialog from "../Dialog/ApplicationPlacementDialog";
@@ -19,6 +24,7 @@ import ApplicationResumeReferralsDialog from "../Dialog/ApplicationResumeReferra
 
 const QualifiedStatusMeta_Fragment = graphql(/** GraphQL */ `
   fragment QualifiedStatusMeta on PoolCandidate {
+    expiryDate
     applicationStatusData {
       placedDepartment {
         name {
@@ -68,6 +74,14 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
         intl,
       })
     : null;
+
+  let isExpired = false;
+  if (application.expiryDate && isDateStringExpired(application.expiryDate)) {
+    isExpired = true;
+  }
+
+  const expiredMessage = intl.formatMessage(messages.expired);
+  const expiredMessageParentheses = `(${expiredMessage})`;
 
   return (
     <>
@@ -127,7 +141,15 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
         </FieldDisplay>
       )}
       <FieldDisplay label={intl.formatMessage(commonMessages.expiryDate)}>
-        <ApplicationExpiryDateDialog query={application} />
+        <ApplicationExpiryDateDialog
+          query={application}
+          isExpired={isExpired}
+        />
+        {isExpired && (
+          <p className="text-gray-600 dark:text-gray-200">
+            {expiredMessageParentheses}
+          </p>
+        )}
       </FieldDisplay>
     </>
   );
