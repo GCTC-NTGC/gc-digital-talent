@@ -7,7 +7,7 @@ const sub =
     throw new Error("PLAYWRIGHT_PLATFORM_ADMIN_SUB env var is not set");
   })();
 
-test.describe("Platform admin smoke", () => {
+test.describe("Platform admin smoke", { tag: "@uat" }, () => {
   test.beforeEach(async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
   });

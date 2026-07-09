@@ -8,7 +8,7 @@ const sub =
     throw new Error("PLAYWRIGHT_APPLICANT_SUB env var is not set");
   })();
 
-test.describe("Applicant smoke", () => {
+test.describe("Applicant smoke", { tag: "@uat" }, () => {
   let dashboardPage: ApplicantDashboardPage;
 
   test.beforeEach(async ({ appPage }) => {
