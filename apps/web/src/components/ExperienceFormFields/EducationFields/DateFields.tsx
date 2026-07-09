@@ -68,7 +68,6 @@ const DateFields = ({ labels }: SubExperienceFormProps) => {
               round="ceil"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
-                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: watchProspectiveIssueDate
                     ? String(watchProspectiveIssueDate)
@@ -110,7 +109,6 @@ const DateFields = ({ labels }: SubExperienceFormProps) => {
               round="ceil"
               show={[DATE_SEGMENT.Month, DATE_SEGMENT.Year]}
               rules={{
-                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: watchIssueDate ? String(watchIssueDate) : "",
                   message: intl.formatMessage(errorMessages.minDateSelfLabel, {
