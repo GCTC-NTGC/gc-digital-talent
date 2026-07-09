@@ -1671,7 +1671,6 @@ type TalentRequest {
 input TalentRequestTrackedUserFilterInput {
   statuses: [TalentRequestTrackedUserStatus!]
   generalSearch: String
-  sources: [TalentRequestSource!]
 }
 
 type TalentRequestTrackedUser {
