@@ -54,6 +54,10 @@ class TalentNominationTestSeeder extends Seeder
             ->count(3)
             ->submittedReviewAndSubmit()
             ->create();
+        TalentNomination::factory()
+            ->count(3)
+            ->evaluated()
+            ->create();
 
         // seed some to a specific user
         TalentNomination::factory()
