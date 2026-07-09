@@ -86,7 +86,8 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     // {
@@ -97,7 +98,8 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
