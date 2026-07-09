@@ -1120,49 +1120,38 @@ export const getExperienceName = <T extends ExperienceName>(
         },
       );
     } else {
-      let educationType;
-      let subject;
-      switch (type?.value) {
-        case EducationType.DegreeDiplomaCertificate:
-          educationType = degreeType?.label.localized ?? type?.label.localized;
-          subject = areaOfStudy;
-          break;
-        case EducationType.Fellowship:
-          educationType =
-            fellowshipType?.value === FellowshipType.Other
-              ? (otherFellowshipType ??
-                intl.formatMessage({
-                  defaultMessage: "Other type of fellowship",
-                  id: "CQhXfC",
-                  description:
-                    "First part of education experience title for other type",
-                }))
-              : (fellowshipType?.label.localized ?? type?.label.localized);
-          subject = areaOfStudy;
-          break;
-        case EducationType.Other:
-          educationType =
-            otherEducationType ??
-            intl.formatMessage({
-              defaultMessage: "Other type of education",
-              id: "wrKBLf",
-              description:
-                "First part of education experience title for other type",
-            });
-          subject = areaOfStudy;
-          break;
-        case EducationType.ProfessionalCertification:
-          educationType = type?.label.localized;
-          subject = certification;
-          break;
-        case EducationType.LicenseAccreditation:
-          educationType = type?.label.localized;
-          subject = licenseOrAccreditation;
-          break;
-        default:
-          educationType = type?.label.localized;
-          subject = areaOfStudy;
+      let educationType = type?.label.localized;
+      if (type?.value === EducationType.DegreeDiplomaCertificate) {
+        educationType = degreeType?.label.localized ?? educationType;
+      } else if (type?.value === EducationType.Fellowship) {
+        educationType =
+          fellowshipType?.value === FellowshipType.Other
+            ? (otherFellowshipType ??
+              intl.formatMessage({
+                defaultMessage: "Other type of fellowship",
+                id: "CQhXfC",
+                description:
+                  "First part of education experience title for other type",
+              }))
+            : (fellowshipType?.label.localized ?? educationType);
+      } else if (type?.value === EducationType.Other) {
+        educationType =
+          otherEducationType ??
+          intl.formatMessage({
+            defaultMessage: "Other type of education",
+            id: "wrKBLf",
+            description:
+              "First part of education experience title for other type",
+          });
       }
+
+      let subject = areaOfStudy;
+      if (type?.value === EducationType.ProfessionalCertification) {
+        subject = certification;
+      } else if (type?.value === EducationType.LicenseAccreditation) {
+        subject = licenseOrAccreditation;
+      }
+
       return intl.formatMessage(
         html
           ? experienceMessages.educationAtHtml
