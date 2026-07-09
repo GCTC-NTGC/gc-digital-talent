@@ -108,6 +108,10 @@ class TalentRequestFactory extends BaseFactory
                 'work_stream_id' => $filter->qualifiedInWorkStreams->shuffle()->first()?->id,
             ]));
 
+            if ($filter->pools()->exists()) {
+                $filter->pools()->attach($pool->id);
+            }
+
             PoolCandidate::factory()
                 ->availableInSearch()
                 ->createQuietly([

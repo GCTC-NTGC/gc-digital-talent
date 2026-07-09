@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EmployeeVerification;
+use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -22,6 +25,7 @@ use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
@@ -692,6 +696,52 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $atLevelUser->id)
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
+    }
+
+    public function testAtLevelWorkStreamFilterMatchesUserWithoutCandidacy(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create();
+        $interest = CommunityInterest::factory()->withWorkStreams()->for($user)->for($community)->create();
+        $workStreamId = $interest->workStreams()->first()->id;
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAtLevelClassificationFilterMatchesUserWithoutCandidacy(): void
+    {
+        $classification = Classification::factory()->create();
+
+        $user = User::factory()->create();
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->for($user)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
     }
 
     public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
