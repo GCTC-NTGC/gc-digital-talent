@@ -36,8 +36,11 @@ class ApplicationPage extends AppPage {
     await this.page.locator(`a[href*="${this.poolId}"]`).click();
     await this.waitForGraphqlResponse("PoolAdvertisementPage");
 
+    // "Apply now" renders as a Button (logged-in, no existing application) in local/CI
+    // and as a Link (static anchor) in UAT — handle both.
     await this.page
-      .getByRole("link", { name: /apply now/i })
+      .getByRole("button", { name: /apply now/i })
+      .or(this.page.getByRole("link", { name: /apply now/i }))
       .first()
       .click();
   }
