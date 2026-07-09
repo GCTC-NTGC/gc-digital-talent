@@ -23,21 +23,15 @@ test.describe("Applicant smoke", { tag: "@uat" }, () => {
     ).toBeVisible();
   });
 
-  test("dashboard shows Your Account section", async ({ appPage }) => {
-    await expect(
-      dashboardPage.locators.yourAccount,
-    ).toBeVisible();
+  test("dashboard shows Your Account section", async () => {
+    await expect(dashboardPage.locators.yourAccount).toBeVisible();
   });
 
-  test("dashboard shows Applicant profile section", async ({ appPage }) => {
-    await expect(
-      dashboardPage.locators.applicantProfile,
-    ).toBeVisible();
+  test("dashboard shows Applicant profile section", async () => {
+    await expect(dashboardPage.locators.applicantProfile).toBeVisible();
   });
 
-  test("dashboard shows GC employee profile section", async ({ appPage }) => {
-    await expect(
-      dashboardPage.locators.gcEmployeeProfile,
-    ).toBeVisible();
+  test("dashboard shows GC employee profile section", async () => {
+    await expect(dashboardPage.locators.gcEmployeeProfile).toBeVisible();
   });
 });

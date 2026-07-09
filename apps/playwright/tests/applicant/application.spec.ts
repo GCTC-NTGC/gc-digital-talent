@@ -156,18 +156,22 @@ test.describe("Application", () => {
     ).toBeVisible();
     await application.saveAndContinue();
     // Expect error when no experiences added
-    await expect(application.page.getByRole("alert").filter({ hasNotText: /test version/i })).toContainText(
-      /please add at least one experience/i,
-    );
+    await expect(
+      application.page
+        .getByRole("alert")
+        .filter({ hasNotText: /test version/i }),
+    ).toContainText(/please add at least one experience/i);
 
     // Add an experience
     await application.page
       .getByRole("link", { name: /add a new experience/i })
       .click();
     await application.addExperience();
-    await expect(application.page.getByRole("alert").filter({ hasNotText: /test version/i })).toContainText(
-      /successfully added experience!/i,
-    );
+    await expect(
+      application.page
+        .getByRole("alert")
+        .filter({ hasNotText: /test version/i }),
+    ).toContainText(/successfully added experience!/i);
     await expect(
       application.page.getByText("1 education and certificate experience"),
     ).toBeVisible();
@@ -329,18 +333,22 @@ test.describe("Application", () => {
       ).toBeVisible();
       await application.saveAndContinue();
       // Expect error when no experiences added
-      await expect(application.page.getByRole("alert").filter({ hasNotText: /test version/i })).toContainText(
-        /please add at least one experience/i,
-      );
+      await expect(
+        application.page
+          .getByRole("alert")
+          .filter({ hasNotText: /test version/i }),
+      ).toContainText(/please add at least one experience/i);
 
       // Add an experience
       await application.page
         .getByRole("link", { name: /add a new experience/i })
         .click();
       await application.addExperience();
-      await expect(application.page.getByRole("alert").filter({ hasNotText: /test version/i })).toContainText(
-        /successfully added experience!/i,
-      );
+      await expect(
+        application.page
+          .getByRole("alert")
+          .filter({ hasNotText: /test version/i }),
+      ).toContainText(/successfully added experience!/i);
       await expect(
         application.page.getByText("1 education and certificate experience"),
       ).toBeVisible();

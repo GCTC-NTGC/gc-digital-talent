@@ -40,9 +40,7 @@ test.describe("Talent request regression", { tag: "@uat" }, () => {
     await firstRequest.click();
 
     // Detail page: job title is the h1
-    await expect(
-      appPage.page.getByRole("heading", { level: 1 }),
-    ).toBeVisible();
+    await expect(appPage.page.getByRole("heading", { level: 1 })).toBeVisible();
 
     // These three cards are always rendered — failure here means old data broke post-refactor
     await expect(
