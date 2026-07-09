@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config({
   path: path.resolve(__dirname, process.env.PLAYWRIGHT_ENV_FILE ?? ".env"),
+  override: true,
   quiet: true,
 });
 
