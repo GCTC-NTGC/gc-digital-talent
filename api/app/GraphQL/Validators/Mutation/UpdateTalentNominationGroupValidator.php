@@ -35,6 +35,15 @@ final class UpdateTalentNominationGroupValidator extends Validator
                 Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
                 Rule::when(fn () => $talentNominationGroup->development_programs_nomination_count == 0, ['prohibited']),
             ],
+            'talentNominationGroup.advancementClassifications' => [
+                'required',
+            ],
+            'talentNominationGroup.advancementClassifications.sync' => [
+                'list',
+                'distinct',
+                // if we want to eventually add rules for when it is approved, switch to !== 'APPROVED' and default back to the max:0 instead
+                Rule::when(fn ($attributes) => $attributes['talentNominationGroup.advancementDecision'] !== 'APPROVED', ['max:0']), // unless approved, can't sync any classifications
+            ],
 
         ];
     }
