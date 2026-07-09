@@ -100,7 +100,9 @@ class TalentNominationGroup extends Model
     /** @return BelongsToMany<Classification, $this> */
     public function advancementClassifications(): BelongsToMany
     {
-        return $this->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement');
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement')
+            ->withTimestamps();
     }
 
     /**
