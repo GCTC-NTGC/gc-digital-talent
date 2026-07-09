@@ -106,9 +106,14 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
         },
       },
     });
-    const admin = await me(adminCtx, {});
-    const createdPool = await createAndPublishPool(adminCtx, {
-      userId: admin?.id ?? "",
+    // createPool validator checks team-based permissions — platform admin has only global
+    // permissions, so the validator always fails for them. Use community admin instead.
+    const communityAdminSub =
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
+    const poolAdminCtx = await graphql.newContext(communityAdminSub);
+    const poolAdmin = await me(poolAdminCtx, {});
+    const createdPool = await createAndPublishPool(poolAdminCtx, {
+      userId: poolAdmin?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
