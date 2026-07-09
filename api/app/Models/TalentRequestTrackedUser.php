@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\UserBuilder;
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
@@ -214,6 +215,22 @@ class TalentRequestTrackedUser extends Pivot
                     ->orWhere('last_name', 'ilike', "%{$search}%")
                     ->orWhere('email', 'ilike', "%{$search}%")))
         );
+    }
+
+    /**
+     * Filter by the same per-source match rules already used to compute the "sources" accessor.
+     *
+     * @param  ?array<int, string>  $sources
+     */
+    public function scopeWhereHasTalentSource(Builder $query, ?array $sources, array $matchFilters): Builder
+    {
+        return $query->when($sources, fn (Builder $query) => $query->whereHas('user', function (Builder $userQuery) use ($sources, $matchFilters) {
+            $userQuery->where(function (Builder $q) use ($sources, $matchFilters) {
+                foreach (TalentRequestSource::selected($sources) as $source) {
+                    $q->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($matchFilters));
+                }
+            });
+        }));
     }
 
     public function referred(bool $save = true)

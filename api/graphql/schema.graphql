@@ -1161,6 +1161,7 @@ type TalentRequest {
 input TalentRequestTrackedUserFilterInput {
   statuses: [TalentRequestTrackedUserStatus!] @scope(name: "whereStatusIn")
   generalSearch: String @scope(name: "whereUserNameOrEmail")
+  sources: [TalentRequestSource!]
 }
 
 type TalentRequestTrackedUser {
@@ -1894,15 +1895,13 @@ type Query {
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
     talentRequestId: UUID!
-      @eq(key: "talent_request_id")
-      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
     @paginate(
+      builder: "App\\GraphQL\\Queries\\TalentRequestTrackedUsers@query"
       defaultCount: 10
       maxCount: 500
-      scopes: ["whereAuthorizedToView", "withSkillCount"]
     )
     @guard
     @canFind(

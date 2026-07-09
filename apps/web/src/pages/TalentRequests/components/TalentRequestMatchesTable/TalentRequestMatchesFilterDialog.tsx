@@ -9,6 +9,7 @@ import {
   type LanguageAbility,
   type OperationalRequirement,
   type PriorityWeight,
+  type TalentRequestSource,
   type TalentRequestUserSkillMatchFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -38,6 +39,7 @@ import adminMessages from "~/messages/adminMessages";
 import PoolFilterInput from "~/components/PoolFilterInput/PoolFilterInput";
 import usePoolFilterOptions from "~/components/PoolFilterInput/usePoolFilterOptions";
 import tableMessages from "~/components/PoolCandidatesTable/tableMessages";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
 
@@ -122,6 +124,14 @@ const TalentRequestMatchesFilterDialog_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
+    talentSources: localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          localized
+        }
+      }
+    }
   }
 `);
 
@@ -139,6 +149,7 @@ export interface FormValues {
   govEmployee?: EmployeeVerification[];
   departments?: string[];
   skills?: string[];
+  talentSources?: TalentRequestSource[];
 }
 
 export type TalentRequestMatchesFilterDialogProps = Omit<
@@ -218,6 +229,18 @@ const TalentRequestMatchesFilterDialog = ({
         />
       </div>
       <PoolFilterInput includeIds={initialValues?.pools} />
+      <Checklist
+        idPrefix="talentSources"
+        name="talentSources"
+        legend={intl.formatMessage(talentRequestMessages.sourceOfTalent)}
+        items={narrowEnumType(
+          unpackMaybes(options?.talentSources),
+          "TalentRequestSource",
+        ).map((talentSource) => ({
+          value: talentSource.value,
+          label: talentSource.label?.localized ?? notAvailable,
+        }))}
+      />
 
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({

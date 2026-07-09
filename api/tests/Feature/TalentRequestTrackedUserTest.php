@@ -1859,4 +1859,108 @@ class TalentRequestTrackedUserTest extends TestCase
         $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], array_column($byUser[$withCandidacy->id]['sources'], 'value'));
         $this->assertEquals([], array_column($byUser[$withoutCandidacy->id]['sources'], 'value'));
     }
+
+    public function testPaginatedFilterBySourcesOnlyReturnsMatchingUsers(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $matchingUser = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $matchingUser->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $nonMatchingUser = User::factory()->create();
+
+        foreach ([$matchingUser, $nonMatchingUser] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, [
+                'talentRequestId' => $request->id,
+                'where' => ['sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name]],
+            ])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.user.id', $matchingUser->id);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, [
+                'talentRequestId' => $request->id,
+                'where' => ['sources' => [TalentRequestSource::AT_LEVEL->name]],
+            ])
+            ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data');
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->paginatedQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(2, 'data.talentRequestTrackedUsers.data');
+    }
+
+    public function testPaginatedStillPaginatesAcrossMultiplePages(): void
+    {
+        $request = $this->createRequest();
+
+        $users = User::factory()->count(3)->create();
+        foreach ($users as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $pagedQuery = <<<'GRAPHQL'
+            query PagedTrackedUsers($talentRequestId: UUID!, $first: Int, $page: Int) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: $first, page: $page) {
+                    data {
+                        user { id }
+                    }
+                    paginatorInfo {
+                        total
+                        count
+                        currentPage
+                        lastPage
+                        hasMorePages
+                    }
+                }
+            }
+            GRAPHQL;
+
+        $pageOne = $this->actingAs($this->admin, 'api')
+            ->graphQL($pagedQuery, ['talentRequestId' => $request->id, 'first' => 2, 'page' => 1])
+            ->assertJsonCount(2, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.total', 3)
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.currentPage', 1)
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.lastPage', 2)
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.hasMorePages', true);
+
+        $pageTwo = $this->actingAs($this->admin, 'api')
+            ->graphQL($pagedQuery, ['talentRequestId' => $request->id, 'first' => 2, 'page' => 2])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data')
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.currentPage', 2)
+            ->assertJsonPath('data.talentRequestTrackedUsers.paginatorInfo.hasMorePages', false);
+
+        $pageOneIds = collect($pageOne->json('data.talentRequestTrackedUsers.data'))->pluck('user.id')->all();
+        $pageTwoIds = collect($pageTwo->json('data.talentRequestTrackedUsers.data'))->pluck('user.id')->all();
+
+        $this->assertEmpty(array_intersect($pageOneIds, $pageTwoIds));
+        $this->assertEqualsCanonicalizing(
+            $users->pluck('id')->all(),
+            array_merge($pageOneIds, $pageTwoIds),
+        );
+    }
 }
