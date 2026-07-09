@@ -42,8 +42,9 @@ final class UpdateTalentNominationGroupValidator extends Validator
             'talentNominationGroup.advancementClassifications.sync' => [
                 'list',
                 'distinct',
-                // if we want to eventually add rules for when it is approved, switch to == 'APPROVED' and default back to the max:0 instead
-                Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') !== 'APPROVED', ['max:0']), // unless approved, can't sync any classifications
+                Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
+                    ['min:0'],  // we will eventually require classifications when approving
+                    ['max:0']), // unless approved, can't sync any classifications
             ],
 
         ];
