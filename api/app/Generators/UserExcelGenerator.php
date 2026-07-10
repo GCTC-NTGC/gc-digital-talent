@@ -595,7 +595,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $this->getExperienceType($exp),  // experience type
             $exp->start_date?->format('Y-m') ?? '', // start date
             $exp->end_date?->format('Y-m') ?? '', // end date
-            $isCurrent, // currently active
+            $this->yesOrNo($isCurrent), // currently active
             $numberOfMonths, // number of months
             // Work-specific fields (8-24) - mostly empty for education
             '', // role_or_title
