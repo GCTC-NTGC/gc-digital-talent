@@ -55,30 +55,14 @@ export default defineConfig({
     ...(process.env.TESTING_ENDPOINT_SECRET
       ? [
           {
-            name: "setup-admin",
-            testMatch: /admin\.setup\.ts/,
-          },
-          {
-            name: "setup-applicant",
-            testMatch: /applicant\.setup\.ts/,
-          },
-          {
             name: "uat-admin",
-            use: {
-              ...devices["Desktop Chrome"],
-              storageState: ".auth/admin.json",
-            },
+            use: { ...devices["Desktop Chrome"] },
             testMatch: /uat-admin\.spec\.ts/,
-            dependencies: ["setup-admin"],
           },
           {
             name: "uat-applicant",
-            use: {
-              ...devices["Desktop Chrome"],
-              storageState: ".auth/applicant.json",
-            },
+            use: { ...devices["Desktop Chrome"] },
             testMatch: /uat-applicant\.spec\.ts/,
-            dependencies: ["setup-applicant"],
           },
           {
             // Smoke + regression tests: read-only checks against persistent UAT users.
