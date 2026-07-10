@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,14 @@ class TalentNominationGroup extends Model
     public function nominations(): HasMany
     {
         return $this->hasMany(TalentNomination::class, 'talent_nomination_group_id');
+    }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function advancementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement')
+            ->withTimestamps();
     }
 
     /**
