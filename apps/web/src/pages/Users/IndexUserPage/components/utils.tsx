@@ -107,6 +107,8 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       languageAbility: data.languageAbility || undefined,
       locationPreferences: data.workRegion,
       operationalRequirements: data.operationalRequirement,
