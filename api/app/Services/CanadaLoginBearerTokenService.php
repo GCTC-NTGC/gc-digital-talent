@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\BearerTokenService;
+use App\Support\LogUtil;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
@@ -11,7 +12,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 // We're using two JWT management libraries here (Jose & Lcobucci), which each
 // offer different functionality related to constraints and JWKS.
 // TODO: Consider consolidating into a single library, or migrating to a new
@@ -74,10 +74,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty',
-                        ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]
-                    );
-                    Log::debug($response->body());
+                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty', LogUtil::responseContext($response));
+                    Log::debug(LogUtil::cleanString($response->body()));
                     throw new Exception('Failed to get config');
                 }
 
@@ -110,9 +108,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the JWKS in getConfiguration',
-                        ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]);
-                    Log::debug($response->body());
+                    Log::error('Failed when GETting the JWKS in getConfiguration', LogUtil::responseContext($response));
+                    Log::debug(LogUtil::cleanString($response->body()));
                     throw new Exception('Failed to get config');
                 }
 
@@ -172,10 +169,9 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         assert($response instanceof Response);
 
         if ($response->failed()) {
-            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body(),
-                ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]);
-            Log::debug($response->body());
-            Log::debug([...$payload, 'client_secret' => Str::mask($payload['client_secret'], '*', 0)]);
+            Log::error('Failed when GETting the introspection verification in getIntrospectionValues.', LogUtil::responseContext($response));
+            Log::debug(LogUtil::cleanString($response->body()));
+            Log::debug(LogUtil::cleanArray($payload));
             throw new Exception('Failed to get introspection');
         }
 
