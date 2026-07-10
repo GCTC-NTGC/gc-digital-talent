@@ -1477,6 +1477,7 @@ type TalentNominationEvent {
   includeNineBox: Boolean!
   requireReferenceForAdvancement: Boolean!
   customInstructions: LocalizedString
+  contactEmail: String
 }
 
 type TalentNomination {
@@ -2621,6 +2622,7 @@ input CreateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String!
 }
 
 input UpdateTalentNominationEventInput {
