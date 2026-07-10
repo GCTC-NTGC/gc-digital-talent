@@ -182,6 +182,7 @@ const CreateSpecialApplicationDialog = ({
       }
 
       setOpen(false);
+      methods.reset();
 
       toast.success(
         intl.formatMessage({
