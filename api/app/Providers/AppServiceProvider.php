@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Reverb\ReverbLogger;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->app->instance(
+            \Laravel\Reverb\Contracts\Logger::class,
+            new ReverbLogger(),
+        );
+
         // https://laravel.com/docs/9.x/eloquent#configuring-eloquent-strictness
         Model::shouldBeStrict(! $this->app->isProduction());
 
