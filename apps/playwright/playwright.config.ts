@@ -80,6 +80,13 @@ export default defineConfig({
             testMatch: /uat-applicant\.spec\.ts/,
             dependencies: ["setup-applicant"],
           },
+          {
+            // Smoke + regression tests: read-only checks against persistent UAT users.
+            // Excluded from chromium/webkit (module-level throws without UAT env vars).
+            name: "uat-persistent",
+            use: { ...devices["Desktop Chrome"] },
+            testMatch: /.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
+          },
         ]
       : []),
 
