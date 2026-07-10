@@ -53,7 +53,7 @@ const CandidateCount_Query = graphql(/* GraphQL */ `
 `);
 
 const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
-  query CountTalentRequestMatches($where: ApplicantFilterInput) {
+  query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
     countTalentRequestMatches(where: $where)
     countTalentRequestMatchesByPool(where: $where) {
       pool {
@@ -97,7 +97,7 @@ export const useCandidateCount = (
   const [{ data: talentRequestData, fetching: talentRequestFetching }] =
     useQuery({
       query: CountTalentRequestMatches_Query,
-      variables: queryArgs,
+      variables: { where: { applicantFilter: queryArgs.where } },
     });
 
   const candidateCount = talentRequests

@@ -5,8 +5,8 @@ namespace Tests\Feature\Generators;
 use App\Generators\NominationsExcelGenerator;
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
-use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
@@ -57,14 +57,22 @@ class NominationsExcelGeneratorTest extends TestCase
         $talentNominationEvent = TalentNominationEvent::factory()->create([
             'community_id' => $community->id,
         ]);
-        $nominationGroup1 = TalentNominationGroup::factory()->create([
-            'nominee_id' => $employee1,
-            'talent_nomination_event_id' => $talentNominationEvent->id,
-        ]);
-        $nominationGroup2 = TalentNominationGroup::factory()->create([
-            'nominee_id' => $employee2,
-            'talent_nomination_event_id' => $talentNominationEvent->id,
-        ]);
+        $nomination1 = TalentNomination::factory()
+            ->state([
+                'nominee_id' => $employee1,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ])
+            ->evaluated()
+            ->create();
+        $nominationGroup1 = $nomination1->talentNominationGroup;
+        $nomination2 = TalentNomination::factory()
+            ->state([
+                'nominee_id' => $employee2,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ])
+            ->evaluated()
+            ->create();
+        $nominationGroup2 = $nomination2->talentNominationGroup;
 
         // act
         $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));

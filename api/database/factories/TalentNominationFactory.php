@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\NineBoxRating;
+use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
@@ -111,8 +112,9 @@ class TalentNominationFactory extends Factory
                 return [
                     'submitted_steps' => $stepsArray,
                     'nominee_id' => User::where('id', '!=', $attributes['nominator_id'])
+                        ->whereIsVerifiedGovEmployee()
                         ->inRandomOrder()
-                        ->firstOr(fn () => User::factory()->create()),
+                        ->firstOr(fn () => User::factory()->withGovEmployeeProfile()->create()),
                     'nominee_review' => $this->faker->randomElement((array_column((TalentNominationUserReview::cases()), 'name'))),
                     'nominee_relationship_to_nominator' => $this->faker->randomElement(array_column(TalentNominationNomineeRelationshipToNominator::cases(), 'name')),
                     'nominee_relationship_to_nominator_other' => fn ($attributes) => $attributes['nominee_relationship_to_nominator'] === TalentNominationNomineeRelationshipToNominator::OTHER->name
@@ -271,6 +273,30 @@ class TalentNominationFactory extends Factory
                     'submitted_steps' => $stepsArray,
                     'submitted_at' => Carbon::now(),
                 ];
+            });
+    }
+
+    public function evaluated(): self
+    {
+        return $this
+            ->submittedReviewAndSubmit()
+            ->afterCreating(function (TalentNomination $talentNomination) {
+                // TalentNominationObserver already created/linked the group, but leaves decisions null;
+                // seed a realistic decision for whichever nomination types were actually requested
+                $talentNominationGroup = $talentNomination->talentNominationGroup;
+
+                if ($talentNomination->nominate_for_advancement && is_null($talentNominationGroup->advancement_decision)) {
+                    $talentNominationGroup->advancement_decision = $this->faker->randomElement(array_column(TalentNominationGroupDecision::cases(), 'name'));
+                    $talentNominationGroup->advancement_reference_confirmed = $this->faker->boolean();
+                    $talentNominationGroup->advancement_notes = $this->faker->sentence();
+                }
+
+                if ($talentNomination->nominate_for_lateral_movement && is_null($talentNominationGroup->lateral_movement_decision)) {
+                    $talentNominationGroup->lateral_movement_decision = $this->faker->randomElement(array_column(TalentNominationGroupDecision::cases(), 'name'));
+                    $talentNominationGroup->lateral_movement_notes = $this->faker->sentence();
+                }
+
+                $talentNominationGroup->save();
             });
     }
 }

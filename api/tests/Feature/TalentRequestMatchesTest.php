@@ -13,6 +13,7 @@ use App\Enums\TalentRequestSource;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -100,7 +101,7 @@ class TalentRequestMatchesTest extends TestCase
     private function runCountMatches(array $where = []): TestResponse
     {
         return $this->graphQL(
-            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
+            'query ($where: TalentRequestMatchFilterInput) { countTalentRequestMatches(where: $where) }',
             ['where' => $where]
         );
     }
@@ -108,7 +109,7 @@ class TalentRequestMatchesTest extends TestCase
     private function runCountByPool(array $where = []): TestResponse
     {
         return $this->graphQL(
-            'query ($where: ApplicantFilterInput) {
+            'query ($where: TalentRequestMatchFilterInput) {
                 countTalentRequestMatchesByPool(where: $where) { pool { id } count }
             }',
             ['where' => $where]
@@ -566,7 +567,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->matchingUser($matchingPool);
 
         $this->runCountByPool(
-            ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]
+            ['applicantFilter' => ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]]
         )->assertExactJson([
             'data' => [
                 'countTalentRequestMatchesByPool' => [
@@ -588,5 +589,135 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->runCountMatches()
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
+    }
+
+    protected string $atLevelQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingAtLevelSources { id }
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
+    public function testAtLevelSourceMatchesUserWithCommunityInterest(): void
+    {
+        $community = Community::factory()->create();
+
+        $user = User::factory()->create();
+        $interest = CommunityInterest::factory()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        // no community interest — should not match
+        User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, ['where' => []])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
+    }
+
+    public function testAtLevelCommunityFilterNarrowsResults(): void
+    {
+        $matching = Community::factory()->create();
+        $other = Community::factory()->create();
+
+        $included = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $included->id,
+            'community_id' => $matching->id,
+        ]);
+
+        $excluded = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $excluded->id,
+            'community_id' => $other->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['community' => ['id' => $matching->id]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $included->id);
+    }
+
+    public function testTalentSourcesQualifiedInPoolOnlyExcludesAtLevelUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        // AT_LEVEL only — no pool candidates
+        $atLevelUser = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $poolUser->id);
+    }
+
+    public function testTalentSourcesAtLevelOnlyExcludesPoolOnlyUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        // QUALIFIED_IN_POOL only — no community interest
+        $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create();
+        $interest = CommunityInterest::factory()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $atLevelUser->id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
+    }
+
+    public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $userIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [
+                    TalentRequestSource::QUALIFIED_IN_POOL->name,
+                    TalentRequestSource::AT_LEVEL->name,
+                ]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertContains($poolUser->id, $userIds);
+        $this->assertContains($atLevelUser->id, $userIds);
     }
 }
