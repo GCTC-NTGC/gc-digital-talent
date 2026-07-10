@@ -107,6 +107,7 @@ export const followUpDateOverdueInfo = (
     ? differenceInCalendarDays(now, followUpDate)
     : -1;
   const isOverdue = daysOverdue > 0;
+  const isDueToday = daysOverdue === 0;
 
-  return { daysOverdue, isOverdue };
+  return { daysOverdue, isOverdue, isDueToday };
 };
