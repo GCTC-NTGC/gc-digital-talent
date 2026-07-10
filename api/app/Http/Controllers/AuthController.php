@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Jose\Component\Core\Util\Base64UrlSafe;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
@@ -35,6 +36,18 @@ class AuthController extends Controller
         $nonce = Str::random(40);
         $request->session()->put('state', $state);
         $request->session()->put('nonce', $nonce);
+
+        // PKCE (Proof Key for Code Exchange, RFC 7636)
+        // Generates a one-time secret (code_verifier) and sends a hashed version (code_challenge)
+        // with the authorize request. The original verifier is sent later during the token exchange,
+        // proving the token requester is the same party that initiated the login.
+        // This is defense-in-depth alongside client_secret, and aligns with OAuth 2.1 / iGov requirements.
+        $codeVerifier = Base64UrlSafe::encodeUnpadded(random_bytes(64)); // 86-char random string (RFC 7636 allows 43–128)
+        // S256 challenge: base64url(sha256(code_verifier)) — the auth server compares this against
+        // the verifier we send at token exchange time. An attacker who intercepts the auth code
+        // cannot reconstruct the verifier from the challenge (SHA-256 is one-way).
+        $codeChallenge = Base64UrlSafe::encodeUnpadded(hash('sha256', $codeVerifier, binary: true));
+        $request->session()->put('code_verifier', $codeVerifier);
 
         $request->session()->put(
             'from',
@@ -71,6 +84,8 @@ class AuthController extends Controller
             'ui_locales' => $ui_locales, // This is what SIC wants
             'lang' => $lang,  // This is what CanadaLogin wants
             'skipmigration' => $request->input('skipmigration', null),
+            'code_challenge' => $codeChallenge, // PKCE: hashed verifier for the auth server to hold
+            'code_challenge_method' => 'S256',  // PKCE: SHA-256 transform (the only recommended method)
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -81,6 +96,8 @@ class AuthController extends Controller
         // pull the original nonce and state from  beginning to compare with returned values
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
+        // PKCE: retrieve the code_verifier we stored during login, to prove we initiated this flow
+        $codeVerifier = $request->session()->pull('code_verifier');
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
@@ -93,6 +110,9 @@ class AuthController extends Controller
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
+            // PKCE: the auth server hashes this and compares to the code_challenge from the authorize request.
+            // This proves the party exchanging the code is the same party that initiated the login.
+            'code_verifier' => $codeVerifier,
         ];
         $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
