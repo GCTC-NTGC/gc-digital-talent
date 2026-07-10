@@ -544,7 +544,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git diff --staged --quiet || git commit -m "Add ${{ github.ref_name }} release notes"
+          git diff --staged --quiet || git commit -m "Add ${{ inputs.tag || github.ref_name }} release notes"
           git push
 
       - name: Publish GitHub release
