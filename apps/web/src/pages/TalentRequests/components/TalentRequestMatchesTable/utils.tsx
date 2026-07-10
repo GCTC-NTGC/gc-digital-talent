@@ -172,7 +172,7 @@ export function transformFormValuesToWhere(
 ): TalentRequestMatchFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirements,
       locationPreferences: data.workRegions,
       flexibleWorkLocations: data.flexibleWorkLocations,

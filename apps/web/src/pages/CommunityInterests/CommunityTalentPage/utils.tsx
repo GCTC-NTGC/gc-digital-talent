@@ -170,6 +170,7 @@ export function transformFormValuesToCommunityInterestFilterInput(
     trainingInterest: data.mobilityInterest.includes("trainingInterest"),
     lateralMoveInterest: data.mobilityType.includes("lateralMoveInterest"),
     promotionMoveInterest: data.mobilityType.includes("promotionMoveInterest"),
+    languageAbility: data.languageAbility || undefined,
     positionDuration: data.employmentDuration
       ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
       : undefined,

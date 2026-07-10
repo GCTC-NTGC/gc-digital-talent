@@ -129,8 +129,8 @@ export interface FormValues {
   classifications?: string[];
   streams?: string[];
   pools?: string[];
-  languageAbility?: LanguageAbility;
-  employmentDuration?: TEmploymentDuration;
+  languageAbility?: LanguageAbility | "";
+  employmentDuration?: TEmploymentDuration | "";
   equity?: string[];
   priorityWeight?: PriorityWeight[];
   operationalRequirements?: OperationalRequirement[];

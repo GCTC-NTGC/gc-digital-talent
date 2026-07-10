@@ -107,7 +107,7 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      languageAbility: data.languageAbility || undefined,
       locationPreferences: data.workRegion,
       operationalRequirements: data.operationalRequirement,
       flexibleWorkLocations: data.flexibleWorkLocations,

@@ -560,7 +560,7 @@ export function transformFormValuesToFilterState(
 ): PoolCandidateSearchInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirement,
       locationPreferences: data.workRegion,
       flexibleWorkLocations: data.flexibleWorkLocations,
