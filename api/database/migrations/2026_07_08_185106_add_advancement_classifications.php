@@ -20,8 +20,7 @@ return new class() extends Migration
             $table->foreignUuid('classification_id')
                 ->constrained();
             $table->foreignUuid('talent_nomination_group_id')
-                ->constrained()
-                ->onDelete('cascade');
+                ->constrained();
             $table->unique(['classification_id', 'talent_nomination_group_id'], 'classification_nomination_group_advancement_unique');
         });
     }
