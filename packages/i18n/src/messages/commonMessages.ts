@@ -621,6 +621,11 @@ const commonMessages = defineMessages({
     id: "JCA/2+",
     description: "Label displayed before end date",
   },
+  partiallyApproved: {
+    defaultMessage: "Partially approved",
+    id: "M9Q1zH",
+    description: "Status text for partially approved nominations",
+  },
 });
 
 export default commonMessages;
