@@ -26,5 +26,5 @@ export interface FormValues {
     en: string | null;
     fr: string | null;
   };
-  contactEmail: string;
+  contactEmail: string | null;
 }

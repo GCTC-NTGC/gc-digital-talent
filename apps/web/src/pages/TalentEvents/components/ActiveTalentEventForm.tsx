@@ -15,7 +15,14 @@ import {
   formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { DateInput, Input, Submit, TextArea } from "@gc-digital-talent/forms";
+import {
+  DateInput,
+  htmlToRichTextJSON,
+  Input,
+  RichTextRenderer,
+  Submit,
+  TextArea,
+} from "@gc-digital-talent/forms";
 import {
   convertDateTimeToDate,
   convertDateTimeZone,
@@ -73,8 +80,11 @@ const ActiveTalentEventForm = ({
     learnMoreUrl,
     closeDate,
     communityDevelopmentPrograms,
+    contactEmail,
+    customInstructions,
   } = talentNominationEvent;
   const notFound = intl.formatMessage(commonMessages.notFound);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -98,6 +108,7 @@ const ActiveTalentEventForm = ({
           },
         }),
       ),
+      contactEmail: contactEmail,
     },
   });
 
@@ -297,6 +308,22 @@ const ActiveTalentEventForm = ({
               appendLanguageToLabel={"fr"}
               type="url"
             />
+            <div className="xs:col-span-2">
+              <Input
+                id="contactEmail"
+                name="contactEmail"
+                label={intl.formatMessage({
+                  defaultMessage: "Event contact email",
+                  id: "ezbo2U",
+                  description:
+                    "Label displayed on the talent nomination event contact email field",
+                })}
+                type="email"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+              />
+            </div>
           </div>
           <CardSeparator />
           <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
@@ -318,26 +345,6 @@ const ActiveTalentEventForm = ({
                     "Description for subsection create talent management event",
                 })}
               </p>
-            </div>
-            <div className="col-span-2">
-              <FieldDisplay
-                label={intl.formatMessage({
-                  defaultMessage: "Leadership competency requirement",
-                  id: "eBH+tH",
-                  description:
-                    "Bounding box label for the include leadership competencies",
-                })}
-              >
-                <BoolCheckIcon value={includeLeadershipCompetencies}>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "The nomination must include the nominee's top 3 leadership competencies",
-                    id: "4rkX89",
-                    description:
-                      "Label for the include leadership competencies",
-                  })}
-                </BoolCheckIcon>
-              </FieldDisplay>
             </div>
             <FieldDisplay
               label={intl.formatMessage({
@@ -384,6 +391,58 @@ const ActiveTalentEventForm = ({
                 }}
               />
             </div>
+            <div className="col-span-2">
+              <FieldDisplay
+                label={intl.formatMessage({
+                  defaultMessage: "Leadership competency requirement",
+                  id: "eBH+tH",
+                  description:
+                    "Bounding box label for the include leadership competencies",
+                })}
+              >
+                <BoolCheckIcon value={includeLeadershipCompetencies}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The nomination must include the nominee's top 3 leadership competencies",
+                    id: "4rkX89",
+                    description:
+                      "Label for the include leadership competencies",
+                  })}
+                </BoolCheckIcon>
+              </FieldDisplay>
+            </div>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Customized instruction text",
+                id: "f1Kpkp",
+                description: "label for nomination event instructions",
+              })}
+              appendLanguageToLabel="en"
+            >
+              {customInstructions?.en ? (
+                <RichTextRenderer
+                  node={htmlToRichTextJSON(customInstructions.en)}
+                />
+              ) : (
+                notProvided
+              )}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Customized instruction text",
+                id: "f1Kpkp",
+                description: "label for nomination event instructions",
+              })}
+              appendLanguageToLabel="fr"
+            >
+              {customInstructions?.fr ? (
+                <RichTextRenderer
+                  node={htmlToRichTextJSON(customInstructions.fr)}
+                />
+              ) : (
+                notProvided
+              )}
+            </FieldDisplay>
           </div>
           {community !== null && (
             <>

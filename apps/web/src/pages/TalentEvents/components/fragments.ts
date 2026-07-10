@@ -78,6 +78,11 @@ export const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    customInstructions {
+      en
+      fr
+    }
+    contactEmail
   }
 `);
 
