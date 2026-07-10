@@ -1,11 +1,14 @@
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
+import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
+import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
 
 import {
   getFragment,
   graphql,
   type FragmentType,
   TalentNominationGroupDecision,
+  TalentNominationGroupStatus,
 } from "@gc-digital-talent/graphql";
 import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -68,11 +71,17 @@ interface NominationHistoryListItemProps {
   optionsQuery: React.ComponentProps<
     typeof NominationDetailsDialog
   >["optionsQuery"];
+  advancementDecision?: TalentNominationGroupDecision | null;
+  lateralMovementDecision?: TalentNominationGroupDecision | null;
+  developmentProgramsDecision?: TalentNominationGroupDecision | null;
 }
 
 const NominationHistoryListItem = ({
   nominationQuery,
   optionsQuery,
+  advancementDecision,
+  lateralMovementDecision,
+  developmentProgramsDecision,
 }: NominationHistoryListItemProps) => {
   const intl = useIntl();
 
@@ -127,23 +136,59 @@ const NominationHistoryListItem = ({
     </span>
   );
 
-  // get the decision based on submittedAt
-  const getDecision = (
-    submittedAt?: string | null,
-  ): TalentNominationGroupDecision | null => {
-    if (submittedAt) {
-      return TalentNominationGroupDecision.Approved;
-    }
-    return null;
+  const getDecision = (): TalentNominationGroupStatus => {
+    const decisions = [
+      nomination.nominateForAdvancement && advancementDecision,
+      nomination.nominateForLateralMovement && lateralMovementDecision,
+      nomination.nominateForDevelopmentPrograms && developmentProgramsDecision,
+    ].filter(Boolean) as TalentNominationGroupDecision[];
+
+    if (decisions.length === 0) return TalentNominationGroupStatus.InProgress;
+
+    const hasApproved = decisions.some(
+      (d) => d === TalentNominationGroupDecision.Approved,
+    );
+    const hasRejected = decisions.some(
+      (d) => d === TalentNominationGroupDecision.Rejected,
+    );
+
+    if (hasApproved && hasRejected)
+      return TalentNominationGroupStatus.PartiallyApproved;
+    if (hasApproved) return TalentNominationGroupStatus.Approved;
+    return TalentNominationGroupStatus.Rejected;
   };
 
-  const decision = getDecision(nomination.submittedAt);
-  const statusText =
-    decision === TalentNominationGroupDecision.Approved
-      ? intl.formatMessage(commonMessages.approved)
-      : decision === TalentNominationGroupDecision.Rejected
-        ? intl.formatMessage(commonMessages.notSupported)
-        : intl.formatMessage(commonMessages.inProgress);
+  const computedStatus = getDecision();
+
+  const getStatusInfo = () => {
+    if (computedStatus === TalentNominationGroupStatus.Approved) {
+      return {
+        text: intl.formatMessage(commonMessages.approved),
+        icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
+      };
+    } else if (computedStatus === TalentNominationGroupStatus.Rejected) {
+      return {
+        text: intl.formatMessage(commonMessages.notSupported),
+        icon: <XMarkIcon className="mr-1 h-5 w-5 font-normal text-error" />,
+      };
+    } else if (
+      computedStatus === TalentNominationGroupStatus.PartiallyApproved
+    ) {
+      return {
+        text: intl.formatMessage(commonMessages.partiallyApproved),
+        icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
+      };
+    } else {
+      return {
+        text: intl.formatMessage(commonMessages.inProgress),
+        icon: (
+          <QuestionMarkCircleIcon className="mr-1 h-5 w-5 font-normal text-primary" />
+        ),
+      };
+    }
+  };
+
+  const statusInfo = getStatusInfo();
 
   type MetaDataProps = React.ComponentProps<
     typeof PreviewList.Item
@@ -155,8 +200,8 @@ const NominationHistoryListItem = ({
       type: "text",
       children: (
         <span className="flex items-center">
-          <CheckIcon className="mr-1 h-5 w-5 text-success" />
-          {statusText}
+          {statusInfo.icon}
+          {statusInfo.text}
         </span>
       ),
     },
