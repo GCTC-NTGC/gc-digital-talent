@@ -8,14 +8,16 @@ describe("followUpDateOverdueInfo", () => {
     expect(followUpDateOverdueInfo(followUpDate, now)).toEqual({
       daysOverdue: -1,
       isOverdue: false,
+      isDueToday: false,
     });
   });
 
-  test("is not overdue when follow-up date is today", () => {
+  test("is due today, not overdue, when follow-up date is today", () => {
     const followUpDate = new Date("2026-07-10T04:00:00Z");
     expect(followUpDateOverdueInfo(followUpDate, now)).toEqual({
       daysOverdue: 0,
       isOverdue: false,
+      isDueToday: true,
     });
   });
 
@@ -24,6 +26,7 @@ describe("followUpDateOverdueInfo", () => {
     expect(followUpDateOverdueInfo(followUpDate, now)).toEqual({
       daysOverdue: 1,
       isOverdue: true,
+      isDueToday: false,
     });
   });
 
@@ -31,6 +34,7 @@ describe("followUpDateOverdueInfo", () => {
     expect(followUpDateOverdueInfo(null, now)).toEqual({
       daysOverdue: -1,
       isOverdue: false,
+      isDueToday: false,
     });
   });
 });
