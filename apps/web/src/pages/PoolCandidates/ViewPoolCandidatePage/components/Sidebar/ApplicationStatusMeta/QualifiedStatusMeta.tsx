@@ -7,7 +7,7 @@ import {
   PlacementType,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { Notice, Ul } from "@gc-digital-talent/ui";
+import { Notice, Ul, wrapParens } from "@gc-digital-talent/ui";
 import {
   formatDate,
   isDateStringExpired,
@@ -81,7 +81,6 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
   }
 
   const expiredMessage = intl.formatMessage(messages.expired);
-  const expiredMessageParentheses = `(${expiredMessage})`;
 
   return (
     <>
@@ -147,7 +146,7 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
         />
         {isExpired && (
           <p className="text-gray-600 dark:text-gray-200">
-            {expiredMessageParentheses}
+            {wrapParens(expiredMessage)}
           </p>
         )}
       </FieldDisplay>
