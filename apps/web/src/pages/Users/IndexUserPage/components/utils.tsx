@@ -143,7 +143,7 @@ export function transformUserFilterInputToFormValues(
   }
 
   return {
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -155,7 +155,7 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,

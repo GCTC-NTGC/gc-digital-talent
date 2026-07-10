@@ -193,9 +193,9 @@ export function transformCommunityInterestFilterInputToFormValues(
     workStreams: unpackMaybes(input?.workStreams),
     mobilityInterest,
     mobilityType,
-    languageAbility: input?.languageAbility ?? undefined,
+    languageAbility: input?.languageAbility ?? "",
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,

@@ -506,10 +506,11 @@ export function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
-    employmentDuration: positionDurationToEmploymentDuration(
-      input?.applicantFilter?.positionDuration,
-    ),
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    employmentDuration:
+      positionDurationToEmploymentDuration(
+        input?.applicantFilter?.positionDuration,
+      ) ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
