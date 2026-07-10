@@ -123,7 +123,7 @@ const TalentRequestFollowUpDate = ({
 
   return (
     <FieldDisplay label={label} className="mb-3">
-      <span className="flex gap-2">
+      <span className="flex flex-col items-start gap-2">
         <Dialog.Root open={isOpen} onOpenChange={setOpen}>
           <Dialog.Trigger>
             <Button mode="inline" color={isOverdue ? "error" : "primary"}>
