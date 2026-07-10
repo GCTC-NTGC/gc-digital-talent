@@ -43,6 +43,7 @@ All commands run from `apps/playwright/`:
 | Integration tests only | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --project=chromium --grep @uat` |
 | Re-run last failures | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --last-failed` |
 | Run by name | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --grep "test title"` |
+| UI mode (interactive, watch/debug) | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --ui` |
 | Open HTML report | `pnpm exec playwright show-report` |
 
 ## How Authentication Works
