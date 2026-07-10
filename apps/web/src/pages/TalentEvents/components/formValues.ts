@@ -22,4 +22,9 @@ export interface FormValues {
       fr: string | null;
     };
   }[];
+  customInstructions: {
+    en: string | null;
+    fr: string | null;
+  };
+  contactEmail: string;
 }

@@ -1,6 +1,6 @@
 import { defineMessage, useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { CardSeparator, Heading, Notice } from "@gc-digital-talent/ui";
 import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
@@ -9,11 +9,13 @@ import {
   errorMessages,
   getLocale,
   uiMessages,
+  type Locales,
 } from "@gc-digital-talent/i18n";
 import {
   Checkbox,
   DateInput,
   Input,
+  RichTextInput,
   Select,
   TextArea,
 } from "@gc-digital-talent/forms";
@@ -23,6 +25,7 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import processMessages from "~/messages/processMessages";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
+import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import { isCommunity } from "../TalentEvent/util";
 import type { FormValues } from "./formValues";
@@ -37,6 +40,8 @@ const atLeastOne = defineMessage({
   id: "bShedV",
   description: "Message to add at least one development opportunity",
 });
+
+const TEXT_AREA_MAX_WORDS_EN = 75;
 
 interface UpcomingTalentEventFormProps {
   query?: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -117,6 +122,13 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
 
   const [editOpen, setEditOpen] = useState<string | null>(null);
   const [removeOpen, setRemoveOpen] = useState<string | null>(null);
+
+  const wordCountLimits: Record<Locales, number> = {
+    en: TEXT_AREA_MAX_WORDS_EN,
+    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
+  } as const;
+
+  const instructionsDescriptionId = useId();
 
   return (
     <>
@@ -201,6 +213,22 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
           appendLanguageToLabel={"fr"}
           type="url"
         />
+        <div className="xs:col-span-2">
+          <Input
+            id="contactEmail"
+            name="contactEmail"
+            label={intl.formatMessage({
+              defaultMessage: "Event contact email",
+              id: "ezbo2U",
+              description:
+                "Label displayed on the talent nomination event contact email field",
+            })}
+            type="email"
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+        </div>
       </div>
       <CardSeparator />
       <div className="grid gap-6 xs:grid-cols-2">
@@ -223,6 +251,37 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             })}
           </p>
         </div>
+        <DateInput
+          id="openDate"
+          name="openDate"
+          legend={intl.formatMessage({
+            defaultMessage: "Nomination start date",
+            id: "aXY8in",
+            description: "start date of a nomination event",
+          })}
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
+        <DateInput
+          id="closeDate"
+          name="closeDate"
+          legend={intl.formatMessage({
+            defaultMessage: "Nomination close date",
+            id: "bnjpsH",
+            description: "end date of a nomination event",
+          })}
+          rules={{
+            min: {
+              value: watchOpenDate ? String(watchOpenDate) : "",
+              message: intl.formatMessage(errorMessages.minDateSelfLabel, {
+                labelSelf: intl.formatMessage(processMessages.closingDate),
+                labelAssociated: intl.formatMessage(adminMessages.openingDate),
+              }),
+            },
+            required: intl.formatMessage(errorMessages.required),
+          }}
+        />
         <div className="xs:col-span-2">
           <Checkbox
             id="includeLeadershipCompetencies"
@@ -242,28 +301,39 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             name="includeLeadershipCompetencies"
           />
         </div>
-        <DateInput
-          id="openDate"
-          name="openDate"
-          legend={intl.formatMessage(adminMessages.openingDate)}
-          rules={{
-            required: intl.formatMessage(errorMessages.required),
-          }}
+        <div className="xs:col-span-2" id={instructionsDescriptionId}>
+          {intl.formatMessage({
+            defaultMessage:
+              "The nomination form offers basic instructions at the beginning of each nomination to help guide the nominator through the process. You use the following optional field to include extra context that might be unique to your event.",
+            id: "5jkq2u",
+            description: "description for custom event instructions",
+          })}
+        </div>
+        <RichTextInput
+          id={"customInstructions.en"}
+          name={"customInstructions.en"}
+          wordLimit={wordCountLimits.en}
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel={"en"}
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+          aria-describedby={instructionsDescriptionId}
         />
-        <DateInput
-          id="closeDate"
-          name="closeDate"
-          legend={intl.formatMessage(processMessages.closingDate)}
-          rules={{
-            min: {
-              value: watchOpenDate ? String(watchOpenDate) : "",
-              message: intl.formatMessage(errorMessages.minDateSelfLabel, {
-                labelSelf: intl.formatMessage(processMessages.closingDate),
-                labelAssociated: intl.formatMessage(adminMessages.openingDate),
-              }),
-            },
-            required: intl.formatMessage(errorMessages.required),
-          }}
+        <RichTextInput
+          id={"customInstructions.fr"}
+          name={"customInstructions.fr"}
+          wordLimit={wordCountLimits.fr}
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel={"fr"}
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+          aria-describedby={instructionsDescriptionId}
         />
       </div>
       {watchCommunity && (
