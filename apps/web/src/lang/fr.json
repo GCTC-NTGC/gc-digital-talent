@@ -7585,6 +7585,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
+  "SWtxLc": {
+    "defaultMessage": "<strong>{educationType}</strong> de {institution}",
+    "description": "Study at institution, HTML"
+  },
   "SXyhoR": {
     "defaultMessage": "Ce ne sont pas toutes les plaintes qui parviennent directement au commissaire à l’accessibilité. Certaines exceptions s’appliquent : ",
     "description": "Disclaimer about accessibility complaint exceptions."
@@ -11420,6 +11424,10 @@
   "hhVBJP": {
     "defaultMessage": "Gérer les demandes de talents",
     "description": "Permissions related to managing talent requests"
+  },
+  "hiESrI": {
+    "defaultMessage": "{educationType} de {institution}",
+    "description": "Study at institution"
   },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",

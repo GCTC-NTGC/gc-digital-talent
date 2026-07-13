@@ -136,6 +136,16 @@ const messages = defineMessages({
     id: "dy98XL",
     description: "Study at institution without type, HTML",
   },
+  educationAtWithoutSubject: {
+    defaultMessage: "{educationType} from {institution}",
+    id: "hiESrI",
+    description: "Study at institution",
+  },
+  educationAtWithoutSubjectHtml: {
+    defaultMessage: "<strong>{educationType}</strong> from {institution}",
+    id: "SWtxLc",
+    description: "Study at institution, HTML",
+  },
   workAt: {
     defaultMessage: "{role} at {organization}",
     id: "wTAdQe",

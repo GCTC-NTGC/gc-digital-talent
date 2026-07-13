@@ -1152,6 +1152,17 @@ export const getExperienceName = <T extends ExperienceName>(
         subject = licenseOrAccreditation;
       }
 
+      if (!subject) {
+        return intl.formatMessage(
+          html
+            ? experienceMessages.educationAtWithoutSubject
+            : experienceMessages.educationAtWithoutSubjectHtml,
+          {
+            educationType,
+            institution,
+          },
+        );
+      }
       return intl.formatMessage(
         html
           ? experienceMessages.educationAtHtml
