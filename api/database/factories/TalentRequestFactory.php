@@ -71,6 +71,7 @@ class TalentRequestFactory extends BaseFactory
         ]);
     }
 
+    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
     public function withTrackedUsers(int $count = 3): self
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
@@ -83,6 +84,7 @@ class TalentRequestFactory extends BaseFactory
         });
     }
 
+    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
     public function withMatchingUsers(int $count = 3): self
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
