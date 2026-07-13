@@ -45,6 +45,7 @@ class TalentNominationEventTest extends TestCase
         'description' => ['en' => 'Test EN', 'fr' => 'Test FR'],
         'learnMoreUrl' => ['en' => 'http://en.domain.com', 'fr' => 'http://fr.domain.com'],
         'includeLeadershipCompetencies' => true,
+        'contactEmail' => 'example@example.org',
     ];
 
     protected $createMutation = <<<'GRAPHQL'
@@ -67,6 +68,7 @@ class TalentNominationEventTest extends TestCase
                         }
                     }
                 }
+                contactEmail
             }
         }
     GRAPHQL;

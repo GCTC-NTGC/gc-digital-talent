@@ -2671,7 +2671,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
-  contactEmail: String! @rename(attribute: "contact_email")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input TalentNominationEventBelongsTo {
