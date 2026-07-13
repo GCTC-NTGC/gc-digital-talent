@@ -78,6 +78,43 @@ class UserExcelGeneratorTest extends TestCase
     }
 
     /**
+     * The "community" filter should exclude users who are not in the
+     * filtered community, even when no explicit ids are set (full dataset download).
+     */
+    public function testCommunityFilterExcludesUsersOutsideCommunity(): void
+    {
+        // arrange
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+
+        $community = Community::factory()->create();
+
+        $memberUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $memberUser->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        $outsideUser = User::factory()->withGovEmployeeProfile()->create();
+
+        // act
+        $generator = new UserExcelGenerator(fileName: 'test_community_filter', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['community' => ['id' => $community->id]]);
+        $generator->generate()->write();
+
+        // assert: only the user inside the filtered community appears in the Users sheet (sheet index 0)
+        $rows = $this->readSheetRows('test_community_filter', sheetIndex: 0, rowCount: 10);
+        array_shift($rows); // remove header row
+        $userIds = array_column($rows, 0); // 'id' is always the first column
+
+        $this->assertContains($memberUser->id, $userIds, 'User inside the filtered community should appear');
+        $this->assertNotContains($outsideUser->id, $userIds, 'User outside the filtered community should not appear');
+    }
+
+    /**
      * Community interest sheet should have paired headers per development program:
      * "{program name}" and "{program name} - Linked experience"
      */
