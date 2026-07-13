@@ -19,9 +19,17 @@ class RequestOriginLoggerMiddleware
     {
         $result = $next($request);
 
-        $this->logger->info('Request logged', [
-            'XForwardedIP' => $request->header('X-Forwarded-For'),
-        ]);
+        if ($request->hasSession()) {
+            $xForwardedFor = $request->header('X-Forwarded-For');
+            $previous = $request->session()->get('last_x_forwarded_ip');
+
+            if (! is_null($xForwardedFor) && $xForwardedFor !== $previous) {
+                $this->logger->info('Session IP changed', [
+                    'XForwardedIP' => $xForwardedFor,
+                ]);
+                $request->session()->put('last_x_forwarded_ip', $xForwardedFor);
+            }
+        }
 
         return $result;
     }
