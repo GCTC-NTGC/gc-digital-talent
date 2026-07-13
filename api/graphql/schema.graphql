@@ -301,7 +301,7 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
@@ -2008,7 +2008,7 @@ type Query {
       maxCount: 500
       scopes: [
         "withPolicyEagerLoads"
-        "authorizedToView"
+        "whereAuthorizedToView"
         "isVerifiedGovEmployee"
         "withSkillCount"
       ]

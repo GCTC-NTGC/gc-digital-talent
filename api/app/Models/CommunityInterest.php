@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\CommunityInterestBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -71,6 +72,11 @@ class CommunityInterest extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function newEloquentBuilder($query): Builder
+    {
+        return new CommunityInterestBuilder($query);
+    }
+
     /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
@@ -131,61 +137,6 @@ class CommunityInterest extends Model
             ->leftJoin('classifications', 'users.computed_classification', '=', 'classifications.id')
             ->orderBy('group', $order)
             ->orderBy('level', $order);
-    }
-
-    // scope the query to CommunityInterests the current user can view
-    // own interest or belongs to your community and consentToShareProfile is TRUE
-    public function scopeAuthorizedToView(Builder $query, ?array $args = null): Builder
-    {
-        /** @var User | null */
-        $user = Auth::user();
-
-        if (isset($args['userId'])) {
-            $user = User::findOrFail($args['userId']);
-        }
-
-        // can see any community interest - return with no filters added
-        if ($user?->isAbleTo('view-any-communityInterest')) {
-            return $query;
-        }
-
-        // we might want to add some filters for some candidates
-        $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
-
-            // the user might be able to view their own interests
-            if ($user?->isAbleTo('view-own-employeeProfile')) {
-                $query->orWhere('user_id', $user->id);
-            }
-
-            // the user might be able to view their communities' interests
-            if ($user?->isAbleTo('view-team-communityInterest')) {
-                $query->orWhere(function (Builder $query) use ($user) {
-
-                    // all community teams that the user is a member in
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
-
-                    // filter community teams down to those where the user also has permission to see the interests
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityInterest', $team));
-
-                    $query->whereIn('community_id', $viewPermissionCommunityTeams->pluck('teamable_id')->toArray());
-                    $query->where('consent_to_share_profile', true);
-                });
-            }
-        });
-
-        $filterCountAfter = count($query->getQuery()->wheres);
-        if ($filterCountAfter > $filterCountBefore) {
-            return $query;
-        }
-
-        // fall through - query will return nothing
-        $query->where('id', null);
-
-        return $query;
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder
@@ -373,39 +324,6 @@ class CommunityInterest extends Model
         });
 
         return $query;
-    }
-
-    public function scopeWhereAuthorizedToView(Builder $query, ?array $args = null): Builder
-    {
-        return $this->scopeAuthorizedToView($query, $args);
-    }
-
-    public static function scopeWhereMatchesTalentRequest(Builder $query, ?array $filters): Builder
-    {
-        $filters ??= [];
-        $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
-
-        if (! empty($qualifiedInClassifications)) {
-            $query->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
-                $userQuery->whereHas('currentClassification', function (Builder $classQuery) use ($qualifiedInClassifications) {
-                    $classQuery->where(function (Builder $q) use ($qualifiedInClassifications) {
-                        foreach ($qualifiedInClassifications as $classification) {
-                            $q->orWhere(function (Builder $q) use ($classification) {
-                                $q->where('group', $classification['group'])
-                                    ->where('level', $classification['level']);
-                            });
-                        }
-                    });
-                });
-            });
-        }
-
-        $community = $filters['community'] ?? null;
-        $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
-
-        self::scopeWorkStreams($query, array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'));
-
-        return self::scopeCommunities($query, $communityId ? [$communityId] : null);
     }
 
     private function addSkillCountSelect(Builder $query, ?array $skillIds): Builder
