@@ -22,10 +22,6 @@ const RecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
     id
     expiryDate
     applicationStatusData {
-      status {
-        value
-      }
-      placedAt
       statusUpdatedAt
     }
     pool {

@@ -506,10 +506,11 @@ export function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
-    employmentDuration: positionDurationToEmploymentDuration(
-      input?.applicantFilter?.positionDuration,
-    ),
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    employmentDuration:
+      positionDurationToEmploymentDuration(
+        input?.applicantFilter?.positionDuration,
+      ) ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -559,7 +560,9 @@ export function transformFormValuesToFilterState(
 ): PoolCandidateSearchInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirement,
       locationPreferences: data.workRegion,
       flexibleWorkLocations: data.flexibleWorkLocations,

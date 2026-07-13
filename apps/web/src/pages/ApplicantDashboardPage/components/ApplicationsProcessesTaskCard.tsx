@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  ApplicationStatus,
+  CandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -33,7 +33,7 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewApplicationPreviewList
       applicationStatusData {
-        status {
+        candidateStatus {
           value
         }
       }
@@ -80,7 +80,8 @@ const ApplicationsProcessesTaskCard = ({
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
     ({ applicationStatusData }) =>
-      applicationStatusData?.status?.value === ApplicationStatus.Qualified,
+      applicationStatusData?.candidateStatus?.value ===
+      CandidateStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

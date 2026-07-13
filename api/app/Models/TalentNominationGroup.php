@@ -5,12 +5,11 @@ namespace App\Models;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
-use Database\Factories\TalentNominationGroupFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -44,9 +43,6 @@ use Spatie\Activitylog\Support\LogOptions;
  */
 class TalentNominationGroup extends Model
 {
-    /** @use HasFactory<TalentNominationGroupFactory> */
-    use HasFactory;
-
     use LogsActivity;
 
     protected $keyType = 'string';
@@ -94,6 +90,14 @@ class TalentNominationGroup extends Model
     public function nominations(): HasMany
     {
         return $this->hasMany(TalentNomination::class, 'talent_nomination_group_id');
+    }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function advancementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement')
+            ->withTimestamps();
     }
 
     /**
@@ -237,5 +241,11 @@ class TalentNominationGroup extends Model
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['talentNominationEvent']);
+    }
+
+    /** @return BelongsTo<Classification, $this> */
+    public function classificationAtTimeOfAdvancementApproval(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class);
     }
 }

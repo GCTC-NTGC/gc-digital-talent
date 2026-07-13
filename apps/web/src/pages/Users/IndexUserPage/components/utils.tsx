@@ -107,7 +107,9 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       locationPreferences: data.workRegion,
       operationalRequirements: data.operationalRequirement,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -143,7 +145,7 @@ export function transformUserFilterInputToFormValues(
   }
 
   return {
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -155,7 +157,7 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,
