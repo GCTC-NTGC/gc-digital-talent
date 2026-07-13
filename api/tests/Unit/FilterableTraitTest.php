@@ -19,9 +19,9 @@ class FilterableTraitTest extends TestCase
         {
             use Filterable;
 
-            public function testFlatten(array $filters)
+            public function testFlatten(array $filters, array $scopeMap)
             {
-                return $this->flattenFilters($filters);
+                return $this->flattenFilters($filters, $scopeMap);
             }
         };
 
@@ -29,9 +29,9 @@ class FilterableTraitTest extends TestCase
     }
 
     #[DataProvider('flattenProvider')]
-    public function testFlattensFilters(array $filters, array $expected): void
+    public function testFlattensFilters(array $filters, array $scopeMap, array $expected): void
     {
-        $results = $this->trait->testFlatten($filters);
+        $results = $this->trait->testFlatten($filters, $scopeMap);
 
         $this->assertEquals($expected, $results);
     }
@@ -85,6 +85,7 @@ class FilterableTraitTest extends TestCase
                     'assoc' => ['filter' => 'value'],
                     'list' => ['value_one', 'value_true'],
                 ],
+                [],
                 [
                     'filter' => 'value',
                     'list' => ['value_one', 'value_true'],
@@ -100,11 +101,12 @@ class FilterableTraitTest extends TestCase
                         ],
                     ],
                 ],
+                [],
                 [
                     'four' => 'levels',
                 ],
             ],
-            'ignores equity filter' => [
+            'does not flatten a key already in the scope map' => [
                 [
                     'not_equity' => [
                         'nested_true' => true,
@@ -114,6 +116,7 @@ class FilterableTraitTest extends TestCase
                         ],
                     ],
                 ],
+                ['equity' => 'whereEquityIn'],
                 [
                     'nested_true' => true,
                     'nested_false' => false,
