@@ -1307,7 +1307,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'skillsIntersectional' => 'whereSkillsIntersectional',
             'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
             'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
-            'community' => 'whereCandidatesInCommunity',
+            'community' => 'whereInCommunity',
         ]);
 
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
