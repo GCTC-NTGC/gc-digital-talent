@@ -765,7 +765,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function buildAwardExperienceRow(AwardExperience $exp): array
     {
-        $numberOfMonths = 0;
+        $numberOfMonths = $exp->awarded_date ? $this->calculateMonths($exp->awarded_date, now()) : 0;
         $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
         $user = $exp->user;
 
@@ -779,7 +779,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             '', // start date
             '', // end date
             $this->canShare($consentToShare, $isCurrent),
-            $this->canShare($consentToShare, $numberOfMonths),
+            $numberOfMonths,
             $this->canShare($consentToShare, $exp->title ?? ''),
             $this->canShare($consentToShare, $exp->issued_by ?? ''),
             '', // employment_category
