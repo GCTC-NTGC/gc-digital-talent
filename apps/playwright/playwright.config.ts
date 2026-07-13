@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config({
   path: path.resolve(__dirname, process.env.PLAYWRIGHT_ENV_FILE ?? ".env"),
+  override: true,
   quiet: true,
 });
 
@@ -54,30 +55,21 @@ export default defineConfig({
     ...(process.env.TESTING_ENDPOINT_SECRET
       ? [
           {
-            name: "setup-admin",
-            testMatch: /admin\.setup\.ts/,
-          },
-          {
-            name: "setup-applicant",
-            testMatch: /applicant\.setup\.ts/,
-          },
-          {
             name: "uat-admin",
-            use: {
-              ...devices["Desktop Chrome"],
-              storageState: ".auth/admin.json",
-            },
+            use: { ...devices["Desktop Chrome"] },
             testMatch: /uat-admin\.spec\.ts/,
-            dependencies: ["setup-admin"],
           },
           {
             name: "uat-applicant",
-            use: {
-              ...devices["Desktop Chrome"],
-              storageState: ".auth/applicant.json",
-            },
+            use: { ...devices["Desktop Chrome"] },
             testMatch: /uat-applicant\.spec\.ts/,
-            dependencies: ["setup-applicant"],
+          },
+          {
+            // Smoke + regression tests: read-only checks against persistent UAT users.
+            // Excluded from chromium/webkit (module-level throws without UAT env vars).
+            name: "uat-persistent",
+            use: { ...devices["Desktop Chrome"] },
+            testMatch: /.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
           },
         ]
       : []),
@@ -85,7 +77,8 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     // {
@@ -96,7 +89,8 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      testIgnore: /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|uat-admin\.spec\.ts|uat-applicant\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
