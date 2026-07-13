@@ -45,11 +45,11 @@ export type OtherFilter = ObjectValues<typeof OTHER_FILTER>;
 
 export interface FormValues {
   pools: string[];
-  languageAbility?: LanguageAbility;
+  languageAbility?: LanguageAbility | "";
   operationalRequirement: OperationalRequirement[];
   workRegion: WorkRegion[];
   flexibleWorkLocations: FlexibleWorkLocation[];
-  employmentDuration?: TEmploymentDuration;
+  employmentDuration?: TEmploymentDuration | "";
   skills: string[];
   govEmployee: EmployeeVerification[];
   roles: string[];
