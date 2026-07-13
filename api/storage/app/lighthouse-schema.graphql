@@ -2637,6 +2637,7 @@ input UpdateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String!
 }
 
 input TalentNominationEventBelongsTo {

@@ -151,6 +151,7 @@ const ActiveTalentEventForm = ({
             })),
           ],
         },
+        contactEmail: formValues.contactEmail ?? "",
       },
     })
       .then(async (result) => {

@@ -164,6 +164,7 @@ const UpdateTalentEventForm = ({
             })),
           ],
         },
+        contactEmail: formValues.contactEmail ?? "",
       },
     })
       .then(async (result) => {
