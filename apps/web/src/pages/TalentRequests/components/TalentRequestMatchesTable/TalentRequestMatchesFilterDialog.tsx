@@ -204,6 +204,7 @@ const TalentRequestMatchesFilterDialog = ({
           unpackMaybes(options?.talentSources),
           "TalentRequestSource",
         )
+          // TODO: remove this filter once Advancement is implemented, see #17382
           .filter((source) => source.value !== TalentRequestSource.Advancement)
           .map((talentSource) => ({
             value: talentSource.value,
