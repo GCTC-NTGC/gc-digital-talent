@@ -3,13 +3,25 @@
 namespace App\Generators;
 
 use App\Enums\ArmedForcesStatus;
+use App\Enums\AwardedScope;
+use App\Enums\AwardedTo;
+use App\Enums\CafEmploymentType;
+use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\DepartmentSize;
+use App\Enums\EducationStatus;
+use App\Enums\EducationType;
+use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\EvaluatedLanguageAbility;
 use App\Enums\ExecCoaching;
+use App\Enums\ExperienceType;
+use App\Enums\ExternalRoleSeniority;
+use App\Enums\ExternalSizeOfOrganization;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\HiringPlatform;
 use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
@@ -26,10 +38,16 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
+use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
 use App\Models\DevelopmentProgram;
+use App\Models\EducationExperience;
+use App\Models\ExperienceSkill;
+use App\Models\PersonalExperience;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
+use App\Models\WorkExperience;
 use App\Traits\Generator\Filterable;
 use App\Traits\Generator\GeneratesFile;
 use Illuminate\Database\Eloquent\Builder;
@@ -216,6 +234,12 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'department_type',
     ];
 
+    // store user ids while generating users sheet
+    private array $userIds = [];
+
+    // store each nominee consent to share profile
+    private array $consentToShareByUserId = [];
+
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
@@ -321,20 +345,20 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         $this->writer->addRow($this->row($localizedHeaders));
 
-        $processedUserIds = [];
         $query = $this->buildQuery();
 
-        $query->chunk(200, function ($talentNominationGroups) use (&$processedUserIds) {
+        $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $user = $talentNominationGroup->nominee;
 
                 // Skip if already processed
-                if (in_array($user->id, $processedUserIds)) {
+                if (in_array($user->id, $this->userIds)) {
                     continue;
                 }
 
-                $processedUserIds[] = $user->id;
+                $this->userIds[] = $user->id;
                 $consentToShare = $talentNominationGroup->consentToShareProfile;
+                $this->consentToShareByUserId[$user->id] = $consentToShare;
 
                 $department = $user->department()->first();
                 $preferences = $user->getOperationalRequirements();
@@ -531,7 +555,673 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     /**
      * Generate the career experience tab
      */
-    private function generateCareerExperienceTab() {}
+    private function generateCareerExperienceTab(): void
+    {
+        $localizedHeaders = array_map(function ($key) {
+            return $this->localizeHeading($key);
+        }, $this->careerExperienceLocaleKeys);
+
+        $this->writer->addRow($this->row($localizedHeaders));
+
+        $userIds = $this->userIds;
+
+        if (empty($userIds)) {
+            return;
+        }
+
+        $this->addExperiencesToSheet($userIds);
+    }
+
+    /**
+     * Build work experience row
+     */
+    private function buildWorkExperienceRow(WorkExperience $exp): array
+    {
+        $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
+        $user = $exp->user;
+
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
+        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+        $workStreams = $this->getWorkStreams($exp);
+        [$departmentNumber, $departmentSize, $departmentType] = $this->getDepartmentInfo($exp);
+
+        return [
+            $exp->user->id, // user id
+            $this->canShare($consentToShare, $user->first_name),
+            $this->canShare($consentToShare, $user->last_name),
+            $this->canShare($consentToShare, $this->getExperienceType($exp)),
+            $this->canShare($consentToShare, $exp->start_date ? $exp->start_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $exp->end_date ? $exp->end_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $isCurrent),
+            $this->canShare($consentToShare, $numberOfMonths),
+            $this->canShare($consentToShare, $exp->role ?? ''),
+            $this->canShare($consentToShare, $this->getOrganizationName($exp)),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->employment_category, EmploymentCategory::class)),
+            $this->canShare($consentToShare, $exp->division ?? ''),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->ext_size_of_organization, ExternalSizeOfOrganization::class)),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->ext_role_seniority, ExternalRoleSeniority::class)),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class)),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->gov_position_type, GovPositionType::class)),
+            $this->canShare($consentToShare, $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : '')),
+            $this->canShare($consentToShare, $this->yesOrNo($exp->supervisory_position)),
+            $this->canShare($consentToShare, $exp->supervised_employees_number ?? ''),
+            $this->canShare($consentToShare, $exp->annual_budget_allocation ?? ''),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class)),
+            $this->canShare($consentToShare, $exp->other_c_suite_title ?? ''),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class)),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->caf_rank, CafRank::class)),
+            $this->canShare($consentToShare, $workStreams),
+            // Education fields - empty for work
+            '', // 25: type_of_education
+            '', // 26: area_study
+            '', // 27: education_status
+            '', // 28: thesis_title
+
+            // Community/Personal fields - empty for work
+            '', // 29: community_project_or_product
+            '', // 30: personal_learning_experience_description
+
+            // Award fields - empty for work
+            '', // 31: award_recipient
+            '', // 32: issuing_org
+            '', // 33: awarded_scope
+            '', // 34: date_awarded
+            $this->canShare($consentToShare, $exp->details ?? ''),
+            $this->canShare($consentToShare, $this->getFeaturedSkills($exp)),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'achieve_results')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'character_leadership')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'mobilize_people')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect')),
+            $this->canShare($consentToShare, $departmentNumber),
+            $this->canShare($consentToShare, $departmentSize),
+            $this->canShare($consentToShare, $departmentType),
+        ];
+    }
+
+    /**
+     * Add education experiences to career experience sheet
+     */
+    private function addEducationExperiences(array $userIds): void
+    {
+        EducationExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow($this->row($this->buildEducationExperienceRow($exp)));
+                }
+            });
+    }
+
+    /**
+     * Build education experience row
+     */
+    private function buildEducationExperienceRow(EducationExperience $exp): array
+    {
+        $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
+        $user = $exp->user;
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
+        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+
+        return [
+            $exp->user->id,
+            $this->canShare($consentToShare, $user->first_name),
+            $this->canShare($consentToShare, $user->last_name),
+            $this->canShare($consentToShare, $this->getExperienceType($exp)),
+            $this->canShare($consentToShare, $exp->start_date ? $exp->start_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $exp->end_date ? $exp->end_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $isCurrent),
+            $this->canShare($consentToShare, $numberOfMonths),
+            // Work-specific fields (8-24) - mostly empty for education
+            '', // role_or_title
+            $this->canShare($consentToShare, $exp->institution ?? ''),
+            '', // employment_category
+            '', // team_group
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // c_suite_title
+            '', // other_c_suite_title
+            '', // caf_employment_type
+            '', // rank_category
+            '', // work_streams
+            $this->canShare($consentToShare, $this->localizeEnum($exp->type, EducationType::class)),
+            $this->canShare($consentToShare, $exp->area_of_study ?? ''),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->status, EducationStatus::class)),
+            $this->canShare($consentToShare, $exp->thesis_title ?? ''),
+            // Community/Personal fields - empty for education
+            '', // community_project_or_product
+            '', // personal_learning_experience_description
+
+            // Award fields - empty for education
+            '', // award_recipient
+            '', // issuing_org
+            '', // awarded_scope
+            '', // date_awarded
+            $this->canShare($consentToShare, $exp->details ?? ''),
+            $this->canShare($consentToShare, $this->getFeaturedSkills($exp)),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'achieve_results')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'character_leadership')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'mobilize_people')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect')),
+            // Department fields - empty for education
+            '', // department_number
+            '', // department_size
+            '', // department_type
+        ];
+    }
+
+    /**
+     * Add award experiences to career experience sheet
+     */
+    private function addAwardExperiences(array $userIds): void
+    {
+        AwardExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow($this->row($this->buildAwardExperienceRow($exp)));
+                }
+            });
+    }
+
+    /**
+     * Build award experience row
+     */
+    private function buildAwardExperienceRow(AwardExperience $exp): array
+    {
+        $numberOfMonths = 0;
+        $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
+        $user = $exp->user;
+
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
+
+        return [
+            $exp->user->id,
+            $this->canShare($consentToShare, $user->first_name),
+            $this->canShare($consentToShare, $user->last_name),
+            $this->canShare($consentToShare, $this->getExperienceType($exp)),
+            '', // start date
+            '', // end date
+            $this->canShare($consentToShare, $isCurrent),
+            $this->canShare($consentToShare, $numberOfMonths),
+            $this->canShare($consentToShare, $exp->title ?? ''),
+            $this->canShare($consentToShare, $exp->issued_by ?? ''),
+            '', // employment_category
+            '', // team_group
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // c_suite_title
+            '', // other_c_suite_title
+            '', // caf_employment_type
+            '', // rank_category
+            '', // work_streams
+
+            // Education fields - empty for awards
+            '', // type_of_education
+            '', // area_study
+            '', // education_status
+            '', // thesis_title
+
+            // Community/Personal fields - empty for awards
+            '', // community_project_or_product
+            '', // personal_learning_experience_description
+            $this->canShare($consentToShare, $this->localizeEnum($exp->awarded_to, AwardedTo::class)),
+            $this->canShare($consentToShare, $exp->issued_by ?? ''),
+            $this->canShare($consentToShare, $this->localizeEnum($exp->awarded_scope, AwardedScope::class)),
+            $this->canShare($consentToShare, $exp->awarded_date?->format('Y-m-d') ?? ''),
+            $this->canShare($consentToShare, $exp->details ?? ''),
+            $this->canShare($consentToShare, $this->getFeaturedSkills($exp)),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'achieve_results')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'character_leadership')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'mobilize_people')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect')),
+            // Department fields - empty for awards
+            '', // department_number
+            '', // department_size
+            '', // department_type
+        ];
+    }
+
+    /**
+     * Add community experiences to career experience sheet
+     */
+    private function addCommunityExperiences(array $userIds): void
+    {
+        CommunityExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow($this->row($this->buildCommunityExperienceRow($exp)));
+                }
+            });
+    }
+
+    /**
+     * Build community experience row
+     */
+    private function buildCommunityExperienceRow(CommunityExperience $exp): array
+    {
+        $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
+        $user = $exp->user;
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
+        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+
+        return [
+            $exp->user->id,
+            $this->canShare($consentToShare, $user->first_name),
+            $this->canShare($consentToShare, $user->last_name),
+            $this->canShare($consentToShare, $this->getExperienceType($exp)),
+            $this->canShare($consentToShare, $exp->start_date ? $exp->start_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $exp->end_date ? $exp->end_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $isCurrent),
+            $this->canShare($consentToShare, $numberOfMonths),
+            $this->canShare($consentToShare, $exp->title ?? ''),
+            // $exp->organization ?? '',
+            $this->canShare($consentToShare, $exp->organization ?? ''),
+            '', // employment_category
+            $this->canShare($consentToShare, $exp->group ?? ''),
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // c_suite_title
+            '', // other_c_suite_title
+            '', // caf_employment_type
+            '', // rank_category
+            '', // work_streams
+            // Education fields - empty for community
+            '', // type_of_education
+            '', // area_study
+            '', // education_status
+            '', // thesis_title
+            $this->canShare($consentToShare, $exp->project ?? ''),
+            '', // personal learning description
+            // Award fields - empty for community
+            '', // award recipient
+            '', // issuing organization
+            '', // awarded_scope
+            '', // date awarded
+            $this->canShare($consentToShare, $exp->details ?? ''),
+            $this->canShare($consentToShare, $this->getFeaturedSkills($exp)),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'achieve_results')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'character_leadership')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'mobilize_people')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect')),
+            // Department fields - empty for community
+            '', // department_number
+            '', // department_size
+            '', // department_type
+        ];
+    }
+
+    /**
+     * Add personal experiences to sheet
+     */
+    private function addPersonalExperiences(array $userIds): void
+    {
+        PersonalExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'userSkills.skill'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow($this->row($this->buildPersonalExperienceRow($exp)));
+                }
+            });
+    }
+
+    /**
+     * Build personal experience row
+     */
+    private function buildPersonalExperienceRow(PersonalExperience $exp): array
+    {
+        $consentToShare = $this->consentToShareByUserId[$exp->user_id] ?? false;
+        $user = $exp->user;
+        $isCurrent = $this->yesOrNo(empty($exp->end_date));
+        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+
+        return [
+            $exp->user->id,
+            $this->canShare($consentToShare, $user->first_name),
+            $this->canShare($consentToShare, $user->last_name),
+            $this->canShare($consentToShare, $this->getExperienceType($exp)),
+            $this->canShare($consentToShare, $exp->start_date ? $exp->start_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $exp->end_date ? $exp->end_date->format('Y-m') : ''),
+            $this->canShare($consentToShare, $isCurrent),
+            $this->canShare($consentToShare, $numberOfMonths),
+            $this->canShare($consentToShare, $exp->title ?? ''),
+            '', // organization_department
+            '', // employment_category
+            '', // team_group
+            '', // size_external_organization
+            '', // seniority_external_organization
+            '', // gc_employment_type
+            '', // gc_position_type
+            '', // classification
+            '', // gc_management_or_supervisory_status
+            '', // gc_number_of_supervised_employees
+            '', // gc_annual_budget_allocation
+            '', // c_suite_title
+            '', // other_c_suite_title
+            '', // caf_employment_type
+            '', // rank_category
+            '', // work_streams
+
+            // Education fields - empty for personal
+            '', // type_of_education
+            '', // area_study
+            '', // education_status
+            '', // thesis_title
+            '', // Community project or product
+            $this->canShare($consentToShare, $exp->description ?? ''),
+            // Award fields - empty for education
+            '', // award recipient
+            '', // issuing organization
+            '', // awarded_scope
+            '', // date awarded
+            $this->canShare($consentToShare, $exp->details ?? ''),
+            $this->canShare($consentToShare, $this->getFeaturedSkills($exp)),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'achieve_results')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'character_leadership')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'collaborate_with_partners_and_stakeholders')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'create_vision_and_strategy')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'mobilize_people')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'promote_innovation_and_guide_change')),
+            $this->canShare($consentToShare, $this->getFeaturedSkillJustification($exp, 'uphold_integrity_and_respect')),
+            // Department fields - empty for education
+            '', // department_number
+            '', // department_size
+            '', // department_type
+        ];
+
+    }
+
+    /**
+     * Add experiences to Career Experience sheet
+     */
+    private function addExperiencesToSheet(array $userIds): void
+    {
+        $this->addWorkExperiences($userIds);
+        $this->addEducationExperiences($userIds);
+        $this->addAwardExperiences($userIds);
+        $this->addCommunityExperiences($userIds);
+        $this->addPersonalExperiences($userIds);
+    }
+
+    /**
+     * Add work experiences to career experience sheet
+     */
+    private function addWorkExperiences(array $userIds): void
+    {
+        WorkExperience::whereIn('user_id', $userIds)
+            ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
+            ->chunk(200, function ($experiences) {
+                foreach ($experiences as $exp) {
+                    $this->writer->addRow($this->row($this->buildWorkExperienceRow($exp)));
+                }
+            });
+    }
+
+    /**
+     * Get localized experience type for an experience
+     */
+    private function getExperienceType($experience): string
+    {
+        return match (get_class($experience)) {
+            WorkExperience::class => $this->localizeEnum(ExperienceType::WORK->name, ExperienceType::class),
+            EducationExperience::class => $this->localizeEnum(ExperienceType::EDUCATION->name, ExperienceType::class),
+            AwardExperience::class => $this->localizeEnum(ExperienceType::AWARD->name, ExperienceType::class),
+            CommunityExperience::class => $this->localizeEnum(ExperienceType::COMMUNITY->name, ExperienceType::class),
+            PersonalExperience::class => $this->localizeEnum(ExperienceType::PERSONAL->name, ExperienceType::class),
+            default => '',
+        };
+    }
+
+    /**
+     * Calculate number of months between dates
+     */
+    private function calculateMonths($startDate, $endDate): int
+    {
+        if (! $startDate) {
+            return 0;
+        }
+
+        if (! $endDate) {
+            $endDate = now();
+        }
+
+        return $startDate->diffInMonths($endDate);
+    }
+
+    /**
+     * Get work streams from a model
+     */
+    private function getWorkStreams($model): string
+    {
+        if (! $model->workStreams) {
+            return '';
+        }
+
+        return $model->workStreams
+            ->map(fn ($workStream) => $workStream->name[$this->lang] ?? '')
+            ->filter()
+            ->join(', ');
+    }
+
+    /**
+     * Get department from work experience
+     */
+    private function getDepartmentInfo(WorkExperience $exp): array
+    {
+        if (! $exp->department) {
+            return ['', '', ''];
+        }
+
+        return [
+            $exp->department->org_identifier ?? '',
+            $this->localizeEnum($exp->department->size, DepartmentSize::class),
+            $this->getDepartmentTypes($exp->department),
+        ];
+    }
+
+    /**
+     * Get department types
+     */
+    private function getDepartmentTypes($department): string
+    {
+        if (! $department) {
+            return '';
+        }
+
+        $types = [];
+
+        if ($department->is_core_public_administration) {
+            $types[] = $this->localize('headings.core_public_administration');
+        }
+
+        if ($department->is_central_agency) {
+            $types[] = $this->localize('headings.central_agency');
+        }
+
+        if ($department->is_science) {
+            $types[] = $this->localize('headings.science');
+        }
+
+        if ($department->is_regulatory) {
+            $types[] = $this->localize('headings.regulatory');
+        }
+
+        return implode(', ', $types);
+    }
+
+    /**
+     * Get organization name
+     * for goc employees use department name
+     * for caf employees use localized employment type
+     * for external use organization field
+     *
+     * @param  WorkExperience  $exp  The work experience
+     * @return string The organization name
+     */
+    private function getOrganizationName(WorkExperience $exp): string
+    {
+        // goc employee
+        if ($exp->employment_category === EmploymentCategory::GOVERNMENT_OF_CANADA->name && $exp->department) {
+            // return localized department name
+            return $exp->department?->name[$this->lang] ?? $exp->organization ?? '';
+        }
+
+        // CAF employee
+        if ($exp->employment_category === EmploymentCategory::CANADIAN_ARMED_FORCES->name) {
+            // return localized caf employment type
+            return $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class);
+        }
+
+        // external organization
+        if ($exp->employment_category === EmploymentCategory::EXTERNAL_ORGANIZATION->name) {
+            // return organization field for external experience
+            return $exp->organization ?? '';
+        }
+
+        // fallback
+        return $exp->organization ?? '';
+    }
+
+    /**
+     * Get featured skills from experience
+     */
+    private function getFeaturedSkills($experience): string
+    {
+        if (! $experience->userSkills || $experience->userSkills->isEmpty()) {
+            return '';
+        }
+
+        return $experience->userSkills
+            ->filter(fn ($userSkill) => $userSkill->skill)
+            ->map(fn ($userSkill) => $userSkill->skill->name[$this->lang] ?? '')
+            ->filter()
+            ->implode(', ');
+    }
+
+    /**
+     * Get feature skill justification
+     */
+    private function getFeaturedSkillJustification($experience, string $targetSkill): string
+    {
+        if (empty($experience->userSkills)) {
+            return '';
+        }
+
+        // Get name to match against
+        $targetNames = $this->getSkillNames($targetSkill) ?: [];
+        if (empty($targetNames)) {
+            return '';
+        }
+        // check each featured skill on experience
+        foreach ($experience->userSkills as $userSkill) {
+            // skip if no skill
+            if (! $skill = $userSkill->skill) {
+                continue;
+            }
+            // Get skill name
+            $skillName = $skill->name[$this->lang] ?? '';
+            if (empty($skillName)) {
+                continue;
+            }
+            // check if skill name matches any of the target names
+            foreach ($targetNames as $targetName) {
+                if (stripos($skillName, $targetName) !== false) {
+                    return $this->getJustificationFromExperienceSkill($experience, $userSkill);
+                }
+            }
+        }
+
+        return '';
+    }
+
+    /**
+     * Get featured skill justification from model
+     */
+    private function getJustificationFromExperienceSkill($experience, $userSkill): string
+    {
+        if (empty($experience->id) || empty($userSkill->id)) {
+            return '';
+        }
+
+        $experienceSkill = ExperienceSkill::where('experience_id', $experience->id)
+            ->where('experience_type', get_class($experience))
+            ->where('user_skill_id', $userSkill->id)
+            ->first();
+
+        return $experienceSkill->details ?? '';
+    }
+
+    /**
+     * Get all possible skill names for a skill key
+     */
+    private function getSkillNames(string $featuredSkillKey): array
+    {
+        $klcSkillNames = [
+            'achieve_results' => [
+                'en' => 'Achieve Results',
+                'fr' => 'Obtenir des résultats',
+            ],
+            'character_leadership' => [
+                'en' => 'Character Leadership',
+                'fr' => 'Leadership de caractère',
+            ],
+            'collaborate_with_partners_and_stakeholders' => [
+                'en' => 'Collaborate with Partners and Stakeholders',
+                'fr' => 'Collaborer avec les partenaires et les intervenants',
+            ],
+            'create_vision_and_strategy' => [
+                'en' => 'Create Vision and Strategy',
+                'fr' => 'Créer une vision et une stratégie',
+            ],
+            'mobilize_people' => [
+                'en' => 'Mobilize People',
+                'fr' => 'Mobiliser les personnes',
+            ],
+            'promote_innovation_and_guide_change' => [
+                'en' => 'Promote Innovation and Guide Change',
+                'fr' => 'Promouvoir l\'innovation et orienter le changement',
+            ],
+            'uphold_integrity_and_respect' => [
+                'en' => 'Uphold Integrity and Respect',
+                'fr' => 'Préserver l\'intégrité et le respect',
+            ],
+        ];
+
+        $skillNames = $klcSkillNames[$featuredSkillKey] ?? [];
+        $currentLangName = trim($skillNames[$this->lang] ?? '');
+
+        return ! empty($currentLangName) ? [$currentLangName] : [];
+    }
 
     /**
      * Generate the community interest tab
