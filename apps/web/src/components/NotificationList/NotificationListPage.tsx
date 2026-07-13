@@ -17,7 +17,7 @@ const Notifications_Query = graphql(/* GraphQL */ `
   query Notifications(
     $where: NotificationFilterInput
     $excludeIds: [UUID!]
-    $first: Int
+    $first: Int!
     $page: Int
   ) {
     notifications(

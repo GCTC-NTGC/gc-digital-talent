@@ -73,7 +73,7 @@ const defaultState = {
 const UsersPaginated_Query = graphql(/* GraphQL */ `
   query UsersPaginated(
     $where: UserFilterInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [OrderByClause!]
   ) {

@@ -108,7 +108,7 @@ const sortInitialState = [
 const SearchRequestTable_Query = graphql(/* GraphQL */ `
   query SearchRequestTable(
     $where: PoolCandidateSearchRequestInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [OrderByClause!]
   ) {

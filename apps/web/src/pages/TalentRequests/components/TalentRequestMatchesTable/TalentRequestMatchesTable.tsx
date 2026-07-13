@@ -70,7 +70,7 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
   query TalentRequestMatchingUsers(
     $where: TalentRequestMatchFilterInput
     $page: Int
-    $first: Int
+    $first: Int!
     $orderBy: [AdvancedOrderByInput!]
   ) {
     talentRequestMatches(
