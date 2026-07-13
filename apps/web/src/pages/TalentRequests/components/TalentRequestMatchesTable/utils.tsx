@@ -97,7 +97,7 @@ export function transformApplicantFilterToFormValues(
       ({ id }) => id,
     ),
     pools: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
-    languageAbility: applicantFilter?.languageAbility?.value ?? undefined,
+    languageAbility: applicantFilter?.languageAbility?.value ?? "",
     equity: applicantFilter?.equity
       ? [
           ...(applicantFilter.equity.isWoman ? ["isWoman"] : []),
@@ -121,9 +121,9 @@ export function transformApplicantFilterToFormValues(
     priorityWeight: [],
     govEmployee: [],
     departments: [],
-    employmentDuration: positionDurationToEmploymentDuration(
-      applicantFilter?.positionDuration,
-    ),
+    employmentDuration:
+      positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
+      "",
     talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
@@ -143,7 +143,7 @@ export function transformWhereToFormValues(
         ?.filter(notEmpty)
         .map(({ id }) => id) ?? [],
     pools: applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: applicantFilter?.languageAbility ?? undefined,
+    languageAbility: applicantFilter?.languageAbility ?? "",
     equity: applicantFilter?.equity
       ? [
           ...(applicantFilter.equity.isWoman ? ["isWoman"] : []),
@@ -163,9 +163,9 @@ export function transformWhereToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     govEmployee: unpackMaybes(input?.employeeVerification),
     departments: unpackMaybes(input?.departments),
-    employmentDuration: positionDurationToEmploymentDuration(
-      applicantFilter?.positionDuration,
-    ),
+    employmentDuration:
+      positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
+      "",
     talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
@@ -175,7 +175,9 @@ export function transformFormValuesToWhere(
 ): TalentRequestMatchFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirements,
       locationPreferences: data.workRegions,
       flexibleWorkLocations: data.flexibleWorkLocations,

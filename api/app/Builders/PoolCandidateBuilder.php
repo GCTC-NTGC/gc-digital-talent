@@ -331,7 +331,8 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
-            })->whereExpiryStatus(CandidateExpiryFilter::ACTIVE->name);
+            })->whereExpiryStatus(CandidateExpiryFilter::ACTIVE->name)
+            ->whereNotDraft();
     }
 
     // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`

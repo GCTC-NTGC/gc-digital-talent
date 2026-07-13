@@ -1004,6 +1004,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  advancementClassifications: [Classification!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -2815,6 +2816,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
   comments: String
+  advancementClassifications: ClassificationBelongsToMany
 }
 
 input CreateApplicantFilterInput {
