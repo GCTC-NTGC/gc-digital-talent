@@ -108,5 +108,9 @@ export function convertFormValuesToMutationInput(
       formValues.developmentProgramsApprovedNotes,
       formValues.developmentProgramsRejectedNotes,
     ),
+    // no UI yet
+    advancementClassifications: {
+      sync: [],
+    },
   };
 }

@@ -56,6 +56,16 @@ class ApplicantTest extends TestCase
             ]);
     }
 
+    private function qualifiedPoolCandidateData(array $overrides = []): array
+    {
+        return array_merge([
+            'expiry_date' => config('constants.far_future_date'),
+            'application_status' => ApplicationStatus::QUALIFIED->name,
+            'placement_type' => PlacementType::NOT_PLACED->name,
+            'submitted_at' => config('constants.past_date'),
+        ], $overrides);
+    }
+
     public function testCountApplicantsQuery(): void
     {
         // Get the ID of the base admin user
@@ -73,43 +83,32 @@ class ApplicantTest extends TestCase
             'publishing_group' => PublishingGroup::IAP->name,
         ]);
 
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $ITPool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(4)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $ITPool2['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
-        ]);
+        ]));
 
         // Unqualified candidate - should not appear in searches
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $ITPool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
             'application_status' => ApplicationStatus::TO_ASSESS->name,
+            'placement_type' => null,
             'screening_stage' => ScreeningStage::SCREENED_IN->name,
-        ]);
+        ]));
 
         // Expired candidate- should not appear in searches
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $ITPool1['id'],
             'expiry_date' => config('constants.past_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
-        ]);
+        ]));
 
         // IAP pool - should not appear in searches
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $IaPPool['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
-        ]);
+        ]));
 
         // Assert empty filter returns only available applicants in IT pools
         $this->graphQL(
@@ -158,96 +157,75 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
                 'is_visible_minority' => false,
                 'indigenous_communities' => null,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => true,
                 'has_disability' => false,
                 'indigenous_communities' => [IndigenousCommunity::STATUS_FIRST_NATIONS->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => true,
                 'indigenous_communities' => [IndigenousCommunity::NON_STATUS_FIRST_NATIONS->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
                 'indigenous_communities' => [IndigenousCommunity::INUIT->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
                 'indigenous_communities' => [IndigenousCommunity::METIS->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
                 'indigenous_communities' => [IndigenousCommunity::OTHER->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->create([
+        PoolCandidate::factory()->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'is_woman' => false,
                 'has_disability' => false,
                 'indigenous_communities' => [IndigenousCommunity::LEGACY_IS_INDIGENOUS->name],
                 'is_visible_minority' => false,
             ]),
-        ]);
+        ]));
 
         // Assert query with only pools filter will return proper count
         $this->graphQL(
@@ -354,41 +332,32 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(1)->create([
+        PoolCandidate::factory()->count(1)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => true,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(2)->create([
+        PoolCandidate::factory()->count(2)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => true,
                 'looking_for_bilingual' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(4)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'looking_for_english' => false,
                 'looking_for_french' => false,
                 'looking_for_bilingual' => true,
             ]),
-        ]);
+        ]));
 
         // Assert query with english filter will return proper count
         $this->graphQL(
@@ -464,25 +433,19 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'has_diploma' => false,
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(4)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'has_diploma' => true,
             ]),
-        ]);
+        ]));
 
         // Assert query with false filter
         $this->graphQL(
@@ -536,35 +499,26 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(3)->create([
+        PoolCandidate::factory()->count(3)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => [PositionDuration::PERMANENT->name],
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(4)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => array_column(PositionDuration::cases(), 'name'),
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(1)->create([
+        PoolCandidate::factory()->count(1)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'position_duration' => null,
             ]),
-        ]);
+        ]));
 
         // Assert null for position duration
         $this->graphQL(
@@ -640,35 +594,26 @@ class ApplicantTest extends TestCase
             'user_id' => $user['id'],
         ]);
 
-        PoolCandidate::factory()->count(1)->create([
+        PoolCandidate::factory()->count(1)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => [],
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(2)->create([
+        PoolCandidate::factory()->count(2)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK'],
             ]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(4)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([
                 'accepted_operational_requirements' => ['SHIFT_WORK', 'TRAVEL'],
             ]),
-        ]);
+        ]));
 
         // Assert empty operational requirements
         $this->graphQL(
@@ -748,19 +693,13 @@ class ApplicantTest extends TestCase
         $skill2 = Skill::factory()->create();
         $skill3 = Skill::factory()->create();
 
-        PoolCandidate::factory()->count(1)->create([
+        PoolCandidate::factory()->count(1)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(2)->sequence(fn () => [
+        PoolCandidate::factory()->count(2)->sequence(fn () => $this->qualifiedPoolCandidateData([
             'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -773,13 +712,10 @@ class ApplicantTest extends TestCase
                         $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create(),
-        ])->create();
+        ]))->create();
 
-        PoolCandidate::factory()->count(4)->sequence(fn () => [
+        PoolCandidate::factory()->count(4)->sequence(fn () => $this->qualifiedPoolCandidateData([
             'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
@@ -792,7 +728,7 @@ class ApplicantTest extends TestCase
                         $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create(),
-        ])->create();
+        ]))->create();
 
         // Assert nothing for skills
         $this->graphQL(
@@ -921,19 +857,13 @@ class ApplicantTest extends TestCase
         $skill2 = Skill::factory()->create();
         $skill3 = Skill::factory()->create();
 
-        PoolCandidate::factory()->count(1)->create([
+        PoolCandidate::factory()->count(1)->create($this->qualifiedPoolCandidateData([
             'pool_id' => $pool1['id'],
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([]),
-        ]);
+        ]));
 
-        PoolCandidate::factory()->count(2)->sequence(fn () => [
+        PoolCandidate::factory()->count(2)->sequence(fn () => $this->qualifiedPoolCandidateData([
             'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1) {
                 AwardExperience::factory()
                     ->for($user)
@@ -941,13 +871,10 @@ class ApplicantTest extends TestCase
                         $model->syncSkills([$skill1->only('id')]);
                     })->create();
             })->create(),
-        ])->create();
+        ]))->create();
 
-        PoolCandidate::factory()->count(4)->sequence(fn () => [
+        PoolCandidate::factory()->count(4)->sequence(fn () => $this->qualifiedPoolCandidateData([
             'pool_id' => $pool1->id,
-            'expiry_date' => config('constants.far_future_date'),
-            'application_status' => ApplicationStatus::QUALIFIED->name,
-            'placement_type' => PlacementType::NOT_PLACED->name,
             'user_id' => User::factory([])->afterCreating(function ($user) use ($skill1, $skill2) {
                 CommunityExperience::factory()
                     ->for($user)
@@ -960,7 +887,7 @@ class ApplicantTest extends TestCase
                         $model->syncSkills([$skill2->only('id')]);
                     })->create();
             })->create(),
-        ])->create();
+        ]))->create();
 
         // Assert empty skills array
         $this->graphQL(

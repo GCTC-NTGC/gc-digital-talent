@@ -24,14 +24,14 @@ class CanRemoveCandidate implements ValidationRule
             return;
         }
 
-        if ($candidate->application_status === ApplicationStatus::DRAFT->name) {
-            $fail(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
+        if ($candidate->application_status === ApplicationStatus::REMOVED->name) {
+            $fail(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
 
             return;
         }
 
-        if ($candidate->application_status === ApplicationStatus::REMOVED->name) {
-            $fail(ErrorCode::REMOVE_CANDIDATE_ALREADY_REMOVED->name);
+        if ($candidate->application_status !== ApplicationStatus::TO_ASSESS->name) {
+            $fail(ErrorCode::CANDIDATE_UNEXPECTED_STATUS->name);
 
             return;
         }

@@ -37,8 +37,8 @@ export interface FormValues {
   classifications: string[];
   mobilityInterest: string[];
   mobilityType: string[];
-  languageAbility?: LanguageAbility;
-  employmentDuration?: TEmploymentDuration;
+  languageAbility?: LanguageAbility | "";
+  employmentDuration?: TEmploymentDuration | "";
   locationPreferences: WorkRegion[];
   operationalRequirements: OperationalRequirement[];
   flexibleWorkLocations: FlexibleWorkLocation[];
