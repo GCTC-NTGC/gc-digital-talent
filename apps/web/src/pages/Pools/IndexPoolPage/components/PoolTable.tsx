@@ -114,7 +114,7 @@ const PoolTable_Query = graphql(/* GraphQL */ `
     $orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     $orderByColumn: OrderByColumnInput
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
-    $first: Int
+    $first: Int!
     $page: Int
   ) {
     me {

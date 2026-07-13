@@ -119,7 +119,7 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
 const CommunityTalentTable_Query = graphql(/* GraphQL */ `
   query CommunityTalentTable(
     $where: CommunityInterestFilterInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [QueryCommunityInterestsPaginatedOrderByRelationOrderByClause!]
     $orderByClassification: SortOrder
