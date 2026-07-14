@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 /**
  * @extends Builder<CommunityInterest>
+ *
  * @mixin CommunityInterest
  */
 class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
@@ -39,6 +40,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
 
         $this->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'));
         $this->communities($communityId ? [$communityId] : null);
+        $this->where('consent_to_share_profile', true);
 
         return $this;
     }

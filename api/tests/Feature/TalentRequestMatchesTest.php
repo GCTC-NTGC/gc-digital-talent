@@ -628,6 +628,30 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
     }
 
+    public function testAtLevelExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $consented = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $consented->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        $notConsented = User::factory()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $notConsented->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => false,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, ['where' => []])
+            ->assertJsonFragment(['user' => ['id' => $consented->id]])
+            ->assertJsonMissing(['user' => ['id' => $notConsented->id]]);
+    }
+
     public function testAtLevelCommunityFilterNarrowsResults(): void
     {
         $matching = Community::factory()->create();
