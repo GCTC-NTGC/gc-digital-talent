@@ -163,7 +163,7 @@ const CreateTalentNomination_Query = graphql(/* GraphQL */ `
 `);
 
 interface RouteParams extends Record<string, string> {
-  id: string;
+  nominationEventId: string;
 }
 
 const CreateTalentNominationApi = () => {
