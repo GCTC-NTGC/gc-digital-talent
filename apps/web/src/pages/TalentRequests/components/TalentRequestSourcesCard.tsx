@@ -4,7 +4,9 @@ import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import {
   getFragment,
   graphql,
+  TalentRequestSource,
   type FragmentType,
+  type LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -12,6 +14,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import TalentRequestSectionCard from "./TalentRequestSectionCard";
 
@@ -41,15 +44,22 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
           localized
         }
       }
+      talentSources {
+        value
+      }
     }
   }
 `);
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
+  talentSourceOptions: LocalizedEnumString[];
 }
 
-const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
+const TalentRequestSourcesCard = ({
+  query,
+  talentSourceOptions,
+}: TalentRequestSourcesCardProps) => {
   const intl = useIntl();
   const { applicantFilter } = getFragment(
     TalentRequestSourcesCard_Fragment,
@@ -62,6 +72,14 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
   );
   const pools = unpackMaybes(applicantFilter?.pools);
   const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
+
+  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
+  const talentSourceOptionsFiltered = talentSourceOptions.filter(
+    (source) => source.value !== (TalentRequestSource.Advancement as string),
+  );
+  const selectedTalentSources = unpackMaybes(
+    applicantFilter?.talentSources?.map((source) => source?.value),
+  );
 
   return (
     <TalentRequestSectionCard
@@ -91,6 +109,31 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
           ) : (
             notProvided
           )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.talentSource)}
+        >
+          <Ul unStyled noIndent inside>
+            {talentSourceOptionsFiltered.map((source) => (
+              <li key={source.value}>
+                <BoolCheckIcon
+                  value={selectedTalentSources.includes(
+                    source.value as TalentRequestSource,
+                  )}
+                  trueLabel={intl.formatMessage(commonMessages.selected)}
+                  falseLabel={intl.formatMessage(commonMessages.notSelected)}
+                >
+                  {source.value ===
+                    (TalentRequestSource.QualifiedInPool as string) &&
+                    intl.formatMessage(
+                      talentRequestMessages.qualifiedInPoolLabel,
+                    )}
+                  {source.value === (TalentRequestSource.AtLevel as string) &&
+                    intl.formatMessage(talentRequestMessages.atLevelLabel)}
+                </BoolCheckIcon>
+              </li>
+            ))}
+          </Ul>
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
