@@ -9,10 +9,3 @@ import { protectedEndpointContext } from "@gc-digital-talent/client";
 // Use when passing context as a positional argument, e.g. executeMutation(variables, getProtectedOperationContext())
 export const getProtectedOperationContext = (): Partial<OperationContext> =>
   protectedEndpointContext();
-
-// Use when spreading into a useQuery options object, e.g. useQuery({ query, ...getProtectedQueryContextOptions() })
-export const getProtectedQueryContextOptions = (): {
-  context: Partial<OperationContext>;
-} => ({
-  context: getProtectedOperationContext(),
-});
