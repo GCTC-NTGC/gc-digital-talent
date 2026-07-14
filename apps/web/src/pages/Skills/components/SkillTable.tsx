@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { createIntl, createIntlCache, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router";
@@ -11,6 +11,9 @@ import {
   commonMessages,
   getLocalizedName,
   combineMessages,
+  getIntlForLocale,
+  appendShortenedLanguageName,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
@@ -138,23 +141,12 @@ const SkillTable = ({
   isPublic,
 }: SkillTableProps) => {
   const intl = useIntl();
-  const cache = createIntlCache();
+  const locale = getLocale(intl);
   const englishMessages = combineMessages("en", messages);
   const frenchMessages = combineMessages("fr", messages);
-  const intlEn = createIntl(
-    {
-      locale: "en",
-      messages: englishMessages,
-    },
-    cache,
-  );
-  const intlFr = createIntl(
-    {
-      locale: "fr",
-      messages: frenchMessages,
-    },
-    cache,
-  );
+  const intlEn = getIntlForLocale("en", englishMessages);
+  const intlFr = getIntlForLocale("fr", frenchMessages);
+
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
     context,
@@ -207,36 +199,100 @@ const SkillTable = ({
     setFilterState(transformedData);
   };
 
-  const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
-      enableColumnFilter: false,
-      header: intl.formatMessage(adminMessages.id),
-    }),
-    columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
-      id: "name",
-      header: intl.formatMessage(commonMessages.name),
+  const columnNameEnglishAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.name, intlEn),
+    {
+      id: "nameEN",
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.name),
+        lang: "en",
+        intl: intl,
+      }),
       sortingFn: normalizedText,
       meta: {
-        isRowTitle: true,
+        isRowTitle: locale === "en" ? true : false,
       },
       cell: ({ row: { original: skill } }) => {
-        const skillName = getLocalizedName(skill.name, intl);
+        const skillName = getLocalizedName(skill.name, intlEn);
         return isPublic ? (
           skillName
         ) : (
           <Link href={paths.skillView(skill.id)}>{skillName}</Link>
         );
       },
-    }),
-    columnHelper.accessor(
-      (skill) => getLocalizedName(skill.description, intl, true),
-      {
-        id: "description",
-        sortingFn: normalizedText,
-        header: intl.formatMessage(commonMessages.description),
+    },
+  );
+  const columnNameFrenchAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.name, intlFr),
+    {
+      id: "nameFR",
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.name),
+        lang: "fr",
+        intl: intl,
+      }),
+      sortingFn: normalizedText,
+      meta: {
+        isRowTitle: locale === "en" ? false : true,
       },
-    ),
+      cell: ({ row: { original: skill } }) => {
+        const skillName = getLocalizedName(skill.name, intlFr);
+        return isPublic ? (
+          skillName
+        ) : (
+          <Link href={paths.skillView(skill.id)}>{skillName}</Link>
+        );
+      },
+    },
+  );
+  const columnDescriptionEnglishAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.description, intlEn, true),
+    {
+      id: "descriptionEN",
+      sortingFn: normalizedText,
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.description),
+        lang: "en",
+        intl: intl,
+      }),
+    },
+  );
+  const columnDescriptionFrenchAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.description, intlFr, true),
+    {
+      id: "descriptionFR",
+      sortingFn: normalizedText,
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.description),
+        lang: "fr",
+        intl: intl,
+      }),
+    },
+  );
+
+  // ordering of name and description locale dependent
+  const columnsOrderedByLocale =
+    locale === "en"
+      ? [
+          columnNameEnglishAppended,
+          columnNameFrenchAppended,
+          columnDescriptionEnglishAppended,
+          columnDescriptionFrenchAppended,
+        ]
+      : [
+          columnNameFrenchAppended,
+          columnNameEnglishAppended,
+          columnDescriptionFrenchAppended,
+          columnDescriptionEnglishAppended,
+        ];
+
+  const columns = [
+    columnHelper.accessor("id", {
+      id: "id",
+      enableColumnFilter: false,
+      header: intl.formatMessage(adminMessages.id),
+    }),
+    ...columnsOrderedByLocale,
     columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
       id: "skillFamilies",
       sortingFn: normalizedText,
