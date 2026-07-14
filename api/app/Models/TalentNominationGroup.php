@@ -37,6 +37,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $computed_status
  * @property string $comments
  * @property bool $consentToShareProfile
+ * @property ?Carbon $referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
