@@ -10,7 +10,6 @@ import type { SubmitHandler } from "react-hook-form";
 import {
   commonMessages,
   getLocalizedName,
-  combineMessages,
   getIntlForLocale,
   appendShortenedLanguageName,
   getLocale,
@@ -142,10 +141,8 @@ const SkillTable = ({
 }: SkillTableProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const englishMessages = combineMessages("en", messages);
-  const frenchMessages = combineMessages("fr", messages);
-  const intlEn = getIntlForLocale("en", englishMessages);
-  const intlFr = getIntlForLocale("fr", frenchMessages);
+  const intlEn = getIntlForLocale("en", messages);
+  const intlFr = getIntlForLocale("fr", messages);
 
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
@@ -206,11 +203,11 @@ const SkillTable = ({
       header: appendShortenedLanguageName({
         label: intl.formatMessage(commonMessages.name),
         lang: "en",
-        intl: intl,
+        intl,
       }),
       sortingFn: normalizedText,
       meta: {
-        isRowTitle: locale === "en" ? true : false,
+        isRowTitle: locale === "en",
       },
       cell: ({ row: { original: skill } }) => {
         const skillName = getLocalizedName(skill.name, intlEn);
@@ -229,11 +226,11 @@ const SkillTable = ({
       header: appendShortenedLanguageName({
         label: intl.formatMessage(commonMessages.name),
         lang: "fr",
-        intl: intl,
+        intl,
       }),
       sortingFn: normalizedText,
       meta: {
-        isRowTitle: locale === "en" ? false : true,
+        isRowTitle: locale !== "en",
       },
       cell: ({ row: { original: skill } }) => {
         const skillName = getLocalizedName(skill.name, intlFr);
@@ -253,7 +250,7 @@ const SkillTable = ({
       header: appendShortenedLanguageName({
         label: intl.formatMessage(commonMessages.description),
         lang: "en",
-        intl: intl,
+        intl,
       }),
     },
   );
@@ -265,7 +262,7 @@ const SkillTable = ({
       header: appendShortenedLanguageName({
         label: intl.formatMessage(commonMessages.description),
         lang: "fr",
-        intl: intl,
+        intl,
       }),
     },
   );
@@ -329,7 +326,9 @@ const SkillTable = ({
       }}
       sort={{
         internal: true,
-        initialState: [{ id: "name", desc: false }],
+        initialState: [
+          { id: locale === "en" ? "nameEN" : "nameFR", desc: false },
+        ],
       }}
       search={{
         internal: true,
