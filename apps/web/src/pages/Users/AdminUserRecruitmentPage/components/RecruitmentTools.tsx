@@ -5,7 +5,7 @@ import { Heading, TableOfContents } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import AddToProcessDialog from "./AddToProcessDialog";
+import CreateSpecialApplicationDialog from "./CreateSpecialApplicationDialog";
 
 export const title = defineMessage({
   defaultMessage: "Recruitment tools",
@@ -17,7 +17,7 @@ export const RECRUITMENT_TOOLS_ID = "recruitment-tools";
 
 const RecruitmentTools_Fragment = graphql(/** GraphQL */ `
   fragment RecruitmentTools on User {
-    ...AddToProcessDialog
+    ...CreateSpecialApplicationDialogUser
   }
 `);
 
@@ -61,7 +61,7 @@ const RecruitmentTools = ({ query }: RecruitmentToolsProps) => {
           description: "Caveats of adding a user to a process manually",
         })}
       </p>
-      <AddToProcessDialog query={user} />
+      <CreateSpecialApplicationDialog query={user} />
     </TableOfContents.Section>
   );
 };
