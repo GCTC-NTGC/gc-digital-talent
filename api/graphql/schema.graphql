@@ -301,7 +301,7 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
@@ -1508,6 +1508,23 @@ input ApplicantFilterInput {
   talentSources: [TalentRequestSource!]
 }
 
+input TalentRequestApplicantFilterInput {
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  pools: [IdInput] @pluck(key: "id")
+  skills: [IdInput] @pluck(key: "id")
+  skillsIntersectional: [IdInput] @pluck(key: "id")
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
+  community: IdInput @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
+}
+
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope(name: "whereEmail")
@@ -1582,7 +1599,7 @@ type CandidateSearchPoolResult {
 }
 
 input TalentRequestMatchFilterInput {
-  applicantFilter: ApplicantFilterInput
+  applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
@@ -1993,7 +2010,7 @@ type Query {
       maxCount: 500
       scopes: [
         "withPolicyEagerLoads"
-        "authorizedToView"
+        "whereAuthorizedToView"
         "isVerifiedGovEmployee"
         "withSkillCount"
       ]

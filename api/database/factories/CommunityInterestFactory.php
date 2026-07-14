@@ -54,6 +54,16 @@ class CommunityInterestFactory extends Factory
     }
 
     /**
+     * Control consent to share profile
+     */
+    public function consented(bool $consent = true): self
+    {
+        return $this->state(fn () => [
+            'consent_to_share_profile' => $consent,
+        ]);
+    }
+
+    /**
      * Create many work stream relationships
      */
     public function withWorkStreams(int $limit = 3)
