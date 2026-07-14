@@ -631,6 +631,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "M9Q1zH": {
+    "defaultMessage": "Partiellement approuvée",
+    "description": "Status text for partially approved nominations"
+  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."

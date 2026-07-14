@@ -6,6 +6,7 @@ use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
+use App\Support\LogUtil;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
@@ -98,11 +99,9 @@ class AuthController extends Controller
         }, throw: false)->asForm()->post(config('oauth.token_uri'), $tokenPayload);
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
-            Log::error('Failed when POSTing to the token URI in authCallback',
-                ['status' => $tokenResponse->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $tokenResponse->body()), 500)]
-            );
-            Log::debug($tokenResponse->body());
-            Log::debug([...$tokenPayload, 'client_secret' => Str::mask($tokenPayload['client_secret'], '*', 0)]);
+            Log::error('Failed when POSTing to the token URI in authCallback', LogUtil::responseContext($tokenResponse));
+            Log::debug(LogUtil::cleanString($tokenResponse->body()));
+            Log::debug(LogUtil::cleanArray($tokenPayload));
 
             return response('Failed to get token', 400);
         }
@@ -111,7 +110,7 @@ class AuthController extends Controller
         $encodedIdToken = $tokenResponse->json('id_token');
 
         if (! ($encodedIdToken && is_string($encodedIdToken))) {
-            Log::debug((string) $tokenResponse->body());
+            Log::debug(LogUtil::cleanString($tokenResponse->body()));
             throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
@@ -200,7 +199,8 @@ class AuthController extends Controller
                     }
                 } catch (Throwable $e) {
                     // log and continue - don't break log in for failure to take address
-                    Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                    Log::error('Failed to take email address on log in.', [
+                        'message' => $e->getMessage(),
                         'sub' => $sub,
                         'email address' => $incomingEmailAddress,
                     ]);
@@ -298,10 +298,10 @@ class AuthController extends Controller
             Log::log(
                 level: $isNormalErrorCode ? 'debug' : 'error',
                 message: 'Failed when POSTing to the token URI in refresh',
-                context: ['status' => $response->status(), 'body-preview' => Str::limit(str_replace(["\r\n", "\n", "\r"], ' ', $response->body()), 500)]
+                context: LogUtil::responseContext($response)
             );
-            Log::debug($response->body());
-            Log::debug([...$payload, 'client_secret' => Str::mask($payload['client_secret'], '*', 0)]);
+            Log::debug(LogUtil::cleanString($response->body()));
+            Log::debug(LogUtil::cleanArray($payload));
 
             return response('Failed to get token', 400);
         }

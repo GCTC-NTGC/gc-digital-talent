@@ -20,7 +20,6 @@ import {
 
 import TalentRequestEditReferralDialog, {
   TalentRequestEditReferralDialog_Fragment,
-  TalentRequestEditReferralDialogSourceOptions_Fragment,
 } from "./TalentRequestEditReferralDialog";
 import { TalentRequestReferralDialogOptions_Fragment } from "./ReferralFormFields";
 import { ReferralHistory_Fragment } from "./ReferralHistory";
@@ -56,16 +55,6 @@ const optionsQuery = makeFragmentData(
     })),
   },
   TalentRequestReferralDialogOptions_Fragment,
-);
-
-const sourceOptionsQuery = makeFragmentData(
-  {
-    talentRequestSources: fakeLocalizedEnum(TalentRequestSource).map((opt) => ({
-      __typename: "LocalizedTalentRequestSource" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
-  },
-  TalentRequestEditReferralDialogSourceOptions_Fragment,
 );
 
 const mockTrackedUser = {
@@ -124,7 +113,6 @@ const meta = {
   },
   args: {
     optionsQuery,
-    sourceOptionsQuery,
     defaultOpen: true,
   },
 } satisfies Meta<typeof TalentRequestEditReferralDialog>;

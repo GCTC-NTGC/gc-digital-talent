@@ -4883,6 +4883,10 @@
     "defaultMessage": "À l'étape d'évaluation",
     "description": "Status label for an application under assessment"
   },
+  "HqKGaJ": {
+    "defaultMessage": "Consulter les détails de la mise en candidature de {nominatorName}",
+    "description": "Label for the nomination details dialog trigger"
+  },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
@@ -8026,6 +8030,10 @@
   "UfwS5s": {
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
+  },
+  "UgHwZb": {
+    "defaultMessage": "Aucune mise en candidature n'a été soumise pour cette personne dans le cadre d'un événement de gestion des talents.",
+    "description": "Message displayed when a nominee has no nominations to show in their history"
   },
   "UieDSb": {
     "defaultMessage": "Modifier les détails de la collectivité",
@@ -13610,10 +13618,6 @@
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement reference classification"
   },
-  "qek0N+": {
-    "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
-    "description": "Instructions on how to manage notifications"
-  },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get archived."
@@ -13637,6 +13641,10 @@
   "qo/Sx2": {
     "defaultMessage": "L'utilisateur a été archivé avec succès!",
     "description": "Success message after soft-deleting a user"
+  },
+  "qo3/Sp": {
+    "defaultMessage": "Cet onglet vous permet de consulter l'historique des mises en candidature de la personne candidate par événement. Les mises en candidature en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les mises en candidature disponibles, au besoin.",
+    "description": "Description for the nomination history page"
   },
   "qrd+vb": {
     "defaultMessage": "Bienvenue",
@@ -13765,6 +13773,10 @@
   "rNmFAg": {
     "defaultMessage": "la création des fonctionnalités et des outils accessibles, comme le mode sombre;",
     "description": "List item three, things designers consider for accessibility"
+  },
+  "rNw6z5": {
+    "defaultMessage": "Reçue:",
+    "description": "Label for received date"
   },
   "rOIBl0": {
     "defaultMessage": "Le Corps d’innovation vous attend à bras ouverts! Le GSN recrute les personnes de talent très recherchées qui savent s’adapter et se montrent très compétentes dans le numérique au gouvernement. Pendant un an, les personnes retenues développeront leur réseau et diversifieront leur expérience au moyen d’affectations temporaires au MDN. Elles pourront trouver le poste rêvé au MDN ou acquérir des compétences utiles en vue de leur prochaine offre d’emploi.",
@@ -14833,10 +14845,6 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
-  },
-  "vtmq4K": {
-    "defaultMessage": "Historique",
-    "description": "Link text for the history of a nominee"
   },
   "vtnz6B": {
     "defaultMessage": "Décision finale",

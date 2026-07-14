@@ -161,7 +161,7 @@ async function fetchLink(
         continue;
       }
 
-      if (res.status === 403 && isKnownAuthRequiredHost(url)) {
+      if ((res.status === 403 || res.status === 404) && isKnownAuthRequiredHost(url)) {
         return fetchLinkWithBrowserHeaders(url, timeoutMs);
       }
 

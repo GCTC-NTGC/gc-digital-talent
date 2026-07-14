@@ -49,6 +49,7 @@ class CountPoolCandidatesByPoolTest extends TestCase
             'placement_type' => PlacementType::NOT_PLACED->name,
             'pause_referrals_at' => $available ? null : config('constants.past_date'),
             'expiry_date' => $futureDate ? config('constants.far_future_date') : config('constants.past_date'),
+            'submitted_at' => config('constants.past_date'),
         ];
     }
 

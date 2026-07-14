@@ -10,10 +10,12 @@ use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestStatus;
 use App\Enums\WhenSkillUsed;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -21,6 +23,7 @@ use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 
 class TalentRequestFactory extends BaseFactory
 {
@@ -68,55 +71,92 @@ class TalentRequestFactory extends BaseFactory
         ]);
     }
 
-    /**
-     * Attach tracked users, each backed by a qualified & available PoolCandidate
-     * that satisfies the request's ApplicantFilter (i.e. would surface in a search).
-     */
+    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
     public function withTrackedUsers(int $count = 3): self
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
-            $filter = $talentRequest->applicantFilter;
+            TalentRequestTrackedUser::factory()
+                ->count($count)
+                ->withRandomState()
+                ->for($talentRequest)
+                ->sequence(fn () => ['user_id' => $this->createUser($talentRequest->applicantFilter)->id])
+                ->create();
+        });
+    }
 
+    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
+    public function withMatchingUsers(int $count = 3): self
+    {
+        return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
             for ($i = 0; $i < $count; $i++) {
-                $user = User::factory()->create($this->matchingUserAttributes($filter));
-
-                $pool = Pool::factory()->candidatesAvailableInSearch()->create(array_filter([
-                    'community_id' => $filter->community_id,
-                    'classification_id' => $filter->qualifiedInClassifications->shuffle()->first()?->id,
-                    'work_stream_id' => $filter->qualifiedInWorkStreams->shuffle()->first()?->id,
-                ]));
-
-                PoolCandidate::factory()
-                    ->availableInSearch()
-                    ->createQuietly([
-                        'pool_id' => $pool->id,
-                        'user_id' => $user->id,
-                    ]);
-
-                // whereSkillsAdditive is an OR match - only one filter skill is required.
-                // Take a random non-empty subset per user for a spread of skill coverage.
-                $skills = $filter->skills;
-                if ($skills->isNotEmpty()) {
-                    $skills->shuffle()
-                        ->take($this->faker->numberBetween(1, $skills->count()))
-                        ->each(fn ($skill) => UserSkill::firstOrCreate(
-                            ['user_id' => $user->id, 'skill_id' => $skill->id],
-                            [
-                                'skill_level' => $this->faker->enum(SkillLevel::class),
-                                'when_skill_used' => $this->faker->enum(WhenSkillUsed::class),
-                            ]
-                        ));
-                }
-
-                TalentRequestTrackedUser::factory()
-                    ->withRandomState()
-                    ->create([
-                        'talent_request_id' => $talentRequest->id,
-                        'user_id' => $user->id,
-                    ]);
-
+                $this->createUser($talentRequest->applicantFilter);
             }
         });
+    }
+
+    private function createUser(ApplicantFilter $filter): User
+    {
+        $user = User::factory()->create($this->matchingUserAttributes($filter));
+        $selected = TalentRequestSource::selected($filter->talent_sources);
+
+        $matchesQualifiedInPool = in_array(TalentRequestSource::QUALIFIED_IN_POOL, $selected, true);
+        $matchesAtLevel = in_array(TalentRequestSource::AT_LEVEL, $selected, true)
+            && (! $matchesQualifiedInPool || $this->faker->boolean());
+
+        if ($matchesQualifiedInPool) {
+            $pool = Pool::factory()->candidatesAvailableInSearch()->create(array_filter([
+                'community_id' => $filter->community_id,
+                'classification_id' => $filter->qualifiedInClassifications->shuffle()->first()?->id,
+                'work_stream_id' => $filter->qualifiedInWorkStreams->shuffle()->first()?->id,
+            ]));
+
+            if ($filter->pools()->exists()) {
+                $filter->pools()->attach($pool->id);
+            }
+
+            PoolCandidate::factory()
+                ->availableInSearch()
+                ->createQuietly([
+                    'pool_id' => $pool->id,
+                    'user_id' => $user->id,
+                ]);
+        }
+
+        if ($matchesAtLevel) {
+            $classification = $filter->qualifiedInClassifications->shuffle()->first();
+            if ($classification) {
+                WorkExperience::factory()->asSubstantive()->create([
+                    'user_id' => $user->id,
+                    'classification_id' => $classification->id,
+                ]);
+            }
+
+            $communityInterest = CommunityInterest::factory()->create([
+                'user_id' => $user->id,
+                'community_id' => $filter->community_id,
+                'consent_to_share_profile' => true,
+            ]);
+
+            $workStream = $filter->qualifiedInWorkStreams->shuffle()->first();
+            if ($workStream) {
+                $communityInterest->workStreams()->attach($workStream->id);
+            }
+        }
+
+        $skills = $filter->skills;
+        if ($skills->isNotEmpty()) {
+            $skills->shuffle()
+                ->take($this->faker->numberBetween(1, $skills->count()))
+                ->each(fn ($skill) => UserSkill::firstOrCreate(
+                    ['user_id' => $user->id, 'skill_id' => $skill->id],
+                    [
+                        'skill_level' => $this->faker->enum(SkillLevel::class),
+                        'when_skill_used' => $this->faker->enum(WhenSkillUsed::class),
+                    ]
+                ));
+        }
+
+        return $user;
     }
 
     /**
