@@ -611,6 +611,11 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
+  dueToday: {
+    defaultMessage: "Due today",
+    id: "2H5KbR",
+    description: "Message shown when something is due on the current date",
+  },
   startDate: {
     defaultMessage: "Start date",
     id: "9tH7k0",
