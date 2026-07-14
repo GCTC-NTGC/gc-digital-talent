@@ -3,6 +3,7 @@
 namespace App\Builders;
 
 use App\Contracts\TalentRequestMatchable;
+use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -76,7 +77,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
 
                     // all community teams that the user is a member in
                     $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
+                        ->where('teamable_type', Community::class)
                         ->get();
 
                     // filter community teams down to those where the user also has permission to see the interests
