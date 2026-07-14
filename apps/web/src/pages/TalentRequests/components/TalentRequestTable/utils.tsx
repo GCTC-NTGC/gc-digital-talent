@@ -211,14 +211,16 @@ export const followUpDateCell = (
 ) => {
   if (!followUpDate) return null;
 
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
+  const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
     parseDateTimeUtc(followUpDate),
     now,
   );
 
-  return isOverdue ? (
+  return isOverdue || isDueToday ? (
     <Chip color="error">
-      {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+      {isOverdue
+        ? intl.formatMessage(commonMessages.overdueDate, { daysOverdue })
+        : intl.formatMessage(commonMessages.dueToday)}
     </Chip>
   ) : (
     cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)
