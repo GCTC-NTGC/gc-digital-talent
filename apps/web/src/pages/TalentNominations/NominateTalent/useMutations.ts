@@ -46,11 +46,11 @@ interface TalentNominationMutations {
 
 type UseMutationsReturn = [boolean, TalentNominationMutations];
 
-interface useMutationsOptions {
+interface UseMutationsOptions {
   forceProtectedEndpoint: boolean;
 }
 
-const useMutations = (options: useMutationsOptions): UseMutationsReturn => {
+const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
   const paths = useRoutes();
