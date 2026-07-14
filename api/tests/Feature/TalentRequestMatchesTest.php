@@ -613,7 +613,7 @@ class TalentRequestMatchesTest extends TestCase
         $community = Community::factory()->create();
 
         $user = User::factory()->create();
-        $interest = CommunityInterest::factory()->create([
+        $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $user->id,
             'community_id' => $community->id,
         ]);
@@ -633,17 +633,15 @@ class TalentRequestMatchesTest extends TestCase
         $community = Community::factory()->create();
 
         $consented = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $consented->id,
             'community_id' => $community->id,
-            'consent_to_share_profile' => true,
         ]);
 
         $notConsented = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented(false)->create([
             'user_id' => $notConsented->id,
             'community_id' => $community->id,
-            'consent_to_share_profile' => false,
         ]);
 
         $this->actingAs($this->admin, 'api')
@@ -658,13 +656,13 @@ class TalentRequestMatchesTest extends TestCase
         $other = Community::factory()->create();
 
         $included = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $included->id,
             'community_id' => $matching->id,
         ]);
 
         $excluded = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $excluded->id,
             'community_id' => $other->id,
         ]);
@@ -686,7 +684,7 @@ class TalentRequestMatchesTest extends TestCase
 
         // AT_LEVEL only — no pool candidates
         $atLevelUser = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);
@@ -708,7 +706,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->matchingUser($pool);
 
         $atLevelUser = User::factory()->create();
-        $interest = CommunityInterest::factory()->create([
+        $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);
@@ -727,7 +725,7 @@ class TalentRequestMatchesTest extends TestCase
         $community = Community::factory()->withWorkStreams()->create();
 
         $user = User::factory()->create();
-        $interest = CommunityInterest::factory()->withWorkStreams()->for($user)->for($community)->create();
+        $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
         $workStreamId = $interest->workStreams()->first()->id;
 
         $this->actingAs($this->admin, 'api')
@@ -754,7 +752,7 @@ class TalentRequestMatchesTest extends TestCase
             'classification_id' => $classification->id,
             'end_date' => null,
         ]);
-        CommunityInterest::factory()->for($user)->create();
+        CommunityInterest::factory()->consented()->for($user)->create();
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->atLevelQuery, [
@@ -776,7 +774,7 @@ class TalentRequestMatchesTest extends TestCase
         $poolUser = $this->matchingUser($pool);
 
         $atLevelUser = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);
