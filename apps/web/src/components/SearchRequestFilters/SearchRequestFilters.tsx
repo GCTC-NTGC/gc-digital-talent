@@ -17,7 +17,10 @@ import type {
   Classification,
   LocalizedEnumString,
 } from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  TalentRequestSource,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -40,6 +43,7 @@ const ApplicantFilters = ({
   applicantFilter,
   selectedClassifications,
   flexibleWorkLocationOptions,
+  talentSourceOptions,
 }: {
   applicantFilter?: PartialApplicantFilter | null;
   selectedClassifications?: (
@@ -48,6 +52,7 @@ const ApplicantFilters = ({
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
+  talentSourceOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -120,6 +125,14 @@ const ApplicantFilters = ({
     applicantFilter?.qualifiedInWorkStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
+  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
+  const talentSourceOptionsFiltered = talentSourceOptions.filter(
+    (source) => source.value !== (TalentRequestSource.Advancement as string),
+  );
+  const filterTalentSources = unpackMaybes(
+    applicantFilter?.talentSources?.map((source) => source?.value),
+  );
+
   const communityName: string = applicantFilter?.community
     ? getLocalizedName(applicantFilter.community.name, intl)
     : intl.formatMessage({
@@ -140,6 +153,35 @@ const ApplicantFilters = ({
     <section className="grid gap-6 xs:grid-cols-2">
       <div>
         <div>
+          <FilterBlock
+            title={intl.formatMessage(talentRequestMessages.talentSource)}
+            content={
+              <Ul unStyled noIndent inside>
+                {talentSourceOptionsFiltered.map((source) => (
+                  <li key={source.value}>
+                    <BoolCheckIcon
+                      value={filterTalentSources.includes(
+                        source.value as TalentRequestSource,
+                      )}
+                      trueLabel={intl.formatMessage(commonMessages.selected)}
+                      falseLabel={intl.formatMessage(
+                        commonMessages.notSelected,
+                      )}
+                    >
+                      {source.value ===
+                        (TalentRequestSource.QualifiedInPool as string) &&
+                        intl.formatMessage(
+                          talentRequestMessages.qualifiedInPoolLabel,
+                        )}
+                      {source.value ===
+                        (TalentRequestSource.AtLevel as string) &&
+                        intl.formatMessage(talentRequestMessages.atLevelLabel)}
+                    </BoolCheckIcon>
+                  </li>
+                ))}
+              </Ul>
+            }
+          />
           <FilterBlock
             title={intl.formatMessage(talentRequestMessages.community)}
             content={communityName}
@@ -286,12 +328,14 @@ interface SearchRequestFiltersProps {
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
+  talentSourceOptions: LocalizedEnumString[];
 }
 
 const SearchRequestFilters = ({
   filters,
   selectedClassifications,
   flexibleWorkLocationOptions,
+  talentSourceOptions,
 }: SearchRequestFiltersProps) => {
   const intl = useIntl();
   let poolCandidateFilter;
@@ -301,6 +345,7 @@ const SearchRequestFilters = ({
         applicantFilter={filters}
         selectedClassifications={selectedClassifications}
         flexibleWorkLocationOptions={flexibleWorkLocationOptions}
+        talentSourceOptions={talentSourceOptions}
       />
     );
   }

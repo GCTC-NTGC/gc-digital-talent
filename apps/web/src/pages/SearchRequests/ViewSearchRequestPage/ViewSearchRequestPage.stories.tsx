@@ -10,10 +10,12 @@ import {
   makeFragmentData,
   TalentRequestCompletionDetail,
   TalentRequestInProgressDetail,
+  TalentRequestSource,
   TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
+import { TalentRequestSourceOptions_Fragment } from "~/components/SearchRequestFilters/fragment";
 
 import {
   TalentRequestOptions_Fragment,
@@ -36,6 +38,20 @@ const locationOptions = makeFragmentData(
     })),
   },
   FlexibleWorkLocationOptions_Fragment,
+);
+
+const talentSourceOptions = makeFragmentData(
+  {
+    __typename: "Query",
+    talentSource: Object.values(TalentRequestSource).map((source) => ({
+      value: source,
+      label: {
+        en: `${source} EN`,
+        fr: `${source} FR`,
+      },
+    })),
+  },
+  TalentRequestSourceOptions_Fragment,
 );
 
 const statusOptions = makeFragmentData(
@@ -65,6 +81,7 @@ const options = makeFragmentData(
   Object.assign(
     { __typename: "Query" as const },
     locationOptions,
+    talentSourceOptions,
     statusOptions,
   ),
   TalentRequestOptions_Fragment,

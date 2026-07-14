@@ -200,6 +200,13 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
+    talentSources: localizedEnumStrings(enumName: "TalentRequestSource") {
+      value
+      label {
+        en
+        fr
+      }
+    }
     workStreams {
       id
       key
@@ -337,6 +344,7 @@ export const RequestForm = ({
           equity: applicantFilter?.equity,
           languageAbility: applicantFilter?.languageAbility,
           operationalRequirements: applicantFilter?.operationalRequirements,
+          talentSources: unpackMaybes(applicantFilter?.talentSources),
           qualifiedInWorkStreams: {
             sync: applicantFilter?.qualifiedInWorkStreams
               ? applicantFilter?.qualifiedInWorkStreams
@@ -450,6 +458,11 @@ export const RequestForm = ({
           requirement,
           optionsData?.operationalRequirements,
         ),
+      ),
+    ),
+    talentSources: unpackMaybes(
+      applicantFilter?.talentSources?.map((source) =>
+        enumInputToLocalizedEnum(source, optionsData?.talentSources),
       ),
     ),
     qualifiedInWorkStreams: unpackMaybes(optionsData?.workStreams).filter(
@@ -677,6 +690,7 @@ export const RequestForm = ({
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
+            talentSourceOptions={unpackMaybes(optionsData?.talentSources)}
           />
           <Separator />
           <p className="mb-6 font-bold">
