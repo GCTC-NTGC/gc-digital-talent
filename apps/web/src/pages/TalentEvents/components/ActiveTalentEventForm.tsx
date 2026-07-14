@@ -133,6 +133,10 @@ const ActiveTalentEventForm = ({
   const onSubmit: SubmitHandler<FormValues> = async (
     formValues: FormValues,
   ) => {
+    if (!formValues.contactEmail) {
+      throw new Error("contact email is mandatory"); // form enforces this - just to make TS happy
+    }
+
     return executeMutation({
       id: talentNominationEvent.id,
       talentNominationEvent: {
@@ -151,7 +155,7 @@ const ActiveTalentEventForm = ({
             })),
           ],
         },
-        contactEmail: formValues.contactEmail ?? "",
+        contactEmail: formValues.contactEmail,
       },
     })
       .then(async (result) => {
