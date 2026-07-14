@@ -13626,10 +13626,6 @@
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement reference classification"
   },
-  "qek0N+": {
-    "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
-    "description": "Instructions on how to manage notifications"
-  },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get archived."
