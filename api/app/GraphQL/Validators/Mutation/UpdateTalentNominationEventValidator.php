@@ -98,7 +98,7 @@ final class UpdateTalentNominationEventValidator extends Validator
             'talentNominationEvent.includeNineBox' => ['sometimes', 'boolean'],
             'talentNominationEvent.requireReferenceForAdvancement' => ['sometimes', 'boolean'],
             'talentNominationEvent.customInstructions' => ['nullable', 'localized_string'],
-            'talentNominationEvent.contactEmail' => ['required', 'email'],
+            'talentNominationEvent.contactEmail' => ['sometimes', 'email'],
         ];
     }
 
