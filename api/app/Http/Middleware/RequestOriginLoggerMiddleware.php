@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Psr\Log\LoggerInterface;
 
 class RequestOriginLoggerMiddleware
@@ -18,6 +19,10 @@ class RequestOriginLoggerMiddleware
     public function handle(Request $request, Closure $next)
     {
         $result = $next($request);
+
+        Log::info('TEMP DEBUG azure test', [
+            'XForwardedIP' => $request->header('X-Forwarded-For'),
+        ]);
 
         if ($request->hasSession()) {
             $xForwardedFor = $request->header('X-Forwarded-For');
