@@ -180,8 +180,8 @@ const CreateTalentNominationApi = () => {
     <Pending fetching={fetching} error={error}>
       {data?.talentNominationEvent ? (
         <CreateTalentNomination
-          nominationEventId={data?.talentNominationEvent?.id}
-          nominationEventCloseDate={data?.talentNominationEvent?.closeDate}
+          nominationEventId={data.talentNominationEvent.id}
+          nominationEventCloseDate={data.talentNominationEvent.closeDate}
         />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
