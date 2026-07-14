@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Reverb\Contracts\Logger;
 use PhpOffice\PhpWord\Settings;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->instance(
-            \Laravel\Reverb\Contracts\Logger::class,
+            Logger::class,
             new ReverbLogger(),
         );
 

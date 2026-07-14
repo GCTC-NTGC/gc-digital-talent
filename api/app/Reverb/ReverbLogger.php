@@ -2,13 +2,13 @@
 
 namespace App\Reverb;
 
-use Illuminate\Log\Logger as IlluminateLogger;
 use Illuminate\Support\Facades\Log;
 use Laravel\Reverb\Contracts\Logger;
+use Psr\Log\LoggerInterface;
 
 class ReverbLogger implements Logger
 {
-    protected IlluminateLogger $logger;
+    protected LoggerInterface $logger;
 
     public function __construct()
     {
