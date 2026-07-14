@@ -43,7 +43,7 @@ export const appendShortenedLanguageName = ({
   label: ReactNode;
   lang: Locales;
   intl: IntlShape;
-}): ReactNode | string => {
+}): string => {
   const labels = {
     en: intl.formatMessage(commonMessages.englishLabelShort),
     fr: intl.formatMessage(commonMessages.frenchLabelShort),
