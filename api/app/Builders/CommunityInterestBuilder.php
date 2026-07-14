@@ -3,10 +3,15 @@
 namespace App\Builders;
 
 use App\Contracts\TalentRequestMatchable;
+use App\Models\CommunityInterest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @extends Builder<CommunityInterest>
+ * @mixin CommunityInterest
+ */
 class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
 {
     public function whereMatchesTalentRequest(?array $filters): self
