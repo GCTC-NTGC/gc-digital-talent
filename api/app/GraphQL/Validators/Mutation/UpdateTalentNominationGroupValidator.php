@@ -46,7 +46,12 @@ final class UpdateTalentNominationGroupValidator extends Validator
                     ['min:0'],  // we will eventually require classifications when approving
                     ['max:0']), // unless approved, can't sync any classifications
             ],
-
+            'talentNominationGroup.referralExpiryDate' => [
+                'sometimes', // 'present',  // we will eventually require this field
+                Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
+                    ['todayOrAfter'],  // we will eventually require expiry date when approving
+                    ['prohibited']), // must be null if not approved
+            ],
         ];
     }
 
