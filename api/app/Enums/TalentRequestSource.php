@@ -22,6 +22,7 @@ enum TalentRequestSource
     {
         return match ($this) {
             self::QUALIFIED_IN_POOL => 'matchingQualifiedInPoolSources',
+            self::AT_LEVEL => 'matchingAtLevelSources',
             default => null,
         };
     }

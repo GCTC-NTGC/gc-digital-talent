@@ -21,14 +21,14 @@ export interface FormValues {
   classifications: string[];
   community?: string;
   departments: string[];
-  employmentDuration?: TEmploymentDuration;
+  employmentDuration?: TEmploymentDuration | "";
   equity: string[];
   expiryStatus?: CandidateExpiryFilter;
   referralStatuses?: CandidateReferralFilter[];
   statuses: ApplicationStatus[];
   flexibleWorkLocations: FlexibleWorkLocation[];
   govEmployee?: EmployeeVerification[];
-  languageAbility?: LanguageAbility;
+  languageAbility?: LanguageAbility | "";
   operationalRequirement: OperationalRequirement[];
   placementTypes: PlacementType[];
   pools: string[];

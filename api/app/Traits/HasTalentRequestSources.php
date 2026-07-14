@@ -3,8 +3,10 @@
 namespace App\Traits;
 
 use App\Enums\TalentRequestSource;
+use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -21,12 +23,18 @@ trait HasTalentRequestSources
         return $this->hasMany(PoolCandidate::class);
     }
 
+    /** @return HasMany<CommunityInterest, $this> */
+    public function matchingAtLevelSources(): HasMany
+    {
+        return $this->hasMany(CommunityInterest::class);
+    }
+
     /**
      * Records this user matched for one source's relation. Returns the records the
      * talent-request query already eager-loaded; otherwise runs the filtered query directly
      * (the talentRequest.trackedUsers path has no eager-load scope to lean on).
      *
-     * @return Collection<int, PoolCandidate>
+     * @return Collection<int, Model>
      */
     public function talentRequestSourceMatches(string $relation, array $filters): Collection
     {

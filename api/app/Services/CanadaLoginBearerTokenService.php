@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\BearerTokenService;
+use App\Support\LogUtil;
 use DateInterval;
 use Exception;
 use Illuminate\Http\Client\ConnectionException;
@@ -73,8 +74,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty');
-                    Log::debug($response->body());
+                    Log::error('Failed when GETting the OpenID configuration in getConfigProperty', LogUtil::responseContext($response));
+                    Log::debug(LogUtil::cleanString($response->body()));
                     throw new Exception('Failed to get config');
                 }
 
@@ -107,8 +108,8 @@ class CanadaLoginBearerTokenService implements BearerTokenService
                 assert($response instanceof Response);
 
                 if ($response->failed()) {
-                    Log::error('Failed when GETting the JWKS in getConfiguration');
-                    Log::debug($response->body());
+                    Log::error('Failed when GETting the JWKS in getConfiguration', LogUtil::responseContext($response));
+                    Log::debug(LogUtil::cleanString($response->body()));
                     throw new Exception('Failed to get config');
                 }
 
@@ -155,19 +156,22 @@ class CanadaLoginBearerTokenService implements BearerTokenService
 
         // make api call to introspect endpoint
         $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+        $payload = [
+            'client_id' => config('oauth.client_id'),
+            'client_secret' => config('oauth.client_secret'),
+            'token' => $accessToken,
+        ];
         $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
             ->withToken($accessToken)  // required by mockauth but not CanadaLogin
-            ->post($introspectionUri, [
-                'client_id' => config('oauth.client_id'),
-                'client_secret' => config('oauth.client_secret'),
-                'token' => $accessToken,
-            ]);
+            ->post($introspectionUri, $payload);
         assert($response instanceof Response);
 
         if ($response->failed()) {
-            Log::error('Failed when GETting the introspection verification in getIntrospectionValues ('.$response->status().') '.$response->body());
+            Log::error('Failed when GETting the introspection verification in getIntrospectionValues.', LogUtil::responseContext($response));
+            Log::debug(LogUtil::cleanString($response->body()));
+            Log::debug(LogUtil::cleanArray($payload));
             throw new Exception('Failed to get introspection');
         }
 

@@ -327,6 +327,10 @@
     "defaultMessage": "Je consens à travailler à distance.",
     "description": "The work region of Canada described as Telework."
   },
+  "91hRYX": {
+    "defaultMessage": "OK",
+    "description": "Proceed with the current action"
+  },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"
@@ -630,6 +634,10 @@
   "M3c9Yo": {
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
+  },
+  "M9Q1zH": {
+    "defaultMessage": "Partiellement approuvée",
+    "description": "Status text for partially approved nominations"
   },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",

@@ -491,8 +491,8 @@ type Query {
   workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
-  countTalentRequestMatches(where: ApplicantFilterInput): Int!
-  countTalentRequestMatchesByPool(where: ApplicantFilterInput): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
+  countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -571,20 +571,6 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolPaginator!
-  poolCandidatesPaginated(
-    where: PoolCandidateSearchInput
-    orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: ClaimVerificationSort
-    orderByEmployeeDepartment: SortOrder
-    orderByScreeningStage: SortOrder
-    orderBy: [QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!]
-
-    "Limits number of fetched items. Maximum allowed value: 1000."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): PoolCandidateWithSkillCountPaginator! @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
     orderByBase: PoolCandidatesBaseSort
@@ -1282,37 +1268,23 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
-type PoolCandidate {
-  id: ID!
-  pool: Pool!
-  user: User!
-  expiryDate: Date
-  category: PoolCandidateCategory
+type PoolCandidateAssessmentData {
+  notes: String
+  isFlagged: Boolean
+  veteranVerification: ClaimVerificationResult
+  veteranVerificationExpiry: Date
+  priorityVerification: ClaimVerificationResult
+  priorityVerificationExpiry: Date
+}
+
+type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
-  notes: String
-  archivedAt: DateTime
-  submittedAt: DateTime
-  suspendedAt: DateTime
-  deletedDate: DateTime
-  isFlagged: Boolean
-  isBookmarked: Boolean
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
-  profileSnapshot: JSON
-  signature: String
-  submittedSteps: [ApplicationStep!]
-  generalQuestionResponses: [GeneralQuestionResponse]
-  screeningQuestionResponses: [ScreeningQuestionResponse]
-  educationRequirementOption: LocalizedEducationRequirementOption
-  educationRequirementExperiences: [Experience]
-  educationRequirementExperienceIds: [UUID!]
-  assessmentResults: [AssessmentResult]
-  assessmentStatus: AssessmentResultStatus
-  assessmentStep: AssessmentStep
   statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
   placementType: LocalizedPlacementType
@@ -1324,19 +1296,36 @@ type PoolCandidate {
   pauseReferralsAt: DateTime
   resumeReferralsAt: DateTime
   pauseReferralsReason: String
-  veteranVerification: ClaimVerificationResult
-  veteranVerificationExpiry: Date
-  priorityVerification: ClaimVerificationResult
-  priorityVerificationExpiry: Date
+}
+
+type PoolCandidate {
+  id: ID!
+  pool: Pool!
+  user: User!
+  expiryDate: Date
+  category: PoolCandidateCategory
+  archivedAt: DateTime
+  submittedAt: DateTime
+  suspendedAt: DateTime
+  deletedDate: DateTime
+  isBookmarked: Boolean
+  profileSnapshot: JSON
+  signature: String
+  submittedSteps: [ApplicationStep!]
+  generalQuestionResponses: [GeneralQuestionResponse]
+  screeningQuestionResponses: [ScreeningQuestionResponse]
+  educationRequirementOption: LocalizedEducationRequirementOption
+  educationRequirementExperiences: [Experience]
+  educationRequirementExperienceIds: [UUID!]
+  applicationStatusData: PoolCandidateStatusData
+  applicationAssessmentData: PoolCandidateAssessmentData
+  assessmentResults: [AssessmentResult]
+  assessmentStatus: AssessmentResultStatus
+  assessmentStep: AssessmentStep
   specialApplicationType: LocalizedSpecialApplicationType
   specialApplicationJustification: String
   specialApplicationClosingDate: DateTime
-}
-
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate!
-  skillCount: Int
+  isSpecialApplication: Boolean
 }
 
 type PoolCandidateAdminView {
@@ -1552,6 +1541,7 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
+  advancementClassifications: [Classification!]
 }
 
 type Team implements HasRoleAssignments {
@@ -1620,6 +1610,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
+  talentSources: [TalentRequestSource!]
 }
 
 type PoolCandidateSearchRequest {
@@ -1692,7 +1683,7 @@ type TalentRequestTrackedUser {
   selectionDecision: LocalizedTalentRequestTrackedUserSelectionDecision
   notReferredReason: LocalizedTalentRequestTrackedUserNotReferredReason
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
@@ -1958,6 +1949,7 @@ input ApplicantFilterInput {
   qualifiedInClassifications: [ClassificationFilterInput]
   qualifiedInWorkStreams: [IdInput]
   community: IdInput
+  talentSources: [TalentRequestSource!]
 }
 
 input PoolCandidateSearchInput {
@@ -2726,6 +2718,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsDecision: TalentNominationGroupDecision
   developmentProgramsNotes: String
   comments: String
+  advancementClassifications: ClassificationBelongsToMany
 }
 
 input CreateApplicantFilterInput {
@@ -3390,15 +3383,6 @@ type PoolPaginator {
   data: [Pool!]!
 }
 
-"A paginated list of PoolCandidateWithSkillCount items."
-type PoolCandidateWithSkillCountPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of PoolCandidateWithSkillCount items."
-  data: [PoolCandidateWithSkillCount!]!
-}
-
 "A paginated list of PoolCandidateAdminViewWithSkillCount items."
 type PoolCandidateAdminViewWithSkillCountPaginator {
   "Pagination information about the list of items."
@@ -3505,72 +3489,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByUserColumn {
-  PRIORITY_WEIGHT
-  FIRST_NAME
-  EMAIL
-  PREFERRED_LANG
-  PREFERRED_LANGUAGE_FOR_INTERVIEW
-  PREFERRED_LANGUAGE_FOR_EXAM
-  CURRENT_CITY
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.user."
-input QueryPoolCandidatesPaginatedOrderByUser {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByUserColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByPoolColumn {
-  PROCESS_NUMBER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.pool."
-input QueryPoolCandidatesPaginatedOrderByPool {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByPoolColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginated.orderBy."
-enum QueryPoolCandidatesPaginatedOrderByAssessmentStepColumn {
-  SORT_ORDER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginated.orderBy.assessmentStep."
-input QueryPoolCandidatesPaginatedOrderByAssessmentStep {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedOrderByAssessmentStepColumn
-}
-
-"Order by clause for Query.poolCandidatesPaginated.orderBy."
-input QueryPoolCandidatesPaginatedOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  user: QueryPoolCandidatesPaginatedOrderByUser
-
-  "Aggregate specification."
-  pool: QueryPoolCandidatesPaginatedOrderByPool
-
-  "Aggregate specification."
-  assessmentStep: QueryPoolCandidatesPaginatedOrderByAssessmentStep
 }
 
 "Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
@@ -4430,6 +4348,7 @@ enum ErrorCode {
   WORK_STREAM_NAME_IN_USE
   RATE_LIMIT
   SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
+  SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED
 }
 
 enum EstimatedLanguageAbility {

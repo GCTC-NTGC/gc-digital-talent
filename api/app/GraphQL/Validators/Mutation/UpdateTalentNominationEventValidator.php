@@ -34,6 +34,11 @@ final class UpdateTalentNominationEventValidator extends Validator
             ? $thisEvent->community_id
             : $this->arg('talentNominationEvent.community.connect');
 
+        $attachedCommunityDevelopmentProgramIds = $thisEvent->communityDevelopmentPrograms()
+            ->withTrashed()
+            ->pluck('community_development_program.id')
+            ->all();
+
         return [
             'talentNominationEvent.community.connect' => [
                 'uuid',
@@ -48,8 +53,9 @@ final class UpdateTalentNominationEventValidator extends Validator
             'talentNominationEvent.communityDevelopmentPrograms.sync.*.id' => [
                 'uuid',
                 Rule::exists('community_development_program', 'id')
-                    ->where(function ($query) use ($communityId) {
-                        $query->where('community_id', $communityId);
+                    ->where(function ($query) use ($communityId, $attachedCommunityDevelopmentProgramIds) {
+                        $query->where('community_id', $communityId)
+                            ->orWhereIn('id', $attachedCommunityDevelopmentProgramIds);
                     }),
             ],
             'talentNominationEvent.name' => ['localized_string'],
@@ -100,7 +106,7 @@ final class UpdateTalentNominationEventValidator extends Validator
         return [
             'talentNominationEvent.community.connect.App\\Rules\\ValueIsIdentical' => ErrorCode::TALENT_EVENT_CANNOT_CHANGE_COMMUNITY->name,
             'talentNominationEvent.community.connect.exists' => ErrorCode::COMMUNITY_NOT_FOUND->name,
-            'communityDevelopmentPrograms.sync.*.id.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name,
+            'talentNominationEvent.communityDevelopmentPrograms.sync.*.id.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name,
             'talentNominationEvent.name.en.App\\Rules\\ValueIsIdentical' => ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name,
             'talentNominationEvent.name.fr.App\\Rules\\ValueIsIdentical' => ErrorCode::TALENT_EVENT_CANNOT_CHANGE_NAME->name,
         ];

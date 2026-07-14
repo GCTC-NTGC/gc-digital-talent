@@ -39,10 +39,12 @@ interface FormValues {
 
 interface ApplicationExpiryDateDialogProps {
   query: FragmentType<typeof ApplicationExpiryDateDialog_Fragment>;
+  isExpired: boolean;
 }
 
 const ApplicationExpiryDateDialog = ({
   query,
+  isExpired,
 }: ApplicationExpiryDateDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -107,12 +109,14 @@ const ApplicationExpiryDateDialog = ({
 
   const todayDate = new Date();
 
+  const computedTriggerColour = isExpired ? "error" : "success";
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button
           mode="text"
-          color="success"
+          color={computedTriggerColour}
           aria-label={intl.formatMessage(
             {
               defaultMessage: "Expiry date: {date}. Edit.",

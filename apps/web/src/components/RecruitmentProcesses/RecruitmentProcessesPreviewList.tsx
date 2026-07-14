@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  ApplicationStatus,
+  CandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -26,9 +26,10 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       id
       expiryDate
       suspendedAt
-      placedAt
-      status {
-        value
+      applicationStatusData {
+        candidateStatus {
+          value
+        }
       }
       pool {
         id
@@ -78,7 +79,9 @@ const RecruitmentProcessPreviewList = ({
   );
   const recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
-        ({ status }) => status?.value === ApplicationStatus.Qualified,
+        ({ applicationStatusData }) =>
+          applicationStatusData?.candidateStatus?.value ===
+          CandidateStatus.Qualified,
       )
     : []; // filter for qualified recruitment processes
 

@@ -95,7 +95,10 @@ export const SearchForm = ({
   }, [classifications, watch]);
 
   const handleSubmit = async (values: FormValues) => {
-    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    let poolIds = values.pool ? [{ id: values.pool }] : [];
+    if (values.allPools && results && results?.length > 0) {
+      poolIds = results.flatMap((result) => ({ id: result.pool.id }));
+    }
 
     await navigate(paths.request(), {
       state: {

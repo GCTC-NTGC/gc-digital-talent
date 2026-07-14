@@ -6,15 +6,15 @@ import {
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import {
-  makeFragmentData,
   PriorityWeight,
+  TalentRequestSource,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
   TalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
+import { Card } from "@gc-digital-talent/ui";
 
-import TalentRequestTrackedUsersTable from "./TalentRequestTrackedUsersTable";
-import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
+import TalentRequestTrackedUsersInbox from "./TalentRequestTrackedUsersInbox";
 
 const users = fakeUsers(4);
 
@@ -37,8 +37,11 @@ const trackedUsers = [
     id: "tracked-user-1",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.Referred),
+    referralDecision: null,
+    selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: null,
+    sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
     user: {
       ...users[0],
       priority: toLocalizedEnum(PriorityWeight.Veteran),
@@ -49,10 +52,13 @@ const trackedUsers = [
     id: "tracked-user-2",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotReferred),
+    referralDecision: null,
+    selectionDecision: null,
     notReferredReason: toLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason.Other,
     ),
     notSelectedReason: null,
+    sources: [toLocalizedEnum(TalentRequestSource.AtLevel)],
     user: {
       ...users[1],
       priority: toLocalizedEnum(PriorityWeight.CitizenOrPermanentResident),
@@ -63,8 +69,11 @@ const trackedUsers = [
     id: "tracked-user-3",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.Selected),
+    referralDecision: null,
+    selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: null,
+    sources: [toLocalizedEnum(TalentRequestSource.Advancement)],
     user: {
       ...users[2],
       priority: toLocalizedEnum(PriorityWeight.PriorityEntitlement),
@@ -75,10 +84,13 @@ const trackedUsers = [
     id: "tracked-user-4",
     skillCount: matchedSkillCount,
     status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotSelected),
+    referralDecision: null,
+    selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: toLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason.Other,
     ),
+    sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
     user: {
       ...users[3],
       priority: toLocalizedEnum(PriorityWeight.Other),
@@ -87,35 +99,41 @@ const trackedUsers = [
 ];
 
 const mockPaginatorInfo = {
-  count: trackedUsers.length,
-  currentPage: 1,
-  firstItem: 1,
-  hasMorePages: false,
-  lastItem: trackedUsers.length,
-  lastPage: 1,
-  perPage: 10,
   total: trackedUsers.length,
+  lastPage: 1,
 };
 
+const localizedStatuses = Object.values(TalentRequestTrackedUserStatus).map(
+  (value) => ({
+    __typename: "LocalizedTalentRequestTrackedUserStatus" as const,
+    ...toLocalizedEnum(value),
+  }),
+);
+
 export default {
-  component: TalentRequestTrackedUsersTable,
+  component: TalentRequestTrackedUsersInbox,
   parameters: {
     apiResponses: {
-      TalentRequestTrackedUsersPaginated: {
+      TalentRequestTrackedUsersInbox: {
         data: {
+          statuses: localizedStatuses,
           talentRequestTrackedUsers: {
             data: trackedUsers,
             paginatorInfo: mockPaginatorInfo,
           },
         },
       },
-      TalentRequestTrackedUsersFilterData: {
+      InboxNotReferReasons: {
         data: {
-          statuses: Object.values(TalentRequestTrackedUserStatus).map(
-            (value) => ({
-              __typename: "LocalizedTalentRequestTrackedUserStatus" as const,
-              ...toLocalizedEnum(value),
-            }),
+          reasons: Object.values(TalentRequestTrackedUserNotReferredReason).map(
+            (value) => toLocalizedEnum(value),
+          ),
+        },
+      },
+      InboxNotSelectReasons: {
+        data: {
+          reasons: Object.values(TalentRequestTrackedUserNotSelectedReason).map(
+            (value) => toLocalizedEnum(value),
           ),
         },
       },
@@ -129,18 +147,16 @@ export default {
       },
     },
   },
-} as Meta<typeof TalentRequestTrackedUsersTable>;
+} as Meta<typeof TalentRequestTrackedUsersInbox>;
 
-const storySkills = requestSkills.map((skill) =>
-  makeFragmentData(skill, TalentRequestUserSkillMatch_Fragment),
-);
-
-const Template: StoryFn<typeof TalentRequestTrackedUsersTable> = (args) => (
-  <TalentRequestTrackedUsersTable {...args} />
+const Template: StoryFn<typeof TalentRequestTrackedUsersInbox> = (args) => (
+  <Card>
+    <TalentRequestTrackedUsersInbox {...args} />
+  </Card>
 );
 
 export const Default = Template.bind({});
 Default.args = {
-  talentRequestId: "tracked-users-story",
-  skillsQuery: storySkills,
+  talentRequestId: "tracked-users-inbox-story",
+  requestedSkillsCount: requestSkills.length,
 };

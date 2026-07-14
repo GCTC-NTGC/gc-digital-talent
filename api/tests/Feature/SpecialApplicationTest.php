@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
+use App\Enums\PoolAreaOfSelection;
+use App\Enums\PoolLanguage;
 use App\Enums\SpecialApplicationType;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -158,6 +160,167 @@ class SpecialApplicationTest extends TestCase
             ->assertGraphQLValidationError(
                 'poolCandidate.specialApplicationClosingDate',
                 'The pool candidate.special application closing date field must be a date after '.$this->pool->closing_date.'.'
+            );
+    }
+
+    // test accessor PoolCandidate::isSpecialApplication()
+    public function testIsSpecialApplication(): void
+    {
+        $nullCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => null,
+        ]);
+        $emptyCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => '',
+        ]);
+        $setCandidate = PoolCandidate::factory()->createQuietly([
+            'special_application_type' => SpecialApplicationType::OTHER->name,
+        ]);
+
+        // assert values as expected
+        assertSame(
+            $nullCandidate->is_special_application,
+            false,
+        );
+        assertSame(
+            $emptyCandidate->is_special_application,
+            false,
+        );
+        assertSame(
+            $setCandidate->is_special_application,
+            true,
+        );
+    }
+
+    // a special application can bypass standard validation when submitting
+    public function testSpecialApplicationBypassesNormalValidation(): void
+    {
+        // pool is internal and closed
+        $this->pool->area_of_selection = PoolAreaOfSelection::EMPLOYEES->name;
+        $this->pool->advertisement_language = PoolLanguage::VARIOUS->name;
+        $this->pool->closing_date = config('constants.past_datetime');
+        $this->pool->save();
+
+        // applicant unable to apply due to both those reasons, normally
+        $this->applicant->email_verified_at = config('constants.far_past_datetime');
+        $this->applicant->work_email_verified_at = null;
+        $this->applicant->save();
+
+        $newPoolCandidate = PoolCandidate::factory()
+            ->completed()
+            ->for($this->applicant)
+            ->for($this->pool)
+            ->create([
+                'special_application_type' => SpecialApplicationType::PRIORITY->name,
+                'special_application_justification' => 'reasons',
+                'special_application_closing_date' => config('constants.far_future_datetime'),
+            ]);
+        $newPoolCandidate->submitted_at = null;
+        $newPoolCandidate->save();
+
+        // applicant able to successfully submit the application
+        $this->actingAs($this->applicant, 'api')
+            ->graphQL(
+                /** @lang GraphQL */
+                '
+                mutation SubmitApplication($id: ID!, $sig: String!) {
+                    submitApplication(id: $id, signature: $sig) {
+                        signature
+                    }
+                }
+            ',
+                [
+                    'id' => $newPoolCandidate->id,
+                    'sig' => 'sign',
+                ]
+            )->assertJsonFragment([
+                'signature' => 'sign',
+            ]);
+    }
+
+    // a special application cannot be created for all pool states
+    public function testSpecialApplicationPoolPublishedAtCheck(): void
+    {
+        $draftPool = Pool::factory()->draft()->create();
+        $openPool = Pool::factory()->published()->create();
+        $closedPool = Pool::factory()->closed()->create();
+        $archivedPool = Pool::factory()->archived()->create();
+
+        // draft is blocked
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'poolCandidate' => [
+                    'pool' => ['connect' => $draftPool->id],
+                    'user' => ['connect' => $this->applicant->id],
+                    'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
+                    'specialApplicationJustification' => 'reasons',
+                    'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'poolCandidate.pool.connect',
+                ErrorCode::SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED->name,
+            );
+
+        // open is allowed
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'poolCandidate' => [
+                    'pool' => ['connect' => $openPool->id],
+                    'user' => ['connect' => $this->applicant->id],
+                    'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
+                    'specialApplicationJustification' => 'reasons',
+                    'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createSpecialApplication' => [
+                        'pool' => ['id' => $openPool->id],
+                        'user' => ['id' => $this->applicant->id],
+                        'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
+                        'specialApplicationJustification' => 'reasons',
+                        'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                    ],
+                ],
+            ]);
+
+        // closed is allowed
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'poolCandidate' => [
+                    'pool' => ['connect' => $closedPool->id],
+                    'user' => ['connect' => $this->applicant->id],
+                    'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
+                    'specialApplicationJustification' => 'reasons',
+                    'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createSpecialApplication' => [
+                        'pool' => ['id' => $closedPool->id],
+                        'user' => ['id' => $this->applicant->id],
+                        'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
+                        'specialApplicationJustification' => 'reasons',
+                        'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                    ],
+                ],
+            ]);
+
+        // archived is blocked
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'poolCandidate' => [
+                    'pool' => ['connect' => $archivedPool->id],
+                    'user' => ['connect' => $this->applicant->id],
+                    'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
+                    'specialApplicationJustification' => 'reasons',
+                    'specialApplicationClosingDate' => config('constants.far_future_datetime'),
+                ],
+            ])
+            ->assertGraphQLValidationError(
+                'poolCandidate.pool.connect',
+                ErrorCode::SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED->name,
             );
     }
 }

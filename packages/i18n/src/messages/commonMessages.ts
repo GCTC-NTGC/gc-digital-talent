@@ -105,6 +105,11 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  okay: {
+    defaultMessage: "Okay",
+    id: "91hRYX",
+    description: "Proceed with the current action",
+  },
   cancel: {
     defaultMessage: "Cancel",
     id: "atqjXB",
@@ -615,6 +620,11 @@ const commonMessages = defineMessages({
     defaultMessage: "End date",
     id: "JCA/2+",
     description: "Label displayed before end date",
+  },
+  partiallyApproved: {
+    defaultMessage: "Partially approved",
+    id: "M9Q1zH",
+    description: "Status text for partially approved nominations",
   },
 });
 

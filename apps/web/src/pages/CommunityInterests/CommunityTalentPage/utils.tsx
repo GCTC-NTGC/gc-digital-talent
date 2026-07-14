@@ -170,6 +170,9 @@ export function transformFormValuesToCommunityInterestFilterInput(
     trainingInterest: data.mobilityInterest.includes("trainingInterest"),
     lateralMoveInterest: data.mobilityType.includes("lateralMoveInterest"),
     promotionMoveInterest: data.mobilityType.includes("promotionMoveInterest"),
+    // NOTE: we do want to treat an empty string as unset
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    languageAbility: data.languageAbility || undefined,
     positionDuration: data.employmentDuration
       ? unpackMaybes([durationToEnumPositionDuration(data.employmentDuration)])
       : undefined,
@@ -193,9 +196,9 @@ export function transformCommunityInterestFilterInputToFormValues(
     workStreams: unpackMaybes(input?.workStreams),
     mobilityInterest,
     mobilityType,
-    languageAbility: input?.languageAbility ?? undefined,
+    languageAbility: input?.languageAbility ?? "",
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,

@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet, useLocation } from "react-router";
+import { Outlet } from "react-router";
 import { useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -20,7 +20,7 @@ import permissionConstants from "~/constants/permissionConstants";
 
 import type { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
-import { detailTabMessages } from "./messages";
+import { detailTabMessages, historyTabMessages } from "./messages";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -44,7 +44,6 @@ interface LayoutProps {
 
 const Layout = ({ query }: LayoutProps) => {
   const intl = useIntl();
-  const location = useLocation();
   const paths = useRoutes();
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
@@ -95,10 +94,6 @@ const Layout = ({ query }: LayoutProps) => {
     ],
   });
 
-  const isHistoryTab =
-    location.pathname.endsWith("/history") ||
-    location.pathname.endsWith("/history/");
-
   return (
     <>
       <SEO title={nomineeName} description={description} />
@@ -134,21 +129,14 @@ const Layout = ({ query }: LayoutProps) => {
             ),
             label: intl.formatMessage(navigationMessages.careerExperience),
           },
-          ...(isHistoryTab
-            ? [
-                {
-                  url: paths.talentNominationGroupHistory(
-                    talentNominationGroup.talentNominationEvent.id,
-                    talentNominationGroupId,
-                  ),
-                  label: intl.formatMessage({
-                    defaultMessage: "History",
-                    id: "vtmq4K",
-                    description: "Link text for the history of a nominee",
-                  }),
-                },
-              ]
-            : []),
+
+          {
+            url: paths.talentNominationGroupHistory(
+              talentNominationGroup.talentNominationEvent.id,
+              talentNominationGroupId,
+            ),
+            label: intl.formatMessage(historyTabMessages.history),
+          },
         ]}
       />
       <AdminContentWrapper>

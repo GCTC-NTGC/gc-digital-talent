@@ -23,6 +23,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ScreeningStage;
 use App\Enums\SkillCategory;
+use App\Enums\SpecialApplicationType;
 use App\Observers\PoolCandidateObserver;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\LogsCustomActivity;
@@ -92,6 +93,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $special_application_type
  * @property ?string $special_application_justification
  * @property ?Carbon $special_application_closing_date
+ * @property bool $is_special_application
  */
 class PoolCandidate extends Model
 {
@@ -556,6 +558,18 @@ class PoolCandidate extends Model
     }
 
     /**
+     * Determine if a PoolCandidate is a "special application"
+     */
+    public function isSpecialApplication(): Attribute
+    {
+        return Attribute::get(function () {
+            return
+                $this->special_application_type &&
+                in_array($this->special_application_type, array_column(SpecialApplicationType::cases(), 'name'));
+        });
+    }
+
+    /**
      * Take the new application step to insert and add it to the array, preserving uniqueness
      */
     public function setInsertSubmittedStepAttribute($applicationStep)
@@ -817,6 +831,7 @@ class PoolCandidate extends Model
 
         $this->screening_stage = null;
         $this->assessment_step_id = null;
+        $this->placement_type = PlacementType::NOT_PLACED->name;
 
         $this->save();
 
@@ -930,7 +945,7 @@ class PoolCandidate extends Model
         $loggedAttributes = ['placed_at', 'placed_department_id'];
         $old = $this->only($loggedAttributes);
 
-        $this->placement_type = null;
+        $this->placement_type = PlacementType::NOT_PLACED->name;
         $this->placed_at = null;
         $this->placed_department_id = null;
         $this->pause_referrals_at = null;
@@ -960,6 +975,13 @@ class PoolCandidate extends Model
         $this->status_updated_at = Carbon::now();
         $this->screening_stage = ScreeningStage::APPLICATION_REVIEW->name;
         $this->disqualification_reason = null;
+
+        $this->placement_type = null;
+        $this->placed_at = null;
+        $this->placed_department_id = null;
+        $this->placed_start_date = null;
+        $this->placed_end_date = null;
+
         $this->resumeReferrals();
 
         $this->save();

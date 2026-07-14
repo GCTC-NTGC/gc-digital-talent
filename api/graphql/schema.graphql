@@ -612,6 +612,45 @@ type PoolCandidateCategory {
   label: LocalizedString!
 }
 
+type PoolCandidateAssessmentData {
+  notes: String
+  isFlagged: Boolean @rename(attribute: "is_flagged")
+
+  # claim verification
+  veteranVerification: ClaimVerificationResult
+    @rename(attribute: "veteran_verification")
+  veteranVerificationExpiry: Date
+    @rename(attribute: "veteran_verification_expiry")
+  priorityVerification: ClaimVerificationResult
+    @rename(attribute: "priority_verification")
+  priorityVerificationExpiry: Date
+    @rename(attribute: "priority_verification_expiry")
+}
+
+type PoolCandidateStatusData {
+  status: LocalizedApplicationStatus @rename(attribute: "application_status")
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusWeight: Int @rename(attribute: "status_weight")
+  screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
+  removalReason: LocalizedCandidateRemovalReason
+    @rename(attribute: "removal_reason")
+  removalReasonOther: String @rename(attribute: "removal_reason_other")
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
+  disqualificationReason: LocalizedDisqualificationReason
+    @rename(attribute: "disqualification_reason")
+  # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
+  placementType: LocalizedPlacementType @rename(attribute: "placement_type")
+  placedAt: DateTime @rename(attribute: "placed_at")
+  placedDepartment: Department @belongsTo
+  placedStartDate: Date @rename(attribute: "placed_start_date")
+  placedEndDate: Date @rename(attribute: "placed_end_date")
+  isBeingReferred: Boolean
+  pauseReferralsAt: DateTime @rename(attribute: "pause_referrals_at")
+  resumeReferralsAt: DateTime @rename(attribute: "resume_referrals_at")
+  pauseReferralsReason: String @rename(attribute: "pause_referrals_reason")
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool! @belongsTo @canResolved(ability: "view")
@@ -620,32 +659,11 @@ type PoolCandidate {
   expiryDate: Date @rename(attribute: "expiry_date")
 
   category: PoolCandidateCategory @with(relation: "user")
-  status: LocalizedApplicationStatus
-    @rename(attribute: "application_status")
-    @canRoot(ability: "viewStatus")
-  candidateStatus: LocalizedCandidateStatus @canRoot(ability: "viewStatus")
-  candidateInterest: LocalizedCandidateInterest @canRoot(ability: "viewStatus")
-  statusWeight: Int
-    @rename(attribute: "status_weight")
-    @canRoot(ability: "viewStatus")
-  screeningStage: LocalizedScreeningStage
-    @rename(attribute: "screening_stage")
-    @canRoot(ability: "viewStatus")
-  notes: String @canRoot(ability: "viewNotes")
   archivedAt: DateTime @rename(attribute: "archived_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
-  isFlagged: Boolean
-    @rename(attribute: "is_flagged")
-    @canRoot(ability: "viewNotes")
   isBookmarked: Boolean
-  removalReason: LocalizedCandidateRemovalReason
-    @rename(attribute: "removal_reason")
-    @canRoot(ability: "viewStatus")
-  removalReasonOther: String
-    @rename(attribute: "removal_reason_other")
-    @canRoot(ability: "viewStatus")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -663,6 +681,14 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  applicationStatusData: PoolCandidateStatusData
+    @canRoot(ability: "viewApplicationStatus")
+    @self
+  applicationAssessmentData: PoolCandidateAssessmentData
+    @canRoot(ability: "viewApplicationAssessment")
+    @self
+
   # record of decision
   assessmentResults: [AssessmentResult]
     @hasMany
@@ -671,49 +697,6 @@ type PoolCandidate {
     @rename(attribute: "computed_assessment_status")
   # Starts at 1, null indicates all steps successful
   assessmentStep: AssessmentStep @belongsTo
-  statusUpdatedAt: DateTime
-    @rename(attribute: "status_updated_at")
-    @canRoot(ability: "viewStatus")
-  disqualificationReason: LocalizedDisqualificationReason
-    @rename(attribute: "disqualification_reason")
-    @canRoot(ability: "viewStatus")
-  placementType: LocalizedPlacementType
-    @rename(attribute: "placement_type")
-    @canRoot(ability: "viewStatus")
-  placedAt: DateTime
-    @rename(attribute: "placed_at")
-    @canRoot(ability: "viewStatus")
-  placedDepartment: Department @belongsTo @canRoot(ability: "viewStatus")
-  placedStartDate: Date
-    @rename(attribute: "placed_start_date")
-    @canRoot(ability: "viewStatus")
-  placedEndDate: Date
-    @rename(attribute: "placed_end_date")
-    @canRoot(ability: "viewStatus")
-  isBeingReferred: Boolean
-  pauseReferralsAt: DateTime
-    @rename(attribute: "pause_referrals_at")
-    @canRoot(ability: "viewStatus")
-  resumeReferralsAt: DateTime
-    @rename(attribute: "resume_referrals_at")
-    @canRoot(ability: "viewStatus")
-  pauseReferralsReason: String
-    @rename(attribute: "pause_referrals_reason")
-    @canRoot(ability: "viewStatus")
-
-  # claim verification
-  veteranVerification: ClaimVerificationResult
-    @rename(attribute: "veteran_verification")
-    @canRoot(ability: "viewNotes")
-  veteranVerificationExpiry: Date
-    @rename(attribute: "veteran_verification_expiry")
-    @canRoot(ability: "viewNotes")
-  priorityVerification: ClaimVerificationResult
-    @rename(attribute: "priority_verification")
-    @canRoot(ability: "viewNotes")
-  priorityVerificationExpiry: Date
-    @rename(attribute: "priority_verification_expiry")
-    @canRoot(ability: "viewNotes")
 
   # special application fields
   specialApplicationType: LocalizedSpecialApplicationType
@@ -724,12 +707,7 @@ type PoolCandidate {
     @canRoot(ability: "viewAssessment")
   specialApplicationClosingDate: DateTime
     @rename(attribute: "special_application_closing_date")
-}
-
-type PoolCandidateWithSkillCount {
-  id: ID!
-  poolCandidate: PoolCandidate! @self
-  skillCount: Int @rename(attribute: "skill_count") # will always be null unless used with skillsAdditive or skillsIntersectional scope
+  isSpecialApplication: Boolean
 }
 
 # Streamlined PoolCandidate, intended for querying in large collections while remaining performant
@@ -1026,6 +1004,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  advancementClassifications: [Classification!] @belongsToMany
 }
 
 type Team implements HasRoleAssignments {
@@ -1108,6 +1087,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 type PoolCandidateSearchRequest {
@@ -1197,11 +1177,11 @@ type TalentRequestTrackedUser {
     @rename(attribute: "not_referred_reason")
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
-  sources: [TalentRequestSource!]!
+  sources: [LocalizedTalentRequestSource!]!
     @with(relation: "user")
     @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
     @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
     @with(relation: "user")
@@ -1458,7 +1438,8 @@ input UserFilterInput {
   applicantFilter: ApplicantFilterInput @spread
   poolFilters: [UserPoolFilterInput] @scope(name: "wherePoolExists")
   isProfileComplete: Boolean @scope(name: "whereProfileComplete")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   telephone: String @scope(name: "whereTelephone")
   email: String @scope(name: "whereEmail")
   workEmail: String @scope(name: "whereWorkEmail")
@@ -1522,9 +1503,8 @@ input ApplicantFilterInput {
   # should be considered qualifiedWorkStreams
   qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
-  community: IdInput
-    @scope(name: "whereHasPoolCandidateCommunity")
-    @pluck(key: "id")
+  community: IdInput @scope(name: "whereInCommunity") @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
 }
 
 input PoolCandidateSearchInput {
@@ -1533,7 +1513,8 @@ input PoolCandidateSearchInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   notes: String @scope(name: "whereNotesLike")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   priorityWeight: [PriorityWeight] @scope(name: "whereCandidateCategoryIn")
   statuses: [ApplicationStatus] @scope(name: "whereStatusIn")
@@ -1605,7 +1586,8 @@ input TalentRequestMatchFilterInput {
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
   priorityWeight: [PriorityWeight] @scope(name: "wherePriorityWeightIn")
-  employeeVerification: [EmployeeVerification] @scope(name: "whereEmployeeVerificationIn")
+  employeeVerification: [EmployeeVerification]
+    @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
@@ -1617,7 +1599,7 @@ type TalentRequestResult {
   user: User! @self
   sources: [LocalizedTalentRequestSource!]!
     @method(name: "talentRequestSources")
-  # matchingAtLevelSources and matchingAdvancementSources are not populated yet.
+  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
@@ -1777,9 +1759,9 @@ type Query {
       model: "App\\Models\\User"
     )
     @guard
-  countTalentRequestMatches(where: ApplicantFilterInput): Int!
+  countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
   countTalentRequestMatchesByPool(
-    where: ApplicantFilterInput
+    where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
   pool(id: UUID! @eq): Pool
     @find
@@ -1816,50 +1798,6 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidatesPaginated(
-    where: PoolCandidateSearchInput
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: ClaimVerificationSort @scope
-    orderByEmployeeDepartment: SortOrder @scope
-    orderByScreeningStage: SortOrder @scope
-    orderBy: _
-      @orderBy(
-        relations: [
-          {
-            relation: "user"
-            columns: [
-              "priority_weight"
-              "first_name"
-              "email"
-              "preferred_lang"
-              "preferred_language_for_interview"
-              "preferred_language_for_exam"
-              "current_city"
-            ]
-          }
-          { relation: "pool", columns: ["process_number"] }
-          { relation: "assessmentStep", columns: ["sort_order"] }
-        ]
-      )
-      @with(
-        relations: [
-          "user:id,first_name,last_name,email,preferred_lang.computed_department"
-          "user.poolCandidates.pool.team"
-          "user.poolCandidates.pool.community.team"
-          "user.communityInterests.community.team"
-          "pool:id,process_number"
-          "skills:id,name"
-        ]
-      ) # Limit fields for eager loading
-  ): [PoolCandidateWithSkillCount]!
-    @guard
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereNotDraft", "whereSkillCount", "whereAuthorizedToView"]
-      model: "App\\Models\\PoolCandidate"
-    )
-    @deprecated(reason: "To be replaced with more performant query")
   poolCandidatesPaginatedAdminView(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
@@ -1954,7 +1892,7 @@ type Query {
       scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"]
     )
     @guard
-    @canModel(ability: "viewAny")
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
@@ -2861,6 +2799,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
     @rename(attribute: "development_programs_notes")
   comments: String
+  advancementClassifications: ClassificationBelongsToMany
 }
 
 input CreateApplicantFilterInput {
