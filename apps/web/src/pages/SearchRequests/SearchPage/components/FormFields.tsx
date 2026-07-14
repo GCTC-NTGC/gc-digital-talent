@@ -25,6 +25,7 @@ import type {
 } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
+  TalentRequestSource,
   WorkRegion,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -64,6 +65,13 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
       value
       label {
         localized
+      }
+    }
+    talentSources: localizedEnumStrings(enumName: "TalentRequestSource") {
+      value
+      label {
+        en
+        fr
       }
     }
   }
@@ -150,6 +158,40 @@ const FormFields = ({
     };
   });
 
+  // TODO: should we use localized constants here or use as string?
+  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
+  const talentSourceOptions: CheckboxOption[] = localizedEnumToOptions(
+    data?.talentSources?.filter(
+      (source) => source?.value !== (TalentRequestSource.Advancement as string),
+    ),
+    intl,
+  ).map((source) => {
+    if (source.value === (TalentRequestSource.QualifiedInPool as string)) {
+      return {
+        value: source.value,
+        label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
+        contentBelow: intl.formatMessage({
+          defaultMessage: "Candidates qualified in a pool.",
+          id: "BXSv/r",
+          description: "Checklist option explanatory note",
+        }),
+      };
+    }
+    if (source.value === (TalentRequestSource.AtLevel as string)) {
+      return {
+        value: source.value,
+        label: intl.formatMessage(talentRequestMessages.atLevelLabel),
+        contentBelow: intl.formatMessage({
+          defaultMessage:
+            "At-level GC employees who have self-identified as interested in lateral movement.",
+          id: "l1T7S3",
+          description: "Checklist option explanatory note",
+        }),
+      };
+    }
+    return source;
+  });
+
   return (
     <>
       <FilterBlock
@@ -157,13 +199,32 @@ const FormFields = ({
         title={intl.formatMessage(talentRequestMessages.classification)}
         text={intl.formatMessage({
           defaultMessage:
-            "Select the classification and work stream of the position you aim to fill. We'll show you how many candidates match your selection.",
-          id: "ZWUMrM",
+            "We use this filter to match candidates who express interest in a classification level, or certain expected salaries in these classifications.",
+          id: "dxv7Jx",
           description:
             "Message describing the classification filter of the search form.",
         })}
       >
         <div className="flex flex-col gap-y-6">
+          <Checklist
+            idPrefix="talentSources"
+            id="talentSources"
+            name="talentSources"
+            legend={intl.formatMessage(talentRequestMessages.talentSource)}
+            items={talentSourceOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "What is the intended classification and work stream of this position?",
+              id: "VpolrX",
+              description:
+                "Question above classification and work stream filter",
+            })}
+          </p>
           <Select
             id="classifications"
             label={intl.formatMessage(talentRequestMessages.classification)}

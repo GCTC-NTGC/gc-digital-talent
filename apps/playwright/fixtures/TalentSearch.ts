@@ -66,6 +66,11 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
+
+    await this.page
+      .getByRole("checkbox", { name: /qualified in pool/i })
+      .click();
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
