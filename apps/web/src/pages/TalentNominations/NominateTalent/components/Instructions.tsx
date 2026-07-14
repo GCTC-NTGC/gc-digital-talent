@@ -157,17 +157,17 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
         })}
       </p>
       {data.talentNominationEvent.customInstructions?.localized ? (
-        <p className="my-6">
+        <div className="my-6">
           <RichTextRenderer
             node={htmlToRichTextJSON(
               data.talentNominationEvent.customInstructions.localized,
             )}
           />
-        </p>
+        </div>
       ) : null}
 
       {data.talentNominationEvent.contactEmail ? (
-        <p className="my-6">
+        <div className="my-6">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -187,7 +187,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
               ),
             },
           )}
-        </p>
+        </div>
       ) : null}
     </UpdateForm>
   );
