@@ -110,6 +110,11 @@ const UpdateTalentEventForm = ({
             fr: cdp.pivot?.descriptionForNominations?.fr,
           },
         })),
+      customInstructions: {
+        en: talentNominationEvent.customInstructions?.en,
+        fr: talentNominationEvent.customInstructions?.fr,
+      },
+      contactEmail: talentNominationEvent.contactEmail,
     },
   });
 
