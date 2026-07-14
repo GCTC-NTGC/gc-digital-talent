@@ -1131,6 +1131,10 @@
     "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
     "description": "Description for lateral movement options section in nominations details step"
   },
+  "2DPbjc": {
+    "defaultMessage": "Type de demande d’emploi spéciale",
+    "description": "Special application type label"
+  },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
@@ -3623,6 +3627,10 @@
     "defaultMessage": "Paramètres du système",
     "description": "Nav menu trigger for system settings links sub menu"
   },
+  "COhjc7": {
+    "defaultMessage": "Ajouter une ébauche de demande au nom de cet utilisateur pour un processus de recrutement.",
+    "description": "Subtitle for creating a special application for a user"
+  },
   "CPHTk9": {
     "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
     "description": "Error message when a user does not meet a pools language requirements"
@@ -4310,6 +4318,10 @@
   "FILFak": {
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for the select community input"
+  },
+  "FJDA+9": {
+    "defaultMessage": "Créer une demande d’emploi spéciale",
+    "description": "Title for creating a special application for a user"
   },
   "FJU6Pr": {
     "defaultMessage": "Vous serez redirigé vers la plateforme Talents numériques du GC.",
@@ -6739,6 +6751,10 @@
     "defaultMessage": "Éducation et certificats",
     "description": "Title for education experience section"
   },
+  "PGTy2Q": {
+    "defaultMessage": "Date limite reportée",
+    "description": "Special closing date label"
+  },
   "PH5Lah": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
@@ -8813,6 +8829,10 @@
   "Xmtw0V": {
     "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
     "description": "Label displayed does have priority entitlement option"
+  },
+  "XnXcun": {
+    "defaultMessage": "Renseignements sur l’utilisateur",
+    "description": "Labels for user details block"
   },
   "XoGKAf": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
@@ -14621,6 +14641,10 @@
   "v3CrHe": {
     "defaultMessage": "Détails de l’événement",
     "description": "Label for talent event details"
+  },
+  "v3Nfqj": {
+    "defaultMessage": "Créer une demande d’emploi spéciale",
+    "description": "Submit button text for creating a special application for a user"
   },
   "v3kVqD": {
     "defaultMessage": "Tout processus de filtrage de sécurité requiert une enquête financière (vérification du dossier de crédit) et une vérification du casier judiciaire (prise d'empreintes).",
