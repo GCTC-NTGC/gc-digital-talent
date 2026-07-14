@@ -524,10 +524,20 @@ const commonMessages = defineMessages({
     id: "tyc8W0",
     description: "Name of English language formatted for appending",
   },
+  englishLabelShort: {
+    defaultMessage: "(EN)",
+    id: "Q6GYga",
+    description: "Name of English language formatted for appending, shortened",
+  },
   frenchLabel: {
     defaultMessage: "(French)",
     id: "E+zFTA",
     description: "Name of French language formatted for appending",
+  },
+  frenchLabelShort: {
+    defaultMessage: "(FR)",
+    id: "tfgjgQ",
+    description: "Name of French language formatted for appending, shortened",
   },
   questions: {
     defaultMessage: "Questions",
