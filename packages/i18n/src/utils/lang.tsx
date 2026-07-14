@@ -34,3 +34,21 @@ export const appendLanguageName = ({
   // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
   return `${label} ${labels[lang]}`;
 };
+
+export const appendShortenedLanguageName = ({
+  label,
+  lang,
+  intl,
+}: {
+  label: ReactNode;
+  lang: Locales;
+  intl: IntlShape;
+}): ReactNode | string => {
+  const labels = {
+    en: intl.formatMessage(commonMessages.englishLabelShort),
+    fr: intl.formatMessage(commonMessages.frenchLabelShort),
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+  return `${label} ${labels[lang]}`;
+};
