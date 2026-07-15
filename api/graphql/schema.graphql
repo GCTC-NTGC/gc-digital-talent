@@ -893,6 +893,7 @@ type TalentNominationEvent {
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedString @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type TalentNomination {
@@ -2669,6 +2670,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String! @rename(attribute: "contact_email")
 }
 
 input UpdateTalentNominationEventInput {
@@ -2686,6 +2688,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input TalentNominationEventBelongsTo {

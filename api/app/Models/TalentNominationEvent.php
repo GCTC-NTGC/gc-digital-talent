@@ -36,6 +36,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $include_nine_box
  * @property bool $require_reference_for_advancement
  * @property ?array $custom_instructions
+ * @property ?string $contact_email
  */
 class TalentNominationEvent extends Model
 {

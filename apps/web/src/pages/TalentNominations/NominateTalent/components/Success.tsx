@@ -24,6 +24,7 @@ const NominateTalentSuccess_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
   }
 `);
@@ -74,24 +75,29 @@ const Success = ({ successQuery }: SuccessProps) => {
           },
         )}
       </p>
-      <p className="my-6">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "If you have any questions or concerns, feel free to <link>reach out to our support team</link>.",
-            id: "duXf4a",
-            description:
-              "Instructions to contact support after nomination submission",
-          },
-          {
-            link: (chunks: ReactNode) => (
-              <Link href={paths.support()} color="black">
-                {chunks}
-              </Link>
-            ),
-          },
-        )}
-      </p>
+      {talentNomination.talentNominationEvent.contactEmail ? (
+        <p className="my-6">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "If you have any questions or need to amend your nomination, please <link>reach out to the community event team</link> and they will provide next steps.",
+              id: "FlTPg2",
+              description:
+                "Instructions to contact support after nomination submission",
+            },
+            {
+              link: (chunks: ReactNode) => (
+                <Link
+                  href={`mailto:${talentNomination.talentNominationEvent.contactEmail}`}
+                  color="black"
+                >
+                  {chunks}
+                </Link>
+              ),
+            },
+          )}
+        </p>
+      ) : null}
       <p className="mt-6">
         <Link href={paths.applicantDashboard()} mode="solid" color="primary">
           {intl.formatMessage(navigationMessages.returnToDashboard)}
