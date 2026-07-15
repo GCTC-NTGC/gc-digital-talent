@@ -47,8 +47,8 @@ const NominationMetaDataDate = ({
   );
 };
 
-const NominationHistoryListItem_Fragment = graphql(/* GraphQL */ `
-  fragment NominationHistoryListItem on TalentNomination {
+const NominationHistoryListItemNomination_Fragment = graphql(/* GraphQL */ `
+  fragment NominationHistoryListItemNomination on TalentNomination {
     id
     submittedAt
     nominateForAdvancement
@@ -66,8 +66,23 @@ const NominationHistoryListItem_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const NominationHistoryListItemNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment NominationHistoryListItemNominationGroup on TalentNominationGroup {
+      id
+
+      ...TalentNominationDetailsDialogNominationGroup
+    }
+  `,
+);
+
 interface NominationHistoryListItemProps {
-  nominationQuery: FragmentType<typeof NominationHistoryListItem_Fragment>;
+  nominationQuery: FragmentType<
+    typeof NominationHistoryListItemNomination_Fragment
+  >;
+  nominationGroupQuery: FragmentType<
+    typeof NominationHistoryListItemNominationGroup_Fragment
+  >;
   optionsQuery: React.ComponentProps<
     typeof NominationDetailsDialog
   >["optionsQuery"];
@@ -78,6 +93,7 @@ interface NominationHistoryListItemProps {
 
 const NominationHistoryListItem = ({
   nominationQuery,
+  nominationGroupQuery,
   optionsQuery,
   advancementDecision,
   lateralMovementDecision,
@@ -86,8 +102,12 @@ const NominationHistoryListItem = ({
   const intl = useIntl();
 
   const nomination = getFragment(
-    NominationHistoryListItem_Fragment,
+    NominationHistoryListItemNomination_Fragment,
     nominationQuery,
+  );
+  const nominationGroup = getFragment(
+    NominationHistoryListItemNominationGroup_Fragment,
+    nominationGroupQuery,
   );
 
   const nominatorName = nomination.nominator
@@ -233,6 +253,7 @@ const NominationHistoryListItem = ({
       action={
         <NominationDetailsDialog
           nominationQuery={nomination}
+          nominationGroupQuery={nominationGroup}
           optionsQuery={optionsQuery}
         />
       }
