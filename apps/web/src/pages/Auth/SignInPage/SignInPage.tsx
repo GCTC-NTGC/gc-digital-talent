@@ -125,6 +125,29 @@ export const Component = () => {
 
   const selectedMethod = methods.watch("signInMethod");
 
+  // Fires when a user initiates sign-in, just before the external redirect to
+  // the IdP. Shared by both the CanadaLogin and legacy GCKey layouts so the two
+  // can't drift apart.
+  const trackLoginInitiated = () => {
+    if (!appInsights) return;
+
+    appInsights.trackEvent(
+      { name: "Auth Login Initiated" },
+      {
+        aiUserId: appInsights.context?.user?.id,
+        pageUrl: window.location.href,
+        path: window.location.pathname,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        referrer: document.referrer || "none",
+        loginStatus: "initiated",
+      },
+    );
+    // The click triggers a full-page navigation off-site, so flush the buffer
+    // to avoid the event being dropped on unload.
+    appInsights.flush();
+  };
+
   const InstructionCards = () => {
     if (selectedMethod === "canadaLogin") {
       return (
