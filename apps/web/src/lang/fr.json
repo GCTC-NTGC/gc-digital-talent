@@ -13678,6 +13678,10 @@
     "defaultMessage": "Résultat de la présélection",
     "description": "Label for the result of an application screening"
   },
+  "qwqI/Y": {
+    "defaultMessage": "Classification du candidat au moment de sa nomination",
+    "description": "Label for nominee’s classification at the time of advancement"
+  },
   "qxCyZM": {
     "defaultMessage": "Le ministère a été archivé",
     "description": "Alert, department archived successfully"
