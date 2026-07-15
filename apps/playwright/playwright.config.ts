@@ -58,7 +58,7 @@ export default defineConfig({
             // Moved from auth > uat-admin.spec.ts file
             name: "uat-admin",
             use: { ...devices["Desktop Chrome"] },
-            testMatch: /community-admin-smoke\.spec\.ts/,
+            testMatch: /platform-admin-smoke\.spec\.ts/,
           },
           {
             // Moved from auth > uat-applicant.spec.ts file
@@ -74,7 +74,6 @@ export default defineConfig({
             name: "uat-persistent",
             use: { ...devices["Desktop Chrome"] },
             testMatch: /.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
-            testIgnore: /community-admin-smoke\.spec\.ts|applicant-smoke\.spec\.ts/,
           },
         ]
       : []),
@@ -82,7 +81,8 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /\.setup\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|platform-admin-smoke\.spec\.ts|applicant-smoke\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     // {
@@ -93,7 +93,8 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      testIgnore: /\.setup\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
+      testIgnore:
+        /\.setup\.ts|platform-admin-smoke\.spec\.ts|applicant-smoke\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
