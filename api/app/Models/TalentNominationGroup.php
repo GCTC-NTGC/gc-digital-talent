@@ -49,6 +49,13 @@ class TalentNominationGroup extends Model
     protected $keyType = 'string';
 
     /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'referral_expiry_date' => 'date',
+    ];
+
+    /**
      * The attributes that can be filled using mass-assignment.
      */
     protected $fillable = [

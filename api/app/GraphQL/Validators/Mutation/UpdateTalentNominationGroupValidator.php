@@ -37,7 +37,7 @@ final class UpdateTalentNominationGroupValidator extends Validator
             ],
             'talentNominationGroup.advancementClassifications' => [
                 // when updating a decision, updating the classifications is also required
-                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                'required_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
             ],
             'talentNominationGroup.advancementClassifications.sync' => [
                 'list',
