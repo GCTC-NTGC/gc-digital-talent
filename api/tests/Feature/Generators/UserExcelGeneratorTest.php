@@ -17,10 +17,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 use OpenSpout\Reader\XLSX\Reader;
+use Tests\ReadsGeneratedFiles;
 use Tests\TestCase;
 
 class UserExcelGeneratorTest extends TestCase
 {
+    use ReadsGeneratedFiles;
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -105,13 +107,11 @@ class UserExcelGeneratorTest extends TestCase
             ->setFilters(['community' => ['id' => $community->id]]);
         $generator->generate()->write();
 
-        // assert: only the user inside the filtered community appears in the Users sheet (sheet index 0)
-        $rows = $this->readSheetRows('test_community_filter', sheetIndex: 0, rowCount: 10);
-        array_shift($rows); // remove header row
-        $userIds = array_column($rows, 0); // 'id' is always the first column
+        // assert: a user filtered out is not written to the file, so their id is absent from it
+        $text = $this->readWorkbookText('test_community_filter');
 
-        $this->assertContains($memberUser->id, $userIds, 'User inside the filtered community should appear');
-        $this->assertNotContains($outsideUser->id, $userIds, 'User outside the filtered community should not appear');
+        $this->assertStringContainsString($memberUser->id, $text, 'User inside the filtered community should appear');
+        $this->assertStringNotContainsString($outsideUser->id, $text, 'User outside the filtered community should not appear');
     }
 
     /**

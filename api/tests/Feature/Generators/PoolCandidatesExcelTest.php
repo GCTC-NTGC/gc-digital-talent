@@ -12,11 +12,12 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
-use OpenSpout\Reader\XLSX\Reader;
+use Tests\ReadsGeneratedFiles;
 use Tests\TestCase;
 
 class PoolCandidatesExcelTest extends TestCase
 {
+    use ReadsGeneratedFiles;
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -124,13 +125,11 @@ class PoolCandidatesExcelTest extends TestCase
             ->setFilters(['community' => ['id' => $community->id]]);
         $generator->generate()->write();
 
-        // assert: only the candidate inside the filtered community appears (email is column index 13)
-        $rows = $this->readSheetRows($fileName, sheetIndex: 0, rowCount: 10);
-        array_shift($rows); // remove header row
-        $emails = array_column($rows, 13);
+        // assert: a candidate filtered out is not written to the file, so their email is absent from it
+        $text = $this->readWorkbookText($fileName);
 
-        $this->assertContains($memberUser->email, $emails, 'Candidate inside the filtered community should appear');
-        $this->assertNotContains($outsideUser->email, $emails, 'Candidate outside the filtered community should not appear');
+        $this->assertStringContainsString($memberUser->email, $text, 'Candidate inside the filtered community should appear');
+        $this->assertStringNotContainsString($outsideUser->email, $text, 'Candidate outside the filtered community should not appear');
     }
 
     // A free-text field starting with "=" must be written as text, not a formula.
@@ -161,56 +160,9 @@ class PoolCandidatesExcelTest extends TestCase
             ->setFilters([]);
         $generator->generate()->write();
 
-        // gather the workbook xml (worksheets + shared strings)
-        $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
-        $zip = new \ZipArchive();
-        $zip->open($path);
-        $xml = '';
-        for ($i = 0; $i < $zip->numFiles; $i++) {
-            $name = $zip->getNameIndex($i);
-            if (str_contains($name, 'worksheets/') || str_contains($name, 'sharedStrings')) {
-                $xml .= $zip->getFromName($name);
-            }
-        }
-        $zip->close();
+        $xml = $this->readWorkbookText($fileName);
 
         $this->assertStringContainsString('To become more involved', $xml, 'Notes value was not written');
         $this->assertStringNotContainsString('<f>', $xml, 'Notes value was written as a formula element');
-    }
-
-    /**
-     * Read rows from a sheet in the generated file.
-     * Returns an array of rows, each row being an array of cell values.
-     *
-     * @return array<int, array<int, mixed>>
-     */
-    private function readSheetRows(string $fileName, int $sheetIndex, int $rowCount): array
-    {
-        $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
-
-        $reader = new Reader();
-        $reader->open($path);
-
-        $rows = [];
-        $currentSheet = 0;
-
-        foreach ($reader->getSheetIterator() as $sheet) {
-            if ($currentSheet === $sheetIndex) {
-                $currentRow = 0;
-                foreach ($sheet->getRowIterator() as $row) {
-                    $rows[] = $row->toArray();
-                    $currentRow++;
-                    if ($currentRow >= $rowCount) {
-                        break;
-                    }
-                }
-                break;
-            }
-            $currentSheet++;
-        }
-
-        $reader->close();
-
-        return $rows;
     }
 }
