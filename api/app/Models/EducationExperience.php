@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EducationStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -98,10 +99,30 @@ class EducationExperience extends Experience
 
     public function getDateRange($lang = 'en'): string
     {
+        if (
+            ! $this->start_date
+        ) {
+            return Lang::get('common.not_completed', [], $lang);
+        }
+
         $format = 'MMM Y';
 
         $start = $this->start_date->locale($lang)->isoFormat($format);
-        $end = $this->end_date ? $this->end_date->locale($lang)->isoFormat($format) : Lang::get('common.present', [], $lang);
+        $end = '';
+
+        if ($this->status === EducationStatus::IN_PROGRESS->name) {
+            if ((bool) $this->prospective_end_date) {
+                $date = $this->prospective_end_date->locale($lang)->isoFormat($format);
+                $text = Lang::get('common.expected_end_date', [], $lang);
+                $end = "$date $text";
+            } else {
+                $end = Lang::get('common.missing_end_date', [], $lang);
+            }
+        } else {
+            $this->end_date ?
+                $end = $this->end_date->locale($lang)->isoFormat($format) :
+                $end = Lang::get('common.missing_end_date', [], $lang);
+        }
 
         return "$start - $end";
     }

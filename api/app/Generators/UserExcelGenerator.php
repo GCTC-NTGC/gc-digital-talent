@@ -569,7 +569,18 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function buildEducationExperienceRow(EducationExperience $exp): array
     {
         $isCurrent = $exp->status === EducationStatus::IN_PROGRESS->name;
-        $numberOfMonths = $this->calculateMonths($exp->start_date, $isCurrent ? $exp->prospective_end_date : $exp->end_date);
+        $endDate = $isCurrent ?
+            $exp->prospective_end_date?->format('Y-m').' '.$this->localize('common.expected_end_date') :
+            $exp->end_date?->format('Y-m');
+
+        $numberOfMonths = '';
+        if ((bool) $exp->start_date) {
+            if ($isCurrent && (bool) $exp->prospective_end_date) {
+                $numberOfMonths = $this->calculateMonths($exp->start_date, $exp->prospective_end_date);
+            } elseif (! $isCurrent && (bool) $exp->end_date) {
+                $numberOfMonths = $this->calculateMonths($exp->start_date, $exp->end_date);
+            }
+        }
 
         $educationType = '';
         switch ($exp->education_type) {
@@ -594,7 +605,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             $exp->user->last_name,
             $this->getExperienceType($exp),  // experience type
             $exp->start_date?->format('Y-m') ?? '', // start date
-            $exp->end_date?->format('Y-m') ?? '', // end date
+            $endDate, // end date
             $this->yesOrNo($isCurrent), // currently active
             $numberOfMonths, // number of months
             // Work-specific fields (8-24) - mostly empty for education

@@ -196,6 +196,11 @@ const messages = defineMessages({
     id: "hqCFJg",
     description: "Label for Government position type substantive",
   },
+  dateRangeMissingEndDate: {
+    defaultMessage: "{startDate} - <red>Missing end date</red>",
+    id: "NMo1VF",
+    description: "Experience date range when end date is missing",
+  },
 });
 
 export default messages;

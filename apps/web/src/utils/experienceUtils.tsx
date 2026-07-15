@@ -1273,9 +1273,27 @@ export const getExperienceDate = (
   }
 
   if (isEducationExperience(experience)) {
-    return experience.status?.value === EducationStatus.InProgress
-      ? `${getDateRange({ startDate, endDate: experience.prospectiveEndDate, intl })} (${getExperienceFormLabels(intl, "education").expectedEndDate})`
-      : getDateRange({ startDate, endDate, intl });
+    if (!startDate) {
+      return intl.formatMessage({
+        defaultMessage: "Not completed",
+        id: "5TYx7Y",
+        description: "Message that education experience was not completed",
+      });
+    }
+
+    if (experience.status?.value === EducationStatus.InProgress) {
+      return experience.prospectiveEndDate
+        ? `${getDateRange({ startDate, endDate: experience.prospectiveEndDate, intl })} (${getExperienceFormLabels(intl, "education").expectedEndDate})`
+        : intl.formatMessage(experienceMessages.dateRangeMissingEndDate, {
+            startDate,
+          });
+    } else {
+      return endDate
+        ? getDateRange({ startDate, endDate, intl })
+        : intl.formatMessage(experienceMessages.dateRangeMissingEndDate, {
+            startDate,
+          });
+    }
   }
 
   return getDateRange({ startDate, endDate, intl });
