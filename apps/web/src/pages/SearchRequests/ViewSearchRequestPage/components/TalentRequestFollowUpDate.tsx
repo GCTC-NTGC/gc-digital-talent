@@ -71,7 +71,10 @@ const TalentRequestFollowUpDate = ({
   const followUpDate = talentRequest?.followUpDate
     ? parseDateTimeUtc(talentRequest.followUpDate)
     : null;
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(followUpDate, now);
+  const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
+    followUpDate,
+    now,
+  );
   const label = intl.formatMessage(talentRequestMessages.followUpDate);
 
   const methods = useForm<FormValues>({
@@ -165,9 +168,13 @@ const TalentRequestFollowUpDate = ({
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Root>
-        {isOverdue && (
+        {(isOverdue || isDueToday) && (
           <Chip color="error">
-            {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+            {isOverdue
+              ? intl.formatMessage(commonMessages.overdueDate, {
+                  daysOverdue,
+                })
+              : intl.formatMessage(commonMessages.dueToday)}
           </Chip>
         )}
       </span>

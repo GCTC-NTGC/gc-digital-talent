@@ -139,6 +139,10 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2H5KbR": {
+    "defaultMessage": "Date limite : aujourd’hui",
+    "description": "Message shown when something is due on the current date"
+  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
