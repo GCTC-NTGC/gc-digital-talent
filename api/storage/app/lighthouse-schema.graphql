@@ -1952,6 +1952,23 @@ input ApplicantFilterInput {
   talentSources: [TalentRequestSource!]
 }
 
+input TalentRequestApplicantFilterInput {
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  pools: [IdInput]
+  skills: [IdInput]
+  skillsIntersectional: [IdInput]
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
+  community: IdInput
+  talentSources: [TalentRequestSource!]
+}
+
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
@@ -2017,7 +2034,7 @@ type CandidateSearchPoolResult {
 }
 
 input TalentRequestMatchFilterInput {
-  applicantFilter: ApplicantFilterInput
+  applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String
   name: String
   email: String

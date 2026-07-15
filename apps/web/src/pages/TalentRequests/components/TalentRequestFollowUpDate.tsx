@@ -68,7 +68,10 @@ const TalentRequestFollowUpDate = ({
   const followUpDate = talentRequest?.followUpDate
     ? parseDateTimeUtc(talentRequest.followUpDate)
     : null;
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(followUpDate, now);
+  const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
+    followUpDate,
+    now,
+  );
   const label = intl.formatMessage(talentRequestMessages.followUpDate);
 
   const methods = useForm<FormValues>({
@@ -120,7 +123,7 @@ const TalentRequestFollowUpDate = ({
 
   return (
     <FieldDisplay label={label} className="mb-3">
-      <span className="flex gap-2">
+      <span className="flex flex-col items-start gap-2">
         <Dialog.Root open={isOpen} onOpenChange={setOpen}>
           <Dialog.Trigger>
             <Button mode="inline" color={isOverdue ? "error" : "primary"}>
@@ -162,9 +165,13 @@ const TalentRequestFollowUpDate = ({
             </Dialog.Body>
           </Dialog.Content>
         </Dialog.Root>
-        {isOverdue && (
+        {(isOverdue || isDueToday) && (
           <Chip color="error">
-            {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+            {isOverdue
+              ? intl.formatMessage(commonMessages.overdueDate, {
+                  daysOverdue,
+                })
+              : intl.formatMessage(commonMessages.dueToday)}
           </Chip>
         )}
       </span>

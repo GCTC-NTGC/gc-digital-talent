@@ -254,6 +254,34 @@ export const me: GraphQLRequestFunc<User> = async (ctx) => {
     .then((res) => res.me);
 };
 
+const Test_GetUserByIdDocument = /* GraphQL */ `
+  query Test_GetUserById($id: UUID!) {
+    user(id: $id) {
+      id
+      experiences {
+        id
+        __typename
+      }
+    }
+  }
+`;
+
+interface GetUserByIdArgs {
+  id: string;
+}
+
+export const getUserById: GraphQLRequestFunc<User, GetUserByIdArgs> = async (
+  ctx,
+  { id },
+) => {
+  return ctx
+    .post<GraphQLResponse<"user", User>>(Test_GetUserByIdDocument, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then((res) => res.user);
+};
+
 // eslint-disable-next-line camelcase
 const Test_DeleteUser = /* GraphQL */ `
   mutation Test_DeleteUser($id: ID!) {

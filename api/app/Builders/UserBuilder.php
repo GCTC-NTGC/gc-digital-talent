@@ -362,8 +362,8 @@ class UserBuilder extends Builder
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        // keep only users who match at least one of the request's selected sources
         $this->where(function ($query) use ($filters) {
+            $query->whereRaw('1 = 0'); // false starting point for the orWhereHas chain
             foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
                 $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
             }
@@ -394,11 +394,15 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    // eager-load each selected source's matched, view-authorized records onto the user
     public function withTalentRequestMatches(array $filters): self
     {
-        foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
-            $this->with([$source->matchRelation() => fn ($r) => $r
+        foreach (TalentRequestSource::cases() as $source) {
+            $relation = $source->matchRelation();
+            if (! $relation) {
+                continue;
+            }
+
+            $this->with([$relation => fn ($r) => $r
                 ->whereMatchesTalentRequest($filters)
                 ->whereAuthorizedToView()]);
         }
