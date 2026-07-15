@@ -1631,6 +1631,13 @@ type TalentRequestMatchPoolCount {
   count: Int!
 }
 
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
+  count: Int!
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1781,6 +1788,9 @@ type Query {
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(
+    where: TalentRequestMatchFilterInput
+  ): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
