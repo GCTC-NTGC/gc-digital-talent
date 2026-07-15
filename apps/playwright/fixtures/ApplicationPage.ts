@@ -36,8 +36,12 @@ class ApplicationPage extends AppPage {
     await this.page.locator(`a[href*="${this.poolId}"]`).click();
     await this.waitForGraphqlResponse("PoolAdvertisementPage");
 
+    // Local/CI: full OAuth redirect resolves auth before page load → <Button>.
+    // UAT: tokens injected into localStorage + reload; auth resolves async, so the
+    // component may render as <Link> before loggedIn/canApply are confirmed.
     await this.page
       .getByRole("button", { name: /apply now/i })
+      .or(this.page.getByRole("link", { name: /apply now/i }))
       .first()
       .click();
   }

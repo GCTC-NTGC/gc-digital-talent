@@ -1,5 +1,5 @@
 import type { IntlShape } from "react-intl";
-import { differenceInDays } from "date-fns/differenceInDays";
+import { differenceInCalendarDays } from "date-fns/differenceInCalendarDays";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type { EquitySelections } from "@gc-digital-talent/graphql";
@@ -103,8 +103,11 @@ export const followUpDateOverdueInfo = (
   compareTo?: Date,
 ) => {
   const now = compareTo ?? new Date();
-  const daysOverdue = followUpDate ? differenceInDays(now, followUpDate) : -1;
-  const isOverdue = daysOverdue >= 0;
+  const daysOverdue = followUpDate
+    ? differenceInCalendarDays(now, followUpDate)
+    : -1;
+  const isOverdue = daysOverdue > 0;
+  const isDueToday = daysOverdue === 0;
 
-  return { daysOverdue, isOverdue };
+  return { daysOverdue, isOverdue, isDueToday };
 };

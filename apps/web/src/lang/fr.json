@@ -887,10 +887,6 @@
     "defaultMessage": "En savoir plus sur le rôle que cette personne candidate vise comme principal objectif de carrière.",
     "description": "Subtitle for dialog viewing career objective info"
   },
-  "1M398Y": {
-    "defaultMessage": "Ajouter l'utilisateur au processus de recrutement",
-    "description": "Submit button text for adding user to process"
-  },
   "1MJGsD": {
     "defaultMessage": "Cette possibilité d'emploi s'adresse aux employés internes de classification {classification} ou équivalente avec la préférence accordée à ceux aux ministères énumérés*",
     "description": "Title of a note describing that a pool is only open to employees, at-level, with departmental preference. Has an asterisk for fine print."
@@ -1134,6 +1130,10 @@
   "2CzVQo": {
     "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
     "description": "Description for lateral movement options section in nominations details step"
+  },
+  "2DPbjc": {
+    "defaultMessage": "Type de demande d’emploi spéciale",
+    "description": "Special application type label"
   },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
@@ -1446,10 +1446,6 @@
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
-  },
-  "3RUGGK": {
-    "defaultMessage": "Vous avez des questions? <link>Communiquez avec notre équipe de soutien</link>.",
-    "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
@@ -2042,6 +2038,10 @@
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
+  },
+  "5jkq2u": {
+    "defaultMessage": "Le formulaire de mise en candidature présente des instructions de base au début de chaque mise en candidature afin d'aider la personne qui soumet la mise en candidature à suivre le processus. Utilisez le champ facultatif ci-dessous pour ajouter des renseignements propres à votre événement.",
+    "description": "description for custom event instructions"
   },
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
@@ -3627,6 +3627,10 @@
     "defaultMessage": "Paramètres du système",
     "description": "Nav menu trigger for system settings links sub menu"
   },
+  "COhjc7": {
+    "defaultMessage": "Ajouter une ébauche de demande au nom de cet utilisateur pour un processus de recrutement.",
+    "description": "Subtitle for creating a special application for a user"
+  },
   "CPHTk9": {
     "defaultMessage": "Votre profil ne répond pas aux exigences linguistiques suivantes : {requirements}",
     "description": "Error message when a user does not meet a pools language requirements"
@@ -4315,6 +4319,10 @@
     "defaultMessage": "Collectivité fonctionnelle",
     "description": "Label for the select community input"
   },
+  "FJDA+9": {
+    "defaultMessage": "Créer une demande d’emploi spéciale",
+    "description": "Title for creating a special application for a user"
+  },
   "FJU6Pr": {
     "defaultMessage": "Vous serez redirigé vers la plateforme Talents numériques du GC.",
     "description": ""
@@ -4406,6 +4414,10 @@
   "Fl1K8W": {
     "defaultMessage": "Bassin(s) demandé(s)",
     "description": "Label for the pools being sourced for a talent request"
+  },
+  "FlTPg2": {
+    "defaultMessage": "Si vous avez des questions ou souhaitez modifier votre mise en candidature, veuillez <link>communiquer avec l'équipe responsable de l'événement</link>. Elle vous indiquera les prochaines étapes.",
+    "description": "Instructions to contact support after nomination submission"
   },
   "Fmi0y9": {
     "defaultMessage": "Ajouts récents",
@@ -4886,6 +4898,10 @@
   "Ho4kfT": {
     "defaultMessage": "À l'étape d'évaluation",
     "description": "Status label for an application under assessment"
+  },
+  "HqKGaJ": {
+    "defaultMessage": "Consulter les détails de la mise en candidature de {nominatorName}",
+    "description": "Label for the nomination details dialog trigger"
   },
   "HqtjhD": {
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
@@ -5650,10 +5666,6 @@
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
-  },
-  "KqodT+": {
-    "defaultMessage": "Ajouter {name} à un processus de recrutement",
-    "description": "Title for adding user to a process"
   },
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
@@ -6743,6 +6755,10 @@
     "defaultMessage": "Éducation et certificats",
     "description": "Title for education experience section"
   },
+  "PGTy2Q": {
+    "defaultMessage": "Date limite reportée",
+    "description": "Special closing date label"
+  },
   "PH5Lah": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En créant votre profil dès maintenant, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",
     "description": "Text describing upcoming opportunities instructing users to create a profile when anonymous"
@@ -7182,10 +7198,6 @@
   "QpghXO": {
     "defaultMessage": "Activé",
     "description": "A switch to enable or disable a setting"
-  },
-  "QqwcpX": {
-    "defaultMessage": "Les mises en candidature doivent être parrainées par un cadre dirigeant travaillant dans le domaine de la personne candidate et seront triées par l'équipe de la collectivité fonctionnelle associée. Une fois la mise en candidature confirmée, la personne candidate sera inscrit dans le système de gestion des talents de cette collectivité pour l'année en cours.",
-    "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "Qt9Q8k": {
     "defaultMessage": "Le programme dure combien de temps?",
@@ -8035,6 +8047,10 @@
     "defaultMessage": "Options de perfectionnement professionnel et en leadership",
     "description": "Label for users interest in development programs for a community"
   },
+  "UgHwZb": {
+    "defaultMessage": "Aucune mise en candidature n'a été soumise pour cette personne dans le cadre d'un événement de gestion des talents.",
+    "description": "Message displayed when a nominee has no nominations to show in their history"
+  },
   "UieDSb": {
     "defaultMessage": "Modifier les détails de la collectivité",
     "description": "Link to edit the currently viewed community"
@@ -8814,6 +8830,10 @@
     "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
     "description": "Label displayed does have priority entitlement option"
   },
+  "XnXcun": {
+    "defaultMessage": "Renseignements sur l’utilisateur",
+    "description": "Labels for user details block"
+  },
   "XoGKAf": {
     "defaultMessage": "À qui s’adresse le recrutement pour les cadres?",
     "description": "Heading for EXposition eligibility"
@@ -9450,6 +9470,10 @@
     "defaultMessage": "Vue candidat(e)",
     "description": "Applicant role name for nav menu"
   },
+  "aXY8in": {
+    "defaultMessage": "Date de début des mises en candidature",
+    "description": "start date of a nomination event"
+  },
   "aYgVQT": {
     "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
     "description": "Label for an employee profile career development preference field"
@@ -9733,6 +9757,10 @@
   "bnhqpY": {
     "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
     "description": "Text for education accepted information context in screening decision dialog"
+  },
+  "bnjpsH": {
+    "defaultMessage": "Date de clôture des mises en candidature",
+    "description": "end date of a nomination event"
   },
   "boPmF+": {
     "defaultMessage": "Langue de l'examen écrit",
@@ -10278,10 +10306,6 @@
     "defaultMessage": "Je suis dirigeant(e) principal(e) des finances (DPF).",
     "description": "Message when user is a finance chief"
   },
-  "duXf4a": {
-    "defaultMessage": "Si vous avez des questions ou des préoccupations, n'hésitez pas à <link>communiquer avec notre équipe de soutien</link>.",
-    "description": "Instructions to contact support after nomination submission"
-  },
   "dwYJOo": {
     "defaultMessage": "Expérience professionnelle appliquée",
     "description": "Title for the applied work experience requirements"
@@ -10622,6 +10646,10 @@
     "defaultMessage": "Volet de travail",
     "description": "The work stream of a job poster template"
   },
+  "ezbo2U": {
+    "defaultMessage": "Adresse courriel de l'équipe responsable de l'événement",
+    "description": "Label displayed on the talent nomination event contact email field"
+  },
   "f/XJsH": {
     "defaultMessage": "La formation ou le perfectionnement m'intéresse",
     "description": "Message when user expresses interest in training or development opportunities"
@@ -10633,6 +10661,10 @@
   "f0dhMc": {
     "defaultMessage": "Je connais l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as known."
+  },
+  "f1Kpkp": {
+    "defaultMessage": "Texte d'instructions personnalisé",
+    "description": "label for nomination event instructions"
   },
   "f1vqns": {
     "defaultMessage": "Les renseignements suivants seront utilisés pour identifier la collectivité et fournir un aperçu des domaines qu'elle soutient.",
@@ -11833,6 +11865,10 @@
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
     "description": "Title for to go to the search page on Browse IT jobs page"
+  },
+  "jUI9DU": {
+    "defaultMessage": "Vous avez des questions? <link>Communiquez avec l'équipe responsable de l'événement.</link>",
+    "description": "Paragraph two, instructions on how to submit a nomination"
   },
   "jULOHh": {
     "defaultMessage": "Erreur : la mise à jour de l’événement de mise en candidature a échoué",
@@ -13618,10 +13654,6 @@
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement reference classification"
   },
-  "qek0N+": {
-    "defaultMessage": "Bienvenue dans votre panneau de notification. Cliquez ou activez une notification pour accéder à la page concernée. Chaque notification peut être marquée comme lue ou supprimée.",
-    "description": "Instructions on how to manage notifications"
-  },
   "qhws/V": {
     "defaultMessage": "Erreur : l'archivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get archived."
@@ -13645,6 +13677,10 @@
   "qo/Sx2": {
     "defaultMessage": "L'utilisateur a été archivé avec succès!",
     "description": "Success message after soft-deleting a user"
+  },
+  "qo3/Sp": {
+    "defaultMessage": "Cet onglet vous permet de consulter l'historique des mises en candidature de la personne candidate par événement. Les mises en candidature en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les mises en candidature disponibles, au besoin.",
+    "description": "Description for the nomination history page"
   },
   "qrd+vb": {
     "defaultMessage": "Bienvenue",
@@ -13777,6 +13813,10 @@
   "rNmFAg": {
     "defaultMessage": "la création des fonctionnalités et des outils accessibles, comme le mode sombre;",
     "description": "List item three, things designers consider for accessibility"
+  },
+  "rNw6z5": {
+    "defaultMessage": "Reçue:",
+    "description": "Label for received date"
   },
   "rOIBl0": {
     "defaultMessage": "Le Corps d’innovation vous attend à bras ouverts! Le GSN recrute les personnes de talent très recherchées qui savent s’adapter et se montrent très compétentes dans le numérique au gouvernement. Pendant un an, les personnes retenues développeront leur réseau et diversifieront leur expérience au moyen d’affectations temporaires au MDN. Elles pourront trouver le poste rêvé au MDN ou acquérir des compétences utiles en vue de leur prochaine offre d’emploi.",
@@ -14622,6 +14662,10 @@
     "defaultMessage": "Détails de l’événement",
     "description": "Label for talent event details"
   },
+  "v3Nfqj": {
+    "defaultMessage": "Créer une demande d’emploi spéciale",
+    "description": "Submit button text for creating a special application for a user"
+  },
   "v3kVqD": {
     "defaultMessage": "Tout processus de filtrage de sécurité requiert une enquête financière (vérification du dossier de crédit) et une vérification du casier judiciaire (prise d'empreintes).",
     "description": "Second paragraph for the obtaining security clearance section"
@@ -14845,10 +14889,6 @@
   "vtE73H": {
     "defaultMessage": "Gestion des talents de la fonction de contrôleur",
     "description": "Title for talent management for comptrollership executives callout"
-  },
-  "vtmq4K": {
-    "defaultMessage": "Historique",
-    "description": "Link text for the history of a nominee"
   },
   "vtnz6B": {
     "defaultMessage": "Décision finale",

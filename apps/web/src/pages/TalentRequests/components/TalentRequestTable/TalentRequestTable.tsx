@@ -299,6 +299,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
     }),
     columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
       id: "followUpDate",
+      sortDescFirst: false,
       enableColumnFilter: false,
       header: intl.formatMessage(talentRequestMessages.followUpDate),
       cell: ({

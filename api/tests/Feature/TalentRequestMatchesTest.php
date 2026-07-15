@@ -5,7 +5,10 @@ namespace Tests\Feature;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EmployeeVerification;
+use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
 use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
@@ -22,6 +25,7 @@ use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
@@ -609,7 +613,7 @@ class TalentRequestMatchesTest extends TestCase
         $community = Community::factory()->create();
 
         $user = User::factory()->create();
-        $interest = CommunityInterest::factory()->create([
+        $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $user->id,
             'community_id' => $community->id,
         ]);
@@ -624,19 +628,41 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
     }
 
+    public function testAtLevelExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $consented = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $consented->id,
+            'community_id' => $community->id,
+        ]);
+
+        $notConsented = User::factory()->create();
+        CommunityInterest::factory()->consented(false)->create([
+            'user_id' => $notConsented->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, ['where' => []])
+            ->assertJsonFragment(['user' => ['id' => $consented->id]])
+            ->assertJsonMissing(['user' => ['id' => $notConsented->id]]);
+    }
+
     public function testAtLevelCommunityFilterNarrowsResults(): void
     {
         $matching = Community::factory()->create();
         $other = Community::factory()->create();
 
         $included = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $included->id,
             'community_id' => $matching->id,
         ]);
 
         $excluded = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $excluded->id,
             'community_id' => $other->id,
         ]);
@@ -658,7 +684,7 @@ class TalentRequestMatchesTest extends TestCase
 
         // AT_LEVEL only — no pool candidates
         $atLevelUser = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);
@@ -680,7 +706,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->matchingUser($pool);
 
         $atLevelUser = User::factory()->create();
-        $interest = CommunityInterest::factory()->create([
+        $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);
@@ -694,6 +720,52 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
     }
 
+    public function testAtLevelWorkStreamFilterMatchesUserWithoutCandidacy(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create();
+        $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
+        $workStreamId = $interest->workStreams()->first()->id;
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAtLevelClassificationFilterMatchesUserWithoutCandidacy(): void
+    {
+        $classification = Classification::factory()->create();
+
+        $user = User::factory()->create();
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->for($user)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
     public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -702,7 +774,7 @@ class TalentRequestMatchesTest extends TestCase
         $poolUser = $this->matchingUser($pool);
 
         $atLevelUser = User::factory()->create();
-        CommunityInterest::factory()->create([
+        CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
         ]);

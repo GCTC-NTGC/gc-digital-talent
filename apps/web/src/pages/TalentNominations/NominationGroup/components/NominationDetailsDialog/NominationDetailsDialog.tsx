@@ -6,7 +6,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog, Separator } from "@gc-digital-talent/ui";
+import { Button, Dialog, PreviewList, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -122,7 +122,16 @@ const NominationDetailsDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <Button>{nomination.id}</Button>
+        <PreviewList.Button
+          label={intl.formatMessage(
+            {
+              defaultMessage: "View nomination details for {nominatorName}",
+              id: "HqKGaJ",
+              description: "Label for the nomination details dialog trigger",
+            },
+            { nominatorName: nominatorName ?? nullMessage },
+          )}
+        />
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header
