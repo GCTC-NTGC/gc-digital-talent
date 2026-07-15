@@ -27,12 +27,12 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolCandidates?: UserPoolFilterInput;
   pool?: string;
+  communityId?: string;
   selectedClassifications?: Pick<
     Classification,
     "group" | "level" | "groupAndLevel"
   >[];
   count?: number;
-  allPools?: boolean; // Prevent `was_empty` when requesting all pools
 };
 
 export type LocationState = BrowserHistoryState | null;
@@ -42,7 +42,6 @@ export interface BrowserHistoryState {
   candidateCount: number;
   initialValues?: FormValues;
   selectedClassifications?: Pick<Classification, "groupAndLevel">[];
-  allPools?: boolean;
 }
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {

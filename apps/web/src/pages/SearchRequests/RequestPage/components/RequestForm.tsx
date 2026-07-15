@@ -127,6 +127,10 @@ const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
   fragment RequestFormCommunity on Community {
     id
     key
+    name {
+      en
+      fr
+    }
   }
 `);
 
@@ -285,6 +289,19 @@ export const RequestForm = ({
     communitiesQuery,
   );
 
+  // We should always receive exactly one stream and only its ID
+  const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
+  const selectedStream = optionsData?.workStreams?.find(
+    (s) => s?.id === selectedStreamId,
+  );
+  // The search page sets `community` explicitly from the card/pool the request
+  // was submitted from (a pool's community can legitimately differ from its
+  // work stream's community). Fall back to the stream-derived community when
+  // absent (e.g. the pool itself has no community set) — used for both the
+  // actual submission and the "Summary of filters" display, so they agree.
+  const effectiveCommunityId =
+    applicantFilter?.community?.id ?? selectedStream?.community?.id;
+
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
   });
@@ -309,13 +326,6 @@ export const RequestForm = ({
         : PoolCandidateSearchPositionType.IndividualContributor;
     }
 
-    // We should always receive exactly one stream and only its ID
-    const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
-    const selectedStream = optionsData?.workStreams?.find(
-      (s) => s?.id === selectedStreamId,
-    );
-    const community = selectedStream?.community;
-
     // always append ONSITE to the flexible locations region
     const adjustedFlexibleWorkLocations = [
       ...(applicantFilter?.flexibleWorkLocations ?? []),
@@ -331,9 +341,9 @@ export const RequestForm = ({
       reason: values.reason,
       additionalComments: values.additionalComments,
       hrAdvisorEmail: values.hrAdvisorEmail ?? "",
-      wasEmpty: candidateCount === 0 && !state.allPools,
+      wasEmpty: candidateCount === 0,
       community: {
-        connect: community?.id,
+        connect: effectiveCommunityId,
       },
       applicantFilter: {
         create: {
@@ -353,7 +363,7 @@ export const RequestForm = ({
               : [],
           },
           community: {
-            connect: community?.id,
+            connect: effectiveCommunityId,
           },
           pools: {
             sync: applicantFilter?.pools
@@ -491,9 +501,7 @@ export const RequestForm = ({
         })
         .filter(notEmpty) ?? [],
     pools: unpackMaybes(poolsData?.poolsPaginated.data),
-    community: communities?.find(
-      (c) => c.id === applicantFilter?.community?.id,
-    ),
+    community: communities?.find((c) => c.id === effectiveCommunityId),
   };
 
   return (

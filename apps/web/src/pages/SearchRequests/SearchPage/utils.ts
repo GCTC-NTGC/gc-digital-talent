@@ -145,7 +145,6 @@ export const dataToFormValues = (
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
-    allPools: false,
   };
 };
 

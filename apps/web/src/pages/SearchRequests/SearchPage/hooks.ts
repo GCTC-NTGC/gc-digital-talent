@@ -62,6 +62,17 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
       }
       count
     }
+    countTalentRequestMatchesByCommunity(where: $where) {
+      community {
+        id
+        name {
+          localized
+        }
+      }
+      qualifiedInPoolCount
+      atLevelCount
+      count
+    }
   }
 `);
 
@@ -71,6 +82,12 @@ interface UseCandidateCountReturn {
   results?: {
     count: number;
     pool: SearchResultCard_PoolFragment;
+  }[];
+  communities: {
+    community: { id: string; name?: { localized?: string | null } | null };
+    qualifiedInPoolCount: number;
+    atLevelCount: number;
+    count: number;
   }[];
 }
 
@@ -148,5 +165,8 @@ export const useCandidateCount = (
             count,
           }),
         ),
+    communities: talentRequests
+      ? (talentRequestData?.countTalentRequestMatchesByCommunity ?? [])
+      : [],
   };
 };
