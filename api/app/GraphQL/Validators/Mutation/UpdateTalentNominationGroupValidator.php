@@ -37,7 +37,7 @@ final class UpdateTalentNominationGroupValidator extends Validator
             ],
             'talentNominationGroup.advancementClassifications' => [
                 // when updating a decision, updating the classifications is also required
-                'required_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
             ],
             'talentNominationGroup.advancementClassifications.sync' => [
                 'list',
@@ -47,9 +47,10 @@ final class UpdateTalentNominationGroupValidator extends Validator
                     ['max:0']), // unless approved, can't sync any classifications
             ],
             'talentNominationGroup.referralExpiryDate' => [
-                'sometimes', // 'present',  // we will eventually require this field
+                // when updating a decision, updating the referral expiry date is also required
+                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
-                    ['todayOrAfter'],  // we will eventually require expiry date when approving
+                    ['present'], // ['todayOrAfter'],  // we will eventually require expiry date when approving
                     ['prohibited']), // must be null if not approved
             ],
         ];

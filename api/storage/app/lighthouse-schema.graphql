@@ -1542,6 +1542,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   comments: String
   advancementClassifications: [Classification!]
+  referralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -2736,6 +2737,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
