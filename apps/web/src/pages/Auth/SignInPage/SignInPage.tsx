@@ -808,6 +808,7 @@ export const Component = () => {
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
                 external
+                onClick={trackLoginInitiated}
               >
                 {selectedMethod === "canadaLogin"
                   ? intl.formatMessage({
