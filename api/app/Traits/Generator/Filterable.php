@@ -53,13 +53,13 @@ trait Filterable
      *
      * @return array The flattened filters
      */
-    private function flattenFilters($filters, array $scopeMap): array
+    private function flattenFilters($filters): array
     {
         $flattened = [];
         foreach ($filters as $k => $v) {
-            // NOTE: keys already in $scopeMap are left alone, not flattened
-            if (is_array($v) && Arr::isAssoc($v) && ! array_key_exists($k, $scopeMap)) {
-                $flattened = array_merge($flattened, $this->flattenFilters($v, $scopeMap));
+            // NOTE: equity and community hold an assoc array that is itself the filter value, so do not flatten them
+            if (is_array($v) && Arr::isAssoc($v) && $k !== 'equity' && $k !== 'community') {
+                $flattened = array_merge($flattened, $this->flattenFilters($v));
             } else {
                 $flattened[$k] = $v;
             }
@@ -81,7 +81,7 @@ trait Filterable
             return $query;
         }
 
-        $filters = $this->flattenFilters($this->filters ?? [], $scopeMap ?? []);
+        $filters = $this->flattenFilters($this->filters ?? []);
         foreach ($filters as $key => $value) {
             $scope = $scopeMap[$key] ?? $key;
 
