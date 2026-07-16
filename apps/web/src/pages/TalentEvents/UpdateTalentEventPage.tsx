@@ -110,6 +110,11 @@ const UpdateTalentEventForm = ({
             fr: cdp.pivot?.descriptionForNominations?.fr,
           },
         })),
+      customInstructions: {
+        en: talentNominationEvent.customInstructions?.en,
+        fr: talentNominationEvent.customInstructions?.fr,
+      },
+      contactEmail: talentNominationEvent.contactEmail,
     },
   });
 
@@ -145,6 +150,10 @@ const UpdateTalentEventForm = ({
       );
     }
 
+    if (!formValues.contactEmail) {
+      throw new Error("contact email is mandatory"); // form enforces this - just to make TS happy
+    }
+
     return executeMutation({
       id: talentNominationEvent.id,
       talentNominationEvent: {
@@ -164,6 +173,7 @@ const UpdateTalentEventForm = ({
             })),
           ],
         },
+        contactEmail: formValues.contactEmail,
       },
     })
       .then(async (result) => {

@@ -37,6 +37,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $computed_status
  * @property string $comments
  * @property bool $consentToShareProfile
+ * @property ?Carbon $referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -46,6 +47,13 @@ class TalentNominationGroup extends Model
     use LogsActivity;
 
     protected $keyType = 'string';
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'referral_expiry_date' => 'date',
+    ];
 
     /**
      * The attributes that can be filled using mass-assignment.
