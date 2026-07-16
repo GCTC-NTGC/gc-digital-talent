@@ -65,9 +65,9 @@ class TalentSearch extends AppPage {
     workStream: WorkStream,
     skill: Skill,
   ) {
-    const poolCard = await this.poolCardVisibility(poolName);
+    // const poolCard = await this.poolCardVisibility(poolName);
 
-    // await this.page.getByRole("checkbox", { name: /pool candidates/i }).click();
+    await this.page.getByRole("checkbox", { name: /pool candidates/i }).click();
 
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
