@@ -44,15 +44,15 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will send a notification to a user if they have a draft application a pool closing in three days
     public function testSendsNotificationThreeDaysBefore(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-28 12:00:00'; // three days before closing
-        $nowInUtc = '2999-12-28 20:00:00';
+        // computed via Carbon (rather than hardcoded UTC literals) so the test
+        // doesn't depend on America/Vancouver's UTC offset at this future date
+        $nowInPacific = Carbon::create(2027, 12, 28, 12, 0, 0, 'America/Vancouver'); // three days before closing
+        $closingDateTimeInPacific = $nowInPacific->copy()->addDays(3)->endOfDay(); // pools close end of day in Pacific, by convention
 
         $pool = Pool::factory()
             ->published()
             ->create([
-                'closing_date' => $closingTimeInUtc,
+                'closing_date' => $closingDateTimeInPacific->copy()->setTimezone('Etc/UTC'),
             ]);
         $user = User::factory()
             ->create(
@@ -69,7 +69,7 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
                 'submitted_at' => null,
             ]);
 
-        Carbon::setTestNow($nowInUtc);
+        Carbon::setTestNow($nowInPacific->copy()->setTimezone('Etc/UTC'));
         $exitCode = Artisan::call('send-notifications:application-deadline-approaching');
 
         assertEquals(Command::SUCCESS, $exitCode);
@@ -81,15 +81,15 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will not send a notification to a user if they have submitted their application
     public function testDoesNotSendNotificationIfApplicationSubmitted(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-28 12:00:00'; // three days before closing
-        $nowInUtc = '2999-12-28 20:00:00';
+        // computed via Carbon (rather than hardcoded UTC literals) so the test
+        // doesn't depend on America/Vancouver's UTC offset at this future date
+        $nowInPacific = Carbon::create(2027, 12, 28, 12, 0, 0, 'America/Vancouver'); // three days before closing
+        $closingDateTimeInPacific = $nowInPacific->copy()->addDays(3)->endOfDay(); // pools close end of day in Pacific, by convention
 
         $pool = Pool::factory()
             ->published()
             ->create([
-                'closing_date' => $closingTimeInUtc,
+                'closing_date' => $closingDateTimeInPacific->copy()->setTimezone('Etc/UTC'),
             ]);
         $user = User::factory()
             ->create(
@@ -104,7 +104,7 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
             ->for($user)
             ->create();
 
-        Carbon::setTestNow($nowInUtc);
+        Carbon::setTestNow($nowInPacific->copy()->setTimezone('Etc/UTC'));
         $exitCode = Artisan::call('send-notifications:application-deadline-approaching');
 
         assertEquals(Command::SUCCESS, $exitCode);
@@ -116,15 +116,15 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will not send a notification to a user if they have a draft application a pool not closing in three days
     public function testDoesNotSendNotificationIfNotThreeDaysBefore(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-30 12:00:00'; // one day before closing
-        $nowInUtc = '2999-12-30 20:00:00';
+        // computed via Carbon (rather than hardcoded UTC literals) so the test
+        // doesn't depend on America/Vancouver's UTC offset at this future date
+        $nowInPacific = Carbon::create(2027, 12, 30, 12, 0, 0, 'America/Vancouver'); // one day before closing
+        $closingDateTimeInPacific = $nowInPacific->copy()->addDay()->endOfDay(); // pools close end of day in Pacific, by convention
 
         $pool = Pool::factory()
             ->published()
             ->create([
-                'closing_date' => $closingTimeInUtc,
+                'closing_date' => $closingDateTimeInPacific->copy()->setTimezone('Etc/UTC'),
             ]);
         $user = User::factory()
             ->create(
@@ -141,7 +141,7 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
                 'submitted_at' => null,
             ]);
 
-        Carbon::setTestNow($nowInUtc);
+        Carbon::setTestNow($nowInPacific->copy()->setTimezone('Etc/UTC'));
         $exitCode = Artisan::call('send-notifications:application-deadline-approaching');
 
         assertEquals(Command::SUCCESS, $exitCode);
