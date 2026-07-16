@@ -28,12 +28,12 @@ jobs:
           docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
           docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ./api/storage/app/
 
+      - name: "Print git diff"
+        run: git diff
+
       - name: Check for uncommitted changes
         id: check_changes
-        run: echo "changed=$(git -c core.fileMode=false status --porcelain | wc -l)" >> $GITHUB_OUTPUT
-
-      - name: "Print git diff"
-        run: git -c core.fileMode=false diff
+        run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
 
       - name: Error if changes
         if: steps.check_changes.outputs.changed != 0
