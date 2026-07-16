@@ -30,10 +30,10 @@ jobs:
 
       - name: Check for uncommitted changes
         id: check_changes
-        run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
+        run: echo "changed=$(git -c core.fileMode=false status --porcelain | wc -l)" >> $GITHUB_OUTPUT
 
       - name: "Print git diff"
-        run: git diff
+        run: git -c core.fileMode=false diff
 
       - name: Error if changes
         if: steps.check_changes.outputs.changed != 0
