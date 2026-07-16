@@ -55,18 +55,6 @@ export default defineConfig({
     ...(process.env.TESTING_ENDPOINT_SECRET
       ? [
           {
-            // Moved from auth > uat-admin.spec.ts file
-            name: "uat-admin",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /platform-admin-smoke\.spec\.ts/,
-          },
-          {
-            // Moved from auth > uat-applicant.spec.ts file
-            name: "uat-applicant",
-            use: { ...devices["Desktop Chrome"] },
-            testMatch: /applicant-smoke\.spec\.ts/,
-          },
-          {
             // Smoke + regression tests: read-only checks against persistent UAT users.
             // Excluded from chromium/webkit (module-level throws without UAT env vars).
             name: "uat-persistent",
@@ -79,8 +67,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore:
-        /\.setup\.ts|platform-admin-smoke\.spec\.ts|applicant-smoke\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
+      testIgnore: /\.setup\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     // {
@@ -91,8 +78,7 @@ export default defineConfig({
     {
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
-      testIgnore:
-        /\.setup\.ts|platform-admin-smoke\.spec\.ts|applicant-smoke\.spec\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
+      testIgnore: /\.setup\.ts|.*-smoke\.spec\.ts|.*-regression\.spec\.ts/,
     },
 
     /* Test against mobile viewports. */
