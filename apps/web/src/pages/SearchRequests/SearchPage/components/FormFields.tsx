@@ -172,9 +172,7 @@ const FormFields = ({
       if (source.value === TalentRequestSource.QualifiedInPool) {
         return {
           value: source.value,
-          label: intl.formatMessage(
-            talentRequestMessages.qualifiedInPoolLabel,
-          ),
+          label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
           contentBelow: intl.formatMessage({
             defaultMessage: "Candidates qualified in a pool.",
             id: "BXSv/r",
