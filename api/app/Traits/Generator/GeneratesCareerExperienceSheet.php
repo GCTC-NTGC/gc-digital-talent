@@ -25,7 +25,7 @@ use App\Models\WorkExperience;
 
 /**
  * Builds the Career Experience sheet shared by the user and nominations excel
- * generators. Relies on GeneratesSharedExcelData for getWorkStreams().
+ * generators. Relies on GeneratesSharedExcelData for getWorkStreams()
  */
 trait GeneratesCareerExperienceSheet
 {
