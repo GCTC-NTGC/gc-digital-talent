@@ -7,6 +7,13 @@ SLACK_WEBHOOK_URI=$1
 # Can review this file even if the slack delivery fails
 PAYLOAD_FILE=/tmp/post_deploy_log_payload.json
 
+# Persistent (survives container restarts) fallback log, mainly for the migration step below,
+# in case the container is killed mid-migration before Slack delivery ever happens.
+# Truncated at the start of each run so it doesn't grow unbounded across deployments.
+POST_DEPLOY_LOG_FILE=/home/LogFiles/post_deployment.log
+mkdir -p /home/LogFiles
+echo "=== post_deployment.sh run started $(date -u +%Y-%m-%dT%H:%M:%SZ) ===" > "$POST_DEPLOY_LOG_FILE"
+
 # Reusable function to add a section block with a markdown string
 add_section_block () {
   BLOCKS="$BLOCKS, { \"type\": \"section\", \"text\": { \"type\": \"mrkdwn\", \"text\": \"$1\" } }"
@@ -73,7 +80,11 @@ else
 fi
 
 # Laravel database migrations
-MIGRATION_STDOUT=$(php artisan migrate --no-interaction --force --no-ansi)
+# - LOG_CHANNEL=cli routes any thrown exception into Azure Monitor (see config/logging.php)
+# - stderr is captured too, since Laravel/Symfony Console renders exceptions there, not stdout
+# - streamed through tee so the persistent log file has partial output even if the container
+#   hangs or is killed mid-migration, instead of nothing at all (see issue #16961)
+MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate --no-interaction --force --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
 
 if [ $MIGRATION_STATUS -eq 0 ]; then
