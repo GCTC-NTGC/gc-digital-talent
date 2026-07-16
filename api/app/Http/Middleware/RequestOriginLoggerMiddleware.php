@@ -33,6 +33,7 @@ class RequestOriginLoggerMiddleware
             if (! is_null($xForwardedFor) && $xForwardedFor !== $previous) {
                 $this->logger->info('Session IP changed', [
                     'XForwardedIP' => $xForwardedFor,
+                    'UserId' => $user->id,
                 ]);
                 $this->cache->put($cacheKey, $xForwardedFor, now()->addMinutes((int) config('session.lifetime')));
             }

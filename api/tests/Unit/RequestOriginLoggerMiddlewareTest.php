@@ -18,6 +18,7 @@ class RequestOriginLoggerMiddlewareTest extends TestCase
 
         $user = Mockery::mock(Authenticatable::class);
         $user->shouldReceive('getAuthIdentifier')->andReturn($userId);
+        $user->id = $userId;
         $request->setUserResolver(fn () => $user);
 
         return $request;
@@ -28,6 +29,7 @@ class RequestOriginLoggerMiddlewareTest extends TestCase
         $logger = Mockery::mock(LoggerInterface::class);
         $logger->shouldReceive('info')->once()->with('Session IP changed', [
             'XForwardedIP' => '1.2.3.4',
+            'UserId' => 'user-1',
         ]);
 
         $cache = Mockery::mock(Cache::class);
