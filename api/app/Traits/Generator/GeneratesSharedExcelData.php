@@ -3,12 +3,43 @@
 namespace App\Traits\Generator;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Lang;
 
 /**
  * Shared helpers used in the Excel generators.
  */
 trait GeneratesSharedExcelData
 {
+    // store each nominee consent to share profile
+    protected array $consentToShareByUserId = [];
+
+    /**
+     * Check if user consented to share data.
+     * Returns true if consent to share is not required or if the users has consented to share
+     */
+    private function canShareForUser(?string $userId): bool
+    {
+        if (empty($this->consentToShareByUserId)) {
+            return true;
+        }
+
+        return $this->consentToShareByUserId[$userId] ?? false;
+    }
+
+    /**
+     * Hide user data if no consent to share
+     */
+    private function applyConsentToRow(array $row, ?string $userId): array
+    {
+        if ($this->canShareForUser($userId)) {
+            return $row;
+        }
+
+        return array_map(function ($value, $index) {
+            return $index === 0 ? $value : Lang::get('common.not_available', [], $this->lang);
+        }, $row, array_keys($row));
+    }
+
     /**
      * Get work streams from a model
      */

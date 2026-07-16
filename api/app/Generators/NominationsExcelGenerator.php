@@ -175,9 +175,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     // store user ids while generating users sheet
     protected array $userIds = [];
 
-    // store each nominee consent to share profile
-    private array $consentToShareByUserId = [];
-
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);

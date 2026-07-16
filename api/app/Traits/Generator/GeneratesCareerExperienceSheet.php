@@ -25,7 +25,7 @@ use App\Models\WorkExperience;
 
 /**
  * Builds the Career Experience sheet shared by the user and nominations excel
- * generators. Relies on GeneratesSharedExcelData for getWorkStreams()
+ * generators. Relies on GeneratesSharedExcelData for getWorkStreams().
  */
 trait GeneratesCareerExperienceSheet
 {
@@ -120,7 +120,7 @@ trait GeneratesCareerExperienceSheet
             ->with(['user', 'department', 'classification', 'userSkills.skill', 'workStreams'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow($this->row($this->buildWorkExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->applyConsentToRow($this->buildWorkExperienceRow($exp), $exp->user->id)));
                 }
             });
     }
@@ -215,7 +215,7 @@ trait GeneratesCareerExperienceSheet
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow($this->row($this->buildEducationExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->applyConsentToRow($this->buildEducationExperienceRow($exp), $exp->user->id)));
                 }
             });
     }
@@ -293,7 +293,7 @@ trait GeneratesCareerExperienceSheet
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow($this->row($this->buildAwardExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->applyConsentToRow($this->buildAwardExperienceRow($exp), $exp->user->id)));
                 }
             });
     }
@@ -370,7 +370,7 @@ trait GeneratesCareerExperienceSheet
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow($this->row($this->buildCommunityExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->applyConsentToRow($this->buildCommunityExperienceRow($exp), $exp->user->id)));
                 }
             });
     }
@@ -446,7 +446,7 @@ trait GeneratesCareerExperienceSheet
             ->with(['user', 'userSkills.skill'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
-                    $this->writer->addRow($this->row($this->buildPersonalExperienceRow($exp)));
+                    $this->writer->addRow($this->row($this->applyConsentToRow($this->buildPersonalExperienceRow($exp), $exp->user->id)));
                 }
             });
     }
