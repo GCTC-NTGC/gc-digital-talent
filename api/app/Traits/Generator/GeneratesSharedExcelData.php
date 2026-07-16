@@ -10,16 +10,21 @@ use Illuminate\Support\Facades\Lang;
  */
 trait GeneratesSharedExcelData
 {
-    // store each nominee consent to share profile
+    // store user ids
+    protected array $userIds = [];
+
+    // store each nominee consent to share their profile
     protected array $consentToShareByUserId = [];
 
+    // apply consent to share when generating the excel file
+    protected bool $enforceConsentToShare = false;
+
     /**
-     * Check if user consented to share data.
-     * Returns true if consent to share is not required or if the users has consented to share
+     * Check if user consented to share data
      */
     private function canShareForUser(?string $userId): bool
     {
-        if (empty($this->consentToShareByUserId)) {
+        if (! $this->enforceConsentToShare) {
             return true;
         }
 

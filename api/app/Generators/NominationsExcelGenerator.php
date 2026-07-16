@@ -172,12 +172,12 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'additional_comments',
     ];
 
-    // store user ids while generating users sheet
-    protected array $userIds = [];
-
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
+
+        // apply consent to share profile check
+        $this->enforceConsentToShare = true;
     }
 
     private function getExcelSheetTitle(string $key): string
