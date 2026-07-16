@@ -4,6 +4,11 @@ type LocalizedString {
   localized: String
 }
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 interface LocalizedEnumOption {
   label: LocalizedString!
 }
@@ -4875,9 +4880,4 @@ enum WorkRegion {
   PRAIRIE
   BRITISH_COLUMBIA
   NORTH
-}
-
-enum NotificationType {
-  UserFileGenerated
-  UserFileGenerationError
 }
