@@ -96,7 +96,7 @@ function logoutAndRefreshPage({
         timestamp: new Date().toISOString(),
         referrer: document.referrer || "none",
         source: "AuthenticationContainer",
-        gcKeyStatus: "logout",
+        authStatus: "logout",
         logoutReason: logoutReason ?? "unknown",
       },
     );

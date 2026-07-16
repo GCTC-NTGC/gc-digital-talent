@@ -131,10 +131,12 @@ export const Component = () => {
   const trackLoginInitiated = () => {
     if (!appInsights) return;
 
+    const aiUserId = appInsights?.context?.user?.id || "unknown";
+
     appInsights.trackEvent(
       { name: "Auth Login Initiated" },
       {
-        aiUserId: appInsights.context?.user?.id,
+        aiUserId,
         pageUrl: window.location.href,
         path: window.location.pathname,
         timestamp: new Date().toISOString(),
