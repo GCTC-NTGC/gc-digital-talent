@@ -181,7 +181,9 @@ class TalentSearch extends AppPage {
       ),
     ).toBeVisible();
 
-    await expect(this.page.getByText(workStream?.name?.en ?? "")).toBeVisible();
+    await expect(
+      this.page.getByText(workStream?.name?.en ?? "", { exact: true }),
+    ).toBeVisible();
 
     await expect(
       this.page.getByText(new RegExp(skill?.name.en ?? "")),
