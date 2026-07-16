@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Http\Request;
 use Psr\Log\LoggerInterface;
 
@@ -10,24 +11,30 @@ class RequestOriginLoggerMiddleware
 {
     protected $logger;
 
-    public function __construct(LoggerInterface $logger)
+    protected $cache;
+
+    public function __construct(LoggerInterface $logger, Cache $cache)
     {
         $this->logger = $logger;
+        $this->cache = $cache;
     }
 
     public function handle(Request $request, Closure $next)
     {
         $result = $next($request);
 
-        if ($request->hasSession()) {
+        $user = $request->user();
+
+        if ($user) {
+            $cacheKey = 'last_x_forwarded_ip:'.$user->getAuthIdentifier();
             $xForwardedFor = $request->header('X-Forwarded-For');
-            $previous = $request->session()->get('last_x_forwarded_ip');
+            $previous = $this->cache->get($cacheKey);
 
             if (! is_null($xForwardedFor) && $xForwardedFor !== $previous) {
                 $this->logger->info('Session IP changed', [
                     'XForwardedIP' => $xForwardedFor,
                 ]);
-                $request->session()->put('last_x_forwarded_ip', $xForwardedFor);
+                $this->cache->put($cacheKey, $xForwardedFor, now()->addMinutes((int) config('session.lifetime')));
             }
         }
 
