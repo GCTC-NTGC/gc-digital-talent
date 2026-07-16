@@ -57,7 +57,7 @@ trait GeneratesCommunityInterestSheet
             return $this->localizeHeading($key);
         }, $this->communityInterestLocaleKeys2);
 
-        $communityIds = CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
+        $communityIds = CommunityInterest::whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
             ->get('community_id')
@@ -97,7 +97,7 @@ trait GeneratesCommunityInterestSheet
             ...$localizedHeadersPart2,
         ]));
 
-        CommunityInterest::authorizedToView(['userId' => $this->authenticatedUserId])
+        CommunityInterest::whereAuthorizedToView(['userId' => $this->authenticatedUserId])
             ->whereIn('user_id', $userIds)
             ->isVerifiedGovEmployee()
             ->whereIn('community_id', $communityIds)
