@@ -75,6 +75,15 @@ const TalentNominationDetailsDialogNominationDetailsNomination_Fragment =
     }
   `);
 
+const TalentNominationDetailsDialogNominationDetailsNominationGroup_Fragment =
+  graphql(/* GraphQL */ `
+    fragment TalentNominationDetailsDialogNominationDetailsNominationGroup on TalentNominationGroup {
+      classificationAtTimeOfAdvancementApproval {
+        groupAndLevel
+      }
+    }
+  `);
+
 const TalentNominationDetailsDialogNominationDetailsOptions_Fragment = graphql(
   /* GraphQL */ `
     fragment TalentNominationDetailsDialogNominationDetailsOptions on Query {
@@ -94,6 +103,9 @@ interface NominationDetailsSectionProps {
   nominationQuery: FragmentType<
     typeof TalentNominationDetailsDialogNominationDetailsNomination_Fragment
   >;
+  nominationGroupQuery: FragmentType<
+    typeof TalentNominationDetailsDialogNominationDetailsNominationGroup_Fragment
+  >;
   optionsQuery: FragmentType<
     typeof TalentNominationDetailsDialogNominationDetailsOptions_Fragment
   >;
@@ -101,12 +113,17 @@ interface NominationDetailsSectionProps {
 
 const NominationDetailsSection = ({
   nominationQuery,
+  nominationGroupQuery,
   optionsQuery,
 }: NominationDetailsSectionProps) => {
   const intl = useIntl();
   const nomination = getFragment(
     TalentNominationDetailsDialogNominationDetailsNomination_Fragment,
     nominationQuery,
+  );
+  const nominationGroup = getFragment(
+    TalentNominationDetailsDialogNominationDetailsNominationGroup_Fragment,
+    nominationGroupQuery,
   );
   const options = getFragment(
     TalentNominationDetailsDialogNominationDetailsOptions_Fragment,
@@ -215,6 +232,20 @@ const NominationDetailsSection = ({
         {/* advancement-only fields */}
         {nomination.nominateForAdvancement ? (
           <>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage:
+                  "Nominee’s classification at the time of nomination",
+                id: "qwqI/Y",
+                description:
+                  "Label for nominee’s classification at the time of advancement",
+              })}
+              className="xs:col-span-2"
+            >
+              {/* this mismatch, time of nomination vs time of approval, is intentional */}
+              {nominationGroup.classificationAtTimeOfAdvancementApproval
+                ?.groupAndLevel ?? nullMessage}
+            </FieldDisplay>
             <FieldDisplay
               label={intl.formatMessage({
                 defaultMessage: "Reference’s name",

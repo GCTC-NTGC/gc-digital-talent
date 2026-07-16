@@ -1543,6 +1543,7 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification
   advancementClassifications: [Classification!]
   referralExpiryDate: Date
 }

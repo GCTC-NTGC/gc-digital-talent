@@ -1005,6 +1005,7 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
   referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
