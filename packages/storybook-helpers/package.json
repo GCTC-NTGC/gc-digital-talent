@@ -29,7 +29,7 @@
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@storybook/addon-themes": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
-    "eslint": "^9.20.1",
+    "eslint": "^10.6.0",
     "react": "^19.2.7",
     "storybook": "^10.4.6",
     "tsconfig": "workspace:*"
