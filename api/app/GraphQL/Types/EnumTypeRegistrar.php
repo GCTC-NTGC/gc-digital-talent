@@ -15,6 +15,7 @@ final class EnumTypeRegistrar implements TypeRegistrarInterface
     {
         /** @var array<class-string<\UnitEnum>> $enums */
         $enums = EnumDiscoverer::discoverEnums();
+        asort($enums);
 
         foreach ($enums as $enum) {
             $name = class_basename($enum);
