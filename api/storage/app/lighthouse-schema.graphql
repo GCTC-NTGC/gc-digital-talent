@@ -9,6 +9,11 @@ enum NotificationType {
   UserFileGenerationError
 }
 
+enum DummyType {
+  one
+  two
+}
+
 interface LocalizedEnumOption {
   label: LocalizedString!
 }

@@ -26,5 +26,14 @@ final class NotificationTypeRegistrar implements TypeRegistrarInterface
                 'values' => $values,
             ])
         );
+
+        $typeRegistry->register(
+            new EnumType([
+                'name' => 'DummyType',
+                'values' => [
+                    'one', 'two',
+                ],
+            ])
+        );
     }
 }
