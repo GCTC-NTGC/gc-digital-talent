@@ -6,7 +6,7 @@ import {
   graphql,
   TalentRequestSource,
   type FragmentType,
-  type LocalizedEnumString,
+  type LocalizedTalentRequestSource,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -53,7 +53,7 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
-  talentSourceOptions: LocalizedEnumString[];
+  talentSourceOptions: LocalizedTalentRequestSource[];
 }
 
 const TalentRequestSourcesCard = ({
@@ -73,9 +73,9 @@ const TalentRequestSourcesCard = ({
   const pools = unpackMaybes(applicantFilter?.pools);
   const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
 
-  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
+  // TODO: remove this filter once Advancement is implemented, see #17382
   const talentSourceOptionsFiltered = talentSourceOptions.filter(
-    (source) => source.value !== (TalentRequestSource.Advancement as string),
+    (source) => source.value !== TalentRequestSource.Advancement,
   );
   const selectedTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
@@ -117,18 +117,15 @@ const TalentRequestSourcesCard = ({
             {talentSourceOptionsFiltered.map((source) => (
               <li key={source.value}>
                 <BoolCheckIcon
-                  value={selectedTalentSources.includes(
-                    source.value as TalentRequestSource,
-                  )}
+                  value={selectedTalentSources.includes(source.value)}
                   trueLabel={intl.formatMessage(commonMessages.selected)}
                   falseLabel={intl.formatMessage(commonMessages.notSelected)}
                 >
-                  {source.value ===
-                    (TalentRequestSource.QualifiedInPool as string) &&
+                  {source.value === TalentRequestSource.QualifiedInPool &&
                     intl.formatMessage(
                       talentRequestMessages.qualifiedInPoolLabel,
                     )}
-                  {source.value === (TalentRequestSource.AtLevel as string) &&
+                  {source.value === TalentRequestSource.AtLevel &&
                     intl.formatMessage(talentRequestMessages.atLevelLabel)}
                 </BoolCheckIcon>
               </li>

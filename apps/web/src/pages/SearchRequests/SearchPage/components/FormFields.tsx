@@ -15,6 +15,7 @@ import {
   errorMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
+  narrowEnumType,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
@@ -67,11 +68,12 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
         localized
       }
     }
-    talentSources: localizedEnumStrings(enumName: "TalentRequestSource") {
-      value
-      label {
-        en
-        fr
+    talentSources: localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -158,39 +160,48 @@ const FormFields = ({
     };
   });
 
-  // TODO: should we use localized constants here or use as string?
-  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
-  const talentSourceOptions: CheckboxOption[] = localizedEnumToOptions(
-    data?.talentSources?.filter(
-      (source) => source?.value !== (TalentRequestSource.Advancement as string),
-    ),
-    intl,
-  ).map((source) => {
-    if (source.value === (TalentRequestSource.QualifiedInPool as string)) {
+  const talentSourceOptionsData = narrowEnumType(
+    unpackMaybes(data?.talentSources),
+    "TalentRequestSource",
+  )
+    // TODO: remove this filter once Advancement is implemented, see #17382
+    .filter((source) => source.value !== TalentRequestSource.Advancement);
+
+  const talentSourceOptions: CheckboxOption[] = talentSourceOptionsData.map(
+    (source) => {
+      if (source.value === TalentRequestSource.QualifiedInPool) {
+        return {
+          value: source.value,
+          label: intl.formatMessage(
+            talentRequestMessages.qualifiedInPoolLabel,
+          ),
+          contentBelow: intl.formatMessage({
+            defaultMessage: "Candidates qualified in a pool.",
+            id: "BXSv/r",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      if (source.value === TalentRequestSource.AtLevel) {
+        return {
+          value: source.value,
+          label: intl.formatMessage(talentRequestMessages.atLevelLabel),
+          contentBelow: intl.formatMessage({
+            defaultMessage:
+              "At-level GC employees who have self-identified as interested in lateral movement.",
+            id: "l1T7S3",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
       return {
         value: source.value,
-        label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
-        contentBelow: intl.formatMessage({
-          defaultMessage: "Candidates qualified in a pool.",
-          id: "BXSv/r",
-          description: "Checklist option explanatory note",
-        }),
+        label:
+          source.label?.localized ??
+          intl.formatMessage(commonMessages.notAvailable),
       };
-    }
-    if (source.value === (TalentRequestSource.AtLevel as string)) {
-      return {
-        value: source.value,
-        label: intl.formatMessage(talentRequestMessages.atLevelLabel),
-        contentBelow: intl.formatMessage({
-          defaultMessage:
-            "At-level GC employees who have self-identified as interested in lateral movement.",
-          id: "l1T7S3",
-          description: "Checklist option explanatory note",
-        }),
-      };
-    }
-    return source;
-  });
+    },
+  );
 
   return (
     <>

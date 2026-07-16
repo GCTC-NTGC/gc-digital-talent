@@ -19,6 +19,7 @@ import { Heading, Link, Pending, Separator } from "@gc-digital-talent/ui";
 import {
   errorMessages,
   enumInputToLocalizedEnum,
+  narrowEnumType,
   sortPoolCandidateSearchRequestReason,
   commonMessages,
 } from "@gc-digital-talent/i18n";
@@ -204,11 +205,12 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
         fr
       }
     }
-    talentSources: localizedEnumStrings(enumName: "TalentRequestSource") {
-      value
-      label {
-        en
-        fr
+    talentSources: localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          localized
+        }
       }
     }
     workStreams {
@@ -301,6 +303,11 @@ export const RequestForm = ({
   // actual submission and the "Summary of filters" display, so they agree.
   const effectiveCommunityId =
     applicantFilter?.community?.id ?? selectedStream?.community?.id;
+
+  const talentSourceOptionsData = narrowEnumType(
+    unpackMaybes(optionsData?.talentSources),
+    "TalentRequestSource",
+  );
 
   const formMethods = useForm<FormValues>({
     defaultValues: getFromSessionStorage(cacheKey, {}),
@@ -472,7 +479,7 @@ export const RequestForm = ({
     ),
     talentSources: unpackMaybes(
       applicantFilter?.talentSources?.map((source) =>
-        enumInputToLocalizedEnum(source, optionsData?.talentSources),
+        talentSourceOptionsData.find((option) => option.value === source),
       ),
     ),
     qualifiedInWorkStreams: unpackMaybes(optionsData?.workStreams).filter(
@@ -698,7 +705,7 @@ export const RequestForm = ({
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
-            talentSourceOptions={unpackMaybes(optionsData?.talentSources)}
+            talentSourceOptions={talentSourceOptionsData}
           />
           <Separator />
           <p className="mb-6 font-bold">

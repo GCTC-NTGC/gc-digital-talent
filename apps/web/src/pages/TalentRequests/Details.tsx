@@ -8,6 +8,7 @@ import {
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { narrowEnumType } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -33,9 +34,12 @@ interface DetailsProps {
 
 const Details = ({ query, optionsQuery }: DetailsProps) => {
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
-  const talentSourceOptions = unpackMaybes(
-    getFragment(TalentRequestSourceOptions_Fragment, optionsQuery)
-      ?.talentSource,
+  const talentSourceOptions = narrowEnumType(
+    unpackMaybes(
+      getFragment(TalentRequestSourceOptions_Fragment, optionsQuery)
+        ?.talentSource,
+    ),
+    "TalentRequestSource",
   );
 
   return (

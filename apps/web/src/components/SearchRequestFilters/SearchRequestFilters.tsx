@@ -16,6 +16,7 @@ import {
 import type {
   Classification,
   LocalizedEnumString,
+  LocalizedTalentRequestSource,
 } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
@@ -52,7 +53,7 @@ const ApplicantFilters = ({
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions?: LocalizedEnumString[];
+  talentSourceOptions?: LocalizedTalentRequestSource[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -125,9 +126,9 @@ const ApplicantFilters = ({
     applicantFilter?.qualifiedInWorkStreams?.flatMap((stream) => stream?.name),
   ).map((label) => getLocalizedName(label, intl));
 
-  // ADVANCEMENT is not yet implemented for matching, so it isn't offered as a search option
+  // TODO: remove this filter once Advancement is implemented, see #17382
   const talentSourceOptionsFiltered = talentSourceOptions.filter(
-    (source) => source.value !== (TalentRequestSource.Advancement as string),
+    (source) => source.value !== TalentRequestSource.Advancement,
   );
   const filterTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
@@ -160,21 +161,17 @@ const ApplicantFilters = ({
                 {talentSourceOptionsFiltered.map((source) => (
                   <li key={source.value}>
                     <BoolCheckIcon
-                      value={filterTalentSources.includes(
-                        source.value as TalentRequestSource,
-                      )}
+                      value={filterTalentSources.includes(source.value)}
                       trueLabel={intl.formatMessage(commonMessages.selected)}
                       falseLabel={intl.formatMessage(
                         commonMessages.notSelected,
                       )}
                     >
-                      {source.value ===
-                        (TalentRequestSource.QualifiedInPool as string) &&
+                      {source.value === TalentRequestSource.QualifiedInPool &&
                         intl.formatMessage(
                           talentRequestMessages.qualifiedInPoolLabel,
                         )}
-                      {source.value ===
-                        (TalentRequestSource.AtLevel as string) &&
+                      {source.value === TalentRequestSource.AtLevel &&
                         intl.formatMessage(talentRequestMessages.atLevelLabel)}
                     </BoolCheckIcon>
                   </li>
@@ -328,7 +325,7 @@ interface SearchRequestFiltersProps {
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions?: LocalizedEnumString[];
+  talentSourceOptions?: LocalizedTalentRequestSource[];
 }
 
 const SearchRequestFilters = ({
