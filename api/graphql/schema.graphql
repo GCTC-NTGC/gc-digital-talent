@@ -893,6 +893,7 @@ type TalentNominationEvent {
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedString @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type TalentNomination {
@@ -1005,6 +1006,7 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
   advancementClassifications: [Classification!] @belongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -2680,6 +2682,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String! @rename(attribute: "contact_email")
 }
 
 input UpdateTalentNominationEventInput {
@@ -2697,6 +2700,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input TalentNominationEventBelongsTo {
@@ -2828,6 +2832,7 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
