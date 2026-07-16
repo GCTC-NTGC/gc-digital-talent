@@ -303,7 +303,8 @@ trait GeneratesCareerExperienceSheet
      */
     private function buildAwardExperienceRow(AwardExperience $exp): array
     {
-        $numberOfMonths = 0;
+        // awarded_date show how many months ago the award was received, if awarded_date is null, show empty string
+        $numberOfMonths = $exp->awarded_date ? $this->calculateMonths($exp->awarded_date, now()) : '';
 
         return [
             $exp->user->id,
