@@ -29,7 +29,6 @@ import pageTitles from "~/messages/pageTitles";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import Hero from "~/components/Hero";
 import { FlexibleWorkLocationOptions_Fragment } from "~/components/Profile/components/WorkPreferences/fragment";
-import { TalentRequestSourceOptions_Fragment } from "~/components/SearchRequestFilters/fragment";
 
 import SingleSearchRequestTableApi from "./SearchRequestCandidatesTable";
 import TalentRequestSidebar from "./TalentRequestSidebar";
@@ -175,13 +174,6 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
           fr
         }
       }
-      talentSources {
-        value
-        label {
-          en
-          fr
-        }
-      }
       positionDuration
       skills {
         id
@@ -248,7 +240,6 @@ const ViewSearchRequest_SearchRequestFragment = graphql(/* GraphQL */ `
 export const TalentRequestOptions_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestOptions on Query {
     ...FlexibleWorkLocationOptionsFragment
-    ...TalentRequestSourceOptionsFragment
     ...TalentRequestStatusOptions
   }
 `);
@@ -297,13 +288,6 @@ export const ViewSearchRequest = ({
   );
   const locationOptionsDataUnpacked = unpackMaybes(
     locationOptionsData?.flexibleWorkLocation,
-  );
-  const talentSourceOptionsData = getFragment(
-    TalentRequestSourceOptions_Fragment,
-    options,
-  );
-  const talentSourceOptionsDataUnpacked = unpackMaybes(
-    talentSourceOptionsData?.talentSource,
   );
 
   const navigationCrumbs = useBreadcrumbs({
@@ -386,7 +370,6 @@ export const ViewSearchRequest = ({
               <SearchRequestFilters
                 filters={abstractFilter}
                 flexibleWorkLocationOptions={locationOptionsDataUnpacked}
-                talentSourceOptions={talentSourceOptionsDataUnpacked}
               />
               <Separator space="sm" />
 

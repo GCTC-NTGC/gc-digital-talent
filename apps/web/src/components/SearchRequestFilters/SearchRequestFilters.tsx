@@ -43,7 +43,7 @@ const ApplicantFilters = ({
   applicantFilter,
   selectedClassifications,
   flexibleWorkLocationOptions,
-  talentSourceOptions,
+  talentSourceOptions = [],
 }: {
   applicantFilter?: PartialApplicantFilter | null;
   selectedClassifications?: (
@@ -52,7 +52,7 @@ const ApplicantFilters = ({
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions: LocalizedEnumString[];
+  talentSourceOptions?: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -328,7 +328,7 @@ interface SearchRequestFiltersProps {
     | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions: LocalizedEnumString[];
+  talentSourceOptions?: LocalizedEnumString[];
 }
 
 const SearchRequestFilters = ({
