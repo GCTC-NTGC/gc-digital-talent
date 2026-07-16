@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 
 final class NotificationTypeRegistrar implements TypeRegistrarInterface
 {
-    public static int $weight = 5;
+    public static int $weight = 100;
 
     public static function register(TypeRegistry $typeRegistry): void
     {

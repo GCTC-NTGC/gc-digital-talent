@@ -3774,11 +3774,6 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
-enum NotificationType {
-  UserFileGenerated
-  UserFileGenerationError
-}
-
 enum RoleName {
   Guest
   BaseUser
@@ -4880,4 +4875,9 @@ enum WorkRegion {
   PRAIRIE
   BRITISH_COLUMBIA
   NORTH
+}
+
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
 }
