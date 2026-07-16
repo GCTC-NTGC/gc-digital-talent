@@ -70,6 +70,7 @@ interface TrackedUserListItemProps {
   requestedSkillsCount?: number;
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
+  onCompleted?: () => void;
 }
 
 const TrackedUserListItem = ({
@@ -78,6 +79,7 @@ const TrackedUserListItem = ({
   requestedSkillsCount,
   checked,
   onCheckedChange,
+  onCompleted,
 }: TrackedUserListItemProps) => {
   const intl = useIntl();
   const trackedUser = getFragment(
@@ -111,6 +113,7 @@ const TrackedUserListItem = ({
         <TalentRequestEditReferralDialog
           query={trackedUser}
           optionsQuery={optionsQuery}
+          onCompleted={onCompleted}
           trigger={
             <Button
               type="button"
