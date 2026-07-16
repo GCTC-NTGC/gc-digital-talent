@@ -32,6 +32,9 @@ jobs:
         id: check_changes
         run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
 
+      - name: "Print git diff"
+        run: git diff
+
       - name: Error if changes
         if: steps.check_changes.outputs.changed != 0
         # See: https://github.com/actions/github-script
