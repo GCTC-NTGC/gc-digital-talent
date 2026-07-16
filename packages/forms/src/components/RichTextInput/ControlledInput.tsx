@@ -6,6 +6,7 @@ import type {
   UseFormStateReturn,
 } from "react-hook-form";
 import { tv } from "tailwind-variants";
+import get from "lodash/get";
 
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
@@ -46,9 +47,13 @@ const ControlledInput = ({
   editable,
   wordLimit,
 }: ControlledInputProps) => {
-  const content = defaultValues?.[name]
-    ? String(defaultValues[name])
-    : undefined;
+  // lodash/get handles nested values with dotted notation, too
+  const rawDefaultValue: unknown = get(defaultValues, name);
+  const content =
+    rawDefaultValue !== null && rawDefaultValue !== undefined
+      ? // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        String(rawDefaultValue)
+      : undefined;
 
   const editorProps = useMemo(
     () => ({

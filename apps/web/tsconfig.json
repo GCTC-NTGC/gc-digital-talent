@@ -3,8 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@gc-digital-talent/*": ["../../../packages/*/src"],
-      "~/*": ["./src/*"],
-      "./+types/*": ["./.react-router/types/src/+types/*"]
+      "~/*": ["./src/*"]
     },
     "rootDirs": [".", "./.react-router/types"]
   },

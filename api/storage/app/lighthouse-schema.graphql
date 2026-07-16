@@ -1477,6 +1477,7 @@ type TalentNominationEvent {
   includeNineBox: Boolean!
   requireReferenceForAdvancement: Boolean!
   customInstructions: LocalizedString
+  contactEmail: String
 }
 
 type TalentNomination {
@@ -1541,7 +1542,9 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification
   advancementClassifications: [Classification!]
+  referralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -1952,6 +1955,23 @@ input ApplicantFilterInput {
   talentSources: [TalentRequestSource!]
 }
 
+input TalentRequestApplicantFilterInput {
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  pools: [IdInput]
+  skills: [IdInput]
+  skillsIntersectional: [IdInput]
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
+  community: IdInput
+  talentSources: [TalentRequestSource!]
+}
+
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput
   email: String
@@ -2017,7 +2037,7 @@ type CandidateSearchPoolResult {
 }
 
 input TalentRequestMatchFilterInput {
-  applicantFilter: ApplicantFilterInput
+  applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String
   name: String
   email: String
@@ -2621,6 +2641,7 @@ input CreateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String!
 }
 
 input UpdateTalentNominationEventInput {
@@ -2635,6 +2656,7 @@ input UpdateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String
 }
 
 input TalentNominationEventBelongsTo {
@@ -2719,6 +2741,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
@@ -3751,11 +3774,6 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
-enum NotificationType {
-  UserFileGenerated
-  UserFileGenerationError
-}
-
 enum RoleName {
   Guest
   BaseUser
@@ -3925,6 +3943,11 @@ enum Permission {
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
+}
+
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
 }
 
 enum ActivityEvent {

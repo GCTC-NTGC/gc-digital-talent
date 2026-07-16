@@ -422,9 +422,9 @@ class TalentNominationGroupTest extends TestCase
                     'advancementClassifications' => [
                         'sync' => $classifications->pluck('id')->toArray(),
                     ],
+                    'referralExpiryDate' => config('constants.far_future_date'),
                 ],
             ]);
-
         $response->assertGraphQLErrorFree();
         $response->assertJsonFragment([
             'advancementClassifications' => [

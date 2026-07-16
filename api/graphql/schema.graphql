@@ -301,7 +301,7 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
@@ -893,6 +893,7 @@ type TalentNominationEvent {
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedString @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type TalentNomination {
@@ -1004,7 +1005,9 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1507,6 +1510,23 @@ input ApplicantFilterInput {
   talentSources: [TalentRequestSource!]
 }
 
+input TalentRequestApplicantFilterInput {
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  pools: [IdInput] @pluck(key: "id")
+  skills: [IdInput] @pluck(key: "id")
+  skillsIntersectional: [IdInput] @pluck(key: "id")
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
+  community: IdInput @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
+}
+
 input PoolCandidateSearchInput {
   applicantFilter: ApplicantFilterInput @spread
   email: String @scope(name: "whereEmail")
@@ -1581,7 +1601,7 @@ type CandidateSearchPoolResult {
 }
 
 input TalentRequestMatchFilterInput {
-  applicantFilter: ApplicantFilterInput
+  applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
@@ -1992,7 +2012,7 @@ type Query {
       maxCount: 500
       scopes: [
         "withPolicyEagerLoads"
-        "authorizedToView"
+        "whereAuthorizedToView"
         "isVerifiedGovEmployee"
         "withSkillCount"
       ]
@@ -2652,6 +2672,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String! @rename(attribute: "contact_email")
 }
 
 input UpdateTalentNominationEventInput {
@@ -2669,6 +2690,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input TalentNominationEventBelongsTo {
@@ -2800,6 +2822,7 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {

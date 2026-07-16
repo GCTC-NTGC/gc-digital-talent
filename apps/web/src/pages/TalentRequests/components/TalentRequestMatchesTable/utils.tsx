@@ -73,6 +73,7 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
         id
       }
       positionDuration
+      talentSources
     }
   `,
 );
@@ -123,6 +124,7 @@ export function transformApplicantFilterToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
 
@@ -164,6 +166,7 @@ export function transformWhereToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
 
@@ -200,6 +203,7 @@ export function transformFormValuesToWhere(
             durationToEnumPositionDuration(data.employmentDuration),
           ])
         : undefined,
+      talentSources: data.talentSources,
     },
     priorityWeight: data.priorityWeight,
     employeeVerification: data.govEmployee,

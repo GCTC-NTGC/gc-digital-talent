@@ -296,6 +296,10 @@ class TalentNominationFactory extends Factory
                     $talentNominationGroup->lateral_movement_notes = $this->faker->sentence();
                 }
 
+                if ($talentNominationGroup->advancement_decision == TalentNominationGroupDecision::APPROVED->name) {
+                    $talentNominationGroup->referral_expiry_date = $this->faker->dateTimeBetween('+6 month', '+12 month');
+                }
+
                 $talentNominationGroup->save();
             });
     }
