@@ -112,5 +112,7 @@ export function convertFormValuesToMutationInput(
     advancementClassifications: {
       sync: [],
     },
+    // no UI yet
+    referralExpiryDate: null,
   };
 }

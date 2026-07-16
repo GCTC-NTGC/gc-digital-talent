@@ -2,6 +2,7 @@
 
 namespace App\Builders;
 
+use App\Contracts\TalentRequestMatchable;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateReferralFilter;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class PoolCandidateBuilder extends Builder
+class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 {
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community

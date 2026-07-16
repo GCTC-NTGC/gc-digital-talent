@@ -6,6 +6,7 @@ use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
+use App\Enums\TalentRequestSource;
 use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
 use App\Models\Classification;
@@ -56,6 +57,10 @@ class ApplicantFilterFactory extends Factory
             'operational_requirements' => $this->faker->optional->randomElements(
                 array_column(OperationalRequirement::cases(), 'name'),
                 $this->faker->numberBetween(1, 4)
+            ),
+            'talent_sources' => $this->faker->optional->enums(
+                TalentRequestSource::class,
+                $this->faker->numberBetween(1, 3)
             ),
             'community_id' => $community ? $community->id : Community::factory()->create()->id,
         ];

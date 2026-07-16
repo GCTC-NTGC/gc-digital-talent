@@ -14,6 +14,7 @@ import {
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
 import { useHasPermissions } from "@gc-digital-talent/auth";
 import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -30,6 +31,10 @@ export const NominateTalentInstructions_Fragment = graphql(/* GraphQL */ `
       community {
         teamIdForRoleAssignment
       }
+      customInstructions {
+        localized
+      }
+      contactEmail
     }
   }
 `);
@@ -156,33 +161,39 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
             "Paragraph one, instructions on how to submit a nomination",
         })}
       </p>
-      <p className="my-6">
-        {intl.formatMessage({
-          defaultMessage:
-            "Nominations must be sponsored by a C-suite level executive working in the candidate’s domain and will be triaged by the associated functional community team. Once confirmed, the candidate will be entered in that community’s talent management system for the current year.",
-          id: "QqwcpX",
-          description:
-            "Paragraph two, instructions on how to submit a nomination",
-        })}
-      </p>
-      <p className="my-6">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Have questions? <link>Reach out to our support team</link>.",
-            id: "3RUGGK",
-            description:
-              "Paragraph two, instructions on how to submit a nomination",
-          },
-          {
-            link: (chunks: ReactNode) => (
-              <Link href={paths.support()} color="black">
-                {chunks}
-              </Link>
-            ),
-          },
-        )}
-      </p>
+      {data.talentNominationEvent.customInstructions?.localized ? (
+        <div className="my-6">
+          <RichTextRenderer
+            node={htmlToRichTextJSON(
+              data.talentNominationEvent.customInstructions.localized,
+            )}
+          />
+        </div>
+      ) : null}
+
+      {data.talentNominationEvent.contactEmail ? (
+        <div className="my-6">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Have questions? <link>Reach out to the community event team.</link>",
+              id: "jUI9DU",
+              description:
+                "Paragraph two, instructions on how to submit a nomination",
+            },
+            {
+              link: (chunks: ReactNode) => (
+                <Link
+                  href={`mailto:${data.talentNominationEvent.contactEmail}`}
+                  color="black"
+                >
+                  {chunks}
+                </Link>
+              ),
+            },
+          )}
+        </div>
+      ) : null}
     </UpdateForm>
   );
 };

@@ -139,6 +139,10 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2H5KbR": {
+    "defaultMessage": "Date limite : aujourd’hui",
+    "description": "Message shown when something is due on the current date"
+  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
@@ -798,6 +802,10 @@
   "Phlp8j": {
     "defaultMessage": "Organisation",
     "description": "Label displayed for organization input"
+  },
+  "Q6GYga": {
+    "defaultMessage": "(EN)",
+    "description": "Name of English language formatted for appending, shortened"
   },
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
@@ -1738,6 +1746,10 @@
   "tHeY7N": {
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
+  },
+  "tfgjgQ": {
+    "defaultMessage": "(FR)",
+    "description": "Name of French language formatted for appending, shortened"
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",

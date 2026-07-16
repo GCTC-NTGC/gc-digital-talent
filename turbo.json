@@ -168,6 +168,7 @@
       ]
     },
     "lint": {
+      "dependsOn": ["typegen"],
       "inputs": [
         "../../packages/eslint-config-custom/index.js",
         "../../packages/eslint-config-custom/react.js",
@@ -176,6 +177,7 @@
       ]
     },
     "lint:fix": {
+      "dependsOn": ["typegen"],
       "inputs": [
         "../../packages/eslint-config-custom/index.js",
         "../../packages/eslint-config-custom/react.js",
