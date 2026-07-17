@@ -53,7 +53,7 @@ class PoolCandidateObserver
     /**
      * Determine if the user should be notified of the status/placement change.
      */
-    private function shouldNotifyUser($oldStatus, $newStatus, $placementChanged): bool
+    private function shouldNotifyUser(?string $oldStatus, ?string $newStatus, bool $placementChanged): bool
     {
 
         $triggerGroup = ApplicationStatus::statusChangedNotificationGroup();
