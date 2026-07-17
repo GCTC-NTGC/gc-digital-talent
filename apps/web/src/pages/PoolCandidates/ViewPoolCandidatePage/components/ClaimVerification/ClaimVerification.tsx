@@ -105,12 +105,14 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
             </p>
-            <p className="my-3 font-bold">
-              <span aria-hidden="true" className="mr-1.5">
+            <p className="my-3">
+              <span aria-hidden="true" className="mx-2">
                 {UNICODE_CHAR.BULLET}
               </span>
-              {claimVerification.specialApplicationType?.label?.localized ??
-                intl.formatMessage(commonMessages.notFound)}
+              <span className="font-bold">
+                {claimVerification.specialApplicationType?.label?.localized ??
+                  intl.formatMessage(commonMessages.notFound)}
+              </span>
             </p>
             <p>
               {intl.formatMessage({
@@ -121,7 +123,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
               {intl.formatMessage(commonMessages.dividingColon)}
             </p>
             <p className="mt-3">
-              <span aria-hidden="true" className="mr-1.5">
+              <span aria-hidden="true" className="mx-2">
                 {UNICODE_CHAR.BULLET}
               </span>
               {claimVerification.specialApplicationJustification
