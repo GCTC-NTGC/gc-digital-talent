@@ -209,29 +209,31 @@ export const SearchForm = ({
                 })}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
-              {communities.length ? (
+              {communities.length || results?.length ? (
                 <>
-                  <div className="flex flex-col gap-y-6">
-                    {communities.map(
-                      ({
-                        community,
-                        qualifiedInPoolCount,
-                        atLevelCount,
-                        count: communityCount,
-                      }) => (
-                        <CommunityResultCard
-                          key={community.id}
-                          community={community}
-                          workStreamName={selectedWorkStreamName}
-                          qualifiedInPoolCount={qualifiedInPoolCount}
-                          atLevelCount={atLevelCount}
-                          count={communityCount}
-                          showQualifiedInPool={showQualifiedInPool}
-                          showAtLevel={showAtLevel}
-                        />
-                      ),
-                    )}
-                  </div>
+                  {communities.length ? (
+                    <div className="flex flex-col gap-y-6">
+                      {communities.map(
+                        ({
+                          community,
+                          qualifiedInPoolCount,
+                          atLevelCount,
+                          count: communityCount,
+                        }) => (
+                          <CommunityResultCard
+                            key={community.id}
+                            community={community}
+                            workStreamName={selectedWorkStreamName}
+                            qualifiedInPoolCount={qualifiedInPoolCount}
+                            atLevelCount={atLevelCount}
+                            count={communityCount}
+                            showQualifiedInPool={showQualifiedInPool}
+                            showAtLevel={showAtLevel}
+                          />
+                        ),
+                      )}
+                    </div>
+                  ) : null}
                   {results?.length ? (
                     <>
                       <p className="mt-9 mb-1.5 text-2xl lg:text-3xl">
