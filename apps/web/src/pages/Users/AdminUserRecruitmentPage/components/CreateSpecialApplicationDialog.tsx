@@ -235,8 +235,8 @@ const CreateSpecialApplicationDialog = ({
             <Notice.Content>
               {intl.formatMessage({
                 defaultMessage:
-                  "Only perform this action after having confirmed the user’s identity and verified that adding them to this process is in compliance with HR policy rules.",
-                id: "/wMGW+",
+                  "Only perform this action after having confirmed the user’s identity and verified that adding them to this process is in compliance with HR policy.",
+                id: "G8+gPB",
                 description:
                   "Warning about adding a user to a process manually",
               })}
