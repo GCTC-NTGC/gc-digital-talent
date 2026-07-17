@@ -174,8 +174,8 @@ const FormFields = ({
           value: source.value,
           label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
           contentBelow: intl.formatMessage({
-            defaultMessage: "Candidates qualified in a pool.",
-            id: "BXSv/r",
+            defaultMessage: "Candidates qualified in a pool",
+            id: "tUObm7",
             description: "Checklist option explanatory note",
           }),
         };
@@ -186,8 +186,8 @@ const FormFields = ({
           label: intl.formatMessage(talentRequestMessages.atLevelLabel),
           contentBelow: intl.formatMessage({
             defaultMessage:
-              "At-level GC employees who have self-identified as interested in lateral movement.",
-            id: "l1T7S3",
+              "At-level GC employees who have self-identified as interested in lateral movement",
+            id: "mXWCC2",
             description: "Checklist option explanatory note",
           }),
         };
@@ -208,8 +208,8 @@ const FormFields = ({
         title={intl.formatMessage(talentRequestMessages.classification)}
         text={intl.formatMessage({
           defaultMessage:
-            "We use this filter to match candidates who express interest in a classification level, or certain expected salaries in these classifications.",
-          id: "dxv7Jx",
+            "We use this filter to match candidates who express interest in a classification level or to match certain expected salaries in these classifications.",
+          id: "J7um4k",
           description:
             "Message describing the classification filter of the search form.",
         })}

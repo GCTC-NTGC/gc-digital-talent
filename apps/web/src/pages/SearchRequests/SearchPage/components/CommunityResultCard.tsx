@@ -83,10 +83,10 @@ const CommunityResultCard = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{count, plural,
-                  one {<strong>#</strong> Community GC employee that has self-identified for lateral-movement.}
-                  other {<strong>#</strong> Community GC employees that have self-identified for lateral-movement.}
+                  one {<strong>#</strong> Community GC employee that has self-identified for lateral movement.}
+                  other {<strong>#</strong> Community GC employees that have self-identified for lateral movement.}
                 }`,
-                id: "DBLA1P",
+                id: "GIFvZI",
                 description:
                   "Count of candidates matched at level, on the community results card.",
               },
