@@ -6,6 +6,7 @@ use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\ProtectedRequest;
+use App\Http\Middleware\RequestOriginLoggerMiddleware;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use BeyondCode\ServerTiming\Middleware\ServerTimingMiddleware;
@@ -45,6 +46,7 @@ class Kernel extends HttpKernel
         TrimStrings::class,
         ConvertEmptyStringsToNull::class,
         ProtectedRequest::class,
+        RequestOriginLoggerMiddleware::class,
     ];
 
     /**

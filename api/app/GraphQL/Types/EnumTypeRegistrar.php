@@ -11,6 +11,8 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
  */
 final class EnumTypeRegistrar implements TypeRegistrarInterface
 {
+    public static int $weight = 9;
+
     public static function register(TypeRegistry $typeRegistry): void
     {
         /** @var array<class-string<\UnitEnum>> $enums */

@@ -3774,6 +3774,11 @@ dealing with really large numbers to be on the safe side.
 """
 scalar Mixed
 
+enum NotificationType {
+  UserFileGenerated
+  UserFileGenerationError
+}
+
 enum RoleName {
   Guest
   BaseUser
@@ -3943,11 +3948,6 @@ enum Permission {
   CreateTeamCommunityDevelopmentProgram
   UpdateTeamCommunityDevelopmentProgram
   DeleteTeamCommunityDevelopmentProgram
-}
-
-enum NotificationType {
-  UserFileGenerated
-  UserFileGenerationError
 }
 
 enum ActivityEvent {
@@ -4256,6 +4256,7 @@ enum ErrorCode {
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
   APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
+  APPLICATION_INVALID_QUESTION_RESPONSE
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
