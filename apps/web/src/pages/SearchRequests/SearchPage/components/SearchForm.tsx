@@ -236,7 +236,7 @@ export const SearchForm = ({
                   ) : null}
                   {results?.length ? (
                     <>
-                      <p className="mt-9 mb-1.5 text-2xl lg:text-3xl">
+                      <Heading level="h3" size="h4">
                         {intl.formatMessage({
                           defaultMessage: "Results by pool",
                           id: "p4hCip",
@@ -244,7 +244,7 @@ export const SearchForm = ({
                             "Lead-in text to list of pools managers can request candidates from",
                         })}
                         {intl.formatMessage(commonMessages.dividingColon)}
-                      </p>
+                      </Heading>
                       <div className="flex flex-col gap-y-6">
                         {results.map(({ pool, count: resultsCount }) => (
                           <SearchResultCard
