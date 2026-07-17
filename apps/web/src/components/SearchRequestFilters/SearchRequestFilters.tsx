@@ -158,24 +158,36 @@ const ApplicantFilters = ({
             title={intl.formatMessage(talentRequestMessages.talentSource)}
             content={
               <Ul unStyled noIndent inside>
-                {talentSourceOptionsFiltered.map((source) => (
-                  <li key={source.value}>
-                    <BoolCheckIcon
-                      value={filterTalentSources.includes(source.value)}
-                      trueLabel={intl.formatMessage(commonMessages.selected)}
-                      falseLabel={intl.formatMessage(
-                        commonMessages.notSelected,
-                      )}
-                    >
-                      {source.value === TalentRequestSource.QualifiedInPool &&
-                        intl.formatMessage(
-                          talentRequestMessages.qualifiedInPoolLabel,
+                {talentSourceOptionsFiltered.map((source) => {
+                  let label =
+                    source.label?.localized ??
+                    intl.formatMessage(commonMessages.notAvailable);
+                  if (source.value === TalentRequestSource.QualifiedInPool) {
+                    label = intl.formatMessage(
+                      talentRequestMessages.qualifiedInPoolLabel,
+                    );
+                  } else if (source.value === TalentRequestSource.AtLevel) {
+                    label = intl.formatMessage(
+                      talentRequestMessages.atLevelLabel,
+                    );
+                  }
+
+                  return (
+                    <li key={source.value}>
+                      <BoolCheckIcon
+                        value={filterTalentSources.includes(source.value)}
+                        trueLabel={intl.formatMessage(
+                          commonMessages.selected,
                         )}
-                      {source.value === TalentRequestSource.AtLevel &&
-                        intl.formatMessage(talentRequestMessages.atLevelLabel)}
-                    </BoolCheckIcon>
-                  </li>
-                ))}
+                        falseLabel={intl.formatMessage(
+                          commonMessages.notSelected,
+                        )}
+                      >
+                        {label}
+                      </BoolCheckIcon>
+                    </li>
+                  );
+                })}
               </Ul>
             }
           />

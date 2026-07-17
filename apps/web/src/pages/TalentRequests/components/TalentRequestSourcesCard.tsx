@@ -114,22 +114,30 @@ const TalentRequestSourcesCard = ({
           label={intl.formatMessage(talentRequestMessages.talentSource)}
         >
           <Ul unStyled noIndent inside>
-            {talentSourceOptionsFiltered.map((source) => (
-              <li key={source.value}>
-                <BoolCheckIcon
-                  value={selectedTalentSources.includes(source.value)}
-                  trueLabel={intl.formatMessage(commonMessages.selected)}
-                  falseLabel={intl.formatMessage(commonMessages.notSelected)}
-                >
-                  {source.value === TalentRequestSource.QualifiedInPool &&
-                    intl.formatMessage(
-                      talentRequestMessages.qualifiedInPoolLabel,
+            {talentSourceOptionsFiltered.map((source) => {
+              let label = source.label?.localized ?? notProvided;
+              if (source.value === TalentRequestSource.QualifiedInPool) {
+                label = intl.formatMessage(
+                  talentRequestMessages.qualifiedInPoolLabel,
+                );
+              } else if (source.value === TalentRequestSource.AtLevel) {
+                label = intl.formatMessage(talentRequestMessages.atLevelLabel);
+              }
+
+              return (
+                <li key={source.value}>
+                  <BoolCheckIcon
+                    value={selectedTalentSources.includes(source.value)}
+                    trueLabel={intl.formatMessage(commonMessages.selected)}
+                    falseLabel={intl.formatMessage(
+                      commonMessages.notSelected,
                     )}
-                  {source.value === TalentRequestSource.AtLevel &&
-                    intl.formatMessage(talentRequestMessages.atLevelLabel)}
-                </BoolCheckIcon>
-              </li>
-            ))}
+                  >
+                    {label}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
           </Ul>
         </FieldDisplay>
         <FieldDisplay
