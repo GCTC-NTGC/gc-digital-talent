@@ -205,9 +205,10 @@ const CreateSpecialApplicationDialog = ({
       <Dialog.Trigger>
         <Button color="error">
           {intl.formatMessage({
-            defaultMessage: "Add user to process",
-            id: "1XiWQu",
-            description: "Button text to add a user to a process",
+            defaultMessage: "Create special application",
+            id: "v3Nfqj",
+            description:
+              "Submit button text for creating a special application for a user",
           })}
         </Button>
       </Dialog.Trigger>
