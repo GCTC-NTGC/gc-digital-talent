@@ -7,6 +7,7 @@ import { useQuery } from "urql";
 import { useAnnouncer } from "@gc-digital-talent/ui";
 import type {
   ApplicantFilterInput,
+  CountTalentRequestMatchesQuery,
   SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -83,12 +84,7 @@ interface UseCandidateCountReturn {
     count: number;
     pool: SearchResultCard_PoolFragment;
   }[];
-  communities: {
-    community: { id: string; name?: { localized?: string | null } | null };
-    qualifiedInPoolCount: number;
-    atLevelCount: number;
-    count: number;
-  }[];
+  communities: CountTalentRequestMatchesQuery["countTalentRequestMatchesByCommunity"];
 }
 
 export const useCandidateCount = (
