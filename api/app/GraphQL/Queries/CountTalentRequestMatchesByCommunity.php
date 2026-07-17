@@ -6,8 +6,9 @@ use App\Enums\TalentRequestSource;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 final class CountTalentRequestMatchesByCommunity
 {
@@ -25,48 +26,62 @@ final class CountTalentRequestMatchesByCommunity
         $applicantFilter = $filters['applicantFilter'] ?? $filters;
         $selected = TalentRequestSource::selected($applicantFilter['talentSources'] ?? null);
 
-        $poolCommunityIds = in_array(TalentRequestSource::QUALIFIED_IN_POOL, $selected, true)
-            ? PoolCandidate::query()
+        // Build one (user_id, community_id, source) row per matching candidacy/interest,
+        // then aggregate by community in a single grouped query below — avoids running
+        // separate User::whereMatchesTalentRequest() counts per community (N+1).
+        /** @var Builder[] $subQueries */
+        $subQueries = [];
+
+        // NOTE: PoolCandidateBuilder->whereMatchesTalentRequest will run twice,
+        // since it is called here and again from within the call to $user->whereMatchesTalentRequest.
+        // While redundant now, this prevents false positives when
+        // alternative talent sources are introduced in the future (mirrors
+        // CountTalentRequestMatchesByPool).
+        if (in_array(TalentRequestSource::QUALIFIED_IN_POOL, $selected, true)) {
+            $subQueries[] = PoolCandidate::query()
                 ->whereMatchesTalentRequest($filters)
                 ->whereHas('user', fn ($user) => $user->whereMatchesTalentRequest($filters))
                 ->join('pools', 'pools.id', '=', 'pool_candidates.pool_id')
                 ->whereNotNull('pools.community_id')
-                ->distinct()
-                ->pluck('pools.community_id')
-            : collect();
+                ->select('pool_candidates.user_id', 'pools.community_id')
+                ->selectRaw("'pool' as source");
+        }
 
-        $interestCommunityIds = in_array(TalentRequestSource::AT_LEVEL, $selected, true)
-            ? CommunityInterest::query()
+        if (in_array(TalentRequestSource::AT_LEVEL, $selected, true)) {
+            $subQueries[] = CommunityInterest::query()
                 ->whereMatchesTalentRequest($applicantFilter)
-                ->distinct()
-                ->pluck('community_id')
-            : collect();
+                ->whereHas('user', fn ($user) => $user->whereMatchesTalentRequest($filters))
+                ->select('community_interests.user_id', 'community_interests.community_id')
+                ->selectRaw("'interest' as source");
+        }
 
-        $communityIds = $poolCommunityIds->merge($interestCommunityIds)->unique()->values();
+        if (empty($subQueries)) {
+            return collect();
+        }
 
-        return $communityIds->map(function ($communityId) use ($applicantFilter) {
-            $scoped = array_merge($applicantFilter, ['community' => $communityId]);
+        $combined = array_shift($subQueries);
+        foreach ($subQueries as $subQuery) {
+            $combined->unionAll($subQuery);
+        }
 
-            $qualifiedInPoolCount = User::query()->whereMatchesTalentRequest([
-                'applicantFilter' => array_merge($scoped, ['talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name]]),
-            ])->count();
+        $counts = DB::query()
+            ->fromSub($combined, 'matches')
+            ->selectRaw('community_id')
+            ->selectRaw("count(distinct case when source = 'pool' then user_id end) as qualified_in_pool_count")
+            ->selectRaw("count(distinct case when source = 'interest' then user_id end) as at_level_count")
+            ->selectRaw('count(distinct user_id) as count')
+            ->groupBy('community_id')
+            ->get();
 
-            $atLevelCount = User::query()->whereMatchesTalentRequest([
-                'applicantFilter' => array_merge($scoped, ['talentSources' => [TalentRequestSource::AT_LEVEL->name]]),
-            ])->count();
+        $communities = Community::whereIn('id', $counts->pluck('community_id'))
+            ->get()
+            ->keyBy('id');
 
-            // Uses the real (unforced) talentSources selection, so this is the
-            // deduplicated OR-of-selected-sources total for this community.
-            $count = User::query()->whereMatchesTalentRequest([
-                'applicantFilter' => $scoped,
-            ])->count();
-
-            return (object) [
-                'community' => Community::find($communityId),
-                'qualifiedInPoolCount' => $qualifiedInPoolCount,
-                'atLevelCount' => $atLevelCount,
-                'count' => $count,
-            ];
-        });
+        return $counts->map(fn ($row) => (object) [
+            'community' => $communities->get($row->community_id),
+            'qualifiedInPoolCount' => (int) $row->qualified_in_pool_count,
+            'atLevelCount' => (int) $row->at_level_count,
+            'count' => (int) $row->count,
+        ]);
     }
 }
