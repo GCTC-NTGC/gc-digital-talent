@@ -660,6 +660,45 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 3);
     }
 
+    public function testCountByCommunityDefaultsToAllSourcesWhenTalentSourcesOmitted(): void
+    {
+        $classification = Classification::factory()->create();
+        $poolCommunity = Community::factory()->create();
+        $atLevelCommunity = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $poolCommunity->id,
+        ]);
+        $this->matchingUser($pool);
+
+        // at-level-only match in a different community — no pool candidacy at all
+        $this->atLevelUser($classification, $atLevelCommunity);
+
+        // NOTE: no `talentSources` key at all — TalentRequestSource::selected(null)
+        // treats an omitted/empty selection as "all implemented sources".
+        $response = $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ]);
+
+        $response
+            ->assertJsonCount(2, 'data.countTalentRequestMatchesByCommunity')
+            ->assertJsonFragment([
+                'community' => ['id' => $poolCommunity->id],
+                'qualifiedInPoolCount' => 1,
+                'atLevelCount' => 0,
+                'count' => 1,
+            ])
+            ->assertJsonFragment([
+                'community' => ['id' => $atLevelCommunity->id],
+                'qualifiedInPoolCount' => 0,
+                'atLevelCount' => 1,
+                'count' => 1,
+            ]);
+    }
+
     public function testCountByCommunityExcludesCommunitiesWithNoMatches(): void
     {
         $matchingClassification = Classification::factory()->create();
