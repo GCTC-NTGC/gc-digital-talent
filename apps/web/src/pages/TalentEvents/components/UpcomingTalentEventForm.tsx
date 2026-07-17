@@ -284,6 +284,25 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
         />
         <div className="xs:col-span-2">
           <Checkbox
+            id="includeNineBox"
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Leadership performance questions",
+              id: "bCqtne",
+              description:
+                "Bounding box label for the include leadership performance",
+            })}
+            label={intl.formatMessage({
+              defaultMessage:
+                "The nomination must include the nominee’s performance and leadership potential",
+              id: "x7c8ZO",
+              description: "Label for the include leadership performance",
+            })}
+            name="includeNineBox"
+          />
+        </div>
+        <div className="xs:col-span-2">
+          <Checkbox
             id="includeLeadershipCompetencies"
             boundingBox
             boundingBoxLabel={intl.formatMessage({
