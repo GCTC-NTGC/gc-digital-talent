@@ -799,6 +799,10 @@
     "defaultMessage": "Organisation",
     "description": "Label displayed for organization input"
   },
+  "Q6GYga": {
+    "defaultMessage": "(EN)",
+    "description": "Name of English language formatted for appending, shortened"
+  },
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
     "description": "Prefix when a step has been completed."
@@ -1738,6 +1742,10 @@
   "tHeY7N": {
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
+  },
+  "tfgjgQ": {
+    "defaultMessage": "(FR)",
+    "description": "Name of French language formatted for appending, shortened"
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",

@@ -89,14 +89,14 @@ function logoutAndRefreshPage({
   if (appInsights) {
     const aiUserId = appInsights?.context?.user?.id || "unknown";
     appInsights.trackEvent?.(
-      { name: "GCKey Logout" },
+      { name: "Auth Logout" },
       {
         aiUserId,
         pageUrl: window.location.href,
         timestamp: new Date().toISOString(),
         referrer: document.referrer || "none",
         source: "AuthenticationContainer",
-        gcKeyStatus: "logout",
+        authStatus: "logout",
         logoutReason: logoutReason ?? "unknown",
       },
     );
