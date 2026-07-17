@@ -1,10 +1,16 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { Heading, Separator, Notice, Ul } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Separator,
+  Notice,
+  Ul,
+  wrapQuotes,
+} from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
 
@@ -50,6 +56,7 @@ interface ClaimVerificationProps {
 
 const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const claimVerification = getFragment(
     ClaimVerification_Fragment,
     verificationQuery,
@@ -100,7 +107,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
               {intl.formatMessage(commonMessages.dividingColon)}
             </p>
             <Ul className="my-3">
-              <li>
+              <li className="font-bold">
                 {claimVerification.specialApplicationType?.label?.localized ??
                   intl.formatMessage(commonMessages.notFound)}
               </li>
@@ -115,8 +122,12 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
             </p>
             <Ul className="mt-3">
               <li>
-                {claimVerification.specialApplicationJustification ??
-                  intl.formatMessage(commonMessages.notFound)}
+                {claimVerification.specialApplicationJustification
+                  ? wrapQuotes(
+                      claimVerification.specialApplicationJustification,
+                      locale,
+                    )
+                  : intl.formatMessage(commonMessages.notFound)}
               </li>
             </Ul>
           </Notice.Content>
