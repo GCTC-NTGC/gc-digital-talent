@@ -14,6 +14,7 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -49,7 +50,9 @@ const NominateTalentRationale_Fragment = graphql(/* GraphQL */ `
     nominationRationale
     additionalComments
     talentNominationEvent {
+      id
       includeLeadershipCompetencies
+      closeDate
     }
   }
 `);
@@ -90,6 +93,9 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -100,6 +106,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
           talentNomination?.skills?.flatMap((skill) => skill?.id),
         ),
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}

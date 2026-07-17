@@ -515,6 +515,10 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
+  "Gr4YoX": {
+    "defaultMessage": "Cette page n'est accessible que sur le réseau sécurisé.",
+    "description": "Firewall block"
+  },
   "GtVkbt": {
     "defaultMessage": "Oh non…",
     "description": "Title displayed for a table error loading state."

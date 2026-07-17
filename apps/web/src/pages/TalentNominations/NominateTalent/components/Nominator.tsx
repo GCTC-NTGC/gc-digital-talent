@@ -24,6 +24,7 @@ import {
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 import { Notice } from "@gc-digital-talent/ui";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -341,6 +342,10 @@ const NominateTalentNominator_Fragment = graphql(/* GraphQL */ `
     nominatorFallbackDepartment {
       id
     }
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -423,6 +428,9 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
         : null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -449,6 +457,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
         nominatorFallbackDepartment:
           talentNomination.nominatorFallbackDepartment?.id,
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={DocumentCheckIcon}>
         {intl.formatMessage(messages.nominatorInfo)}
