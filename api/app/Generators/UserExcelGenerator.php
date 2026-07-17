@@ -657,7 +657,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
     private function addAwardExperiences(array $userIds): void
     {
         AwardExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
+            ->with(['user', 'userSkills.skill', 'relatedExperience'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
                     $this->writer->addRow($this->row($this->buildAwardExperienceRow($exp)));
