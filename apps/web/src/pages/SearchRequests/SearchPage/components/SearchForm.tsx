@@ -202,11 +202,11 @@ export const SearchForm = ({
             <>
               <Heading level="h3" size="h4" id="results">
                 {intl.formatMessage({
-                  defaultMessage: "Results:",
-                  id: "7TvpUE",
+                  defaultMessage: "Results",
+                  id: "UK1PlW",
                   description:
                     "Heading for the results section of search page.",
-                })}
+                }) + intl.formatMessage(commonMessages.dividingColon)}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
               {communities.length || results?.length ? (

@@ -1875,10 +1875,6 @@
     "defaultMessage": "Sélectionnez la collectivité et les rôles que vous souhaitez ajouter",
     "description": "Lead in text for the pick community and roles inputs."
   },
-  "58n1gP": {
-    "defaultMessage": "Résultats : {totalCandidateCount, plural, =0 {<heavyPrimary>#</heavyPrimary> candidat correspondant} one {<heavyPrimary>#</heavyPrimary> candidat correspondant} other {<heavyPrimary>#</heavyPrimary> candidats correspondants à l'échelle } } de {numPools, plural, =0 {<heavyPrimary>#</heavyPrimary> bassin} one {<heavyPrimary>#</heavyPrimary> bassin} other {<heavyPrimary>#</heavyPrimary> bassins} }",
-    "description": "Heading for total matching candidates across a certain number of pools in results section of search page."
-  },
   "59TDoK": {
     "defaultMessage": "Bureau où travailler sur place",
     "description": "Legend for location preferences filter on search form."
@@ -4026,10 +4022,6 @@
   "DwpF2q": {
     "defaultMessage": "Votre contribution",
     "description": "Label for a process impact"
-  },
-  "DxNuJ9": {
-    "defaultMessage": "Demander à recevoir des candidats de tous les bassins",
-    "description": "Button text to submit search request for candidates across all pools"
   },
   "DxqFM1": {
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
@@ -9262,10 +9254,6 @@
     "defaultMessage": "Ajouter un partenaire de collectivité fonctionnelle",
     "description": "Functional community section"
   },
-  "ZWUMrM": {
-    "defaultMessage": "Sélectionnez la classification et le volet de travail du poste que vous souhaitez pourvoir. Nous vous indiquerons le nombre de personnes candidates correspondent à votre sélection.",
-    "description": "Message describing the classification filter of the search form."
-  },
   "ZZLwb5": {
     "defaultMessage": "Niveaux de filtrage de sécurité",
     "description": "Heading for the security clearance levels section"
@@ -12245,10 +12233,6 @@
   "l0EXuk": {
     "defaultMessage": "Votre candidature a été soumise et est en attente d'examen. Vous ne pouvez plus modifier votre candidature.",
     "description": "Status description for a submitted (but not reviewed) application"
-  },
-  "l1f8zy": {
-    "defaultMessage": "Ou demander des personnes candidates qualifiées provenant de l’un des bassins suivants",
-    "description": "Lead-in text to list of pools managers can request candidates from"
   },
   "l2xs1C": {
     "defaultMessage": "En cours d'examen",

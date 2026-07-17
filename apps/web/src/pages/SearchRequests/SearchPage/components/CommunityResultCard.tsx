@@ -56,10 +56,10 @@ const CommunityResultCard = ({
       ) : null}
       <p className="mb-1.5">
         {intl.formatMessage({
-          defaultMessage: "Matching candidates found:",
-          id: "3VVwfS",
+          defaultMessage: "Matching candidates found",
+          id: "1Yz1O6",
           description: "Lead-in text for the community results breakdown.",
-        })}
+        }) + intl.formatMessage(commonMessages.dividingColon)}
       </p>
       <ul className="mb-6 ml-6 list-disc">
         {showQualifiedInPool ? (
