@@ -1,6 +1,5 @@
 import { defineMessage, useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import { useState } from "react";
 
 import { Accordion, TableOfContents } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -16,8 +15,6 @@ export const title = defineMessage({
 
 export const RECRUITMENT_TOOLS_ID = "recruitment-tools";
 
-type AccordionItems = "special_application" | "";
-
 const RecruitmentTools_Fragment = graphql(/** GraphQL */ `
   fragment RecruitmentTools on User {
     ...CreateSpecialApplicationDialogUser
@@ -32,8 +29,6 @@ const RecruitmentTools = ({ query }: RecruitmentToolsProps) => {
   const intl = useIntl();
   const user = getFragment(RecruitmentTools_Fragment, query);
 
-  const [accordionOpen, setAccordionOpen] = useState<AccordionItems>("");
-
   return (
     <TableOfContents.Section id={RECRUITMENT_TOOLS_ID}>
       <TableOfContents.Heading
@@ -43,14 +38,8 @@ const RecruitmentTools = ({ query }: RecruitmentToolsProps) => {
       >
         {intl.formatMessage(title)}
       </TableOfContents.Heading>
-      <Accordion.Root
-        mode="simple"
-        type="single"
-        collapsible
-        value={accordionOpen}
-        onValueChange={(value: AccordionItems) => setAccordionOpen(value)}
-      >
-        <Accordion.Item value={"special_application"}>
+      <Accordion.Root mode="simple" type="single" collapsible>
+        <Accordion.Item value="special_application">
           <Accordion.Trigger as="h3">
             {intl.formatMessage({
               defaultMessage: "Create special application",
