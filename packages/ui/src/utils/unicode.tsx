@@ -3,7 +3,7 @@ import type { JSX, ReactNode } from "react";
 import type { Locales } from "@gc-digital-talent/i18n";
 
 export const UNICODE_CHAR = {
-  SINGLE_SPACE: "\u0020",
+  NON_BREAKING_SPACE: "\u00A0",
   BULLET: "\u2022",
   COMMA: "\u002C",
   ELLIPSE: "\u2026",
@@ -35,9 +35,9 @@ export const wrapQuotes = (children: ReactNode, lang: Locales): JSX.Element => {
   ) : (
     <>
       {UNICODE_CHAR.LEFT_FRENCH_QUOTE}
-      {UNICODE_CHAR.SINGLE_SPACE}
+      {UNICODE_CHAR.NON_BREAKING_SPACE}
       {children}
-      {UNICODE_CHAR.SINGLE_SPACE}
+      {UNICODE_CHAR.NON_BREAKING_SPACE}
       {UNICODE_CHAR.RIGHT_FRENCH_QUOTE}
     </>
   );

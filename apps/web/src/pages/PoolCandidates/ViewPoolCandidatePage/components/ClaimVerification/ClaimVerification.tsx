@@ -5,7 +5,7 @@ import {
   Heading,
   Separator,
   Notice,
-  Ul,
+  UNICODE_CHAR,
   wrapQuotes,
 } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -31,7 +31,6 @@ const ClaimVerification_Fragment = graphql(/* GraphQL */ `
   fragment ClaimVerification on PoolCandidate {
     id
     specialApplicationType {
-      value
       label {
         localized
       }
@@ -93,7 +92,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
       </p>
       {claimVerification.isSpecialApplication ? (
         <Notice.Root color="warning" className="mb-6">
-          <Notice.Title defaultIcon as="h2">
+          <Notice.Title defaultIcon as="h3">
             {intl.formatMessage(commonMessages.specialApplication)}
           </Notice.Title>
           <Notice.Content>
@@ -106,12 +105,13 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
             </p>
-            <Ul className="my-3">
-              <li className="font-bold">
-                {claimVerification.specialApplicationType?.label?.localized ??
-                  intl.formatMessage(commonMessages.notFound)}
-              </li>
-            </Ul>
+            <p className="my-3 font-bold">
+              <span aria-hidden="true" className="mr-1.5">
+                {UNICODE_CHAR.BULLET}
+              </span>
+              {claimVerification.specialApplicationType?.label?.localized ??
+                intl.formatMessage(commonMessages.notFound)}
+            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage: "Provided justification",
@@ -120,16 +120,17 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
             </p>
-            <Ul className="mt-3">
-              <li>
-                {claimVerification.specialApplicationJustification
-                  ? wrapQuotes(
-                      claimVerification.specialApplicationJustification,
-                      locale,
-                    )
-                  : intl.formatMessage(commonMessages.notFound)}
-              </li>
-            </Ul>
+            <p className="mt-3">
+              <span aria-hidden="true" className="mr-1.5">
+                {UNICODE_CHAR.BULLET}
+              </span>
+              {claimVerification.specialApplicationJustification
+                ? wrapQuotes(
+                    claimVerification.specialApplicationJustification,
+                    locale,
+                  )
+                : intl.formatMessage(commonMessages.notProvided)}
+            </p>
           </Notice.Content>
         </Notice.Root>
       ) : null}
@@ -183,7 +184,7 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
             />
           </ClaimRow>
         </>
-      ) : (
+      ) : claimVerification.isSpecialApplication ? null : (
         <Notice.Root>
           <Notice.Content>
             {intl.formatMessage({
