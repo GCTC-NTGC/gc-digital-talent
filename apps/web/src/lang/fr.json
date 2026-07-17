@@ -943,10 +943,6 @@
     "defaultMessage": "Créer<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the create department page link."
   },
-  "1XiWQu": {
-    "defaultMessage": "Ajouter l'utilisateur à un processus",
-    "description": "Button text to add a user to a process"
-  },
   "1XsXrt": {
     "defaultMessage": "Lecture (ou compréhension écrite))",
     "description": "Proficiency level related skill on language requirements dialog"
@@ -1943,10 +1939,6 @@
     "defaultMessage": "Détails",
     "description": "Title for additional comments shorthand"
   },
-  "5LkwLx": {
-    "defaultMessage": "Normalement, les utilisateurs présenteront leur candidature à un processus de recrutement par eux-mêmes. Les outils suivants peuvent être utilisés pour faciliter la création ou la gestion des candidatures dans des cas exceptionnels.",
-    "description": "Description of adding a user to a specific process"
-  },
   "5MFMo5": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une possibilité de perfectionnement ou d'apprentissage pour le préparer à son prochain poste.",
     "description": "Description for the development program nomination option on the details step"
@@ -2734,10 +2726,6 @@
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
     "description": "Required skill level column header for tables"
-  },
-  "92M/Ie": {
-    "defaultMessage": "Cela permettra d'inclure un utilisateur dans un processus de recrutement, mais ne remplira aucun renseignement sur la demande. Cela signifie que la capture d'écran de la candidature, ainsi que toutes les autres questions et justifications des compétences s'afficheront vides.",
-    "description": "Caveats of adding a user to a process manually"
   },
   "93zCaS": {
     "defaultMessage": "Reflète la spécialisation nécessaire",
@@ -6322,10 +6310,6 @@
   "N6kGOU": {
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
-  },
-  "N7ACFf": {
-    "defaultMessage": "Ajouter l'utilisateur à un processus de recrutement",
-    "description": "Title of section to add users to processes"
   },
   "N7nVPk": {
     "defaultMessage": "Modifier l'information du sujet associé à l'utilisateur. Le « sujet » est une chaîne de caractères unique associée à l'identité d'ouverture de session de l'utilisateur.",
