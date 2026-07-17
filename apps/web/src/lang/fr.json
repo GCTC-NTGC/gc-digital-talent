@@ -9306,10 +9306,6 @@
     "defaultMessage": "Chercher les utilisateurs",
     "description": "Label for the user table search input"
   },
-  "ZayKDK": {
-    "defaultMessage": "Motif de correspondance",
-    "description": "Heading for the source of the matching user"
-  },
   "Zd02bf": {
     "defaultMessage": "Bienvenue à la première étape de votre demande. Nous sommes ravis de vous rencontrer!",
     "description": "Subtitle for the application welcome page"
