@@ -22,6 +22,7 @@ export interface AuthTokenResponse {
 const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
+  "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
 };
 
 /**
