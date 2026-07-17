@@ -7,6 +7,7 @@ import { useQuery } from "urql";
 import { useAnnouncer } from "@gc-digital-talent/ui";
 import type {
   ApplicantFilterInput,
+  CountTalentRequestMatchesQuery,
   SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
@@ -62,6 +63,17 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
       }
       count
     }
+    countTalentRequestMatchesByCommunity(where: $where) {
+      community {
+        id
+        name {
+          localized
+        }
+      }
+      qualifiedInPoolCount
+      atLevelCount
+      count
+    }
   }
 `);
 
@@ -72,6 +84,7 @@ interface UseCandidateCountReturn {
     count: number;
     pool: SearchResultCard_PoolFragment;
   }[];
+  communities: CountTalentRequestMatchesQuery["countTalentRequestMatchesByCommunity"];
 }
 
 export const useCandidateCount = (
@@ -148,5 +161,8 @@ export const useCandidateCount = (
             count,
           }),
         ),
+    communities: talentRequests
+      ? (talentRequestData?.countTalentRequestMatchesByCommunity ?? [])
+      : [],
   };
 };

@@ -156,6 +156,21 @@ const messages = defineMessages({
     id: "qy4Ohw",
     description: "Heading for the source of the matching user.",
   },
+  talentSource: {
+    defaultMessage: "Talent source",
+    id: "5bRS8b",
+    description: "Label for the talent source(s) selected on a talent request.",
+  },
+  qualifiedInPoolLabel: {
+    defaultMessage: "Pool Candidates",
+    id: "uQEmGf",
+    description: "Label for the qualified in pool talent source",
+  },
+  atLevelLabel: {
+    defaultMessage: "Community employees",
+    id: "DsQWRx",
+    description: "Label for the at-level talent source",
+  },
 });
 
 export default messages;

@@ -15,6 +15,7 @@ import {
   errorMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
+  narrowEnumType,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
@@ -25,6 +26,7 @@ import type {
 } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
+  TalentRequestSource,
   WorkRegion,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -64,6 +66,14 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
       value
       label {
         localized
+      }
+    }
+    talentSources: localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -150,6 +160,47 @@ const FormFields = ({
     };
   });
 
+  const talentSourceOptionsData = narrowEnumType(
+    unpackMaybes(data?.talentSources),
+    "TalentRequestSource",
+  )
+    // TODO: remove this filter once Advancement is implemented, see #17382
+    .filter((source) => source.value !== TalentRequestSource.Advancement);
+
+  const talentSourceOptions: CheckboxOption[] = talentSourceOptionsData.map(
+    (source) => {
+      if (source.value === TalentRequestSource.QualifiedInPool) {
+        return {
+          value: source.value,
+          label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
+          contentBelow: intl.formatMessage({
+            defaultMessage: "Candidates qualified in a pool",
+            id: "tUObm7",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      if (source.value === TalentRequestSource.AtLevel) {
+        return {
+          value: source.value,
+          label: intl.formatMessage(talentRequestMessages.atLevelLabel),
+          contentBelow: intl.formatMessage({
+            defaultMessage:
+              "At-level GC employees who have self-identified as interested in lateral movement",
+            id: "mXWCC2",
+            description: "Checklist option explanatory note",
+          }),
+        };
+      }
+      return {
+        value: source.value,
+        label:
+          source.label?.localized ??
+          intl.formatMessage(commonMessages.notAvailable),
+      };
+    },
+  );
+
   return (
     <>
       <FilterBlock
@@ -157,13 +208,32 @@ const FormFields = ({
         title={intl.formatMessage(talentRequestMessages.classification)}
         text={intl.formatMessage({
           defaultMessage:
-            "Select the classification and work stream of the position you aim to fill. We'll show you how many candidates match your selection.",
-          id: "ZWUMrM",
+            "We use this filter to match candidates who express interest in a classification level or to match certain expected salaries in these classifications.",
+          id: "J7um4k",
           description:
             "Message describing the classification filter of the search form.",
         })}
       >
         <div className="flex flex-col gap-y-6">
+          <Checklist
+            idPrefix="talentSources"
+            id="talentSources"
+            name="talentSources"
+            legend={intl.formatMessage(talentRequestMessages.talentSource)}
+            items={talentSourceOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "What is the intended classification and work stream of this position?",
+              id: "VpolrX",
+              description:
+                "Question above classification and work stream filter",
+            })}
+          </p>
           <Select
             id="classifications"
             label={intl.formatMessage(talentRequestMessages.classification)}

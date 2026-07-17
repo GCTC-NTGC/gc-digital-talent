@@ -120,6 +120,40 @@ class TalentRequestMatchesTest extends TestCase
         );
     }
 
+    private function runCountByCommunity(array $where = []): TestResponse
+    {
+        return $this->graphQL(
+            'query ($where: TalentRequestMatchFilterInput) {
+                countTalentRequestMatchesByCommunity(where: $where) {
+                    community { id }
+                    qualifiedInPoolCount
+                    atLevelCount
+                    count
+                }
+            }',
+            ['where' => $where]
+        );
+    }
+
+    // A user with a current substantive classification (for AT_LEVEL matching), no pool candidacy.
+    private function atLevelUser(Classification $classification, Community $community): User
+    {
+        $user = User::factory()->create();
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        return $user;
+    }
+
     public function testReturnsOnlyUsersWithAMatchingCandidacy(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -579,6 +613,119 @@ class TalentRequestMatchesTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testCountByCommunityCountsBreakdownAndDedupesTotal(): void
+    {
+        $classification = Classification::factory()->create();
+        $community = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $community->id,
+        ]);
+
+        // pool-only user
+        $this->matchingUser($pool);
+
+        // at-level-only user: substantive classification + community interest, no pool candidacy
+        $this->atLevelUser($classification, $community);
+
+        // user matching both sources for this community — should count once in the total
+        $bothUser = $this->matchingUser($pool);
+        WorkExperience::factory()->for($bothUser)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $bothUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                'talentSources' => [
+                    TalentRequestSource::QUALIFIED_IN_POOL->name,
+                    TalentRequestSource::AT_LEVEL->name,
+                ],
+            ],
+        ])
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $community->id)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.qualifiedInPoolCount', 2)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.atLevelCount', 2)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 3);
+    }
+
+    public function testCountByCommunityDefaultsToAllSourcesWhenTalentSourcesOmitted(): void
+    {
+        $classification = Classification::factory()->create();
+        $poolCommunity = Community::factory()->create();
+        $atLevelCommunity = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $poolCommunity->id,
+        ]);
+        $this->matchingUser($pool);
+
+        // at-level-only match in a different community — no pool candidacy at all
+        $this->atLevelUser($classification, $atLevelCommunity);
+
+        // NOTE: no `talentSources` key at all — TalentRequestSource::selected(null)
+        // treats an omitted/empty selection as "all implemented sources".
+        $response = $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ]);
+
+        $response
+            ->assertJsonCount(2, 'data.countTalentRequestMatchesByCommunity')
+            ->assertJsonFragment([
+                'community' => ['id' => $poolCommunity->id],
+                'qualifiedInPoolCount' => 1,
+                'atLevelCount' => 0,
+                'count' => 1,
+            ])
+            ->assertJsonFragment([
+                'community' => ['id' => $atLevelCommunity->id],
+                'qualifiedInPoolCount' => 0,
+                'atLevelCount' => 1,
+                'count' => 1,
+            ]);
+    }
+
+    public function testCountByCommunityExcludesCommunitiesWithNoMatches(): void
+    {
+        $matchingClassification = Classification::factory()->create();
+        $otherClassification = Classification::factory()->create();
+        $matchingCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+
+        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $matchingClassification->id,
+            'community_id' => $matchingCommunity->id,
+        ]);
+        $this->matchingUser($matchingPool);
+
+        // otherCommunity has real matches, but not for the filtered classification
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $otherClassification->id,
+            'community_id' => $otherCommunity->id,
+        ]);
+        $this->matchingUser($otherPool);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $matchingClassification->group, 'level' => $matchingClassification->level]],
+            ],
+        ])
+            ->assertJsonCount(1, 'data.countTalentRequestMatchesByCommunity')
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $matchingCommunity->id);
     }
 
     public function testCountAgreesWithTheListTotal(): void

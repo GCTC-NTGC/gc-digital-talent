@@ -73,7 +73,9 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
         id
       }
       positionDuration
-      talentSources
+      talentSources {
+        value
+      }
     }
   `,
 );
@@ -124,7 +126,9 @@ export function transformApplicantFilterToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
-    talentSources: unpackMaybes(applicantFilter?.talentSources),
+    talentSources: unpackMaybes(applicantFilter?.talentSources).map(
+      ({ value }) => value,
+    ),
   };
 }
 

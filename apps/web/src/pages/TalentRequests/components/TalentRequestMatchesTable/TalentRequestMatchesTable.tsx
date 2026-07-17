@@ -303,11 +303,7 @@ const TalentRequestMatchesTable = ({
         sources.flatMap((source) => source.label.localized).join(", "),
       {
         id: "sources",
-        header: intl.formatMessage({
-          defaultMessage: "Talent source",
-          id: "ZayKDK",
-          description: "Heading for the source of the matching user",
-        }),
+        header: intl.formatMessage(talentRequestMessages.talentSource),
         enableSorting: false,
         enableColumnFilter: false,
       },

@@ -141,10 +141,10 @@ export const dataToFormValues = (
     flexibleWorkLocations: data.flexibleWorkLocations?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
+    talentSources: data.talentSources?.filter(notEmpty) ?? [],
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
-    allPools: false,
   };
 };
 
@@ -194,5 +194,6 @@ export const formValuesToData = (
     locationPreferences: values.locationPreferences ?? [],
     flexibleWorkLocations: values.flexibleWorkLocations ?? [],
     qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
+    talentSources: unpackMaybes(values.talentSources),
   };
 };
