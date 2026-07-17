@@ -176,9 +176,7 @@ const ApplicantFilters = ({
                     <li key={source.value}>
                       <BoolCheckIcon
                         value={filterTalentSources.includes(source.value)}
-                        trueLabel={intl.formatMessage(
-                          commonMessages.selected,
-                        )}
+                        trueLabel={intl.formatMessage(commonMessages.selected)}
                         falseLabel={intl.formatMessage(
                           commonMessages.notSelected,
                         )}

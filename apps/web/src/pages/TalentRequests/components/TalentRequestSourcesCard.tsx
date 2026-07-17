@@ -129,9 +129,7 @@ const TalentRequestSourcesCard = ({
                   <BoolCheckIcon
                     value={selectedTalentSources.includes(source.value)}
                     trueLabel={intl.formatMessage(commonMessages.selected)}
-                    falseLabel={intl.formatMessage(
-                      commonMessages.notSelected,
-                    )}
+                    falseLabel={intl.formatMessage(commonMessages.notSelected)}
                   >
                     {label}
                   </BoolCheckIcon>
