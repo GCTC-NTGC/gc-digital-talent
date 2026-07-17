@@ -380,6 +380,7 @@ const TalentRequestTrackedUsersInbox = ({
               optionsQuery={optionsQuery}
               checked={selectedRows.includes(row.id)}
               onCheckedChange={handleRowCheckedChange(row.id)}
+              onCompleted={handleDialogCompleted}
             />
           ))}
         </Inbox.List>
