@@ -22,6 +22,7 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table('talent_nomination_groups', function (Blueprint $table) {
+            $table->dropForeign(['classification_at_time_of_advancement_approval_id']);
             $table->dropColumn('classification_at_time_of_advancement_approval_id');
         });
     }
