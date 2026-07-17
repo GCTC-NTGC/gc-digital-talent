@@ -1477,6 +1477,7 @@ type TalentNominationEvent {
   includeNineBox: Boolean!
   requireReferenceForAdvancement: Boolean!
   customInstructions: LocalizedString
+  contactEmail: String
 }
 
 type TalentNomination {
@@ -1541,7 +1542,9 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification
   advancementClassifications: [Classification!]
+  referralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -2638,6 +2641,7 @@ input CreateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String!
 }
 
 input UpdateTalentNominationEventInput {
@@ -2652,6 +2656,7 @@ input UpdateTalentNominationEventInput {
   includeNineBox: Boolean
   requireReferenceForAdvancement: Boolean
   customInstructions: LocalizedStringInput
+  contactEmail: String
 }
 
 input TalentNominationEventBelongsTo {
@@ -2736,6 +2741,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {

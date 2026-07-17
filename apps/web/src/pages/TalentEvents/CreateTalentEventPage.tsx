@@ -95,6 +95,10 @@ const CreateTalentEventPage = () => {
       );
     }
 
+    if (!formValues.contactEmail) {
+      throw new Error("contact email is mandatory"); // form enforces this - just to make TS happy
+    }
+
     return executeMutation({
       talentNominationEvent: {
         ...formValues,
@@ -113,6 +117,7 @@ const CreateTalentEventPage = () => {
             })),
           ],
         },
+        contactEmail: formValues.contactEmail,
       },
     })
       .then(async (result) => {
