@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { useIntl, type MessageDescriptor } from "react-intl";
 
 import {
   notEmpty,
@@ -133,6 +133,13 @@ const ApplicantFilters = ({
   const filterTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
   );
+  const talentSourceLabels: Partial<
+    Record<TalentRequestSource, MessageDescriptor>
+  > = {
+    [TalentRequestSource.QualifiedInPool]:
+      talentRequestMessages.qualifiedInPoolLabel,
+    [TalentRequestSource.AtLevel]: talentRequestMessages.atLevelLabel,
+  };
 
   const communityName: string = applicantFilter?.community
     ? getLocalizedName(applicantFilter.community.name, intl)
@@ -159,18 +166,11 @@ const ApplicantFilters = ({
             content={
               <Ul unStyled noIndent inside>
                 {talentSourceOptionsFiltered.map((source) => {
-                  let label =
-                    source.label?.localized ??
-                    intl.formatMessage(commonMessages.notAvailable);
-                  if (source.value === TalentRequestSource.QualifiedInPool) {
-                    label = intl.formatMessage(
-                      talentRequestMessages.qualifiedInPoolLabel,
-                    );
-                  } else if (source.value === TalentRequestSource.AtLevel) {
-                    label = intl.formatMessage(
-                      talentRequestMessages.atLevelLabel,
-                    );
-                  }
+                  const messageDescriptor = talentSourceLabels[source.value];
+                  const label = messageDescriptor
+                    ? intl.formatMessage(messageDescriptor)
+                    : (source.label?.localized ??
+                      intl.formatMessage(commonMessages.notAvailable));
 
                   return (
                     <li key={source.value}>

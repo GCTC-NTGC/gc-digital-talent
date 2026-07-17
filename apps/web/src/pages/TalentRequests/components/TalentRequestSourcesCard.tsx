@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { useIntl, type MessageDescriptor } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import {
@@ -80,6 +80,13 @@ const TalentRequestSourcesCard = ({
   const selectedTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
   );
+  const talentSourceLabels: Partial<
+    Record<TalentRequestSource, MessageDescriptor>
+  > = {
+    [TalentRequestSource.QualifiedInPool]:
+      talentRequestMessages.qualifiedInPoolLabel,
+    [TalentRequestSource.AtLevel]: talentRequestMessages.atLevelLabel,
+  };
 
   return (
     <TalentRequestSectionCard
@@ -115,14 +122,10 @@ const TalentRequestSourcesCard = ({
         >
           <Ul unStyled noIndent inside>
             {talentSourceOptionsFiltered.map((source) => {
-              let label = source.label?.localized ?? notProvided;
-              if (source.value === TalentRequestSource.QualifiedInPool) {
-                label = intl.formatMessage(
-                  talentRequestMessages.qualifiedInPoolLabel,
-                );
-              } else if (source.value === TalentRequestSource.AtLevel) {
-                label = intl.formatMessage(talentRequestMessages.atLevelLabel);
-              }
+              const messageDescriptor = talentSourceLabels[source.value];
+              const label = messageDescriptor
+                ? intl.formatMessage(messageDescriptor)
+                : (source.label?.localized ?? notProvided);
 
               return (
                 <li key={source.value}>
