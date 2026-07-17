@@ -48,13 +48,13 @@ export function setTokensFromLocation(url: URL): boolean {
         localStorage.setItem(ID_TOKEN, newTokens.idToken);
       }
 
-      // Log the successful GCKey login event
-      logger.debug("Logging GCKey login success event");
+      // Log the successful login event
+      logger.debug("Logging Auth login success event");
       const referrer = document.referrer || "none";
       if (appInsights) {
         const aiUserId = appInsights?.context?.user?.id || "unknown";
         appInsights.trackEvent?.(
-          { name: "GCKey Login Success" },
+          { name: "Auth Login Success" },
           {
             aiUserId,
             pageUrl: window.location.href,
