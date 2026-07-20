@@ -141,7 +141,7 @@ class TalentSearch extends AppPage {
       .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
       .click();
 
-    await this.waitForGraphqlResponse("CandidateCount");
+    await this.waitForGraphqlResponse("CountTalentRequestMatches");
     await expect(poolCard).toBeVisible();
     await poolCard.getByRole("button", { name: /request candidates/i }).click();
   }
