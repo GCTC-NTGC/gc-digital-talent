@@ -8,7 +8,6 @@ import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   ApplicantFilterInput,
   Classification,
-  CandidateCountQueryVariables,
 } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
@@ -72,7 +71,7 @@ const durationSelectionToEnum = (
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
-): CandidateCountQueryVariables => {
+): { where?: ApplicantFilterInput } => {
   if (empty(filter)) {
     return {};
   }
