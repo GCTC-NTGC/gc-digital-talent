@@ -113,6 +113,15 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
             localized
           }
         }
+        matchingQualifiedInPoolSources {
+          pool {
+            id
+            name {
+              en
+              fr
+            }
+          }
+        }
         skillCount
       }
 
@@ -327,6 +336,23 @@ const TalentRequestMatchesTable = ({
       {
         id: "sources",
         header: intl.formatMessage(talentRequestMessages.talentSource),
+        enableSorting: false,
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ matchingQualifiedInPoolSources }) =>
+        unpackMaybes(matchingQualifiedInPoolSources)
+          .map(({ pool }) => getLocalizedName(pool.name, intl))
+          .join(", "),
+      {
+        id: "qualifiedPools",
+        header: intl.formatMessage({
+          defaultMessage: "Qualified pool",
+          id: "eBz7Va",
+          description:
+            "Header for the column showing which pool(s) a candidate is qualified in",
+        }),
         enableSorting: false,
         enableColumnFilter: false,
       },
