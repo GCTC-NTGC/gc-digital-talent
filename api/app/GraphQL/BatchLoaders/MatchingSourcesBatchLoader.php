@@ -9,16 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Batches the per-source match lookups for a page of tracked users into one query per
- * source, so the tracking list does not run a match query per row (issue #17468).
- *
- * One instance is created per GraphQL field path (see BatchLoaderRegistry), so every row's
- * matching*Sources field for the same list shares this loader. All rows on a page belong to
- * the same talent request, so they share one set of match filters.
+ * Batches per-source match lookups for a page of tracked users into one query per source.
+ * All tracked users passed to one instance must belong to the same talent request.
  */
 final class MatchingSourcesBatchLoader
 {
-    /** @var array<string, TalentRequestTrackedUser> keyed by the tracked user's user_id */
+    /** @var array<string, true> keyed by the tracked user's user_id */
     protected array $userIds = [];
 
     /** @var array<string, Collection<int, Model>> keyed by user_id */
@@ -38,7 +34,7 @@ final class MatchingSourcesBatchLoader
     public function load(TalentRequestTrackedUser $trackedUser): Deferred
     {
         $userId = $trackedUser->user_id;
-        $this->userIds[$userId] = $trackedUser;
+        $this->userIds[$userId] = true;
 
         return new Deferred(function () use ($userId) {
             if (! $this->hasResolved) {
