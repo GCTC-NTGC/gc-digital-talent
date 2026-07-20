@@ -23,6 +23,7 @@ use Carbon\CarbonImmutable;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -1858,5 +1859,74 @@ class TalentRequestTrackedUserTest extends TestCase
 
         $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], array_column($byUser[$withCandidacy->id]['sources'], 'value'));
         $this->assertEquals([], array_column($byUser[$withoutCandidacy->id]['sources'], 'value'));
+    }
+
+    // Regression guard for issue #17468: the tracking list resolved each row's matching pool
+    // sources with its own query, so a page of many rows fired a query per row and timed out.
+    // The lookups are now batched, so a page of many rows makes only one pool_candidates query.
+    public function testTrackedUsersListBatchesMatchingPoolSources(): void
+    {
+        $request = $this->seedReferredMatchingUsers(25);
+
+        $listQuery = <<<'GRAPHQL'
+            query ($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: 50) {
+                    data {
+                        matchingQualifiedInPoolSources { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($listQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(25, 'data.talentRequestTrackedUsers.data');
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        // The batched lookup queries pool_candidates for a set of user ids at once. A per-row
+        // regression would instead query one user id at a time ("user_id" = ?).
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "pool_candidates"')
+                && str_contains($entry['query'], '"user_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Matching pool sources must load in one batched query, not one per row.',
+        );
+    }
+
+    private function seedReferredMatchingUsers(int $count): TalentRequest
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()
+            ->for($this->community)
+            ->for($filter)
+            ->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()
+            ->for($this->community)
+            ->for($classification)
+            ->create();
+
+        for ($i = 0; $i < $count; $i++) {
+            $user = User::factory()->create();
+            PoolCandidate::factory()->availableInSearch()
+                ->for($user)
+                ->for($pool)
+                ->create();
+            TalentRequestTrackedUser::factory()->referred()
+                ->for($request)
+                ->for($user)
+                ->create();
+        }
+
+        return $request;
     }
 }
