@@ -83,17 +83,31 @@ class TalentRequestTrackedUser extends Pivot
             ->whereAuthorizedToView();
     }
 
-    /** @return Attribute<array<string>, never> */
+    /** @return Attribute<list<string>, never> */
     protected function sources(): Attribute
     {
         return Attribute::get(function (): array {
-            $filters = $this->talentRequest->applicantFilter?->toMatchFilters() ?? [];
-
+            $attributes = $this->getAttributes();
+            $hasExistsColumns = false;
             $matchedSources = [];
             foreach (TalentRequestSource::cases() as $source) {
-                if ($source->matchRelation() && $this->getAttribute(self::sourceExistsColumn($source))) {
+                if (! $source->matchRelation()) {
+                    continue;
+                }
+                $column = self::sourceExistsColumn($source);
+                if (! array_key_exists($column, $attributes)) {
+                    continue;
+                }
+                $hasExistsColumns = true;
+                if ($this->getAttribute($column)) {
                     $matchedSources[] = $source->name;
                 }
+            }
+
+            $filters = $this->talentRequest->applicantFilter?->toMatchFilters() ?? [];
+
+            if (! $hasExistsColumns) {
+                $matchedSources = $this->user->talentRequestSources($filters);
             }
 
             $selectedNames = array_map(

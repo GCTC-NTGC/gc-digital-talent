@@ -34,6 +34,8 @@ class ApplicantFilter extends Model
 
     protected $keyType = 'string';
 
+    protected $with = ['qualifiedInClassifications', 'qualifiedInWorkStreams'];
+
     /**
      * The attributes that should be cast.
      */
