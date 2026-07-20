@@ -65,6 +65,12 @@ final class UpdateTalentNominationGroupValidator extends Validator
             'talentNominationGroup.advancementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE->name,
             'talentNominationGroup.lateralMovementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE->name,
             'talentNominationGroup.developmentProgramsDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE->name,
+            'talentNominationGroup.advancementClassifications.required_with' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.advancementClassifications.sync.min' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.advancementClassifications.sync.prohibited' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name,
+            'talentNominationGroup.advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
+            'talentNominationGroup.referralExpiryDate.present_with' => ErrorCode::REFERRAL_EXPIRY_DATE_REQUIRED->name,
+            'talentNominationGroup.referralExpiryDate.prohibited' => ErrorCode::REFERRAL_EXPIRY_DATE_PROHIBITED->name,
         ];
     }
 }
