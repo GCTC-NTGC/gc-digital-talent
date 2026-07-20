@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 
 import type {
   FragmentType,
-  PreviewListItemSearchRequestFragment,
+  PreviewListItemTalentRequestFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -15,30 +15,32 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
-import { deriveChipSettings } from "./utils";
+import { TALENT_REQUEST_STATUS_COLOUR_MAP } from "~/utils/searchRequestUtils";
 
-const PreviewListItemPoolCandidateSearchRequest_Fragment = graphql(
-  /* GraphQL */ `
-    fragment PreviewListItemSearchRequest on PoolCandidateSearchRequest {
-      id
-      jobTitle
-      status {
-        value
+import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
+
+const PreviewListItemTalentRequest_Fragment = graphql(/* GraphQL */ `
+  fragment PreviewListItemTalentRequest on TalentRequest {
+    id
+    jobTitle
+    talentRequestStatus {
+      value
+      label {
+        localized
       }
-      requestedDate
-      applicantFilter {
-        qualifiedInClassifications {
-          groupAndLevel
-        }
-      }
-      initialResultCount
     }
-  `,
-);
+    requestedDate
+    applicantFilter {
+      qualifiedInClassifications {
+        groupAndLevel
+      }
+    }
+    initialResultCount
+  }
+`);
 
 function buildTitle(
-  request: PreviewListItemSearchRequestFragment,
+  request: PreviewListItemTalentRequestFragment,
   intl: IntlShape,
 ): string {
   const classifications = unpackMaybes(
@@ -58,19 +60,17 @@ function buildTitle(
   return completedTitle;
 }
 
-interface PoolCandidateSearchRequestPreviewListItemProps {
-  poolCandidateSearchRequestQuery: FragmentType<
-    typeof PreviewListItemPoolCandidateSearchRequest_Fragment
-  >;
+interface TalentRequestPreviewListItemProps {
+  talentRequestQuery: FragmentType<typeof PreviewListItemTalentRequest_Fragment>;
 }
 
-const PoolCandidateSearchRequestPreviewListItem = ({
-  poolCandidateSearchRequestQuery,
-}: PoolCandidateSearchRequestPreviewListItemProps) => {
+const TalentRequestPreviewListItem = ({
+  talentRequestQuery,
+}: TalentRequestPreviewListItemProps) => {
   const intl = useIntl();
   const request = getFragment(
-    PreviewListItemPoolCandidateSearchRequest_Fragment,
-    poolCandidateSearchRequestQuery,
+    PreviewListItemTalentRequest_Fragment,
+    talentRequestQuery,
   );
 
   const title = buildTitle(request, intl);
@@ -80,13 +80,13 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   >["metaData"];
   type MetaDataPropItem = MetaDataProps[number];
   const metaDataProps: MetaDataPropItem[] = [];
-  if (request.status?.value) {
-    const chipSettings = deriveChipSettings(request.status.value, intl);
+  if (request.talentRequestStatus) {
     metaDataProps.push({
       key: "status-chip",
       type: "chip",
-      color: chipSettings.color,
-      children: chipSettings.label,
+      color:
+        TALENT_REQUEST_STATUS_COLOUR_MAP[request.talentRequestStatus.value],
+      children: request.talentRequestStatus.label.localized,
     });
   }
   if (typeof request.initialResultCount === "number") {
@@ -146,4 +146,4 @@ const PoolCandidateSearchRequestPreviewListItem = ({
   );
 };
 
-export default PoolCandidateSearchRequestPreviewListItem;
+export default TalentRequestPreviewListItem;
