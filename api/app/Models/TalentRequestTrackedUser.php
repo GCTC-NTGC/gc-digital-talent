@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\UserBuilder;
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
@@ -85,8 +86,35 @@ class TalentRequestTrackedUser extends Pivot
     /** @return Attribute<array<string>, never> */
     protected function sources(): Attribute
     {
-        return Attribute::get(fn (): array => $this->user
-            ->talentRequestSources($this->talentRequest->applicantFilter?->toMatchFilters() ?? []));
+        return Attribute::get(function (): array {
+            // Fast path: the paginated tracking list adds a per-source existence flag via
+            // scopeWithSourceExists, so we never hydrate the full match collections here.
+            $attributes = $this->getAttributes();
+            $hasExistsColumns = false;
+            $sources = [];
+            foreach (TalentRequestSource::cases() as $source) {
+                if (! $source->matchRelation()) {
+                    continue;
+                }
+                $column = self::sourceExistsColumn($source);
+                if (! array_key_exists($column, $attributes)) {
+                    continue;
+                }
+                $hasExistsColumns = true;
+                if ($this->getAttribute($column)) {
+                    $sources[] = $source->name;
+                }
+            }
+
+            if ($hasExistsColumns) {
+                return $sources;
+            }
+
+            // Fallback (e.g. the nested talentRequest.trackedUsers path, which does not run
+            // scopeWithSourceExists): compute from the user's matched relations.
+            return $this->user
+                ->talentRequestSources($this->talentRequest->applicantFilter?->toMatchFilters() ?? []);
+        });
     }
 
     /**
@@ -146,6 +174,57 @@ class TalentRequestTrackedUser extends Pivot
                     ->whereColumn('talent_requests.id', 'talent_request_tracked_users.talent_request_id');
             }),
         ]);
+    }
+
+    /**
+     * Add a per-source boolean existence flag for each source the request queries, so the
+     * `sources` accessor can report which sources a tracked user matched without hydrating
+     * the full match collections. Each flag is a correlated scalar subquery that short-circuits
+     * (limit 1), constrained by the same match rules the eager-loaded relations use.
+     */
+    public function scopeWithSourceExists(Builder $query, string $talentRequestId): Builder
+    {
+        $filter = TalentRequest::with([
+            'applicantFilter.qualifiedInClassifications',
+            'applicantFilter.qualifiedInWorkStreams',
+        ])->find($talentRequestId)?->applicantFilter;
+
+        if (! $filter) {
+            return $query;
+        }
+
+        $filters = $filter->toMatchFilters();
+
+        foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
+            $builder = match ($source) {
+                TalentRequestSource::QUALIFIED_IN_POOL => PoolCandidate::query(),
+                TalentRequestSource::AT_LEVEL => CommunityInterest::query(),
+                default => null,
+            };
+
+            if (! $builder) {
+                continue;
+            }
+
+            $table = $builder->getModel()->getTable();
+
+            $query->addSelect([
+                self::sourceExistsColumn($source) => $builder
+                    ->selectRaw('1')
+                    ->whereColumn($table.'.user_id', 'talent_request_tracked_users.user_id')
+                    ->whereMatchesTalentRequest($filters)
+                    ->whereAuthorizedToView()
+                    ->limit(1),
+            ]);
+        }
+
+        return $query;
+    }
+
+    // Column alias holding the per-source existence flag added by scopeWithSourceExists.
+    private static function sourceExistsColumn(TalentRequestSource $source): string
+    {
+        return 'source_exists_'.strtolower($source->name);
     }
 
     public function scopeWithTalentRequestMatches(Builder $query, string $talentRequestId): Builder
