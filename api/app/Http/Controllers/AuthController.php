@@ -68,8 +68,7 @@ class AuthController extends Controller
             'state' => $state,
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
-            'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $lang,  // This is what CanadaLogin wants
+            'lang' => $lang,
             'skipmigration' => $request->input('skipmigration', null),
         ]);
 
