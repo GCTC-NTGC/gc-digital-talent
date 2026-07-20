@@ -61,7 +61,9 @@ function buildTitle(
 }
 
 interface TalentRequestPreviewListItemProps {
-  talentRequestQuery: FragmentType<typeof PreviewListItemTalentRequest_Fragment>;
+  talentRequestQuery: FragmentType<
+    typeof PreviewListItemTalentRequest_Fragment
+  >;
 }
 
 const TalentRequestPreviewListItem = ({
