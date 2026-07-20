@@ -2,7 +2,13 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
-import { Checkbox, RadioGroup, RichTextInput } from "@gc-digital-talent/forms";
+import {
+  Checkbox,
+  Combobox,
+  DateInput,
+  RadioGroup,
+  RichTextInput,
+} from "@gc-digital-talent/forms";
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -11,7 +17,7 @@ import {
   graphql,
   TalentNominationGroupDecision,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -29,6 +35,22 @@ const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
         }
         advancementReferenceFallbackWorkEmail
       }
+      advancementClassifications {
+        id
+        groupAndLevel
+      }
+      referralExpiryDate
+    }
+  `,
+);
+
+const NominationGroupEvaluationDialogAdvancementOptions_Fragment = graphql(
+  /* GraphQL */ `
+    fragment NominationGroupEvaluationDialogAdvancementOptions on Query {
+      classifications {
+        id
+        groupAndLevel
+      }
     }
   `,
 );
@@ -37,10 +59,14 @@ interface AdvancementSectionProps {
   talentNominationGroupQuery: FragmentType<
     typeof NominationGroupEvaluationDialogAdvancement_Fragment
   >;
+  talentNominationGroupOptionsQuery: FragmentType<
+    typeof NominationGroupEvaluationDialogAdvancementOptions_Fragment
+  >;
 }
 
 const AdvancementSection = ({
   talentNominationGroupQuery,
+  talentNominationGroupOptionsQuery,
 }: AdvancementSectionProps) => {
   const intl = useIntl();
 
@@ -50,7 +76,7 @@ const AdvancementSection = ({
   useEffect(() => {
     const resetDirtyField = (
       name: keyof FormValues,
-      defaultValue: null | string | boolean,
+      defaultValue: null | string | boolean | string[],
     ) => {
       resetField(name, { keepDirty: false, defaultValue });
     };
@@ -60,6 +86,8 @@ const AdvancementSection = ({
     ) {
       resetDirtyField("advancementReferenceConfirmed", null);
       resetDirtyField("advancementApprovedNotes", null);
+      resetDirtyField("advancementClassifications", []);
+      resetDirtyField("referralExpiryDate", "");
     }
 
     if (
@@ -72,6 +100,10 @@ const AdvancementSection = ({
   const talentNominationGroup = getFragment(
     NominationGroupEvaluationDialogAdvancement_Fragment,
     talentNominationGroupQuery,
+  );
+  const talentNominationGroupOptions = getFragment(
+    NominationGroupEvaluationDialogAdvancementOptions_Fragment,
+    talentNominationGroupOptionsQuery,
   );
 
   const nominations = talentNominationGroup.nominations ?? [];
@@ -136,6 +168,31 @@ const AdvancementSection = ({
             boundingBoxLabel={intl.formatMessage(
               formMessages.referenceConfirmationLabel,
             )}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <Combobox
+            id="advancementClassifications"
+            name="advancementClassifications"
+            isMulti
+            label={intl.formatMessage(formMessages.advancementClassifications)}
+            options={unpackMaybes(
+              talentNominationGroupOptions?.classifications,
+            ).map(({ id, groupAndLevel }) => ({
+              value: id,
+              label:
+                groupAndLevel ?? intl.formatMessage(commonMessages.notProvided),
+            }))}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <DateInput
+            id="referralExpiryDate"
+            name="referralExpiryDate"
+            legend={intl.formatMessage(formMessages.referralExpiryDate)}
+            context={intl.formatMessage(formMessages.referralExpiryDateContext)}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}

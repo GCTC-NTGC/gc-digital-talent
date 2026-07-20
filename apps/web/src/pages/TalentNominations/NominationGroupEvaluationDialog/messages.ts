@@ -53,6 +53,22 @@ export const formMessages = defineMessages({
     id: "FcHUIQ",
     description: "Statement of confirmation for reference check",
   },
+  advancementClassifications: {
+    defaultMessage: "Classifications this nominee is eligible to advance to",
+    id: "K5x0Ph",
+    description: "Label for advancement eligible classifications field",
+  },
+  referralExpiryDate: {
+    defaultMessage: "Referral expiry date",
+    id: "VeYTqO",
+    description: "Label for referral expiry date field",
+  },
+  referralExpiryDateContext: {
+    defaultMessage:
+      "The nominee will be referred for the classifications chosen above until this date (inclusive).",
+    id: "rnFFzE",
+    description: "Help text for referral expiry date field",
+  },
   approvalNotes: {
     defaultMessage: "Additional notes",
     id: "h9XSU5",
