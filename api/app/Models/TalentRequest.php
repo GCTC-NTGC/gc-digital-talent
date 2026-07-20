@@ -116,7 +116,7 @@ class TalentRequest extends Model
     /** @return HasMany<TalentRequestTrackedUser, $this> */
     public function trackedUsers(): HasMany
     {
-        return $this->hasMany(TalentRequestTrackedUser::class);
+        return $this->hasMany(TalentRequestTrackedUser::class)->withSourceExists($this->id);
     }
 
     /**
