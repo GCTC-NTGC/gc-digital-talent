@@ -12,7 +12,7 @@ import {
   useAuthorization,
 } from "@gc-digital-talent/auth";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import { getRuntimeVariable, useFeatureFlags } from "@gc-digital-talent/env";
+import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import authMessages from "~/messages/authMessages";
@@ -35,7 +35,6 @@ const useMainNavLinks = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const { pathname } = useLocation();
-  const featureFlags = useFeatureFlags();
 
   const { navRole } = useNavContext();
   const { userAuthInfo } = useAuthorization();
@@ -275,16 +274,15 @@ const useMainNavLinks = () => {
   );
 
   const manageAuthAccountLink = getRuntimeVariable("OAUTH_MANAGE_ACCOUNT_URI");
-  const ManageAuthAccount =
-    featureFlags.canadaLogin && manageAuthAccountLink ? (
-      <NavItem
-        key="manageAuthAccount"
-        href={manageAuthAccountLink}
-        title={intl.formatMessage(authMessages.manageAuthAccount)}
-        subMenu
-        newTab
-      />
-    ) : null;
+  const ManageAuthAccount = manageAuthAccountLink ? (
+    <NavItem
+      key="manageAuthAccount"
+      href={manageAuthAccountLink}
+      title={intl.formatMessage(authMessages.manageAuthAccount)}
+      subMenu
+      newTab
+    />
+  ) : null;
 
   const getRoleName: Record<string, string> = {
     ["applicant"]: intl.formatMessage(navMenuMessages.applicant),
