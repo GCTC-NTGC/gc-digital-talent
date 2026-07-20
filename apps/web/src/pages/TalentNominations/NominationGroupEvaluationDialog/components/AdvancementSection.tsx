@@ -176,7 +176,13 @@ const AdvancementSection = ({
             id="advancementClassifications"
             name="advancementClassifications"
             isMulti
-            label={intl.formatMessage(formMessages.advancementClassifications)}
+            label={intl.formatMessage({
+              defaultMessage:
+                "Classifications this nominee is eligible to advance to",
+              id: "K5x0Ph",
+              description:
+                "Label for advancement eligible classifications field",
+            })}
             options={unpackMaybes(
               talentNominationGroupOptions?.classifications,
             ).map(({ id, groupAndLevel }) => ({
@@ -191,8 +197,17 @@ const AdvancementSection = ({
           <DateInput
             id="referralExpiryDate"
             name="referralExpiryDate"
-            legend={intl.formatMessage(formMessages.referralExpiryDate)}
-            context={intl.formatMessage(formMessages.referralExpiryDateContext)}
+            legend={intl.formatMessage({
+              defaultMessage: "Referral expiry date",
+              id: "VeYTqO",
+              description: "Label for referral expiry date field",
+            })}
+            context={intl.formatMessage({
+              defaultMessage:
+                "The nominee will be referred for the classifications chosen above until this date (inclusive).",
+              id: "rnFFzE",
+              description: "Help text for referral expiry date field",
+            })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
