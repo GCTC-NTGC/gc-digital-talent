@@ -140,7 +140,7 @@ export default [
             index("./pages/ApplicantDashboardPage/ApplicantDashboardPage.tsx"),
             route(
               "settings",
-              "./pages/Profile/AccountSettings/AccountSettingsPageWrapper.tsx",
+              "./pages/Profile/AccountSettings/AccountSettingsPage.tsx",
             ),
             route(
               "notifications",
