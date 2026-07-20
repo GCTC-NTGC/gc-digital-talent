@@ -23,7 +23,6 @@ import {
   Button,
   Separator,
   IconLink,
-  Ul,
   Container,
 } from "@gc-digital-talent/ui";
 import type { Locales } from "@gc-digital-talent/i18n";
@@ -47,7 +46,6 @@ import {
   getFragment,
 } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import {
   contactEmailTag,
@@ -100,19 +98,6 @@ const standardsLink = (locale: Locales, chunks: ReactNode) => (
       locale === "en"
         ? "https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html"
         : "https://www.canada.ca/fr/secretariat-conseil-tresor/services/dotation/normes-qualification/centrale.html"
-    }
-  >
-    {chunks}
-  </Link>
-);
-
-const gocGCKeyLink = (locale: Locales, chunks: ReactNode) => (
-  <Link
-    external
-    href={
-      locale === "en"
-        ? "https://clegc-gckey.gc.ca/j/eng/CU-01"
-        : "https://clegc-gckey.gc.ca/j/fra/CU-01"
     }
   >
     {chunks}
@@ -321,9 +306,6 @@ export const PoolPoster = ({
   const pool = getFragment(PoolAdvertisement_Fragment, poolQuery);
 
   const departmentName = getLocalizedName(pool.department?.name, intl, true);
-
-  // feature flag
-  const featureFlags = useFeatureFlags();
 
   const { classification } = pool;
   const genericJobTitles =
@@ -1199,93 +1181,35 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    {featureFlags?.canadaLogin ? (
-                      <>
-                        <Text className="m-y0">
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "We’ve set up <linkToRegisterGuidance>a guide explaining how to create a CanadaLogin and set up two-step verification</linkToRegisterGuidance>. We also have <linkToSignInGuidance>instructions on how to sign in using CanadaLogin</linkToSignInGuidance>. If the issue persists, contact the <linkToCanadaLoginTeam>CanadaLogin team</linkToCanadaLoginTeam>.",
-                              id: "1EGyaU",
-                              description:
-                                "Text explaining where to get support for Canada Login sign up or sign in issues",
-                            },
-                            {
-                              linkToRegisterGuidance: (chunks: ReactNode) =>
-                                internalLink(paths.register(), chunks),
-                              linkToSignInGuidance: (chunks: ReactNode) =>
-                                internalLink(paths.login(), chunks),
-                              linkToCanadaLoginTeam: (chunks: ReactNode) => (
-                                <Link
-                                  external
-                                  href={
-                                    intl.locale === "fr"
-                                      ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
-                                      : "https://login.canada.ca/en/users/contact-us/"
-                                  }
-                                >
-                                  {chunks}
-                                </Link>
-                              ),
-                            },
-                          )}
-                        </Text>
-                      </>
-                    ) : (
-                      <>
-                        <Text className="m-y0">
-                          {intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "We've set up <link>a guide explaining how to set up GCKey and two-factor authentication</link>. We also have <use2FALink>instructions on how to use two-factor authentication to log in</use2FALink>. If the issue persists, contact us.",
-                              id: "MYnfw/",
-                              description:
-                                "Text explaining the importance of reporting technical issues",
-                            },
-                            {
-                              link: (chunks: ReactNode) =>
-                                internalLink(paths.register(), chunks),
-                              use2FALink: (chunks: ReactNode) =>
-                                internalLink(paths.login(), chunks),
-                            },
-                          )}
-                        </Text>
-                        <Text>
-                          <Ul className="mt-3">
-                            <li>
-                              {intl.formatMessage(
-                                {
-                                  defaultMessage:
-                                    "For trouble creating a GCKey, <link>contact the GCKey team</link>.",
-                                  id: "YzGpQQ",
-                                  description:
-                                    "Bullet point about contacting GCKey support",
-                                },
-                                {
-                                  link: (chunks: ReactNode) =>
-                                    gocGCKeyLink(locale, chunks),
-                                },
-                              )}
-                            </li>
-                            <li>
-                              {intl.formatMessage(
-                                {
-                                  defaultMessage:
-                                    "For trouble setting up or logging in with two-factor authentication, <link>contact our support team</link>.",
-                                  id: "k1HxPf",
-                                  description:
-                                    "Bullet point about contacting support for 2FA issues",
-                                },
-                                {
-                                  link: (chunks: ReactNode) =>
-                                    internalLink(paths.support(), chunks),
-                                },
-                              )}
-                            </li>
-                          </Ul>
-                        </Text>
-                      </>
-                    )}
+                    <Text className="m-y0">
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "We’ve set up <linkToRegisterGuidance>a guide explaining how to create a CanadaLogin and set up two-step verification</linkToRegisterGuidance>. We also have <linkToSignInGuidance>instructions on how to sign in using CanadaLogin</linkToSignInGuidance>. If the issue persists, contact the <linkToCanadaLoginTeam>CanadaLogin team</linkToCanadaLoginTeam>.",
+                          id: "1EGyaU",
+                          description:
+                            "Text explaining where to get support for Canada Login sign up or sign in issues",
+                        },
+                        {
+                          linkToRegisterGuidance: (chunks: ReactNode) =>
+                            internalLink(paths.register(), chunks),
+                          linkToSignInGuidance: (chunks: ReactNode) =>
+                            internalLink(paths.login(), chunks),
+                          linkToCanadaLoginTeam: (chunks: ReactNode) => (
+                            <Link
+                              external
+                              href={
+                                intl.locale === "fr"
+                                  ? "https://connexion.canada.ca/fr/utilisateurs/nous-contacter/"
+                                  : "https://login.canada.ca/en/users/contact-us/"
+                              }
+                            >
+                              {chunks}
+                            </Link>
+                          ),
+                        },
+                      )}
+                    </Text>
                   </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item value={moreInfoAccordions.accommodations}>
