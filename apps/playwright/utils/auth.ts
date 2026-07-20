@@ -112,7 +112,7 @@ export async function getTokenForSub(sub: string) {
  * Login by sub
  *
  * On UAT (TESTING_ENDPOINT_SECRET set): injects tokens directly into localStorage.
- * On local/CI: navigates through the mock GCKey UI.
+ * On local/CI: navigates through the mock auth UI.
  *
  * @param {Page} page
  * @param {String} sub
@@ -139,7 +139,7 @@ export async function loginBySub(
     return;
   }
 
-  // Local: navigate through mock GCKey UI
+  // Local: navigate through mock auth UI
   await page.goto("/en/login-info");
   await expect(
     page.getByRole("heading", { name: /sign in using gckey/i }),

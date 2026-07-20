@@ -25,7 +25,7 @@ class BearerTokenServiceProvider extends ServiceProvider
             );
 
             // When TESTING_TOKEN_ENABLED=true and APP_ENV_VERTICAL != production, wrap the
-            // real service so test tokens are validated locally while real GCKey tokens
+            // real service so test tokens are validated locally while real tokens
             // pass through unchanged.
             if (config('testing.token_enabled') && config('app.vertical') !== 'production') {
                 $jwtSecret = config('testing.jwt_secret');
