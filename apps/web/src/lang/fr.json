@@ -4540,7 +4540,7 @@
     "description": "The basic details of a job poster template"
   },
   "G8+gPB": {
-    "defaultMessage": "Effectuez cette action uniquement après avoir confirmé l'identité de l'utilisateur et vérifié que son ajout à ce processus est conforme aux règles de la politique des RH.",
+    "defaultMessage": "Effectuez cette action uniquement après avoir confirmé l'identité de l'utilisateur et vérifié que son ajout à ce processus est conforme aux politiques des RH.",
     "description": "Warning about adding a user to a process manually"
   },
   "G8JoCN": {
