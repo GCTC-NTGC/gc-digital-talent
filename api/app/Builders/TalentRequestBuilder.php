@@ -90,10 +90,22 @@ class TalentRequestBuilder extends Builder
             return $this;
         }
 
-        if ($user?->isAbleTo('view-team-talentRequest')) {
-            $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-talentRequest');
+        $filterCountBefore = count($this->getQuery()->wheres);
+        $query = $this->where(function (Builder $query) use ($user) {
+            if ($user?->isAbleTo('view-team-talentRequest')) {
+                $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-talentRequest');
 
-            return $this->whereHas('community.team', fn (Builder $q) => $q->whereIn('id', $teamIds));
+                $query->orWhereHas('community.team', fn (Builder $q) => $q->whereIn('id', $teamIds));
+            }
+
+            if ($user?->isAbleTo('view-own-talentRequest')) {
+                $query->orWhere('user_id', $user->id);
+            }
+        });
+
+        $filterCountAfter = count($query->getQuery()->wheres);
+        if ($filterCountAfter > $filterCountBefore) {
+            return $query;
         }
 
         return $this->where('id', null);

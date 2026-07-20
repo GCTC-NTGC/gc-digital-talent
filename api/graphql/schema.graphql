@@ -181,9 +181,7 @@ type User {
 
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
-  talentRequests: [TalentRequest!]
-    @guard
-    @hasMany(scopes: ["whereAuthorizedToView"]) # Talent requests submitted by a user
+  talentRequests: [TalentRequest!] @hasMany(scopes: ["whereAuthorizedToView"]) # Talent requests submitted by a user
   # Nominations
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
