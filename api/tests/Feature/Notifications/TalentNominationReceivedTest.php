@@ -11,11 +11,11 @@ use App\Notifications\ApplicationStatusChanged;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentNominationReceivedNominator;
 use App\Notifications\TalentNominationReceivedSubmitter;
-use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -473,7 +473,8 @@ class TalentNominationReceivedTest extends TestCase
                     $channels[0] == GcNotifyEmailChannel::class &&
                     $notification->submitterName == 'submitter_first_name submitter_last_name' &&
                     $notification->nominatorName == 'fallback_nominator_name' &&
-                    $notification->nominatorWorkEmail == 'fallback_nominator@gc.ca';
+                    $notification->nominatorWorkEmail == 'fallback_nominator@gc.ca' &&
+                    $notification->locale == 'en-fr';
             }
 
         );
