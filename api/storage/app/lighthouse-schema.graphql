@@ -493,6 +493,7 @@ type Query {
   countApplicantsForSearch(where: ApplicantFilterInput): Int!
   countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
@@ -1613,7 +1614,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
-  talentSources: [TalentRequestSource!]
+  talentSources: [LocalizedTalentRequestSource!]
 }
 
 type PoolCandidateSearchRequest {
@@ -2060,6 +2061,13 @@ type TalentRequestResult {
 
 type TalentRequestMatchPoolCount {
   pool: Pool!
+  count: Int!
+}
+
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
   count: Int!
 }
 
@@ -2759,6 +2767,7 @@ input CreateApplicantFilterInput {
   qualifiedInClassifications: ClassificationBelongsToMany
   qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
+  talentSources: [TalentRequestSource!]
 }
 
 input ApplicantFilterBelongsTo {

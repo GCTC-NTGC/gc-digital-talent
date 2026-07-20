@@ -1090,7 +1090,8 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
-  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
+  talentSources: [LocalizedTalentRequestSource!]
+    @rename(attribute: "talent_sources")
 }
 
 type PoolCandidateSearchRequest {
@@ -1633,6 +1634,13 @@ type TalentRequestMatchPoolCount {
   count: Int!
 }
 
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
+  count: Int!
+}
+
 type SitewideAnnouncement {
   title: LocalizedString!
   message: LocalizedString!
@@ -1783,6 +1791,9 @@ type Query {
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(
+    where: TalentRequestMatchFilterInput
+  ): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
@@ -2842,6 +2853,7 @@ input CreateApplicantFilterInput {
   qualifiedInClassifications: ClassificationBelongsToMany
   qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 input ApplicantFilterBelongsTo {
