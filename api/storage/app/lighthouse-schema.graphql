@@ -928,6 +928,7 @@ type User {
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+  talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
 
