@@ -142,10 +142,10 @@ export async function loginBySub(
   // Local: navigate through mock auth UI
   await page.goto("/en/login-info");
   await expect(
-    page.getByRole("heading", { name: /sign in using gckey/i }),
+    page.getByRole("heading", { name: /sign in using canadalogin/i }),
   ).toBeVisible();
   await page
-    .getByRole("link", { name: /sign in with gckey/i })
+    .getByRole("link", { name: /get started/i })
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
