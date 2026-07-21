@@ -22,7 +22,7 @@ enum EmailType: string
     public static function verifiableGroup(): array
     {
         return [
-            EmailType::WORK->name,
+            EmailType::WORK,
         ];
     }
 }

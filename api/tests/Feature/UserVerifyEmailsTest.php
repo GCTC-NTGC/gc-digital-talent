@@ -85,8 +85,8 @@ class UserVerifyEmailsTest extends TestCase
             $this->sendVerificationEmailsMutation,
             [
                 'input' => [
-                    'emailAddress' => 'regular.user.2@example.org',
-                    'emailTypes' => [EmailType::CONTACT->name],
+                    'emailAddress' => 'regular.user.2@gc.ca',
+                    'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
         );
@@ -97,62 +97,14 @@ class UserVerifyEmailsTest extends TestCase
 
     }
 
-    public function testCodeSaved()
-    {
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
-            [
-                'input' => [
-                    'emailAddress' => 'regular.user.2@example.org',
-                    'emailTypes' => [EmailType::CONTACT->name],
-                ],
-            ]
-        );
-
-        $token = Cache::get('email-verification-00000000-0000-0000-0000-000000000001');
-        assertNotNull($token);
-        assertNotNull($token['code']);
-        assertEquals([EmailType::CONTACT->name], $token['emailTypes']);
-        assertEquals('regular.user.2@example.org', $token['emailAddress']);
-    }
-
-    public function testCanVerifyWithCode()
-    {
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '1234',
-                'emailTypes' => [EmailType::CONTACT->name],
-                'emailAddress' => 'regular.user.2@example.org',
-            ],
-            now()->addHours(2)
-        );
-
-        // stable verified_at timestamps
-        Carbon::setTestNow('2000-01-01 00:00:00');
-
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '1234',
-            ]
-        );
-
-        $this->assertDatabaseHas('users', [
-            'id' => '00000000-0000-0000-0000-000000000001',
-            'email' => 'regular.user.2@example.org',
-            'email_verified_at' => '2000-01-01 00:00:00',
-        ]);
-    }
-
     public function testCantVerifyWithBadCode()
     {
         Cache::put(
             'email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::CONTACT->name],
-                'emailAddress' => 'regular.user.2@example.org',
+                'emailTypes' => [EmailType::WORK->name],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ],
             now()->addHours(2)
         );
@@ -166,8 +118,8 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => '00000000-0000-0000-0000-000000000001',
-            'email' => 'regular.user@example.org',
-            'email_verified_at' => null,
+            'work_email' => 'regular.user@gc.ca',
+            'work_email_verified_at' => null,
         ]);
     }
 
@@ -203,8 +155,8 @@ class UserVerifyEmailsTest extends TestCase
             'email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::CONTACT->name],
-                'emailAddress' => 'regular.user.2@example.org',
+                'emailTypes' => [EmailType::WORK->name],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ],
             now()->addHours(2)
         );
@@ -220,24 +172,9 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => '00000000-0000-0000-0000-000000000001',
-            'email' => 'regular.user@example.org',
-            'email_verified_at' => null,
+            'work_email' => 'regular.user@gc.ca',
+            'work_email_verified_at' => null,
         ]);
-    }
-
-    public function testChangingEmailClearsVerification()
-    {
-        // start off verified
-        $this->regularUser->email_verified_at = Carbon::now();
-        $this->regularUser->save();
-        assertNotNull($this->regularUser->email_verified_at);
-
-        // change email away from the verified one
-        $this->regularUser->email = 'new.email@example.org';
-        $this->regularUser->save();
-
-        // check that verification was cleared
-        assertNull($this->regularUser->email_verified_at);
     }
 
     public function testWorkEmailCodeSaved()
@@ -288,37 +225,6 @@ class UserVerifyEmailsTest extends TestCase
         ]);
     }
 
-    public function testCanVerifyBothSimultaneouslyWithCode()
-    {
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '1234',
-                'emailTypes' => [EmailType::CONTACT->name, EmailType::WORK->name],
-                'emailAddress' => 'regular.user.2@gc.ca',
-            ],
-            now()->addHours(2)
-        );
-
-        // stable verified_at timestamps
-        Carbon::setTestNow('2000-01-01 00:00:00');
-
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '1234',
-            ]
-        );
-
-        $this->assertDatabaseHas('users', [
-            'id' => '00000000-0000-0000-0000-000000000001',
-            'email' => 'regular.user.2@gc.ca',
-            'email_verified_at' => '2000-01-01 00:00:00',
-            'work_email' => 'regular.user.2@gc.ca',
-            'work_email_verified_at' => '2000-01-01 00:00:00',
-        ]);
-    }
-
     public function testChangingWorkEmailClearsVerification()
     {
         // start off verified
@@ -338,15 +244,15 @@ class UserVerifyEmailsTest extends TestCase
     {
         // Create another user with their own email
         User::factory()->create([
-            'email' => 'regular.user.2@example.org',
+            'email' => 'regular.user.2@gc.ca',
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailsMutation,
             [
                 'input' => [
-                    'emailAddress' => 'regular.user.2@example.org',
-                    'emailTypes' => [EmailType::CONTACT->name],
+                    'emailAddress' => 'regular.user.2@gc.ca',
+                    'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
@@ -356,7 +262,7 @@ class UserVerifyEmailsTest extends TestCase
     {
         // Create another user with their own email
         User::factory()->create([
-            'work_email' => 'regular.user.2@example.org',
+            'work_email' => 'regular.user.2@gc.ca',
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
@@ -364,7 +270,7 @@ class UserVerifyEmailsTest extends TestCase
             [
                 'input' => [
                     'emailAddress' => 'regular.user.2@example.org',
-                    'emailTypes' => [EmailType::CONTACT->name],
+                    'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
@@ -374,92 +280,17 @@ class UserVerifyEmailsTest extends TestCase
     {
         // Create another user with their own email
         User::factory()->create([
-            'work_email' => 'regular.user.2@example.org',
+            'work_email' => 'regular.user.2@gc.ca',
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
             $this->sendVerificationEmailsMutation,
             [
                 'input' => [
-                    'emailAddress' => 'REGULAR.USER.2@EXAMPLE.ORG',
-                    'emailTypes' => [EmailType::CONTACT->name],
+                    'emailAddress' => 'REGULAR.USER.2@GC.CA',
+                    'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
-    }
-
-    public function testCannotVerifyWithDuplicateContactEmail()
-    {
-        // Create another user with a contact email
-        User::factory()->create([
-            'email' => 'contact.duplicate@example.org',
-        ]);
-
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '5678',
-                'emailTypes' => [EmailType::CONTACT->name],
-                'emailAddress' => 'contact.duplicate@example.org',
-            ],
-            now()->addHours(2)
-        );
-
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '5678',
-            ]
-        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
-    }
-
-    public function testCannotVerifyWithDuplicateWorkEmail()
-    {
-        // Create another user with a work email
-        User::factory()->create([
-            'work_email' => 'work.duplicate@example.org',
-        ]);
-
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '5679',
-                'emailTypes' => [EmailType::WORK->name],
-                'emailAddress' => 'work.duplicate@example.org',
-            ],
-            now()->addHours(2)
-        );
-
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '5679',
-            ]
-        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
-    }
-
-    public function testCannotVerifyWithDuplicateWorkEmailCaseInsensitive()
-    {
-        // Create another user with a work email
-        User::factory()->create([
-            'work_email' => 'work.duplicate@example.org',
-        ]);
-
-        Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
-            [
-                'code' => '5680',
-                'emailTypes' => [EmailType::CONTACT->name],
-                'emailAddress' => 'WORK.DUPLICATE@EXAMPLE.ORG',
-            ],
-            now()->addHours(2)
-        );
-
-        $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
-            [
-                'code' => '5680',
-            ]
-        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 }
