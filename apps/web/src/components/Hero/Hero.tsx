@@ -5,8 +5,6 @@ import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
 import {
-  Heading,
-  type HeadingRef,
   type BreadcrumbsProps,
   Crumb,
   NavTabs,
@@ -120,7 +118,7 @@ const Hero = (
 
   const intl = useIntl();
 
-  const headingRef = useRef<HeadingRef>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const showImg = imgPath && !children;
   const applyOverlap = overlap && !navTabs;
 
@@ -149,17 +147,15 @@ const Hero = (
       <div className={wrapper()}>
         <Container size="lg" className={container()}>
           <div className={content()}>
-            <Heading
+            <h1
               ref={headingRef}
               tabIndex={-1}
-              level="h1"
-              size="h2"
-              className="mt-12 outline-none xs:m-0"
+              className="text-5xl font-bold mt-12 outline-none xs:m-0"
             >
               {title}
-            </Heading>
+            </h1>
             {subtitle && (
-              <p className="mt-1.5 mb-7.5 text-xl/[1.4] lg:text-2xl/[1.4]">
+              <p className="mt-1.5 mb-7.5 text-xl">
                 {subtitle}
               </p>
             )}
