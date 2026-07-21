@@ -269,7 +269,7 @@ class UserVerifyEmailsTest extends TestCase
             $this->sendVerificationEmailsMutation,
             [
                 'input' => [
-                    'emailAddress' => 'regular.user.2@example.org',
+                    'emailAddress' => 'regular.user.2@gc.ca',
                     'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
