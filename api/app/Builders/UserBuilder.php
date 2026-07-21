@@ -15,7 +15,6 @@ use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -326,33 +325,6 @@ class UserBuilder extends Builder
 
         return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
             $query->wherePublishingGroupsIn($publishingGroups);
-        });
-    }
-
-    /**
-     * Return users who have an available PoolCandidate in at least one IT pool.
-     */
-    public function whereHasTalentSearchablePublishingGroups($args): self
-    {
-
-        return $this->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
-            $filters = Arr::get($args ?? [], 'where', []);
-
-            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
-                $query->wherePublished();
-
-                if (array_key_exists('qualifiedInClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedInClassifications']);
-                }
-
-                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
-                }
-            })
-                ->whereAvailable()
-                ->whereInTalentSearchablePublishingGroup();
-
-            return $innerQueryBuilder;
         });
     }
 

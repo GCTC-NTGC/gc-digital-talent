@@ -81,7 +81,7 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
     {
         $locale = match (get_class($notifiable)) {
             User::class => $this->locale ?? $notifiable->preferredLocale(),
-            default => $this->locale ?? 'en', // hopefully the locale of the notification was manually set when instantiated
+            default => $this->locale ?? 'en-fr', // fallback to bilingual
         };
 
         $recipientName = match (get_class($notifiable)) {
@@ -94,15 +94,9 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
             default => $this->nominatorWorkEmail, // we don't know exactly who it will be sent to, so guess the nominator
         };
 
-        $combinedNominationOptionDescriptions = NominationUtils::combineNominationOptionDescriptions(
-            $locale,
-            $this->nominateForAdvancement,
-            $this->nominateForLateralMovement,
-            $this->nominateForDevelopmentPrograms);
-
-        if (Language::EN->localeMatches($locale)) {
+        $message = match (true) {
             // English notification
-            $message = new GcNotifyEmailMessage(
+            Language::EN->localeMatches($locale) => new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_en'),
                 $recipientEmailAddress,
                 [
@@ -111,12 +105,15 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
                     'nominator name' => $this->nominatorName,
                     'nominee name' => $this->nomineeName,
                     'event name' => $this->eventNameEn,
-                    'selected nomination options' => $combinedNominationOptionDescriptions,
-                ]
-            );
-        } else {
+                    'selected nomination options' => NominationUtils::combineNominationOptionDescriptions(
+                        'en',
+                        $this->nominateForAdvancement,
+                        $this->nominateForLateralMovement,
+                        $this->nominateForDevelopmentPrograms),
+                ],
+            ),
             // French notification
-            $message = new GcNotifyEmailMessage(
+            Language::FR->localeMatches($locale) => new GcNotifyEmailMessage(
                 config('notify.templates.nomination_received_nominator_fr'),
                 $recipientEmailAddress,
                 [
@@ -125,10 +122,37 @@ class TalentNominationReceivedNominator extends Notification implements CanBeSen
                     'nominator name' => $this->nominatorName,
                     'nominee name' => $this->nomineeName,
                     'event name' => $this->eventNameFr,
-                    'selected nomination options' => $combinedNominationOptionDescriptions,
+                    'selected nomination options' => NominationUtils::combineNominationOptionDescriptions(
+                        'fr',
+                        $this->nominateForAdvancement,
+                        $this->nominateForLateralMovement,
+                        $this->nominateForDevelopmentPrograms),
+                ],
+            ),
+            // Bilingual notification
+            default => new GcNotifyEmailMessage(
+                config('notify.templates.nomination_received_nominator_enfr'),
+                $recipientEmailAddress,
+                [
+                    'recipient name' => $recipientName,
+                    'submitter name' => $this->submitterName,
+                    'nominator name' => $this->nominatorName,
+                    'nominee name' => $this->nomineeName,
+                    'event name en' => $this->eventNameEn,
+                    'event name fr' => $this->eventNameFr,
+                    'selected nomination options en' => NominationUtils::combineNominationOptionDescriptions(
+                        'en',
+                        $this->nominateForAdvancement,
+                        $this->nominateForLateralMovement,
+                        $this->nominateForDevelopmentPrograms),
+                    'selected nomination options fr' => NominationUtils::combineNominationOptionDescriptions(
+                        'fr',
+                        $this->nominateForAdvancement,
+                        $this->nominateForLateralMovement,
+                        $this->nominateForDevelopmentPrograms),
                 ]
-            );
-        }
+            ),
+        };
 
         return $message;
     }
