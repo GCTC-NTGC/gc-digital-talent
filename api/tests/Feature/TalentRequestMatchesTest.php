@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\EmployeeVerification;
@@ -9,10 +10,15 @@ use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
+use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PlacementType;
+use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\TalentRequestSource;
+use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
@@ -26,6 +32,7 @@ use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
@@ -740,6 +747,356 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->runCountMatches()
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
+    }
+
+    // The following tests port applicantFilter scenarios previously covered only by the
+    // now-removed countApplicantsForSearch/countPoolCandidatesByPool queries.
+
+    public function testHasDiplomaFilter(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $withDiploma = $this->matchingUser($pool, ['has_diploma' => true]);
+        $this->matchingUser($pool, ['has_diploma' => false]);
+
+        $this->runMatches(['applicantFilter' => ['hasDiploma' => true]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $withDiploma->id);
+
+        // hasDiploma: false is a no-op filter (only truthy values are applied) — everyone still matches
+        $this->runMatches(['applicantFilter' => ['hasDiploma' => false]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2);
+    }
+
+    public function testEquityFilterMatchesAnySelectedFlag(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $woman = $this->matchingUser($pool, [
+            'is_woman' => true,
+            'has_disability' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        $disabled = $this->matchingUser($pool, [
+            'is_woman' => false,
+            'has_disability' => true,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        $this->matchingUser($pool, [
+            'is_woman' => false,
+            'has_disability' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['equity' => ['isWoman' => true]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $woman->id);
+
+        // multiple selected equity flags are OR'd together
+        $userIds = $this->runMatches([
+            'applicantFilter' => ['equity' => ['isWoman' => true, 'hasDisability' => true]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertEqualsCanonicalizing([$woman->id, $disabled->id], $userIds);
+    }
+
+    public function testEquityFilterMatchesIndigenousCommunities(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $indigenous = $this->matchingUser($pool, [
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        $this->matchingUser($pool, ['indigenous_communities' => []]);
+
+        $this->runMatches(['applicantFilter' => ['equity' => ['isIndigenous' => true]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $indigenous->id);
+    }
+
+    public function testOperationalRequirementsFilterRequiresAllSelectedRequirements(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $matching = $this->matchingUser($pool, [
+            'accepted_operational_requirements' => [
+                OperationalRequirement::SHIFT_WORK->name,
+                OperationalRequirement::TRAVEL->name,
+                OperationalRequirement::OVERTIME_OCCASIONAL->name,
+            ],
+        ]);
+        $this->matchingUser($pool, [
+            'accepted_operational_requirements' => [OperationalRequirement::SHIFT_WORK->name],
+        ]);
+
+        $this->runMatches([
+            'applicantFilter' => ['operationalRequirements' => [
+                OperationalRequirement::SHIFT_WORK->name,
+                OperationalRequirement::TRAVEL->name,
+            ]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    public function testPositionDurationFilter(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $temporary = $this->matchingUser($pool, [
+            'position_duration' => [PositionDuration::TEMPORARY->name],
+        ]);
+        $this->matchingUser($pool, [
+            'position_duration' => [PositionDuration::PERMANENT->name],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['positionDuration' => [PositionDuration::TEMPORARY->name]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $temporary->id);
+    }
+
+    // Distinct from testFiltersOnFlexibleWorkLocation: no flexibleWorkLocations key at all,
+    // which hits the plain whereLocationPreferencesIn branch instead of the flexible/region combination.
+    public function testLocationPreferencesFilterWithoutFlexibleWorkLocations(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $atlantic = $this->matchingUser($pool, [
+            'location_preferences' => [WorkRegion::ATLANTIC->name],
+        ]);
+        $this->matchingUser($pool, [
+            'location_preferences' => [WorkRegion::NATIONAL_CAPITAL->name],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['locationPreferences' => [WorkRegion::ATLANTIC->name]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $atlantic->id);
+    }
+
+    public function testSkillsIntersectionalFilterRequiresAllSkills(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // Users are created before the skills below, since matchingUser() (via the underlying
+        // User factory's afterCreating hook) auto-attaches random EXISTING skills to a generated
+        // experience — creating skillA/skillB first risks them being swept into that random sync
+        // and colliding with the explicit UserSkill rows created below for the same user.
+        $both = $this->matchingUser($pool);
+        $onlyOne = $this->matchingUser($pool);
+
+        $skillA = Skill::factory()->create();
+        $skillB = Skill::factory()->create();
+
+        UserSkill::factory()->for($both)->create(['skill_id' => $skillA->id]);
+        UserSkill::factory()->for($both)->create(['skill_id' => $skillB->id]);
+        UserSkill::factory()->for($onlyOne)->create(['skill_id' => $skillA->id]);
+
+        $this->runMatches([
+            'applicantFilter' => ['skillsIntersectional' => [['id' => $skillA->id], ['id' => $skillB->id]]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $both->id);
+    }
+
+    // Distinct from testSkillCountCountsTheUsersMatchingSkills: proves the skills filter actually
+    // excludes non-matching users, rather than just checking the skillCount field's value.
+    public function testSkillsFilterExcludesUsersWithoutTheSkill(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // See testSkillsIntersectionalFilterRequiresAllSkills for why users are created first.
+        $withSkill = $this->matchingUser($pool);
+        $this->matchingUser($pool);
+
+        $matchingSkill = Skill::factory()->create();
+        UserSkill::factory()->for($withSkill)->create(['skill_id' => $matchingSkill->id]);
+
+        $this->runMatches(['applicantFilter' => ['skills' => [['id' => $matchingSkill->id]]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $withSkill->id);
+    }
+
+    public function testQualifiedInWorkStreamsFilterRestrictsMatchingPools(): void
+    {
+        $targetStream = WorkStream::factory()->create();
+        $otherStream = WorkStream::factory()->create();
+
+        $targetPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $targetStream->id]);
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $otherStream->id]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $targetPool->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $otherPool->id]);
+
+        $this->runMatches(['applicantFilter' => ['qualifiedInWorkStreams' => [['id' => $targetStream->id]]]])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $targetPool->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    // qualifiedInClassifications and qualifiedInWorkStreams must both match on the SAME pool candidacy.
+    public function testQualifiedInClassificationsAndWorkStreamsCombineOnTheSamePoolCandidacy(): void
+    {
+        $targetClassification = Classification::factory()->create();
+        $targetStream = WorkStream::factory()->create();
+        $otherStream = WorkStream::factory()->create();
+
+        $bothMatchPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification->id,
+            'work_stream_id' => $targetStream->id,
+        ]);
+        // Explicitly pinned to a different work stream — the default factory work_stream_id is a
+        // random pick that could otherwise coincidentally equal $targetStream and make this pool
+        // incorrectly satisfy the combined filter too.
+        $classificationOnlyPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification->id,
+            'work_stream_id' => $otherStream->id,
+        ]);
+
+        // one user qualified in both pools; only the pool matching BOTH filters should count as a source
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $bothMatchPool->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $classificationOnlyPool->id]);
+
+        $this->runMatches([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [[
+                    'group' => $targetClassification->group,
+                    'level' => $targetClassification->level,
+                ]],
+                'qualifiedInWorkStreams' => [['id' => $targetStream->id]],
+            ],
+        ])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $bothMatchPool->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testPoolsFilterRestrictsMatchingPools(): void
+    {
+        $poolA = Pool::factory()->candidatesAvailableInSearch()->create();
+        $poolB = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $poolA->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $poolB->id]);
+
+        $this->runMatches(['applicantFilter' => ['pools' => [['id' => $poolA->id]]]])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $poolA->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testNonQualifiedApplicationStatusesDoNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $qualified = $this->matchingUser($pool);
+
+        foreach (ApplicationStatus::cases() as $status) {
+            if ($status === ApplicationStatus::QUALIFIED) {
+                continue;
+            }
+            PoolCandidate::factory()->create([
+                'pool_id' => $pool->id,
+                'application_status' => $status->name,
+                'expiry_date' => config('constants.far_future_date'),
+            ]);
+        }
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $qualified->id);
+    }
+
+    public function testExpiredCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $matching = $this->matchingUser($pool);
+
+        $expiredUser = User::factory()->create();
+        PoolCandidate::factory()->expired()->create([
+            'user_id' => $expiredUser->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    public function testAlreadyPlacedIndeterminateCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $matching = $this->matchingUser($pool);
+
+        $hiredUser = User::factory()->create();
+        PoolCandidate::factory()->placed(PlacementType::PLACED_INDETERMINATE)->create([
+            'user_id' => $hiredUser->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    // testExcludesCandidacyInANonTalentSearchablePool only proves IAP is excluded against one
+    // other (default) pool; this proves EXECUTIVE_JOBS/OTHER specifically still count.
+    public function testAllNonIapPublishingGroupsAreIncluded(): void
+    {
+        $itUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]));
+        $executiveUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+        ]));
+        $otherUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::OTHER->name,
+        ]));
+        $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IAP->name,
+        ]));
+
+        $userIds = $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertEqualsCanonicalizing([$itUser->id, $executiveUser->id, $otherUser->id], $userIds);
     }
 
     protected string $atLevelQuery = <<<'GRAPHQL'

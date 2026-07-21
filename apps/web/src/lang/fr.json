@@ -495,10 +495,6 @@
     "defaultMessage": "Afficher tous<hidden> les filtres avancés</hidden>",
     "description": "Button text to show all advanced filters"
   },
-  "/wMGW+": {
-    "defaultMessage": "Effectuez cette action uniquement après avoir confirmé l'identité de l'utilisateur et vérifié que son ajout à ce processus est conforme aux règles de la politique des RH.",
-    "description": "Warning about adding a user to a process manually"
-  },
   "/xjFbf": {
     "defaultMessage": "Tâches courantes dans ce poste",
     "description": "Label for a process work tasks"
@@ -946,10 +942,6 @@
   "1XaX86": {
     "defaultMessage": "Créer<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the create department page link."
-  },
-  "1XiWQu": {
-    "defaultMessage": "Ajouter l'utilisateur à un processus",
-    "description": "Button text to add a user to a process"
   },
   "1XsXrt": {
     "defaultMessage": "Lecture (ou compréhension écrite))",
@@ -1947,10 +1939,6 @@
     "defaultMessage": "Détails",
     "description": "Title for additional comments shorthand"
   },
-  "5LkwLx": {
-    "defaultMessage": "Normalement, les utilisateurs présenteront leur candidature à un processus de recrutement par eux-mêmes. Les outils suivants peuvent être utilisés pour faciliter la création ou la gestion des candidatures dans des cas exceptionnels.",
-    "description": "Description of adding a user to a specific process"
-  },
   "5MFMo5": {
     "defaultMessage": "Le membre du personnel bénéficierait d'une possibilité de perfectionnement ou d'apprentissage pour le préparer à son prochain poste.",
     "description": "Description for the development program nomination option on the details step"
@@ -2742,10 +2730,6 @@
   "91b+W0": {
     "defaultMessage": "Niveau exigé",
     "description": "Required skill level column header for tables"
-  },
-  "92M/Ie": {
-    "defaultMessage": "Cela permettra d'inclure un utilisateur dans un processus de recrutement, mais ne remplira aucun renseignement sur la demande. Cela signifie que la capture d'écran de la candidature, ainsi que toutes les autres questions et justifications des compétences s'afficheront vides.",
-    "description": "Caveats of adding a user to a process manually"
   },
   "93zCaS": {
     "defaultMessage": "Reflète la spécialisation nécessaire",
@@ -4559,6 +4543,10 @@
     "defaultMessage": "Détails de base",
     "description": "The basic details of a job poster template"
   },
+  "G8+gPB": {
+    "defaultMessage": "Effectuez cette action uniquement après avoir confirmé l'identité de l'utilisateur et vérifié que son ajout à ce processus est conforme aux politiques des RH.",
+    "description": "Warning about adding a user to a process manually"
+  },
   "G8JoCN": {
     "defaultMessage": "Ministère de placement",
     "description": "Label for the placed department field"
@@ -6339,10 +6327,6 @@
     "defaultMessage": "Vous devez indiquer dans cette section vos connaissances linguistiques dans les deux langues officielles",
     "description": "Descriptive text explaining the language profile section of the application profile"
   },
-  "N7ACFf": {
-    "defaultMessage": "Ajouter l'utilisateur à un processus de recrutement",
-    "description": "Title of section to add users to processes"
-  },
   "N7nVPk": {
     "defaultMessage": "Modifier l'information du sujet associé à l'utilisateur. Le « sujet » est une chaîne de caractères unique associée à l'identité d'ouverture de session de l'utilisateur.",
     "description": "Description of the form to update a users subject"
@@ -7571,6 +7555,10 @@
     "defaultMessage": "Date d'expiration",
     "description": "Title of the 'Expiry date' column for the table on view-user page"
   },
+  "SUVTfy": {
+    "defaultMessage": "Cette candidature spéciale a été créée pour le motif suivant",
+    "description": "Special application type section"
+  },
   "SXyhoR": {
     "defaultMessage": "Ce ne sont pas toutes les plaintes qui parviennent directement au commissaire à l’accessibilité. Certaines exceptions s’appliquent : ",
     "description": "Disclaimer about accessibility complaint exceptions."
@@ -8706,6 +8694,10 @@
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
   },
+  "XB3D2p": {
+    "defaultMessage": "Justification fournie",
+    "description": "Justification section"
+  },
   "XBN7Po": {
     "defaultMessage": "<strong>{name}</strong> a réintégré",
     "description": "Label for activity log item reinstated action"
@@ -9601,6 +9593,10 @@
   "axQDlj": {
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
+  },
+  "axxGXe": {
+    "defaultMessage": "Cette action créera une ébauche de candidature pour une personne dans le cadre d'un processus de recrutement. Cette candidature spéciale ne tiendra pas compte de la date limite habituelle ni des exigences relatives à la vérification de l'emploi.",
+    "description": "Description of creating a special application for a user"
   },
   "ay7kkl": {
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",

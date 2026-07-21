@@ -6,15 +6,29 @@ class TestSearchPage(HttpUser):
     @task
     def candidate_count(self):
         query = """
-query CandidateCount($where: ApplicantFilterInput) {
-  countApplicantsForSearch(where: $where)
-  countPoolCandidatesByPool(where: $where) {
+query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
+  countTalentRequestMatches(where: $where)
+  countTalentRequestMatchesByPool(where: $where) {
     pool {
       id
       ...SearchResultCard_Pool
       __typename
     }
-    candidateCount
+    count
+    __typename
+  }
+  countTalentRequestMatchesByCommunity(where: $where) {
+    community {
+      id
+      name {
+        localized
+        __typename
+      }
+      __typename
+    }
+    qualifiedInPoolCount
+    atLevelCount
+    count
     __typename
   }
 }
@@ -105,7 +119,7 @@ fragment SearchResultCard_Pool on Pool {
 }
         """
         variables = """
-{"where":{"pools":[]}}
+{"where":{"applicantFilter":{"pools":[]}}}
         """
         headerDict={}
         # headerDict['authorization'] = 'Bearer ...'
