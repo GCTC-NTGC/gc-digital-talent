@@ -43,6 +43,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   addSearchToWhere,
   locationAccessor,
+  poolListNameAccessor,
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
@@ -116,9 +117,10 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
         matchingQualifiedInPoolSources {
           pool {
             id
-            name {
-              en
-              fr
+            displayName {
+              display {
+                localized
+              }
             }
           }
         }
@@ -342,9 +344,9 @@ const TalentRequestMatchesTable = ({
     ),
     columnHelper.accessor(
       ({ matchingQualifiedInPoolSources }) =>
-        unpackMaybes(matchingQualifiedInPoolSources)
-          .map(({ pool }) => getLocalizedName(pool.name, intl))
-          .join(", "),
+        poolListNameAccessor(
+          unpackMaybes(matchingQualifiedInPoolSources).map(({ pool }) => pool),
+        ),
       {
         id: "qualifiedPools",
         header: intl.formatMessage({
