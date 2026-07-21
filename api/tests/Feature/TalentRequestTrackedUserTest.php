@@ -1638,8 +1638,7 @@ class TalentRequestTrackedUserTest extends TestCase
     public function testSourcesQualifiedInPoolWhenUserHasMatchingCandidacy(): void
     {
         $classification = Classification::factory()->create();
-        $filter = ApplicantFilter::factory()->create([
-            'community_id' => $this->community->id,
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
             'talent_sources' => null,
         ]);
         $filter->qualifiedInClassifications()->sync([$classification->id]);
@@ -1691,7 +1690,9 @@ class TalentRequestTrackedUserTest extends TestCase
     public function testSourcesCorrectWhenMatchingSourcesFieldNotRequested(): void
     {
         $classification = Classification::factory()->create();
-        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
         $filter->qualifiedInClassifications()->sync([$classification->id]);
 
         $request = TalentRequest::factory()->create([
@@ -1738,8 +1739,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $matchingClass = Classification::factory()->create();
         $otherClass = Classification::factory()->create();
 
-        $filter = ApplicantFilter::factory()->create([
-            'community_id' => $this->community->id,
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
             'talent_sources' => null,
         ]);
         $filter->qualifiedInClassifications()->sync([$matchingClass->id]);
@@ -1821,7 +1821,9 @@ class TalentRequestTrackedUserTest extends TestCase
     public function testSourcesCorrectOnNestedPath(): void
     {
         $classification = Classification::factory()->create();
-        $filter = ApplicantFilter::factory()->create(['community_id' => $this->community->id]);
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
         $filter->qualifiedInClassifications()->sync([$classification->id]);
 
         $request = TalentRequest::factory()->create([
