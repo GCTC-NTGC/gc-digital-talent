@@ -53,8 +53,8 @@ return [
     'completed_in' => 'Achevé en ',
     'successfully_completed' => 'Complété avec succès',
     'successfully_placed' => 'Placement effectué avec succès',
-    'not_completed' => '',
-    'missing_end_date' => '',
+    'not_completed' => 'Incomplet',
+    'missing_end_date' => 'Date de fin manquante',
 
     // user and pool candidate terms
     'veteran' => 'Vétéran',

@@ -1982,6 +1982,10 @@
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."
   },
+  "5TYx7Y": {
+    "defaultMessage": "Incomplet",
+    "description": "Message that education experience was not completed"
+  },
   "5W/J8m": {
     "defaultMessage": "Souhaitez-vous annuler cette décision et rétablir la candidature au statut « À évaluer »?",
     "description": "Confirmation question for reverting a decision of an application"
@@ -6386,6 +6390,10 @@
   "NJIdH1": {
     "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
+  },
+  "NMo1VF": {
+    "defaultMessage": "Date de fin manquante",
+    "description": "Experience date range when end date is missing"
   },
   "NQgGHA": {
     "defaultMessage": "En savoir plus sur le poste que cet employé souhaite occuper dans le cadre de son cheminement de carrière.",
