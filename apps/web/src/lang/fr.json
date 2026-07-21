@@ -9366,10 +9366,6 @@
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
   },
-  "aVp6q7": {
-    "defaultMessage": "Consultez la CléGC",
-    "description": "Link text for visiting the GCKey website"
-  },
   "aXKkrb": {
     "defaultMessage": "Vue candidat(e)",
     "description": "Applicant role name for nav menu"
@@ -9722,10 +9718,6 @@
     "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
     "description": "Opening sentence asking if accommodations are needed"
   },
-  "bzcV2Q": {
-    "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
-    "description": "Description of how we use GCKey for authentication."
-  },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
     "description": "Button text to open section describing mentorship program"
@@ -9985,10 +9977,6 @@
   "d2IDL3": {
     "defaultMessage": "Choisissez l’organisation qui aura l’autorité d’embauche pour ce processus de dotation.",
     "description": "Describing selecting a department for a process"
-  },
-  "d3HIMV": {
-    "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
-    "description": "Introductory text displayed in login and authentication accordion."
   },
   "d4aLWc": {
     "defaultMessage": "Revenez ici pour recevoir des alertes sur une variété d’activités sur la plateforme, y compris des offres d’emploi, de nouvelles fonctionnalités et plus encore.",
@@ -11377,10 +11365,6 @@
   "i4CKlO": {
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
-  },
-  "i4EMJm": {
-    "defaultMessage": "Votre compte CléGC",
-    "description": "Accordion trigger for your GCKey account info."
   },
   "i4OGTD": {
     "defaultMessage": "Créer un groupe de compétences",
