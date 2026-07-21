@@ -234,6 +234,8 @@ return [
     'references_work_email' => 'Courriel professionnel de la personne de référence',
     'references_classification' => 'Classification de la personne de référence',
     'references_department' => 'Ministère ou organisme de la personne de référence',
+    'nine_box_performance' => 'Nine box performance',
+    'nine_box_leadership_potential' => 'Nine box leadership potential',
     'lateral_movement_options' => 'Options de mutation latérale',
     'development_program_recommendations' => 'Possibilités de perfectionnement recommandées',
     'other' => 'Autre :',
