@@ -5527,6 +5527,10 @@
     "defaultMessage": "Masquer tout<hidden>es les sections de candidatures et processus</hidden>",
     "description": "Button text to hide all applications and processes sections"
   },
+  "K5x0Ph": {
+    "defaultMessage": "Classifications pour lesquelles cette personne peut être recommandée en vue d'un avancement",
+    "description": "Label for advancement eligible classifications field"
+  },
   "K6Tzh1": {
     "defaultMessage": "Reliez votre parcours professionnel",
     "description": "Heading for checklist section in application education page."
@@ -8321,6 +8325,10 @@
   "Vd9VIn": {
     "defaultMessage": "Confirmer une adresse courriel professionnelle du GC",
     "description": "Link to update the work email"
+  },
+  "VeYTqO": {
+    "defaultMessage": "Date de fin de la recommandation",
+    "description": "Label for referral expiry date field"
   },
   "Vfa3Ek": {
     "defaultMessage": "Compétence mise à jour avec succès!",
@@ -13937,6 +13945,10 @@
   "rmsF/w": {
     "defaultMessage": "impossible de marquer les notifications comme lues.",
     "description": "Message announced to assistive technology when error occurred making notifications as read"
+  },
+  "rnFFzE": {
+    "defaultMessage": "La personne pourra être recommandée pour les classifications sélectionnées ci-dessus jusqu'à cette date (inclusivement).",
+    "description": "Help text for referral expiry date field"
   },
   "rpM/Sw": {
     "defaultMessage": "Gérer les modèles d’emploi",
