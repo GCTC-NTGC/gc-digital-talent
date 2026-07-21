@@ -133,6 +133,13 @@ class EmployeeProfile extends AppPage {
       .click();
   }
 
+  workEmailVerificationLabel() {
+    const card = this.page.getByRole("group", {
+      name: /Work email verification/i,
+    });
+    return card.getByRole("img").first().getAttribute("aria-label");
+  }
+
   async removeWorkEmail() {
     // carry removal out
     await this.page.getByRole("button", { name: "Update work email" }).click();

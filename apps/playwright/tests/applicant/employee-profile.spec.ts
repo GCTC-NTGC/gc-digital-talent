@@ -35,11 +35,14 @@ test.describe("Employee Profile", () => {
     await appPage.page.goto("/en/applicant/employee-profile");
     await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
+
     await profilePage.removeWorkEmail();
     // check changes
     await expect(
       appPage.page.getByRole("button", { name: "Verify work email" }),
     ).toBeVisible();
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Not provided");
   });
 
   test("Career development", async ({ appPage }) => {
