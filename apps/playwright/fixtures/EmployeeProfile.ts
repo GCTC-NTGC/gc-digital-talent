@@ -132,6 +132,15 @@ class EmployeeProfile extends AppPage {
       .getByRole("button", { name: /save career development preferences/i })
       .click();
   }
+
+  async removeWorkEmail() {
+    // carry removal out
+    await this.page.getByRole("button", { name: "Update work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.waitForGraphqlResponse("RemoveUserWorkEmail");
+    await this.page.getByRole("button", { name: "Cancel" }).click();
+  }
 }
 
 export default EmployeeProfile;
