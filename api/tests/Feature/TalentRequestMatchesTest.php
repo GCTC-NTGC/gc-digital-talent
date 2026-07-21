@@ -138,7 +138,10 @@ class TalentRequestMatchesTest extends TestCase
     // A user with a current substantive classification (for AT_LEVEL matching), no pool candidacy.
     private function atLevelUser(Classification $classification, Community $community): User
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'work_email' => 'at.level.user@gc.ca',
+            'work_email_verified_at' => now(),
+        ]);
         WorkExperience::factory()->for($user)->create([
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
@@ -632,7 +635,10 @@ class TalentRequestMatchesTest extends TestCase
         $this->atLevelUser($classification, $community);
 
         // user matching both sources for this community — should count once in the total
-        $bothUser = $this->matchingUser($pool);
+        $bothUser = $this->matchingUser($pool, [
+            'work_email' => 'both.sources.user@gc.ca',
+            'work_email_verified_at' => now(),
+        ]);
         WorkExperience::factory()->for($bothUser)->create([
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
