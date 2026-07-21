@@ -2030,6 +2030,44 @@ class TalentRequestTrackedUserTest extends TestCase
         );
     }
 
+    public function testNestedTrackedUsersListBatchesSources(): void
+    {
+        $request = $this->seedReferredMatchingUsers(25);
+
+        $listQuery = <<<'GRAPHQL'
+            query {
+                talentRequests {
+                    data {
+                        id
+                        trackedUsers {
+                            sources { value }
+                        }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $response = $this->actingAs($this->admin, 'api')->graphQL($listQuery);
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $trackedUsers = collect($response->json('data.talentRequests.data'))
+            ->firstWhere('id', $request->id)['trackedUsers'];
+        $this->assertCount(25, $trackedUsers);
+
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "pool_candidates"')
+                && str_contains($entry['query'], '"user_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Sources must batch on the nested trackedUsers path too, not one query per row.',
+        );
+    }
+
     public function testSourcesRespectsTalentSourcesSelection(): void
     {
         $classification = Classification::factory()->create();
