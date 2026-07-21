@@ -42,6 +42,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   addSearchToWhere,
   locationAccessor,
+  poolListNameAccessor,
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
@@ -98,11 +99,27 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
+          priorityWeight
+          priority {
+            label {
+              localized
+            }
+          }
         }
         ...TalentRequestAddReferralDialog
         sources {
           label {
             localized
+          }
+        }
+        matchingQualifiedInPoolSources {
+          pool {
+            id
+            displayName {
+              display {
+                localized
+              }
+            }
           }
         }
         skillCount
@@ -282,6 +299,19 @@ const TalentRequestMatchesTable = ({
         meta: { isRowTitle: true },
       },
     ),
+    columnHelper.accessor(({ user }) => user.priority?.label.localized, {
+      id: "priority",
+      header: intl.formatMessage(adminMessages.category),
+      cell: ({
+        row: {
+          original: { user },
+        },
+      }) =>
+        user.priority?.label.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      enableSorting: false,
+      enableColumnFilter: false,
+    }),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(talentRequestMessages.requestedSkills),
@@ -304,6 +334,23 @@ const TalentRequestMatchesTable = ({
       {
         id: "sources",
         header: intl.formatMessage(talentRequestMessages.talentSource),
+        enableSorting: false,
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ matchingQualifiedInPoolSources }) =>
+        poolListNameAccessor(
+          unpackMaybes(matchingQualifiedInPoolSources).map(({ pool }) => pool),
+        ),
+      {
+        id: "qualifiedPools",
+        header: intl.formatMessage({
+          defaultMessage: "Qualified pool",
+          id: "eBz7Va",
+          description:
+            "Header for the column showing which pool(s) a candidate is qualified in",
+        }),
         enableSorting: false,
         enableColumnFilter: false,
       },

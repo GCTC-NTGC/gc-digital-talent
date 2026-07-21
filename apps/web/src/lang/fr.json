@@ -10430,6 +10430,10 @@
     "defaultMessage": "Exigence liée aux compétences de leadership",
     "description": "Bounding box label for the include leadership competencies"
   },
+  "eBz7Va": {
+    "defaultMessage": "Bassin de qualification",
+    "description": "Header for the column showing which pool(s) a candidate is qualified in"
+  },
   "eC+ZhW": {
     "defaultMessage": "Lier à la collectivité des programmes de perfectionnement communs, des certifications, des accréditations ou des licences à des fins de gestion des talents. Une fois ajouté, un perfectionnement professionnel pourra être offert comme possibilité de perfectionnement lors des mises en candidature en gestion des talents et être présenté aux personnes qui rejoignent la collectivité à partir de leur profil.",
     "description": "Description for professionalizations page"
