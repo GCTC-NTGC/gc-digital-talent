@@ -10,17 +10,17 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface DeadlineValueProps {
   closingDate: string | null | undefined;
-  closingReason: string | null | undefined;
+  wasClosedEarly: boolean;
 }
 
 const DeadlineValue = ({
   closingDate,
-  closingReason,
+  wasClosedEarly,
 }: DeadlineValueProps): ReactNode => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  if (closingDate && !closingReason) {
+  if (closingDate && !wasClosedEarly) {
     return intl.formatMessage(
       {
         defaultMessage: "Apply on or before {closingDate}",
@@ -38,7 +38,7 @@ const DeadlineValue = ({
     );
   }
 
-  if (closingReason) {
+  if (wasClosedEarly) {
     return intl.formatMessage({
       defaultMessage: "<red>This advertisement has closed early.</red>",
       id: "6qu9EB",

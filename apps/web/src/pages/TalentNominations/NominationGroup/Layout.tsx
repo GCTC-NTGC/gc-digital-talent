@@ -20,7 +20,7 @@ import permissionConstants from "~/constants/permissionConstants";
 
 import type { RouteParams } from "./types";
 import NominationGroupSidebar from "./components/NominationGroupSidebar";
-import { detailTabMessages } from "./messages";
+import { detailTabMessages, historyTabMessages } from "./messages";
 
 const TalentNominationGroupLayout_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupLayout on TalentNominationGroup {
@@ -128,6 +128,14 @@ const Layout = ({ query }: LayoutProps) => {
               talentNominationGroupId,
             ),
             label: intl.formatMessage(navigationMessages.careerExperience),
+          },
+
+          {
+            url: paths.talentNominationGroupHistory(
+              talentNominationGroup.talentNominationEvent.id,
+              talentNominationGroupId,
+            ),
+            label: intl.formatMessage(historyTabMessages.history),
           },
         ]}
       />

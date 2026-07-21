@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserNotReferredReason;
 use App\Enums\TalentRequestTrackedUserNotSelectedReason;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
@@ -9,7 +10,9 @@ use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
 use App\Jobs\GenerateUserFile;
 use App\Models\ApplicantFilter;
+use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -21,6 +24,7 @@ use Carbon\CarbonImmutable;
 use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Queue;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -83,12 +87,28 @@ class TalentRequestTrackedUserTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $sourcesQuery = <<<'GRAPHQL'
+        query SourcesTrackedUsers($talentRequestId: UUID!) {
+            talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingQualifiedInPoolSources { pool { id } }
+                    matchingAtLevelSources { id }
+                    matchingAdvancementSources { id }
+                }
+            }
+        }
+        GRAPHQL;
+
     protected string $bulkUpdateReferredMutation = <<<'GRAPHQL'
         mutation UpdateTrackedUsersReferred($ids: [UUID!]!) {
             updateTrackedUsersReferred(ids: $ids) {
                 id
                 referralDecision { value }
                 notReferredReason { value }
+                selectionDecision { value }
+                notSelectedReason { value }
             }
         }
         GRAPHQL;
@@ -794,15 +814,15 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
         $users = User::factory()->count(3)->create();
 
-        $toUpdateA = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+        $toUpdateA = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
             'talent_request_id' => $request->id,
             'user_id' => $users[0]->id,
         ]);
-        $toUpdateB = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+        $toUpdateB = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
             'talent_request_id' => $request->id,
             'user_id' => $users[1]->id,
         ]);
-        $untouched = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+        $untouched = TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER)->create([
             'talent_request_id' => $request->id,
             'user_id' => $users[2]->id,
         ]);
@@ -817,27 +837,35 @@ class TalentRequestTrackedUserTest extends TestCase
                 'id' => $toUpdateA->id,
                 'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
                 'notReferredReason' => null,
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
             ])
             ->assertJsonFragment([
                 'id' => $toUpdateB->id,
                 'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
                 'notReferredReason' => null,
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
             ]);
 
         $this->assertDatabaseHas('talent_request_tracked_users', [
             'id' => $toUpdateA->id,
             'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
             'not_referred_reason' => null,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
         ]);
         $this->assertDatabaseHas('talent_request_tracked_users', [
             'id' => $toUpdateB->id,
             'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
             'not_referred_reason' => null,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
         ]);
         $this->assertDatabaseHas('talent_request_tracked_users', [
             'id' => $untouched->id,
-            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
-            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
         ]);
     }
 
@@ -868,7 +896,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
         $users = User::factory()->count(3)->create();
 
-        $existing = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+        $existing = TalentRequestTrackedUser::factory()->selected()->create([
             'talent_request_id' => $request->id,
             'user_id' => $users[0]->id,
         ]);
@@ -889,6 +917,8 @@ class TalentRequestTrackedUserTest extends TestCase
             'user_id' => $users[0]->id,
             'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
             'not_referred_reason' => null,
+            'selection_decision' => null,
+            'not_selected_reason' => null,
         ]);
         $this->assertDatabaseHas('talent_request_tracked_users', [
             'talent_request_id' => $request->id,
@@ -1227,6 +1257,362 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
+    // --- createTalentRequestTrackedUser (singular) ---
+
+    protected string $createSingleMutation = <<<'GRAPHQL'
+        mutation CreateTalentRequestTrackedUser($input: CreateTalentRequestTrackedUserInput!) {
+            createTalentRequestTrackedUser(input: $input) {
+                id
+                referralDecision { value }
+                notReferredReason { value }
+                user { id }
+            }
+        }
+        GRAPHQL;
+
+    protected string $updateSingleMutation = <<<'GRAPHQL'
+        mutation UpdateTalentRequestTrackedUser($id: UUID!, $input: UpdateTalentRequestTrackedUserInput!) {
+            updateTalentRequestTrackedUser(id: $id, input: $input) {
+                id
+                referralDecision { value }
+                notReferredReason { value }
+                selectionDecision { value }
+                notSelectedReason { value }
+            }
+        }
+        GRAPHQL;
+
+    public function testCreateSingleTrackedUserWithNoDecision(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->createSingleMutation, [
+                'input' => [
+                    'userId' => $user->id,
+                    'talentRequestId' => $request->id,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'referralDecision' => null,
+                'notReferredReason' => null,
+                'user' => ['id' => $user->id],
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+            'referral_decision' => null,
+            'not_referred_reason' => null,
+        ]);
+    }
+
+    public function testCreateSingleTrackedUserWithReferredDecision(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->createSingleMutation, [
+                'input' => [
+                    'userId' => $user->id,
+                    'talentRequestId' => $request->id,
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+    }
+
+    public function testCreateSingleTrackedUserWithNotReferredAndReason(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->createSingleMutation, [
+                'input' => [
+                    'userId' => $user->id,
+                    'talentRequestId' => $request->id,
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+        ]);
+    }
+
+    public function testCreateSingleTrackedUserNotReferredWithoutReasonFailsValidation(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->createSingleMutation, [
+                'input' => [
+                    'userId' => $user->id,
+                    'talentRequestId' => $request->id,
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                ],
+            ])
+            ->assertGraphQLValidationError('input.notReferredReason', 'The input.not referred reason field is required when input.referral decision is NOT_REFERRED.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotCreateSingleTrackedUser(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+        $unauthorized = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorized, 'api')
+            ->graphQL($this->createSingleMutation, [
+                'input' => [
+                    'userId' => $user->id,
+                    'talentRequestId' => $request->id,
+                ],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseMissing('talent_request_tracked_users', [
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+    }
+
+    // --- updateTalentRequestTrackedUser (singular) ---
+
+    public function testUpdateSingleTrackedUserToReferred(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER)->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notReferredReason' => null,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'id' => $trackedUser->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'not_referred_reason' => null,
+        ]);
+    }
+
+    public function testUpdateSingleTrackedUserToNotReferredWithReason(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'id' => $trackedUser->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+            'not_referred_reason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+        ]);
+    }
+
+    public function testUpdateSingleTrackedUserToSelected(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'id' => $trackedUser->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::SELECTED->name],
+                'notReferredReason' => null,
+                'notSelectedReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            'not_referred_reason' => null,
+            'not_selected_reason' => null,
+        ]);
+    }
+
+    public function testUpdateSingleTrackedUserToNotSelectedWithReason(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'id' => $trackedUser->id,
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
+                'notSelectedReason' => ['value' => TalentRequestTrackedUserNotSelectedReason::OTHER->name],
+                'notReferredReason' => null,
+            ]);
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+            'not_selected_reason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+            'not_referred_reason' => null,
+        ]);
+    }
+
+    public function testUpdateSingleTrackedUserNotReferredWithoutReasonFailsValidation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                ],
+            ])
+            ->assertGraphQLValidationError('input.notReferredReason', 'The input.not referred reason field is required when input.referral decision is NOT_REFERRED.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+        ]);
+    }
+
+    public function testUpdateSingleTrackedUserNotSelectedWithoutReasonFailsValidation(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                ],
+            ])
+            ->assertGraphQLValidationError('input.notSelectedReason', 'The input.not selected reason field is required when input.selection decision is NOT_SELECTED.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            'selection_decision' => null,
+        ]);
+    }
+
+    public function testUnauthorizedUserCannotUpdateSingleTrackedUser(): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()->referred()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => User::factory()->create()->id,
+        ]);
+        $unauthorized = User::factory()->asApplicant()->create();
+
+        $this->actingAs($unauthorized, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                ],
+            ])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->assertDatabaseHas('talent_request_tracked_users', [
+            'id' => $trackedUser->id,
+            'referral_decision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+        ]);
+    }
+
     public function testFilterByStatusNotReferredDoesNotIncludeRowsWithSelectionDecision(): void
     {
         $request = $this->createRequest();
@@ -1247,5 +1633,480 @@ class TalentRequestTrackedUserTest extends TestCase
             ])
             ->assertJsonCount(0, 'data.talentRequest.trackedUsers')
             ->assertJsonMissing(['user' => ['id' => $inconsistent->id]]);
+    }
+
+    public function testSourcesQualifiedInPoolWhenUserHasMatchingCandidacy(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name)
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+    }
+
+    public function testSourcesEmptyWhenUserHasNoMatchingCandidacy(): void
+    {
+        $request = $this->createRequest();
+        $user = User::factory()->create();
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonCount(0, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+    }
+
+    public function testSourcesCorrectWhenMatchingSourcesFieldNotRequested(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        // sources must resolve from the matched relation even when the matching*Sources fields are not selected
+        $sourcesOnlyQuery = <<<'GRAPHQL'
+            query SourcesOnly($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId) {
+                    data {
+                        user { id }
+                        sources { value }
+                    }
+                }
+            }
+        GRAPHQL;
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($sourcesOnlyQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name);
+    }
+
+    public function testMatchingQualifiedInPoolSourcesOnlyIncludesFilterMatchingPools(): void
+    {
+        $matchingClass = Classification::factory()->create();
+        $otherClass = Classification::factory()->create();
+
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
+        $filter->qualifiedInClassifications()->sync([$matchingClass->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $matchingClass->id,
+        ]);
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $otherClass->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $matchingPool->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $otherPool->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.sources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.sources.0.value', TalentRequestSource::QUALIFIED_IN_POOL->name)
+            ->assertJsonCount(1, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources')
+            ->assertJsonPath('data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources.0.pool.id', $matchingPool->id);
+    }
+
+    public function testUserQualifiedInTwoMatchingPoolsGetsBothInMatchingQualifiedInPoolSources(): void
+    {
+        $request = $this->createRequest();
+
+        $poolA = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+        ]);
+        $poolB = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+        ]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $poolA->id,
+        ]);
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $user->id,
+            'pool_id' => $poolB->id,
+        ]);
+
+        TalentRequestTrackedUser::factory()->create([
+            'talent_request_id' => $request->id,
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(2, 'data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources');
+
+        $poolIds = collect($response->json('data.talentRequestTrackedUsers.data.0.matchingQualifiedInPoolSources'))
+            ->pluck('pool.id')
+            ->all();
+
+        $this->assertEqualsCanonicalizing([$poolA->id, $poolB->id], $poolIds);
+    }
+
+    public function testSourcesCorrectOnNestedPath(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => null,
+        ]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()->create([
+            'community_id' => $this->community->id,
+            'applicant_filter_id' => $filter->id,
+        ]);
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $this->community->id,
+            'classification_id' => $classification->id,
+        ]);
+
+        $withCandidacy = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $withCandidacy->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $withoutCandidacy = User::factory()->create();
+
+        foreach ([$withCandidacy, $withoutCandidacy] as $user) {
+            TalentRequestTrackedUser::factory()->create([
+                'talent_request_id' => $request->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                query NestedSources($id: UUID!) {
+                    talentRequest(id: $id) {
+                        trackedUsers {
+                            user { id }
+                            sources { value }
+                        }
+                    }
+                }
+            ', ['id' => $request->id]);
+
+        $byUser = collect($response->json('data.talentRequest.trackedUsers'))
+            ->keyBy(fn ($row) => $row['user']['id']);
+
+        $this->assertEquals([TalentRequestSource::QUALIFIED_IN_POOL->name], array_column($byUser[$withCandidacy->id]['sources'], 'value'));
+        $this->assertEquals([], array_column($byUser[$withoutCandidacy->id]['sources'], 'value'));
+    }
+
+    // Regression guard for issue #17468: the tracking list resolved each row's matching pool
+    // sources with its own query, so a page of many rows fired a query per row and timed out.
+    // The lookups are now batched, so a page of many rows makes only one pool_candidates query.
+    public function testTrackedUsersListBatchesMatchingPoolSources(): void
+    {
+        $request = $this->seedReferredMatchingUsers(25);
+
+        $listQuery = <<<'GRAPHQL'
+            query ($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: 50) {
+                    data {
+                        matchingQualifiedInPoolSources { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($listQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(25, 'data.talentRequestTrackedUsers.data');
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        // The batched lookup queries pool_candidates for a set of user ids at once. A per-row
+        // regression would instead query one user id at a time ("user_id" = ?).
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "pool_candidates"')
+                && str_contains($entry['query'], '"user_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Matching pool sources must load in one batched query, not one per row.',
+        );
+    }
+
+    private function seedReferredMatchingUsers(int $count): TalentRequest
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+
+        $request = TalentRequest::factory()
+            ->for($this->community)
+            ->for($filter)
+            ->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()
+            ->for($this->community)
+            ->for($classification)
+            ->create();
+
+        for ($i = 0; $i < $count; $i++) {
+            $user = User::factory()->create();
+            PoolCandidate::factory()->availableInSearch()
+                ->for($user)
+                ->for($pool)
+                ->create();
+            TalentRequestTrackedUser::factory()->referred()
+                ->for($request)
+                ->for($user)
+                ->create();
+        }
+
+        return $request;
+    }
+
+    public function testMatchingSourcesCorrectAcrossMultipleRequests(): void
+    {
+        $matchA = $this->createRequestWithMatchingUser();
+        $matchB = $this->createRequestWithMatchingUser();
+
+        $response = $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                query {
+                    talentRequests {
+                        data {
+                            trackedUsers {
+                                user { id }
+                                matchingQualifiedInPoolSources { pool { id } }
+                            }
+                        }
+                    }
+                }
+            ');
+
+        $byUser = collect($response->json('data.talentRequests.data'))
+            ->flatMap(fn (array $request) => $request['trackedUsers'])
+            ->keyBy(fn (array $row) => $row['user']['id']);
+
+        $this->assertEquals(
+            [$matchA['pool']->id],
+            collect($byUser[$matchA['user']->id]['matchingQualifiedInPoolSources'])->pluck('pool.id')->all(),
+        );
+        $this->assertEquals(
+            [$matchB['pool']->id],
+            collect($byUser[$matchB['user']->id]['matchingQualifiedInPoolSources'])->pluck('pool.id')->all(),
+        );
+    }
+
+    /** @return array{pool: Pool, user: User} */
+    private function createRequestWithMatchingUser(): array
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()
+            ->for($this->community)->for($classification)->create();
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->for($user)->for($pool)->create();
+        TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
+
+        return ['pool' => $pool, 'user' => $user];
+    }
+
+    public function testTrackedUsersListBatchesMatchingAtLevelSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        for ($i = 0; $i < 25; $i++) {
+            $user = User::factory()->create();
+            CommunityInterest::factory()->for($user)->for($this->community)->consented()->create();
+            TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
+        }
+
+        $listQuery = <<<'GRAPHQL'
+            query ($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: 50) {
+                    data {
+                        matchingAtLevelSources { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($listQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(25, 'data.talentRequestTrackedUsers.data');
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "community_interests"')
+                && str_contains($entry['query'], '"user_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Matching at-level sources must load in one batched query, not one per row.',
+        );
+    }
+
+    public function testNestedTrackedUsersListBatchesSources(): void
+    {
+        $request = $this->seedReferredMatchingUsers(25);
+
+        $listQuery = <<<'GRAPHQL'
+            query {
+                talentRequests {
+                    data {
+                        id
+                        trackedUsers {
+                            sources { value }
+                        }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $response = $this->actingAs($this->admin, 'api')->graphQL($listQuery);
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $trackedUsers = collect($response->json('data.talentRequests.data'))
+            ->firstWhere('id', $request->id)['trackedUsers'];
+        $this->assertCount(25, $trackedUsers);
+
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "pool_candidates"')
+                && str_contains($entry['query'], '"user_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Sources must batch on the nested trackedUsers path too, not one query per row.',
+        );
+    }
+
+    public function testSourcesRespectsTalentSourcesSelection(): void
+    {
+        $classification = Classification::factory()->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+        ]);
+        $filter->qualifiedInClassifications()->sync([$classification->id]);
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()
+            ->for($this->community)->for($classification)->create();
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->for($user)->for($pool)->create();
+        CommunityInterest::factory()->for($user)->for($this->community)->consented()->create();
+        TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
+
+        $paginatedResponse = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->sourcesQuery, ['talentRequestId' => $request->id]);
+
+        $this->assertEquals(
+            [TalentRequestSource::QUALIFIED_IN_POOL->name],
+            array_column($paginatedResponse->json('data.talentRequestTrackedUsers.data.0.sources'), 'value'),
+        );
+
+        $nestedResponse = $this->actingAs($this->admin, 'api')
+            ->graphQL(/** @lang GraphQL */ '
+                query NestedSources($id: UUID!) {
+                    talentRequest(id: $id) {
+                        trackedUsers {
+                            sources { value }
+                        }
+                    }
+                }
+            ', ['id' => $request->id]);
+
+        $this->assertEquals(
+            [TalentRequestSource::QUALIFIED_IN_POOL->name],
+            array_column($nestedResponse->json('data.talentRequest.trackedUsers.0.sources'), 'value'),
+        );
     }
 }

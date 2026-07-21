@@ -1,4 +1,4 @@
-import fr from "./lang/frCompiled.json";
+import fr from "./lang/frCompiled.json" with { type: "json" };
 import LanguageProvider from "./components/LanguageProvider";
 import NestedLanguageProvider from "./components/NestedLanguageProvider";
 import useLocale from "./hooks/useLocale";
@@ -17,6 +17,7 @@ import {
 import {
   combineMessages,
   getDesiredLocale,
+  getIntlForLocale,
   getPathLocale,
   STORED_LOCALE,
 } from "./utils/utils";
@@ -86,7 +87,7 @@ import {
   ENUM_SORT_ORDER,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
-import { appendLanguageName } from "./utils/lang";
+import { appendLanguageName, appendShortenedLanguageName } from "./utils/lang";
 
 export {
   isLocale,
@@ -112,6 +113,7 @@ export {
   NestedLanguageProvider,
   combineMessages,
   getIntl,
+  getIntlForLocale,
   useLocale,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
@@ -136,6 +138,7 @@ export {
   sortSecurityStatus,
   sortLocalizedEnumOptions,
   appendLanguageName,
+  appendShortenedLanguageName,
 };
 
 export {

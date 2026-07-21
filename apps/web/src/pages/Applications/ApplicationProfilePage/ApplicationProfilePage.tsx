@@ -20,7 +20,7 @@ import DiversityEquityInclusion from "~/components/Profile/components/DiversityE
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard.tsx/WorkEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
@@ -136,27 +136,31 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
                 </Notice.Content>
               </Notice.Root>
             )}
-            {application.pool.areaOfSelection?.value ===
-              PoolAreaOfSelection.Employees && (
-              <>
-                {(!application.user.isWorkEmailVerified ||
-                  !application.user.workEmail) && (
-                  <Notice.Root color="error" className="col-span-2">
-                    <Notice.Content>
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
-                          id: "KWgx7f",
-                          description:
-                            "Body for a message informing the user that a contact email is required.",
-                        })}
-                      </p>
-                    </Notice.Content>
-                  </Notice.Root>
-                )}
-              </>
-            )}
+            {
+              /* special application bypasses work email verification  */
+              application.pool.areaOfSelection?.value ===
+                PoolAreaOfSelection.Employees &&
+                !application.isSpecialApplication && (
+                  <>
+                    {(!application.user.isWorkEmailVerified ||
+                      !application.user.workEmail) && (
+                      <Notice.Root color="error" className="col-span-2">
+                        <Notice.Content>
+                          <p>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                              id: "KWgx7f",
+                              description:
+                                "Body for a message informing the user that a contact email is required.",
+                            })}
+                          </p>
+                        </Notice.Content>
+                      </Notice.Root>
+                    )}
+                  </>
+                )
+            }
           </>
           <ContactEmailCard query={application.user} />
           <WorkEmailCard query={application.user} />
@@ -182,7 +186,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         application={application}
         user={application.user}
         isValid={
-          !stepHasError(application.user, application.pool, null, {
+          !stepHasError(application.user, application.pool, application, {
             languagePresetNoticeIsVisible,
           })
         }

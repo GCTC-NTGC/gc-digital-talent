@@ -12,8 +12,10 @@ use App\Enums\GovPositionType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
+use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Traits\EnrichedNotifiable;
 use App\Traits\HasLocalizedEnums;
+use App\Traits\HasTalentRequestSources;
 use App\Traits\HydratesSnapshot;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -100,7 +102,6 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property ?array $enabled_in_app_notifications
  * @property Notification $unreadNotifications
  * @property Collection<Notification> $notifications
- * @property ?string $off_platform_recruitment_processes
  * @property ?bool $is_verified_gov_employee
  * @property ?WorkExperience $latest_current_government_work_experience
  * @property ?WorkExperience $current_substantive_experiences
@@ -124,6 +125,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     use HasRolesAndPermissions {
         roles as baseRoles;
     }
+    use HasTalentRequestSources;
     use HydratesSnapshot;
     use LogsActivity;
     use Searchable;
@@ -311,6 +313,35 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function talentRequestTrackedUsers(): HasMany
     {
         return $this->hasMany(TalentRequestTrackedUser::class);
+    }
+
+    /**
+     * Aggregate of the user's referral history across all talent requests:
+     * the total times referred plus a breakdown of the reasons they were not selected.
+     *
+     * @return Attribute<array{referredCount: int, notSelectedReasons: array<int, array{reason: string, count: int}>}, never>
+     */
+    protected function referralSummary(): Attribute
+    {
+        return Attribute::get(function () {
+            // property (not query) so the GraphQL fields can batch it via @with
+            $rows = $this->talentRequestTrackedUsers;
+
+            return [
+                'referredCount' => $rows
+                    ->where('referral_decision', TalentRequestTrackedUserReferralDecision::REFERRED->name)
+                    ->count(),
+                'notSelectedReasons' => $rows
+                    ->whereNotNull('not_selected_reason')
+                    ->groupBy('not_selected_reason')
+                    ->map(fn ($group, $reason) => [
+                        'reason' => (string) $reason,
+                        'count' => (int) $group->count(),
+                    ])
+                    ->values()
+                    ->all(),
+            ];
+        });
     }
 
     /** @return BelongsTo<Department, $this> */

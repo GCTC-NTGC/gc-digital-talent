@@ -34,7 +34,7 @@ jobs:
           sudo rm -rf /usr/lib/jvm
           df -h
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Copy .env"
         working-directory: "./apps/web"
@@ -45,7 +45,7 @@ jobs:
         with:
           version: ${{ env.PNPM_VERSION }}
       - name: Use Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: "./.nvmrc"
           cache: pnpm

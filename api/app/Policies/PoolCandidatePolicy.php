@@ -68,6 +68,16 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether the user can create special applications.
+     *
+     * @return Response|bool
+     */
+    public function createSpecialApplication(User $user)
+    {
+        return $user->isAbleTo('create-any-specialApplication');
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @return Response|bool
@@ -163,10 +173,13 @@ class PoolCandidatePolicy
      */
     public function delete(User $user, PoolCandidate $poolCandidate)
     {
-        return $user->id === $poolCandidate->user_id && $user->isAbleTo('delete-own-draftApplication');
+        return
+            $poolCandidate->isDraft() &&
+            $user->id === $poolCandidate->user_id &&
+            $user->isAbleTo('delete-own-draftApplication');
     }
 
-    public function viewStatus(User $user, PoolCandidate $poolCandidate)
+    public function viewApplicationStatus(User $user, PoolCandidate $poolCandidate)
     {
         // Ownership check
         if ($user->id === $poolCandidate->user_id && $user->isAbleTo('view-own-applicationStatus')) {
@@ -207,7 +220,7 @@ class PoolCandidatePolicy
         return $this->checkTeamPermission($user, $this->getPoolTeams($poolCandidate->pool), 'update-team-applicationAssessment');
     }
 
-    public function viewNotes(User $user, PoolCandidate $poolCandidate)
+    public function viewApplicationAssessment(User $user, PoolCandidate $poolCandidate)
     {
         // Global permissions
         if ($user->isAbleTo('view-any-applicationAssessment')) {

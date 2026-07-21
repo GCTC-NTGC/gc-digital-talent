@@ -66,7 +66,7 @@ export function transformUserInput(
 
     // from fancy filter
     applicantFilter: filterState?.applicantFilter,
-    isGovEmployee: filterState?.isGovEmployee,
+    employeeVerification: filterState?.employeeVerification,
     isProfileComplete: filterState?.isProfileComplete,
     poolFilters: filterState?.poolFilters,
     roles: filterState?.roles,
@@ -107,7 +107,9 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       locationPreferences: data.workRegion,
       operationalRequirements: data.operationalRequirement,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -118,7 +120,7 @@ export function transformFormValuesToUserFilterInput(
           ])
         : undefined,
     },
-    isGovEmployee: data.govEmployee ? true : undefined,
+    employeeVerification: data.govEmployee,
     isProfileComplete: data.otherFilters.includes(OTHER_FILTER.PROFILE_COMPLETE)
       ? true
       : undefined,
@@ -143,7 +145,7 @@ export function transformUserFilterInputToFormValues(
   }
 
   return {
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -155,11 +157,11 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     pools: unpackMaybes(
       input?.applicantFilter?.pools?.flatMap((pool) => pool?.id),
     ),

@@ -4,12 +4,12 @@ namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\EmploymentCategory;
 use App\Enums\ErrorCode;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
-use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
@@ -1456,18 +1456,27 @@ class UserTest extends TestCase
 
     public function testFilterByGovEmployee(): void
     {
-        // Create initial set of 5 users not with gov.
-        User::factory()->count(5)->create([
+        // 3 non-gov users — should never match any employeeVerification filter
+        User::factory()->count(3)->create([
             'computed_is_gov_employee' => false,
+            'work_email' => null,
         ]);
 
-        // Create two new users with the government.
-        User::factory()->count(2)->create([
-            'computed_is_gov_employee' => true,
-        ]);
+        // 2 verified gov employees (gov + work_email confirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'verified1@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+            ['work_email' => 'verified2@gc.ca', 'work_email_verified_at' => '2023-01-01'],
+        )->create(['computed_is_gov_employee' => true]);
 
-        // Assert query no isGovEmployee filter will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+        // 2 not-verified gov employees (gov + work_email present but unconfirmed)
+        User::factory()->count(2)->sequence(
+            ['work_email' => 'unverified1@gc.ca', 'work_email_verified_at' => null],
+            ['work_email' => 'unverified2@gc.ca', 'work_email_verified_at' => null],
+        )->create(['computed_is_gov_employee' => true]);
+
+        // 3 + 2 + 2 + 1 (platformAdmin, computed_is_gov_employee = false) = 8 total
+
+        $query =
             /** @lang GraphQL */
             '
             query getUsersPaginated($where: UserFilterInput) {
@@ -1477,71 +1486,40 @@ class UserTest extends TestCase
                     }
                 }
             }
-        ',
-            [
-                'where' => [],
-            ]
-        )->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
+        ';
+
+        // No filter returns all users
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, ['where' => []])
+            ->assertJson([
+                'data' => [
+                    'usersPaginated' => ['paginatorInfo' => ['total' => 8]],
                 ],
+            ]);
+
+        // VERIFIED filter returns only verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name]],
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to true will return correct user count
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => true,
-                ],
-            ]
-        )->assertJson([
+        // NOT_VERIFIED filter returns only not-yet-verified gov employees
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::NOT_VERIFIED->name]],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 2,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 2]],
             ],
         ]);
 
-        // Assert query with isGovEmployee filter set to false will return all users
-        $this->actingAs($this->platformAdmin, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query getUsersPaginated($where: UserFilterInput) {
-                usersPaginated(where: $where) {
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ',
-            [
-                'where' => [
-                    'isGovEmployee' => false,
-                ],
-            ]
-        )->assertJson([
+        // Both values returns all gov employees with a work email
+        $this->actingAs($this->platformAdmin, 'api')->graphQL($query, [
+            'where' => ['employeeVerification' => [EmployeeVerification::VERIFIED->name, EmployeeVerification::NOT_VERIFIED->name]],
+        ])->assertJson([
             'data' => [
-                'usersPaginated' => [
-                    'paginatorInfo' => [
-                        'total' => 8,
-                    ],
-                ],
+                'usersPaginated' => ['paginatorInfo' => ['total' => 4]],
             ],
         ]);
     }
@@ -1601,112 +1579,6 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'data' => $usersByName,
                 ],
-            ],
-        ]);
-    }
-
-    public function testCountApplicantsQuery(): void
-    {
-        // Get the ID of the base admin user
-        $user = User::All()->first();
-
-        // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-
-        PoolCandidate::factory()->count(8)->placed(PlacementType::NOT_PLACED)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        PoolCandidate::factory()->count(5)->placed(PlacementType::PLACED_TENTATIVE)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => false,
-                'looking_for_french' => true,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Should appear in searches, but in pool 2.
-        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($pool2)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Expired in pool - should not appear in searches
-        PoolCandidate::factory()->expired()->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Already placed - should not appear in searches
-        PoolCandidate::factory()->placed(PlacementType::PLACED_TERM)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // User status inactive - should not appear in searches
-        PoolCandidate::factory()->qualified()->for($pool1)->create([
-            'pause_referrals_at' => config('constants.past_date'),
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-
-        // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
-        $response = $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicantsForSearch($where: ApplicantFilterInput) {
-                countApplicantsForSearch(where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                ],
-            ]
-        );
-        $response->assertJson([
-            'data' => [
-                'countApplicantsForSearch' => 15, // including base admin user
-            ],
-        ]);
-
-        // Assert query with another filter will return proper count
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicantsForSearch($where: ApplicantFilterInput) {
-                countApplicantsForSearch(where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                    'languageAbility' => LanguageAbility::ENGLISH->name,
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicantsForSearch' => 10, // including base admin user
             ],
         ]);
     }
@@ -1855,7 +1727,7 @@ class UserTest extends TestCase
                     ],
                     'poolFilters' => null,
                     'isProfileComplete' => null,
-                    'isGovEmployee' => null,
+                    'employeeVerification' => null,
                     'telephone' => null,
                     'email' => null,
                     'name' => null,

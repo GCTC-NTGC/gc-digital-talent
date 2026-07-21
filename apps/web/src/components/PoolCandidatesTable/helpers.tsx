@@ -42,6 +42,10 @@ import {
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type { Radio } from "@gc-digital-talent/forms";
 
+import {
+  durationToEnumPositionDuration,
+  positionDurationToEmploymentDuration,
+} from "~/utils/userUtils";
 import type useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import {
@@ -502,7 +506,11 @@ export function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    employmentDuration:
+      positionDurationToEmploymentDuration(
+        input?.applicantFilter?.positionDuration,
+      ) ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -534,7 +542,7 @@ export function transformPoolCandidateSearchInputToFormValues(
     expiryStatus: input?.expiryStatus ?? CandidateExpiryFilter.Active,
     suspendedStatus: input?.suspendedStatus ?? CandidateSuspendedFilter.Active,
     referralStatuses: unpackMaybes(input?.referralStatuses),
-    govEmployee: input?.isGovEmployee ? "true" : "",
+    govEmployee: unpackMaybes(input?.employeeVerification),
     departments: input?.departments ?? [],
     community: input?.applicantFilter?.community?.id ?? "",
     assessmentSteps: unpackMaybes(
@@ -552,7 +560,9 @@ export function transformFormValuesToFilterState(
 ): PoolCandidateSearchInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirement,
       locationPreferences: data.workRegion,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -567,12 +577,17 @@ export function transformFormValuesToFilterState(
       pools: data.pools.flatMap((id) => ({ id })),
       skills: data.skills.flatMap((id) => ({ id })),
       community: data.community ? { id: data.community } : undefined,
+      positionDuration: data.employmentDuration
+        ? unpackMaybes([
+            durationToEnumPositionDuration(data.employmentDuration),
+          ])
+        : undefined,
     },
     priorityWeight: data.priorityWeight,
     expiryStatus: data.expiryStatus,
     suspendedStatus: data.suspendedStatus,
     referralStatuses: data.referralStatuses,
-    isGovEmployee: data.govEmployee ? true : undefined, // massage from FormValue type to PoolCandidateSearchInput
+    employeeVerification: data.govEmployee,
     departments: data.departments,
     publishingGroups: data.publishingGroups,
     appliedClassifications: data.classifications.map((classification) => {
@@ -623,7 +638,7 @@ export const addSearchToPoolCandidateFilterInput = (
     expiryStatus: fancyFilterState?.expiryStatus,
     suspendedStatus: fancyFilterState?.suspendedStatus,
     referralStatuses: fancyFilterState?.referralStatuses,
-    isGovEmployee: fancyFilterState?.isGovEmployee,
+    employeeVerification: fancyFilterState?.employeeVerification,
     publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,

@@ -30,12 +30,16 @@ interface PartialUser
 
 const stepHasError = (
   user: PartialUser,
-  pool: Omit<Pool, "activities" | "teamId">,
+  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
   _application: Application_PoolCandidateFragment | null | undefined,
   browserState: ApplicationBrowserState | null | undefined,
 ) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(user, pool) ||
+    aboutSectionHasEmptyRequiredFields(
+      user,
+      pool,
+      _application?.isSpecialApplication,
+    ) ||
     diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
     priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||

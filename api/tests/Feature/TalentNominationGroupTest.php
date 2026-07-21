@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\TalentNomination;
@@ -75,6 +76,9 @@ class TalentNominationGroupTest extends TestCase
         mutation UpdateTalentNominationGroup($id: UUID!, $talentNominationGroup: UpdateTalentNominationGroupInput!) {
             updateTalentNominationGroup(id: $id, talentNominationGroup: $talentNominationGroup) {
                 id
+                advancementClassifications {
+                    id
+                }
             }
         }
     GRAPHQL;
@@ -385,5 +389,92 @@ class TalentNominationGroupTest extends TestCase
 
         // Assert nominee did consent to share profile info to admins on nomination profile
         assertEquals($group->consentToShareProfile, true);
+    }
+
+    public function testCoordinatorCanAddAdvancementClassificationsWhenApproved()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $classifications = Classification::factory()->count(2)->create();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementDecision' => 'APPROVED',
+                    'advancementClassifications' => [
+                        'sync' => $classifications->pluck('id')->toArray(),
+                    ],
+                    'referralExpiryDate' => config('constants.far_future_date'),
+                ],
+            ]);
+        $response->assertGraphQLErrorFree();
+        $response->assertJsonFragment([
+            'advancementClassifications' => [
+                ['id' => $classifications[0]->id],
+                ['id' => $classifications[1]->id],
+            ],
+        ]);
+
+        $this->assertEqualsCanonicalizing(
+            $classifications->pluck('id')->toArray(),
+            $nomination->talentNominationGroup->fresh()->advancementClassifications->pluck('id')->toArray(),
+        );
+    }
+
+    public function testCannotAddAdvancementClassificationsUnlessAdvancementApproved()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $classification = Classification::factory()->create();
+
+        // decision left as not approved (null) while attempting to sync a classification
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertGraphQLValidationKeys(['talentNominationGroup.advancementClassifications.sync']);
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
     }
 }

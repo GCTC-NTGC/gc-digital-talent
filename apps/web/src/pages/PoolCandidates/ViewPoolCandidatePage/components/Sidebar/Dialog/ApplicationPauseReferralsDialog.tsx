@@ -44,9 +44,11 @@ const ApplicationPauseReferralsDialog_Mutation = graphql(/** GraphQL */ `
   ) {
     pauseCandidateReferrals(id: $id, pauseReferrals: $pauseReferrals) {
       id
-      pauseReferralsAt
-      resumeReferralsAt
-      pauseReferralsReason
+      applicationStatusData {
+        pauseReferralsAt
+        resumeReferralsAt
+        pauseReferralsReason
+      }
     }
   }
 `);

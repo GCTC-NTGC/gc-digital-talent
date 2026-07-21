@@ -10,6 +10,7 @@ use App\Providers\GraphQLServiceProvider;
 use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
 use App\Providers\RouteServiceProvider;
+use App\Providers\ValidationRulesServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
 use Illuminate\Broadcasting\BroadcastServiceProvider;
@@ -283,6 +284,7 @@ return [
         RouteServiceProvider::class,
         ClockInterfaceProvider::class,
         ManagedIdentityProvider::class,
+        ValidationRulesServiceProvider::class,
 
         // Additional Providers
         LighthouseServiceProvider::class,

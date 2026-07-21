@@ -5,15 +5,16 @@ namespace App\Builders;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateSuspendedFilter;
+use App\Enums\EmployeeVerification;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\LanguageAbility;
-use App\Models\PoolCandidate;
+use App\Enums\PriorityWeight;
+use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -327,44 +328,18 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Return users who have an available PoolCandidate in at least one IT pool.
-     */
-    public function whereHasTalentSearchablePublishingGroups($args): self
-    {
-
-        return $this->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
-            $filters = Arr::get($args ?? [], 'where', []);
-
-            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
-                $query->wherePublished();
-
-                if (array_key_exists('qualifiedInClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedInClassifications']);
-                }
-
-                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
-                }
-            })
-                ->whereAvailable()
-                ->whereInTalentSearchablePublishingGroup();
-
-            return $innerQueryBuilder;
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        // grouped so source branches OR together without affecting the filters below
-        $this->where(fn ($query) => $query->orWhereHas(
-            'poolCandidates',
-            fn ($candidate) => $candidate->whereMatchesTalentRequest($filters)
-        ));
+        $this->where(function ($query) use ($filters) {
+            $query->whereRaw('1 = 0'); // false starting point for the orWhereHas chain
+            foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+            }
+        });
 
         // user-level attribute and location filters
         $this->whereHasDiploma($filters['hasDiploma'] ?? null)
@@ -380,13 +355,7 @@ class UserBuilder extends Builder
             );
 
         $this->addSkillCountSelect($skillIds);
-        $this->addTalentRequestSourceFlags($filters);
-
-        // the matched, view-authorized candidacies for the matchingPreQualifiedSources field
-        $this->with(['poolCandidates' => fn ($candidate) => $candidate
-            ->whereMatchesTalentRequest($filters)
-            ->whereAuthorizedToView()
-            ->with('pool')]);
+        $this->withTalentRequestMatches($filters);
 
         $excludeTrackedByRequestId = $args['excludeTrackedByRequestId'] ?? null;
         if ($excludeTrackedByRequestId) {
@@ -397,14 +366,40 @@ class UserBuilder extends Builder
         return $this;
     }
 
-    // a presence flag (1 or null) per source kind, read by the Sources resolver
-    private function addTalentRequestSourceFlags(array $filters): self
+    public function withTalentRequestMatches(array $filters): self
     {
-        return $this->addSelect(['has_prequalified_source' => PoolCandidate::query()
-            ->whereColumn('pool_candidates.user_id', 'users.id')
-            ->whereMatchesTalentRequest($filters)
-            ->selectRaw('1')
-            ->limit(1)]);
+        foreach (TalentRequestSource::cases() as $source) {
+            $relation = $source->matchRelation();
+            if (! $relation) {
+                continue;
+            }
+
+            $this->with([$relation => fn ($r) => $r
+                ->whereMatchesTalentRequest($filters)
+                ->whereAuthorizedToView()]);
+        }
+
+        return $this;
+    }
+
+    public function wherePriorityWeightIn(?array $priorityWeights): self
+    {
+        if (empty($priorityWeights)) {
+            return $this;
+        }
+
+        // priority_weight is a generated column on users (10/20/30/40)
+        $weights = array_map(
+            fn ($priorityWeight) => PriorityWeight::weight($priorityWeight),
+            $priorityWeights
+        );
+
+        return $this->whereIn('priority_weight', $weights);
+    }
+
+    public function orderBySkillCount(array $args): self
+    {
+        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
     }
 
     // Always selects a skill_count column so the field is resolvable: the real count of the
@@ -423,16 +418,25 @@ class UserBuilder extends Builder
     }
 
     /**
-     * Return users who have a PoolCandidate in a given community
+     * Return users who have a PoolCandidate or CommunityInterest in a given community
      */
-    public function whereHasPoolCandidateCommunity(?string $communityId): self
+    public function whereInCommunity(mixed $communityId): self
     {
+        // @pluck is not applied for nested ApplicantFilterInput; extract the id if it arrives as an IdInput array.
+        if (is_array($communityId)) {
+            $communityId = $communityId['id'] ?? null;
+        }
+
         if (empty($communityId)) {
             return $this;
         }
 
-        return $this->whereHas('poolCandidates', function ($query) use ($communityId) {
-            return $query->whereHasPoolCandidateCommunity($communityId);
+        return $this->where(function (self $query) use ($communityId) {
+            $query->whereHas('poolCandidates', function ($query) use ($communityId) {
+                return $query->whereInCommunity($communityId);
+            })->orWhereHas('communityInterests', function ($query) use ($communityId) {
+                $query->where('community_id', $communityId);
+            });
         });
     }
 
@@ -579,6 +583,34 @@ class UserBuilder extends Builder
         return $this->where('computed_is_gov_employee', true)
             ->whereNotNull('work_email')
             ->whereNotNull('work_email_verified_at');
+    }
+
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        $hasVerified = in_array(EmployeeVerification::VERIFIED->name, $employeeVerification);
+        $hasNotVerified = in_array(EmployeeVerification::NOT_VERIFIED->name, $employeeVerification);
+
+        if ($hasVerified && $hasNotVerified) {
+            return $this->where(function ($query) {
+                $query->whereIsVerifiedGovEmployee()
+                    ->orWhere(function ($q) {
+                        $q->where('computed_is_gov_employee', true)
+                            ->whereNotNull('work_email');
+                    });
+            });
+        }
+
+        if ($hasVerified) {
+            return $this->whereIsVerifiedGovEmployee();
+        }
+
+        return $this->where('computed_is_gov_employee', true)
+            ->whereNotNull('work_email')
+            ->whereNull('work_email_verified_at');
     }
 
     public function whereRoleIn(?array $roleIds): self

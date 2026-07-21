@@ -22,6 +22,7 @@ export interface AuthTokenResponse {
 const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
+  "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
 };
 
 /**
@@ -33,6 +34,7 @@ const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
  */
 function resolveFixtureSub(sub: string): string {
   if (!sub.includes("@")) return sub;
+  if (!(sub in FIXTURE_SUB_MAP)) return sub;
   const resolved = FIXTURE_SUB_MAP[sub];
   if (!resolved) {
     throw new Error(
@@ -63,15 +65,14 @@ export async function getTokenForSub(sub: string) {
         "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
       );
     }
-    const ctx = await request.newContext();
-    const res = await ctx.get(
-      `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`,
-      { headers: { "X-Testing-Secret": secret } },
-    );
+    const url = `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`;
+    const res = await fetch(url, {
+      headers: { "X-Testing-Secret": secret },
+    });
     const body = await res.text();
-    if (!res.ok() || body.trimStart().startsWith("<")) {
+    if (!res.ok || body.trimStart().startsWith("<")) {
       throw new Error(
-        `Test token request failed (${res.status()}) for "${sub}":\n${body.slice(0, 200)}`,
+        `Test token request failed (${res.status}) for "${sub}":\n${body.slice(0, 200)}`,
       );
     }
     const json = JSON.parse(body) as AuthTokenResponse;
@@ -223,10 +224,9 @@ export async function getAuthTokens(page: Page): Promise<AuthTokens> {
  * @param accessToken
  * @returns {Date}
  */
-//
 export function jumpPastExpiryDate(accessToken: string): Date {
   const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-  const expiry = decodedAccessToken?.exp ?? new Date().getUTCSeconds();
+  const expiry = decodedAccessToken?.exp ?? Math.floor(Date.now() / 1000);
   const newDate = new Date((expiry + 1) * 1000);
   return newDate;
 }

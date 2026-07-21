@@ -105,6 +105,11 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
+  okay: {
+    defaultMessage: "Okay",
+    id: "91hRYX",
+    description: "Proceed with the current action",
+  },
   cancel: {
     defaultMessage: "Cancel",
     id: "atqjXB",
@@ -484,6 +489,11 @@ const commonMessages = defineMessages({
     id: "OUcSEy",
     description: "Label for level",
   },
+  notReferred: {
+    defaultMessage: "Not referred",
+    id: "UZ6zTY",
+    description: "Label for a candidate that is not referred",
+  },
   selected: {
     defaultMessage: "Selected",
     id: "W9zlhl",
@@ -514,10 +524,20 @@ const commonMessages = defineMessages({
     id: "tyc8W0",
     description: "Name of English language formatted for appending",
   },
+  englishLabelShort: {
+    defaultMessage: "(EN)",
+    id: "Q6GYga",
+    description: "Name of English language formatted for appending, shortened",
+  },
   frenchLabel: {
     defaultMessage: "(French)",
     id: "E+zFTA",
     description: "Name of French language formatted for appending",
+  },
+  frenchLabelShort: {
+    defaultMessage: "(FR)",
+    id: "tfgjgQ",
+    description: "Name of French language formatted for appending, shortened",
   },
   questions: {
     defaultMessage: "Questions",
@@ -601,6 +621,11 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
+  dueToday: {
+    defaultMessage: "Due today",
+    id: "2H5KbR",
+    description: "Message shown when something is due on the current date",
+  },
   startDate: {
     defaultMessage: "Start date",
     id: "9tH7k0",
@@ -610,6 +635,16 @@ const commonMessages = defineMessages({
     defaultMessage: "End date",
     id: "JCA/2+",
     description: "Label displayed before end date",
+  },
+  partiallyApproved: {
+    defaultMessage: "Partially approved",
+    id: "M9Q1zH",
+    description: "Status text for partially approved nominations",
+  },
+  specialApplication: {
+    defaultMessage: "Special application",
+    id: "96yWSc",
+    description: "Special application label",
   },
 });
 

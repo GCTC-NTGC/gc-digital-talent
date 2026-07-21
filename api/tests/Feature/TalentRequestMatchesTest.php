@@ -2,13 +2,28 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ApplicationStatus;
+use App\Enums\ArmedForcesStatus;
+use App\Enums\CitizenshipStatus;
+use App\Enums\EmployeeVerification;
+use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
+use App\Enums\GovEmployeeType;
+use App\Enums\GovPositionType;
+use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
+use App\Enums\OperationalRequirement;
+use App\Enums\PlacementType;
+use App\Enums\PositionDuration;
+use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\TalentRequestSource;
+use App\Enums\WorkRegion;
 use App\Facades\Notify;
 use App\Models\Classification;
 use App\Models\Community;
+use App\Models\CommunityInterest;
+use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
@@ -16,6 +31,8 @@ use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
 use App\Models\UserSkill;
+use App\Models\WorkExperience;
+use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Testing\TestResponse;
@@ -38,7 +55,7 @@ class TalentRequestMatchesTest extends TestCase
             talentRequestMatches(where: $where) {
                 data {
                     user { id }
-                    sources
+                    sources { value }
                     matchingQualifiedInPoolSources { pool { id } }
                     skillCount
                 }
@@ -58,9 +75,10 @@ class TalentRequestMatchesTest extends TestCase
     }
 
     // A user with an available, talent-searchable qualified candidacy in $pool.
-    private function matchingUser(Pool $pool, array $userAttributes = []): User
+    private function matchingUser(Pool $pool, ?array $userAttributes = [], ?bool $isGovEmployee = false): User
     {
-        $user = User::factory()->create($userAttributes);
+        $state = $isGovEmployee ? 'withGovEmployeeProfile' : 'withNonGovProfile';
+        $user = User::factory()->$state()->create($userAttributes);
         PoolCandidate::factory()->availableInSearch()->create([
             'user_id' => $user->id,
             'pool_id' => $pool->id,
@@ -75,10 +93,26 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->query, ['where' => $where]);
     }
 
+    private function runMatchesOrdered(array $where, string $direction): TestResponse
+    {
+        $query = <<<'GRAPHQL'
+            query ($where: TalentRequestMatchFilterInput, $orderBy: [AdvancedOrderByInput!]) {
+                talentRequestMatches(where: $where, orderBy: $orderBy) {
+                    data { user { id } skillCount }
+                }
+            }
+            GRAPHQL;
+
+        return $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => $where,
+            'orderBy' => [['scope' => 'orderBySkillCount', 'direction' => $direction]],
+        ]);
+    }
+
     private function runCountMatches(array $where = []): TestResponse
     {
         return $this->graphQL(
-            'query ($where: ApplicantFilterInput) { countTalentRequestMatches(where: $where) }',
+            'query ($where: TalentRequestMatchFilterInput) { countTalentRequestMatches(where: $where) }',
             ['where' => $where]
         );
     }
@@ -86,11 +120,45 @@ class TalentRequestMatchesTest extends TestCase
     private function runCountByPool(array $where = []): TestResponse
     {
         return $this->graphQL(
-            'query ($where: ApplicantFilterInput) {
+            'query ($where: TalentRequestMatchFilterInput) {
                 countTalentRequestMatchesByPool(where: $where) { pool { id } count }
             }',
             ['where' => $where]
         );
+    }
+
+    private function runCountByCommunity(array $where = []): TestResponse
+    {
+        return $this->graphQL(
+            'query ($where: TalentRequestMatchFilterInput) {
+                countTalentRequestMatchesByCommunity(where: $where) {
+                    community { id }
+                    qualifiedInPoolCount
+                    atLevelCount
+                    count
+                }
+            }',
+            ['where' => $where]
+        );
+    }
+
+    // A user with a current substantive classification (for AT_LEVEL matching), no pool candidacy.
+    private function atLevelUser(Classification $classification, Community $community): User
+    {
+        $user = User::factory()->create();
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        return $user;
     }
 
     public function testReturnsOnlyUsersWithAMatchingCandidacy(): void
@@ -116,7 +184,7 @@ class TalentRequestMatchesTest extends TestCase
                         'data' => [
                             [
                                 'user' => ['id' => $match->id],
-                                'sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+                                'sources' => [['value' => TalentRequestSource::QUALIFIED_IN_POOL->name]],
                                 'matchingQualifiedInPoolSources' => [['pool' => ['id' => $pool->id]]],
                                 'skillCount' => null,
                             ],
@@ -131,7 +199,7 @@ class TalentRequestMatchesTest extends TestCase
     {
         $searchablePool = Pool::factory()->candidatesAvailableInSearch()->create();
         $nonSearchablePool = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+            'publishing_group' => PublishingGroup::IAP->name,
         ]);
 
         $included = $this->matchingUser($searchablePool);
@@ -305,6 +373,163 @@ class TalentRequestMatchesTest extends TestCase
             ]);
     }
 
+    public function testFiltersByDepartments(): void
+    {
+        $department = Department::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $inDepartment = $this->matchingUser($pool, [], true);
+        $this->matchingUser($pool, [], false);
+
+        $this->runMatches(['departments' => [$department->id]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $inDepartment->id);
+    }
+
+    public function testFiltersByEmployeeVerification(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // withGovEmployeeProfile creates a user with a verified work email
+        $govEmployee = $this->matchingUser($pool, [], true);
+        $this->matchingUser($pool, [], false);
+
+        $this->runMatches(['employeeVerification' => [EmployeeVerification::VERIFIED->name]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $govEmployee->id);
+    }
+
+    public function testFiltersByPriorityWeight(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // priority_weight is generated on users: VETERAN armed forces → weight 20
+        $veteran = $this->matchingUser($pool, [
+            'armed_forces_status' => ArmedForcesStatus::VETERAN->name,
+            'has_priority_entitlement' => false,
+            'citizenship' => CitizenshipStatus::OTHER->name,
+        ]);
+        // not a veteran → weight 40 (OTHER)
+        $this->matchingUser($pool, [
+            'armed_forces_status' => ArmedForcesStatus::NON_CAF->name,
+            'has_priority_entitlement' => false,
+            'citizenship' => CitizenshipStatus::OTHER->name,
+        ]);
+
+        $this->runMatches(['priorityWeight' => [PriorityWeight::VETERAN->name]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $veteran->id);
+    }
+
+    public function testFiltersByGeneralSearch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, [
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'email' => 'jane.doe@example.com',
+        ]);
+        $this->matchingUser($pool, [
+            'first_name' => 'Bob',
+            'last_name' => 'Smith',
+            'email' => 'bob.smith@example.com',
+        ]);
+
+        $this->runMatches(['generalSearch' => 'Jane'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testFiltersByName(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, ['first_name' => 'Jane', 'last_name' => 'Doe']);
+        $this->matchingUser($pool, ['first_name' => 'Bob', 'last_name' => 'Smith']);
+
+        $this->runMatches(['name' => 'Doe'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testFiltersByEmail(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $jane = $this->matchingUser($pool, ['email' => 'jane.doe@example.com']);
+        $this->matchingUser($pool, ['email' => 'bob.smith@example.com']);
+
+        $this->runMatches(['email' => 'jane.doe@example.com'])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $jane->id);
+    }
+
+    public function testOrdersBySkillCount(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $oneSkill = $this->matchingUser($pool);
+        $twoSkills = $this->matchingUser($pool);
+
+        $skillA = Skill::factory()->create();
+        $skillB = Skill::factory()->create();
+
+        UserSkill::factory()->for($oneSkill)->create(['skill_id' => $skillA->id]);
+
+        UserSkill::factory()->for($twoSkills)->create(['skill_id' => $skillA->id]);
+        UserSkill::factory()->for($twoSkills)->create(['skill_id' => $skillB->id]);
+
+        $where = ['applicantFilter' => ['skills' => [['id' => $skillA->id], ['id' => $skillB->id]]]];
+
+        $this->runMatchesOrdered($where, 'DESC')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $twoSkills->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $oneSkill->id);
+
+        $this->runMatchesOrdered($where, 'ASC')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $oneSkill->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $twoSkills->id);
+    }
+
+    public function testOrdersByDepartmentName(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $depA = Department::factory()->create(['name' => ['en' => 'Apricot Agency', 'fr' => 'Agence abricot']]);
+        $depB = Department::factory()->create(['name' => ['en' => 'Banana Bureau', 'fr' => 'Bureau banane']]);
+
+        $userA = $this->matchingUser($pool, [], true);
+        $expA = $userA->latest_current_government_work_experience;
+        $expA->department_id = $depA->id;
+        $expA->save();
+
+        $userB = $this->matchingUser($pool, [], true);
+        $expB = $userB->latest_current_government_work_experience;
+        $expB->department_id = $depB->id;
+        $expB->save();
+
+        $query = <<<'GRAPHQL'
+            query ($where: TalentRequestMatchFilterInput, $orderBy: [AdvancedOrderByInput!]) {
+                talentRequestMatches(where: $where, orderBy: $orderBy) {
+                    data { user { id } }
+                }
+            }
+            GRAPHQL;
+
+        $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => [],
+            'orderBy' => [['relation' => ['name' => 'department', 'column' => 'name->en'], 'direction' => 'ASC']],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $userA->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $userB->id);
+
+        $this->actingAs($this->admin, 'api')->graphQL($query, [
+            'where' => [],
+            'orderBy' => [['relation' => ['name' => 'department', 'column' => 'name->en'], 'direction' => 'DESC']],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $userB->id)
+            ->assertJsonPath('data.talentRequestMatches.data.1.user.id', $userA->id);
+    }
+
     public function testMatchesAreFilteredByViewAuthorization(): void
     {
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
@@ -387,7 +612,7 @@ class TalentRequestMatchesTest extends TestCase
         $this->matchingUser($matchingPool);
 
         $this->runCountByPool(
-            ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]
+            ['applicantFilter' => ['qualifiedInClassifications' => [['group' => $matchingClass->group, 'level' => $matchingClass->level]]]]
         )->assertExactJson([
             'data' => [
                 'countTalentRequestMatchesByPool' => [
@@ -395,6 +620,119 @@ class TalentRequestMatchesTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testCountByCommunityCountsBreakdownAndDedupesTotal(): void
+    {
+        $classification = Classification::factory()->create();
+        $community = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $community->id,
+        ]);
+
+        // pool-only user
+        $this->matchingUser($pool);
+
+        // at-level-only user: substantive classification + community interest, no pool candidacy
+        $this->atLevelUser($classification, $community);
+
+        // user matching both sources for this community — should count once in the total
+        $bothUser = $this->matchingUser($pool);
+        WorkExperience::factory()->for($bothUser)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $bothUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                'talentSources' => [
+                    TalentRequestSource::QUALIFIED_IN_POOL->name,
+                    TalentRequestSource::AT_LEVEL->name,
+                ],
+            ],
+        ])
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $community->id)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.qualifiedInPoolCount', 2)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.atLevelCount', 2)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 3);
+    }
+
+    public function testCountByCommunityDefaultsToAllSourcesWhenTalentSourcesOmitted(): void
+    {
+        $classification = Classification::factory()->create();
+        $poolCommunity = Community::factory()->create();
+        $atLevelCommunity = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $poolCommunity->id,
+        ]);
+        $this->matchingUser($pool);
+
+        // at-level-only match in a different community — no pool candidacy at all
+        $this->atLevelUser($classification, $atLevelCommunity);
+
+        // NOTE: no `talentSources` key at all — TalentRequestSource::selected(null)
+        // treats an omitted/empty selection as "all implemented sources".
+        $response = $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ]);
+
+        $response
+            ->assertJsonCount(2, 'data.countTalentRequestMatchesByCommunity')
+            ->assertJsonFragment([
+                'community' => ['id' => $poolCommunity->id],
+                'qualifiedInPoolCount' => 1,
+                'atLevelCount' => 0,
+                'count' => 1,
+            ])
+            ->assertJsonFragment([
+                'community' => ['id' => $atLevelCommunity->id],
+                'qualifiedInPoolCount' => 0,
+                'atLevelCount' => 1,
+                'count' => 1,
+            ]);
+    }
+
+    public function testCountByCommunityExcludesCommunitiesWithNoMatches(): void
+    {
+        $matchingClassification = Classification::factory()->create();
+        $otherClassification = Classification::factory()->create();
+        $matchingCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+
+        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $matchingClassification->id,
+            'community_id' => $matchingCommunity->id,
+        ]);
+        $this->matchingUser($matchingPool);
+
+        // otherCommunity has real matches, but not for the filtered classification
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $otherClassification->id,
+            'community_id' => $otherCommunity->id,
+        ]);
+        $this->matchingUser($otherPool);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $matchingClassification->group, 'level' => $matchingClassification->level]],
+            ],
+        ])
+            ->assertJsonCount(1, 'data.countTalentRequestMatchesByCommunity')
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $matchingCommunity->id);
     }
 
     public function testCountAgreesWithTheListTotal(): void
@@ -409,5 +747,553 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->runCountMatches()
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
+    }
+
+    // The following tests port applicantFilter scenarios previously covered only by the
+    // now-removed countApplicantsForSearch/countPoolCandidatesByPool queries.
+
+    public function testHasDiplomaFilter(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $withDiploma = $this->matchingUser($pool, ['has_diploma' => true]);
+        $this->matchingUser($pool, ['has_diploma' => false]);
+
+        $this->runMatches(['applicantFilter' => ['hasDiploma' => true]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $withDiploma->id);
+
+        // hasDiploma: false is a no-op filter (only truthy values are applied) — everyone still matches
+        $this->runMatches(['applicantFilter' => ['hasDiploma' => false]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2);
+    }
+
+    public function testEquityFilterMatchesAnySelectedFlag(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $woman = $this->matchingUser($pool, [
+            'is_woman' => true,
+            'has_disability' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        $disabled = $this->matchingUser($pool, [
+            'is_woman' => false,
+            'has_disability' => true,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+        $this->matchingUser($pool, [
+            'is_woman' => false,
+            'has_disability' => false,
+            'is_visible_minority' => false,
+            'indigenous_communities' => [],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['equity' => ['isWoman' => true]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $woman->id);
+
+        // multiple selected equity flags are OR'd together
+        $userIds = $this->runMatches([
+            'applicantFilter' => ['equity' => ['isWoman' => true, 'hasDisability' => true]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertEqualsCanonicalizing([$woman->id, $disabled->id], $userIds);
+    }
+
+    public function testEquityFilterMatchesIndigenousCommunities(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $indigenous = $this->matchingUser($pool, [
+            'indigenous_communities' => [IndigenousCommunity::OTHER->name],
+        ]);
+        $this->matchingUser($pool, ['indigenous_communities' => []]);
+
+        $this->runMatches(['applicantFilter' => ['equity' => ['isIndigenous' => true]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $indigenous->id);
+    }
+
+    public function testOperationalRequirementsFilterRequiresAllSelectedRequirements(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $matching = $this->matchingUser($pool, [
+            'accepted_operational_requirements' => [
+                OperationalRequirement::SHIFT_WORK->name,
+                OperationalRequirement::TRAVEL->name,
+                OperationalRequirement::OVERTIME_OCCASIONAL->name,
+            ],
+        ]);
+        $this->matchingUser($pool, [
+            'accepted_operational_requirements' => [OperationalRequirement::SHIFT_WORK->name],
+        ]);
+
+        $this->runMatches([
+            'applicantFilter' => ['operationalRequirements' => [
+                OperationalRequirement::SHIFT_WORK->name,
+                OperationalRequirement::TRAVEL->name,
+            ]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    public function testPositionDurationFilter(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $temporary = $this->matchingUser($pool, [
+            'position_duration' => [PositionDuration::TEMPORARY->name],
+        ]);
+        $this->matchingUser($pool, [
+            'position_duration' => [PositionDuration::PERMANENT->name],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['positionDuration' => [PositionDuration::TEMPORARY->name]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $temporary->id);
+    }
+
+    // Distinct from testFiltersOnFlexibleWorkLocation: no flexibleWorkLocations key at all,
+    // which hits the plain whereLocationPreferencesIn branch instead of the flexible/region combination.
+    public function testLocationPreferencesFilterWithoutFlexibleWorkLocations(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $atlantic = $this->matchingUser($pool, [
+            'location_preferences' => [WorkRegion::ATLANTIC->name],
+        ]);
+        $this->matchingUser($pool, [
+            'location_preferences' => [WorkRegion::NATIONAL_CAPITAL->name],
+        ]);
+
+        $this->runMatches(['applicantFilter' => ['locationPreferences' => [WorkRegion::ATLANTIC->name]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $atlantic->id);
+    }
+
+    public function testSkillsIntersectionalFilterRequiresAllSkills(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // Users are created before the skills below, since matchingUser() (via the underlying
+        // User factory's afterCreating hook) auto-attaches random EXISTING skills to a generated
+        // experience — creating skillA/skillB first risks them being swept into that random sync
+        // and colliding with the explicit UserSkill rows created below for the same user.
+        $both = $this->matchingUser($pool);
+        $onlyOne = $this->matchingUser($pool);
+
+        $skillA = Skill::factory()->create();
+        $skillB = Skill::factory()->create();
+
+        UserSkill::factory()->for($both)->create(['skill_id' => $skillA->id]);
+        UserSkill::factory()->for($both)->create(['skill_id' => $skillB->id]);
+        UserSkill::factory()->for($onlyOne)->create(['skill_id' => $skillA->id]);
+
+        $this->runMatches([
+            'applicantFilter' => ['skillsIntersectional' => [['id' => $skillA->id], ['id' => $skillB->id]]],
+        ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $both->id);
+    }
+
+    // Distinct from testSkillCountCountsTheUsersMatchingSkills: proves the skills filter actually
+    // excludes non-matching users, rather than just checking the skillCount field's value.
+    public function testSkillsFilterExcludesUsersWithoutTheSkill(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        // See testSkillsIntersectionalFilterRequiresAllSkills for why users are created first.
+        $withSkill = $this->matchingUser($pool);
+        $this->matchingUser($pool);
+
+        $matchingSkill = Skill::factory()->create();
+        UserSkill::factory()->for($withSkill)->create(['skill_id' => $matchingSkill->id]);
+
+        $this->runMatches(['applicantFilter' => ['skills' => [['id' => $matchingSkill->id]]]])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $withSkill->id);
+    }
+
+    public function testQualifiedInWorkStreamsFilterRestrictsMatchingPools(): void
+    {
+        $targetStream = WorkStream::factory()->create();
+        $otherStream = WorkStream::factory()->create();
+
+        $targetPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $targetStream->id]);
+        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $otherStream->id]);
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $targetPool->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $otherPool->id]);
+
+        $this->runMatches(['applicantFilter' => ['qualifiedInWorkStreams' => [['id' => $targetStream->id]]]])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $targetPool->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    // qualifiedInClassifications and qualifiedInWorkStreams must both match on the SAME pool candidacy.
+    public function testQualifiedInClassificationsAndWorkStreamsCombineOnTheSamePoolCandidacy(): void
+    {
+        $targetClassification = Classification::factory()->create();
+        $targetStream = WorkStream::factory()->create();
+        $otherStream = WorkStream::factory()->create();
+
+        $bothMatchPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification->id,
+            'work_stream_id' => $targetStream->id,
+        ]);
+        // Explicitly pinned to a different work stream — the default factory work_stream_id is a
+        // random pick that could otherwise coincidentally equal $targetStream and make this pool
+        // incorrectly satisfy the combined filter too.
+        $classificationOnlyPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $targetClassification->id,
+            'work_stream_id' => $otherStream->id,
+        ]);
+
+        // one user qualified in both pools; only the pool matching BOTH filters should count as a source
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $bothMatchPool->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $classificationOnlyPool->id]);
+
+        $this->runMatches([
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [[
+                    'group' => $targetClassification->group,
+                    'level' => $targetClassification->level,
+                ]],
+                'qualifiedInWorkStreams' => [['id' => $targetStream->id]],
+            ],
+        ])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $bothMatchPool->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testPoolsFilterRestrictsMatchingPools(): void
+    {
+        $poolA = Pool::factory()->candidatesAvailableInSearch()->create();
+        $poolB = Pool::factory()->candidatesAvailableInSearch()->create();
+
+        $user = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $poolA->id]);
+        PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $poolB->id]);
+
+        $this->runMatches(['applicantFilter' => ['pools' => [['id' => $poolA->id]]]])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $user->id],
+                                'matchingQualifiedInPoolSources' => [['pool' => ['id' => $poolA->id]]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testNonQualifiedApplicationStatusesDoNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $qualified = $this->matchingUser($pool);
+
+        foreach (ApplicationStatus::cases() as $status) {
+            if ($status === ApplicationStatus::QUALIFIED) {
+                continue;
+            }
+            PoolCandidate::factory()->create([
+                'pool_id' => $pool->id,
+                'application_status' => $status->name,
+                'expiry_date' => config('constants.far_future_date'),
+            ]);
+        }
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $qualified->id);
+    }
+
+    public function testExpiredCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $matching = $this->matchingUser($pool);
+
+        $expiredUser = User::factory()->create();
+        PoolCandidate::factory()->expired()->create([
+            'user_id' => $expiredUser->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    public function testAlreadyPlacedIndeterminateCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $matching = $this->matchingUser($pool);
+
+        $hiredUser = User::factory()->create();
+        PoolCandidate::factory()->placed(PlacementType::PLACED_INDETERMINATE)->create([
+            'user_id' => $hiredUser->id,
+            'pool_id' => $pool->id,
+        ]);
+
+        $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+    }
+
+    // testExcludesCandidacyInANonTalentSearchablePool only proves IAP is excluded against one
+    // other (default) pool; this proves EXECUTIVE_JOBS/OTHER specifically still count.
+    public function testAllNonIapPublishingGroupsAreIncluded(): void
+    {
+        $itUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IT_JOBS->name,
+        ]));
+        $executiveUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
+        ]));
+        $otherUser = $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::OTHER->name,
+        ]));
+        $this->matchingUser(Pool::factory()->published()->create([
+            'publishing_group' => PublishingGroup::IAP->name,
+        ]));
+
+        $userIds = $this->runMatches()
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertEqualsCanonicalizing([$itUser->id, $executiveUser->id, $otherUser->id], $userIds);
+    }
+
+    protected string $atLevelQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingAtLevelSources { id }
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
+    public function testAtLevelSourceMatchesUserWithCommunityInterest(): void
+    {
+        $community = Community::factory()->create();
+
+        $user = User::factory()->create();
+        $interest = CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        // no community interest — should not match
+        User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, ['where' => []])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
+    }
+
+    public function testAtLevelExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $consented = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $consented->id,
+            'community_id' => $community->id,
+        ]);
+
+        $notConsented = User::factory()->create();
+        CommunityInterest::factory()->consented(false)->create([
+            'user_id' => $notConsented->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, ['where' => []])
+            ->assertJsonFragment(['user' => ['id' => $consented->id]])
+            ->assertJsonMissing(['user' => ['id' => $notConsented->id]]);
+    }
+
+    public function testAtLevelCommunityFilterNarrowsResults(): void
+    {
+        $matching = Community::factory()->create();
+        $other = Community::factory()->create();
+
+        $included = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $included->id,
+            'community_id' => $matching->id,
+        ]);
+
+        $excluded = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $excluded->id,
+            'community_id' => $other->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['community' => ['id' => $matching->id]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $included->id);
+    }
+
+    public function testTalentSourcesQualifiedInPoolOnlyExcludesAtLevelUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        // AT_LEVEL only — no pool candidates
+        $atLevelUser = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $poolUser->id);
+    }
+
+    public function testTalentSourcesAtLevelOnlyExcludesPoolOnlyUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        // QUALIFIED_IN_POOL only — no community interest
+        $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create();
+        $interest = CommunityInterest::factory()->consented()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $atLevelUser->id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAtLevelSources.0.id', $interest->id);
+    }
+
+    public function testAtLevelWorkStreamFilterMatchesUserWithoutCandidacy(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create();
+        $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
+        $workStreamId = $interest->workStreams()->first()->id;
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAtLevelClassificationFilterMatchesUserWithoutCandidacy(): void
+    {
+        $classification = Classification::factory()->create();
+
+        $user = User::factory()->create();
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => $classification->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->for($user)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create();
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $community->id,
+        ]);
+
+        $userIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [
+                    TalentRequestSource::QUALIFIED_IN_POOL->name,
+                    TalentRequestSource::AT_LEVEL->name,
+                ]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 2)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertContains($poolUser->id, $userIds);
+        $this->assertContains($atLevelUser->id, $userIds);
     }
 }

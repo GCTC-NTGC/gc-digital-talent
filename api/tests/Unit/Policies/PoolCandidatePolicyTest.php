@@ -79,6 +79,15 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->delete($owner, $draft)));
     }
 
+    public function testOwnerCannotChangeSubmittedApplication(): void
+    {
+        $owner = User::factory()->asApplicant()->create();
+        $submitted = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create(['submitted_at' => config('constants.past_date')]);
+
+        $this->assertFalse($this->ensureBool($this->policy->update($owner, $submitted)));
+        $this->assertFalse($this->ensureBool($this->policy->delete($owner, $submitted)));
+    }
+
     public function testOwnerCanArchiveAndSuspendSubmittedApplication(): void
     {
         $owner = User::factory()->asApplicant()->create();
@@ -93,7 +102,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $owner = User::factory()->asApplicant()->create();
         $candidate = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create();
 
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($owner, $candidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($owner, $candidate)));
     }
 
     public function testNonOwnerCannotModifyOrSubmitApplication(): void
@@ -114,8 +123,8 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $admin = User::factory()->asAdmin()->create();
 
         $this->assertTrue($this->ensureBool($this->policy->view($admin, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($admin, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewNotes($admin, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($admin, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationAssessment($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewAssessment($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewDecision($admin, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewPlacement($admin, $this->submittedCandidate)));
@@ -142,7 +151,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
 
         $this->assertTrue($this->ensureBool($this->policy->view($user, $this->submittedCandidate)));
-        $this->assertTrue($this->ensureBool($this->policy->viewStatus($user, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($user, $this->submittedCandidate)));
     }
 
     #[DataProvider('allTeamRolesProvider')]
@@ -150,7 +159,7 @@ class PoolCandidatePolicyTest extends PolicyTestCase
     {
         $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
 
-        $this->assertTrue($this->ensureBool($this->policy->viewNotes($user, $this->submittedCandidate)));
+        $this->assertTrue($this->ensureBool($this->policy->viewApplicationAssessment($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->updateFlag($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->updateNotes($user, $this->submittedCandidate)));
         $this->assertTrue($this->ensureBool($this->policy->viewAssessment($user, $this->submittedCandidate)));
@@ -254,8 +263,8 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $user = $this->createContextualUser($factoryMethod, $otherPool);
 
         $this->assertFalse($this->ensureBool($this->policy->view($user, $this->submittedCandidate)));
-        $this->assertFalse($this->ensureBool($this->policy->viewStatus($user, $this->submittedCandidate)));
-        $this->assertFalse($this->ensureBool($this->policy->viewNotes($user, $this->submittedCandidate)));
+        $this->assertFalse($this->ensureBool($this->policy->viewApplicationStatus($user, $this->submittedCandidate)));
+        $this->assertFalse($this->ensureBool($this->policy->viewApplicationAssessment($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewAssessment($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewDecision($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->viewPlacement($user, $this->submittedCandidate)));
@@ -265,5 +274,20 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertFalse($this->ensureBool($this->policy->updateDecision($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->updatePlacement($user, $this->submittedCandidate)));
         $this->assertFalse($this->ensureBool($this->policy->updateReferrals($user, $this->submittedCandidate)));
+    }
+
+    // --- createSpecialApplication() ---
+
+    #[DataProvider('allTeamRolesProvider')]
+    public function testTeamRolesCannotCreateSpecialApplication(string $factoryMethod): void
+    {
+        $user = $this->createContextualUser($factoryMethod, $this->primaryPool);
+        $this->assertFalse($this->ensureBool($this->policy->createSpecialApplication($user)));
+    }
+
+    public function testPlatformAdminCanCreateSpecialApplication(): void
+    {
+        $admin = User::factory()->asAdmin()->create();
+        $this->assertTrue($this->ensureBool($this->policy->createSpecialApplication($admin)));
     }
 }

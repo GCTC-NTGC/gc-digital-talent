@@ -1,10 +1,12 @@
-import { useIntl } from "react-intl";
-import ClipboardDocumentListIcon from "@heroicons/react/24/outline/ClipboardDocumentListIcon";
+import { useIntl, type MessageDescriptor } from "react-intl";
+import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import {
   getFragment,
   graphql,
+  TalentRequestSource,
   type FragmentType,
+  type LocalizedTalentRequestSource,
 } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -12,6 +14,7 @@ import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import TalentRequestSectionCard from "./TalentRequestSectionCard";
 
@@ -41,15 +44,22 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
           localized
         }
       }
+      talentSources {
+        value
+      }
     }
   }
 `);
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
+  talentSourceOptions: LocalizedTalentRequestSource[];
 }
 
-const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
+const TalentRequestSourcesCard = ({
+  query,
+  talentSourceOptions,
+}: TalentRequestSourcesCardProps) => {
   const intl = useIntl();
   const { applicantFilter } = getFragment(
     TalentRequestSourcesCard_Fragment,
@@ -63,20 +73,30 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
   const pools = unpackMaybes(applicantFilter?.pools);
   const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
 
+  // TODO: remove this filter once Advancement is implemented, see #17382
+  const talentSourceOptionsFiltered = talentSourceOptions.filter(
+    (source) => source.value !== TalentRequestSource.Advancement,
+  );
+  const selectedTalentSources = unpackMaybes(
+    applicantFilter?.talentSources?.map((source) => source?.value),
+  );
+  const talentSourceLabels: Partial<
+    Record<TalentRequestSource, MessageDescriptor>
+  > = {
+    [TalentRequestSource.QualifiedInPool]:
+      talentRequestMessages.qualifiedInPoolLabel,
+    [TalentRequestSource.AtLevel]: talentRequestMessages.atLevelLabel,
+  };
+
   return (
     <TalentRequestSectionCard
-      title={intl.formatMessage({
-        defaultMessage: "Source of talent",
-        id: "jg4bu1",
-        description:
-          "Heading for section outling the source criteria for users in a talent request",
-      })}
+      title={intl.formatMessage(talentRequestMessages.sourceOfTalent)}
       subtitle={intl.formatMessage({
         defaultMessage: "This is where your candidates come from.",
         id: "RBSXa2",
         description: "Description of the talent request users sources",
       })}
-      icon={ClipboardDocumentListIcon}
+      icon={FolderOpenIcon}
       color="secondary"
     >
       <div className="grid gap-6 sm:grid-cols-2">
@@ -96,6 +116,30 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
           ) : (
             notProvided
           )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.talentSource)}
+        >
+          <Ul unStyled noIndent inside>
+            {talentSourceOptionsFiltered.map((source) => {
+              const messageDescriptor = talentSourceLabels[source.value];
+              const label = messageDescriptor
+                ? intl.formatMessage(messageDescriptor)
+                : (source.label?.localized ?? notProvided);
+
+              return (
+                <li key={source.value}>
+                  <BoolCheckIcon
+                    value={selectedTalentSources.includes(source.value)}
+                    trueLabel={intl.formatMessage(commonMessages.selected)}
+                    falseLabel={intl.formatMessage(commonMessages.notSelected)}
+                  >
+                    {label}
+                  </BoolCheckIcon>
+                </li>
+              );
+            })}
+          </Ul>
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({

@@ -5,28 +5,25 @@ import { useQuery } from "urql";
 import { useState, useEffect } from "react";
 
 import {
-  Button,
-  Card,
   Container,
   Heading,
-  Link,
   Loading,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import {
-  unpackMaybes,
-  notEmpty,
-  buildMailToUri,
-} from "@gc-digital-talent/helpers";
+import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
   Skill,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import { graphql, FlexibleWorkLocation } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  graphql,
+  FlexibleWorkLocation,
+  TalentRequestSource,
+} from "@gc-digital-talent/graphql";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "~/types/searchRequest";
 import useRoutes from "~/hooks/useRoutes";
@@ -38,6 +35,7 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
+import CommunityResultCard from "./CommunityResultCard";
 
 interface SearchFormProps {
   classifications: Classification[];
@@ -77,7 +75,7 @@ export const SearchForm = ({
     initialFiltersAdjusted,
   );
 
-  const { fetching, candidateCount, results } =
+  const { fetching, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
@@ -85,8 +83,7 @@ export const SearchForm = ({
     mode: "onSubmit",
     reValidateMode: "onBlur",
   });
-  const { watch, register, setValue } = methods;
-  const poolSubmitProps = register("pool");
+  const { watch } = methods;
 
   useEffect(() => {
     const subscription = watch((newValues) => {
@@ -100,75 +97,58 @@ export const SearchForm = ({
     return () => subscription.unsubscribe();
   }, [classifications, watch]);
 
+  // An empty selection means "all sources" on the backend (TalentRequestSource::selected()),
+  // so show both breakdown lines until the user narrows it down to one.
+  const hasTalentSourceSelection = !!applicantFilter?.talentSources?.length;
+  const showQualifiedInPool =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(
+      TalentRequestSource.QualifiedInPool,
+    );
+  const showAtLevel =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(TalentRequestSource.AtLevel);
+
+  const selectedWorkStream = workStreams.find(
+    (workStream) =>
+      workStream.id === applicantFilter?.qualifiedInWorkStreams?.[0]?.id,
+  );
+  const selectedWorkStreamName = selectedWorkStream
+    ? getLocalizedName(selectedWorkStream.name, intl)
+    : undefined;
+
   const handleSubmit = async (values: FormValues) => {
-    const poolIds = values.pool ? [{ id: values.pool }] : [];
+    let poolIds: { id: string }[] = [];
+    let community: { id: string } | undefined;
+
+    if (values.communityId) {
+      poolIds = (results ?? [])
+        .filter((result) => result.pool.community?.id === values.communityId)
+        .map((result) => ({ id: result.pool.id }));
+      community = { id: values.communityId };
+    } else if (values.pool) {
+      poolIds = [{ id: values.pool }];
+      const clickedPool = results?.find(
+        (result) => result.pool.id === values.pool,
+      )?.pool;
+      community = clickedPool?.community?.id
+        ? { id: clickedPool.community.id }
+        : undefined;
+    }
 
     await navigate(paths.request(), {
       state: {
         applicantFilter: {
           ...applicantFilter,
           pools: poolIds,
+          community,
         },
-        allPools: values.allPools,
         candidateCount: values.count,
         selectedClassifications:
           applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
       },
     });
   };
-
-  const handleSubmitAllPools = () => {
-    setValue("allPools", true);
-    setValue("pool", "");
-    setValue("count", candidateCount);
-  };
-
-  const hireAnApprenticeEmailUri = buildMailToUri(
-    "edsc.patipa.jumelage.emplois-itapip.job.matching.esdc@hrsdc-rhdcc.gc.ca",
-    intl.formatMessage({
-      defaultMessage: "I'm interested in offering an apprenticeship",
-      id: "HqtjhD",
-      description: "Subject line of a manager's email for apprenticeship",
-    }),
-    [
-      intl.formatMessage({
-        defaultMessage:
-          "To best support you in your journey to hire an IT Apprentice, please let us know if you",
-        id: "ZKss5S",
-        description: "Paragraph 1 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "1. are interested in hiring an Apprentice and would like to learn more about the IT Apprenticeship Program for Indigenous Peoples",
-        id: "ipKAvI",
-        description: "Paragraph 2 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "2. have reviewed the checklist in the manager’s package and have positions available to hire an IT Apprentice",
-        id: "18pJdz",
-        description: "Paragraph 3 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage: "3. Other…",
-        id: "Fz49kD",
-        description: "Paragraph 4 of a manager's email for apprenticeship",
-      }),
-      intl.formatMessage({
-        defaultMessage:
-          "A team member from the Office of Indigenous Initiatives will be in touch shortly.",
-        id: "x45gSl",
-        description: "Paragraph 5 of a manager's email for apprenticeship",
-      }),
-    ].join("\n"),
-  );
-
-  const selectedClassificationIsIT1 = applicantFilter.qualifiedInClassifications
-    ?.filter(notEmpty)
-    .some(
-      (classification) =>
-        classification.group === "IT" && classification.level === 1,
-    );
 
   return (
     <Container className="my-18">
@@ -221,111 +201,61 @@ export const SearchForm = ({
           ) : (
             <>
               <Heading level="h3" size="h4" id="results">
-                {intl.formatMessage(
-                  {
-                    defaultMessage: `Results: {totalCandidateCount, plural,
-                      =0 {<heavyPrimary>#</heavyPrimary> matching candidates}
-                      one {<heavyPrimary>#</heavyPrimary> matching candidate}
-                      other {<heavyPrimary>#</heavyPrimary> matching candidates} } across {numPools, plural,
-                      =0 {<heavyPrimary>#</heavyPrimary> pools}
-                      one {<heavyPrimary>#</heavyPrimary> pool}
-                      other {<heavyPrimary>#</heavyPrimary> pools} }`,
-                    id: "58n1gP",
-                    description:
-                      "Heading for total matching candidates across a certain number of pools in results section of search page.",
-                  },
-                  {
-                    totalCandidateCount: candidateCount,
-                    numPools: results?.length ?? 0,
-                  },
-                )}
+                {intl.formatMessage({
+                  defaultMessage: "Results",
+                  id: "UK1PlW",
+                  description:
+                    "Heading for the results section of search page.",
+                }) + intl.formatMessage(commonMessages.dividingColon)}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
-              {results?.length && candidateCount > 0 ? (
+              {communities.length || results?.length ? (
                 <>
-                  <p className="my-6">
-                    <Button
-                      color="secondary"
-                      type="submit"
-                      {...poolSubmitProps}
-                      value=""
-                      onClick={handleSubmitAllPools}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Request candidates from all pools",
-                        id: "DxNuJ9",
-                        description:
-                          "Button text to submit search request for candidates across all pools",
-                      })}
-                    </Button>
-                  </p>
-                  <p className="mt-9 mb-1.5 text-2xl lg:text-3xl">
-                    {intl.formatMessage({
-                      defaultMessage: "Or request candidates by pool",
-                      id: "l1f8zy",
-                      description:
-                        "Lead-in text to list of pools managers can request candidates from",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                  </p>
-                  <div className="flex flex-col gap-y-6">
-                    {selectedClassificationIsIT1 && (
-                      <Card className="rounded-l-none border-l-12 border-l-error">
-                        <p className="text-lg font-bold lg:text-xl">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "Have you considered hiring an Indigenous IT apprentice?",
-                            id: "kyM6sV",
-                            description:
-                              "Title for IT Apprenticeship Program for Indigenous Peoples search card",
-                          })}
-                        </p>
-                        <p className="mt-5 mb-6 flex gap-x-3">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "The IT Apprenticeship Program for Indigenous Peoples aims to help address and remove barriers Indigenous peoples face when it comes to finding employment in the Government of Canada's digital workforce. Become a hiring partner today and discover how you can strengthen your team with Indigenous IT talent and help build a more inclusive public service. Your participation contributes to the broader goal of inclusion, equity, and reconciliation in Canada.",
-                            id: "ifqj46",
-                            description:
-                              "Paragraph for IT Apprenticeship Program for Indigenous Peoples search card",
-                          })}
-                        </p>
-                        <Separator space="sm" />
-                        <div className="mt-6 flex flex-wrap items-center gap-6">
-                          <Link
-                            mode="solid"
-                            color="error"
-                            href={hireAnApprenticeEmailUri}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage: "Contact the team",
-                              id: "gJ7CQw",
-                              description: "Link to send an email to the team",
-                            })}
-                          </Link>
-                          <Link
-                            mode="inline"
-                            color="error"
-                            href={paths.iapManager()}
-                          >
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "Visit the IT Apprenticeship Program for Indigenous Peoples manager page",
-                              id: "zVGzWa",
-                              description:
-                                "Link to visit IT Apprenticeship Program for Indigenous Peoples manager page",
-                            })}
-                          </Link>
-                        </div>
-                      </Card>
-                    )}
-                    {results.map(({ pool, count: resultsCount }) => (
-                      <SearchResultCard
-                        key={pool.id}
-                        candidateCount={resultsCount}
-                        pool={pool}
-                      />
-                    ))}
-                  </div>
+                  {communities.length ? (
+                    <div className="flex flex-col gap-y-6">
+                      {communities.map(
+                        ({
+                          community,
+                          qualifiedInPoolCount,
+                          atLevelCount,
+                          count: communityCount,
+                        }) => (
+                          <CommunityResultCard
+                            key={community.id}
+                            community={community}
+                            workStreamName={selectedWorkStreamName}
+                            qualifiedInPoolCount={qualifiedInPoolCount}
+                            atLevelCount={atLevelCount}
+                            count={communityCount}
+                            showQualifiedInPool={showQualifiedInPool}
+                            showAtLevel={showAtLevel}
+                          />
+                        ),
+                      )}
+                    </div>
+                  ) : null}
+                  {results?.length ? (
+                    <>
+                      <Heading level="h3" size="h4">
+                        {intl.formatMessage({
+                          defaultMessage: "Results by pool",
+                          id: "p4hCip",
+                          description:
+                            "Lead-in text to list of pools managers can request candidates from",
+                        })}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                      </Heading>
+                      <div className="flex flex-col gap-y-6">
+                        {results.map(({ pool, count: resultsCount }) => (
+                          <SearchResultCard
+                            key={pool.id}
+                            candidateCount={resultsCount}
+                            pool={pool}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
                 </>
               ) : (
                 <NoResults />

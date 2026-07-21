@@ -64,34 +64,37 @@ class TalentNominationTest extends TestCase
         $this->seed(SkillSeeder::class);
 
         $this->employee1 = User::factory()
-            ->asGuest()
-            ->asApplicant()
-            ->create([
+            ->state([
                 'email' => 'employee1@test.com',
                 'computed_is_gov_employee' => true,
                 'work_email' => 'employee1@gc.ca',
                 'work_email_verified_at' => now(),
-            ]);
-
-        $this->employee2 = User::factory()
+            ])
             ->asGuest()
             ->asApplicant()
-            ->create([
+            ->create();
+
+        $this->employee2 = User::factory()
+            ->state([
                 'email' => 'employee2@test.com',
                 'computed_is_gov_employee' => true,
                 'work_email' => 'employee2@gc.ca',
                 'work_email_verified_at' => now(),
-            ]);
-
-        $this->nonEmployee1 = User::factory()
+            ])
             ->asGuest()
             ->asApplicant()
-            ->create([
+            ->create();
+
+        $this->nonEmployee1 = User::factory()
+            ->state([
                 'email' => 'non_employee1@test.com',
                 'computed_is_gov_employee' => false,
                 'work_email' => null,
                 'work_email_verified_at' => null,
-            ]);
+            ])
+            ->asGuest()
+            ->asApplicant()
+            ->create();
 
         $this->nominationEvent = TalentNominationEvent::factory()->create([
             'open_date' => config('constants.past_datetime'),
@@ -184,11 +187,12 @@ class TalentNominationTest extends TestCase
     public function testSubmitterCantUpdateTheirOwnSubmittedNominations()
     {
         $nomination = TalentNomination::factory()
-            ->submittedReviewAndSubmit()
-            ->create([
+            ->state([
                 'talent_nomination_event_id' => $this->nominationEvent->id,
                 'submitter_id' => $this->employee1->id,
-            ]);
+            ])
+            ->submittedReviewAndSubmit()
+            ->create();
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
@@ -209,12 +213,13 @@ class TalentNominationTest extends TestCase
                 'include_leadership_competencies' => true,
             ]);
         $nomination = TalentNomination::factory()
-            ->submittedRationale()
-            ->hasSkills(SkillFamily::where('key', 'klc')->sole()->skills->take(3))
-            ->create([
+            ->state([
                 'submitter_id' => $this->employee1->id,
                 'talent_nomination_event_id' => $event->id,
-            ]);
+            ])
+            ->submittedRationale()
+            ->hasSkills(SkillFamily::where('key', 'klc')->sole()->skills->take(3))
+            ->create();
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->submitMutation, [
@@ -240,12 +245,13 @@ class TalentNominationTest extends TestCase
                 'include_leadership_competencies' => false,
             ]);
         $nomination = TalentNomination::factory()
-            ->submittedRationale()
-            ->hasSkills(SkillFamily::where('key', '<>', 'klc')->first()->skills->take(3))
-            ->create([
+            ->state([
                 'submitter_id' => $this->employee1->id,
                 'talent_nomination_event_id' => $event->id,
-            ]);
+            ])
+            ->submittedRationale()
+            ->hasSkills(SkillFamily::where('key', '<>', 'klc')->first()->skills->take(3))
+            ->create();
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->submitMutation, [
@@ -264,11 +270,12 @@ class TalentNominationTest extends TestCase
             'include_leadership_competencies' => true,
         ]);
         $nomination = TalentNomination::factory()
-            ->hasSkills([])
-            ->create([
+            ->state([
                 'submitter_id' => $this->employee1->id,
                 'talent_nomination_event_id' => $event->id,
-            ]);
+            ])
+            ->hasSkills([])
+            ->create();
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
@@ -283,12 +290,135 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLValidationError('talentNomination.skills.sync.0', ErrorCode::SKILL_NOT_KLC->name);
     }
 
+    public function testCantSubmitWithoutNineBoxFieldsWhenEventRequiresThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => true,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'nine_box_performance' => null,
+                'nine_box_leadership_potential' => null,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nine_box_performance', 'NINE_BOX_RATINGS_REQUIRED_FOR_EVENT');
+        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'NINE_BOX_RATINGS_REQUIRED_FOR_EVENT');
+    }
+
+    public function testCanSubmitWithNineBoxFieldsWhenEventRequiresThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => true,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'nine_box_performance' => 'LOW',
+                'nine_box_leadership_potential' => 'LOW',
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
+    public function testCantSubmitWithNineBoxFieldsWhenEventProhibitsThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => false,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'nine_box_performance' => 'LOW',
+                'nine_box_leadership_potential' => 'LOW',
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('nine_box_performance', 'NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT');
+        $response->assertGraphQLValidationError('nine_box_leadership_potential', 'NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT');
+    }
+
+    public function testCanSubmitWithoutNineBoxFieldsWhenEventProhibitsThem()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'close_date' => config('constants.far_future_datetime'),
+            'include_nine_box' => false,
+        ]);
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $event->id,
+                'nine_box_performance' => null,
+                'nine_box_leadership_potential' => null,
+            ])
+            ->submittedRationale()
+            ->create();
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
     public function testCantNominateSelf()
     {
         $nomination = TalentNomination::factory()
+            ->state([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+            ])
             ->submittedRationale()
             ->create([
-                'talent_nomination_event_id' => $this->nominationEvent->id,
+                // override factory logic
                 'submitter_id' => $this->employee1->id,
                 'nominator_id' => $this->employee1->id,
                 'nominee_id' => $this->employee1->id,
@@ -343,5 +473,41 @@ class TalentNominationTest extends TestCase
             ->graphQL($this->submitMutation, [
                 'id' => $nomination->id,
             ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
+    }
+
+    public function testCommunityTalentCoordinatorCanCreatePastNominationOnProtectedEndpoint()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+
+        $communityTalentCoordinator = User::factory()
+            ->state([
+                'computed_is_gov_employee' => true,
+                'work_email' => 'coordinator@gc.ca',
+                'work_email_verified_at' => now(),
+            ])
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($event->community_id)
+            ->create();
+
+        $this->actingAs($communityTalentCoordinator, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $event->id,
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonStructure([
+                'data' => [
+                    'createTalentNomination' => [
+                        'id',
+                    ],
+                ],
+            ]);
     }
 }

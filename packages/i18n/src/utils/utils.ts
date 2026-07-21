@@ -1,5 +1,7 @@
+import { createIntl, createIntlCache, type IntlShape } from "react-intl";
+
 import type { Messages, Locales } from "../types";
-import CommonFrench from "../lang/frCompiled.json";
+import CommonFrench from "../lang/frCompiled.json" with { type: "json" };
 import { isLocale } from "./localize";
 
 export const STORED_LOCALE = "stored_locale";
@@ -55,4 +57,31 @@ export function combineMessages(
         ...CommonFrench,
       }
     : undefined;
+}
+
+const localeIntlCache = createIntlCache();
+
+/**
+ * Get an `intl` instance pinned to a specific locale.
+ *
+ * Unlike the shared `getIntl` helper (which derives the locale from the
+ * environment), this always resolves messages against the locale you pass in.
+ * Useful when the page is rendering in one language but you need a string in
+ * the other — e.g. formatting a French label while the UI is in English.
+ *
+ * Pass app-specific compiled `messages` (e.g. the web app's `frCompiled.json`)
+ * when you need translations beyond the common i18n bundle; they are merged in
+ * via `combineMessages`.
+ */
+export function getIntlForLocale(
+  locale: Locales,
+  messages?: Messages,
+): IntlShape {
+  return createIntl(
+    {
+      locale,
+      messages: combineMessages(locale, messages),
+    },
+    localeIntlCache,
+  );
 }

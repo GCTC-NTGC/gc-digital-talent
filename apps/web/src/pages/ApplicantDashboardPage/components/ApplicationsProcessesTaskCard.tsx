@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  ApplicationStatus,
+  CandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -27,14 +27,15 @@ const ACCORDION_ID = {
 const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsProcessesTaskCard on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
     poolCandidates {
       ...ReviewApplicationPreviewList
-      status {
-        value
+      applicationStatusData {
+        candidateStatus {
+          value
+        }
       }
     }
     ...ReviewRecruitmentProcessPreviewList
@@ -78,7 +79,9 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.poolCandidates,
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ status }) => status?.value === ApplicationStatus.Qualified,
+    ({ applicationStatusData }) =>
+      applicationStatusData?.candidateStatus?.value ===
+      CandidateStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

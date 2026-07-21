@@ -2,6 +2,7 @@
 
 namespace App\Builders;
 
+use App\Contracts\TalentRequestMatchable;
 use App\Enums\ApplicationStatus;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateReferralFilter;
@@ -23,13 +24,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class PoolCandidateBuilder extends Builder
+class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 {
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
      */
-    public function whereHasPoolCandidateCommunity(?string $communityId): self
+    public function whereInCommunity(mixed $communityId): self
     {
+        if (is_array($communityId)) {
+            $communityId = $communityId['id'] ?? null;
+        }
+
         if (empty($communityId)) {
             return $this;
         }
@@ -91,16 +96,32 @@ class PoolCandidateBuilder extends Builder
     }
 
     /**
-     * Scope is IT & OTHER Publishing Groups
+     * Filter Publishing Groups
      *
-     * Restrict a query by pool candidates that are for pools
-     * containing IT and OTHER publishing groups
+     * Restrict a query by excluding specific publishing groups
+     */
+    public function wherePublishingGroupsNotIn(?array $publishingGroups): self
+    {
+        if (empty($publishingGroups)) {
+            return $this;
+        }
+
+        return $this->whereDoesntHave('pool', function (Builder $query) use ($publishingGroups) {
+            /** @var PoolBuilder $query */
+            $query->publishingGroups($publishingGroups);
+        });
+    }
+
+    /**
+     * Scope is not IAP Publishing Group
+     *
+     * Restrict a query by pool candidates that are for pools not
+     * containing IAP publishing group
      */
     public function whereInTalentSearchablePublishingGroup(): self
     {
-        return $this->wherePublishingGroupsIn([
-            PublishingGroup::IT_JOBS->name,
-            PublishingGroup::OTHER->name,
+        return $this->wherePublishingGroupsNotIn([
+            PublishingGroup::IAP->name,
         ]);
 
     }
@@ -110,7 +131,7 @@ class PoolCandidateBuilder extends Builder
     // constrained eager-load so they cannot drift.
     public function whereMatchesTalentRequest(?array $filters): self
     {
-        $filters ??= [];
+        $filters = $filters ? ($filters['applicantFilter'] ?? $filters) : [];
 
         // Match the request's pool-level constraints: classification, work stream, community,
         // and specific pools. Skills are not matched here — this scope only decides whether a
@@ -121,7 +142,7 @@ class PoolCandidateBuilder extends Builder
             ->whereInTalentSearchablePublishingGroup()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
             ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
-            ->whereHasPoolCandidateCommunity($filters['community'] ?? null)
+            ->whereInCommunity($filters['community'] ?? null)
             ->when($filters['pools'] ?? null, fn ($query, $pools) => $query->whereIn('pool_id', $pools));
     }
 
@@ -269,6 +290,17 @@ class PoolCandidateBuilder extends Builder
         return $this;
     }
 
+    public function whereEmployeeVerificationIn(?array $employeeVerification): self
+    {
+        if (empty($employeeVerification)) {
+            return $this;
+        }
+
+        return $this->whereHas('user', function ($query) use ($employeeVerification) {
+            $query->whereEmployeeVerificationIn($employeeVerification);
+        });
+    }
+
     public function whereNotesLike(?string $notes): self
     {
         if (empty($notes)) {
@@ -299,7 +331,8 @@ class PoolCandidateBuilder extends Builder
             ->where(function ($query) {
                 $query->where('suspended_at', '>=', Carbon::now())
                     ->orWhereNull('suspended_at');
-            })->whereExpiryStatus(CandidateExpiryFilter::ACTIVE->name);
+            })->whereExpiryStatus(CandidateExpiryFilter::ACTIVE->name)
+            ->whereNotDraft();
     }
 
     // filter for qualified recruitments similar to frontend in `RecruitmentProcesses.tsx`
@@ -509,7 +542,6 @@ class PoolCandidateBuilder extends Builder
 
     public function wherePlacementTypeIn(?array $placementTypes): self
     {
-
         if (empty($placementTypes)) {
             return $this;
         }

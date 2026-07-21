@@ -11,11 +11,11 @@ use App\Notifications\ApplicationStatusChanged;
 use App\Notifications\GcNotifyEmailChannel;
 use App\Notifications\TalentNominationReceivedNominator;
 use App\Notifications\TalentNominationReceivedSubmitter;
-use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -264,6 +264,40 @@ class TalentNominationReceivedTest extends TestCase
             $message->messageVariables);
     }
 
+    // builds GC Notify email message correctly in bilingual (en-fr), for the nominator message
+    public function testSetsGcNotifyEmailFieldsNominatorBilingual(): void
+    {
+        /** @var TalentNomination */
+        $talentNomination = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'talent_nomination_event_id' => (TalentNominationReceivedTest::makeTalentEvent('test_event'))->id,
+                'submitter_id' => TalentNominationReceivedTest::makeGovEmployee('submitter')->id,
+                'nominator_id' => TalentNominationReceivedTest::makeGovEmployee('nominator')->id,
+                'nominee_id' => TalentNominationReceivedTest::makeGovEmployee('nominee')->id,
+                'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => true,
+                'nominate_for_development_programs' => true,
+            ]);
+
+        $notification = (new TalentNominationReceivedNominator($talentNomination))->locale('en-fr');
+        $message = $notification->toGcNotifyEmail(TalentNominationReceivedTest::makeGovEmployee('recipient'));
+
+        assertEquals(config('notify.templates.nomination_received_nominator_enfr'), $message->templateId);
+        assertEquals('recipient@gc.ca', $message->emailAddress);
+        assertEquals([
+            'recipient name' => 'recipient_first_name recipient_last_name',
+            'submitter name' => 'submitter_first_name submitter_last_name',
+            'nominator name' => 'nominator_first_name nominator_last_name',
+            'nominee name' => 'nominee_first_name nominee_last_name',
+            'event name en' => 'test_event_en',
+            'event name fr' => 'test_event_fr',
+            'selected nomination options en' => 'advancement, lateral movement, and development program',
+            'selected nomination options fr' => 'avancement, mutation latérale et programme de perfectionnement',
+        ],
+            $message->messageVariables);
+    }
+
     // builds GC Notify email message correctly, for the nominator message, with a fallback nominator
     public function testSetsGcNotifyEmailFieldsNominatorFallbackNominator(): void
     {
@@ -473,7 +507,8 @@ class TalentNominationReceivedTest extends TestCase
                     $channels[0] == GcNotifyEmailChannel::class &&
                     $notification->submitterName == 'submitter_first_name submitter_last_name' &&
                     $notification->nominatorName == 'fallback_nominator_name' &&
-                    $notification->nominatorWorkEmail == 'fallback_nominator@gc.ca';
+                    $notification->nominatorWorkEmail == 'fallback_nominator@gc.ca' &&
+                    $notification->locale == 'en-fr';
             }
 
         );

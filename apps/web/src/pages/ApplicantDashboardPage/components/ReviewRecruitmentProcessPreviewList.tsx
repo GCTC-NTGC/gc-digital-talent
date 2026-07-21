@@ -3,7 +3,7 @@ import { useQuery } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
-  ApplicationStatus,
+  CandidateStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -25,27 +25,27 @@ import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatf
 
 import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
-import DeleteOldOffPlatformProcessesDialog from "./DeleteOldOffPlatformProcessesDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
   fragment ReviewRecruitmentProcessPreviewList on User {
     id
-    oldOffPlatformRecruitmentProcesses
     offPlatformRecruitmentProcesses {
       ...OffPlatformRecruitmentProcessList
     }
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      statusUpdatedAt
-      candidateInterest {
-        value
-        label {
-          localized
+      applicationStatusData {
+        statusUpdatedAt
+        candidateInterest {
+          value
+          label {
+            localized
+          }
         }
-      }
-      status {
-        value
+        candidateStatus {
+          value
+        }
       }
       pool {
         id
@@ -84,7 +84,9 @@ const ReviewRecruitmentProcessPreviewList = ({
 
   const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ status }) => status?.value === ApplicationStatus.Qualified,
+    ({ applicationStatusData }) =>
+      applicationStatusData?.candidateStatus?.value ===
+      CandidateStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
@@ -96,8 +98,9 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, statusUpdatedAt, candidateInterest } =
-              recruitmentProcess;
+            const { id, pool, applicationStatusData } = recruitmentProcess;
+            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
+            const candidateInterest = applicationStatusData?.candidateInterest;
             const interestChip = candidateInterestChip(candidateInterest);
 
             let applicationMetadata: PreviewMetaData[] = [];
@@ -201,22 +204,6 @@ const ReviewRecruitmentProcessPreviewList = ({
             description: "Off-platform section information",
           })}
         </p>
-        {user?.oldOffPlatformRecruitmentProcesses ? (
-          <div className="mb-6 rounded-md border p-6">
-            <p className="mb-3">{user.oldOffPlatformRecruitmentProcesses}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-100">
-              {intl.formatMessage({
-                defaultMessage:
-                  "We've changed the way we collect information about off-platform recruitment processes. The information shown here will be deleted as of December 31, 2025. Please use our new format and add each process you've been qualified in using the \"Add an off-platform process\" button.",
-                id: "/0kzjJ",
-                description:
-                  "Message informing the user about the update to off-platform processes",
-                // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-              })}{" "}
-              <DeleteOldOffPlatformProcessesDialog userId={user.id} />
-            </p>
-          </div>
-        ) : null}
         <OffPlatformRecruitmentProcessList
           processesQuery={user?.offPlatformRecruitmentProcesses ?? []}
           editDialogQuery={offPlatformProcessData}

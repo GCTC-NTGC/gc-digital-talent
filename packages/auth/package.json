@@ -27,7 +27,7 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
     "jwt-decode": "^4.0.0",
-    "urql": "^5.0.2"
+    "urql": "^5.0.3"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
@@ -37,6 +37,6 @@
     "react": "^19.2.7",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.1.8"
   }
 }

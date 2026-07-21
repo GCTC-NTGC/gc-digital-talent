@@ -8,11 +8,7 @@ import type {
   FragmentType,
   LocalizedTalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  TalentNominationEventStatus,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Button,
   Card,
@@ -29,6 +25,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -91,6 +88,11 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    customInstructions {
+      en
+      fr
+    }
+    contactEmail
   }
 `);
 
@@ -124,6 +126,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
     .sort(sortAlphaBy((i) => i.developmentProgram.name.localized));
 
   const notFound = intl.formatMessage(commonMessages.notFound);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <>
@@ -137,64 +140,60 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           >
             {intl.formatMessage(adminMessages.eventDetails)}
           </Heading>
-          {talentEvent.status?.value === TalentNominationEventStatus.Active ? (
-            <div className="flex flex-col items-center justify-center gap-6 text-right sm:col-span-2 sm:flex-row">
-              <Button
-                mode="inline"
-                color="primary"
-                icon={linkCopied ? CheckIcon : undefined}
-                onClick={async () => {
-                  await navigator.clipboard.writeText(
-                    window.location.protocol +
-                      "//" +
-                      window.location.host +
-                      paths.createTalentNomination(talentEvent.id),
-                  );
-                  setLinkCopied(true);
-                  setTimeout(() => {
-                    setLinkCopied(false);
-                  }, 2000);
-                }}
-                aria-label={
-                  linkCopied
-                    ? intl.formatMessage({
-                        defaultMessage: "Nomination link copied",
-                        id: "ms0CBt",
-                        description:
-                          "Button text to indicate that a talent event nomination URL has been copied",
-                      })
-                    : intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "Copy {title} nomination URL to clipboard",
-                          id: "zxHKZ2",
-                          description:
-                            "Button text to copy a create talent event URL",
-                        },
-                        {
-                          title: talentEvent.name.localized,
-                        },
-                      )
-                }
-              >
-                {linkCopied
+          <div className="flex flex-col items-center justify-center gap-6 text-right sm:col-span-2 sm:flex-row">
+            <Button
+              mode="inline"
+              color="primary"
+              icon={linkCopied ? CheckIcon : undefined}
+              onClick={async () => {
+                await navigator.clipboard.writeText(
+                  window.location.protocol +
+                    "//" +
+                    window.location.host +
+                    paths.createTalentNomination(talentEvent.id),
+                );
+                setLinkCopied(true);
+                setTimeout(() => {
+                  setLinkCopied(false);
+                }, 2000);
+              }}
+              aria-label={
+                linkCopied
                   ? intl.formatMessage({
                       defaultMessage: "Nomination link copied",
                       id: "ms0CBt",
                       description:
                         "Button text to indicate that a talent event nomination URL has been copied",
                     })
-                  : intl.formatMessage({
-                      defaultMessage: "Copy nomination link",
-                      id: "vV5a2X",
-                      description: "Button text to copy a nomination URL",
-                    })}
-              </Button>
-              <StatusChip status={talentEvent.status} />
-            </div>
-          ) : (
+                  : intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Copy {title} nomination URL to clipboard",
+                        id: "zxHKZ2",
+                        description:
+                          "Button text to copy a create talent event URL",
+                      },
+                      {
+                        title: talentEvent.name.localized,
+                      },
+                    )
+              }
+            >
+              {linkCopied
+                ? intl.formatMessage({
+                    defaultMessage: "Nomination link copied",
+                    id: "ms0CBt",
+                    description:
+                      "Button text to indicate that a talent event nomination URL has been copied",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: "Copy nomination link",
+                    id: "vV5a2X",
+                    description: "Button text to copy a nomination URL",
+                  })}
+            </Button>
             <StatusChip status={talentEvent.status} />
-          )}
+          </div>
         </div>
         <p className="col-span-2 my-6">
           {intl.formatMessage({
@@ -246,6 +245,17 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.description?.fr ??
             intl.formatMessage(commonMessages.notProvided)}
         </p>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event contact email",
+            id: "ezbo2U",
+            description:
+              "Label displayed on the talent nomination event contact email field",
+          })}
+          className="col-span-2"
+        >
+          {talentEvent.contactEmail ?? notFound}
+        </FieldDisplay>
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
@@ -317,6 +327,39 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             description: "Label for the include leadership competencies",
           })}
         </BoolCheckIcon>
+
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel="en"
+        >
+          {talentEvent.customInstructions?.en ? (
+            <RichTextRenderer
+              node={htmlToRichTextJSON(talentEvent.customInstructions.en)}
+            />
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel="fr"
+        >
+          {talentEvent.customInstructions?.fr ? (
+            <RichTextRenderer
+              node={htmlToRichTextJSON(talentEvent.customInstructions.fr)}
+            />
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
         <div className="col-span-2">
           <CardSeparator space="none" decorative />
         </div>

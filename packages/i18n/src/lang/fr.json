@@ -139,6 +139,10 @@
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
   },
+  "2H5KbR": {
+    "defaultMessage": "Date limite : aujourd’hui",
+    "description": "Message shown when something is due on the current date"
+  },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
     "description": "The operational requirement described as occasional overtime."
@@ -307,6 +311,10 @@
     "defaultMessage": "Je ne participe à aucun programme de coaching des cadres.",
     "description": "The executive coaching status described as not participating."
   },
+  "8FkvT5": {
+    "defaultMessage": "La valeur du champ de statut de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid status"
+  },
   "8RX9iJ": {
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler des heures supplémentaires (occasionnellement)",
     "description": "The operational requirement described as occasional overtime."
@@ -322,6 +330,14 @@
   "8shuWS": {
     "defaultMessage": "Je consens à travailler à distance.",
     "description": "The work region of Canada described as Telework."
+  },
+  "91hRYX": {
+    "defaultMessage": "OK",
+    "description": "Proceed with the current action"
+  },
+  "96yWSc": {
+    "defaultMessage": "Candidature spéciale",
+    "description": "Special application label"
   },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
@@ -503,6 +519,10 @@
     "defaultMessage": "Termine demain, à {time}",
     "description": "Text displayed when relative date is tomorrow."
   },
+  "Gr4YoX": {
+    "defaultMessage": "Cette page n'est accessible que sur le réseau sécurisé.",
+    "description": "Firewall block"
+  },
   "GtVkbt": {
     "defaultMessage": "Oh non…",
     "description": "Title displayed for a table error loading state."
@@ -623,6 +643,10 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
+  "M9Q1zH": {
+    "defaultMessage": "Partiellement approuvée",
+    "description": "Status text for partially approved nominations"
+  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -686,6 +710,10 @@
   "NVMKe5": {
     "defaultMessage": "Modifier la séquence de {from} à {to}",
     "description": "Button text for moving an item from one position to another"
+  },
+  "NXyprm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme terminé.",
+    "description": "Error message for talent request completion details required"
   },
   "Nf2jAz": {
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
@@ -759,6 +787,10 @@
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
     "description": "The operational requirement described as occasional overtime."
   },
+  "PLVEUB": {
+    "defaultMessage": "La valeur du champ du type de poste de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid position type"
+  },
   "PMwqcS": {
     "defaultMessage": "La date doit être avant ou égale au {date}",
     "description": "Error message when a date was entered that is greater than the maximum required"
@@ -774,6 +806,10 @@
   "Phlp8j": {
     "defaultMessage": "Organisation",
     "description": "Label displayed for organization input"
+  },
+  "Q6GYga": {
+    "defaultMessage": "(EN)",
+    "description": "Name of English language formatted for appending, shortened"
   },
   "Q6sBsq": {
     "defaultMessage": "Étape complétée, {label}",
@@ -918,6 +954,10 @@
   "U3QEUu": {
     "defaultMessage": "J'accepte d'avoir un emploi qui nécessite des déplacements.",
     "description": "The operational requirement described as travel as required."
+  },
+  "UZ6zTY": {
+    "defaultMessage": "Non recommandé",
+    "description": "Label for a candidate that is not referred"
   },
   "UZMVuy": {
     "defaultMessage": "J'ai un contrat d'employé(e) temporaire.",
@@ -1090,6 +1130,10 @@
   "a+twlj": {
     "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
+  },
+  "a02YvL": {
+    "defaultMessage": "La valeur du champ du motif de la demande de talents n’est pas valide.",
+    "description": "Error message for talent request invalid reason"
   },
   "a5edSg": {
     "defaultMessage": "Jour",
@@ -1619,6 +1663,10 @@
     "defaultMessage": "Intérêt",
     "description": "Expressed interest"
   },
+  "rNmajm": {
+    "defaultMessage": "Le champ des détails de la demande de talents est obligatoire lorsque le statut est défini comme en cours.",
+    "description": "Error message for talent request in progress details required"
+  },
   "rYodJu": {
     "defaultMessage": "Durée indéterminée (permanente)",
     "description": "Duration that is permanent"
@@ -1702,6 +1750,10 @@
   "tHeY7N": {
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
+  },
+  "tfgjgQ": {
+    "defaultMessage": "(FR)",
+    "description": "Name of French language formatted for appending, shortened"
   },
   "tpVujp": {
     "defaultMessage": "Renseignements manquants",

@@ -46,7 +46,7 @@ describe("OpenJobsPage", () => {
   function renderOpenJobsPage({
     pools,
   }: {
-    pools: Omit<Pool, "activities" | "teamId">[];
+    pools: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">[];
   }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {

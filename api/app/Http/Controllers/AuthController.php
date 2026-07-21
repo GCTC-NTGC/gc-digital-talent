@@ -6,6 +6,7 @@ use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
+use App\Support\LogUtil;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
@@ -86,19 +87,21 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session state')
         );
 
-        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
-            return $exception instanceof ConnectionException;
-        }, throw: false)->asForm()->post(config('oauth.token_uri'), [
+        $tokenPayload = [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
-        ]);
+        ];
+        $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
+            return $exception instanceof ConnectionException;
+        }, throw: false)->asForm()->post(config('oauth.token_uri'), $tokenPayload);
         assert($tokenResponse instanceof Response);
         if ($tokenResponse->failed()) {
-            Log::error('Failed when POSTing to the token URI in authCallback');
-            Log::debug($tokenResponse->body());
+            Log::error('Failed when POSTing to the token URI in authCallback', LogUtil::responseContext($tokenResponse));
+            Log::debug(LogUtil::cleanString($tokenResponse->body()));
+            Log::debug(LogUtil::cleanArray($tokenPayload));
 
             return response('Failed to get token', 400);
         }
@@ -107,7 +110,7 @@ class AuthController extends Controller
         $encodedIdToken = $tokenResponse->json('id_token');
 
         if (! ($encodedIdToken && is_string($encodedIdToken))) {
-            Log::debug((string) $tokenResponse->body());
+            Log::debug(LogUtil::cleanString($tokenResponse->body()));
             throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
@@ -183,18 +186,21 @@ class AuthController extends Controller
                             ->orWhere('work_email', 'ilike', $incomingEmailAddress))
                         ->withTrashed()
                         ->first();
-                    if (strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                        $existingUser->email_backup = $existingUser->email;
-                        $existingUser->email = null;
+                    if ($existingUser) {
+                        if (! empty($existingUser->email) && strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
+                            $existingUser->email_backup = $existingUser->email;
+                            $existingUser->email = null;
+                        }
+                        if (! empty($existingUser->work_email) && strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
+                            $existingUser->work_email_backup = $existingUser->work_email;
+                            $existingUser->work_email = null;
+                        }
+                        $existingUser->save();
                     }
-                    if (strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                        $existingUser->work_email_backup = $existingUser->work_email;
-                        $existingUser->work_email = null;
-                    }
-                    $existingUser->save();
                 } catch (Throwable $e) {
                     // log and continue - don't break log in for failure to take address
-                    Log::error('Failed to take email address on log in.'.$e->getMessage(), [
+                    Log::error('Failed to take email address on log in.', [
+                        'message' => $e->getMessage(),
                         'sub' => $sub,
                         'email address' => $incomingEmailAddress,
                     ]);
@@ -274,28 +280,28 @@ class AuthController extends Controller
         }
 
         $refreshToken = $request->query('refresh_token');
+        $payload = [
+            'grant_type' => 'refresh_token',
+            'client_id' => config('oauth.client_id'),
+            'client_secret' => config('oauth.client_secret'),
+            'refresh_token' => $refreshToken,
+        ];
         $response =
         Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
         }, throw: false)->asForm()
-            ->post(config('oauth.token_uri'), [
-                'grant_type' => 'refresh_token',
-                'client_id' => config('oauth.client_id'),
-                'client_secret' => config('oauth.client_secret'),
-                'refresh_token' => $refreshToken,
-            ]);
+            ->post(config('oauth.token_uri'), $payload);
         assert($response instanceof Response);
         if ($response->failed()) {
             $errorCode = $response->json('error');
             $isNormalErrorCode = $errorCode == 'invalid_grant';
-
-            $errorMessageToLog = 'Failed when POSTing to the token URI in refresh '.$errorCode;
-            if (! $isNormalErrorCode) {
-                Log::error($errorMessageToLog);
-            } else {
-                Log::debug($errorMessageToLog);
-            }
-            Log::debug($response->body());
+            Log::log(
+                level: $isNormalErrorCode ? 'debug' : 'error',
+                message: 'Failed when POSTing to the token URI in refresh',
+                context: LogUtil::responseContext($response)
+            );
+            Log::debug(LogUtil::cleanString($response->body()));
+            Log::debug(LogUtil::cleanArray($payload));
 
             return response('Failed to get token', 400);
         }

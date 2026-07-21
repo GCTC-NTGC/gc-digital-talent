@@ -16,11 +16,11 @@ import {
   Checklist,
   Combobox,
   Select,
-  SwitchInput,
   enumToOptions,
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
+  EmployeeVerification,
   FlexibleWorkLocation,
   LanguageAbility,
   OperationalRequirement,
@@ -45,13 +45,13 @@ export type OtherFilter = ObjectValues<typeof OTHER_FILTER>;
 
 export interface FormValues {
   pools: string[];
-  languageAbility?: LanguageAbility;
+  languageAbility?: LanguageAbility | "";
   operationalRequirement: OperationalRequirement[];
   workRegion: WorkRegion[];
   flexibleWorkLocations: FlexibleWorkLocation[];
-  employmentDuration?: TEmploymentDuration;
+  employmentDuration?: TEmploymentDuration | "";
   skills: string[];
-  govEmployee: string;
+  govEmployee: EmployeeVerification[];
   roles: string[];
   otherFilters: OtherFilter[];
 }
@@ -106,6 +106,16 @@ const UserFilterData_Query = graphql(/* GraphQL */ `
     }
     workRegions: localizedEnumOptions(enumName: "WorkRegion") {
       ... on LocalizedWorkRegion {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    employeeVerifications: localizedEnumOptions(
+      enumName: "EmployeeVerification"
+    ) {
+      ... on LocalizedEmployeeVerification {
         value
         label {
           localized
@@ -232,11 +242,17 @@ const UserFilterDialog = ({
             label: operationalRequirement.label?.localized ?? notAvailable,
           }))}
         />
-        <SwitchInput
-          id="govEmployee"
+        <Checklist
+          idPrefix="govEmployee"
           name="govEmployee"
-          value="true"
-          label={intl.formatMessage(commonMessages.governmentEmployee)}
+          legend={intl.formatMessage(commonMessages.governmentEmployee)}
+          items={narrowEnumType(
+            unpackMaybes(data?.employeeVerifications),
+            "EmployeeVerification",
+          ).map((opt) => ({
+            value: opt.value,
+            label: opt.label?.localized ?? notAvailable,
+          }))}
         />
         <Combobox
           id="skills"

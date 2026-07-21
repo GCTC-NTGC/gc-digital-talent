@@ -8,7 +8,6 @@ import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   ApplicantFilterInput,
   Classification,
-  CandidateCountQueryVariables,
 } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
@@ -72,7 +71,7 @@ const durationSelectionToEnum = (
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
-): CandidateCountQueryVariables => {
+): { where?: ApplicantFilterInput } => {
   if (empty(filter)) {
     return {};
   }
@@ -141,10 +140,10 @@ export const dataToFormValues = (
     flexibleWorkLocations: data.flexibleWorkLocations?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
+    talentSources: data.talentSources?.filter(notEmpty) ?? [],
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
-    allPools: false,
   };
 };
 
@@ -194,5 +193,6 @@ export const formValuesToData = (
     locationPreferences: values.locationPreferences ?? [],
     flexibleWorkLocations: values.flexibleWorkLocations ?? [],
     qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
+    talentSources: unpackMaybes(values.talentSources),
   };
 };

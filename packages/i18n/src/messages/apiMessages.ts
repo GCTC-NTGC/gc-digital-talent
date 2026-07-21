@@ -1,5 +1,5 @@
 import type { MessageDescriptor } from "react-intl";
-import { defineMessages } from "react-intl";
+import { defineMessage, defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
@@ -570,11 +570,51 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "MJzimR",
     description: "Error message for talent event cannot change name",
   },
+  [ErrorCode.TalentRequestInvalidPositionType]: {
+    defaultMessage:
+      "The talent request position type field value is not valid.",
+    id: "PLVEUB",
+    description: "Error message for talent request invalid position type",
+  },
+  [ErrorCode.TalentRequestInvalidReason]: {
+    defaultMessage: "The talent request reason field value is not valid.",
+    id: "a02YvL",
+    description: "Error message for talent request invalid reason",
+  },
+  [ErrorCode.TalentRequestInvalidStatus]: {
+    defaultMessage: "The talent request status field value is not valid.",
+    id: "8FkvT5",
+    description: "Error message for talent request invalid status",
+  },
+  [ErrorCode.TalentRequestInProgressDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to in progress.",
+    id: "rNmajm",
+    description:
+      "Error message for talent request in progress details required",
+  },
+  [ErrorCode.TalentRequestCompletionDetailsRequired]: {
+    defaultMessage:
+      "The talent request details field is required when the status field is set to complete.",
+    id: "NXyprm",
+    description: "Error message for talent request completion details required",
+  },
+});
+
+// This is the message of the restricted.html page that is triggered by trying to use the /admin pages off-network
+const firewallBlock = defineMessage({
+  defaultMessage: "This page can only be accessed on the secure network.",
+  id: "Gr4YoX",
+  description: "Firewall block",
 });
 
 export const tryFindMessageDescriptor = (
   defaultMessage: string,
 ): MessageDescriptor | null => {
+  // This is the title of the restricted.html page that is triggered by trying to use the /admin pages off-network
+  if (defaultMessage.includes("Unauthorized | Non autorisé")) {
+    return firewallBlock;
+  }
   const matchedKey = Object.keys(apiMessages).find(
     (key) => key === defaultMessage,
   );

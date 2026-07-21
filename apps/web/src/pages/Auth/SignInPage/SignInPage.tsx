@@ -125,8 +125,30 @@ export const Component = () => {
 
   const selectedMethod = methods.watch("signInMethod");
 
-  const skipMigration =
-    selectedMethod === "canadaLogin" ? "&skipmigration=true" : "";
+  // Fires when a user initiates sign-in, just before the external redirect to
+  // the IdP. Shared by both the CanadaLogin and legacy GCKey layouts so the two
+  // can't drift apart.
+  const trackLoginInitiated = () => {
+    if (!appInsights) return;
+
+    const aiUserId = appInsights?.context?.user?.id || "unknown";
+
+    appInsights.trackEvent(
+      { name: "Auth Login Initiated" },
+      {
+        aiUserId,
+        pageUrl: window.location.href,
+        path: window.location.pathname,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        referrer: document.referrer || "none",
+        loginStatus: "initiated",
+      },
+    );
+    // The click triggers a full-page navigation off-site, so flush the buffer
+    // to avoid the event being dropped on unload.
+    void appInsights.flush();
+  };
 
   const InstructionCards = () => {
     if (selectedMethod === "canadaLogin") {
@@ -700,8 +722,8 @@ export const Component = () => {
                           <p className="font-normal text-gray-500 dark:text-gray-100">
                             {intl.formatMessage({
                               defaultMessage:
-                                "Your last sign in was before April 2026 and used a GCKey username",
-                              id: "5V6IMt",
+                                "Your last sign in was before June 2026 and used a GCKey username",
+                              id: "yE/lOi",
                               description:
                                 "Message shown under GCKey option on sign in page",
                             })}
@@ -783,11 +805,12 @@ export const Component = () => {
             )}
             <div className="mt-6 flex w-full flex-col items-center gap-6 px-4.5 xs:flex-row xs:justify-start">
               <Link
-                href={`${loginPath}${skipMigration}`}
+                href={loginPath}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
                 external
+                onClick={trackLoginInitiated}
               >
                 {selectedMethod === "canadaLogin"
                   ? intl.formatMessage({
@@ -1028,23 +1051,7 @@ export const Component = () => {
           mode="solid"
           color="primary"
           external
-          onClick={() => {
-            if (appInsights) {
-              const userId = appInsights.context?.user?.id;
-              appInsights.trackEvent(
-                { name: "GCKey Login Initiated" },
-                {
-                  aiUserId: userId,
-                  pageUrl: window.location.href,
-                  path: window.location.pathname,
-                  timestamp: new Date().toISOString(),
-                  userAgent: navigator.userAgent,
-                  referrer: document.referrer || "none",
-                  gcKeyStatus: "initiated",
-                },
-              );
-            }
-          }}
+          onClick={trackLoginInitiated}
         >
           {intl.formatMessage({
             defaultMessage: "Sign in with GCKey",
@@ -1253,23 +1260,7 @@ export const Component = () => {
             mode="solid"
             color="primary"
             external
-            onClick={() => {
-              if (appInsights) {
-                const userId = appInsights.context?.user?.id;
-                appInsights.trackEvent(
-                  { name: "GCKey Login Initiated" },
-                  {
-                    aiUserId: userId,
-                    pageUrl: window.location.href,
-                    path: window.location.pathname,
-                    timestamp: new Date().toISOString(),
-                    userAgent: navigator.userAgent,
-                    referrer: document.referrer || "none",
-                    gcKeyStatus: "initiated",
-                  },
-                );
-              }
-            }}
+            onClick={trackLoginInitiated}
           >
             {intl.formatMessage({
               defaultMessage: "Sign in with GCKey",

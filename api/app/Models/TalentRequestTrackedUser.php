@@ -63,6 +63,17 @@ class TalentRequestTrackedUser extends Pivot
     }
 
     /**
+     * The user's referral summary (delegates to the User accessor so the
+     * tracked-user view can show the same user-wide aggregate).
+     *
+     * @return Attribute<array{referredCount: int, notSelectedReasons: array<int, array{reason: string, count: int}>}, never>
+     */
+    protected function referralSummary(): Attribute
+    {
+        return Attribute::get(fn () => $this->user->referral_summary);
+    }
+
+    /**
      * The tracked user's current position in the referral → selection flow,
      * as a TalentRequestTrackedUserStatus name. A selection decision supersedes
      * the referral decision (matching whereStatusIn and the status chip).
@@ -171,6 +182,8 @@ class TalentRequestTrackedUser extends Pivot
     {
         $this->referral_decision = TalentRequestTrackedUserReferralDecision::REFERRED->name;
         $this->not_referred_reason = null;
+        $this->selection_decision = null;
+        $this->not_selected_reason = null;
 
         if ($save) {
             $this->save();

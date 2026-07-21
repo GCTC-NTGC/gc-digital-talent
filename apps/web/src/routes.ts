@@ -104,10 +104,6 @@ export default [
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
-            route(
-              ":poolId/create-application",
-              "./pages/CreateApplicationPage/CreateApplicationPage.tsx",
-            ),
             route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
@@ -227,10 +223,6 @@ export default [
               route(
                 "welcome",
                 "./pages/Applications/ApplicationWelcomePage/ApplicationWelcomePage.tsx",
-              ),
-              route(
-                "self-declaration",
-                "./pages/Applications/ApplicationSelfDeclarationPage/ApplicationSelfDeclarationPage.tsx",
               ),
               route(
                 "profile",
@@ -409,6 +401,10 @@ export default [
                       route(
                         "career-experience",
                         "./pages/TalentNominations/NominationGroup/CareerExperience.tsx",
+                      ),
+                      route(
+                        "history",
+                        "./pages/TalentNominations/NominationGroup/History.tsx",
                       ),
                     ],
                   ),

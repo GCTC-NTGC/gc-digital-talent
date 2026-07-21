@@ -11,7 +11,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class EmployeeWorkEmailVerified implements ValidationRule
 {
-    private $user;
+    private User $user;
 
     /**
      * Create a new rule instance.

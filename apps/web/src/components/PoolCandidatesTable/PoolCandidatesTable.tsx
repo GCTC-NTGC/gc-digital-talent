@@ -981,9 +981,7 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { placementType } }) =>
-        placementType?.label?.localized ??
-        intl.formatMessage(poolCandidateMessages.notPlaced),
+      ({ poolCandidate: { placementType } }) => placementType?.label?.localized,
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -1006,7 +1004,7 @@ const PoolCandidatesTable = ({
 
         return row.poolCandidate.isBeingReferred
           ? intl.formatMessage(poolCandidateMessages.availableForReferral)
-          : intl.formatMessage(poolCandidateMessages.notReferred);
+          : intl.formatMessage(commonMessages.notReferred);
       },
       {
         id: "referralStatus",

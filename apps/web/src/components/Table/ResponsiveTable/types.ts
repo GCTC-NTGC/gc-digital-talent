@@ -36,6 +36,8 @@ export interface RowSelectDef<T> {
   onRowSelection?: (rows: string[]) => void;
   /** Determine the ID of the row selected (if index is not sufficient) */
   getRowId: (row: T) => string;
+  /** Controlled selection state — when provided the table derives its row selection from this array instead of internal state */
+  selectedIds?: string[];
 }
 
 export interface SearchFormProps<TData extends RowData> {
@@ -70,7 +72,7 @@ export type SearchDef<T> = {
 } & Omit<SearchDefFormProps<T>, "onChange">;
 
 export interface SortDef {
-  /** Allows the table to manage search */
+  /** Allows the table to manage sorting */
   internal: boolean;
   initialState?: SortingState;
   /** Callback when sorting rule changes */
@@ -122,7 +124,7 @@ export interface TableAction {
 }
 
 export interface PaginationDef {
-  /** Allows the table to manage search */
+  /** Allows the table to manage pagination */
   internal: boolean;
   /** Callback for when the pagination changes */
   onPaginationChange?: (newPagination: PaginationState) => void;

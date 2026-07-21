@@ -1,8 +1,9 @@
 import { useIntl } from "react-intl";
 import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
 import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
-import { useQuery } from "urql";
+import { useQuery, type OperationContext } from "urql";
 
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -12,30 +13,39 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 
 import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
-import TalentRequestTrackedUsersTable from "./components/TalentRequestTrackedUsersTable/TalentRequestTrackedUsersTable";
+import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
+import TalentRequestTrackedUsersInbox from "./components/TalentRequestTrackedUsersInbox/TalentRequestTrackedUsersInbox";
 import type { RouteParams } from "./types";
 
-const TalentRequestTrackingSkills_Query = graphql(/* GraphQL */ `
-  query TalentRequestTrackingSkills($talentRequestId: UUID!) {
-    talentRequest(id: $talentRequestId) {
+const TalentRequestTracking_Query = graphql(/** GraphQL */ `
+  query TalentRequestTracking($id: UUID!) {
+    talentRequest(id: $id) {
+      ...TalentRequestMatchesTableTalentRequest
       applicantFilter {
         skills {
-          ...TrackedUserSkillMatch
+          ...TalentRequestUserSkillMatch
         }
       }
     }
+
+    ...TalentRequestReferralDialogOptions
   }
 `);
+
+const context: Partial<OperationContext> = {
+  // Keep these query results tied to tracked-user mutations, even for empty lists.
+  additionalTypenames: ["TalentRequest", "TalentRequestTrackedUser", "User"],
+  requestPolicy: "cache-first",
+};
 
 const Tracking = () => {
   const intl = useIntl();
   const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
-
-  const [{ data }] = useQuery({
-    query: TalentRequestTrackingSkills_Query,
-    variables: { talentRequestId },
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentRequestTracking_Query,
+    variables: { id: talentRequestId },
+    context,
   });
-  const skills = unpackMaybes(data?.talentRequest?.applicantFilter?.skills);
 
   return (
     <div className="flex flex-col gap-y-6">
@@ -51,9 +61,12 @@ const Tracking = () => {
             "Description of the candidates being tracked by a talent request",
         })}
       >
-        <TalentRequestTrackedUsersTable
+        <TalentRequestTrackedUsersInbox
           talentRequestId={talentRequestId}
-          skills={skills}
+          optionsQuery={data}
+          requestedSkillsCount={
+            data?.talentRequest?.applicantFilter?.skills?.length ?? 0
+          }
         />
       </TalentRequestSectionCard>
 
@@ -74,7 +87,19 @@ const Tracking = () => {
             "Description of the table showing users who match talent request criteria",
         })}
       >
-        <>{/** TODO: Add children */}</>
+        <Pending fetching={fetching} error={error}>
+          {data?.talentRequest ? (
+            <TalentRequestMatchesTable
+              query={data.talentRequest}
+              skillsQuery={unpackMaybes(
+                data?.talentRequest?.applicantFilter?.skills,
+              )}
+              optionsQuery={data}
+            />
+          ) : (
+            <ThrowNotFound />
+          )}
+        </Pending>
       </TalentRequestSectionCard>
     </div>
   );
