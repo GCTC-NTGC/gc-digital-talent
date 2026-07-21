@@ -20,7 +20,7 @@ import {
   type TalentRequestUserSkillMatchFragment,
   TalentRequestTrackedUserNotReferredReason,
 } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { IconLabel, Link } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -32,7 +32,6 @@ import profileMessages from "~/messages/profileMessages";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
 import adminMessages from "~/messages/adminMessages";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
-import { priorityCell } from "~/components/PoolCandidatesTable/helpers";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
@@ -103,8 +102,7 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
           priorityWeight
           priority {
             label {
-              en
-              fr
+              localized
             }
           }
         }
@@ -301,21 +299,19 @@ const TalentRequestMatchesTable = ({
         meta: { isRowTitle: true },
       },
     ),
-    columnHelper.accessor(
-      ({ user }) => getLocalizedName(user.priority?.label, intl),
-      {
-        id: "priority",
-        header: intl.formatMessage(adminMessages.category),
-        cell: ({
-          row: {
-            original: { user },
-          },
-        }) =>
-          user.priority
-            ? priorityCell(user.priorityWeight ?? 0, user.priority.label, intl)
-            : null,
-      },
-    ),
+    columnHelper.accessor(({ user }) => user.priority?.label.localized, {
+      id: "priority",
+      header: intl.formatMessage(adminMessages.category),
+      cell: ({
+        row: {
+          original: { user },
+        },
+      }) =>
+        user.priority?.label.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      enableSorting: false,
+      enableColumnFilter: false,
+    }),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(talentRequestMessages.requestedSkills),
