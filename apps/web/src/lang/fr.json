@@ -9586,6 +9586,10 @@
     "defaultMessage": "Contactez-nous pour nous faire part de votre rétroaction ou d'un problème.",
     "description": "Subtitle for the Support page"
   },
+  "axxGXe": {
+    "defaultMessage": "Cette action créera une ébauche de candidature pour une personne dans le cadre d'un processus de recrutement. Cette candidature spéciale ne tiendra pas compte de la date limite habituelle ni des exigences relatives à la vérification de l'emploi.",
+    "description": "Description of creating a special application for a user"
+  },
   "ay7kkl": {
     "defaultMessage": "Je n'ai pas supervisé d'employées et employés dans ce rôle.",
     "description": "Label displayed for supervised employees false"
