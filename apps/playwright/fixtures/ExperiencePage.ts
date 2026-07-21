@@ -685,36 +685,56 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("education");
 
     await this.page
-      .getByRole("combobox", { name: /type of education/i })
-      .selectOption({ label: "PhD" });
+      .getByRole("group", {
+        name: /type of education or certificate/i,
+      })
+      .getByRole("radio", { name: /degree, diploma, or certificate/i })
+      .click();
+
+    await this.page
+      .getByRole("group", {
+        name: /type of degree or diploma/i,
+      })
+      .getByRole("radio", { name: /PhD/i })
+      .click();
+
+    await this.page
+      .getByLabel(/institution/i)
+      .fill(input?.institution ?? "test institution");
 
     await this.page
       .getByRole("textbox", { name: /area of study/i })
       .fill(input?.areaOfStudy ?? "test area of study");
 
     await this.page
-      .getByLabel(/institution/i)
-      .fill(input?.areaOfStudy ?? "test institution");
-
-    await this.page
-      .getByRole("combobox", { name: /status/i })
-      .selectOption({ label: "Audited" });
-
-    await this.page
-      .getByRole("textbox", { name: /thesis title/i })
+      .getByRole("textbox", { name: /thesis or dissertation/i })
       .fill(input?.thesisTitle ?? "test thesis title");
-
-    await this.fillDate(input.startDate);
 
     if (!input.endDate) {
       await this.page
-        .getByRole("checkbox", {
-          name: /i am currently active in this education/i,
+        .getByRole("group", {
+          name: /completion status/i,
         })
+        .getByRole("radio", { name: /in progress/i })
         .click();
+
+      await this.fillDate(
+        input.prospectiveEndDate,
+        true,
+        /prospective end date/i,
+      );
     } else {
+      await this.page
+        .getByRole("group", {
+          name: /completion status/i,
+        })
+        .getByRole("radio", { name: /completed with a credential/i })
+        .click();
+
       await this.fillDate(input.endDate, true);
     }
+
+    await this.fillDate(input.startDate);
 
     await this.page
       .getByRole("textbox", { name: /additional details/i })

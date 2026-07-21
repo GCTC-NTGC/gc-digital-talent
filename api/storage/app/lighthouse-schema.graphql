@@ -128,6 +128,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedDegreeType implements LocalizedEnumOption {
+  value: DegreeType!
+  label: LocalizedString!
+}
+
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
   label: LocalizedString!
@@ -190,6 +195,11 @@ type LocalizedExternalRoleSeniority implements LocalizedEnumOption {
 
 type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   value: ExternalSizeOfOrganization!
+  label: LocalizedString!
+}
+
+type LocalizedFellowshipType implements LocalizedEnumOption {
+  value: FellowshipType!
   label: LocalizedString!
 }
 
@@ -1825,8 +1835,16 @@ type EducationExperience implements Experience {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: LocalizedEducationType
+  educationType: LocalizedEducationType
   status: LocalizedEducationStatus
+  otherEducationType: String
+  degreeType: LocalizedDegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: LocalizedFellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
@@ -2931,8 +2949,16 @@ input EducationExperienceInput {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: EducationType
+  educationType: EducationType
   status: EducationStatus
+  otherEducationType: String
+  degreeType: DegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: FellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: UpdateExperienceSkills
 }
@@ -4244,6 +4270,14 @@ enum DeadlineStatus {
   EXPIRED
 }
 
+enum DegreeType {
+  HIGH_SCHOOL
+  COLLEGE_DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+}
+
 enum DepartmentSize {
   MICRO
   SMALL
@@ -4275,16 +4309,15 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
+  DEGREE_DIPLOMA_CERTIFICATE
+  LICENSE_ACCREDITATION
+  PROFESSIONAL_CERTIFICATION
+  INDIVIDUAL_COURSE
+  FELLOWSHIP
   OTHER
 }
 
@@ -4487,6 +4520,12 @@ enum ExternalSizeOfOrganization {
   THIRTY_SIX_TO_ONE_HUNDRED
   ONE_HUNDRED_ONE_TO_ONE_THOUSAND
   ONE_THOUSAND_PLUS
+}
+
+enum FellowshipType {
+  POST_DOCTORAL
+  INDUSTRY
+  OTHER
 }
 
 enum FinanceChiefRole {

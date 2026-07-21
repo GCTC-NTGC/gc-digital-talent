@@ -11,7 +11,7 @@ import type {
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
-import EducationFields from "./EducationFields";
+import EducationFields from "./EducationFields/EducationFields";
 import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields/WorkFields";
 import NullExperienceType from "./NullExperienceType";

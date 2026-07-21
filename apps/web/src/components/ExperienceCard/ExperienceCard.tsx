@@ -110,15 +110,30 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           }
           __typename
           id
-          type {
+          educationType {
             value
             label {
-              en
-              fr
+              localized
             }
           }
+          degreeType {
+            value
+            label {
+              localized
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              localized
+            }
+          }
+          otherFellowshipType
+          otherEducationType
           areaOfStudy
           institution
+          licenseOrAccreditation
+          certification
         }
         ... on PersonalExperience {
           user {
@@ -176,20 +191,34 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       thesisTitle
       startDate
       endDate
-      type {
+      prospectiveEndDate
+      otherEducationType
+      degreeType {
         value
         label {
           localized
-          en
-          fr
+        }
+      }
+      licenseOrAccreditation
+      certification
+      courseName
+      fellowshipType {
+        value
+        label {
+          localized
+        }
+      }
+      otherFellowshipType
+      educationType {
+        value
+        label {
+          localized
         }
       }
       status {
         value
         label {
           localized
-          en
-          fr
         }
       }
     }

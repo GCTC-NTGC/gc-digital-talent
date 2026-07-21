@@ -125,7 +125,7 @@ const generateEducation = (): GeneratedEducationExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     areaOfStudy: faker.music.genre(),
-    type: toLocalizedEnum(
+    educationType: toLocalizedEnum(
       faker.helpers.arrayElement<EducationType>(Object.values(EducationType)),
     ),
     institution: faker.person.lastName(),

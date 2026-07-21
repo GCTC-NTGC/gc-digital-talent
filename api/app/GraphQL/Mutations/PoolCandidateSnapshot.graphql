@@ -257,7 +257,7 @@ query getProfile($userId: UUID!) {
         thesisTitle
         startDate
         endDate
-        type {
+        educationType {
           value
           label {
             en
@@ -271,6 +271,26 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        otherEducationType
+        degreeType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        licenseOrAccreditation
+        certification
+        courseName
+        fellowshipType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        otherFellowshipType
+        prospectiveEndDate
       }
       ... on PersonalExperience {
         title

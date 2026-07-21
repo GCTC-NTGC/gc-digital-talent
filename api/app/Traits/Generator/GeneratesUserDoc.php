@@ -11,6 +11,7 @@ use App\Enums\CafForce;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\DegreeType;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
@@ -18,6 +19,7 @@ use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FellowshipType;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
@@ -417,16 +419,29 @@ trait GeneratesUserDoc
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
-            $degreeType = $experience->type ? $this->localizeEnum($experience->type, EducationType::class) : null;
-            if ($experience->type === EducationType::OTHER->name) {
-                $degreeType = $this->localize('headings.other_type_of_education');
+            $educationType = '';
+            switch ($experience->education_type) {
+                case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
+                    $educationType = $this->localizeEnum($experience->degree_type, DegreeType::class);
+                    break;
+                case EducationType::FELLOWSHIP->name:
+                    $educationType = $experience->fellowship_type === FellowshipType::OTHER->name
+                        ? $experience->other_fellowship_type
+                        : $this->localizeEnum($experience->fellowship_type, FellowshipType::class);
+                    break;
+                case EducationType::OTHER->name:
+                    $educationType = $experience->other_education_type ?? $this->localize('headings.other_type_of_education');
+                    break;
+                default:
+                    $educationType = $this->localizeEnum($experience->education_type, EducationType::class);
             }
+
             $titleComponents = [];
-            if ($degreeType) {
-                $titleComponents[] = $degreeType;
+            if ($educationType) {
+                $titleComponents[] = $educationType;
             }
             if ($experience->area_of_study) {
-                $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '').
+                $titleComponents[] = ($educationType ? $this->localize('common.in').' ' : '').
                                     $experience->area_of_study;
             }
             if ($experience->institution) {
@@ -437,8 +452,11 @@ trait GeneratesUserDoc
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
-            $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
+            $this->addLabelText($section, $this->localize('headings.completion_status'), $this->localizeEnum($experience->status, EducationStatus::class));
             $this->addLabelText($section, $this->localize('headings.thesis_title'), $experience->thesis_title);
+            $this->addLabelText($section, $this->localize('headings.license_accreditation'), $experience->license_or_accreditation);
+            $this->addLabelText($section, $this->localize('headings.certification'), $experience->certification);
+            $this->addLabelText($section, $this->localize('headings.course_name'), $experience->course_name);
             $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
 
             if ($withSkills) {

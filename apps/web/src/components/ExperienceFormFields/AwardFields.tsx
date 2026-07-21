@@ -63,15 +63,29 @@ const AwardOptions_Query = graphql(/* GraphQL */ `
         ... on EducationExperience {
           __typename
           id
-          type {
+          educationType {
             value
             label {
-              en
-              fr
+              localized
             }
           }
+          degreeType {
+            label {
+              localized
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              localized
+            }
+          }
+          otherFellowshipType
+          otherEducationType
           areaOfStudy
           institution
+          licenseOrAccreditation
+          certification
         }
         ... on PersonalExperience {
           __typename
