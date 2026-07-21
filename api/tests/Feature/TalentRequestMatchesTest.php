@@ -891,12 +891,15 @@ class TalentRequestMatchesTest extends TestCase
     {
         $classification = Classification::factory()->create();
 
-        $user = User::factory()->create();
-        WorkExperience::factory()->for($user)->create([
+        // a verified gov employee qualified in the classification — should match
+        $user = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+        ]);
+        WorkExperience::factory()->for($user)->for($classification)->create([
             'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
             'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
             'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
-            'classification_id' => $classification->id,
             'end_date' => null,
         ]);
         CommunityInterest::factory()->consented()->for($user)->create();
@@ -911,6 +914,37 @@ class TalentRequestMatchesTest extends TestCase
                 ],
             ])
             ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    // Regression test for #17465 — the classification filter must require a
+    // verified work email, not just computed_is_gov_employee, so an employee
+    // who never verified their work email does not match at that level.
+    public function testAtLevelClassificationFilterExcludesUnverifiedGovEmployee(): void
+    {
+        $classification = Classification::factory()->create();
+
+        $unverified = User::factory()->create([
+            'work_email' => 'unverified.employee@gc.ca',
+            'work_email_verified_at' => null,
+        ]);
+        WorkExperience::factory()->for($unverified)->for($classification)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->for($unverified)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
     }
 
     public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
