@@ -56,6 +56,12 @@ return new class() extends Migration
             WHERE type = 'POST_DOCTORAL_FELLOWSHIP'
         SQL);
 
+        DB::statement(<<<'SQL'
+            UPDATE education_experiences
+            SET certification = area_of_study
+            WHERE type = 'CERTIFICATION'
+        SQL);
+
         Schema::table('education_experiences', function (Blueprint $table) {
             $table->dropColumn('type');
         });

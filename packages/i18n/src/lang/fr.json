@@ -1591,6 +1591,10 @@
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Title for work email address"
   },
+  "pdT/ln": {
+    "defaultMessage": "La date de délivrance ne peut pas être dans le futur. Entrez une date antérieure.",
+    "description": "Error message that the end date cannot be in the future."
+  },
   "pnoSK6": {
     "defaultMessage": "Non sélectionnée",
     "description": "Label when an item is not selected"

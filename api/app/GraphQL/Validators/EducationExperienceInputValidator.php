@@ -157,10 +157,8 @@ final class EducationExperienceInputValidator extends Validator
                 'date',
                 'after_or_equal:'.$this->arg('startDate'),
                 Rule::requiredIf(
-                    $this->arg('status') !== EducationStatus::IN_PROGRESS->name && (
-                        $this->arg('status') !== EducationStatus::DID_NOT_COMPLETE->name ||
-                        ! $licenseOrCertification
-                    )
+                    $this->arg('status') !== EducationStatus::IN_PROGRESS->name &&
+                    ! $licenseOrCertification
                 ),
                 Rule::prohibitedIf(
                     $this->arg('status') === EducationStatus::IN_PROGRESS->name || (
@@ -180,7 +178,8 @@ final class EducationExperienceInputValidator extends Validator
                 'after_or_equal:today',
                 'after_or_equal:'.$this->arg('startDate'),
                 Rule::requiredIf(
-                    $this->arg('status') === EducationStatus::IN_PROGRESS->name
+                    $this->arg('status') === EducationStatus::IN_PROGRESS->name &&
+                    ! $licenseOrCertification
                 ),
                 Rule::prohibitedIf(
                     $this->arg('status') !== EducationStatus::IN_PROGRESS->name

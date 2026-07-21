@@ -232,7 +232,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $this->workExperiences->pluck('details'),
                 $this->educationExperiences->pluck('thesis_title'),
                 $this->educationExperiences->pluck('institution'),
-                $this->educationExperiences->pluck('license_accreditation'),
+                $this->educationExperiences->pluck('license_or_accreditation'),
                 $this->educationExperiences->pluck('certification'),
                 $this->educationExperiences->pluck('course_name'),
                 $this->educationExperiences->pluck('details'),
