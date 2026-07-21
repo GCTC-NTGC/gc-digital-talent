@@ -3574,7 +3574,7 @@ type Mutation {
     @guard
     @canFind(ability: "updateStatus", find: "id", injectArgs: true)
   # Return a boolean to prevent automatically updating the client's cache
-  togglePoolCandidateFlag(id: ID!): Boolean
+  togglePoolCandidateFlag(id: ID!): PoolCandidate
     @guard
     @canFind(
       ability: "updateFlag"
@@ -3585,7 +3585,7 @@ type Mutation {
     )
   togglePoolCandidateUserBookmark(
     poolCandidateId: UUID! @rename(attribute: "pool_candidate_id")
-  ): Boolean
+  ): PoolCandidate
     @guard
     @canFind(
       ability: "view"

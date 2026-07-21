@@ -7,7 +7,11 @@ import { useControllableState } from "@gc-digital-talent/ui";
 
 const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
   mutation ToggleFlag_Mutation($id: ID!) {
-    togglePoolCandidateFlag(id: $id)
+    togglePoolCandidateFlag(id: $id) {
+      id
+      isFlagged
+      __typename
+    }
   }
 `);
 
@@ -58,7 +62,8 @@ const useCandidateFlagToggle = ({
       })
         .then((res) => {
           if (!res.error) {
-            const newIsFlagged = res.data?.togglePoolCandidateFlag === true;
+            const newIsFlagged =
+              res.data?.togglePoolCandidateFlag?.isFlagged === true;
             if (showToast) {
               if (newIsFlagged) {
                 toast.success(

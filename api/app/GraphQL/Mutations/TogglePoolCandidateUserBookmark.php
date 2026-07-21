@@ -19,10 +19,7 @@ final class TogglePoolCandidateUserBookmark
         /** @var PoolCandidate */
         $poolCandidate = PoolCandidate::find($args['pool_candidate_id']);
 
-        $executeToggle = $user->poolCandidateBookmarks()->toggle($poolCandidate->id);
-
-        $isNowBookmarked = $executeToggle && $executeToggle['attached'] && count($executeToggle['attached']) > 0;
-
-        return $isNowBookmarked;
+        $user->poolCandidateBookmarks()->toggle($poolCandidate->id);
+        return $poolCandidate;
     }
 }
