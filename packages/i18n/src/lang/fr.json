@@ -335,6 +335,10 @@
     "defaultMessage": "OK",
     "description": "Proceed with the current action"
   },
+  "96yWSc": {
+    "defaultMessage": "Candidature spéciale",
+    "description": "Special application label"
+  },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"
