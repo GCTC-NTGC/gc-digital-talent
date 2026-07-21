@@ -1479,7 +1479,6 @@ input OrderByColumnInput {
   nulls: NullsOption
 }
 
-# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
@@ -1587,11 +1586,6 @@ input TalentRequestInput {
 input PoolCandidatePoolNameOrderByInput {
   locale: String!
   order: SortOrder!
-}
-
-type CandidateSearchPoolResult {
-  pool: Pool! @canResolved(ability: "view")
-  candidateCount: Int! @rename(attribute: "candidate_count")
 }
 
 input TalentRequestMatchFilterInput {
@@ -1767,7 +1761,6 @@ type Query {
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
-  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   talentRequestMatches(
     where: TalentRequestMatchFilterInput
       @scope(name: "whereMatchesTalentRequest")
@@ -1867,11 +1860,6 @@ type Query {
       scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
-  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
-  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
-  countPoolCandidatesByPool(
-    where: ApplicantFilterInput
-  ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
   classifications(availableInSearch: Boolean @scope): [Classification]!
     @all

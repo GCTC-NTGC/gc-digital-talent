@@ -135,6 +135,27 @@ class TalentManagement extends AppPage {
       .click();
 
     await this.page
+      .getByRole("combobox", {
+        name: /classifications this nominee is eligible to advance to/i,
+      })
+      .click();
+    await this.page.getByRole("option").first().click();
+    await this.page.keyboard.press("Tab");
+
+    const referralExpiryDate = this.page.getByRole("group", {
+      name: /referral expiry date/i,
+    });
+    await referralExpiryDate
+      .getByRole("spinbutton", { name: /year/i })
+      .fill("2099");
+    await referralExpiryDate
+      .getByRole("combobox", { name: /month/i })
+      .selectOption("12");
+    await referralExpiryDate
+      .getByRole("spinbutton", { name: /day/i })
+      .fill("31");
+
+    await this.page
       .getByRole("group", { name: /Lateral movement approval/i })
       .getByRole("radio", {
         name: /this nomination for lateral movement is approved./i,
