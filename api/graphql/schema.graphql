@@ -1182,25 +1182,18 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [LocalizedTalentRequestSource!]!
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @field(resolver: "Sources")
+    @with(relation: "talentRequest.applicantFilter")
   # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAtLevelSources: [CommunityInterest!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1915,7 +1908,6 @@ type Query {
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
-      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
