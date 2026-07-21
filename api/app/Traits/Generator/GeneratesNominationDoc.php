@@ -142,8 +142,6 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $advancementReference->work_email ?? Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $advancementReference->currentClassification ? $advancementReference->currentClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $advancementReference->department ? $advancementReference->department->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('nine_box_performance'), $nomination->nine_box_performance ? $this->localizeEnum($nomination->nine_box_performance->name, NineBoxRating::class) : Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('nine_box_leadership_potential'), $nomination->nine_box_leadership_potential ? $this->localizeEnum($nomination->nine_box_leadership_potential->name, NineBoxRating::class) : Lang::get('common.not_available', [], $this->lang));
                 }
 
                 if ($nomination->advancement_reference_fallback_name) {
@@ -151,9 +149,23 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('references_work_email'), $nomination->advancement_reference_fallback_work_email);
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification ? $nomination->advancementReferenceFallbackClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('nine_box_performance'), $nomination->nine_box_performance ? $this->localizeEnum($nomination->nine_box_performance->name, NineBoxRating::class) : Lang::get('common.not_available', [], $this->lang));
-                    $this->addLabelText($section, $this->localizeHeading('nine_box_leadership_potential'), $nomination->nine_box_leadership_potential ? $this->localizeEnum($nomination->nine_box_leadership_potential->name, NineBoxRating::class) : Lang::get('common.not_available', [], $this->lang));
                 }
+
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('nine_box_performance'),
+                    $nomination->nine_box_performance
+                        ? $this->localizeEnum($nomination->nine_box_performance->name, NineBoxRating::class)
+                        : Lang::get('common.not_available', [], $this->lang)
+                );
+
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('nine_box_leadership_potential'),
+                    $nomination->nine_box_leadership_potential
+                        ? $this->localizeEnum($nomination->nine_box_leadership_potential->name, NineBoxRating::class)
+                        : Lang::get('common.not_available', [], $this->lang)
+                );
 
                 if ($nomination->lateral_movement_options) {
                     $this->addLabelText($section, $this->localizeHeading('lateral_movement_options'), '');
