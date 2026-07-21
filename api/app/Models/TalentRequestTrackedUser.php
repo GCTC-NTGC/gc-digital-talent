@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Builders\UserBuilder;
-use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
 use SortDirection;
@@ -62,61 +60,6 @@ class TalentRequestTrackedUser extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /** @return HasManyThrough<PoolCandidate, User, $this> */
-    public function matchingQualifiedInPoolSources(): HasManyThrough
-    {
-        // talentRequest.applicantFilter.* is pre-loaded via @with on the schema field
-        $filter = $this->talentRequest->applicantFilter;
-
-        return $this->hasManyThrough(PoolCandidate::class, User::class, 'id', 'user_id', 'user_id', 'id')
-            ->whereMatchesTalentRequest([
-                'qualifiedInClassifications' => $filter->qualifiedInClassifications
-                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
-                    ->toArray(),
-                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
-                    ->map(fn ($ws) => ['id' => $ws->id])
-                    ->toArray(),
-                'community' => $filter->community_id,
-            ])
-            ->whereAuthorizedToView();
-    }
-
-    /** @return Attribute<list<string>, never> */
-    protected function sources(): Attribute
-    {
-        return Attribute::get(function (): array {
-            $attributes = $this->getAttributes();
-            $hasExistsColumns = false;
-            $matchedSources = [];
-            foreach (TalentRequestSource::cases() as $source) {
-                if (! $source->matchRelation()) {
-                    continue;
-                }
-                $column = self::sourceExistsColumn($source);
-                if (! array_key_exists($column, $attributes)) {
-                    continue;
-                }
-                $hasExistsColumns = true;
-                if ($this->getAttribute($column)) {
-                    $matchedSources[] = $source->name;
-                }
-            }
-
-            $filters = $this->talentRequest->applicantFilter?->toMatchFilters() ?? [];
-
-            if (! $hasExistsColumns) {
-                $matchedSources = $this->user->talentRequestSources($filters);
-            }
-
-            $selectedNames = array_map(
-                fn (TalentRequestSource $source) => $source->name,
-                TalentRequestSource::selected($filters['talentSources'] ?? null),
-            );
-
-            return array_values(array_intersect($matchedSources, $selectedNames));
-        });
     }
 
     /**
@@ -176,58 +119,6 @@ class TalentRequestTrackedUser extends Pivot
                     ->whereColumn('talent_requests.id', 'talent_request_tracked_users.talent_request_id');
             }),
         ]);
-    }
-
-    /**
-     * Add a boolean existence flag column for each implemented source, used by the
-     * `sources` accessor.
-     */
-    public function scopeWithSourceExists(Builder $query, string $talentRequestId): Builder
-    {
-        $filter = TalentRequest::with([
-            'applicantFilter.qualifiedInClassifications',
-            'applicantFilter.qualifiedInWorkStreams',
-        ])->find($talentRequestId)?->applicantFilter;
-
-        $filters = $filter?->toMatchFilters() ?? [];
-
-        foreach (TalentRequestSource::cases() as $source) {
-            $relation = $source->matchRelation();
-            if (! $relation) {
-                continue;
-            }
-
-            $builder = (new User())->{$relation}()->getRelated()->newQuery();
-            $table = $builder->getModel()->getTable();
-
-            $query->addSelect([
-                self::sourceExistsColumn($source) => $builder
-                    ->selectRaw('1')
-                    ->whereColumn($table.'.user_id', 'talent_request_tracked_users.user_id')
-                    ->whereMatchesTalentRequest($filters)
-                    ->whereAuthorizedToView()
-                    ->limit(1),
-            ]);
-        }
-
-        return $query;
-    }
-
-    // Column alias holding the per-source existence flag added by scopeWithSourceExists.
-    private static function sourceExistsColumn(TalentRequestSource $source): string
-    {
-        return 'source_exists_'.strtolower($source->name);
-    }
-
-    public function scopeWithTalentRequestMatches(Builder $query, string $talentRequestId): Builder
-    {
-        $filter = TalentRequest::with([
-            'applicantFilter.qualifiedInClassifications',
-            'applicantFilter.qualifiedInWorkStreams',
-        ])->find($talentRequestId)?->applicantFilter;
-
-        return $query->when($filter, fn (Builder $query) => $query
-            ->with(['user' => fn ($user) => $user->withTalentRequestMatches($filter->toMatchFilters())]));
     }
 
     /**
