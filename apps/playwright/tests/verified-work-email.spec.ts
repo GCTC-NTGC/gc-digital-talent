@@ -1,7 +1,6 @@
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
-import AccountSettings from "~/fixtures/AccountSettings";
 import AdminUser from "~/fixtures/AdminUser";
 import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
