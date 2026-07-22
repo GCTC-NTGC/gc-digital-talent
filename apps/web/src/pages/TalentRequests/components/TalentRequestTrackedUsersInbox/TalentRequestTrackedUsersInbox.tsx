@@ -198,11 +198,11 @@ const TalentRequestTrackedUsersInbox = ({
     downloadExcel({ ids: selectedUserIds });
   };
 
-  const handleDownloadDocument = () => {
+  const handleDownloadDocument = (anonymous: boolean) => {
     if (selectedUserIds.length === 1) {
-      downloadDoc({ id: selectedUserIds[0], anonymous: false });
+      downloadDoc({ id: selectedUserIds[0], anonymous });
     } else {
-      downloadZip({ ids: selectedUserIds, anonymous: false });
+      downloadZip({ ids: selectedUserIds, anonymous });
     }
   };
 
@@ -339,12 +339,19 @@ const TalentRequestTrackedUsersInbox = ({
                   "Menu option to download selected tracked users as a spreadsheet",
               })}
             </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={handleDownloadDocument}>
+            <DropdownMenu.Item onClick={() => handleDownloadDocument(false)}>
               {intl.formatMessage({
-                defaultMessage: "Download selected as a document (.docx)",
-                id: "g0nMAt",
+                defaultMessage: "Download profile",
+                id: "lVOZ5k",
+                description: "Button label for downloading user profiles",
+              })}
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onClick={() => handleDownloadDocument(true)}>
+              {intl.formatMessage({
+                defaultMessage: "Download profile without contact information",
+                id: "wZP4RN",
                 description:
-                  "Menu option to download selected tracked users as a document",
+                  "Button label for downloading anonymized user profiles",
               })}
             </DropdownMenu.Item>
           </DropdownMenu.Popup>
