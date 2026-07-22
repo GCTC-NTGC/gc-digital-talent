@@ -241,6 +241,7 @@ class SpecialApplicationTest extends TestCase
     }
 
     // a special application can bypass standard validation when submitting
+    // also check a log was created during
     public function testSpecialApplicationBypassesNormalValidation(): void
     {
         // pool is internal and closed
@@ -266,6 +267,8 @@ class SpecialApplicationTest extends TestCase
         $newPoolCandidate->submitted_at = null;
         $newPoolCandidate->save();
 
+        Activity::truncate();
+
         // applicant able to successfully submit the application
         $this->actingAs($this->applicant, 'api')
             ->graphQL(
@@ -284,6 +287,21 @@ class SpecialApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
+
+        // single record created for the event type
+        // given it was an existing application, can query by subject_id too
+        $activity = Activity::where('event', ActivityEvent::SPECIAL_APPLICATION_SUBMITTED->value)
+            ->where('subject_type', PoolCandidate::class)
+            ->where('subject_id', $newPoolCandidate->id)
+            ->where('causer_id', $this->applicant->id)
+            ->sole();
+
+        $attributes = $activity->properties['attributes'];
+
+        // check property attributes
+        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->pool->id, $attributes['pool_id']);
+        assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
     }
 
     // a special application cannot be created for all pool states
