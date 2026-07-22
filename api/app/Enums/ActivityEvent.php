@@ -24,8 +24,8 @@ enum ActivityEvent: string
     case PUBLISHED = 'published';
 
     // Special applications
-    case SPECIAL_APPLICATION_CREATED = 'specialApplicationCreated';
-    case SPECIAL_APPLICATION_SUBMITTED = 'specialApplicationSubmitted';
+    case SPECIAL_APPLICATION_CREATED = 'special_application_created';
+    case SPECIAL_APPLICATION_SUBMITTED = 'special_application_submitted';
 
     public static function getLangFilename(): string
     {
