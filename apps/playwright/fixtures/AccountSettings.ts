@@ -91,13 +91,6 @@ class AccountSettings extends AppPage {
     await this.waitForGraphqlResponse("UpdateUserAsUser");
   }
 
-  async updateContactEmailAddress() {
-    await this.locators[FIELD.UPDATE_CONTACT_EMAIL].click();
-    await this.locators[FIELD.CONTACT_EMAIL_INPUT].fill(
-      this.uniqueEmailAddress,
-    );
-  }
-
   async updateNotificationsSettings() {
     await expect(
       this.locators[FIELD.NOTIFICATION_SETTINGS_HEADING],

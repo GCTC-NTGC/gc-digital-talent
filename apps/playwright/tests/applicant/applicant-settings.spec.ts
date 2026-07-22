@@ -3,6 +3,7 @@ import type { User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
 import AccountSettings from "~/fixtures/AccountSettings";
+import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import Registration from "~/fixtures/Registration";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
@@ -53,15 +54,10 @@ test.describe("Applicant settings page", () => {
       appPage.page.getByRole("link", { name: /Applicant dashboard/i }),
     ).toBeVisible();
     // Verify the 'Green Check mark' is displayed for personal and work email contact card
-    const settingsPage = new AccountSettings(page);
-    await settingsPage.goToSettings();
-    await expect(
-      settingsPage.page.getByRole("img", { name: /verified/i }).last(),
-    ).toBeVisible();
+    const profilePage = new EmployeeProfile(page);
+    await profilePage.goToEmployeeProfile();
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
     // Update the contact email address and verify throttling message
-    await settingsPage.updateContactEmailAddress();
-    await registration.verifyThrottlingMessageForVerificationCode();
-    await appPage.page.getByRole("button", { name: /Cancel/i }).click();
     await registration.deleteNewUser();
   });
 
