@@ -84,7 +84,7 @@ class AuthController extends Controller
 
         // Session state does not match or is empty, do not login.
         if (! (strlen($state) > 0 && $state === $request->state)) {
-            return redirect(config('oauth.logged_out_redirect').'?'.http_build_query(['reason' => 'invalid-session']));
+            return redirect(config('oauth.logged_out_redirect').'?'.http_build_query(['logout_reason' => 'invalid-session']));
 
         }
 
