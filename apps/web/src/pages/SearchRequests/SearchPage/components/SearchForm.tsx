@@ -56,20 +56,22 @@ export const SearchForm = ({
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
+    talentSources: [TalentRequestSource.QualifiedInPool],
     flexibleWorkLocations: [
       FlexibleWorkLocation.Remote,
       FlexibleWorkLocation.Hybrid,
     ],
-  };
+  } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
+    talentSources: [TalentRequestSource.QualifiedInPool],
     flexibleWorkLocations: [
       FlexibleWorkLocation.Remote,
       FlexibleWorkLocation.Hybrid,
     ],
-  };
+  } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
     initialFiltersAdjusted,
