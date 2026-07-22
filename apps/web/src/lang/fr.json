@@ -10974,10 +10974,6 @@
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
   },
-  "g0nMAt": {
-    "defaultMessage": "Télécharger la sélection au format Word (.docx)",
-    "description": "Menu option to download selected tracked users as a document"
-  },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Title for add experience page"
