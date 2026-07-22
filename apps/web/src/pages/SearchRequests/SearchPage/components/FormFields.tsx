@@ -16,7 +16,6 @@ import {
   errorMessages,
   getEmploymentEquityGroup,
   getLocalizedName,
-  narrowEnumType,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
@@ -27,7 +26,6 @@ import type {
 } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
-  TalentRequestSource,
   WorkRegion,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -160,47 +158,6 @@ const FormFields = ({
       label: loc.label,
     };
   });
-
-  const talentSourceOptionsData = narrowEnumType(
-    unpackMaybes(data?.talentSources),
-    "TalentRequestSource",
-  )
-    // TODO: remove this filter once Advancement is implemented, see #17382
-    .filter((source) => source.value !== TalentRequestSource.Advancement);
-
-  const talentSourceOptions: CheckboxOption[] = talentSourceOptionsData.map(
-    (source) => {
-      if (source.value === TalentRequestSource.QualifiedInPool) {
-        return {
-          value: source.value,
-          label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
-          contentBelow: intl.formatMessage({
-            defaultMessage: "Candidates qualified in a pool",
-            id: "tUObm7",
-            description: "Checklist option explanatory note",
-          }),
-        };
-      }
-      if (source.value === TalentRequestSource.AtLevel) {
-        return {
-          value: source.value,
-          label: intl.formatMessage(talentRequestMessages.atLevelLabel),
-          contentBelow: intl.formatMessage({
-            defaultMessage:
-              "At-level GC employees who have self-identified as interested in lateral movement",
-            id: "mXWCC2",
-            description: "Checklist option explanatory note",
-          }),
-        };
-      }
-      return {
-        value: source.value,
-        label:
-          source.label?.localized ??
-          intl.formatMessage(commonMessages.notAvailable),
-      };
-    },
-  );
 
   return (
     <>
