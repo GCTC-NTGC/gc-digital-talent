@@ -82,10 +82,11 @@ class AuthController extends Controller
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
 
-        throw_unless(
-            strlen($state) > 0 && $state === $request->state,
-            new InvalidArgumentException('Invalid session state')
-        );
+        // Session state does not match or is empty, do not login.
+        if (! (strlen($state) > 0 && $state === $request->state)) {
+            return redirect(config('oauth.logged_out_redirect').'?'.http_build_query(['reason' => 'invalid-session']));
+
+        }
 
         $tokenPayload = [
             'grant_type' => 'authorization_code',
