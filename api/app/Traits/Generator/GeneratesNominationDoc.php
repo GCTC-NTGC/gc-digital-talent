@@ -151,19 +151,21 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
 
+                $performance = $nomination->nine_box_performance;
                 $this->addLabelText(
                     $section,
                     $this->localizeHeading('nine_box_performance'),
-                    $nomination->nine_box_performance
-                        ? $this->localizeEnum($nomination->nine_box_performance->name, NineBoxRating::class)
+                    $performance
+                        ? $this->localizeEnum($performance->name, NineBoxRating::class)
                         : Lang::get('common.not_available', [], $this->lang)
                 );
 
+                $potential = $nomination->nine_box_leadership_potential;
                 $this->addLabelText(
                     $section,
                     $this->localizeHeading('nine_box_leadership_potential'),
-                    $nomination->nine_box_leadership_potential
-                        ? $this->localizeEnum($nomination->nine_box_leadership_potential->name, NineBoxRating::class)
+                    $potential
+                        ? $this->localizeEnum($potential->name, NineBoxRating::class)
                         : Lang::get('common.not_available', [], $this->lang)
                 );
 
