@@ -90,6 +90,12 @@ return [
     'dev_post_login_registration_redirect' => env('DEV_OAUTH_POST_LOGIN_REGISTRATION_REDIRECT'),
 
     /**
+     * Where is the user redirected to retry logging in when it fails
+     */
+    'logged_out_redirect' => env('OAUTH_LOGGED_OUT_REDIRECT'),
+    'dev_logged_out_redirect' => env('DEV_OAUTH_LOGGED_OUT_REDIRECT'),
+
+    /**
      * How many times should requests to the OAUTH server be retried when there are errors
      */
     'request_retries' => env('OAUTH_REQUEST_RETRIES', 3),
