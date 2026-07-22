@@ -105,7 +105,7 @@ import {
   decrementHeadingRank,
   hrefToString,
 } from "./utils";
-import { UNICODE_CHAR, wrapParens } from "./utils/unicode";
+import { UNICODE_CHAR, wrapParens, wrapQuotes } from "./utils/unicode";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard/TaskCard";
 
@@ -225,5 +225,6 @@ export {
   useControllableState,
   hrefToString,
   wrapParens,
+  wrapQuotes,
   UNICODE_CHAR,
 };

@@ -251,8 +251,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class),
                     $nominators->join(', '),
                     $optionsStr,
@@ -342,8 +342,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->canShare($consentToShare, $user->email ?? ''),
                     $this->canShare($consentToShare, $user->telephone ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class)),
@@ -456,8 +456,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                     $values = [
                         $user->id,
-                        $this->canShare($consentToShare, $user->first_name), // nominee's first name
-                        $this->canShare($consentToShare, $user->last_name), // nominee's last name
+                        $user->first_name, // nominee's first name
+                        $user->last_name, // nominee's last name
                         $nomination->submitted_at ? $nomination->submitted_at->format('Y-m-d') : '', // Date received
                         $optionsStr, // nomination options
                         $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
