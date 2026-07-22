@@ -122,6 +122,7 @@ export async function loginBySub(
   page: Page,
   sub: string,
   notAuthorized?: boolean,
+  claims?: Record<string, string>,
 ) {
   if (process.env.TESTING_ENDPOINT_SECRET) {
     const tokens = await getTokenForSub(sub);
@@ -149,6 +150,11 @@ export async function loginBySub(
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  if (claims) {
+    await page
+      .getByRole("textbox", { name: "Claims" })
+      .fill(JSON.stringify(claims));
+  }
   await page.getByRole("button", { name: /sign in/i }).click();
   if (notAuthorized) {
     await expect(
