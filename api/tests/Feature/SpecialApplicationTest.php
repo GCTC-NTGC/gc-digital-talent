@@ -163,6 +163,8 @@ class SpecialApplicationTest extends TestCase
         assertSame($this->applicant->fullName, $attributes['user_name']);
         assertSame($this->pool->id, $attributes['pool_id']);
         assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['fr'], $attributes['special_application_type_fr']);
         assertSame('reasons', $attributes['special_application_justification']);
         assertSame(config('constants.far_future_datetime'), $dateTimeString);
     }
@@ -302,6 +304,8 @@ class SpecialApplicationTest extends TestCase
         assertSame($this->applicant->fullName, $attributes['user_name']);
         assertSame($this->pool->id, $attributes['pool_id']);
         assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['fr'], $attributes['special_application_type_fr']);
     }
 
     // a special application cannot be created for all pool states

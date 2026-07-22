@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\ActivityEvent;
 use App\Enums\ApplicationStatus;
+use App\Enums\SpecialApplicationType;
 use App\Models\PoolCandidate;
 use Exception;
 
@@ -17,6 +18,7 @@ final class CreateSpecialApplication
         $poolCandidateInput = $args;
         $poolId = $poolCandidateInput['pool']['connect'];
         $userId = $poolCandidateInput['user']['connect'];
+        $specialApplicationLocalizedString = SpecialApplicationType::localizedString($poolCandidateInput['special_application_type']);
 
         $existingPoolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
@@ -43,6 +45,8 @@ final class CreateSpecialApplication
             $existingPoolCandidate->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
                 'user_id' => $userId,
                 'special_application_type' => $poolCandidateInput['special_application_type'],
+                'special_application_type_en' => $specialApplicationLocalizedString['en'],
+                'special_application_type_fr' => $specialApplicationLocalizedString['fr'],
                 'special_application_justification' => $poolCandidateInput['special_application_justification'],
                 'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
             ]);
@@ -69,6 +73,8 @@ final class CreateSpecialApplication
             'user_id' => $userId,
             'application_status' => ApplicationStatus::DRAFT->name,
             'special_application_type' => $poolCandidateInput['special_application_type'],
+            'special_application_type_en' => $specialApplicationLocalizedString['en'],
+            'special_application_type_fr' => $specialApplicationLocalizedString['fr'],
             'special_application_justification' => $poolCandidateInput['special_application_justification'],
             'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
         ]);
