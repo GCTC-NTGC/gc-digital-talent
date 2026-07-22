@@ -288,15 +288,16 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             boundingBox
             boundingBoxLabel={intl.formatMessage({
               defaultMessage: "Leadership performance questions",
-              id: "bCqtne",
+              id: "D5KDrf",
               description:
-                "Bounding box label for the include leadership performance",
+                "Bounding box label for the include leadership performance and potential",
             })}
             label={intl.formatMessage({
               defaultMessage:
                 "The nomination must include the nominee’s performance and leadership potential",
-              id: "x7c8ZO",
-              description: "Label for the include leadership performance",
+              id: "vRkQB+",
+              description:
+                "Label for the include leadership performance and potential",
             })}
             name="includeNineBox"
           />
