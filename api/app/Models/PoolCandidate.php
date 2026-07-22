@@ -815,11 +815,13 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $specialApplicationLocalizedString = $this->isSpecialApplication() ?
+        $isSpecialApplication = $this->is_special_application;
+
+        $specialApplicationLocalizedString = $isSpecialApplication ?
             SpecialApplicationType::localizedString($this->special_application_type)
             : null;
 
-        $this->isSpecialApplication() ?
+        $isSpecialApplication ?
                 $this->logActivity(ActivityEvent::SPECIAL_APPLICATION_SUBMITTED, [
                     'signature' => $signature,
                     'special_application_type' => $this->special_application_type,
