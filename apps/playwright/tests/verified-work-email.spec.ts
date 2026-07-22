@@ -3,6 +3,7 @@ import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import AccountSettings from "~/fixtures/AccountSettings";
 import AdminUser from "~/fixtures/AdminUser";
+import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
@@ -68,19 +69,18 @@ test.describe("Verified work email", () => {
     ).toBeVisible();
   });
 
-  test("Unverified user does not show icon in account settings", async ({
+  test("Unverified user does not show icon in employee profile", async ({
     appPage,
   }) => {
-    const accountSettings = new AccountSettings(appPage.appPage);
-    await loginBySub(accountSettings.page, unverified.sub);
-    await accountSettings.goToSettings();
+    const profilePage = new EmployeeProfile(appPage.page);
+    await loginBySub(profilePage.page, unverified.sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Not verified");
 
     await expect(
-      accountSettings.page.getByRole("img", { name: /verified/i }),
-    ).toBeHidden();
-
-    await expect(
-      accountSettings.page.getByRole("button", {
+      profilePage.page.getByRole("button", {
         name: /re-verify work email/i,
       }),
     ).toBeVisible();

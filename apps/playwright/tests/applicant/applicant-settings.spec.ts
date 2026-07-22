@@ -2,10 +2,8 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import type { User } from "@gc-digital-talent/graphql";
 
 import { test, expect } from "~/fixtures";
-import AccountSettings from "~/fixtures/AccountSettings";
 import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import Registration from "~/fixtures/Registration";
-import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
