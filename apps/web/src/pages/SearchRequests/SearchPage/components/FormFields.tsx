@@ -6,6 +6,7 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
+  HiddenInput,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -215,16 +216,7 @@ const FormFields = ({
         })}
       >
         <div className="flex flex-col gap-y-6">
-          <Checklist
-            idPrefix="talentSources"
-            id="talentSources"
-            name="talentSources"
-            legend={intl.formatMessage(talentRequestMessages.talentSource)}
-            items={talentSourceOptions}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+          <HiddenInput name="talentSources" />
           <p>
             {intl.formatMessage({
               defaultMessage:
