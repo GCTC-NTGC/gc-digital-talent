@@ -23,6 +23,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
 
         if (! empty($qualifiedInClassifications)) {
             $this->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
+                /** @var UserBuilder $userQuery */
                 $userQuery->whereHas('currentClassification', function (Builder $classQuery) use ($qualifiedInClassifications) {
                     $classQuery->where(function (Builder $q) use ($qualifiedInClassifications) {
                         foreach ($qualifiedInClassifications as $classification) {
@@ -32,7 +33,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
                             });
                         }
                     });
-                });
+                })->whereIsVerifiedGovEmployee();
             });
         }
 
