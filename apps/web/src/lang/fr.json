@@ -6103,10 +6103,6 @@
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
   },
-  "MOKBPl": {
-    "defaultMessage": "En attente de réponse",
-    "description": "Label for pool candidate search requests that are awaiting a response"
-  },
   "MT17Vm": {
     "defaultMessage": "Ajouter un rôle dans le ministère :",
     "description": "Header for the form to add a department membership to a user"
@@ -9025,10 +9021,6 @@
   "YYbOQz": {
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
     "description": "Message that the employee was found for a search"
-  },
-  "YYmuJo": {
-    "defaultMessage": "En cours d'examen",
-    "description": "Label for pool candidate search requests that are under review"
   },
   "YZRjdG": {
     "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
@@ -12877,10 +12869,6 @@
   "nRrlr1": {
     "defaultMessage": "{total, plural, =0 {0 organisation} one {# organisation} other {# organisations}}",
     "description": "Count of organizations"
-  },
-  "nTPcCF": {
-    "defaultMessage": "Soumise",
-    "description": "Label for request submitted"
   },
   "nUokX9": {
     "defaultMessage": "Retourner au suivi des évaluations",

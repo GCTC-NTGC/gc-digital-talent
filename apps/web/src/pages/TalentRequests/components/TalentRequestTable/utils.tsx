@@ -4,20 +4,14 @@ import type { IntlShape } from "react-intl";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   type AdvancedOrderByInput,
-  TalentRequestStatus,
+  type TalentRequestStatus,
   type TalentRequestInput,
   type Classification,
   type TalentRequest,
   type LocalizedTalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 import { SortOrder } from "@gc-digital-talent/graphql";
-import {
-  Chip,
-  Chips,
-  Link,
-  Spoiler,
-  type ChipProps,
-} from "@gc-digital-talent/ui";
+import { Chip, Chips, Link, Spoiler } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -25,7 +19,10 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import type useRoutes from "~/hooks/useRoutes";
-import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
+import {
+  followUpDateOverdueInfo,
+  TALENT_REQUEST_STATUS_COLOUR_MAP,
+} from "~/utils/searchRequestUtils";
 import cells from "~/components/Table/cells";
 
 export interface FormValues {
@@ -227,14 +224,12 @@ export const followUpDateCell = (
   );
 };
 
-const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
-  [TalentRequestStatus.New]: "warning",
-  [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Completed]: "gray",
-} as const;
-
 export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
   if (!status) return null;
 
-  return <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>;
+  return (
+    <Chip color={TALENT_REQUEST_STATUS_COLOUR_MAP[status.value]}>
+      {status.label.localized}
+    </Chip>
+  );
 };

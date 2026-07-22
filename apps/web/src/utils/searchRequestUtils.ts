@@ -2,13 +2,24 @@ import type { IntlShape } from "react-intl";
 import { differenceInCalendarDays } from "date-fns/differenceInCalendarDays";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
+import type { ChipProps } from "@gc-digital-talent/ui";
 import type { EquitySelections } from "@gc-digital-talent/graphql";
 import {
-  PoolCandidateSearchPositionType,
   PositionDuration,
+  TalentRequestPositionType,
+  TalentRequestStatus,
 } from "@gc-digital-talent/graphql";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
+
+export const TALENT_REQUEST_STATUS_COLOUR_MAP: Record<
+  TalentRequestStatus,
+  ChipProps["color"]
+> = {
+  [TalentRequestStatus.New]: "warning",
+  [TalentRequestStatus.InProgress]: "primary",
+  [TalentRequestStatus.Completed]: "gray",
+} as const;
 
 export const positionDurationToEmploymentDuration = (
   durations?: (PositionDuration | null | undefined)[] | null,
@@ -86,13 +97,13 @@ export const equitySelectionsToDescriptions = (
 ];
 
 export const positionTypeToYesNoSupervisoryStatement = (
-  positionType: PoolCandidateSearchPositionType | null | undefined,
+  positionType: TalentRequestPositionType | null | undefined,
   intl: IntlShape,
 ): string | null => {
-  if (positionType == PoolCandidateSearchPositionType.TeamLead) {
+  if (positionType === TalentRequestPositionType.TeamLead) {
     return intl.formatMessage(talentRequestMessages.supervisoryPositionYes);
   }
-  if (positionType == PoolCandidateSearchPositionType.IndividualContributor) {
+  if (positionType === TalentRequestPositionType.IndividualContributor) {
     return intl.formatMessage(talentRequestMessages.supervisoryPositionNo);
   }
   return null;
