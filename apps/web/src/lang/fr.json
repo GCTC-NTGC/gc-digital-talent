@@ -12618,10 +12618,6 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
-  "mXWCC2": {
-    "defaultMessage": "Employés de même niveau disposés à accepter une mutation latérale",
-    "description": "Checklist option explanatory note"
-  },
   "mYnQH4": {
     "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
     "description": "A process has no assessment plan"
@@ -14325,10 +14321,6 @@
   "tUIvbq": {
     "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
-  },
-  "tUObm7": {
-    "defaultMessage": "Candidats qualifiés du bassin",
-    "description": "Checklist option explanatory note"
   },
   "tXLRmG": {
     "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
