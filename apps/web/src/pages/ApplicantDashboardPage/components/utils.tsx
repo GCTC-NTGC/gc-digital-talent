@@ -1,13 +1,8 @@
 import type { IntlShape, MessageDescriptor } from "react-intl";
 import type { ReactNode } from "react";
 
-import {
-  CandidateInterest,
-  CandidateStatus,
-  PoolCandidateSearchStatus,
-} from "@gc-digital-talent/graphql";
-import { assertUnreachable, compareStrings } from "@gc-digital-talent/helpers";
-import type { ChipProps } from "@gc-digital-talent/ui";
+import { CandidateInterest, CandidateStatus } from "@gc-digital-talent/graphql";
+import { compareStrings } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -15,53 +10,6 @@ import {
   applicationStatusDescriptions,
   qualifiedRecruitmentStatusDescriptions,
 } from "~/utils/poolCandidate";
-
-// figure out what the chip should look like for a given status
-export function deriveChipSettings(
-  status: PoolCandidateSearchStatus,
-  intl: IntlShape,
-): { color: ChipProps["color"]; label: string } {
-  switch (status) {
-    case PoolCandidateSearchStatus.New:
-      return {
-        color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Submitted",
-          id: "nTPcCF",
-          description: "Label for request submitted",
-        }),
-      };
-    case PoolCandidateSearchStatus.InProgress:
-      return {
-        color: "secondary",
-        label: intl.formatMessage({
-          defaultMessage: "Under review",
-          id: "YYmuJo",
-          description:
-            "Label for pool candidate search requests that are under review",
-        }),
-      };
-    case PoolCandidateSearchStatus.Waiting:
-      return {
-        color: "warning",
-        label: intl.formatMessage({
-          defaultMessage: "Awaiting response",
-          id: "MOKBPl",
-          description:
-            "Label for pool candidate search requests that are awaiting a response",
-        }),
-      };
-    case PoolCandidateSearchStatus.Done:
-    case PoolCandidateSearchStatus.DoneNoCandidates:
-    case PoolCandidateSearchStatus.NotCompliant:
-      return {
-        color: "success",
-        label: intl.formatMessage(commonMessages.complete),
-      };
-    default:
-      return assertUnreachable(status);
-  }
-}
 
 // map an array of items to a single unique string
 export function deriveSingleString<T>(
