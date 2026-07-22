@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ActivityEvent;
 use App\Enums\ApplicationStatus;
 use App\Models\PoolCandidate;
 use Exception;
@@ -22,6 +23,8 @@ final class CreateSpecialApplication
             ->withTrashed()
             ->first();
 
+        activity()->disableLogging();
+
         // branch one
         // pool candidate exists
         if ($existingPoolCandidate) {
@@ -31,6 +34,14 @@ final class CreateSpecialApplication
             }
 
             $existingPoolCandidate->update([
+                'special_application_type' => $poolCandidateInput['special_application_type'],
+                'special_application_justification' => $poolCandidateInput['special_application_justification'],
+                'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+            ]);
+
+            activity()->enableLogging();
+            $existingPoolCandidate->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
+                'user_id' => $userId,
                 'special_application_type' => $poolCandidateInput['special_application_type'],
                 'special_application_justification' => $poolCandidateInput['special_application_justification'],
                 'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
@@ -52,6 +63,15 @@ final class CreateSpecialApplication
         $createdApplication->application_status = ApplicationStatus::DRAFT->name;
         $createdApplication->save();
         $createdApplication->refresh();
+
+        activity()->enableLogging();
+        $createdApplication->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
+            'user_id' => $userId,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'special_application_type' => $poolCandidateInput['special_application_type'],
+            'special_application_justification' => $poolCandidateInput['special_application_justification'],
+            'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+        ]);
 
         return $createdApplication;
     }
