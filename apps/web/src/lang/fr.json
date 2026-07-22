@@ -363,10 +363,6 @@
     "defaultMessage": "Groupe de classification",
     "description": "The classification group for a job poster template"
   },
-  "/N8Owk": {
-    "defaultMessage": "Le gouvernement du Canada ne peut vous recommander un fournisseur tiers ou une appli en particulier. Des fournisseurs numériques connus, comme Google et Microsoft, offrent des applis d'authentification. Quelle que soit l'appli que vous choisissez, assurez-vous qu'elle vient d'un fournisseur de bonne réputation.",
-    "description": "GCKey answer for which authenticator app to use"
-  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -386,10 +382,6 @@
   "/UxJBZ": {
     "defaultMessage": "Création du processus de recrutement réussie!",
     "description": "Message displayed to user after pool is created successfully."
-  },
-  "/WLsRj": {
-    "defaultMessage": "Vous aurez besoin d’une application d’authentification.",
-    "description": "Subtitle for a section explaining mfa apps"
   },
   "/WUaCi": {
     "defaultMessage": "Des renseignements requis sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité sont manquants.",
@@ -782,10 +774,6 @@
   "0zo274": {
     "defaultMessage": "Demande soumise",
     "description": "Link text for request confirmation breadcrumb"
-  },
-  "1/LVZf": {
-    "defaultMessage": "Considérez l’ouverture de séance comme une porte de sécurité qui donne sur votre compte et qui ne peut être ouverte qu’avec une clé (votre mot de passe) et un code secret (provenant de votre application d’authentification à deux facteurs). Même si quelqu’un trouve ou copie votre clé, il ne pourra toujours pas entrer, car il n’a pas votre code secret.",
-    "description": "Copy explaining why to set up mfa"
   },
   "1/Q9jX": {
     "defaultMessage": "Comment décrire au mieux une expérience professionnelle",
@@ -1403,10 +1391,6 @@
     "defaultMessage": "Fermer le processus immédiatement",
     "description": "Submit button text to close a process"
   },
-  "3GkMHE": {
-    "defaultMessage": "3. Remplissez vos <strong>questions de récupération</strong>. Vous devez utiliser une <strong>personne</strong> et <strong>une date mémorables</strong>.",
-    "description": "Text for third sign up -> create step."
-  },
   "3HKoKM": {
     "defaultMessage": "Lancement de la troisième cohorte du programme de mentorat de la collectivité du numérique destiné aux membres des groupes d’équité en matière d’emploi.",
     "description": "Description of the mentorship program"
@@ -1646,10 +1630,6 @@
   "4L9rHO": {
     "defaultMessage": "Actif",
     "description": "Status message if the application is not suspended"
-  },
-  "4LMyAD": {
-    "defaultMessage": "S'inscrire avec CléGC",
-    "description": "GCKey sign up link text on the sign up page"
   },
   "4LN+P9": {
     "defaultMessage": "Niveau de classification visé",
@@ -2038,10 +2018,6 @@
   "5lHi37": {
     "defaultMessage": "Communiquez avec nous<hidden> au sujet de l’expérience d’embauche</hidden>",
     "description": "Link text to email about the gaining hiring experience"
-  },
-  "5mrOBM": {
-    "defaultMessage": "Quelle application d'authentification devrais-je installer?",
-    "description": "GCKey question for which authenticator app to use"
   },
   "5pf2qR": {
     "defaultMessage": "Modifier une possibilité de formation",
@@ -2466,10 +2442,6 @@
   "7toBNM": {
     "defaultMessage": "Vous avez indiqué que vous ne souhaitez pas recevoir d'offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
     "description": "Status description for a qualified application the candidate has marked not interested"
-  },
-  "7tpJaQ": {
-    "defaultMessage": "Une CléGC est un justificatif d'identité central qui n'est pas géré par l'équipe des Talents numériques du GC. Le gouvernement du Canada l'offre pour que vous puissiez communiquer de manière sécuritaire avec de nombreux programmes et services gouvernementaux accessibles en ligne.",
-    "description": "GCKey answer for what is GCKey"
   },
   "7tv7ct": {
     "defaultMessage": "EXposition",
@@ -3479,10 +3451,6 @@
     "defaultMessage": "Joindre une collectivité",
     "description": "Link to add a community interest"
   },
-  "BfrCXV": {
-    "defaultMessage": "Attendez-vous à passer environ 20 minutes à configurer la CléGC et l’application d’authentification.",
-    "description": "A _what to expect_ point on the sign up page"
-  },
   "BhWVby": {
     "defaultMessage": "Proposez-vous pour passer quelques heures à participer à une équipe interministérielle qui évaluera des candidats et exécutera des processus d’emploi sur la plateforme Talents numériques du GC.",
     "description": "Paragraph two, summary on getting hiring experience"
@@ -3807,10 +3775,6 @@
     "defaultMessage": "Cercle de soutien",
     "description": "Title of the 'Circle of Support' subsection"
   },
-  "D6f8hs": {
-    "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
-    "description": "Text for first sign up -> mfa step."
-  },
   "D7/cN1": {
     "defaultMessage": "Approbation pour une mutation latérale",
     "description": "Label for an nomination for lateral movement decision"
@@ -3982,10 +3946,6 @@
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
-  },
-  "Dqsq+M": {
-    "defaultMessage": "Pour vous inscrire (ou vous authentifier) à Talents numériques du GC, vous devez utiliser CléGC.",
-    "description": "A _what to expect_ point on the sign up page"
   },
   "DrR/rp": {
     "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
@@ -4495,10 +4455,6 @@
     "defaultMessage": "Divers (anglais ou français)",
     "description": "Various language requirement"
   },
-  "G0AEfY": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
-  },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
@@ -4526,10 +4482,6 @@
   "G6LNg7": {
     "defaultMessage": "Montrez aux gestionnaires les cinq compétences comportementales les plus fortes qui font de vous un membre formidable de l’équipe. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the top behavioural skills page"
-  },
-  "G6PxDn": {
-    "defaultMessage": "Cette section met l'accent sur la gestion générale du compte et sur les informations relatives à la manière dont nous établissons un lien avec votre CléGC.",
-    "description": "Subtitle for account management section on account settings page."
   },
   "G6V8wJ": {
     "defaultMessage": "Type de changement de date",
@@ -4834,10 +4786,6 @@
   "HPaQCC": {
     "defaultMessage": "Apprenez-en davantage sur les événements axés sur la promotion des talents, les mutations latérales et le perfectionnement professionnel.",
     "description": "Subtitle for talent management events page"
-  },
-  "HR2ouB": {
-    "defaultMessage": "En savoir plus sur CléGC et gérer vos notifications.",
-    "description": "Subtitle for the account settings page."
   },
   "HVrV+A": {
     "defaultMessage": "Créer un programme de perfectionnement",
@@ -5447,10 +5395,6 @@
     "defaultMessage": "Ce processus est <heavySecondary>ouvert</heavySecondary> et accepte les candidatures jusqu'au <heavySecondary>{closingDate}</heavySecondary>.",
     "description": "Message displayed to admins when a process is published"
   },
-  "Jp/oeD": {
-    "defaultMessage": "2. Créez un nom d’utilisateur et un mot de passe. N’oubliez pas d’ <strong>enregistrer votre nom d’utilisateur</strong> à part de votre <strong>adresse de courriel</strong>.",
-    "description": "Text for second sign up -> create step."
-  },
   "JpCD8m": {
     "defaultMessage": "Passez en revue les <link>rôles et les autorisations</link> pour comprendre ce que chaque rôle peut ou ne peut pas faire.",
     "description": "Help text to direct users to more information on roles and permissions"
@@ -5915,10 +5859,6 @@
     "defaultMessage": "Expiré",
     "description": "Simplified status label for expired recruitments"
   },
-  "LbtstO": {
-    "defaultMessage": "4. Suivez le processus de vérification de l’adresse de courriel. <strong>Un code unique</strong> vous sera envoyé par courriel et vous devrez le saisir dans la CléGC.",
-    "description": "Text for fourth sign up -> create step."
-  },
   "LdlxBV": {
     "defaultMessage": "Numéro du processus de sélection",
     "description": "Label for a process number"
@@ -6079,10 +6019,6 @@
     "defaultMessage": "Sauvegarder « À propos de nous »",
     "description": "Text on a button to save the pool about us"
   },
-  "MFjl68": {
-    "defaultMessage": "S'inscrire",
-    "description": "Link text to register instead of signing in"
-  },
   "MGYlS0": {
     "defaultMessage": "Les processus de recrutement apparaîtront automatiquement dans cette section si votre candidature est retenue.",
     "description": "Body for notice when there are no Recruitment processes"
@@ -6111,10 +6047,6 @@
     "defaultMessage": "Perfectionnement professionnel",
     "description": "Label for Professionalization"
   },
-  "MUYJr1": {
-    "defaultMessage": "1. Sélectionnez l’option d’<strong>inscription</strong> à partir de la page d’accueil. Elle <strong>se trouve après la section d’ouverture de séance</strong>.",
-    "description": "Text for first sign up -> create step."
-  },
   "MUxI+G": {
     "defaultMessage": "Il n’existe aucun résultat correspondant.",
     "description": "Title for when no skills match a users filters."
@@ -6122,10 +6054,6 @@
   "MXZ8Ms": {
     "defaultMessage": "Si vous êtes membre d’un <link>groupe visé par l’équité en matière d’emploi</link>, vous pouvez choisir de vous autodéclarer lorsque vous créez votre profil.",
     "description": "Paragraph 1, importance of self-declaration"
-  },
-  "MYnfw/": {
-    "defaultMessage": "Nous avons créé <link>un guide expliquant comment configurer la CléGC et l'authentification à deux facteurs</link>. Vous pouvez également consulter <use2FALink>nos instructions sur la façon de vous connecter au moyen de l'authentification à deux facteurs</use2FALink>. Si le problème persiste, communiquez avec nous.",
-    "description": "Text explaining the importance of reporting technical issues"
   },
   "MZChNU": {
     "defaultMessage": "Diplômés et talents avancés",
@@ -7039,10 +6967,6 @@
     "defaultMessage": "<strong>Pour commencer, passez votre profil en revue.</strong> Si vous n'avez pas encore créé votre profil, pas de problème! Vous pouvez ajouter tous les renseignements requis à l'étape suivante.",
     "description": "Description of the application process and the next step"
   },
-  "QNMqSh": {
-    "defaultMessage": "Étapes pour se connecter avec une CléGC et compléter l'authentification à deux facteurs",
-    "description": "Subtitle for a section explaining sign in steps"
-  },
   "QNUIxj": {
     "defaultMessage": "Je suis l'auteur ou l'autrice de la mise en candidature",
     "description": "Label for the option when the submitter of a nomination is also the nominator"
@@ -7206,10 +7130,6 @@
   "Qu3NZ1": {
     "defaultMessage": "L'étape suivante est la partie la plus importante de votre candidature. Nous vous demanderons d'expliquer comment vous répondez aux exigences de compétences pour ce rôle.",
     "description": "Application step for skill requirements, introduction, description, paragraph one"
-  },
-  "QuHfUJ": {
-    "defaultMessage": "2. <strong>Ouvrez l'application d'authentification</strong> sur votre appareil.",
-    "description": "Text for second sign in step."
   },
   "QuLbBU": {
     "defaultMessage": "Expériences mettant en avant cette compétence",
@@ -7390,10 +7310,6 @@
   "RZIivj": {
     "defaultMessage": "Dupliquer et visualiser le nouveau processus",
     "description": "Button text to duplicate a process"
-  },
-  "RalbOM": {
-    "defaultMessage": "En plus de CléGC, vous devrez avoir configuré une application d’authentification à deux facteurs comme couche de sécurité supplémentaire. (Pour les détails, voir la section sur la configuration de l’authentification à deux facteurs)",
-    "description": "A _what to expect_ point on the sign up page"
   },
   "RauOed": {
     "defaultMessage": "Erreur : le publication du processus a échoué",
@@ -8098,10 +8014,6 @@
     "defaultMessage": "Cadres actuels de la gestion financière",
     "description": "List item one financial management label"
   },
-  "UpwY5+": {
-    "defaultMessage": "Pour vous aider, nous avons préparé d’autres conseils dans la prochaine section.",
-    "description": "A _what to expect_ point on the sign up page"
-  },
   "UrU9Kt": {
     "defaultMessage": "Recevez directement les dernières mises à jour, ressources et événements de la collectivité de l’approvisionnement du Bureau du développement de la collectivité du Bureau du contrôleur général dans votre boîte de réception.",
     "description": "Card description, newsletter, procurement"
@@ -8426,10 +8338,6 @@
     "defaultMessage": "Options de lieu de travail flexible",
     "description": "Legend for the flexible work location preferences section"
   },
-  "W3KFtQ": {
-    "defaultMessage": "Vous avez déjà un compte de CléGC?",
-    "description": "GCKey question for when user already has an account"
-  },
   "W58QTT": {
     "defaultMessage": "Cet utilisateur n'est encore dans aucun bassin",
     "description": "Message on view-user page that the user is not in any pools"
@@ -8437,10 +8345,6 @@
   "W5bt6H": {
     "defaultMessage": "Le niveau d'études minimales requises indiqué dans cette section est déterminé par votre choix de classification et de niveau pour ce processus. {classificationAbbr}. Il a été déterminé en fonction des <qualityStandardsLink>normes de qualification du gouvernement du Canada.</qualityStandardsLink> Ces exigences ne peuvent être modifiées qu'en <scrollToLink>sélectionnant un groupe et un niveau de classification différents.</scrollToLink>",
     "description": "Lead-in text for a process' education requirements"
-  },
-  "W5vrNy": {
-    "defaultMessage": "3. <strong>Saisissez</strong> le code généré <strong>par votre application d’authentification</strong> dans la barre de vérification.",
-    "description": "Text for third sign up -> mfa step."
   },
   "W8SKx+": {
     "defaultMessage": "Vous êtes sur le point de restaurer le profil de l'utilisateur suivant sur la plateforme",
@@ -8465,10 +8369,6 @@
   "WBvYyt": {
     "defaultMessage": "Enregistrer le numéro de processus",
     "description": "Text on a button to save the process number"
-  },
-  "WDKT2K": {
-    "defaultMessage": "Qu'est-ce qu'une CléGC?",
-    "description": "GCKey question for what is GCKey"
   },
   "WDRWcu": {
     "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
@@ -8569,10 +8469,6 @@
   "WjCg7r": {
     "defaultMessage": "La présentation de ces renseignements sur cette plateforme est entièrement facultative <strong>et ne constitue pas une obligation</strong>.",
     "description": "Third paragraph for employment equity information."
-  },
-  "Wnid+N": {
-    "defaultMessage": "Connexion à votre compte",
-    "description": "Heading for section of the sign in page showing the sign in steps"
   },
   "WoFBmk": {
     "defaultMessage": "Je consens à travailler constamment à distance.",
@@ -8837,10 +8733,6 @@
   "XjtKKm": {
     "defaultMessage": "Afficher l'adresse courriel professionnelle vérifiée de cette personne employée du gouvernement du Canada ainsi que son expérience de travail actuelle.",
     "description": "Lead-in text explaining employee verification for admins"
-  },
-  "XkA6s1": {
-    "defaultMessage": "CléGC est un justificatif du gouvernement du Canada qui vous permet d’effectuer de façon sécurisée des transactions en ligne avec divers programmes et services gouvernementaux.",
-    "description": "A _what to expect_ point on the sign up page"
   },
   "XlmRZH": {
     "defaultMessage": "S'enregistrer",
@@ -9154,10 +9046,6 @@
     "defaultMessage": "N'importe quelle langue (français ou anglais)",
     "description": "No preference for language ability - will accept English or French"
   },
-  "YzGpQQ": {
-    "defaultMessage": "Si vous éprouvez de la difficulté à créer une CléGC, <link>communiquez avec l’équipe de CléGC</link>.",
-    "description": "Bullet point about contacting GCKey support"
-  },
   "YzUhwE": {
     "defaultMessage": "Modifier l’ébauche d’un processus et d’un plan d’évaluation",
     "description": "Permissions related to creating/deleting draft processes assessment plan"
@@ -9469,10 +9357,6 @@
   "aSJ4ET": {
     "defaultMessage": "Que signifie {classification} {genericTitle}?",
     "description": "Title for description of a pool advertisements classification group/level"
-  },
-  "aVp6q7": {
-    "defaultMessage": "Consultez la CléGC",
-    "description": "Link text for visiting the GCKey website"
   },
   "aXKkrb": {
     "defaultMessage": "Vue candidat(e)",
@@ -9830,10 +9714,6 @@
     "defaultMessage": "Si vous avez des demandes d'accommodements ou des questions relativement à ce processus, veuillez écrire à l'équipe de recrutement à l'adresse <link>{contactEmail}</link>.",
     "description": "Opening sentence asking if accommodations are needed"
   },
-  "bzcV2Q": {
-    "defaultMessage": "La plateforme des talents numériques du GC s’associe au service de justificatifs du GC, CléGC, pour vous donner accès à votre compte à l’aide d’une seule combinaison de nom d’utilisateur et de mot de passe. Vous pouvez gérer votre nom d’utilisateur et votre mot de passe sur le site Web de CléGC; les modifications auront automatiquement été intégrées lorsque vous ouvrirez une session dans la plateforme des talents numériques du GC.",
-    "description": "Description of how we use GCKey for authentication."
-  },
   "c+P41C": {
     "defaultMessage": "Programme de mentorat de la collectivité du numérique",
     "description": "Button text to open section describing mentorship program"
@@ -10006,10 +9886,6 @@
     "defaultMessage": "Type d’expérience",
     "description": "Label for the type of experience a user is creating"
   },
-  "ci1JMn": {
-    "defaultMessage": "À titre de rappel, vous allez quitter notre site pour vous connecter avec une CléGC. Si vous éprouvez des problèmes, nous avons quelques conseils supplémentaires pour vous.",
-    "description": "Instructions on what to do if user doesn't know if they have a GCKey"
-  },
   "ci28W3": {
     "defaultMessage": "Commencer",
     "description": "CanadaLogin sign up link text on the sign in page"
@@ -10090,10 +9966,6 @@
     "defaultMessage": "Fournissez quelques détails normalisés au sujet de votre expérience pour aider les gestionnaires à mieux comprendre le rôle qu’elle a joué dans votre cheminement de carrière.",
     "description": "Help text for the experience details section"
   },
-  "d0EUOF": {
-    "defaultMessage": "4. Hourra! Vous avez terminé de configurer votre compte CléGC et serez <strong>ramené à la plateforme Talents numériques du GC</strong>.",
-    "description": "Text for fourth sign up -> mfa step."
-  },
   "d1FYv4": {
     "defaultMessage": "Classification",
     "description": "Label displayed on Work Experience card for classification"
@@ -10101,10 +9973,6 @@
   "d2IDL3": {
     "defaultMessage": "Choisissez l’organisation qui aura l’autorité d’embauche pour ce processus de dotation.",
     "description": "Describing selecting a department for a process"
-  },
-  "d3HIMV": {
-    "defaultMessage": "Renseignez-vous sur CléGC et trouvez des liens vers des renseignements sur les comptes.",
-    "description": "Introductory text displayed in login and authentication accordion."
   },
   "d4aLWc": {
     "defaultMessage": "Revenez ici pour recevoir des alertes sur une variété d’activités sur la plateforme, y compris des offres d’emploi, de nouvelles fonctionnalités et plus encore.",
@@ -10221,10 +10089,6 @@
   "da/TLc": {
     "defaultMessage": "Modifier<hidden> le volet de travail</hidden>",
     "description": "Breadcrumb title for the edit work stream page link."
-  },
-  "db3ZDX": {
-    "defaultMessage": "Bon retour!",
-    "description": "Heading at the top of the sign in page for applicant profiles"
   },
   "dcV5qH": {
     "defaultMessage": "La <actLink>Loi sur l'équité en matière d'emploi</actLink> est actuellement <reviewLink>en cours de révision</reviewLink>.",
@@ -10402,10 +10266,6 @@
     "defaultMessage": "Trouvez des talents préqualifiés pour votre équipe ou planifiez votre prochaine évolution de carrière.",
     "description": "Paragraph one, description of the managers community"
   },
-  "e8SFXx": {
-    "defaultMessage": "Inscrivez-vous en utilisant CléGC",
-    "description": "Page title for the registration page for applicant profiles"
-  },
   "e9FxXq": {
     "defaultMessage": "Déterminer les personnes qui pourraient être admissibles à des possibilités particulières dans les organisations où un groupe visé par l’équité en matière d’emploi est sous-représenté;",
     "description": "List item 1, how self-declaration data is used"
@@ -10490,10 +10350,6 @@
     "defaultMessage": "Veuillez indiquer si vous exercez l’une des fonctions supplémentaires suivantes dans le cadre de votre rôle de CSD.",
     "description": "Description for additional duties referencing a Senior Designated Official (SDO) role"
   },
-  "eO9buR": {
-    "defaultMessage": "4. Félicitations! <strong>Vous vous êtes connecté avec une CléGC</strong> et vous serez redirigé vers la <strong>plateforme de talents numériques du GC</strong>.",
-    "description": "Text for final sign in step."
-  },
   "eOIwNx": {
     "defaultMessage": "Rôle ou titre",
     "description": "Label displayed on Community Experience form for role input"
@@ -10550,10 +10406,6 @@
     "defaultMessage": "Afficher l'offre d'emploi",
     "description": "Label for view job advertisement link"
   },
-  "eamuiH": {
-    "defaultMessage": "Configuration de votre application d’authentification à deux facteurs",
-    "description": "Subtitle for a section explaining setting up mfa"
-  },
   "ee4C6L": {
     "defaultMessage": "Seules les personnes ayant la citoyenneté canadienne peuvent postuler",
     "description": "Admin interface label for the canadian-citizen-only selection limitation"
@@ -10565,10 +10417,6 @@
   "eeU13V": {
     "defaultMessage": "Filtrer par volets de travail",
     "description": "Legend for pool streams input"
-  },
-  "efBMD2": {
-    "defaultMessage": "Gestion des comptes",
-    "description": "Title for the account management."
   },
   "eg07u9": {
     "defaultMessage": "Ajoutez votre expérience de travail actuelle à votre profil Talents numériques du GC.",
@@ -11518,10 +11366,6 @@
     "defaultMessage": "Vous avez réussi! En signant votre nom ci-dessous, vous confirmez que :",
     "description": "Confirmation message before signature form on sign and submit page."
   },
-  "i4EMJm": {
-    "defaultMessage": "Votre compte CléGC",
-    "description": "Accordion trigger for your GCKey account info."
-  },
   "i4OGTD": {
     "defaultMessage": "Créer un groupe de compétences",
     "description": "Page title for the skill family creation page"
@@ -12010,10 +11854,6 @@
     "defaultMessage": "Aucune expérience gouvernementale actuelle trouvée",
     "description": "Message displayed when there is no government experience for the current position"
   },
-  "k1HxPf": {
-    "defaultMessage": "Si vous éprouvez de la difficulté à configurer l’authentification à deux facteurs ou à l’utiliser pour vous connecter, <link>communiquez avec notre équipe de soutien</link>.",
-    "description": "Bullet point about contacting support for 2FA issues"
-  },
   "k1uZ7o": {
     "defaultMessage": "Une cote de fiabilité valide",
     "description": "Item 3 in the candidate list in the 'Indigenous talent ready for IT apprenticeships' section"
@@ -12358,10 +12198,6 @@
     "defaultMessage": "Ministère ou organisme de l’auteur(trice) de la mise en candidature",
     "description": "Label for the nominator's department/agency"
   },
-  "lZwkcR": {
-    "defaultMessage": "Étapes à suivre pour créer votre compte CléGC",
-    "description": "Subtitle for a section explaining the create steps"
-  },
   "laYGvQ": {
     "defaultMessage": "de faire preuve de diligence raisonnable quant à l'exactitude du contenu reproduit",
     "description": "Non commercial reproduction list item"
@@ -12510,10 +12346,6 @@
     "defaultMessage": "Vous n'avez aucune mise en candidature active.",
     "description": "Notice's title when there are no nominations"
   },
-  "mF1IpF": {
-    "defaultMessage": "Si vous n’avez pas encore d’application d’authentification, vous devrez en télécharger une. Des fournisseurs numériques comme Google Authenticator et Microsoft Authenticator offrent des applications d’authentification. Quelle que soit l’application que vous choisissez, veillez à ce qu’elle provienne d’un fournisseur réputé.",
-    "description": "Copy explaining mfa apps"
-  },
   "mF1SAO": {
     "defaultMessage": "Plusieurs postes devraient être dotés dans le cadre de ce processus. Vous pouvez vous inscrire à ce processus si vous répondez à l’un des profils linguistiques précédents.",
     "description": "Various language requirement description"
@@ -12606,17 +12438,9 @@
     "defaultMessage": "Reprendre la recommandation de la candidature",
     "description": "Submit button label for resume referrals dialog"
   },
-  "mV1/kq": {
-    "defaultMessage": "À quoi s’attendre au moment de créer un compte",
-    "description": "Heading at the top of the sign up page for applicant profiles"
-  },
   "mVeDxD": {
     "defaultMessage": "Archiver le processus",
     "description": "Title to archive a process"
-  },
-  "mVqKm+": {
-    "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
-    "description": "Text for second sign up -> mfa step."
   },
   "mXWCC2": {
     "defaultMessage": "Employés de même niveau disposés à accepter une mutation latérale",
@@ -12673,10 +12497,6 @@
   "mjGat+": {
     "defaultMessage": "La mise à jour de l'intérêt pour la collectivité a échoué",
     "description": "Toast for error during community interest update"
-  },
-  "mjUxjN": {
-    "defaultMessage": "Pourquoi doit-on configurer l’authentification à deux facteurs?",
-    "description": "Subtitle for a section explaining why to set up mfa"
   },
   "ml+1LK": {
     "defaultMessage": "Vous souhaitez recevoir les offres d'emploi liées à ce processus de recrutement. Vous pouvez modifier ce statut à la fin de cette boîte de dialogue.",
@@ -12834,10 +12654,6 @@
     "defaultMessage": "Ce processus <heavyRed>a pris fin</heavyRed> le <heavyRed>{closingDate}</heavyRed> et n’accepte plus de demandes.",
     "description": "Message displayed to admins when a process is closed or archived"
   },
-  "nKExgi": {
-    "defaultMessage": "Pour l'instant, notre site n'est accessible qu'au moyen d'une appli d'authentification.",
-    "description": "GCKey answer for whether there is an alternative to an authenticator app"
-  },
   "nM+Vlp": {
     "defaultMessage": "Voulez-vous vraiment supprimer la {communityName} de votre profil?",
     "description": "Title for the deletion confirmation dialog of a community interest"
@@ -12909,10 +12725,6 @@
   "ndW6vI": {
     "defaultMessage": "En attente d’une évaluation",
     "description": "Message displayed when candidate is on hold at a specific assessment step"
-  },
-  "neMFtr": {
-    "defaultMessage": "Pour vous reconnecter, vous devrez utiliser votre nom d’utilisateur et votre mot de passe CléGC. Nous espérons vous voir bientôt.",
-    "description": "Message displayed to a user after signing out"
   },
   "ngYP95": {
     "defaultMessage": "Vous devez indiquer dans cette section en quoi consistent vos préférences en matière d’offres d’emploi et de lieux de travail",
@@ -13094,17 +12906,9 @@
     "defaultMessage": "Votre demande n'a pas été retenue. Pour les offres d'emploi internes au gouvernement du Canada, vous pouvez demander d'avoir une conversation informelle concernant cette décision. Pour ce faire, veuillez écrire au ministère ou à l'équipe de recrutement responsable de la publication de l'offre d'emploi à l'adresse <link>{contactEmail}</link>.",
     "description": "Status description for a disqualified application to an employee-only pool"
   },
-  "oQNunm": {
-    "defaultMessage": "Se connecter avec CléGC",
-    "description": "GCKey sign in link text on the sign in page"
-  },
   "oQwEoy": {
     "defaultMessage": "Motif de non-recommandation",
     "description": "Label for the not referred reason select in the referral dialog"
-  },
-  "oR+6vE": {
-    "defaultMessage": "1. Connectez-vous avec votre nom d'utilisateur et votre mot de passe. N'oubliez pas, <strong>votre nom d'utilisateur est différent de votre adresse électronique</strong>.",
-    "description": "Text for first sign in step."
   },
   "oRk5nf": {
     "defaultMessage": "Ce que la personne candidate voit",
@@ -13129,10 +12933,6 @@
   "oYEBcP": {
     "defaultMessage": "Je fais actuellement partie de ce programme.",
     "description": "Option for the 'enrolled' choice of program participation"
-  },
-  "oacrTu": {
-    "defaultMessage": "3. Saisissez votre <strong>code unique à six chiffres</strong> à partir de votre <strong>application d'authentification</strong> dans la barre de vérification.",
-    "description": "Text for third sign in step."
   },
   "ob2lBu": {
     "defaultMessage": "Date de début du placement",
@@ -13169,10 +12969,6 @@
   "oiTphL": {
     "defaultMessage": "Questionnaire d’octroi de contrats sur les services numériques",
     "description": "Heading for the digital Services contracting form"
-  },
-  "oiaUxW": {
-    "defaultMessage": "Si vous avez déjà un compte de CléGC, vous pouvez ouvrir une session dans votre profil sur la plateforme Talents numériques du GC à l'aide de votre CléGC, même si vous n'avez jamais utilisé cette plateforme avant. Si vous ne savez pas si vous avez déjà un compte de CléGC, continuez vers le site Web et essayez d'ouvrir une session. Si vous ne vous souvenez pas de votre mot de passe, c'est là que vous pourrez aussi le réinitialiser.",
-    "description": "GCKey answer for when user already has an account"
   },
   "okKbgd": {
     "defaultMessage": "Préférences en matière de développement de carrière",
@@ -14482,10 +14278,6 @@
     "defaultMessage": "Gérer l'étape où se situe la personne candidate dans le plan d'évaluation.",
     "description": "Subtitle for form to update a candidates assessment stage"
   },
-  "u98IOx": {
-    "defaultMessage": "Partie 1 : Création d’un identifiant CléGC",
-    "description": "Heading for section of the sign up page showing the create steps"
-  },
   "uD105N": {
     "defaultMessage": "Non lus",
     "description": "Link text to show all unread items in a list"
@@ -14898,10 +14690,6 @@
     "defaultMessage": "Filtrer par type de rôle",
     "description": "Legend for supervisory status input"
   },
-  "vkAhEM": {
-    "defaultMessage": "Se connecter à l’aide de CléGC",
-    "description": "Page title for the sign in page for applicant profiles"
-  },
   "voH+OJ": {
     "defaultMessage": "Identifiant de référence",
     "description": "The reference id for a job poster template"
@@ -15106,10 +14894,6 @@
     "defaultMessage": "Recherche de talent",
     "description": "Link text for the search page breadcrumb"
   },
-  "wf3e6C": {
-    "defaultMessage": "Partie 2 : Configuration de l’authentification à deux facteurs",
-    "description": "Heading for section of the sign up page showing the mfa steps"
-  },
   "wgIThY": {
     "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
     "description": "IAP Requirement list item two"
@@ -15209,10 +14993,6 @@
   "x4HViJ": {
     "defaultMessage": "encouragent ou incitent toute activité illégale ou criminelle",
     "description": "Comments or contributions list item"
-  },
-  "x6saT3": {
-    "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
-    "description": "Message after main heading in create account page."
   },
   "xA7XvK": {
     "defaultMessage": "Les sections suivantes peuvent être élargies pour fournir des renseignements sur le profil de la personne candidate, son intérêt pour cette collectivité et ses objectifs de carrière.",
@@ -15944,10 +15724,6 @@
   "zsOKOD": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants dans la collectivité :",
     "description": "Text notifying user which community roles will be removed from the user"
-  },
-  "zsU6/U": {
-    "defaultMessage": "Puis-je utiliser l'authentification par message texte ou courriel au lieu d'une appli?",
-    "description": "GCKey question for whether there is an alternative to an authenticator app"
   },
   "zsUuN9": {
     "defaultMessage": "Modifier l'expérience",
