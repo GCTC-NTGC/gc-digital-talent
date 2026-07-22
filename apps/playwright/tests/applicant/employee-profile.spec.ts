@@ -45,6 +45,14 @@ test.describe("Employee Profile", () => {
     expect(await profilePage.workEmailVerificationLabel()).toBe("Not provided");
   });
 
+  test("Existing User with Verified Emails", async ({ appPage }) => {
+    const profilePage = new EmployeeProfile(appPage.page);
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
+  });
+
   test("Career development", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
     await appPage.page.goto("/en/applicant");

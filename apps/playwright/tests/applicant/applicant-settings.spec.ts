@@ -60,14 +60,4 @@ test.describe("Applicant settings page", () => {
     // Update the contact email address and verify throttling message
     await registration.deleteNewUser();
   });
-
-  test("Existing User with Verified Emails", async ({ appPage }) => {
-    const settingsPage = new AccountSettings(appPage.page);
-    await loginBySub(appPage.page, sub);
-    await settingsPage.goToSettings();
-    await appPage.waitForGraphqlResponse("AccountSettingsDeprecated");
-    await expect(
-      settingsPage.page.getByRole("img", { name: /verified/i }).last(),
-    ).toBeVisible({ timeout: 30000 });
-  });
 });
