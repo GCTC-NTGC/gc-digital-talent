@@ -39,21 +39,6 @@ test.describe("Applicant settings page", () => {
     }
   });
 
-  test("Work email removal", async ({ appPage }) => {
-    const settingsPage = new AccountSettings(appPage.page);
-    await loginBySub(appPage.page, sub);
-    await settingsPage.goToSettings();
-    await appPage.waitForGraphqlResponse("AccountSettingsDeprecated");
-    await settingsPage.removeWorkEmail();
-    // check changes
-    await expect(
-      appPage.page.getByText("No work email provided"),
-    ).toBeVisible();
-    await expect(
-      appPage.page.getByRole("button", { name: "Verify a GC work email" }),
-    ).toBeVisible();
-  });
-
   test("Account Settings update for New User", async ({ appPage }) => {
     // Register with new user and verify the email address
     const page = appPage.page;

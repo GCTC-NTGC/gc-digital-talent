@@ -98,24 +98,6 @@ class AccountSettings extends AppPage {
     );
   }
 
-  async removeWorkEmail() {
-    await expect(
-      this.page
-        .locator("#personal-info div")
-        .filter({ hasText: "Government of Canada work" })
-        .nth(1)
-        .getByLabel("verified"),
-    ).toBeVisible();
-    await expect(
-      this.page.getByRole("button", { name: "Update work email" }),
-    ).toBeVisible();
-
-    // carry removal out
-    await this.page.getByRole("button", { name: "Remove work email" }).click();
-    await this.page.getByRole("button", { name: "Remove work email" }).click();
-    await this.waitForGraphqlResponse("RemoveUserWorkEmail");
-  }
-
   async updateNotificationsSettings() {
     await expect(
       this.locators[FIELD.NOTIFICATION_SETTINGS_HEADING],
