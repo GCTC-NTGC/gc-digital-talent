@@ -151,6 +151,7 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
 
+                /** @var NineBoxRating $performance */
                 $performance = $nomination->nine_box_performance;
                 $this->addLabelText(
                     $section,
@@ -160,6 +161,7 @@ trait GeneratesNominationDoc
                         : Lang::get('common.not_available', [], $this->lang)
                 );
 
+                /** @var NineBoxRating $potential */
                 $potential = $nomination->nine_box_leadership_potential;
                 $this->addLabelText(
                     $section,
