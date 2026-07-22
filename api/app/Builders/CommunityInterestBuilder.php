@@ -20,31 +20,29 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
     {
         $filters ??= [];
         $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
-
-        if (! empty($qualifiedInClassifications)) {
-            $this->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
-                /** @var UserBuilder $userQuery */
-                $userQuery->whereHas('currentClassification', function (Builder $classQuery) use ($qualifiedInClassifications) {
-                    $classQuery->where(function (Builder $q) use ($qualifiedInClassifications) {
-                        foreach ($qualifiedInClassifications as $classification) {
-                            $q->orWhere(function (Builder $q) use ($classification) {
-                                $q->where('group', $classification['group'])
-                                    ->where('level', $classification['level']);
-                            });
-                        }
-                    });
-                })->whereIsVerifiedGovEmployee();
-            });
-        }
-
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
 
-        $this->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'));
-        $this->communities($communityId ? [$communityId] : null);
-        $this->where('consent_to_share_profile', true);
-
-        return $this;
+        return $this
+            ->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
+                /** @var UserBuilder $userQuery */
+                $userQuery->whereIsVerifiedGovEmployee()
+                    ->when($qualifiedInClassifications, function (UserBuilder $query, array $classifications) {
+                        $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
+                            $classQuery->where(function (Builder $q) use ($classifications) {
+                                foreach ($classifications as $classification) {
+                                    $q->orWhere(function (Builder $q) use ($classification) {
+                                        $q->where('group', $classification['group'])
+                                            ->where('level', $classification['level']);
+                                    });
+                                }
+                            });
+                        });
+                    });
+            })
+            ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->communities($communityId ? [$communityId] : null)
+            ->where('consent_to_share_profile', true);
     }
 
     // scope the query to CommunityInterests the current user can view
