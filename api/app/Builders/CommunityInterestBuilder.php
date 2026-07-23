@@ -22,7 +22,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
 
-        $userIds = $this->atLevelUserIds($filters['qualifiedInClassifications'] ?? null);
+        $userIds = $this->atLevelUserIds($filters);
 
         // Match the ids as one Postgres array value, so the number of ids has no limit.
         $userIdArray = '{'.$userIds->implode(',').'}';
@@ -34,11 +34,16 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
             ->where('consent_to_share_profile', true);
     }
 
-    // Ids of verified gov employees whose current classification is one of the requested pairs.
-    private function atLevelUserIds(?array $qualifiedInClassifications)
+    // Ids of the users who match "at level": verified gov employees at a requested classification
+    // who also pass the request's user-level filters. Because these ids carry the full user match,
+    // callers do not need a second user check.
+    private function atLevelUserIds(array $filters)
     {
+        $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
+
         return User::query()
             ->whereIsVerifiedGovEmployee()
+            ->whereUserAttributesMatchTalentRequest($filters)
             ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
                 /** @var UserBuilder $query */
                 $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
