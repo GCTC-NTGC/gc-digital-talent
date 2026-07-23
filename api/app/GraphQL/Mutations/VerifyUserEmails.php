@@ -46,7 +46,7 @@ final class VerifyUserEmails
             'emailTypes.*' => [
                 'required',
                 'distinct',
-                Rule::in(array_column(EmailType::cases(), 'name')),
+                Rule::in(array_column(EmailType::verifiableGroup(), 'name')),
             ],
             'emailAddress' => [
                 'required',
@@ -76,9 +76,7 @@ final class VerifyUserEmails
         // by now, token seems good
         foreach ($token['emailTypes'] as $emailTypeString) {
             switch ($emailTypeString) {
-                case EmailType::CONTACT->name:
-                    $user->setVerifiedContactEmail($newEmailAddress);
-                    break;
+                // should have a case for every value in EmailType::verifiableGroup
                 case EmailType::WORK->name:
                     $user->setVerifiedWorkEmail($newEmailAddress);
                     break;

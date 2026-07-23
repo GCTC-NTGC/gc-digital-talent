@@ -29,6 +29,30 @@ test.describe("Employee Profile", () => {
     });
   });
 
+  test("Work email removal", async ({ appPage }) => {
+    const profilePage = new EmployeeProfile(appPage.page);
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
+
+    await profilePage.removeWorkEmail();
+    // check changes
+    await expect(
+      appPage.page.getByRole("button", { name: "Verify work email" }),
+    ).toBeVisible();
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Not provided");
+  });
+
+  test("Existing User with Verified Emails", async ({ appPage }) => {
+    const profilePage = new EmployeeProfile(appPage.page);
+    await loginBySub(appPage.page, sub);
+    await appPage.page.goto("/en/applicant/employee-profile");
+    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
+  });
+
   test("Career development", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
     await appPage.page.goto("/en/applicant");

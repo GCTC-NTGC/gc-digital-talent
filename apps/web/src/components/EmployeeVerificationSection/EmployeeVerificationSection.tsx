@@ -5,6 +5,7 @@ import XCircleIcon from "@heroicons/react/24/solid/XCircleIcon";
 import ExclamationCircleIcon from "@heroicons/react/24/solid/ExclamationCircleIcon";
 import LockClosedIcon from "@heroicons/react/24/solid/LockClosedIcon";
 import { tv, type VariantProps } from "tailwind-variants";
+import { useId } from "react";
 
 import { Button, Card, Heading, Link, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -78,6 +79,9 @@ const EmployeeVerificationSection = ({
 }: EmployeeVerificationSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const workEmailCardHeadingId = useId();
+  const workExperienceCardHeadingId = useId();
+  const communityCardHeadingId = useId();
 
   const user = getFragment(UserEmployeeVerification_Fragment, userQuery);
   const communityInterests = user.employeeProfile?.communityInterests ?? [];
@@ -110,9 +114,13 @@ const EmployeeVerificationSection = ({
             })}
       </p>
       <div className={grid({ context })}>
-        <Card className="grid gap-3">
+        <Card
+          className="grid gap-3"
+          role="group"
+          aria-labelledby={workEmailCardHeadingId}
+        >
           <div className="flex min-h-8.5 flex-col gap-3 wrap-break-word">
-            <p className="font-bold">
+            <p className="font-bold" id={workEmailCardHeadingId}>
               {intl.formatMessage({
                 defaultMessage: "Work email verification",
                 id: "1zsfA7",
@@ -202,9 +210,13 @@ const EmployeeVerificationSection = ({
             </div>
           )}
         </Card>
-        <Card className="grid gap-3">
+        <Card
+          className="grid gap-3"
+          role="group"
+          aria-labelledby={workExperienceCardHeadingId}
+        >
           <div className="flex min-h-8.5 flex-col gap-3">
-            <p className="font-bold">
+            <p className="font-bold" id={workExperienceCardHeadingId}>
               {intl.formatMessage({
                 defaultMessage: "Current work experience",
                 id: "b9aCAt",
@@ -280,9 +292,13 @@ const EmployeeVerificationSection = ({
           )}
         </Card>
         {context === "applicant" && (
-          <Card className="grid gap-3">
+          <Card
+            className="grid gap-3"
+            role="group"
+            aria-labelledby={communityCardHeadingId}
+          >
             <div className="flex min-h-8.5 flex-col gap-3">
-              <p className="font-bold">
+              <p className="font-bold" id={communityCardHeadingId}>
                 {intl.formatMessage({
                   defaultMessage: "Functional communities",
                   id: "QuVtMh",

@@ -27,6 +27,7 @@ const FIELD = {
   LAST_NAME: "lastName",
   PREFERRED_CONTACT_LANGUAGE: "preferredContactLanguage",
   SAVE_AND_CONTINUE_BUTTON: "saveAndContinueButton",
+  SAVE_AND_CONTINUE_LINK: "saveAndContinueLink",
   ADD_MOST_RECENT_WORK_EXPERIENCE: "addMostRecentWorkExperience",
   MY_ROLE: "selectMyRole",
   EMPLOYMENT_CATEGORY: "selectEmploymentCategory",
@@ -36,6 +37,7 @@ const FIELD = {
   SENIORITY: "seniority",
   ADDITIONAL_DETAILS: "additionalDetails",
   SKIP_ADD_WORK_EXPERIENCE: "skipAddWorkExperience",
+  GOVERNMENT_EMPLOYEE_STATUS: "governmentEmployeeStatus",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
@@ -83,6 +85,9 @@ class Registration extends AppPage {
       [FIELD.SAVE_AND_CONTINUE_BUTTON]: this.page.getByRole("button", {
         name: /save and continue/i,
       }),
+      [FIELD.SAVE_AND_CONTINUE_LINK]: this.page.getByRole("link", {
+        name: /save and continue/i,
+      }),
       [FIELD.ADD_MOST_RECENT_WORK_EXPERIENCE]: this.page.getByRole("heading", {
         name: /add your most recent work experience/i,
         level: 2,
@@ -108,30 +113,34 @@ class Registration extends AppPage {
         name: /Skip this step/i,
         exact: true,
       }),
+      [FIELD.GOVERNMENT_EMPLOYEE_STATUS]: this.page.getByRole("group", {
+        name: /government employee status/i,
+      }),
     };
   }
 
   async gettingStarted() {
-    await loginBySub(this.page, this.uniqueTestId, false);
-    await this.page.goto(this.baseUrl);
+    // CanadaLogin provides this data for us
+    const claims = {
+      locale: "en",
+      // eslint-disable-next-line camelcase
+      given_name: this.firstName,
+      // eslint-disable-next-line camelcase
+      family_name: this.lastName,
+      email: this.uniqueEmailAddress,
+    };
+
+    await loginBySub(this.page, this.uniqueTestId, false, claims);
     await expect(this.locators[FIELD.GETTING_STARTED_HEADING]).toBeVisible();
   }
 
   async fillRegistrationForm() {
-    await this.locators[FIELD.EMAIL_ADDRESS].fill(this.uniqueEmailAddress);
-    await this.locators[FIELD.SEND_VERIFICATION_EMAIL_BUTTON].click();
-    await expect(
-      this.locators[FIELD.VERIFICATION_EMAIL_SENT_HEADING],
-    ).toBeVisible();
-    await this.verifyThrottlingMessageForVerificationCode();
-    const verificationCode = this.getVerificationCode();
-    await this.locators[FIELD.VERIFICATION_CODE].fill(await verificationCode);
-    await this.locators[FIELD.FIRST_NAME].fill(this.firstName);
-    await this.locators[FIELD.LAST_NAME].fill(this.lastName);
-    await this.locators[FIELD.PREFERRED_CONTACT_LANGUAGE]
-      .getByRole("radio", { name: /english/i })
+    await this.locators[FIELD.GOVERNMENT_EMPLOYEE_STATUS]
+      .getByRole("radio", {
+        name: /I currently work for the Government of Canada/i,
+      })
       .click();
-    await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
+    await this.locators[FIELD.SAVE_AND_CONTINUE_LINK].click();
     await expect(
       this.locators[FIELD.ADD_MOST_RECENT_WORK_EXPERIENCE],
     ).toBeVisible();

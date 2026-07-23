@@ -16,9 +16,9 @@ use Psr\Clock\ClockInterface;
 /**
  * Wraps the real BearerTokenService and intercepts tokens issued via the
  * test branch on /refresh (X-Testing-Secret header). Test tokens are validated
- * against a shared symmetric key — no GCKey JWKS fetch or introspection call is made.
+ * against a shared symmetric key — no JWKS fetch or introspection call is made.
  *
- * All other tokens (real GCKey JWTs) are passed through to the real service
+ * All other tokens (real JWTs) are passed through to the real service
  * unchanged, so normal UAT logins continue to work while this is active.
  *
  * Only registered when TESTING_TOKEN_ENABLED=true. Never used in production.
@@ -41,7 +41,7 @@ class TestBearerTokenService implements BearerTokenService
     public function verifyJwtWithIntrospection(string $accessToken): void
     {
         if ($this->isTestToken($accessToken)) {
-            return; // no-op — test tokens are not registered with GCKey
+            return; // no-op — test tokens are not registered with the auth provider
         }
 
         $this->realService->verifyJwtWithIntrospection($accessToken);

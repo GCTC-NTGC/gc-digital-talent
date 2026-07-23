@@ -132,6 +132,22 @@ class EmployeeProfile extends AppPage {
       .getByRole("button", { name: /save career development preferences/i })
       .click();
   }
+
+  workEmailVerificationLabel() {
+    const card = this.page.getByRole("group", {
+      name: /Work email verification/i,
+    });
+    return card.getByRole("img").first().getAttribute("aria-label");
+  }
+
+  async removeWorkEmail() {
+    // carry removal out
+    await this.page.getByRole("button", { name: "Update work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.waitForGraphqlResponse("RemoveUserWorkEmail");
+    await this.page.getByRole("button", { name: "Cancel" }).click();
+  }
 }
 
 export default EmployeeProfile;
