@@ -48,7 +48,6 @@ import type {
   ApplicantFilterInput,
   FragmentType,
   CreateTalentRequestMutation,
-  PoolCandidateSearchRequestReason,
   CreateTalentRequestInput,
 } from "@gc-digital-talent/graphql";
 
@@ -74,7 +73,7 @@ interface FormValues {
   jobTitle?: string;
   managerJobTitle?: string;
   positionType?: boolean;
-  reason: PoolCandidateSearchRequestReason | TalentRequestReason | null;
+  reason: TalentRequestReason;
   additionalComments?: string;
   hrAdvisorEmail?: string;
   applicantFilter?: {
@@ -161,9 +160,7 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
 
 const RequestOptions_Query = graphql(/* GraphQL */ `
   query RequestOptions {
-    requestReasons: localizedEnumStrings(
-      enumName: "PoolCandidateSearchRequestReason"
-    ) {
+    requestReasons: localizedEnumStrings(enumName: "TalentRequestReason") {
       value
       label {
         en
@@ -382,7 +379,7 @@ export const RequestForm = ({
         },
       },
       department: { connect: values.department ?? "" },
-    } as CreateTalentRequestInput;
+    };
   };
 
   const handleSubmitError = () => {
