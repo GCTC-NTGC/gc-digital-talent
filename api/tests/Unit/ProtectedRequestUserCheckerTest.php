@@ -6,6 +6,7 @@ use App\Checkers\ProtectedRequestUserChecker;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,12 +41,28 @@ class ProtectedRequestUserCheckerTest extends TestCase
     #[DataProvider('userCheckerProvider')]
     public function testHasPermission(array|string $permission, ?bool $requireAll, ?bool $isProtectedRequest, bool $expected)
     {
-        Request::merge(['isProtectedRequest' => $isProtectedRequest]);
+        Request::instance()->attributes->remove('isProtectedRequest');
+        if ($isProtectedRequest) {
+            Request::instance()->attributes->set('isProtectedRequest', true);
+        }
         Route::shouldReceive('current')->andReturn($this->testRoute);
         $checker = new ProtectedRequestUserChecker($this->adminUser);
         $actual = $checker->currentUserHasPermission(permission: $permission, requireAll: $requireAll);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testQueryStringCannotGrantProtectedAccess()
+    {
+        $request = HttpRequest::create('/graphql?isProtectedRequest=true', 'POST');
+        $this->app->instance('request', $request);
+        Route::shouldReceive('current')->andReturn($this->testRoute);
+
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        $this->assertFalse($checker->currentUserHasPermission('create-any-classification'));
+        $this->assertFalse($checker->currentUserHasRole('platform_admin'));
+        $this->assertTrue($checker->currentUserHasPermission('view-any-skill'));
     }
 
     public static function userCheckerProvider()
