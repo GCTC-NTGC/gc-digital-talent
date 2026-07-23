@@ -44,6 +44,7 @@ import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
+import NineBoxDescription from "./NineBoxDescription";
 import labels from "../labels";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
@@ -170,11 +171,15 @@ const DetailsFields = ({
     advancementReference,
     lateralMovementOptions,
     communityDevelopmentPrograms,
+    nineBoxPerformance,
+    nineBoxLeadershipPotential,
   ] = watch([
     "nominationOptions",
     "advancementReference",
     "lateralMovementOptions",
     "communityDevelopmentPrograms",
+    "nineBoxPerformance",
+    "nineBoxLeadershipPotential",
   ]);
 
   const noOptionsSelected = nominationOptions?.length === 0;
@@ -260,6 +265,10 @@ const DetailsFields = ({
                 label: intl.formatMessage(labels.highPotential),
               },
             ]}
+          />
+          <NineBoxDescription
+            performance={nineBoxPerformance}
+            leadershipPotential={nineBoxLeadershipPotential}
           />
         </>
       )}
