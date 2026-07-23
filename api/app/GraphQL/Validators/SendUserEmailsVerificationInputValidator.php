@@ -33,7 +33,8 @@ final class SendUserEmailsVerificationInputValidator extends Validator
             'emailTypes.*' => [
                 'required',
                 'distinct',
-                Rule::in(array_column(EmailType::cases(), 'name')),
+                // we only have one email type that can be validated now
+                'in:'.EmailType::WORK->name,
             ],
             'emailAddress' => [
                 'required',

@@ -48,13 +48,10 @@ class AuthController extends Controller
 
         $requestedLocale = $request->input('locale');
         if (strcasecmp($requestedLocale, 'en') == 0) {
-            $ui_locales = 'en-CA en';
             $lang = 'en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
-            $ui_locales = 'fr-CA fr';
             $lang = 'fr';
         } else {
-            $ui_locales = $requestedLocale;
             $lang = $requestedLocale;
         }
 
@@ -68,8 +65,7 @@ class AuthController extends Controller
             'state' => $state,
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
-            'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $lang,  // This is what CanadaLogin wants
+            'lang' => $lang,
             'skipmigration' => $request->input('skipmigration', null),
         ]);
 
