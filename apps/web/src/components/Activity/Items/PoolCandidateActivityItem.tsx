@@ -70,8 +70,8 @@ function getDescriptionForSpecialApplicationCreated(
       {
         defaultMessage:
           "A special application, {specialApplicationType}, closes on {specialApplicationClosing}, for <strong>{name}</strong>",
-        id: "AvVMJK",
-        description: "Event description when application is submitted",
+        id: "dAQGYk",
+        description: "Event description when a special application is created",
       },
       {
         specialApplicationType: specialApplicationType,
@@ -112,8 +112,9 @@ function getDescriptionForSpecialApplicationSubmitted(
     return intl.formatMessage(
       {
         defaultMessage: "A special application, {specialApplicationType},",
-        id: "y9IhRa",
-        description: "Event description when application is submitted",
+        id: "QdqwDe",
+        description:
+          "Event description when a special application is submitted",
       },
       {
         specialApplicationType: specialApplicationType,
