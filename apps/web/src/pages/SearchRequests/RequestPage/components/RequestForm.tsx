@@ -20,7 +20,7 @@ import {
   errorMessages,
   enumInputToLocalizedEnum,
   narrowEnumType,
-  sortPoolCandidateSearchRequestReason,
+  sortTalentRequestReason,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -580,7 +580,7 @@ export const RequestForm = ({
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             items={localizedEnumToOptions(
-              sortPoolCandidateSearchRequestReason(optionsData?.requestReasons),
+              sortTalentRequestReason(optionsData?.requestReasons),
               intl,
             )}
           />
