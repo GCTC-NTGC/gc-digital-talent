@@ -27,7 +27,7 @@
     "axe-core": "^4.12.0",
     "react-intl": "^10.1.16",
     "react-router": "^8.0.1",
-    "vite": "^8.1.4",
+    "vite": "^8.1.5",
     "vitest": "^4.1.8",
     "vitest-axe": "1.0.0-pre.5",
     "vitest-fail-on-console": "^0.10.1"

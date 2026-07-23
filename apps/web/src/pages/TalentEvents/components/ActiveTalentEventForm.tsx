@@ -74,6 +74,7 @@ const ActiveTalentEventForm = ({
   const {
     community,
     name,
+    includeNineBox,
     includeLeadershipCompetencies,
     openDate,
     description,
@@ -395,6 +396,26 @@ const ActiveTalentEventForm = ({
                   required: intl.formatMessage(errorMessages.required),
                 }}
               />
+            </div>
+            <div className="col-span-2">
+              <FieldDisplay
+                label={intl.formatMessage({
+                  defaultMessage: "Leadership performance questions",
+                  id: "D5KDrf",
+                  description:
+                    "Bounding box label for the include leadership performance and potential",
+                })}
+              >
+                <BoolCheckIcon value={includeNineBox}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The nomination must include the nominee’s performance and leadership potential",
+                    id: "vRkQB+",
+                    description:
+                      "Label for the include leadership performance and potential",
+                  })}
+                </BoolCheckIcon>
+              </FieldDisplay>
             </div>
             <div className="col-span-2">
               <FieldDisplay
