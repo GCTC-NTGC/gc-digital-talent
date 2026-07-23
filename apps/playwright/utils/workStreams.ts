@@ -30,9 +30,9 @@ const Test_WorkStreamQueryDocument = /* GraphQL */ `
  */
 export const getWorkStreams: GraphQLRequestFunc<WorkStream[]> = async (ctx) => {
   return ctx
-    .post<
-      GraphQLResponse<"workStreams", WorkStream[]>
-    >(Test_WorkStreamQueryDocument)
+    .post<GraphQLResponse<"workStreams", WorkStream[]>>(
+      Test_WorkStreamQueryDocument,
+    )
     .then((res) => res.workStreams);
 };
 

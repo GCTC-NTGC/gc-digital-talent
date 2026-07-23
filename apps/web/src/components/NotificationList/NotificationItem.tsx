@@ -149,9 +149,9 @@ const NotificationItem = ({
     const nextListItem = itemRef.current?.nextElementSibling;
     return () => {
       nextListItem
-        ?.querySelector<
-          HTMLAnchorElement | HTMLButtonElement
-        >("[data-notification-link]")
+        ?.querySelector<HTMLAnchorElement | HTMLButtonElement>(
+          "[data-notification-link]",
+        )
         ?.focus();
     };
   }, []);

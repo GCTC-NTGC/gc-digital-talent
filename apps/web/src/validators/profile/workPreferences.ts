@@ -13,11 +13,9 @@ export interface PartialUser extends Pick<
   "positionDuration" | "locationExemptions" | "currentCity"
 > {
   locationPreferences?:
-    | (Pick<LocalizedWorkRegion, "value"> | null | undefined)[]
-    | null;
+    (Pick<LocalizedWorkRegion, "value"> | null | undefined)[] | null;
   flexibleWorkLocations?:
-    | (Pick<LocalizedFlexibleWorkLocation, "value"> | null | undefined)[]
-    | null;
+    (Pick<LocalizedFlexibleWorkLocation, "value"> | null | undefined)[] | null;
   currentProvince?: Pick<LocalizedProvinceOrTerritory, "value"> | null;
 }
 

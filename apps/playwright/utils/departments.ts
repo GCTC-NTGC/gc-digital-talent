@@ -26,9 +26,9 @@ const Test_DepartmentsQueryDocument = /* GraphQL */ `
  */
 export const getDepartments: GraphQLRequestFunc<Department[]> = async (ctx) => {
   return await ctx
-    .post<
-      GraphQLResponse<"departments", Department[]>
-    >(Test_DepartmentsQueryDocument)
+    .post<GraphQLResponse<"departments", Department[]>>(
+      Test_DepartmentsQueryDocument,
+    )
     .then((res) => res.departments);
 };
 

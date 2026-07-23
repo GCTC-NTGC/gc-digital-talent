@@ -44,9 +44,7 @@ const ApplicantFilters = ({
 }: {
   applicantFilter?: PartialApplicantFilter | null;
   selectedClassifications?: (
-    | Pick<Classification, "groupAndLevel">
-    | null
-    | undefined
+    Pick<Classification, "groupAndLevel"> | null | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
@@ -282,9 +280,7 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | PartialPoolCandidateFilter | null;
   selectedClassifications?: (
-    | Pick<Classification, "groupAndLevel">
-    | null
-    | undefined
+    Pick<Classification, "groupAndLevel"> | null | undefined
   )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
   talentSourceOptions?: LocalizedTalentRequestSource[];

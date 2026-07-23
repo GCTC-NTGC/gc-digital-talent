@@ -152,10 +152,10 @@ export const convertApiToFormValues = (
       ACCEPTED_EDUCATION_JUSTIFICATIONS.includes(justification.value),
   );
   let justifications:
-    | AssessmentResultJustification[]
-    | AssessmentResultJustification = unpackMaybes(
-    data?.justifications?.flatMap((justification) => justification?.value),
-  );
+    AssessmentResultJustification[] | AssessmentResultJustification =
+    unpackMaybes(
+      data?.justifications?.flatMap((justification) => justification?.value),
+    );
   if (isEducationAcceptedJustification) {
     justifications = justifications[0];
   }

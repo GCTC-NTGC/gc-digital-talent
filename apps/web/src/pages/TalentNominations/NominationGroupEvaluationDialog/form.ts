@@ -22,9 +22,7 @@ export interface FormValues {
 }
 
 type Decision =
-  | Pick<LocalizedTalentNominationGroupDecision, "value">
-  | null
-  | undefined;
+  Pick<LocalizedTalentNominationGroupDecision, "value"> | null | undefined;
 
 // return the value if the decision is approved, or null otherwise
 function ifApproved(decision: Decision, value: string | null | undefined) {
