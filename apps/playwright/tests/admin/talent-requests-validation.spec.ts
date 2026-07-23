@@ -168,7 +168,6 @@ test.describe("Talent search", () => {
   }) => {
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
-    const tableValidation = new GenericTableValidationFixture(appPage.page);
     await talentSearch.goToIndex();
     await talentSearch.fillSearchFormAndRequestCandidates(
       poolName,
@@ -187,12 +186,20 @@ test.describe("Talent search", () => {
     await locationPrefUpdate.validateSelectedFlexWorkLocOptions();
     await expect(
       appPage.page.getByRole("heading", {
-        name: /Candidate results/i,
+        name: /Request details/i,
         level: 2,
       }),
     ).toBeVisible();
-    await tableValidation.setFlexibleWorkLocationColumn();
-    await tableValidation.verifyFlexibleWorkLocationOnTalentTable();
+    await appPage.page.goto(`/en/admin/talent-requests/${requestId}/tracking`);
+    const trackingPageHeadings = appPage.page.getByRole("heading", {
+      level: 2,
+    });
+    await expect(trackingPageHeadings).toHaveCount(3);
+    await expect(trackingPageHeadings).toHaveText([
+      /Test user/i,
+      /Candidate tracking/i,
+      /Find matching candidates/i,
+    ]);
   });
 
   test("Validate that 'Available for referral' candidates are present in the Talent table", async ({
@@ -223,7 +230,7 @@ test.describe("Talent search", () => {
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
       await expect(
         appPage.page.getByRole("heading", {
-          name: /Candidate results/i,
+          name: /Request details/i,
           level: 2,
         }),
       ).toBeVisible();
@@ -283,6 +290,9 @@ test.describe("Talent search", () => {
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
+      await appPage.page.goto(
+        `/en/admin/talent-requests/${requestId}/tracking`,
+      );
       await tableValidation.noCandidatesFound();
     });
   });
