@@ -3,6 +3,7 @@ import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
@@ -11,11 +12,12 @@ test.describe("Employee Profile", () => {
   let uniqueTestId: string;
   let sub: string;
   let employeeProfile: EmployeeProfile;
+  let adminCtx: GraphQLContext;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext();
 
     await createUserWithRoles(adminCtx, {
       user: {
@@ -30,8 +32,23 @@ test.describe("Employee Profile", () => {
   });
 
   test("Work email removal", async ({ appPage }) => {
+    // create a new user to not mess up the shared user for other tests
+    const uniqueTestId2 = `${generateUniqueTestId()}2`;
+    const sub2 = `playwright.sub.${uniqueTestId2}`;
+
+    await createUserWithRoles(adminCtx, {
+      user: {
+        email: `${sub2}@example.org`,
+        sub: sub2,
+        isGovEmployee: true,
+        workEmail: `${sub2}@gc.ca`,
+        workEmailVerifiedAt: nowUTCDateTime(),
+      },
+      roles: ["guest", "base_user", "applicant"],
+    });
+
     const profilePage = new EmployeeProfile(appPage.page);
-    await loginBySub(appPage.page, sub);
+    await loginBySub(appPage.page, sub2);
     await appPage.page.goto("/en/applicant/employee-profile");
     await appPage.waitForGraphqlResponse("EmployeeProfilePage");
 
