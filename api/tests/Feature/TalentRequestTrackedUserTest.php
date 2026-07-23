@@ -1911,7 +1911,9 @@ class TalentRequestTrackedUserTest extends TestCase
     private function seedReferredMatchingUsers(int $count): TalentRequest
     {
         $classification = Classification::factory()->create();
-        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $filter = ApplicantFilter::factory()->for($this->community)->create([
+            'talent_sources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+        ]);
         $filter->qualifiedInClassifications()->sync([$classification->id]);
 
         $request = TalentRequest::factory()
