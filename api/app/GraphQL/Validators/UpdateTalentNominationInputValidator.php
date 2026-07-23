@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ErrorCode;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
@@ -23,6 +24,8 @@ final class UpdateTalentNominationInputValidator extends Validator
      */
     public function rules(): array
     {
+        $event = TalentNomination::find($this->arg('id'))?->talentNominationEvent;
+
         return [
             'insertSubmittedStep' => [
                 Rule::in(array_column(TalentNominationStep::cases(), 'name')),
@@ -125,13 +128,25 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'array',
                 'exists:skills,id',
                 'distinct',
-                Rule::when(fn ($args) => TalentNomination::find($args['id'])?->talentNominationEvent->include_leadership_competencies,
+                Rule::when(fn () => $event?->talentNominationEvent->include_leadership_competencies,
                     ['max:3'],
                     ['prohibited']
                 ),
             ],
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additionalComments' => ['nullable', 'string'],
+            'nineBoxPerformance' => [
+                Rule::when(fn () => $event?->talentNominationEvent->includeNineBox,
+                    [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
+            'nineBoxLeadershipPotential' => [
+                Rule::when(fn () => $event?->talentNominationEvent->includeNineBox,
+                    [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
         ];
     }
 
