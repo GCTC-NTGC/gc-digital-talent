@@ -38,7 +38,7 @@ test.describe("Applicant settings page", () => {
     }
   });
 
-  test("Account Settings update for New User", async ({ appPage }) => {
+  test("Registration and work email for New User", async ({ appPage }) => {
     // Register with new user and verify the email address
     const page = appPage.page;
     const registration = new Registration(page);
@@ -55,7 +55,6 @@ test.describe("Applicant settings page", () => {
     const profilePage = new EmployeeProfile(page);
     await profilePage.goToEmployeeProfile();
     expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
-    // Update the contact email address and verify throttling message
     await registration.deleteNewUser();
   });
 });
