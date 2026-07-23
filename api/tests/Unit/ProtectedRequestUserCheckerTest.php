@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Checkers\ProtectedRequestUserChecker;
+use App\Http\Middleware\ProtectedRequest;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -75,6 +76,20 @@ class ProtectedRequestUserCheckerTest extends TestCase
 
         $this->assertFalse($checker->currentUserHasPermission('create-any-classification'));
         $this->assertFalse($checker->currentUserHasRole('platform_admin'));
+        $this->assertTrue($checker->currentUserHasPermission('view-any-skill'));
+    }
+
+    public function testAdminPathGrantsProtectedAccess()
+    {
+        $request = HttpRequest::create('/admin/graphql', 'POST');
+        (new ProtectedRequest)->handle($request, fn ($request) => $request);
+        $this->app->instance('request', $request);
+        Route::shouldReceive('current')->andReturn($this->testRoute);
+
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        $this->assertTrue($checker->currentUserHasPermission('create-any-classification'));
+        $this->assertTrue($checker->currentUserHasRole('platform_admin'));
         $this->assertTrue($checker->currentUserHasPermission('view-any-skill'));
     }
 
