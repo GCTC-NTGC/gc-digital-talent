@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\DB;
 #[Description('Syncs placement_type to match application status: sets NOT_PLACED for qualified candidates, clears placement fields for non-qualified.')]
 class SyncPlacementType extends Command
 {
-	/**
-	 * Execute the console command.
-	 */
-	public function handle()
-	{
-		DB::transaction(function () {
-			$backfilledCount = DB::update(<<<'SQL'
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        DB::transaction(function () {
+            $backfilledCount = DB::update(<<<'SQL'
 				UPDATE pool_candidates
 				SET placement_type = 'NOT_PLACED'
 				WHERE application_status = 'QUALIFIED'
 				AND placement_type IS NULL
 				SQL
-			);
+            );
 
-			$clearedCount = DB::update(<<<'SQL'
+            $clearedCount = DB::update(<<<'SQL'
 				UPDATE pool_candidates
 				SET placement_type = NULL,
 					placed_at = NULL,
@@ -35,10 +35,10 @@ class SyncPlacementType extends Command
 				WHERE application_status != 'QUALIFIED'
 				AND placement_type IS NOT NULL
 				SQL
-			);
+            );
 
-			$this->info("{$backfilledCount} qualified candidates backfilled with NOT_PLACED");
-			$this->info("{$clearedCount} non-qualified candidates had placement fields cleared");
-		});
-	}
+            $this->info("{$backfilledCount} qualified candidates backfilled with NOT_PLACED");
+            $this->info("{$clearedCount} non-qualified candidates had placement fields cleared");
+        });
+    }
 }

@@ -6,17 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class() extends Migration
 {
-	public function up(): void
-	{
-		Schema::table('pool_candidates', function (Blueprint $table) {
-			$table->string('placement_type')->nullable()->default(null)->change();
-		});
-	}
+    public function up(): void
+    {
+        Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->string('placement_type')->nullable()->default(null)->change();
+        });
+    }
 
-	public function down(): void
-	{
-		Schema::table('pool_candidates', function (Blueprint $table) {
-			$table->string('placement_type')->nullable()->default('NOT_PLACED')->change();
-		});
-	}
+    public function down(): void
+    {
+        Schema::table('pool_candidates', function (Blueprint $table) {
+            $table->string('placement_type')->nullable()->default('NOT_PLACED')->change();
+        });
+    }
 };
