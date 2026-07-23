@@ -54,7 +54,7 @@
     "@storybook/addon-a11y": "^10.4.6",
     "@storybook/addon-vitest": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
-    "@vitest/browser": "^4.1.8",
+    "@vitest/browser": "^4.1.10",
     "@vitest/browser-playwright": "^4.1.8",
     "@vitest/coverage-v8": "^4.1.8",
     "jsdom": "^29.1.1",
