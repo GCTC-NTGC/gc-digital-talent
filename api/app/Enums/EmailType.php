@@ -17,12 +17,4 @@ enum EmailType: string
         }
         throw new \ValueError("$name is not a valid backing value for enum ".self::class);
     }
-
-    // which email types can be verified on our app?
-    public static function verifiableGroup(): array
-    {
-        return [
-            EmailType::WORK,
-        ];
-    }
 }

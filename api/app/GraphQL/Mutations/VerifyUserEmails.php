@@ -46,7 +46,8 @@ final class VerifyUserEmails
             'emailTypes.*' => [
                 'required',
                 'distinct',
-                Rule::in(array_column(EmailType::verifiableGroup(), 'name')),
+                // we only have one email type that can be validated now
+                'in:'.EmailType::WORK->name,
             ],
             'emailAddress' => [
                 'required',
@@ -75,14 +76,11 @@ final class VerifyUserEmails
 
         // by now, token seems good
         foreach ($token['emailTypes'] as $emailTypeString) {
-            switch ($emailTypeString) {
-                // should have a case for every value in EmailType::verifiableGroup
-                case EmailType::WORK->name:
-                    $user->setVerifiedWorkEmail($newEmailAddress);
-                    break;
-                default:
-                    throw new \Exception('Unexpected email type: '.$emailTypeString);
-            }
+            $emailType = EmailType::fromName($emailTypeString);
+            match ($emailType) {
+                EmailType::WORK => $user->setVerifiedWorkEmail($newEmailAddress),
+                EmailType::CONTACT => throw new \Exception('Unexpected email type: '.$emailTypeString),
+            };
         }
         $user->save();
 
