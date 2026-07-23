@@ -101,6 +101,12 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
+  fragment DetailsTalentNominationEvent on TalentNominationEvent {
+    id
+  }
+`);
+
 type NominationOption =
   | "advancement"
   | "lateralMovement"
@@ -132,12 +138,14 @@ interface DetailsFieldsProps {
   communityDevelopmentProgramQuery?: FragmentType<
     typeof DetailsCommunityDevelopmentProgram_Fragment
   >[];
+  eventQuery?: FragmentType<typeof DetailsTalentNominationEvent_Fragment>;
 }
 
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
   communityDevelopmentProgramQuery,
+  eventQuery,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
@@ -150,6 +158,7 @@ const DetailsFields = ({
     DetailsCommunityDevelopmentProgram_Fragment,
     communityDevelopmentProgramQuery,
   );
+  const event = getFragment(DetailsTalentNominationEvent_Fragment, eventQuery);
 
   const { watch, resetField: baseReset } = useFormContext<FormValues>();
   const [
@@ -546,6 +555,7 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     id
     talentNominationEvent {
       id
+      ...DetailsTalentNominationEvent
       communityDevelopmentPrograms(trashed: WITH) {
         id
         ...DetailsCommunityDevelopmentProgram
@@ -772,6 +782,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         communityDevelopmentProgramQuery={unpackMaybes(
           talentNomination?.talentNominationEvent?.communityDevelopmentPrograms,
         )}
+        eventQuery={talentNomination?.talentNominationEvent}
       />
     </UpdateForm>
   );
