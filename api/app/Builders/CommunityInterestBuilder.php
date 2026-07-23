@@ -19,30 +19,40 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
     public function whereMatchesTalentRequest(?array $filters): self
     {
         $filters ??= [];
-        $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
 
+        $userIds = $this->atLevelUserIds($filters['qualifiedInClassifications'] ?? null);
+
+        // Match the ids as one Postgres array value, so the number of ids has no limit.
+        $userIdArray = '{'.$userIds->implode(',').'}';
+
         return $this
-            ->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
-                /** @var UserBuilder $userQuery */
-                $userQuery->whereIsVerifiedGovEmployee()
-                    ->when($qualifiedInClassifications, function (UserBuilder $query, array $classifications) {
-                        $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
-                            $classQuery->where(function (Builder $q) use ($classifications) {
-                                foreach ($classifications as $classification) {
-                                    $q->orWhere(function (Builder $q) use ($classification) {
-                                        $q->where('group', $classification['group'])
-                                            ->where('level', $classification['level']);
-                                    });
-                                }
-                            });
-                        });
-                    });
-            })
+            ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray])
             ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
             ->communities($communityId ? [$communityId] : null)
             ->where('consent_to_share_profile', true);
+    }
+
+    // Ids of verified gov employees whose current classification is one of the requested pairs.
+    private function atLevelUserIds(?array $qualifiedInClassifications)
+    {
+        return User::query()
+            ->whereIsVerifiedGovEmployee()
+            ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
+                /** @var UserBuilder $query */
+                $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
+                    $classQuery->where(function (Builder $q) use ($classifications) {
+                        foreach ($classifications as $classification) {
+                            $q->orWhere(function (Builder $q) use ($classification) {
+                                $q->where('group', $classification['group'])
+                                    ->where('level', $classification['level']);
+                            });
+                        }
+                    });
+                });
+            })
+            ->pluck('id');
     }
 
     // scope the query to CommunityInterests the current user can view
