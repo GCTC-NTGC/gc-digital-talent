@@ -55,7 +55,7 @@
     "react-hook-form": "^7.81.0",
     "react-intl": "^10.1.16",
     "tsconfig": "workspace:*",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.8"
   }
 }

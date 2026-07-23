@@ -60,7 +60,7 @@
     "react-dom": "^19.2.7",
     "react-intl": "^10.1.16",
     "tsconfig": "workspace:*",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.8"
   }
 }
