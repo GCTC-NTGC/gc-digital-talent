@@ -33,14 +33,12 @@ import {
 import {
   graphql,
   getFragment,
-  PoolCandidateSearchPositionType,
   FlexibleWorkLocation,
   TalentRequestPositionType,
 } from "@gc-digital-talent/graphql";
 import type {
   TalentRequestReason,
   EquitySelections,
-  CreatePoolCandidateSearchRequestInput,
   DepartmentBelongsTo,
   Classification,
   OperationalRequirement,
@@ -49,12 +47,10 @@ import type {
   ApplicantFilter,
   ApplicantFilterInput,
   FragmentType,
-  RequestForm_CreateRequestMutation as CreateRequestMutation,
   CreateTalentRequestMutation,
   PoolCandidateSearchRequestReason,
   CreateTalentRequestInput,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -228,10 +224,6 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type SubmitData<T extends boolean> = T extends true
-  ? CreateTalentRequestInput
-  : CreatePoolCandidateSearchRequestInput;
-
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
@@ -243,9 +235,6 @@ export interface RequestFormProps {
   candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications: Pick<Classification, "groupAndLevel">[];
-  handleCreatePoolCandidateSearchRequest: (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
   handleCreateTalentRequest: (
     data: CreateTalentRequestInput,
   ) => Promise<CreateTalentRequestMutation["createTalentRequest"]>;
@@ -259,10 +248,8 @@ export const RequestForm = ({
   applicantFilter,
   candidateCount,
   selectedClassifications,
-  handleCreatePoolCandidateSearchRequest,
   handleCreateTalentRequest,
 }: RequestFormProps) => {
-  const { talentRequests } = useFeatureFlags();
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -316,22 +303,13 @@ export const RequestForm = ({
 
   watch((data) => setInSessionStorage(cacheKey, data));
 
-  const formValuesToSubmitData = <T extends boolean = false>(
-    isTalentRequest: T,
+  const formValuesToSubmitData = (
     values: FormValues,
-  ): SubmitData<T> => {
+  ): CreateTalentRequestInput => {
     // checkbox checked/true means position has supervising duties
-    let positionTypeMassaged = null;
-
-    if (isTalentRequest) {
-      positionTypeMassaged = values?.positionType
-        ? TalentRequestPositionType.TeamLead
-        : TalentRequestPositionType.IndividualContributor;
-    } else {
-      positionTypeMassaged = values?.positionType
-        ? PoolCandidateSearchPositionType.TeamLead
-        : PoolCandidateSearchPositionType.IndividualContributor;
-    }
+    const positionTypeMassaged = values?.positionType
+      ? TalentRequestPositionType.TeamLead
+      : TalentRequestPositionType.IndividualContributor;
 
     // always append ONSITE to the flexible locations region
     const adjustedFlexibleWorkLocations = [
@@ -404,7 +382,7 @@ export const RequestForm = ({
         },
       },
       department: { connect: values.department ?? "" },
-    } as SubmitData<T>;
+    } as CreateTalentRequestInput;
   };
 
   const handleSubmitError = () => {
@@ -420,15 +398,10 @@ export const RequestForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = talentRequests
-        ? await handleCreateTalentRequest({
-            ...formValuesToSubmitData(true, data),
-            initialResultCount: candidateCount,
-          })
-        : await handleCreatePoolCandidateSearchRequest({
-            ...formValuesToSubmitData(false, data),
-            initialResultCount: candidateCount,
-          });
+      const res = await handleCreateTalentRequest({
+        ...formValuesToSubmitData(data),
+        initialResultCount: candidateCount,
+      });
 
       if (res) {
         removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
@@ -751,29 +724,6 @@ export const RequestForm = ({
   );
 };
 
-const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
-  mutation RequestForm_CreateRequest(
-    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
-  ) {
-    createPoolCandidateSearchRequest(
-      poolCandidateSearchRequest: $poolCandidateSearchRequest
-    ) {
-      id
-      fullName
-      email
-      department {
-        id
-      }
-      jobTitle
-      additionalComments
-      hrAdvisorEmail
-      poolCandidateFilter {
-        id
-      }
-    }
-  }
-`);
-
 const CreateTalentRequest_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
     createTalentRequest(talentRequest: $talentRequest) {
@@ -837,22 +787,6 @@ const RequestFormApi = ({
 
   const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
-  // TODO: Remove mutation and handler once talentRequests feature flag is turned on.
-  const [, executePoolCandidateMutation] = useMutation(
-    RequestForm_CreateRequestMutation,
-  );
-  const handleCreatePoolCandidateSearchRequest = (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) =>
-    executePoolCandidateMutation({ poolCandidateSearchRequest: data }).then(
-      (result) => {
-        if (result.data?.createPoolCandidateSearchRequest) {
-          return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
-        }
-        return Promise.reject(new Error(result.error?.toString()));
-      },
-    );
-
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
   );
@@ -883,9 +817,6 @@ const RequestFormApi = ({
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}
           selectedClassifications={selectedClassifications}
-          handleCreatePoolCandidateSearchRequest={
-            handleCreatePoolCandidateSearchRequest
-          }
           handleCreateTalentRequest={handleCreateTalentRequest}
         />
       </Pending>

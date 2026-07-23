@@ -15,7 +15,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -26,9 +25,6 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-// TEMP: This is a legacy page that is soon to be removed
-// eslint-disable-next-line no-restricted-imports
-import ViewSearchRequestApi from "~/pages/SearchRequests/ViewSearchRequestPage/components/ViewSearchRequest";
 
 import TalentRequestSidebar from "./components/TalentRequestSidebar";
 import type { RouteParams } from "./types";
@@ -161,20 +157,12 @@ const TalentRequestLayout = () => {
   );
 };
 
-const LegacySearchRequest = () => {
-  const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
-
-  return <ViewSearchRequestApi searchRequestId={talentRequestId} />;
-};
-
 export const Component = () => {
-  const { talentRequests } = useFeatureFlags();
-
   return (
     <RequireAuth
       roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}
     >
-      {talentRequests ? <TalentRequestLayout /> : <LegacySearchRequest />}
+      <TalentRequestLayout />
     </RequireAuth>
   );
 };

@@ -10,7 +10,7 @@ import {
   fakeSkills,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import type { CreatePoolCandidateSearchRequestInput } from "@gc-digital-talent/graphql";
+import type { CreateTalentRequestInput } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
@@ -60,13 +60,11 @@ export default {
     pools,
     skills,
     candidateCount: 10,
-    handleCreatePoolCandidateSearchRequest: async (
-      data: CreatePoolCandidateSearchRequestInput,
-    ) => {
+    handleCreateTalentRequest: async (data: CreateTalentRequestInput) => {
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
-      action("Create Pool Candidate Search Request")(data);
+      action("Create Talent Request")(data);
       return null;
     },
   },
