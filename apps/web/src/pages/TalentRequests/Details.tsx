@@ -1,7 +1,6 @@
 import { useQuery } from "urql";
-import { useIntl } from "react-intl";
 
-import { Notice, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   getFragment,
@@ -36,7 +35,6 @@ interface DetailsProps {
 }
 
 const Details = ({ query, optionsQuery }: DetailsProps) => {
-  const intl = useIntl();
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
   const talentSourceOptions = narrowEnumType(
     unpackMaybes(
