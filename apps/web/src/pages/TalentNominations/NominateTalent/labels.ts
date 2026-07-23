@@ -40,6 +40,49 @@ const labels = defineMessages({
     id: "ACCjnC",
     description: "Label for a nominations nominee",
   },
+  nomineePerformance: {
+    defaultMessage: "Nominee's performance assessment",
+    id: "7xTRE7",
+    description: "Label for the nominee's performance assessment field",
+  },
+  nomineeLeadershipPotential: {
+    defaultMessage: "Nominee's leadership potential",
+    id: "DAOkQv",
+    description: "Label for the nominee's leadership potential field",
+  },
+  lowPerformance: {
+    defaultMessage: "Low performance",
+    id: "UKFUv+",
+    description: "Option for a low performance rating on the details step",
+  },
+  moderatePerformance: {
+    defaultMessage: "Moderate performance",
+    id: "C4OW6h",
+    description: "Option for a moderate performance rating on the details step",
+  },
+  highPerformance: {
+    defaultMessage: "High performance",
+    id: "PaJ21r",
+    description: "Option for a high performance rating on the details step",
+  },
+  lowPotential: {
+    defaultMessage: "Low potential",
+    id: "8KOc7q",
+    description:
+      "Option for a low leadership potential rating on the details step",
+  },
+  moderatePotential: {
+    defaultMessage: "Moderate potential",
+    id: "dxK0sS",
+    description:
+      "Option for a moderate leadership potential rating on the details step",
+  },
+  highPotential: {
+    defaultMessage: "High potential",
+    id: "2E39Xr",
+    description:
+      "Option for a high leadership potential rating on the details step",
+  },
   nominationOptions: {
     defaultMessage: "Nomination options",
     id: "khfdlt",

@@ -10,6 +10,7 @@ import type {
 import {
   getFragment,
   graphql,
+  NineBoxRating,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
   TalentNominationUserReview,
@@ -104,6 +105,7 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
 const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment DetailsTalentNominationEvent on TalentNominationEvent {
     id
+    includeNineBox
   }
 `);
 
@@ -113,6 +115,8 @@ type NominationOption =
   | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
+  nineBoxPerformance?: NineBoxRating;
+  nineBoxLeadershipPotential?: NineBoxRating;
   nominationOptions: (NominationOption | null)[];
   advancementReference: string | null;
   advancementReferenceReview?: TalentNominationUserReview;
@@ -209,6 +213,56 @@ const DetailsFields = ({
 
   return (
     <div className="flex flex-col gap-6">
+      {event?.includeNineBox && (
+        <>
+          <RadioGroup
+            idPrefix="nineBoxPerformance"
+            id="nineBoxPerformance"
+            name="nineBoxPerformance"
+            legend={intl.formatMessage(labels.nomineePerformance)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={[
+              {
+                value: NineBoxRating.Low,
+                label: intl.formatMessage(labels.lowPerformance),
+              },
+              {
+                value: NineBoxRating.Moderate,
+                label: intl.formatMessage(labels.moderatePerformance),
+              },
+              {
+                value: NineBoxRating.High,
+                label: intl.formatMessage(labels.highPerformance),
+              },
+            ]}
+          />
+          <RadioGroup
+            idPrefix="nineBoxLeadershipPotential"
+            id="nineBoxLeadershipPotential"
+            name="nineBoxLeadershipPotential"
+            legend={intl.formatMessage(labels.nomineeLeadershipPotential)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={[
+              {
+                value: NineBoxRating.Low,
+                label: intl.formatMessage(labels.lowPotential),
+              },
+              {
+                value: NineBoxRating.Moderate,
+                label: intl.formatMessage(labels.moderatePotential),
+              },
+              {
+                value: NineBoxRating.High,
+                label: intl.formatMessage(labels.highPotential),
+              },
+            ]}
+          />
+        </>
+      )}
       <Checklist
         idPrefix="nominationOptions"
         name="nominationOptions"
@@ -562,6 +616,12 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
       }
       closeDate
     }
+    nineBoxPerformance {
+      value
+    }
+    nineBoxLeadershipPotential {
+      value
+    }
     nominateForAdvancement
     advancementReference {
       id
@@ -615,6 +675,8 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
     advancementReference = { disconnect: true };
   }
   return {
+    nineBoxPerformance: values.nineBoxPerformance ?? null,
+    nineBoxLeadershipPotential: values.nineBoxLeadershipPotential ?? null,
     nominateForAdvancement: hasAdvancement ?? null,
     nominateForLateralMovement: hasLateralMovement ?? null,
     nominateForDevelopmentPrograms: hasDevelopmentProgram ?? null,
@@ -730,6 +792,9 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
+        nineBoxPerformance: talentNomination?.nineBoxPerformance?.value,
+        nineBoxLeadershipPotential:
+          talentNomination?.nineBoxLeadershipPotential?.value,
         nominationOptions,
         advancementReference: defaultReference,
         advancementReferenceReview:
