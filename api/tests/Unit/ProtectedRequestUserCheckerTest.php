@@ -65,6 +65,19 @@ class ProtectedRequestUserCheckerTest extends TestCase
         $this->assertTrue($checker->currentUserHasPermission('view-any-skill'));
     }
 
+    public function testRequestBodyCannotGrantProtectedAccess()
+    {
+        $request = HttpRequest::create('/graphql', 'POST', ['isProtectedRequest' => 'true']);
+        $this->app->instance('request', $request);
+        Route::shouldReceive('current')->andReturn($this->testRoute);
+
+        $checker = new ProtectedRequestUserChecker($this->adminUser);
+
+        $this->assertFalse($checker->currentUserHasPermission('create-any-classification'));
+        $this->assertFalse($checker->currentUserHasRole('platform_admin'));
+        $this->assertTrue($checker->currentUserHasPermission('view-any-skill'));
+    }
+
     public static function userCheckerProvider()
     {
         $limited = 'view-any-skill';
