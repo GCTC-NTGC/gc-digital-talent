@@ -82,7 +82,7 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@react-router/dev": "^8.0.1",
     "@storybook/addon-designs": "^11.1.4",
-    "@storybook/react-vite": "^10.4.6",
+    "@storybook/react-vite": "^10.5.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
