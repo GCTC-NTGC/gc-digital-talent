@@ -422,7 +422,7 @@ export const RequestForm = ({
   // The applicantFilter from the location state needs to be changed from ApplicantFilterInput to the type ApplicantFilter for the SearchRequestFilters visual component.
   const applicantFilterInputToType: PartialApplicantFilter = {
     __typename: "ApplicantFilter",
-    id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
+    id: "", // Set Id to empty string since the TalentRequest doesn't exist yet.
     ...applicantFilter,
     positionDuration: unpackMaybes(applicantFilter?.positionDuration),
     languageAbility: enumInputToLocalizedEnum(
