@@ -12,6 +12,7 @@ use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Rules\GovernmentEmailRegex;
+use App\Rules\TalentEventOpenForUpdatingNominations;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -27,6 +28,7 @@ final class UpdateTalentNominationInputValidator extends Validator
         $event = TalentNomination::find($this->arg('id'))?->talentNominationEvent;
 
         return [
+            'id' => [new TalentEventOpenForUpdatingNominations()],
             'insertSubmittedStep' => [
                 Rule::in(array_column(TalentNominationStep::cases(), 'name')),
                 // can only review and submit using the submit mutation
