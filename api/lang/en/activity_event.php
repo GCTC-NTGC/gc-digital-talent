@@ -13,6 +13,6 @@ return [
     'reinstated' => 'Reinstated',
     'reverted' => 'Reverted',
     'published' => 'Published',
-    'special_application_created' => 'Abc',
-    'special_application_submitted' => 'Def',
+    'special_application_created' => 'Special application created',
+    'special_application_submitted' => 'Special application submitted',
 ];
