@@ -128,7 +128,7 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'array',
                 'exists:skills,id',
                 'distinct',
-                Rule::when(fn () => $event?->talentNominationEvent->include_leadership_competencies,
+                Rule::when(fn () => $event?->include_leadership_competencies,
                     ['max:3'],
                     ['prohibited']
                 ),
@@ -136,13 +136,13 @@ final class UpdateTalentNominationInputValidator extends Validator
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additionalComments' => ['nullable', 'string'],
             'nineBoxPerformance' => [
-                Rule::when(fn () => $event?->talentNominationEvent->includeNineBox,
+                Rule::when(fn () => $event?->includeNineBox,
                     [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
                     ['prohibited']
                 ),
             ],
             'nineBoxLeadershipPotential' => [
-                Rule::when(fn () => $event?->talentNominationEvent->includeNineBox,
+                Rule::when(fn () => $event?->includeNineBox,
                     [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
                     ['prohibited']
                 ),
