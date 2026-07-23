@@ -15,7 +15,7 @@ import {
   FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
-  PoolCandidateSearchRequestReason,
+  TalentRequestReason,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -85,7 +85,7 @@ export default {
       },
       RequestOptions: {
         data: {
-          requestReasons: fakeLocalizedEnum(PoolCandidateSearchRequestReason),
+          requestReasons: fakeLocalizedEnum(TalentRequestReason),
           languageAbilities: fakeLocalizedEnum(LanguageAbility),
           workRegions: fakeLocalizedEnum(WorkRegion),
           flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),
