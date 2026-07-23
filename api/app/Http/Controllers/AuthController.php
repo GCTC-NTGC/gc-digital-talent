@@ -52,7 +52,6 @@ class AuthController extends Controller
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
             $lang = 'fr';
         } else {
-            $ui_locales = $requestedLocale;
             $lang = $requestedLocale;
         }
 
