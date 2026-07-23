@@ -111,8 +111,8 @@ function getDescriptionForSpecialApplicationSubmitted(
 
     return intl.formatMessage(
       {
-        defaultMessage: "A special application, {specialApplicationType},",
-        id: "QdqwDe",
+        defaultMessage: "A special application, {specialApplicationType}",
+        id: "OAAP4p",
         description:
           "Event description when a special application is submitted",
       },
