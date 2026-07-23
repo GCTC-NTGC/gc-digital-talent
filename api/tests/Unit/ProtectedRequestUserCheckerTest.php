@@ -82,7 +82,7 @@ class ProtectedRequestUserCheckerTest extends TestCase
     public function testAdminPathGrantsProtectedAccess()
     {
         $request = HttpRequest::create('/admin/graphql', 'POST');
-        (new ProtectedRequest)->handle($request, fn ($request) => $request);
+        (new ProtectedRequest())->handle($request, fn ($request) => $request);
         $this->app->instance('request', $request);
         Route::shouldReceive('current')->andReturn($this->testRoute);
 
