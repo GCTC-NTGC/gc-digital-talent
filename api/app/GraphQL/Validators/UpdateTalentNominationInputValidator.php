@@ -136,13 +136,13 @@ final class UpdateTalentNominationInputValidator extends Validator
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additionalComments' => ['nullable', 'string'],
             'nineBoxPerformance' => [
-                Rule::when(fn () => $event?->includeNineBox,
+                Rule::when(fn () => $event?->include_nine_box,
                     [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
                     ['prohibited']
                 ),
             ],
             'nineBoxLeadershipPotential' => [
-                Rule::when(fn () => $event?->includeNineBox,
+                Rule::when(fn () => $event?->include_nine_box,
                     [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
                     ['prohibited']
                 ),
@@ -164,6 +164,10 @@ final class UpdateTalentNominationInputValidator extends Validator
             'skills.sync.exists' => ErrorCode::SKILL_NOT_FOUND->name,
             'skills.sync.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.sync.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
+            'nineBoxPerformance.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'nineBoxPerformance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nineBoxLeadershipPotential.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'nineBoxLeadershipPotential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
         ];
     }
 }
