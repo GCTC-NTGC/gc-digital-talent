@@ -684,6 +684,7 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
     advancementReference = { disconnect: true };
   }
   return {
+    id: values.id,
     nineBoxPerformance: values.nineBoxPerformance ?? null,
     nineBoxLeadershipPotential: values.nineBoxLeadershipPotential ?? null,
     nominateForAdvancement: hasAdvancement ?? null,
@@ -801,6 +802,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
+        id: talentNomination.id,
         nineBoxPerformance: talentNomination?.nineBoxPerformance?.value,
         nineBoxLeadershipPotential:
           talentNomination?.nineBoxLeadershipPotential?.value,

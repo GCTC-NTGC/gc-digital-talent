@@ -66,6 +66,7 @@ const leadershipSkillsRangeError = defineMessage({
 
 const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
   return {
+    id: values.id,
     nominationRationale: values.nominationRationale ?? null,
     skills: { sync: values.skills ?? [] },
     additionalComments: values.additionalComments ?? null,
@@ -100,6 +101,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       defaultValues={{
+        id: talentNomination.id,
         nominationRationale: talentNomination?.nominationRationale ?? "",
         additionalComments: talentNomination?.additionalComments ?? "",
         skills: unpackMaybes(

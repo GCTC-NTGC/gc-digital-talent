@@ -19,10 +19,9 @@ import useCurrentStep from "./useCurrentStep";
 
 const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `
   mutation NominateTalentUpdate(
-    $id: UUID!
     $talentNomination: UpdateTalentNominationInput!
   ) {
-    updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+    updateTalentNomination(talentNomination: $talentNomination) {
       id
     }
   }
@@ -71,7 +70,7 @@ const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
     talentNomination,
     intent,
   ) => {
-    return executeUpdateMutation({ id, talentNomination }, queryContext)
+    return executeUpdateMutation({ talentNomination }, queryContext)
       .then(async (res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
