@@ -15,7 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
