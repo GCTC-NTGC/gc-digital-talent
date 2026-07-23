@@ -3051,10 +3051,6 @@
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
   },
-  "A3m7l/": {
-    "defaultMessage": "Les compétences de leadership sont obligatoires pour être admissible à une candidature dans le cadre de cet événement.",
-    "description": "Label for the include leadership competencies"
-  },
   "A4dp/3": {
     "defaultMessage": "Masquer tout<hidden>es les sections de perfectionnement de carrière</hidden>",
     "description": "Button text to hide all career development sections"
@@ -3806,6 +3802,10 @@
   "D5Hqhf": {
     "defaultMessage": "Cercle de soutien",
     "description": "Title of the 'Circle of Support' subsection"
+  },
+  "D5KDrf": {
+    "defaultMessage": "Questions sur le rendement en leadership",
+    "description": "Bounding box label for the include leadership performance and potential"
   },
   "D6f8hs": {
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
@@ -6102,10 +6102,6 @@
   "MNjEW5": {
     "defaultMessage": "Nous sommes heureux de voir votre intérêt pour {poolName}.",
     "description": "Introductory sentence for a pool application."
-  },
-  "MOKBPl": {
-    "defaultMessage": "En attente de réponse",
-    "description": "Label for pool candidate search requests that are awaiting a response"
   },
   "MT17Vm": {
     "defaultMessage": "Ajouter un rôle dans le ministère :",
@@ -9026,10 +9022,6 @@
     "defaultMessage": "Il semble que {name} ait déjà un compte chez nous. Nous avons rempli automatiquement ses renseignements sur la base de son profil.",
     "description": "Message that the employee was found for a search"
   },
-  "YYmuJo": {
-    "defaultMessage": "En cours d'examen",
-    "description": "Label for pool candidate search requests that are under review"
-  },
   "YZRjdG": {
     "defaultMessage": "Cela permettra de rendre ce bassin au public. Tous les utilisateurs associés à ce bassin pourront le voir dans les informations de leur profil.",
     "description": "Second paragraph for un-archive pool dialog"
@@ -10982,10 +10974,6 @@
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
     "description": "Subtitle for the registration pages"
   },
-  "g0nMAt": {
-    "defaultMessage": "Télécharger la sélection au format Word (.docx)",
-    "description": "Menu option to download selected tracked users as a document"
-  },
   "g1WB3B": {
     "defaultMessage": "Ajouter une expérience",
     "description": "Title for add experience page"
@@ -12626,10 +12614,6 @@
     "defaultMessage": "2. <strong>Balayez le code QR</strong> ou <strong>saisissez votre code secret</strong> au moyen de votre application d’authentification à deux facteurs.",
     "description": "Text for second sign up -> mfa step."
   },
-  "mXWCC2": {
-    "defaultMessage": "Employés de même niveau disposés à accepter une mutation latérale",
-    "description": "Checklist option explanatory note"
-  },
   "mYnQH4": {
     "defaultMessage": "Ce processus n'a pas de plan d'évaluation.",
     "description": "A process has no assessment plan"
@@ -12877,10 +12861,6 @@
   "nRrlr1": {
     "defaultMessage": "{total, plural, =0 {0 organisation} one {# organisation} other {# organisations}}",
     "description": "Count of organizations"
-  },
-  "nTPcCF": {
-    "defaultMessage": "Soumise",
-    "description": "Label for request submitted"
   },
   "nUokX9": {
     "defaultMessage": "Retourner au suivi des évaluations",
@@ -14338,10 +14318,6 @@
     "defaultMessage": "Adresse courriel non confirmée",
     "description": "The email address has not been verified to be owned by user"
   },
-  "tUObm7": {
-    "defaultMessage": "Candidats qualifiés du bassin",
-    "description": "Checklist option explanatory note"
-  },
   "tXLRmG": {
     "defaultMessage": "Je ne suis pas à la recherche d'une promotion ou d'un avancement pour l'instant.",
     "description": "The promotion move interest described as not interested."
@@ -14813,6 +14789,10 @@
   "vRNv4w": {
     "defaultMessage": "Revoir la demande",
     "description": "Title for the review application dialog"
+  },
+  "vRkQB+": {
+    "defaultMessage": "La mise en candidature doit comprendre le rendement et le potentiel en leadership de la personne mise en candidature",
+    "description": "Label for the include leadership performance and potential"
   },
   "vUZf8Y": {
     "defaultMessage": "Texte de rechange en langage clair",

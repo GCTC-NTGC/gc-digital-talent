@@ -57,6 +57,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
     }
     openDate
     closeDate
+    includeNineBox
     includeLeadershipCompetencies
     community {
       id
@@ -316,18 +317,43 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             )}
           </span>
         </FieldDisplay>
-        <BoolCheckIcon
-          value={talentEvent.includeLeadershipCompetencies}
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Leadership performance questions",
+            id: "D5KDrf",
+            description:
+              "Bounding box label for the include leadership performance and potential",
+          })}
           className="col-span-2"
         >
-          {intl.formatMessage({
-            defaultMessage:
-              "Leadership competencies are required to be nominated for this event",
-            id: "A3m7l/",
-            description: "Label for the include leadership competencies",
+          <BoolCheckIcon value={talentEvent.includeNineBox}>
+            {intl.formatMessage({
+              defaultMessage:
+                "The nomination must include the nominee’s performance and leadership potential",
+              id: "vRkQB+",
+              description:
+                "Label for the include leadership performance and potential",
+            })}
+          </BoolCheckIcon>
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Leadership competency requirement",
+            id: "eBH+tH",
+            description:
+              "Bounding box label for the include leadership competencies",
           })}
-        </BoolCheckIcon>
-
+          className="col-span-2"
+        >
+          <BoolCheckIcon value={talentEvent.includeLeadershipCompetencies}>
+            {intl.formatMessage({
+              defaultMessage:
+                "The nomination must include the nominee's top 3 leadership competencies",
+              id: "4rkX89",
+              description: "Label for the include leadership competencies",
+            })}
+          </BoolCheckIcon>
+        </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Customized instruction text",

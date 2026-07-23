@@ -3,6 +3,7 @@
 namespace App\Traits\Generator;
 
 use App\Enums\Language;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationSubmitterRelationshipToNominator;
@@ -149,6 +150,26 @@ trait GeneratesNominationDoc
                     $this->addLabelText($section, $this->localizeHeading('references_classification'), $nomination->advancementReferenceFallbackClassification ? $nomination->advancementReferenceFallbackClassification->formattedGroupAndLevel : Lang::get('common.not_available', [], $this->lang));
                     $this->addLabelText($section, $this->localizeHeading('references_department'), $nomination->advancementReferenceFallbackDepartment ? $nomination->advancementReferenceFallbackDepartment->name[$this->lang] : Lang::get('common.not_available', [], $this->lang));
                 }
+
+                /** @var NineBoxRating $performance */
+                $performance = $nomination->nine_box_performance;
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('nine_box_performance'),
+                    $performance
+                        ? $this->localizeEnum($performance->name, NineBoxRating::class)
+                        : Lang::get('common.not_available', [], $this->lang)
+                );
+
+                /** @var NineBoxRating $potential */
+                $potential = $nomination->nine_box_leadership_potential;
+                $this->addLabelText(
+                    $section,
+                    $this->localizeHeading('nine_box_leadership_potential'),
+                    $potential
+                        ? $this->localizeEnum($potential->name, NineBoxRating::class)
+                        : Lang::get('common.not_available', [], $this->lang)
+                );
 
                 if ($nomination->lateral_movement_options) {
                     $this->addLabelText($section, $this->localizeHeading('lateral_movement_options'), '');

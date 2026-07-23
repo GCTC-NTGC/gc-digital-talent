@@ -705,7 +705,6 @@ export const RequestForm = ({
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
-            talentSourceOptions={talentSourceOptionsData}
           />
           <Separator />
           <p className="mb-6 font-bold">

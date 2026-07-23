@@ -19,7 +19,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import useRoutes from "~/hooks/useRoutes";
 
 import TalentNominationListItem from "./TalentNominationListItem";
-import PoolCandidateSearchRequestPreviewListItem from "./PoolCandidateSearchRequestPreviewListItem";
+import TalentRequestPreviewListItem from "./TalentRequestPreviewListItem";
 
 const linkAccessor = (href: string, chunks: ReactNode) => {
   return (
@@ -67,9 +67,9 @@ const TalentManagementTaskCard_Fragment = graphql(/* GraphQL */ `
 
       ...PreviewListItemTalentNomination
     }
-    poolCandidateSearchRequests {
+    talentRequests {
       id
-      ...PreviewListItemSearchRequest
+      ...PreviewListItemTalentRequest
     }
   }
 `);
@@ -140,8 +140,8 @@ const TalentManagementTaskCard = ({
     })
     .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
-  const poolCandidateSearchRequests = unpackMaybes(
-    talentManagementTaskCardFragment.poolCandidateSearchRequests,
+  const talentRequests = unpackMaybes(
+    talentManagementTaskCardFragment.talentRequests,
   );
 
   const isAcccordionOpen =
@@ -270,7 +270,7 @@ const TalentManagementTaskCard = ({
             )}
           </>
           <>
-            {poolCandidateSearchRequests.length > 0 && (
+            {talentRequests.length > 0 && (
               <TaskCard.Item>
                 <Accordion.Root
                   type="single"
@@ -302,19 +302,19 @@ const TalentManagementTaskCard = ({
                             "Title for a list of talent requests with a count",
                         },
                         {
-                          requestsCount: poolCandidateSearchRequests.length,
+                          requestsCount: talentRequests.length,
                         },
                       )}
                     </Accordion.Trigger>
                     <Accordion.MetaData metadata={talentRequestMetaData} />
                     <Accordion.Content>
                       <div className="mt-3 flex flex-col gap-6">
-                        {poolCandidateSearchRequests?.length ? (
+                        {talentRequests?.length ? (
                           <PreviewList.Root>
-                            {poolCandidateSearchRequests?.map((request) => (
-                              <PoolCandidateSearchRequestPreviewListItem
+                            {talentRequests?.map((request) => (
+                              <TalentRequestPreviewListItem
                                 key={request.id}
-                                poolCandidateSearchRequestQuery={request}
+                                talentRequestQuery={request}
                               />
                             ))}
                           </PreviewList.Root>
