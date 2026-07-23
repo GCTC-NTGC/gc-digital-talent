@@ -10,6 +10,7 @@ import {
   getLocale,
   type Locales,
 } from "@gc-digital-talent/i18n";
+import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
 import type { CommonItemProps } from "./BaseActivityItem";
 import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
@@ -62,6 +63,7 @@ function getDescriptionForSpecialApplicationCreated(
       typeof atts.special_application_closing_date === "string"
     ) {
       specialClosingDate = atts.special_application_closing_date;
+      specialClosingDate = strToFormDate(specialClosingDate);
     }
 
     return intl.formatMessage(
