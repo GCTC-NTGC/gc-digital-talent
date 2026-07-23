@@ -25,8 +25,6 @@ final class CreateSpecialApplication
             ->withTrashed()
             ->first();
 
-        activity()->disableLogging();
-
         // branch one
         // pool candidate exists
         if ($existingPoolCandidate) {
@@ -35,13 +33,15 @@ final class CreateSpecialApplication
                 throw new Exception('PROBLEM: Exception reached in CreateSpecialApplication');
             }
 
-            $existingPoolCandidate->update([
-                'special_application_type' => $poolCandidateInput['special_application_type'],
-                'special_application_justification' => $poolCandidateInput['special_application_justification'],
-                'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
-            ]);
+            // suppress the automatic update log; withoutLogging re-enables even if the update throws
+            activity()->withoutLogging(function () use ($existingPoolCandidate, $poolCandidateInput) {
+                $existingPoolCandidate->update([
+                    'special_application_type' => $poolCandidateInput['special_application_type'],
+                    'special_application_justification' => $poolCandidateInput['special_application_justification'],
+                    'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+                ]);
+            });
 
-            activity()->enableLogging();
             $existingPoolCandidate->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
                 'user_id' => $userId,
                 'special_application_type' => $poolCandidateInput['special_application_type'],
@@ -56,19 +56,23 @@ final class CreateSpecialApplication
 
         // branch two
         // pool candidate to be created
-        $createdApplication = PoolCandidate::create([
-            'pool_id' => $poolId,
-            'user_id' => $userId,
-            'special_application_type' => $poolCandidateInput['special_application_type'],
-            'special_application_justification' => $poolCandidateInput['special_application_justification'],
-            'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
-        ]);
+        // suppress the automatic create/save logs; withoutLogging re-enables even if a write throws
+        $createdApplication = activity()->withoutLogging(function () use ($poolId, $userId, $poolCandidateInput) {
+            $application = PoolCandidate::create([
+                'pool_id' => $poolId,
+                'user_id' => $userId,
+                'special_application_type' => $poolCandidateInput['special_application_type'],
+                'special_application_justification' => $poolCandidateInput['special_application_justification'],
+                'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+            ]);
 
-        $createdApplication->application_status = ApplicationStatus::DRAFT->name;
-        $createdApplication->save();
-        $createdApplication->refresh();
+            $application->application_status = ApplicationStatus::DRAFT->name;
+            $application->save();
+            $application->refresh();
 
-        activity()->enableLogging();
+            return $application;
+        });
+
         $createdApplication->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
             'user_id' => $userId,
             'application_status' => ApplicationStatus::DRAFT->name,

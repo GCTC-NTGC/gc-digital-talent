@@ -10,7 +10,11 @@ import {
   getLocale,
   type Locales,
 } from "@gc-digital-talent/i18n";
-import { strToFormDate } from "@gc-digital-talent/date-helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  formatDate,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
 import type { CommonItemProps } from "./BaseActivityItem";
 import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
@@ -62,8 +66,11 @@ function getDescriptionForSpecialApplicationCreated(
       "special_application_closing_date" in atts &&
       typeof atts.special_application_closing_date === "string"
     ) {
-      specialClosingDate = atts.special_application_closing_date;
-      specialClosingDate = strToFormDate(specialClosingDate);
+      specialClosingDate = formatDate({
+        date: parseDateTimeUtc(atts.special_application_closing_date),
+        formatString: DATE_FORMAT_LOCALIZED,
+        intl,
+      });
     }
 
     return intl.formatMessage(
