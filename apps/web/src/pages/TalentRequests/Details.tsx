@@ -1,6 +1,7 @@
 import { useQuery } from "urql";
+import { useIntl } from "react-intl";
 
-import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import { Notice, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import {
   getFragment,
@@ -18,9 +19,11 @@ import type { RouteParams } from "./types";
 import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
+import TalentRequestEmptyNotice from "./components/TalentRequestEmptyNotice";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
+    ...TalentRequestEmptyNotice
     ...TalentRequestDetailsCard
     ...TalentRequestSourcesCard
     ...TalentRequestCriteriaCard
@@ -33,6 +36,7 @@ interface DetailsProps {
 }
 
 const Details = ({ query, optionsQuery }: DetailsProps) => {
+  const intl = useIntl();
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
   const talentSourceOptions = narrowEnumType(
     unpackMaybes(
@@ -44,6 +48,7 @@ const Details = ({ query, optionsQuery }: DetailsProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
+      <TalentRequestEmptyNotice query={talentRequest} />
       <TalentRequestDetailsCard query={talentRequest} />
       <TalentRequestSourcesCard
         query={talentRequest}
