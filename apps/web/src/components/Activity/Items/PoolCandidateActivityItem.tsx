@@ -11,7 +11,7 @@ import {
   type Locales,
 } from "@gc-digital-talent/i18n";
 import {
-  DATE_FORMAT_LOCALIZED,
+  DATE_FORMAT_STRING,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -66,10 +66,14 @@ function getDescriptionForSpecialApplicationCreated(
       "special_application_closing_date" in atts &&
       typeof atts.special_application_closing_date === "string"
     ) {
+      const closingDateObject = parseDateTimeUtc(
+        atts.special_application_closing_date,
+      );
       specialClosingDate = formatDate({
-        date: parseDateTimeUtc(atts.special_application_closing_date),
-        formatString: DATE_FORMAT_LOCALIZED,
+        date: closingDateObject,
+        formatString: DATE_FORMAT_STRING,
         intl,
+        timeZone: "Canada/Pacific",
       });
     }
 
