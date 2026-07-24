@@ -17,7 +17,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";
@@ -30,6 +30,14 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   /* GraphQL */ `
     fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
       id
+      nominee {
+        id
+      }
+      talentNominationEvent {
+        name {
+          localized
+        }
+      }
       nominations {
         id
       }
@@ -38,6 +46,19 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   `,
 );
 
+const TalentNominationEventForHistory_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationEventForHistory on TalentNominationEvent {
+    id
+    talentNominationGroups {
+      id
+      nominee {
+        id
+      }
+      ...TalentNominationGroupHistoryNominationGroup
+    }
+  }
+`);
+
 const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupHistoryOptions on Query {
     ...TalentNominationDetailsDialogOptions
@@ -45,29 +66,35 @@ const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface TalentNominationGroupHistoryProps {
-  nominationGroupQuery: FragmentType<
+  nominationGroupsQuery: FragmentType<
     typeof TalentNominationGroupHistoryNominationGroup_Fragment
-  >;
+  >[];
   optionsQuery: FragmentType<
     typeof TalentNominationGroupHistoryOptions_Fragment
   >;
 }
 
 const TalentNominationGroupHistory = ({
-  nominationGroupQuery,
+  nominationGroupsQuery,
   optionsQuery,
 }: TalentNominationGroupHistoryProps) => {
   const intl = useIntl();
-  const talentNominationGroup = getFragment(
-    TalentNominationGroupHistoryNominationGroup_Fragment,
-    nominationGroupQuery,
-  );
+
+  const nominationGroups = nominationGroupsQuery
+    .map((group) =>
+      getFragment(TalentNominationGroupHistoryNominationGroup_Fragment, group),
+    )
+    .filter(Boolean);
+
   const options = getFragment(
     TalentNominationGroupHistoryOptions_Fragment,
     optionsQuery,
   );
 
-  const nominationGroups = [talentNominationGroup];
+  // Sort groups by event name
+  nominationGroups.sort(
+    sortAlphaBy((group) => group.talentNominationEvent?.name?.localized),
+  );
 
   //get total number of nominations across all nomination groups
   const nominationCount = nominationGroups.reduce(
@@ -168,9 +195,9 @@ const TalentNominationGroupHistory = ({
 };
 
 const TalentNominationHistoryPage_Query = graphql(/* GraphQL */ `
-  query TalentNominationHistoryPage($talentNominationGroupId: UUID!) {
-    talentNominationGroup(id: $talentNominationGroupId) {
-      ...TalentNominationGroupHistoryNominationGroup
+  query TalentNominationHistoryPage {
+    talentNominationEvents {
+      ...TalentNominationEventForHistory
     }
     ...TalentNominationGroupHistoryOptions
   }
@@ -186,14 +213,30 @@ const TalentNominationGroupHistoryPage = () => {
   );
   const [{ data, fetching, error }] = useQuery({
     query: TalentNominationHistoryPage_Query,
-    variables: { talentNominationGroupId },
   });
+
+  const events = getFragment(
+    TalentNominationEventForHistory_Fragment,
+    unpackMaybes(data?.talentNominationEvents),
+  );
+  const allGroups = events.flatMap((event) =>
+    unpackMaybes(event.talentNominationGroups),
+  );
+
+  // use the group id from the url to find its nominee then get all groups for that nominee
+  const nomineeId = allGroups.find(
+    (group) => group.id === talentNominationGroupId,
+  )?.nominee?.id;
+
+  const nominationGroups = allGroups.filter(
+    (group) => group.nominee?.id === nomineeId,
+  );
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationGroup ? (
+      {data?.talentNominationEvents ? (
         <TalentNominationGroupHistory
-          nominationGroupQuery={data.talentNominationGroup}
+          nominationGroupsQuery={nominationGroups}
           optionsQuery={data}
         />
       ) : (
