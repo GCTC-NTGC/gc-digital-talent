@@ -6,6 +6,7 @@ import TrashIcon from "@heroicons/react/16/solid/TrashIcon";
 import ClipboardDocumentCheckIcon from "@heroicons/react/16/solid/ClipboardDocumentCheckIcon";
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
+import ExclamationTriangleIcon from "@heroicons/react/16/solid/ExclamationTriangleIcon";
 import BriefcaseIcon from "@heroicons/react/16/solid/BriefcaseIcon";
 import DocumentArrowUpIcon from "@heroicons/react/16/solid/DocumentArrowUpIcon";
 import type { VariantProps } from "tailwind-variants";
@@ -145,6 +146,22 @@ const eventInfoMap = new Map<ActivityEvent, ActivityEventInfo>([
       message: activityMessages.published,
       icon: DocumentArrowUpIcon,
       color: "success",
+    },
+  ],
+  [
+    ActivityEvent.SpecialApplicationCreated,
+    {
+      message: activityMessages.created,
+      icon: ExclamationTriangleIcon,
+      color: "warning",
+    },
+  ],
+  [
+    ActivityEvent.SpecialApplicationSubmitted,
+    {
+      message: activityMessages.submitted,
+      icon: ExclamationTriangleIcon,
+      color: "warning",
     },
   ],
 ]);

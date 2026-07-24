@@ -23,6 +23,10 @@ enum ActivityEvent: string
     case REVERTED = 'reverted';
     case PUBLISHED = 'published';
 
+    // Special applications
+    case SPECIAL_APPLICATION_CREATED = 'special_application_created';
+    case SPECIAL_APPLICATION_SUBMITTED = 'special_application_submitted';
+
     public static function getLangFilename(): string
     {
         return 'activity_event';
