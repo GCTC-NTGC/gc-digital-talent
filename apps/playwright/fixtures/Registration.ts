@@ -1,15 +1,9 @@
-import { execSync } from "child_process";
-
 import type { Locator, Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
 import { loginBySub } from "~/utils/auth";
-import { deleteUser, me } from "~/utils/user";
-import {
-  fetchIdentificationNumber,
-  generateUniqueTestId,
-  uuidRegEx,
-} from "~/utils/id";
+import { deleteUser } from "~/utils/user";
+import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import graphql from "~/utils/graphql";
 import testConfig from "~/constants/config";
 
@@ -18,15 +12,8 @@ import UserPage from "./UserPage";
 
 const FIELD = {
   GETTING_STARTED_HEADING: "gettingStartedHeading",
-  EMAIL_ADDRESS: "emailAddress",
-  SEND_VERIFICATION_EMAIL_BUTTON: "sendVerificationEmailButton",
-  VERIFICATION_EMAIL_SENT_HEADING: "verificationEmailSentHeading",
-  COUNTER_MESSAGE: "counterMessage",
-  VERIFICATION_CODE: "verificationCode",
-  FIRST_NAME: "firstName",
-  LAST_NAME: "lastName",
-  PREFERRED_CONTACT_LANGUAGE: "preferredContactLanguage",
   SAVE_AND_CONTINUE_BUTTON: "saveAndContinueButton",
+  SAVE_AND_CONTINUE_LINK: "saveAndContinueLink",
   ADD_MOST_RECENT_WORK_EXPERIENCE: "addMostRecentWorkExperience",
   MY_ROLE: "selectMyRole",
   EMPLOYMENT_CATEGORY: "selectEmploymentCategory",
@@ -36,15 +23,14 @@ const FIELD = {
   SENIORITY: "seniority",
   ADDITIONAL_DETAILS: "additionalDetails",
   SKIP_ADD_WORK_EXPERIENCE: "skipAddWorkExperience",
+  GOVERNMENT_EMPLOYEE_STATUS: "governmentEmployeeStatus",
 } as const;
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
 
 class Registration extends AppPage {
   readonly locators: Record<Field, Locator>;
-  readonly baseUrl: string = "/en/applicant";
   uniqueTestId = generateUniqueTestId();
-  context = graphql.newContext(this.uniqueTestId);
   uniqueEmailAddress = `${this.uniqueTestId}@gc.ca`;
   readonly firstName = "Playwright";
   readonly lastName = "Test";
@@ -56,31 +42,10 @@ class Registration extends AppPage {
         name: /getting started/i,
         level: 2,
       }),
-      [FIELD.EMAIL_ADDRESS]: this.page.getByRole("textbox", {
-        name: /email address/i,
-      }),
-      [FIELD.SEND_VERIFICATION_EMAIL_BUTTON]: this.page.getByRole("button", {
-        name: /send verification email/i,
-      }),
-      [FIELD.VERIFICATION_EMAIL_SENT_HEADING]: this.page.getByText(
-        /Verification email sent!/i,
-      ),
-      [FIELD.COUNTER_MESSAGE]: this.page.getByText(
-        /Please\s+wait\s+\d+\s+seconds\s+before\s+requesting\s+another\s+verification\s+email./i,
-      ),
-      [FIELD.VERIFICATION_CODE]: this.page.getByRole("textbox", {
-        name: /verification code/i,
-      }),
-      [FIELD.FIRST_NAME]: this.page.getByRole("textbox", {
-        name: /first name/i,
-      }),
-      [FIELD.LAST_NAME]: this.page.getByRole("textbox", {
-        name: /last name/i,
-      }),
-      [FIELD.PREFERRED_CONTACT_LANGUAGE]: this.page.getByRole("group", {
-        name: /preferred contact language/i,
-      }),
       [FIELD.SAVE_AND_CONTINUE_BUTTON]: this.page.getByRole("button", {
+        name: /save and continue/i,
+      }),
+      [FIELD.SAVE_AND_CONTINUE_LINK]: this.page.getByRole("link", {
         name: /save and continue/i,
       }),
       [FIELD.ADD_MOST_RECENT_WORK_EXPERIENCE]: this.page.getByRole("heading", {
@@ -108,30 +73,34 @@ class Registration extends AppPage {
         name: /Skip this step/i,
         exact: true,
       }),
+      [FIELD.GOVERNMENT_EMPLOYEE_STATUS]: this.page.getByRole("group", {
+        name: /government employee status/i,
+      }),
     };
   }
 
   async gettingStarted() {
-    await loginBySub(this.page, this.uniqueTestId, false);
-    await this.page.goto(this.baseUrl);
+    // CanadaLogin provides this data for us
+    const claims = {
+      locale: "en",
+      // eslint-disable-next-line camelcase
+      given_name: this.firstName,
+      // eslint-disable-next-line camelcase
+      family_name: this.lastName,
+      email: this.uniqueEmailAddress,
+    };
+
+    await loginBySub(this.page, this.uniqueTestId, false, claims);
     await expect(this.locators[FIELD.GETTING_STARTED_HEADING]).toBeVisible();
   }
 
   async fillRegistrationForm() {
-    await this.locators[FIELD.EMAIL_ADDRESS].fill(this.uniqueEmailAddress);
-    await this.locators[FIELD.SEND_VERIFICATION_EMAIL_BUTTON].click();
-    await expect(
-      this.locators[FIELD.VERIFICATION_EMAIL_SENT_HEADING],
-    ).toBeVisible();
-    await this.verifyThrottlingMessageForVerificationCode();
-    const verificationCode = this.getVerificationCode();
-    await this.locators[FIELD.VERIFICATION_CODE].fill(await verificationCode);
-    await this.locators[FIELD.FIRST_NAME].fill(this.firstName);
-    await this.locators[FIELD.LAST_NAME].fill(this.lastName);
-    await this.locators[FIELD.PREFERRED_CONTACT_LANGUAGE]
-      .getByRole("radio", { name: /english/i })
+    await this.locators[FIELD.GOVERNMENT_EMPLOYEE_STATUS]
+      .getByRole("radio", {
+        name: /I currently work for the Government of Canada/i,
+      })
       .click();
-    await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
+    await this.locators[FIELD.SAVE_AND_CONTINUE_LINK].click();
     await expect(
       this.locators[FIELD.ADD_MOST_RECENT_WORK_EXPERIENCE],
     ).toBeVisible();
@@ -167,28 +136,6 @@ class Registration extends AppPage {
     await this.locators[FIELD.ADDITIONAL_DETAILS].fill("additional details");
     await this.locators[FIELD.SAVE_AND_CONTINUE_BUTTON].click();
     // Need tp figure out the way to delete this UI created user
-  }
-
-  async getVerificationCode() {
-    const { id: meUserId } = await me(await this.context, {});
-    expect(meUserId).toMatch(uuidRegEx);
-
-    // pull the verification code from cache since we can't receive an email here
-    const cacheGetCommand = `echo Cache::get('email-verification-${meUserId}')['code']`;
-    const verificationCode = execSync(
-      `docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "php artisan tinker --execute=\\"${cacheGetCommand}\\""`,
-      {
-        stdio: "pipe",
-        encoding: "utf8",
-      },
-    );
-    expect(verificationCode).toMatch(/[A-Z0-9]{6}/);
-    return verificationCode;
-  }
-
-  async verifyThrottlingMessageForVerificationCode() {
-    await this.locators[FIELD.SEND_VERIFICATION_EMAIL_BUTTON].click();
-    await expect(this.locators[FIELD.COUNTER_MESSAGE]).toBeVisible();
   }
 
   async skipAddRecentWorkExperience() {

@@ -12,8 +12,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
 type SourceQuestionResponse =
-  | GeneralQuestionResponse
-  | ScreeningQuestionResponse;
+  GeneralQuestionResponse | ScreeningQuestionResponse;
 
 export interface GenericQuestionResponse {
   id: string;

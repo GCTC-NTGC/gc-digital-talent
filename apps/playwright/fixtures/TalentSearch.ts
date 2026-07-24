@@ -66,6 +66,7 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
@@ -138,7 +139,7 @@ class TalentSearch extends AppPage {
       .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
       .click();
 
-    await this.waitForGraphqlResponse("CandidateCount");
+    await this.waitForGraphqlResponse("CountTalentRequestMatches");
     await expect(poolCard).toBeVisible();
     await poolCard.getByRole("button", { name: /request candidates/i }).click();
   }
@@ -178,7 +179,9 @@ class TalentSearch extends AppPage {
       ),
     ).toBeVisible();
 
-    await expect(this.page.getByText(workStream?.name?.en ?? "")).toBeVisible();
+    await expect(
+      this.page.getByText(workStream?.name?.en ?? "", { exact: true }),
+    ).toBeVisible();
 
     await expect(
       this.page.getByText(new RegExp(skill?.name.en ?? "")),

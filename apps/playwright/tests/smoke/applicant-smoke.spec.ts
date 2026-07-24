@@ -1,6 +1,7 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
+import AUTH from "~/constants/auth";
 
 const sub =
   process.env.PLAYWRIGHT_APPLICANT_SUB ??
@@ -33,5 +34,20 @@ test.describe("Applicant smoke", { tag: "@uat" }, () => {
 
   test("dashboard shows GC employee profile section", async () => {
     await expect(dashboardPage.locators.gcEmployeeProfile).toBeVisible();
+  });
+
+  test("cannot access admin restricted paths", async ({ page }) => {
+    await Promise.all(
+      AUTH.RESTRICTED_PATHS.ADMIN.map(async (restrictedPath) => {
+        const newPage = await page.context().newPage();
+        await newPage.goto(restrictedPath);
+        await expect(
+          newPage.getByRole("heading", {
+            name: "Sorry, you are not authorized to view this page.",
+          }),
+        ).toBeVisible();
+        await newPage.close();
+      }),
+    );
   });
 });

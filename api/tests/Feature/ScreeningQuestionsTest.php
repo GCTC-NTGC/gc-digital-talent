@@ -17,6 +17,10 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
+use function PHPUnit\Framework\assertNotNull;
+
 class ScreeningQuestionsTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -354,5 +358,97 @@ class ScreeningQuestionsTest extends TestCase
         ])->assertJsonMissing([
             'answer' => 'the answer',
         ]);
+    }
+
+    /** Updating a screening question response from a different application should fail. */
+    public function testCannotUpdateOtherApplicationsScreeningQuestionResponse(): void
+    {
+        $questionId = $this->publishedPool->screeningQuestions->first()->id;
+
+        $attackerApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->publishedPool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $victimUser = User::factory()->asApplicant()->create();
+        $victimApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->publishedPool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $victimUser->id,
+        ]);
+
+        $victimResponse = ScreeningQuestionResponse::factory()->create([
+            'pool_candidate_id' => $victimApplication->id,
+            'screening_question_id' => $questionId,
+            'answer' => 'victim answer',
+        ]);
+
+        $response = $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+            'id' => $attackerApplication->id,
+            'application' => [
+                'screeningQuestionResponses' => [
+                    'update' => [
+                        [
+                            'id' => $victimResponse->id,
+                            'answer' => 'tampered',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $validationErrors = $response->json('errors.0.extensions.validation');
+        assertNotNull($validationErrors, 'Expected validation errors for cross-application update');
+        assertEqualsCanonicalizing(
+            ['application.screeningQuestionResponses.update.0.id' => ['APPLICATION_INVALID_QUESTION_RESPONSE']],
+            $validationErrors
+        );
+
+        $victimResponse->refresh();
+        assertEquals('victim answer', $victimResponse->answer);
+    }
+
+    /** Deleting a screening question response from a different application should fail. */
+    public function testCannotDeleteOtherApplicationsScreeningQuestionResponse(): void
+    {
+        $questionId = $this->publishedPool->screeningQuestions->first()->id;
+
+        $attackerApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->publishedPool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $victimUser = User::factory()->asApplicant()->create();
+        $victimApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->publishedPool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $victimUser->id,
+        ]);
+
+        $victimResponse = ScreeningQuestionResponse::factory()->create([
+            'pool_candidate_id' => $victimApplication->id,
+            'screening_question_id' => $questionId,
+            'answer' => 'victim answer',
+        ]);
+
+        $response = $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+            'id' => $attackerApplication->id,
+            'application' => [
+                'screeningQuestionResponses' => [
+                    'delete' => [$victimResponse->id],
+                ],
+            ],
+        ]);
+
+        $validationErrors = $response->json('errors.0.extensions.validation');
+        assertNotNull($validationErrors, 'Expected validation errors for cross-application delete');
+        assertEqualsCanonicalizing(
+            ['application.screeningQuestionResponses.delete.0' => ['APPLICATION_INVALID_QUESTION_RESPONSE']],
+            $validationErrors
+        );
+
+        assertNotNull(ScreeningQuestionResponse::find($victimResponse->id), 'Victim response should not be deleted');
     }
 }

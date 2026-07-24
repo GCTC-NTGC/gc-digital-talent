@@ -31,7 +31,10 @@ use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use App\Traits\Generator\Filterable;
+use App\Traits\Generator\GeneratesCareerExperienceSheet;
+use App\Traits\Generator\GeneratesCommunityInterestSheet;
 use App\Traits\Generator\GeneratesFile;
+use App\Traits\Generator\GeneratesSharedExcelData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
@@ -40,7 +43,10 @@ use OpenSpout\Writer\XLSX\Writer;
 class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
+    use GeneratesCareerExperienceSheet;
+    use GeneratesCommunityInterestSheet;
     use GeneratesFile;
+    use GeneratesSharedExcelData;
 
     protected array $generatedHeaders = [
         'general_questions' => [],
@@ -169,6 +175,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
+
+        // apply consent to share profile check
+        $this->enforceConsentToShare = true;
     }
 
     private function getExcelSheetTitle(string $key): string
@@ -197,6 +206,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
             $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
             $this->generateNominationDetailsTab();
+
+            // Career experience sheet
+            $careerExperienceSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $careerExperienceSheet->setName($this->getExcelSheetTitle('headings.career_experience'));
+            $this->generateCareerExperienceTab();
+
+            // Community Interest sheet
+            $communityInterestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $communityInterestSheet->setName($this->getExcelSheetTitle('headings.community_interest'));
+            $this->generateCommunityInterestTab();
         } finally {
             $this->writer->close();
         }
@@ -232,8 +251,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class),
                     $nominators->join(', '),
                     $optionsStr,
@@ -261,20 +280,20 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         $this->writer->addRow($this->row($localizedHeaders));
 
-        $processedUserIds = [];
         $query = $this->buildQuery();
 
-        $query->chunk(200, function ($talentNominationGroups) use (&$processedUserIds) {
+        $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $user = $talentNominationGroup->nominee;
 
                 // Skip if already processed
-                if (in_array($user->id, $processedUserIds)) {
+                if (in_array($user->id, $this->userIds)) {
                     continue;
                 }
 
-                $processedUserIds[] = $user->id;
+                $this->userIds[] = $user->id;
                 $consentToShare = $talentNominationGroup->consentToShareProfile;
+                $this->consentToShareByUserId[$user->id] = $consentToShare;
 
                 $department = $user->department()->first();
                 $preferences = $user->getOperationalRequirements();
@@ -323,8 +342,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->canShare($consentToShare, $user->email ?? ''),
                     $this->canShare($consentToShare, $user->telephone ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class)),
@@ -437,8 +456,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                     $values = [
                         $user->id,
-                        $this->canShare($consentToShare, $user->first_name), // nominee's first name
-                        $this->canShare($consentToShare, $user->last_name), // nominee's last name
+                        $user->first_name, // nominee's first name
+                        $user->last_name, // nominee's last name
                         $nomination->submitted_at ? $nomination->submitted_at->format('Y-m-d') : '', // Date received
                         $optionsStr, // nomination options
                         $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
@@ -703,28 +722,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $nomination->submitter_relationship_to_nominator->name,
             TalentNominationSubmitterRelationshipToNominator::class
         );
-    }
-
-    /**
-     * Get looking for languages
-     */
-    private function lookingForLanguages(User $user): string
-    {
-        $languages = [];
-
-        if ($user->looking_for_english) {
-            $languages[] = $this->localize('language.en');
-        }
-
-        if ($user->looking_for_french) {
-            $languages[] = $this->localize('language.fr');
-        }
-
-        if ($user->looking_for_bilingual) {
-            $languages[] = $this->localize('common.bilingual');
-        }
-
-        return implode(', ', $languages);
     }
 
     private function buildQuery()

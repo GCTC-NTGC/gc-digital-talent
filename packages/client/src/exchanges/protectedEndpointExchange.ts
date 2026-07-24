@@ -1,9 +1,21 @@
 import { pipe, tap } from "wonka";
-import type { Exchange } from "@urql/core";
+import type { Exchange, OperationContext } from "@urql/core";
 
 import { apiHost, protectedUrl } from "../constants";
+import { hasForcedProtectedEndpoint } from "../utils/protectedEndpointContext";
 
 const privilegedPaths = ["/admin", "/en/admin", "/fr/admin"];
+
+export const shouldUseProtectedEndpoint = (
+  pathname: string,
+  context: OperationContext,
+): boolean => {
+  const isPrivilegedLocation = privilegedPaths.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
+  );
+
+  return isPrivilegedLocation || hasForcedProtectedEndpoint(context);
+};
 
 // A custom exchange that changes to the protected endpoint depending on the current location
 
@@ -13,12 +25,7 @@ const protectedEndpointExchange: Exchange =
     pipe(
       ops$,
       tap((op) => {
-        const isPrivilegedLocation = privilegedPaths.some(
-          (path) =>
-            window.location.pathname === path ||
-            window.location.pathname.startsWith(`${path}/`),
-        );
-        if (isPrivilegedLocation) {
+        if (shouldUseProtectedEndpoint(window.location.pathname, op.context)) {
           // we're updating the operation on the fly
           op.context.url = `${apiHost}${protectedUrl}`;
         }

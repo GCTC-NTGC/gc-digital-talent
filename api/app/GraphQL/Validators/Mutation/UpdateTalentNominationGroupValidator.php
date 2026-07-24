@@ -43,14 +43,17 @@ final class UpdateTalentNominationGroupValidator extends Validator
                 'list',
                 'distinct',
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
-                    ['min:0'],  // we will eventually require classifications when approving
-                    ['max:0']), // unless approved, can't sync any classifications
+                    ['min:1'],
+                    ['prohibited']), // unless approved, can't sync any classifications
+            ],
+            'talentNominationGroup.advancementClassifications.sync.*' => [
+                'exists:classifications,id',
             ],
             'talentNominationGroup.referralExpiryDate' => [
                 // when updating a decision, updating the referral expiry date is also required
                 'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
-                    ['present'], // ['todayOrAfter'],  // we will eventually require expiry date when approving
+                    ['date'],
                     ['prohibited']), // must be null if not approved
             ],
         ];
@@ -62,6 +65,12 @@ final class UpdateTalentNominationGroupValidator extends Validator
             'talentNominationGroup.advancementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE->name,
             'talentNominationGroup.lateralMovementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE->name,
             'talentNominationGroup.developmentProgramsDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE->name,
+            'talentNominationGroup.advancementClassifications.required_with' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.advancementClassifications.sync.min' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.advancementClassifications.sync.prohibited' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name,
+            'talentNominationGroup.advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
+            'talentNominationGroup.referralExpiryDate.present_with' => ErrorCode::REFERRAL_EXPIRY_DATE_REQUIRED->name,
+            'talentNominationGroup.referralExpiryDate.prohibited' => ErrorCode::REFERRAL_EXPIRY_DATE_PROHIBITED->name,
         ];
     }
 }

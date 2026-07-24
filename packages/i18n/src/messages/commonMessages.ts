@@ -641,6 +641,11 @@ const commonMessages = defineMessages({
     id: "M9Q1zH",
     description: "Status text for partially approved nominations",
   },
+  specialApplication: {
+    defaultMessage: "Special application",
+    id: "96yWSc",
+    description: "Special application label",
+  },
 });
 
 export default commonMessages;

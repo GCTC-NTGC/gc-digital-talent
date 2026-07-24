@@ -12,12 +12,12 @@ To set up a local development environment, run these commands from anywhere in r
    - For testing admin accounts:
      1. Navigate to http://localhost:8000/login
      2. Enter `admin@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
-     3. Navigate to http://localhost:8000/admin/dashboard
+     3. Navigate to http://localhost:8000/admin
    - For testing applicant accounts:
      1. Navigate to http://localhost:8000/en/login-info
      2. Click on "Sign in with GCKey"
      3. Enter `applicant@test.com` as the "User/subject" (the "Claims" input can be left blank, and there is no password)
-     4. Navigate to http://localhost:8000/en/talent/profile
+     4. Navigate to http://localhost:8000/en/applicant
 
 ## Environment Maintenance
 
@@ -39,17 +39,15 @@ In order to compile and render UI for development, you have two options:
 
 ### Logging into the UI
 
-- Navigate to the app you'd like to work on (e.g. `cd apps/web`)
-- Run `pnpm run watch`
+- From project root run `pnpm run watch`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and refresh your page
 
 ### Running Storybook
 
-- Navigate to the app you'd like to work on (e.g. `cd apps/web`)
-- Run `pnpm run storybook`
+- From project root run `pnpm run storybook`
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
 
-> [!TIP]  
+> [!TIP]
 > Having trouble with Storybook `.cache` permissions? Try running `sudo chmod 777 -R node_modules/.cache` from the relevant workspace.

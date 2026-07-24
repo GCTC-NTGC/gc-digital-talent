@@ -181,6 +181,7 @@ type User {
 
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
     @canResolved(ability: "view") # Search requests submitted by a user
+  talentRequests: [TalentRequest!] @hasMany(scopes: ["whereAuthorizedToView"]) # Talent requests submitted by a user
   # Nominations
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
@@ -1090,7 +1091,8 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
-  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
+  talentSources: [LocalizedTalentRequestSource!]
+    @rename(attribute: "talent_sources")
 }
 
 type PoolCandidateSearchRequest {
@@ -1181,25 +1183,18 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [LocalizedTalentRequestSource!]!
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @field(resolver: "Sources")
+    @with(relation: "talentRequest.applicantFilter")
   # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAtLevelSources: [CommunityInterest!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1485,7 +1480,6 @@ input OrderByColumnInput {
   nulls: NullsOption
 }
 
-# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
@@ -1595,11 +1589,6 @@ input PoolCandidatePoolNameOrderByInput {
   order: SortOrder!
 }
 
-type CandidateSearchPoolResult {
-  pool: Pool! @canResolved(ability: "view")
-  candidateCount: Int! @rename(attribute: "candidate_count")
-}
-
 input TalentRequestMatchFilterInput {
   applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String @scope(name: "whereGeneralSearch")
@@ -1630,6 +1619,13 @@ type TalentRequestResult {
 
 type TalentRequestMatchPoolCount {
   pool: Pool!
+  count: Int!
+}
+
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
   count: Int!
 }
 
@@ -1766,7 +1762,6 @@ type Query {
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
-  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   talentRequestMatches(
     where: TalentRequestMatchFilterInput
       @scope(name: "whereMatchesTalentRequest")
@@ -1783,6 +1778,9 @@ type Query {
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(
+    where: TalentRequestMatchFilterInput
+  ): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
@@ -1863,11 +1861,6 @@ type Query {
       scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
-  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
-  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
-  countPoolCandidatesByPool(
-    where: ApplicantFilterInput
-  ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
   classifications(availableInSearch: Boolean @scope): [Classification]!
     @all
@@ -1916,7 +1909,6 @@ type Query {
   talentRequestTrackedUsers(
     talentRequestId: UUID!
       @eq(key: "talent_request_id")
-      @scope(name: "withTalentRequestMatches")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -2842,6 +2834,7 @@ input CreateApplicantFilterInput {
   qualifiedInClassifications: ClassificationBelongsToMany
   qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 input ApplicantFilterBelongsTo {

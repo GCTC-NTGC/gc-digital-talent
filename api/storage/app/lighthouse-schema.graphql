@@ -490,13 +490,12 @@ type Query {
   govEmployeeProfile(workEmail: String!): BasicGovEmployeeProfile
   workEmails(search: String, limit: Int = 5): [UserWorkEmail!]!
   trashedExperienceSkill(where: TrashedExperienceSkillInput!): ExperienceSkillRecord
-  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   countTalentRequestMatches(where: TalentRequestMatchFilterInput): Int!
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
   publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
-  countPoolCandidatesByPool(where: ApplicantFilterInput): [CandidateSearchPoolResult!]!
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
   department(id: UUID!): Department
@@ -927,6 +926,7 @@ type User {
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
   poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
+  talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
 
@@ -1613,7 +1613,7 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!]
   pools: [Pool]
   community: Community
-  talentSources: [TalentRequestSource!]
+  talentSources: [LocalizedTalentRequestSource!]
 }
 
 type PoolCandidateSearchRequest {
@@ -2031,11 +2031,6 @@ input PoolCandidatePoolNameOrderByInput {
   order: SortOrder!
 }
 
-type CandidateSearchPoolResult {
-  pool: Pool!
-  candidateCount: Int!
-}
-
 input TalentRequestMatchFilterInput {
   applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String
@@ -2060,6 +2055,13 @@ type TalentRequestResult {
 
 type TalentRequestMatchPoolCount {
   pool: Pool!
+  count: Int!
+}
+
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
   count: Int!
 }
 
@@ -2759,6 +2761,7 @@ input CreateApplicantFilterInput {
   qualifiedInClassifications: ClassificationBelongsToMany
   qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
+  talentSources: [TalentRequestSource!]
 }
 
 input ApplicantFilterBelongsTo {
@@ -4256,6 +4259,7 @@ enum ErrorCode {
   APPLICATION_DELETE_FAILED
   APPLICATION_WORK_EMAIL_NOT_VERIFIED
   APPLICATION_INVALID_EXPERIENCE_FOR_EDUCATION_REQUIREMENT
+  APPLICATION_INVALID_QUESTION_RESPONSE
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
@@ -4355,6 +4359,10 @@ enum ErrorCode {
   ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND
   NINE_BOX_RATINGS_REQUIRED_FOR_EVENT
   NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
+  ADVANCEMENT_CLASSIFICATIONS_REQUIRED
+  ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
+  REFERRAL_EXPIRY_DATE_REQUIRED
+  REFERRAL_EXPIRY_DATE_PROHIBITED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED

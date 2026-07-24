@@ -185,7 +185,7 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
     talentNominationsAsSubmitter {
       id
     }
-    poolCandidateSearchRequests {
+    talentRequests {
       id
     }
     ...TalentManagementTaskCard
@@ -236,7 +236,7 @@ export const DashboardPage = ({
 
   const displayTalentManagementTaskCard =
     !!currentUser?.talentNominationsAsSubmitter?.length ||
-    !!currentUser?.poolCandidateSearchRequests?.length;
+    !!currentUser?.talentRequests?.length;
 
   const personalInformationState =
     workPreferencesSectionHasEmptyRequiredFields(currentUser) ||
@@ -549,10 +549,7 @@ export const DashboardPage = ({
 };
 
 const context: Partial<OperationContext> = {
-  additionalTypenames: [
-    "PoolCandidateSearchRequest",
-    "OffPlatformRecruitmentProcess",
-  ],
+  additionalTypenames: ["TalentRequest", "OffPlatformRecruitmentProcess"],
 };
 
 const ApplicantDashboard_Query = graphql(/* GraphQL */ `

@@ -24,22 +24,26 @@ import {
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
   positionTypeToYesNoSupervisoryStatement,
+  TALENT_REQUEST_STATUS_COLOUR_MAP,
 } from "~/utils/searchRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
-import { deriveChipSettings, deriveSingleString } from "./utils";
+import { deriveSingleString } from "./utils";
 
 const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
-  query ReviewTalentRequestDialog($id: ID!) {
-    poolCandidateSearchRequest(id: $id) {
+  query ReviewTalentRequestDialog($id: UUID!) {
+    talentRequest(id: $id) {
       id
       reason {
         label {
           localized
         }
       }
-      status {
+      talentRequestStatus {
         value
+        label {
+          localized
+        }
       }
       additionalComments
       applicantFilter {
@@ -92,9 +96,7 @@ const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
 `);
 
 interface ReviewTalentRequestDialogContentProps {
-  request: NonNullable<
-    ReviewTalentRequestDialogQuery["poolCandidateSearchRequest"]
-  >;
+  request: NonNullable<ReviewTalentRequestDialogQuery["talentRequest"]>;
 }
 
 const ReviewTalentRequestDialogContent = ({
@@ -106,8 +108,12 @@ const ReviewTalentRequestDialogContent = ({
     id: "+O6J4u",
     description: "Text shown when the filter was not selected",
   });
-  const statusChipSettings = request.status
-    ? deriveChipSettings(request.status.value, intl)
+  const statusChipSettings = request.talentRequestStatus
+    ? {
+        color:
+          TALENT_REQUEST_STATUS_COLOUR_MAP[request.talentRequestStatus.value],
+        label: request.talentRequestStatus.label.localized,
+      }
     : null;
   const classifications = unpackMaybes(
     request.applicantFilter?.qualifiedInClassifications,
@@ -378,10 +384,8 @@ const ReviewTalentRequestDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <Pending fetching={fetching} error={error} inline={true}>
-            {data?.poolCandidateSearchRequest ? (
-              <ReviewTalentRequestDialogContent
-                request={data.poolCandidateSearchRequest}
-              />
+            {data?.talentRequest ? (
+              <ReviewTalentRequestDialogContent request={data.talentRequest} />
             ) : (
               <ThrowNotFound
                 message={intl.formatMessage(commonMessages.notFound)}

@@ -12,12 +12,7 @@ import type { IconType } from "@gc-digital-talent/ui";
 import { Link, ScrollToLink } from "@gc-digital-talent/ui";
 
 export type Status =
-  | "error"
-  | "success"
-  | "warning"
-  | "optional"
-  | "not done"
-  | "locked";
+  "error" | "success" | "warning" | "optional" | "not done" | "locked";
 type Layout = "compact" | "hero";
 
 const statusItem = tv({

@@ -200,10 +200,7 @@ const UserTable = ({ title }: UserTableProps) => {
     if (selectedRows.length === 1) {
       downloadDoc({ id: selectedRows[0], anonymous });
     } else {
-      downloadZip({
-        ids: selectedRows,
-        anonymous,
-      });
+      downloadZip({ ids: selectedRows, anonymous });
     }
   };
 

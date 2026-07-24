@@ -17,6 +17,7 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -168,6 +169,10 @@ const NominateTalentNominee_Fragment = graphql(/* GraphQL */ `
       value
     }
     nomineeRelationshipToNominatorOther
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -197,6 +202,9 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -208,6 +216,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
         nomineeRelationshipToNominatorOther:
           talentNomination.nomineeRelationshipToNominatorOther ?? "",
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}

@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\TalentRequestSource;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\TalentRequest;
@@ -125,6 +126,32 @@ class TalentRequestTest extends TestCase
                 'fullName' => 'Test User',
                 'email' => 'test@gc.ca',
             ]);
+    }
+
+    public function testCreateStoresTalentSources(): void
+    {
+        $response = $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                        'talentSources' => [
+                            TalentRequestSource::QUALIFIED_IN_POOL->name,
+                            TalentRequestSource::AT_LEVEL->name,
+                        ],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLErrorFree();
+
+        $id = $response->json('data.createTalentRequest.id');
+        $talentRequest = TalentRequest::find($id);
+
+        $this->assertEqualsCanonicalizing(
+            [TalentRequestSource::QUALIFIED_IN_POOL->name, TalentRequestSource::AT_LEVEL->name],
+            $talentRequest->applicantFilter->talent_sources,
+        );
     }
 
     public function testCreateRejectsNonGovernmentEmail(): void

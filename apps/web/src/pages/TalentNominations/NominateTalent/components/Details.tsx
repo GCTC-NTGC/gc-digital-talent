@@ -29,6 +29,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -101,9 +102,7 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
 `);
 
 type NominationOption =
-  | "advancement"
-  | "lateralMovement"
-  | "developmentProgram";
+  "advancement" | "lateralMovement" | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
   nominationOptions: (NominationOption | null)[];
@@ -544,10 +543,12 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
     talentNominationEvent {
+      id
       communityDevelopmentPrograms(trashed: WITH) {
         id
         ...DetailsCommunityDevelopmentProgram
       }
+      closeDate
     }
     nominateForAdvancement
     advancementReference {
@@ -709,6 +710,9 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     defaultReference = talentNomination.advancementReference?.id ?? null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
@@ -747,6 +751,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         developmentProgramOptionsOther:
           talentNomination?.developmentProgramOptionsOther ?? "",
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={RectangleGroupIcon}>
         {intl.formatMessage(messages.nominationDetails)}

@@ -45,6 +45,11 @@ export const clientLoader: ClientLoaderFunction = ({ request }) => {
     throw redirect(from);
   }
 
+  const reason = url.searchParams.get("logout_reason");
+  if (reason) {
+    localStorage.setItem(LOGOUT_REASON_KEY, reason);
+  }
+
   const overridePath = sessionStorage.getItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
   if (overridePath) {
     sessionStorage.removeItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
@@ -75,6 +80,7 @@ export const Component = () => {
 
   let alert;
   switch (logoutReason) {
+    case "invalid-session":
     case "session-expired":
       alert = (
         <Notice.Root color="warning" mode="card">

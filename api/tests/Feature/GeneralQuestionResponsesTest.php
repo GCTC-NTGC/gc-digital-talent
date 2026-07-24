@@ -15,6 +15,10 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
+use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertEqualsCanonicalizing;
+use function PHPUnit\Framework\assertNotNull;
+
 class GeneralQuestionResponsesTest extends TestCase
 {
     use MakesGraphQLRequests;
@@ -204,5 +208,91 @@ class GeneralQuestionResponsesTest extends TestCase
         ])->assertJsonMissing([
             'answer' => 'the answer',
         ]);
+    }
+
+    /** Updating a general question response from a different application should fail. */
+    public function testCannotUpdateOtherApplicationsGeneralQuestionResponse(): void
+    {
+        $attackerApplication = PoolCandidate::factory()->create([
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->processOperator->id,
+        ]);
+
+        $victimUser = User::factory()->asApplicant()->create();
+        $victimApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $victimUser->id,
+        ]);
+
+        $victimResponse = GeneralQuestionResponse::create([
+            'pool_candidate_id' => $victimApplication->id,
+            'general_question_id' => $this->questionId,
+            'answer' => 'victim answer',
+        ]);
+
+        $response = $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
+            'id' => $attackerApplication->id,
+            'application' => [
+                'generalQuestionResponses' => [
+                    'update' => [
+                        [
+                            'id' => $victimResponse->id,
+                            'answer' => 'tampered',
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
+        $validationErrors = $response->json('errors.0.extensions.validation');
+        assertNotNull($validationErrors, 'Expected validation errors for cross-application update');
+        assertEqualsCanonicalizing(
+            ['application.generalQuestionResponses.update.0.id' => ['APPLICATION_INVALID_QUESTION_RESPONSE']],
+            $validationErrors
+        );
+
+        $victimResponse->refresh();
+        assertEquals('victim answer', $victimResponse->answer);
+    }
+
+    /** Deleting a general question response from a different application should fail. */
+    public function testCannotDeleteOtherApplicationsGeneralQuestionResponse(): void
+    {
+        $attackerApplication = PoolCandidate::factory()->create([
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->processOperator->id,
+        ]);
+
+        $victimUser = User::factory()->asApplicant()->create();
+        $victimApplication = PoolCandidate::factory()->create([
+            'pool_id' => $this->pool->id,
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $victimUser->id,
+        ]);
+
+        $victimResponse = GeneralQuestionResponse::create([
+            'pool_candidate_id' => $victimApplication->id,
+            'general_question_id' => $this->questionId,
+            'answer' => 'victim answer',
+        ]);
+
+        $response = $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
+            'id' => $attackerApplication->id,
+            'application' => [
+                'generalQuestionResponses' => [
+                    'delete' => [$victimResponse->id],
+                ],
+            ],
+        ]);
+
+        $validationErrors = $response->json('errors.0.extensions.validation');
+        assertNotNull($validationErrors, 'Expected validation errors for cross-application delete');
+        assertEqualsCanonicalizing(
+            ['application.generalQuestionResponses.delete.0' => ['APPLICATION_INVALID_QUESTION_RESPONSE']],
+            $validationErrors
+        );
+
+        assertNotNull(GeneralQuestionResponse::find($victimResponse->id), 'Victim response should not be deleted');
     }
 }

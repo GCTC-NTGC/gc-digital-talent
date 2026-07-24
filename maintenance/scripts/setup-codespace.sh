@@ -85,7 +85,7 @@ echo "✓ apps/web/.env updated"
 # external browser.
 # ---------------------------------------------------------------------------
 
-NGINX_CONF="infrastructure/conf/nginx-conf-local/default"
+NGINX_CONF="infrastructure/conf/nginx-local.conf"
 
 sed -i "s|proxy_set_header X-Forwarded-Proto http;|proxy_set_header X-Forwarded-Proto https;|" "${NGINX_CONF}"
 sed -i "s|proxy_set_header Host localhost:8000;|proxy_set_header Host ${APP_HOST};|" "${NGINX_CONF}"

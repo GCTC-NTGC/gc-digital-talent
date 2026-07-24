@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
 import { useHasPermissions } from "@gc-digital-talent/auth";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -27,6 +28,9 @@ export const NominateTalentInstructions_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       id
       closeDate
+      community {
+        teamIdForRoleAssignment
+      }
       customInstructions {
         localized
       }
@@ -52,10 +56,11 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
 
   const canNominatePast = useHasPermissions({
     permission: Permission.CreateOwnPastTalentNomination,
+    teamId: data?.talentNominationEvent?.community?.teamIdForRoleAssignment,
   });
 
   const closeDate = data?.talentNominationEvent?.closeDate;
-  const isPastEvent = closeDate ? new Date() > new Date(closeDate) : false;
+  const isPastEvent = isPastDateTime(closeDate);
   const showDialogue = isPastEvent && canNominatePast && !showForm;
 
   const handleToNomination = () => {
@@ -139,7 +144,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   }
 
   return (
-    <UpdateForm>
+    <UpdateForm isPastEvent={isPastEvent}>
       <SubHeading icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",

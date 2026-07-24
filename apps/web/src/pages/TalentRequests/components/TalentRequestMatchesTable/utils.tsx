@@ -8,6 +8,7 @@ import {
   type AdvancedOrderByInput,
   type FragmentType,
   type LocalizedProvinceOrTerritory,
+  type Pool,
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -36,6 +37,12 @@ export const locationAccessor = (
   }
 
   return strings.join(", ");
+};
+
+export const poolListNameAccessor = (pools: Partial<Pool>[]): string => {
+  return pools
+    .map(({ displayName }) => displayName?.display.localized)
+    .join(", ");
 };
 
 export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
@@ -73,7 +80,9 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
         id
       }
       positionDuration
-      talentSources
+      talentSources {
+        value
+      }
     }
   `,
 );
@@ -124,7 +133,9 @@ export function transformApplicantFilterToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
-    talentSources: unpackMaybes(applicantFilter?.talentSources),
+    talentSources: unpackMaybes(applicantFilter?.talentSources).map(
+      ({ value }) => value,
+    ),
   };
 }
 

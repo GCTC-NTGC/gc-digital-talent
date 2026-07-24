@@ -167,4 +167,40 @@ class AuthControllerTest extends TestCase
         $this->assertSame('duplicate@gc.ca', $newUser->email);
         $this->assertSame('duplicate@gc.ca', $newUser->work_email);
     }
+
+    public function testMismatchedSessionStateRedirectsToLoggedOutWithoutError()
+    {
+        Http::fake();
+
+        $response = $this->withSession([
+            'state' => 'original-state',
+            'nonce' => 'original-nonce',
+        ])->call('GET', '/auth-callback', [
+            'state' => 'different-state',
+            'nonce' => 'original-nonce',
+            'code' => 'code',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertStringContainsString('reason=invalid-session', $response->headers->get('Location'));
+        Http::assertNothingSent();
+        assertSame(0, count(User::all()));
+    }
+
+    public function testMissingSessionStateRedirectsToLoggedOutWithoutError()
+    {
+        Http::fake();
+
+        // no 'state' or 'nonce' put into the session, simulating an expired
+        // or already-consumed session (eg. from a repeat callback request)
+        $response = $this->withSession([])->call('GET', '/auth-callback', [
+            'state' => 'some-state',
+            'nonce' => 'some-nonce',
+            'code' => 'code',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertStringContainsString('reason=invalid-session', $response->headers->get('Location'));
+        Http::assertNothingSent();
+    }
 }

@@ -4,12 +4,15 @@ import type {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 export interface FormValues {
   advancementDecision: TalentNominationGroupDecision | null;
   advancementReferenceConfirmed: boolean | null;
   advancementApprovedNotes: string | null;
   advancementRejectedNotes: string | null;
+  advancementClassifications: string[];
+  referralExpiryDate: string;
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
@@ -19,9 +22,7 @@ export interface FormValues {
 }
 
 type Decision =
-  | Pick<LocalizedTalentNominationGroupDecision, "value">
-  | null
-  | undefined;
+  Pick<LocalizedTalentNominationGroupDecision, "value"> | null | undefined;
 
 // return the value if the decision is approved, or null otherwise
 function ifApproved(decision: Decision, value: string | null | undefined) {
@@ -63,6 +64,10 @@ export function convertQueryDataToFormData(
       queryData?.advancementDecision,
       queryData?.advancementNotes,
     ),
+    advancementClassifications: unpackMaybes(
+      queryData?.advancementClassifications,
+    ).map(({ id }) => id),
+    referralExpiryDate: queryData?.referralExpiryDate ?? "",
     lateralMovementDecision: queryData?.lateralMovementDecision?.value ?? null,
     lateralMovementApprovedNotes: ifApproved(
       queryData?.lateralMovementDecision,
@@ -108,11 +113,9 @@ export function convertFormValuesToMutationInput(
       formValues.developmentProgramsApprovedNotes,
       formValues.developmentProgramsRejectedNotes,
     ),
-    // no UI yet
     advancementClassifications: {
-      sync: [],
+      sync: formValues.advancementClassifications,
     },
-    // no UI yet
-    referralExpiryDate: null,
+    referralExpiryDate: formValues.referralExpiryDate || null,
   };
 }
