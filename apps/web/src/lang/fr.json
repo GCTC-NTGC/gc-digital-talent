@@ -1339,6 +1339,10 @@
     "defaultMessage": "Critères de la candidature",
     "description": "Heading for section outlining the criteria submitted for a talent request"
   },
+  "33I+qy": {
+    "defaultMessage": "Modifier un événement de mise en candidature pour la gestion des talents",
+    "description": "Page title for the talent nomination event edit page"
+  },
   "34NvoS": {
     "defaultMessage": "L'ancienneté du poste",
     "description": "Label for the seniority of the role radio group"
@@ -5158,10 +5162,6 @@
   "Ifl7BO": {
     "defaultMessage": "Cet utilisateur n’a pas sélectionné de compétences à améliorer.",
     "description": "Message displayed when a user has not added any skills for improvement"
-  },
-  "Ifq2iQ": {
-    "defaultMessage": "Modifier un événement de mise en candidature pour la gestion des talents",
-    "description": "Page title for the talent nomination event create page"
   },
   "IgniT6": {
     "defaultMessage": "Justification",
