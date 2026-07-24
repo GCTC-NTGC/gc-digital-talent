@@ -197,10 +197,7 @@ export type DepartmentTeamable = Pick<
 type TeamTeamable = Pick<Team, "id" | "__typename">;
 
 type Teamable =
-  | PoolTeamable
-  | CommunityTeamable
-  | TeamTeamable
-  | DepartmentTeamable;
+  PoolTeamable | CommunityTeamable | TeamTeamable | DepartmentTeamable;
 
 export interface PoolAssignment {
   pool: PoolTeamable;
