@@ -5,7 +5,8 @@
   "type": "module",
   "types": "./src/index.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./schema-types": "./src/gql/schema-types.ts"
   },
   "scripts": {
     "codegen": "graphql-codegen --config codegen.ts",
