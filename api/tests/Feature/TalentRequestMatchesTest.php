@@ -759,7 +759,11 @@ class TalentRequestMatchesTest extends TestCase
     {
         $community = Community::factory()->create();
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $user->id,
             'community_id' => $community->id,
@@ -779,7 +783,11 @@ class TalentRequestMatchesTest extends TestCase
     {
         $community = Community::factory()->create();
 
-        $consented = User::factory()->create();
+        $consented = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         CommunityInterest::factory()->consented()->create([
             'user_id' => $consented->id,
             'community_id' => $community->id,
@@ -802,7 +810,11 @@ class TalentRequestMatchesTest extends TestCase
         $matching = Community::factory()->create();
         $other = Community::factory()->create();
 
-        $included = User::factory()->create();
+        $included = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         CommunityInterest::factory()->consented()->create([
             'user_id' => $included->id,
             'community_id' => $matching->id,
@@ -852,7 +864,11 @@ class TalentRequestMatchesTest extends TestCase
         // QUALIFIED_IN_POOL only — no community interest
         $this->matchingUser($pool);
 
-        $atLevelUser = User::factory()->create();
+        $atLevelUser = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         $interest = CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
@@ -871,7 +887,11 @@ class TalentRequestMatchesTest extends TestCase
     {
         $community = Community::factory()->withWorkStreams()->create();
 
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
         $workStreamId = $interest->workStreams()->first()->id;
 
@@ -920,7 +940,11 @@ class TalentRequestMatchesTest extends TestCase
 
         $poolUser = $this->matchingUser($pool);
 
-        $atLevelUser = User::factory()->create();
+        $atLevelUser = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
         CommunityInterest::factory()->consented()->create([
             'user_id' => $atLevelUser->id,
             'community_id' => $community->id,
