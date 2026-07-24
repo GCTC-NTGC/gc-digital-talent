@@ -761,7 +761,7 @@ type Mutation {
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
   updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
-  updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
+  updateTalentNomination(talentNomination: UpdateTalentNominationInput!): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
   updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
@@ -2700,6 +2700,7 @@ input CreateTalentNominationInput {
 }
 
 input UpdateTalentNominationInput {
+  id: UUID!
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
