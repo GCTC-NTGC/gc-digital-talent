@@ -13,6 +13,7 @@ export interface FormValues {
     en: string | null;
     fr: string | null;
   };
+  includeNineBox: boolean;
   includeLeadershipCompetencies: boolean;
   community: string;
   communityDevelopmentPrograms: {

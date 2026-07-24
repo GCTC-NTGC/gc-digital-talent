@@ -99,6 +99,7 @@ const UpdateTalentEventForm = ({
           "Canada/Pacific",
         ),
       ),
+      includeNineBox: talentNominationEvent.includeNineBox,
       includeLeadershipCompetencies:
         talentNominationEvent.includeLeadershipCompetencies,
       community: talentNominationEvent.community.id,

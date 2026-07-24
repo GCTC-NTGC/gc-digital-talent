@@ -28,7 +28,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     {
         $name = Helper::standardize($name);
 
-        $isProtectedRequest = Request::get('isProtectedRequest');
+        $isProtectedRequest = Request::instance()->attributes->get('isProtectedRequest');
         $isNotRoutedRequest = is_null(Route::current());
 
         $isLimitedRole = $this->isLimited($name, $this::LIMITED_ROLES, $requireAll);
@@ -44,7 +44,7 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
     {
         $permission = Helper::standardize($permission);
 
-        $isProtectedRequest = Request::get('isProtectedRequest');
+        $isProtectedRequest = Request::instance()->attributes->get('isProtectedRequest');
         $limitedPermissions =
         Cache::remember('limitedPermissions', 3600, function () {
             return

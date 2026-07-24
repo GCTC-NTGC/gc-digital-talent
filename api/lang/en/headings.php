@@ -232,6 +232,8 @@ return [
     'references_work_email' => 'References work email',
     'references_classification' => 'References classification',
     'references_department' => 'Reference’s department or agency',
+    'nine_box_performance' => 'Nine box performance',
+    'nine_box_leadership_potential' => 'Nine box leadership potential',
     'lateral_movement_options' => 'Lateral movement options',
     'development_program_recommendations' => 'Recommended development opportunities',
     'other' => 'Other:',

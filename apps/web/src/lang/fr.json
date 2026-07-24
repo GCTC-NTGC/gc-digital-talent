@@ -3051,10 +3051,6 @@
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
   },
-  "A3m7l/": {
-    "defaultMessage": "Les compétences de leadership sont obligatoires pour être admissible à une candidature dans le cadre de cet événement.",
-    "description": "Label for the include leadership competencies"
-  },
   "A4dp/3": {
     "defaultMessage": "Masquer tout<hidden>es les sections de perfectionnement de carrière</hidden>",
     "description": "Button text to hide all career development sections"
@@ -3806,6 +3802,10 @@
   "D5Hqhf": {
     "defaultMessage": "Cercle de soutien",
     "description": "Title of the 'Circle of Support' subsection"
+  },
+  "D5KDrf": {
+    "defaultMessage": "Questions sur le rendement en leadership",
+    "description": "Bounding box label for the include leadership performance and potential"
   },
   "D6f8hs": {
     "defaultMessage": "1. <strong>Préparez votre appareil</strong> en téléchargeant votre application d’authentification à deux facteurs préférée.",
@@ -14789,6 +14789,10 @@
   "vRNv4w": {
     "defaultMessage": "Revoir la demande",
     "description": "Title for the review application dialog"
+  },
+  "vRkQB+": {
+    "defaultMessage": "La mise en candidature doit comprendre le rendement et le potentiel en leadership de la personne mise en candidature",
+    "description": "Label for the include leadership performance and potential"
   },
   "vUZf8Y": {
     "defaultMessage": "Texte de rechange en langage clair",
