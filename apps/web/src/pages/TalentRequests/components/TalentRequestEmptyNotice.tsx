@@ -20,24 +20,23 @@ interface TalentRequestEmptyNoticeProps {
 const TalentRequestEmptyNotice = ({ query }: TalentRequestEmptyNoticeProps) => {
   const intl = useIntl();
   const talentRequest = getFragment(TalentRequestEmptyNotice_Fragment, query);
+
+  if (!talentRequest.wasEmpty) return null;
+
   return (
-    <>
-      {talentRequest.wasEmpty && (
-        <Notice.Root color="warning">
-          <Notice.Title defaultIcon>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This request was submitted with zero matching candidates.",
-                id: "yN1xmK",
-                description:
-                  "Warning message displayed when a talent request was submitted with no matching candidates.",
-              })}
-            </p>
-          </Notice.Title>
-        </Notice.Root>
-      )}
-    </>
+    <Notice.Root color="warning">
+      <Notice.Title defaultIcon>
+        <p>
+          {intl.formatMessage({
+            defaultMessage:
+              "This request was submitted with zero matching candidates.",
+            id: "yN1xmK",
+            description:
+              "Warning message displayed when a talent request was submitted with no matching candidates.",
+          })}
+        </p>
+      </Notice.Title>
+    </Notice.Root>
   );
 };
 
