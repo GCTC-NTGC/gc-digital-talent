@@ -205,6 +205,14 @@ export default [
               group: ["~/pages"],
               message: "Please move to central location.",
             },
+            {
+              // Full schema object types (User, Pool, etc.) are for fake-data
+              // only. App code uses a fragment or the small utility types from
+              // "@gc-digital-talent/graphql". fake-data turns this rule off.
+              group: ["@gc-digital-talent/graphql/schema-types"],
+              message:
+                "Full schema object types are for fake-data only. Use a GraphQL fragment or the small utility types from @gc-digital-talent/graphql.",
+            },
           ],
         },
       ],
