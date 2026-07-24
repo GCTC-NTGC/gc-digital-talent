@@ -77,12 +77,8 @@ describe("DateInput", () => {
       inputProps: defaultProps.inputProps,
     });
 
-    expect(screen.getByRole("spinbutton", { name: /year/i })).toHaveValue(
-      2020,
-    );
-    expect(screen.getByRole("combobox", { name: /month/i })).toHaveValue(
-      "05",
-    );
+    expect(screen.getByRole("spinbutton", { name: /year/i })).toHaveValue(2020);
+    expect(screen.getByRole("combobox", { name: /month/i })).toHaveValue("05");
     expect(screen.getByRole("spinbutton", { name: /day/i })).toHaveValue(15);
   });
 
