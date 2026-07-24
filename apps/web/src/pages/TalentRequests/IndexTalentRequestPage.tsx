@@ -22,7 +22,7 @@ const IndexTalentRequestPage = () => {
     crumbs: [
       {
         label: pageTitle,
-        url: paths.searchRequestTable(),
+        url: paths.talentRequests(),
       },
     ],
   });

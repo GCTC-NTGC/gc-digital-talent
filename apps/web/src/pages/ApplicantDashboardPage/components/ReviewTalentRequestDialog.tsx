@@ -25,7 +25,7 @@ import {
   positionDurationToEmploymentDuration,
   positionTypeToYesNoSupervisoryStatement,
   TALENT_REQUEST_STATUS_COLOUR_MAP,
-} from "~/utils/searchRequestUtils";
+} from "~/utils/talentRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import { deriveSingleString } from "./utils";

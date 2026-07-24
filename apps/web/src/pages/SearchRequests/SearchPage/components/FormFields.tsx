@@ -32,7 +32,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 
-import { NullSelection } from "~/types/searchRequest";
+import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";

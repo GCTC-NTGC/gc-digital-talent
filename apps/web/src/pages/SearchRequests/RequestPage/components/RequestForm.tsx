@@ -58,7 +58,7 @@ import type {
   BrowserHistoryState,
   PartialApplicantFilter,
   FormValues as SearchFormValues,
-} from "~/types/searchRequest";
+} from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 
 const directiveLink = (chunks: ReactNode, href: string) => (

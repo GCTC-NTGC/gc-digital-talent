@@ -111,7 +111,7 @@ const useMainNavLinks = () => {
   ) ? (
     <NavItem
       key="requests"
-      href={paths.searchRequestTable()}
+      href={paths.talentRequests()}
       title={intl.formatMessage(navigationMessages.requests)}
     />
   ) : null;

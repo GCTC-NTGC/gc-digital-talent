@@ -26,13 +26,10 @@ import {
   equitySelectionsToDescriptions,
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
-} from "~/utils/searchRequestUtils";
+} from "~/utils/talentRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
-import type {
-  PartialApplicantFilter,
-  PartialPoolCandidateFilter,
-} from "~/types/searchRequest";
+import type { PartialApplicantFilter } from "~/types/talentRequestForm";
 
 import FilterBlock from "./FilterBlock";
 import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
@@ -280,7 +277,7 @@ const ApplicantFilters = ({
 };
 
 interface SearchRequestFiltersProps {
-  filters?: PartialApplicantFilter | PartialPoolCandidateFilter | null;
+  filters?: PartialApplicantFilter | null;
   selectedClassifications?: (
     | Pick<Classification, "groupAndLevel">
     | null
@@ -294,197 +291,12 @@ const SearchRequestFilters = ({
   filters,
   selectedClassifications,
   flexibleWorkLocationOptions,
-}: SearchRequestFiltersProps) => {
-  const intl = useIntl();
-  let poolCandidateFilter;
-  if (filters?.__typename === "ApplicantFilter") {
-    return (
-      <ApplicantFilters
-        applicantFilter={filters}
-        selectedClassifications={selectedClassifications}
-        flexibleWorkLocationOptions={flexibleWorkLocationOptions}
-      />
-    );
-  }
-
-  if (filters?.__typename === "PoolCandidateFilter") {
-    poolCandidateFilter = filters;
-  }
-
-  const classifications: string[] | undefined =
-    poolCandidateFilter?.classifications
-      ?.filter(notEmpty)
-      .map((classification) => classification.groupAndLevel);
-
-  const pools = poolCandidateFilter
-    ? poolCandidateFilter?.pools?.filter(notEmpty)
-    : [];
-
-  const streams = pools?.map(({ workStream }) =>
-    getLocalizedName(workStream?.name, intl, true),
-  );
-
-  const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        id: "/mFrpj",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        id: "9DCx2n",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
-  const employmentEquity: string[] | undefined = [
-    ...(poolCandidateFilter?.equity?.isWoman
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Woman",
-            id: "/fglL0",
-            description:
-              "Message for woman option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.equity?.isVisibleMinority
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Visible Minority",
-            id: "4RK/oW",
-            description:
-              "Message for visible minority option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.equity?.isIndigenous
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Indigenous",
-            id: "YoIRbn",
-            description: "Title for Indigenous",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.equity?.hasDisability
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Disability",
-            id: "GHlK/f",
-            description:
-              "Message for disability option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-  ];
-
-  const operationalRequirementIds = unpackMaybes(
-    poolCandidateFilter?.operationalRequirements?.flatMap((req) => req?.value),
-  );
-
-  const operationalRequirements: string[] | undefined =
-    operationalRequirementIds.map((id) =>
-      intl.formatMessage(getOperationalRequirement(id)),
-    );
-
-  const workLocations = unpackMaybes(
-    poolCandidateFilter?.workRegions
-      ?.flatMap((workRegion) => workRegion?.label)
-      .map((label) => getLocalizedName(label, intl)),
-  );
-
-  const languageAbility = poolCandidateFilter?.languageAbility?.label
-    ? getLocalizedName(poolCandidateFilter.languageAbility.label, intl)
-    : intl.formatMessage(commonMessages.anyLanguage);
-
-  return (
-    <section>
-      <div>
-        <div className="grid gap-6 xs:grid-cols-2">
-          <div>
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Pool requested",
-                id: "HXF9GA",
-                description:
-                  "Title for the pool block in the manager info section of the single search request view.",
-              })}
-              content={
-                pools
-                  ? pools.map((pool) =>
-                      getShortPoolTitleHtml(intl, {
-                        workStream: pool.workStream,
-                        name: pool.name,
-                        publishingGroup: pool.publishingGroup,
-                        classification: pool.classification,
-                      }),
-                    )
-                  : null
-              }
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Group and level",
-                id: "Rn5e/i",
-                description:
-                  "Title for group and level on summary of filters section",
-              })}
-              content={classifications}
-            />
-            <FilterBlock
-              title={intl.formatMessage(talentRequestMessages.stream)}
-              content={streams}
-            />
-            <FilterBlock
-              title={intl.formatMessage({
-                defaultMessage: "Education level",
-                id: "ftAIM9",
-                description:
-                  "Title for education level on summary of filters section",
-              })}
-              content={educationLevel}
-            />
-          </div>
-          <div>
-            <div>
-              <FilterBlock
-                title={intl.formatMessage(
-                  commonMessages.workingLanguageAbility,
-                )}
-                content={languageAbility}
-              />
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage: "Work location",
-                  id: "3e965x",
-                  description:
-                    "Title for work location section on summary of filters section",
-                })}
-                content={workLocations}
-              />
-
-              <FilterBlock
-                title={intl.formatMessage(commonMessages.employmentEquity)}
-                content={employmentEquity}
-              />
-              <FilterBlock
-                title={intl.formatMessage({
-                  defaultMessage:
-                    "Conditions of employment or operational requirements",
-                  id: "SNxTm+",
-                  description:
-                    "Title for operational requirements section on summary of filters section",
-                })}
-                content={operationalRequirements}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
+}: SearchRequestFiltersProps) => (
+  <ApplicantFilters
+    applicantFilter={filters}
+    selectedClassifications={selectedClassifications}
+    flexibleWorkLocationOptions={flexibleWorkLocationOptions}
+  />
+);
 
 export default SearchRequestFilters;
