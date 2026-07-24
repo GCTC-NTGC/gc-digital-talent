@@ -18,9 +18,11 @@ import type { RouteParams } from "./types";
 import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
+import TalentRequestEmptyNotice from "./components/TalentRequestEmptyNotice";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
+    ...TalentRequestEmptyNotice
     ...TalentRequestDetailsCard
     ...TalentRequestSourcesCard
     ...TalentRequestCriteriaCard
@@ -44,6 +46,7 @@ const Details = ({ query, optionsQuery }: DetailsProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
+      <TalentRequestEmptyNotice query={talentRequest} />
       <TalentRequestDetailsCard query={talentRequest} />
       <TalentRequestSourcesCard
         query={talentRequest}
