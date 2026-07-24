@@ -17,7 +17,7 @@ use App\Models\WorkStream;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
-class ApplicantFilterFactory extends Factory
+class ApplicantFilterFactory extends BaseFactory
 {
     /**
      * The name of the factory's corresponding model.
@@ -33,7 +33,7 @@ class ApplicantFilterFactory extends Factory
      */
     public function definition()
     {
-        $community = Community::first();
+        $community = $this->firstOrCreate(Community::class);
 
         return [
             'has_diploma' => $this->faker->boolean(),
@@ -62,7 +62,7 @@ class ApplicantFilterFactory extends Factory
                 TalentRequestSource::class,
                 $this->faker->numberBetween(1, 3)
             ),
-            'community_id' => $community ? $community->id : Community::factory()->create()->id,
+            'community_id' => $community->id,
         ];
     }
 
@@ -95,36 +95,34 @@ class ApplicantFilterFactory extends Factory
     {
         return $this->afterCreating(function (ApplicantFilter $filter) use ($sparse) {
             $minCount = $sparse ? 0 : 1;
-            $classifications = Classification::inRandomOrder()->limit(
-                $this->faker->numberBetween($minCount, 2)
-            )->get();
-            $filter->classifications()->saveMany($classifications);
-            $skills = Skill::inRandomOrder()->limit(
-                $this->faker->numberBetween($minCount, 2)
-            )->get();
-            $filter->skills()->saveMany($skills);
 
-            $pools = Pool::whereNotNull('published_at')->inRandomOrder()->limit(
-                $this->faker->numberBetween($minCount, 1)
-            )->get();
+            $filter->classifications()->saveMany(
+                Classification::inRandomOrder()->limit($this->faker->numberBetween($minCount, 2))->get()
+            );
+
+            $filter->skills()->saveMany(
+                Skill::inRandomOrder()->limit($this->faker->numberBetween($minCount, 2))->get()
+            );
+
+            $pools = $this->faker->boolean($sparse ? 50 : 100)
+                ? collect([$this->existingOrNewPool($filter->community)])
+                : collect();
+
             $filter->pools()->saveMany($pools);
-            $filter->qualifiedInClassifications()->saveMany($pools->flatMap(fn ($pool) => $pool->classification));
-            $streams = $pools->map(fn ($pool) => $pool->workStream);
-            $filter->qualifiedInWorkStreams()->saveMany($streams);
-
-            $ATIP = Community::where('key', 'atip')->first();
-            $digital = Community::where('key', 'digital')->first();
-
-            $isATIP = $streams->contains(fn ($stream) => $stream->key === 'ACCESS_INFORMATION_PRIVACY');
-
-            if ($isATIP && $ATIP?->id) {
-                $filter->community_id = $ATIP->id;
-            } elseif ($digital?->id) {
-                $filter->community_id = $digital->id;
-            }
-
-            $filter->save();
+            $filter->qualifiedInClassifications()->saveMany($pools->pluck('classification')->filter());
+            $filter->qualifiedInWorkStreams()->saveMany($pools->pluck('workStream')->filter());
         });
+    }
+
+    /**
+     * Find a published pool belonging to the given community, or create one if none exist.
+     */
+    private function existingOrNewPool(Community $community): Pool
+    {
+        return $community->pools()
+            ->whereNotNull('published_at')
+            ->inRandomOrder()
+            ->firstOr(fn () => Pool::factory()->published()->for($community)->create());
     }
 
     /**
