@@ -32,9 +32,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  | (LocalizedEnumString | null | undefined)[]
-  | null
-  | undefined;
+  (LocalizedEnumString | null | undefined)[] | null | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -127,9 +125,7 @@ export function enumInputToLocalizedEnum<T extends string>(
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
-        | GenericLocalizedEnum<T>
-        | null
-        | undefined)
+        GenericLocalizedEnum<T> | null | undefined)
     : undefined;
 }
 

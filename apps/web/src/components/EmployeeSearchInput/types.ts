@@ -1,9 +1,7 @@
 import type { ReactNode } from "react";
 
 type ErrorMessageKey =
-  | "NO_PROFILE"
-  | "NOT_GOVERNMENT_EMAIL"
-  | "NOT_VERIFIED_GOVERNMENT_EMPLOYEE";
+  "NO_PROFILE" | "NOT_GOVERNMENT_EMAIL" | "NOT_VERIFIED_GOVERNMENT_EMPLOYEE";
 export type ErrorSeverity = "warning" | "error";
 
 export interface ErrorMessage {

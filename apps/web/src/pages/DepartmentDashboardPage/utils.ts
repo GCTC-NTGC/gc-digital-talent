@@ -21,10 +21,7 @@ type TeamTeamable = Pick<Team, "__typename">;
 type DepartmentTeamable = Pick<Department, "__typename">;
 
 type Teamable =
-  | PoolTeamable
-  | CommunityTeamable
-  | TeamTeamable
-  | DepartmentTeamable;
+  PoolTeamable | CommunityTeamable | TeamTeamable | DepartmentTeamable;
 
 export const isDepartmentTeamable = (
   teamable: Teamable | undefined | null,

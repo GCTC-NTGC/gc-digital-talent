@@ -24,9 +24,7 @@ const getTalentNominationEventStatusColor = (
 
 export const statusCell = (
   talentNominationEventStatus:
-    | LocalizedTalentNominationEventStatus
-    | null
-    | undefined,
+    LocalizedTalentNominationEventStatus | null | undefined,
 ) => {
   const color = getTalentNominationEventStatusColor(
     talentNominationEventStatus?.value,

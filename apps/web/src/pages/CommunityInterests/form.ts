@@ -202,9 +202,7 @@ export function apiDataToFormValues(
   userId: string | null | undefined,
   developmentProgramUserRecords: DevelopmentProgramUserRecordsTrainingAndDevelopmentOpportunitiesFragmentType[],
   communityInterest:
-    | UpdateCommunityInterestFormData_FragmentFragment
-    | null
-    | undefined,
+    UpdateCommunityInterestFormData_FragmentFragment | null | undefined,
   developmentProgramsForCommunity: DevelopmentProgramSlice[],
 ): FormValues {
   // the initial values for FormValues.interestInDevelopmentPrograms must have the maximum length possible, otherwise values are skewed

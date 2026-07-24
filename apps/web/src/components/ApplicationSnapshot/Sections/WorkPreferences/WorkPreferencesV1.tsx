@@ -42,16 +42,14 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements:
-    | (LocalizedOperationalRequirement | null | undefined)[]
-    | null;
+    (LocalizedOperationalRequirement | null | undefined)[] | null;
   positionDuration: (PositionDuration | null | undefined)[] | null;
   locationPreferences: (LocalizedWorkRegion | null | undefined)[] | null;
   locationExemptions: string | null;
   currentCity: string | null;
   currentProvince: LocalizedProvinceOrTerritory | null;
   flexibleWorkLocations:
-    | (LocalizedFlexibleWorkLocation | null | undefined)[]
-    | null;
+    (LocalizedFlexibleWorkLocation | null | undefined)[] | null;
 }
 
 type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;

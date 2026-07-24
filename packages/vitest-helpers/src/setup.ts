@@ -21,8 +21,9 @@ class DragEventMock {
 vi.stubGlobal("DragEvent", DragEventMock);
 
 // matchMedia
-const matchMediaMock = vi.fn().mockImplementation(
-  (query: string): MediaQueryList => ({
+const matchMediaMock = vi
+  .fn()
+  .mockImplementation((query: string): MediaQueryList => ({
     matches: false,
     media: query,
     onchange: null,
@@ -31,8 +32,7 @@ const matchMediaMock = vi.fn().mockImplementation(
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
-  }),
-);
+  }));
 
 Object.defineProperty(window, "matchMedia", {
   writable: true,
