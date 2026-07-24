@@ -199,7 +199,7 @@ class TalentSearch extends AppPage {
     await expect(this.page.getByText(/1 estimated candidate/i)).toBeVisible();
 
     await this.page.getByRole("button", { name: /submit request/i }).click();
-    await this.waitForGraphqlResponse("RequestForm_CreateRequest");
+    await this.waitForGraphqlResponse("CreateTalentRequest");
   }
 }
 export default TalentSearch;

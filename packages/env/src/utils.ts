@@ -44,7 +44,6 @@ export const getFeatureFlags = () => ({
   graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
   activityTimer: checkFeatureFlag("FEATURE_ACTIVITY_TIMER"),
   authInAppMigration: checkFeatureFlag("FEATURE_AUTH_IN_APP_MIGRATION"),
-  talentRequests: checkFeatureFlag("FEATURE_TALENT_REQUESTS"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

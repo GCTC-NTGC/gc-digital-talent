@@ -15,7 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
@@ -26,6 +25,7 @@ import {
   WorkRegion,
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
+  TalentRequestReason,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -389,16 +389,17 @@ export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   );
 }
 
-export function sortPoolCandidateSearchRequestReason(
-  poolCandidateSearchRequestReasons?: MaybeLocalizedEnums,
+export function sortTalentRequestReason(
+  TalentRequestReasons?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
     [
-      PoolCandidateSearchRequestReason.ImmediateHire,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
-      PoolCandidateSearchRequestReason.GeneralInterest,
+      TalentRequestReason.ImmediateHire,
+      TalentRequestReason.UpcomingNeed,
+      TalentRequestReason.GeneralInterest,
+      TalentRequestReason.RequiredByDirective,
     ],
-    poolCandidateSearchRequestReasons,
+    TalentRequestReasons,
   );
 }
 

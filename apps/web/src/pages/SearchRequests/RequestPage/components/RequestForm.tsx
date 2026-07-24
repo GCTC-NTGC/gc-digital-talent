@@ -20,7 +20,7 @@ import {
   errorMessages,
   enumInputToLocalizedEnum,
   narrowEnumType,
-  sortPoolCandidateSearchRequestReason,
+  sortTalentRequestReason,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -33,14 +33,12 @@ import {
 import {
   graphql,
   getFragment,
-  PoolCandidateSearchPositionType,
   FlexibleWorkLocation,
   TalentRequestPositionType,
 } from "@gc-digital-talent/graphql";
 import type {
   TalentRequestReason,
   EquitySelections,
-  CreatePoolCandidateSearchRequestInput,
   DepartmentBelongsTo,
   Classification,
   OperationalRequirement,
@@ -49,12 +47,9 @@ import type {
   ApplicantFilter,
   ApplicantFilterInput,
   FragmentType,
-  RequestForm_CreateRequestMutation as CreateRequestMutation,
   CreateTalentRequestMutation,
-  PoolCandidateSearchRequestReason,
   CreateTalentRequestInput,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
@@ -78,7 +73,7 @@ interface FormValues {
   jobTitle?: string;
   managerJobTitle?: string;
   positionType?: boolean;
-  reason: PoolCandidateSearchRequestReason | TalentRequestReason | null;
+  reason: TalentRequestReason;
   additionalComments?: string;
   hrAdvisorEmail?: string;
   applicantFilter?: {
@@ -165,9 +160,7 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
 
 const RequestOptions_Query = graphql(/* GraphQL */ `
   query RequestOptions {
-    requestReasons: localizedEnumStrings(
-      enumName: "PoolCandidateSearchRequestReason"
-    ) {
+    requestReasons: localizedEnumStrings(enumName: "TalentRequestReason") {
       value
       label {
         en
@@ -228,10 +221,6 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type SubmitData<T extends boolean> = T extends true
-  ? CreateTalentRequestInput
-  : CreatePoolCandidateSearchRequestInput;
-
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
   skills: Skill[];
@@ -243,9 +232,6 @@ export interface RequestFormProps {
   candidateCount: number | null;
   searchFormInitialValues?: SearchFormValues;
   selectedClassifications: Pick<Classification, "groupAndLevel">[];
-  handleCreatePoolCandidateSearchRequest: (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
   handleCreateTalentRequest: (
     data: CreateTalentRequestInput,
   ) => Promise<CreateTalentRequestMutation["createTalentRequest"]>;
@@ -259,10 +245,8 @@ export const RequestForm = ({
   applicantFilter,
   candidateCount,
   selectedClassifications,
-  handleCreatePoolCandidateSearchRequest,
   handleCreateTalentRequest,
 }: RequestFormProps) => {
-  const { talentRequests } = useFeatureFlags();
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
@@ -316,22 +300,13 @@ export const RequestForm = ({
 
   watch((data) => setInSessionStorage(cacheKey, data));
 
-  const formValuesToSubmitData = <T extends boolean = false>(
-    isTalentRequest: T,
+  const formValuesToSubmitData = (
     values: FormValues,
-  ): SubmitData<T> => {
+  ): CreateTalentRequestInput => {
     // checkbox checked/true means position has supervising duties
-    let positionTypeMassaged = null;
-
-    if (isTalentRequest) {
-      positionTypeMassaged = values?.positionType
-        ? TalentRequestPositionType.TeamLead
-        : TalentRequestPositionType.IndividualContributor;
-    } else {
-      positionTypeMassaged = values?.positionType
-        ? PoolCandidateSearchPositionType.TeamLead
-        : PoolCandidateSearchPositionType.IndividualContributor;
-    }
+    const positionTypeMassaged = values?.positionType
+      ? TalentRequestPositionType.TeamLead
+      : TalentRequestPositionType.IndividualContributor;
 
     // always append ONSITE to the flexible locations region
     const adjustedFlexibleWorkLocations = [
@@ -404,7 +379,7 @@ export const RequestForm = ({
         },
       },
       department: { connect: values.department ?? "" },
-    } as SubmitData<T>;
+    };
   };
 
   const handleSubmitError = () => {
@@ -420,15 +395,10 @@ export const RequestForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = talentRequests
-        ? await handleCreateTalentRequest({
-            ...formValuesToSubmitData(true, data),
-            initialResultCount: candidateCount,
-          })
-        : await handleCreatePoolCandidateSearchRequest({
-            ...formValuesToSubmitData(false, data),
-            initialResultCount: candidateCount,
-          });
+      const res = await handleCreateTalentRequest({
+        ...formValuesToSubmitData(data),
+        initialResultCount: candidateCount,
+      });
 
       if (res) {
         removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
@@ -452,7 +422,7 @@ export const RequestForm = ({
   // The applicantFilter from the location state needs to be changed from ApplicantFilterInput to the type ApplicantFilter for the SearchRequestFilters visual component.
   const applicantFilterInputToType: PartialApplicantFilter = {
     __typename: "ApplicantFilter",
-    id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
+    id: "", // Set Id to empty string since the TalentRequest doesn't exist yet.
     ...applicantFilter,
     positionDuration: unpackMaybes(applicantFilter?.positionDuration),
     languageAbility: enumInputToLocalizedEnum(
@@ -610,7 +580,7 @@ export const RequestForm = ({
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             items={localizedEnumToOptions(
-              sortPoolCandidateSearchRequestReason(optionsData?.requestReasons),
+              sortTalentRequestReason(optionsData?.requestReasons),
               intl,
             )}
           />
@@ -751,29 +721,6 @@ export const RequestForm = ({
   );
 };
 
-const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
-  mutation RequestForm_CreateRequest(
-    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
-  ) {
-    createPoolCandidateSearchRequest(
-      poolCandidateSearchRequest: $poolCandidateSearchRequest
-    ) {
-      id
-      fullName
-      email
-      department {
-        id
-      }
-      jobTitle
-      additionalComments
-      hrAdvisorEmail
-      poolCandidateFilter {
-        id
-      }
-    }
-  }
-`);
-
 const CreateTalentRequest_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
     createTalentRequest(talentRequest: $talentRequest) {
@@ -837,22 +784,6 @@ const RequestFormApi = ({
 
   const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
-  // TODO: Remove mutation and handler once talentRequests feature flag is turned on.
-  const [, executePoolCandidateMutation] = useMutation(
-    RequestForm_CreateRequestMutation,
-  );
-  const handleCreatePoolCandidateSearchRequest = (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) =>
-    executePoolCandidateMutation({ poolCandidateSearchRequest: data }).then(
-      (result) => {
-        if (result.data?.createPoolCandidateSearchRequest) {
-          return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
-        }
-        return Promise.reject(new Error(result.error?.toString()));
-      },
-    );
-
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
   );
@@ -883,9 +814,6 @@ const RequestFormApi = ({
           candidateCount={candidateCount}
           searchFormInitialValues={searchFormInitialValues}
           selectedClassifications={selectedClassifications}
-          handleCreatePoolCandidateSearchRequest={
-            handleCreatePoolCandidateSearchRequest
-          }
           handleCreateTalentRequest={handleCreateTalentRequest}
         />
       </Pending>

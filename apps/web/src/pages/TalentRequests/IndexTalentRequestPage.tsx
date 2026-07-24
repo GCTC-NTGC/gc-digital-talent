@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import { Container } from "@gc-digital-talent/ui";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
@@ -12,7 +11,6 @@ import pageTitles from "~/messages/pageTitles";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import TalentRequestTable from "./components/TalentRequestTable/TalentRequestTable";
-import IndexSearchRequestPage from "../SearchRequests/IndexSearchRequestPage/IndexSearchRequestPage";
 
 const IndexTalentRequestPage = () => {
   const intl = useIntl();
@@ -41,8 +39,6 @@ const IndexTalentRequestPage = () => {
 };
 
 const Component = () => {
-  const { talentRequests } = useFeatureFlags();
-
   return (
     <RequireAuth
       roles={[
@@ -51,7 +47,7 @@ const Component = () => {
         ROLE_NAME.PlatformAdmin,
       ]}
     >
-      {talentRequests ? <IndexTalentRequestPage /> : <IndexSearchRequestPage />}
+      <IndexTalentRequestPage />
     </RequireAuth>
   );
 };
