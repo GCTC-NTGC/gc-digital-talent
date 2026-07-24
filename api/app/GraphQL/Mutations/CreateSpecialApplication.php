@@ -20,6 +20,12 @@ final class CreateSpecialApplication
         $userId = $poolCandidateInput['user']['connect'];
         $specialApplicationLocalizedString = SpecialApplicationType::localizedString($poolCandidateInput['special_application_type']);
 
+        $specialApplicationFields = [
+            'special_application_type' => $poolCandidateInput['special_application_type'],
+            'special_application_justification' => $poolCandidateInput['special_application_justification'],
+            'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+        ];
+
         $existingPoolCandidate = PoolCandidate::where('pool_id', $poolId)
             ->where('user_id', $userId)
             ->withTrashed()
@@ -34,21 +40,15 @@ final class CreateSpecialApplication
             }
 
             // suppress the automatic update log; withoutLogging re-enables even if the update throws
-            activity()->withoutLogging(function () use ($existingPoolCandidate, $poolCandidateInput) {
-                $existingPoolCandidate->update([
-                    'special_application_type' => $poolCandidateInput['special_application_type'],
-                    'special_application_justification' => $poolCandidateInput['special_application_justification'],
-                    'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
-                ]);
+            activity()->withoutLogging(function () use ($existingPoolCandidate, $specialApplicationFields) {
+                $existingPoolCandidate->update($specialApplicationFields);
             });
 
             $existingPoolCandidate->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
                 'user_id' => $userId,
-                'special_application_type' => $poolCandidateInput['special_application_type'],
+                ...$specialApplicationFields,
                 'special_application_type_en' => $specialApplicationLocalizedString['en'],
                 'special_application_type_fr' => $specialApplicationLocalizedString['fr'],
-                'special_application_justification' => $poolCandidateInput['special_application_justification'],
-                'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
             ]);
 
             return $existingPoolCandidate;
@@ -57,13 +57,11 @@ final class CreateSpecialApplication
         // branch two
         // pool candidate to be created
         // suppress the automatic create/save logs; withoutLogging re-enables even if a write throws
-        $createdApplication = activity()->withoutLogging(function () use ($poolId, $userId, $poolCandidateInput) {
+        $createdApplication = activity()->withoutLogging(function () use ($poolId, $userId, $specialApplicationFields) {
             $application = PoolCandidate::create([
                 'pool_id' => $poolId,
                 'user_id' => $userId,
-                'special_application_type' => $poolCandidateInput['special_application_type'],
-                'special_application_justification' => $poolCandidateInput['special_application_justification'],
-                'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
+                ...$specialApplicationFields,
             ]);
 
             $application->application_status = ApplicationStatus::DRAFT->name;
@@ -76,11 +74,9 @@ final class CreateSpecialApplication
         $createdApplication->logActivity(ActivityEvent::SPECIAL_APPLICATION_CREATED, [
             'user_id' => $userId,
             'application_status' => ApplicationStatus::DRAFT->name,
-            'special_application_type' => $poolCandidateInput['special_application_type'],
+            ...$specialApplicationFields,
             'special_application_type_en' => $specialApplicationLocalizedString['en'],
             'special_application_type_fr' => $specialApplicationLocalizedString['fr'],
-            'special_application_justification' => $poolCandidateInput['special_application_justification'],
-            'special_application_closing_date' => $poolCandidateInput['special_application_closing_date'],
         ]);
 
         return $createdApplication;
