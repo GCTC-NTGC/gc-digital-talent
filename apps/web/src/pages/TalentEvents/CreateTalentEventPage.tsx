@@ -117,6 +117,10 @@ const CreateTalentEventPage = () => {
             })),
           ],
         },
+        customInstructions: {
+          en: formValues.customInstructions.en ?? "",
+          fr: formValues.customInstructions.fr ?? "",
+        },
         contactEmail: formValues.contactEmail,
       },
     })

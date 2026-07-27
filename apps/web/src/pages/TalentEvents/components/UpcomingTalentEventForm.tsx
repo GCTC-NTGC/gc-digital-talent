@@ -331,7 +331,6 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             description: "label for nomination event instructions",
           })}
           appendLanguageToLabel={"en"}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
           aria-describedby={instructionsDescriptionId}
         />
         <RichTextInput
@@ -344,7 +343,6 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             description: "label for nomination event instructions",
           })}
           appendLanguageToLabel={"fr"}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
           aria-describedby={instructionsDescriptionId}
         />
       </div>

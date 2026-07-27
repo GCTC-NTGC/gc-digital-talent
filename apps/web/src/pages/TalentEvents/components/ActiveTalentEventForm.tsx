@@ -462,7 +462,6 @@ const ActiveTalentEventForm = ({
                 description: "label for nomination event instructions",
               })}
               appendLanguageToLabel={"en"}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <RichTextInput
               id={"customInstructions.fr"}
@@ -474,7 +473,6 @@ const ActiveTalentEventForm = ({
                 description: "label for nomination event instructions",
               })}
               appendLanguageToLabel={"fr"}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
               aria-describedby={instructionsDescriptionId}
             />
           </div>
