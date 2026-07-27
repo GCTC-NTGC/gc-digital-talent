@@ -341,19 +341,7 @@ class UserBuilder extends Builder
             }
         });
 
-        // user-level attribute and location filters
-        $this->whereHasDiploma($filters['hasDiploma'] ?? null)
-            ->whereEquityIn($filters['equity'] ?? null)
-            ->whereLanguageAbility($filters['languageAbility'] ?? null)
-            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
-            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
-            ->whereSkillsAdditive($skillIds)
-            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
-            ->whereFlexibleLocationAndRegionSpecialMatching(
-                $filters['locationPreferences'] ?? null,
-                $filters['flexibleWorkLocations'] ?? null
-            );
-
+        $this->whereUserAttributesMatchTalentRequest($filters);
         $this->addSkillCountSelect($skillIds);
         $this->withTalentRequestMatches($filters);
 
@@ -364,6 +352,24 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    // Only the request's user-level attribute and location filters.
+    public function whereUserAttributesMatchTalentRequest(?array $args): self
+    {
+        $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
+
+        return $this->whereHasDiploma($filters['hasDiploma'] ?? null)
+            ->whereEquityIn($filters['equity'] ?? null)
+            ->whereLanguageAbility($filters['languageAbility'] ?? null)
+            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
+            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
+            ->whereSkillsAdditive($filters['skills'] ?? [])
+            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
+            ->whereFlexibleLocationAndRegionSpecialMatching(
+                $filters['locationPreferences'] ?? null,
+                $filters['flexibleWorkLocations'] ?? null
+            );
     }
 
     public function withTalentRequestMatches(array $filters): self

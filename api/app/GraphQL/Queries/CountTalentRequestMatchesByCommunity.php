@@ -48,9 +48,10 @@ final class CountTalentRequestMatchesByCommunity
         }
 
         if (in_array(TalentRequestSource::AT_LEVEL, $selected, true)) {
+            // whereMatchesTalentRequest already limits to users who fully match, so no second
+            // user check is needed here.
             $subQueries[] = CommunityInterest::query()
                 ->whereMatchesTalentRequest($applicantFilter)
-                ->whereHas('user', fn ($user) => $user->whereMatchesTalentRequest($filters))
                 ->select('community_interests.user_id', 'community_interests.community_id')
                 ->selectRaw("'interest' as source");
         }

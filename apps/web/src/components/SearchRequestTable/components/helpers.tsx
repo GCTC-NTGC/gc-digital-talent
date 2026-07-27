@@ -26,8 +26,7 @@ import cells from "~/components/Table/cells";
 
 export function classificationsAccessor(
   classifications:
-    | (Pick<Classification, "groupAndLevel"> | null | undefined)[]
-    | undefined,
+    (Pick<Classification, "groupAndLevel"> | null | undefined)[] | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)

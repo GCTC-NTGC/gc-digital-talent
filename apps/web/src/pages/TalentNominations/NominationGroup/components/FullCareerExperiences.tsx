@@ -87,9 +87,7 @@ const FullCareerExperiencesTalentNominationGroup_Fragment = graphql(
 
 interface FullCareerExperiencesProps {
   userQuery:
-    | FragmentType<typeof FullCareerExperiencesUser_Fragment>
-    | null
-    | undefined;
+    FragmentType<typeof FullCareerExperiencesUser_Fragment> | null | undefined;
   talentNominationGroupQuery:
     | FragmentType<typeof FullCareerExperiencesTalentNominationGroup_Fragment>
     | null

@@ -45,9 +45,7 @@ export function getSortedNominatorNames(
  */
 export function getNominatorName(
   nominator:
-    | Pick<BasicGovEmployeeProfile, "firstName" | "lastName">
-    | null
-    | undefined,
+    Pick<BasicGovEmployeeProfile, "firstName" | "lastName"> | null | undefined,
   nominatorFallbackName: string | null | undefined,
   intl: IntlShape,
 ): string {
