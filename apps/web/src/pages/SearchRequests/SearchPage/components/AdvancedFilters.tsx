@@ -20,8 +20,8 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import talentRequestMessages from "~/messages/talentRequestMessages";
-import type { FormValues } from "~/types/searchRequest";
-import { NullSelection } from "~/types/searchRequest";
+import type { FormValues } from "~/types/talentRequestForm";
+import { NullSelection } from "~/types/talentRequestForm";
 
 import FilterBlock from "./FilterBlock";
 

@@ -12,7 +12,7 @@ import type {
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
-import type { FormValues, LocationState } from "~/types/searchRequest";
+import type { FormValues, LocationState } from "~/types/talentRequestForm";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
 
