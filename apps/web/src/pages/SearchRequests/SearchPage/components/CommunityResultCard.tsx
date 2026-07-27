@@ -105,18 +105,14 @@ const CommunityResultCard = ({
           setValue("communityId", community.id);
           setValue("count", count);
         }}
+        counter={count}
       >
-        <span>
-          {intl.formatMessage({
-            defaultMessage: "Request all matching candidates",
-            id: "lDZ4wQ",
-            description:
-              "Button text to request all matching candidates for a community.",
-          })}
-        </span>
-        <span className="ml-1 rounded bg-black px-1 text-gray-100">
-          {count}
-        </span>
+        {intl.formatMessage({
+          defaultMessage: "Request all matching candidates",
+          id: "lDZ4wQ",
+          description:
+            "Button text to request all matching candidates for a community.",
+        })}
       </Button>
     </Card>
   );
