@@ -55,9 +55,7 @@ interface MenuProps {
     label?: string;
   };
   accountLinks?:
-    | ReactElement<NavItemProps>
-    | ReactElement<NavItemProps>[]
-    | null;
+    ReactElement<NavItemProps> | ReactElement<NavItemProps>[] | null;
   authParams?: string;
 }
 

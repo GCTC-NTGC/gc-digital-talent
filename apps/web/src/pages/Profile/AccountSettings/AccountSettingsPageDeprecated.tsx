@@ -76,9 +76,7 @@ const ProfileUpdateUser_Mutation = graphql(/* GraphQL */ `
 `);
 
 export type SectionKey =
-  | "personalInfo"
-  | "notificationSettings"
-  | "accountManagement";
+  "personalInfo" | "notificationSettings" | "accountManagement";
 
 interface Section {
   id: string;

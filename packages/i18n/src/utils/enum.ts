@@ -15,7 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
@@ -26,15 +25,14 @@ import {
   WorkRegion,
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
+  TalentRequestReason,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  | (LocalizedEnumString | null | undefined)[]
-  | null
-  | undefined;
+  (LocalizedEnumString | null | undefined)[] | null | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -127,9 +125,7 @@ export function enumInputToLocalizedEnum<T extends string>(
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
-        | GenericLocalizedEnum<T>
-        | null
-        | undefined)
+        GenericLocalizedEnum<T> | null | undefined)
     : undefined;
 }
 
@@ -389,16 +385,17 @@ export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   );
 }
 
-export function sortPoolCandidateSearchRequestReason(
-  poolCandidateSearchRequestReasons?: MaybeLocalizedEnums,
+export function sortTalentRequestReason(
+  TalentRequestReasons?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
     [
-      PoolCandidateSearchRequestReason.ImmediateHire,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
-      PoolCandidateSearchRequestReason.GeneralInterest,
+      TalentRequestReason.ImmediateHire,
+      TalentRequestReason.UpcomingNeed,
+      TalentRequestReason.GeneralInterest,
+      TalentRequestReason.RequiredByDirective,
     ],
-    poolCandidateSearchRequestReasons,
+    TalentRequestReasons,
   );
 }
 

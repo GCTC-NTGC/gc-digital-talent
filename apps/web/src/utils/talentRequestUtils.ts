@@ -27,7 +27,7 @@ export const positionDurationToEmploymentDuration = (
   if (durations?.includes(PositionDuration.Temporary)) {
     return EmploymentDuration.Term;
   }
-  // Search/Request currently selects TEMPORARY or PERMANENT or NULL, no combinations
+  // Talent request currently selects TEMPORARY or PERMANENT or NULL, no combinations
   // therefore if applicant.positionDuration exists, durations exists as an array of either TEMPORARY or PERMANENT
   return EmploymentDuration.Indeterminate;
 };

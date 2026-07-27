@@ -25,7 +25,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
-import type { FormValues } from "~/types/searchRequest";
+import type { FormValues } from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
 
 import { formValuesToData } from "../utils";
