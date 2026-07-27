@@ -5,8 +5,6 @@ import type {
   Classification,
   ApplicantFilter,
   Pool,
-  PoolCandidateFilter,
-  PoolCandidateSearchRequest,
 } from "@gc-digital-talent/graphql";
 
 export const NullSelection = "NULL_SELECTION";
@@ -47,17 +45,4 @@ export interface BrowserHistoryState {
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
   pools?:
     (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[] | null;
-};
-
-export type PartialPoolCandidateFilter = Omit<PoolCandidateFilter, "pools"> & {
-  pools?:
-    (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[] | null;
-};
-
-export type PartialSearchRequest = Omit<
-  PoolCandidateSearchRequest,
-  "applicantFilter" | "poolCandidateFilter"
-> & {
-  applicantFilter?: PartialApplicantFilter | null;
-  poolCandidateFilter?: PartialPoolCandidateFilter | null;
 };

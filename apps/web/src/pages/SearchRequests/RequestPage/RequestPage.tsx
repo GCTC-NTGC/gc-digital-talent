@@ -8,7 +8,7 @@ import type {
 import { Card } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
-import type { FormValues as SearchFormValues } from "~/types/searchRequest";
+import type { FormValues as SearchFormValues } from "~/types/talentRequestForm";
 
 import CreateRequest from "./components/RequestForm";
 
