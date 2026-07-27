@@ -77,7 +77,10 @@ const ControlledInput = ({
 
   const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value: newDay } = e.target;
-    handleChange(newDay ? newDay.padStart(2, "0") : "", DATE_SEGMENT.Day);
+    handleChange(
+      newDay ? String(Number(newDay)).padStart(2, "0") : "",
+      DATE_SEGMENT.Day,
+    );
   };
 
   const months = getMonthOptions(intl);
@@ -134,7 +137,7 @@ const ControlledInput = ({
             name={ID.DAY}
             type="number"
             onChange={handleDayChange}
-            value={day ? Number(day) : ""}
+            value={day ?? ""}
             max={31}
             min={1}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}
