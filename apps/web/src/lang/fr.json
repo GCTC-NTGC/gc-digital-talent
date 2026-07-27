@@ -6507,6 +6507,10 @@
     "defaultMessage": "Supprimé avec succès du profil.",
     "description": "Message displayed to user when removing a skill from their profile"
   },
+  "OAAP4p": {
+    "defaultMessage": "Une demande spéciale, {specialApplicationType}",
+    "description": "Event description when a special application is submitted"
+  },
   "OAOnyY": {
     "defaultMessage": "Expérience actuelle",
     "description": "Label displayed on Personal Experience form for current experience bounded box"
@@ -10125,6 +10129,10 @@
   "d8HawO": {
     "defaultMessage": "Ce membre du personnel a accepté de partager son profil avec les collectivités fonctionnelles suivantes pour des possibilités d’emploi ou de formation.",
     "description": "Description for Community interest section of user employee information page"
+  },
+  "dAQGYk": {
+    "defaultMessage": "Une demande spéciale, {specialApplicationType}, prend fin le {specialApplicationClosing}, pour <strong>{name}</strong>",
+    "description": "Event description when a special application is created"
   },
   "dB4fUm": {
     "defaultMessage": "Ajouter une formation ou un certificat",
