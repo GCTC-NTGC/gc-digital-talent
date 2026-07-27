@@ -7,12 +7,12 @@ import {
   type ApplicantFilter,
   type Department,
   type PoolCandidateSearchRequest,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   PoolCandidateSearchPositionType,
   PoolCandidateSearchRequestReason,
   PoolCandidateSearchStatus,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakeDepartments from "./fakeDepartments";

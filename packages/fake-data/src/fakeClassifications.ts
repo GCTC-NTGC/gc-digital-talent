@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { Classification } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql/schema-types";
 
 export default (
   group = "IT",
