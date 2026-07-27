@@ -772,8 +772,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         /** @var Builder<TalentNominationGroup> $query */
         $query
-            ->authorizedToView(['userId' => $this->authenticatedUserId])
-            ->isVerifiedGovEmployee();
+            ->authorizedToView(['userId' => $this->authenticatedUserId]);
 
         return $query;
 
