@@ -79,14 +79,6 @@ else
     add_section_block ":X: Laravel cache setup *failed*. $MENTION"
 fi
 
-# Laravel database migrations
-# - config:cache (from the "optimize" step above) freezes logging.default from the LOG_CHANNEL
-#   env var at cache time, so it must be cleared here or a runtime LOG_CHANNEL=cli override below
-#   is silently ignored; re-cached after so the running app keeps a cached config
-# - LOG_CHANNEL=cli routes any thrown exception into Azure Monitor (see config/logging.php)
-# - stderr is captured too, since Laravel/Symfony Console renders exceptions there, not stdout
-# - streamed through tee so the persistent log file has partial output even if the container
-#   hangs or is killed mid-migration, instead of nothing at all (see issue #16961)
 php artisan config:clear
 MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate --no-interaction --force --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
