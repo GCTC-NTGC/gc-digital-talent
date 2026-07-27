@@ -174,6 +174,10 @@ const UpdateTalentEventForm = ({
             })),
           ],
         },
+        customInstructions: {
+          en: formValues.customInstructions.en ?? "",
+          fr: formValues.customInstructions.fr ?? "",
+        },
         contactEmail: formValues.contactEmail,
       },
     })
