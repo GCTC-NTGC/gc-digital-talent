@@ -30,9 +30,6 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   /* GraphQL */ `
     fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
       id
-      nominee {
-        id
-      }
       talentNominationEvent {
         name {
           localized
@@ -45,19 +42,6 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
     }
   `,
 );
-
-const TalentNominationEventForHistory_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationEventForHistory on TalentNominationEvent {
-    id
-    talentNominationGroups {
-      id
-      nominee {
-        id
-      }
-      ...TalentNominationGroupHistoryNominationGroup
-    }
-  }
-`);
 
 const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupHistoryOptions on Query {
@@ -195,9 +179,15 @@ const TalentNominationGroupHistory = ({
 };
 
 const TalentNominationHistoryPage_Query = graphql(/* GraphQL */ `
-  query TalentNominationHistoryPage {
-    talentNominationEvents {
-      ...TalentNominationEventForHistory
+  query TalentNominationHistoryPage($talentNominationGroupId: UUID!) {
+    talentNominationGroup(id: $talentNominationGroupId) {
+      id
+      nominee {
+        id
+        talentNominationGroups {
+          ...TalentNominationGroupHistoryNominationGroup
+        }
+      }
     }
     ...TalentNominationGroupHistoryOptions
   }
@@ -213,28 +203,16 @@ const TalentNominationGroupHistoryPage = () => {
   );
   const [{ data, fetching, error }] = useQuery({
     query: TalentNominationHistoryPage_Query,
+    variables: { talentNominationGroupId },
   });
 
-  const events = getFragment(
-    TalentNominationEventForHistory_Fragment,
-    unpackMaybes(data?.talentNominationEvents),
-  );
-  const allGroups = events.flatMap((event) =>
-    unpackMaybes(event.talentNominationGroups),
-  );
-
-  // use the group id from the url to find its nominee then get all groups for that nominee
-  const nomineeId = allGroups.find(
-    (group) => group.id === talentNominationGroupId,
-  )?.nominee?.id;
-
-  const nominationGroups = allGroups.filter(
-    (group) => group.nominee?.id === nomineeId,
+  const nominationGroups = unpackMaybes(
+    data?.talentNominationGroup?.nominee?.talentNominationGroups,
   );
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationEvents ? (
+      {data?.talentNominationGroup ? (
         <TalentNominationGroupHistory
           nominationGroupsQuery={nominationGroups}
           optionsQuery={data}
