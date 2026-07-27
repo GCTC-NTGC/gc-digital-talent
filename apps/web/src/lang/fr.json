@@ -12270,6 +12270,10 @@
     "defaultMessage": "Salon de l’emploi et du réseautage pour femmes en STIM — Université Carleton (site en anglais)",
     "description": "Heading for Women in STEM career fair"
   },
+  "lDZ4wQ": {
+    "defaultMessage": "Demander tous les candidats correspondants",
+    "description": "Button text to request all matching candidates for a community."
+  },
   "lDnHjr": {
     "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
     "description": "Paragraph 1 of the 'Graduates and advanced talent' section"
@@ -14609,10 +14613,6 @@
   "utS0s1": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
     "description": "Title for admin dashboard on the talent cloud admin portal."
-  },
-  "utkuqx": {
-    "defaultMessage": "Demander tous les candidats correspondants {count}",
-    "description": "Button text to request all matching candidates for a community."
   },
   "utlf9l": {
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",
