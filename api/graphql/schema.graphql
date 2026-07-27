@@ -412,6 +412,16 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+  talentNominationGroups: [TalentNominationGroup!]
+    @hasMany(
+      relation: "talentNominationGroupsAsNominee"
+      scopes: ["withPolicyEagerLoads", "authorizedToView"]
+    )
+    @canResolved(
+      ability: "view"
+      model: "TalentNominationGroup"
+      scopes: ["withPolicyEagerLoads"]
+    )
 }
 
 # Mini type to support search by work email
@@ -1907,8 +1917,7 @@ type Query {
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
-    talentRequestId: UUID!
-      @eq(key: "talent_request_id")
+    talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
