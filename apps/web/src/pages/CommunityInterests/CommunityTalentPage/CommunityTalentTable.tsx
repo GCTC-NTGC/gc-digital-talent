@@ -40,7 +40,7 @@ import useSelectedRows from "~/hooks/useSelectedRows";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import talentNominationMessages from "~/messages/talentNominationMessages";
-import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import { positionDurationToEmploymentDuration } from "~/utils/talentRequestUtils";
 import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";

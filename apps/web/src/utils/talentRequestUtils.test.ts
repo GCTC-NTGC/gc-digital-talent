@@ -1,4 +1,4 @@
-import { followUpDateOverdueInfo } from "./searchRequestUtils";
+import { followUpDateOverdueInfo } from "./talentRequestUtils";
 
 describe("followUpDateOverdueInfo", () => {
   const now = new Date("2026-07-10T19:00:00Z");

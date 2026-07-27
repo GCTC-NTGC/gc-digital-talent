@@ -110,7 +110,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
-      href: adminRoutes.searchRequestTable(),
+      href: adminRoutes.talentRequests(),
       roles: permissionConstants.viewRequests,
     },
     {
