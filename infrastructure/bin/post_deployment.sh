@@ -79,6 +79,7 @@ else
     add_section_block ":X: Laravel cache setup *failed*. $MENTION"
 fi
 
+# Laravel database migrations
 php artisan config:clear
 MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate --no-interaction --force --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
