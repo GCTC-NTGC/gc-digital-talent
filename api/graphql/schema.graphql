@@ -3074,16 +3074,12 @@ input UpdateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
-input UpdateUserSkillRankingsInput {
+input UpdateUserSkillRankingsInput @validator {
   # array of skill ids
   topTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   topBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
 }
 
 input WorkExperienceHasMany {
