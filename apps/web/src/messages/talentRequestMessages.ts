@@ -166,11 +166,6 @@ const messages = defineMessages({
     id: "P1yFCo",
     description: "Label for the qualified in pool talent source",
   },
-  atLevelLabel: {
-    defaultMessage: "Community employees",
-    id: "DsQWRx",
-    description: "Label for the at-level talent source",
-  },
 });
 
 export default messages;
