@@ -85,11 +85,10 @@ const TalentNominationGroupHistory = ({
 }: TalentNominationGroupHistoryProps) => {
   const intl = useIntl();
 
-  const nominationGroups = nominationGroupsQuery
-    .map((group) =>
-      getFragment(TalentNominationGroupHistoryNominationGroup_Fragment, group),
-    )
-    .filter(Boolean);
+  const nominationGroups = getFragment(
+    TalentNominationGroupHistoryNominationGroup_Fragment,
+    nominationGroupsQuery,
+  );
 
   const options = getFragment(
     TalentNominationGroupHistoryOptions_Fragment,
