@@ -2,10 +2,7 @@
 
 namespace App\Generators;
 
-use App\Enums\DegreeType;
 use App\Enums\EducationRequirementOption;
-use App\Enums\EducationType;
-use App\Enums\FellowshipType;
 use App\Enums\PoolSkillType;
 use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\AwardExperience;
@@ -22,6 +19,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 {
     use GeneratesUserDoc;
 
+    private int $snapshotVersion;
+
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
         $fileName = sprintf(
@@ -32,6 +31,10 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         parent::__construct($fileName, $dir);
         $this->anonymous = false;
+
+        $this->snapshotVersion = $candidate->profile_snapshot['version'] ?
+            $candidate->profile_snapshot['version'] :
+            1;
     }
 
     public function generate(): self
@@ -132,7 +135,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
             /** @var EducationExperience $educationExperience */
-            $section->addListItem($this->formatEducationTitle($educationExperience));
+            $section->addListItem($educationExperience->getTitle($this->lang));
 
         });
 
@@ -169,7 +172,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         }
 
         if ($experiences && count($experiences) > 0) {
-            $this->experiences($section, collect($experiences), false, 2);
+            $this->experiences($section, collect($experiences), false, 2, $this->snapshotVersion);
         }
 
         $section->addTitle($this->localizeHeading('personal_info'), 2);
@@ -224,7 +227,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
 
                 return [
-                    'title' => $experience['experience']->getTitle($this->lang),
+                    'title' => $experience['experience']->getTitle($this->lang, $this->snapshotVersion),
                     'details' => $skill['details'] ?? '',
                     'experience_obj' => $experience['experience'],
                     'is_education' => $experience['experience'] instanceof EducationExperience,
@@ -258,58 +261,13 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             $section->addTitle($skillDetails['skill']['name'][$this->lang], 4);
             foreach ($skillDetails['experiences'] as $experience) {
                 $title = $experience['is_education'] && $experience['experience_obj'] instanceof EducationExperience
-                    ? $this->formatEducationTitle($experience['experience_obj'])
+                    ? $experience['experience_obj']->getTitle($this->lang, $this->snapshotVersion)
                     : $experience['title'];
 
                 $section->addTitle($title, 5);
                 $section->addText($experience['details']);
             }
         });
-    }
-
-    /**
-     * Format education title
-     *
-     * @param  Experience  $educationExperience  The education experience to format
-     * @return string The formatted title
-     */
-    private function formatEducationTitle(Experience $educationExperience): string
-    {
-        if (! $educationExperience instanceof EducationExperience) {
-            return $educationExperience->getTitle();
-        }
-
-        $educationType = '';
-        switch ($educationExperience->education_type) {
-            case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
-                $educationType = $this->localizeEnum($educationExperience->degree_type, DegreeType::class);
-                break;
-            case EducationType::FELLOWSHIP->name:
-                $educationType = $educationExperience->fellowship_type === FellowshipType::OTHER->name
-                    ? $educationExperience->other_fellowship_type
-                    : $this->localizeEnum($educationExperience->fellowship_type, FellowshipType::class);
-                break;
-            case EducationType::OTHER->name:
-                $educationType = $educationExperience->other_education_type ?? $this->localize('headings.other_type_of_education');
-                break;
-            default:
-                $educationType = $this->localizeEnum($educationExperience->education_type, EducationType::class);
-        }
-
-        $titleComponents = [];
-        if ($educationType) {
-            $titleComponents[] = $educationType;
-        }
-        if ($educationExperience->area_of_study) {
-            $titleComponents[] = ($educationType ? $this->localize('common.in').' ' : '')
-            .$educationExperience->area_of_study;
-        }
-        if ($educationExperience->institution) {
-            $titleComponents[] = $this->localize('common.from').' '.$educationExperience->institution;
-        }
-
-        return trim(implode(' ', $titleComponents)) ?: $educationExperience->getTitle($this->lang);
-
     }
 
     /**

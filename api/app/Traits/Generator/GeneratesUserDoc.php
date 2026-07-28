@@ -11,15 +11,12 @@ use App\Enums\CafForce;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
-use App\Enums\DegreeType;
 use App\Enums\EducationStatus;
-use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExecCoaching;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
-use App\Enums\FellowshipType;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovContractorRoleSeniority;
 use App\Enums\GovContractorType;
@@ -290,9 +287,15 @@ trait GeneratesUserDoc
      * @param  Collection  $experienceCollection  The experiences to be rendered
      * @param  bool  $withSkills  If it should include the skills associated with experiences
      * @param  int  $headingRank  The rank of headings
+     * @param  int | null  $experienceVersion  Whether to render older version of an experience, comes from snapshot version
      */
-    protected function experiences(Section $section, Collection $experienceCollection, bool $withSkills = true, int $headingRank = 3)
-    {
+    protected function experiences(
+        Section $section,
+        Collection $experienceCollection,
+        bool $withSkills = true,
+        int $headingRank = 3,
+        ?int $experienceVersion = null
+    ) {
 
         if ($experienceCollection->count() > 0) {
             $section->addTitle($this->localizeHeading('career_timeline'), $headingRank);
@@ -342,8 +345,8 @@ trait GeneratesUserDoc
 
                 $subHeadingRank = $headingRank + 2;
 
-                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank) {
-                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank);
+                $sortedGroup->each(function ($experience) use ($section, $type, $withSkills, $subHeadingRank, $experienceVersion) {
+                    $this->experience($section, $experience, $type, $withSkills, $subHeadingRank, $experienceVersion);
                 });
             }
         }
@@ -356,8 +359,14 @@ trait GeneratesUserDoc
      * @param  AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience  $experience  The experience being generated
      * @param  string  $type  The type of experience being generated
      */
-    public function experience(Section $section, AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience $experience, string $type, bool $withSkills = true, $headingRank = 4)
-    {
+    public function experience(
+        Section $section,
+        AwardExperience|CommunityExperience|EducationExperience|PersonalExperience|WorkExperience $experience,
+        string $type,
+        bool $withSkills = true,
+        $headingRank = 4,
+        ?int $experienceVersion = null
+    ) {
 
         if ($type === AwardExperience::class) {
             /** @var AwardExperience $experience */
@@ -419,36 +428,7 @@ trait GeneratesUserDoc
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
-            $educationType = '';
-            switch ($experience->education_type) {
-                case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
-                    $educationType = $this->localizeEnum($experience->degree_type, DegreeType::class);
-                    break;
-                case EducationType::FELLOWSHIP->name:
-                    $educationType = $experience->fellowship_type === FellowshipType::OTHER->name
-                        ? $experience->other_fellowship_type
-                        : $this->localizeEnum($experience->fellowship_type, FellowshipType::class);
-                    break;
-                case EducationType::OTHER->name:
-                    $educationType = $experience->other_education_type ?? $this->localize('headings.other_type_of_education');
-                    break;
-                default:
-                    $educationType = $this->localizeEnum($experience->education_type, EducationType::class);
-            }
-
-            $titleComponents = [];
-            if ($educationType) {
-                $titleComponents[] = $educationType;
-            }
-            if ($experience->area_of_study) {
-                $titleComponents[] = ($educationType ? $this->localize('common.in').' ' : '').
-                                    $experience->area_of_study;
-            }
-            if ($experience->institution) {
-                $titleComponents[] = $this->localize('common.from').' '.$experience->institution;
-            }
-
-            $title = implode(' ', $titleComponents);
+            $title = $experience->getTitle(experienceVersion: $experienceVersion);
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
@@ -481,8 +461,16 @@ trait GeneratesUserDoc
             /** @var PersonalExperience $experience */
             $section->addTitle($experience->getTitle(), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, $this->localize('headings.personal_learning_organization_platform'), $experience->organization);
-            $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
+            if ((bool) $experienceVersion && $experienceVersion === 1) {
+                // V1 Snapshot representation of a Personal Experience
+                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->description);
+                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            } else {
+                // V2 and onwards representation of a Personal Experience
+                // default rendering
+                $this->addLabelText($section, $this->localize('headings.personal_learning_organization_platform'), $experience->organization);
+                $this->addLabelText($section, $this->localize('headings.learning_description'), $experience->learning_description);
+            }
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
