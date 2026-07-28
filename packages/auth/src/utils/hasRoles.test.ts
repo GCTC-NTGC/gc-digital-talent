@@ -7,9 +7,8 @@ describe("hasRole tests", () => {
 
   test("single role and user missing it", () => {
     const testRole: RoleName = "base_user";
-    const testUserRoles = [];
 
-    expect(f(testRole, testUserRoles)).toBeFalsy();
+    expect(f(testRole, [])).toBeFalsy();
   });
 
   test("single role and user has it", () => {
@@ -29,9 +28,8 @@ describe("hasRole tests", () => {
 
   test("array of roles and user missing all of them", () => {
     const testRole: RoleName[] = ["base_user", "community_admin"];
-    const testUserRoles = [];
 
-    expect(f(testRole, testUserRoles)).toBeFalsy();
+    expect(f(testRole, [])).toBeFalsy();
   });
 
   test("array of roles and user has one", () => {
