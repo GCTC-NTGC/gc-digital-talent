@@ -2,6 +2,6 @@
 
 return [
     'qualified_in_pool' => 'Qualified in pool',
-    'at_level' => 'At level',
+    'at_level' => 'Community employees',
     'advancement' => 'Advancement',
 ];
