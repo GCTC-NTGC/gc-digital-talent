@@ -3205,10 +3205,6 @@ input UpdatePoolSkillInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-    @rules(
-      apply: ["notIn:APPLICATION_SCREENING"]
-      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
-    )
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -4247,11 +4243,16 @@ type Mutation {
   ): AssessmentStep
     @create
     @guard
+    @validator
     @canModel(ability: "create", injectArgs: true)
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update @guard @canFind(ability: "update", find: "id")
+  ): AssessmentStep
+    @update
+    @guard
+    @validator
+    @canFind(ability: "update", find: "id")
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
     @guard
     @canFind(ability: "update", find: "stepIdA")
