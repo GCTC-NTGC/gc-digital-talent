@@ -1965,7 +1965,6 @@ type Query {
 
   talentNominationGroupsByNominee(
     nomineeUserId: UUID! @eq(key: "nominee_id")
-    communityId: UUID @scope(name: "whereCommunity")
   ): [TalentNominationGroup!]!
     @all(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @guard
