@@ -14,7 +14,7 @@ import type {
   PoolSkill,
   Department,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   PoolStatus,
   PoolLanguage,
@@ -26,7 +26,7 @@ import {
   PoolOpportunityLength,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";

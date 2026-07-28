@@ -5,8 +5,8 @@ import type {
   CommunityInterest,
   DevelopmentProgram,
   WorkStream,
-} from "@gc-digital-talent/graphql";
-import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql/schema-types";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";

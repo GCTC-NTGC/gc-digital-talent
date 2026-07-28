@@ -4,7 +4,7 @@ import type {
   Community,
   DevelopmentProgram,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import toLocalizedString from "./fakeLocalizedString";
 import fakeWorkStreams from "./fakeWorkStreams";

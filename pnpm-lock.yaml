@@ -751,6 +751,9 @@ importers:
       '@graphql-codegen/client-preset':
         specifier: ^5.3.0
         version: 5.3.0(graphql@16.14.2)
+      '@graphql-codegen/typescript':
+        specifier: ^5.0.10
+        version: 5.0.10(graphql@16.14.2)
       '@parcel/watcher':
         specifier: ^2.5.4
         version: 2.5.6

@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
-import type { SkillFamily, Skill } from "@gc-digital-talent/graphql";
+import type {
+  SkillFamily,
+  Skill,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import staticSkillFamilies from "./skillFamilies.json" with { type: "json" };
 import toLocalizedString from "./fakeLocalizedString";
