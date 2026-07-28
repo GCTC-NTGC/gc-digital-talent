@@ -1969,7 +1969,6 @@ type Query {
   ): [TalentNominationGroup!]!
     @all(scopes: ["withPolicyEagerLoads", "authorizedToView"])
     @guard
-    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
