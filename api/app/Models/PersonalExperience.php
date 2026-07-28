@@ -66,7 +66,7 @@ class PersonalExperience extends Experience
         return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 
-    public function getTitle(): string
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

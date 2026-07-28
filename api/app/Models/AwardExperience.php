@@ -51,7 +51,7 @@ class AwardExperience extends Experience
         return $this->morphTo();
     }
 
-    public function getTitle(): string
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

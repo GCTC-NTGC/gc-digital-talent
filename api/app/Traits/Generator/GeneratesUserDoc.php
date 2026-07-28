@@ -370,7 +370,7 @@ trait GeneratesUserDoc
 
         if ($type === AwardExperience::class) {
             /** @var AwardExperience $experience */
-            $section->addTitle($experience->getTitle(), $headingRank);
+            $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.awarded_to'), $this->localizeEnum($experience->awarded_to, AwardedTo::class));
             if ($experience->project_name) {
@@ -379,7 +379,7 @@ trait GeneratesUserDoc
             $this->addLabelText($section, $this->localize('headings.issuing_organization'), $experience->issued_by);
             $this->addLabelText($section, $this->localize('headings.awarded_scope'), $this->localizeEnum($experience->awarded_scope, AwardedScope::class));
             if ($experience->relatedExperience) {
-                $this->addLabelText($section, $this->localize('headings.related_experience'), $experience->relatedExperience->getTitle());
+                $this->addLabelText($section, $this->localize('headings.related_experience'), $experience->relatedExperience->getTitle($this->lang));
             }
             $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
 
@@ -428,7 +428,7 @@ trait GeneratesUserDoc
 
         if ($type === EducationExperience::class) {
             /** @var EducationExperience $experience */
-            $title = $experience->getTitle(experienceVersion: $experienceVersion);
+            $title = $experience->getTitle($this->lang, $experienceVersion);
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
@@ -459,7 +459,7 @@ trait GeneratesUserDoc
 
         if ($type === PersonalExperience::class) {
             /** @var PersonalExperience $experience */
-            $section->addTitle($experience->getTitle(), $headingRank);
+            $section->addTitle($experience->getTitle($this->lang), $headingRank);
             $section->addText($experience->getDateRange($this->lang));
             if ((bool) $experienceVersion && $experienceVersion === 1) {
                 // V1 Snapshot representation of a Personal Experience

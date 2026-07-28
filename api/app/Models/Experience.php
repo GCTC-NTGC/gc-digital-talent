@@ -31,7 +31,7 @@ abstract class Experience extends Model
 
     protected static $hydrationFields;
 
-    abstract public function getTitle(): string;
+    abstract public function getTitle(?string $lang = 'en'): string;
 
     abstract public function getExperienceType(): string;
 
