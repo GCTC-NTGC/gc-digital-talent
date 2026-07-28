@@ -301,16 +301,6 @@ const TalentRequestTrackedUsersInbox = ({
               })}
               onClick={() => setOpenDialog("notSelect")}
             />
-            <IconButton
-              color="black"
-              icon={
-                statusIcons.outline[TalentRequestTrackedUserStatus.Selected]
-              }
-              label={intl.formatMessage(talentRequestMessages.markAs, {
-                status: intl.formatMessage(commonMessages.selected),
-              })}
-              onClick={() => setOpenDialog("select")}
-            />
 
             <DropdownMenu.Root>
               <DropdownMenu.Trigger
