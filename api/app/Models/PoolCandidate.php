@@ -815,9 +815,20 @@ class PoolCandidate extends Model
 
         $this->save();
 
-        $this->logActivity(ActivityEvent::SUBMITTED, [
-            'signature' => $signature,
-        ]);
+        if ($this->is_special_application) {
+            $specialApplicationLocalizedString = SpecialApplicationType::localizedString($this->special_application_type);
+
+            $this->logActivity(ActivityEvent::SPECIAL_APPLICATION_SUBMITTED, [
+                'signature' => $signature,
+                'special_application_type' => $this->special_application_type,
+                'special_application_type_en' => $specialApplicationLocalizedString['en'],
+                'special_application_type_fr' => $specialApplicationLocalizedString['fr'],
+            ]);
+        } else {
+            $this->logActivity(ActivityEvent::SUBMITTED, [
+                'signature' => $signature,
+            ]);
+        }
     }
 
     // mark the pool candidate as qualified

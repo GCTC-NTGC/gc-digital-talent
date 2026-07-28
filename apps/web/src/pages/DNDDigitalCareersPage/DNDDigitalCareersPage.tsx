@@ -217,7 +217,7 @@ export const Component = () => {
             description: "Lead-in text for specific skills DSG is looking for",
           }) + intl.formatMessage(commonMessages.dividingColon)}
         </p>
-        <Ul space="md" className="grid max-w-md sm:grid-cols-2 sm:gap-x-6">
+        <Ul className="grid max-w-md gap-y-1.5 sm:grid-cols-2 sm:gap-x-6">
           <li>
             {intl.formatMessage({
               defaultMessage: "cyber security",

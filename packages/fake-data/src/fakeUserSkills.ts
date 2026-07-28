@@ -1,8 +1,15 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
-import type { Skill, User, UserSkill } from "@gc-digital-talent/graphql";
-import { SkillLevel, WhenSkillUsed } from "@gc-digital-talent/graphql";
+import type {
+  Skill,
+  User,
+  UserSkill,
+} from "@gc-digital-talent/graphql/schema-types";
+import {
+  SkillLevel,
+  WhenSkillUsed,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeUsers from "./fakeUsers";
 import { getStaticSkills } from "./fakeSkills";
