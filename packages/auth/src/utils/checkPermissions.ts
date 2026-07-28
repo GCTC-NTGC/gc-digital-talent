@@ -15,10 +15,7 @@ export interface PermissionRequirement {
  */
 const checkPermissions = (
   requirements: PermissionRequirement | PermissionRequirement[],
-  roleAssignments:
-    | (AuthRoleAssignment | null | undefined)[]
-    | null
-    | undefined,
+  roleAssignments: (AuthRoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   const assignments = (roleAssignments ?? []).filter(
     (a): a is AuthRoleAssignment => !!a && !!a.role,
