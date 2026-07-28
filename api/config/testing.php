@@ -7,7 +7,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | When true, the /refresh endpoint accepts an X-Testing-Secret header
-    | and issues JWTs signed with the local test key — bypassing GCKey.
+    | and issues JWTs signed with the local test key — bypassing the auth provider.
     |
     | Must be unset or false in production. The code also requires APP_ENV_VERTICAL
     | to be set to a non-production value (e.g. "uat" or "local") as a second
