@@ -80,13 +80,6 @@ const TalentRequestSourcesCard = ({
   const selectedTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
   );
-  const talentSourceLabel = (source: LocalizedTalentRequestSource) => {
-    if (source.value === TalentRequestSource.QualifiedInPool) {
-      return intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel);
-    }
-
-    return source.label?.localized ?? notProvided;
-  };
 
   return (
     <TalentRequestSectionCard
@@ -128,7 +121,8 @@ const TalentRequestSourcesCard = ({
                   trueLabel={intl.formatMessage(commonMessages.selected)}
                   falseLabel={intl.formatMessage(commonMessages.notSelected)}
                 >
-                  {talentSourceLabel(source)}
+                  {source.label.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
                 </BoolCheckIcon>
               </li>
             ))}
