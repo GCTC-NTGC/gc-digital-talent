@@ -4483,10 +4483,6 @@
     "defaultMessage": "Divers (anglais ou français)",
     "description": "Various language requirement"
   },
-  "G0AEfY": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
-  },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
@@ -7866,6 +7862,10 @@
   "TrbPjE": {
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
     "description": "Text to confirm the process to be un-archived"
+  },
+  "TsDung": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>vous inscrire</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 10 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
   },
   "TtJCR6": {
     "defaultMessage": "Mettez à jour vos préférences",
