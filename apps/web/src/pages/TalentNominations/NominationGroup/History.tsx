@@ -25,14 +25,12 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import NominationEventAccordionItem from "./components/NominationEventAccordionItem";
 import { detailTabMessages } from "./messages";
+import type { RouteParams } from "./types";
 
 const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   /* GraphQL */ `
     fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
       id
-      nominee {
-        id
-      }
       talentNominationEvent {
         name {
           localized
@@ -46,22 +44,29 @@ const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   `,
 );
 
-const TalentNominationEventForHistory_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationEventForHistory on TalentNominationEvent {
-    id
-    talentNominationGroups {
+const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationGroupHistoryOptions on Query {
+    ...TalentNominationDetailsDialogOptions
+  }
+`);
+
+const GetNomineeId_Query = graphql(/* GraphQL */ `
+  query GetNomineeId($id: UUID!) {
+    talentNominationGroup(id: $id) {
       id
       nominee {
         id
       }
-      ...TalentNominationGroupHistoryNominationGroup
     }
   }
 `);
 
-const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
-  fragment TalentNominationGroupHistoryOptions on Query {
-    ...TalentNominationDetailsDialogOptions
+const TalentNominationGroupsByNominee_Query = graphql(/* GraphQL */ `
+  query TalentNominationGroupsByNominee($nomineeUserId: UUID!) {
+    talentNominationGroupsByNominee(nomineeUserId: $nomineeUserId) {
+      ...TalentNominationGroupHistoryNominationGroup
+    }
+    ...TalentNominationGroupHistoryOptions
   }
 `);
 
@@ -194,51 +199,50 @@ const TalentNominationGroupHistory = ({
   );
 };
 
-const TalentNominationHistoryPage_Query = graphql(/* GraphQL */ `
-  query TalentNominationHistoryPage {
-    talentNominationEvents {
-      ...TalentNominationEventForHistory
-    }
-    ...TalentNominationGroupHistoryOptions
-  }
-`);
-
-interface RouteParams extends Record<string, string> {
-  talentNominationGroupId: string;
+interface TalentNominationGroupHistoryContentProps {
+  nomineeUserId: string;
 }
+
+const TalentNominationGroupHistoryContent = ({
+  nomineeUserId,
+}: TalentNominationGroupHistoryContentProps) => {
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentNominationGroupsByNominee_Query,
+    variables: { nomineeUserId },
+  });
+
+  const nominationGroups = unpackMaybes(data?.talentNominationGroupsByNominee);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data ? (
+        <TalentNominationGroupHistory
+          nominationGroupsQuery={nominationGroups}
+          optionsQuery={data}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 const TalentNominationGroupHistoryPage = () => {
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
   );
+
   const [{ data, fetching, error }] = useQuery({
-    query: TalentNominationHistoryPage_Query,
+    query: GetNomineeId_Query,
+    variables: { id: talentNominationGroupId },
   });
 
-  const events = getFragment(
-    TalentNominationEventForHistory_Fragment,
-    unpackMaybes(data?.talentNominationEvents),
-  );
-  const allGroups = events.flatMap((event) =>
-    unpackMaybes(event.talentNominationGroups),
-  );
-
-  // use the group id from the url to find its nominee then get all groups for that nominee
-  const nomineeId = allGroups.find(
-    (group) => group.id === talentNominationGroupId,
-  )?.nominee?.id;
-
-  const nominationGroups = allGroups.filter(
-    (group) => group.nominee?.id === nomineeId,
-  );
+  const nomineeId = data?.talentNominationGroup?.nominee?.id;
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationEvents ? (
-        <TalentNominationGroupHistory
-          nominationGroupsQuery={nominationGroups}
-          optionsQuery={data}
-        />
+      {nomineeId ? (
+        <TalentNominationGroupHistoryContent nomineeUserId={nomineeId} />
       ) : (
         <ThrowNotFound />
       )}

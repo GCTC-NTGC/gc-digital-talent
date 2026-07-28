@@ -1963,6 +1963,14 @@ type Query {
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
+  talentNominationGroupsByNominee(
+    nomineeUserId: UUID! @eq(key: "nominee_id")
+    communityId: UUID @scope(name: "whereCommunity")
+  ): [TalentNominationGroup!]!
+    @all(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @guard
+    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
+
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
