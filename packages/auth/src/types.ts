@@ -7,6 +7,7 @@ export interface AuthenticationState {
 }
 
 export interface AuthRole {
+  id: string;
   name: string;
   isTeamBased?: boolean | null;
   permissions?: Permission[] | null;
@@ -15,7 +16,7 @@ export interface AuthRole {
 
 export interface AuthTeam {
   id: string;
-  name?: string | null;
+  name: string;
 }
 
 export interface AuthRoleAssignment {
