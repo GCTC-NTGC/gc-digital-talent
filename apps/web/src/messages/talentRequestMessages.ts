@@ -128,11 +128,17 @@ const messages = defineMessages({
     description:
       "Header for the number of user skills matching requested skills",
   },
-  changeStatus: {
-    defaultMessage: "Change status to {status}",
-    id: "DVWX9O",
+  markAs: {
+    defaultMessage: "Mark as {status}",
+    id: "BYi3Ah",
     description:
       "Label for the change status action in the talent request tracked users table",
+  },
+  markAllAs: {
+    defaultMessage: "Mark all as {status}",
+    id: "LG/8JQ",
+    description:
+      "Label for the bulk change status action affecting every tracked user in the talent request tracked users inbox",
   },
   referred: {
     defaultMessage: "Referred",
