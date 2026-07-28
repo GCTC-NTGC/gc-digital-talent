@@ -5,10 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { tv } from "tailwind-variants";
 import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
 import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
-import PaperAirplaneIcon from "@heroicons/react/16/solid/PaperAirplaneIcon";
-import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
-import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
-import XMarkIcon from "@heroicons/react/16/solid/XMarkIcon";
+import ChevronDownIcon from "@heroicons/react/16/solid/ChevronDownIcon";
 
 import {
   graphql,
@@ -17,9 +14,9 @@ import {
 } from "@gc-digital-talent/graphql";
 import { CheckButton, Input, Select } from "@gc-digital-talent/forms";
 import {
+  Button,
   DropdownMenu,
   IconButton,
-  IconLabel,
   Loading,
   Notice,
 } from "@gc-digital-talent/ui";
@@ -50,6 +47,7 @@ import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
 import NotReferTrackedUsersDialog from "./dialogs/NotReferTrackedUsersDialog";
 import SelectTrackedUsersDialog from "./dialogs/SelectTrackedUsersDialog";
 import NotSelectTrackedUsersDialog from "./dialogs/NotSelectTrackedUsersDialog";
+import { statusIcons } from "./utils";
 
 const TalentRequestTrackedUsersInbox_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersInbox(
@@ -206,6 +204,11 @@ const TalentRequestTrackedUsersInbox = ({
     }
   };
 
+  const handleMarkAllAs = (dialogKind: DialogKind) => {
+    handleToggleAll(true);
+    setOpenDialog(dialogKind);
+  };
+
   const handleDialogCompleted = () => {
     setSelectedRows([]);
     setOpenDialog(null);
@@ -266,96 +269,138 @@ const TalentRequestTrackedUsersInbox = ({
           </span>
         </span>
 
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger
-            render={
-              <IconButton
-                color="black"
-                icon={EllipsisVerticalIcon}
-                label={intl.formatMessage(tableMessages.actions)}
+        {hasSelection ? (
+          <>
+            <IconButton
+              color="black"
+              icon={
+                statusIcons.outline[TalentRequestTrackedUserStatus.Referred]
+              }
+              label={intl.formatMessage(talentRequestMessages.markAs, {
+                status: intl.formatMessage(talentRequestMessages.referred),
+              })}
+              onClick={() => setOpenDialog("refer")}
+            />
+            <IconButton
+              color="black"
+              icon={
+                statusIcons.outline[TalentRequestTrackedUserStatus.NotReferred]
+              }
+              label={intl.formatMessage(talentRequestMessages.markAs, {
+                status: intl.formatMessage(commonMessages.notReferred),
+              })}
+              onClick={() => setOpenDialog("notRefer")}
+            />
+            <IconButton
+              color="black"
+              icon={
+                statusIcons.outline[TalentRequestTrackedUserStatus.NotSelected]
+              }
+              label={intl.formatMessage(talentRequestMessages.markAs, {
+                status: intl.formatMessage(commonMessages.notSelected),
+              })}
+              onClick={() => setOpenDialog("notSelect")}
+            />
+            <IconButton
+              color="black"
+              icon={
+                statusIcons.outline[TalentRequestTrackedUserStatus.Selected]
+              }
+              label={intl.formatMessage(talentRequestMessages.markAs, {
+                status: intl.formatMessage(commonMessages.selected),
+              })}
+              onClick={() => setOpenDialog("select")}
+            />
+
+            <DropdownMenu.Root>
+              <DropdownMenu.Trigger
+                render={
+                  <Button
+                    mode="inline"
+                    color="black"
+                    icon={ArrowDownTrayIcon}
+                    utilityIcon={ChevronDownIcon}
+                  >
+                    <span className="sr-only">
+                      {intl.formatMessage(commonMessages.download)}
+                    </span>
+                  </Button>
+                }
               />
-            }
-          />
-          <DropdownMenu.Popup positionerProps={{ align: "start" }}>
-            <DropdownMenu.Item onClick={() => setOpenDialog("refer")}>
-              <IconLabel
-                icon={PaperAirplaneIcon}
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+              <DropdownMenu.Popup positionerProps={{ align: "start" }}>
+                <DropdownMenu.Item
+                  onClick={() => handleDownloadDocument(false)}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Download full profiles (.docx)",
+                    id: "KF5u2L",
+                    description:
+                      "Button label for downloading selected user profiles",
+                  })}
+                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => handleDownloadDocument(true)}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Download profiles without contact information (.docx)",
+                    id: "EYqGpP",
+                    description:
+                      "Button label for downloading anonymized selected user profiles",
+                  })}
+                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={handleDownloadSpreadsheet}>
+                  {intl.formatMessage({
+                    defaultMessage: "Download as spreadsheet (.xlsx)",
+                    id: "0YApeN",
+                    description:
+                      "Menu option to download selected tracked users as a spreadsheet",
+                  })}
+                </DropdownMenu.Item>
+              </DropdownMenu.Popup>
+            </DropdownMenu.Root>
+          </>
+        ) : (
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger
+              render={
+                <IconButton
+                  color="black"
+                  icon={EllipsisVerticalIcon}
+                  label={intl.formatMessage(tableMessages.actions)}
+                />
+              }
+            />
+            <DropdownMenu.Popup positionerProps={{ align: "start" }}>
+              <DropdownMenu.Item onClick={() => handleMarkAllAs("refer")}>
+                {intl.formatMessage(talentRequestMessages.markAllAs, {
                   status: intl.formatMessage(talentRequestMessages.referred),
                 })}
-              />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => setOpenDialog("notRefer")}>
-              <IconLabel
-                icon={ArchiveBoxIcon}
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={() => handleMarkAllAs("notRefer")}>
+                {intl.formatMessage(talentRequestMessages.markAllAs, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
-              />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => setOpenDialog("select")}>
-              <IconLabel
-                icon={CheckIcon}
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
-                  status: intl.formatMessage(commonMessages.selected),
-                })}
-              />
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => setOpenDialog("notSelect")}>
-              <IconLabel
-                icon={XMarkIcon}
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={() => handleMarkAllAs("notSelect")}>
+                {intl.formatMessage(talentRequestMessages.markAllAs, {
                   status: intl.formatMessage(commonMessages.notSelected),
                 })}
-              />
-            </DropdownMenu.Item>
-          </DropdownMenu.Popup>
-        </DropdownMenu.Root>
-
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger
-            render={
-              <IconButton
-                color="black"
-                icon={ArrowDownTrayIcon}
-                label={intl.formatMessage(commonMessages.download)}
-              />
-            }
-          />
-          <DropdownMenu.Popup positionerProps={{ align: "start" }}>
-            <DropdownMenu.Item onClick={handleDownloadAll}>
-              {intl.formatMessage({
-                defaultMessage: "Download entire dataset",
-                id: "Ij9kxd",
-                description:
-                  "Menu option to download all tracked users as a spreadsheet",
-              })}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={handleDownloadSpreadsheet}>
-              {intl.formatMessage({
-                defaultMessage: "Download selected as a spreadsheet (.xlsx)",
-                id: "UE5Qag",
-                description:
-                  "Menu option to download selected tracked users as a spreadsheet",
-              })}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => handleDownloadDocument(false)}>
-              {intl.formatMessage({
-                defaultMessage: "Download profile",
-                id: "lVOZ5k",
-                description: "Button label for downloading user profiles",
-              })}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item onClick={() => handleDownloadDocument(true)}>
-              {intl.formatMessage({
-                defaultMessage: "Download profile without contact information",
-                id: "wZP4RN",
-                description:
-                  "Button label for downloading anonymized user profiles",
-              })}
-            </DropdownMenu.Item>
-          </DropdownMenu.Popup>
-        </DropdownMenu.Root>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={() => handleMarkAllAs("select")}>
+                {intl.formatMessage(talentRequestMessages.markAllAs, {
+                  status: intl.formatMessage(commonMessages.selected),
+                })}
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={handleDownloadAll}>
+                {intl.formatMessage({
+                  defaultMessage: "Download all as spreadsheet (.xlsx)",
+                  id: "2Ttne4",
+                  description:
+                    "Menu option to download all tracked users as a spreadsheet",
+                })}
+              </DropdownMenu.Item>
+            </DropdownMenu.Popup>
+          </DropdownMenu.Root>
+        )}
       </Inbox.Actions>
 
       {fetching && (
