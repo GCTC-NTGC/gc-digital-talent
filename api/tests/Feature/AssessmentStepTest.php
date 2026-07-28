@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\AssessmentStepType;
+use App\Enums\ErrorCode;
 use App\Enums\SkillCategory;
 use App\Models\AssessmentStep;
 use App\Models\Community;
@@ -290,7 +291,61 @@ class AssessmentStepTest extends TestCase
                     ],
                 ]
             )
-            ->assertGraphQLValidationError('assessmentStep.type', 'InvalidAssessmentTypeSelection');
+            ->assertGraphQLValidationError('assessmentStep.type', ErrorCode::ASSESSMENT_STEP_INVALID_TYPE->name);
+    }
+
+    // test that pool skills from another pool cannot be synced on create
+    public function testCreateAssessmentStepRejectsPoolSkillsFromAnotherPool(): void
+    {
+        $otherPool = Pool::factory()->draft()->for($this->community)->create();
+        $skill = Skill::factory()->create([
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
+        $otherPool->setEssentialPoolSkills([$skill->id]);
+        $otherPoolSkill = $otherPool->poolSkills()->sole();
+
+        $this->actingAs($this->communityUser, 'api')
+            ->graphQL(
+                $this->createAssessmentStep,
+                [
+                    'poolId' => $this->pool->id,
+                    'assessmentStep' => [
+                        'type' => AssessmentStepType::PSC_EXAM->name,
+                        'poolSkills' => [
+                            'sync' => [$otherPoolSkill->id],
+                        ],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('assessmentStep.poolSkills.sync.0', ErrorCode::POOL_SKILL_NOT_VALID->name);
+    }
+
+    // test that pool skills from another pool cannot be synced on update
+    public function testUpdateAssessmentStepRejectsPoolSkillsFromAnotherPool(): void
+    {
+        $assessmentStep = AssessmentStep::factory()->for($this->pool)->create([
+            'type' => AssessmentStepType::PSC_EXAM->name,
+        ]);
+        $otherPool = Pool::factory()->draft()->for($this->community)->create();
+        $skill = Skill::factory()->create([
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
+        $otherPool->setEssentialPoolSkills([$skill->id]);
+        $otherPoolSkill = $otherPool->poolSkills()->sole();
+
+        $this->actingAs($this->communityUser, 'api')
+            ->graphQL(
+                $this->updateAssessmentStep,
+                [
+                    'id' => $assessmentStep->id,
+                    'assessmentStep' => [
+                        'poolSkills' => [
+                            'sync' => [$otherPoolSkill->id],
+                        ],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('assessmentStep.poolSkills.sync.0', ErrorCode::POOL_SKILL_NOT_VALID->name);
     }
 
     // test screening questions and pool skills
