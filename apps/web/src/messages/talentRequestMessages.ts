@@ -162,8 +162,8 @@ const messages = defineMessages({
     description: "Label for the talent source(s) selected on a talent request.",
   },
   qualifiedInPoolLabel: {
-    defaultMessage: "Pool Candidates",
-    id: "uQEmGf",
+    defaultMessage: "Pool candidates",
+    id: "P1yFCo",
     description: "Label for the qualified in pool talent source",
   },
   atLevelLabel: {

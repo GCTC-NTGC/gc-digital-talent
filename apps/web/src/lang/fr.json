@@ -6679,6 +6679,10 @@
     "defaultMessage": "Modèles d'emplois",
     "description": "Text for the breadcrumb navigation link"
   },
+  "P1yFCo": {
+    "defaultMessage": "Candidats du bassin",
+    "description": "Label for the qualified in pool talent source"
+  },
   "P3WkJv": {
     "defaultMessage": "Ajoutez jusqu’à trois questions dans votre processus de candidature.",
     "description": "Helper message indicating max screening questions allowed"
@@ -14513,10 +14517,6 @@
   "uP+q43": {
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
-  },
-  "uQEmGf": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Label for the qualified in pool talent source"
   },
   "uQaK9e": {
     "defaultMessage": "Avancement",
