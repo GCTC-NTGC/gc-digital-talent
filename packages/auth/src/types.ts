@@ -6,7 +6,7 @@ export interface AuthenticationState {
   refreshTokenSet: () => Promise<void>;
 }
 
-export interface AuthRole {
+interface AuthRole {
   id: string;
   name: string;
   isTeamBased?: boolean | null;
@@ -14,7 +14,7 @@ export interface AuthRole {
   displayName?: LocalizedString | null;
 }
 
-export interface AuthTeam {
+interface AuthTeam {
   id: string;
   name: string;
 }
