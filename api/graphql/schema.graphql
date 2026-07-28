@@ -412,16 +412,6 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
-  talentNominationGroups: [TalentNominationGroup!]
-    @hasMany(
-      relation: "talentNominationGroupsAsNominee"
-      scopes: ["withPolicyEagerLoads", "authorizedToView"]
-    )
-    @canResolved(
-      ability: "view"
-      model: "TalentNominationGroup"
-      scopes: ["withPolicyEagerLoads"]
-    )
 }
 
 # Mini type to support search by work email

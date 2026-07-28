@@ -315,12 +315,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(TalentRequestTrackedUser::class);
     }
 
-    /** @return HasMany<TalentNominationGroup, $this> */
-    public function talentNominationGroupsAsNominee(): HasMany
-    {
-        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
-    }
-
     /**
      * Aggregate of the user's referral history across all talent requests:
      * the total times referred plus a breakdown of the reasons they were not selected.
