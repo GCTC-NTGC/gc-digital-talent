@@ -1,4 +1,6 @@
-import type { Permission, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { Permission } from "@gc-digital-talent/graphql";
+
+import type { AuthRoleAssignment } from "../types";
 
 export interface PermissionRequirement {
   permission: Permission;
@@ -13,10 +15,13 @@ export interface PermissionRequirement {
  */
 const checkPermissions = (
   requirements: PermissionRequirement | PermissionRequirement[],
-  roleAssignments: (RoleAssignment | null | undefined)[] | null | undefined,
+  roleAssignments:
+    | (AuthRoleAssignment | null | undefined)[]
+    | null
+    | undefined,
 ): boolean => {
   const assignments = (roleAssignments ?? []).filter(
-    (a): a is RoleAssignment => !!a && !!a.role,
+    (a): a is AuthRoleAssignment => !!a && !!a.role,
   );
 
   const reqs = Array.isArray(requirements) ? requirements : [requirements];
