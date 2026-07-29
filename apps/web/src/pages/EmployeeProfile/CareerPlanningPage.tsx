@@ -77,7 +77,10 @@ interface CareerPlanningProps {
   optionsQuery: FragmentType<typeof CareerPlanningOptions_Fragment>;
 }
 
-const CareerPlanning = ({ userQuery, optionsQuery }: CareerPlanningProps) => {
+export const CareerPlanning = ({
+  userQuery,
+  optionsQuery,
+}: CareerPlanningProps) => {
   const intl = useIntl();
   const user = getFragment(CareerPlanning_Fragment, userQuery);
   const options = getFragment(CareerPlanningOptions_Fragment, optionsQuery);
