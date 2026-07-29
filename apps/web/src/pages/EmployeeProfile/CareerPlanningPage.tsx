@@ -15,10 +15,12 @@ import {
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
+import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
+import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
 
 import messages from "./messages";
 import GoalsWorkStyleSection, {
@@ -40,6 +42,7 @@ import {
   getCareerPlanningStatus,
 } from "./utils";
 import SharedTocLinks from "./components/SharedTocLinks";
+import NewFeatureMessage from "./components/NewFeatureMessage";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -133,6 +136,11 @@ const CareerPlanning = ({ userQuery, optionsQuery }: CareerPlanningProps) => {
     goalsWorkStyle,
   );
 
+  const [noticeIsVisible, setNoticeIsVisible] = useLocalStorage<boolean>(
+    KEY_NEW_FEATURE_EMPLOYEE_PROFILE,
+    true,
+  );
+
   return (
     <>
       <TableOfContents.Wrapper>
@@ -200,6 +208,11 @@ const CareerPlanning = ({ userQuery, optionsQuery }: CareerPlanningProps) => {
           <SharedTocLinks />
         </TableOfContents.Navigation>
         <TableOfContents.Content>
+          <div className="mb-6">
+            {noticeIsVisible ? (
+              <NewFeatureMessage onDismiss={() => setNoticeIsVisible(false)} />
+            ) : null}
+          </div>
           <div className="flex flex-col gap-y-18">
             <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
               <Heading
