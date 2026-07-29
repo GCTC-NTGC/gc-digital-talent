@@ -71,8 +71,7 @@ if
         /var/site/bootstrap/cache && \
     chown -R www-data:www-data /var/site && \
     chmod -R 775 /var/site && \
-    php artisan lighthouse:print-schema --write && \
-    php artisan optimize ;
+    php artisan lighthouse:print-schema --write ;
 then
     add_section_block ":white_check_mark: Laravel cache setup *successful*."
 else
@@ -80,10 +79,10 @@ else
 fi
 
 # Laravel database migrations
-php artisan config:clear
+# stderr is captured too (exceptions render there) and streamed through tee so the
+# persistent log has partial output even if killed mid-migration (see #16961)
 MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate --no-interaction --force --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
-php artisan config:cache
 
 if [ $MIGRATION_STATUS -eq 0 ]; then
     add_section_block ":white_check_mark: Database migration *successful*."
@@ -120,6 +119,14 @@ if [ "${#ROLEPERMISSION_SEEDER_CLEANED_STDOUT}" -gt "2500" ] ; then
     ROLEPERMISSION_SEEDER_CLEANED_STDOUT="${ROLEPERMISSION_SEEDER_CLEANED_STDOUT:0:2500}..."
 fi
 add_section_block "$TRIPLE_BACK_TICK $ROLEPERMISSION_SEEDER_CLEANED_STDOUT $TRIPLE_BACK_TICK"
+
+# Cache config/routes now that migrations and seeding are done, so LOG_CHANNEL=cli
+# above resolves live instead of a stale cached value (see PR #17457 review)
+if php artisan optimize ; then
+    add_section_block ":white_check_mark: Laravel optimize *successful*."
+else
+    add_section_block ":X: Laravel optimize *failed*. $MENTION"
+fi
 
 # Load Laravel Scheduler cron
 # For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
