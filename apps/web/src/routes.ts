@@ -217,11 +217,13 @@ export default [
 
           // Employee
           ...prefix("employee", [
-            index("./pages/EmployeeProfile/EmployeeVerificationPage.tsx"),
-            route(
-              "career-planning",
-              "./pages/EmployeeProfile/CareerPlanningPage.tsx",
-            ),
+            layout("./pages/EmployeeProfile/EmployeeProfileLayout.tsx", [
+              index("./pages/EmployeeProfile/EmployeeVerificationPage.tsx"),
+              route(
+                "career-planning",
+                "./pages/EmployeeProfile/CareerPlanningPage.tsx",
+              ),
+            ]),
           ]),
 
           // Applications
