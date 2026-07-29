@@ -35,7 +35,7 @@ const RequestPage = () => {
 
 // NOTE: Require authentication but allow any user role
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
     <RequestPage />
   </RequireAuth>
 );
