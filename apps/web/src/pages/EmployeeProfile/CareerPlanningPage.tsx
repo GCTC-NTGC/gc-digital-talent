@@ -3,11 +3,12 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
+  Link,
   Pending,
   Separator,
   TableOfContents,
@@ -15,14 +16,14 @@ import {
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
+import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
-import { KEY_NEW_FEATURE_EMPLOYEE_PROFILE } from "~/constants/storageKeys";
 
 import messages from "./messages";
+import EmployeeVerificationSection from "../../components/EmployeeVerificationSection/EmployeeVerificationSection";
 import GoalsWorkStyleSection, {
   EmployeeProfileGoalsWorkStyle_Fragment,
 } from "./components/GoalsWorkStyleSection/GoalsWorkStyleSection";
@@ -39,12 +40,11 @@ import {
   getCareerObjectiveStatus,
   getGoalsWorkStyleStatus,
   getNextRoleStatus,
-  getCareerPlanningStatus,
+  getOverallStatus,
 } from "./utils";
-import SharedTocLinks from "./components/SharedTocLinks";
-import NewFeatureMessage from "./components/NewFeatureMessage";
 
 const SECTION_ID = {
+  EMPLOYEE_VERIFICATION: "employee-verification-section",
   CAREER_PLANNING: "career-planning-section",
   CAREER_DEVELOPMENT: "career-development-section",
   NEXT_ROLE: "next-role-section",
@@ -52,17 +52,18 @@ const SECTION_ID = {
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
-const CareerPlanningOptions_Fragment = graphql(/** GraphQL */ `
-  fragment CareerPlanningOptions on Query {
+const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeProfileOptions on Query {
     ...EmployeeProfileCareerDevelopmentOptions
     ...EmployeeProfileNextRoleOptions
     ...EmployeeProfileCareerObjectiveOptions
   }
 `);
 
-export const CareerPlanning_Fragment = graphql(/** GraphQL */ `
-  fragment CareerPlanning on User {
+export const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeProfile on User {
     isVerifiedGovEmployee
+    ...UserEmployeeVerification
     employeeProfile {
       ...EmployeeProfileCareerDevelopment
       ...EmployeeProfileCareerObjective
@@ -72,18 +73,19 @@ export const CareerPlanning_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface CareerPlanningProps {
-  userQuery: FragmentType<typeof CareerPlanning_Fragment>;
-  optionsQuery: FragmentType<typeof CareerPlanningOptions_Fragment>;
+interface EmployeeProfileProps {
+  employeeProfileQuery: FragmentType<typeof EmployeeProfile_Fragment>;
+  optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
-export const CareerPlanning = ({
-  userQuery,
+const EmployeeProfile = ({
+  employeeProfileQuery,
   optionsQuery,
-}: CareerPlanningProps) => {
+}: EmployeeProfileProps) => {
   const intl = useIntl();
-  const user = getFragment(CareerPlanning_Fragment, userQuery);
-  const options = getFragment(CareerPlanningOptions_Fragment, optionsQuery);
+  const paths = useRoutes();
+  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery);
+  const options = getFragment(EmployeeProfileOptions_Fragment, optionsQuery);
 
   if (!user?.employeeProfile) {
     throw new NotFoundError();
@@ -114,7 +116,7 @@ export const CareerPlanning = ({
     locked: commonMessages.notAvailable,
   };
 
-  const overallStatus = getCareerPlanningStatus(
+  const overallStatus = getOverallStatus(
     !!user.isVerifiedGovEmployee,
     careerDevelopment,
     nextRole,
@@ -138,16 +140,24 @@ export const CareerPlanning = ({
     goalsWorkStyle,
   );
 
-  const [noticeIsVisible, setNoticeIsVisible] = useLocalStorage<boolean>(
-    KEY_NEW_FEATURE_EMPLOYEE_PROFILE,
-    true,
-  );
-
   return (
     <>
       <TableOfContents.Wrapper>
         <TableOfContents.Navigation>
           <TableOfContents.List className="list-none">
+            <TableOfContents.ListItem>
+              <StatusItem
+                asListItem={false}
+                title={intl.formatMessage(commonMessages.employeeVerification)}
+                status={user.isVerifiedGovEmployee ? "success" : "optional"}
+                scrollTo={SECTION_ID.EMPLOYEE_VERIFICATION}
+                hiddenContextPrefix={intl.formatMessage(
+                  user.isVerifiedGovEmployee
+                    ? commonMessages.complete
+                    : commonMessages.optional,
+                )}
+              />
+            </TableOfContents.ListItem>
             <TableOfContents.ListItem>
               <StatusItem
                 asListItem={false}
@@ -207,15 +217,23 @@ export const CareerPlanning = ({
             </TableOfContents.ListItem>
           </TableOfContents.List>
           <Separator space="sm" />
-          <SharedTocLinks />
+          <div className="flex flex-col gap-y-3">
+            <Link href={paths.profile()}>
+              {intl.formatMessage(navigationMessages.applicantProfile)}
+            </Link>
+            <Link href={paths.accountSettings()}>
+              {intl.formatMessage(navigationMessages.accountSettings)}
+            </Link>
+          </div>
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <div className="mb-6">
-            {noticeIsVisible ? (
-              <NewFeatureMessage onDismiss={() => setNoticeIsVisible(false)} />
-            ) : null}
-          </div>
           <div className="flex flex-col gap-y-18">
+            <TableOfContents.Section id={SECTION_ID.EMPLOYEE_VERIFICATION}>
+              <EmployeeVerificationSection
+                userQuery={user}
+                context="applicant"
+              />
+            </TableOfContents.Section>
             <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
               <Heading
                 level="h2"
@@ -272,25 +290,25 @@ export const CareerPlanning = ({
   );
 };
 
-const CareerPlanningPage_Query = graphql(/** GraphQL */ `
-  query CareerPlanningPage {
-    ...CareerPlanningOptions
+const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
+  query EmployeeProfilePage {
+    ...EmployeeProfileOptions
     me {
-      ...CareerPlanning
+      ...EmployeeProfile
     }
   }
 `);
 
-const CareerPlanningPage = () => {
+const EmployeeProfilePage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
-    query: CareerPlanningPage_Query,
+    query: EmployeeProfilePage_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <CareerPlanning userQuery={data.me} optionsQuery={data} />
+        <EmployeeProfile employeeProfileQuery={data.me} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
@@ -302,7 +320,7 @@ const CareerPlanningPage = () => {
 
 const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CareerPlanningPage />
+    <EmployeeProfilePage />
   </RequireAuth>
 );
 
