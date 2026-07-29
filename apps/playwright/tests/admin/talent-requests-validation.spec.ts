@@ -166,6 +166,7 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
+    await loginBySub(appPage.page, "admin@test.com");
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
     await talentSearch.goToIndex();
