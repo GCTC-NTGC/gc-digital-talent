@@ -29,13 +29,22 @@ import type { FormValues } from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
 
 import { formValuesToData } from "../utils";
-import { useCandidateCount, useInitialFilters } from "../hooks";
+import {
+  useCandidateCount,
+  useInitialFilters,
+  useTalentRequestState,
+} from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 import CommunityResultCard from "./CommunityResultCard";
+
+const defaultRequestState = {
+  applicantFilter: {},
+  candidateCount: 0,
+};
 
 interface SearchFormProps {
   classifications: Classification[];
@@ -51,7 +60,11 @@ export const SearchForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { defaultValues, initialFilters } = useInitialFilters();
+  const { defaultValues, initialFilters } = useInitialFilters(classifications);
+  const [, setRequestState] = useTalentRequestState({
+    ...defaultRequestState,
+    applicantFilter: initialFilters,
+  });
 
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
@@ -138,18 +151,16 @@ export const SearchForm = ({
         : undefined;
     }
 
-    await navigate(paths.request(), {
-      state: {
-        applicantFilter: {
-          ...applicantFilter,
-          pools: poolIds,
-          community,
-        },
-        candidateCount: values.count,
-        selectedClassifications:
-          applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
+    setRequestState({
+      applicantFilter: {
+        ...applicantFilter,
+        pools: poolIds,
+        community,
       },
+      candidateCount: values.count,
     });
+
+    await navigate(paths.request());
   };
 
   return (
