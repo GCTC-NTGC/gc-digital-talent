@@ -7483,10 +7483,6 @@
     "defaultMessage": "Veuillez indiquer votre rôle pour continuer.",
     "description": "Message displayed when submitter has not selected their role in a nomination"
   },
-  "S6fUdZ": {
-    "defaultMessage": "Gérer vos renseignements, y compris la confirmation de votre statut et vos préférences en matière de perfectionnement de carrière,",
-    "description": "Description of the employee profile page"
-  },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
@@ -8149,10 +8145,6 @@
   "V0jG33": {
     "defaultMessage": "Protection des renseignements personnels",
     "description": "Heading for comments and interaction section"
-  },
-  "V2ML6q": {
-    "defaultMessage": "Profil d'employé(e) du GC",
-    "description": "Page title for a user's GC employee profile"
   },
   "V3phA5": {
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, veuillez contacter la CCDP :",
