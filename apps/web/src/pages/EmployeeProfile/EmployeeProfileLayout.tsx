@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import { Outlet, useLocation } from "react-router";
 
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Container } from "@gc-digital-talent/ui";
 
 import Hero from "~/components/Hero";
@@ -38,21 +38,12 @@ const Component = () => {
     }
   > = {
     "employee-verification": {
-      label: intl.formatMessage({
-        defaultMessage: "Employee verification",
-        id: "ke6NUW",
-        description:
-          "Description of employee profile, employee verification tab",
-      }),
+      label: intl.formatMessage(commonMessages.employeeVerification),
       url: paths.employeeVerification(),
       hasCrumb: false,
     },
     "career-planning": {
-      label: intl.formatMessage({
-        defaultMessage: "Career planning",
-        id: "fh6CuQ",
-        description: "Description of employee profile, career planning tab",
-      }),
+      label: intl.formatMessage(commonMessages.careerPlanning),
       url: paths.careerPlanning(),
       hasCrumb: true,
     },
@@ -76,8 +67,8 @@ const Component = () => {
     {
       label: intl.formatMessage({
         defaultMessage: "Employee profile",
-        id: "QgE+ei",
-        description: "Short title for a user's GC employee profile",
+        id: "4BWod5",
+        description: "Page title for a user's GC employee profile",
       }),
       url: paths.employeeVerification(),
     },
