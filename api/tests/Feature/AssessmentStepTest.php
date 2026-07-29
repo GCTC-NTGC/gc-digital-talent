@@ -274,6 +274,37 @@ class AssessmentStepTest extends TestCase
         assertEquals(0, count(PoolSkill::first()->assessmentSteps));
     }
 
+    public function testUpdateAssessmentStepAcceptsPoolSkillsFromSamePool(): void
+    {
+        $assessmentStep = AssessmentStep::factory()->for($this->pool)->create([
+            'type' => AssessmentStepType::PSC_EXAM->name,
+        ]);
+        $skill = Skill::factory()->create([
+            'category' => SkillCategory::BEHAVIOURAL->name,
+        ]);
+        $this->pool->setEssentialPoolSkills([$skill->id]);
+        $poolSkill = $this->pool->poolSkills()->sole();
+
+        $this->actingAs($this->communityUser, 'api')
+            ->graphQL(
+                $this->updateAssessmentStep,
+                [
+                    'id' => $assessmentStep->id,
+                    'assessmentStep' => [
+                        'poolSkills' => [
+                            'sync' => [$poolSkill->id],
+                        ],
+                    ],
+                ]
+            )
+            ->assertSuccessful()
+            ->assertJsonFragment([
+                'poolSkills' => [
+                    ['id' => $poolSkill->id],
+                ],
+            ]);
+    }
+
     // test that you cannot add screening or application related assessment steps
     public function testAssessmentStepTypeValidation(): void
     {
