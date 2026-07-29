@@ -151,10 +151,6 @@ export default [
                   "notifications",
                   "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
                 ),
-                route(
-                  "employee-profile",
-                  "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
-                ),
 
                 layout("./pages/Profile/ProfileLayout.tsx", [
                   route(

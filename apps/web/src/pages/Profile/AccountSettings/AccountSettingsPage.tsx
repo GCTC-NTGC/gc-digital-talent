@@ -151,7 +151,7 @@ export const AccountSettings = ({
               <Link href={paths.profile()}>
                 {intl.formatMessage(navigationMessages.applicantProfile)}
               </Link>
-              <Link href={paths.employeeProfile()}>
+              <Link href={paths.employeeVerification()}>
                 {intl.formatMessage(navigationMessages.employeeProfileGC)}
               </Link>
             </div>

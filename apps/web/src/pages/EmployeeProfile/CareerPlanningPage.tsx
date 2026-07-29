@@ -113,7 +113,7 @@ const EmployeeProfile = ({
       url: paths.applicantDashboard(),
     },
     {
-      url: paths.employeeProfile(),
+      url: paths.employeeVerification(),
       label: intl.formatMessage(navigationMessages.employeeProfileGC),
     },
   ];
