@@ -3,7 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -17,9 +17,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DateInput,
-  htmlToRichTextJSON,
   Input,
-  RichTextRenderer,
+  RichTextInput,
   Submit,
   TextArea,
 } from "@gc-digital-talent/forms";
@@ -51,6 +50,7 @@ import { isCommunity } from "../TalentEvent/util";
 import AddDialog from "./AddDialog";
 import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
+import { instructionsWordCountLimits } from "./constants";
 
 interface ActiveTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -85,7 +85,6 @@ const ActiveTalentEventForm = ({
     customInstructions,
   } = talentNominationEvent;
   const notFound = intl.formatMessage(commonMessages.notFound);
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -110,6 +109,10 @@ const ActiveTalentEventForm = ({
         }),
       ),
       contactEmail: contactEmail,
+      customInstructions: {
+        en: customInstructions?.en,
+        fr: customInstructions?.fr,
+      },
     },
   });
 
@@ -157,6 +160,7 @@ const ActiveTalentEventForm = ({
           ],
         },
         contactEmail: formValues.contactEmail,
+        customInstructions: formValues.customInstructions,
       },
     })
       .then(async (result) => {
@@ -223,6 +227,8 @@ const ActiveTalentEventForm = ({
 
   const [editOpen, setEditOpen] = useState<string | null>(null);
   const [removeOpen, setRemoveOpen] = useState<string | null>(null);
+
+  const instructionsDescriptionId = useId();
 
   return (
     <>
@@ -437,38 +443,39 @@ const ActiveTalentEventForm = ({
                 </BoolCheckIcon>
               </FieldDisplay>
             </div>
-            <FieldDisplay
+            <div className="xs:col-span-2" id={instructionsDescriptionId}>
+              {intl.formatMessage({
+                defaultMessage:
+                  "The nomination form offers basic instructions at the beginning of each nomination to help guide the nominator through the process. You use the following optional field to include extra context that might be unique to your event.",
+                id: "5jkq2u",
+                description: "description for custom event instructions",
+              })}
+            </div>
+
+            <RichTextInput
+              id={"customInstructions.en"}
+              name={"customInstructions.en"}
+              wordLimit={instructionsWordCountLimits.en}
               label={intl.formatMessage({
                 defaultMessage: "Customized instruction text",
                 id: "f1Kpkp",
                 description: "label for nomination event instructions",
               })}
-              appendLanguageToLabel="en"
-            >
-              {customInstructions?.en ? (
-                <RichTextRenderer
-                  node={htmlToRichTextJSON(customInstructions.en)}
-                />
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
-            <FieldDisplay
+              appendLanguageToLabel={"en"}
+              aria-describedby={instructionsDescriptionId}
+            />
+            <RichTextInput
+              id={"customInstructions.fr"}
+              name={"customInstructions.fr"}
+              wordLimit={instructionsWordCountLimits.fr}
               label={intl.formatMessage({
                 defaultMessage: "Customized instruction text",
                 id: "f1Kpkp",
                 description: "label for nomination event instructions",
               })}
-              appendLanguageToLabel="fr"
-            >
-              {customInstructions?.fr ? (
-                <RichTextRenderer
-                  node={htmlToRichTextJSON(customInstructions.fr)}
-                />
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
+              appendLanguageToLabel={"fr"}
+              aria-describedby={instructionsDescriptionId}
+            />
           </div>
           {community !== null && (
             <>

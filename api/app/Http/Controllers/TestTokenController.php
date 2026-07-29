@@ -11,7 +11,7 @@ use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
 
 /**
- * Issues short-lived JWTs for test users without going through GCKey.
+ * Issues short-lived JWTs for test users without going through the auth provider.
  * Only active when TESTING_TOKEN_ENABLED=true.
  *
  * Reachable via the proxied /refresh endpoint:

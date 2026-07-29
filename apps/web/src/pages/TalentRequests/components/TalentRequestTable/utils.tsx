@@ -22,7 +22,7 @@ import type useRoutes from "~/hooks/useRoutes";
 import {
   followUpDateOverdueInfo,
   TALENT_REQUEST_STATUS_COLOUR_MAP,
-} from "~/utils/searchRequestUtils";
+} from "~/utils/talentRequestUtils";
 import cells from "~/components/Table/cells";
 
 export interface FormValues {
@@ -159,7 +159,7 @@ export const jobTitleCell = (
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
-    <Link href={paths.searchRequestView(searchRequest.id)}>
+    <Link href={paths.talentRequestView(searchRequest.id)}>
       {searchRequest.jobTitle}
     </Link>
   );

@@ -57,8 +57,7 @@ interface DisplayProps {
   query: FragmentType<typeof WorkPreferencesDisplay_Fragment>;
   labels: FieldLabels;
   optionsQuery:
-    | FragmentType<typeof FlexibleWorkLocationOptions_Fragment>
-    | undefined;
+    FragmentType<typeof FlexibleWorkLocationOptions_Fragment> | undefined;
 }
 
 const Display = ({ query, labels, optionsQuery }: DisplayProps) => {

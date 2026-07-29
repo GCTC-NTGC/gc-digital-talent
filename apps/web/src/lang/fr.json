@@ -295,10 +295,6 @@
     "defaultMessage": "Demande de {fullName},{department}",
     "description": "Subtitle for a talent request"
   },
-  "/3mqz9": {
-    "defaultMessage": "Renseignements sur la demande",
-    "description": "Heading for the request information section of the single search request view."
-  },
   "/4z9lj": {
     "defaultMessage": "De la même manière que pour les compétences techniques essentielles, cette liste propose des recommandations concernant les compétences comportementales généralement requises dans le cadre de ce poste. Nous recommandons de limiter les compétences comportementales essentielles aux exigences exactes de votre poste ou de votre équipe afin d’aider les personnes candidates à mettre en évidence l’expérience la plus pertinente.",
     "description": "Description displayed on the job poster template 'essential behavioural skills' section."
@@ -1499,10 +1495,6 @@
     "defaultMessage": "Gérez votre nom, vos préférences de contact, votre citoyenneté et votre statut d'ancien combattant. Les employées et employés du gouvernement du Canada peuvent également vérifier leur adresse courriel professionnelle pour accéder aux outils du personnel.",
     "description": "Description for the Personal and contact information section"
   },
-  "3e965x": {
-    "defaultMessage": "Lieu de travail",
-    "description": "Title for work location section on summary of filters section"
-  },
   "3eeKdd": {
     "defaultMessage": "De quelle façon avez-vous démontré cette compétence dans ce rôle?",
     "description": "Question for clarifying skill details"
@@ -1792,7 +1784,7 @@
     "description": "Definition of the Woman category from the StatsCan 'Classification of gender' page."
   },
   "4rkX89": {
-    "defaultMessage": "La nomination doit inclure les trois principales compétences de leadership de la personne nommée.",
+    "defaultMessage": "La nomination doit inclure les trois principales compétences de leadership de la personne nominée.",
     "description": "Label for the include leadership competencies"
   },
   "4t/ETT": {
@@ -3459,10 +3451,6 @@
     "defaultMessage": "L'ajout du membre a échoué",
     "description": "Alert displayed to user when a community member was not added to a community"
   },
-  "BbaMf0": {
-    "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
-    "description": "Message displayed for search request not found on single search request page."
-  },
   "BdpXAF": {
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"
@@ -3991,10 +3979,6 @@
     "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
     "description": "Instructions for adding a member to a community."
   },
-  "DsQWRx": {
-    "defaultMessage": "Employés de la collectivité",
-    "description": "Label for the at-level talent source"
-  },
   "DsUtfO": {
     "defaultMessage": "Mise en œuvre de 573 entretiens personnalisés de gestion et d’accompagnement de carrière avec des candidats à l’emploi et des cadres au cours de l’exercice financier de 2022-2023.",
     "description": "Description of digital community support"
@@ -4494,10 +4478,6 @@
   "G+rsNw": {
     "defaultMessage": "Divers (anglais ou français)",
     "description": "Various language requirement"
-  },
-  "G0AEfY": {
-    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>créer une CléGC</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 20 minutes si vous vous inscrivez pour la première fois.",
-    "description": "Text explaining the importance of starting an application early"
   },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
@@ -6507,6 +6487,10 @@
     "defaultMessage": "Supprimé avec succès du profil.",
     "description": "Message displayed to user when removing a skill from their profile"
   },
+  "OAAP4p": {
+    "defaultMessage": "Une demande spéciale, {specialApplicationType}",
+    "description": "Event description when a special application is submitted"
+  },
   "OAOnyY": {
     "defaultMessage": "Expérience actuelle",
     "description": "Label displayed on Personal Experience form for current experience bounded box"
@@ -7875,6 +7859,10 @@
     "defaultMessage": "Vous êtes sur le point de désarchiver ce processus : {poolName}",
     "description": "Text to confirm the process to be un-archived"
   },
+  "TsDung": {
+    "defaultMessage": "Nous vous recommandons de commencer votre demande le plus tôt possible. Ainsi, vous aurez le temps de communiquer avec nous en cas de problème technique. Si vous n'avez pas encore de compte, vous devrez <gcDigitalTalentLink>vous inscrire</gcDigitalTalentLink> pour commencer votre demande. Prévoyez environ 10 minutes si vous vous inscrivez pour la première fois.",
+    "description": "Text explaining the importance of starting an application early"
+  },
   "TtJCR6": {
     "defaultMessage": "Mettez à jour vos préférences",
     "description": "Heading for the 'Find a new community' section when updating"
@@ -8525,10 +8513,6 @@
   "WY7q+L": {
     "defaultMessage": "Les compétences en vedette vous permettent de démontrer comment vous avez utilisé ou perfectionné des ensembles de compétences particulièrement importants dans le cadre de votre expérience. Lorsque vous posez votre candidature sur la plateforme, vous êtes invité à lier des compétences essentielles requises pour l’emploi à vos expériences de la même manière, ce qui vous permet de dresser un portrait d’ensemble de vos compétences. Les compétences que vous liez lorsque vous posez votre candidature apparaîtront également ici et pourront être modifiées ultérieurement.",
     "description": "Description blurb for skills on Experience form"
-  },
-  "WYJnLs": {
-    "defaultMessage": "Demande",
-    "description": "Heading displayed above the single search request component."
   },
   "WaDUHF": {
     "defaultMessage": "Effacer la recherche",
@@ -9242,10 +9226,6 @@
     "defaultMessage": "Processus exécuté par la {team} pour le volet de travail {workStream}",
     "description": "Team and work stream of pool"
   },
-  "ZLDt/c": {
-    "defaultMessage": "<strong>{jobTitle}</strong> à <strong>{department}</strong>",
-    "description": "Subtitle displayed above the single search request component."
-  },
   "ZLKng1": {
     "defaultMessage": "Autre titre de cadre supérieur",
     "description": "Label for other c-suite role title field"
@@ -9677,10 +9657,6 @@
   "bPN0EF": {
     "defaultMessage": "Le volet de travail a été créé avec succès!",
     "description": "Message displayed after a work stream is created"
-  },
-  "bQ4iDW": {
-    "defaultMessage": "Résultats des candidates et candidats",
-    "description": "Heading for the candidate results section of the single search request view."
   },
   "bQtRF+": {
     "defaultMessage": "Réussite",
@@ -10125,6 +10101,10 @@
   "d8HawO": {
     "defaultMessage": "Ce membre du personnel a accepté de partager son profil avec les collectivités fonctionnelles suivantes pour des possibilités d’emploi ou de formation.",
     "description": "Description for Community interest section of user employee information page"
+  },
+  "dAQGYk": {
+    "defaultMessage": "Une demande spéciale, {specialApplicationType}, prend fin le {specialApplicationClosing}, pour <strong>{name}</strong>",
+    "description": "Event description when a special application is created"
   },
   "dB4fUm": {
     "defaultMessage": "Ajouter une formation ou un certificat",
@@ -11418,10 +11398,6 @@
     "defaultMessage": "Compétences techniques",
     "description": "Title for the technical skills"
   },
-  "hmacO5": {
-    "defaultMessage": "La demande ne comprend pas de filtre!",
-    "description": "Null state for a request not including a filter."
-  },
   "hml0gm": {
     "defaultMessage": "Êtes-vous un(e) dirigeant(E) qui cherche à attirer ou à promouvoir des talents à fort potentiel au sein de la collectivité du numérique (domaines de la GI, de la TI ou des données)? Y a-t-il des employés talentueux que vous souhaitez nommer au niveau EX moins un vers le groupe et le niveau EX-03? Vous faites partie de la collectivité des ressources humaines et vous voulez créer des possibilités interministérielles pour votre main-d’œuvre numérique?",
     "description": "Paragraph one, about who is eligible for exposition"
@@ -12297,6 +12273,10 @@
   "lBX7NE": {
     "defaultMessage": "Salon de l’emploi et du réseautage pour femmes en STIM — Université Carleton (site en anglais)",
     "description": "Heading for Women in STEM career fair"
+  },
+  "lDZ4wQ": {
+    "defaultMessage": "Demander tous les candidats correspondants",
+    "description": "Button text to request all matching candidates for a community."
   },
   "lDnHjr": {
     "defaultMessage": "Vous cherchez à embaucher un·e diplômé·e du programme ou des talents autochtones pour des postes plus élevés dans le domaine des TI? Contactez notre équipe pour discuter des possibilités de placement des diplômés et des références de talents avancés.",
@@ -13946,10 +13926,6 @@
     "defaultMessage": "Si vous n’avez plus accès à la méthode d’authentification à deux facteurs que vous avez configurée lors de votre inscription à Talents numériques du GC, vous pouvez toujours vous connecter à l’aide de l’un des cinq codes de récupération reçus au moment de l’inscription. Ces codes sont personnels et ne sont accessibles qu’à vous.",
     "description": "CanadaLogin answer if user has issues signing in with CanadaLogin"
   },
-  "ruEs9/": {
-    "defaultMessage": "Cette demande n’a résulté en aucun appariement. Veuillez nous en parler davantage dans le champ réservé aux commentaires, à la fin du présent formulaire.",
-    "description": "Message to admins that a search request resulted in no candidates being found"
-  },
   "ruHk5N": {
     "defaultMessage": "Erreur : Échec de la création du processus de recrutement",
     "description": "Message displayed to pool after pool fails to get created."
@@ -14542,10 +14518,6 @@
     "defaultMessage": "Lieu de travail",
     "description": "Heading for work location section of the search form."
   },
-  "uQEmGf": {
-    "defaultMessage": "Candidats du bassin",
-    "description": "Label for the qualified in pool talent source"
-  },
   "uQaK9e": {
     "defaultMessage": "Avancement",
     "description": "Label for the advancement nomination option on the details step"
@@ -14641,10 +14613,6 @@
   "utS0s1": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de l'administrateur</hidden>, {name}",
     "description": "Title for admin dashboard on the talent cloud admin portal."
-  },
-  "utkuqx": {
-    "defaultMessage": "Demander tous les candidats correspondants {count}",
-    "description": "Button text to request all matching candidates for a community."
   },
   "utlf9l": {
     "defaultMessage": "À quoi devrais-je m’attendre si je réussis ce processus?",

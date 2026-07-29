@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
-import { AssessmentStepType } from "@gc-digital-talent/graphql";
+import type {
+  AssessmentStep,
+  PoolSkill,
+} from "@gc-digital-talent/graphql/schema-types";
+import { AssessmentStepType } from "@gc-digital-talent/graphql/schema-types";
 
 import toLocalizedString from "./fakeLocalizedString";
 import toLocalizedEnum from "./fakeLocalizedEnum";

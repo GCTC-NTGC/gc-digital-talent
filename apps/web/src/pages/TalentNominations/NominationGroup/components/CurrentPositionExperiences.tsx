@@ -59,9 +59,7 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 
 interface CurrentPositionExperiencesProps {
   query:
-    | FragmentType<typeof CurrentPositionExperiences_Fragment>
-    | null
-    | undefined;
+    FragmentType<typeof CurrentPositionExperiences_Fragment> | null | undefined;
   shareProfile?: boolean;
 }
 

@@ -9,7 +9,7 @@ import {
   type ApplicantFilter,
   type Department,
   type TalentRequest,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakeDepartments from "./fakeDepartments";

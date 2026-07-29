@@ -15,7 +15,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { TALENT_REQUEST_STATUS_COLOUR_MAP } from "~/utils/searchRequestUtils";
+import { TALENT_REQUEST_STATUS_COLOUR_MAP } from "~/utils/talentRequestUtils";
 
 import ReviewTalentRequestDialog from "./ReviewTalentRequestDialog";
 

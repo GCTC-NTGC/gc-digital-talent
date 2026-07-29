@@ -663,7 +663,7 @@ export const Component = () => {
                   description: "Comments or contributions list title",
                 })}
               </p>
-              <Ul space="md">
+              <Ul space="md" className="mb-3">
                 {comments.map((comment) => (
                   <li key={uniqueId()}>{comment}</li>
                 ))}

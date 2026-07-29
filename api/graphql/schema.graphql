@@ -1907,8 +1907,7 @@ type Query {
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
-    talentRequestId: UUID!
-      @eq(key: "talent_request_id")
+    talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -1963,6 +1962,12 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
+
+  talentNominationGroupsByNominee(
+    nomineeUserId: UUID! @eq(key: "nominee_id")
+  ): [TalentNominationGroup!]!
+    @all(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @guard
 
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(

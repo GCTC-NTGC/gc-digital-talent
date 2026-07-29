@@ -9,7 +9,6 @@ import {
   errorMessages,
   getLocale,
   uiMessages,
-  type Locales,
 } from "@gc-digital-talent/i18n";
 import {
   Checkbox,
@@ -25,7 +24,6 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import processMessages from "~/messages/processMessages";
 import DevelopmentProgramCard from "~/components/DevelopmentProgramCard/DevelopmentProgramCard";
 import adminMessages from "~/messages/adminMessages";
-import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
 import { isCommunity } from "../TalentEvent/util";
 import type { FormValues } from "./formValues";
@@ -33,6 +31,7 @@ import { TalentNominationEvent_Fragment } from "./fragments";
 import AddDialog from "./AddDialog";
 import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
+import { instructionsWordCountLimits } from "./constants";
 
 const atLeastOne = defineMessage({
   defaultMessage:
@@ -40,8 +39,6 @@ const atLeastOne = defineMessage({
   id: "bShedV",
   description: "Message to add at least one development opportunity",
 });
-
-const TEXT_AREA_MAX_WORDS_EN = 75;
 
 interface UpcomingTalentEventFormProps {
   query?: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -122,11 +119,6 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
 
   const [editOpen, setEditOpen] = useState<string | null>(null);
   const [removeOpen, setRemoveOpen] = useState<string | null>(null);
-
-  const wordCountLimits: Record<Locales, number> = {
-    en: TEXT_AREA_MAX_WORDS_EN,
-    fr: Math.round(TEXT_AREA_MAX_WORDS_EN * FRENCH_WORDS_PER_ENGLISH_WORD),
-  } as const;
 
   const instructionsDescriptionId = useId();
 
@@ -332,27 +324,25 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
         <RichTextInput
           id={"customInstructions.en"}
           name={"customInstructions.en"}
-          wordLimit={wordCountLimits.en}
+          wordLimit={instructionsWordCountLimits.en}
           label={intl.formatMessage({
             defaultMessage: "Customized instruction text",
             id: "f1Kpkp",
             description: "label for nomination event instructions",
           })}
           appendLanguageToLabel={"en"}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
           aria-describedby={instructionsDescriptionId}
         />
         <RichTextInput
           id={"customInstructions.fr"}
           name={"customInstructions.fr"}
-          wordLimit={wordCountLimits.fr}
+          wordLimit={instructionsWordCountLimits.fr}
           label={intl.formatMessage({
             defaultMessage: "Customized instruction text",
             id: "f1Kpkp",
             description: "label for nomination event instructions",
           })}
           appendLanguageToLabel={"fr"}
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
           aria-describedby={instructionsDescriptionId}
         />
       </div>

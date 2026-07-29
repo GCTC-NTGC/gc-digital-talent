@@ -19,32 +19,45 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
     public function whereMatchesTalentRequest(?array $filters): self
     {
         $filters ??= [];
+        $community = $filters['community'] ?? null;
+        $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
+
+        $userIds = $this->atLevelUserIds($filters);
+
+        // Match the ids as one Postgres array value, so the number of ids has no limit.
+        $userIdArray = '{'.$userIds->implode(',').'}';
+
+        return $this
+            ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray])
+            ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
+            ->communities($communityId ? [$communityId] : null)
+            ->where('consent_to_share_profile', true);
+    }
+
+    // Ids of the users who match "at level": verified gov employees at a requested classification
+    // who also pass the request's user-level filters. Because these ids carry the full user match,
+    // callers do not need a second user check.
+    private function atLevelUserIds(array $filters)
+    {
         $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
 
-        if (! empty($qualifiedInClassifications)) {
-            $this->whereHas('user', function (Builder $userQuery) use ($qualifiedInClassifications) {
-                /** @var UserBuilder $userQuery */
-                $userQuery->whereHas('currentClassification', function (Builder $classQuery) use ($qualifiedInClassifications) {
-                    $classQuery->where(function (Builder $q) use ($qualifiedInClassifications) {
-                        foreach ($qualifiedInClassifications as $classification) {
+        return User::query()
+            ->whereIsVerifiedGovEmployee()
+            ->whereUserAttributesMatchTalentRequest($filters)
+            ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
+                /** @var UserBuilder $query */
+                $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
+                    $classQuery->where(function (Builder $q) use ($classifications) {
+                        foreach ($classifications as $classification) {
                             $q->orWhere(function (Builder $q) use ($classification) {
                                 $q->where('group', $classification['group'])
                                     ->where('level', $classification['level']);
                             });
                         }
                     });
-                })->whereIsVerifiedGovEmployee();
-            });
-        }
-
-        $community = $filters['community'] ?? null;
-        $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
-
-        $this->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'));
-        $this->communities($communityId ? [$communityId] : null);
-        $this->where('consent_to_share_profile', true);
-
-        return $this;
+                });
+            })
+            ->pluck('id');
     }
 
     // scope the query to CommunityInterests the current user can view

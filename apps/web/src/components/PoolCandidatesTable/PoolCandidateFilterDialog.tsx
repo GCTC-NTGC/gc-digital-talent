@@ -199,8 +199,7 @@ export type PoolCandidateFilterDialogProps =
     hidePoolFilter?: boolean;
     query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
     availableSteps?:
-      | Pick<AssessmentStep, "id" | "type" | "sortOrder" | "title">[]
-      | null;
+      Pick<AssessmentStep, "id" | "type" | "sortOrder" | "title">[] | null;
   };
 
 const PoolCandidateFilterDialog = ({

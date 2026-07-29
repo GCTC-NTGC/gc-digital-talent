@@ -4,13 +4,17 @@ import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import type { PoolCandidate, Pool, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  Pool,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   EducationRequirementOption,
   OverallAssessmentStatus,
   ScreeningStage,
   ApplicationStatus,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeExperiences from "./fakeExperiences";
 import fakePools from "./fakePools";

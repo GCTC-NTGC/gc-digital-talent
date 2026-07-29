@@ -1069,8 +1069,8 @@ export const PoolPoster = ({
                       {intl.formatMessage(
                         {
                           defaultMessage:
-                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <gcDigitalTalentLink>sign up for a GCkey</gcDigitalTalentLink> to start your application. Expect to spend approximately 20 minutes signing up for the first time.",
-                          id: "G0AEfY",
+                            "We recommend starting your application as early as possible. This way, you'll have time to contact us in case of any technical issues. If you don't have an account yet, you'll need to <gcDigitalTalentLink>register</gcDigitalTalentLink> to start your application. Expect to spend approximately 10 minutes signing up for the first time.",
+                          id: "TsDung",
                           description:
                             "Text explaining the importance of starting an application early",
                         },

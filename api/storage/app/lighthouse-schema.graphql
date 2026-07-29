@@ -520,6 +520,7 @@ type Query {
   talentNominationEvent(id: UUID!): TalentNominationEvent
   talentNomination(id: UUID!): TalentNomination
   talentNominationGroup(id: UUID!): TalentNominationGroup
+  talentNominationGroupsByNominee(nomineeUserId: UUID!): [TalentNominationGroup!]!
   trainingOpportunity(id: UUID!): TrainingOpportunity
   localizedEnumStrings(enumName: String!): [LocalizedEnumString!] @deprecated(reason: "Replaced by localizedEnumOptions")
   localizedEnumOptions(enumName: String!): [LocalizedEnumOption!]
@@ -3966,6 +3967,8 @@ enum ActivityEvent {
   REINSTATED
   REVERTED
   PUBLISHED
+  SPECIAL_APPLICATION_CREATED
+  SPECIAL_APPLICATION_SUBMITTED
 }
 
 enum ActivityLog {
