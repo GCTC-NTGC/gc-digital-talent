@@ -166,7 +166,7 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
     await talentSearch.goToIndex();
@@ -211,6 +211,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -260,6 +261,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
