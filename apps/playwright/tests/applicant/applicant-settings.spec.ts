@@ -53,7 +53,7 @@ test.describe("Applicant settings page", () => {
     ).toBeVisible();
     // Verify the 'Green Check mark' is displayed for personal and work email contact card
     const profilePage = new EmployeeProfile(page);
-    await profilePage.goToEmployeeProfile();
+    await profilePage.goToEmployeeVerification();
     expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
     await registration.deleteNewUser();
   });
