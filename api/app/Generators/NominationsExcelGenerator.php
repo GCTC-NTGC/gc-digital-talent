@@ -15,6 +15,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
+use App\Enums\NineBoxRating;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\ProvinceOrTerritory;
@@ -62,6 +63,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'nominators',
         'nomination_options',
         'advancement_approval',
+        'advancement_classifications',
         'advancement_approval_notes',
         'lateral_movement_approval',
         'lateral_movement_approval_notes',
@@ -163,6 +165,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'reference_email',
         'reference_classification',
         'reference_department',
+        'nine_box_performance',
+        'nine_box_leadership_potential',
         'lateral_experience_recommendations',
         'other_lateral_experience',
         'development_program_recommendations',
@@ -257,6 +261,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $nominators->join(', '),
                     $optionsStr,
                     $this->localizeEnum($this->isNominatedForAdvancement($talentNominationGroup) ? $talentNominationGroup->advancement_decision : null, TalentNominationGroupDecision::class),
+                    $this->canShare($consentToShare, $talentNominationGroup->advancementClassifications->map(function ($classification) {
+                        return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? '');
+                    })->join(', ')),
                     $this->canShare($consentToShare, $this->isNominatedForAdvancement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->advancement_notes ?? '')) : ''),
                     $this->localizeEnum($this->isNominatedForLateralMovement($talentNominationGroup) ? $talentNominationGroup->lateral_movement_decision : null, TalentNominationGroupDecision::class),
                     $this->canShare($consentToShare, $this->isNominatedForLateralMovement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->lateral_movement_notes ?? '')) : ''),
@@ -472,6 +479,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $referenceDetails['email'], // reference email
                         $referenceDetails['classification'], // reference classification
                         $referenceDetails['department'], // reference department
+                        $this->localizeEnum($nomination->nine_box_performance?->name, NineBoxRating::class), // nine box performance
+                        $this->localizeEnum($nomination->nine_box_leadership_potential?->name, NineBoxRating::class), // nine box leadership potential
                         $this->canShare($consentToShare, $lateralMovementOptionsStr),  // lateral experience recommendations
                         $this->canShare($consentToShare, $nomination->lateral_movement_options_other ?? ''), // other lateral experience
                         $this->canShare($consentToShare, $developmentProgramsStr),   // development program recommendations
@@ -728,6 +737,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     {
         $query = TalentNominationGroup::with([
             'talentNominationEvent',
+            'advancementClassifications',
             'nominee' => function ($query) {
                 $query->with([
                     'department',
