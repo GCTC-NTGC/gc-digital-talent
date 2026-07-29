@@ -15,7 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
@@ -189,13 +188,6 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTerm,
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
-  ],
-  POOL_CANDIDATE_SEARCH_STATUS: [
-    PoolCandidateSearchStatus.New,
-    PoolCandidateSearchStatus.InProgress,
-    PoolCandidateSearchStatus.Waiting,
-    PoolCandidateSearchStatus.Done,
-    PoolCandidateSearchStatus.DoneNoCandidates,
   ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
@@ -396,15 +388,6 @@ export function sortTalentRequestReason(
       TalentRequestReason.RequiredByDirective,
     ],
     TalentRequestReasons,
-  );
-}
-
-export function sortPoolCandidateSearchStatus(
-  poolCandidateSearchStatuses?: MaybeLocalizedEnums,
-) {
-  return sortLocalizedEnums(
-    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
-    poolCandidateSearchStatuses,
   );
 }
 
