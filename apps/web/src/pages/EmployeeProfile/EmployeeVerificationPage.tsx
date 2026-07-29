@@ -52,16 +52,16 @@ const SECTION_ID = {
   GOALS_WORK_STYLE: "goals-work-style-section",
 };
 
-const EmployeeProfileOptions_Fragment = graphql(/** GraphQL */ `
-  fragment EmployeeProfileOptions on Query {
+const EmployeeVerificationOptions_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeVerificationOptions on Query {
     ...EmployeeProfileCareerDevelopmentOptions
     ...EmployeeProfileNextRoleOptions
     ...EmployeeProfileCareerObjectiveOptions
   }
 `);
 
-export const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
-  fragment EmployeeProfile on User {
+export const EmployeeVerification_Fragment = graphql(/** GraphQL */ `
+  fragment EmployeeVerification on User {
     isVerifiedGovEmployee
     ...UserEmployeeVerification
     employeeProfile {
@@ -73,19 +73,22 @@ export const EmployeeProfile_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface EmployeeProfileProps {
-  employeeProfileQuery: FragmentType<typeof EmployeeProfile_Fragment>;
-  optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
+interface EmployeeVerificationProps {
+  userQuery: FragmentType<typeof EmployeeVerification_Fragment>;
+  optionsQuery: FragmentType<typeof EmployeeVerificationOptions_Fragment>;
 }
 
-export const EmployeeProfile = ({
-  employeeProfileQuery,
+export const EmployeeVerification = ({
+  userQuery,
   optionsQuery,
-}: EmployeeProfileProps) => {
+}: EmployeeVerificationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(EmployeeProfile_Fragment, employeeProfileQuery);
-  const options = getFragment(EmployeeProfileOptions_Fragment, optionsQuery);
+  const user = getFragment(EmployeeVerification_Fragment, userQuery);
+  const options = getFragment(
+    EmployeeVerificationOptions_Fragment,
+    optionsQuery,
+  );
 
   if (!user?.employeeProfile) {
     throw new NotFoundError();
@@ -290,25 +293,25 @@ export const EmployeeProfile = ({
   );
 };
 
-const EmployeeProfilePage_Query = graphql(/** GraphQL */ `
-  query EmployeeProfilePage {
-    ...EmployeeProfileOptions
+const EmployeeVerificationPage_Query = graphql(/** GraphQL */ `
+  query EmployeeVerificationPage {
+    ...EmployeeVerificationOptions
     me {
-      ...EmployeeProfile
+      ...EmployeeVerification
     }
   }
 `);
 
-const EmployeeProfilePage = () => {
+const EmployeeVerificationPage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
-    query: EmployeeProfilePage_Query,
+    query: EmployeeVerificationPage_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <EmployeeProfile employeeProfileQuery={data.me} optionsQuery={data} />
+        <EmployeeVerification userQuery={data.me} optionsQuery={data} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
@@ -320,7 +323,7 @@ const EmployeeProfilePage = () => {
 
 const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <EmployeeProfilePage />
+    <EmployeeVerificationPage />
   </RequireAuth>
 );
 
