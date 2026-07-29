@@ -1,4 +1,4 @@
-import { useIntl, type MessageDescriptor } from "react-intl";
+import { useIntl } from "react-intl";
 import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 
 import {
@@ -80,13 +80,6 @@ const TalentRequestSourcesCard = ({
   const selectedTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
   );
-  const talentSourceLabels: Partial<
-    Record<TalentRequestSource, MessageDescriptor>
-  > = {
-    [TalentRequestSource.QualifiedInPool]:
-      talentRequestMessages.qualifiedInPoolLabel,
-    [TalentRequestSource.AtLevel]: talentRequestMessages.atLevelLabel,
-  };
 
   return (
     <TalentRequestSectionCard
@@ -121,24 +114,18 @@ const TalentRequestSourcesCard = ({
           label={intl.formatMessage(talentRequestMessages.talentSource)}
         >
           <Ul unStyled noIndent inside>
-            {talentSourceOptionsFiltered.map((source) => {
-              const messageDescriptor = talentSourceLabels[source.value];
-              const label = messageDescriptor
-                ? intl.formatMessage(messageDescriptor)
-                : (source.label?.localized ?? notProvided);
-
-              return (
-                <li key={source.value}>
-                  <BoolCheckIcon
-                    value={selectedTalentSources.includes(source.value)}
-                    trueLabel={intl.formatMessage(commonMessages.selected)}
-                    falseLabel={intl.formatMessage(commonMessages.notSelected)}
-                  >
-                    {label}
-                  </BoolCheckIcon>
-                </li>
-              );
-            })}
+            {talentSourceOptionsFiltered.map((source) => (
+              <li key={source.value}>
+                <BoolCheckIcon
+                  value={selectedTalentSources.includes(source.value)}
+                  trueLabel={intl.formatMessage(commonMessages.selected)}
+                  falseLabel={intl.formatMessage(commonMessages.notSelected)}
+                >
+                  {source.label.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
+                </BoolCheckIcon>
+              </li>
+            ))}
           </Ul>
         </FieldDisplay>
         <FieldDisplay
