@@ -81,7 +81,7 @@ interface EmployeeProfileProps {
   optionsQuery: FragmentType<typeof EmployeeProfileOptions_Fragment>;
 }
 
-const EmployeeProfile = ({
+export const EmployeeProfile = ({
   employeeProfileQuery,
   optionsQuery,
 }: EmployeeProfileProps) => {

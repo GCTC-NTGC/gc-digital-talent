@@ -7,7 +7,7 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 import {
   EmployeeProfile,
   EmployeeProfile_Fragment,
-} from "./EmployeeProfilePage";
+} from "./EmployeeVerificationPage";
 
 const mockUser = fakeUsers(1)[0];
 const fakeWorkExperience = experienceGenerators.workExperiences()[0];
