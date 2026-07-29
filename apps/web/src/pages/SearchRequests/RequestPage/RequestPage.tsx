@@ -1,12 +1,14 @@
 import { useIntl } from "react-intl";
 
 import { Card } from "@gc-digital-talent/ui";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import CreateRequest from "./components/RequestForm";
 
-export const Component = () => {
+const RequestPage = () => {
   const intl = useIntl();
 
   return (
@@ -30,6 +32,13 @@ export const Component = () => {
     </Hero>
   );
 };
+
+// NOTE: Require authentication but allow any user role
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.BaseUser]}>
+    <RequestPage />
+  </RequireAuth>
+);
 
 Component.displayName = "RequestPage";
 
