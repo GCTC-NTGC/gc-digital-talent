@@ -11,7 +11,7 @@ import {
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
