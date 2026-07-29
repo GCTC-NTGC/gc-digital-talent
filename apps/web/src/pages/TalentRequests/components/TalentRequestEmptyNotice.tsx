@@ -29,8 +29,8 @@ const TalentRequestEmptyNotice = ({ query }: TalentRequestEmptyNoticeProps) => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "This request was submitted with zero matching candidates.",
-            id: "yN1xmK",
+              "This request resulted in zero matching candidates.",
+            id: "l/Ii1A",
             description:
               "Warning message displayed when a talent request was submitted with no matching candidates.",
           })}
