@@ -282,6 +282,7 @@ return [
 
     'nomination_options' => 'Options de mise en candidature',
     'advancement_approval' => 'Approbation de l’avancement',
+    'advancement_classifications' => 'Advancement classifications',
     'advancement_approval_notes' => 'Notes d’approbation de l’avancement',
     'lateral_movement_approval' => 'Approbation de la mutation latérale',
     'lateral_movement_approval_notes' => 'Notes d’approbation de la mutation latérale',
