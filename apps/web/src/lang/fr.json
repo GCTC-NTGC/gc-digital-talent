@@ -12230,6 +12230,10 @@
     "defaultMessage": "Cette nomination pour une mutation latérale n'est pas retenue.",
     "description": "Label for lateral movement nomination is rejected"
   },
+  "l/Ii1A": {
+    "defaultMessage": "Aucune correspondance trouvée pour cette demande.",
+    "description": "Warning message displayed when a talent request was submitted with no matching candidates."
+  },
   "l0EXuk": {
     "defaultMessage": "Votre candidature a été soumise et est en attente d'examen. Vous ne pouvez plus modifier votre candidature.",
     "description": "Status description for a submitted (but not reviewed) application"
