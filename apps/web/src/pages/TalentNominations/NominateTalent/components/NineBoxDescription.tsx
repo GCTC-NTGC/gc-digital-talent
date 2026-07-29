@@ -18,9 +18,8 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities",
-        id: "5WRfMY",
-        description:
-          "Nine-box recommendation title for low performance and low leadership potential",
+        id: "YaTEkX",
+        description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
@@ -34,9 +33,8 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities",
-        id: "8Ge1Ni",
-        description:
-          "Nine-box recommendation title for low performance and moderate leadership potential",
+        id: "YaTEkX",
+        description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
@@ -50,9 +48,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities and lateral movement",
-        id: "6NKzMy",
+        id: "wqxKES",
         description:
-          "Nine-box recommendation title for low performance and high leadership potential",
+          "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
@@ -68,9 +66,8 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities",
-        id: "hBp8jr",
-        description:
-          "Nine-box recommendation title for moderate performance and low leadership potential",
+        id: "YaTEkX",
+        description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
@@ -84,9 +81,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities and lateral movement",
-        id: "0TWmTz",
+        id: "wqxKES",
         description:
-          "Nine-box recommendation title for moderate performance and moderate leadership potential",
+          "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
@@ -100,9 +97,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities, lateral movement and advancement",
-        id: "2/HHJN",
+        id: "qH3qHA",
         description:
-          "Nine-box recommendation title for moderate performance and high leadership potential",
+          "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
@@ -118,9 +115,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities and lateral movement",
-        id: "kU1xVy",
+        id: "wqxKES",
         description:
-          "Nine-box recommendation title for high performance and low leadership potential",
+          "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
@@ -134,9 +131,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities, lateral movement and advancement",
-        id: "nGm0lD",
+        id: "qH3qHA",
         description:
-          "Nine-box recommendation title for high performance and moderate leadership potential",
+          "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
@@ -150,9 +147,9 @@ const messages: Record<
       title: defineMessage({
         defaultMessage:
           "We recommend this employee be nominated for development opportunities, lateral movement and advancement",
-        id: "t13Jli",
+        id: "qH3qHA",
         description:
-          "Nine-box recommendation title for high performance and high leadership potential",
+          "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
