@@ -60,6 +60,7 @@ import type {
   FormValues as SearchFormValues,
 } from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getBasicFullNameLabel } from "~/utils/nameUtils";
 
 import {
   TALENT_REQUEST_STATE_KEY,
@@ -131,6 +132,20 @@ const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
     name {
       en
       fr
+    }
+  }
+`);
+
+const RequestFormDefaultUser_Fragment = graphql(/** GraphQL */ `
+  fragment RequestFormDefaultUser on User {
+    govEmployeeProfile {
+      firstName
+      lastName
+      role
+      workEmail
+      department {
+        id
+      }
     }
   }
 `);
@@ -233,6 +248,7 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
+  defaultUserQuery?: FragmentType<typeof RequestFormDefaultUser_Fragment>;
   searchFormInitialValues?: SearchFormValues;
   handleCreateTalentRequest: (
     data: CreateTalentRequestInput,
@@ -244,6 +260,7 @@ export const RequestForm = ({
   skills,
   classificationsQuery,
   communitiesQuery,
+  defaultUserQuery,
   handleCreateTalentRequest,
 }: RequestFormProps) => {
   const intl = useIntl();
@@ -272,6 +289,11 @@ export const RequestForm = ({
     RequestFormCommunity_Fragment,
     communitiesQuery,
   );
+  const defaultUser = getFragment(
+    RequestFormDefaultUser_Fragment,
+    defaultUserQuery,
+  );
+  const user = defaultUser?.govEmployeeProfile;
 
   // We should always receive exactly one stream and only its ID
   const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
@@ -305,7 +327,13 @@ export const RequestForm = ({
   }, [blocker]);
 
   const formMethods = useForm<FormValues>({
-    defaultValues: getFromSessionStorage(cacheKey, {}),
+    defaultValues: {
+      fullName: getBasicFullNameLabel(user?.firstName, user?.lastName),
+      email: user?.workEmail ?? "",
+      managerJobTitle: user?.role ?? "",
+      department: user?.department?.id,
+      ...getFromSessionStorage(cacheKey, {}),
+    },
   });
   const { handleSubmit, watch } = formMethods;
 
@@ -766,6 +794,9 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     communities {
       ...RequestFormCommunity
     }
+    me {
+      ...RequestFormDefaultUser
+    }
   }
 `);
 
@@ -805,6 +836,7 @@ const RequestFormApi = () => {
           communitiesQuery={unpackMaybes(lookupData?.communities)}
           skills={skills}
           handleCreateTalentRequest={handleCreateTalentRequest}
+          defaultUserQuery={lookupData?.me ?? {}}
         />
       </Pending>
     </>
