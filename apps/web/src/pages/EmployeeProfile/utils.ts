@@ -22,7 +22,7 @@ import {
   hasEmptyRequiredFields as goalsWorkStyleHasEmptyRequiredFields,
 } from "~/validators/employeeProfile/goalsWorkStyle";
 
-export const getOverallStatus = (
+export const getCareerPlanningStatus = (
   isVerifiedGovEmployee: boolean,
   careerDevelopment: EmployeeProfileCareerDevelopmentFragment,
   nextRole: EmployeeProfileNextRoleFragment,
