@@ -1,11 +1,10 @@
 import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
-  Link,
   Pending,
   Separator,
   TableOfContents,
@@ -16,9 +15,9 @@ import { ROLE_NAME } from "@gc-digital-talent/auth";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
-import useRoutes from "~/hooks/useRoutes";
 
 import EmployeeVerificationSection from "../../components/EmployeeVerificationSection/EmployeeVerificationSection";
+import SharedTocLinks from "./components/SharedTocLinks";
 
 const SECTION_ID = {
   EMPLOYEE_VERIFICATION: "employee-verification-section",
@@ -39,7 +38,6 @@ export const EmployeeVerification = ({
   userQuery,
 }: EmployeeVerificationProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const user = getFragment(EmployeeVerification_Fragment, userQuery);
 
   return (
@@ -62,14 +60,7 @@ export const EmployeeVerification = ({
             </TableOfContents.ListItem>
           </TableOfContents.List>
           <Separator space="sm" />
-          <div className="flex flex-col gap-y-3">
-            <Link href={paths.profile()}>
-              {intl.formatMessage(navigationMessages.applicantProfile)}
-            </Link>
-            <Link href={paths.accountSettings()}>
-              {intl.formatMessage(navigationMessages.accountSettings)}
-            </Link>
-          </div>
+          <SharedTocLinks />
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <div className="flex flex-col gap-y-18">

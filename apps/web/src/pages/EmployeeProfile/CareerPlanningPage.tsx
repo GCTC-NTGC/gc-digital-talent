@@ -3,12 +3,11 @@ import { useQuery } from "urql";
 import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 
-import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Heading,
-  Link,
   Pending,
   Separator,
   TableOfContents,
@@ -17,7 +16,6 @@ import {
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 
-import useRoutes from "~/hooks/useRoutes";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
 import StatusItem from "~/components/StatusItem/StatusItem";
@@ -41,6 +39,7 @@ import {
   getNextRoleStatus,
   getCareerPlanningStatus,
 } from "./utils";
+import SharedTocLinks from "./components/SharedTocLinks";
 
 const SECTION_ID = {
   CAREER_PLANNING: "career-planning-section",
@@ -77,7 +76,6 @@ interface CareerPlanningProps {
 
 const CareerPlanning = ({ userQuery, optionsQuery }: CareerPlanningProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const user = getFragment(CareerPlanning_Fragment, userQuery);
   const options = getFragment(CareerPlanningOptions_Fragment, optionsQuery);
 
@@ -199,14 +197,7 @@ const CareerPlanning = ({ userQuery, optionsQuery }: CareerPlanningProps) => {
             </TableOfContents.ListItem>
           </TableOfContents.List>
           <Separator space="sm" />
-          <div className="flex flex-col gap-y-3">
-            <Link href={paths.profile()}>
-              {intl.formatMessage(navigationMessages.applicantProfile)}
-            </Link>
-            <Link href={paths.accountSettings()}>
-              {intl.formatMessage(navigationMessages.accountSettings)}
-            </Link>
-          </div>
+          <SharedTocLinks />
         </TableOfContents.Navigation>
         <TableOfContents.Content>
           <div className="flex flex-col gap-y-18">
