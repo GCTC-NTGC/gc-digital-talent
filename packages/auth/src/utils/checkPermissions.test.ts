@@ -1,13 +1,13 @@
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
 import { Permission } from "@gc-digital-talent/graphql";
 
 import { ROLE_NAME } from "../const";
+import type { AuthRoleAssignment } from "../types";
 import checkPermissions from "./checkPermissions";
 
 describe("checkPermissions", () => {
   const f = checkPermissions;
 
-  const mockPlatformAdmin: RoleAssignment = {
+  const mockPlatformAdmin: AuthRoleAssignment = {
     id: "a1",
     role: {
       id: "r1",
@@ -21,7 +21,7 @@ describe("checkPermissions", () => {
     team: null,
   };
 
-  const mockCommunityRecruiter: RoleAssignment = {
+  const mockCommunityRecruiter: AuthRoleAssignment = {
     id: "a2",
     role: {
       id: "r2",
