@@ -33,11 +33,11 @@ final class AwardExperienceInputValidator extends Validator
         };
 
         return [
-            'title' => ['required', 'string'],
-            'issuedBy' => ['required', 'string'],
-            'awardedDate' => ['required', 'date', 'before_or_equal:today'],
-            'awardedTo' => ['required', Rule::in(array_column(AwardedTo::cases(), 'name'))],
-            'awardedScope' => ['required', Rule::in(array_column(AwardedScope::cases(), 'name'))],
+            'title' => ['sometimes', 'required', 'string'],
+            'issuedBy' => ['sometimes', 'required', 'string'],
+            'awardedDate' => ['sometimes', 'required', 'date', 'before_or_equal:today'],
+            'awardedTo' => ['sometimes', 'required', Rule::in(array_column(AwardedTo::cases(), 'name'))],
+            'awardedScope' => ['sometimes', 'required', Rule::in(array_column(AwardedScope::cases(), 'name'))],
             'projectName' => [
                 'nullable',
                 'string',
