@@ -17,8 +17,6 @@ use Throwable;
 #[Description('Scan apps/web/src for external links and check them for broken responses.')]
 class CheckExternalLinks extends Command
 {
-    private const USER_AGENT = 'Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)';
-
     /**
      * Execute the console command.
      */
@@ -81,7 +79,7 @@ class CheckExternalLinks extends Command
         $responses = Http::pool(fn (Pool $pool) => collect($links)->mapWithKeys(
             fn ($link) => [$link['url'] => $pool->as($link['url'])
                 ->timeout(config('linkchecker.timeout'))
-                ->withUserAgent(self::USER_AGENT)
+                ->withUserAgent($this->userAgentFor($link['url']))
                 ->retry(2, 500, fn ($e) => $e instanceof ConnectionException, throw: false)
                 ->get($link['url'])]
         )->all(), config('linkchecker.concurrency'));
@@ -103,6 +101,19 @@ class CheckExternalLinks extends Command
         }
 
         return $brokenLinks;
+    }
+
+    /**
+     * Most requests use an identifying User-Agent, but a handful of hosts
+     * only respond correctly to a realistic browser one.
+     */
+    private function userAgentFor(string $url): string
+    {
+        $host = strtolower(parse_url($url, PHP_URL_HOST) ?? '');
+
+        return in_array($host, config('linkchecker.browser_user_agent_hosts'), true)
+            ? config('linkchecker.browser_user_agent')
+            : config('linkchecker.user_agent');
     }
 
     /**
