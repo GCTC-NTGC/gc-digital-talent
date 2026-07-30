@@ -1,4 +1,4 @@
-import type { Role } from "@gc-digital-talent/graphql";
+import type { Role } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLContext } from "./graphql";
 

@@ -7,7 +7,7 @@ import type {
   CommunityExperienceInput,
   AwardExperienceInput,
   EducationExperienceInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 
