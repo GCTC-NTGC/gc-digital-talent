@@ -36,7 +36,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/reclaim-space
+
+      - name: Reclaim space on runner
+        uses: ./.github/actions/reclaim-space
+
       - name: "Copy .env"
         working-directory: "./apps/web"
         run: |
