@@ -79,12 +79,6 @@ class Department extends Model
         return $this->hasManyThrough(RoleAssignment::class, Team::class, 'teamable_id');
     }
 
-    /** @return HasMany<PoolCandidateSearchRequest, $this> */
-    public function poolCandidateSearchRequests(): HasMany
-    {
-        return $this->hasMany(PoolCandidateSearchRequest::class);
-    }
-
     /**
      * Accessors
      */

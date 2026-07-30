@@ -3,7 +3,7 @@
 namespace Tests\Feature\Notifications;
 
 use App\Models\Department;
-use App\Models\PoolCandidateSearchRequest;
+use App\Models\TalentRequest;
 use App\Notifications\TalentRequestSubmissionConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
@@ -20,11 +20,11 @@ class TriggerTalentRequestSubmissionConfirmationTest extends TestCase
         Notification::fake();
     }
 
-    // triggers a notification when a search request is created
+    // triggers a notification when a talent request is created
     public function testNotifyWhenRequest(): void
     {
         Department::factory()->create();
-        PoolCandidateSearchRequest::factory()->create();
+        TalentRequest::factory()->create();
 
         Notification::assertSentOnDemand(TalentRequestSubmissionConfirmation::class);
     }
