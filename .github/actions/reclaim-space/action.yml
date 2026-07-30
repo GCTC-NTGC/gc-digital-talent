@@ -2,17 +2,17 @@ name: "Reclaim space on runner"
 runs:
   using: "composite"
   steps:
-    - name: Reclaim space on runner
-      run: |
-        sudo rm -rf /usr/local/lib/android
-        rm -rf /usr/share/dotnet
-        rm -rf /usr/local/share/boost
-        rm -rf /opt/ghc
-        sudo rm -rf /usr/local/share/powershell
-        sudo rm -rf /usr/share/swift
-        sudo rm -rf /usr/local/.ghcup
-        sudo rm -rf /usr/lib/jvm
-        sudo rm -rf /opt/hostedtoolcache/CodeQL
-        docker system prune -af --volumes || true
-        df -h
-    shell: bash
+      - name: Reclaim space on runner
+        run: |
+          sudo rm -rf /usr/local/lib/android
+          rm -rf /usr/share/dotnet
+          rm -rf /usr/local/share/boost
+          rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/powershell
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /usr/lib/jvm
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          docker system prune -af --volumes || true
+          df -h
+      shell: bash
