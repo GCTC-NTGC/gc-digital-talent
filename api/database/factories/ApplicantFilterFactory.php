@@ -9,7 +9,6 @@ use App\Enums\PositionDuration;
 use App\Enums\TalentRequestSource;
 use App\Enums\WorkRegion;
 use App\Models\ApplicantFilter;
-use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Skill;
@@ -96,10 +95,6 @@ class ApplicantFilterFactory extends BaseFactory
         return $this->afterCreating(function (ApplicantFilter $filter) use ($sparse) {
             $minCount = $sparse ? 0 : 1;
 
-            $filter->classifications()->saveMany(
-                Classification::inRandomOrder()->limit($this->faker->numberBetween($minCount, 2))->get()
-            );
-
             $filter->skills()->saveMany(
                 Skill::inRandomOrder()->limit($this->faker->numberBetween($minCount, 2))->get()
             );
@@ -109,6 +104,7 @@ class ApplicantFilterFactory extends BaseFactory
                 : collect();
 
             $filter->pools()->saveMany($pools);
+            $filter->classifications()->saveMany($pools->pluck('classification')->filter());
             $filter->qualifiedInClassifications()->saveMany($pools->pluck('classification')->filter());
             $filter->qualifiedInWorkStreams()->saveMany($pools->pluck('workStream')->filter());
         });
