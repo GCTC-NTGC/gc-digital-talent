@@ -1,0 +1,146 @@
+name: LinkChecker (PHP)
+
+on:
+  workflow_dispatch: # allows manual trigger
+  schedule:
+    # Every Wednesday at 2:00 AM UTC
+    - cron: "0 2 * * 3"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-links:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: bcmath
+          coverage: none
+
+      - name: Install api dependencies
+        working-directory: api
+        run: |
+          cp .env.example .env
+          composer install --prefer-dist --no-scripts
+
+      - name: Run External Link Checker
+        # A non-zero exit here just means broken links were found (see
+        # Command::FAILURE in CheckExternalLinks) -- that's reported via the
+        # issue below, not treated as a CI infrastructure failure.
+        continue-on-error: true
+        working-directory: api
+        run: php artisan app:check-external-links
+
+      - name: Count Broken Links
+        if: always()
+        id: count
+        run: |
+          if [ -f api/storage/app/external-broken-links.json ]; then
+            num=$(jq length api/storage/app/external-broken-links.json)
+          else
+            num=0
+          fi
+          echo "brokenLinksCount=$num" >> "$GITHUB_OUTPUT"
+
+      - name: Upload Report Artifacts
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: external-link-check-results-php
+          path: |
+            api/storage/app/external-links.json
+            api/storage/app/external-broken-links.json
+
+      - name: Open or update tracking issue for broken links
+        if: always() && steps.count.outputs.brokenLinksCount != '0'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const fs = require("fs");
+
+            const label = "broken-links";
+            const title = "External link checker: broken links detected";
+            const brokenLinks = JSON.parse(
+              fs.readFileSync("api/storage/app/external-broken-links.json", "utf8")
+            );
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+
+            const rows = brokenLinks
+              .map((link) => `| ${link.file} | ${link.url} | ${link.status} |`)
+              .join("\n");
+            const body = [
+              `The external link checker found **${brokenLinks.length}** broken link(s) as of this run.`,
+              "",
+              "| File | URL | Status |",
+              "| --- | --- | --- |",
+              rows,
+              "",
+              `[View workflow run](${runUrl})`,
+            ].join("\n");
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              labels: label,
+            });
+
+            if (existing.data.length > 0) {
+              const issue = existing.data[0];
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body,
+              });
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `Still ${brokenLinks.length} broken link(s) as of this run. See the updated issue description for details.`,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                labels: [label],
+              });
+            }
+
+      - name: Close tracking issue if clean
+        if: always() && steps.count.outputs.brokenLinksCount == '0'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const label = "broken-links";
+
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              labels: label,
+            });
+
+            for (const issue of existing.data) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: "All external links passed as of this run. Closing.",
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: "closed",
+              });
+            }
