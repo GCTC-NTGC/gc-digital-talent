@@ -18,6 +18,7 @@
     "tsc": "tsc --project tsconfig.json --noEmit"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.12.1",
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
@@ -31,10 +32,8 @@
     "exceljs": "^4.4.0",
     "mammoth": "^1.12.0",
     "monocart-coverage-reports": "^2.12.12",
+    "playwright-core": "^1.61.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.64.0"
-  },
-  "dependencies": {
-    "@axe-core/playwright": "^4.12.1"
   }
 }
