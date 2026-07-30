@@ -1,7 +1,7 @@
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
-import { AccountSettingsPage } from "./AccountSettingsPage";
-import { AccountSettingsPageDeprecated } from "./AccountSettingsPageDeprecated";
+import AccountSettingsPage from "./AccountSettingsPage";
+import AccountSettingsPageDeprecated from "./AccountSettingsPageDeprecated";
 
 /**
  * A wrapper to conditionally render the actual account page

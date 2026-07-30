@@ -297,7 +297,7 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
   }
 `);
 
-export const AccountSettingsPageDeprecated = () => {
+const AccountSettingsPageDeprecated = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: AccountSettings_Query,
@@ -316,7 +316,7 @@ export const AccountSettingsPageDeprecated = () => {
   );
 };
 
-export const Component = () => (
+const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
     <AccountSettingsPageDeprecated />
   </RequireAuth>
