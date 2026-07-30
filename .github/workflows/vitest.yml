@@ -24,7 +24,7 @@ jobs:
 
       - name: Reclaim space on runner
         run: |
-          rm -rf /usr/local/android
+          sudo rm -rf /usr/local/lib/android
           rm -rf /usr/share/dotnet
           rm -rf /usr/local/share/boost
           rm -rf /opt/ghc
@@ -32,6 +32,8 @@ jobs:
           sudo rm -rf /usr/share/swift
           sudo rm -rf /usr/local/.ghcup
           sudo rm -rf /usr/lib/jvm
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          docker system prune -af --volumes || true
           df -h
 
       - uses: actions/checkout@v7
