@@ -3788,16 +3788,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v6.68.0",
+            "version": "v6.69.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "a29ff8eba68f79b80f7206b83ee570d95b28e3d8"
+                "reference": "d9ecb9cae8d29ef0ed6d6d7cd60693a3df5a7bde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/a29ff8eba68f79b80f7206b83ee570d95b28e3d8",
-                "reference": "a29ff8eba68f79b80f7206b83ee570d95b28e3d8",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/d9ecb9cae8d29ef0ed6d6d7cd60693a3df5a7bde",
+                "reference": "d9ecb9cae8d29ef0ed6d6d7cd60693a3df5a7bde",
                 "shasum": ""
             },
             "require": {
@@ -3820,10 +3820,11 @@
             "require-dev": {
                 "algolia/algoliasearch-client-php": "^3",
                 "bensampo/laravel-enum": "^5 || ^6",
+                "composer-runtime-api": "^2",
                 "ergebnis/composer-normalize": "^2.2.2",
                 "fakerphp/faker": "^1.21",
                 "google/protobuf": "^3.21 || ^4.33.6",
-                "larastan/larastan": "^2.9.14 || ^3.0.4",
+                "larastan/larastan": "^2.9.14 || ^3.10",
                 "laravel/framework": "^9 || ^10 || ^11 || ^12 || ^13",
                 "laravel/legacy-factories": "^1.1.1",
                 "laravel/pennant": "^1",
@@ -3842,7 +3843,7 @@
                 "phpunit/phpunit": "^9.6.4 || ^10 || ^11 || ^12",
                 "predis/predis": "^1.1 || ^2.1",
                 "pusher/pusher-php-server": "^5 || ^6 || ^7.0.2",
-                "rector/rector": "^1 || ^2",
+                "rector/rector": "^1.2.10 || ^2.5.7",
                 "thecodingmachine/phpstan-safe-rule": "^1.2"
             },
             "suggest": {
@@ -3914,7 +3915,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-07-02T09:45:18+00:00"
+            "time": "2026-07-20T07:25:22+00:00"
         },
         {
             "name": "openspout/openspout",
@@ -9348,16 +9349,16 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v15.34.0",
+            "version": "v15.37.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "c72fd0f82e7b992aaf35516ebf860a4729be206f"
+                "reference": "8c620457202b5c8d81582338238f769790ef718a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/c72fd0f82e7b992aaf35516ebf860a4729be206f",
-                "reference": "c72fd0f82e7b992aaf35516ebf860a4729be206f",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/8c620457202b5c8d81582338238f769790ef718a",
+                "reference": "8c620457202b5c8d81582338238f769790ef718a",
                 "shasum": ""
             },
             "require": {
@@ -9370,14 +9371,14 @@
                 "amphp/http-server": "^2.1 || ^3",
                 "dms/phpunit-arraysubset-asserts": "dev-master",
                 "ergebnis/composer-normalize": "^2.28",
-                "friendsofphp/php-cs-fixer": "3.95.11",
+                "friendsofphp/php-cs-fixer": "3.95.17",
                 "mll-lab/php-cs-fixer-config": "5.13.0",
                 "nyholm/psr7": "^1.5",
                 "phpbench/phpbench": "^1.2",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "2.2.5",
+                "phpstan/phpstan": "2.2.6",
                 "phpstan/phpstan-phpunit": "2.0.18",
-                "phpstan/phpstan-strict-rules": "2.0.11",
+                "phpstan/phpstan-strict-rules": "2.0.12",
                 "phpunit/phpunit": "^9.5 || ^10.5.21 || ^11",
                 "psr/http-message": "^1 || ^2",
                 "react/http": "^1.6",
@@ -9412,7 +9413,7 @@
             ],
             "support": {
                 "issues": "https://github.com/webonyx/graphql-php/issues",
-                "source": "https://github.com/webonyx/graphql-php/tree/v15.34.0"
+                "source": "https://github.com/webonyx/graphql-php/tree/v15.37.1"
             },
             "funding": [
                 {
@@ -9424,7 +9425,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2026-07-05T18:03:26+00:00"
+            "time": "2026-07-29T07:35:47+00:00"
         }
     ],
     "packages-dev": [
