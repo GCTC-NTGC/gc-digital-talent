@@ -40,7 +40,6 @@ updates:
         patterns:
           - "@playwright/test"
           - "playwright"
-          - "playwright-core"
         update-types:
           - "patch"
           - "minor"
