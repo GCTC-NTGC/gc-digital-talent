@@ -29,4 +29,26 @@ return [
         'https://gcxgce.sharepoint.com',
         'http://localhost',
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Seconds to wait for a response before considering a link unreachable.
+    |
+    */
+
+    'timeout' => env('LINK_CHECKER_TIMEOUT', 30),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Concurrency
+    |--------------------------------------------------------------------------
+    |
+    | Number of links to check at the same time.
+    |
+    */
+
+    'concurrency' => env('LINK_CHECKER_CONCURRENCY', 10),
 ];

@@ -5,23 +5,25 @@ namespace App\Console\Commands;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\Pool;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
+use Throwable;
 
-#[Signature('app:check-external-links {--list-only : Only build the list of external links; do not check them (checking is not yet implemented)}')]
+#[Signature('app:check-external-links {--list-only : Only build the list of external links; do not check them}')]
 #[Description('Scan apps/web/src for external links and check them for broken responses.')]
 class CheckExternalLinks extends Command
 {
+    private const USER_AGENT = 'Mozilla/5.0 (compatible; LinkChecker/1.0; +https://github.com/GCTC-NTGC/gc-digital-talent)';
+
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        if (! $this->option('list-only')) {
-            $this->warn('Link checking is not yet implemented; only building the list of external links.');
-        }
-
         $webSrcPath = config('linkchecker.web_src_path');
 
         $finder = new Finder();
@@ -55,7 +57,52 @@ class CheckExternalLinks extends Command
 
         $this->info("Scanned {$fileCount} files, found ".count($links).' unique external links.');
 
-        return Command::SUCCESS;
+        if ($this->option('list-only')) {
+            return Command::SUCCESS;
+        }
+
+        $brokenLinks = $this->checkLinks($links);
+
+        Storage::disk('local')->put('external-broken-links.json', json_encode($brokenLinks, JSON_PRETTY_PRINT));
+
+        $this->info(count($links).' links checked, '.count($brokenLinks).' broken.');
+
+        return count($brokenLinks) > 0 ? Command::FAILURE : Command::SUCCESS;
+    }
+
+    /**
+     * Check each link and return the ones that did not respond successfully.
+     *
+     * @param  array<int, array{file: string, url: string}>  $links
+     * @return array<int, array{file: string, url: string, status: int|string}>
+     */
+    private function checkLinks(array $links): array
+    {
+        $responses = Http::pool(fn (Pool $pool) => collect($links)->mapWithKeys(
+            fn ($link) => [$link['url'] => $pool->as($link['url'])
+                ->timeout(config('linkchecker.timeout'))
+                ->withUserAgent(self::USER_AGENT)
+                ->retry(2, 500, fn ($e) => $e instanceof ConnectionException, throw: false)
+                ->get($link['url'])]
+        )->all(), config('linkchecker.concurrency'));
+
+        $brokenLinks = [];
+
+        foreach ($links as $link) {
+            $response = $responses[$link['url']];
+
+            if ($response instanceof Throwable) {
+                $brokenLinks[] = ['file' => $link['file'], 'url' => $link['url'], 'status' => $response->getMessage()];
+
+                continue;
+            }
+
+            if (! $response->successful()) {
+                $brokenLinks[] = ['file' => $link['file'], 'url' => $link['url'], 'status' => $response->status()];
+            }
+        }
+
+        return $brokenLinks;
     }
 
     /**
@@ -75,7 +122,7 @@ class CheckExternalLinks extends Command
     }
 
     /**
-     * Mirrors the whitelisting logic from the original Node script.
+     * A link is worth checking if it's external and not blocklisted.
      */
     private function isValidExternalLink(string $url): bool
     {
