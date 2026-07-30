@@ -15,4 +15,4 @@ runs:
           sudo rm -rf /opt/hostedtoolcache/CodeQL
           docker system prune -af --volumes || true
           df -h
-      shell: bash
+        shell: bash
