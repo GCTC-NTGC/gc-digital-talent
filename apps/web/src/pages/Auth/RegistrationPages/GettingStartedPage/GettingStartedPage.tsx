@@ -4,6 +4,7 @@ import { useQuery } from "urql";
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { setInLocalStorage } from "@gc-digital-talent/storage";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -11,6 +12,7 @@ import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import messages from "../messages";
 import GettingStartedForm, {
@@ -26,7 +28,7 @@ const GettingStarted_Query = graphql(/** GraphQL */ `
   }
 `);
 
-export const GettingStartedPage = () => {
+const GettingStartedPage = () => {
   const intl = useIntl();
   const paths = useRoutes();
   const [{ data, fetching, error }] = useQuery({
@@ -75,3 +77,12 @@ export const GettingStartedPage = () => {
     </>
   );
 };
+
+const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <GettingStartedPage />
+  </RequireAuth>
+);
+Component.displayName = "GettingStartedPage";
+
+export default Component;

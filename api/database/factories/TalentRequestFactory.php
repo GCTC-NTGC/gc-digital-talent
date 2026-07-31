@@ -40,7 +40,7 @@ class TalentRequestFactory extends BaseFactory
             'job_title' => $this->faker->jobTitle(),
             'additional_comments' => $this->faker->text(),
             'hr_advisor_email' => $this->faker->unique()->safeEmail,
-            'applicant_filter_id' => ApplicantFilter::factory()->create(['community_id' => $community->id])->id,
+            'applicant_filter_id' => ApplicantFilter::factory()->for($community)->create()->id,
             'manager_job_title' => $this->faker->jobTitle(),
             'position_type' => $this->faker->enum(TalentRequestPositionType::class),
             'reason' => $this->faker->enum(TalentRequestReason::class),
@@ -71,7 +71,6 @@ class TalentRequestFactory extends BaseFactory
         ]);
     }
 
-    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
     public function withTrackedUsers(int $count = 3): self
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
@@ -84,7 +83,6 @@ class TalentRequestFactory extends BaseFactory
         });
     }
 
-    // May modify $talentRequest->applicantFilter (attaches pools) to ensure created users match it. See #17380.
     public function withMatchingUsers(int $count = 3): self
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) use ($count) {
@@ -104,22 +102,15 @@ class TalentRequestFactory extends BaseFactory
             && (! $matchesQualifiedInPool || $this->faker->boolean());
 
         if ($matchesQualifiedInPool) {
-            $pool = Pool::factory()->candidatesAvailableInSearch()->create(array_filter([
-                'community_id' => $filter->community_id,
-                'classification_id' => $filter->qualifiedInClassifications->shuffle()->first()?->id,
-                'work_stream_id' => $filter->qualifiedInWorkStreams->shuffle()->first()?->id,
-            ]));
-
-            if ($filter->pools()->exists()) {
-                $filter->pools()->attach($pool->id);
-            }
+            $pool = $filter->pools->isNotEmpty()
+                ? $filter->pools->shuffle()->first()
+                : $this->newMatchingPool($filter);
 
             PoolCandidate::factory()
                 ->availableInSearch()
-                ->createQuietly([
-                    'pool_id' => $pool->id,
-                    'user_id' => $user->id,
-                ]);
+                ->for($pool)
+                ->for($user)
+                ->createQuietly();
         }
 
         if ($matchesAtLevel) {
@@ -157,6 +148,24 @@ class TalentRequestFactory extends BaseFactory
         }
 
         return $user;
+    }
+
+    /**
+     * Create a pool matching the filter's community, classification, and work stream constraints.
+     */
+    private function newMatchingPool(ApplicantFilter $filter): Pool
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->for($filter->community);
+
+        if ($classification = $filter->qualifiedInClassifications->shuffle()->first()) {
+            $pool = $pool->for($classification);
+        }
+
+        if ($workStream = $filter->qualifiedInWorkStreams->shuffle()->first()) {
+            $pool = $pool->for($workStream);
+        }
+
+        return $pool->create();
     }
 
     /**
