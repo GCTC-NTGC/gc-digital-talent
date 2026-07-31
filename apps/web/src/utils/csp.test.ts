@@ -2,6 +2,14 @@ import { getNonce, setNonce } from "get-nonce";
 
 import { applyCspNonce } from "./csp";
 
+/**
+ * Limitation: jsdom has no CSP, so it never blanks the `nonce` content
+ * attribute the way a real browser does. Reading the attribute instead of the
+ * `nonce` property would therefore still pass here while silently breaking in
+ * production. That swap can only be caught in a browser served the CSP header
+ * — see the manual steps in the pull request.
+ */
+
 const addElementWithNonce = (nonce: string) => {
   const script = document.createElement("script");
   script.setAttribute("nonce", nonce);
