@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 
 import type {
   FragmentType,
-  Pool,
   UpdatePoolInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
@@ -70,13 +69,13 @@ const ContactEmailSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "contactEmail">,
+    contactEmail: string | null | undefined,
   ): FormValues => ({
-    contactEmail: initialData.contactEmail ?? "",
+    contactEmail: contactEmail ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(pool.contactEmail),
   });
   const { handleSubmit, watch } = methods;
   const values = watch();

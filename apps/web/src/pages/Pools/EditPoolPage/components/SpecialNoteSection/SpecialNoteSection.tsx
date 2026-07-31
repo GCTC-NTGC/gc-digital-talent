@@ -7,7 +7,6 @@ import { Checkbox, RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
-  Pool,
   UpdatePoolInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -82,16 +81,15 @@ const SpecialNoteSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "specialNote">,
+    specialNote: LocalizedString | null | undefined,
   ): FormValues => ({
-    hasSpecialNote:
-      !!initialData.specialNote?.en || !!initialData.specialNote?.fr,
-    specialNoteEn: initialData.specialNote?.en ?? "",
-    specialNoteFr: initialData.specialNote?.fr ?? "",
+    hasSpecialNote: !!specialNote?.en || !!specialNote?.fr,
+    specialNoteEn: specialNote?.en ?? "",
+    specialNoteFr: specialNote?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(pool.specialNote),
   });
   const { handleSubmit, watch } = methods;
   const [watchHasSpecialNote, specialNoteEn, specialNoteFr] = watch([
