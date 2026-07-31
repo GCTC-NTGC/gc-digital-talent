@@ -79,9 +79,7 @@ test.describe("Applicant settings page", () => {
     ).toBeVisible();
   });
 
-  test("Unsubscribe link works after signing in (EN)", async ({
-    appPage,
-  }) => {
+  test("Unsubscribe link works after signing in (EN)", async ({ appPage }) => {
     const page = appPage.page;
     await page.goto("/en/applicant/settings");
 
@@ -90,7 +88,10 @@ test.describe("Applicant settings page", () => {
     await expect(
       page.getByRole("heading", { name: /sign in using canadalogin/i }),
     ).toBeVisible();
-    await page.getByRole("link", { name: /get started/i }).first().click();
+    await page
+      .getByRole("link", { name: /get started/i })
+      .first()
+      .click();
     await page.getByPlaceholder("Enter any user/subject").fill(sub);
     await page.getByRole("button", { name: /sign in/i }).click();
 
@@ -106,9 +107,7 @@ test.describe("Applicant settings page", () => {
     ).toBeVisible();
   });
 
-  test("Unsubscribe link works after signing in (FR)", async ({
-    appPage,
-  }) => {
+  test("Unsubscribe link works after signing in (FR)", async ({ appPage }) => {
     const page = appPage.page;
     await page.goto("/fr/applicant/settings");
 
@@ -119,7 +118,10 @@ test.describe("Applicant settings page", () => {
         name: /se connecter avec connexioncanada/i,
       }),
     ).toBeVisible();
-    await page.getByRole("link", { name: /commencer/i }).first().click();
+    await page
+      .getByRole("link", { name: /commencer/i })
+      .first()
+      .click();
     await page.getByPlaceholder("Enter any user/subject").fill(sub);
     await page.getByRole("button", { name: /sign in/i }).click();
 
