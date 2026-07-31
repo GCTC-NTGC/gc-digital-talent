@@ -1149,7 +1149,6 @@ type TalentRequestTrackedUser {
   sources: [LocalizedTalentRequestSource!]!
     @field(resolver: "Sources")
     @with(relation: "talentRequest.applicantFilter")
-  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
     @with(relation: "talentRequest.applicantFilter")
@@ -1556,7 +1555,6 @@ type TalentRequestResult {
   user: User! @self
   sources: [LocalizedTalentRequestSource!]!
     @method(name: "talentRequestSources")
-  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
