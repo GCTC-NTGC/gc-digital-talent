@@ -6,6 +6,7 @@ use App\Enums\TalentRequestSource;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
+use App\Models\TalentNominationGroup;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -54,6 +55,16 @@ final class CountTalentRequestMatchesByCommunity
                 ->whereMatchesTalentRequest($applicantFilter)
                 ->select('community_interests.user_id', 'community_interests.community_id')
                 ->selectRaw("'interest' as source");
+        }
+
+        if (in_array(TalentRequestSource::ADVANCEMENT, $selected, true)) {
+            // whereMatchesTalentRequest already limits to users who fully match, so no second
+            // user check is needed here.
+            $subQueries[] = TalentNominationGroup::query()
+                ->whereMatchesTalentRequest($applicantFilter)
+                ->join('talent_nomination_events', 'talent_nomination_events.id', '=', 'talent_nomination_groups.talent_nomination_event_id')
+                ->select('talent_nomination_groups.nominee_id as user_id', 'talent_nomination_events.community_id')
+                ->selectRaw("'advancement' as source");
         }
 
         if (empty($subQueries)) {
