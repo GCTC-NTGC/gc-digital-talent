@@ -3,9 +3,10 @@ import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
 import debounce from "lodash/debounce";
+import isEqual from "lodash/isEqual";
 
 import {
   Button,
@@ -27,8 +28,8 @@ import type {
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
-  alphaSortOptions,
   Checklist,
+  Combobox,
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
@@ -290,12 +291,17 @@ const JobPosterTemplatesPage = () => {
     [debouncedResetPage],
   );
 
+  // Combobox writes with `setValue`, which never flags the form as dirty, so
+  // filter changes are detected by comparing the values themselves. The reset
+  // keeps the fields from being marked as having unsaved changes.
+  const previousValues = useRef<FormValues>(defaultValues);
   useDeepCompareEffect(() => {
-    if (methods.formState.isDirty) {
-      handleSubmit();
-      reset(formData);
-    }
-  }, [formData, handleSubmit, methods, reset]);
+    if (isEqual(previousValues.current, formData)) return;
+
+    previousValues.current = formData;
+    handleSubmit();
+    reset(formData);
+  }, [formData, handleSubmit, reset]);
 
   return (
     <>
@@ -384,16 +390,17 @@ const JobPosterTemplatesPage = () => {
                         description: "Legend for supervisory status input",
                       })}
                     />
-                    <Checklist
-                      idPrefix="workStreams"
+                    <Combobox
+                      id="workStreams"
                       name="workStreams"
-                      items={alphaSortOptions(
-                        unpackMaybes(data?.workStreams).map((workStream) => ({
+                      isMulti
+                      options={unpackMaybes(data?.workStreams).map(
+                        (workStream) => ({
                           value: workStream.id,
                           label: getLocalizedName(workStream.name, intl),
-                        })),
+                        }),
                       )}
-                      legend={intl.formatMessage({
+                      label={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
                         id: "eeU13V",
                         description: "Legend for pool streams input",
