@@ -262,7 +262,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     $optionsStr,
                     $this->localizeEnum($this->isNominatedForAdvancement($talentNominationGroup) ? $talentNominationGroup->advancement_decision : null, TalentNominationGroupDecision::class),
                     $this->canShare($consentToShare, $talentNominationGroup->advancementClassifications->map(function ($classification) {
-                        return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? '');
+                        return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
                     })->join(', ')),
                     $this->canShare($consentToShare, $this->isNominatedForAdvancement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->advancement_notes ?? '')) : ''),
                     $this->localizeEnum($this->isNominatedForLateralMovement($talentNominationGroup) ? $talentNominationGroup->lateral_movement_decision : null, TalentNominationGroupDecision::class),
