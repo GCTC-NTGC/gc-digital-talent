@@ -441,6 +441,7 @@ export const RequestForm = ({
 
       if (res) {
         removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
+        removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
         await navigate(paths.requestConfirmation(res.id));
         toast.success(
           intl.formatMessage({
