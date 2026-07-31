@@ -92,6 +92,7 @@ class AdvancedOrderByTest extends TestCase
                 ->for($pool)
                 ->create([
                     'notes' => $data['notes'] ?? null,
+                    'is_flagged' => $data['is_flagged'] ?? false,
                 ]);
         }
 
@@ -144,14 +145,14 @@ class AdvancedOrderByTest extends TestCase
                 [['column' => 'notes', 'direction' => 'ASC', 'caseInsensitive' => true]],
                 ['apple', 'Banana', 'Zebra'],
             ],
-            'Builder Scope: orderByPoolName' => [
+            'Builder Scope: orderByFlag' => [
                 [
-                    ['notes' => 'Candidate B', 'pool_name' => 'Beta Pool'],
-                    ['notes' => 'Candidate A', 'pool_name' => 'Alpha Pool'],
+                    ['notes' => 'Candidate B', 'is_flagged' => false],
+                    ['notes' => 'Candidate A', 'is_flagged' => true],
                 ],
                 [[
-                    'scope' => 'orderByPoolName',
-                    'direction' => 'ASC',
+                    'scope' => 'orderByFlag',
+                    'direction' => 'DESC',
                 ]],
                 ['Candidate A', 'Candidate B'],
             ],
