@@ -195,11 +195,7 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       maxSalary
       genericJobTitles {
         id
-        key
-        name {
-          en
-          fr
-        }
+        ...GenericJobTitleAccordion
       }
     }
     yourImpact {
@@ -326,8 +322,7 @@ export const PoolPoster = ({
   const featureFlags = useFeatureFlags();
 
   const { classification } = pool;
-  const genericJobTitles =
-    classification?.genericJobTitles?.filter(notEmpty) ?? [];
+  const genericJobTitles = unpackMaybes(classification?.genericJobTitles);
   let classificationString = ""; // type wrangling the complex type into a string
   if (classification) {
     classificationString = classification.groupAndLevel;
@@ -1019,7 +1014,7 @@ export const PoolPoster = ({
                       <GenericJobTitleAccordion
                         key={genericJobTitle.id}
                         classification={classificationString}
-                        genericJobTitle={genericJobTitle}
+                        genericJobTitleQuery={genericJobTitle}
                       />
                     ))}
                   </>

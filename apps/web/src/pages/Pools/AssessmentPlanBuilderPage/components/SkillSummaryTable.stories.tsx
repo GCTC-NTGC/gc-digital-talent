@@ -7,7 +7,6 @@ import {
   fakeSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   PoolSkillType,
@@ -51,7 +50,7 @@ const behaviouralSkill4 = fakeSkills(
   fakeSkillFamilies(1),
   SkillCategory.Behavioural,
 )[3];
-const poolSkillsArray: PoolSkill[] = [
+const poolSkillsArray = [
   {
     id: "poolSkill1",
     skill: technicalSkill1,
@@ -93,7 +92,7 @@ const poolSkillsArray: PoolSkill[] = [
   },
 ];
 
-const assessmentStepsArray: AssessmentStep[] = [
+const assessmentStepsArray = [
   {
     id: "assessmentStep1",
     pool: fakePool,
@@ -108,7 +107,11 @@ const assessmentStepsArray: AssessmentStep[] = [
       },
     ],
     sortOrder: 1,
-    title: { en: "Application Screening EN", fr: "Application Screening FR" },
+    title: {
+      en: "Application Screening EN",
+      fr: "Application Screening FR",
+      localized: "Application Screening LOCALIZED",
+    },
     type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
   },
   {
@@ -121,7 +124,11 @@ const assessmentStepsArray: AssessmentStep[] = [
       },
     ],
     sortOrder: 2,
-    title: { en: "Reference EN", fr: "Reference FR" },
+    title: {
+      en: "Reference EN",
+      fr: "Reference FR",
+      localized: "Reference LOCALIZED",
+    },
     type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
   },
 ];

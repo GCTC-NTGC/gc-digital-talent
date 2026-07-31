@@ -5,11 +5,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import {
-  commonMessages,
-  getLocalizedName,
-  getSkillLevelName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
 import type {
   SkillLevel,
