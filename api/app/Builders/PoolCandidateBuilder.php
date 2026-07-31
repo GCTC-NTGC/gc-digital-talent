@@ -15,6 +15,7 @@ use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
 use App\Models\Skill;
 use App\Models\User;
+use App\Support\Query\AdvancedOrder;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
@@ -668,124 +669,81 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         return $this->whereIn('screening_stage', $screeningStages);
     }
 
-    /**
-     * Group some default ordering to handle or acknowledge
-     * Govern in one group, with a non-nullable input so this block can always be hit
-     * The one place for flags and bookmarks, and anything else special with elevated importance
-     */
-    public function orderByBase(?array $args): self
+    public function orderByBookmark(AdvancedOrder $args): self
     {
-        if (empty($args)) {
-            return $this;
-        }
-
         /** @var User | null */
         $user = Auth::user();
 
-        if ($user && ! empty($args['useBookmark'])) {
-            $this->orderBy(
-                $user->selectRaw('1')
-                    ->join('pool_candidate_user_bookmarks', 'pool_candidate_user_bookmarks.user_id', '=', 'users.id')
-                    ->where('pool_candidate_user_bookmarks.user_id', $user->id)
-                    ->whereColumn('pool_candidate_user_bookmarks.pool_candidate_id', 'pool_candidates.id')
-            );
+        if (! $user) {
+            return $this;
         }
 
-        if (! empty($args['useFlag'])) {
-            $this->orderBy('is_flagged', 'desc');
-        }
-
-        return $this;
+        return $this->orderBy(
+            $user->selectRaw('1')
+                ->join('pool_candidate_user_bookmarks', 'pool_candidate_user_bookmarks.user_id', '=', 'users.id')
+                ->where('pool_candidate_user_bookmarks.user_id', $user->id)
+                ->whereColumn('pool_candidate_user_bookmarks.pool_candidate_id', 'pool_candidates.id'),
+            $args->direction
+        );
     }
 
-    public function orderByClaimVerification(?array $args): self
+    public function orderByFlag(AdvancedOrder $args): self
     {
+        return $this->orderBy('is_flagged', $args->direction);
+    }
 
-        if (isset($args['order'])) {
-            $orderWithoutDirection = <<<'SQL'
-                CASE
-                    WHEN
-                        (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
-                    THEN
-                        40
-                    WHEN
-                        (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
-                        AND
+    public function orderByClaimVerification(AdvancedOrder $args): self
+    {
+        $citizenship = '(SELECT users.citizenship FROM users WHERE users.id = pool_candidates.user_id)';
+
+        $orderWithoutDirection = <<<SQL
+            CASE
+                WHEN
+                    (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
+                THEN
+                    40
+                WHEN
+                    (veteran_verification = 'ACCEPTED' OR veteran_verification = 'UNVERIFIED')
+                    AND
+                    (priority_verification IS NULL OR priority_verification = 'REJECTED')
+                THEN
+                    30
+                WHEN
+                    ($citizenship = 'CITIZEN' OR $citizenship = 'PERMANENT_RESIDENT')
+                    AND
+                    (
                         (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                    THEN
-                        30
-                    WHEN
-                        (users.citizenship = 'CITIZEN' OR users.citizenship = 'PERMANENT_RESIDENT')
-                        AND
-                        (
-                            (priority_verification IS NULL OR priority_verification = 'REJECTED')
-                            OR
-                            (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
-                        )
-                    THEN
-                        20
-                    ELSE
-                        10
-                    END
-            SQL;
+                        OR
+                        (veteran_verification IS NULL OR veteran_verification = 'REJECTED')
+                    )
+                THEN
+                    20
+                ELSE
+                    10
+                END
+        SQL;
 
-            $this
-                ->join('users', 'users.id', '=', 'pool_candidates.user_id')
-                ->select('users.citizenship', 'pool_candidates.*');
-
-            $order = sprintf('%s %s', $orderWithoutDirection, $args['order']);
-
-            $this->orderByRaw($order)->orderBy('submitted_at', 'asc');
-        }
-
-        return $this;
+        return $this->orderByRaw(sprintf('%s %s', $orderWithoutDirection, $args->direction));
     }
 
-    /**
-     * Custom sort to handle issues with how laravel aliases
-     * aggregate selects and orderBys for json fields in `lighthouse-php`
-     *
-     * The column used in the orderBy is `table_aggregate_column->property`
-     * But is actually aliased to snake case `table_aggregate_columnproperty`
-     */
-    public function orderByPoolName(?array $args): self
+    public function orderByEmployeeDepartment(AdvancedOrder $args): self
     {
-        extract($args);
+        $locale = App::getLocale() === 'fr' ? 'fr' : 'en';
 
-        $locale ??= app()->getLocale();
+        $department = <<<SQL
+            (
+                SELECT departments.name->>'$locale'
+                FROM departments
+                INNER JOIN users ON users.computed_department = departments.id
+                WHERE users.id = pool_candidates.user_id
+            )
+        SQL;
 
-        if (isset($order) && isset($locale)) {
-            return
-            $this->withMax('pool', 'name->'.$locale)
-                ->orderBy('pool_max_name'.$locale, $order)
-                ->orderBy('submitted_at', 'asc');
-        }
-
-        return $this;
+        return $this->orderByRaw(sprintf('%s %s', $department, $args->direction));
     }
 
-    public function orderByEmployeeDepartment(?string $order): self
+    public function orderByScreeningStage(AdvancedOrder $args): self
     {
-
-        if (! $order) {
-            return $this;
-        }
-
-        $locale = App::getLocale();
-
-        return $this
-            ->leftJoin('users', 'pool_candidates.user_id', '=', 'users.id')
-            ->leftJoin('departments', 'users.computed_department', '=', 'departments.id')
-            ->orderByRaw("departments.name->>'$locale' $order")
-            ->orderBy('submitted_at', 'asc');
-    }
-
-    public function orderByScreeningStage(?string $order): self
-    {
-        if (! $order || ! in_array($order, ['ASC', 'DESC'])) {
-            return $this;
-        }
-
         $enumOrder = [
             ScreeningStage::NEW_APPLICATION->name,
             ScreeningStage::APPLICATION_REVIEW->name,
@@ -793,7 +751,23 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ScreeningStage::UNDER_ASSESSMENT->name,
         ];
 
-        return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$order, $enumOrder);
+        return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$args->direction, $enumOrder);
+    }
+
+    public function orderBySkillCount(AdvancedOrder $args): self
+    {
+        return $this->orderBy('skill_count', $args->direction);
+    }
+
+    public function withPaginatedEagerLoads(): self
+    {
+        return $this->with([
+            'user:id,first_name,last_name,email,preferred_lang,computed_department',
+            'user.poolCandidates.pool.team',
+            'user.poolCandidates.pool.community.team',
+            'user.communityInterests.community.team',
+            'pool:id,process_number',
+        ]);
     }
 
     public function withPolicyEagerLoads(): self
