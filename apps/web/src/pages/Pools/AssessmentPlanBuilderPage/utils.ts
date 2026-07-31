@@ -1,18 +1,15 @@
 import type { IntlShape } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
 export const assessmentStepDisplayName = (
-  assessmentStep: Pick<AssessmentStep, "type" | "title">,
+  title: LocalizedString | null | undefined,
+  typeLabel: LocalizedString | null | undefined,
   intl: IntlShape,
 ): string => {
-  const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);
-  const localizedType = getLocalizedName(
-    assessmentStep.type?.label,
-    intl,
-    true,
-  );
+  const localizedTitle = getLocalizedName(title, intl, true);
+  const localizedType = getLocalizedName(typeLabel, intl, true);
   if (localizedTitle && localizedType) {
     return `${localizedTitle} (${localizedType})`;
   }
@@ -29,11 +26,12 @@ export const assessmentStepDisplayName = (
 };
 
 export const poolSkillToOption = (
-  poolSkill: Pick<PoolSkill, "id" | "skill">,
+  id: string,
+  skillName: LocalizedString | null | undefined,
   intl: IntlShape,
 ) => ({
-  value: poolSkill.id,
-  label: poolSkill?.skill?.name
-    ? getLocalizedName(poolSkill.skill.name, intl)
+  value: id,
+  label: skillName
+    ? getLocalizedName(skillName, intl)
     : intl.formatMessage(commonMessages.nameNotLoaded),
 });

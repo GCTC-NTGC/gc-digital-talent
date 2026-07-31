@@ -264,7 +264,8 @@ const SkillSummaryTable = ({
   });
   sortedAssessmentSteps.forEach((assessmentStep) => {
     const headerName = assessmentStepDisplayName(
-      { type: assessmentStep.type, title: assessmentStep.title },
+      assessmentStep.title,
+      assessmentStep.type?.label,
       intl,
     );
     const newColumn = columnHelper.display({

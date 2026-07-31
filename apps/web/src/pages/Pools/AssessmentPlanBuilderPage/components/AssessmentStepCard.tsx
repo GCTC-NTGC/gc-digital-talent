@@ -117,7 +117,8 @@ const AssessmentStepCard = ({
       remove={
         <ConfirmationDialog
           assessmentTitle={assessmentStepDisplayName(
-            { type: assessmentStep.type, title: assessmentStep.title },
+            assessmentStep.title,
+            assessmentStep.type?.label,
             intl,
           )}
           onRemove={() => handleRemove(index)}
@@ -126,7 +127,8 @@ const AssessmentStepCard = ({
     >
       <Heading level="h4" size="h6" className="mt-0">
         {assessmentStepDisplayName(
-          { type: assessmentStep.type, title: assessmentStep.title },
+          assessmentStep.title,
+          assessmentStep.type?.label,
           intl,
         )}
       </Heading>
