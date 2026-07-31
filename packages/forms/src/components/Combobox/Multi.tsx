@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
@@ -55,6 +55,8 @@ const Multi = ({
   const [available, setAvailable] = useState<Option[]>(options);
   const [selectedItems, setSelectedItems] = useState<Option[]>(value ?? []);
   const [previousValue, setPreviousValue] = useState<Option[]>(value ?? []);
+  const [previousHasSelection, setPreviousHasSelection] =
+    useState<boolean>(hasSelection);
   const inputRef = useRef<HTMLInputElement | null>(null);
   // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (!isEqual(options, previousOptions)) {
@@ -69,6 +71,15 @@ const Multi = ({
   ) {
     setPreviousValue(value ?? []);
     setSelectedItems(value ?? []);
+  }
+  // Clear the selection when the form empties from the outside, such as a form
+  // reset. The single select does the same thing.
+  if (hasSelection !== previousHasSelection) {
+    setPreviousHasSelection(hasSelection);
+    if (!hasSelection) {
+      setPreviousValue([]);
+      setSelectedItems([]);
+    }
   }
   const items = useMemo(
     () => (isExternalSearch ? options : available),
@@ -226,14 +237,6 @@ const Multi = ({
     reset();
     inputRef?.current?.focus();
   };
-
-  // Clear the selection when the form value is emptied from the outside, such
-  // as a form reset. Mirrors the single select, which does the same thing.
-  useEffect(() => {
-    if (!hasSelection) {
-      reset();
-    }
-  }, [hasSelection, reset]);
 
   const hasSelectedItems = selectedItems.length > 0;
 
