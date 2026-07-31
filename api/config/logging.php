@@ -1,5 +1,6 @@
 <?php
 
+use App\Logging\Azure\ContainerLogV2Formatter;
 use App\Logging\Azure\CreateAzureLogger;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
@@ -97,7 +98,9 @@ return [
             'driver' => 'monolog',
             'level' => env('LOG_LEVEL', 'debug'),
             'handler' => StreamHandler::class,
-            'formatter' => env('LOG_STDERR_FORMATTER'),
+            // Azure App Service's log stream classifies stdout/stderr lines by content, so this
+            // formats each line as JSON matching the schema ContainerLogV2 recognizes.
+            'formatter' => env('LOG_STDERR_FORMATTER', ContainerLogV2Formatter::class),
             'with' => [
                 'stream' => 'php://stderr',
             ],
@@ -107,7 +110,7 @@ return [
             'driver' => 'monolog',
             'level' => env('LOG_LEVEL', 'debug'),
             'handler' => StreamHandler::class,
-            'formatter' => env('LOG_STDERR_FORMATTER'),
+            'formatter' => env('LOG_STDERR_FORMATTER', ContainerLogV2Formatter::class),
             'with' => [
                 'stream' => 'php://stdout',
             ],
