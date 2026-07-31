@@ -49,11 +49,7 @@ const publishedIAPJobsPool = {
 };
 
 describe("OpenJobsPage", () => {
-  function renderOpenJobsPage({
-    pools,
-  }: {
-    pools: MockPool[];
-  }) {
+  function renderOpenJobsPage({ pools }: { pools: MockPool[] }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
       executeQuery: () =>

@@ -12,10 +12,7 @@ import {
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import type {
-  UpdatePoolInput,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { UpdatePoolInput, FragmentType } from "@gc-digital-talent/graphql";
 import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";

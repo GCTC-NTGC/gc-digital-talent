@@ -67,11 +67,7 @@ const closedIAPJobsPool = {
 };
 
 describe("ClosedJobsPage", () => {
-  function renderPage({
-    pools,
-  }: {
-    pools: MockPool[];
-  }) {
+  function renderPage({ pools }: { pools: MockPool[] }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
       executeQuery: () =>

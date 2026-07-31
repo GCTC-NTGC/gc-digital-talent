@@ -282,8 +282,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     }),
     columnHelper.accessor(
-      (row) =>
-        poolNameAccessor(row.name, row.workStream?.name, intl),
+      (row) => poolNameAccessor(row.name, row.workStream?.name, intl),
       {
         id: "name",
         header: intl.formatMessage(commonMessages.name),

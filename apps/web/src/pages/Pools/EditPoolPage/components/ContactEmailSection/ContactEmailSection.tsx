@@ -2,10 +2,7 @@ import InboxIcon from "@heroicons/react/24/outline/InboxIcon";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-import type {
-  FragmentType,
-  UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, UpdatePoolInput } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
