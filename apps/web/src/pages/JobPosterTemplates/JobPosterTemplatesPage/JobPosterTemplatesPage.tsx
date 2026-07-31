@@ -339,7 +339,7 @@ const JobPosterTemplatesPage = () => {
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
             <FormProvider {...methods}>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 pb-18">
                 <Input
                   id="keyword"
                   name="keyword"
