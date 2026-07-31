@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { useIntl } from "react-intl";
 import { useCombobox, useMultipleSelection } from "downshift";
 import isEqual from "lodash/isEqual";
@@ -29,6 +29,8 @@ interface MultiProps extends BaseProps {
   onInputChange?: (value: string) => void;
   /** Initial value */
   value?: Option[];
+  /** Whether the form still holds a value, regardless of the current options */
+  hasSelection?: boolean;
 }
 
 const Multi = ({
@@ -39,6 +41,7 @@ const Multi = ({
   value,
   onSelectedChange,
   onInputChange,
+  hasSelection = false,
   inputProps,
   total,
   fieldState,
@@ -223,6 +226,14 @@ const Multi = ({
     reset();
     inputRef?.current?.focus();
   };
+
+  // Clear the selection when the form value is emptied from the outside, such
+  // as a form reset. Mirrors the single select, which does the same thing.
+  useEffect(() => {
+    if (!hasSelection) {
+      reset();
+    }
+  }, [hasSelection, reset]);
 
   const hasSelectedItems = selectedItems.length > 0;
 
