@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\TalentNominationGroupBuilder;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
@@ -80,6 +81,11 @@ class TalentNominationGroup extends Model
     protected static function booted(): void
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
+    }
+
+    public function newEloquentBuilder($query): Builder
+    {
+        return new TalentNominationGroupBuilder($query);
     }
 
     /** @return BelongsTo<TalentNominationEvent, $this> */

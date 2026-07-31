@@ -5,6 +5,7 @@ namespace App\Traits;
 use App\Enums\TalentRequestSource;
 use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
+use App\Models\TalentNominationGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,6 +28,12 @@ trait HasTalentRequestSources
     public function matchingAtLevelSources(): HasMany
     {
         return $this->hasMany(CommunityInterest::class);
+    }
+
+    /** @return HasMany<TalentNominationGroup, $this> */
+    public function matchingAdvancementSources(): HasMany
+    {
+        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
     }
 
     /**
@@ -54,8 +61,7 @@ trait HasTalentRequestSources
         $sources = [];
 
         foreach (TalentRequestSource::cases() as $source) {
-            if (($relation = $source->matchRelation())
-                && $this->talentRequestSourceMatches($relation, $filters)->isNotEmpty()) {
+            if ($this->talentRequestSourceMatches($source->matchRelation(), $filters)->isNotEmpty()) {
                 $sources[] = $source->name;
             }
         }
