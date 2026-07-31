@@ -167,29 +167,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Invalid scope: {$scope}");
         }
 
-        // Reflect on the method that actually runs. Builder methods take the
-        // caller arg first; Eloquent model scopes receive the query builder as
-        // their first parameter, so the caller arg is the second one.
-        // NOTE: Supports backwards compatibility with existing scopes
-        // Remove once poolCandidatesPaginatedAdminView has been refactored with this directive
-        $reflection = $isBuilderMethod
-            ? new \ReflectionMethod($builder, $scope)
-            : new \ReflectionMethod($builder->getModel(), $modelScopeMethod);
-        $params = $reflection->getParameters();
-        $argParam = $isModelScope ? ($params[1] ?? null) : ($params[0] ?? null);
-        $firstParamType = $argParam?->getType();
-
-        if ($firstParamType instanceof \ReflectionNamedType && $firstParamType->getName() === AdvancedOrder::class) {
-            $builder->{$scope}($args);
-        } else {
-            $builder->{$scope}([
-                'direction' => $args->direction,
-                'order' => $args->direction,
-                'nulls' => $args->nulls,
-                'caseInsensitive' => $args->caseInsensitive,
-                'accentInsensitive' => $args->accentInsensitive,
-            ]);
-        }
+        $builder->{$scope}($args);
 
         return null;
     }
