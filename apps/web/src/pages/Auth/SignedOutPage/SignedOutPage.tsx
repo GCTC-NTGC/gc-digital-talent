@@ -97,7 +97,6 @@ export const Component = () => {
                 description: "Message displayed to a user after signing out",
               })}
             </p>
-            )
           </Notice.Content>
         </Notice.Root>
       );
