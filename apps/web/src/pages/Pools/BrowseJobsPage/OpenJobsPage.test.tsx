@@ -8,8 +8,15 @@ import {
 } from "@gc-digital-talent/vitest-helpers";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import OpenJobs from "./OpenJobsPage";
+
+interface MockPool {
+  id: string;
+  publishingGroup: GenericLocalizedEnum<PublishingGroup>;
+  status: GenericLocalizedEnum<PoolStatus>;
+}
 
 const publishedItJobsPool = {
   id: "publishedItJobsPool",
@@ -45,7 +52,7 @@ describe("OpenJobsPage", () => {
   function renderOpenJobsPage({
     pools,
   }: {
-    pools: (typeof publishedItJobsPool)[];
+    pools: MockPool[];
   }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {

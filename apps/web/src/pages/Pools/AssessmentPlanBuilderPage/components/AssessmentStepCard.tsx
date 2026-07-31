@@ -1,13 +1,11 @@
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
-import sortBy from "lodash/sortBy";
 
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   appendLanguageName,
   commonMessages,
   formMessages,
-  getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import {
   Accordion,
@@ -17,7 +15,7 @@ import {
   Notice,
   useCardRepeaterContext,
 } from "@gc-digital-talent/ui";
-import type { AssessmentStep, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -47,9 +45,34 @@ const AssessmentStepCardPool_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const AssessmentStepCardStep_Fragment = graphql(/* GraphQL */ `
+  fragment AssessmentStepCardStep on AssessmentStep {
+    id
+    title {
+      en
+      fr
+      localized
+    }
+    type {
+      value
+      label {
+        localized
+      }
+    }
+    poolSkills {
+      id
+      skill {
+        name {
+          localized
+        }
+      }
+    }
+  }
+`);
+
 interface AssessmentStepCardProps {
   index: number;
-  assessmentStep: Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">;
+  assessmentStepQuery: FragmentType<typeof AssessmentStepCardStep_Fragment>;
   poolQuery: FragmentType<typeof AssessmentStepCardPool_Fragment>;
   onRemove: (index: number) => Promise<void>;
   onMove: (fromIndex: number, toIndex: number) => void;
@@ -57,7 +80,7 @@ interface AssessmentStepCardProps {
 
 const AssessmentStepCard = ({
   index,
-  assessmentStep,
+  assessmentStepQuery,
   poolQuery,
   onRemove,
   onMove,
@@ -65,13 +88,18 @@ const AssessmentStepCard = ({
   const intl = useIntl();
   const { move, remove } = useCardRepeaterContext();
   const pool = getFragment(AssessmentStepCardPool_Fragment, poolQuery);
-  const skillNames = unpackMaybes(assessmentStep.poolSkills).map((poolSkill) =>
-    getLocalizedName(poolSkill?.skill?.name, intl),
+  const assessmentStep = getFragment(
+    AssessmentStepCardStep_Fragment,
+    assessmentStepQuery,
+  );
+  const skillNames = unpackMaybes(assessmentStep.poolSkills).map(
+    (poolSkill) =>
+      poolSkill?.skill?.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
   );
   skillNames.sort();
-  const screeningQuestions = sortBy(
-    unpackMaybes(pool.screeningQuestions),
-    (question) => question.sortOrder,
+  const screeningQuestions = unpackMaybes(pool.screeningQuestions).sort(
+    (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0),
   );
   const isApplicationScreening =
     assessmentStep.type?.value === AssessmentStepType.ApplicationScreening;
@@ -92,18 +120,25 @@ const AssessmentStepCard = ({
       onMove={handleMove} // immediately fire event
       edit={
         <AssessmentDetailsDialog
-          poolSkillsQuery={pool.poolSkills?.filter(notEmpty) ?? []}
+          poolSkillsQuery={unpackMaybes(pool.poolSkills)}
           initialValues={{
             id: assessmentStep.id,
             poolId: pool.id,
             typeOfAssessment: assessmentStep.type?.value,
             assessmentTitleEn: assessmentStep?.title?.en,
             assessmentTitleFr: assessmentStep?.title?.fr,
-            assessedSkills:
-              assessmentStep?.poolSkills
-                ?.map((poolSkill) => poolSkill?.id)
-                ?.filter(notEmpty) ?? [],
-            screeningQuestions: pool.screeningQuestions?.filter(notEmpty) ?? [],
+            assessedSkills: unpackMaybes(assessmentStep.poolSkills).map(
+              (poolSkill) => poolSkill.id,
+            ),
+            screeningQuestionFieldArray: screeningQuestions.map((question) => ({
+              id: null,
+              screeningQuestion: {
+                id: question.id,
+                sortOrder: question.sortOrder,
+                en: question.question?.en,
+                fr: question.question?.fr,
+              },
+            })),
           }}
           trigger={
             <CardRepeater.Edit
@@ -117,8 +152,8 @@ const AssessmentStepCard = ({
       remove={
         <ConfirmationDialog
           assessmentTitle={assessmentStepDisplayName(
-            assessmentStep.title,
-            assessmentStep.type?.label,
+            assessmentStep.title?.localized,
+            assessmentStep.type?.label?.localized,
             intl,
           )}
           onRemove={() => handleRemove(index)}
@@ -127,8 +162,8 @@ const AssessmentStepCard = ({
     >
       <Heading level="h4" size="h6" className="mt-0">
         {assessmentStepDisplayName(
-          assessmentStep.title,
-          assessmentStep.type?.label,
+          assessmentStep.title?.localized,
+          assessmentStep.type?.label?.localized,
           intl,
         )}
       </Heading>
