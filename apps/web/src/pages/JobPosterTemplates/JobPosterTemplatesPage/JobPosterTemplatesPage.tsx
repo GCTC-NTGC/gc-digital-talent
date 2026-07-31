@@ -3,10 +3,9 @@ import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import debounce from "lodash/debounce";
-import isEqual from "lodash/isEqual";
 
 import {
   Button,
@@ -291,17 +290,12 @@ const JobPosterTemplatesPage = () => {
     [debouncedResetPage],
   );
 
-  // Combobox writes with `setValue`, which never flags the form as dirty, so
-  // filter changes are detected by comparing the values themselves. The reset
-  // keeps the fields from being marked as having unsaved changes.
-  const previousValues = useRef<FormValues>(defaultValues);
   useDeepCompareEffect(() => {
-    if (isEqual(previousValues.current, formData)) return;
-
-    previousValues.current = formData;
-    handleSubmit();
-    reset(formData);
-  }, [formData, handleSubmit, reset]);
+    if (methods.formState.isDirty) {
+      handleSubmit();
+      reset(formData);
+    }
+  }, [formData, handleSubmit, methods, reset]);
 
   return (
     <>

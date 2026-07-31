@@ -158,6 +158,7 @@ const Combobox = ({
                 setValue(
                   name,
                   items?.map((item) => String(item.value)),
+                  { shouldDirty: true },
                 );
               }}
               value={getMultiDefaultValue(
@@ -171,7 +172,9 @@ const Combobox = ({
             <Single
               onInputChange={onSearch}
               onSelectedChange={(item) =>
-                setValue(name, item?.value ? String(item.value) : undefined)
+                setValue(name, item?.value ? String(item.value) : undefined, {
+                  shouldDirty: true,
+                })
               }
               value={getSingleDefaultValue(
                 optionsModified,
