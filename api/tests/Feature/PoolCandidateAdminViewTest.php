@@ -16,6 +16,7 @@ use App\Models\Skill;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
+use App\Models\WorkExperience;
 use App\Support\Query\AdvancedOrder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -621,9 +622,7 @@ class PoolCandidateAdminViewTest extends TestCase
 
     public function testOrderByEmployeeDepartment(): void
     {
-        $query =
-            /** @lang GraphQL */
-            '
+        $query = <<<'GRAPHQL'
             query PoolCandidates($orderBy: AdvancedOrderByInput!) {
                 poolCandidatesPaginated(orderBy: [$orderBy]) {
                     data {
@@ -633,22 +632,20 @@ class PoolCandidateAdminViewTest extends TestCase
                     }
                 }
             }
-        ';
+        GRAPHQL;
 
         $departmentA = Department::factory()->create(['name' => ['en' => 'AA (EN)', 'fr' => 'AA (FR)']]);
         $departmentB = Department::factory()->create(['name' => ['en' => 'BB (EN)', 'fr' => 'BB (FR)']]);
 
+        $userA = User::factory()->asApplicant()->create();
+        WorkExperience::factory()->asSubstantive()->for($userA)->for($departmentA)->create();
+
+        $userB = User::factory()->asApplicant()->create();
+        WorkExperience::factory()->asSubstantive()->for($userB)->for($departmentB)->create();
+
         PoolCandidate::truncate();
-        $candidateA = PoolCandidate::factory()
-            ->submitted()
-            ->for($this->pool)
-            ->for(User::factory()->create(['computed_department' => $departmentA->id]))
-            ->create();
-        $candidateB = PoolCandidate::factory()
-            ->submitted()
-            ->for($this->pool)
-            ->for(User::factory()->create(['computed_department' => $departmentB->id]))
-            ->create();
+        $candidateA = PoolCandidate::factory()->submitted()->for($this->pool)->for($userA)->create();
+        $candidateB = PoolCandidate::factory()->submitted()->for($this->pool)->for($userB)->create();
 
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, [
@@ -657,8 +654,16 @@ class PoolCandidateAdminViewTest extends TestCase
                     'direction' => 'ASC',
                 ],
             ])
-            ->assertJsonPath('data.poolCandidatesPaginated.data.0.poolCandidate.id', $candidateA->id)
-            ->assertJsonPath('data.poolCandidatesPaginated.data.1.poolCandidate.id', $candidateB->id);
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $candidateA->id]],
+                            ['poolCandidate' => ['id' => $candidateB->id]],
+                        ],
+                    ],
+                ],
+            ]);
 
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, [
@@ -667,15 +672,21 @@ class PoolCandidateAdminViewTest extends TestCase
                     'direction' => 'DESC',
                 ],
             ])
-            ->assertJsonPath('data.poolCandidatesPaginated.data.0.poolCandidate.id', $candidateB->id)
-            ->assertJsonPath('data.poolCandidatesPaginated.data.1.poolCandidate.id', $candidateA->id);
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $candidateB->id]],
+                            ['poolCandidate' => ['id' => $candidateA->id]],
+                        ],
+                    ],
+                ],
+            ]);
     }
 
     public function testOrderByScreeningStage(): void
     {
-        $query =
-            /** @lang GraphQL */
-            '
+        $query = <<<'GRAPHQL'
             query PoolCandidates($orderBy: AdvancedOrderByInput!) {
                 poolCandidatesPaginated(orderBy: [$orderBy]) {
                     data {
@@ -685,7 +696,7 @@ class PoolCandidateAdminViewTest extends TestCase
                     }
                 }
             }
-        ';
+        GRAPHQL;
 
         PoolCandidate::truncate();
         $newApplication = PoolCandidate::factory()
@@ -704,8 +715,16 @@ class PoolCandidateAdminViewTest extends TestCase
                     'direction' => 'ASC',
                 ],
             ])
-            ->assertJsonPath('data.poolCandidatesPaginated.data.0.poolCandidate.id', $newApplication->id)
-            ->assertJsonPath('data.poolCandidatesPaginated.data.1.poolCandidate.id', $underAssessment->id);
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $newApplication->id]],
+                            ['poolCandidate' => ['id' => $underAssessment->id]],
+                        ],
+                    ],
+                ],
+            ]);
 
         $this->actingAs($this->platformAdmin, 'api')
             ->graphQL($query, [
@@ -714,8 +733,16 @@ class PoolCandidateAdminViewTest extends TestCase
                     'direction' => 'DESC',
                 ],
             ])
-            ->assertJsonPath('data.poolCandidatesPaginated.data.0.poolCandidate.id', $underAssessment->id)
-            ->assertJsonPath('data.poolCandidatesPaginated.data.1.poolCandidate.id', $newApplication->id);
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $underAssessment->id]],
+                            ['poolCandidate' => ['id' => $newApplication->id]],
+                        ],
+                    ],
+                ],
+            ]);
     }
 
     public function testOrderByPoolName(): void
