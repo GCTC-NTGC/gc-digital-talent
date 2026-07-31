@@ -28,14 +28,15 @@ class ContainerLogV2FormatterTest extends TestCase
         );
     }
 
-    public function testFormatProducesJsonWithLowercaseLevelKey()
+    public function testFormatProducesJsonWithSchemaColumnNames()
     {
         $formatted = (new ContainerLogV2Formatter())->format($this->makeRecord(Level::Warning, 'Database connection took longer than expected.'));
 
         $decoded = json_decode(trim($formatted), true);
-        $this->assertSame('WARNING', $decoded['level']);
-        $this->assertSame('Database connection took longer than expected.', $decoded['message']);
-        $this->assertArrayNotHasKey('LogLevel', $decoded);
+        $this->assertSame('WARNING', $decoded['LogLevel']);
+        $this->assertSame('Database connection took longer than expected.', $decoded['LogMessage']);
+        $this->assertArrayNotHasKey('level', $decoded);
+        $this->assertArrayNotHasKey('message', $decoded);
     }
 
     #[DataProvider('levelMappingProvider')]
@@ -43,7 +44,7 @@ class ContainerLogV2FormatterTest extends TestCase
     {
         $decoded = json_decode(trim((new ContainerLogV2Formatter())->format($this->makeRecord($level))), true);
 
-        $this->assertSame($expected, $decoded['level']);
+        $this->assertSame($expected, $decoded['LogLevel']);
     }
 
     public static function levelMappingProvider(): array
@@ -100,7 +101,7 @@ class ContainerLogV2FormatterTest extends TestCase
 
         $lines = array_values(array_filter(explode(PHP_EOL, $formatted)));
         $this->assertCount(2, $lines);
-        $this->assertSame('first', json_decode($lines[0], true)['message']);
-        $this->assertSame('second', json_decode($lines[1], true)['message']);
+        $this->assertSame('first', json_decode($lines[0], true)['LogMessage']);
+        $this->assertSame('second', json_decode($lines[1], true)['LogMessage']);
     }
 }

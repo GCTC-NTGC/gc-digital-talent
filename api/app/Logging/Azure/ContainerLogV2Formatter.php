@@ -9,17 +9,11 @@ use Monolog\Level;
 use Monolog\LogRecord;
 
 /**
- * Formats a record as a single line of JSON so that Azure Monitor's
- * ContainerLogV2 collection can classify it correctly.
- *
- * ContainerLogV2 only infers a LogLevel for a line if the line is valid JSON
- * with a key literally named "level" (any other casing, like "LogLevel", is
- * ignored and falls back to unreliable regex-based inference). The
- * timestamp, computer, and container are added by Azure on collection, so
- * they're intentionally left out here.
+ * Formats a record as a single line of JSON using the column names from the
+ * ContainerLogV2 schema, so Azure's log collection can pick them up directly
+ * instead of guessing the level from unstructured text.
  *
  * @see https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/containerlogv2
- * @see https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-logs-schema
  */
 class ContainerLogV2Formatter extends NormalizerFormatter
 {
@@ -41,8 +35,8 @@ class ContainerLogV2Formatter extends NormalizerFormatter
     public function format(LogRecord $record): string
     {
         $data = [
-            'level' => self::LEVEL_MAP[$record->level->value] ?? 'UNKNOWN',
-            'message' => $record->message,
+            'LogLevel' => self::LEVEL_MAP[$record->level->value] ?? 'UNKNOWN',
+            'LogMessage' => $record->message,
         ];
 
         $context = $this->normalize($record->context);
