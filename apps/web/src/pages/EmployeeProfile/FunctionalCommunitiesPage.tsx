@@ -26,21 +26,13 @@ const SECTION_ID = {
 
 const FunctionalCommunitiesOptions_Fragment = graphql(/** GraphQL */ `
   fragment FunctionalCommunitiesOptions on Query {
-    ...EmployeeProfileCareerDevelopmentOptions
-    ...EmployeeProfileNextRoleOptions
-    ...EmployeeProfileCareerObjectiveOptions
+    ...YourFunctionalCommunitiesOptions
   }
 `);
 
-export const FunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
+const FunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment FunctionalCommunitiesUser on User {
-    isVerifiedGovEmployee
-    employeeProfile {
-      ...EmployeeProfileCareerDevelopment
-      ...EmployeeProfileCareerObjective
-      ...EmployeeProfileNextRole
-      ...EmployeeProfileGoalsWorkStyle
-    }
+    ...YourFunctionalCommunitiesUser
   }
 `);
 
@@ -49,7 +41,7 @@ interface FunctionalCommunitiesProps {
   optionsQuery: FragmentType<typeof FunctionalCommunitiesOptions_Fragment>;
 }
 
-export const FunctionalCommunities = ({
+const FunctionalCommunities = ({
   userQuery,
   optionsQuery,
 }: FunctionalCommunitiesProps) => {
@@ -98,7 +90,10 @@ export const FunctionalCommunities = ({
             <TableOfContents.Section
               id={SECTION_ID.YOUR_FUNCTIONAL_COMMUNITIES}
             >
-              <YourFunctionalCommunities />
+              <YourFunctionalCommunities
+                userQuery={user}
+                optionsQuery={options}
+              />
             </TableOfContents.Section>
           </div>
         </TableOfContents.Content>
