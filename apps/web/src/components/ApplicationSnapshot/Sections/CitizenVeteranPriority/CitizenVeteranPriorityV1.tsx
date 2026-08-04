@@ -1,9 +1,10 @@
 import { useIntl } from "react-intl";
 
 import type {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
+  ArmedForcesStatus,
+  CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
@@ -18,8 +19,8 @@ import governmentMessages from "~/messages/governmentMessages";
 import type { SnapshotProps } from "../types";
 
 export interface CitizenVeteranPrioritySnapshotV1 {
-  citizenship: LocalizedCitizenshipStatus | null | undefined;
-  armedForcesStatus: LocalizedArmedForcesStatus | null | undefined;
+  citizenship: GenericLocalizedEnum<CitizenshipStatus> | null | undefined;
+  armedForcesStatus: GenericLocalizedEnum<ArmedForcesStatus> | null | undefined;
   hasPriorityEntitlement?: boolean | null;
   priorityNumber?: string | null;
 }
