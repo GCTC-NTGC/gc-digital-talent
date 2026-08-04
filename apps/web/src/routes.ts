@@ -212,6 +212,10 @@ export default [
                 "career-planning",
                 "./pages/EmployeeProfile/CareerPlanningPage.tsx",
               ),
+              route(
+                "nominations",
+                "./pages/EmployeeProfile/TalentNominationsPage.tsx",
+              ),
             ]),
           ]),
 
