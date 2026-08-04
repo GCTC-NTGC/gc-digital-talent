@@ -6,11 +6,9 @@ import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { Link, Chip } from "@gc-digital-talent/ui";
 import type {
-  Classification,
   FragmentType,
   LocalizedString,
   OrderByColumnInput,
-  Pool,
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolWorkStreamNameOrderByInput,
@@ -32,31 +30,30 @@ import type { PoolBookmark_Fragment } from "./PoolBookmark";
 import PoolBookmark from "./PoolBookmark";
 
 export function poolNameAccessor(
-  pool: Pick<Pool, "name" | "workStream">,
+  name: LocalizedString | null | undefined,
+  workStreamName: LocalizedString | null | undefined,
   intl: IntlShape,
 ) {
-  const name = getLocalizedName(pool.name, intl);
-  return `${name.toLowerCase()} ${getLocalizedName(pool?.workStream?.name, intl, true)}`;
+  const localizedName = getLocalizedName(name, intl);
+  return `${localizedName.toLowerCase()} ${getLocalizedName(workStreamName, intl, true)}`;
 }
 
 export function viewCell(
   url: string,
-  pool: Pick<Pool, "name">,
+  name: LocalizedString | null | undefined,
   intl: IntlShape,
 ) {
   return (
     <Link color="black" href={url}>
-      {getLocalizedName(pool.name, intl)}
+      {getLocalizedName(name, intl)}
     </Link>
   );
 }
 
-export function classificationCell(
-  classification: Pick<Classification, "groupAndLevel"> | null | undefined,
-) {
-  if (!classification) return null;
+export function classificationCell(groupAndLevel: string | undefined) {
+  if (!groupAndLevel) return null;
 
-  return <Chip color="primary">{classification.groupAndLevel}</Chip>;
+  return <Chip color="primary">{groupAndLevel}</Chip>;
 }
 
 interface TransformPoolInputArgs {

@@ -34,7 +34,7 @@ import {
 } from "./const";
 import type { LogoutReason, RoleName } from "./const";
 import getAuthenticationState from "./utils/authenticationState";
-import type { AuthenticationState } from "./types";
+import type { AuthenticationState, AuthRoleAssignment } from "./types";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";
 
 export {
@@ -74,6 +74,7 @@ export type {
   RoleName,
   LogoutReason,
   AuthenticationState,
+  AuthRoleAssignment,
   RoleRequirement,
   PermissionRequirement,
   HasRequiredRolesArgs,
