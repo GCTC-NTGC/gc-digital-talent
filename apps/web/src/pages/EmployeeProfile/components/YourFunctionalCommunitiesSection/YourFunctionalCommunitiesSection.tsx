@@ -1,23 +1,38 @@
-import ChartBarSquareIcon from "@heroicons/react/24/outline/ChartBarSquareIcon";
+import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useIntl } from "react-intl";
+import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
 
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Heading } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Card,
+  Heading,
+  Notice,
+  PreviewList,
+} from "@gc-digital-talent/ui";
+
+import FunctionalCommunityCard from "~/components/FunctionalCommunityCard/FunctionalCommunityCard";
 
 const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesUser on User {
     isVerifiedGovEmployee
+    employeeProfile {
+      communityInterests {
+        id
+        ...PreviewListItemFunctionalCommunity
+      }
+    }
   }
 `);
 
 const YourFunctionalCommunitiesOptions_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesOptions on Query {
-    __typename
+    ...PreviewListItemFunctionalCommunityOptions
   }
 `);
 
@@ -36,11 +51,15 @@ const YourFunctionalCommunities = ({
     YourFunctionalCommunitiesOptions_Fragment,
     optionsQuery,
   );
+
+  const { employeeProfile } = user ?? {};
+  const { communityInterests } = employeeProfile ?? {};
+
   return (
-    <>
+    <Card space="lg">
       <Heading
         level="h2"
-        icon={user.isVerifiedGovEmployee ? ChartBarSquareIcon : LockClosedIcon}
+        icon={user.isVerifiedGovEmployee ? UserGroupIcon : LockClosedIcon}
         {...(user.isVerifiedGovEmployee && { color: "primary" })}
         className="mt-0 font-normal sm:text-left"
       >
@@ -51,15 +70,60 @@ const YourFunctionalCommunities = ({
             "Title of the functional communities section in the employee profile",
         })}
       </Heading>
-      <p>
+      <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
-            "We'd like to learn more about the career path you'd like to follow. Providing information about preferences and aspirations will help talent managers make more informed decisions when you've been nominated for a promotion, lateral movement, or professional development opportunity.",
-          id: "6KS1jD",
-          description: "Lead-in text explaining the users career plan",
+            "Functional communities are organizations that help facilitate recruitment and talent management for a classification or area of work. By joining a functional community, your profile is made available to recruiters and talent coordinators so that they can consider you for possible job and training opportunities.",
+          id: "bQIWex",
+          description:
+            "Lead-in text explaining the user profile functional communities section",
         })}
       </p>
-    </>
+      <Button mode="placeholder" icon={PlusCircleIcon} block className="mb-6">
+        {intl.formatMessage({
+          defaultMessage: "Join a community",
+          id: "yD13EC",
+          description: "Button to join a community",
+        })}
+      </Button>
+      {communityInterests?.length ? (
+        <PreviewList.Root>
+          {communityInterests.map((functionalCommunityInterestFragment) => (
+            <FunctionalCommunityCard
+              key={functionalCommunityInterestFragment.id}
+              functionalCommunityListItemQuery={
+                functionalCommunityInterestFragment
+              }
+              functionalCommunityListItemOptionsQuery={options}
+              headingAs="h4"
+            />
+          ))}
+        </PreviewList.Root>
+      ) : (
+        <Notice.Root className="text-center">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "You haven't opted into any functional communities.",
+              id: "rrqAZ6",
+              description:
+                "Title for notice when there are no functional communities a user is a part of",
+            })}
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  'Communities might be suggested based on your career experience. You can also add functional communities using the "Add a community" link.',
+                id: "ldgukM",
+                description:
+                  "Body for notice when there are no functional communities a user is a part of",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      )}
+    </Card>
   );
 };
 
