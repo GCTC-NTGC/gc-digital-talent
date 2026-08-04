@@ -8,29 +8,25 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
-import type { Locales } from "@gc-digital-talent/i18n";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import type {
-  Pool,
   PoolCandidatePoolNameOrderByInput,
   PoolCandidateSearchInput,
   QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
   FragmentType,
-  LocalizedProvinceOrTerritory,
-  Classification,
+  ProvinceOrTerritory,
   LocalizedString,
   ClaimVerificationSort,
   QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
   QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
   QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
-  LocalizedCandidateSuspendedFilter,
   PoolCandidatesBaseSort,
-  LocalizedCandidateStatus,
-  LocalizedApplicationStatus,
-  LocalizedAssessmentDecision,
+  ApplicationStatus,
+  CandidateStatus,
 } from "@gc-digital-talent/graphql";
 import {
   CandidateExpiryFilter,
@@ -52,7 +48,6 @@ import {
   candidateStatusChip,
   getApplicationStatusChip,
 } from "~/utils/poolCandidate";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
 
@@ -107,21 +102,14 @@ export const candidateNameCell = (
 };
 
 export const processCell = (
-  pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Pick<Classification, "groupAndLevel"> | null;
-  },
+  poolId: string,
+  poolName: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, {
-    workStream: pool.workStream,
-    name: pool.name,
-    publishingGroup: pool.publishingGroup,
-    classification: pool.classification,
-  });
   return (
     <Link
-      href={paths.poolView(pool.id)}
+      href={paths.poolView(poolId)}
       aria-label={
         intl.formatMessage(processMessages.process) +
         intl.formatMessage(commonMessages.dividingColon) +
@@ -189,7 +177,7 @@ export const notesCell = (
 
 export const currentLocationAccessor = (
   city: string | null | undefined,
-  province: LocalizedProvinceOrTerritory | null | undefined,
+  province: GenericLocalizedEnum<ProvinceOrTerritory> | null | undefined,
   intl: IntlShape,
 ) =>
   `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
@@ -233,7 +221,7 @@ const decisionIcon = tv({
 });
 
 export const screeningResultCell = (
-  screeningResult?: LocalizedAssessmentDecision | null,
+  screeningResult?: GenericLocalizedEnum<AssessmentDecision> | null,
   defaultMessage = "",
 ) => {
   let info: DecisionInfo = defaultDecisionInfo;
@@ -253,7 +241,7 @@ export const screeningResultCell = (
 };
 
 export const applicationStatusCell = (
-  status: LocalizedApplicationStatus | null | undefined,
+  status: GenericLocalizedEnum<ApplicationStatus> | null | undefined,
   intl: IntlShape,
 ) => {
   const { label, color } = getApplicationStatusChip(status, intl);
@@ -261,7 +249,7 @@ export const applicationStatusCell = (
 };
 
 export const candidateStatusCell = (
-  status?: LocalizedCandidateStatus | null,
+  status?: GenericLocalizedEnum<CandidateStatus> | null,
 ) => {
   const chip = candidateStatusChip(status);
 
@@ -654,7 +642,7 @@ export const addSearchToPoolCandidateFilterInput = (
 
 // map the enum to a custom string per value
 export const candidateSuspendedFilterToCustomOptions = (
-  suspendedFilterEnums: LocalizedCandidateSuspendedFilter[],
+  suspendedFilterEnums: GenericLocalizedEnum<CandidateSuspendedFilter>[],
   intl: IntlShape,
 ): Radio[] => {
   return suspendedFilterEnums.map((enumObject) => {

@@ -850,13 +850,13 @@ const PoolCandidatesTable = ({
                 },
               }) =>
                 processCell(
-                  {
-                    id: pool.id,
+                  pool.id,
+                  getFullPoolTitleLabel(intl, {
                     workStream: pool.workStream,
                     name: pool.name,
                     publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
-                  },
+                  }),
                   paths,
                   intl,
                 ),
