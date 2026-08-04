@@ -1,5 +1,6 @@
 import { useMemo, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
+import { getNonce } from "get-nonce";
 import type {
   ControllerRenderProps,
   FieldValues,
@@ -73,6 +74,9 @@ const ControlledInput = ({
     content,
     editorProps,
     editable,
+    // Tiptap injects its own <style> tag, which our CSP blocks unless it
+    // carries the nonce the app shares through `get-nonce` at startup.
+    injectNonce: getNonce(),
     onUpdate: ({ editor: submittedEditor }) => {
       let html = submittedEditor.getHTML();
       // If you remove existing comment, editor leaves behind

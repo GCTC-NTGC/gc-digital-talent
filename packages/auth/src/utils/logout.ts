@@ -121,7 +121,7 @@ function logoutAndRefreshPage({
   }
 
   if (idToken && authSessionIsCurrentlyActive) {
-    // Sign In Canada logout will error out unless there is actually an active session
+    // CanadaLogin logout will error out unless there is actually an active session
     window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(nextLocation)}&id_token_hint=${idToken}`;
   } else if (!preventRedirect) {
     // at least a hard refresh to URI to restart react app

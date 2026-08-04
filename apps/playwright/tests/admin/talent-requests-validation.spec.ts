@@ -9,7 +9,7 @@ import type {
   Skill,
   User,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
@@ -19,7 +19,7 @@ import {
   PlacementType,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";

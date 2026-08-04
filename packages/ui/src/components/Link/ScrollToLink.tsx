@@ -20,25 +20,18 @@ const scrollToSection = (
   offsetEl?: HTMLElement | null,
 ) => {
   if (section) {
-    if (offsetEl) {
-      setTimeout(() => {
-        window.scrollTo({
-          behavior: "smooth",
-          top:
-            section.getBoundingClientRect().top -
-            document.body.getBoundingClientRect().top -
-            // NOTE: 16 adds a bit of a gap so text doesn't touch element
-            (offsetEl.getBoundingClientRect().height + 16),
-        });
-      }, 10);
-    } else {
-      setTimeout(() => {
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }, 10);
-    }
+    setTimeout(() => {
+      if (offsetEl) {
+        // NOTE: 16 adds a bit of a gap so text doesn't touch element
+        const offset = offsetEl.getBoundingClientRect().height + 16;
+        section.style.scrollMarginTop = `${offset}px`;
+      }
+
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 10);
   }
 };
 

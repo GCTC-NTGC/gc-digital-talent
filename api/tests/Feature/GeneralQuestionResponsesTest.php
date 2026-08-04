@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
 use App\Models\Community;
+use App\Models\GeneralQuestion;
 use App\Models\GeneralQuestionResponse;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
@@ -76,7 +77,7 @@ class GeneralQuestionResponsesTest extends TestCase
 
     public function testCreatingGeneralQuestionResponses(): void
     {
-        $application = PoolCandidate::factory()->create([
+        $application = PoolCandidate::factory()->for($this->pool)->create([
             'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
@@ -123,7 +124,7 @@ class GeneralQuestionResponsesTest extends TestCase
 
     public function testUpdatingGeneralQuestionResponses(): void
     {
-        $application = PoolCandidate::factory()->create([
+        $application = PoolCandidate::factory()->for($this->pool)->create([
             'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
@@ -169,7 +170,7 @@ class GeneralQuestionResponsesTest extends TestCase
 
     public function testDeletingGeneralQuestionResponses(): void
     {
-        $application = PoolCandidate::factory()->create([
+        $application = PoolCandidate::factory()->for($this->pool)->create([
             'application_status' => ApplicationStatus::DRAFT->name,
             'user_id' => $this->processOperator->id,
         ]);
@@ -294,5 +295,34 @@ class GeneralQuestionResponsesTest extends TestCase
         );
 
         assertNotNull(GeneralQuestionResponse::find($victimResponse->id), 'Victim response should not be deleted');
+    }
+
+    public function testCannotCreateGeneralQuestionResponseForQuestionFromDifferentPool(): void
+    {
+        $application = PoolCandidate::factory()->for($this->pool)->create([
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->processOperator->id,
+        ]);
+
+        $otherPoolQuestion = GeneralQuestion::factory()->create();
+
+        $this->actingAs($this->processOperator, 'api')->graphQL($this->updateApplication, [
+            'id' => $application->id,
+            'application' => [
+                'generalQuestionResponses' => [
+                    'create' => [
+                        [
+                            'generalQuestion' => [
+                                'connect' => $otherPoolQuestion->id,
+                            ],
+                            'answer' => 'the answer',
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLValidationError(
+            'application.generalQuestionResponses.create.0.generalQuestion.connect',
+            'The selected application.generalQuestionResponses.create.0.generalQuestion.connect is invalid.'
+        );
     }
 }

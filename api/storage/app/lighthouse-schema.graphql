@@ -283,21 +283,6 @@ type LocalizedPoolAreaOfSelection implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPoolCandidateSearchPositionType implements LocalizedEnumOption {
-  value: PoolCandidateSearchPositionType!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
-  value: PoolCandidateSearchRequestReason!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
-  value: PoolCandidateSearchStatus!
-  label: LocalizedString!
-}
-
 type LocalizedPoolLanguage implements LocalizedEnumOption {
   value: PoolLanguage!
   label: LocalizedString!
@@ -504,7 +489,6 @@ type Query {
   developmentPrograms: [DevelopmentProgram]!
   jobPosterTemplate(id: UUID!): JobPosterTemplate
   jobPosterTemplates: [JobPosterTemplate!]
-  poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   talentRequest(id: UUID!): TalentRequest
   skillFamily(id: UUID!): SkillFamily
   skillFamilies: [SkillFamily]!
@@ -586,16 +570,6 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolCandidateAdminViewWithSkillCountPaginator!
-  poolCandidateSearchRequestsPaginated(
-    where: PoolCandidateSearchRequestInput
-    orderBy: [OrderByClause!]
-
-    "Limits number of fetched items. Maximum allowed value: 500."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): PoolCandidateSearchRequestPaginator!
   talentRequests(
     where: TalentRequestInput
     orderBy: [AdvancedOrderByInput!]
@@ -699,9 +673,6 @@ type Mutation {
   unarchiveDepartment(id: ID!): Department
   createDevelopmentProgram(developmentProgram: CreateDevelopmentProgramInput!): DevelopmentProgram
   updateDevelopmentProgram(id: ID!, developmentProgram: UpdateDevelopmentProgramInput!): DevelopmentProgram
-  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
-  updatePoolCandidateSearchRequestStatus(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!): PoolCandidateSearchRequest
   createTalentRequest(talentRequest: CreateTalentRequestInput!): TalentRequest
   updateTalentRequest(id: ID!, talentRequest: UpdateTalentRequestInput!): TalentRequest
   updateTalentRequestStatus(id: ID!, talentRequest: UpdateTalentRequestStatusInput!): TalentRequest
@@ -926,7 +897,6 @@ type User {
   offPlatformRecruitmentProcesses: [OffPlatformRecruitmentProcess!]
   poolBookmarks: [Pool]
   poolCandidateBookmarks: [PoolCandidate]
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
 }
@@ -1617,33 +1587,6 @@ type ApplicantFilter {
   talentSources: [LocalizedTalentRequestSource!]
 }
 
-type PoolCandidateSearchRequest {
-  id: ID!
-  fullName: String
-  email: Email
-  department: Department
-  jobTitle: String
-  additionalComments: String
-  hrAdvisorEmail: Email
-  requestedDate: DateTime
-  status: LocalizedPoolCandidateSearchStatus @deprecated(reason: "Use talentRequestStatus instead")
-  statusChangedAt: DateTime
-  adminNotes: String
-  poolCandidateFilter: PoolCandidateFilter @deprecated(reason: "Replaced by applicantFilter")
-  applicantFilter: ApplicantFilter
-  wasEmpty: Boolean
-  managerJobTitle: String
-  positionType: LocalizedPoolCandidateSearchPositionType
-  reason: LocalizedPoolCandidateSearchRequestReason
-  community: Community
-  initialResultCount: Int
-  followUpDate: Date
-  talentRequestStatus: LocalizedTalentRequestStatus
-  inProgressDetails: LocalizedTalentRequestInProgressDetail
-  completionDetails: LocalizedTalentRequestCompletionDetail
-  details: LocalizedString
-}
-
 type TalentRequest {
   id: ID!
   fullName: String
@@ -1995,22 +1938,6 @@ input PoolCandidateSearchInput {
   placementTypes: [PlacementType!]
   removalReasons: [CandidateRemovalReason!]
   screeningStages: [ScreeningStage!]
-}
-
-input PoolCandidateSearchRequestInput {
-  status: [PoolCandidateSearchStatus]
-  talentRequestStatus: [TalentRequestStatus]
-  departments: [ID]
-  classifications: [ID]
-  workStreams: [UUID]
-  fullName: String
-  email: String
-  id: ID
-  jobTitle: String
-  additionalComments: String
-  hrAdvisorEmail: String
-  adminNotes: String
-  generalSearch: String
 }
 
 input TalentRequestInput {
@@ -2769,35 +2696,6 @@ input ApplicantFilterBelongsTo {
   create: CreateApplicantFilterInput!
 }
 
-input CreatePoolCandidateSearchRequestInput {
-  fullName: String!
-  email: Email!
-  department: DepartmentBelongsTo!
-  community: CommunityBelongsTo!
-  jobTitle: String!
-  additionalComments: String
-  hrAdvisorEmail: Email
-  applicantFilter: ApplicantFilterBelongsTo!
-  wasEmpty: Boolean
-  managerJobTitle: String!
-  positionType: PoolCandidateSearchPositionType!
-  reason: PoolCandidateSearchRequestReason!
-  initialResultCount: Int
-}
-
-input UpdatePoolCandidateSearchRequestInput {
-  adminNotes: String
-  status: PoolCandidateSearchStatus
-  followUpDate: Date
-}
-
-input UpdatePoolCandidateSearchRequestStatusInput {
-  status: TalentRequestStatus!
-  inProgressDetails: TalentRequestInProgressDetail
-  completionDetails: TalentRequestCompletionDetail
-  followUpDate: Date
-}
-
 input CreateTalentRequestInput {
   fullName: String!
   email: Email!
@@ -3417,15 +3315,6 @@ type PoolCandidateAdminViewWithSkillCountPaginator {
 
   "A list of PoolCandidateAdminViewWithSkillCount items."
   data: [PoolCandidateAdminViewWithSkillCount!]!
-}
-
-"A paginated list of PoolCandidateSearchRequest items."
-type PoolCandidateSearchRequestPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of PoolCandidateSearchRequest items."
-  data: [PoolCandidateSearchRequest!]!
 }
 
 "A paginated list of TalentRequest items."
@@ -4266,6 +4155,7 @@ enum ErrorCode {
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
+  ASSESSMENT_STEP_INVALID_TYPE
   ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS
   SKILL_JUSTIFICATION_FOR_EDUCATION_ASSESSMENT
   EDUCATION_JUSTIFICATIONS_FOR_SKILL_ASSESSMENT
@@ -4590,27 +4480,6 @@ enum PlacementType {
 enum PoolAreaOfSelection {
   PUBLIC
   EMPLOYEES
-}
-
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
-}
-
-enum PoolCandidateSearchRequestReason {
-  IMMEDIATE_HIRE
-  UPCOMING_NEED
-  GENERAL_INTEREST
-  REQUIRED_BY_DIRECTIVE
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-  DONE_NO_CANDIDATES
-  NOT_COMPLIANT
 }
 
 enum PoolLanguage {

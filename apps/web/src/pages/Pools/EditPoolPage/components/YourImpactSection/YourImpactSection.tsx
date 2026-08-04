@@ -7,7 +7,6 @@ import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
-  Pool,
   UpdatePoolInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -85,14 +84,14 @@ const YourImpactSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "yourImpact">,
+    yourImpact: LocalizedString | null | undefined,
   ): FormValues => ({
-    yourImpactEn: initialData.yourImpact?.en ?? "",
-    yourImpactFr: initialData.yourImpact?.fr ?? "",
+    yourImpactEn: yourImpact?.en ?? "",
+    yourImpactFr: yourImpact?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(pool.yourImpact),
   });
   const { handleSubmit, watch } = methods;
   const values = watch();

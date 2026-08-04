@@ -1,7 +1,6 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
@@ -13,7 +12,7 @@ import {
   PoolPoster,
 } from "./PoolAdvertisementPage";
 
-const fakePool: Pool = fakePools(1)[0];
+const fakePool = fakePools(1)[0];
 const openPool = {
   ...fakePool,
   status: { value: PoolStatus.Published, label: {} },

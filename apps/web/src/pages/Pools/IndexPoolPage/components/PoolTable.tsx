@@ -282,8 +282,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     }),
     columnHelper.accessor(
-      (row) =>
-        poolNameAccessor({ name: row.name, workStream: row.workStream }, intl),
+      (row) => poolNameAccessor(row.name, row.workStream?.name, intl),
       {
         id: "name",
         header: intl.formatMessage(commonMessages.name),
@@ -291,7 +290,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
           isRowTitle: true,
         },
         cell: ({ row: { original: pool } }) =>
-          viewCell(paths.poolView(pool.id), { name: pool.name }, intl),
+          viewCell(paths.poolView(pool.id), pool.name, intl),
       },
     ),
     columnHelper.accessor(
@@ -306,7 +305,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         }),
         enableColumnFilter: false,
         cell: ({ row: { original: pool } }) =>
-          classificationCell(pool.classification),
+          classificationCell(pool.classification?.groupAndLevel),
       },
     ),
     columnHelper.accessor(

@@ -1,4 +1,7 @@
-import type { Community, WorkStream } from "@gc-digital-talent/graphql";
+import type {
+  Community,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import CommunityInterest from "~/fixtures/CommunityInterest";
 import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";

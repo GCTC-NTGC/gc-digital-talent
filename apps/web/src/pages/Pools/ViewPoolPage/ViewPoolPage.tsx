@@ -16,8 +16,9 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
+import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolStatus } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -91,7 +92,7 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
 export interface ViewPoolProps {
   poolQuery: FragmentType<typeof ViewPool_Fragment>;
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
-  roleAssignments: RoleAssignment[];
+  roleAssignments: AuthRoleAssignment[];
   isFetching: boolean;
   onPublish: () => Promise<void>;
   onDelete: () => Promise<void>;

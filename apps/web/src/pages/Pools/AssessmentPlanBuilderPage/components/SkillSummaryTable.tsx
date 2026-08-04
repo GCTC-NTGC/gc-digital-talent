@@ -5,11 +5,9 @@ import type { IntlShape } from "react-intl";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/20/solid/CheckIcon";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
-  LocalizedAssessmentStepType,
-  Skill,
   SkillSummaryPoolSkillFragment as SkillSummaryPoolSkillFragmentType,
   SkillSummaryTableAssessmentStepFragment as SkillSummaryAssessmentStepFragmentType,
 } from "@gc-digital-talent/graphql";
@@ -33,8 +31,7 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
     type {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     skill {
@@ -43,13 +40,11 @@ export const SkillSummaryTablePoolSkill_Fragment = graphql(/* GraphQL */ `
       category {
         value
         label {
-          en
-          fr
+          localized
         }
       }
       name {
-        en
-        fr
+        localized
       }
     }
   }
@@ -61,14 +56,12 @@ export const SkillSummaryTableAssessmentStep_Fragment = graphql(/* GraphQL */ `
     type {
       value
       label {
-        en
-        fr
+        localized
       }
     }
     sortOrder
     title {
-      en
-      fr
+      localized
     }
     poolSkills {
       id
@@ -87,19 +80,11 @@ interface SkillSummaryTableProps {
 }
 
 const CheckIconElement = (
-  skill: Skill | null | undefined,
-  assessmentStepType: LocalizedAssessmentStepType | null | undefined,
-): JSX.Element | null => {
+  localizedName: string | null | undefined,
+  assessmentStepTypeLocalized: string | null | undefined,
+): JSX.Element => {
   const intl = useIntl();
-  if (!skill) {
-    return null;
-  }
-  const { name } = skill;
-  const localizedName = getLocalizedName(name, intl);
-  const assessmentStepTypeLocalized = getLocalizedName(
-    assessmentStepType?.label,
-    intl,
-  );
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <CheckIcon
@@ -112,7 +97,11 @@ const CheckIconElement = (
             "Aria text for icon indicating a skill to assessment step connection.",
           id: "4LVc9T",
         },
-        { localizedName, assessmentStepTypeLocalized },
+        {
+          localizedName: localizedName ?? notAvailable,
+          assessmentStepTypeLocalized:
+            assessmentStepTypeLocalized ?? notAvailable,
+        },
       )}
     />
   );
@@ -174,19 +163,25 @@ const assessmentStepCell = (
       (assessmentStepPoolSkill) => assessmentStepPoolSkill?.id === poolSkill.id,
     )
   ) {
-    return CheckIconElement(poolSkill.skill, assessmentStep.type);
+    return CheckIconElement(
+      poolSkill.skill?.name?.localized,
+      assessmentStep.type?.label?.localized,
+    );
   }
   return null;
 };
 
 const requirementTypeCell = ({ poolSkill, intl }: RequirementTypeCellProps) => {
   if (!poolSkill.type) return null;
+  const label =
+    poolSkill.type.label?.localized ??
+    intl.formatMessage(commonMessages.notAvailable);
   return poolSkill.type.value === PoolSkillType.Essential ? (
     <span className="font-bold text-secondary-600 dark:text-secondary-200">
-      {getLocalizedName(poolSkill.type.label, intl)}
+      {label}
     </span>
   ) : (
-    <span>{getLocalizedName(poolSkill.type.label, intl)}</span>
+    <span>{label}</span>
   );
 };
 
@@ -206,15 +201,20 @@ const SkillSummaryTable = ({
   );
 
   const initialColumns = [
-    columnHelper.accessor((row) => getLocalizedName(row.skill?.name, intl), {
-      id: "skillName",
-      header: intl.formatMessage({
-        defaultMessage: "Skill name",
-        id: "hjxxaQ",
-        description: "Skill name column header for the skill library table",
-      }),
-      enableHiding: false,
-    }),
+    columnHelper.accessor(
+      (row) =>
+        row.skill?.name?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      {
+        id: "skillName",
+        header: intl.formatMessage({
+          defaultMessage: "Skill name",
+          id: "hjxxaQ",
+          description: "Skill name column header for the skill library table",
+        }),
+        enableHiding: false,
+      },
+    ),
     columnHelper.display({
       id: "plannedAssessment",
       header: intl.formatMessage({
@@ -242,7 +242,9 @@ const SkillSummaryTable = ({
         cells.jsx(requirementTypeCell({ poolSkill, intl })),
     }),
     columnHelper.accessor(
-      ({ skill }) => getLocalizedName(skill?.category.label, intl),
+      ({ skill }) =>
+        skill?.category.label?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       {
         id: "skillCategory",
         header: intl.formatMessage({
@@ -264,7 +266,8 @@ const SkillSummaryTable = ({
   });
   sortedAssessmentSteps.forEach((assessmentStep) => {
     const headerName = assessmentStepDisplayName(
-      { type: assessmentStep.type, title: assessmentStep.title },
+      assessmentStep.title?.localized,
+      assessmentStep.type?.label?.localized,
       intl,
     );
     const newColumn = columnHelper.display({

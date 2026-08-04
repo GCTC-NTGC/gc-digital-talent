@@ -66,12 +66,6 @@ class Community extends Model
         });
     }
 
-    /** @return HasMany<PoolCandidateSearchRequest, $this> */
-    public function poolCandidateSearchRequests(): HasMany
-    {
-        return $this->hasMany(PoolCandidateSearchRequest::class);
-    }
-
     /** @return HasMany<ApplicantFilter, $this> */
     public function applicantFilters(): HasMany
     {

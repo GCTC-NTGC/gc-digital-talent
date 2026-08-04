@@ -1,7 +1,7 @@
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
 
 import type { RoleName } from "../const";
+import type { AuthRoleAssignment } from "../types";
 
 /**
  * @deprecated Use `hasRequiredRoles` instead.
@@ -9,7 +9,7 @@ import type { RoleName } from "../const";
  */
 const hasRole = (
   checkRole: RoleName | RoleName[],
-  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
+  userRoles: (AuthRoleAssignment | null | undefined)[] | null | undefined,
   teamIds?: string[],
 ): boolean => {
   const assignments = unpackMaybes(userRoles);

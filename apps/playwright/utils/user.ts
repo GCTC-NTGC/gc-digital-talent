@@ -2,7 +2,7 @@ import type {
   CreateUserInput,
   User,
   UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   Language,
   ProvinceOrTerritory,
@@ -11,7 +11,7 @@ import {
   ArmedForcesStatus,
   FlexibleWorkLocation,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getRoles } from "./roles";
