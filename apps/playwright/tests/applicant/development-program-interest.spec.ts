@@ -2,8 +2,8 @@ import type {
   CommunityInterest,
   DevelopmentProgram,
   EducationExperience,
-} from "@gc-digital-talent/graphql";
-import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import graphql from "~/utils/graphql";

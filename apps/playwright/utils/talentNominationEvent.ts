@@ -1,7 +1,7 @@
 import type {
   CreateTalentNominationEventInput,
   TalentNominationEvent,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";

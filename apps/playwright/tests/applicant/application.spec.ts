@@ -1,4 +1,4 @@
-import type { Skill, User } from "@gc-digital-talent/graphql";
+import type { Skill, User } from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -7,7 +7,7 @@ import {
   ProvinceOrTerritory,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";

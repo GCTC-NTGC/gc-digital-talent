@@ -2,7 +2,10 @@ import { expect } from "@playwright/test";
 import type { Locator, Page } from "@playwright/test";
 import type { Key } from "react";
 
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { loginBySub } from "~/utils/auth";
 
