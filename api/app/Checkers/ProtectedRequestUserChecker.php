@@ -7,7 +7,6 @@ use BackedEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Laratrust\Checkers\User\UserDefaultChecker;
@@ -67,8 +66,6 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUseRole($name, $requireAll)) {
-            Log::debug('Tried to unsafely use role '.json_encode($name));
-
             return false; // user effectively doesn't have role if it is unsafe to use it
         }
 
@@ -81,8 +78,6 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
         bool $requireAll = false
     ): bool {
         if (! $this->isSafeToUsePermission($permission, $requireAll)) {
-            Log::debug('Tried to unsafely use permission '.json_encode($permission));
-
             return false; // user effectively doesn't have permission if it is unsafe to use it
         }
 
