@@ -21,8 +21,8 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import messages from "~/messages/careerDevelopmentMessages";
 import { PAGE_SECTION_ID as APPLICANT_DASHBOARD_SECTION_ID } from "~/constants/sections/applicantDashboard";
+import FunctionalCommunityListItem from "~/components/FunctionalCommunity/FunctionalCommunityListItem";
 
-import FunctionalCommunityListItem from "./FunctionalCommunityListItem";
 import { ApplicantDashboardContext } from "../ApplicantDashboardProvider";
 import { ACCORDION_ID } from "../constants";
 

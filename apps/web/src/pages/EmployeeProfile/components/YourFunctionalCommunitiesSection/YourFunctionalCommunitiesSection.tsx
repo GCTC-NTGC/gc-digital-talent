@@ -8,15 +8,9 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import {
-  Button,
-  Card,
-  Heading,
-  Notice,
-  PreviewList,
-} from "@gc-digital-talent/ui";
+import { Button, Card, Heading, Notice } from "@gc-digital-talent/ui";
 
-import FunctionalCommunityCard from "~/components/FunctionalCommunityCard/FunctionalCommunityCard";
+import FunctionalCommunityCard from "~/components/FunctionalCommunity/FunctionalCommunityCard";
 
 const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesUser on User {
@@ -87,18 +81,21 @@ const YourFunctionalCommunities = ({
         })}
       </Button>
       {communityInterests?.length ? (
-        <PreviewList.Root>
-          {communityInterests.map((functionalCommunityInterestFragment) => (
-            <FunctionalCommunityCard
-              key={functionalCommunityInterestFragment.id}
-              functionalCommunityListItemQuery={
-                functionalCommunityInterestFragment
-              }
-              functionalCommunityListItemOptionsQuery={options}
-              headingAs="h4"
-            />
-          ))}
-        </PreviewList.Root>
+        // must exactly reverse the card padding, except for the top
+        <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">
+          <FunctionalCommunityCard.Root>
+            {communityInterests.map((functionalCommunityInterestFragment) => (
+              <FunctionalCommunityCard.Item
+                key={functionalCommunityInterestFragment.id}
+                functionalCommunityListItemQuery={
+                  functionalCommunityInterestFragment
+                }
+                functionalCommunityListItemOptionsQuery={options}
+                headingAs="h4"
+              />
+            ))}
+          </FunctionalCommunityCard.Root>
+        </div>
       ) : (
         <Notice.Root className="text-center">
           <Notice.Title>
