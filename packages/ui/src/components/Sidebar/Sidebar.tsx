@@ -22,7 +22,7 @@ export interface SidebarProps
 
 const Sidebar = ({ children, scrollbar, ...rest }: SidebarProps) => (
   <aside {...rest}>
-    <div className="relative mb-6 h-full">
+    <div className="relative z-20 mb-6 h-full">
       <div className={scrollbarWrapper({ scrollbar })}>{children}</div>
     </div>
   </aside>
