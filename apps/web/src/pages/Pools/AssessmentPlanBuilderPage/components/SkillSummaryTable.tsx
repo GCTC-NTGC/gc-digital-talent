@@ -82,11 +82,9 @@ interface SkillSummaryTableProps {
 const CheckIconElement = (
   localizedName: string | null | undefined,
   assessmentStepTypeLocalized: string | null | undefined,
-): JSX.Element | null => {
+): JSX.Element => {
   const intl = useIntl();
-  if (!localizedName) {
-    return null;
-  }
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <CheckIcon
@@ -99,7 +97,11 @@ const CheckIconElement = (
             "Aria text for icon indicating a skill to assessment step connection.",
           id: "4LVc9T",
         },
-        { localizedName, assessmentStepTypeLocalized },
+        {
+          localizedName: localizedName ?? notAvailable,
+          assessmentStepTypeLocalized:
+            assessmentStepTypeLocalized ?? notAvailable,
+        },
       )}
     />
   );
