@@ -694,9 +694,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 
     public function orderByClaimVerification(AdvancedOrder $args): self
     {
-        $citizenship = '(SELECT users.citizenship FROM users WHERE users.id = pool_candidates.user_id)';
-
-        $orderWithoutDirection = <<<SQL
+        $orderWithoutDirection = <<<'SQL'
             CASE
                 WHEN
                     (priority_verification = 'ACCEPTED' OR priority_verification = 'UNVERIFIED')
@@ -709,7 +707,8 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
                 THEN
                     30
                 WHEN
-                    ($citizenship = 'CITIZEN' OR $citizenship = 'PERMANENT_RESIDENT')
+                    (SELECT users.citizenship FROM users WHERE users.id = pool_candidates.user_id)
+                    IN ('CITIZEN', 'PERMANENT_RESIDENT')
                     AND
                     (
                         (priority_verification IS NULL OR priority_verification = 'REJECTED')
