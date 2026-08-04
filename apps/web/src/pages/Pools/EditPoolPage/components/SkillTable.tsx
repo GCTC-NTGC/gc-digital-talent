@@ -43,6 +43,10 @@ export const SkillTableSkill_Fragment = graphql(/* GraphQL */ `
     families {
       id
       key
+      name {
+        en
+        fr
+      }
     }
   }
 `);
@@ -73,6 +77,10 @@ export const SkillTablePoolSkill_Fragment = graphql(/* GraphQL */ `
       families {
         id
         key
+        name {
+          en
+          fr
+        }
       }
     }
   }
