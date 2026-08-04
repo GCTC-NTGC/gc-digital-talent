@@ -14,7 +14,7 @@ import {
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import { MetaDataJobInterest, MetaDataTrainingInterest } from "./iconElements";
 
@@ -90,8 +90,11 @@ const FunctionalCommunityCard = ({
             }
           />
           <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
-            <DropdownMenu.Item>
-              <Link>Clic me</Link>
+            <DropdownMenu.Item onClick={() => console.debug("edit")}>
+              {intl.formatMessage(formMessages.editDetails)}
+            </DropdownMenu.Item>
+            <DropdownMenu.Item onClick={() => console.debug("remove")}>
+              {intl.formatMessage(commonMessages.remove)}
             </DropdownMenu.Item>
           </DropdownMenu.Popup>
         </DropdownMenu.Root>
