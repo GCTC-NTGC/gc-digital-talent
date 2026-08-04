@@ -179,7 +179,7 @@ const CareerDevelopmentTaskCard = ({
         {
           key: "add-community-key",
           type: "link",
-          href: paths.functionalCommunities(),
+          href: paths.employeeProfileFunctionalCommunities(),
           color: "primary",
           children: <>{addACommunityLinkText}</>,
         },

@@ -9,7 +9,7 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
 // index all the sub pages for this layout
-type SubpageIds = "employee-verification" | "career-planning";
+type SubpageIds = "employee-verification" | "career-planning" | "communities";
 
 const Component = () => {
   const intl = useIntl();
@@ -45,6 +45,15 @@ const Component = () => {
     "career-planning": {
       label: intl.formatMessage(commonMessages.careerPlanning),
       url: paths.careerPlanning(),
+      hasCrumb: true,
+    },
+    communities: {
+      label: intl.formatMessage({
+        defaultMessage: "Functional communities",
+        id: "QuVtMh",
+        description: "Label for functional communities field",
+      }),
+      url: paths.employeeProfileFunctionalCommunities(),
       hasCrumb: true,
     },
   } as const;
