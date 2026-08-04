@@ -26,11 +26,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  getFromSessionStorage,
-  removeFromSessionStorage,
-  setInSessionStorage,
-} from "@gc-digital-talent/storage";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import {
   graphql,
   getFragment,
@@ -266,7 +262,6 @@ export const RequestForm = ({
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const cacheKey = "ts-createRequest";
   const [{ applicantFilter, candidateCount }] = useTalentRequestState();
   const [{ data: optionsData }] = useQuery({
     query: RequestOptions_Query,
@@ -332,12 +327,9 @@ export const RequestForm = ({
       email: user?.workEmail ?? "",
       managerJobTitle: user?.role ?? "",
       department: user?.department?.id,
-      ...getFromSessionStorage(cacheKey, {}),
     },
   });
-  const { handleSubmit, watch } = formMethods;
-
-  watch((data) => setInSessionStorage(cacheKey, data));
+  const { handleSubmit } = formMethods;
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -440,7 +432,6 @@ export const RequestForm = ({
       });
 
       if (res) {
-        removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
         removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
         await navigate(paths.requestConfirmation(res.id));
         toast.success(
