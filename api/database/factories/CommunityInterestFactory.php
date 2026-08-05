@@ -55,6 +55,7 @@ class CommunityInterestFactory extends BaseFactory
                 : null,
             'referral_status' => CommunityReferralStatus::NEW->name,
             'referral_notes' => $this->faker->optional()->paragraph(),
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 

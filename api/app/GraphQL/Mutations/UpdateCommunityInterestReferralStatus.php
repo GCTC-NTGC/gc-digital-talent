@@ -20,6 +20,7 @@ final class UpdateCommunityInterestReferralStatus
         $communityInterest->referral_status = $status;
         $communityInterest->referral_follow_up_date = $args['followUpDate'] ?? null;
         $communityInterest->referral_notes = $args['notes'] ?? null;
+        $communityInterest->referral_status_data_updated_at = now();
 
         if (! $isReferred || ($classification['disconnect'] ?? false)) {
             $communityInterest->referralClassification()->dissociate();

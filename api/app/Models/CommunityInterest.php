@@ -35,6 +35,7 @@ use Illuminate\Support\Str;
  * @property ?Carbon $referral_follow_up_date
  * @property ?string $referral_classification_id
  * @property ?string $referral_notes
+ * @property ?Carbon $referral_status_data_updated_at
  */
 class CommunityInterest extends Model
 {
@@ -51,6 +52,7 @@ class CommunityInterest extends Model
         'additional_duties' => 'array',
         'finance_other_roles' => 'array',
         'referral_follow_up_date' => 'date',
+        'referral_status_data_updated_at' => 'datetime',
     ];
 
     /**

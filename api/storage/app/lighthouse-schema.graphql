@@ -912,6 +912,7 @@ type CommunityReferralStatusData {
   followUpDate: Date
   classification: Classification
   notes: String
+  updatedAt: DateTime
 }
 
 type CommunityInterest {

@@ -192,6 +192,7 @@ type CommunityReferralStatusData {
   followUpDate: Date @rename(attribute: "referral_follow_up_date")
   classification: Classification @belongsTo(relation: "referralClassification")
   notes: String @rename(attribute: "referral_notes")
+  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
 }
 
 type CommunityInterest {
