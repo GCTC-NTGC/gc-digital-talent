@@ -641,6 +641,7 @@ type Mutation {
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
   updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
+  updateCommunityInterestReferralStatus(communityInterestReferral: UpdateCommunityInterestReferralStatusInput!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
@@ -1980,6 +1981,7 @@ input TalentRequestMatchFilterInput {
   priorityWeight: [PriorityWeight]
   employeeVerification: [EmployeeVerification]
   departments: [UUID!]
+  communityReferralStatuses: [CommunityReferralStatus!]
   excludeTrackedByRequestId: UUID
 }
 
@@ -2332,6 +2334,14 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestReferralStatusInput {
+  id: UUID!
+  status: CommunityReferralStatus!
+  followUpDate: Date
+  classification: ClassificationBelongsTo
+  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
