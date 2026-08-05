@@ -1429,9 +1429,34 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.matchingAdvancementSources.0.id', $group->id);
     }
 
-    // Note: these exclusion tests scope to talentSources: [ADVANCEMENT] — the advancementUser()
-    // helper's Community Interest alone would otherwise also satisfy AT_LEVEL, masking the
-    // ADVANCEMENT-specific exclusion under test.
+    public function testAdvancementExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'advancement.noconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented(false)->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+        $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
 
     public function testAdvancementExcludesUnapprovedDecision(): void
     {

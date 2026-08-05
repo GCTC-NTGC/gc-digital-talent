@@ -7,6 +7,7 @@ use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 /**
  * @extends Builder<TalentNominationGroup>
@@ -33,6 +34,14 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
             // A past referral_expiry_date excludes the match ("current or past" in the source
             // ticket actually means "not yet expired" - confirmed with product).
             ->whereDate('referral_expiry_date', '>=', now())
+            ->whereExists(function (QueryBuilder $query) {
+                $query->select('community_interests.id')
+                    ->from('community_interests')
+                    ->join('talent_nomination_events', 'talent_nomination_events.community_id', '=', 'community_interests.community_id')
+                    ->whereColumn('talent_nomination_events.id', 'talent_nomination_groups.talent_nomination_event_id')
+                    ->whereColumn('community_interests.user_id', 'talent_nomination_groups.nominee_id')
+                    ->where('community_interests.consent_to_share_profile', true);
+            })
             ->when($communityId, function (Builder $query) use ($communityId) {
                 $query->whereHas('talentNominationEvent', fn ($eventQuery) => $eventQuery->where('community_id', $communityId));
             })
