@@ -32,30 +32,18 @@ const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-const YourFunctionalCommunitiesOptions_Fragment = graphql(/** GraphQL */ `
-  fragment YourFunctionalCommunitiesOptions on Query {
-    ...PreviewListItemFunctionalCommunityOptions
-  }
-`);
-
 interface YourFunctionalCommunitiesSectionProps {
   userQuery: FragmentType<typeof YourFunctionalCommunitiesUser_Fragment>;
-  optionsQuery: FragmentType<typeof YourFunctionalCommunitiesOptions_Fragment>;
 }
 
 const YourFunctionalCommunities = ({
   userQuery,
-  optionsQuery,
 }: YourFunctionalCommunitiesSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { isVerifiedGovEmployee, employeeProfile } = getFragment(
     YourFunctionalCommunitiesUser_Fragment,
     userQuery,
-  );
-  const options = getFragment(
-    YourFunctionalCommunitiesOptions_Fragment,
-    optionsQuery,
   );
   const { pathname } = useLocation();
 
@@ -108,7 +96,6 @@ const YourFunctionalCommunities = ({
               <FunctionalCommunityCard.Item
                 key={communityInterest.id}
                 functionalCommunityListItemQuery={communityInterest}
-                functionalCommunityListItemOptionsQuery={options}
                 headingAs="h4"
                 edit={
                   <Link
@@ -117,7 +104,10 @@ const YourFunctionalCommunities = ({
                     })}
                   >
                     {intl.formatMessage(formMessages.editDetails)}
-                    <span className="sr-only"> {communityInterest.community.name?.localized}</span>
+                    <span className="sr-only">
+                      {" "}
+                      {communityInterest.community.name?.localized}
+                    </span>
                   </Link>
                 }
               />

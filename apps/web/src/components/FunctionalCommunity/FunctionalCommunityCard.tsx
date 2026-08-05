@@ -35,21 +35,10 @@ const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const PreviewListItemFunctionalCommunityOptions_Fragment = graphql(
-  /* GraphQL */ `
-    fragment PreviewListItemFunctionalCommunityOptions on Query {
-      ...CommunityInterestOptions
-    }
-  `,
-);
-
 interface FunctionalCommunityListItemProps {
   headingAs?: HeadingLevel;
   functionalCommunityListItemQuery: FragmentType<
     typeof PreviewListItemFunctionalCommunity_Fragment
-  >;
-  functionalCommunityListItemOptionsQuery: FragmentType<
-    typeof PreviewListItemFunctionalCommunityOptions_Fragment
   >;
   edit?: ReactNode;
   iconLabel?: string;
@@ -58,7 +47,6 @@ interface FunctionalCommunityListItemProps {
 const FunctionalCommunityCard = ({
   headingAs,
   functionalCommunityListItemQuery,
-  functionalCommunityListItemOptionsQuery,
   edit,
   iconLabel,
 }: FunctionalCommunityListItemProps) => {
@@ -68,11 +56,6 @@ const FunctionalCommunityCard = ({
   const functionalCommunityListItemFragment = getFragment(
     PreviewListItemFunctionalCommunity_Fragment,
     functionalCommunityListItemQuery,
-  );
-
-  const functionalCommunityListItemOptionsFragment = getFragment(
-    PreviewListItemFunctionalCommunityOptions_Fragment,
-    functionalCommunityListItemOptionsQuery,
   );
 
   return (

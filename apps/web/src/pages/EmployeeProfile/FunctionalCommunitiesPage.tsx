@@ -24,12 +24,6 @@ const SECTION_ID = {
   YOUR_FUNCTIONAL_COMMUNITIES: "your-functional-communities",
 };
 
-const FunctionalCommunitiesOptions_Fragment = graphql(/** GraphQL */ `
-  fragment FunctionalCommunitiesOptions on Query {
-    ...YourFunctionalCommunitiesOptions
-  }
-`);
-
 const FunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment FunctionalCommunitiesUser on User {
     ...YourFunctionalCommunitiesUser
@@ -38,19 +32,11 @@ const FunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
 
 interface FunctionalCommunitiesProps {
   userQuery: FragmentType<typeof FunctionalCommunitiesUser_Fragment>;
-  optionsQuery: FragmentType<typeof FunctionalCommunitiesOptions_Fragment>;
 }
 
-const FunctionalCommunities = ({
-  userQuery,
-  optionsQuery,
-}: FunctionalCommunitiesProps) => {
+const FunctionalCommunities = ({ userQuery }: FunctionalCommunitiesProps) => {
   const intl = useIntl();
   const user = getFragment(FunctionalCommunitiesUser_Fragment, userQuery);
-  const options = getFragment(
-    FunctionalCommunitiesOptions_Fragment,
-    optionsQuery,
-  );
 
   const [noticeIsVisible, setNoticeIsVisible] = useLocalStorage<boolean>(
     KEY_NEW_FEATURE_EMPLOYEE_PROFILE,
@@ -90,10 +76,7 @@ const FunctionalCommunities = ({
             <TableOfContents.Section
               id={SECTION_ID.YOUR_FUNCTIONAL_COMMUNITIES}
             >
-              <YourFunctionalCommunities
-                userQuery={user}
-                optionsQuery={options}
-              />
+              <YourFunctionalCommunities userQuery={user} />
             </TableOfContents.Section>
           </div>
         </TableOfContents.Content>
