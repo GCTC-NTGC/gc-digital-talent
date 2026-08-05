@@ -70,15 +70,10 @@ import {
   priorityCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  getSortOrder,
   processCell,
-  getPoolNameSort,
-  getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
-  getDepartmentSort,
-  getScreeningStageSort,
   candidateStatusCell,
-  getBaseSort,
+  transformSortStateToOrderBy,
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
@@ -96,7 +91,7 @@ import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExc
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
-  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
 
 const columnHelper =
   createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
@@ -177,26 +172,16 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
-    $orderByBaseInput: PoolCandidatesBaseSort!
-    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
-    $orderByClaimVerification: ClaimVerificationSort
-    $orderByEmployeeDepartment: SortOrder
-    $orderByScreeningStage: SortOrder
+    $orderBy: [AdvancedOrderByInput!]
   ) {
     me {
       ...PoolCandidate_Bookmark
     }
-    poolCandidatesPaginatedAdminView(
+    poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
-      orderByBase: $orderByBaseInput
-      orderByPoolName: $poolNameSortingInput
-      orderBy: $sortingInput
-      orderByClaimVerification: $orderByClaimVerification
-      orderByEmployeeDepartment: $orderByEmployeeDepartment
-      orderByScreeningStage: $orderByScreeningStage
+      orderBy: $orderBy
     ) {
       data {
         id
@@ -576,12 +561,13 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
-      orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
-      poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState),
-      orderByClaimVerification: getClaimVerificationSort(sortState),
-      orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByScreeningStage: getScreeningStageSort(sortState),
+      orderBy: transformSortStateToOrderBy(
+        sortState,
+        locale,
+        doNotUseBookmark,
+        doNotUseFlag,
+        filterState,
+      ),
     }),
     [
       filterState,
@@ -604,9 +590,9 @@ const PoolCandidatesTable = ({
 
   const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
     useMemo(() => {
-      const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
+      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
       return poolCandidates.filter(notEmpty);
-    }, [data?.poolCandidatesPaginatedAdminView.data]);
+    }, [data?.poolCandidatesPaginated.data]);
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
@@ -740,10 +726,8 @@ const PoolCandidatesTable = ({
         .catch(handleDownloadError);
     }
   };
-  const firstItem =
-    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.firstItem;
-  const totalCount =
-    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total ?? 0;
+  const firstItem = data?.poolCandidatesPaginated?.paginatorInfo.firstItem;
+  const totalCount = data?.poolCandidatesPaginated?.paginatorInfo.total ?? 0;
 
   const columns = [
     ...(doNotUseBookmark
@@ -1068,6 +1052,7 @@ const PoolCandidatesTable = ({
       {
         id: "languageAbility",
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
+        enableSorting: false,
       },
     ),
     columnHelper.accessor("skillCount", {
@@ -1264,7 +1249,7 @@ const PoolCandidatesTable = ({
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total,
+        total: data?.poolCandidatesPaginated?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });
