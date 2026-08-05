@@ -60,7 +60,10 @@ const ReferralMatchingSources = ({
     getFragment(ReferralMatchingPoolSource_Fragment, matchingPoolSources),
   );
   const advancementGroups = unpackMaybes(
-    getFragment(ReferralMatchingAdvancementSource_Fragment, matchingAdvancementSources),
+    getFragment(
+      ReferralMatchingAdvancementSource_Fragment,
+      matchingAdvancementSources,
+    ),
   );
 
   if (!sourceLabels.length && !applications.length && !advancementGroups.length)
