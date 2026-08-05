@@ -2329,6 +2329,14 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
+input UpdateCommunityInterestReferralStatusInput @validator {
+  id: UUID!
+  status: CommunityReferralStatus!
+  followUpDate: Date
+  classification: ClassificationBelongsTo
+  notes: String
+}
+
 input CreateOffPlatformRecruitmentProcessInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   processNumber: String! @rename(attribute: "process_number")
@@ -3424,6 +3432,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  updateCommunityInterestReferralStatus(
+    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
+      @spread
+  ): CommunityInterest
+    @guard
+    @canFind(
+      ability: "updateReferralStatus"
+      find: "id"
+      model: "CommunityInterest"
+    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
