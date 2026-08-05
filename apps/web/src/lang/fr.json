@@ -13490,6 +13490,10 @@
     "defaultMessage": "Aller à la dernière page",
     "description": "Label for last page button in pagination nav"
   },
+  "qutSCs": {
+    "defaultMessage": "Événements axés sur la gestion des talents",
+    "description": "Label for the list of advancement nominations a user has been approved for"
+  },
   "quxa4Q": {
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
     "description": "Title for the compliance enforcement section."
