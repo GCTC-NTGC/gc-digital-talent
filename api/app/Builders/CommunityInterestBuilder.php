@@ -3,6 +3,7 @@
 namespace App\Builders;
 
 use App\Contracts\TalentRequestMatchable;
+use App\Enums\CommunityReferralStatus;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\User;
@@ -22,13 +23,30 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
 
-        $userIds = $this->atLevelUserIds($filters);
+        return $this->where('referral_status', '!=', CommunityReferralStatus::NOT_REFERRED->name)
+            ->where(function (Builder $q) use ($filters) {
+                return $q->orWhere(function (Builder $pendingQuery) use ($filters) {
 
-        // Match the ids as one Postgres array value, so the number of ids has no limit.
-        $userIdArray = '{'.$userIds->implode(',').'}';
+                    $userIds = $this->atLevelUserIds($filters);
 
-        return $this
-            ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray])
+                    // Match the ids as one Postgres array value, so the number of ids has no limit.
+                    $userIdArray = '{'.$userIds->implode(',').'}';
+
+                    return $pendingQuery->whereIn('referral_status', [CommunityReferralStatus::NEW->name, CommunityReferralStatus::PENDING->name])
+                        ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray]);
+                })->orWhere(function (Builder $availableQuery) use ($filters) {
+                    $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
+
+                    $userIds = $this->atLevelUserIds($filters, atRequestedClassification: false);
+                    $userIdArray = '{'.$userIds->implode(',').'}';
+
+                    return $availableQuery->where('referral_status', CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name)
+                        ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray])
+                        ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
+                            $query->whereHas('referralClassification', $this->matchesAClassification($classifications));
+                        });
+                });
+            })
             ->workStreams(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
             ->communities($communityId ? [$communityId] : null)
             ->where('consent_to_share_profile', true);
@@ -37,27 +55,29 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
     // Ids of the users who match "at level": verified gov employees at a requested classification
     // who also pass the request's user-level filters. Because these ids carry the full user match,
     // callers do not need a second user check.
-    private function atLevelUserIds(array $filters)
+    private function atLevelUserIds(array $filters, bool $atRequestedClassification = true)
     {
-        $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
+        $qualifiedInClassifications = $atRequestedClassification
+            ? $filters['qualifiedInClassifications'] ?? null
+            : null;
 
         return User::query()
             ->whereIsVerifiedGovEmployee()
             ->whereUserAttributesMatchTalentRequest($filters)
-            ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
-                /** @var UserBuilder $query */
-                $query->whereHas('currentClassification', function (Builder $classQuery) use ($classifications) {
-                    $classQuery->where(function (Builder $q) use ($classifications) {
-                        foreach ($classifications as $classification) {
-                            $q->orWhere(function (Builder $q) use ($classification) {
-                                $q->where('group', $classification['group'])
-                                    ->where('level', $classification['level']);
-                            });
-                        }
-                    });
-                });
-            })
+            ->when($qualifiedInClassifications, fn (Builder $query, array $classifications) => $query
+                ->whereHas('currentClassification', $this->matchesAClassification($classifications)))
             ->pluck('id');
+    }
+
+    private function matchesAClassification(array $classifications): callable
+    {
+        return fn (Builder $query) => $query->where(function (Builder $anyOf) use ($classifications) {
+            foreach ($classifications as $classification) {
+                $anyOf->orWhere(fn (Builder $match) => $match
+                    ->where('group', $classification['group'])
+                    ->where('level', $classification['level']));
+            }
+        });
     }
 
     // scope the query to CommunityInterests the current user can view
