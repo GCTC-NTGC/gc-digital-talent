@@ -651,6 +651,16 @@ const commonMessages = defineMessages({
     id: "fvXVkH",
     description: "Label for talent nominations",
   },
+  nominationsReceived: {
+    defaultMessage: "Nominations you've received",
+    id: "PF/Ksf",
+    description: "Label for nominations received",
+  },
+  employeesNominated: {
+    defaultMessage: "Employees you've nominated",
+    id: "VIZdFw",
+    description: "Label for employees nominated",
+  },
 });
 
 export default commonMessages;
