@@ -189,7 +189,7 @@ type User {
 type CommunityReferralStatusData {
   status: LocalizedCommunityReferralStatus!
     @rename(attribute: "referral_status")
-  followUpDate: Date @rename(attribute: "referralfollow_up_date")
+  followUpDate: Date @rename(attribute: "referral_follow_up_date")
   classification: Classification @belongsTo(relation: "referralClassification")
   notes: String @rename(attribute: "referral_notes")
 }
