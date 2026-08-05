@@ -1131,6 +1131,10 @@
     "defaultMessage": "Type de demande d’emploi spéciale",
     "description": "Special application type label"
   },
+  "2E39Xr": {
+    "defaultMessage": "Potentiel élevé",
+    "description": "Option for a high leadership potential rating on the details step"
+  },
   "2FBdeQ": {
     "defaultMessage": "Apprentissage en cours d’emploi",
     "description": "Experience requirement, On the job."
@@ -2355,6 +2359,10 @@
     "defaultMessage": "Nous avons reçu votre demande",
     "description": "Paragraph one, message to user the request was received"
   },
+  "7Ep9gj": {
+    "defaultMessage": "Ce candidat excelle dans son rôle actuel et démontre un potentiel de leadership exceptionnel. Il cadre parfaitement avec les plans de relève à court terme pour ces fonctions, ainsi qu’avec les bassins de relève à moyen et à long terme.",
+    "description": "Nine-box recommendation description for high performance and high leadership potential"
+  },
   "7FtbwK": {
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
@@ -2483,6 +2491,10 @@
     "defaultMessage": "<strong>Contributeur individuel</strong> : Les conseillers techniques en <abbreviation>TI</abbreviation> (<abbreviation>IT-03</abbreviation>) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en <abbreviation>TI</abbreviation> se trouvent dans tous les volets de travail.",
     "description": "IT-03 advisor description"
   },
+  "7xTRE7": {
+    "defaultMessage": "Évaluation de rendement du candidat",
+    "description": "Label for the nominee's performance assessment field"
+  },
   "7yvOlL": {
     "defaultMessage": "Ces compétences doivent être accompagnées d’une note spéciale.",
     "description": "Statement that a special note on a job poster template is required"
@@ -2578,6 +2590,10 @@
   "8J5O+T": {
     "defaultMessage": "Prix que vous avez reçus ou autres façons dont vous avez été reconnu pour avoir dépassé les attentes.",
     "description": "Description for award experience section"
+  },
+  "8KOc7q": {
+    "defaultMessage": "Potentiel faible",
+    "description": "Option for a low leadership potential rating on the details step"
   },
   "8L9eJ3": {
     "defaultMessage": "Le gouvernement du Canada ne se prononcera pas sur des questions de partisanerie ou de politique, et il ne répondra pas aux questions qui contreviennent aux règles énoncées dans cet avis.",
@@ -3551,6 +3567,10 @@
     "defaultMessage": "La plupart des offres d’emploi ne nécessiteront pas de note spéciale. Cette section est réservée à des circonstances particulières. Cette note spéciale peut notamment servir à indiquer si un processus peut être utilisé pour embaucher dans plusieurs classifications ou non et si le processus est limité aux candidatures d’un groupe visé par l’équité en matière d’emploi spécifique.",
     "description": "Describes the 'special note' section of a process' advertisement."
   },
+  "C4OW6h": {
+    "defaultMessage": "Rendement modéré",
+    "description": "Option for a moderate performance rating on the details step"
+  },
   "C780XI": {
     "defaultMessage": "L’étape suivante consiste à s’assurer que votre parcours professionnel est aussi à jour que possible.",
     "description": "Application step to begin working on career timeline, paragraph one"
@@ -3826,6 +3846,10 @@
   "DA7fMg": {
     "defaultMessage": "Identifiant",
     "description": "Title for unique ID of a resource"
+  },
+  "DAOkQv": {
+    "defaultMessage": "Potentiel de leadership du candidat",
+    "description": "Label for the nominee's leadership potential field"
   },
   "DBczOG": {
     "defaultMessage": "Stratégie",
@@ -4267,6 +4291,10 @@
     "defaultMessage": "Prochain type de poste de {firstName}",
     "description": "Title for next role dialog"
   },
+  "F8y1Em": {
+    "defaultMessage": "Ce candidat devrait se concentrer sur son amélioration. Son faible rendement et la faible possibilité qu’il améliore son potentiel de leadership pourraient justifier une réaffectation ou la prise de mesures de gestion du rendement.",
+    "description": "Nine-box recommendation description for low performance and low leadership potential"
+  },
   "F9CQ6E": {
     "defaultMessage": "Une liste préparée à partir du portfolio de compétences qui présente une histoire plus ciblée et personnalisée sur les forces et les domaines d'intérêt de cet utilisateur ou de cette utilisatrice.",
     "description": "Description of a users skill showcase"
@@ -4330,6 +4358,10 @@
   "FO0HTu": {
     "defaultMessage": "Date limite de présentation des demandes",
     "description": "The application deadline of the training opportunity"
+  },
+  "FOVOHH": {
+    "defaultMessage": "Ce candidat est un contributeur expert. Il est très efficace dans son rôle actuel et possède une expertise approfondie. Il ne cherche peut-être pas à assumer un rôle de leadership élargi et n’est peut-être pas fait pour cela. Toutefois, il est essentiel dans son domaine.",
+    "description": "Nine-box recommendation description for high performance and low leadership potential"
   },
   "FPMibV": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de toute personne candidate qui correspond à <strong>l’un ou plusieurs</strong> des groupes d’équité en matière d’emploi sélectionnés",
@@ -5667,6 +5699,10 @@
     "defaultMessage": "Accéder à ConnexionCanada",
     "description": "CanadaLogin sign up link text on the registration page"
   },
+  "KpMuPk": {
+    "defaultMessage": "Ce candidat répond aux attentes en matière de rendement et apporte une contribution régulière, mais il n’a pas démontré de potentiel de leadership. Un rôle lié aux opérations nécessitant un leadership fiable lui conviendrait parfaitement.",
+    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
+  },
   "KqEyqD": {
     "defaultMessage": "Désignation professionnelle",
     "description": "Title for the professional designation requirement."
@@ -6855,6 +6891,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience en matière de prix et de reconnaissance} one {# expérience en matière de prix et de reconnaissance} other {# expériences en matière de prix et de reconnaissance}}",
     "description": "list a number of award experiences"
   },
+  "PaJ21r": {
+    "defaultMessage": "Rendement élevé",
+    "description": "Option for a high performance rating on the details step"
+  },
   "PakJF8": {
     "defaultMessage": "Cadres actuels de l’approvisionnement",
     "description": "List item one procurement label"
@@ -7995,6 +8035,10 @@
     "defaultMessage": "Résultats",
     "description": "Heading for the results section of search page."
   },
+  "UKFUv+": {
+    "defaultMessage": "Rendement faible",
+    "description": "Option for a low performance rating on the details step"
+  },
   "UKw7sB": {
     "defaultMessage": "Volet de travail",
     "description": "Label displayed on the pool form stream/job title field."
@@ -8133,6 +8177,10 @@
   "UwU+X9": {
     "defaultMessage": "Passez à l’étape 2.",
     "description": "Text for first registration -> create step."
+  },
+  "Uwoinr": {
+    "defaultMessage": "Le rendement de ce candidat est inférieur aux attentes, mais son potentiel de leadership est évident. Il pourrait bénéficier d’un soutien ciblé et d’occasions de perfectionnement.",
+    "description": "Nine-box recommendation description for low performance and moderate leadership potential"
   },
   "Uwtkv6": {
     "defaultMessage": "Ce à quoi s’attendre après l’admission",
@@ -9034,6 +9082,10 @@
     "defaultMessage": "Supprimer la notification",
     "description": "Button text to confirm deleting a notification"
   },
+  "YaTEkX": {
+    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement",
+    "description": "Nine-box recommendation title for development"
+  },
   "Yaxm1W": {
     "defaultMessage": "Date de début",
     "description": "Label displayed on an Experience form for start date input"
@@ -9209,6 +9261,10 @@
   "ZAHz5C": {
     "defaultMessage": "Recommandé",
     "description": "Status for referred candidates"
+  },
+  "ZCNqvU": {
+    "defaultMessage": "Ce candidat a un bon rendement et présente un fort potentiel de leadership. Il est vraisemblablement prêt à participer à des activités de perfectionnement stratégique et à intégrer la relève à moyen et long terme.",
+    "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
@@ -9765,6 +9821,10 @@
   "bmOZXl": {
     "defaultMessage": "La mise à jour du rôle a échoué",
     "description": "Alert displayed to user when an error occurs while editing a community member's roles"
+  },
+  "bneVEC": {
+    "defaultMessage": "Les candidats prometteurs sont des candidats dont le rendement est inférieur aux attentes, mais dont le potentiel de leadership est élevé. Un encadrement, des objectifs plus clairs ou la redéfinition de leur rôle les aideraient à s’épanouir.",
+    "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
   "bnhqpY": {
     "defaultMessage": "Est équivalent en termes de durée de l’intensité/de l’apprentissage par rapport aux exigences du diplôme",
@@ -10325,6 +10385,14 @@
   "dwe1M+": {
     "defaultMessage": "{count} candidats répondent à vos critères.",
     "description": "Message announced to assistive technology users when the estimated candidate count changes."
+  },
+  "dxBfv7": {
+    "defaultMessage": "Ce candidat produit des résultats constants et démontre une capacité à exercer un leadership élargi. Il est probablement prêt à accepter des affectations enrichies ou des rôles interfonctionnels ainsi qu’à intégrer la relève à moyen et à long terme.",
+    "description": "Nine-box recommendation description for high performance and moderate leadership potential"
+  },
+  "dxK0sS": {
+    "defaultMessage": "Potentiel modéré",
+    "description": "Option for a moderate leadership potential rating on the details step"
   },
   "dxwgXw": {
     "defaultMessage": "communiquent des messages racistes, haineux, sexistes, homophobes ou diffamatoires, ou contiennent du matériel obscène ou pornographique ou y font allusion",
@@ -13038,6 +13106,10 @@
     "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
     "description": "Label for when user has not expressed interest in any communities"
   },
+  "o96aNX": {
+    "defaultMessage": "Ce candidat est fiable et efficace dans son rôle actuel. Son potentiel de progression est modéré. Un soutien et des occasions de perfectionnement ciblées pourraient lui permettre d’assumer des rôles de leadership plus complexes.",
+    "description": "Nine-box recommendation description for moderate performance and moderate leadership potential"
+  },
   "oAC+SM": {
     "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
     "description": "Message when user is a Senior Designated Official"
@@ -13601,6 +13673,10 @@
   "qGSEMx": {
     "defaultMessage": "Mettez à jour et passez en revue les informations relatives à votre parcours professionnel.",
     "description": "Subtitle for the application career timeline introduction page"
+  },
+  "qH3qHA": {
+    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement, une mutation latérale et une promotion.",
+    "description": "Nine-box recommendation title for development and lateral and advancement"
   },
   "qKk7Eh": {
     "defaultMessage": "Approvisionnement",
@@ -15133,6 +15209,10 @@
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
     "description": "Status description for an application that was removed from a pool"
+  },
+  "wqxKES": {
+    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement et une mutation latérale.",
+    "description": "Nine-box recommendation title for development and lateral"
   },
   "wrKBLf": {
     "defaultMessage": "Autre type d'études",
