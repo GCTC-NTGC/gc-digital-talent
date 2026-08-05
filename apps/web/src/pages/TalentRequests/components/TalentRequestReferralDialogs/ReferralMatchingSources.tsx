@@ -57,14 +57,10 @@ const ReferralMatchingSources = ({
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const paths = useRoutes();
   const applications = unpackMaybes(
-    matchingPoolSources?.map((q) =>
-      getFragment(ReferralMatchingPoolSource_Fragment, q),
-    ),
+    getFragment(ReferralMatchingPoolSource_Fragment, matchingPoolSources),
   );
   const advancementGroups = unpackMaybes(
-    matchingAdvancementSources?.map((q) =>
-      getFragment(ReferralMatchingAdvancementSource_Fragment, q),
-    ),
+    getFragment(ReferralMatchingAdvancementSource_Fragment, matchingAdvancementSources),
   );
 
   if (!sourceLabels.length && !applications.length && !advancementGroups.length)
