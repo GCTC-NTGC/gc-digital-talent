@@ -353,8 +353,16 @@ const getRoutes = (lang: Locales) => {
         createSearchQuery(searchParams)
       );
     },
-    updateCommunityInterest: (id: string) =>
-      [applicantUrl, "community-interests", id].join("/"),
+    updateCommunityInterest: (id: string, opts?: { from?: string }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      return (
+        [applicantUrl, "community-interests", id].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
 
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),

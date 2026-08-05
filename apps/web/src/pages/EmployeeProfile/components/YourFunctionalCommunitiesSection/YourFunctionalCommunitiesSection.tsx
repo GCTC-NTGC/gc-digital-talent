@@ -10,6 +10,7 @@ import {
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { Card, Heading, Link, Notice } from "@gc-digital-talent/ui";
+import { formMessages } from "@gc-digital-talent/i18n";
 
 import FunctionalCommunityCard from "~/components/FunctionalCommunity/FunctionalCommunityCard";
 import useRoutes from "~/hooks/useRoutes";
@@ -20,6 +21,11 @@ const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
     employeeProfile {
       communityInterests {
         id
+        community {
+          name {
+            localized
+          }
+        }
         ...PreviewListItemFunctionalCommunity
       }
     }
@@ -43,22 +49,24 @@ const YourFunctionalCommunities = ({
 }: YourFunctionalCommunitiesSectionProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-  const user = getFragment(YourFunctionalCommunitiesUser_Fragment, userQuery);
+  const { isVerifiedGovEmployee, employeeProfile } = getFragment(
+    YourFunctionalCommunitiesUser_Fragment,
+    userQuery,
+  );
   const options = getFragment(
     YourFunctionalCommunitiesOptions_Fragment,
     optionsQuery,
   );
   const { pathname } = useLocation();
 
-  const { employeeProfile } = user ?? {};
   const { communityInterests } = employeeProfile ?? {};
 
   return (
     <Card space="lg">
       <Heading
         level="h2"
-        icon={user.isVerifiedGovEmployee ? UserGroupIcon : LockClosedIcon}
-        {...(user.isVerifiedGovEmployee && { color: "primary" })}
+        icon={isVerifiedGovEmployee ? UserGroupIcon : LockClosedIcon}
+        {...(isVerifiedGovEmployee && { color: "primary" })}
         className="mt-0 font-normal sm:text-left"
       >
         {intl.formatMessage({
@@ -96,14 +104,22 @@ const YourFunctionalCommunities = ({
         // must exactly reverse the card padding, except for the top
         <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">
           <FunctionalCommunityCard.Root>
-            {communityInterests.map((functionalCommunityInterestFragment) => (
+            {communityInterests.map((communityInterest) => (
               <FunctionalCommunityCard.Item
-                key={functionalCommunityInterestFragment.id}
-                functionalCommunityListItemQuery={
-                  functionalCommunityInterestFragment
-                }
+                key={communityInterest.id}
+                functionalCommunityListItemQuery={communityInterest}
                 functionalCommunityListItemOptionsQuery={options}
                 headingAs="h4"
+                edit={
+                  <Link
+                    href={paths.updateCommunityInterest(communityInterest.id, {
+                      from: pathname,
+                    })}
+                  >
+                    {intl.formatMessage(formMessages.editDetails)}
+                    <span className="sr-only"> {communityInterest.community.name?.localized}</span>
+                  </Link>
+                }
               />
             ))}
           </FunctionalCommunityCard.Root>

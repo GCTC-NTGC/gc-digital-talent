@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -250,8 +250,10 @@ interface RouteParams extends Record<string, string> {
 export const UpdateCommunityInterestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const [searchParams] = useSearchParams();
   const { userAuthInfo } = useAuthorization();
   const { communityInterestId } = useParams<RouteParams>();
+  const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
   if (!communityInterestId) {
@@ -343,7 +345,7 @@ export const UpdateCommunityInterestPage = () => {
             description: "Toast for successful community interest update",
           }),
         );
-        await navigate(routes.applicantDashboard());
+        await navigate(returnPath);
       })
       .catch(() => {
         toast.error(

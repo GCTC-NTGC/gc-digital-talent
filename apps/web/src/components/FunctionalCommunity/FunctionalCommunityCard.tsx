@@ -10,11 +10,10 @@ import {
   DropdownMenu,
   Heading,
   IconButton,
-  Link,
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { MetaDataJobInterest, MetaDataTrainingInterest } from "./iconElements";
 
@@ -60,6 +59,7 @@ const FunctionalCommunityCard = ({
   headingAs,
   functionalCommunityListItemQuery,
   functionalCommunityListItemOptionsQuery,
+  edit,
   iconLabel,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
@@ -90,9 +90,7 @@ const FunctionalCommunityCard = ({
             }
           />
           <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
-            <DropdownMenu.Item onClick={() => console.debug("edit")}>
-              {intl.formatMessage(formMessages.editDetails)}
-            </DropdownMenu.Item>
+            {edit ? <DropdownMenu.Item>{edit}</DropdownMenu.Item> : undefined}
             <DropdownMenu.Item onClick={() => console.debug("remove")}>
               {intl.formatMessage(commonMessages.remove)}
             </DropdownMenu.Item>
