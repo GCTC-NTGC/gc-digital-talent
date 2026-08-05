@@ -2682,6 +2682,7 @@ input CreateTalentNominationInput @validator {
 }
 
 input UpdateTalentNominationInput @validator {
+  id: UUID!
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
@@ -4071,8 +4072,6 @@ type Mutation {
     @guard
     @canModel(ability: "create")
   updateTalentNomination(
-    id: UUID!
-      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
     talentNomination: UpdateTalentNominationInput! @spread
   ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
   submitTalentNomination(

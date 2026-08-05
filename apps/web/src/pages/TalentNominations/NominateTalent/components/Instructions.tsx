@@ -144,7 +144,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   }
 
   return (
-    <UpdateForm isPastEvent={isPastEvent}>
+    <UpdateForm isPastEvent={isPastEvent} defaultValues={{ id: data.id }}>
       <SubHeading icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",

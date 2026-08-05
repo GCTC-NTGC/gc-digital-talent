@@ -51,7 +51,9 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
     await update(
       {
         insertSubmittedStep: current,
-        ...(submitDataTransformer ? submitDataTransformer(values) : {}),
+        ...(submitDataTransformer
+          ? submitDataTransformer(values)
+          : { id: values.id }),
       },
       values.intent,
     );
