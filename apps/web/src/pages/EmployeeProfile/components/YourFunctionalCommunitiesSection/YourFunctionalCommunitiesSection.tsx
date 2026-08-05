@@ -2,15 +2,17 @@ import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import { useIntl } from "react-intl";
 import PlusCircleIcon from "@heroicons/react/20/solid/PlusCircleIcon";
+import { useLocation } from "react-router";
 
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Button, Card, Heading, Notice } from "@gc-digital-talent/ui";
+import { Card, Heading, Link, Notice } from "@gc-digital-talent/ui";
 
 import FunctionalCommunityCard from "~/components/FunctionalCommunity/FunctionalCommunityCard";
+import useRoutes from "~/hooks/useRoutes";
 
 const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesUser on User {
@@ -40,11 +42,13 @@ const YourFunctionalCommunities = ({
   optionsQuery,
 }: YourFunctionalCommunitiesSectionProps) => {
   const intl = useIntl();
+  const paths = useRoutes();
   const user = getFragment(YourFunctionalCommunitiesUser_Fragment, userQuery);
   const options = getFragment(
     YourFunctionalCommunitiesOptions_Fragment,
     optionsQuery,
   );
+  const { pathname } = useLocation();
 
   const { employeeProfile } = user ?? {};
   const { communityInterests } = employeeProfile ?? {};
@@ -73,13 +77,21 @@ const YourFunctionalCommunities = ({
             "Lead-in text explaining the user profile functional communities section",
         })}
       </p>
-      <Button mode="placeholder" icon={PlusCircleIcon} block className="mb-6">
+      <Link
+        mode="placeholder"
+        icon={PlusCircleIcon}
+        block
+        className="mb-6"
+        href={paths.createCommunityInterest({
+          from: pathname,
+        })}
+      >
         {intl.formatMessage({
           defaultMessage: "Join a community",
           id: "yD13EC",
           description: "Button to join a community",
         })}
-      </Button>
+      </Link>
       {communityInterests?.length ? (
         // must exactly reverse the card padding, except for the top
         <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">

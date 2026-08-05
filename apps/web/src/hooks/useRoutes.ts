@@ -343,8 +343,16 @@ const getRoutes = (lang: Locales) => {
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
     // Community interests
-    createCommunityInterest: () =>
-      [applicantUrl, "community-interests", "create"].join("/"),
+    createCommunityInterest: (opts?: { from?: string }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      return (
+        [applicantUrl, "community-interests", "create"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
     updateCommunityInterest: (id: string) =>
       [applicantUrl, "community-interests", id].join("/"),
 
