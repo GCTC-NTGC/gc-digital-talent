@@ -23,6 +23,7 @@ export interface AuthRoleAssignment {
   id: string;
   role?: AuthRole | null;
   team?: AuthTeam | null;
+  teamable?: { id: string } | null;
 }
 
 export interface AuthUserInfo {

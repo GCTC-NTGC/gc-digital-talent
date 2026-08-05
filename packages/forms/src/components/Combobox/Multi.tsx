@@ -29,6 +29,8 @@ interface MultiProps extends BaseProps {
   onInputChange?: (value: string) => void;
   /** Initial value */
   value?: Option[];
+  /** Whether the form still holds a value, regardless of the current options */
+  hasSelection?: boolean;
 }
 
 const Multi = ({
@@ -39,6 +41,7 @@ const Multi = ({
   value,
   onSelectedChange,
   onInputChange,
+  hasSelection = false,
   inputProps,
   total,
   fieldState,
@@ -52,6 +55,8 @@ const Multi = ({
   const [available, setAvailable] = useState<Option[]>(options);
   const [selectedItems, setSelectedItems] = useState<Option[]>(value ?? []);
   const [previousValue, setPreviousValue] = useState<Option[]>(value ?? []);
+  const [previousHasSelection, setPreviousHasSelection] =
+    useState<boolean>(hasSelection);
   const inputRef = useRef<HTMLInputElement | null>(null);
   // NOTE: Pattern comes from https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
   if (!isEqual(options, previousOptions)) {
@@ -66,6 +71,15 @@ const Multi = ({
   ) {
     setPreviousValue(value ?? []);
     setSelectedItems(value ?? []);
+  }
+  // Clear the selection when the form empties from the outside, such as a form
+  // reset. The single select does the same thing.
+  if (hasSelection !== previousHasSelection) {
+    setPreviousHasSelection(hasSelection);
+    if (!hasSelection) {
+      setPreviousValue([]);
+      setSelectedItems([]);
+    }
   }
   const items = useMemo(
     () => (isExternalSearch ? options : available),

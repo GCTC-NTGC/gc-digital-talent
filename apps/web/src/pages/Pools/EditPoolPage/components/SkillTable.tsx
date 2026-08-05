@@ -5,13 +5,14 @@ import { createColumnHelper } from "@tanstack/react-table";
 import TrashIcon from "@heroicons/react/20/solid/TrashIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import {
-  commonMessages,
-  getLocalizedName,
-  getSkillLevelName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import { Button } from "@gc-digital-talent/ui";
-import type { SkillLevel, Skill } from "@gc-digital-talent/graphql";
+import type {
+  SkillLevel,
+  FragmentType,
+  SkillTablePoolSkillFragment,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import SkillBrowserDialog from "~/components/SkillBrowser/SkillBrowserDialog";
@@ -19,25 +20,84 @@ import { normalizedText } from "~/components/Table/sortingFns";
 import type { NullMessageProps } from "~/components/Table/ResponsiveTable/NullMessage";
 import tableMessages from "~/components/Table/tableMessages";
 
-const columnHelper = createColumnHelper<
-  Skill & {
-    poolSkillId: string;
-    requiredLevel?: SkillLevel;
+export const SkillTableSkill_Fragment = graphql(/* GraphQL */ `
+  fragment SkillTableSkill on Skill {
+    id
+    key
+    name {
+      en
+      fr
+      localized
+    }
+    description {
+      en
+      fr
+    }
+    category {
+      value
+      label {
+        en
+        fr
+      }
+    }
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
->();
+`);
+
+export const SkillTablePoolSkill_Fragment = graphql(/* GraphQL */ `
+  fragment SkillTablePoolSkill on PoolSkill {
+    id
+    requiredLevel
+    skill {
+      id
+      key
+      name {
+        en
+        fr
+        localized
+      }
+      description {
+        en
+        fr
+      }
+      category {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      families {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
+
+const columnHelper = createColumnHelper<SkillTablePoolSkillFragment>();
 
 const ActionCell = (
-  skill: Skill & {
-    poolSkillId: string;
-    requiredLevel?: SkillLevel;
-  },
+  poolSkill: SkillTablePoolSkillFragment,
   onUpdate: (id: string, skillLevel: SkillLevel) => Promise<void>,
   onRemove: (poolSkillSelected: string) => Promise<void>,
 ) => {
   const intl = useIntl();
   const [isOpen] = useState<boolean>(false);
-  const { id, poolSkillId, requiredLevel, name } = skill;
-  const localizedName = getLocalizedName(name, intl);
+  const { id: poolSkillId, requiredLevel, skill } = poolSkill;
+  const localizedName =
+    skill?.name?.localized ?? intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <div className="flex flex-wrap gap-1.5">
@@ -61,10 +121,10 @@ const ActionCell = (
             )}
           />
         }
-        skills={[skill]}
+        skills={skill ? [skill] : []}
         initialState={{
           family: "all",
-          skill: id,
+          skill: skill?.id,
           skillLevel: requiredLevel ?? undefined,
         }}
         onSave={async (value) => {
@@ -95,11 +155,8 @@ const ActionCell = (
 
 interface SkillTableProps {
   caption: string;
-  data: (Skill & {
-    poolSkillId: string;
-    requiredLevel?: SkillLevel;
-  })[];
-  allSkills: Skill[];
+  poolSkillsQuery: FragmentType<typeof SkillTablePoolSkill_Fragment>[];
+  allSkillsQuery: FragmentType<typeof SkillTableSkill_Fragment>[];
   disableAdd?: boolean;
   nullMessage?: NullMessageProps;
   onCreate: (skillSelected: string, skillLevel: SkillLevel) => Promise<void>;
@@ -112,8 +169,8 @@ interface SkillTableProps {
 
 const SkillTable = ({
   caption,
-  data,
-  allSkills,
+  poolSkillsQuery,
+  allSkillsQuery,
   disableAdd,
   nullMessage,
   onCreate,
@@ -121,30 +178,40 @@ const SkillTable = ({
   onRemove,
 }: SkillTableProps) => {
   const intl = useIntl();
+  const data = getFragment(SkillTablePoolSkill_Fragment, poolSkillsQuery);
+  const allSkills = getFragment(SkillTableSkill_Fragment, allSkillsQuery);
   const availableSkills = allSkills.filter(
-    (skill) => !data.find((value) => value.id === skill.id),
+    (skill) => !data.find((poolSkill) => poolSkill.skill?.id === skill.id),
   );
 
   let columns = [
-    columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
-      id: "name",
-      header: intl.formatMessage({
-        defaultMessage: "Skill name",
-        id: "hjxxaQ",
-        description: "Skill name column header for the skill library table",
-      }),
-      enableHiding: false,
-      enableColumnFilter: false,
-      sortingFn: normalizedText,
-      meta: {
-        isRowTitle: true,
-      },
-    }),
     columnHelper.accessor(
-      (skill) =>
-        skill.requiredLevel
+      (poolSkill) =>
+        poolSkill.skill?.name?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      {
+        id: "name",
+        header: intl.formatMessage({
+          defaultMessage: "Skill name",
+          id: "hjxxaQ",
+          description: "Skill name column header for the skill library table",
+        }),
+        enableHiding: false,
+        enableColumnFilter: false,
+        sortingFn: normalizedText,
+        meta: {
+          isRowTitle: true,
+        },
+      },
+    ),
+    columnHelper.accessor(
+      (poolSkill) =>
+        poolSkill.requiredLevel && poolSkill.skill
           ? intl.formatMessage(
-              getSkillLevelName(skill.requiredLevel, skill.category.value),
+              getSkillLevelName(
+                poolSkill.requiredLevel,
+                poolSkill.skill.category.value,
+              ),
             )
           : intl.formatMessage(commonMessages.notFound),
       {
@@ -162,32 +229,22 @@ const SkillTable = ({
         },
       },
     ),
-  ] as ColumnDef<
-    Skill & {
-      poolSkillId: string;
-      requiredLevel?: SkillLevel;
-    }
-  >[];
+  ] as ColumnDef<SkillTablePoolSkillFragment>[];
 
   if (!disableAdd) {
     columns = [
       columnHelper.display({
         id: "actions",
         header: intl.formatMessage(tableMessages.actions),
-        cell: ({ row: { original: skill } }) =>
-          ActionCell(skill, onUpdate, onRemove),
+        cell: ({ row: { original: poolSkill } }) =>
+          ActionCell(poolSkill, onUpdate, onRemove),
       }),
       ...columns,
     ];
   }
 
   return (
-    <Table<
-      Skill & {
-        poolSkillId: string;
-        requiredLevel?: SkillLevel;
-      }
-    >
+    <Table<SkillTablePoolSkillFragment>
       caption={caption}
       data={data}
       columns={columns}

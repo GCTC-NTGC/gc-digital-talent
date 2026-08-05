@@ -3,37 +3,32 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
-import type {
-  SkillLevel,
-  Skill,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { SkillLevel, FragmentType } from "@gc-digital-talent/graphql";
 import {
   PoolSkillType,
-  SkillCategory,
   PoolStatus,
   getFragment,
 } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { hasEmptyRequiredFields } from "~/validators/process/essentialSkills";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import type { EditPoolSectionMetadata } from "~/types/pool";
 
-import SkillTable from "./SkillTable";
+import SkillTable, { type SkillTableSkill_Fragment } from "./SkillTable";
 import type { PoolSkillMutationsType } from "../types";
 import { EditPoolSkills_Fragment } from "../fragments";
 
 interface EssentialSkillsSectionProps {
   poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
-  skills: Skill[];
+  skillsQuery: FragmentType<typeof SkillTableSkill_Fragment>[];
   poolSkillMutations: PoolSkillMutationsType;
 }
 
 const EssentialSkillsSection = ({
   poolQuery,
-  skills,
+  skillsQuery,
   sectionMetadata,
   poolSkillMutations,
 }: EssentialSkillsSectionProps): JSX.Element => {
@@ -46,32 +41,9 @@ const EssentialSkillsSection = ({
     fallbackIcon: AcademicCapIcon,
   });
 
-  const poolSkills = pool.poolSkills ?? [];
-  const essentialPoolSkills = poolSkills
-    .filter(notEmpty)
-    .filter(
-      (poolSkill) =>
-        poolSkill.type?.value === PoolSkillType.Essential && poolSkill.skill,
-    );
-
-  const essentialSkills: (Skill & {
-    poolSkillId: string;
-    requiredLevel?: SkillLevel;
-  })[] = essentialPoolSkills.map((poolSkill) => {
-    return {
-      // Note: This is ugly and should be cleaned up
-      category: poolSkill.skill?.category ?? {
-        value: SkillCategory.Technical,
-        label: { en: "", fr: "" },
-      },
-      description: poolSkill.skill?.description,
-      id: poolSkill.skill?.id ?? poolSkill.id,
-      key: poolSkill.skill?.key ?? "",
-      name: poolSkill.skill?.name ?? {},
-      poolSkillId: poolSkill.id,
-      requiredLevel: poolSkill.requiredLevel ?? undefined,
-    };
-  });
+  const essentialPoolSkills = unpackMaybes(pool.poolSkills).filter(
+    (poolSkill) => poolSkill.type?.value === PoolSkillType.Essential,
+  );
 
   const handleCreate = async (
     skillSelected: string,
@@ -122,8 +94,8 @@ const EssentialSkillsSection = ({
       <p className="my-6">{subtitle}</p>
       <SkillTable
         caption={sectionMetadata.title}
-        data={essentialSkills}
-        allSkills={skills}
+        poolSkillsQuery={essentialPoolSkills}
+        allSkillsQuery={skillsQuery}
         onCreate={handleCreate}
         onUpdate={handleUpdate}
         onRemove={handleRemove}
