@@ -107,6 +107,7 @@ const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment DetailsTalentNominationEvent on TalentNominationEvent {
     id
     includeNineBox
+    includeDevelopmentOpportunities
   }
 `);
 
