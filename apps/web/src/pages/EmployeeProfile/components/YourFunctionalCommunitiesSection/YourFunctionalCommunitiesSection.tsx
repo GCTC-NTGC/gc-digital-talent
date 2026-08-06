@@ -111,6 +111,7 @@ const YourFunctionalCommunities = ({
                     href={paths.updateCommunityInterest(communityInterest.id, {
                       from: pathname,
                     })}
+                    className="font-bold"
                   >
                     {intl.formatMessage(formMessages.editDetails)}
                     <span className="sr-only">
