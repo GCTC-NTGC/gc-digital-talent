@@ -3,23 +3,14 @@ import { useQuery } from "urql";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import type {
-  ClaimVerificationSort,
-  PoolCandidatePoolNameOrderByInput,
+  AdvancedOrderByInput,
   PoolCandidateSearchInput,
-  PoolCandidatesBaseSort,
-  QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
-  SortOrder,
 } from "@gc-digital-talent/graphql";
 
 // The filter/sort params shared between the table query and navigation queries
 export interface CandidateNavigationQueryParams {
   where: PoolCandidateSearchInput | null | undefined;
-  orderByBaseInput: PoolCandidatesBaseSort;
-  poolNameSortingInput?: PoolCandidatePoolNameOrderByInput;
-  sortingInput?: QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[];
-  orderByClaimVerification?: ClaimVerificationSort | null;
-  orderByEmployeeDepartment?: SortOrder;
-  orderByScreeningStage?: SortOrder;
+  orderBy: AdvancedOrderByInput[];
 }
 
 export interface CandidateNavigationState extends CandidateNavigationQueryParams {
@@ -33,23 +24,13 @@ const CandidateNavigation_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $prevPage: Int!
     $nextPage: Int!
-    $orderByBaseInput: PoolCandidatesBaseSort!
-    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
-    $orderByClaimVerification: ClaimVerificationSort
-    $orderByEmployeeDepartment: SortOrder
-    $orderByScreeningStage: SortOrder
+    $orderBy: [AdvancedOrderByInput!]
   ) {
-    prevCandidate: poolCandidatesPaginatedAdminView(
+    prevCandidate: poolCandidatesPaginated(
       where: $where
       first: 1
       page: $prevPage
-      orderByBase: $orderByBaseInput
-      orderByPoolName: $poolNameSortingInput
-      orderBy: $sortingInput
-      orderByClaimVerification: $orderByClaimVerification
-      orderByEmployeeDepartment: $orderByEmployeeDepartment
-      orderByScreeningStage: $orderByScreeningStage
+      orderBy: $orderBy
     ) {
       data {
         poolCandidate {
@@ -57,16 +38,11 @@ const CandidateNavigation_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    nextCandidate: poolCandidatesPaginatedAdminView(
+    nextCandidate: poolCandidatesPaginated(
       where: $where
       first: 1
       page: $nextPage
-      orderByBase: $orderByBaseInput
-      orderByPoolName: $poolNameSortingInput
-      orderBy: $sortingInput
-      orderByClaimVerification: $orderByClaimVerification
-      orderByEmployeeDepartment: $orderByEmployeeDepartment
-      orderByScreeningStage: $orderByScreeningStage
+      orderBy: $orderBy
     ) {
       data {
         poolCandidate {
@@ -94,11 +70,6 @@ type UsePoolCandidateNavigationReturn = {
   fetching: boolean;
 } | null;
 
-const FALLBACK_ORDER_BY_BASE: PoolCandidatesBaseSort = {
-  useBookmark: false,
-  useFlag: false,
-};
-
 const usePoolCandidateNavigation = (
   _candidateId: string,
 ): UsePoolCandidateNavigationReturn => {
@@ -115,13 +86,7 @@ const usePoolCandidateNavigation = (
       where: navigationState?.where,
       prevPage: Math.max(1, (navigationState?.currentPage ?? 2) - 1),
       nextPage: (navigationState?.currentPage ?? 0) + 1,
-      orderByBaseInput:
-        navigationState?.orderByBaseInput ?? FALLBACK_ORDER_BY_BASE,
-      poolNameSortingInput: navigationState?.poolNameSortingInput,
-      sortingInput: navigationState?.sortingInput,
-      orderByClaimVerification: navigationState?.orderByClaimVerification,
-      orderByEmployeeDepartment: navigationState?.orderByEmployeeDepartment,
-      orderByScreeningStage: navigationState?.orderByScreeningStage,
+      orderBy: navigationState?.orderBy,
     },
     pause: !navigationState || (!hasPrevious && !hasNext),
   });

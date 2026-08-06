@@ -6,7 +6,6 @@ import {
   fakePoolCandidates,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type { PoolCandidate } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   CandidateRemovalReason,
@@ -33,7 +32,7 @@ import ApplicationSidebar, {
 
 const application = fakePoolCandidates(1)[0];
 
-type ApplicationSidebarData = Pick<PoolCandidate, "applicationStatusData">;
+type ApplicationSidebarData = Pick<typeof application, "applicationStatusData">;
 
 const makeApplication = (data?: ApplicationSidebarData) =>
   makeFragmentData(

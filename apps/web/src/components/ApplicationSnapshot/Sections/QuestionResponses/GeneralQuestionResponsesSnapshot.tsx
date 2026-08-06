@@ -36,7 +36,13 @@ const GeneralQuestionResponsesSnapshot = ({
 
   return (
     <QuestionResponses
-      responses={unpackMaybes(application?.generalQuestionResponses)}
+      responses={unpackMaybes(application?.generalQuestionResponses).map(
+        ({ id, answer, generalQuestion }) => ({
+          id,
+          answer,
+          question: generalQuestion?.question,
+        }),
+      )}
     />
   );
 };
