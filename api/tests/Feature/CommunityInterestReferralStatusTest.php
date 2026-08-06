@@ -302,5 +302,4 @@ class CommunityInterestReferralStatusTest extends TestCase
                 'The community interest referral.notes field is required.'
             );
     }
-
 }
