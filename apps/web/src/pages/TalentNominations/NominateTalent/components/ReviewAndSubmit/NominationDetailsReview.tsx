@@ -1,9 +1,11 @@
 import { useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
+  NineBoxRating,
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -24,8 +26,33 @@ interface ListItem {
   name: string;
 }
 
+const performanceLabels: Record<NineBoxRating, MessageDescriptor> = {
+  [NineBoxRating.Low]: labels.lowPerformance,
+  [NineBoxRating.Moderate]: labels.moderatePerformance,
+  [NineBoxRating.High]: labels.highPerformance,
+};
+
+const leadershipPotentialLabels: Record<NineBoxRating, MessageDescriptor> = {
+  [NineBoxRating.Low]: labels.lowPotential,
+  [NineBoxRating.Moderate]: labels.moderatePotential,
+  [NineBoxRating.High]: labels.highPotential,
+};
+
 const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
   fragment NominationDetailsReview on TalentNomination {
+    talentNominationEvent {
+      id
+      includeNineBox
+    }
+
+    # Nine-box details
+    nineBoxPerformance {
+      value
+    }
+    nineBoxLeadershipPotential {
+      value
+    }
+
     # Nomination types
     nominateForAdvancement
     nominateForLateralMovement
@@ -153,6 +180,10 @@ const NominationDetailsReview = ({
     name: cdp.developmentProgram.name?.localized ?? "",
   }));
 
+  const performance = talentNomination?.nineBoxPerformance?.value;
+  const leadershipPotential =
+    talentNomination?.nineBoxLeadershipPotential?.value;
+
   return (
     <>
       <ReviewHeading
@@ -168,6 +199,22 @@ const NominationDetailsReview = ({
         {intl.formatMessage(messages.nominationDetails)}
       </ReviewHeading>
       <div className="grid grid-cols-2 gap-6">
+        {talentNomination?.talentNominationEvent?.includeNineBox && (
+          <>
+            <FieldDisplay label={intl.formatMessage(labels.nomineePerformance)}>
+              {performance
+                ? intl.formatMessage(performanceLabels[performance])
+                : notProvided}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage(labels.nomineeLeadershipPotential)}
+            >
+              {leadershipPotential
+                ? intl.formatMessage(leadershipPotentialLabels[leadershipPotential])
+                : notProvided}
+            </FieldDisplay>
+          </>
+        )}
         <FieldDisplay
           className="col-span-2"
           label={intl.formatMessage(labels.nominationOptions)}
