@@ -3,7 +3,6 @@ import type { IntlShape } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   UpdateUserAsUserInput,
-  User,
   ProfilePersonalInformationFragment as UserProfileFragmentType,
 } from "@gc-digital-talent/graphql";
 import {
@@ -66,11 +65,11 @@ export const dataToFormValues = (
 
 export const formValuesToSubmitData = (
   data: FormValues,
-  initialUser: Pick<User, "id">,
+  userId: string,
 ): UpdateUserAsUserInput => {
   return {
     ...data,
-    id: initialUser.id,
+    id: userId,
   };
 };
 
