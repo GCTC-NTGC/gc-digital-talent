@@ -1,8 +1,22 @@
 import { useQuery } from "urql";
 
-import type { Pool, PoolFilterInput } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type {
+  AvailablePoolFragment,
+  PoolFilterInput,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+const AvailablePool_Fragment = graphql(/* GraphQL */ `
+  fragment AvailablePool on Pool {
+    id
+    name {
+      en
+      fr
+    }
+    teamIdForRoleAssignment
+  }
+`);
 
 const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
   query EditUserPage_AvailablePools(
@@ -24,12 +38,7 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
-        id
-        name {
-          en
-          fr
-        }
-        teamIdForRoleAssignment
+        ...AvailablePool
       }
       paginatorInfo {
         total
@@ -39,7 +48,7 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
 `);
 
 interface UseAvailablePoolsReturn {
-  pools: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">[];
+  pools: AvailablePoolFragment[];
   total: number;
   fetching: boolean;
 }
@@ -57,7 +66,10 @@ const useAvailablePools = (
     },
   });
 
-  const pools = unpackMaybes(data?.poolsPaginated?.data);
+  const pools = getFragment(
+    AvailablePool_Fragment,
+    unpackMaybes(data?.poolsPaginated?.data),
+  );
   const total = data?.poolsPaginated.paginatorInfo?.total ?? pools.length;
 
   return {
