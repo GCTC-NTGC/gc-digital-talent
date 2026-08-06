@@ -11,6 +11,7 @@ use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestSource;
 use App\Models\User;
+use App\Support\Query\AdvancedOrder;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
@@ -398,9 +399,9 @@ class UserBuilder extends Builder
         return $this->whereIn('priority_weight', $weights);
     }
 
-    public function orderBySkillCount(array $args): self
+    public function orderBySkillCount(AdvancedOrder $args): self
     {
-        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
+        return $this->orderBy('skill_count', $args->direction);
     }
 
     // Always selects a skill_count column so the field is resolvable: the real count of the

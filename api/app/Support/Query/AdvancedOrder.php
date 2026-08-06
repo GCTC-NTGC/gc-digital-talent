@@ -20,7 +20,9 @@ readonly class AdvancedOrder
         $direction = strtoupper($input['direction'] ?? 'ASC');
         $this->direction = in_array($direction, ['ASC', 'DESC']) ? $direction : 'ASC';
 
-        $this->nulls = $input['nulls'] ?? null;
+        $nulls = strtoupper($input['nulls'] ?? '');
+        $this->nulls = in_array($nulls, ['FIRST', 'LAST']) ? $nulls : null;
+
         $this->caseInsensitive = $input['caseInsensitive'] ?? false;
         $this->accentInsensitive = $input['accentInsensitive'] ?? false;
     }

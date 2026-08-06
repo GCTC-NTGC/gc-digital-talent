@@ -359,6 +359,7 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
     nominator = { disconnect: true };
   }
   return {
+    id: values.id,
     submitterRelationshipToNominator: values.submitterRelationshipToNominator,
     submitterRelationshipToNominatorOther:
       values.submitterRelationshipToNominatorOther,
@@ -436,6 +437,7 @@ const Nominator = ({ nominatorQuery, optionsQuery }: NominatorProps) => {
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
+        id: talentNomination.id,
         submitter: talentNomination.submitter?.id,
         role: defaultRole,
         nominator: defaultNominator,
