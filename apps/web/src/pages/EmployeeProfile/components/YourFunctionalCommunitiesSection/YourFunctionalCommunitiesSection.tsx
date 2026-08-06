@@ -9,11 +9,19 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Card, Heading, Link, Notice } from "@gc-digital-talent/ui";
-import { formMessages } from "@gc-digital-talent/i18n";
+import {
+  Card,
+  Heading,
+  Link,
+  Notice,
+  UNICODE_CHAR,
+} from "@gc-digital-talent/ui";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import { toast } from "@gc-digital-talent/toast";
 
 import FunctionalCommunityCard from "~/components/FunctionalCommunity/FunctionalCommunityCard";
 import useRoutes from "~/hooks/useRoutes";
+import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
 
 const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
   fragment YourFunctionalCommunitiesUser on User {
@@ -27,6 +35,7 @@ const YourFunctionalCommunitiesUser_Fragment = graphql(/** GraphQL */ `
           }
         }
         ...PreviewListItemFunctionalCommunity
+        ...DeleteCommunityInterestAlert
       }
     }
   }
@@ -105,10 +114,22 @@ const YourFunctionalCommunities = ({
                   >
                     {intl.formatMessage(formMessages.editDetails)}
                     <span className="sr-only">
-                      {" "}
+                      {UNICODE_CHAR.NON_BREAKING_SPACE}
                       {communityInterest.community.name?.localized}
                     </span>
                   </Link>
+                }
+                remove={
+                  communityInterests ? (
+                    <DeleteCommunityInterestAlert
+                      query={communityInterest}
+                      onSuccess={() =>
+                        toast.success(
+                          intl.formatMessage(commonMessages.deleted),
+                        )
+                      }
+                    />
+                  ) : undefined
                 }
               />
             ))}
