@@ -6,7 +6,7 @@ export interface AuthenticationState {
   refreshTokenSet: () => Promise<void>;
 }
 
-interface AuthRole {
+export interface AuthRole {
   id: string;
   name: string;
   isTeamBased?: boolean | null;
@@ -18,6 +18,38 @@ interface AuthTeam {
   id: string;
   name: string;
 }
+
+export interface AuthPoolTeamable {
+  __typename: "Pool";
+  id: string;
+  name?: LocalizedString | null;
+  teamIdForRoleAssignment?: string | null;
+}
+
+export interface AuthCommunityTeamable {
+  __typename: "Community";
+  id: string;
+  name?: LocalizedString | null;
+  teamIdForRoleAssignment?: string | null;
+}
+
+export interface AuthDepartmentTeamable {
+  __typename: "Department";
+  id: string;
+  departmentName: LocalizedString;
+  teamIdForRoleAssignment?: string | null;
+}
+
+export interface AuthTeamTeamable {
+  __typename: "Team";
+  id: string;
+}
+
+export type AuthTeamable =
+  | AuthPoolTeamable
+  | AuthCommunityTeamable
+  | AuthDepartmentTeamable
+  | AuthTeamTeamable;
 
 export interface AuthRoleAssignment {
   id: string;
