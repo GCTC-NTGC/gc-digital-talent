@@ -440,7 +440,7 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions.locked,
                           )}
-                          href={paths.employeeProfileFunctionalCommunities()}
+                          href={paths.employeeVerification()}
                           asListItem={false}
                         />
                       )}
