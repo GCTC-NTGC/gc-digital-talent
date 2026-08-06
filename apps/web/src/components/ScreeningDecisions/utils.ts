@@ -5,7 +5,6 @@ import type {
   AssessmentResultType,
   CreateAssessmentResultInput,
   EducationRequirementOption,
-  Experience,
   FragmentType,
   PublishingGroup,
   SkillCategory,
@@ -28,6 +27,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { NullableDecision } from "~/utils/assessmentResults";
 import { NO_DECISION } from "~/utils/assessmentResults";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
 import { getExperienceSkills } from "~/utils/skillUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
@@ -289,7 +289,7 @@ export const getSkillLevelMessage = (
 };
 
 export const hasAttachedExperiences = (
-  experiences?: (Experience | null | undefined)[] | null,
+  experiences?: (ExperienceWithSkills | null | undefined)[] | null,
   skill?: { id: string } | null,
 ) => {
   if (!skill) return false;

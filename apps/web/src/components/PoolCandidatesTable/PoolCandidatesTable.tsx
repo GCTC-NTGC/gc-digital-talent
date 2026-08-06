@@ -26,11 +26,14 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import type {
   PoolCandidateSearchInput,
-  Pool,
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
-import { graphql, PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import type {
@@ -382,6 +385,16 @@ const DownloadApplicationsZip_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolCandidatesTable_PoolFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidatesTablePool on Pool {
+    displayName {
+      display {
+        localized
+      }
+    }
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
@@ -414,7 +427,7 @@ const defaultState = {
 
 const PoolCandidatesTable = ({
   initialFilterInput,
-  currentPool,
+  currentPoolQuery,
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
@@ -423,7 +436,9 @@ const PoolCandidatesTable = ({
   hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Pick<Pool, "id" | "displayName"> | null;
+  currentPoolQuery?: FragmentType<
+    typeof PoolCandidatesTable_PoolFragment
+  > | null;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -435,6 +450,11 @@ const PoolCandidatesTable = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const apiRoutes = useApiRoutes();
+
+  const currentPool = getFragment(
+    PoolCandidatesTable_PoolFragment,
+    currentPoolQuery,
+  );
 
   const defaultSortState = currentPool
     ? [{ id: "status", desc: false }]
@@ -834,13 +854,13 @@ const PoolCandidatesTable = ({
                 },
               }) =>
                 processCell(
-                  {
-                    id: pool.id,
+                  pool.id,
+                  getFullPoolTitleLabel(intl, {
                     workStream: pool.workStream,
                     name: pool.name,
                     publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
-                  },
+                  }),
                   paths,
                   intl,
                 ),
