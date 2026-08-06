@@ -7,7 +7,11 @@ import { useControllableState } from "@gc-digital-talent/ui";
 
 const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
   mutation TogglePoolCandidateUserBookmark_Mutation($id: UUID!) {
-    togglePoolCandidateUserBookmark(poolCandidateId: $id)
+    togglePoolCandidateUserBookmark(poolCandidateId: $id) {
+      id
+      isBookmarked
+      __typename
+    }
   }
 `);
 
@@ -49,7 +53,7 @@ const useCandidateBookmarkToggle = ({
         .then((res) => {
           if (!res.error) {
             const newIsBookmarked =
-              res.data?.togglePoolCandidateUserBookmark === true;
+              res.data?.togglePoolCandidateUserBookmark?.isBookmarked === true;
             if (showToast) {
               if (newIsBookmarked) {
                 toast.success(

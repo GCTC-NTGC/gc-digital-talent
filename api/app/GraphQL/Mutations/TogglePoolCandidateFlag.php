@@ -15,6 +15,6 @@ final class TogglePoolCandidateFlag
         $candidate->is_flagged = ! $candidate->is_flagged;
         $candidate->save();
 
-        return $candidate->is_flagged;
+        return $candidate;
     }
 }
