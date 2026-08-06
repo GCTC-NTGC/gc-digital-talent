@@ -4,13 +4,12 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { tv } from "tailwind-variants";
 
-const popupColor = "bg-white text-black dark:bg-gray-600 dark:text-white";
-const popupShape = "rounded-md px-2 py-1 font-sans text-sm shadow-md";
-const popupMotion =
-  "origin-(--transform-origin) transition duration-100 ease-out data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 data-instant:transition-none";
-
 const popup = tv({
-  base: [popupShape, popupColor, popupMotion],
+  base: [
+    "rounded-md px-2 py-1 font-sans text-sm shadow-md", // popup shape
+    "bg-white text-black dark:bg-gray-600 dark:text-white", // popup color
+    "origin-(--transform-origin) transition duration-100 ease-out data-ending-style:scale-95 data-ending-style:opacity-0 data-instant:transition-none data-starting-style:scale-95 data-starting-style:opacity-0", // popup motion
+  ],
 });
 
 function ArrowSvg(props: React.ComponentProps<"svg">) {
