@@ -3,7 +3,10 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   ApplicationStatus,
   ArmedForcesStatus,
@@ -17,7 +20,7 @@ import {
   ScreeningStage,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";

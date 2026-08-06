@@ -11,9 +11,9 @@ import {
 } from "@gc-digital-talent/i18n";
 import type { Option } from "@gc-digital-talent/forms";
 import { Select } from "@gc-digital-talent/forms";
-import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import type { RoleName } from "@gc-digital-talent/auth";
+import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
 import { hasRequiredRoles, ROLE_NAME } from "@gc-digital-talent/auth";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -37,7 +37,7 @@ interface FormValues {
 interface DuplicateProcessDialogProps extends ProcessDialogProps {
   departmentsQuery: FragmentType<typeof DuplicatePoolDepartment_Fragment>[];
   onDuplicate: (opts: { department: string | undefined }) => Promise<void>;
-  roleAssignments: RoleAssignment[];
+  roleAssignments: AuthRoleAssignment[];
 }
 
 const DuplicateProcessDialog = ({
@@ -59,9 +59,7 @@ const DuplicateProcessDialog = ({
     ROLE_NAME.DepartmentAdmin,
     ROLE_NAME.DepartmentHRAdvisor,
   ];
-  function isAuthorizedDepartment(
-    assignment: RoleAssignment,
-  ): assignment is RoleAssignment {
+  function isAuthorizedDepartment(assignment: AuthRoleAssignment): boolean {
     return (
       !!assignment.role &&
       departmentRoles.includes(assignment.role.name as RoleName)

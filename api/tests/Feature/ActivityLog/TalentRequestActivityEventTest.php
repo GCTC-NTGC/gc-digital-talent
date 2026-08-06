@@ -7,12 +7,12 @@ use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestStatus;
 use App\Models\Activity;
 use App\Models\Community;
-use App\Models\PoolCandidateSearchRequest;
+use App\Models\TalentRequest;
 use Database\Seeders\DepartmentSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class PoolCandidateSearchRequestActivityEventTest extends TestCase
+class TalentRequestActivityEventTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -28,7 +28,7 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
 
     public function testProgressLogsStatusChange(): void
     {
-        $request = PoolCandidateSearchRequest::factory()->create([
+        $request = TalentRequest::factory()->create([
             'user_id' => null,
             'status' => TalentRequestStatus::NEW->name,
         ]);
@@ -36,12 +36,12 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
         $request->progress(TalentRequestInProgressDetail::INITIAL_CONVERSATION->name, null);
 
         $this->assertDatabaseHas('activity_log', [
-            'subject_type' => PoolCandidateSearchRequest::class,
+            'subject_type' => TalentRequest::class,
             'description' => 'updated',
             'subject_id' => $request->getKey(),
         ]);
 
-        $activity = Activity::where('subject_type', PoolCandidateSearchRequest::class)
+        $activity = Activity::where('subject_type', TalentRequest::class)
             ->where('subject_id', $request->getKey())
             ->where('description', 'updated')
             ->latest()
@@ -53,7 +53,7 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
 
     public function testCloseLogsStatusChange(): void
     {
-        $request = PoolCandidateSearchRequest::factory()->create([
+        $request = TalentRequest::factory()->create([
             'user_id' => null,
             'status' => TalentRequestStatus::IN_PROGRESS->name,
             'in_progress_details' => TalentRequestInProgressDetail::TALENT_SENT->name,
@@ -62,12 +62,12 @@ class PoolCandidateSearchRequestActivityEventTest extends TestCase
         $request->complete(TalentRequestCompletionDetail::HIRE_MADE->name);
 
         $this->assertDatabaseHas('activity_log', [
-            'subject_type' => PoolCandidateSearchRequest::class,
+            'subject_type' => TalentRequest::class,
             'description' => 'updated',
             'subject_id' => $request->getKey(),
         ]);
 
-        $activity = Activity::where('subject_type', PoolCandidateSearchRequest::class)
+        $activity = Activity::where('subject_type', TalentRequest::class)
             ->where('subject_id', $request->getKey())
             ->where('description', 'updated')
             ->latest()

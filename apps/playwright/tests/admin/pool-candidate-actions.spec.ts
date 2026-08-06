@@ -1,4 +1,8 @@
-import type { PoolCandidate, Skill, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  Skill,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -7,7 +11,7 @@ import {
   ProvinceOrTerritory,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";

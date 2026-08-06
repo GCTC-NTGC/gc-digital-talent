@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -53,12 +52,6 @@ class PoolCandidateFilter extends Model
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
-    }
-
-    /** @return HasOne<PoolCandidateSearchRequest, $this> */
-    public function poolCandidateSearchRequest(): HasOne
-    {
-        return $this->hasOne(PoolCandidateSearchRequest::class);
     }
 
     /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */

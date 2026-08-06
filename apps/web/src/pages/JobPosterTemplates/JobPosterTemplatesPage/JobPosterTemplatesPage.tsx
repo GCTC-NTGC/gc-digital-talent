@@ -27,8 +27,8 @@ import type {
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
-  alphaSortOptions,
   Checklist,
+  Combobox,
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
@@ -384,16 +384,17 @@ const JobPosterTemplatesPage = () => {
                         description: "Legend for supervisory status input",
                       })}
                     />
-                    <Checklist
-                      idPrefix="workStreams"
+                    <Combobox
+                      id="workStreams"
                       name="workStreams"
-                      items={alphaSortOptions(
-                        unpackMaybes(data?.workStreams).map((workStream) => ({
+                      isMulti
+                      options={unpackMaybes(data?.workStreams).map(
+                        (workStream) => ({
                           value: workStream.id,
                           label: getLocalizedName(workStream.name, intl),
-                        })),
+                        }),
                       )}
-                      legend={intl.formatMessage({
+                      label={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
                         id: "eeU13V",
                         description: "Legend for pool streams input",

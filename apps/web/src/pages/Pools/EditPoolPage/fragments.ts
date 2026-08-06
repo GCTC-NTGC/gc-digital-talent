@@ -20,25 +20,7 @@ export const EditPoolSkills_Fragment = graphql(/* GraphQL */ `
         }
       }
       requiredLevel
-      skill {
-        id
-        key
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...SkillTablePoolSkill
     }
   }
 `);

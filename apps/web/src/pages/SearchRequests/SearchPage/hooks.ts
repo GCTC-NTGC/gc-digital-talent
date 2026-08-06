@@ -1,36 +1,50 @@
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useIntl } from "react-intl";
-import type { Location } from "react-router";
-import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
 import type {
   ApplicantFilterInput,
+  Classification,
   CountTalentRequestMatchesQuery,
   SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
+import { useSessionStorage } from "@gc-digital-talent/storage";
 
-import type { FormValues, LocationState } from "~/types/talentRequestForm";
+import type { FormValues } from "~/types/talentRequestForm";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
+
+export const TALENT_REQUEST_STATE_KEY = "talentRequestState";
+
+interface TalentRequestState {
+  applicantFilter?: ApplicantFilterInput;
+  candidateCount?: number;
+}
+
+export const useTalentRequestState = (initialValues?: TalentRequestState) => {
+  const requestState = useSessionStorage<TalentRequestState>(
+    TALENT_REQUEST_STATE_KEY,
+    initialValues ?? {},
+  );
+
+  return requestState;
+};
 
 interface UseInitialState {
   defaultValues: FormValues;
   initialFilters: ApplicantFilterInput;
 }
 
-export const useInitialFilters = (): UseInitialState => {
-  const location = useLocation();
-  const { state } = location as Location<LocationState>;
+export const useInitialFilters = (
+  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
+): UseInitialState => {
+  const [{ applicantFilter }] = useTalentRequestState();
 
-  const initialFilters = state?.applicantFilter ?? {};
+  const initialFilters = applicantFilter ?? {};
 
-  const defaultValues = dataToFormValues(
-    state?.applicantFilter ?? {},
-    state?.selectedClassifications,
-  );
+  const defaultValues = dataToFormValues(initialFilters, classifications);
 
   return {
     defaultValues,

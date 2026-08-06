@@ -1,5 +1,5 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import type { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";

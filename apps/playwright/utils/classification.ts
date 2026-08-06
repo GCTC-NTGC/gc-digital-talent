@@ -1,4 +1,4 @@
-import type { Classification } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 

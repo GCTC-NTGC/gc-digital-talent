@@ -1,28 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  questionExistingAccount: {
-    defaultMessage: "Already have a GCKey account?",
-    id: "W3KFtQ",
-    description: "GCKey question for when user already has an account",
-  },
-  answerExistingAccount: {
-    defaultMessage:
-      "If you already have a GCKey account, you can sign into your GC Digital Talent profile using your existing GCKey, even if you've never used this platform before. If you're unsure whether you have an existing GCKey account, continue to the website and try signing in. If you can't remember your password, you can also reset it there.",
-    id: "oiaUxW",
-    description: "GCKey answer for when user already has an account",
-  },
-  questionWhatGCKey: {
-    defaultMessage: "What is a GCKey?",
-    id: "WDKT2K",
-    description: "GCKey question for what is GCKey",
-  },
-  answerWhatGCKey: {
-    defaultMessage:
-      "A GCKey is a central credential not managed by the GC Digital Talent team. The Government of Canada offers it as a way for you to communicate securely with many online-enabled Government programs and services.",
-    id: "7tpJaQ",
-    description: "GCKey answer for what is GCKey",
-  },
   questionContactGCkey: {
     defaultMessage: "Who do I contact if I have questions about GCKey?",
     id: "XXZ2i3",
@@ -59,30 +37,6 @@ const messages = defineMessages({
     id: "Tp7hml",
     description:
       "GCKey answer for who to contact about GCKey, contact availability",
-  },
-  questionAuthApp: {
-    defaultMessage: "Which authenticator app should I install?",
-    id: "5mrOBM",
-    description: "GCKey question for which authenticator app to use",
-  },
-  answerAuthApp: {
-    defaultMessage:
-      "As the Government of Canada, we cannot recommend any specific third-party vendors or apps. Well-known digital vendors, such as Google Authenticator and Microsoft Authenticator, provide authenticator apps. Whichever app you choose, ensure that it comes from a reputable vendor.",
-    id: "/N8Owk",
-    description: "GCKey answer for which authenticator app to use",
-  },
-  questionAuthAlternative: {
-    defaultMessage: "Can I use SMS or email authentication instead of an app?",
-    id: "zsU6/U",
-    description:
-      "GCKey question for whether there is an alternative to an authenticator app",
-  },
-  answerAuthAlternative: {
-    defaultMessage:
-      "Currently, our site supports authentication only through an authenticator app.",
-    id: "nKExgi",
-    description:
-      "GCKey answer for whether there is an alternative to an authenticator app",
   },
   moreQuestions: {
     defaultMessage:

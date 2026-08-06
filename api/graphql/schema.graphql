@@ -179,8 +179,6 @@ type User {
     @guard
     @belongsToMany(scopes: ["whereAuthorizedToView"])
 
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
-    @canResolved(ability: "view") # Search requests submitted by a user
   talentRequests: [TalentRequest!] @hasMany(scopes: ["whereAuthorizedToView"]) # Talent requests submitted by a user
   # Nominations
   talentNominationsAsSubmitter: [TalentNomination!]
@@ -1095,40 +1093,6 @@ type ApplicantFilter {
     @rename(attribute: "talent_sources")
 }
 
-type PoolCandidateSearchRequest {
-  id: ID!
-  fullName: String @rename(attribute: "full_name")
-  email: Email
-  department: Department @belongsTo
-  jobTitle: String @rename(attribute: "job_title")
-  additionalComments: String @rename(attribute: "additional_comments")
-  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
-  requestedDate: DateTime @rename(attribute: "created_at")
-  status: LocalizedPoolCandidateSearchStatus
-    @rename(attribute: "request_status")
-    @deprecated(reason: "Use talentRequestStatus instead")
-  statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
-  adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter
-    @belongsTo
-    @deprecated(reason: "Replaced by applicantFilter")
-  applicantFilter: ApplicantFilter @belongsTo
-  wasEmpty: Boolean @rename(attribute: "was_empty")
-  managerJobTitle: String @rename(attribute: "manager_job_title")
-  positionType: LocalizedPoolCandidateSearchPositionType
-    @rename(attribute: "position_type")
-  reason: LocalizedPoolCandidateSearchRequestReason
-  community: Community @belongsTo
-  initialResultCount: Int @rename(attribute: "initial_result_count")
-  followUpDate: Date @rename(attribute: "follow_up_date")
-  talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
-  inProgressDetails: LocalizedTalentRequestInProgressDetail
-    @rename(attribute: "in_progress_details")
-  completionDetails: LocalizedTalentRequestCompletionDetail
-    @rename(attribute: "completion_details")
-  details: LocalizedString
-}
-
 type TalentRequest {
   id: ID!
   fullName: String @rename(attribute: "full_name")
@@ -1553,22 +1517,6 @@ input PoolCandidateSearchInput {
   screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
 }
 
-input PoolCandidateSearchRequestInput {
-  status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
-  talentRequestStatus: [TalentRequestStatus] @scope(name: "talentRequestStatus")
-  departments: [ID] @scope
-  classifications: [ID] @scope
-  workStreams: [UUID] @scope
-  fullName: String @scope
-  email: String @scope
-  id: ID @scope
-  jobTitle: String @scope
-  additionalComments: String @scope
-  hrAdvisorEmail: String @scope
-  adminNotes: String @scope
-  generalSearch: String @scope
-}
-
 input TalentRequestInput {
   id: ID @scope(name: "whereId")
   talentRequestStatus: [TalentRequestStatus]
@@ -1582,11 +1530,6 @@ input TalentRequestInput {
   additionalComments: String @scope(name: "whereAdditionalComments")
   adminNotes: String @scope(name: "whereAdminNotes")
   generalSearch: String @scope(name: "whereGeneralSearch")
-}
-
-input PoolCandidatePoolNameOrderByInput {
-  locale: String!
-  order: SortOrder!
 }
 
 input TalentRequestMatchFilterInput {
@@ -1665,15 +1608,6 @@ input SitewideAnnouncementInput @validator {
   isDismissible: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
-}
-
-input ClaimVerificationSort {
-  order: SortOrder!
-}
-
-input PoolCandidatesBaseSort {
-  useFlag: Boolean
-  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1816,49 +1750,20 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidatesPaginatedAdminView(
+  poolCandidatesPaginated(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
-    orderByBase: PoolCandidatesBaseSort @scope
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: ClaimVerificationSort @scope
-    orderByEmployeeDepartment: SortOrder @scope
-    orderByScreeningStage: SortOrder @scope
-    orderBy: _
-      @orderBy(
-        relations: [
-          {
-            relation: "user"
-            columns: [
-              "priority_weight"
-              "first_name"
-              "email"
-              "preferred_lang"
-              "preferred_language_for_interview"
-              "preferred_language_for_exam"
-              "current_city"
-            ]
-          }
-          { relation: "pool", columns: ["process_number"] }
-          { relation: "assessmentStep", columns: ["sort_order"] }
-        ]
-      )
-      @with(
-        relations: [
-          "user:id,first_name,last_name,email,preferred_lang,computed_department"
-          "user.poolCandidates.pool.team"
-          "user.poolCandidates.pool.community.team"
-          "user.communityInterests.community.team"
-          "pool:id,process_number"
-          "skills:id,name"
-        ]
-      ) # Limit fields for eager loading
   ): [PoolCandidateAdminViewWithSkillCount]!
     @guard
+    @advancedOrderBy
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
+      scopes: [
+        "whereSkillCount"
+        "whereAuthorizedToViewPoolCandidateAdminView"
+        "withPaginatedEagerLoads"
+      ]
       model: "App\\Models\\PoolCandidate"
     )
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
@@ -1877,22 +1782,6 @@ type Query {
     @find
     @canFind(ability: "view", find: "id")
   jobPosterTemplates: [JobPosterTemplate!] @all @canModel(ability: "viewAny")
-  poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
-    @find
-    @guard
-    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidateSearchRequestsPaginated(
-    where: PoolCandidateSearchRequestInput
-    orderBy: [OrderByClause!] @orderBy
-  ): [PoolCandidateSearchRequest]!
-    @orderBy(column: "created_at", direction: DESC)
-    @paginate(
-      defaultCount: 10
-      maxCount: 500
-      scopes: ["withPolicyEagerLoads", "authorizedToView"]
-    )
-    @guard
-    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequest(id: UUID! @eq): TalentRequest
     @find
     @guard
@@ -2750,6 +2639,7 @@ input CreateTalentNominationInput @validator {
 }
 
 input UpdateTalentNominationInput @validator {
+  id: UUID!
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
@@ -2844,38 +2734,6 @@ input CreateApplicantFilterInput {
 
 input ApplicantFilterBelongsTo {
   create: CreateApplicantFilterInput!
-}
-
-input CreatePoolCandidateSearchRequestInput {
-  fullName: String! @rename(attribute: "full_name")
-  email: Email!
-  department: DepartmentBelongsTo!
-  community: CommunityBelongsTo!
-  jobTitle: String! @rename(attribute: "job_title")
-  additionalComments: String @rename(attribute: "additional_comments")
-  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
-  applicantFilter: ApplicantFilterBelongsTo!
-  # status will be set to NEW by default in Postgres
-  wasEmpty: Boolean @rename(attribute: "was_empty")
-  managerJobTitle: String! @rename(attribute: "manager_job_title")
-  positionType: PoolCandidateSearchPositionType!
-    @rename(attribute: "position_type")
-  reason: PoolCandidateSearchRequestReason!
-  initialResultCount: Int @rename(attribute: "initial_result_count")
-}
-
-input UpdatePoolCandidateSearchRequestInput @validator {
-  adminNotes: String @rename(attribute: "admin_notes")
-  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
-  followUpDate: Date @rename(attribute: "follow_up_date")
-  # talentRequestStatus changes go through updatePoolCandidateSearchRequestStatus
-}
-
-input UpdatePoolCandidateSearchRequestStatusInput {
-  status: TalentRequestStatus!
-  inProgressDetails: TalentRequestInProgressDetail
-  completionDetails: TalentRequestCompletionDetail
-  followUpDate: Date
 }
 
 input CreateTalentRequestInput {
@@ -3079,16 +2937,12 @@ input UpdateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
-input UpdateUserSkillRankingsInput {
+input UpdateUserSkillRankingsInput @validator {
   # array of skill ids
   topTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   topBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
 }
 
 input WorkExperienceHasMany {
@@ -3210,10 +3064,6 @@ input UpdatePoolSkillInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-    @rules(
-      apply: ["notIn:APPLICATION_SCREENING"]
-      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
-    )
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -3792,26 +3642,6 @@ type Mutation {
     developmentProgram: UpdateDevelopmentProgramInput! @spread
   ): DevelopmentProgram @update @canFind(ability: "update", find: "id")
 
-  # SearchRequest mutations
-  createPoolCandidateSearchRequest(
-    poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
-  ): PoolCandidateSearchRequest @create @canModel(ability: "create")
-  updatePoolCandidateSearchRequest(
-    id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread
-  ): PoolCandidateSearchRequest
-    @update
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-  updatePoolCandidateSearchRequestStatus(
-    id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
-      @spread
-  ): PoolCandidateSearchRequest
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator
-
   # TalentRequest mutations
   createTalentRequest(
     talentRequest: CreateTalentRequestInput! @spread
@@ -4199,8 +4029,6 @@ type Mutation {
     @guard
     @canModel(ability: "create")
   updateTalentNomination(
-    id: UUID!
-      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
     talentNomination: UpdateTalentNominationInput! @spread
   ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
   submitTalentNomination(
@@ -4252,11 +4080,16 @@ type Mutation {
   ): AssessmentStep
     @create
     @guard
+    @validator
     @canModel(ability: "create", injectArgs: true)
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update @guard @canFind(ability: "update", find: "id")
+  ): AssessmentStep
+    @update
+    @guard
+    @validator
+    @canFind(ability: "update", find: "id")
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
     @guard
     @canFind(ability: "update", find: "stepIdA")

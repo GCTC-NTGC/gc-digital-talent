@@ -22,19 +22,10 @@ jobs:
         uses: SimenB/github-actions-cpu-cores@v3
         id: cpu-cores
 
-      - name: Reclaim space on runner
-        run: |
-          rm -rf /usr/local/android
-          rm -rf /usr/share/dotnet
-          rm -rf /usr/local/share/boost
-          rm -rf /opt/ghc
-          sudo rm -rf /usr/local/share/powershell
-          sudo rm -rf /usr/share/swift
-          sudo rm -rf /usr/local/.ghcup
-          sudo rm -rf /usr/lib/jvm
-          df -h
-
       - uses: actions/checkout@v7
+
+      - name: Reclaim space on runner
+        uses: ./.github/actions/reclaim-space
 
       - name: "Copy .env"
         working-directory: "./apps/web"

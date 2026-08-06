@@ -6,7 +6,7 @@ import type {
   Pool,
   PoolSkill,
   UpdatePoolInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   AssessmentStepType,
   PoolAreaOfSelection,
@@ -17,7 +17,7 @@ import {
   SecurityStatus,
   SkillCategory,
   SkillLevel,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";

@@ -1,6 +1,5 @@
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
-
 import type { RoleName } from "../const";
+import type { AuthRoleAssignment } from "../types";
 
 export interface RoleRequirement {
   name: RoleName;
@@ -9,7 +8,7 @@ export interface RoleRequirement {
 
 export interface HasRequiredRolesArgs {
   toCheck: RoleRequirement | RoleRequirement[];
-  userRoles: (RoleAssignment | null | undefined)[] | null | undefined;
+  userRoles: (AuthRoleAssignment | null | undefined)[] | null | undefined;
   /** * When true, if a role is team-based, a matching teamId MUST be provided
    * in the requirement or the check fails.
    */
@@ -22,7 +21,7 @@ export const hasRequiredRoles = ({
   strict = false, // Default to loose for backward compatibility/flexibility
 }: HasRequiredRolesArgs): boolean => {
   const assignments = (userRoles ?? []).filter(
-    (a): a is RoleAssignment => !!a && !!a.role,
+    (a): a is AuthRoleAssignment => !!a && !!a.role,
   );
 
   const requirements = Array.isArray(toCheck) ? toCheck : [toCheck];

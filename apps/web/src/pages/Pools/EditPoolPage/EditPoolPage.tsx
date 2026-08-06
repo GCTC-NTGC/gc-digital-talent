@@ -23,7 +23,6 @@ import {
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
 import type {
-  Skill,
   FragmentType,
   UpdatePublishedPoolInput,
 } from "@gc-digital-talent/graphql";
@@ -75,6 +74,7 @@ import CoreRequirementsSection, {
 } from "./components/CoreRequirementsSection/CoreRequirementsSection";
 import EssentialSkillsSection from "./components/EssentialSkillsSection";
 import AssetSkillsSection from "./components/AssetSkillsSection";
+import type { SkillTableSkill_Fragment } from "./components/SkillTable";
 import EducationRequirementsSection from "./components/EducationRequirementsSection";
 import GeneralQuestionsSection, {
   type GeneralQuestionsSubmitData,
@@ -256,7 +256,7 @@ export type PoolSubmitData =
 export interface EditPoolFormProps {
   poolQuery: FragmentType<typeof EditPool_Fragment>;
   classifications: FragmentType<typeof PoolClassification_Fragment>[];
-  skills: Skill[];
+  skills: FragmentType<typeof SkillTableSkill_Fragment>[];
   onSave: (submitData: PoolSubmitData) => Promise<void>;
   onUpdatePublished: (submitData: UpdatePublishedPoolInput) => Promise<void>;
   poolSkillMutations: PoolSkillMutationsType;
@@ -637,13 +637,13 @@ export const EditPoolForm = ({
                   </div>
                   <EssentialSkillsSection
                     poolQuery={pool}
-                    skills={skills}
+                    skillsQuery={skills}
                     sectionMetadata={sectionMetadata.essentialSkills}
                     poolSkillMutations={poolSkillMutations}
                   />
                   <AssetSkillsSection
                     poolQuery={pool}
-                    skills={skills}
+                    skillsQuery={skills}
                     sectionMetadata={sectionMetadata.assetSkills}
                     poolSkillMutations={poolSkillMutations}
                   />
@@ -759,39 +759,7 @@ const EditPoolPage_Query = graphql(/* GraphQL */ `
 
     # all skills to populate skill pickers
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...SkillTableSkill
     }
   }
 `);

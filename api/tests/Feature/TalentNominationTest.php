@@ -40,8 +40,8 @@ class TalentNominationTest extends TestCase
     GRAPHQL;
 
     protected $updateMutation = <<<'GRAPHQL'
-    mutation UpdateTalentNomination($id: UUID!, $talentNomination: UpdateTalentNominationInput!) {
-        updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+    mutation UpdateTalentNomination($talentNomination: UpdateTalentNominationInput!) {
+        updateTalentNomination(talentNomination: $talentNomination) {
                 id
             }
         }
@@ -148,8 +148,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
@@ -175,8 +175,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee2, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
@@ -196,8 +196,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
@@ -279,8 +279,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'skills' => [
                         'sync' => [$nonKlcSkillId],
                     ],
@@ -463,11 +463,11 @@ class TalentNominationTest extends TestCase
         // updating operations (update/submit) for a nomination fails if the event is closed
         $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
-            ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
+            ])->assertGraphQLValidationError('talentNomination.id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
 
         $this->actingAs($this->employee1, 'api')
             ->graphQL($this->submitMutation, [

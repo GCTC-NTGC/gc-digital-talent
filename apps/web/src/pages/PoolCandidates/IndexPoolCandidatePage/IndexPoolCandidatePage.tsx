@@ -24,23 +24,9 @@ const IndexPoolCandidatePage_Query = graphql(/* GraphQL */ `
   query IndexPoolCandidatePage($id: UUID!) {
     pool(id: $id) {
       id
-      displayName {
-        display {
-          localized
-        }
-      }
+      ...PoolCandidatesTablePool
       assessmentSteps {
-        id
-        sortOrder
-        title {
-          localized
-        }
-        type {
-          value
-          label {
-            localized
-          }
-        }
+        ...PoolCandidateFilterDialogStep
       }
     }
   }
@@ -89,14 +75,7 @@ export const IndexPoolCandidatePage = () => {
               expiryStatus: CandidateExpiryFilter.Active,
             }}
             availableSteps={unpackMaybes(currentPool?.assessmentSteps)}
-            currentPool={
-              currentPool
-                ? {
-                    id: currentPool.id,
-                    displayName: currentPool.displayName,
-                  }
-                : null
-            }
+            currentPoolQuery={currentPool}
             title={pageTitle}
           />
         </Pending>

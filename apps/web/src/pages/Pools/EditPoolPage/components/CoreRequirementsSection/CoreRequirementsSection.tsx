@@ -114,7 +114,12 @@ const CoreRequirementsSection = ({
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(
+      pool.language?.value,
+      pool.securityClearance?.value,
+      pool.isRemote,
+      pool.location,
+    ),
   });
   const { handleSubmit, control, watch } = methods;
   const locationOption = useWatch<FormValues>({
