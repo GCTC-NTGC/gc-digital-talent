@@ -20,6 +20,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
 
 import { messages } from "../messages";
 import type { FormValues } from "../form";
@@ -30,7 +31,6 @@ import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities, {
   DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
 } from "../sections/TrainingAndDevelopmentOpportunities";
-import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
 const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
