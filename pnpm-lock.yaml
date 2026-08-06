@@ -97,8 +97,8 @@ importers:
         specifier: ^9.20.1
         version: 9.39.2(jiti@2.7.0)
       eslint-plugin-playwright:
-        specifier: ^2.10.5
-        version: 2.10.5(eslint@9.39.2(jiti@2.7.0))
+        specifier: ^2.11.0
+        version: 2.11.0(eslint@9.39.2(jiti@2.7.0))
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -4958,8 +4958,8 @@ packages:
     peerDependencies:
       eslint: '>=5.16.0'
 
-  eslint-plugin-playwright@2.10.5:
-    resolution: {integrity: sha512-4k+ml4cEd55kePUIW1WsCiOLDwZkAdPZPKMFulR83XpplCaVOTKHF6yvXLYixLtdVbkMjmKV5F3BaGuI3aH8aQ==}
+  eslint-plugin-playwright@2.11.0:
+    resolution: {integrity: sha512-zOIEYyv1TSn2izXkyg/yj0LXc4YBQI6pl3xIFWwMCcXt/dgQCz8dBqXiXFMoM3xc/GqZThAtaGYo8aPu/vBd+Q==}
     engines: {node: '>=16.9.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -5254,6 +5254,10 @@ packages:
 
   globals@17.7.0:
     resolution: {integrity: sha512-Czmyns5dUsq4seFBR/Kdydhmo8y9kC79hiSkPn0YcGtNnYWnrgt0vjrSjx9tspoDGWm2CMarffRuLjM4xUz8xg==}
+    engines: {node: '>=18'}
+
+  globals@17.9.0:
+    resolution: {integrity: sha512-m/MvAW61QVU5VDNF1Vj8axt016h8w7L5TU1e9zlab7XIttAT2YAlCwl75K1fOqvMM9apmD7lbCIRhpfkhmxhCg==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -11336,10 +11340,10 @@ snapshots:
       resolve: 1.22.12
       semver: 6.3.1
 
-  eslint-plugin-playwright@2.10.5(eslint@9.39.2(jiti@2.7.0)):
+  eslint-plugin-playwright@2.11.0(eslint@9.39.2(jiti@2.7.0)):
     dependencies:
       eslint: 9.39.2(jiti@2.7.0)
-      globals: 17.7.0
+      globals: 17.9.0
 
   eslint-plugin-promise@7.3.0(eslint@9.39.2(jiti@2.7.0)):
     dependencies:
@@ -11673,6 +11677,8 @@ snapshots:
   globals@14.0.0: {}
 
   globals@17.7.0: {}
+
+  globals@17.9.0: {}
 
   globalthis@1.0.4:
     dependencies:
