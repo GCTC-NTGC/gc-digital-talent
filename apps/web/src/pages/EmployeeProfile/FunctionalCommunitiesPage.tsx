@@ -87,7 +87,6 @@ const FunctionalCommunities = ({ userQuery }: FunctionalCommunitiesProps) => {
 
 const FunctionalCommunitiesPage_Query = graphql(/** GraphQL */ `
   query FunctionalCommunitiesPage {
-    ...FunctionalCommunitiesOptions
     me {
       ...FunctionalCommunitiesUser
     }
@@ -103,7 +102,7 @@ const FunctionalCommunitiesPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <FunctionalCommunities userQuery={data.me} optionsQuery={data} />
+        <FunctionalCommunities userQuery={data.me} />
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
