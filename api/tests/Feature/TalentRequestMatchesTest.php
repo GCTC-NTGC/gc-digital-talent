@@ -1458,6 +1458,51 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
     }
 
+    public function testAdvancementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
+    {
+        $nominationCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'advancement.mixedconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+
+        // Consents to share their interest in the nomination's own community...
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $nominationCommunity->id,
+        ]);
+
+        // ...but the work stream the filter asks about lives on a different, non-consenting interest.
+        $otherInterest = CommunityInterest::factory()->consented(false)->withWorkStreams()->create([
+            'user_id' => $user->id,
+            'community_id' => $otherCommunity->id,
+        ]);
+        $workStreamId = $otherInterest->workStreams()->first()->id;
+
+        $event = TalentNominationEvent::factory()->create(['community_id' => $nominationCommunity->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
     public function testAdvancementExcludesUnapprovedDecision(): void
     {
         $community = Community::factory()->create();

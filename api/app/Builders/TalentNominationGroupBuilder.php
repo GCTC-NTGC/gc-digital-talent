@@ -75,7 +75,11 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
             ->whereHas('communityInterests', function (Builder $query) use ($communityId, $workStreamIds) {
                 /** @var CommunityInterestBuilder $query */
                 $query->communities($communityId ? [$communityId] : null)
-                    ->workStreams($workStreamIds);
+                    ->workStreams($workStreamIds)
+                    // The interest row that establishes eligibility must itself be consenting —
+                    // its data is what's being used as evidence of a match, so using it without
+                    // consent isn't justified just because some other interest is consenting.
+                    ->where('consent_to_share_profile', true);
             })
             ->pluck('id');
     }
