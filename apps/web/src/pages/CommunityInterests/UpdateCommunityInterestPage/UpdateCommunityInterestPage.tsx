@@ -99,6 +99,7 @@ interface UpdateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  returnPath?: string;
 }
 
 const UpdateCommunityInterestForm = ({
@@ -107,6 +108,7 @@ const UpdateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
+  returnPath,
 }: UpdateCommunityInterestFormProps) => {
   const navigate = useNavigate();
   const paths = useRoutes();
@@ -145,7 +147,8 @@ const UpdateCommunityInterestForm = ({
     defaultValues: assignToDefaultValues,
   });
 
-  const handleDelete = async () => await navigate(paths.applicantDashboard());
+  const handleDelete = async () =>
+    await navigate(returnPath ?? paths.applicantDashboard());
 
   return (
     <>
@@ -391,6 +394,7 @@ export const UpdateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
+              returnPath={returnPath}
             />
           </div>
         ) : (
