@@ -4,13 +4,28 @@
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import { tv } from "tailwind-variants";
 
+const popupColor = "bg-white text-black dark:bg-gray-600 dark:text-white";
+const popupShape = "rounded-md px-2 py-1 font-sans text-sm shadow-md";
+const popupMotion =
+  "origin-(--transform-origin) transition duration-100 ease-out data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0 data-instant:transition-none";
+
 const popup = tv({
-  base: `origin-(--transform-origin) rounded-md bg-gray-100 px-2 py-1 font-sans text-sm text-black shadow-md transition-[transform,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-instant:transition-none data-starting-style:scale-[0.98] data-starting-style:opacity-0 dark:bg-gray-700 dark:text-white`,
+  base: [popupShape, popupColor, popupMotion],
 });
 
-const arrow = tv({
-  base: "relative block h-1.5 w-3 overflow-clip before:absolute before:bottom-0 before:left-1/2 before:h-[calc(6px*sqrt(2))] before:w-[calc(6px*sqrt(2))] before:origin-center before:-translate-x-1/2 before:translate-y-1/2 before:rotate-45 before:bg-gray-100 before:content-[''] data-[side=bottom]:-top-1.5 data-[side=left]:-right-2.25 data-[side=left]:rotate-90 data-[side=right]:-left-2.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.5 data-[side=top]:rotate-180 dark:before:bg-gray-700",
-});
+function ArrowSvg(props: React.ComponentProps<"svg">) {
+  return (
+    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
+      <path
+        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
+        className="fill-white dark:fill-gray-600"
+      />
+    </svg>
+  );
+}
+
+const arrowPosition =
+  "data-[side=bottom]:-top-2 data-[side=left]:-right-3.25 data-[side=left]:rotate-90 data-[side=right]:-left-3.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180";
 
 interface PopupProps extends Omit<TooltipPrimitive.Popup.Props, "className"> {
   portalProps?: TooltipPrimitive.Portal.Props;
@@ -33,7 +48,9 @@ const Popup = ({
         className={popup({ class: className })}
         {...popupProps}
       >
-        <TooltipPrimitive.Arrow className={arrow()} />
+        <TooltipPrimitive.Arrow className={arrowPosition}>
+          <ArrowSvg />
+        </TooltipPrimitive.Arrow>
         {children}
       </TooltipPrimitive.Popup>
     </TooltipPrimitive.Positioner>
