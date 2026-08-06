@@ -127,16 +127,12 @@ const YourFunctionalCommunities = ({
                   ) : undefined
                 }
                 remove={
-                  employeeProfile?.communityInterests ? (
-                    <DeleteCommunityInterestAlert
-                      query={communityInterest}
-                      onSuccess={() =>
-                        toast.success(
-                          intl.formatMessage(commonMessages.deleted),
-                        )
-                      }
-                    />
-                  ) : undefined
+                  <DeleteCommunityInterestAlert
+                    query={communityInterest}
+                    onSuccess={() =>
+                      toast.success(intl.formatMessage(commonMessages.deleted))
+                    }
+                  />
                 }
               />
             ))}

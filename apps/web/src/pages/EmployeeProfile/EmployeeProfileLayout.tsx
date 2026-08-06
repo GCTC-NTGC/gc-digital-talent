@@ -74,11 +74,7 @@ const Component = () => {
       url: paths.applicantDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Employee profile",
-        id: "4BWod5",
-        description: "Page title for a user's GC employee profile",
-      }),
+      label: title,
       url: paths.employeeVerification(),
     },
   ];
