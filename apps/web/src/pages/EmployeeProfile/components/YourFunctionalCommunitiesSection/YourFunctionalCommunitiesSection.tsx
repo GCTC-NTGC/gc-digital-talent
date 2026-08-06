@@ -82,21 +82,23 @@ const YourFunctionalCommunities = ({
             "Lead-in text explaining the user profile functional communities section",
         })}
       </p>
-      <Link
-        mode="placeholder"
-        icon={PlusCircleIcon}
-        block
-        className="mb-6"
-        href={paths.createCommunityInterest({
-          from: pathname,
-        })}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Join a community",
-          id: "yD13EC",
-          description: "Button to join a community",
-        })}
-      </Link>
+      {isVerifiedGovEmployee ? (
+        <Link
+          mode="placeholder"
+          icon={PlusCircleIcon}
+          block
+          className="mb-6"
+          href={paths.createCommunityInterest({
+            from: pathname,
+          })}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Join a community",
+            id: "yD13EC",
+            description: "Button to join a community",
+          })}
+        </Link>
+      ) : null}
       {communityInterests?.length ? (
         // must exactly reverse the card padding, except for the top
         <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">
@@ -107,18 +109,23 @@ const YourFunctionalCommunities = ({
                 functionalCommunityListItemQuery={communityInterest}
                 headingAs="h4"
                 edit={
-                  <Link
-                    href={paths.updateCommunityInterest(communityInterest.id, {
-                      from: pathname,
-                    })}
-                    className="font-bold"
-                  >
-                    {intl.formatMessage(formMessages.editDetails)}
-                    <span className="sr-only">
-                      {UNICODE_CHAR.NON_BREAKING_SPACE}
-                      {communityInterest.community.name?.localized}
-                    </span>
-                  </Link>
+                  isVerifiedGovEmployee ? (
+                    <Link
+                      href={paths.updateCommunityInterest(
+                        communityInterest.id,
+                        {
+                          from: pathname,
+                        },
+                      )}
+                      className="font-bold"
+                    >
+                      {intl.formatMessage(formMessages.editDetails)}
+                      <span className="sr-only">
+                        {UNICODE_CHAR.NON_BREAKING_SPACE}
+                        {communityInterest.community.name?.localized}
+                      </span>
+                    </Link>
+                  ) : undefined
                 }
                 remove={
                   communityInterests ? (
