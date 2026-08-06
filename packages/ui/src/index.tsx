@@ -97,6 +97,7 @@ import type {
 } from "./components/TableOfContents";
 import TableOfContents from "./components/TableOfContents";
 import Tabs from "./components/Tabs/Tabs";
+import Tooltip from "./components/Tooltip/Tooltip";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView/TreeView";
@@ -213,6 +214,7 @@ export {
   TableOfContents,
   Tabs,
   TaskCard,
+  Tooltip,
   ToggleGroup,
   ToggleSection,
   TreeView,
