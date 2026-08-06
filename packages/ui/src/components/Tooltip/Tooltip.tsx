@@ -12,20 +12,6 @@ const popup = tv({
   ],
 });
 
-function ArrowSvg(props: React.ComponentProps<"svg">) {
-  return (
-    <svg width="20" height="10" viewBox="0 0 20 10" fill="none" {...props}>
-      <path
-        d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
-        className="fill-white dark:fill-gray-600"
-      />
-    </svg>
-  );
-}
-
-const arrowPosition =
-  "data-[side=bottom]:-top-2 data-[side=left]:-right-3.25 data-[side=left]:rotate-90 data-[side=right]:-left-3.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180";
-
 interface PopupProps extends Omit<TooltipPrimitive.Popup.Props, "className"> {
   portalProps?: TooltipPrimitive.Portal.Props;
   positionerProps?: TooltipPrimitive.Positioner.Props;
@@ -47,8 +33,13 @@ const Popup = ({
         className={popup({ class: className })}
         {...popupProps}
       >
-        <TooltipPrimitive.Arrow className={arrowPosition}>
-          <ArrowSvg />
+        <TooltipPrimitive.Arrow className="data-[side=bottom]:-top-2 data-[side=left]:-right-3.25 data-[side=left]:rotate-90 data-[side=right]:-left-3.25 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180">
+          <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
+            <path
+              d="M9.66437 2.60207L4.80758 6.97318C4.07308 7.63423 3.11989 8 2.13172 8H0V10H20V8H18.5349C17.5468 8 16.5936 7.63423 15.8591 6.97318L11.0023 2.60207C10.622 2.2598 10.0447 2.25979 9.66437 2.60207Z"
+              className="fill-white dark:fill-gray-600"
+            />
+          </svg>
         </TooltipPrimitive.Arrow>
         {children}
       </TooltipPrimitive.Popup>
