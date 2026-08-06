@@ -108,6 +108,8 @@ const UpdateCommunityInterestForm = ({
   formDisabled,
   onSubmit,
 }: UpdateCommunityInterestFormProps) => {
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const formOptions = getFragment(
     UpdateCommunityInterestFormOptions_Fragment,
     formOptionsQuery,
@@ -142,6 +144,8 @@ const UpdateCommunityInterestForm = ({
   const formMethods = useForm<FormValues>({
     defaultValues: assignToDefaultValues,
   });
+
+  const handleDelete = async () => await navigate(paths.applicantDashboard());
 
   return (
     <>
@@ -181,7 +185,12 @@ const UpdateCommunityInterestForm = ({
               <Card.Separator />
               <ReviewAndSubmit
                 formDisabled={formDisabled}
-                actions={<DeleteCommunityInterestAlert query={formData} />}
+                actions={
+                  <DeleteCommunityInterestAlert
+                    query={formData}
+                    onSuccess={handleDelete}
+                  />
+                }
                 optionsQuery={formOptions}
               />
             </div>

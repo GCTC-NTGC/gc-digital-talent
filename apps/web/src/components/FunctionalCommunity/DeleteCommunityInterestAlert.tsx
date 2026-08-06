@@ -1,14 +1,11 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
-import { useNavigate } from "react-router";
 
 import { AlertDialog, Button } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-
-import useRoutes from "~/hooks/useRoutes";
 
 const DeleteCommunityInterestAlert_Fragment = graphql(/** GraphQL */ `
   fragment DeleteCommunityInterestAlert on CommunityInterest {
@@ -31,14 +28,14 @@ const DeleteCommunityInterest_Mutation = graphql(/** GraphQL */ `
 
 interface DeleteCommunityInterestAlertProps {
   query: FragmentType<typeof DeleteCommunityInterestAlert_Fragment>;
+  onSuccess?: () => void;
 }
 
 const DeleteCommunityInterestAlert = ({
   query,
+  onSuccess,
 }: DeleteCommunityInterestAlertProps) => {
   const intl = useIntl();
-  const navigate = useNavigate();
-  const paths = useRoutes();
   const [{ fetching }, executeMutation] = useMutation(
     DeleteCommunityInterest_Mutation,
   );
@@ -50,12 +47,12 @@ const DeleteCommunityInterestAlert = ({
   const handleDelete = () => {
     if (fetching) return; // Prevent duplicate deletion attempts
     executeMutation({ id: communityInterest.id })
-      .then(async (res) => {
+      .then((res) => {
         if (res.error) throw new Error(res.error.message);
         if (!res.data?.deleteCommunityInterest?.id)
           throw new Error("Could not delete community interest");
 
-        await navigate(paths.applicantDashboard());
+        onSuccess?.();
       })
       .catch(() => {
         toast.error(

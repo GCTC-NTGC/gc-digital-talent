@@ -41,6 +41,7 @@ interface FunctionalCommunityListItemProps {
     typeof PreviewListItemFunctionalCommunity_Fragment
   >;
   edit?: ReactNode;
+  remove?: ReactNode;
   iconLabel?: string;
 }
 
@@ -48,6 +49,7 @@ const FunctionalCommunityCard = ({
   headingAs,
   functionalCommunityListItemQuery,
   edit,
+  remove,
   iconLabel,
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
@@ -74,9 +76,9 @@ const FunctionalCommunityCard = ({
           />
           <DropdownMenu.Popup portalProps={{ keepMounted: true }}>
             {edit ? <DropdownMenu.Item>{edit}</DropdownMenu.Item> : undefined}
-            <DropdownMenu.Item onClick={() => console.debug("remove")}>
-              {intl.formatMessage(commonMessages.remove)}
-            </DropdownMenu.Item>
+            {remove ? (
+              <DropdownMenu.Item>{remove}</DropdownMenu.Item>
+            ) : undefined}
           </DropdownMenu.Popup>
         </DropdownMenu.Root>
 
