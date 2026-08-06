@@ -36,7 +36,10 @@ interface FunctionalCommunitiesProps {
 
 const FunctionalCommunities = ({ userQuery }: FunctionalCommunitiesProps) => {
   const intl = useIntl();
-  const user = getFragment(FunctionalCommunitiesUser_Fragment, userQuery);
+  const userFragment = getFragment(
+    FunctionalCommunitiesUser_Fragment,
+    userQuery,
+  );
 
   const [noticeIsVisible, setNoticeIsVisible] = useLocalStorage<boolean>(
     KEY_NEW_FEATURE_EMPLOYEE_PROFILE,
@@ -76,7 +79,7 @@ const FunctionalCommunities = ({ userQuery }: FunctionalCommunitiesProps) => {
             <TableOfContents.Section
               id={SECTION_ID.YOUR_FUNCTIONAL_COMMUNITIES}
             >
-              <YourFunctionalCommunities userQuery={user} />
+              <YourFunctionalCommunities userQuery={userFragment} />
             </TableOfContents.Section>
           </div>
         </TableOfContents.Content>

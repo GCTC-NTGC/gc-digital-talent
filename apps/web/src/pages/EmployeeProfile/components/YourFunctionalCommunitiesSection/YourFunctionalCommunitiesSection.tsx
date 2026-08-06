@@ -56,8 +56,6 @@ const YourFunctionalCommunities = ({
   );
   const { pathname } = useLocation();
 
-  const { communityInterests } = employeeProfile ?? {};
-
   return (
     <Card space="lg">
       <Heading
@@ -99,11 +97,11 @@ const YourFunctionalCommunities = ({
           })}
         </Link>
       ) : null}
-      {communityInterests?.length ? (
+      {employeeProfile?.communityInterests?.length ? (
         // must exactly reverse the card padding, except for the top
         <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">
           <FunctionalCommunityCard.Root>
-            {communityInterests.map((communityInterest) => (
+            {employeeProfile.communityInterests.map((communityInterest) => (
               <FunctionalCommunityCard.Item
                 key={communityInterest.id}
                 functionalCommunityListItemQuery={communityInterest}
@@ -128,7 +126,7 @@ const YourFunctionalCommunities = ({
                   ) : undefined
                 }
                 remove={
-                  communityInterests ? (
+                  employeeProfile?.communityInterests ? (
                     <DeleteCommunityInterestAlert
                       query={communityInterest}
                       onSuccess={() =>
