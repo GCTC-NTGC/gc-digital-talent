@@ -25,14 +25,14 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
 
         return $this->where('referral_status', '!=', CommunityReferralStatus::NOT_REFERRED->name)
             ->where(function (Builder $q) use ($filters) {
-                return $q->orWhere(function (Builder $pendingQuery) use ($filters) {
+                $q->orWhere(function (Builder $pendingQuery) use ($filters) {
 
                     $userIds = $this->atLevelUserIds($filters);
 
                     // Match the ids as one Postgres array value, so the number of ids has no limit.
                     $userIdArray = '{'.$userIds->implode(',').'}';
 
-                    return $pendingQuery->whereIn('referral_status', [CommunityReferralStatus::NEW->name, CommunityReferralStatus::PENDING->name])
+                    $pendingQuery->whereIn('referral_status', [CommunityReferralStatus::NEW->name, CommunityReferralStatus::PENDING->name])
                         ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray]);
                 })->orWhere(function (Builder $availableQuery) use ($filters) {
                     $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
@@ -40,7 +40,7 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
                     $userIds = $this->atLevelUserIds($filters, atRequestedClassification: false);
                     $userIdArray = '{'.$userIds->implode(',').'}';
 
-                    return $availableQuery->where('referral_status', CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name)
+                    $availableQuery->where('referral_status', CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name)
                         ->whereRaw('community_interests.user_id = any(?::uuid[])', [$userIdArray])
                         ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
                             $query->whereHas('referralClassification', $this->matchesAClassification($classifications));
