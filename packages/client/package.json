@@ -36,9 +36,9 @@
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
-    "@types/lodash": "^4.17.24",
-    "@types/node": "^26.1.1",
-    "@types/react": "^19.2.17",
+    "@types/lodash": "^4.17.25",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
     "eslint": "^9.20.1",
     "jsdom": "^29.1.1",
     "react": "^19.2.8",

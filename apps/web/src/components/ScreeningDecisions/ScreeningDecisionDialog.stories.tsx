@@ -17,12 +17,6 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type {
-  AssessmentResult,
-  Pool,
-  PoolCandidate,
-  User,
-} from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
@@ -61,7 +55,7 @@ const genericStep = {
 
 const experience = fakeExperiences(1)[0];
 const skill = poolSkill?.skill ?? fakeSkills(1)[0];
-const pool: Pool = {
+const pool = {
   ...fakePools(1)[0],
   poolSkills: [poolSkill],
   assessmentSteps: [
@@ -72,12 +66,12 @@ const pool: Pool = {
 };
 
 const fakeCandidate = fakePoolCandidates(1)[0];
-const user: User = {
+const user = {
   ...fakeCandidate.user,
   experiences: [experience],
   userSkills: fakeUserSkills(1, skill),
 };
-const poolCandidate: PoolCandidate = {
+const poolCandidate = {
   ...fakeCandidate,
   pool,
   profileSnapshot: JSON.stringify(user),
@@ -133,7 +127,7 @@ export const Generic: Story = {
   },
 };
 
-const result: AssessmentResult = {
+const result = {
   ...fakeAssessmentResults(1, applicationScreeningStep, poolSkill)[0],
   assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
   justifications: [],
@@ -143,7 +137,7 @@ const result: AssessmentResult = {
   skillDecisionNotes: faker.lorem.paragraph(),
 };
 
-const initialValuesCandidate: PoolCandidate = {
+const initialValuesCandidate = {
   ...poolCandidate,
   assessmentResults: [result],
 };
