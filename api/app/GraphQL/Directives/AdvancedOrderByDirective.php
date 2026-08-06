@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
@@ -102,7 +103,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Invalid column: {$baseColumn}");
         }
 
-        return $builder->getQuery()->getGrammar()->wrap($column);
+        return $this->wrapColumn($builder, $column);
     }
 
     /**
@@ -142,7 +143,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError('Relation type '.get_class($relation).' is not supported for sub-query sorting.');
         }
 
-        $safeColumn = $grammar->wrap("{$relatedTable}.{$column}");
+        $safeColumn = $this->wrapColumn($builder, $column, $relatedTable);
         $wrappedOwnerKey = $grammar->wrap("{$relatedTable}.{$ownerKey}");
         $wrappedForeignKey = $grammar->wrap("{$model->getTable()}.{$foreignKey}");
 
@@ -167,29 +168,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Invalid scope: {$scope}");
         }
 
-        // Reflect on the method that actually runs. Builder methods take the
-        // caller arg first; Eloquent model scopes receive the query builder as
-        // their first parameter, so the caller arg is the second one.
-        // NOTE: Supports backwards compatibility with existing scopes
-        // Remove once poolCandidatesPaginatedAdminView has been refactored with this directive
-        $reflection = $isBuilderMethod
-            ? new \ReflectionMethod($builder, $scope)
-            : new \ReflectionMethod($builder->getModel(), $modelScopeMethod);
-        $params = $reflection->getParameters();
-        $argParam = $isModelScope ? ($params[1] ?? null) : ($params[0] ?? null);
-        $firstParamType = $argParam?->getType();
-
-        if ($firstParamType instanceof \ReflectionNamedType && $firstParamType->getName() === AdvancedOrder::class) {
-            $builder->{$scope}($args);
-        } else {
-            $builder->{$scope}([
-                'direction' => $args->direction,
-                'order' => $args->direction,
-                'nulls' => $args->nulls,
-                'caseInsensitive' => $args->caseInsensitive,
-                'accentInsensitive' => $args->accentInsensitive,
-            ]);
-        }
+        $builder->{$scope}($args);
 
         return null;
     }
@@ -201,6 +180,31 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
     protected function getBaseColumn(string $column): string
     {
         return str_contains($column, '->') ? explode('->', $column, 2)[0] : $column;
+    }
+
+    /**
+     * Wrap a column for use in raw SQL, binding any JSON key as a parameter.
+     */
+    protected function wrapColumn($builder, string $column, ?string $table = null): string
+    {
+        $query = $builder->getQuery();
+        $baseColumn = $this->getBaseColumn($column);
+        $qualifiedColumn = $table ? "{$table}.{$baseColumn}" : $baseColumn;
+        $wrappedColumn = $query->getGrammar()->wrap($qualifiedColumn);
+
+        if ($baseColumn === $column) {
+            return $wrappedColumn;
+        }
+
+        $jsonKey = Str::after($column, '->');
+
+        if (str_contains($jsonKey, '->')) {
+            throw new UserError("Only one JSON key is supported: {$column}");
+        }
+
+        $query->addBinding($jsonKey, 'order');
+
+        return "{$wrappedColumn}->>?::text";
     }
 
     /**

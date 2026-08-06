@@ -76,6 +76,11 @@ const Combobox = ({
   const isRequired = !!rules?.required;
   const defaultValue = defaultValues?.[name];
   const currentValue = watch(name);
+  // Whether the form itself still holds a value. Unlike the resolved options
+  // passed to the inputs below, this does not go empty just because a search
+  // narrowed the available options.
+  const rawValue = currentValue ?? defaultValue;
+  const hasSelection = Array.isArray(rawValue) ? !!rawValue.length : !!rawValue;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
     show: {
@@ -148,10 +153,12 @@ const Combobox = ({
           isMulti ? (
             <Multi
               onInputChange={onSearch}
+              hasSelection={hasSelection}
               onSelectedChange={(items) => {
                 setValue(
                   name,
                   items?.map((item) => String(item.value)),
+                  { shouldDirty: true },
                 );
               }}
               value={getMultiDefaultValue(
@@ -165,7 +172,9 @@ const Combobox = ({
             <Single
               onInputChange={onSearch}
               onSelectedChange={(item) =>
-                setValue(name, item?.value ? String(item.value) : undefined)
+                setValue(name, item?.value ? String(item.value) : undefined, {
+                  shouldDirty: true,
+                })
               }
               value={getSingleDefaultValue(
                 optionsModified,

@@ -555,14 +555,9 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): PoolPaginator!
-  poolCandidatesPaginatedAdminView(
+  poolCandidatesPaginated(
     where: PoolCandidateSearchInput
-    orderByBase: PoolCandidatesBaseSort
-    orderByPoolName: PoolCandidatePoolNameOrderByInput
-    orderByClaimVerification: ClaimVerificationSort
-    orderByEmployeeDepartment: SortOrder
-    orderByScreeningStage: SortOrder
-    orderBy: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
+    orderBy: [AdvancedOrderByInput!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -733,7 +728,7 @@ type Mutation {
   createTalentNominationEvent(talentNominationEvent: CreateTalentNominationEventInput!): TalentNominationEvent
   updateTalentNominationEvent(id: UUID!, talentNominationEvent: UpdateTalentNominationEventInput!): TalentNominationEvent
   createTalentNomination(talentNomination: CreateTalentNominationInput!): TalentNomination
-  updateTalentNomination(id: UUID!, talentNomination: UpdateTalentNominationInput!): TalentNomination
+  updateTalentNomination(talentNomination: UpdateTalentNominationInput!): TalentNomination
   submitTalentNomination(id: UUID!): TalentNomination
   updateTalentNominationGroup(id: UUID!, talentNominationGroup: UpdateTalentNominationGroupInput!): TalentNominationGroup
   markNotificationAsRead(id: UUID!): Notification
@@ -1954,11 +1949,6 @@ input TalentRequestInput {
   generalSearch: String
 }
 
-input PoolCandidatePoolNameOrderByInput {
-  locale: String!
-  order: SortOrder!
-}
-
 input TalentRequestMatchFilterInput {
   applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String
@@ -2029,15 +2019,6 @@ input SitewideAnnouncementInput {
   isDismissible: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
-}
-
-input ClaimVerificationSort {
-  order: SortOrder!
-}
-
-input PoolCandidatesBaseSort {
-  useFlag: Boolean
-  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -2628,6 +2609,7 @@ input CreateTalentNominationInput {
 }
 
 input UpdateTalentNominationInput {
+  id: UUID!
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
@@ -3405,72 +3387,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn {
-  PRIORITY_WEIGHT
-  FIRST_NAME
-  EMAIL
-  PREFERRED_LANG
-  PREFERRED_LANGUAGE_FOR_INTERVIEW
-  PREFERRED_LANGUAGE_FOR_EXAM
-  CURRENT_CITY
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.user."
-input QueryPoolCandidatesPaginatedAdminViewOrderByUser {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn {
-  PROCESS_NUMBER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.pool."
-input QueryPoolCandidatesPaginatedAdminViewOrderByPool {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn {
-  SORT_ORDER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.assessmentStep."
-input QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStep {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn
-}
-
-"Order by clause for Query.poolCandidatesPaginatedAdminView.orderBy."
-input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  user: QueryPoolCandidatesPaginatedAdminViewOrderByUser
-
-  "Aggregate specification."
-  pool: QueryPoolCandidatesPaginatedAdminViewOrderByPool
-
-  "Aggregate specification."
-  assessmentStep: QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStep
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."

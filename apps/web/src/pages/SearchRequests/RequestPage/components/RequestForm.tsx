@@ -1,9 +1,10 @@
-import { useNavigate, useLocation } from "react-router";
+import { useBlocker, useNavigate } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 import {
   Checkbox,
@@ -25,11 +26,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  getFromSessionStorage,
-  removeFromSessionStorage,
-  setInSessionStorage,
-} from "@gc-digital-talent/storage";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import {
   graphql,
   getFragment,
@@ -55,11 +52,16 @@ import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import type {
-  BrowserHistoryState,
   PartialApplicantFilter,
   FormValues as SearchFormValues,
 } from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getBasicFullNameLabel } from "~/utils/nameUtils";
+
+import {
+  TALENT_REQUEST_STATE_KEY,
+  useTalentRequestState,
+} from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -126,6 +128,20 @@ const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
     name {
       en
       fr
+    }
+  }
+`);
+
+const RequestFormDefaultUser_Fragment = graphql(/** GraphQL */ `
+  fragment RequestFormDefaultUser on User {
+    govEmployeeProfile {
+      firstName
+      lastName
+      role
+      workEmail
+      department {
+        id
+      }
     }
   }
 `);
@@ -228,10 +244,8 @@ export interface RequestFormProps {
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
+  defaultUserQuery?: FragmentType<typeof RequestFormDefaultUser_Fragment>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
   handleCreateTalentRequest: (
     data: CreateTalentRequestInput,
   ) => Promise<CreateTalentRequestMutation["createTalentRequest"]>;
@@ -242,17 +256,13 @@ export const RequestForm = ({
   skills,
   classificationsQuery,
   communitiesQuery,
-  applicantFilter,
-  candidateCount,
-  selectedClassifications,
+  defaultUserQuery,
   handleCreateTalentRequest,
 }: RequestFormProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const cacheKey = "ts-createRequest";
-  const location = useLocation();
-  const state = location.state as BrowserHistoryState;
+  const [{ applicantFilter, candidateCount }] = useTalentRequestState();
   const [{ data: optionsData }] = useQuery({
     query: RequestOptions_Query,
   });
@@ -274,6 +284,11 @@ export const RequestForm = ({
     RequestFormCommunity_Fragment,
     communitiesQuery,
   );
+  const defaultUser = getFragment(
+    RequestFormDefaultUser_Fragment,
+    defaultUserQuery,
+  );
+  const user = defaultUser?.govEmployeeProfile;
 
   // We should always receive exactly one stream and only its ID
   const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
@@ -293,12 +308,28 @@ export const RequestForm = ({
     "TalentRequestSource",
   );
 
-  const formMethods = useForm<FormValues>({
-    defaultValues: getFromSessionStorage(cacheKey, {}),
-  });
-  const { handleSubmit, watch } = formMethods;
+  // The search form repopulates from the stored request state, so only clear
+  // that state when leaving for anywhere else.
+  const blocker = useBlocker(
+    ({ nextLocation }) => nextLocation.pathname !== paths.search(),
+  );
 
-  watch((data) => setInSessionStorage(cacheKey, data));
+  useEffect(() => {
+    if (blocker.state === "blocked") {
+      removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
+      blocker.proceed();
+    }
+  }, [blocker]);
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: {
+      fullName: getBasicFullNameLabel(user?.firstName, user?.lastName),
+      email: user?.workEmail ?? "",
+      managerJobTitle: user?.role ?? "",
+      department: user?.department?.id,
+    },
+  });
+  const { handleSubmit } = formMethods;
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -401,7 +432,7 @@ export const RequestForm = ({
       });
 
       if (res) {
-        removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
+        removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
         await navigate(paths.requestConfirmation(res.id));
         toast.success(
           intl.formatMessage({
@@ -671,7 +702,6 @@ export const RequestForm = ({
           </Heading>
           <SearchRequestFilters
             filters={applicantFilterInputToType}
-            selectedClassifications={selectedClassifications}
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
@@ -699,14 +729,7 @@ export const RequestForm = ({
                 description: "Submit button text on request form.",
               })}
             />
-            <Link
-              mode="inline"
-              color="warning"
-              href={paths.search()}
-              state={{
-                ...state,
-              }}
-            >
+            <Link mode="inline" color="warning" href={paths.search()}>
               {intl.formatMessage({
                 defaultMessage: "Back",
                 id: "L8k+lC",
@@ -763,20 +786,13 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     communities {
       ...RequestFormCommunity
     }
+    me {
+      ...RequestFormDefaultUser
+    }
   }
 `);
 
-const RequestFormApi = ({
-  applicantFilter,
-  candidateCount,
-  searchFormInitialValues,
-  selectedClassifications,
-}: {
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
-  searchFormInitialValues?: SearchFormValues;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
-}) => {
+const RequestFormApi = () => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
@@ -787,13 +803,14 @@ const RequestFormApi = ({
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
   );
-  const handleCreateTalentRequest = (data: CreateTalentRequestInput) =>
-    executeTalentRequestMutation({ talentRequest: data }).then((result) => {
-      if (result.data?.createTalentRequest) {
-        return Promise.resolve(result.data?.createTalentRequest);
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
+
+  const handleCreateTalentRequest = async (data: CreateTalentRequestInput) => {
+    const result = await executeTalentRequestMutation({ talentRequest: data });
+    if (result.data?.createTalentRequest) {
+      return Promise.resolve(result.data?.createTalentRequest);
+    }
+    return await Promise.reject(new Error(result.error?.toString()));
+  };
 
   return (
     <>
@@ -810,11 +827,8 @@ const RequestFormApi = ({
           departmentsQuery={unpackMaybes(lookupData?.departments)}
           communitiesQuery={unpackMaybes(lookupData?.communities)}
           skills={skills}
-          applicantFilter={applicantFilter}
-          candidateCount={candidateCount}
-          searchFormInitialValues={searchFormInitialValues}
-          selectedClassifications={selectedClassifications}
           handleCreateTalentRequest={handleCreateTalentRequest}
+          defaultUserQuery={lookupData?.me ?? {}}
         />
       </Pending>
     </>

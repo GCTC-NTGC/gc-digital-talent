@@ -256,8 +256,9 @@ const PoolCandidateFilterDialog = ({
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
       // Remove hidden pools filters from count
+      // Default hard-coded filters: expiryStatus, suspendedStatus and poolId
       {...(hidePoolFilter && {
-        modifyFilterCount: -5,
+        modifyFilterCount: -3,
       })}
       {...{ resetValues, onSubmit }}
     >
