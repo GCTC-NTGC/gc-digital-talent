@@ -83,7 +83,13 @@ final class UpdateTalentNominationInputValidator extends Validator
             ],
             'nominateForAdvancement' => ['boolean'],
             'nominateForLateralMovement' => ['boolean'],
-            'nominateForDevelopmentPrograms' => ['boolean'],
+            'nominateForDevelopmentPrograms' => [
+                Rule::when(fn () => $event?->includeDevelopmentOpportunities,
+                    ['boolean'],
+                    ['prohibited']
+                ),
+
+            ],
 
             'advancementReference.connect' => [
                 'uuid',

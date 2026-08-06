@@ -889,7 +889,6 @@ type TalentNominationEvent {
     )
   status: LocalizedTalentNominationEventStatus
   includeDevelopmentOpportunities: Boolean!
-    @count(relation: "communityDevelopmentPrograms")
   includeNineBox: Boolean! @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
