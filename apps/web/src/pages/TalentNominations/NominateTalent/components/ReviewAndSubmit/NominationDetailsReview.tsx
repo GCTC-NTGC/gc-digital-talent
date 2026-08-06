@@ -201,12 +201,16 @@ const NominationDetailsReview = ({
       <div className="grid grid-cols-2 gap-6">
         {talentNomination?.talentNominationEvent?.includeNineBox && (
           <>
-            <FieldDisplay label={intl.formatMessage(labels.nomineePerformance)}>
+            <FieldDisplay
+              className="col-span-2"
+              label={intl.formatMessage(labels.nomineePerformance)}
+            >
               {performance
                 ? intl.formatMessage(performanceLabels[performance])
                 : notProvided}
             </FieldDisplay>
             <FieldDisplay
+              className="col-span-2"
               label={intl.formatMessage(labels.nomineeLeadershipPotential)}
             >
               {leadershipPotential
