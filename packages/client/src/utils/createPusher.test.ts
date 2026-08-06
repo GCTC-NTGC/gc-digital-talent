@@ -5,11 +5,11 @@ import { ACCESS_TOKEN } from "@gc-digital-talent/auth";
 vi.mock("pusher-js", () => {
   return {
     default: vi.fn().mockImplementation(function MockPusher(
-      this: { __options: unknown },
+      this: { capturedOptions: unknown },
       _key: string,
       options: unknown,
     ) {
-      this.__options = options;
+      this.capturedOptions = options;
     }),
   };
 });
@@ -21,11 +21,11 @@ vi.mock("../constants", () => ({
 }));
 
 function currentAuthHeader(pusherInstance: {
-  __options: {
+  capturedOptions: {
     channelAuthorization: { headersProvider: () => Record<string, string> };
   };
 }) {
-  return pusherInstance.__options.channelAuthorization.headersProvider()
+  return pusherInstance.capturedOptions.channelAuthorization.headersProvider()
     .Authorization;
 }
 
