@@ -36,7 +36,7 @@ export default {
 
 const Template: StoryFn<typeof Tooltip.Root> = () => (
   <Tooltip.Provider>
-    <Tooltip.Root>
+    <Tooltip.Root defaultOpen>
       <Tooltip.Trigger aria-label="Administrative Services">
         CS-02
       </Tooltip.Trigger>
