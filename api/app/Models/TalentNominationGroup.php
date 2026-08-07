@@ -257,6 +257,15 @@ class TalentNominationGroup extends Model
         return $query->with(['talentNominationEvent']);
     }
 
+    public static function scopeApproved(Builder $query): Builder
+    {
+        $query->whereIn('computed_status', [
+            TalentNominationGroupStatus::APPROVED->name,
+        ]);
+
+        return $query;
+    }
+
     /** @return BelongsTo<Classification, $this> */
     public function classificationAtTimeOfAdvancementApproval(): BelongsTo
     {
