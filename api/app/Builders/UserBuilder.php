@@ -376,12 +376,7 @@ class UserBuilder extends Builder
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
-            $relation = $source->matchRelation();
-            if (! $relation) {
-                continue;
-            }
-
-            $this->with([$relation => fn ($r) => $r
+            $this->with([$source->matchRelation() => fn ($r) => $r
                 ->whereMatchesTalentRequest($filters)
                 ->whereAuthorizedToView()]);
         }
