@@ -191,15 +191,20 @@ test.describe("Talent search", () => {
         level: 2,
       }),
     ).toBeVisible();
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /Find matching candidates/i,
+        level: 2,
+      }),
+    ).toBeVisible();
     await appPage.page.goto(`/en/admin/talent-requests/${requestId}/tracking`);
     const trackingPageHeadings = appPage.page.getByRole("heading", {
       level: 2,
     });
-    await expect(trackingPageHeadings).toHaveCount(3);
+    await expect(trackingPageHeadings).toHaveCount(2);
     await expect(trackingPageHeadings).toHaveText([
       /Test user/i,
       /Candidate tracking/i,
-      /Find matching candidates/i,
     ]);
   });
 
@@ -293,9 +298,6 @@ test.describe("Talent search", () => {
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
-      await appPage.page.goto(
-        `/en/admin/talent-requests/${requestId}/tracking`,
-      );
       await tableValidation.noCandidatesFound();
     });
   });

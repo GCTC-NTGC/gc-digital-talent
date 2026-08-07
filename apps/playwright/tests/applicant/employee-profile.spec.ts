@@ -49,8 +49,7 @@ test.describe("Employee Profile", () => {
 
     const profilePage = new EmployeeProfile(appPage.page);
     await loginBySub(appPage.page, sub2);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    await profilePage.goToEmployeeVerification();
 
     expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
 
@@ -65,8 +64,7 @@ test.describe("Employee Profile", () => {
   test("Existing User with Verified Emails", async ({ appPage }) => {
     const profilePage = new EmployeeProfile(appPage.page);
     await loginBySub(appPage.page, sub);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    await profilePage.goToEmployeeVerification();
     expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
   });
 
@@ -83,8 +81,7 @@ test.describe("Employee Profile", () => {
       }),
     ).toBeVisible();
 
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    await employeeProfile.goToCareerPlanning();
 
     // Fill out the career development preferences form
     await expect(
@@ -124,8 +121,8 @@ test.describe("Employee Profile", () => {
 
   test("Your next role", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    employeeProfile = new EmployeeProfile(appPage.page);
+    await employeeProfile.goToCareerPlanning();
 
     // Fill out the your next role form
     await expect(
@@ -175,8 +172,8 @@ test.describe("Employee Profile", () => {
 
   test("Career objective", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    employeeProfile = new EmployeeProfile(appPage.page);
+    await employeeProfile.goToCareerPlanning();
 
     // Fill out the your career objective form
     await expect(
@@ -228,8 +225,8 @@ test.describe("Employee Profile", () => {
 
   test("Goals and work style", async ({ appPage }) => {
     await loginBySub(appPage.page, sub);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    employeeProfile = new EmployeeProfile(appPage.page);
+    await employeeProfile.goToCareerPlanning();
 
     // Fill out your goals and work style form
     await expect(

@@ -691,6 +691,10 @@
     "defaultMessage": "Durée de l'emploi",
     "description": "Label for process employment duration"
   },
+  "0aC0CM": {
+    "defaultMessage": " Nous avons ajouté de nouvelles fonctionnalités à votre profil d’employé. N’hésitez pas à cliquer sur les onglets dans le haut de la page pour les découvrir. Comme toujours, vous pouvez communiquer avec notre équipe de soutien si vous avez des questions ou des commentaires.",
+    "description": "Message for a new feature notice"
+  },
   "0bf24C": {
     "defaultMessage": "Informations sur le volet de travail",
     "description": "Heading for the 'create a work stream' form"
@@ -1594,6 +1598,10 @@
   "4BJrSM": {
     "defaultMessage": "Je consens à travailler sur place dans un lieu ministériel désigné au moins trois jours par semaine, et à distance les autres jours.",
     "description": "Checklist option explanatory note"
+  },
+  "4BWod5": {
+    "defaultMessage": "Profil d’employé",
+    "description": "Page title for a user's GC employee profile"
   },
   "4BpFoX": {
     "defaultMessage": "{title} émis par {issuedBy}",
@@ -4110,6 +4118,10 @@
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"
+  },
+  "EPztLn": {
+    "defaultMessage": "Votre profil d’employé a été amélioré!",
+    "description": "Title for a new feature notice"
   },
   "EQI4l2": {
     "defaultMessage": "{count, plural, one {# compétence} other {# compétences}}",
@@ -7455,10 +7467,6 @@
     "defaultMessage": "Veuillez indiquer votre rôle pour continuer.",
     "description": "Message displayed when submitter has not selected their role in a nomination"
   },
-  "S6fUdZ": {
-    "defaultMessage": "Gérer vos renseignements, y compris la confirmation de votre statut et vos préférences en matière de perfectionnement de carrière,",
-    "description": "Description of the employee profile page"
-  },
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
@@ -8125,10 +8133,6 @@
   "V0jG33": {
     "defaultMessage": "Protection des renseignements personnels",
     "description": "Heading for comments and interaction section"
-  },
-  "V2ML6q": {
-    "defaultMessage": "Profil d'employé(e) du GC",
-    "description": "Page title for a user's GC employee profile"
   },
   "V3phA5": {
     "defaultMessage": "Si vous n’êtes pas satisfait de notre réponse à votre plainte, veuillez contacter la CCDP :",
@@ -10453,6 +10457,10 @@
   "eZlUrp": {
     "defaultMessage": "Afficher l'offre d'emploi",
     "description": "Label for view job advertisement link"
+  },
+  "ecHyZS": {
+    "defaultMessage": " Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
+    "description": "Description of the employee profile page"
   },
   "ee4C6L": {
     "defaultMessage": "Seules les personnes ayant la citoyenneté canadienne peuvent postuler",
@@ -13557,6 +13565,10 @@
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page",
     "description": "Label for last page button in pagination nav"
+  },
+  "qutSCs": {
+    "defaultMessage": "Événements axés sur la gestion des talents",
+    "description": "Label for the list of advancement nominations a user has been approved for"
   },
   "quxa4Q": {
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",

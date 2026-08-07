@@ -1,4 +1,6 @@
 import { useQuery } from "urql";
+import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
+import { useIntl } from "react-intl";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -19,6 +21,9 @@ import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
 import TalentRequestEmptyNotice from "./components/TalentRequestEmptyNotice";
+import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
+import type { TalentRequestReferralDialogOptions } from "./components/TalentRequestReferralDialogs/ReferralFormFields";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
@@ -26,15 +31,28 @@ const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
     ...TalentRequestDetailsCard
     ...TalentRequestSourcesCard
     ...TalentRequestCriteriaCard
+    ...TalentRequestMatchesTableTalentRequest
+
+    applicantFilter {
+      skills {
+        ...TalentRequestUserSkillMatch
+      }
+    }
   }
 `);
 
 interface DetailsProps {
   query: FragmentType<typeof TalentRequestDetails_Fragment>;
   optionsQuery?: FragmentType<typeof TalentRequestSourceOptions_Fragment>;
+  referralOptionsQuery?: TalentRequestReferralDialogOptions;
 }
 
-const Details = ({ query, optionsQuery }: DetailsProps) => {
+const Details = ({
+  query,
+  optionsQuery,
+  referralOptionsQuery,
+}: DetailsProps) => {
+  const intl = useIntl();
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
   const talentSourceOptions = narrowEnumType(
     unpackMaybes(
@@ -53,6 +71,29 @@ const Details = ({ query, optionsQuery }: DetailsProps) => {
         talentSourceOptions={talentSourceOptions}
       />
       <TalentRequestCriteriaCard query={talentRequest} />
+      <TalentRequestSectionCard
+        color="warning"
+        icon={MagnifyingGlassPlusIcon}
+        title={intl.formatMessage({
+          defaultMessage: "Find matching candidates",
+          id: "CtcCZj",
+          description:
+            "Heading for the table that contains users who match talent request criteria",
+        })}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This list is always up-to-date, find new candidates that match to this talent request.",
+          id: "JT8Azd",
+          description:
+            "Description of the table showing users who match talent request criteria",
+        })}
+      >
+        <TalentRequestMatchesTable
+          query={talentRequest}
+          skillsQuery={unpackMaybes(talentRequest?.applicantFilter?.skills)}
+          optionsQuery={referralOptionsQuery}
+        />
+      </TalentRequestSectionCard>
     </div>
   );
 };
@@ -63,6 +104,7 @@ const TalentRequestDetails_Query = graphql(/** GraphQL */ `
       ...TalentRequestDetails
     }
     ...TalentRequestSourceOptionsFragment
+    ...TalentRequestReferralDialogOptions
   }
 `);
 

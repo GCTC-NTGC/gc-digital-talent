@@ -4,16 +4,13 @@ import { experienceGenerators, fakeUsers } from "@gc-digital-talent/fake-data";
 import { Container } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import {
-  EmployeeProfile,
-  EmployeeProfile_Fragment,
-} from "./EmployeeProfilePage";
+import { CareerPlanning, CareerPlanning_Fragment } from "./CareerPlanningPage";
 
 const mockUser = fakeUsers(1)[0];
 const fakeWorkExperience = experienceGenerators.workExperiences()[0];
 
 const meta = {
-  component: EmployeeProfile,
+  component: CareerPlanning,
   decorators: [
     (Comp) => (
       <Container className="mt-18">
@@ -21,15 +18,15 @@ const meta = {
       </Container>
     ),
   ],
-} satisfies Meta<typeof EmployeeProfile>;
+} satisfies Meta<typeof CareerPlanning>;
 
 export default meta;
 
-type Story = StoryObj<typeof EmployeeProfile>;
+type Story = StoryObj<typeof CareerPlanning>;
 
 export const VerifiedEmployee: Story = {
   args: {
-    employeeProfileQuery: makeFragmentData(
+    userQuery: makeFragmentData(
       {
         ...mockUser,
         isVerifiedGovEmployee: true,
@@ -37,7 +34,7 @@ export const VerifiedEmployee: Story = {
         latestCurrentGovernmentWorkExperience: fakeWorkExperience,
         employeeProfile: {},
       },
-      EmployeeProfile_Fragment,
+      CareerPlanning_Fragment,
     ),
     optionsQuery: {},
   },
@@ -45,14 +42,14 @@ export const VerifiedEmployee: Story = {
 
 export const UnverifiedUser: Story = {
   args: {
-    employeeProfileQuery: makeFragmentData(
+    userQuery: makeFragmentData(
       {
         ...mockUser,
         isVerifiedGovEmployee: false,
         isWorkEmailVerified: false,
         employeeProfile: {},
       },
-      EmployeeProfile_Fragment,
+      CareerPlanning_Fragment,
     ),
     optionsQuery: {},
   },
