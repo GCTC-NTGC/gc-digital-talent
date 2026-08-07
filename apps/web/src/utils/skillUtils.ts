@@ -3,6 +3,7 @@ import uniqBy from "lodash/uniqBy";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   Experience,
+  LocalizedString,
   Skill,
   PoolSkill,
   PoolSkillType,
@@ -11,23 +12,22 @@ import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
 
 import type { SimpleAnyExperience } from "./experienceUtils";
 
-export interface SkillFamilyIdentifier {
+export interface SkillFamilyOption {
   id: string;
+  name?: LocalizedString | null;
 }
 
-export interface SkillWithFamilies<F extends SkillFamilyIdentifier> {
+export interface SkillWithFamilies {
   id: string;
-  families?: F[] | null;
+  families?: SkillFamilyOption[] | null;
 }
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
- * @param skills - The collection of skills with child skill families to invert
- * @returns The new collection of skill families with child skills
+ * @param { SkillWithFamilies[] } skills - The collection of skills with child skill families to invert
+ * @returns { SkillFamilyOption[] } - The new collection of skill families with child skills
  */
-export function invertSkillSkillFamilyTree<F extends SkillFamilyIdentifier>(
-  skills: SkillWithFamilies<F>[],
-) {
+export function invertSkillSkillFamilyTree(skills: SkillWithFamilies[]) {
   const allChildSkillFamilies = skills
     .flatMap((s) => s.families)
     .filter(notEmpty);

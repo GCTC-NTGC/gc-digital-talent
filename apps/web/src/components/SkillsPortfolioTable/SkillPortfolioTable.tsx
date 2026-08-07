@@ -83,6 +83,7 @@ export const SkillPortfolioTable_UserSkillFragment = graphql(/* GraphQL */ `
 
 export const SkillPortfolioTable_SkillFragment = graphql(/* GraphQL */ `
   fragment SkillPortfolioTable_Skill on Skill {
+    ...SkillBrowserSkill
     id
     key
     category {
@@ -263,7 +264,7 @@ const SkillPortfolioTable = ({
               component: (
                 <SkillBrowserDialog
                   context="library"
-                  skills={unclaimedSkills}
+                  query={unclaimedSkills}
                   onSave={async (value) => {
                     await executeCreateMutation({
                       userId: userAuthInfo?.id ?? "",

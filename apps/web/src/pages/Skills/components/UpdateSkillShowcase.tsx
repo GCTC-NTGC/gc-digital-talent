@@ -44,6 +44,7 @@ export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
     topSkillsRank
     improveSkillsRank
     skill {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -63,6 +64,7 @@ export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
 
 export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
   fragment UpdateSkillShowcase_Skill on Skill {
+    ...SkillBrowserSkill
     id
     key
     category {
@@ -340,7 +342,7 @@ const UpdateSkillShowcase = ({
                     max={maxItems}
                     add={
                       <SkillBrowserDialog
-                        inLibrary={allUserSkills
+                        inLibraryQuery={allUserSkills
                           .map((userSkill) => userSkill.skill)
                           .filter(
                             (skill) =>
@@ -348,7 +350,7 @@ const UpdateSkillShowcase = ({
                           )}
                         trigger={triggerProps}
                         context="showcase"
-                        skills={allSkills.filter(
+                        query={allSkills.filter(
                           (skill) =>
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}

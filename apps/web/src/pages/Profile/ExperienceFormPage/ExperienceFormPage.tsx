@@ -90,6 +90,7 @@ interface FormValues extends ExperienceFormValues<AllExperienceFormValues> {
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
+    ...SkillBrowserSkill
     id
     key
     name {
