@@ -280,7 +280,8 @@ const TalentNominationAccordionItem = ({
   const notFound = intl.formatMessage(commonMessages.notFound);
 
   const performance = talentNomination.nineBoxPerformance?.value;
-  const leadershipPotential = talentNomination.nineBoxLeadershipPotential?.value;
+  const leadershipPotential =
+    talentNomination.nineBoxLeadershipPotential?.value;
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -526,7 +527,9 @@ const TalentNominationAccordionItem = ({
               )}
             >
               {leadershipPotential
-                ? intl.formatMessage(leadershipPotentialLabels[leadershipPotential])
+                ? intl.formatMessage(
+                    leadershipPotentialLabels[leadershipPotential],
+                  )
                 : notFound}
             </FieldDisplay>
           </>

@@ -214,7 +214,9 @@ const NominationDetailsReview = ({
               label={intl.formatMessage(labels.nomineeLeadershipPotential)}
             >
               {leadershipPotential
-                ? intl.formatMessage(leadershipPotentialLabels[leadershipPotential])
+                ? intl.formatMessage(
+                    leadershipPotentialLabels[leadershipPotential],
+                  )
                 : notProvided}
             </FieldDisplay>
           </>
