@@ -1,9 +1,11 @@
 import { defineMessage, useIntl } from "react-intl";
+import type { MessageDescriptor } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
+  NineBoxRating,
   TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
 import { Accordion, Ul } from "@gc-digital-talent/ui";
@@ -18,6 +20,18 @@ import adminMessages from "~/messages/adminMessages";
 
 import { formMessages } from "../messages";
 import nominationLabels from "../../NominateTalent/labels";
+
+const performanceLabels: Record<NineBoxRating, MessageDescriptor> = {
+  [NineBoxRating.Low]: nominationLabels.lowPerformance,
+  [NineBoxRating.Moderate]: nominationLabels.moderatePerformance,
+  [NineBoxRating.High]: nominationLabels.highPerformance,
+};
+
+const leadershipPotentialLabels: Record<NineBoxRating, MessageDescriptor> = {
+  [NineBoxRating.Low]: nominationLabels.lowPotential,
+  [NineBoxRating.Moderate]: nominationLabels.moderatePotential,
+  [NineBoxRating.High]: nominationLabels.highPotential,
+};
 
 const TalentNominationAccordionItemOptions_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationAccordionItemOptions on Query {
@@ -46,6 +60,14 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
         }
       }
       includeLeadershipCompetencies
+      includeNineBox
+    }
+
+    nineBoxPerformance {
+      value
+    }
+    nineBoxLeadershipPotential {
+      value
     }
 
     nominatorFallbackName
@@ -256,6 +278,10 @@ const TalentNominationAccordionItem = ({
   }
 
   const notFound = intl.formatMessage(commonMessages.notFound);
+
+  const performance = talentNomination.nineBoxPerformance?.value;
+  const leadershipPotential =
+    talentNomination.nineBoxLeadershipPotential?.value;
 
   return (
     <Accordion.Item value={talentNomination.id} {...rest}>
@@ -481,6 +507,32 @@ const TalentNominationAccordionItem = ({
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
+        ) : null}
+
+        {/* nine-box fields only displayed if enabled for the event */}
+        {talentNomination.talentNominationEvent.includeNineBox ? (
+          <>
+            <FieldDisplay
+              className="my-6"
+              label={intl.formatMessage(nominationLabels.nomineePerformance)}
+            >
+              {performance
+                ? intl.formatMessage(performanceLabels[performance])
+                : notFound}
+            </FieldDisplay>
+            <FieldDisplay
+              className="my-6"
+              label={intl.formatMessage(
+                nominationLabels.nomineeLeadershipPotential,
+              )}
+            >
+              {leadershipPotential
+                ? intl.formatMessage(
+                    leadershipPotentialLabels[leadershipPotential],
+                  )
+                : notFound}
+            </FieldDisplay>
+          </>
         ) : null}
 
         <FieldDisplay
