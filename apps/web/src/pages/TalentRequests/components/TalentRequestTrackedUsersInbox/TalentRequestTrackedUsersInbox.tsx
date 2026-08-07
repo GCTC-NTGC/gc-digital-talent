@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
 import { tv } from "tailwind-variants";
-import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon";
-import ArrowDownTrayIcon from "@heroicons/react/16/solid/ArrowDownTrayIcon";
-import ChevronDownIcon from "@heroicons/react/16/solid/ChevronDownIcon";
+import EllipsisHorizontalIcon from "@heroicons/react/24/outline/EllipsisHorizontalIcon";
+import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
+import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
 
 import {
   graphql,
