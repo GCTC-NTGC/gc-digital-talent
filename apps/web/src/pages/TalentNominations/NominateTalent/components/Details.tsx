@@ -107,6 +107,7 @@ const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
   fragment DetailsTalentNominationEvent on TalentNominationEvent {
     id
     includeNineBox
+    includeDevelopmentOpportunities
   }
 `);
 
@@ -305,17 +306,23 @@ const DetailsFields = ({
                 "Description for the lateral movement nomination option on the details step",
             }),
           },
-          {
-            value: "developmentProgram",
-            label: intl.formatMessage(adminMessages.developmentOpportunities),
-            contentBelow: intl.formatMessage({
-              defaultMessage:
-                "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
-              id: "5MFMo5",
-              description:
-                "Description for the development program nomination option on the details step",
-            }),
-          },
+          ...(event?.includeDevelopmentOpportunities
+            ? [
+                {
+                  value: "developmentProgram",
+                  label: intl.formatMessage(
+                    adminMessages.developmentOpportunities,
+                  ),
+                  contentBelow: intl.formatMessage({
+                    defaultMessage:
+                      "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
+                    id: "5MFMo5",
+                    description:
+                      "Description for the development program nomination option on the details step",
+                  }),
+                },
+              ]
+            : []),
         ]}
       />
       {noOptionsSelected ? (
