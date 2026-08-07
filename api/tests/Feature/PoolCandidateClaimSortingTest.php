@@ -27,8 +27,8 @@ class PoolCandidateClaimSortingTest extends TestCase
     const QUERY =
         /** @lang GraphQL */
         '
-    query PoolCandidatesPaginatedAdminView($orderByBase: PoolCandidatesBaseSort! $orderByClaimVerification: ClaimVerificationSort) {
-        poolCandidatesPaginatedAdminView(orderByBase: $orderByBase, orderByClaimVerification: $orderByClaimVerification) {
+    query PoolCandidatesPaginated($orderBy: [AdvancedOrderByInput!]) {
+        poolCandidatesPaginated(orderBy: $orderBy) {
             data {
                 id
             }
@@ -165,16 +165,14 @@ class PoolCandidateClaimSortingTest extends TestCase
         // priority > flagged > veteran > citizen/permanent resident > rest
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
-                'orderByBase' => [
-                    'useFlag' => true,
-                ],
-                'orderByClaimVerification' => [
-                    'order' => 'DESC',
+                'orderBy' => [
+                    ['scope' => 'orderByFlag', 'direction' => 'DESC'],
+                    ['scope' => 'orderByClaimVerification', 'direction' => 'DESC'],
                 ],
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             [
                                 'id' => $this->flaggedAcceptedPriority->id,
@@ -214,16 +212,14 @@ class PoolCandidateClaimSortingTest extends TestCase
         // assert sorting by flagged first but then ASCENDING category
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
-                'orderByBase' => [
-                    'useFlag' => true,
-                ],
-                'orderByClaimVerification' => [
-                    'order' => 'ASC',
+                'orderBy' => [
+                    ['scope' => 'orderByFlag', 'direction' => 'DESC'],
+                    ['scope' => 'orderByClaimVerification', 'direction' => 'ASC'],
                 ],
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             [
                                 'id' => $this->flaggedNoClaims->id,
@@ -265,14 +261,13 @@ class PoolCandidateClaimSortingTest extends TestCase
         // assert sorting by DESCENDING category (without flagged)
         $this->actingAs($this->adminUser, 'api')
             ->graphQL(self::QUERY, [
-                'orderByBase' => [],
-                'orderByClaimVerification' => [
-                    'order' => 'DESC',
+                'orderBy' => [
+                    ['scope' => 'orderByClaimVerification', 'direction' => 'DESC'],
                 ],
             ])
             ->assertExactJson([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             // has same ordering value as unverifiedPriorityAndAcceptedVeteran
                             // [

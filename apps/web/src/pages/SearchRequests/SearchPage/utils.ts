@@ -34,22 +34,6 @@ export const getClassificationAriaLabel = ({
   return groupAndLevel;
 };
 
-/**
- * Derive the currently selected classification
- * from applicant filters and location state.
- *
- * As well as transforming it to a useable string.
- * @param {Classification[] | null | undefined} selectedClassifications
- * @returns {string}
- */
-const getCurrentClassification = (
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
-): string => {
-  return selectedClassifications && selectedClassifications?.length > 0
-    ? selectedClassifications[0].groupAndLevel
-    : "";
-};
-
 const durationSelectionToEnum = (
   selection: string | null,
 ): PositionDuration[] | null => {
@@ -110,22 +94,27 @@ export const applicantFilterToQueryArgs = (
 };
 
 /**
- * Transform data from location state, API and filters
+ * Transform data from stored state, API and filters
  * to a shape useable by `react-hook-form`
  *
  * @param data
- * @param selectedClassifications
- * @param pools
+ * @param classifications
  * @returns {FormValues}
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
+  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
+  const selected = data?.qualifiedInClassifications?.find(notEmpty);
 
   return {
-    classification: getCurrentClassification(selectedClassifications),
+    classification:
+      classifications.find(
+        (classification) =>
+          classification.group === selected?.group &&
+          classification.level === selected?.level,
+      )?.groupAndLevel ?? "",
     languageAbility: data?.languageAbility ?? "NULL_SELECTION",
     employmentEquity: [
       ...(data?.equity?.hasDisability ? ["hasDisability"] : []),
@@ -165,7 +154,14 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedInClassifications: [selectedClassification].filter(notEmpty),
+    qualifiedInClassifications: selectedClassification
+      ? [
+          {
+            group: selectedClassification.group,
+            level: selectedClassification.level,
+          },
+        ]
+      : [],
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)

@@ -5,7 +5,7 @@ import type {
   CreateCommunityInput,
   CreateCommunityInterestWithDevelopmentProgramsInput,
   DevelopmentProgram,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";

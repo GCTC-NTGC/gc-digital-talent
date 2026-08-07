@@ -17,7 +17,7 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";
@@ -25,11 +25,17 @@ import useRequiredParams from "~/hooks/useRequiredParams";
 
 import NominationEventAccordionItem from "./components/NominationEventAccordionItem";
 import { detailTabMessages } from "./messages";
+import type { RouteParams } from "./types";
 
 const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
   /* GraphQL */ `
     fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
       id
+      talentNominationEvent {
+        name {
+          localized
+        }
+      }
       nominations {
         id
       }
@@ -44,30 +50,55 @@ const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const GetNomineeId_Query = graphql(/* GraphQL */ `
+  query GetNomineeId($id: UUID!) {
+    talentNominationGroup(id: $id) {
+      id
+      nominee {
+        id
+      }
+    }
+  }
+`);
+
+const TalentNominationGroupsByNominee_Query = graphql(/* GraphQL */ `
+  query TalentNominationGroupsByNominee($nomineeUserId: UUID!) {
+    talentNominationGroupsByNominee(nomineeUserId: $nomineeUserId) {
+      ...TalentNominationGroupHistoryNominationGroup
+    }
+    ...TalentNominationGroupHistoryOptions
+  }
+`);
+
 interface TalentNominationGroupHistoryProps {
-  nominationGroupQuery: FragmentType<
+  nominationGroupsQuery: FragmentType<
     typeof TalentNominationGroupHistoryNominationGroup_Fragment
-  >;
+  >[];
   optionsQuery: FragmentType<
     typeof TalentNominationGroupHistoryOptions_Fragment
   >;
 }
 
 const TalentNominationGroupHistory = ({
-  nominationGroupQuery,
+  nominationGroupsQuery,
   optionsQuery,
 }: TalentNominationGroupHistoryProps) => {
   const intl = useIntl();
-  const talentNominationGroup = getFragment(
+
+  const nominationGroups = getFragment(
     TalentNominationGroupHistoryNominationGroup_Fragment,
-    nominationGroupQuery,
+    nominationGroupsQuery,
   );
+
   const options = getFragment(
     TalentNominationGroupHistoryOptions_Fragment,
     optionsQuery,
   );
 
-  const nominationGroups = [talentNominationGroup];
+  // Sort groups by event name
+  nominationGroups.sort(
+    sortAlphaBy((group) => group.talentNominationEvent?.name?.localized),
+  );
 
   //get total number of nominations across all nomination groups
   const nominationCount = nominationGroups.reduce(
@@ -167,35 +198,50 @@ const TalentNominationGroupHistory = ({
   );
 };
 
-const TalentNominationHistoryPage_Query = graphql(/* GraphQL */ `
-  query TalentNominationHistoryPage($talentNominationGroupId: UUID!) {
-    talentNominationGroup(id: $talentNominationGroupId) {
-      ...TalentNominationGroupHistoryNominationGroup
-    }
-    ...TalentNominationGroupHistoryOptions
-  }
-`);
-
-interface RouteParams extends Record<string, string> {
-  talentNominationGroupId: string;
+interface TalentNominationGroupHistoryContentProps {
+  nomineeUserId: string;
 }
+
+const TalentNominationGroupHistoryContent = ({
+  nomineeUserId,
+}: TalentNominationGroupHistoryContentProps) => {
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentNominationGroupsByNominee_Query,
+    variables: { nomineeUserId },
+  });
+
+  const nominationGroups = unpackMaybes(data?.talentNominationGroupsByNominee);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data ? (
+        <TalentNominationGroupHistory
+          nominationGroupsQuery={nominationGroups}
+          optionsQuery={data}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
 
 const TalentNominationGroupHistoryPage = () => {
   const { talentNominationGroupId } = useRequiredParams<RouteParams>(
     "talentNominationGroupId",
   );
+
   const [{ data, fetching, error }] = useQuery({
-    query: TalentNominationHistoryPage_Query,
-    variables: { talentNominationGroupId },
+    query: GetNomineeId_Query,
+    variables: { id: talentNominationGroupId },
   });
+
+  const nomineeId = data?.talentNominationGroup?.nominee?.id;
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationGroup ? (
-        <TalentNominationGroupHistory
-          nominationGroupQuery={data.talentNominationGroup}
-          optionsQuery={data}
-        />
+      {nomineeId ? (
+        <TalentNominationGroupHistoryContent nomineeUserId={nomineeId} />
       ) : (
         <ThrowNotFound />
       )}

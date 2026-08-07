@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -9,6 +9,8 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
+
+import type { SnapshotExperience } from "~/utils/experienceUtils";
 
 import ExperienceCard, {
   ExperienceCard_Fragment,
@@ -24,7 +26,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
-  experiences: Omit<Experience, "user">[];
+  experiences: SnapshotExperience[];
   skillId?: string;
   dialogType: DialogType;
 }

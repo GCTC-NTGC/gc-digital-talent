@@ -9,7 +9,7 @@ import type {
   Skill,
   User,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
@@ -19,7 +19,7 @@ import {
   PlacementType,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
@@ -166,6 +166,7 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
     await talentSearch.goToIndex();
@@ -210,6 +211,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -259,6 +261,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,

@@ -14,7 +14,6 @@ import {
   errorMessages,
   formMessages,
 } from "@gc-digital-talent/i18n";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
 import processMessages from "~/messages/processMessages";
@@ -23,12 +22,12 @@ import type { ProcessDialogProps } from "./types";
 
 interface FormValues {
   type?: "extend" | "close";
-  expiryEndDate?: Pool["closingDate"];
+  expiryEndDate?: string | null;
   reason?: string;
 }
 
 interface ChangeDateDialogProps extends ProcessDialogProps {
-  closingDate?: Pool["closingDate"];
+  closingDate?: string | null;
   onExtend: (closingDate: string) => Promise<void>;
   onClose: (reason: string) => Promise<void>;
 }

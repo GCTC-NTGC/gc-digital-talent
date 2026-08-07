@@ -7,7 +7,6 @@ import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
-  Pool,
   UpdatePoolInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -81,14 +80,14 @@ const WhatToExpectSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "whatToExpect">,
+    whatToExpect: LocalizedString | null | undefined,
   ): FormValues => ({
-    whatToExpectEn: initialData.whatToExpect?.en ?? "",
-    whatToExpectFr: initialData.whatToExpect?.fr ?? "",
+    whatToExpectEn: whatToExpect?.en ?? "",
+    whatToExpectFr: whatToExpect?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(pool.whatToExpect),
   });
   const { handleSubmit, watch } = methods;
   const values = watch();

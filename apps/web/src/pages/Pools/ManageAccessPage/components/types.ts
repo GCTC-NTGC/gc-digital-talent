@@ -1,6 +1,5 @@
 import type {
   FragmentType,
-  Role,
   ManageAccessPagePoolFragment as ManageAccessPagePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 
@@ -21,10 +20,10 @@ type ManageAccessPagePoolFragmentUserType = NonNullable<
   ManageAccessPagePoolFragmentType["roleAssignments"]
 >[number]["user"];
 
-export type PoolTeamMember = {
-  roles: Role[];
-} & ManageAccessPagePoolFragmentUserType;
-
 export type ManageAccessPagePoolFragmentRoleType = NonNullable<
   ManageAccessPagePoolFragmentType["roleAssignments"]
 >[number]["role"];
+
+export type PoolTeamMember = {
+  roles: NonNullable<ManageAccessPagePoolFragmentRoleType>[];
+} & ManageAccessPagePoolFragmentUserType;

@@ -1,6 +1,9 @@
 /* eslint-disable playwright/no-conditional-in-test */
-import type { User } from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql/schema-types";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { expect, test } from "~/fixtures";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";

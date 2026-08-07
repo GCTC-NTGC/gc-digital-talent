@@ -33,15 +33,6 @@ export type FormValues = Pick<
   count?: number;
 };
 
-export type LocationState = BrowserHistoryState | null;
-
-export interface BrowserHistoryState {
-  applicantFilter?: ApplicantFilterInput;
-  candidateCount: number;
-  initialValues?: FormValues;
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[];
-}
-
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
   pools?:
     (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[] | null;

@@ -1,4 +1,4 @@
-import { DepartmentSize } from "@gc-digital-talent/graphql";
+import { DepartmentSize } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import Department from "~/fixtures/Department";

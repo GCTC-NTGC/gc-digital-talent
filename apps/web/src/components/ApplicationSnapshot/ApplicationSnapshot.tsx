@@ -6,7 +6,6 @@ import {
   getFragment,
   graphql,
   type FragmentType,
-  type User,
 } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import {
@@ -37,6 +36,13 @@ import DiversityEquityInclusionSnapshot from "./Sections/DiversityEquityInclusio
 import CitizenVeteranPrioritySnapshot from "./Sections/CitizenVeteranPriority/CitizenVeteranPrioritySnapshot";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import CareerTimelineSnapshot from "./Sections/CareerTimeline/CareerTimelineSnapshot";
+import type { PersonalInformationSnapshotV1 } from "./Sections/PersonalInformation/PersonalInformationV1";
+import type { LanguageProfileSnapshotV1 } from "./Sections/LanguageProfile/LanguageProfileV1";
+import type { WorkPreferencesSnapshotV1 } from "./Sections/WorkPreferences/WorkPreferencesV1";
+import type { GovernmentInformationSnapshotV1 } from "./Sections/GovernmentInformation/GovernmentInformationV1";
+import type { DiversityEquityInclusionSnapshotV1 } from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionV1";
+import type { CitizenVeteranPrioritySnapshotV1 } from "./Sections/CitizenVeteranPriority/CitizenVeteranPriorityV1";
+import type { EducationRequirementSnapshotV1 } from "./Sections/EducationRequirment/EducationRequirementV1";
 
 export const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationSnapshot on PoolCandidate {
@@ -52,7 +58,15 @@ export const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface ParsedSnapshot extends User {
+interface ParsedSnapshot
+  extends
+    Partial<PersonalInformationSnapshotV1>,
+    Partial<LanguageProfileSnapshotV1>,
+    Partial<WorkPreferencesSnapshotV1>,
+    Partial<GovernmentInformationSnapshotV1>,
+    Partial<DiversityEquityInclusionSnapshotV1>,
+    Partial<CitizenVeteranPrioritySnapshotV1>,
+    Partial<EducationRequirementSnapshotV1> {
   version?: number;
 }
 
