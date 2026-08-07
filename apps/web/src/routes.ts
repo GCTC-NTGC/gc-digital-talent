@@ -215,6 +215,15 @@ export default [
             ]),
           ]),
 
+          // Employee
+          ...prefix("employee", [
+            index("./pages/EmployeeProfile/EmployeeVerificationPage.tsx"),
+            route(
+              "career-planning",
+              "./pages/EmployeeProfile/CareerPlanningPage.tsx",
+            ),
+          ]),
+
           // Applications
           route(
             "applications/:applicationId",

@@ -121,7 +121,6 @@ export const CareerPlanning = ({
     careerObjective,
     goalsWorkStyle,
   );
-
   const careerDevelopmentStatus = getCareerDevelopmentStatus(
     !!user.isVerifiedGovEmployee,
     careerDevelopment,
