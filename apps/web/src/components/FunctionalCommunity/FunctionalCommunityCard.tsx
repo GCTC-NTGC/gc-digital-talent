@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 import { useState, type ReactNode } from "react";
+import { useLocation } from "react-router";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -10,10 +11,13 @@ import {
   DropdownMenu,
   Heading,
   IconButton,
+  Link,
   Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+
+import useRoutes from "~/hooks/useRoutes";
 
 import { MetaDataJobInterest, MetaDataTrainingInterest } from "./iconElements";
 
@@ -54,8 +58,10 @@ const FunctionalCommunityCard = ({
 }: FunctionalCommunityListItemProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
+  const paths = useRoutes();
+  const { pathname } = useLocation();
 
-  const functionalCommunityListItemFragment = getFragment(
+  const { id, jobInterest, trainingInterest, community } = getFragment(
     PreviewListItemFunctionalCommunity_Fragment,
     functionalCommunityListItemQuery,
   );
@@ -83,33 +89,29 @@ const FunctionalCommunityCard = ({
         </DropdownMenu.Root>
 
         <div className="flex flex-col items-start gap-3">
-          <Heading
-            level={headingAs}
-            size="h6"
-            className="m-0 text-base font-bold"
+          <Link
+            href={paths.updateCommunityInterest(id, {
+              from: pathname,
+            })}
           >
-            {functionalCommunityListItemFragment?.community?.name?.localized ??
-              intl.formatMessage(commonMessages.notAvailable)}
-          </Heading>
-          {functionalCommunityListItemFragment?.community?.description
-            ?.localized ? (
+            <Heading
+              level={headingAs}
+              size="h6"
+              className="m-0 text-base font-bold"
+            >
+              {community?.name?.localized ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </Heading>
+          </Link>
+          {community?.description?.localized ? (
             <span className="text-gray-600 dark:text-gray-200">
-              {
-                functionalCommunityListItemFragment.community.description
-                  .localized
-              }
+              {community.description.localized}
             </span>
           ) : null}
           <div className="flex flex-col flex-nowrap items-start gap-1.5 text-sm xs:flex-row xs:flex-wrap xs:items-center">
-            <MetaDataJobInterest
-              jobInterest={functionalCommunityListItemFragment.jobInterest}
-            />
+            <MetaDataJobInterest jobInterest={jobInterest} />
             {UNICODE_CHAR.BULLET}
-            <MetaDataTrainingInterest
-              trainingInterest={
-                functionalCommunityListItemFragment.trainingInterest
-              }
-            />
+            <MetaDataTrainingInterest trainingInterest={trainingInterest} />
           </div>
         </div>
       </div>
