@@ -118,8 +118,8 @@ importers:
   apps/web:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.2.2
-        version: 3.2.2(react@19.2.8)
+        specifier: ^3.2.3
+        version: 3.2.3(react@19.2.8)
       '@gc-digital-talent/app-insights':
         specifier: workspace:*
         version: link:../../packages/app-insights
@@ -981,8 +981,8 @@ importers:
   packages/storybook-helpers:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.2.2
-        version: 3.2.2(react@19.2.8)
+        specifier: ^3.2.3
+        version: 3.2.3(react@19.2.8)
       '@gc-digital-talent/env':
         specifier: workspace:*
         version: link:../env
@@ -1239,8 +1239,8 @@ importers:
   packages/vitest-helpers:
     dependencies:
       '@dr.pogodin/react-helmet':
-        specifier: ^3.2.2
-        version: 3.2.2(react@19.2.8)
+        specifier: ^3.2.3
+        version: 3.2.3(react@19.2.8)
       '@gc-digital-talent/rich-text-elements':
         specifier: workspace:*
         version: link:../rich-text-elements
@@ -1551,8 +1551,8 @@ packages:
   '@date-fns/tz@1.5.0':
     resolution: {integrity: sha512-lwYN/vDPeNRULcepoE/LO2Pgx+7/RV+S9ARfbc9lr2DtGkOD7pAiruHvbR1RX3Qyf6ja47EWJDMsNK5vK08DJg==}
 
-  '@dr.pogodin/react-helmet@3.2.2':
-    resolution: {integrity: sha512-ejHvL56wsjNRfzOWvBzBXZXKCls2beMIf63Cz1yEMi5OFfsdBQHEiy0ux6665qzPXXAqHws4tnnWRiA/fpaQBg==}
+  '@dr.pogodin/react-helmet@3.2.3':
+    resolution: {integrity: sha512-tnSmLKyK4Jan4iGpTKMrlss33hAR8u7WAV5LojGGNlgh1+J87S5ssNOeBAEnmFh40ztaZdX3Jc+qy+0F3wHIiQ==}
     peerDependencies:
       react: '19'
 
@@ -6429,11 +6429,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
 
-  react-compiler-runtime@1.0.0:
-    resolution: {integrity: sha512-rRfjYv66HlG8896yPUDONgKzG5BxZD1nV9U6rkm+7VCuvQc903C4MjcoZR4zPw53IKSOX9wMQVpA1IAbRtzQ7w==}
-    peerDependencies:
-      react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
-
   react-csv-downloader@3.3.0:
     resolution: {integrity: sha512-JjaLf3TZBKca4Ap/Wi0PbfV/QFCmHlTnKLBP5PEiUvvHiMhNL0KWBylRdVHva1jTKNeUxUyLisWXG1+JV8oavw==}
     engines: {npm: '>=7.0.0'}
@@ -7768,11 +7763,9 @@ snapshots:
 
   '@date-fns/tz@1.5.0': {}
 
-  '@dr.pogodin/react-helmet@3.2.2(react@19.2.8)':
+  '@dr.pogodin/react-helmet@3.2.3(react@19.2.8)':
     dependencies:
-      '@babel/runtime': 7.29.7
       react: 19.2.8
-      react-compiler-runtime: 1.0.0(react@19.2.8)
 
   '@emnapi/core@1.10.0':
     dependencies:
@@ -12859,10 +12852,6 @@ snapshots:
   react-clientside-effect@1.2.8(react@19.2.8):
     dependencies:
       '@babel/runtime': 7.29.7
-      react: 19.2.8
-
-  react-compiler-runtime@1.0.0(react@19.2.8):
-    dependencies:
       react: 19.2.8
 
   react-csv-downloader@3.3.0(react@19.2.8):
