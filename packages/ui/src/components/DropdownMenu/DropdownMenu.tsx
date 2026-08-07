@@ -41,7 +41,7 @@ const Popup = ({
 }: PopupProps) => (
   <Menu.Portal {...portalProps}>
     <Menu.Positioner
-      className="max-w-(--available-height)"
+      className="max-h-(--available-height)"
       sideOffset={8}
       {...positionerProps}
     >
