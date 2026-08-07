@@ -74,6 +74,7 @@ const columnHelper = createColumnHelper<Skill>();
 const SkillTableSkills_Query = graphql(/* GraphQL */ `
   query SkillTableSkills {
     skills {
+      ...SkillCsv
       id
       key
       category {
@@ -377,7 +378,7 @@ const SkillTable = ({
                 csv: {
                   headers: getSkillCsvHeaders(intl),
                   data: () => {
-                    return getSkillCsvData(skills, intlEn, intlFr);
+                    return getSkillCsvData(skills);
                   },
                   fileName: intl.formatMessage({
                     defaultMessage: "GC Digital Talent - All skills.csv",
