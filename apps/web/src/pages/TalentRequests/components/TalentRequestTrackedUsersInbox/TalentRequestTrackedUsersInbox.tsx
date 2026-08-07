@@ -402,16 +402,6 @@ const TalentRequestTrackedUsersInbox = ({
               }
             />
             <DropdownMenu.Popup positionerProps={{ align: "start" }}>
-              <DropdownMenu.Item onClick={() => handleMarkAllAs("refer")}>
-                {intl.formatMessage(talentRequestMessages.markAllAs, {
-                  status: intl.formatMessage(talentRequestMessages.referred),
-                })}
-              </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => handleMarkAllAs("notRefer")}>
-                {intl.formatMessage(talentRequestMessages.markAllAs, {
-                  status: intl.formatMessage(commonMessages.notReferred),
-                })}
-              </DropdownMenu.Item>
               <DropdownMenu.Item onClick={() => handleMarkAllAs("notSelect")}>
                 {intl.formatMessage(talentRequestMessages.markAllAs, {
                   status: intl.formatMessage(commonMessages.notSelected),
