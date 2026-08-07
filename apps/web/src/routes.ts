@@ -146,10 +146,6 @@ export default [
               "notifications",
               "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
             ),
-            route(
-              "employee-profile",
-              "./pages/EmployeeProfile/EmployeeProfilePage.tsx",
-            ),
 
             layout("./pages/Profile/ProfileLayout.tsx", [
               route(
@@ -205,6 +201,17 @@ export default [
                   "./pages/Skills/ImproveTechnicalSkillsPage.tsx",
                 ),
               ]),
+            ]),
+          ]),
+
+          // Employee
+          ...prefix("employee", [
+            layout("./pages/EmployeeProfile/EmployeeProfileLayout.tsx", [
+              index("./pages/EmployeeProfile/EmployeeVerificationPage.tsx"),
+              route(
+                "career-planning",
+                "./pages/EmployeeProfile/CareerPlanningPage.tsx",
+              ),
             ]),
           ]),
 
