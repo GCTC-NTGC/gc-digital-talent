@@ -2,7 +2,6 @@ import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
@@ -15,13 +14,12 @@ import {
   Select,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import {
-  getLocale,
-  errorMessages,
-  getLocalizedName,
-  commonMessages,
-} from "@gc-digital-talent/i18n";
-import { keyStringRegex, unpackMaybes } from "@gc-digital-talent/helpers";
+  keyStringRegex,
+  sortAlphaBy,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 import {
   Card,
   CardSeparator,
@@ -30,8 +28,6 @@ import {
   Pending,
 } from "@gc-digital-talent/ui";
 import type {
-  Skill,
-  SkillFamily,
   CreateSkillInput,
   SkillCategory,
   FragmentType,
@@ -50,12 +46,7 @@ import pageTitles from "~/messages/pageTitles";
 
 import { SkillFormOptions_Fragment } from "./operations";
 
-interface Option<V> {
-  value: V;
-  label: string;
-}
-
-interface FormValues extends Pick<Skill, "description"> {
+interface FormValues {
   key: string;
   name: {
     en: string;
@@ -73,27 +64,33 @@ interface FormValues extends Pick<Skill, "description"> {
   families: string[] | undefined;
 }
 
+export const CreateSkillFamily_Fragment = graphql(/* GraphQL */ `
+  fragment CreateSkillFamily on SkillFamily {
+    id
+    name {
+      localized
+    }
+  }
+`);
+
 interface CreateSkillFormProps {
-  families: SkillFamily[];
+  query: FragmentType<typeof CreateSkillFamily_Fragment>[];
   optionsQuery?: FragmentType<typeof SkillFormOptions_Fragment>;
   handleCreateSkill: (data: CreateSkillInput) => Promise<string>;
 }
 
 export const CreateSkillForm = ({
-  families,
+  query,
   optionsQuery,
   handleCreateSkill,
 }: CreateSkillFormProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const data = getFragment(SkillFormOptions_Fragment, optionsQuery);
+  const families = getFragment(CreateSkillFamily_Fragment, query);
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
-  const sortedFamilies = sortBy(families, (family) => {
-    return family.name?.[locale]?.toLocaleUpperCase();
-  });
 
   const formValuesToSubmitData = (values: FormValues): CreateSkillInput => ({
     ...values,
@@ -131,12 +128,12 @@ export const CreateSkillForm = ({
       });
   };
 
-  const skillFamilyOptions: Option<string>[] = sortedFamilies.map(
-    ({ id, name }) => ({
+  const skillFamilyOptions = [...families]
+    .sort(sortAlphaBy((family) => family.name?.localized))
+    .map(({ id, name }) => ({
       value: id,
-      label: getLocalizedName(name, intl),
-    }),
-  );
+      label: name?.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    }));
 
   return (
     <FormProvider {...methods}>
@@ -321,31 +318,7 @@ const CreateSkillSkillFamilies_Query = graphql(/* GraphQL */ `
     ...SkillFormOptions
 
     skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
+      ...CreateSkillFamily
     }
   }
 `);
@@ -418,7 +391,7 @@ const CreateSkillPage = () => {
           <CreateSkillForm
             optionsQuery={data}
             handleCreateSkill={handleCreateSkill}
-            families={unpackMaybes(data?.skillFamilies)}
+            query={unpackMaybes(data?.skillFamilies)}
           />
         </Pending>
       </Hero>

@@ -1,14 +1,17 @@
-import { useId, useMemo, useEffect } from "react";
+import { useId, useEffect } from "react";
 import { useIntl } from "react-intl";
 import type { RegisterOptions } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 
-import type { BaseSkillBrowserProps, FormValues } from "./types";
+import type { FormValues } from "./types";
 import skillBrowserMessages from "./messages";
+import { SkillBrowserSkill_Fragment } from "./SkillSelection";
 import {
   INPUT_NAME,
   getFamilyOptions,
@@ -16,19 +19,21 @@ import {
   getFilteredSkills,
 } from "./utils";
 
-interface SkillBrowserProps extends BaseSkillBrowserProps {
+interface SkillBrowserProps {
+  query: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   name: string;
   isMulti?: boolean;
   rules?: RegisterOptions;
 }
 
 const SkillBrowser = ({
-  skills,
+  query,
   name,
   rules,
   isMulti = true,
 }: SkillBrowserProps) => {
   const intl = useIntl();
+  const skills = getFragment(SkillBrowserSkill_Fragment, query);
   const id = useId();
   const inputNames = {
     category: `${id}-${INPUT_NAME.CATEGORY}`,
@@ -40,27 +45,28 @@ const SkillBrowser = ({
   }>();
   const [family, skillValue] = watch([inputNames.family, name]);
 
-  const filteredFamilies = useMemo(() => {
-    return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
-      const a = normalizeString(getLocalizedName(familyA.name, intl));
-      const b = normalizeString(getLocalizedName(familyB.name, intl));
+  const filteredFamilies = getFilteredFamilies({ skills: [...skills] }).sort(
+    (familyA, familyB) => {
+      const a = normalizeString(familyA.name?.localized ?? "");
+      const b = normalizeString(familyB.name?.localized ?? "");
 
       if (a === b) return 0;
 
       return a > b ? 1 : -1;
-    });
-  }, [skills, intl]);
+    },
+  );
 
-  const filteredSkills = useMemo(() => {
-    return getFilteredSkills({ skills, family }).sort((skillA, skillB) => {
-      const a = normalizeString(getLocalizedName(skillA.name, intl));
-      const b = normalizeString(getLocalizedName(skillB.name, intl));
+  const filteredSkills = getFilteredSkills({
+    skills: [...skills],
+    family,
+  }).sort((skillA, skillB) => {
+    const a = normalizeString(skillA.name?.localized ?? "");
+    const b = normalizeString(skillB.name?.localized ?? "");
 
-      if (a === b) return 0;
+    if (a === b) return 0;
 
-      return a > b ? 1 : -1;
-    });
-  }, [family, skills, intl]);
+    return a > b ? 1 : -1;
+  });
 
   useEffect(() => {
     resetField("skill");
@@ -76,7 +82,11 @@ const SkillBrowser = ({
     }
   }, [skillValue, family, setValue, inputNames.family]);
 
-  const familyOptions = getFamilyOptions(skills, intl);
+  const familyOptions = getFamilyOptions(
+    skills.map((currentSkill) => currentSkill.id),
+    intl,
+  );
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <div className="mb-6 grid gap-6 sm:grid-cols-3">
@@ -93,7 +103,7 @@ const SkillBrowser = ({
           ...familyOptions,
           ...filteredFamilies.map((skillFamily) => ({
             value: skillFamily.id,
-            label: getLocalizedName(skillFamily.name, intl),
+            label: skillFamily.name?.localized ?? notAvailable,
           })),
         ]}
       />
@@ -108,7 +118,7 @@ const SkillBrowser = ({
           label={intl.formatMessage(skillBrowserMessages.skill)}
           options={filteredSkills.map((currentSkill) => ({
             value: currentSkill.id,
-            label: getLocalizedName(currentSkill.name, intl),
+            label: currentSkill.name?.localized ?? notAvailable,
           }))}
         />
       </div>
