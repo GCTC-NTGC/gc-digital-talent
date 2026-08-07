@@ -98,6 +98,42 @@ const Template: StoryFn<typeof Ul> = () => (
         </div>
       </div>
     </div>
+    <div>
+      <p className="mb-3 font-bold">Nested (mismatched space)</p>
+      <p className="mb-3">
+        {`Bug: the inner space="sm" list's items should be spaced the same as the reference list on the right. If they're spaced like the outer space="lg" list instead, the outer list's spacing is leaking into its nested list.`}
+      </p>
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <p className="mb-1.5 text-sm">{`Outer space="lg" wrapping inner space="sm"`}</p>
+          <Ul space="lg">
+            <li>
+              Parent one
+              <Ul space="sm">
+                <li>Child one</li>
+                <li>Child two</li>
+              </Ul>
+            </li>
+            <li>
+              Parent two
+              <Ul space="sm">
+                <li>Child one</li>
+                <li>Child two</li>
+              </Ul>
+            </li>
+          </Ul>
+          <Boundary />
+        </div>
+        <div>
+          <p className="mb-1.5 text-sm">{`Reference: standalone space="sm"`}</p>
+          <Ul space="sm">
+            <li>Child one</li>
+            <li>Child two</li>
+          </Ul>
+          <Boundary />
+        </div>
+      </div>
+    </div>
   </div>
 );
 
