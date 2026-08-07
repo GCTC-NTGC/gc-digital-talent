@@ -19,6 +19,7 @@ import {
   IconButton,
   Loading,
   Notice,
+  Tooltip,
 } from "@gc-digital-talent/ui";
 import {
   commonMessages,
@@ -45,7 +46,6 @@ import Inbox from "./Inbox";
 import TrackedUserListItem from "./TrackedUserListItem";
 import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
 import NotReferTrackedUsersDialog from "./dialogs/NotReferTrackedUsersDialog";
-import SelectTrackedUsersDialog from "./dialogs/SelectTrackedUsersDialog";
 import NotSelectTrackedUsersDialog from "./dialogs/NotSelectTrackedUsersDialog";
 import { statusIcons } from "./utils";
 
@@ -99,7 +99,7 @@ const selectionCounter = tv({
   },
 });
 
-type DialogKind = "refer" | "notRefer" | "select" | "notSelect";
+type DialogKind = "refer" | "notRefer" | "notSelect";
 
 interface FilterFormValues {
   search: string;
@@ -271,37 +271,79 @@ const TalentRequestTrackedUsersInbox = ({
 
         {hasSelection ? (
           <>
-            <IconButton
-              color="black"
-              icon={
-                statusIcons.outline[TalentRequestTrackedUserStatus.Referred]
-              }
-              label={intl.formatMessage(talentRequestMessages.markAs, {
-                status: intl.formatMessage(talentRequestMessages.referred),
-              })}
-              onClick={() => setOpenDialog("refer")}
-            />
-            <IconButton
-              color="black"
-              icon={
-                statusIcons.outline[TalentRequestTrackedUserStatus.NotReferred]
-              }
-              label={intl.formatMessage(talentRequestMessages.markAs, {
-                status: intl.formatMessage(commonMessages.notReferred),
-              })}
-              onClick={() => setOpenDialog("notRefer")}
-            />
-            <IconButton
-              color="black"
-              icon={
-                statusIcons.outline[TalentRequestTrackedUserStatus.NotSelected]
-              }
-              label={intl.formatMessage(talentRequestMessages.markAs, {
-                status: intl.formatMessage(commonMessages.notSelected),
-              })}
-              onClick={() => setOpenDialog("notSelect")}
-            />
-
+            <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger
+                  render={
+                    <IconButton
+                      color="black"
+                      icon={
+                        statusIcons.outline[
+                          TalentRequestTrackedUserStatus.Referred
+                        ]
+                      }
+                      label={intl.formatMessage(talentRequestMessages.markAs, {
+                        status: intl.formatMessage(
+                          talentRequestMessages.referred,
+                        ),
+                      })}
+                      onClick={() => setOpenDialog("refer")}
+                    />
+                  }
+                />
+                <Tooltip.Popup>
+                  {intl.formatMessage(talentRequestMessages.markAs, {
+                    status: intl.formatMessage(talentRequestMessages.referred),
+                  })}
+                </Tooltip.Popup>
+              </Tooltip.Root>
+              <Tooltip.Root>
+                <Tooltip.Trigger
+                  render={
+                    <IconButton
+                      color="black"
+                      icon={
+                        statusIcons.outline[
+                          TalentRequestTrackedUserStatus.NotReferred
+                        ]
+                      }
+                      label={intl.formatMessage(talentRequestMessages.markAs, {
+                        status: intl.formatMessage(commonMessages.notReferred),
+                      })}
+                      onClick={() => setOpenDialog("notRefer")}
+                    />
+                  }
+                />
+                <Tooltip.Popup>
+                  {intl.formatMessage(talentRequestMessages.markAs, {
+                    status: intl.formatMessage(commonMessages.notReferred),
+                  })}
+                </Tooltip.Popup>
+              </Tooltip.Root>
+              <Tooltip.Root>
+                <Tooltip.Trigger
+                  render={
+                    <IconButton
+                      color="black"
+                      icon={
+                        statusIcons.outline[
+                          TalentRequestTrackedUserStatus.NotSelected
+                        ]
+                      }
+                      label={intl.formatMessage(talentRequestMessages.markAs, {
+                        status: intl.formatMessage(commonMessages.notSelected),
+                      })}
+                      onClick={() => setOpenDialog("notSelect")}
+                    />
+                  }
+                />
+                <Tooltip.Popup>
+                  {intl.formatMessage(talentRequestMessages.markAs, {
+                    status: intl.formatMessage(commonMessages.notSelected),
+                  })}
+                </Tooltip.Popup>
+              </Tooltip.Root>
+            </Tooltip.Provider>
             <DropdownMenu.Root>
               <DropdownMenu.Trigger
                 render={
@@ -373,11 +415,6 @@ const TalentRequestTrackedUsersInbox = ({
               <DropdownMenu.Item onClick={() => handleMarkAllAs("notSelect")}>
                 {intl.formatMessage(talentRequestMessages.markAllAs, {
                   status: intl.formatMessage(commonMessages.notSelected),
-                })}
-              </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => handleMarkAllAs("select")}>
-                {intl.formatMessage(talentRequestMessages.markAllAs, {
-                  status: intl.formatMessage(commonMessages.selected),
                 })}
               </DropdownMenu.Item>
               <DropdownMenu.Item onClick={handleDownloadAll}>
@@ -455,12 +492,6 @@ const TalentRequestTrackedUsersInbox = ({
       />
       <NotReferTrackedUsersDialog
         open={openDialog === "notRefer"}
-        onOpenChange={handleDialogOpenChange}
-        selectedIds={selectedRows}
-        onCompleted={handleDialogCompleted}
-      />
-      <SelectTrackedUsersDialog
-        open={openDialog === "select"}
         onOpenChange={handleDialogOpenChange}
         selectedIds={selectedRows}
         onCompleted={handleDialogCompleted}
