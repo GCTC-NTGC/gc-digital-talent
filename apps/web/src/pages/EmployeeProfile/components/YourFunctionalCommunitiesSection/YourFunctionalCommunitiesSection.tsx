@@ -96,7 +96,28 @@ const YourFunctionalCommunities = ({
             description: "Button to join a community",
           })}
         </Link>
-      ) : null}
+      ) : (
+        <Notice.Root className="mb-6 text-center">
+          <Notice.Title>
+            {intl.formatMessage({
+              defaultMessage:
+                "This tool is available to Government of Canada employees",
+              id: "EGk24W",
+              description:
+                "Title of message that a tool is only available to employees",
+            })}
+          </Notice.Title>
+          <Notice.Content>
+            {intl.formatMessage({
+              defaultMessage:
+                "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools. Functional communities you’ve added in the past can continue to be removed, but you will not be able to add new ones until you verify as an employee.",
+              id: "uiF9IW",
+              description:
+                "Body of message that a tool is only available to employees",
+            })}
+          </Notice.Content>
+        </Notice.Root>
+      )}
       {employeeProfile?.communityInterests?.length ? (
         // must exactly reverse the card padding, except for the top
         <div className="-mx-6 -mb-6 sm:-mx-9 sm:-mb-9">
