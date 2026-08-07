@@ -1,8 +1,12 @@
 import { tv } from "tailwind-variants";
-import PaperAirplaneIcon from "@heroicons/react/16/solid/PaperAirplaneIcon";
-import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
-import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
-import XMarkIcon from "@heroicons/react/16/solid/XMarkIcon";
+import BookmarkSquareIconSolid from "@heroicons/react/16/solid/BookmarkSquareIcon";
+import ArchiveBoxIconSolid from "@heroicons/react/16/solid/ArchiveBoxIcon";
+import CheckIconSolid from "@heroicons/react/16/solid/CheckIcon";
+import NoSymbolIconSolid from "@heroicons/react/16/solid/NoSymbolIcon";
+import BookmarkSquareIconOutline from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import ArchiveBoxIconOutline from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import CheckIconOutline from "@heroicons/react/24/outline/CheckIcon";
+import NoSymbolIconOutline from "@heroicons/react/24/outline/NoSymbolIcon";
 
 import type { IconType } from "@gc-digital-talent/ui";
 import {
@@ -10,11 +14,22 @@ import {
   type LocalizedTalentRequestTrackedUserStatus,
 } from "@gc-digital-talent/graphql";
 
-export const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
-  [TalentRequestTrackedUserStatus.Referred]: PaperAirplaneIcon,
-  [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIcon,
-  [TalentRequestTrackedUserStatus.Selected]: CheckIcon,
-  [TalentRequestTrackedUserStatus.NotSelected]: XMarkIcon,
+export const statusIcons: Record<
+  "solid" | "outline",
+  Record<TalentRequestTrackedUserStatus, IconType>
+> = {
+  solid: {
+    [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIconSolid,
+    [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIconSolid,
+    [TalentRequestTrackedUserStatus.Selected]: CheckIconSolid,
+    [TalentRequestTrackedUserStatus.NotSelected]: NoSymbolIconSolid,
+  },
+  outline: {
+    [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIconOutline,
+    [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIconOutline,
+    [TalentRequestTrackedUserStatus.Selected]: CheckIconOutline,
+    [TalentRequestTrackedUserStatus.NotSelected]: NoSymbolIconOutline,
+  },
 };
 
 const statusIconStyle = tv({
@@ -45,7 +60,7 @@ export const getStatusIcon = (
   if (!status?.value || !status.label.localized) return null;
 
   const statusValue = status?.value;
-  const Icon = statusValue ? statusIcons[statusValue] : undefined;
+  const Icon = statusValue ? statusIcons.solid[statusValue] : undefined;
 
   return {
     Icon,

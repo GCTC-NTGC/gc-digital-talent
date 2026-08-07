@@ -37,7 +37,7 @@ const StatusDialogLayout = ({
               "Subtitle for the change status dialog in the tracked users inbox",
           })}
         >
-          {intl.formatMessage(talentRequestMessages.changeStatus, {
+          {intl.formatMessage(talentRequestMessages.markAs, {
             status: statusLabel,
           })}
         </Dialog.Header>
