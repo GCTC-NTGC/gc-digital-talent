@@ -396,7 +396,7 @@ const TalentRequestTrackedUsersInbox = ({
               render={
                 <IconButton
                   color="black"
-                  icon={EllipsisVerticalIcon}
+                  icon={EllipsisHorizontalIcon}
                   label={intl.formatMessage(tableMessages.actions)}
                 />
               }
