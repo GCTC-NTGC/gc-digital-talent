@@ -13,14 +13,14 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.2.2",
+    "@dr.pogodin/react-helmet": "^3.2.3",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^6.0.3",
     "chromatic": "^18.0.1",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
-    "motion": "^12.42.2",
+    "motion": "^12.43.0",
     "react-router": "^8.3.0",
     "urql": "^5.0.3",
     "wonka": "^6.3.6"
