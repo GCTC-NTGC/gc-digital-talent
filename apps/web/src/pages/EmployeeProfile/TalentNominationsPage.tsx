@@ -26,6 +26,7 @@ import profileMessages from "~/messages/profileMessages";
 
 import NewFeatureMessage from "./components/NewFeatureMessage";
 import SharedTocLinks from "./components/SharedTocLinks";
+import NominationsReceived from "./components/NominationsReceived/NominationsReceived";
 
 const SECTION_ID = {
   NOMINATIONS_RECEIVED: "nominations-received-section",
@@ -138,7 +139,11 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                     "Paragraph explaining what nominations received are and how they work",
                 })}
               </p>
-              {!isVerifiedGovEmployee && <LockedNotice />}
+              {isVerifiedGovEmployee ? (
+                <NominationsReceived />
+              ) : (
+                <LockedNotice />
+              )}
             </TableOfContents.Section>
           </Card>
           <Card className="mt-6.75 flex flex-col gap-y-18">
