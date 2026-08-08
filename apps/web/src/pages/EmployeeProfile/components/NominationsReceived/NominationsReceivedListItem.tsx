@@ -15,6 +15,8 @@ import {
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
+import NominationsReceivedDialog from "./NominationsReceivedDialog";
+
 export const NominationsReceivedListItem_Fragment = graphql(/* GraphQL */ `
   fragment NominationsReceivedListItem on TalentNominationGroup {
     id
@@ -40,6 +42,7 @@ export const NominationsReceivedListItem_Fragment = graphql(/* GraphQL */ `
         lastName
       }
     }
+    ...NominationsReceivedDialog
   }
 `);
 
@@ -154,7 +157,14 @@ const NominationsReceivedListItem = ({
   ];
 
   return (
-    <PreviewList.Item title={title} metaData={metaData} headingAs={headingAs} />
+    <PreviewList.Item
+      title={title}
+      metaData={metaData}
+      headingAs={headingAs}
+      action={
+        <NominationsReceivedDialog nominationGroupQuery={nominationGroup} />
+      }
+    />
   );
 };
 
