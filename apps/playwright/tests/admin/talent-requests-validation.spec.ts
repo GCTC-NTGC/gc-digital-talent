@@ -107,7 +107,10 @@ test.describe("Talent search", () => {
             OperationalRequirement.OvertimeOccasional,
           ],
           locationPreferences: [WorkRegion.Ontario],
-          flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
+          flexibleWorkLocations: [
+            FlexibleWorkLocation.Onsite,
+            FlexibleWorkLocation.Hybrid,
+          ],
           personalExperiences: {
             create: [
               {
@@ -281,7 +284,7 @@ test.describe("Talent search", () => {
       );
     });
 
-    await test.step("Pause the candidate to verity the referral status", async () => {
+    await test.step("Pause the candidate to verify the referral status", async () => {
       await pauseCandidateReferral(adminCtx, {
         id: candidate.id,
         input: {

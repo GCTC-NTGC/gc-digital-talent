@@ -41,7 +41,7 @@ const Popup = ({
 }: PopupProps) => (
   <Menu.Portal {...portalProps}>
     <Menu.Positioner
-      className="max-w-(--available-height)"
+      className="max-h-(--available-height)"
       sideOffset={8}
       {...positionerProps}
     >
@@ -73,7 +73,7 @@ const Popup = ({
 );
 
 const item = tv({
-  base: "transition-200 ease flex cursor-pointer items-center rounded-md bg-transparent px-6 py-1.5 font-bold underline transition outline-none focus-visible:bg-focus hover:focus-visible:text-black",
+  base: "ease flex cursor-pointer items-center rounded-md bg-transparent px-6 py-1.5 font-bold underline transition duration-200 outline-none focus-visible:bg-focus hover:focus-visible:text-black",
   variants: {
     color: {
       primary:

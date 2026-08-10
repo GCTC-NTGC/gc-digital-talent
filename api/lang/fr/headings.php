@@ -99,7 +99,7 @@ return [
     'application_snapshot_description' => 'Le présent document ne contient que les renseignements fournis lors de la présentation du dossier de candidature. Toute modification apportée aux renseignements fournis après la présentation de ce dernier ne sera pas indiquée ici.',
     'application_name' => 'Nom du candidat ou de la candidate',
     'candidate_profiles' => 'Profils des candidats',
-    'candidate_profile' => 'Profil des candidat',
+    'candidate_profile' => 'Profil du candidat',
     'user_profile' => 'Profil de l\'utilisateur',
     'user_profiles' => 'Profils d\'utilisateurs',
     'user' => 'Utilisateur(trice)s',
@@ -282,6 +282,7 @@ return [
 
     'nomination_options' => 'Options de mise en candidature',
     'advancement_approval' => 'Approbation de l’avancement',
+    'advancement_classifications' => 'Classifications possibles aux fins d’avancement',
     'advancement_approval_notes' => 'Notes d’approbation de l’avancement',
     'lateral_movement_approval' => 'Approbation de la mutation latérale',
     'lateral_movement_approval_notes' => 'Notes d’approbation de la mutation latérale',
