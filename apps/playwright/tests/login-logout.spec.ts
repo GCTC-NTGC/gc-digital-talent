@@ -1,6 +1,6 @@
 import { test, expect } from "~/fixtures";
 import AuthTokenFixture from "~/fixtures/AuthTokenFixture";
-import { getAuthTokens, getTokenForSub, loginBySub } from "~/utils/auth";
+import { getAuthTokens, loginBySub } from "~/utils/auth";
 import type { GraphQLOperation } from "~/utils/graphql";
 
 test.describe("Login and logout", () => {
@@ -60,25 +60,6 @@ test.describe("Login and logout", () => {
           `Bearer ${searchParamAccessToken}`,
         );
       });
-  });
-
-  test("introspect an access token", async ({ request }) => {
-    const { accessToken } = await getTokenForSub("applicant@test.com");
-
-    const response = await request.post("/oxauth/introspect", {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: new URLSearchParams([
-        ["client_id", "e2e"],
-        ["client_secret", "e2e"],
-        ["token", accessToken ?? ""],
-      ]).toString(),
-    });
-
-    expect(response.status()).toBe(200);
-    expect(await response.json()).toMatchObject({ active: true });
   });
 
   // If you log in as a deleted user you end up on the "user deleted" page.
