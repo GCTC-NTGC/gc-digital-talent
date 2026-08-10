@@ -27,6 +27,7 @@ import profileMessages from "~/messages/profileMessages";
 import NewFeatureMessage from "./components/NewFeatureMessage";
 import SharedTocLinks from "./components/SharedTocLinks";
 import NominationsReceived from "./components/NominationsReceived/NominationsReceived";
+import EmployeesNominated from "./components/EmployeesNominated/EmployeesNominated";
 
 const SECTION_ID = {
   NOMINATIONS_RECEIVED: "nominations-received-section",
@@ -64,6 +65,7 @@ const LockedNotice = () => {
 export const TalentNominations_Fragment = graphql(/** GraphQL */ `
   fragment TalentNominations on User {
     isVerifiedGovEmployee
+    ...EmployeesNominated
   }
 `);
 
@@ -157,7 +159,7 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
               >
                 {intl.formatMessage(commonMessages.employeesNominated)}
               </Heading>
-              <p className="mt-3">
+              <p className="mt-3 mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Browse active talent management events and nominate eligible talent for advancement, lateral movement or development opportunities. From this section, you can track submission status and view the details of nominations you’ve submitted. This information is also available under the “Talent management” section of your dashboard.",
@@ -166,7 +168,11 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                     "Paragraph explaining what employees nominated are and how they work",
                 })}
               </p>
-              {!isVerifiedGovEmployee && <LockedNotice />}
+              {isVerifiedGovEmployee ? (
+                <EmployeesNominated userQuery={user} />
+              ) : (
+                <LockedNotice />
+              )}
             </TableOfContents.Section>
           </Card>
         </TableOfContents.Content>
