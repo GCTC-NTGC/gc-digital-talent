@@ -96,49 +96,45 @@ const NominationsReceivedDialog = ({
     .filter(notEmpty)
     .map((message) => intl.formatMessage(message));
 
-  const nominationOptionsString = nominationOptionsList.join(", ");
-
-  // Check which types are present
-  const hasAdvancement = (nominationGroup.advancementNominationCount ?? 0) > 0;
-  const hasLateralMovement =
-    (nominationGroup.lateralMovementNominationCount ?? 0) > 0;
-  const hasDevelopment =
-    (nominationGroup.developmentProgramsNominationCount ?? 0) > 0;
-
-  const nominationMessage = [];
-
-  if (hasAdvancement) {
-    nominationMessage.push(
-      intl.formatMessage({
-        defaultMessage:
-          "Being nominated for advancement means that you have been identified as someone who might benefit from challenging new opportunities. For certain events, this might result in you being referred for opportunities at higher levels than your current substantive classification for a period of time. Reach out to the community event team for event-specific details.",
-        id: "2lD5m3",
-        description: "Description for advancement nomination meaning",
-      }),
-    );
-  }
-
-  if (hasLateralMovement) {
-    nominationMessage.push(
-      intl.formatMessage({
-        defaultMessage:
-          "Being nominated for lateral movement means that you might benefit from diversifying your experience in similar roles that will expand your understanding of the enterprise, programs or services. A lateral move is usually suggested to help you prepare for advancement into a role that requires more holistic knowledge or specific skills.",
-        id: "b1sexz",
-        description: "Description for lateral movement nomination meaning",
-      }),
-    );
-  }
-
-  if (hasDevelopment) {
-    nominationMessage.push(
-      intl.formatMessage({
-        defaultMessage:
-          "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to compliment or enhance your skillset in preparation for new career opportunities.",
-        id: "3REesV",
-        description: "Description for development nomination meaning",
-      }),
-    );
-  }
+  const nominationMeanings = [
+    (nominationGroup.advancementNominationCount ?? 0) > 0
+      ? {
+          option: intl.formatMessage(
+            talentNominationMessages.nominateForAdvancement,
+          ),
+          meaning: intl.formatMessage({
+            defaultMessage:
+              "Being nominated for advancement means that you have been identified as someone who might benefit from challenging new opportunities. For certain events, this might result in you being referred for opportunities at higher levels than your current substantive classification for a period of time. Reach out to the community event team for event-specific details.",
+            id: "2lD5m3",
+            description: "Description for advancement nomination meaning",
+          }),
+        }
+      : null,
+    (nominationGroup.lateralMovementNominationCount ?? 0) > 0
+      ? {
+          option: intl.formatMessage(
+            talentNominationMessages.nominateForLateralMovement,
+          ),
+          meaning: intl.formatMessage({
+            defaultMessage:
+              "Being nominated for lateral movement means that you might benefit from diversifying your experience in similar roles that will expand your understanding of the enterprise, programs or services. A lateral move is usually suggested to help you prepare for advancement into a role that requires more holistic knowledge or specific skills.",
+            id: "b1sexz",
+            description: "Description for lateral movement nomination meaning",
+          }),
+        }
+      : null,
+    (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
+      ? {
+          option: intl.formatMessage(talentNominationMessages.development),
+          meaning: intl.formatMessage({
+            defaultMessage:
+              "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to compliment or enhance your skillset in preparation for new career opportunities.",
+            id: "3REesV",
+            description: "Description for development nomination meaning",
+          }),
+        }
+      : null,
+  ].filter(notEmpty);
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
@@ -233,30 +229,27 @@ const NominationsReceivedDialog = ({
               )}
             </FieldDisplay>
 
-            <FieldDisplay
-              label={intl.formatMessage(
-                {
-                  defaultMessage:
-                    "What it means to be nominated for {nominationOptions}",
-                  id: "CtftRC",
-                  description:
-                    "Label for the meaning of a nomination status, with the status name as a variable",
-                },
-                {
-                  nominationOptions: `"${nominationOptionsString}"`,
-                },
-              )}
-            >
-              {nominationMessage.length > 0 ? (
-                <>
-                  {nominationMessage.map((message, index) => (
-                    <span key={index}>{message}</span>
-                  ))}
-                </>
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
+            {nominationMeanings.length > 0
+              ? nominationMeanings.map((nominationMeaning) => (
+                  <FieldDisplay
+                    key={nominationMeaning.option}
+                    label={intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "What it means to be nominated for {nominationOptions}",
+                        id: "CtftRC",
+                        description:
+                          "Label for the meaning of a nomination status, with the status name as a variable",
+                      },
+                      {
+                        nominationOptions: `"${nominationMeaning.option}"`,
+                      },
+                    )}
+                  >
+                    {nominationMeaning.meaning}
+                  </FieldDisplay>
+                ))
+              : null}
           </div>
           <Dialog.Footer>
             <Button onClick={() => setIsOpen(false)}>

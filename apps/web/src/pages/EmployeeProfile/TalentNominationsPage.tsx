@@ -130,7 +130,7 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
               >
                 {intl.formatMessage(commonMessages.nominationsReceived)}
               </Heading>
-              <p className="mt-3">
+              <p className="mt-3 mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Functional communities sometimes run talent management events that highlight employees who are demonstrating high performance, leadership or in-demand skills. In some cases, managers or senior leaders might nominate you and specify that you’re ready for promotion, a lateral move, or unique training opportunities. Nominations will automatically appear here when they’re approved and don’t require any action for you to be considered.",
