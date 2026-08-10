@@ -5,6 +5,7 @@ export interface StatusDialogProps {
   onOpenChange: (open: boolean) => void;
   selectedIds: string[];
   onCompleted: () => void;
+  onCloseAutoFocus?: (event: Event) => void;
 }
 
 export const trackedUsersMutationContext: Partial<OperationContext> = {

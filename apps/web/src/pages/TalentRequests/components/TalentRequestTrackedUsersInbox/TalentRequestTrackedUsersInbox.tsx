@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { useIntl } from "react-intl";
 import { useQuery, type OperationContext } from "urql";
 import { FormProvider, useForm } from "react-hook-form";
@@ -128,6 +128,8 @@ const TalentRequestTrackedUsersInbox = ({
   });
   const selectedStatus = methods.watch("status");
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
+  const selectAllRef = useRef<HTMLButtonElement>(null);
+  const lastTriggerRef = useRef<HTMLElement | null>(null);
   const { downloadDoc, downloadZip, downloadExcel, downloadTrackedUsersExcel } =
     useUserDownloads();
 
@@ -206,9 +208,17 @@ const TalentRequestTrackedUsersInbox = ({
     }
   };
 
+  const handleOpenDialog = (dialogKind: DialogKind) => {
+    lastTriggerRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    setOpenDialog(dialogKind);
+  };
+
   const handleMarkAllAs = (dialogKind: DialogKind) => {
     handleToggleAll(true);
-    setOpenDialog(dialogKind);
+    handleOpenDialog(dialogKind);
   };
 
   const handleDialogCompleted = () => {
@@ -218,6 +228,16 @@ const TalentRequestTrackedUsersInbox = ({
 
   const handleDialogOpenChange = (isOpen: boolean) => {
     if (!isOpen) setOpenDialog(null);
+  };
+
+  const handleDialogCloseAutoFocus = (event: Event) => {
+    event.preventDefault();
+    const el = lastTriggerRef.current;
+    if (el && document.body.contains(el)) {
+      el.focus();
+    } else {
+      selectAllRef.current?.focus();
+    }
   };
 
   const isEmpty = !fetching && rows.length === 0;
@@ -251,6 +271,7 @@ const TalentRequestTrackedUsersInbox = ({
 
       <Inbox.Actions>
         <CheckButton
+          ref={selectAllRef}
           checked={allSelected}
           indeterminate={hasSelection && !allSelected}
           onToggle={() => handleToggleAll(!allSelected)}
@@ -285,7 +306,7 @@ const TalentRequestTrackedUsersInbox = ({
                           talentRequestMessages.referred,
                         ),
                       })}
-                      onClick={() => setOpenDialog("refer")}
+                      onClick={() => handleOpenDialog("refer")}
                     />
                   }
                 />
@@ -304,7 +325,7 @@ const TalentRequestTrackedUsersInbox = ({
                       label={intl.formatMessage(talentRequestMessages.markAs, {
                         status: intl.formatMessage(commonMessages.notReferred),
                       })}
-                      onClick={() => setOpenDialog("notRefer")}
+                      onClick={() => handleOpenDialog("notRefer")}
                     />
                   }
                 />
@@ -323,7 +344,7 @@ const TalentRequestTrackedUsersInbox = ({
                       label={intl.formatMessage(talentRequestMessages.markAs, {
                         status: intl.formatMessage(commonMessages.notSelected),
                       })}
-                      onClick={() => setOpenDialog("notSelect")}
+                      onClick={() => handleOpenDialog("notSelect")}
                     />
                   }
                 />
@@ -469,18 +490,21 @@ const TalentRequestTrackedUsersInbox = ({
         onOpenChange={handleDialogOpenChange}
         selectedIds={selectedRows}
         onCompleted={handleDialogCompleted}
+        onCloseAutoFocus={handleDialogCloseAutoFocus}
       />
       <NotReferTrackedUsersDialog
         open={openDialog === "notRefer"}
         onOpenChange={handleDialogOpenChange}
         selectedIds={selectedRows}
         onCompleted={handleDialogCompleted}
+        onCloseAutoFocus={handleDialogCloseAutoFocus}
       />
       <NotSelectTrackedUsersDialog
         open={openDialog === "notSelect"}
         onOpenChange={handleDialogOpenChange}
         selectedIds={selectedRows}
         onCompleted={handleDialogCompleted}
+        onCloseAutoFocus={handleDialogCloseAutoFocus}
       />
     </div>
   );

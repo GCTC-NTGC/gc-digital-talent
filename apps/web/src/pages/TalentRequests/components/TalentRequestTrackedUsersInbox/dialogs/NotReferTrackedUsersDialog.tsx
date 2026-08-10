@@ -59,6 +59,7 @@ const NotReferTrackedUsersDialog = ({
   onOpenChange,
   selectedIds,
   onCompleted,
+  onCloseAutoFocus,
 }: StatusDialogProps) => {
   const intl = useIntl();
   const methods = useForm<NotReferFormValues>();
@@ -98,6 +99,7 @@ const NotReferTrackedUsersDialog = ({
       icon={ArchiveBoxIcon}
       statusLabel={intl.formatMessage(commonMessages.notReferred)}
       selectedCount={selectedIds.length}
+      onCloseAutoFocus={onCloseAutoFocus}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmitNotReferred)}>

@@ -13,6 +13,7 @@ interface StatusDialogLayoutProps {
   statusLabel: string;
   selectedCount: number;
   children: ReactNode;
+  onCloseAutoFocus?: (event: Event) => void;
 }
 
 const StatusDialogLayout = ({
@@ -22,12 +23,13 @@ const StatusDialogLayout = ({
   statusLabel,
   selectedCount,
   children,
+  onCloseAutoFocus,
 }: StatusDialogLayoutProps) => {
   const intl = useIntl();
 
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Content>
+      <Dialog.Content onCloseAutoFocus={onCloseAutoFocus}>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
