@@ -6,6 +6,9 @@ import { tv } from "tailwind-variants";
 import EllipsisHorizontalIcon from "@heroicons/react/24/outline/EllipsisHorizontalIcon";
 import ArrowDownTrayIcon from "@heroicons/react/24/outline/ArrowDownTrayIcon";
 import ChevronDownIcon from "@heroicons/react/24/outline/ChevronDownIcon";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+import ArchiveBoxIcon from "@heroicons/react/24/outline/ArchiveBoxIcon";
+import NoSymbolIcon from "@heroicons/react/24/outline/NoSymbolIcon";
 
 import {
   graphql,
@@ -47,7 +50,6 @@ import TrackedUserListItem from "./TrackedUserListItem";
 import ReferTrackedUsersDialog from "./dialogs/ReferTrackedUsersDialog";
 import NotReferTrackedUsersDialog from "./dialogs/NotReferTrackedUsersDialog";
 import NotSelectTrackedUsersDialog from "./dialogs/NotSelectTrackedUsersDialog";
-import { statusIcons } from "./utils";
 
 const TalentRequestTrackedUsersInbox_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersInbox(
@@ -277,11 +279,7 @@ const TalentRequestTrackedUsersInbox = ({
                   render={
                     <IconButton
                       color="black"
-                      icon={
-                        statusIcons.outline[
-                          TalentRequestTrackedUserStatus.Referred
-                        ]
-                      }
+                      icon={BookmarkSquareIcon}
                       label={intl.formatMessage(talentRequestMessages.markAs, {
                         status: intl.formatMessage(
                           talentRequestMessages.referred,
@@ -302,11 +300,7 @@ const TalentRequestTrackedUsersInbox = ({
                   render={
                     <IconButton
                       color="black"
-                      icon={
-                        statusIcons.outline[
-                          TalentRequestTrackedUserStatus.NotReferred
-                        ]
-                      }
+                      icon={ArchiveBoxIcon}
                       label={intl.formatMessage(talentRequestMessages.markAs, {
                         status: intl.formatMessage(commonMessages.notReferred),
                       })}
@@ -325,11 +319,7 @@ const TalentRequestTrackedUsersInbox = ({
                   render={
                     <IconButton
                       color="black"
-                      icon={
-                        statusIcons.outline[
-                          TalentRequestTrackedUserStatus.NotSelected
-                        ]
-                      }
+                      icon={NoSymbolIcon}
                       label={intl.formatMessage(talentRequestMessages.markAs, {
                         status: intl.formatMessage(commonMessages.notSelected),
                       })}
