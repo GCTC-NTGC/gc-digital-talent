@@ -113,6 +113,7 @@ const Combobox = ({
     }
 
     const minValue = getMinMaxValue(rules.min);
+    if (!minValue) return true;
 
     return value.length >= minValue || getErrorMessage(rules.min);
   };
@@ -123,6 +124,7 @@ const Combobox = ({
     }
 
     const maxValue = getMinMaxValue(rules.max);
+    if (!maxValue) return true;
 
     return value.length <= maxValue || getErrorMessage(rules.max);
   };

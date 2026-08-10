@@ -16,11 +16,12 @@ import {
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { Role, RoleInput } from "@gc-digital-talent/graphql";
+import type { AuthCommunityTeamable, AuthRole } from "@gc-digital-talent/auth";
+import type { RoleInput } from "@gc-digital-talent/graphql";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
-import type { CommunityTeamable, UserRoleDialogBaseProps } from "../utils";
+import type { UserRoleDialogBaseProps } from "../utils";
 import { getUserRoleDialogFragment, useUpdateRolesMutation } from "../utils";
 
 interface FormValues {
@@ -30,8 +31,8 @@ interface FormValues {
 }
 
 interface RemoveCommunityRoleDialogProps extends UserRoleDialogBaseProps {
-  community: CommunityTeamable;
-  roles: Role[];
+  community: AuthCommunityTeamable;
+  roles: AuthRole[];
 }
 
 const RemoveCommunityRoleDialog = ({

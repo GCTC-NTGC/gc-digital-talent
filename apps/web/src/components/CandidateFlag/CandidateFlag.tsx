@@ -11,11 +11,9 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 
 export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
-  fragment PoolCandidate_Flag on PoolCandidate {
+  fragment PoolCandidate_Flag on PoolCandidateAdminView {
     id
-    applicationAssessmentData {
-      isFlagged
-    }
+    isFlagged
     user {
       id
       firstName
@@ -59,7 +57,7 @@ const CandidateFlag = ({
       id: candidate.id,
       onChange: onFlagChange,
       value: flagged,
-      defaultValue: candidate?.applicationAssessmentData?.isFlagged ?? false,
+      defaultValue: candidate?.isFlagged ?? false,
       name: candidateName,
       processTitle:
         processTitle ??

@@ -124,7 +124,9 @@ export function getMultiDefaultValue<T extends Option>(
   return value;
 }
 
-export function getMinMaxValue(rule: ValidationRule<string | number>): number {
+export function getMinMaxValue(
+  rule: ValidationRule<string | number>,
+): number | undefined {
   if (typeof rule === "number") {
     return rule;
   }

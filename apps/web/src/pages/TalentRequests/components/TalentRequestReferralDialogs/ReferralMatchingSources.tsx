@@ -26,26 +26,48 @@ export const ReferralMatchingPoolSource_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const ReferralMatchingAdvancementSource_Fragment = graphql(
+  /* GraphQL */ `
+    fragment ReferralMatchingAdvancementSource on TalentNominationGroup {
+      id
+      talentNominationEvent {
+        id
+        name {
+          localized
+        }
+      }
+    }
+  `,
+);
+
 interface ReferralMatchingSourcesProps {
   sourceLabels: string[];
   matchingPoolSources?:
     FragmentType<typeof ReferralMatchingPoolSource_Fragment>[] | null;
+  matchingAdvancementSources?:
+    FragmentType<typeof ReferralMatchingAdvancementSource_Fragment>[] | null;
 }
 
 const ReferralMatchingSources = ({
   sourceLabels,
   matchingPoolSources,
+  matchingAdvancementSources,
 }: ReferralMatchingSourcesProps) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const paths = useRoutes();
   const applications = unpackMaybes(
-    matchingPoolSources?.map((q) =>
-      getFragment(ReferralMatchingPoolSource_Fragment, q),
+    getFragment(ReferralMatchingPoolSource_Fragment, matchingPoolSources),
+  );
+  const advancementGroups = unpackMaybes(
+    getFragment(
+      ReferralMatchingAdvancementSource_Fragment,
+      matchingAdvancementSources,
     ),
   );
 
-  if (!sourceLabels.length && !applications.length) return null;
+  if (!sourceLabels.length && !applications.length && !advancementGroups.length)
+    return null;
 
   return (
     <>
@@ -92,6 +114,33 @@ const ReferralMatchingSources = ({
             )}
           </FieldDisplay>
         </>
+      )}
+      {advancementGroups.length > 0 && (
+        <FieldDisplay
+          className="mb-6"
+          label={intl.formatMessage({
+            defaultMessage: "Talent management events",
+            id: "qutSCs",
+            description:
+              "Label for the list of advancement nominations a user has been approved for",
+          })}
+        >
+          <Ul>
+            {advancementGroups.map((group) => (
+              <li key={group.id}>
+                <Link
+                  href={paths.talentNominationGroup(
+                    group.talentNominationEvent.id,
+                    group.id,
+                  )}
+                  newTab
+                >
+                  {group.talentNominationEvent.name.localized}
+                </Link>
+              </li>
+            ))}
+          </Ul>
+        </FieldDisplay>
       )}
     </>
   );

@@ -385,7 +385,7 @@ export const Component = () => {
               </p>
 
               <div className="mt-2 mb-6.75">
-                <span className="text-sm font-normal text-gray-500 dark:text-gray-100">
+                <span className="text-sm font-normal text-gray-600 dark:text-gray-100">
                   {intl.formatMessage({
                     defaultMessage:
                       "Using a personal phone number will help ensure you don't lose access if you change jobs.",

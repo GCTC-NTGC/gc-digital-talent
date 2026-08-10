@@ -166,6 +166,7 @@ test.describe("Talent search", () => {
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
+    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
     await talentSearch.goToIndex();
@@ -190,15 +191,20 @@ test.describe("Talent search", () => {
         level: 2,
       }),
     ).toBeVisible();
+    await expect(
+      appPage.page.getByRole("heading", {
+        name: /Find matching candidates/i,
+        level: 2,
+      }),
+    ).toBeVisible();
     await appPage.page.goto(`/en/admin/talent-requests/${requestId}/tracking`);
     const trackingPageHeadings = appPage.page.getByRole("heading", {
       level: 2,
     });
-    await expect(trackingPageHeadings).toHaveCount(3);
+    await expect(trackingPageHeadings).toHaveCount(2);
     await expect(trackingPageHeadings).toHaveText([
       /Test user/i,
       /Candidate tracking/i,
-      /Find matching candidates/i,
     ]);
   });
 
@@ -210,6 +216,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -259,6 +266,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
+      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -273,7 +281,7 @@ test.describe("Talent search", () => {
       );
     });
 
-    await test.step("Pause the candidate to verity the referral status", async () => {
+    await test.step("Pause the candidate to verify the referral status", async () => {
       await pauseCandidateReferral(adminCtx, {
         id: candidate.id,
         input: {
@@ -290,9 +298,6 @@ test.describe("Talent search", () => {
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
-      await appPage.page.goto(
-        `/en/admin/talent-requests/${requestId}/tracking`,
-      );
       await tableValidation.noCandidatesFound();
     });
   });

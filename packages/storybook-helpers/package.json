@@ -13,22 +13,22 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.2.2",
+    "@dr.pogodin/react-helmet": "^3.2.3",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^6.0.3",
     "chromatic": "^18.0.1",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
-    "motion": "^12.42.2",
+    "motion": "^12.43.0",
     "react-router": "^8.3.0",
     "urql": "^5.0.3",
     "wonka": "^6.3.6"
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@storybook/addon-themes": "^10.5.2",
-    "@storybook/react-vite": "^10.5.2",
+    "@storybook/addon-themes": "^10.5.5",
+    "@storybook/react-vite": "^10.5.5",
     "eslint": "^9.20.1",
     "react": "^19.2.8",
     "storybook": "^10.4.6",

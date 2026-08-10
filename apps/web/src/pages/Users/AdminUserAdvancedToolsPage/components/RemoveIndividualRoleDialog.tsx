@@ -9,7 +9,7 @@ import {
   formMessages,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import type { Role } from "@gc-digital-talent/graphql";
+import type { AuthRole } from "@gc-digital-talent/auth";
 
 import { getFullNameHtml } from "~/utils/nameUtils";
 
@@ -22,7 +22,7 @@ interface FormValues {
 }
 
 interface RemoveIndividualRoleDialogProps extends UserRoleDialogBaseProps {
-  role: Role;
+  role: AuthRole;
 }
 
 const RemoveIndividualRoleDialog = ({

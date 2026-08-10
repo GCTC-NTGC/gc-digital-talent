@@ -178,6 +178,7 @@ const NominateTalentNominee_Fragment = graphql(/* GraphQL */ `
 
 const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
   return {
+    id: values.id,
     nominee: { connect: values.nominee },
     nomineeReview: values.nomineeReview,
     nomineeRelationshipToNominator: values.nomineeRelationshipToNominator,
@@ -209,6 +210,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       defaultValues={{
+        id: talentNomination.id,
         nominee: talentNomination.nominee?.id,
         nomineeReview: talentNomination.nomineeReview?.value,
         nomineeRelationshipToNominator:
