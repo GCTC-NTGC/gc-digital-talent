@@ -411,7 +411,7 @@ export const DashboardPage = ({
                         hiddenContextPrefix={intl.formatMessage(
                           stateDescriptions[employeeVerificationState],
                         )}
-                        href={paths.employeeProfile()}
+                        href={paths.employeeVerification()}
                         asListItem={false}
                       />
                     </li>
@@ -462,7 +462,7 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions.locked,
                           )}
-                          href={paths.employeeProfile()}
+                          href={paths.functionalCommunities()}
                           asListItem={false}
                         />
                       )}
@@ -476,7 +476,7 @@ export const DashboardPage = ({
                         hiddenContextPrefix={intl.formatMessage(
                           stateDescriptions[careerPlanningState],
                         )}
-                        href={`${paths.employeeProfile()}#career-planning-section`}
+                        href={`${paths.careerPlanning()}`}
                         asListItem={false}
                       />
                     </li>

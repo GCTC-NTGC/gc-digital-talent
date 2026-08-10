@@ -112,12 +112,16 @@ const createPusher = () => {
     wsPort: parseInt(window.location.port) || 80,
     forceTLS: window.location.protocol === "https:",
     enabledTransports: ["ws", "wss"],
-    authEndpoint: `${apiHost}/graphql/subscriptions/auth`,
-    auth: {
-      headers: {
+    channelAuthorization: {
+      transport: "ajax",
+      endpoint: `${apiHost}/graphql/subscriptions/auth`,
+      // Read from localStorage at auth-request time (not construction time),
+      // so a refreshed access token is picked up on every reconnect instead
+      // of freezing the token that existed when the app first mounted.
+      headersProvider: () => ({
         Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
         Accept: "application/json",
-      },
+      }),
     },
   });
 

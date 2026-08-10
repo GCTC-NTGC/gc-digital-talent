@@ -281,6 +281,7 @@ return [
 
     'nomination_options' => 'Nomination options',
     'advancement_approval' => 'Advancement approval',
+    'advancement_classifications' => 'Advancement classifications',
     'advancement_approval_notes' => 'Advancement approval notes',
     'lateral_movement_approval' => 'Lateral movement approval',
     'lateral_movement_approval_notes' => 'Lateral movement approval notes',

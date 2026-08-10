@@ -7,7 +7,7 @@ import { Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
@@ -17,7 +17,7 @@ import {
 } from "~/validators/profile/workPreferences";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
-import type { SectionProps } from "../../types";
+import type { ProfileSectionPool, SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { dataToFormValues, formValuesToSubmitData } from "./utils";
@@ -52,7 +52,7 @@ const ProfileWorkPreferences_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface WorkPreferencesProps extends SectionProps<Pick<Pool, "id">> {
+interface WorkPreferencesProps extends SectionProps<ProfileSectionPool> {
   query: FragmentType<typeof ProfileWorkPreferences_Fragment>;
 }
 

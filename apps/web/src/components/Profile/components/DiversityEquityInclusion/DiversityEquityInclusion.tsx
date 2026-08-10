@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
 import type {
   FragmentType,
-  Pool,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -15,7 +14,7 @@ import type { EquityKeys } from "~/components/EmploymentEquity/types";
 import { hasEmptyRequiredFields } from "~/validators/profile/diversityEquityInclusion";
 import applicationMessages from "~/messages/applicationMessages";
 
-import type { SectionProps } from "../../types";
+import type { ProfileSectionPool, SectionProps } from "../../types";
 import { getSectionTitle } from "../../utils";
 
 type AccordionItems = "information" | "";
@@ -38,9 +37,7 @@ const ProfileDiversityEquityInclusion_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface DiversityEquityInclusionProps extends SectionProps<
-  Pick<Pool, "publishingGroup">
-> {
+interface DiversityEquityInclusionProps extends SectionProps<ProfileSectionPool> {
   query: FragmentType<typeof ProfileDiversityEquityInclusion_Fragment>;
 }
 
