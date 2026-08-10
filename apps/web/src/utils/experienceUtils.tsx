@@ -26,6 +26,7 @@ import type {
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 import {
+  DegreeType,
   EducationStatus,
   EducationType,
   EmploymentCategory,
@@ -863,9 +864,20 @@ const getEducationExperienceDefaultValues = (
     educationType: educationType?.value,
     educationStatus:
       status?.value === EducationStatus.Audited ? null : status?.value,
-    areaOfStudy,
+    areaOfStudy:
+      degreeType?.value === DegreeType.HighSchool ||
+      educationType?.value === EducationType.LicenseAccreditation ||
+      educationType?.value === EducationType.ProfessionalCertification
+        ? null
+        : areaOfStudy,
     institution,
-    thesisTitle,
+    thesisTitle:
+      educationType?.value !== EducationType.DegreeDiplomaCertificate ||
+      degreeType?.value === DegreeType.HighSchool ||
+      degreeType?.value === DegreeType.CollegeDiploma ||
+      degreeType?.value === DegreeType.BachelorsDegree
+        ? null
+        : thesisTitle,
     startDate: startDate,
     issueDate: startDate,
     prospectiveIssueDate: startDate,
