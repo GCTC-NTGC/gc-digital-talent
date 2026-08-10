@@ -18,11 +18,7 @@ import type {
   Skill,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  FlexibleWorkLocation,
-  TalentRequestSource,
-} from "@gc-digital-talent/graphql";
+import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "~/types/talentRequestForm";
