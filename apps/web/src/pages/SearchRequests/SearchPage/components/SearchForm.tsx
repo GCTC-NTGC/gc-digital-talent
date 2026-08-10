@@ -18,11 +18,7 @@ import type {
   Skill,
   WorkStream,
 } from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  FlexibleWorkLocation,
-  TalentRequestSource,
-} from "@gc-digital-talent/graphql";
+import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "~/types/talentRequestForm";
@@ -70,20 +66,12 @@ export const SearchForm = ({
   const defaultValuesAdjusted = {
     ...defaultValues,
     talentSources: [TalentRequestSource.QualifiedInPool],
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
   } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
     talentSources: [TalentRequestSource.QualifiedInPool],
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
   } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
