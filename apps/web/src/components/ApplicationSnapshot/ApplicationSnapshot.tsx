@@ -318,7 +318,10 @@ const ApplicationSnapshot = ({
         </Accordion.Item>
       </Accordion.Root>
 
-      <CareerTimelineSnapshot experiences={experiences} />
+      <CareerTimelineSnapshot
+        experiences={experiences}
+        snapshotVersion={snapshot.version}
+      />
     </>
   );
 };

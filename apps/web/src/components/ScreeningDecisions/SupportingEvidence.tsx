@@ -10,6 +10,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Heading } from "@gc-digital-talent/ui";
 
+import ExperienceCardV1 from "../ExperienceCard/SnapshotV1/ExperienceCardV1";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
@@ -25,6 +26,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: Omit<Experience, "user">[];
+  snapshotVersion: number | undefined;
   skillId?: string;
   dialogType: DialogType;
 }
@@ -32,6 +34,7 @@ interface SupportingEvidenceProps {
 const SupportingEvidence = ({
   query,
   experiences,
+  snapshotVersion,
   skillId,
   dialogType,
 }: SupportingEvidenceProps) => {
@@ -65,17 +68,27 @@ const SupportingEvidence = ({
       {experiencesFiltered.length > 0 ? (
         experiencesFiltered.map((experience) => (
           <div className="mb-3" key={experience.id}>
-            <ExperienceCard
-              experienceQuery={makeFragmentData(
-                experience,
-                ExperienceCard_Fragment,
-              )}
-              headingLevel="h4"
-              showEdit={false}
-              {...(skillId && {
-                showSkills: { id: skillId },
-              })}
-            />
+            {!snapshotVersion || snapshotVersion === 1 ? (
+              <ExperienceCardV1
+                experience={experience}
+                headingLevel="h4"
+                {...(skillId && {
+                  showSkills: { id: skillId },
+                })}
+              />
+            ) : (
+              <ExperienceCard
+                experienceQuery={makeFragmentData(
+                  experience,
+                  ExperienceCard_Fragment,
+                )}
+                headingLevel="h4"
+                showEdit={false}
+                {...(skillId && {
+                  showSkills: { id: skillId },
+                })}
+              />
+            )}
           </div>
         ))
       ) : (

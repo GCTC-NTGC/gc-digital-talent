@@ -82,6 +82,10 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+interface ParsedSnapshot extends User {
+  version?: number;
+}
+
 export interface ScreeningDecisionDialogProps {
   query: FragmentType<typeof ScreeningDecisionDialog_Fragment>;
   stepId: string;
@@ -100,7 +104,7 @@ const ScreeningDecisionDialog = ({
   const labels = useLabels();
   const candidate = getFragment(ScreeningDecisionDialog_Fragment, query);
   const snapshot = JSON.parse(String(candidate?.profileSnapshot)) as
-    | User
+    | ParsedSnapshot
     | null
     | undefined;
   const step = unpackMaybes(candidate?.pool.assessmentSteps).find(
@@ -199,6 +203,7 @@ const ScreeningDecisionDialog = ({
             <SupportingEvidence
               query={candidate}
               experiences={unpackMaybes(snapshot?.experiences)}
+              snapshotVersion={snapshot?.version}
               skillId={poolSkill?.skill?.id}
               dialogType={dialogType}
             />
