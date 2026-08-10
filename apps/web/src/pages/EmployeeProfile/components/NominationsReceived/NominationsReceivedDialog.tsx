@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/solid/CheckCircleIcon";
 
+import {
+  Link,
+  Button,
+  Dialog,
+  Notice,
+  PreviewList,
+} from "@gc-digital-talent/ui";
 import {
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
-import { Button, Dialog, Notice, PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
@@ -29,6 +35,7 @@ export const NominationsReceivedDialog_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
     advancementNominationCount
     lateralMovementNominationCount
@@ -64,6 +71,8 @@ const NominationsReceivedDialog = ({
 
   const eventName =
     nominationGroup.talentNominationEvent?.name?.localized ?? nullMessage;
+
+  const contactEmail = nominationGroup.talentNominationEvent?.contactEmail;
 
   const nominatorNames = [
     ...new Set(
@@ -102,12 +111,24 @@ const NominationsReceivedDialog = ({
           option: intl.formatMessage(
             talentNominationMessages.nominateForAdvancement,
           ),
-          meaning: intl.formatMessage({
-            defaultMessage:
-              "Being nominated for advancement means that you have been identified as someone who might benefit from challenging new opportunities. For certain events, this might result in you being referred for opportunities at higher levels than your current substantive classification for a period of time. Reach out to the community event team for event-specific details.",
-            id: "2lD5m3",
-            description: "Description for advancement nomination meaning",
-          }),
+          meaning: intl.formatMessage(
+            {
+              defaultMessage:
+                "Being nominated for advancement means that you have been identified as someone who might benefit from challenging new opportunities. For certain events, this might result in you being referred for opportunities at higher levels than your current substantive classification for a period of time. <link>Reach out to the community event team</link> for event-specific details.",
+              id: "1hARSA",
+              description: "Description for advancement nomination meaning",
+            },
+            {
+              link: (chunks: ReactNode) =>
+                contactEmail ? (
+                  <Link external color="black" href={`mailto:${contactEmail}`}>
+                    {chunks}
+                  </Link>
+                ) : (
+                  chunks
+                ),
+            },
+          ),
         }
       : null,
     (nominationGroup.lateralMovementNominationCount ?? 0) > 0
@@ -255,13 +276,20 @@ const NominationsReceivedDialog = ({
             <Button onClick={() => setIsOpen(false)}>
               {intl.formatMessage(commonMessages.close)}
             </Button>
-            <Button>
-              {intl.formatMessage({
-                defaultMessage: "Contact the community",
-                id: "ikgyHd",
-                description: "Button to contact the community",
-              })}
-            </Button>
+            {contactEmail ? (
+              <Link
+                external
+                mode="text"
+                color="primary"
+                href={`mailto:${contactEmail}`}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Contact the community",
+                  id: "ikgyHd",
+                  description: "Button to contact the community",
+                })}
+              </Link>
+            ) : null}
           </Dialog.Footer>
         </Dialog.Body>
       </Dialog.Content>
