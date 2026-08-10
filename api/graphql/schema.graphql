@@ -184,13 +184,9 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
-  # Approved nomination groups where this user is the nominee
   talentNominationGroupsAsNominee: [TalentNominationGroup!]
-    @hasMany(scopes: ["withPolicyEagerLoads", "approved"])
-    @canResolved(
-      ability: "view"
-      model: "TalentNominationGroup"
-      scopes: ["withPolicyEagerLoads"]
+    @hasMany(
+      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
     )
 }
 
