@@ -216,7 +216,7 @@ return [
     'communication_language' => 'Langue de communication',
     'nominated_for' => 'Nomination pour',
     'advancement' => 'Avancement',
-    'lateral_movement' => 'Mutation latérale',
+    'lateral_movement' => 'Transfert latéral',
     'development_programs' => 'Programmes de perfectionnement',
     'linked_experience' => 'Expérience liée',
     'nomination_details' => 'Détails de la nomination',

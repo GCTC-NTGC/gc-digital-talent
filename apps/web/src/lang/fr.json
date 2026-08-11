@@ -3340,7 +3340,7 @@
     "description": "Placeholder text for user name input in the delete user dialog"
   },
   "B3loug": {
-    "defaultMessage": "Mutation latérale",
+    "defaultMessage": "Transfert latéral",
     "description": "Label for the lateral movement nomination option on the details step"
   },
   "B524m1": {
@@ -4476,7 +4476,7 @@
     "description": "Paragraph 4 of a manager's email for apprenticeship"
   },
   "FzaSAD": {
-    "defaultMessage": "Mutation latérale",
+    "defaultMessage": "Transfert latéral",
     "description": "Label for the lateral movement nomination type"
   },
   "G+rsNw": {
@@ -4500,7 +4500,7 @@
     "description": "Description of the 'find a new community' section when creating"
   },
   "G4TRsY": {
-    "defaultMessage": "Mutation latérale<hidden> nomination approuvée</hidden>",
+    "defaultMessage": "Transfert latéral<hidden> nomination approuvée</hidden>",
     "description": "Status description when the nomination includes the lateral movement option"
   },
   "G4fR8L": {
@@ -13387,7 +13387,7 @@
     "description": "Subtitle for the change status dialog in the tracked users inbox"
   },
   "q0kxlX": {
-    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Mutation latérale} other {Mutation latérale (#)}}",
+    "defaultMessage": "{lateralMovementNominationCount, plural, =0 {Transfert latéral} other {Transfert latéral (#)}}",
     "description": "Lateral movement nominations, conditional rendered off count"
   },
   "q0oPjr": {
@@ -15378,7 +15378,7 @@
     "description": "Title for advertisement information of a process"
   },
   "yMYKzr": {
-    "defaultMessage": "Mutation latérale<hidden> nomination non retenue</hidden>",
+    "defaultMessage": "Transfert latéral<hidden> nomination non retenue</hidden>",
     "description": "Status description when the nomination doest not include the lateral movement option"
   },
   "yMsBez": {
