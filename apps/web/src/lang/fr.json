@@ -2707,6 +2707,10 @@
     "defaultMessage": "Les personnes candidates peuvent accepter de donner accès à leur profil en utilisant l'outil « Collectivités fonctionnelles » de leur tableau de bord.",
     "description": "Null secondary message for nominee profile"
   },
+  "8t1KYs": {
+    "defaultMessage": "* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
+    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
+  },
   "8umYON": {
     "defaultMessage": "Prochaines étapes",
     "description": "Title for what to expect section"
@@ -12577,10 +12581,6 @@
   "mnGISd": {
     "defaultMessage": "Intérêt pour les possibilités d'apprentissage",
     "description": "Label for an employee profile career development preference field"
-  },
-  "mnrRuo": {
-    "defaultMessage": "* La préférence sera accordée aux anciens combattants admissibles, aux membres des Forces armées canadiennes admissibles et aux personnes employées par les ministères ou agences (ministère) suivants : {department}.",
-    "description": "Fine print of a note describing that a pool is only open to employees with departmental preference"
   },
   "moB11/": {
     "defaultMessage": "est en mesure d’attribuer les rôles de recruteur de la collectivité et de coordonnateur des talents de la collectivité.",

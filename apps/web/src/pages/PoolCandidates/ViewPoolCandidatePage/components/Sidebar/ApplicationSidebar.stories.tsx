@@ -137,7 +137,7 @@ export default meta;
 
 type Story = StoryObj<typeof ApplicationSidebar>;
 
-export const ToAsses: Story = {
+export const ToAssess: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
