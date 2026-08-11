@@ -4392,7 +4392,7 @@
     "description": "Label for the pools being sourced for a talent request"
   },
   "FlTPg2": {
-    "defaultMessage": "Si vous avez des questions ou souhaitez modifier votre mise en candidature, veuillez <link>communiquer avec l'équipe responsable de l'événement</link>. Elle vous indiquera les prochaines étapes.",
+    "defaultMessage": "Si vous avez des questions ou souhaitez modifier votre nomination, <link>communiquez avec l’équipe responsable de l’événement</link>. Elle vous indiquera les prochaines étapes.",
     "description": "Instructions to contact support after nomination submission"
   },
   "Fmi0y9": {
