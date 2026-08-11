@@ -240,7 +240,7 @@ return [
     'development_program_recommendations' => 'Possibilités de perfectionnement recommandées',
     'other' => 'Autre :',
     'rationale' => 'Justification',
-    'leadership_competencies' => 'Les 3 principales compétences en matière de leadership',
+    'leadership_competencies' => 'Les 3 principales compétences clés en matière de leadership',
     'additional_comments' => 'Commentaires supplémentaires',
 
     // Other
