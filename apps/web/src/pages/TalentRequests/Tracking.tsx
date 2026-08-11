@@ -69,7 +69,13 @@ const Tracking = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
     <Tracking />
   </RequireAuth>
 );
