@@ -99,7 +99,6 @@ const CommunityResultCard = ({
         color="secondary"
         type="submit"
         {...communitySubmitProps}
-        value={community.id}
         onClick={() => {
           setValue("pool", "");
           setValue("communityId", community.id);
