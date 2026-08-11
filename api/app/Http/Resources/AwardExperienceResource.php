@@ -34,7 +34,7 @@ class AwardExperienceResource extends JsonResource
             PersonalExperienceResource::class => new PersonalExperienceResource($this->relatedExperience),
             // Another award shouldn't be possible here but just in case we change it at some point
             AwardExperience::class => new AwardExperienceResource($this->relatedExperience),
-        } : '';
+        } : null;
 
         return [
             'id' => $this->id,
@@ -46,6 +46,7 @@ class AwardExperienceResource extends JsonResource
             'awardedScope' => $this->localizeEnum($this->awarded_scope, AwardedScope::class),
             'details' => $this->details,
             'skills' => SkillResource::collection($this->skills),
+            'projectName' => $this->project_name,
             'relatedExperience' => $relatedExperienceResource,
         ];
     }

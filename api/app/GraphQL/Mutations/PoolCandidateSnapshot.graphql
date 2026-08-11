@@ -130,6 +130,8 @@ query getProfile($userId: UUID!) {
       }
       maxSalary
       minSalary
+      groupAndLevel
+      displayName
     }
     isWoman
     hasDisability
@@ -555,6 +557,8 @@ query getProfile($userId: UUID!) {
         }
         maxSalary
         minSalary
+        groupAndLevel
+        displayName
       }
     }
   }

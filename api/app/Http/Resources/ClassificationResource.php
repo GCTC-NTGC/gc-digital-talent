@@ -27,6 +27,7 @@ class ClassificationResource extends JsonResource
             'maxSalary' => $this->max_salary,
             'genericJobTitles' => GenericJobTitleResource::collection($this->whenLoaded('genericJobTitles')),
             'groupAndLevel' => $this->formattedGroupAndLevel,
+            'displayName' => $this->displayName,
         ];
     }
 }
