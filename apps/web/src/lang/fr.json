@@ -3088,7 +3088,7 @@
     "description": "Off-platform section information"
   },
   "ACCjnC": {
-    "defaultMessage": "Courriel professionnel de la personne candidate",
+    "defaultMessage": "Courriel professionnel du nominé ou de la nominée",
     "description": "Label for a nominations nominee"
   },
   "ADPfNp": {
@@ -3936,7 +3936,7 @@
     "description": "Page title for the request confirmation page."
   },
   "DePuGA": {
-    "defaultMessage": "Modifier les infos sur la personne candidate",
+    "defaultMessage": "Modifier les infos du nominé ou de la nominée",
     "description": "Link text to edit a nominations nominee information"
   },
   "DgMIfz": {
@@ -8087,7 +8087,7 @@
     "description": "List item two financial management label"
   },
   "Usof4a": {
-    "defaultMessage": "Nom de personne candidate",
+    "defaultMessage": "Nom du nominé ou de la nominée",
     "description": "Label for nominees name in a nomination"
   },
   "UuAN//": {
@@ -12107,7 +12107,7 @@
     "description": "Description of professional HR resources page"
   },
   "ksBmA2": {
-    "defaultMessage": "Ministère ou organisme de la personne candidate",
+    "defaultMessage": "Organisation du nominé ou de la nominée",
     "description": "Label for the nominee's department"
   },
   "ksMybU": {
@@ -13571,7 +13571,7 @@
     "description": "Title for the compliance enforcement section."
   },
   "qvQlEj": {
-    "defaultMessage": "Courriel professionnel de la personne candidate",
+    "defaultMessage": "Courriel professionnel du nominé ou de la nominée",
     "description": "Label for the nominee's work email"
   },
   "qvfSHZ": {
@@ -13975,7 +13975,7 @@
     "description": "Text for education accepted information context in screening decision dialog"
   },
   "sj+5RI": {
-    "defaultMessage": "Classification de la personne candidate",
+    "defaultMessage": "Groupe et niveau du poste actuel du nominé ou de la nominée",
     "description": "Label for the nominee's classification"
   },
   "sjxFxr": {
