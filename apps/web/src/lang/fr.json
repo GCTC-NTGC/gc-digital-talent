@@ -10551,7 +10551,7 @@
     "description": "Count of how many times a user has been referred across all talent requests"
   },
   "exPEA1": {
-    "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Nom du nominateur ou de la nominatrice",
     "description": "Label for the text input for the nominators name"
   },
   "exfH1c": {
@@ -15686,7 +15686,7 @@
     "description": "Label for an employee profile career development preference field"
   },
   "zYKPdV": {
-    "defaultMessage": "Nom de l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Nom du nominateur ou de la nominatrice",
     "description": "Label for the nominator's name"
   },
   "zYSicn": {
