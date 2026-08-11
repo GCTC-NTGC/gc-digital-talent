@@ -1555,6 +1555,10 @@
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
   },
+  "41VJap": {
+    "defaultMessage": "Vos collectivités fonctionnelles",
+    "description": "Title of the functional communities section in the employee profile"
+  },
   "436DA5": {
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
@@ -7470,6 +7474,10 @@
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
+  },
+  "S7SOhy": {
+    "defaultMessage": "Les collectivités fonctionnelles facilitent le recrutement et la gestion des talents pour une classification ou un domaine de travail. Si vous devenez membre d’une collectivité fonctionnelle, votre profil sera mis à la disposition des recruteurs et des coordonnateurs des talents afin qu’ils puissent l’examiner en vue d’éventuelles possibilités d’emploi et de formation.",
+    "description": "Lead-in text explaining the user profile functional communities section"
   },
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
@@ -15296,6 +15304,10 @@
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
     "description": "Error message after failed submission for the application review page."
+  },
+  "yD13EC": {
+    "defaultMessage": "Devenez membre d’une collectivité",
+    "description": "Button to join a community"
   },
   "yD4M6c": {
     "defaultMessage": "Les cadres du Gouvernement du Canada dans la fonction de contrôleur ou dans d’autres domaines intéressés par une carrière dans la gestion financière ou l’approvisionnement sont invités à créer un profil.",

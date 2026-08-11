@@ -74,8 +74,8 @@ const YourFunctionalCommunities = ({
       <p className="mb-6">
         {intl.formatMessage({
           defaultMessage:
-            "Functional communities are organizations that help facilitate recruitment and talent management for a classification or area of work. By joining a functional community, your profile is made available to recruiters and talent coordinators so that they can consider you for possible job and training opportunities.",
-          id: "bQIWex",
+            "Functional communities help facilitate recruitment and talent management for a classification or area of work. If you join a functional community, your profile will be made available to recruiters and talent coordinators so that they can consider you for possible job and training opportunities.",
+          id: "S7SOhy",
           description:
             "Lead-in text explaining the user profile functional communities section",
         })}
