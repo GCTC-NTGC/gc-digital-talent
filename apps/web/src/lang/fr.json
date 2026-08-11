@@ -1120,7 +1120,7 @@
     "description": "Statement for the input for the consent check"
   },
   "2CzVQo": {
-    "defaultMessage": "Indiquez une ou plusieurs options de transfert latéral recommandées pour la candidate ou le candidat.",
+    "defaultMessage": "Recommandez une ou plusieurs options de transfert latéral.",
     "description": "Description for lateral movement options section in nominations details step"
   },
   "2DPbjc": {
