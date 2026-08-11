@@ -9415,7 +9415,7 @@
     "description": "Label for an employee profile career development preference field"
   },
   "aYyceB": {
-    "defaultMessage": "Lien entre la personne candidate et l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Relation entre le nominé ou la nominée et le nominateur ou la nominatrice",
     "description": "Label for the nominee's relation to the person nominating them"
   },
   "aZESX1": {
