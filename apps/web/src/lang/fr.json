@@ -4364,7 +4364,7 @@
     "description": "Nine-box recommendation description for high performance and low leadership potential"
   },
   "FcHUIQ": {
-    "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par l'autrice ou l'auteur de la mise en candidature.",
+    "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par le nominateur ou la nominatrice.",
     "description": "Statement of confirmation for reference check"
   },
   "FclnNa": {
@@ -4860,7 +4860,7 @@
     "description": "Link text to return to the home page"
   },
   "HhL+EB": {
-    "defaultMessage": "Une nomination pour un transfert latéral exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour le nominé ou la nominée.",
+    "defaultMessage": "Une nomination pour un transfert latéral exige que le nominateur ou la nominatrice recommande un ou plusieurs types d'expérience pour le nominé ou la nominée.",
     "description": "Trigger subtitle for lateral movement"
   },
   "Hi7hnj": {
@@ -14071,7 +14071,7 @@
     "description": "Button text for returning to default language from Indigenous language"
   },
   "t3lsT1": {
-    "defaultMessage": "Une nomination pour une promotion exige que l'autrice ou l'auteur de la mise en candidature fournisse une référence secondaire. Si l'adresse courriel professionnelle de la référence correspondait à un profil sur la plateforme, nous avons utilisé les coordonnées les plus récentes. Si nous n'avons pas trouvé de correspondance, l'autrice ou l'auteur de la mise en candidature a fourni des coordonnées de base.",
+    "defaultMessage": "Une nomination pour une promotion exige que le nominateur ou la nominatrice fournisse une référence secondaire. Si l'adresse courriel professionnelle de la référence correspondait à un profil sur la plateforme, nous avons utilisé les coordonnées les plus récentes. Si nous n'avons pas trouvé de correspondance, le nominateur ou la nominatrice a fourni des coordonnées de base.",
     "description": "Trigger subtitle for advancement reference"
   },
   "t4+h/N": {
@@ -15035,7 +15035,7 @@
     "description": "Title for group-specific resource card"
   },
   "x1oBLr": {
-    "defaultMessage": "Dans le cadre d'une nomination pour des programmes de perfectionnement, l'autrice ou l'auteur de la mise en candidature doit sélectionner, parmi les programmes de formation et de perfectionnement proposés par la collectivité fonctionnelle, ceux qui bénéficieraient au nominé ou à la nominée.",
+    "defaultMessage": "Dans le cadre d'une nomination pour des programmes de perfectionnement, le nominateur ou la nominatrice doit sélectionner, parmi les programmes de formation et de perfectionnement proposés par la collectivité fonctionnelle, ceux qui bénéficieraient au nominé ou à la nominée.",
     "description": "Trigger subtitle for development programs"
   },
   "x20cWU": {
