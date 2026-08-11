@@ -3296,7 +3296,7 @@
     "description": "Lead-in text to points of concern when deleting a skill and what will happen"
   },
   "Ax4fN+": {
-    "defaultMessage": "Rechercher le courriel professionnel de la personne candidate",
+    "defaultMessage": "Rechercher le courriel professionnel du nominé ou de la nominée",
     "description": "Label for search nominee input field on a nomination"
   },
   "AxLO/M": {
@@ -3384,7 +3384,7 @@
     "description": "Definition of Visible minority from the StatsCan 'Visible minority of person' page."
   },
   "BG9koi": {
-    "defaultMessage": "Maintenant que nous en savons un peu plus sur la personne qui présente la candidature, recueillons quelques renseignements sur la personne dont la candidature est présentée. Nous commencerons par vérifier si elle dispose d'un compte sur Talents numériques du GC en utilisant son adresse courriel professionnelle.",
+    "defaultMessage": "Maintenant recueillons quelques renseignements sur le nominé ou la nominée. Nous commencerons par vérifier si le nominé ou la nominée possède un compte sur Talents numériques du GC en utilisant son courriel professionnel.",
     "description": "Subtitle for nomination nominee step"
   },
   "BGC19+": {
