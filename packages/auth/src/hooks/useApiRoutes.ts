@@ -32,6 +32,10 @@ const apiRoutes = {
     const filePath = `api/user-generated-files/${fileName}`;
     return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
   },
+  userGeneratedPublicFile: (fileName: string): string => {
+    const filePath = `api/user-generated-files/public/${fileName}`;
+    return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
+  },
 };
 export default apiRoutes;
 
