@@ -39,15 +39,13 @@ const generateCommunityInterest = (
     Object.values(CommunityReferralStatus),
   );
 
-  const referralFollowUp = [
-    CommunityReferralStatus.NotReferred,
-    CommunityReferralStatus.AvailableForReferral,
-  ].includes(referralStatus)
-    ? null
-    : faker.date
-        .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-        .toISOString()
-        .substring(0, 10);
+  const referralFollowUp =
+    referralStatus === CommunityReferralStatus.NotReferred
+      ? null
+      : faker.date
+          .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+          .toISOString()
+          .substring(0, 10);
 
   return {
     id: faker.string.uuid(),
