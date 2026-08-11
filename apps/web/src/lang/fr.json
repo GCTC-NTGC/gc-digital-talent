@@ -1120,7 +1120,7 @@
     "description": "Statement for the input for the consent check"
   },
   "2CzVQo": {
-    "defaultMessage": "Indiquez une ou plusieurs options de mutation latérale recommandées pour la candidate ou le candidat.",
+    "defaultMessage": "Indiquez une ou plusieurs options de transfert latéral recommandées pour la candidate ou le candidat.",
     "description": "Description for lateral movement options section in nominations details step"
   },
   "2DPbjc": {
@@ -3408,7 +3408,7 @@
     "description": "Breadcrumb label for the Canada Login registration page"
   },
   "BNSbyC": {
-    "defaultMessage": "Autre possibilité de mutation latérale",
+    "defaultMessage": "Autre possibilité de transfert latéral",
     "description": "Label other lateral move option input on the details step"
   },
   "BPFC5k": {
@@ -13011,7 +13011,7 @@
     "description": "Label displayed on Work Preferences form for any duration option"
   },
   "ohS7IA": {
-    "defaultMessage": "Options de mutation latérale",
+    "defaultMessage": "Options de transfert latéral",
     "description": "Trigger title for lateral movement"
   },
   "oiD77w": {
@@ -15594,7 +15594,7 @@
     "description": "Name of Michif language"
   },
   "zCjdD9": {
-    "defaultMessage": "Nommez des talents pour des programmes d'avancement, de mutation latérale ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
+    "defaultMessage": "Nommez des talents pour des programmes d'avancement, de transfert latéral ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
     "description": "Subtitle explaining talent nominations expandable within Talent management card"
   },
   "zDHOiY": {
@@ -15650,7 +15650,7 @@
     "description": "Description for the account and information section"
   },
   "zLnqLc": {
-    "defaultMessage": "Options de mutation latérale",
+    "defaultMessage": "Options de transfert latéral",
     "description": "Label for the lateral movement options checklist on the details step"
   },
   "zLuuVe": {
