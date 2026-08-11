@@ -2183,10 +2183,6 @@
     "defaultMessage": "Un poste qui s’accorde avec vos compétences",
     "description": "Heading for finding a role with DND"
   },
-  "6ZwHMj": {
-    "defaultMessage": "Bienvenue sur le formulaire de mise en candidature des talents. Ce formulaire vous permet de nommer une candidate ou un candidat pour des occasions d'avancement, de mutation latérale ou de perfectionnement propres à son domaine de travail.",
-    "description": "Paragraph one, instructions on how to submit a nomination"
-  },
   "6aCiD3": {
     "defaultMessage": "Nous ne donnons que des exemples de compétences comportementales essentielles dans les modèles d’offre d’emploi.",
     "description": "Lead in for a list of essential behavioural skills"
@@ -11213,6 +11209,10 @@
   "hFm9sL": {
     "defaultMessage": "Nous avons trouvé un utilisateur avec cette adresse de courriel.",
     "description": "Label for when an employee was found"
+  },
+  "hG3PGw": {
+    "defaultMessage": "Bienvenue au formulaire de nomination des talents.",
+    "description": "Paragraph one, instructions on how to submit a nomination"
   },
   "hGBUc+": {
     "defaultMessage": "Sélectionner la durée de l'interruption",
