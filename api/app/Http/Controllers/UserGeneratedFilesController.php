@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Support\FilePath;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -36,13 +35,6 @@ class UserGeneratedFilesController extends Controller
     {
         $safeFileName = FilePath::sanitize($fileName, true);
         $filePath = $parentDir.DIRECTORY_SEPARATOR.$safeFileName;
-
-        Log::debug([
-            'fileName' => $fileName,
-            'safeFileName' => $safeFileName,
-            'parentdir' => $parentDir,
-            'path' => $filePath,
-        ]);
 
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
 
