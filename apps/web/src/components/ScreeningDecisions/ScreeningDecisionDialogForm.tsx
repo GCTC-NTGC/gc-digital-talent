@@ -30,13 +30,13 @@ interface ContextBlockProps {
 const ContextBlock = ({ messages, key }: ContextBlockProps) => (
   <div className="mb-3">
     {messages.map((message, index) => (
-      <span
+      <div
         key={`${key}-${index + 1}`}
         className="mb-3 flex justify-start gap-3"
       >
         <CheckIcon className="size-6" />
         <p>{message}</p>
-      </span>
+      </div>
     ))}
   </div>
 );
