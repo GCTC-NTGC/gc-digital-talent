@@ -933,7 +933,7 @@ export const PoolPoster = ({
                     size="h3"
                     icon={QuestionMarkCircleIcon}
                     color="success"
-                    className="m-t18 mb-0"
+                    className="mb-0"
                   >
                     {sections.moreInfo.title}
                   </TableOfContents.Heading>
