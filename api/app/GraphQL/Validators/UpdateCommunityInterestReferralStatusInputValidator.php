@@ -23,7 +23,7 @@ final class UpdateCommunityInterestReferralStatusInputValidator extends Validato
             'id' => ['required', 'uuid'],
             'status' => ['required', Rule::in(array_column(CommunityReferralStatus::cases(), 'name'))],
             'followUpDate' => [Rule::requiredUnless($isNotReferred), 'date'],
-            'classification.connect' => [Rule::requiredIf($isAvailable), 'uuid', 'exists:classifications,id'],
+            'classification.connect' => [Rule::requiredIf($isAvailable), Rule::prohibitedIf(! $isAvailable), 'uuid', 'exists:classifications,id'],
             'notes' => ['string', Rule::requiredIf($isNotReferred)],
         ];
     }
