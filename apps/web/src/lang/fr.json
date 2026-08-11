@@ -4084,7 +4084,7 @@
     "description": "Instructions on how to add an experience to your career timeline"
   },
   "EI62F9": {
-    "defaultMessage": "Étant donné que vous présentez cette candidature au nom de l'auteur ou l'autrice de mise en candidature, nous devons recueillir quelques renseignements sur cette dernière. Cela inclut votre relation de travail avec la personne, son nom, son adresse courriel professionnel et sa classification.",
+    "defaultMessage": "Étant donné que vous présentez cette nomination au nom du nominateur ou de la nominatrice, nous devons recueillir quelques renseignements à son sujet. Cela comprend votre relation de travail avec cette personne, son nom, son courriel professionnel et sa classification.",
     "description": "Help text for filling out information about the nominator"
   },
   "EIM5Jw": {
