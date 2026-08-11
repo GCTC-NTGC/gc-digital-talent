@@ -6632,7 +6632,7 @@
     "description": "Heading for the add employment equity option to profile dialogs"
   },
   "OoPiFu": {
-    "defaultMessage": "Recommander une personne pour une promotion, une mutation latérale ou des occassions de perfectionnement.",
+    "defaultMessage": "Nominez une personne pour une promotion, un transfert latéral ou un programme de perfectionnement.",
     "description": "Subtitle for the form to nominate talent"
   },
   "OoYh86": {
@@ -15362,7 +15362,7 @@
     "description": "Heading for the skills level definitions of behavioural skills"
   },
   "yKRyJw": {
-    "defaultMessage": "Nommer des talents pour {eventName}",
+    "defaultMessage": "Nominer des talents pour {eventName}",
     "description": "Page title for the form to nominate talent"
   },
   "yKpbHC": {
