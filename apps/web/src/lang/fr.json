@@ -7020,7 +7020,7 @@
     "description": "Description of the application process and the next step"
   },
   "QNUIxj": {
-    "defaultMessage": "Je suis l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Je suis le nominateur ou la nominatrice",
     "description": "Label for the option when the submitter of a nomination is also the nominator"
   },
   "QOf3kT": {
@@ -8311,7 +8311,7 @@
     "description": "Permissions related to creating/deleting draft processes"
   },
   "Vnh3iD": {
-    "defaultMessage": "Je soumets la candidature au nom de l'auteur ou l'autrice de la mise en candidature",
+    "defaultMessage": "Je soumets la nomination au nom du nominateur ou de la nominatrice",
     "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
   },
   "VoaVjp": {
