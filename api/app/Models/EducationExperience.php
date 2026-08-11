@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Lang;
  * @property string $fellowship_type
  * @property string $other_fellowship_type
  * @property ?Carbon $prospective_end_date
+ * @property string $type Replaced by education_type - used in V1 snapshots
  */
 class EducationExperience extends Experience
 {
@@ -111,7 +112,7 @@ class EducationExperience extends Experience
                         : LanguageHelpers::localizeEnum($this->fellowship_type, FellowshipType::class, $lang);
                     break;
                 case EducationType::OTHER->name:
-                    $type = $educationExperience->other_education_type ?? Lang::get('headings.other_type_of_education', [], $lang);
+                    $type = $this->other_education_type ?? Lang::get('headings.other_type_of_education', [], $lang);
                     break;
                 default:
                     $type = LanguageHelpers::localizeEnum($this->education_type, EducationType::class, $lang);
@@ -119,7 +120,7 @@ class EducationExperience extends Experience
             if ($this->education_type === EducationType::PROFESSIONAL_CERTIFICATION) {
                 $subject = $this->certification;
             } elseif ($this->education_type === EducationType::LICENSE_ACCREDITATION) {
-                $subject = $this->licenseOrAccreditation;
+                $subject = $this->license_or_accreditation;
             }
         }
 

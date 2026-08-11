@@ -34,6 +34,7 @@ class AwardExperienceResource extends JsonResource
             PersonalExperienceResource::class => new PersonalExperienceResource($this->relatedExperience),
             // Another award shouldn't be possible here but just in case we change it at some point
             AwardExperience::class => new AwardExperienceResource($this->relatedExperience),
+            default => null
         } : null;
 
         return [
