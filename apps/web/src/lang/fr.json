@@ -2524,7 +2524,7 @@
     "description": "Talent portal strategy item 2 content"
   },
   "85Y9eS": {
-    "defaultMessage": "Historique des mises en candidature",
+    "defaultMessage": "Historique des nominations",
     "description": "Heading for the nomination history page"
   },
   "86Y8lx": {
@@ -2612,7 +2612,7 @@
     "description": "Reminder what screening questions are used for."
   },
   "8UrSRQ": {
-    "defaultMessage": "Acceptation des mises en candidature du {openDate} au {closeDate}.",
+    "defaultMessage": "Acceptation des nominations du {openDate} au {closeDate}.",
     "description": "Text for date range values for Accepting nominations"
   },
   "8VQWN3": {
@@ -6200,7 +6200,7 @@
     "description": "Description of the 'to assess' application status"
   },
   "Mt3GfT": {
-    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "defaultMessage": "Date limite de présentation des nominations",
     "description": "Label for the deadline of a nomination"
   },
   "Mtiz1l": {
@@ -7108,7 +7108,7 @@
     "description": "Error message displayed when a users personal information is incomplete"
   },
   "Qds8Yz": {
-    "defaultMessage": "Ces options permettent de préciser les restrictions de classification, le type de mises en candidature acceptées ainsi que la période pendant laquelle l’événement acceptera les candidatures.",
+    "defaultMessage": "Ces options permettent de préciser les restrictions de classification, le type de nominations acceptées ainsi que la période pendant laquelle l’événement acceptera les candidatures.",
     "description": "Description for subsection create talent management event"
   },
   "QeP4Rb": {
@@ -7692,7 +7692,7 @@
     "description": "Description of how applications work for non-government employees."
   },
   "TCL3HM": {
-    "defaultMessage": "peut trier les mises en candidature.",
+    "defaultMessage": "peut trier les nominations.",
     "description": "Description of the permission to manage talent nominations"
   },
   "TE28aU": {
@@ -7820,7 +7820,7 @@
     "description": "Text for first registration step, successful account creation"
   },
   "ToJGtJ": {
-    "defaultMessage": "Les mises en candidature contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
+    "defaultMessage": "Les nominations contenant ce perfectionnement professionnel à titre de possibilité de perfectionnement continueront de le conserver à des fins d’archivage",
     "description": "Fourth list item in warning message before removing a professionalization"
   },
   "Tp7hml": {
@@ -8551,7 +8551,7 @@
     "description": "Text for the option to self-declare as first nations"
   },
   "WpoUnf": {
-    "defaultMessage": "Offrir des possibilités de perfectionnement lors des mises en candidature en gestion des talents",
+    "defaultMessage": "Offrir des possibilités de perfectionnement lors des nominations en gestion des talents",
     "description": "Dialog body text for providing development opportunity options during Talent Management nominations"
   },
   "Wqw2ZB": {
@@ -9407,7 +9407,7 @@
     "description": "Applicant role name for nav menu"
   },
   "aXY8in": {
-    "defaultMessage": "Date de début des mises en candidature",
+    "defaultMessage": "Date de début des nominations",
     "description": "start date of a nomination event"
   },
   "aYgVQT": {
@@ -9695,7 +9695,7 @@
     "description": "Text for education accepted information context in screening decision dialog"
   },
   "bnjpsH": {
-    "defaultMessage": "Date de clôture des mises en candidature",
+    "defaultMessage": "Date de clôture des nominations",
     "description": "end date of a nomination event"
   },
   "boPmF+": {
@@ -10335,7 +10335,7 @@
     "description": "Header for the column showing which pool(s) a candidate is qualified in"
   },
   "eC+ZhW": {
-    "defaultMessage": "Lier à la collectivité des programmes de perfectionnement communs, des certifications, des accréditations ou des licences à des fins de gestion des talents. Une fois ajouté, un perfectionnement professionnel pourra être offert comme possibilité de perfectionnement lors des mises en candidature en gestion des talents et être présenté aux personnes qui rejoignent la collectivité à partir de leur profil.",
+    "defaultMessage": "Lier à la collectivité des programmes de perfectionnement communs, des certifications, des accréditations ou des licences à des fins de gestion des talents. Une fois ajouté, un perfectionnement professionnel pourra être offert comme possibilité de perfectionnement lors des nominations en gestion des talents et être présenté aux personnes qui rejoignent la collectivité à partir de leur profil.",
     "description": "Description for professionalizations page"
   },
   "eCkRlc": {
@@ -10343,7 +10343,7 @@
     "description": "Blurb for career timeline section of the application review page."
   },
   "eE/J+Q": {
-    "defaultMessage": "Veuillez noter que la date de clôture des mises en candidature peut uniquement être prolongée.",
+    "defaultMessage": "Veuillez noter que la date de clôture des nominations peut uniquement être prolongée.",
     "description": "Description for warning notice in active talent event form"
   },
   "eEVJFa": {
@@ -10711,11 +10711,11 @@
     "description": "Sub-heading for language requirements dialog"
   },
   "fTm+ln": {
-    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de mise en candidature, où les personnes peuvent être nommées pour une promotion, un mouvement latéral ou des possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de mise en candidature, les types de mises en candidature acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
+    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de mise en candidature, où les personnes peuvent être nommées pour une promotion, un mouvement latéral ou des possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de mise en candidature, les types de nominations acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
     "description": "Description for talent management event form"
   },
   "fVbf8w": {
-    "defaultMessage": "Gérer les activités liées à la gestion des talents et les mises en candidature",
+    "defaultMessage": "Gérer les activités liées à la gestion des talents et les nominations",
     "description": "Permissions related to managing talent events and nominations"
   },
   "fWNqcM": {
@@ -11403,7 +11403,7 @@
     "description": "First paragraph for apply now dialog"
   },
   "i31jc0": {
-    "defaultMessage": "Date limite de présentation des mises en candidature",
+    "defaultMessage": "Date limite de présentation des nominations",
     "description": "Label for the deadline to nominate"
   },
   "i37tmL": {
@@ -11759,7 +11759,7 @@
     "description": "Label to remove the skill"
   },
   "jQiIbl": {
-    "defaultMessage": "Une fois un événement de gestion des talents publié et ouvert pour recevoir des mises en candidature, seules certaines parties peuvent être modifiées afin d’assurer l’équité et la clarté pour les personnes proposant des candidatures et les personnes candidates.",
+    "defaultMessage": "Une fois un événement de gestion des talents publié et ouvert pour recevoir des nominations, seules certaines parties peuvent être modifiées afin d’assurer l’équité et la clarté pour les personnes proposant des candidatures et les personnes candidates.",
     "description": "Description for warning notice in active talent event form"
   },
   "jRmRd+": {
@@ -13211,7 +13211,7 @@
     "description": "Preamble for citizen/veteran/priority edit form"
   },
   "pOazxP": {
-    "defaultMessage": "Mises en candidature des talent ({nominationCount})",
+    "defaultMessage": "Nominations des talent ({nominationCount})",
     "description": "Collapsible header, Talent nominations and then count"
   },
   "pPOGwF": {
@@ -13439,7 +13439,7 @@
     "description": "Message displayed when a user successfully updates the job details"
   },
   "qEU5rz": {
-    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des mises en candidature.",
+    "defaultMessage": "Les événements présentés dans cette section acceptent actuellement des nominations.",
     "description": "Description for active events section"
   },
   "qFFEST": {
@@ -13543,7 +13543,7 @@
     "description": "Success message after soft-deleting a user"
   },
   "qo3/Sp": {
-    "defaultMessage": "Cet onglet vous permet de consulter l'historique des mises en candidature du nominé ou de la nominée par événement. Les mises en candidature en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les mises en candidature disponibles, au besoin.",
+    "defaultMessage": "Cet onglet vous permet de consulter l'historique des nominations du nominé ou de la nominée par événement. Les nominations en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les nominations disponibles, au besoin.",
     "description": "Description for the nomination history page"
   },
   "qrd+vb": {
@@ -15023,7 +15023,7 @@
     "description": "Comments or contributions list item"
   },
   "wwvaQ1": {
-    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des mises en candidature en gestion des talents",
+    "defaultMessage": "Ce perfectionnement professionnel ne sera plus offert lors des nominations en gestion des talents",
     "description": "Second list item in warning message before removing a professionalization"
   },
   "wxXlyJ": {
@@ -15594,7 +15594,7 @@
     "description": "Name of Michif language"
   },
   "zCjdD9": {
-    "defaultMessage": "Nommez des talents pour des programmes d'avancement, de transfert latéral ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les mises en candidature que vous avez déjà soumises.",
+    "defaultMessage": "Nommez des talents pour des programmes d'avancement, de transfert latéral ou de perfectionnement. Suivez l'état d'avancement de votre mise en candidature ou consultez les nominations que vous avez déjà soumises.",
     "description": "Subtitle explaining talent nominations expandable within Talent management card"
   },
   "zDHOiY": {
@@ -15726,7 +15726,7 @@
     "description": "Description of complaints to the Federal Public Sector Labour Relations and Employment Board"
   },
   "zgLR8q": {
-    "defaultMessage": "Les dates de début et de fin de la période de mise en candidature, les types de mises en candidature pouvant être soumises et la question de savoir si les compétences de leadership sont requises lors de la soumission.",
+    "defaultMessage": "Les dates de début et de fin de la période de mise en candidature, les types de nominations pouvant être soumises et la question de savoir si les compétences de leadership sont requises lors de la soumission.",
     "description": "Description before nomination settings"
   },
   "zkoW6g": {
