@@ -186,8 +186,8 @@ const NominationsReceivedDialog = ({
         >
           {intl.formatMessage({
             defaultMessage: "Nomination details",
-            id: "7B/Eu+",
-            description: "Title for the received nomination details dialog",
+            id: "gD98oQ",
+            description: "Heading for details step of a talent nomination",
           })}
         </Dialog.Header>
         <Dialog.Body>
@@ -278,15 +278,15 @@ const NominationsReceivedDialog = ({
             </Button>
             {contactEmail ? (
               <Link
-                external
                 mode="text"
                 color="primary"
-                href={`mailto:${contactEmail}`}
+                external
+                href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Contact the community",
-                  id: "ikgyHd",
-                  description: "Button to contact the community",
+                  defaultMessage: "Contact the Digital Community",
+                  id: "8+j5O+",
+                  description: "Link text to email the digital community",
                 })}
               </Link>
             ) : null}
