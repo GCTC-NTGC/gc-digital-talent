@@ -19,7 +19,7 @@ class TalentNominationGroupPolicy
         }
 
         if ($actor->id === $talentNominationGroup->nominee_id
-            && $talentNominationGroup->status === TalentNominationGroupStatus::APPROVED->name) {
+            && $talentNominationGroup->computed_status === TalentNominationGroupStatus::APPROVED->name) {
             return true;
         }
 
