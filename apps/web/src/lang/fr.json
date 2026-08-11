@@ -10783,7 +10783,7 @@
     "description": "Subtitle for talent request referral"
   },
   "fhpWug": {
-    "defaultMessage": "Présentez les informations sur un cadre supérieur qui servira de référence secondaire pour confirmer que la personne candidate est prête à être promue.",
+    "defaultMessage": "Veuillez fournir les informations d’une deuxième personne de référence de niveau cadre supérieur qui peut confirmer que la personne nominée est prête à être promue.",
     "description": "Description for advancement options section in nominations details step"
   },
   "fkYYe3": {
