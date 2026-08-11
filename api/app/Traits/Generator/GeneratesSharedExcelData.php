@@ -33,6 +33,8 @@ trait GeneratesSharedExcelData
 
     /**
      * Hide user data if no consent to share
+     *
+     * Id, first name, last name always remain visible
      */
     private function applyConsentToRow(array $row, ?string $userId): array
     {
@@ -41,7 +43,7 @@ trait GeneratesSharedExcelData
         }
 
         return array_map(function ($value, $index) {
-            return $index === 0 ? $value : Lang::get('common.not_available', [], $this->lang);
+            return $index <= 2 ? $value : Lang::get('common.not_available', [], $this->lang);
         }, $row, array_keys($row));
     }
 
