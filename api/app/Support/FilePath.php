@@ -4,6 +4,8 @@ namespace App\Support;
 
 class FilePath
 {
+    public const PUBLIC_PATH = 'public';
+
     /**
      * Normalizes a string into a safe, cross-platform file name.
      * Preserves French characters while stripping path separators and dots.

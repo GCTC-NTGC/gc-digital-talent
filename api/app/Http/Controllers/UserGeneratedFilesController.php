@@ -4,20 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Support\FilePath;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserGeneratedFilesController extends Controller
 {
-    public function getFile(string $fileName)
+    /**
+     * Streams a public file that does not require authentication
+     *
+     * @param  string  $fileName  The name of the file to be streamed
+     * @return void
+     */
+    public function getPublicFile(string $fileName): StreamedResponse
+    {
+        return $this->streamFile(FilePath::PUBLIC_PATH, $fileName);
+    }
+
+    public function getGuardedFile(string $fileName): StreamedResponse
     {
         // https://laravel.com/docs/10.x/authentication#accessing-specific-guard-instances
         $userId = Auth::guard('api')->id();
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
+        return $this->streamFile($userId, $fileName);
+    }
+
+    private function streamFile(string $parentDir, string $fileName): StreamedResponse
+    {
         $safeFileName = FilePath::sanitize($fileName, true);
-        $filePath = $userId.'/'.$safeFileName;
+        $filePath = $parentDir.DIRECTORY_SEPARATOR.$safeFileName;
+
+        Log::debug([
+            'fileName' => $fileName,
+            'safeFileName' => $safeFileName,
+            'parentdir' => $parentDir,
+            'path' => $filePath,
+        ]);
 
         throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
 
@@ -44,6 +69,5 @@ class UserGeneratedFilesController extends Controller
                 }
             }
         }, $safeFileName, ['Content-Type' => $contentType]);
-
     }
 }
