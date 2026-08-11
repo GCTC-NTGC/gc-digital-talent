@@ -17,13 +17,13 @@ final class UpdateCommunityInterestReferralStatusInputValidator extends Validato
     {
 
         $isNotReferred = $this->arg('status') === CommunityReferralStatus::NOT_REFERRED->name;
-        $isReferred = $this->arg('status') === CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name;
+        $isAvailable = $this->arg('status') === CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name;
 
         return [
             'id' => ['required', 'uuid'],
             'status' => ['required', Rule::in(array_column(CommunityReferralStatus::cases(), 'name'))],
             'followUpDate' => [Rule::requiredUnless($isNotReferred), 'date'],
-            'classification.connect' => [Rule::requiredIf($isReferred), 'uuid', 'exists:classifications,id'],
+            'classification.connect' => [Rule::requiredIf($isAvailable), 'uuid', 'exists:classifications,id'],
             'notes' => ['string', Rule::requiredIf($isNotReferred)],
         ];
     }

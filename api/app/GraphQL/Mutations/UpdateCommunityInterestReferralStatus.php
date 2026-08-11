@@ -14,7 +14,7 @@ final class UpdateCommunityInterestReferralStatus
     {
         $communityInterest = CommunityInterest::findOrFail($args['id']);
         $status = $args['status'] ?? CommunityReferralStatus::NEW->name;
-        $isReferred = $status === CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name;
+        $isAvailable = $status === CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name;
         $classification = $args['classification'] ?? [];
 
         $communityInterest->referral_status = $status;
@@ -22,7 +22,7 @@ final class UpdateCommunityInterestReferralStatus
         $communityInterest->referral_notes = $args['notes'] ?? null;
         $communityInterest->referral_status_data_updated_at = now();
 
-        if (! $isReferred || ($classification['disconnect'] ?? false)) {
+        if (! $isAvailable || ($classification['disconnect'] ?? false)) {
             $communityInterest->referralClassification()->dissociate();
         }
 
