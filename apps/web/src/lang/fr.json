@@ -14251,7 +14251,7 @@
     "description": "Label for when an employee was found"
   },
   "tmRaL3": {
-    "defaultMessage": "Rechercher le courriel professionnel de l'auteur(trice) de la mise en candidature",
+    "defaultMessage": "Rechercher le courriel professionnel du nominateur ou de la nominatrice",
     "description": "Label for search nominator input field on a nomination"
   },
   "tmwk97": {
