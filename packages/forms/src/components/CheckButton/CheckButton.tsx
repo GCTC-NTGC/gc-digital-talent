@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import type { Ref } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
@@ -31,6 +31,7 @@ const checkBtn = tv({
 type CheckButtonVariants = VariantProps<typeof checkBtn>;
 
 export interface CheckButtonProps extends CheckButtonVariants {
+  ref?: Ref<HTMLButtonElement | null>;
   checked: boolean;
   label: string;
   indeterminate?: boolean;
@@ -38,49 +39,45 @@ export interface CheckButtonProps extends CheckButtonVariants {
   className?: string;
 }
 
-const CheckButton = forwardRef<HTMLButtonElement, CheckButtonProps>(
-  (
-    {
-      checked,
-      label,
-      onToggle,
-      indeterminate = false,
-      color = "black",
-      className,
-    },
-    forwardedRef,
-  ) => {
-    const intl = useIntl();
-    const { btn, icon: iconStyles } = checkBtn({ color });
+const CheckButton = ({
+  ref,
+  checked,
+  label,
+  onToggle,
+  indeterminate = false,
+  color = "black",
+  className,
+}: CheckButtonProps) => {
+  const intl = useIntl();
+  const { btn, icon: iconStyles } = checkBtn({ color });
 
-    // NOTE: Not redundant
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-    let Icon: string | IconType = "span";
-    if (indeterminate) {
-      Icon = MinusIcon;
-    }
-    if (checked) {
-      Icon = CheckIcon;
-    }
+  // NOTE: Not redundant
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  let Icon: string | IconType = "span";
+  if (indeterminate) {
+    Icon = MinusIcon;
+  }
+  if (checked) {
+    Icon = CheckIcon;
+  }
 
-    return (
-      <button
-        ref={forwardedRef}
-        type="button"
-        onClick={() => onToggle()}
-        className={btn({ class: className })}
-      >
-        <span className="sr-only">
-          {checked
-            ? intl.formatMessage(formMessages.deselectCheck, { label })
-            : intl.formatMessage(formMessages.selectCheck, { label })}
-        </span>
-        <span className={iconStyles()}>
-          <Icon className="block size-3 stroke-3" />
-        </span>
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      ref={ref}
+      type="button"
+      onClick={() => onToggle()}
+      className={btn({ class: className })}
+    >
+      <span className="sr-only">
+        {checked
+          ? intl.formatMessage(formMessages.deselectCheck, { label })
+          : intl.formatMessage(formMessages.selectCheck, { label })}
+      </span>
+      <span className={iconStyles()}>
+        <Icon className="block size-3 stroke-3" />
+      </span>
+    </button>
+  );
+};
 
 export default CheckButton;
