@@ -226,8 +226,8 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
       <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
-            "Now that we know a little about who is submitting the nomination, let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
-          id: "BG9koi",
+            "Now let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
+          id: "sOEIhS",
           description: "Subtitle for nomination nominee step",
         })}
       </p>
