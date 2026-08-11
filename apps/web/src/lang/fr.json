@@ -76,7 +76,7 @@
     "description": "Second item in list of certification topics section"
   },
   "+CU+6M": {
-    "defaultMessage": "Intérêt pour une mutation latérale (mobilité de même niveau)",
+    "defaultMessage": "Intérêt pour un transfert latéral (mobilité de même niveau)",
     "description": "Label for interested in lateral movement checkbox for mobility type checklist"
   },
   "+D0qSp": {
@@ -724,7 +724,7 @@
     "description": "Title displayed on the candidate skill count column."
   },
   "0ea8yF": {
-    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement et une mutation latérale.",
+    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement et un transfert latéral.",
     "description": "Nine-box recommendation title for development and lateral"
   },
   "0jV7Rn": {
@@ -1844,7 +1844,7 @@
     "description": "Description for bilingual positions in language requirements dialog"
   },
   "55IkTu": {
-    "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
+    "defaultMessage": "Je ne suis pas à la recherche d'un transfert latéral pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
   "56WpMU": {
@@ -2136,7 +2136,7 @@
     "description": "Title for the subsection for viewing/selecting employment equity"
   },
   "6KS1jD": {
-    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'une mutation latérale ou d'une possibilité de perfectionnement professionnel.",
+    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'un transfert latéral ou d'une possibilité de perfectionnement professionnel.",
     "description": "Lead-in text explaining the users career plan"
   },
   "6LOBmp": {
@@ -3804,7 +3804,7 @@
     "description": "Bounding box label for the include leadership performance and potential"
   },
   "D7/cN1": {
-    "defaultMessage": "Approbation pour une mutation latérale",
+    "defaultMessage": "Approbation pour un transfert latéral",
     "description": "Label for an nomination for lateral movement decision"
   },
   "D8mu6E": {
@@ -4360,7 +4360,7 @@
     "description": "affirm possession of priority entitlement"
   },
   "FYCNAa": {
-    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'une mutation latérale, d'une possibilité de perfectionnement ou d'une promotion.",
+    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'un transfert latéral, d'une possibilité de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
   },
   "FYIbdJ": {
@@ -4588,7 +4588,7 @@
     "description": "Expired status"
   },
   "GIFvZI": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> employé de la collectivité du GC est disposé à accepter une mutation latérale.} other {<strong>#</strong> employés de la collectivité du GC sont disposés à accepter une mutation latérale.} }",
+    "defaultMessage": "{count, plural, one {<strong>#</strong> employé de la collectivité du GC est disposé à accepter un transfert latéral.} other {<strong>#</strong> employés de la collectivité du GC sont disposés à accepter un transfert latéral.} }",
     "description": "Count of candidates matched at level, on the community results card."
   },
   "GIm3Iq": {
@@ -4868,7 +4868,7 @@
     "description": "Link text to return to the home page"
   },
   "HhL+EB": {
-    "defaultMessage": "Une nomination pour une mutation latérale exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour la personne candidate.",
+    "defaultMessage": "Une nomination pour un transfert latéral exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour la personne candidate.",
     "description": "Trigger subtitle for lateral movement"
   },
   "Hi7hnj": {
@@ -5132,7 +5132,7 @@
     "description": "Button text to hide all your processes sections"
   },
   "IdNL0m": {
-    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement, une mutation latérale et une promotion.",
+    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement, un transfert latéral et une promotion.",
     "description": "Nine-box recommendation title for development and lateral and advancement"
   },
   "IexFo4": {
@@ -8495,7 +8495,7 @@
     "description": "Heading for the resources section of the homepage"
   },
   "We0XLh": {
-    "defaultMessage": "Cette nomination pour une mutation latérale est approuvée.",
+    "defaultMessage": "Cette nomination pour un transfert latéral est approuvée.",
     "description": "Label for lateral movement nomination is approved"
   },
   "WfX9z1": {
@@ -8991,7 +8991,7 @@
     "description": "Final warning text to confirm the assessment to be deleted"
   },
   "YbiEAB": {
-    "defaultMessage": "Intérêt pour une mutation latérale",
+    "defaultMessage": "Intérêt pour un transfert latéral",
     "description": "Label for an employee profile career development preference field"
   },
   "Yc2A2Q": {
@@ -9419,7 +9419,7 @@
     "description": "start date of a nomination event"
   },
   "aYgVQT": {
-    "defaultMessage": "Types d'organisations envisagées pour une mutation latérale",
+    "defaultMessage": "Types d'organisations envisagées pour un transfert latéral",
     "description": "Label for an employee profile career development preference field"
   },
   "aYyceB": {
@@ -10983,7 +10983,7 @@
     "description": "Commercial reproduction list in ownership and usage section"
   },
   "gOy6PW": {
-    "defaultMessage": "Je ne suis pas à la recherche d'une mutation latérale pour l'instant.",
+    "defaultMessage": "Je ne suis pas à la recherche d'un transfert latéral pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
   "gS9T4G": {
@@ -11515,7 +11515,7 @@
     "description": "Title for the skill summary section in the assessment plan builder"
   },
   "iR7GWG": {
-    "defaultMessage": "Échéancier visé pour une mutation latérale",
+    "defaultMessage": "Échéancier visé pour un transfert latéral",
     "description": "Label for an employee profile career development preference field"
   },
   "iSbtcK": {
@@ -12147,7 +12147,7 @@
     "description": "Third paragraph for pool deadlines dialog"
   },
   "kzmlCw": {
-    "defaultMessage": "Cette nomination pour une mutation latérale n'est pas retenue.",
+    "defaultMessage": "Cette nomination pour un transfert latéral n'est pas retenue.",
     "description": "Label for lateral movement nomination is rejected"
   },
   "l/Ii1A": {
@@ -12999,7 +12999,7 @@
     "description": "Title for a message confirming that the verification email was sent."
   },
   "ogWY8Q": {
-    "defaultMessage": "Le membre du personnel fait preuve des comportements attendus en matière de compétences et de mérite et a maximisé son développement professionnel dans son poste actuel. Les occasions latérales lui permettraient d'acquérir une expérience élargie, d'améliorer ses compétences, de satisfaire ses aspirations actuelles et de maintenir son engagement. Un membre du personnel doit avoir obtenu des résultats valides à l'évaluation de langue seconde (ELS) pour être jugé prêt pour une mutation latérale.",
+    "defaultMessage": "Le membre du personnel fait preuve des comportements attendus en matière de compétences et de mérite et a maximisé son développement professionnel dans son poste actuel. Les occasions latérales lui permettraient d'acquérir une expérience élargie, d'améliorer ses compétences, de satisfaire ses aspirations actuelles et de maintenir son engagement. Un membre du personnel doit avoir obtenu des résultats valides à l'évaluation de langue seconde (ELS) pour être jugé prêt pour un transfert latéral.",
     "description": "Description for the lateral movement nomination option on the details step"
   },
   "ogWg7U": {
@@ -13699,7 +13699,7 @@
     "description": "Subtitle for basic profile information section"
   },
   "rPUWP5": {
-    "defaultMessage": "Nomination pour une mutation latérale",
+    "defaultMessage": "Nomination pour un transfert latéral",
     "description": "heading for lateral movement nomination section"
   },
   "rQ3Gbb": {
