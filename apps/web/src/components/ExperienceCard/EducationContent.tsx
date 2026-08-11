@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import {
   EducationType,
   type EducationExperience,
@@ -40,8 +40,7 @@ const EducationContent = ({
         headingLevel={headingLevel}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
-        {status?.label.localized ??
-          intl.formatMessage(commonMessages.notAvailable)}
+        {getLocalizedName(status?.label, intl)}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.thesisTitle}

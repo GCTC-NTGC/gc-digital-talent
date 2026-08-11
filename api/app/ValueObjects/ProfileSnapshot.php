@@ -118,6 +118,7 @@ class ProfileSnapshot implements Castable
                     'userSkills.skill',
                     'awardExperiences',
                     'awardExperiences.skills',
+                    'awardExperiences.relatedExperience',
                     'communityExperiences',
                     'communityExperiences.skills',
                     'educationExperiences',
