@@ -568,7 +568,7 @@
     "description": "Title for skill families"
   },
   "0Ejl5g": {
-    "defaultMessage": "En savoir plus sur le prochain type de rôle que la personne candidate envisage de pourvoir.",
+    "defaultMessage": "En savoir plus sur le prochain type de rôle que le nominé ou la nominée envisage de pourvoir.",
     "description": "Subtitle for dialog viewing next role info"
   },
   "0EuaJv": {
@@ -628,7 +628,7 @@
     "description": "At-level application criteria"
   },
   "0P591/": {
-    "defaultMessage": "Si la personne candidate n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
+    "defaultMessage": "Si le nominé ou la nominée n'est plus membre du personnel, cette mise en candidature doit être marquée comme « Non retenue ».",
     "description": "Instruction if nominee is no longer a Government of Canada employee"
   },
   "0PRZVb": {
@@ -876,7 +876,7 @@
     "description": "Title for the essential technical skills"
   },
   "1LkIfy": {
-    "defaultMessage": "En savoir plus sur le rôle que cette personne candidate vise comme principal objectif de carrière.",
+    "defaultMessage": "En savoir plus sur le rôle que ce nominé ou cette nominée vise comme principal objectif de carrière.",
     "description": "Subtitle for dialog viewing career objective info"
   },
   "1MJGsD": {
@@ -1624,7 +1624,7 @@
     "description": "Un-bookmarking button label for an object"
   },
   "4Ect9u": {
-    "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès de la personne candidate :",
+    "defaultMessage": "Contactez l’autrice ou l’auteur de mise en candidature ou la personne déposante afin qu'elle fasse un suivi auprès du nominé ou de la nominée :",
     "description": "Instruction to contact nominator or submitter for follow up"
   },
   "4Hyg4Y": {
@@ -1808,7 +1808,7 @@
     "description": "Title for tracking candidates within a talent request"
   },
   "4ujr5X": {
-    "defaultMessage": "La personne candidate n'a pas accepté de partager ses renseignements avec votre collectivité",
+    "defaultMessage": "Le nominé ou la nominée n'a pas accepté de partager ses renseignements avec votre collectivité",
     "description": "Null message for nominee profile"
   },
   "4ujx9e": {
@@ -2628,7 +2628,7 @@
     "description": "Form blurb describing create pool form"
   },
   "8YIyLK": {
-    "defaultMessage": "Les processus gérés par votre collectivité fonctionnelle pour lesquels la personne candidate a été qualifiée, ainsi qu'une liste des processus hors plateforme que celle-ci a fournis, le cas échéant.",
+    "defaultMessage": "Les processus gérés par votre collectivité fonctionnelle pour lesquels le nominé a été qualifié ou la nominée a été qualifiée, ainsi qu'une liste des processus hors plateforme que celle-ci a fournis, le cas échéant.",
     "description": "Subtitle for recruitment processes section"
   },
   "8YKsal": {
@@ -4172,7 +4172,7 @@
     "description": "Page subtitle for the create community page"
   },
   "Ega1Nj": {
-    "defaultMessage": "La possibilité pour la personne candidate de se décrire, d'expliquer comment elle aborde sa carrière et comment elle travaille le mieux.",
+    "defaultMessage": "La possibilité pour le nominé ou la nominée de se décrire, d'expliquer comment elle aborde sa carrière et comment elle travaille le mieux.",
     "description": "Subtitle for goals and work style section"
   },
   "EhRf8u": {
@@ -4860,7 +4860,7 @@
     "description": "Link text to return to the home page"
   },
   "HhL+EB": {
-    "defaultMessage": "Une nomination pour un transfert latéral exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour la personne candidate.",
+    "defaultMessage": "Une nomination pour un transfert latéral exige que l'autrice ou l'auteur de la mise en candidature recommande un ou plusieurs types d'expérience pour le nominé ou la nominée.",
     "description": "Trigger subtitle for lateral movement"
   },
   "Hi7hnj": {
@@ -5916,7 +5916,7 @@
     "description": "Describes what the selecting a closing date for a process."
   },
   "Lj0csm": {
-    "defaultMessage": "{nominationCount, plural, =0 {0 personne candidate} one {# personne candidate} other {# personnes candidates}}",
+    "defaultMessage": "{nominationCount, plural, =0 {0 nominé ou nominée} one {# nominé ou nominée} other {# nominés ou nominées}}",
     "description": "Count of nominees"
   },
   "LjYzkS": {
@@ -6184,7 +6184,7 @@
     "description": "Assistive technology link text to view a specific experience"
   },
   "MsXEJK": {
-    "defaultMessage": "Le prochain type de rôle que la personne candidate entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
+    "defaultMessage": "Le prochain type de rôle que le nominé ou la nominée entend jouer et son principal objectif de carrière, notamment la classification, les volets de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
   },
   "MsiKO0": {
@@ -6488,7 +6488,7 @@
     "description": "Phone contact info"
   },
   "OBD250": {
-    "defaultMessage": "Les préférences de la personne candidate en matière de types d'organisations, de promotion, de mentorat et de possibilités pour les cadres.",
+    "defaultMessage": "Les préférences du nominé ou de la nominée en matière de types d'organisations, de promotion, de mentorat et de possibilités pour les cadres.",
     "description": "Subtitle for talent management preferences section"
   },
   "OCrKtT": {
@@ -6684,7 +6684,7 @@
     "description": "Text to confirm the assessment to be deleted"
   },
   "P8bsme": {
-    "defaultMessage": "Les commentaires sur les nominations de cette personne candidate pour {eventName} ont été mis à jour avec succès.",
+    "defaultMessage": "Les commentaires sur les nominations de ce nominé ou cette nominée pour {eventName} ont été mis à jour avec succès.",
     "description": "Message displayed when a nomination group has been updated by an admin"
   },
   "P9SZBZ": {
@@ -7092,7 +7092,7 @@
     "description": "Description for the advancement nomination option on the details step"
   },
   "QbEUq9": {
-    "defaultMessage": "L'intérêt de la personne candidate pour les possibilités dans la {communityName}.",
+    "defaultMessage": "L'intérêt du nominé ou de la nominée pour les possibilités dans la {communityName}.",
     "description": "Subtitle for community-specific information section"
   },
   "QbJmAL": {
@@ -7228,7 +7228,7 @@
     "description": "Heading for the information of an application"
   },
   "R1QSIY": {
-    "defaultMessage": "Cette section indique le poste actuel de la personne candidate. S'il s'agit d'un poste intérimaire, le poste d'attache de la personne candidate sera également affiché ici, s'il a été précisé. Sélectionnez une expérience pour obtenir plus de détails.",
+    "defaultMessage": "Cette section indique le poste actuel du nominé ou de la nominée. S'il s'agit d'un poste intérimaire, le poste d'attache du nominé ou de la nominée sera également affiché ici, s'il a été précisé. Sélectionnez une expérience pour obtenir plus de détails.",
     "description": "Description for the career page current role section"
   },
   "R1yINv": {
@@ -8219,7 +8219,7 @@
     "description": "Button label for downloading an anonymous user profile."
   },
   "VRAtKh": {
-    "defaultMessage": "Nom de la personne candidate",
+    "defaultMessage": "Nom du nominé ou de la nominée",
     "description": "Label for the nominee's name"
   },
   "VUPlmN": {
@@ -10275,7 +10275,7 @@
     "description": "Heading for the directives digital executive roles and structures component"
   },
   "e0M7vj": {
-    "defaultMessage": "Si la personne candidate est toujours membre du personnel du gouvernement du Canada, elle devra mettre à jour son expérience professionnelle sur la plateforme.",
+    "defaultMessage": "Si le nominé ou la nominée est toujours membre du personnel du gouvernement du Canada, elle devra mettre à jour son expérience professionnelle sur la plateforme.",
     "description": "Instruction if nominee is still a Government of Canada employee"
   },
   "e0v7Fl": {
@@ -10475,7 +10475,7 @@
     "description": "Text for first registration step, add current work experience"
   },
   "eg8/kP": {
-    "defaultMessage": "Le profil de la personne candidate n'indique pas de poste actuel au sein du gouvernement du Canada.",
+    "defaultMessage": "Le profil du nominé ou de la nominée n'indique pas de poste actuel au sein du gouvernement du Canada.",
     "description": "Description for the message displayed when there is no government experience for the current position"
   },
   "egLb65": {
@@ -10807,7 +10807,7 @@
     "description": "Label for the definition of a specific skill level"
   },
   "fqotTc": {
-    "defaultMessage": "Modifier les options pour les programmes ou certifications auxquels une personne candidate peut être recommandée",
+    "defaultMessage": "Modifier les options pour les programmes ou certifications auxquels un nominé ou une nominée peut être recommandée",
     "description": "Dialog subtitle informing of purpose"
   },
   "fr8v1+": {
@@ -11107,7 +11107,7 @@
     "description": "Subtitle for the application education  page"
   },
   "guYbEb": {
-    "defaultMessage": "Dernière mise à jour du profil de la personne candidate : {lastUpdated}",
+    "defaultMessage": "Dernière mise à jour du profil du nominé ou de la nominée : {lastUpdated}",
     "description": "Last time user's profile was updated"
   },
   "gwpmTn": {
@@ -12015,7 +12015,7 @@
     "description": "Title displayed on the Pool Candidates table placed department column"
   },
   "kWfAux": {
-    "defaultMessage": "Échec de la mise à jour des commentaires sur les nominations de cette personne candidate pour {eventName}.",
+    "defaultMessage": "Échec de la mise à jour des commentaires sur les nominations de ce nominé ou de cette nominée pour {eventName}.",
     "description": "Message displayed when an error occurs while an admin updates a nomination group"
   },
   "kX3dVQ": {
@@ -12031,7 +12031,7 @@
     "description": "Message displayed when a user successfully updates sitewide announcement information"
   },
   "kYuVEA": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne candidate est nommée.",
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne est nominée.",
     "description": "Subtitle for nomination rationale step without leadership competencies"
   },
   "kbMB6R": {
@@ -12415,7 +12415,7 @@
     "description": "The award title is issued by some group, HTML"
   },
   "mIKz0E": {
-    "defaultMessage": "Ajouter des options pour les programmes ou certifications auxquels une personne candidate peut être recommandée",
+    "defaultMessage": "Ajouter des options pour les programmes ou certifications auxquels une personne peut être nominée",
     "description": "Dialog subtitle informing of purpose"
   },
   "mIffJX": {
@@ -12719,7 +12719,7 @@
     "description": "Link text to go back to the process details page"
   },
   "nPc3eL": {
-    "defaultMessage": "Lien de parenté entre l’autrice ou l’auteur de la mise en candidature et la personne candidate",
+    "defaultMessage": "Lien de parenté entre l’autrice ou l’auteur de la mise en candidature et le nominé ou la nominée",
     "description": "Label for the nominator's relation to nominee"
   },
   "nQbfnB": {
@@ -13339,7 +13339,7 @@
     "description": "Button label to collapse all experiences"
   },
   "pp9KRf": {
-    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle de la personne candidate. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience de la personne candidate dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées.",
+    "defaultMessage": "Cette section vous permet de parcourir l'ensemble de l'expérience professionnelle du nominé ou de la nominée. Par défaut, l'expérience est organisée par type, mais vous pouvez choisir de voir le niveau d'expérience du nominé ou de la nominée dans un volet de travail particulier ou dans un ministère donné à l'aide des options proposées.",
     "description": "Description for the career page full career section"
   },
   "prb1eH": {
@@ -13543,7 +13543,7 @@
     "description": "Success message after soft-deleting a user"
   },
   "qo3/Sp": {
-    "defaultMessage": "Cet onglet vous permet de consulter l'historique des mises en candidature de la personne candidate par événement. Les mises en candidature en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les mises en candidature disponibles, au besoin.",
+    "defaultMessage": "Cet onglet vous permet de consulter l'historique des mises en candidature du nominé ou de la nominée par événement. Les mises en candidature en cours sont affichées en premier, et vous pouvez développer chaque événement pour consulter les mises en candidature disponibles, au besoin.",
     "description": "Description for the nomination history page"
   },
   "qrd+vb": {
@@ -13691,7 +13691,7 @@
     "description": "Paragraph describing the innovation corps"
   },
   "rOl7Xv": {
-    "defaultMessage": "Les renseignements essentiels du profil de la personne candidate, y compris ses coordonnées, ses niveaux et évaluations linguistiques et l'équité en matière d'emploi.",
+    "defaultMessage": "Les renseignements essentiels du profil du nominé ou de la nominée, y compris ses coordonnées, ses niveaux et évaluations linguistiques et l'équité en matière d'emploi.",
     "description": "Subtitle for basic profile information section"
   },
   "rPUWP5": {
@@ -14871,7 +14871,7 @@
     "description": "Name of the ATIP community"
   },
   "wL95nl": {
-    "defaultMessage": "La personne candidate n'a pas fourni d'informations sur son objectif de carrière final.",
+    "defaultMessage": "Le nominé ou la nominée n'a pas fourni d'informations sur son objectif de carrière final.",
     "description": "Message displayed if nominee hasn't filled out career objective info"
   },
   "wMni5o": {
@@ -14927,7 +14927,7 @@
     "description": "List item two, things developers consider for accessibility"
   },
   "wYka/g": {
-    "defaultMessage": "La personne candidate n'a pas fourni de renseignements sur le prochain type de poste qu'elle aime aimerait occuper.",
+    "defaultMessage": "Le nominé ou la nominée n'a pas fourni de renseignements sur le prochain type de poste qu'elle aime aimerait occuper.",
     "description": "Message displayed if nominee hasn't filled out next role info"
   },
   "wYohzF": {
@@ -14946,8 +14946,8 @@
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
   },
-  "wdFBSc": {
-    "defaultMessage": "Merci d'avoir proposé la candidature de {name}! L'équipe de gestion des talents de {community} examinera bientôt votre mise en candidature. En attendant, vous pouvez consulter votre demande et son état d'avancement à partir de votre tableau de bord.",
+  "INPHhr": {
+    "defaultMessage": "Merci d'avoir soumis la nomination de {name}! Elle sera examinée prochainement et vous pourrez en suivre l’évolution dans votre tableau de bord.",
     "description": "First paragraph on success step of a talent nomination"
   },
   "weLwJA": {
@@ -15035,7 +15035,7 @@
     "description": "Title for group-specific resource card"
   },
   "x1oBLr": {
-    "defaultMessage": "Dans le cadre d'une nomination pour des programmes de perfectionnement, l'autrice ou l'auteur de la mise en candidature doit sélectionner, parmi les programmes de formation et de perfectionnement proposés par la collectivité fonctionnelle, ceux qui bénéficieraient à la personne candidate.",
+    "defaultMessage": "Dans le cadre d'une nomination pour des programmes de perfectionnement, l'autrice ou l'auteur de la mise en candidature doit sélectionner, parmi les programmes de formation et de perfectionnement proposés par la collectivité fonctionnelle, ceux qui bénéficieraient au nominé ou à la nominée.",
     "description": "Trigger subtitle for development programs"
   },
   "x20cWU": {
@@ -15055,7 +15055,7 @@
     "description": "Comments or contributions list item"
   },
   "xA7XvK": {
-    "defaultMessage": "Les sections suivantes peuvent être élargies pour fournir des renseignements sur le profil de la personne candidate, son intérêt pour cette collectivité et ses objectifs de carrière.",
+    "defaultMessage": "Les sections suivantes peuvent être élargies pour fournir des renseignements sur le profil du nominé ou de la nominée, son intérêt pour cette collectivité et ses objectifs de carrière.",
     "description": "Description for the nominee profile page accordion sections"
   },
   "xAfVa9": {
@@ -15215,7 +15215,7 @@
     "description": "Null message on sections for edit pool page."
   },
   "xmAF0A": {
-    "defaultMessage": "Personne candidate",
+    "defaultMessage": "Le nominé ou la nominée",
     "description": "Label or header"
   },
   "xnlBSd": {
