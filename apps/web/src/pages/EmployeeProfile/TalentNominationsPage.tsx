@@ -34,7 +34,13 @@ const SECTION_ID = {
   EMPLOYEES_NOMINATED: "employees-nominated-section",
 };
 
-const LockedNotice = () => {
+interface LockedNoticeProps {
+  includePastNominationsNote?: boolean;
+}
+
+const LockedNotice = ({
+  includePastNominationsNote = false,
+}: LockedNoticeProps) => {
   const intl = useIntl();
   return (
     <Notice.Root className="mt-6.75 text-center">
@@ -49,13 +55,21 @@ const LockedNotice = () => {
       </Notice.Title>
       <Notice.Content>
         <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools. Nominations from previous Government of Canada roles will continue to appear here.",
-            id: "TFDGG/",
-            description:
-              "Notice description on sections for employee profile page when not a verified employee.",
-          })}
+          {includePastNominationsNote
+            ? intl.formatMessage({
+                defaultMessage:
+                  "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools. Nominations from previous Government of Canada roles will continue to appear here.",
+                id: "TFDGG/",
+                description:
+                  "Notice description on sections for employee profile page when not a verified employee.",
+              })
+            : intl.formatMessage({
+                defaultMessage:
+                  "If you're a current Government of Canada employee, verify your work email and ensure your career experience is up to date to unlock employee tools.",
+                id: "TIuM+L",
+                description:
+                  "Notice description on sections for employee profile page when not a verified employee.",
+              })}
         </p>
       </Notice.Content>
     </Notice.Root>
@@ -141,11 +155,10 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                     "Paragraph explaining what nominations received are and how they work",
                 })}
               </p>
-              {isVerifiedGovEmployee ? (
-                <NominationsReceived />
-              ) : (
-                <LockedNotice />
+              {!isVerifiedGovEmployee && (
+                <LockedNotice includePastNominationsNote />
               )}
+              <NominationsReceived />
             </TableOfContents.Section>
           </Card>
           <Card className="mt-6.75 flex flex-col gap-y-18">
@@ -168,11 +181,11 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                     "Paragraph explaining what employees nominated are and how they work",
                 })}
               </p>
-              {isVerifiedGovEmployee ? (
-                <EmployeesNominated userQuery={user} />
-              ) : (
-                <LockedNotice />
-              )}
+              {!isVerifiedGovEmployee && <LockedNotice />}
+              <EmployeesNominated
+                userQuery={user}
+                showView={isVerifiedGovEmployee}
+              />
             </TableOfContents.Section>
           </Card>
         </TableOfContents.Content>

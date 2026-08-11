@@ -33,6 +33,7 @@ export const EmployeesNominated_Fragment = graphql(/* GraphQL */ `
 
 interface EmployeesNominatedProps {
   userQuery: FragmentType<typeof EmployeesNominated_Fragment>;
+  showView?: boolean;
 }
 
 // a nomination is closed once close date has fully passed
@@ -41,7 +42,10 @@ const isNominationClosed = (closeDate: string | null | undefined) =>
 
 type NominationView = "open" | "closed";
 
-const EmployeesNominated = ({ userQuery }: EmployeesNominatedProps) => {
+const EmployeesNominated = ({
+  userQuery,
+  showView = true,
+}: EmployeesNominatedProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [view, setView] = useState<NominationView>("open");
@@ -56,70 +60,76 @@ const EmployeesNominated = ({ userQuery }: EmployeesNominatedProps) => {
     },
   );
 
-  const visibleNominations = nominations.filter((nomination) =>
-    view === "closed"
-      ? isNominationClosed(nomination.talentNominationEvent?.closeDate)
-      : !isNominationClosed(nomination.talentNominationEvent?.closeDate),
-  );
+  const visibleNominations = showView
+    ? nominations.filter((nomination) =>
+        view === "closed"
+          ? isNominationClosed(nomination.talentNominationEvent?.closeDate)
+          : !isNominationClosed(nomination.talentNominationEvent?.closeDate),
+      )
+    : nominations;
 
   return (
     <div className="mt-6.75 flex flex-col gap-y-6">
-      <Link
-        href={paths.talentManagementEvents()}
-        icon={PlusIcon}
-        color="primary"
-        mode="placeholder"
-        block
-      >
-        {intl.formatMessage({
-          defaultMessage: "Browse open talent events",
-          id: "QIRY9D",
-          description:
-            "Link to browse open talent events when an employee has not submitted any nominations",
-        })}
-      </Link>
+      {showView && (
+        <Link
+          href={paths.talentManagementEvents()}
+          icon={PlusIcon}
+          color="primary"
+          mode="placeholder"
+          block
+        >
+          {intl.formatMessage({
+            defaultMessage: "Browse open talent events",
+            id: "QIRY9D",
+            description:
+              "Link to browse open talent events when an employee has not submitted any nominations",
+          })}
+        </Link>
+      )}
       {nominations.length > 0 && (
         <>
-          <ToggleGroup.Root
-            className="inline-flex items-center gap-x-1.5 border-none p-1.5"
-            type="single"
-            color="secondary"
-            value={view}
-            onValueChange={(value) => {
-              if (value) setView(value as NominationView);
-            }}
-            label={intl.formatMessage({
-              defaultMessage: "View:",
-              id: "4U9aTG",
-              description: "Label for the nominations view toggle",
-            })}
-            aria-label={intl.formatMessage({
-              defaultMessage: "View nominations",
-              id: "EG+jnD",
-              description: "Accessible label for the nominations view toggle",
-            })}
-          >
-            <ToggleGroup.Item
-              value="open"
-              className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Open nominations",
-                id: "S9eqVM",
-                description: "Toggle option to view open nominations",
+          {showView && (
+            <ToggleGroup.Root
+              className="inline-flex items-center gap-x-1.5 border-none p-1.5"
+              type="single"
+              color="secondary"
+              value={view}
+              onValueChange={(value) => {
+                if (value) setView(value as NominationView);
+              }}
+              label={intl.formatMessage({
+                defaultMessage: "View:",
+                id: "4U9aTG",
+                description: "Label for the nominations view toggle",
               })}
-            </ToggleGroup.Item>
-            <ToggleGroup.Item
-              value="closed"
-              className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Closed nominations",
-                id: "I+Kr8Q",
-                description: "Toggle option to view closed nominations",
+              aria-label={intl.formatMessage({
+                defaultMessage: "View nominations",
+                id: "EG+jnD",
+                description: "Accessible label for the nominations view toggle",
               })}
-            </ToggleGroup.Item>
-          </ToggleGroup.Root>
+            >
+              <ToggleGroup.Item
+                value="open"
+                className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Open nominations",
+                  id: "S9eqVM",
+                  description: "Toggle option to view open nominations",
+                })}
+              </ToggleGroup.Item>
+              <ToggleGroup.Item
+                value="closed"
+                className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Closed nominations",
+                  id: "I+Kr8Q",
+                  description: "Toggle option to view closed nominations",
+                })}
+              </ToggleGroup.Item>
+            </ToggleGroup.Root>
+          )}
           <PreviewList.Root>
             {visibleNominations.map((nomination) => (
               <EmployeesNominatedListItem
