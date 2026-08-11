@@ -687,6 +687,10 @@
     "defaultMessage": "La mise à jour des détails de l’emploi a échoué",
     "description": "Message displayed when a user fails to update the job details"
   },
+  "0YApeN": {
+    "defaultMessage": "Télécharger sous forme de feuille de calcul (.xlsx)",
+    "description": "Menu option to download selected tracked users as a spreadsheet"
+  },
   "0Z7Ux8": {
     "defaultMessage": "Durée de l'emploi",
     "description": "Label for process employment duration"
@@ -1186,6 +1190,10 @@
   "2TPpyp": {
     "defaultMessage": "Les processus de recrutement pour lesquels la personne candidate a été qualifiée sur d'autres plateformes du gouvernement du Canada. Il est à noter que ces renseignements sont fournis par la personne candidate sans vérification. Veillez à vérifier la validité des renseignements relatifs au processus avant de les utiliser à des fins d'embauche ou de placement.",
     "description": "Off-platform section information"
+  },
+  "2Ttne4": {
+    "defaultMessage": "Télécharger tous les éléments sous forme de feuille de calcul (.xlsx)",
+    "description": "Menu option to download all tracked users as a spreadsheet"
   },
   "2W6Q3k": {
     "defaultMessage": "Commencez <hidden> par indiquer vos préférences en matière de travail</hidden>",
@@ -3451,6 +3459,10 @@
     "defaultMessage": "Avant de vous diriger vers votre profil, nous devons recueillir certains renseignements obligatoires afin de compléter la configuration de votre compte. Nous avons récupéré les renseignements de profil suivants depuis ConnexionCanada. L’adresse courriel associée à votre compte ConnexionCanada sera utilisée pour toutes les communications et notifications provenant de Talents numériques du GC. ",
     "description": "Message after main heading in create account page."
   },
+  "BYi3Ah": {
+    "defaultMessage": "Marquer comme {status}",
+    "description": "Label for the change status action in the talent request tracked users table"
+  },
   "Bb9Pe0": {
     "defaultMessage": "Veuillez sélectionner l'évaluation de cette nomination pour continuer.",
     "description": "Prompt for the user to evaluate the nomination before continuing"
@@ -3891,10 +3903,6 @@
     "defaultMessage": "Statut de cadre supérieur",
     "description": "Label for employee profile senior management status input"
   },
-  "DVWX9O": {
-    "defaultMessage": "Modifier le statut à {status}",
-    "description": "Label for the change status action in the talent request tracked users table"
-  },
   "DX3z2x": {
     "defaultMessage": "Autre collectivité",
     "description": "Selection or label referring to adding a community that isn't a provided option"
@@ -4162,6 +4170,10 @@
   "EYPaLh": {
     "defaultMessage": "Vous avez obtenu un diplôme à l’extérieur du Canada? <foreignDegreeLink>Apprenez-en davantage sur les équivalences pour les diplômes étrangers.</foreignDegreeLink>",
     "description": "External link message for the EX graduation with degree requirement."
+  },
+  "EYqGpP": {
+    "defaultMessage": "Télécharger les profils sans inclure les coordonnées (.docx)",
+    "description": "Button label for downloading anonymized selected user profiles"
   },
   "Ed+xy1": {
     "defaultMessage": "Décision disqualifiée",
@@ -5171,10 +5183,6 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
-  "Ij9kxd": {
-    "defaultMessage": "Télécharger l'ensemble des données",
-    "description": "Menu option to download all tracked users as a spreadsheet"
-  },
   "Ijz5oe": {
     "defaultMessage": "Le fait de ne pas fournir de renseignements personnels vous rendra inadmissible aux postes d'emploi associées à cet outil.",
     "description": "Paragraph for privacy policy page"
@@ -5551,6 +5559,10 @@
     "defaultMessage": "Détails de l'annonce",
     "description": "Sub title for advertisement details"
   },
+  "KF5u2L": {
+    "defaultMessage": "Télécharger les profils complets (.docx)",
+    "description": "Button label for downloading selected user profiles"
+  },
   "KH3yb6": {
     "defaultMessage": "Date d’expiration (heure locale)",
     "description": "A date at which data will expire, in the local time zone"
@@ -5834,6 +5846,10 @@
   "LF9xdK": {
     "defaultMessage": "Questions de présélection (au moment de la candidature) - {skillName}",
     "description": "Header for application screening decision dialog."
+  },
+  "LG/8JQ": {
+    "defaultMessage": "Marquer tous les éléments comme {status}",
+    "description": "Label for the bulk change status action affecting every tracked user in the talent request tracked users inbox"
   },
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
@@ -7950,10 +7966,6 @@
   "UDHGGA": {
     "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
-  },
-  "UE5Qag": {
-    "defaultMessage": "Télécharger la sélection au format Excel (.xlsx)",
-    "description": "Menu option to download selected tracked users as a spreadsheet"
   },
   "UE5Xw9": {
     "defaultMessage": "la correction de tous les problèmes signalés par les évaluations automatisées avant le déploiement sur la plateforme.",

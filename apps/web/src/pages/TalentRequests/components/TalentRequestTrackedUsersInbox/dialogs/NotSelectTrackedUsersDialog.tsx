@@ -59,6 +59,7 @@ const NotSelectTrackedUsersDialog = ({
   onOpenChange,
   selectedIds,
   onCompleted,
+  onCloseAutoFocus,
 }: StatusDialogProps) => {
   const intl = useIntl();
   const methods = useForm<NotSelectFormValues>();
@@ -98,6 +99,7 @@ const NotSelectTrackedUsersDialog = ({
       icon={XMarkIcon}
       statusLabel={intl.formatMessage(commonMessages.notSelected)}
       selectedCount={selectedIds.length}
+      onCloseAutoFocus={onCloseAutoFocus}
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmitNotSelected)}>

@@ -60,7 +60,7 @@ const ChangeStatusDialog = ({
               "Subtitle for change status dialog in the talent request tracked users table",
           })}
         >
-          {intl.formatMessage(talentRequestMessages.changeStatus, { status })}
+          {intl.formatMessage(talentRequestMessages.markAs, { status })}
         </Dialog.Header>
         <Dialog.Body>
           <p className="mb-6 flex flex-col gap-3">
