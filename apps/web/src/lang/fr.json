@@ -5075,6 +5075,10 @@
     "defaultMessage": "{candidateCount, plural, one {<testId>#</testId> concordance approximative} other {<testId>#</testId> concordances approximatives} }",
     "description": "Message for total estimated matching candidates in pool"
   },
+  "INPHhr": {
+    "defaultMessage": "Merci d'avoir soumis la nomination de {name}! Elle sera examinée prochainement et vous pourrez en suivre l’évolution dans votre tableau de bord.",
+    "description": "First paragraph on success step of a talent nomination"
+  },
   "IO+qSg": {
     "defaultMessage": "Parlez-nous du prochain type de poste que vous vous imaginez occuper. En communiquant vos préférences concernant votre prochain emploi, vous pouvez aider le personnel des RH à trouver le poste qui vous convient.",
     "description": "Describes the next role section of employee profile"
@@ -14945,10 +14949,6 @@
   "waEO78": {
     "defaultMessage": "Présence du GSN aux salons de l’emploi pour les personnes aux études ou récemment diplômées",
     "description": "Heading for DSG job fairs section"
-  },
-  "INPHhr": {
-    "defaultMessage": "Merci d'avoir soumis la nomination de {name}! Elle sera examinée prochainement et vous pourrez en suivre l’évolution dans votre tableau de bord.",
-    "description": "First paragraph on success step of a talent nomination"
   },
   "weLwJA": {
     "defaultMessage": "Recherche de talent",
