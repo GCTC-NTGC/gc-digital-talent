@@ -62,16 +62,22 @@ const EmployeesNominatedListItem = ({
     intl,
   );
 
-  const nomineeName = intl.formatMessage(
-    {
-      defaultMessage: "Nomination for {name}",
-      id: "p9H+Nl",
-      description:
-        "Title for a talent nomination in a preview list, naming the nominee",
-    },
-    { name: fullName },
+  const title = (
+    <span className="font-normal">
+      {intl.formatMessage(
+        {
+          defaultMessage: "Nomination for {name}",
+          id: "p9H+Nl",
+          description:
+            "Title for a talent nomination in a preview list, naming the nominee",
+        },
+        {
+          name: <span className="font-bold">{fullName}</span>,
+        },
+      )}
+    </span>
   );
-  const title = `${nomineeName}`;
+
   const statusChip = useMetaDataTalentNominationChip({
     submittedAt: talentNominationListItemFragment.submittedAt,
   });
