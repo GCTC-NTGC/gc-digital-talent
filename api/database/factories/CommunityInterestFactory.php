@@ -54,8 +54,6 @@ class CommunityInterestFactory extends BaseFactory
                 ? $this->faker->boolean()
                 : null,
             'referral_status' => CommunityReferralStatus::NEW->name,
-            'referral_notes' => $this->faker->optional()->paragraph(),
-            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
         ];
     }
 
@@ -77,6 +75,7 @@ class CommunityInterestFactory extends BaseFactory
             'referral_status' => CommunityReferralStatus::PENDING->name,
             'referral_classification_id' => null,
             'referral_follow_up_date' => $followUpDate,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
         ]);
     }
 
@@ -89,6 +88,7 @@ class CommunityInterestFactory extends BaseFactory
             'referral_status' => CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name,
             'referral_classification_id' => $classificationId,
             'referral_follow_up_date' => $followUpDate,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
         ]);
     }
 
@@ -101,6 +101,7 @@ class CommunityInterestFactory extends BaseFactory
             'referral_classification_id' => null,
             'referral_follow_up_date' => null,
             'referral_notes' => $notes,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
         ]);
     }
 
