@@ -2,10 +2,10 @@
 
 namespace App\GraphQL\Validators;
 
-use App\Rules\SkillExists;
+use App\Enums\ErrorCode;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class CreateUpdateAwardExperienceValidator extends Validator
+final class ConnectExperienceSkillsValidator extends Validator
 {
     /**
      * Return the validation rules.
@@ -15,9 +15,7 @@ final class CreateUpdateAwardExperienceValidator extends Validator
     public function rules(): array
     {
         return [
-            'awardExperience.skills.connect.*.id' => [new SkillExists()],
-            'awardExperience.skills.update.*.id' => [new SkillExists()],
-            'awardExperience.skills.sync.*.id' => [new SkillExists()],
+            'id' => ['exists:skills,id'],
         ];
     }
 
@@ -26,6 +24,8 @@ final class CreateUpdateAwardExperienceValidator extends Validator
      */
     public function messages(): array
     {
-        return [];
+        return [
+            'id.exists' => ErrorCode::SKILL_NOT_FOUND->name,
+        ];
     }
 }
