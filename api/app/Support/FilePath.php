@@ -6,6 +6,10 @@ class FilePath
 {
     public const PUBLIC_PATH = 'public';
 
+    public const PUBLIC_DISK = 'public_generated';
+
+    public const GUARDED_DISK = 'user_generated';
+
     /**
      * Normalizes a string into a safe, cross-platform file name.
      * Preserves French characters while stripping path separators and dots.

@@ -19,9 +19,11 @@ final readonly class DownloadJobPosterTemplateDoc
             $targetPoster = JobPosterTemplate::findOrFail($args['id']);
             $generator = new JobPosterTemplateGenerator(
                 jobPoster: $targetPoster,
-                dir: FilePath::PUBLIC_PATH,
+                dir: null,
                 lang: App::getLocale(),
             );
+
+            $generator->setDiskName(FilePath::PUBLIC_DISK);
 
             $generator->generate()->write();
 

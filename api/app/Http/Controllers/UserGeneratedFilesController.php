@@ -15,11 +15,10 @@ class UserGeneratedFilesController extends Controller
      * Streams a public file that does not require authentication
      *
      * @param  string  $fileName  The name of the file to be streamed
-     * @return void
      */
     public function getPublicFile(string $fileName): StreamedResponse
     {
-        return $this->streamFile(FilePath::PUBLIC_PATH, $fileName);
+        return $this->streamFile(FilePath::PUBLIC_DISK, null, $fileName);
     }
 
     public function getGuardedFile(string $fileName): StreamedResponse
@@ -28,15 +27,16 @@ class UserGeneratedFilesController extends Controller
         $userId = Auth::guard('api')->id();
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        return $this->streamFile($userId, $fileName);
+        return $this->streamFile(FilePath::GUARDED_DISK, $userId, $fileName);
     }
 
-    private function streamFile(string $parentDir, string $fileName): StreamedResponse
+    private function streamFile(string $diskName, ?string $parentDir, string $fileName): StreamedResponse
     {
         $safeFileName = FilePath::sanitize($fileName, true);
-        $filePath = $parentDir.DIRECTORY_SEPARATOR.$safeFileName;
+        $filePath = $parentDir ? $parentDir.DIRECTORY_SEPARATOR.$safeFileName : $safeFileName;
+        $disk = Storage::disk($diskName);
 
-        throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
+        throw_unless($disk->exists($filePath), NotFoundHttpException::class);
 
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
@@ -51,8 +51,8 @@ class UserGeneratedFilesController extends Controller
         };
 
         /* buffered response */
-        return response()->streamDownload(function () use ($filePath) {
-            $handle = Storage::disk('user_generated')->readStream($filePath);
+        return response()->streamDownload(function () use ($disk, $filePath) {
+            $handle = $disk->readStream($filePath);
             if ($handle) {
                 fpassthru($handle);
                 // Check to avoid warnings if the handle is already closed or invalid
