@@ -6,6 +6,7 @@ use App\Enums\CSuiteRoleTitle;
 use App\Enums\EmploymentCategory;
 use App\Enums\GovContractorType;
 use App\Enums\GovEmployeeType;
+use App\Rules\SkillExists;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -201,6 +202,9 @@ final class CreateUpdateWorkExperienceValidator extends Validator
                     $this->arg('workExperience.otherCSuiteRoleTitle') === CSuiteRoleTitle::OTHER->name
                 ),
             ],
+            'workExperience.skills.connect.*.id' => [new SkillExists()],
+            'workExperience.skills.update.*.id' => [new SkillExists()],
+            'workExperience.skills.sync.*.id' => [new SkillExists()],
         ];
     }
 

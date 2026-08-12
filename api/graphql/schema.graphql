@@ -3789,19 +3789,39 @@ type Mutation {
   createPersonalExperience(
     userId: ID! @rename(attribute: "user_id")
     personalExperience: PersonalExperienceInput! @spread
-  ): PersonalExperience @create @canModel(ability: "create", injectArgs: true)
+  ): PersonalExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdatePersonalExperienceValidator"
+    )
   createCommunityExperience(
     userId: ID! @rename(attribute: "user_id")
     communityExperience: CommunityExperienceInput! @spread
-  ): CommunityExperience @create @canModel(ability: "create", injectArgs: true)
+  ): CommunityExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateCommunityExperienceValidator"
+    )
   createEducationExperience(
     userId: ID! @rename(attribute: "user_id")
     educationExperience: EducationExperienceInput! @spread
-  ): EducationExperience @create @canModel(ability: "create", injectArgs: true)
+  ): EducationExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateEducationExperienceValidator"
+    )
   createAwardExperience(
     userId: ID! @rename(attribute: "user_id")
     awardExperience: AwardExperienceInput! @spread
-  ): AwardExperience @create @canModel(ability: "create", injectArgs: true)
+  ): AwardExperience
+    @create
+    @canModel(ability: "create", injectArgs: true)
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateAwardExperienceValidator"
+    )
   updateWorkExperience(
     id: ID!
     workExperience: WorkExperienceInput! @spread
@@ -3815,19 +3835,43 @@ type Mutation {
   updatePersonalExperience(
     id: ID!
     personalExperience: PersonalExperienceInput! @spread
-  ): PersonalExperience @update @guard @canFind(ability: "update", find: "id")
+  ): PersonalExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdatePersonalExperienceValidator"
+    )
   updateCommunityExperience(
     id: ID!
     communityExperience: CommunityExperienceInput! @spread
-  ): CommunityExperience @update @guard @canFind(ability: "update", find: "id")
+  ): CommunityExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateCommunityExperienceValidator"
+    )
   updateEducationExperience(
     id: ID!
     educationExperience: EducationExperienceInput! @spread
-  ): EducationExperience @update @guard @canFind(ability: "update", find: "id")
+  ): EducationExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateEducationExperienceValidator"
+    )
   updateAwardExperience(
     id: ID!
     awardExperience: AwardExperienceInput! @spread
-  ): AwardExperience @update @guard @canFind(ability: "update", find: "id")
+  ): AwardExperience
+    @update
+    @guard
+    @canFind(ability: "update", find: "id")
+    @validator(
+      class: "App\\GraphQL\\Validators\\CreateUpdateAwardExperienceValidator"
+    )
   deleteWorkExperience(id: ID! @whereKey): WorkExperience
     @delete
     @guard
