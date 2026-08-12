@@ -95,6 +95,7 @@ return [
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
         'communityInterest' => 'communityInterest',
+        'communityInterestReferralStatus' => 'communityInterestReferralStatus',
         'communityTalent' => 'communityTalent',
         'basicGovEmployeeProfile' => 'basicGovEmployeeProfile',
         'communityDevelopmentProgram' => 'communityDevelopmentProgram',
@@ -695,6 +696,18 @@ return [
             'en' => 'Delete own community interests',
             'fr' => 'Supprimer ses propres intérêts communautaires',
         ],
+        'view-any-communityInterestReferralStatus' => [
+            'en' => 'View any community interest referral status',
+            'fr' => 'Consulter l’état d’une demande d’intervention d’intérêt communautaire',
+        ],
+        'view-team-communityInterestReferralStatus' => [
+            'en' => 'View community interest referral status associated with a community',
+            'fr' => 'Consulter l’état d’une recommandation d’intérêt communautaire associée à une communauté',
+        ],
+        'update-team-communityInterestReferralStatus' => [
+            'en' => 'Update community interest referral status associated with a community',
+            'fr' => 'Mettre à jour l’état d’une recommandation d’intérêt communautaire associée à une communauté',
+        ],
 
         'create-own-talentNomination' => [
             'en' => 'Create a draft talent nomination as the submitter',
@@ -1138,6 +1151,9 @@ return [
             'communityInterest' => [
                 'team' => ['view'],
             ],
+            'communityInterestReferralStatus' => [
+                'team' => ['view', 'update'],
+            ],
             'communityTalent' => [
                 'team' => ['view'],
             ],
@@ -1206,6 +1222,9 @@ return [
             ],
             'communityInterest' => [
                 'team' => ['view'],
+            ],
+            'communityInterestReferralStatus' => [
+                'team' => ['view', 'update'],
             ],
             'communityTalent' => [
                 'team' => ['view'],
@@ -1351,6 +1370,9 @@ return [
             'communityInterest' => [
                 'any' => ['view'],
             ],
+            'communityInterestReferralStatus' => [
+                'any' => ['view'],
+            ],
             'talentNomination' => [
                 'any' => ['view'],
             ],
@@ -1371,6 +1393,9 @@ return [
             ],
             'communityInterest' => [
                 'team' => ['view'],
+            ],
+            'communityInterestReferralStatus' => [
+                'team' => ['view', 'update'],
             ],
             'communityTalent' => [
                 'team' => ['view'],
