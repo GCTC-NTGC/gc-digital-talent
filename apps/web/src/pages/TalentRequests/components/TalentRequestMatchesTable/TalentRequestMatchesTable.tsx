@@ -548,7 +548,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(talentRequestMessages.referred),
                 })}
                 icon={PaperAirplaneIcon}
@@ -559,7 +559,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}
