@@ -1767,6 +1767,10 @@
     "defaultMessage": "(anglais)",
     "description": "Name of English language formatted for appending"
   },
+  "tyyw1L": {
+    "defaultMessage": "Compétence non trouvée.",
+    "description": "Error message that a given skill id does not exist."
+  },
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",
     "description": "Label for job placement"
