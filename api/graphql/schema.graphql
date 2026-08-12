@@ -2922,10 +2922,6 @@ input UpdateExperienceSkills {
 
 input ConnectExperienceSkills {
   id: ID!
-    @rules(
-      apply: ["exists:skills,id"]
-      messages: [{ rule: "exists", message: "SKILL_NOT_FOUND" }]
-    )
   details: String
 }
 
