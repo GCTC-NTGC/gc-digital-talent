@@ -260,7 +260,7 @@ return [
     'platform' => 'Plateforme',
     'process_number' => 'Numéro du processus',
     'process_name' => 'Nom du processus',
-    'nominators' => 'Auteur(trice)s de mise en candidature',
+    'nominators' => 'Nominateurs ou nominatrices',
     'options' => 'Options',
     'community_interest' => 'Intérêt pour les collectivités',
     'job_interest' => "Intérêt pour l'emploi",
