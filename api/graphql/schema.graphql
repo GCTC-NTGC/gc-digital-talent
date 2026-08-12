@@ -4185,6 +4185,7 @@ type Mutation {
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
   downloadJobPosterTemplateDoc(id: UUID!): String
     @canFind(ability: "view", find: "id", model: "JobPosterTemplate")
+    @throttle(maxAttempts: 20)
   downloadNominationDoc(id: UUID!): String
     @guard
     @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
