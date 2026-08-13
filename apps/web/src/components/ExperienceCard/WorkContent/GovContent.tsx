@@ -169,7 +169,7 @@ const GovContent = ({
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
