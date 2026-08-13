@@ -1,20 +1,26 @@
 import { useQuery } from "urql";
 
-import type { UserWorkEmail } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type { ManageAccessWorkEmailFragment } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+
+const ManageAccessWorkEmail_Fragment = graphql(/* GraphQL */ `
+  fragment ManageAccessWorkEmail on UserWorkEmail {
+    id
+    workEmail
+  }
+`);
 
 const ManageAccessCommunity_WorkEmailsQuery = graphql(/* GraphQL */ `
   query ManageAccessCommunityWorkEmails($search: String) {
     workEmails(search: $search) {
-      id
-      workEmail
+      ...ManageAccessWorkEmail
     }
   }
 `);
 
 interface UseAvailableUsersReturn {
-  users: UserWorkEmail[];
+  users: ManageAccessWorkEmailFragment[];
   fetching: boolean;
 }
 
@@ -26,7 +32,10 @@ const useAvailableUsers = (search: string): UseAvailableUsersReturn => {
     },
   });
 
-  const users = unpackMaybes(data?.workEmails);
+  const users = getFragment(
+    ManageAccessWorkEmail_Fragment,
+    unpackMaybes(data?.workEmails),
+  );
 
   return {
     users,
