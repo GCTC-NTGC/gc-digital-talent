@@ -9,6 +9,7 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Link, PreviewList, ToggleGroup } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -97,11 +98,13 @@ const EmployeesNominated = ({
               onValueChange={(value) => {
                 if (value) setView(value as NominationView);
               }}
-              label={intl.formatMessage({
-                defaultMessage: "View:",
-                id: "4U9aTG",
-                description: "Label for the nominations view toggle",
-              })}
+              label={
+                intl.formatMessage({
+                  defaultMessage: "View",
+                  id: "N7/ui3",
+                  description: "Label for the nominations view toggle",
+                }) + intl.formatMessage(commonMessages.dividingColon)
+              }
               aria-label={intl.formatMessage({
                 defaultMessage: "View nominations",
                 id: "EG+jnD",
