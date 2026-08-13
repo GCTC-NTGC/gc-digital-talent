@@ -23,9 +23,7 @@ const getTalentNominationEventStatusColor = (
 };
 
 export const statusCell = (
-  talentNominationEventStatus?:
-    | GenericLocalizedEnum<TalentNominationEventStatus>
-    | null,
+  talentNominationEventStatus?: GenericLocalizedEnum<TalentNominationEventStatus> | null,
 ) => {
   const color = getTalentNominationEventStatusColor(
     talentNominationEventStatus?.value,
