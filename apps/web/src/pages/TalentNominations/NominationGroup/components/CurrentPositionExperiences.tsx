@@ -5,7 +5,6 @@ import { Fragment } from "react/jsx-runtime";
 import type {
   FragmentType,
   GovPositionType,
-  WorkExperience,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -34,6 +33,7 @@ const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
         startDate
         endDate
         govPositionType {
+          value
           label {
             localized
           }
@@ -92,7 +92,7 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiencesByGovPositionType = groupBy(
     currentWorkExperiencesSorted,
     (e) => {
-      return (e as WorkExperience).govPositionType?.value ?? "";
+      return "govPositionType" in e ? (e.govPositionType?.value ?? "") : "";
     },
   );
 
