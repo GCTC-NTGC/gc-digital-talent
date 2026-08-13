@@ -231,7 +231,7 @@ const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
 export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
   poolSkills: T,
 ) => {
-  return poolSkills.sort((poolSkillA, poolSkillB) => {
+  return [...poolSkills].sort((poolSkillA, poolSkillB) => {
     if (poolSkillA?.skill?.category && poolSkillB?.skill?.category) {
       return (
         categoryOrder.indexOf(
