@@ -15095,7 +15095,7 @@
     "description": "Message congratulating the applicant into the recruitment process."
   },
   "xHQdue": {
-    "defaultMessage": "Cet outil est réservé au personnel du gouvernement du Canada.",
+    "defaultMessage": "Cet outil est accessible aux employés du gouvernement du Canada seulement.",
     "description": "Notice title on sections for employee profile page when not a verified employee."
   },
   "xIniPc": {
@@ -15314,7 +15314,7 @@
     "description": "Error message after failed submission for the application review page."
   },
   "yD13EC": {
-    "defaultMessage": "Devenez membre d’une collectivité",
+    "defaultMessage": "Joindre une collectivité",
     "description": "Button to join a community"
   },
   "yD4M6c": {
