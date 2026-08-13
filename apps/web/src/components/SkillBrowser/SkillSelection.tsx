@@ -4,9 +4,10 @@ import { useIntl } from "react-intl";
 
 import { Notice } from "@gc-digital-talent/ui";
 import { Combobox, Select } from "@gc-digital-talent/forms";
-import { errorMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { normalizeString } from "@gc-digital-talent/helpers";
-import type { Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import skillBrowserMessages from "./messages";
 import SkillDescription from "./SkillDescription";
@@ -15,47 +16,71 @@ import {
   getFilteredFamilies,
   getFilteredSkills,
 } from "./utils";
-import type { FormValues } from "./types";
+import type { FormValues, SelectedSkill } from "./types";
+
+export const SkillBrowserSkill_Fragment = graphql(/* GraphQL */ `
+  fragment SkillBrowserSkill on Skill {
+    id
+    name {
+      localized
+    }
+    description {
+      localized
+    }
+    category {
+      value
+    }
+    families {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 interface SkillSelectionProps {
-  skills: Skill[];
-  inLibrary?: Skill[];
-  onSelectSkill?: (skill: Skill | null) => void;
+  query: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  inLibraryQuery?: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  onSelectSkill?: (skill: SelectedSkill | null) => void;
 }
 
 const SkillSelection = ({
-  skills,
+  query,
   onSelectSkill,
-  inLibrary,
+  inLibraryQuery,
 }: SkillSelectionProps) => {
   const intl = useIntl();
   const { watch, resetField } = useFormContext<FormValues>();
 
+  const skills = getFragment(SkillBrowserSkill_Fragment, query);
+  const inLibrary = getFragment(SkillBrowserSkill_Fragment, inLibraryQuery);
+
   const [family, skill] = watch(["family", "skill"]);
 
-  const filteredFamilies = useMemo(() => {
-    return getFilteredFamilies({ skills }).sort((familyA, familyB) => {
-      const a = normalizeString(getLocalizedName(familyA.name, intl));
-      const b = normalizeString(getLocalizedName(familyB.name, intl));
+  const filteredFamilies = getFilteredFamilies({ skills: [...skills] }).sort(
+    (familyA, familyB) => {
+      const a = normalizeString(familyA.name?.localized ?? "");
+      const b = normalizeString(familyB.name?.localized ?? "");
 
       if (a === b) return 0;
 
       return a > b ? 1 : -1;
-    });
-  }, [skills, intl]);
+    },
+  );
 
-  const filteredSkills = useMemo(() => {
-    return getFilteredSkills({ skills, family, inLibrary }).sort(
-      (skillA, skillB) => {
-        const a = normalizeString(getLocalizedName(skillA.name, intl));
-        const b = normalizeString(getLocalizedName(skillB.name, intl));
+  const filteredSkills = getFilteredSkills({
+    skills: [...skills],
+    family,
+    inLibrary: inLibrary ? [...inLibrary] : undefined,
+  }).sort((skillA, skillB) => {
+    const a = normalizeString(skillA.name?.localized ?? "");
+    const b = normalizeString(skillB.name?.localized ?? "");
 
-        if (a === b) return 0;
+    if (a === b) return 0;
 
-        return a > b ? 1 : -1;
-      },
-    );
-  }, [family, inLibrary, skills, intl]);
+    return a > b ? 1 : -1;
+  });
 
   const selectedSkill = useMemo(() => {
     return skill
@@ -65,7 +90,15 @@ const SkillSelection = ({
 
   useEffect(() => {
     if (onSelectSkill) {
-      onSelectSkill(selectedSkill ?? null);
+      onSelectSkill(
+        selectedSkill
+          ? {
+              id: selectedSkill.id,
+              name: selectedSkill.name?.localized ?? null,
+              category: selectedSkill.category.value,
+            }
+          : null,
+      );
     }
   }, [onSelectSkill, selectedSkill]);
 
@@ -77,7 +110,12 @@ const SkillSelection = ({
     resetField("family");
   }, [resetField]);
 
-  const familyOptions = getFamilyOptions(skills, intl, inLibrary);
+  const familyOptions = getFamilyOptions(
+    skills.map((currentSkill) => currentSkill.id),
+    intl,
+    inLibrary?.map((librarySkill) => librarySkill.id),
+  );
+  const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <>
@@ -95,7 +133,7 @@ const SkillSelection = ({
             ...familyOptions,
             ...filteredFamilies.map((skillFamily) => ({
               value: skillFamily.id,
-              label: getLocalizedName(skillFamily.name, intl),
+              label: skillFamily.name?.localized ?? notAvailable,
             })),
           ]}
         />
@@ -109,7 +147,7 @@ const SkillSelection = ({
             label={intl.formatMessage(skillBrowserMessages.skill)}
             options={filteredSkills.map((currentSkill) => ({
               value: currentSkill.id,
-              label: getLocalizedName(currentSkill.name, intl),
+              label: currentSkill.name?.localized ?? notAvailable,
             }))}
           />
         </div>
@@ -123,7 +161,12 @@ const SkillSelection = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      {selectedSkill && <SkillDescription skill={selectedSkill} />}
+      {selectedSkill && (
+        <SkillDescription
+          name={selectedSkill.name?.localized}
+          description={selectedSkill.description?.localized}
+        />
+      )}
     </>
   );
 };

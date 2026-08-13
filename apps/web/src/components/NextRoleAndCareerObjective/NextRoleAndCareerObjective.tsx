@@ -73,38 +73,42 @@ const NextRoleAndCareerObjective = ({
           <PreviewList.Root>
             {/* If the employee hasn't filled out this section then display null message */}
             {hasAllEmptyFieldsNextRole({ ...nextRole }) ? (
-              <Notice.Root className="my-6">
-                <Notice.Content>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The nominee has not provided information about the next role they’d like to achieve.",
-                      id: "wYka/g",
-                      description:
-                        "Message displayed if nominee hasn't filled out next role info",
-                    })}
-                  </p>
-                </Notice.Content>
-              </Notice.Root>
+              <li>
+                <Notice.Root className="my-6">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The nominee has not provided information about the next role they’d like to achieve.",
+                        id: "wYka/g",
+                        description:
+                          "Message displayed if nominee hasn't filled out next role info",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              </li>
             ) : (
               <NextRolePreview
                 nextRolePreviewQuery={nextRoleAndCareerObjective}
               />
             )}
             {hasAllEmptyFieldsCareerObjective({ ...careerObjective }) ? (
-              <Notice.Root className="my-6">
-                <Notice.Content>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "The nominee has not provided information about their ultimate career objective.",
-                      id: "wL95nl",
-                      description:
-                        "Message displayed if nominee hasn't filled out career objective info",
-                    })}
-                  </p>
-                </Notice.Content>
-              </Notice.Root>
+              <li>
+                <Notice.Root className="my-6">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "The nominee has not provided information about their ultimate career objective.",
+                        id: "wL95nl",
+                        description:
+                          "Message displayed if nominee hasn't filled out career objective info",
+                      })}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              </li>
             ) : (
               <CareerObjectivePreview
                 careerObjectivePreviewQuery={nextRoleAndCareerObjective}

@@ -10,12 +10,14 @@ use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Models\Classification;
 use App\Models\Department;
+use App\Models\Skill;
 use App\Models\User;
 use App\Models\WorkExperience;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -119,6 +121,77 @@ class WorkExperienceTest extends TestCase
                 ],
             ]
         )->assertGraphQLValidationError('workExperience.cafRank', 'The work experience.caf rank field is prohibited.');
+    }
+
+    // test that validation rejects connecting a skill id that does not exist
+    public function testCreatingExperienceFailsValidatingSkillExists(): void
+    {
+        $this->actingAs($this->admin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation createWorkExperience($userId: ID!, $workExperience: WorkExperienceInput!) {
+                createWorkExperience(userId: $userId, workExperience: $workExperience) {
+                    user {
+                        id
+                    }
+                }
+            }
+            ',
+            [
+                'userId' => $this->admin->id,
+                'workExperience' => [
+                    'employmentCategory' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    'extSizeOfOrganization' => ExternalSizeOfOrganization::ONE_HUNDRED_ONE_TO_ONE_THOUSAND->name,
+                    'extRoleSeniority' => ExternalRoleSeniority::INTERMEDIATE->name,
+                    'skills' => [
+                        'connect' => [
+                            ['id' => Str::uuid()],
+                        ],
+                    ],
+                ],
+            ]
+        )->assertGraphQLValidationError('workExperience.skills.connect.0.id', 'SKILL_NOT_FOUND');
+    }
+
+    // test that connecting a skill id that exists succeeds
+    public function testCreatingExperienceSucceedsConnectingExistingSkill(): void
+    {
+        $skill = Skill::factory()->create();
+
+        $this->actingAs($this->admin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            mutation createWorkExperience($userId: ID!, $workExperience: WorkExperienceInput!) {
+                createWorkExperience(userId: $userId, workExperience: $workExperience) {
+                    user {
+                        id
+                    }
+                    skills {
+                        id
+                    }
+                }
+            }
+            ',
+            [
+                'userId' => $this->admin->id,
+                'workExperience' => [
+                    'employmentCategory' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    'extSizeOfOrganization' => ExternalSizeOfOrganization::ONE_HUNDRED_ONE_TO_ONE_THOUSAND->name,
+                    'extRoleSeniority' => ExternalRoleSeniority::INTERMEDIATE->name,
+                    'skills' => [
+                        'connect' => [
+                            ['id' => $skill->id],
+                        ],
+                    ],
+                ],
+            ]
+        )->assertJsonFragment(
+            [
+                'skills' => [
+                    ['id' => $skill->id],
+                ],
+            ],
+        );
     }
 
     // test that validation rejects creating experiences with missing required fields

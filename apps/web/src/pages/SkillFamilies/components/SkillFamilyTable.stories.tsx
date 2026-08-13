@@ -1,22 +1,28 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
 import { fakeSkillFamilies } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import { SkillFamilyTable } from "./SkillFamilyTable";
+import {
+  SkillFamilyTable,
+  SkillFamilyTableRow_Fragment,
+} from "./SkillFamilyTable";
 
-const mockSkillFamilies = fakeSkillFamilies();
+const mockSkillFamilies = fakeSkillFamilies().map((skillFamily) =>
+  makeFragmentData(skillFamily, SkillFamilyTableRow_Fragment),
+);
 
 export default {
   component: SkillFamilyTable,
 } as Meta<typeof SkillFamilyTable>;
 
 const Template: StoryFn<typeof SkillFamilyTable> = (args) => {
-  const { skillFamilies, title } = args;
-  return <SkillFamilyTable skillFamilies={skillFamilies} title={title} />;
+  const { query, title } = args;
+  return <SkillFamilyTable query={query} title={title} />;
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  skillFamilies: mockSkillFamilies,
+  query: mockSkillFamilies,
   title: "Skill families",
 };
