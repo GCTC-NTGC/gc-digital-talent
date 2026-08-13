@@ -13,6 +13,7 @@ import {
 } from "@gc-digital-talent/date-helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import adminMessages from "~/messages/adminMessages";
 import { getFullNameLabel } from "~/utils/nameUtils";
 
 import NominationsReceivedDialog from "./NominationsReceivedDialog";
@@ -83,7 +84,7 @@ const NominationsReceivedListItem = ({
       ? talentNominationMessages.nominateForLateralMovement
       : null,
     (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
-      ? talentNominationMessages.development
+      ? adminMessages.developmentOpportunities
       : null,
   ]
     .filter(notEmpty)

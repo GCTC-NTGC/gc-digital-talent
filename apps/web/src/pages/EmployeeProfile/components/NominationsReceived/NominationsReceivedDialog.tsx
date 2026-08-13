@@ -18,6 +18,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
+import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getNominatorName } from "~/utils/talentNominations";
 
@@ -99,7 +100,7 @@ const NominationsReceivedDialog = ({
       ? talentNominationMessages.nominateForLateralMovement
       : null,
     (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
-      ? talentNominationMessages.development
+      ? adminMessages.developmentOpportunities
       : null,
   ]
     .filter(notEmpty)
@@ -146,7 +147,7 @@ const NominationsReceivedDialog = ({
       : null,
     (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
       ? {
-          option: intl.formatMessage(talentNominationMessages.development),
+          option: intl.formatMessage(adminMessages.developmentOpportunities),
           meaning: intl.formatMessage({
             defaultMessage:
               "Being nominated for development opportunities means that you have been referred for potential participation in the development programs listed. These programs are often designed to compliment or enhance your skillset in preparation for new career opportunities.",
