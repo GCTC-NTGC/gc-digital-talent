@@ -1,6 +1,5 @@
 import { useQuery } from "urql";
 
-import type { ManageAccessWorkEmailFragment } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -19,12 +18,7 @@ const ManageAccessCommunity_WorkEmailsQuery = graphql(/* GraphQL */ `
   }
 `);
 
-interface UseAvailableUsersReturn {
-  users: ManageAccessWorkEmailFragment[];
-  fetching: boolean;
-}
-
-const useAvailableUsers = (search: string): UseAvailableUsersReturn => {
+const useAvailableUsers = (search: string) => {
   const [{ data, fetching }] = useQuery({
     query: ManageAccessCommunity_WorkEmailsQuery,
     variables: {
