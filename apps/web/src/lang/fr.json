@@ -3208,7 +3208,7 @@
     "description": "Describes selecting asset skills for a process."
   },
   "AdmbBO": {
-    "defaultMessage": "Ministère ou organisation du nominateur ou de la nominatrice",
+    "defaultMessage": "Organisation du nominateur ou de la nominatrice",
     "description": "Label for a nominators department"
   },
   "Af4zOR": {
