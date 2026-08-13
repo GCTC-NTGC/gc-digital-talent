@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { useControllableState } from "@gc-digital-talent/ui";
+
+import useServerSyncedState from "./useServerSyncedState";
 
 const TogglePoolCandidateUserBookmark_Mutation = graphql(/* GraphQL */ `
   mutation TogglePoolCandidateUserBookmark_Mutation($id: UUID!) {
@@ -36,11 +37,11 @@ const useCandidateBookmarkToggle = ({
 }: UseCandidateBookmarkToggleArgs): UseCandidateBookmarkToggleReturn => {
   const intl = useIntl();
 
-  const [isBookmarked, setIsBookmarked] = useControllableState({
-    defaultValue: defaultValue ?? false,
-  });
   const [{ fetching: isUpdating }, executeToggleBookmarkMutation] = useMutation(
     TogglePoolCandidateUserBookmark_Mutation,
+  );
+  const [isBookmarked, setIsBookmarked] = useServerSyncedState(
+    defaultValue ?? false,
   );
 
   const toggleBookmark = async () => {
@@ -95,7 +96,7 @@ const useCandidateBookmarkToggle = ({
     }
   };
 
-  return [{ isBookmarked: isBookmarked ?? false, isUpdating }, toggleBookmark];
+  return [{ isBookmarked, isUpdating }, toggleBookmark];
 };
 
 export default useCandidateBookmarkToggle;

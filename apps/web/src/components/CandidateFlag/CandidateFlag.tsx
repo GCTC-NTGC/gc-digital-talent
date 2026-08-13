@@ -32,16 +32,12 @@ export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
 interface CandidateFlagProps {
   candidateQuery: FragmentType<typeof PoolCandidate_FlagFragment>;
   processTitle?: string | null;
-  onFlagChange?: (newIsFlagged: boolean) => void;
-  flagged?: boolean;
   size?: "sm" | "md" | "lg";
 }
 
 const CandidateFlag = ({
   candidateQuery,
   processTitle = null,
-  flagged,
-  onFlagChange,
   size = "md",
 }: CandidateFlagProps) => {
   const intl = useIntl();
@@ -55,8 +51,6 @@ const CandidateFlag = ({
   const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
     useCandidateFlagToggle({
       id: candidate.id,
-      onChange: onFlagChange,
-      value: flagged,
       defaultValue: candidate?.isFlagged ?? false,
       name: candidateName,
       processTitle:

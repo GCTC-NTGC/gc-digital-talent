@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { useControllableState } from "@gc-digital-talent/ui";
+
+import useServerSyncedState from "./useServerSyncedState";
 
 const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
   mutation ToggleFlag_Mutation($id: ID!) {
@@ -14,8 +15,6 @@ const PoolCandidate_ToggleFlagMutation = graphql(/* GraphQL */ `
 interface UseCandidateFlagToggleArgs {
   id: string;
   defaultValue?: boolean;
-  value?: boolean;
-  onChange?: (newIsFlagged: boolean) => void;
   showToast?: boolean;
   name: string;
   processTitle: string;
@@ -34,22 +33,15 @@ type UseCandidateFlagToggleReturn = [
 const useCandidateFlagToggle = ({
   id,
   defaultValue,
-  onChange,
-  value,
   showToast = true,
   name,
   processTitle,
 }: UseCandidateFlagToggleArgs): UseCandidateFlagToggleReturn => {
   const intl = useIntl();
-  const [isFlagged, setIsFlagged] = useControllableState({
-    defaultValue: defaultValue ?? false,
-    controlledProp: value,
-    onChange,
-  });
-
   const [{ fetching: isUpdating }, executeToggleFlagMutation] = useMutation(
     PoolCandidate_ToggleFlagMutation,
   );
+  const [isFlagged, setIsFlagged] = useServerSyncedState(defaultValue ?? false);
 
   const toggleFlag = async () => {
     if (id) {
@@ -111,7 +103,7 @@ const useCandidateFlagToggle = ({
     }
   };
 
-  return [{ isFlagged: isFlagged ?? false, isUpdating }, toggleFlag];
+  return [{ isFlagged, isUpdating }, toggleFlag];
 };
 
 export default useCandidateFlagToggle;
