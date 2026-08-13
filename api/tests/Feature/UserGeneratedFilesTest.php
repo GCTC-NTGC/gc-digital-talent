@@ -119,4 +119,15 @@ class UserGeneratedFilesTest extends TestCase
 
         $download->assertOk();
     }
+
+    public function testPublicFileWithAnApostropheIsStreamed(): void
+    {
+        $fileName = 'Modèle d’offre d’emploi.docx';
+        Storage::disk(FilePath::PUBLIC_DISK)->put($fileName, 'template contents');
+
+        $response = $this->getJson('/api/user-generated-files/'.FilePath::PUBLIC_PATH.'/'.$fileName);
+
+        $response->assertOk();
+        $this->assertSame('template contents', $response->streamedContent());
+    }
 }
