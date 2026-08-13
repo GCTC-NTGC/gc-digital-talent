@@ -55,6 +55,7 @@ const NoResults = () => {
         value=""
         onClick={() => {
           setValue("pool", "");
+          setValue("communityId", "");
           setValue("count", 0);
         }}
       >
