@@ -29,7 +29,7 @@ class FilePath
 
         // Keep French letters, numbers, spaces, and dashes
         // Extension requires \.
-        $allowedPattern = $preserveExtension ? '/[^\p{L}\p{N}\s\-\_\.]/u' : '/[^\p{L}\p{N}\s\-\_]/u';
+        $allowedPattern = $preserveExtension ? '/[^\p{L}\p{N}\s\-\_\.\'’]/u' : '/[^\p{L}\p{N}\s\-\_\'’]/u';
         $name = preg_replace($allowedPattern, '', $name);
 
         // Normalize whitespace and trim
