@@ -210,12 +210,16 @@ test.describe("Talent nomination management", () => {
     await skillCombobox.press("Enter");
     await appPage.page.getByRole("button", { name: /next step/i }).click();
 
+    const submitted = appPage.waitForGraphqlResponse("NominateTalentSubmit");
+    const queried = appPage.waitForGraphqlResponse("NominateTalent");
+
     // Submit the nomination and confirm it appears in the dashboard
     await appPage.page
       .getByRole("button", { name: /submit nomination/i })
       .click();
-    await appPage.waitForGraphqlResponse("NominateTalentSubmit");
-    await appPage.waitForGraphqlResponse("NominateTalent");
+    await submitted;
+    await queried;
+
     await expect(
       appPage.page.getByRole("heading", {
         name: /We’ve received your nomination/i,
