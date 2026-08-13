@@ -13,6 +13,14 @@ import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", () => {
   let skillOptions: Skill[];
+
+  test.beforeAll(async () => {
+    const allSkills = await getSkills();
+    skillOptions = allSkills.filter(
+      (skill) => skill?.family?.key === "key_leadership_competencies",
+    );
+    expect(skillOptions.length).toBeGreaterThanOrEqual(3);
+  });
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
