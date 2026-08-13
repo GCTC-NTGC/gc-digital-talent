@@ -69,7 +69,7 @@
     "react-router": "^8.3.0",
     "react-to-print": "^3.3.0",
     "tailwind-merge": "^3.6.0",
-    "tailwind-variants": "^3.3.0",
+    "tailwind-variants": "^3.3.1",
     "tailwindcss": "^4.3.3",
     "urql": "^5.0.3"
   },
