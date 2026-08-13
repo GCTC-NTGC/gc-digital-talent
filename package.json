@@ -57,7 +57,7 @@
     "@vitest/browser": "^4.1.10",
     "@vitest/browser-playwright": "^4.1.8",
     "@vitest/coverage-v8": "^4.1.8",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "playwright": "^1.62.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "storybook": "^10.5.7",
