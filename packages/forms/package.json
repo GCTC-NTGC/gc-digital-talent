@@ -53,7 +53,7 @@
     "eslint": "^9.20.1",
     "jsdom": "^30.0.1",
     "react": "^19.2.8",
-    "react-hook-form": "^7.83.0",
+    "react-hook-form": "^7.84.0",
     "react-intl": "^10.1.18",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
