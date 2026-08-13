@@ -190,7 +190,6 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
           </Card>
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
-
       <Separator />
     </>
   );

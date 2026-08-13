@@ -646,11 +646,6 @@ const commonMessages = defineMessages({
     id: "96yWSc",
     description: "Special application label",
   },
-  talentNominations: {
-    defaultMessage: "Talent nominations",
-    id: "5j19WZ",
-    description: "Label or header",
-  },
   nominationsReceived: {
     defaultMessage: "Nominations you've received",
     id: "PF/Ksf",
