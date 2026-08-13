@@ -1176,7 +1176,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text>
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:
