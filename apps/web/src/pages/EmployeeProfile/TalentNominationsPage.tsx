@@ -43,7 +43,7 @@ const LockedNotice = ({
 }: LockedNoticeProps) => {
   const intl = useIntl();
   return (
-    <Notice.Root className="mt-6.75 text-center">
+    <Notice.Root className="mt-6.75 mb-6.75 text-center">
       <Notice.Title>
         {intl.formatMessage({
           defaultMessage:
@@ -158,7 +158,9 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
               {!isVerifiedGovEmployee && (
                 <LockedNotice includePastNominationsNote />
               )}
-              <NominationsReceived />
+              <NominationsReceived
+                isVerifiedGovEmployee={isVerifiedGovEmployee}
+              />
             </TableOfContents.Section>
           </Card>
           <Card className="mt-6.75 flex flex-col gap-y-18">
