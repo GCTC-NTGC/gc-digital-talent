@@ -69,6 +69,7 @@ describe("result cards", () => {
 
     expect(onSubmit).toHaveBeenCalledWith(
       expect.objectContaining({ communityId: community.id }),
+      expect.anything(),
     );
   });
 
@@ -102,6 +103,7 @@ describe("result cards", () => {
 
     expect(onSubmit).toHaveBeenCalledWith(
       expect.objectContaining({ pool: pool.id }),
+      expect.anything(),
     );
   });
 
