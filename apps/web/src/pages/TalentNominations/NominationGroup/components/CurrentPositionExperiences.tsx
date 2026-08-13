@@ -144,36 +144,36 @@ const CurrentPositionExperiences = ({
                       description:
                         "Description for the message displayed when there is no government experience for the current position",
                     })}
-                    <p className="my-3">
+                  </p>
+                  <p className="my-3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Contact the nominator or submitter so they can follow up with the nominee:",
+                      id: "4Ect9u",
+                      description:
+                        "Instruction to contact nominator or submitter for follow up",
+                    })}
+                  </p>
+                  <Ul>
+                    <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Contact the nominator or submitter so they can follow up with the nominee:",
-                        id: "4Ect9u",
+                          "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
+                        id: "e0M7vj",
                         description:
-                          "Instruction to contact nominator or submitter for follow up",
+                          "Instruction if nominee is still a Government of Canada employee",
                       })}
-                    </p>
-                    <Ul>
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
-                          id: "e0M7vj",
-                          description:
-                            "Instruction if nominee is still a Government of Canada employee",
-                        })}
-                      </li>
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
-                          id: "0P591/",
-                          description:
-                            "Instruction if nominee is no longer a Government of Canada employee",
-                        })}
-                      </li>
-                    </Ul>
-                  </p>
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
+                        id: "0P591/",
+                        description:
+                          "Instruction if nominee is no longer a Government of Canada employee",
+                      })}
+                    </li>
+                  </Ul>
                 </Notice.Content>
               </Notice.Root>
             )}

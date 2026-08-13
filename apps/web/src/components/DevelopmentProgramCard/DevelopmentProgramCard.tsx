@@ -76,7 +76,7 @@ const DevelopmentProgramCard = ({
           </DropdownMenu.Root>
         )}
         <div className="flex flex-col items-start gap-3">
-          <span>
+          <div>
             <Heading
               level={headingAs}
               size="h6"
@@ -85,10 +85,10 @@ const DevelopmentProgramCard = ({
               {title}
             </Heading>
             {description && <p>{description}</p>}
-          </span>
+          </div>
 
           {classificationRestrictions?.length ? (
-            <span className="flex gap-1.5">
+            <div className="flex gap-1.5">
               <p>
                 {intl.formatMessage({
                   defaultMessage: "Restricted to",
@@ -105,7 +105,7 @@ const DevelopmentProgramCard = ({
                   </Chip>
                 ))}
               </Chips>
-            </span>
+            </div>
           ) : null}
         </div>
       </div>
