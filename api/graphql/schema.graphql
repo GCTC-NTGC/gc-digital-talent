@@ -2942,7 +2942,7 @@ input UpdateExperienceSkills {
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
 
-input ConnectExperienceSkills {
+input ConnectExperienceSkills @validator {
   id: ID!
   details: String
 }
