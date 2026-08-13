@@ -387,9 +387,14 @@ describe("DateInput", () => {
         defaultValues: { date: "" },
         mode: "onSubmit",
       });
+
       return (
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit((data) => submitFn(data))}>
+          <form
+            onSubmit={methods.handleSubmit((data) => {
+              submitFn(data);
+            })}
+          >
             <DateInput id="date" name="date" legend="Date" />
             <button type="button" onClick={() => methods.reset({ date: "" })}>
               Reset
