@@ -43,6 +43,13 @@ const defaultRequestState = {
   candidateCount: 0,
 };
 
+// Fields the result cards set on click to describe the submission, not the filters.
+const submitOnlyFields: string[] = [
+  "pool",
+  "communityId",
+  "count",
+] satisfies (keyof FormValues)[];
+
 interface SearchFormProps {
   classifications: Classification[];
   skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
@@ -90,7 +97,11 @@ export const SearchForm = ({
   const { watch } = methods;
 
   useEffect(() => {
-    const subscription = watch((newValues) => {
+    const subscription = watch((newValues, { name }) => {
+      if (name && submitOnlyFields.includes(name)) {
+        return;
+      }
+
       const newFilters = formValuesToData(
         newValues as FormValues,
         classifications,
