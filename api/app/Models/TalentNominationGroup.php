@@ -81,6 +81,13 @@ class TalentNominationGroup extends Model
     protected static function booted(): void
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
+
+        // A group's nominee is a required field, but the nominee's user account may since have
+        // been archived (soft-deleted). Archived users shouldn't appear anywhere on the platform,
+        // so hide their nomination groups everywhere too rather than leaving it to each caller.
+        static::addGlobalScope('activeNominee', function (Builder $query) {
+            $query->whereHas('nominee');
+        });
     }
 
     public function newEloquentBuilder($query): Builder

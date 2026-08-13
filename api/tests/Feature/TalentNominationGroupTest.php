@@ -238,6 +238,108 @@ class TalentNominationGroupTest extends TestCase
 
     }
 
+    public function testArchivedNomineeGroupExcludedFromNominationGroupsQuery()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        // archive the nominee
+        $nominee->delete();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->queryTalentNominationGroups, [
+                'talentNominationEventId' => $talentNominationEvent->id,
+            ]);
+
+        $response->assertJsonFragment(['talentNominationGroups' => []]);
+        $response->assertGraphQLErrorFree();
+    }
+
+    public function testArchivedNomineeGroupHiddenButRestorable()
+    {
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+            ]);
+        $groupId = $nomination->talentNominationGroup->id;
+
+        // archive the nominee
+        $nominee->delete();
+
+        // the group is hidden from normal queries...
+        $this->assertNull(TalentNominationGroup::find($groupId));
+        // ...but still exists, untouched
+        $this->assertNotNull(TalentNominationGroup::withoutGlobalScope('activeNominee')->find($groupId));
+
+        // restoring the nominee brings the group back automatically, no cascade required
+        $nominee->restore();
+        $this->assertNotNull(TalentNominationGroup::find($groupId));
+    }
+
+    public function testSubmittingNominationForAlreadyGroupedArchivedNomineeReusesGroup()
+    {
+        // a second nomination for the same (now-archived) nominee/event must reuse the
+        // existing hidden group rather than violating its uniqueness constraint
+        $nominator1 = $this->makeEmployee('nominator1');
+        $nominator2 = $this->makeEmployee('nominator2');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination1 = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator1->id,
+                'nominator_id' => $nominator1->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        $nominee->delete();
+
+        $nomination2 = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator2->id,
+                'nominator_id' => $nominator2->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        $this->actingAs($nominator2, 'api')
+            ->graphQL($this->submitNominationMutation, [
+                'id' => $nomination2->id,
+            ]);
+
+        $this->assertEqualsCanonicalizing(
+            TalentNominationGroup::withoutGlobalScope('activeNominee')->sole()->nominations->pluck('id')->toArray(),
+            [
+                $nomination1->id,
+                $nomination2->id,
+            ]
+        );
+    }
+
     public function testCommunityCoordinatorFromOtherCommunityCantViewNominationGroup()
     {
         // community 1 has the nomination and coordinator is from community 2

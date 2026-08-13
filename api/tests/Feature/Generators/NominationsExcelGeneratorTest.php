@@ -98,4 +98,65 @@ class NominationsExcelGeneratorTest extends TestCase
         $fileSize = $disk->size($path);
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
     }
+
+    // regression test for #17715: an archived nominee must not crash the whole export
+    public function testSkipsArchivedNomineeWithoutCrashing(): void
+    {
+        // arrange
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $talentCoordinator = User::factory()
+            ->withGovEmployeeProfile()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        $employee1 = User::factory()->withGovEmployeeProfile()->create();
+        $employee2 = User::factory()->withGovEmployeeProfile()->create();
+
+        $talentNominationEvent = TalentNominationEvent::factory()->create([
+            'community_id' => $community->id,
+        ]);
+        $nomination1 = TalentNomination::factory()
+            ->state([
+                'nominee_id' => $employee1,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ])
+            ->evaluated()
+            ->create();
+        $nominationGroup1 = $nomination1->talentNominationGroup;
+        $nomination2 = TalentNomination::factory()
+            ->state([
+                'nominee_id' => $employee2,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ])
+            ->evaluated()
+            ->create();
+        $nominationGroup2 = $nomination2->talentNominationGroup;
+
+        // employee2 has since been archived; their nomination group must be silently
+        // skipped rather than crashing the export for every other nominee
+        $employee2->delete();
+
+        // act
+        $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
+        $generator = new NominationsExcelGenerator(
+            fileName: $fileName,
+            talentNominationEventId: $talentNominationEvent->id,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $generator
+            ->setAuthenticatedUserId($talentCoordinator->id)
+            ->setIds([$nominationGroup1->id, $nominationGroup2->id]);
+
+        $generator->generate()->write();
+
+        // assert
+        $disk = Storage::disk('user_generated');
+        $path = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
+
+        $this->assertTrue($disk->exists($path), 'File was not generated');
+        $this->assertGreaterThan(0, $disk->size($path), 'File is empty');
+    }
 }
