@@ -211,11 +211,11 @@ export const CareerPlanning = ({
           <SharedTocLinks />
         </TableOfContents.Navigation>
         <TableOfContents.Content>
-          <div className="mb-6">
-            {noticeIsVisible ? (
+          {noticeIsVisible ? (
+            <div className="mb-6">
               <NewFeatureMessage onDismiss={() => setNoticeIsVisible(false)} />
-            ) : null}
-          </div>
+            </div>
+          ) : null}
           <div className="flex flex-col gap-y-18">
             <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
               <Heading
