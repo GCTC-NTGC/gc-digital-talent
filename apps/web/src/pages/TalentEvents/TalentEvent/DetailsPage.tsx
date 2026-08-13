@@ -6,7 +6,7 @@ import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import type {
   FragmentType,
-  LocalizedTalentNominationEventStatus,
+  TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -18,7 +18,11 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
@@ -98,7 +102,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface StatusChipProps {
-  status: LocalizedTalentNominationEventStatus | null | undefined;
+  status: GenericLocalizedEnum<TalentNominationEventStatus> | null | undefined;
 }
 
 const StatusChip = ({ status }: StatusChipProps) => {
