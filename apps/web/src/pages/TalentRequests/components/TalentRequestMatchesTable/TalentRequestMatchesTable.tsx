@@ -341,7 +341,9 @@ const TalentRequestMatchesTable = ({
     columnHelper.accessor(
       ({ matchingQualifiedInPoolSources }) =>
         poolListNameAccessor(
-          unpackMaybes(matchingQualifiedInPoolSources).map(({ pool }) => pool),
+          unpackMaybes(matchingQualifiedInPoolSources).map(
+            ({ pool }) => pool?.displayName?.display.localized,
+          ),
         ),
       {
         id: "qualifiedPools",
@@ -370,7 +372,11 @@ const TalentRequestMatchesTable = ({
         ) : null,
     }),
     columnHelper.accessor(
-      ({ user }) => locationAccessor(user?.currentCity, user?.currentProvince),
+      ({ user }) =>
+        locationAccessor(
+          user?.currentCity,
+          user?.currentProvince?.label?.localized,
+        ),
       {
         id: "location",
         header: intl.formatMessage(profileMessages.currentLocation),
