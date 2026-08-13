@@ -1,8 +1,4 @@
-import type { IntlShape } from "react-intl";
-
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { insertBetween, notEmpty } from "@gc-digital-talent/helpers";
-import type { Skill } from "@gc-digital-talent/graphql";
+import { insertBetween, unpackMaybes } from "@gc-digital-talent/helpers";
 
 /**
  * Converts a possible array to
@@ -16,20 +12,14 @@ const listOrEmptyString = (value: string[] | undefined) => {
 };
 
 /**
- * Converts possible array of skill families
+ * Converts possible array of skill family names
  * to a comma separated list or empty string
  *
- * @param families  Skill["families"]
- * @param intl react-intl object
+ * @param familyNames Localized skill family names
  * @returns string
  */
 export const getSkillFamilies = (
-  families: Skill["families"],
-  intl: IntlShape,
+  familyNames: (string | null | undefined)[] | null | undefined,
 ) => {
-  const familyNames = families
-    ?.filter(notEmpty)
-    .map((family) => getLocalizedName(family.name, intl));
-
-  return listOrEmptyString(familyNames);
+  return listOrEmptyString(unpackMaybes(familyNames));
 };

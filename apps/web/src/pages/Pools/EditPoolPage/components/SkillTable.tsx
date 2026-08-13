@@ -22,6 +22,7 @@ import tableMessages from "~/components/Table/tableMessages";
 
 export const SkillTableSkill_Fragment = graphql(/* GraphQL */ `
   fragment SkillTableSkill on Skill {
+    ...SkillBrowserSkill
     id
     key
     name {
@@ -56,6 +57,7 @@ export const SkillTablePoolSkill_Fragment = graphql(/* GraphQL */ `
     id
     requiredLevel
     skill {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -121,7 +123,7 @@ const ActionCell = (
             )}
           />
         }
-        skills={skill ? [skill] : []}
+        query={skill ? [skill] : []}
         initialState={{
           family: "all",
           skill: skill?.id,
@@ -255,7 +257,7 @@ const SkillTable = ({
               component: (
                 <SkillBrowserDialog
                   context="pool"
-                  skills={availableSkills}
+                  query={availableSkills}
                   onSave={async (value) => {
                     if (value.skill && value.skillLevel) {
                       await onCreate(value.skill, value.skillLevel);

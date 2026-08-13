@@ -15,7 +15,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   Classification,
   ApplicantFilterInput,
-  Skill,
+  FragmentType,
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
@@ -23,6 +23,7 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 
 import { formValuesToData } from "../utils";
 import {
@@ -44,7 +45,7 @@ const defaultRequestState = {
 
 interface SearchFormProps {
   classifications: Classification[];
-  skills: Skill[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   workStreams: WorkStream[];
 }
 
@@ -289,6 +290,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       }
     }
     skills {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -325,7 +327,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
 const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
-  const skills = unpackMaybes<Skill>(data?.skills);
+  const skills = unpackMaybes(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
   const workStreams = unpackMaybes(data?.workStreams);
 

@@ -21,7 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import type {
   Classification,
-  Skill,
+  FragmentType,
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
@@ -34,6 +34,7 @@ import { Link } from "@gc-digital-talent/ui";
 
 import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -80,7 +81,7 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 
 interface FormFieldsProps {
   classifications: Classification[];
-  skills: Skill[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   workStreams: WorkStream[];
 }
 
@@ -236,7 +237,7 @@ const FormFields = ({
           },
         )}
       >
-        <SkillBrowser skills={skills || []} name="skills" />
+        <SkillBrowser query={skills} name="skills" />
         <Field.Context className="mt-1.5">
           {intl.formatMessage({
             defaultMessage:
