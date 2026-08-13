@@ -373,7 +373,7 @@ const EmployeeVerificationSection = ({
                 {user.isVerifiedGovEmployee ? (
                   communityInterests.length > 0 ? (
                     <Link
-                      href={paths.applicantDashboard("functional-communities")}
+                      href={paths.employeeProfileFunctionalCommunities()}
                       mode="inline"
                       color="secondary"
                     >

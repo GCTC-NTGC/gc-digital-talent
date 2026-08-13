@@ -1563,6 +1563,10 @@
     "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
   },
+  "41VJap": {
+    "defaultMessage": "Vos collectivités fonctionnelles",
+    "description": "Title of the functional communities section in the employee profile"
+  },
   "436DA5": {
     "defaultMessage": "Croissance",
     "description": "Talent portal strategy item 2 heading"
@@ -4090,6 +4094,10 @@
   "EG5WpQ": {
     "defaultMessage": "Erreur : impossible de mettre à jour les paramètres",
     "description": "Message displayed when an error occurs while updating notification settings."
+  },
+  "EGk24W": {
+    "defaultMessage": "Cet outil est accessible aux employés du gouvernement du Canada seulement.",
+    "description": "Title of message that a tool is only available to employees"
   },
   "EI0GEZ": {
     "defaultMessage": "Ce formulaire vous permet d’ajouter une nouvelle expérience à votre parcours professionnel. Commencez par sélectionner le type d’expérience que vous souhaitez ajouter.",
@@ -7490,6 +7498,10 @@
   "S6x9Sg": {
     "defaultMessage": "Catégorie",
     "description": "Title for category"
+  },
+  "S7SOhy": {
+    "defaultMessage": "Les collectivités fonctionnelles facilitent le recrutement et la gestion des talents pour une classification ou un domaine de travail. Si vous devenez membre d’une collectivité fonctionnelle, votre profil sera mis à la disposition des recruteurs et des coordonnateurs des talents afin qu’ils puissent l’examiner en vue d’éventuelles possibilités d’emploi et de formation.",
+    "description": "Lead-in text explaining the user profile functional communities section"
   },
   "S82O61": {
     "defaultMessage": "Équipe de gestion de la collectivité du numérique",
@@ -14474,6 +14486,10 @@
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
   },
+  "uiF9IW": {
+    "defaultMessage": "Si vous êtes un employé du gouvernement du Canada, vérifiez votre adresse courriel professionnelle et assurez-vous que votre expérience de travail est à jour afin d’avoir accès aux outils du personnel. Vous pouvez vous retirer des collectivités fonctionnelles dont vous êtes membre, mais vous devrez confirmer votre statut d’employé pour en rejoindre de nouvelles.",
+    "description": "Body of message that a tool is only available to employees"
+  },
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
@@ -15095,7 +15111,7 @@
     "description": "Message congratulating the applicant into the recruitment process."
   },
   "xHQdue": {
-    "defaultMessage": "Cet outil est réservé au personnel du gouvernement du Canada.",
+    "defaultMessage": "Cet outil est accessible aux employés du gouvernement du Canada seulement.",
     "description": "Notice title on sections for employee profile page when not a verified employee."
   },
   "xIniPc": {
@@ -15312,6 +15328,10 @@
   "yC4xI6": {
     "defaultMessage": "Erreur : l’envoi de la candidature a échoué",
     "description": "Error message after failed submission for the application review page."
+  },
+  "yD13EC": {
+    "defaultMessage": "Joindre une collectivité",
+    "description": "Button to join a community"
   },
   "yD4M6c": {
     "defaultMessage": "Les cadres du Gouvernement du Canada dans la fonction de contrôleur ou dans d’autres domaines intéressés par une carrière dans la gestion financière ou l’approvisionnement sont invités à créer un profil.",
