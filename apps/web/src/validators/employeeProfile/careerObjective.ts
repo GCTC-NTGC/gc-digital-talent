@@ -1,4 +1,4 @@
-import type { EmployeeProfile } from "@gc-digital-talent/graphql";
+import { TargetRole, type EmployeeProfile } from "@gc-digital-talent/graphql";
 
 type EmployeeProfileCareerObjectiveFragment = Pick<
   EmployeeProfile,
@@ -45,26 +45,18 @@ export function hasAllEmptyFields({
 }
 
 export function hasAnyEmptyFields({
-  careerObjectiveClassification,
   careerObjectiveTargetRole,
-  careerObjectiveJobTitle,
+  careerObjectiveTargetRoleOther,
   careerObjectiveCommunity,
   careerObjectiveCommunityOther,
-  careerObjectiveWorkStreams,
-  careerObjectiveDepartments,
-  careerObjectiveAdditionalInformation,
   careerObjectiveIsCSuiteRole,
   careerObjectiveCSuiteRoleTitle,
 }: EmployeeProfileCareerObjectiveFragment): boolean {
   return (
-    !careerObjectiveClassification ||
     !careerObjectiveTargetRole ||
-    !careerObjectiveJobTitle ||
-    (!careerObjectiveCommunity && !careerObjectiveCommunityOther) ||
-    ((careerObjectiveCommunity?.workStreams?.length ?? 0 > 0) &&
-      !(careerObjectiveWorkStreams?.length ?? 0 > 0)) ||
-    !(careerObjectiveDepartments?.length ?? 0 > 0) ||
-    !careerObjectiveAdditionalInformation ||
+    (careerObjectiveTargetRole?.value === TargetRole.Other &&
+      !careerObjectiveTargetRoleOther) ||
+    (!careerObjectiveCommunity?.id && !careerObjectiveCommunityOther) ||
     (!!careerObjectiveIsCSuiteRole && !careerObjectiveCSuiteRoleTitle)
   );
 }
