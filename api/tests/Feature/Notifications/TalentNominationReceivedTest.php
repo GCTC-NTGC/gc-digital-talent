@@ -179,7 +179,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_fr',
-            'selected nomination options' => 'avancement, mutation latérale et programme de perfectionnement',
+            'selected nomination options' => 'avancement, transfert latéral et programme de perfectionnement',
         ],
             $message->messageVariables);
     }
@@ -259,7 +259,7 @@ class TalentNominationReceivedTest extends TestCase
             'nominator name' => 'nominator_first_name nominator_last_name',
             'nominee name' => 'nominee_first_name nominee_last_name',
             'event name' => 'test_event_fr',
-            'selected nomination options' => 'avancement, mutation latérale et programme de perfectionnement',
+            'selected nomination options' => 'avancement, transfert latéral et programme de perfectionnement',
         ],
             $message->messageVariables);
     }
@@ -293,7 +293,7 @@ class TalentNominationReceivedTest extends TestCase
             'event name en' => 'test_event_en',
             'event name fr' => 'test_event_fr',
             'selected nomination options en' => 'advancement, lateral movement, and development program',
-            'selected nomination options fr' => 'avancement, mutation latérale et programme de perfectionnement',
+            'selected nomination options fr' => 'avancement, transfert latéral et programme de perfectionnement',
         ],
             $message->messageVariables);
     }

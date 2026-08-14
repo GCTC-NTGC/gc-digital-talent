@@ -71,7 +71,7 @@ class NominationUtilsTest extends TestCase
                     'nominateForLateralMovement' => true,
                     'nominateForDevelopmentPrograms' => false,
                 ],
-                'avancement et mutation latérale',
+                'avancement et transfert latéral',
             ],
             'three, English' => [
                 [
@@ -89,7 +89,7 @@ class NominationUtilsTest extends TestCase
                     'nominateForLateralMovement' => true,
                     'nominateForDevelopmentPrograms' => true,
                 ],
-                'avancement, mutation latérale et programme de perfectionnement',
+                'avancement, transfert latéral et programme de perfectionnement',
             ],
         ];
     }
