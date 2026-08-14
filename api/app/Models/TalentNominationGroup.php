@@ -82,11 +82,14 @@ class TalentNominationGroup extends Model
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
 
-        // only pull active users ,skip archived ones by default
-        // in the case , you need to read/update all users including archived ones you need to use TalentNominationGroup::withoutGlobalScope
-        // like in connectToTalentNominationGroupIfMissing under TalentNomination.php
+        // Only pull groups whose nominee is currently active; skip archived ones by default.
+        // To read/update a group even when its nominee is archived, use
+        // TalentNominationGroup::withoutGlobalScope('activeNominee') - see
+        // connectToTalentNominationGroupIfMissing() and TalentNomination::talentNominationGroup().
         static::addGlobalScope('activeNominee', function (Builder $query) {
-            $query->whereHas('nominee');
+            $query->whereHas('nominee', function (Builder $nomineeQuery) {
+                $nomineeQuery->whereNull('deleted_at');
+            });
         });
     }
 

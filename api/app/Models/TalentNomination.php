@@ -189,10 +189,15 @@ class TalentNomination extends Model
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
     }
 
-    /** @return BelongsTo<TalentNominationGroup, $this> */
+    /**
+     * A nomination's group must always resolve, even if the nominee has since been archived -
+     * otherwise TalentNominationObserver silently skips recomputing the group's status.
+     *
+     * @return BelongsTo<TalentNominationGroup, $this>
+     */
     public function talentNominationGroup(): BelongsTo
     {
-        return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id');
+        return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id')->withoutGlobalScope('activeNominee');
     }
 
     /**
