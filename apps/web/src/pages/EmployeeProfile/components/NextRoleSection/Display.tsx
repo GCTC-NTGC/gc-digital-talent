@@ -63,14 +63,12 @@ const Display = ({
   return (
     <div className="flex flex-col gap-y-6">
       {hasAnyEmptyFields({
-        nextRoleClassification,
         nextRoleTargetRole,
-        nextRoleJobTitle,
+        nextRoleTargetRoleOther,
         nextRoleCommunity,
         nextRoleCommunityOther,
-        nextRoleWorkStreams,
-        nextRoleDepartments,
-        nextRoleAdditionalInformation,
+        nextRoleIsCSuiteRole,
+        nextRoleCSuiteRoleTitle,
       }) && (
         <>
           <Notice.Root>
