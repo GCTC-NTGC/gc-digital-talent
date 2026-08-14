@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
 use App\Enums\TalentNominationGroupDecision;
+use App\Enums\TalentNominationGroupStatus;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityInterest;
@@ -337,6 +338,49 @@ class TalentNominationGroupTest extends TestCase
                 $nomination1->id,
                 $nomination2->id,
             ]
+        );
+    }
+
+    public function testStatusRecomputesForNewNominationOnArchivedNominee()
+    {
+        $nominator1 = $this->makeEmployee('nominator1');
+        $nominator2 = $this->makeEmployee('nominator2');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination1 = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator1->id,
+                'nominator_id' => $nominator1->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $group = $nomination1->talentNominationGroup;
+        $group->update(['advancement_decision' => TalentNominationGroupDecision::APPROVED->name]);
+        $this->assertEquals(TalentNominationGroupStatus::APPROVED->name, $group->fresh()->status);
+
+        // archive the nominee
+        $nominee->delete();
+
+        // a second nominator nominates the same (now archived) nominee, for a different option
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator2->id,
+                'nominator_id' => $nominator2->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_lateral_movement' => true,
+            ]);
+
+        // the group's status must reflect the new, undecided nomination - this only works if
+        // TalentNomination::talentNominationGroup() can resolve the group even though its
+        // nominee is archived (TalentNominationObserver relies on this to call updateStatus())
+        $this->assertEquals(
+            TalentNominationGroupStatus::IN_PROGRESS->name,
+            TalentNominationGroup::withoutGlobalScope('activeNominee')->find($group->id)->status
         );
     }
 

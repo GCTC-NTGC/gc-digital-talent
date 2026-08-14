@@ -13,6 +13,7 @@ use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use OpenSpout\Reader\XLSX\Reader;
 use Tests\TestCase;
 
 class NominationsExcelGeneratorTest extends TestCase
@@ -116,21 +117,23 @@ class NominationsExcelGeneratorTest extends TestCase
         $talentNominationEvent = TalentNominationEvent::factory()->create([
             'community_id' => $community->id,
         ]);
+        // nominee_id/talent_nomination_event_id are passed to create() (applied after all
+        // chained states) rather than an earlier ->state([...]) call, since evaluated() chains
+        // through submittedNomineeInformation(), whose own default nominee_id would otherwise
+        // win and silently overwrite an earlier override with a random unrelated user
         $nomination1 = TalentNomination::factory()
-            ->state([
-                'nominee_id' => $employee1,
-                'talent_nomination_event_id' => $talentNominationEvent->id,
-            ])
             ->evaluated()
-            ->create();
+            ->create([
+                'nominee_id' => $employee1->id,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ]);
         $nominationGroup1 = $nomination1->talentNominationGroup;
         $nomination2 = TalentNomination::factory()
-            ->state([
-                'nominee_id' => $employee2,
-                'talent_nomination_event_id' => $talentNominationEvent->id,
-            ])
             ->evaluated()
-            ->create();
+            ->create([
+                'nominee_id' => $employee2->id,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ]);
         $nominationGroup2 = $nomination2->talentNominationGroup;
 
         // employee2 has since been archived; their nomination group must be silently
@@ -158,5 +161,49 @@ class NominationsExcelGeneratorTest extends TestCase
 
         $this->assertTrue($disk->exists($path), 'File was not generated');
         $this->assertGreaterThan(0, $disk->size($path), 'File is empty');
+
+        // the overview tab must contain exactly one nominee row (employee1's), not two -
+        // confirming employee2 was silently excluded rather than the export just happening
+        // to survive for some unrelated reason
+        $rows = $this->readSheetRows($fileName, sheetIndex: 0, rowCount: 3);
+        $dataRows = array_slice($rows, 1);
+        $this->assertCount(1, $dataRows, 'Overview tab should only contain the active nominee');
+        $this->assertEquals($employee1->id, $dataRows[0][0]);
+    }
+
+    /**
+     * Read the first $rowCount rows from a specific sheet of a generated test file.
+     * Returns an array of rows, each row being an array of cell values.
+     *
+     * @return array<int, array<int, mixed>>
+     */
+    private function readSheetRows(string $fileName, int $sheetIndex, int $rowCount): array
+    {
+        $path = Storage::disk('user_generated')->path('test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx');
+
+        $reader = new Reader();
+        $reader->open($path);
+
+        $rows = [];
+        $currentSheet = 0;
+
+        foreach ($reader->getSheetIterator() as $sheet) {
+            if ($currentSheet === $sheetIndex) {
+                $currentRow = 0;
+                foreach ($sheet->getRowIterator() as $row) {
+                    $rows[] = $row->toArray();
+                    $currentRow++;
+                    if ($currentRow >= $rowCount) {
+                        break;
+                    }
+                }
+                break;
+            }
+            $currentSheet++;
+        }
+
+        $reader->close();
+
+        return $rows;
     }
 }
