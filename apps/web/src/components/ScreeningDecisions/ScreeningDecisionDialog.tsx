@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import type { FragmentType, User } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -13,6 +13,8 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
+
+import type { AnyExperience } from "~/types/experience";
 
 import type { FormValues } from "./types";
 import {
@@ -82,7 +84,9 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface ParsedSnapshot extends User {
+interface ParsedSnapshot {
+  experiences?: (AnyExperience | null | undefined)[];
+  firstName?: string | null;
   version?: number;
 }
 
