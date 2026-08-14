@@ -27,7 +27,6 @@ import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
-import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import { getSkills } from "~/utils/skills";
 import { createAndPublishPool } from "~/utils/pools";
@@ -39,9 +38,10 @@ import { defaultWorkExperience } from "~/utils/experiences";
 import { createCommunityInterest } from "~/utils/communities";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 
-test.describe("Location Preference Validation", () => {
+test.describe("Location Preference Validation", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let applicantCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let user: User;
   let userPage: UserPage;
   let locationPrefPage: LocationPreferenceUpdatePage;
@@ -49,22 +49,29 @@ test.describe("Location Preference Validation", () => {
   let application: PoolCandidate;
   let id: string;
   let testId: string;
+  let sub: string;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
   let tableValidation: GenericTableValidationFixture;
 
   test.beforeAll(async () => {
     testId = generateUniqueTestId();
     adminCtx = await graphql.newContext();
-    const sub = `playwright.loc.pref.${testId}`;
-    const skill = await getSkills(adminCtx, {}).then((skills) => {
+    sub = `playwright.loc.pref.${testId}`;
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
+    const skill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
-    const classifications = await getClassifications(adminCtx, {});
-    const departments = await getDepartments(adminCtx, {});
+    const classifications = await getClassifications(platformAdminCtx, {});
+    const departments = await getDepartments(platformAdminCtx, {});
     const nonCPADept = departments.find(
       (dep) => !dep.isCorePublicAdministration,
     );
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,
@@ -162,7 +169,7 @@ test.describe("Location Preference Validation", () => {
 
   test.afterAll(async () => {
     if (user) {
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
@@ -170,7 +177,7 @@ test.describe("Location Preference Validation", () => {
     appPage,
   }) => {
     const userName = user?.firstName ?? "";
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await loginBySub(appPage.page, adminSub, false);
 
     // 1. Validate location preference update in user profile page
     userPage = new UserPage(appPage.page);
@@ -216,7 +223,7 @@ test.describe("Location Preference Validation", () => {
   }) => {
     const userName = user?.firstName ?? "";
     userPage = new UserPage(appPage.page);
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await loginBySub(appPage.page, adminSub, false);
 
     // 1. Validate location preference update in candidate details page
     candidatePage = new PoolCandidatePage(appPage.page);
@@ -261,7 +268,7 @@ test.describe("Location Preference Validation", () => {
     const page = appPage.page;
     tableValidation = new GenericTableValidationFixture(page);
     userPage = new UserPage(appPage.page);
-    await loginBySub(page, testConfig.signInSubs.recruiterSignIn, false);
+    await loginBySub(page, adminSub, false);
     await page.goto("/en/admin/community-talent");
     await expect(
       page.getByRole("heading", {

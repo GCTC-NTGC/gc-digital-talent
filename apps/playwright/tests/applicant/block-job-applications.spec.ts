@@ -1,7 +1,6 @@
 import type {
   Classification,
   Skill,
-  WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
@@ -26,7 +25,7 @@ import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
 import { getClassifications } from "~/utils/classification";
-import { getCommunities } from "~/utils/communities";
+import { getMyCommunity } from "~/utils/communities";
 import { getWorkStreams } from "~/utils/workStreams";
 
 interface UserInfo {
@@ -34,28 +33,30 @@ interface UserInfo {
   sub: string;
 }
 
-test.describe("Block job applications", () => {
+test.describe("Block job applications", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let adminUserId: string;
   let publicPoolId: string;
   let internalPoolId: string;
   let uniqueTestId: string;
   let classification: Classification;
-  let workStream: WorkStream;
-  let communityId: string;
   let technicalSkill: Skill | undefined;
   let unverifiedContactEmailUser: UserInfo = { sub: "", id: "" };
   let unverifiedWorkEmailUser: UserInfo = { sub: "", id: "" };
 
   test.beforeAll(async () => {
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
     const adminUser = await me(adminCtx, {});
     adminUserId = adminUser.id;
     uniqueTestId = generateUniqueTestId();
     const unverifiedContactEmail = `unverified.contact.${uniqueTestId}@gc.ca`;
     const unverifiedWorkEmail = `unverified.work.${uniqueTestId}@gc.ca`;
 
-    const unverifiedContactUser = await createUserWithRoles(adminCtx, {
+    const unverifiedContactUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: unverifiedContactEmail,
         sub: unverifiedContactEmail,
@@ -82,7 +83,7 @@ test.describe("Block job applications", () => {
       id: unverifiedContactUser?.id ?? "",
     };
 
-    const unverifiedWorkUser = await createUserWithRoles(adminCtx, {
+    const unverifiedWorkUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: unverifiedWorkEmail,
         sub: unverifiedWorkEmail,
@@ -109,24 +110,26 @@ test.describe("Block job applications", () => {
       id: unverifiedWorkUser?.id ?? "",
     };
 
-    communityId = await getCommunities(adminCtx, {}).then(
-      (communities) => communities[0]?.id,
-    );
-    const classifications = await getClassifications(adminCtx, {});
+    const classifications = await getClassifications(platformAdminCtx, {});
     classification = classifications[0];
 
-    const workStreams = await getWorkStreams(adminCtx, {});
-    workStream = workStreams[0];
-
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
-    // Pool Creation
+    // Resolve a community the community admin (adminCtx) actually has
+    // access to, and a work stream that belongs to it.
+    const community = await getMyCommunity(adminCtx, {});
+    const workStreams = await getWorkStreams(adminCtx, {});
+    const workStreamId = workStreams.find(
+      (ws) => ws.community?.id === community?.id,
+    )?.id;
+
     const publicPool = await createAndPublishPool(adminCtx, {
       userId: adminUserId,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-      communityId: communityId,
+      communityId: community?.id,
+      workStreamId,
       classificationId: classification.id,
       input: {
         generalQuestions: {
@@ -138,7 +141,6 @@ test.describe("Block job applications", () => {
           ],
         },
       },
-      workStreamId: workStream.id,
       name: {
         en: "Block Job application unverified contact email [EN]",
         fr: "Block Job application unverified contact email [FR]",
@@ -149,7 +151,8 @@ test.describe("Block job applications", () => {
     const internalPool = await createAndPublishInternalPool(adminCtx, {
       userId: adminUserId,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-      communityId: communityId,
+      communityId: community?.id,
+      workStreamId,
       classificationId: classification.id,
       input: {
         generalQuestions: {
@@ -161,7 +164,6 @@ test.describe("Block job applications", () => {
           ],
         },
       },
-      workStreamId: workStream.id,
       name: {
         en: "Block Internal Job application unverified work email [EN]",
         fr: "Block Internal Job application unverified work email [FR]",
@@ -172,9 +174,8 @@ test.describe("Block job applications", () => {
 
   test.afterAll(async () => {
     if (unverifiedContactEmailUser.id && unverifiedWorkEmailUser.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: unverifiedContactEmailUser.id });
-      await deleteUser(adminCtx, { id: unverifiedWorkEmailUser.id });
+      await deleteUser(platformAdminCtx, { id: unverifiedContactEmailUser.id });
+      await deleteUser(platformAdminCtx, { id: unverifiedWorkEmailUser.id });
     }
   });
 

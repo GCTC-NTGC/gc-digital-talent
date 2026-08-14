@@ -36,6 +36,66 @@ export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
     .then((res) => res.communities);
 };
 
+const Test_MyCommunityQueryDocument = /* GraphQL */ `
+  query Test_MyCommunity {
+    me {
+      authInfo {
+        roleAssignments {
+          role {
+            name
+          }
+          teamable {
+            ... on Community {
+              id
+              name {
+                en
+                fr
+              }
+              teamIdForRoleAssignment
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+// Roles the pool creation UI treats as authorized to pick a community for a
+// process (see createProcessCommunityRoles in web's CreatePoolPage.tsx).
+// A role like community_talent_coordinator resolves to a Community teamable
+// too, but isn't offered as an option there, so it must be excluded here.
+const CREATE_PROCESS_COMMUNITY_ROLES = ["community_admin", "community_recruiter"];
+
+interface MyRoleAssignment {
+  role?: { name?: string | null } | null;
+  teamable?: Community | null;
+}
+
+/**
+ * Get a community the currently authenticated user can create a process
+ * for.
+ *
+ * A test user may only be assigned to some communities rather than all of
+ * them, so this reflects what they can actually pick in the UI.
+ */
+export const getMyCommunity: GraphQLRequestFunc<
+  Community | undefined
+> = async (ctx) => {
+  const me = await ctx
+    .post<
+      GraphQLResponse<"me", { authInfo?: { roleAssignments?: MyRoleAssignment[] } }>
+    >(Test_MyCommunityQueryDocument)
+    .then((res) => res.me);
+
+  return (
+    me?.authInfo?.roleAssignments?.find(
+      (ra) =>
+        !!ra.teamable &&
+        CREATE_PROCESS_COMMUNITY_ROLES.includes(ra.role?.name ?? ""),
+    )?.teamable ?? undefined
+  );
+};
+
 const uniqueTestId = generateUniqueTestId();
 export const defaultCommunity: Partial<CreateCommunityInput> = {
   key: `playwright-test-community ${uniqueTestId}`,

@@ -37,15 +37,15 @@ import { getWorkStreams } from "~/utils/workStreams";
 import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import TalentSearch from "~/fixtures/TalentSearch";
 import { loginBySub } from "~/utils/auth";
-import testConfig from "~/constants/config";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
-import { getCommunities } from "~/utils/communities";
+import { getMyCommunity } from "~/utils/communities";
 import { getDepartments } from "~/utils/departments";
 
-test.describe("Talent search", () => {
+test.describe("Talent search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
+  let platformAdminCtx: GraphQLContext;
   let poolName: string;
   let classification: Classification;
   let workStream: WorkStream;
@@ -57,31 +57,39 @@ test.describe("Talent search", () => {
   let candidateName: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeEach(async () => {
     test.setTimeout(80_000);
     uniqueTestId = generateUniqueTestId();
     poolName = `Search pool ${uniqueTestId}`;
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
 
     await test.step("Create a test pool", async () => {
-      technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+      technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
         return skills.find((s) => s.category.value === SkillCategory.Technical);
       });
       skill = technicalSkill;
-      const communityId = await getCommunities(adminCtx, {}).then(
-        (communities) => communities[0]?.id,
-      );
-      const classifications = await getClassifications(adminCtx, {});
+      // Resolve the community the admin (adminCtx) actually has access to,
+      // and pick a work stream that belongs to it, so the pool matches what
+      // that admin can see and this test's later UI search stays consistent.
+      const community = await getMyCommunity(adminCtx, {});
+      const classifications = await getClassifications(platformAdminCtx, {});
       classification = classifications[0];
-      const workStreams = await getWorkStreams(adminCtx, {});
-      workStream = workStreams[0];
+      const workStreams = await getWorkStreams(platformAdminCtx, {});
+      workStream =
+        workStreams.find((ws) => ws.community?.id === community?.id) ??
+        workStreams[0];
 
       const adminUser = await me(adminCtx, {});
       const createdPool = await createAndPublishPool(adminCtx, {
         userId: adminUser.id,
         skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
-        communityId: communityId,
+        communityId: community?.id,
         classificationId: classification.id,
         workStreamId: workStream.id,
         name: {
@@ -94,7 +102,7 @@ test.describe("Talent search", () => {
 
     await test.step("Create a test user", async () => {
       sub = `playwright.sub.${uniqueTestId}`;
-      const createdUser = await createUserWithRoles(adminCtx, {
+      const createdUser = await createUserWithRoles(platformAdminCtx, {
         user: {
           email: `${sub}@example.org`,
           emailVerifiedAt: PAST_DATE,
@@ -145,7 +153,7 @@ test.describe("Talent search", () => {
       });
       candidate = application;
 
-      const departments = await getDepartments(adminCtx, {});
+      const departments = await getDepartments(platformAdminCtx, {});
       await QualifyAndPlaceCandidate(adminCtx, {
         id: application.id,
         input: {
@@ -159,14 +167,14 @@ test.describe("Talent search", () => {
 
   test.afterEach(async () => {
     if (user) {
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("Validate location preference update in Talent table", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     talentSearch = new TalentSearch(appPage.page);
     const locationPrefUpdate = new LocationPreferenceUpdatePage(appPage.page);
     await talentSearch.goToIndex();
@@ -182,7 +190,7 @@ test.describe("Talent search", () => {
       /request created successfully/i,
     );
     const requestId = fetchIdentificationNumber(appPage.page.url(), "request");
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await loginBySub(appPage.page, adminSub, false);
     await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
     await locationPrefUpdate.validateSelectedFlexWorkLocOptions();
     await expect(
@@ -216,7 +224,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
-      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+      await loginBySub(appPage.page, adminSub);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -233,7 +241,7 @@ test.describe("Talent search", () => {
 
     await test.step("View the newly created talent request", async () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
-      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+      await loginBySub(appPage.page, adminSub, false);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
       await expect(
         appPage.page.getByRole("heading", {
@@ -266,7 +274,7 @@ test.describe("Talent search", () => {
     let requestId: string;
 
     await test.step("Submit the search talent request", async () => {
-      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+      await loginBySub(appPage.page, adminSub);
       await talentSearch.goToIndex();
       await talentSearch.fillSearchFormAndRequestCandidates(
         poolName,
@@ -293,7 +301,7 @@ test.describe("Talent search", () => {
 
     await test.step("View the newly created talent request", async () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
-      await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+      await loginBySub(appPage.page, adminSub, false);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
     });
 

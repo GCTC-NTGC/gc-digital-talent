@@ -22,7 +22,6 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
@@ -48,10 +47,14 @@ const LOCALIZED_STRING = {
   fr: "test pool FR",
 };
 
-test.describe("Candidate Table Validation", () => {
+test.describe("Candidate Table Validation", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let users: (User | undefined)[] = [];
+  let sub: string;
   let poolId: string;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
+  let platformAdminCtx: GraphQLContext;
   let candidates: {
     user: User | undefined;
     ctx: GraphQLContext;
@@ -61,10 +64,16 @@ test.describe("Candidate Table Validation", () => {
 
   test.beforeAll(async () => {
     const uniqueTestId = generateUniqueTestId();
-    const sub = `playwright.sub.${uniqueTestId}`;
-    adminCtx = await graphql.newContext();
-    const technicalSkill = await getSkills(adminCtx, {}).then((skills) =>
-      skills.find((skill) => skill.category.value === SkillCategory.Technical),
+    sub = `playwright.sub.${uniqueTestId}`;
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
+    const technicalSkill = await getSkills(platformAdminCtx, {}).then(
+      (skills) =>
+        skills.find(
+          (skill) => skill.category.value === SkillCategory.Technical,
+        ),
     );
 
     await test.step("Create a test pool", async () => {
@@ -80,7 +89,7 @@ test.describe("Candidate Table Validation", () => {
     await test.step("Create test users and candidate applications", async () => {
       users = await Promise.all(
         Array.from({ length: 8 }, (_, i) =>
-          createUserWithRoles(adminCtx, {
+          createUserWithRoles(platformAdminCtx, {
             roles: ["guest", "base_user", "applicant"],
             user: {
               firstName: `Playwright${i}`,
@@ -211,7 +220,7 @@ test.describe("Candidate Table Validation", () => {
       await Promise.all(
         users
           .filter((user) => !!user)
-          .map((user) => deleteUser(adminCtx, { id: user.id })),
+          .map((user) => deleteUser(platformAdminCtx, { id: user.id })),
       );
     });
   });
@@ -219,7 +228,7 @@ test.describe("Candidate Table Validation", () => {
   test("Validate application statuses reflect correct values in the candidate table", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
     await tableValidation.goToPoolCandidateTable(poolId);
     await expect(
@@ -345,7 +354,7 @@ test.describe("Candidate Table Validation", () => {
   test("Filter candidate table with different screening stages and verify correct candidates show up", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
     await tableValidation.goToPoolCandidateTable(poolId);
     await expect(
@@ -452,7 +461,7 @@ test.describe("Candidate Table Validation", () => {
   test("Filter the candidate table by ApplicationStatus only and verify the candidate details", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(appPage.page, adminSub);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
     await tableValidation.goToPoolCandidateTable(poolId);
     await expect(

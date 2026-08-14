@@ -36,6 +36,7 @@ function resolveFixtureSub(sub: string): string {
   if (!sub.includes("@")) return sub;
   if (!(sub in FIXTURE_SUB_MAP)) return sub;
   const resolved = FIXTURE_SUB_MAP[sub];
+  console.log(`Sub taken for UAT = ${resolved}`);
   if (!resolved) {
     throw new Error(
       `No remote sub configured for "${sub}". Add it to FIXTURE_SUB_MAP with a PLAYWRIGHT_*_SUB env var, or use createUserWithRoles to create the user dynamically.`,

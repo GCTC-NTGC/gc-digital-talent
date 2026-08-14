@@ -34,7 +34,6 @@ import {
 } from "~/utils/applications";
 import { createAndPublishPool } from "~/utils/pools";
 import { generateUniqueTestId } from "~/utils/id";
-import testConfig from "~/constants/config";
 import { loginBySub } from "~/utils/auth";
 import AssessmentPage from "~/fixtures/AssessmentPage";
 import ReferralStatusPage from "~/fixtures/ReferralStatusPage";
@@ -45,27 +44,33 @@ const LOCALIZED_STRING = {
   fr: "test-placement-referral FR",
 };
 
-test.describe("Placement and Referral", () => {
+test.describe("Placement and Referral", { tag: "@uat" }, () => {
   let uniqueTestId: string;
+  let platformAdminCtx: GraphQLContext;
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let adminCtx: GraphQLContext;
   let poolId: string;
   let user: User | undefined;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.placement.referral.sub.${uniqueTestId}`;
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
 
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
 
-    user = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         firstName: "Playwright_placement_referral",
@@ -136,15 +141,14 @@ test.describe("Placement and Referral", () => {
 
   test.afterEach(async () => {
     if (user?.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("Validate referral status for Placed Indeterminate candidates", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.recruiterSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     const referralStatusPage = new ReferralStatusPage(appPage.page);
@@ -165,7 +169,7 @@ test.describe("Placement and Referral", () => {
   test("Validate 'Under Consideration' candidate is paused for 1 month and resumed back", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.recruiterSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     const referralStatusPage = new ReferralStatusPage(appPage.page);
@@ -205,7 +209,7 @@ test.describe("Placement and Referral", () => {
   test("Verify 'Placed acting' candidate is paused until their candidacy expires and resumed back", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.recruiterSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     const referralStatusPage = new ReferralStatusPage(appPage.page);
@@ -250,7 +254,7 @@ test.describe("Placement and Referral", () => {
   test("Validate that referral status is updated once placement status is changed for any qualified candidate", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, testConfig.signInSubs.recruiterSignIn);
+    await loginBySub(appPage.page, adminSub);
     const assessmentPage = new AssessmentPage(appPage.page);
     await assessmentPage.goToCandidateApplication(candidate.id);
     const referralStatusPage = new ReferralStatusPage(appPage.page);
