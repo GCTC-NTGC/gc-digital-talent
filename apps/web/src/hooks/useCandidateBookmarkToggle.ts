@@ -26,7 +26,7 @@ interface CandidateBookmarkResult {
 
 type UseCandidateBookmarkToggleReturn = [
   result: CandidateBookmarkResult,
-  toggle: () => void,
+  toggle: () => Promise<void>,
 ];
 
 const useCandidateBookmarkToggle = ({
@@ -42,46 +42,54 @@ const useCandidateBookmarkToggle = ({
   );
   const [isBookmarked, setIsBookmarked] = useServerSyncedState(
     defaultValue ?? false,
+    id,
   );
 
   const toggleBookmark = async () => {
     if (id) {
       await executeToggleBookmarkMutation({ id })
         .then((res) => {
-          if (!res.error) {
-            const newIsBookmarked =
-              res.data?.togglePoolCandidateUserBookmark === true;
-            if (showToast) {
-              if (newIsBookmarked) {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage: "You've bookmarked {name} for yourself",
-                      id: "9DJWk4",
-                      description: "Bookmarked a candidate",
-                    },
-                    {
-                      name,
-                    },
-                  ),
-                );
-              } else {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage: "You've removed the bookmark for {name}.",
-                      id: "UBY4qe",
-                      description: "Un-bookmarked a candidate",
-                    },
-                    {
-                      name,
-                    },
-                  ),
-                );
-              }
-            }
-            setIsBookmarked(newIsBookmarked);
+          // urql resolves rather than rejects on a GraphQL error, so rethrow to reach
+          // the error toast below.
+          if (res.error) throw new Error(res.error.message);
+          const newIsBookmarked = res.data?.togglePoolCandidateUserBookmark;
+          // The mutation returns a nullable Boolean: a missing value means the toggle
+          // did not happen, and must not be reported as a successful un-bookmark.
+          if (typeof newIsBookmarked !== "boolean") {
+            throw new Error("Bookmark toggle returned no value");
           }
+
+          if (showToast) {
+            if (newIsBookmarked) {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage: "You've bookmarked {name} for yourself",
+                    id: "9DJWk4",
+                    description: "Bookmarked a candidate",
+                  },
+                  {
+                    name,
+                  },
+                ),
+              );
+            } else {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage: "You've removed the bookmark for {name}.",
+                    id: "UBY4qe",
+                    description: "Un-bookmarked a candidate",
+                  },
+                  {
+                    name,
+                  },
+                ),
+              );
+            }
+          }
+
+          setIsBookmarked(newIsBookmarked);
         })
         .catch(() => {
           toast.error(

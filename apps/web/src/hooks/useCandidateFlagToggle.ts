@@ -27,7 +27,7 @@ interface CandidateFlagResult {
 
 type UseCandidateFlagToggleReturn = [
   result: CandidateFlagResult,
-  toggle: () => void,
+  toggle: () => Promise<void>,
 ];
 
 const useCandidateFlagToggle = ({
@@ -41,7 +41,10 @@ const useCandidateFlagToggle = ({
   const [{ fetching: isUpdating }, executeToggleFlagMutation] = useMutation(
     PoolCandidate_ToggleFlagMutation,
   );
-  const [isFlagged, setIsFlagged] = useServerSyncedState(defaultValue ?? false);
+  const [isFlagged, setIsFlagged] = useServerSyncedState(
+    defaultValue ?? false,
+    id,
+  );
 
   const toggleFlag = async () => {
     if (id) {
@@ -49,46 +52,53 @@ const useCandidateFlagToggle = ({
         id,
       })
         .then((res) => {
-          if (!res.error) {
-            const newIsFlagged = res.data?.togglePoolCandidateFlag === true;
-            if (showToast) {
-              if (newIsFlagged) {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You've flagged {candidateName} in {processTitle}. Other authorized users can also view or remove this flag.",
-                      id: "NRX2CA",
-                      description:
-                        "Alert displayed to the user when they mark a candidate as flagged.",
-                    },
-                    {
-                      candidateName: name,
-                      processTitle,
-                    },
-                  ),
-                );
-              } else {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You've removed the flag for {candidateName} in {processTitle}.",
-                      id: "idwHJf",
-                      description:
-                        "Alert displayed to the user when they un-flag a candidate.",
-                    },
-                    {
-                      candidateName: name,
-                      processTitle,
-                    },
-                  ),
-                );
-              }
-            }
-
-            setIsFlagged(newIsFlagged);
+          // urql resolves rather than rejects on a GraphQL error, so rethrow to reach
+          // the error toast below.
+          if (res.error) throw new Error(res.error.message);
+          const newIsFlagged = res.data?.togglePoolCandidateFlag;
+          // The mutation returns a nullable Boolean: a missing value means the toggle
+          // did not happen, and must not be reported as a successful un-flag.
+          if (typeof newIsFlagged !== "boolean") {
+            throw new Error("Flag toggle returned no value");
           }
+
+          if (showToast) {
+            if (newIsFlagged) {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You've flagged {candidateName} in {processTitle}. Other authorized users can also view or remove this flag.",
+                    id: "NRX2CA",
+                    description:
+                      "Alert displayed to the user when they mark a candidate as flagged.",
+                  },
+                  {
+                    candidateName: name,
+                    processTitle,
+                  },
+                ),
+              );
+            } else {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You've removed the flag for {candidateName} in {processTitle}.",
+                    id: "idwHJf",
+                    description:
+                      "Alert displayed to the user when they un-flag a candidate.",
+                  },
+                  {
+                    candidateName: name,
+                    processTitle,
+                  },
+                ),
+              );
+            }
+          }
+
+          setIsFlagged(newIsFlagged);
         })
         .catch(() => {
           toast.error(
