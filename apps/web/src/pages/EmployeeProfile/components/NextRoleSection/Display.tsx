@@ -8,7 +8,7 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import { hasAnyEmptyFields } from "~/validators/employeeProfile/nextRole";
+import { hasIncompleteRequiredFields } from "~/validators/employeeProfile/nextRole";
 
 import messages from "../../messages";
 
@@ -62,7 +62,7 @@ const Display = ({
 
   return (
     <div className="flex flex-col gap-y-6">
-      {hasAnyEmptyFields({
+      {hasIncompleteRequiredFields({
         nextRoleTargetRole,
         nextRoleTargetRoleOther,
         nextRoleCommunity,

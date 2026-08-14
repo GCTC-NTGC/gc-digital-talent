@@ -43,7 +43,7 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasAnyEmptyFields({
+export function hasIncompleteRequiredFields({
   nextRoleTargetRole,
   nextRoleTargetRoleOther,
   nextRoleCommunity,

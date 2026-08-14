@@ -44,7 +44,7 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasAnyEmptyFields({
+export function hasIncompleteRequiredFields({
   careerObjectiveTargetRole,
   careerObjectiveTargetRoleOther,
   careerObjectiveCommunity,
