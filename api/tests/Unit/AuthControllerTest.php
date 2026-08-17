@@ -40,6 +40,8 @@ class AuthControllerTest extends TestCase
     {
         $this->seed(RolePermissionSeeder::class);
 
+        // id_token generated at jwt.io with payload:
+        // {"sub":"1234567890","nonce":"abc","state":"abc","iat":1516239022}
         Http::fakeSequence()
             ->push([
                 'id_token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibm9uY2UiOiJhYmMiLCJzdGF0ZSI6ImFiYyIsImlhdCI6MTUxNjIzOTAyMn0.p4GMaQjmIcUAxjAZ7Y51C1q1mu5sVXJLdX1zybt4jFc',
