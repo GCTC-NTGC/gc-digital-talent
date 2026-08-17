@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Support\FilePath;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -29,16 +30,15 @@ class PruneUserGeneratedFiles extends Command
     {
         $this->info('Pruning old user generated files');
         $now = Carbon::now();
-        $disk = Storage::disk('user_generated');
-        $allDirectories = $disk->allDirectories();
-        foreach ($allDirectories as $directory) {
-            $allFiles = $disk->allFiles($directory);
-            foreach ($allFiles as $file) {
+        $diskNames = [FilePath::GUARDED_DISK, FilePath::PUBLIC_DISK];
+        foreach ($diskNames as $diskName) {
+            $disk = Storage::disk($diskName);
+            foreach ($disk->allFiles() as $file) {
                 $lastModified = Carbon::createFromTimestamp($disk->lastModified($file));
                 $hoursOld = $now->diffInHours($lastModified);
                 $shouldDelete = $hoursOld > 24;
                 if ($shouldDelete) {
-                    $this->info("Deleting $file - $hoursOld hours old");
+                    $this->info("Deleting $diskName/$file - $hoursOld hours old");
                     $disk->delete($file);
                 }
             }
