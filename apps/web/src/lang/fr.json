@@ -13954,6 +13954,10 @@
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
   },
+  "sVCUyO": {
+    "defaultMessage": "Nominez une personne pour une promotion ou un transfert latéral.",
+    "description": "Subtitle for the form to nominate talent without development opportunities"
+  },
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
     "description": "Message displayed when no functional community is selected"
