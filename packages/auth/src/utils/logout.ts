@@ -1,6 +1,3 @@
-import type { JwtPayload } from "jwt-decode";
-import { jwtDecode } from "jwt-decode";
-
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { defaultLogger } from "@gc-digital-talent/logger";
@@ -41,8 +38,6 @@ interface LogoutAndRefreshPageParameters {
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
-  // whether or not to prevent the redirect when completing
-  preventRedirect?: boolean;
   // URL user came from and should be returned to after a full logout
   from?: string;
 }
@@ -53,12 +48,10 @@ function logoutAndRefreshPage({
   postLogoutOverridePath,
   broadcastLogoutMessage,
   logoutReason,
-  preventRedirect = false,
   from,
 }: LogoutAndRefreshPageParameters): void {
   defaultLogger.notice("Logging out and refreshing the page");
   // capture tokens before they are removed
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const idToken = localStorage.getItem(ID_TOKEN);
 
   // remove tokens from local storage
@@ -101,34 +94,31 @@ function logoutAndRefreshPage({
       },
     );
   }
-  let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
-
-  if (accessToken) {
-    const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
-    if (decodedAccessToken.exp)
-      authSessionIsCurrentlyActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
-  }
 
   // Post a logout message to the broadcast channel
   // so they know to logout as well
   broadcastLogoutMessage?.();
 
-  let nextLocation = postLogoutRedirectUri;
-  if (from) {
-    const searchParams = new URLSearchParams();
-    searchParams.append("from", window.location.href);
-    nextLocation = `${nextLocation}?${searchParams.toString()}`;
+  // what is the the full end_session URL we are about to go to first?
+  const endSessionUrl = new URL(logoutUri);
+
+  // what URL are we redirecting back to after the session is ended?
+  if (postLogoutRedirectUri) {
+    const nextLocation = new URL(postLogoutRedirectUri);
+    if (from) {
+      nextLocation.searchParams.set("from", window.location.href);
+    }
+    endSessionUrl.searchParams.set(
+      "post_logout_redirect_uri",
+      nextLocation.toString(),
+    );
   }
 
-  if (idToken && authSessionIsCurrentlyActive) {
-    // CanadaLogin logout will error out unless there is actually an active session
-    window.location.href = `${logoutUri}?post_logout_redirect_uri=${encodeURIComponent(nextLocation)}&id_token_hint=${idToken}`;
-  } else if (!preventRedirect) {
-    // at least a hard refresh to URI to restart react app
-    window.location.href = nextLocation;
-  } else {
-    window.location.reload();
+  if (idToken) {
+    endSessionUrl.searchParams.set("id_token_hint", idToken);
   }
+
+  window.location.href = endSessionUrl.toString();
 }
 
 export default logoutAndRefreshPage;
