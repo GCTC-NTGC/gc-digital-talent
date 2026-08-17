@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation, useQuery, type OperationContext } from "urql";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 
 import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
@@ -20,6 +20,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
+import DeleteCommunityInterestAlert from "~/components/FunctionalCommunity/DeleteCommunityInterestAlert";
 
 import { messages } from "../messages";
 import type { FormValues } from "../form";
@@ -30,7 +31,6 @@ import AdditionalInformation from "../sections/AdditionalInformation";
 import TrainingAndDevelopmentOpportunities, {
   DevelopmentProgramUserTrainingAndDevelopmentOpportunities_Fragment,
 } from "../sections/TrainingAndDevelopmentOpportunities";
-import DeleteCommunityInterestAlert from "./DeleteCommunityInterestAlert";
 
 // options data for form controls
 const UpdateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
@@ -99,6 +99,7 @@ interface UpdateCommunityInterestFormProps {
   userId: string;
   formDisabled: boolean;
   onSubmit: SubmitHandler<FormValues>;
+  returnPath?: string;
 }
 
 const UpdateCommunityInterestForm = ({
@@ -107,7 +108,10 @@ const UpdateCommunityInterestForm = ({
   userId,
   formDisabled,
   onSubmit,
+  returnPath,
 }: UpdateCommunityInterestFormProps) => {
+  const navigate = useNavigate();
+  const paths = useRoutes();
   const formOptions = getFragment(
     UpdateCommunityInterestFormOptions_Fragment,
     formOptionsQuery,
@@ -142,6 +146,9 @@ const UpdateCommunityInterestForm = ({
   const formMethods = useForm<FormValues>({
     defaultValues: assignToDefaultValues,
   });
+
+  const handleDelete = async () =>
+    await navigate(returnPath ?? paths.applicantDashboard());
 
   return (
     <>
@@ -181,7 +188,12 @@ const UpdateCommunityInterestForm = ({
               <Card.Separator />
               <ReviewAndSubmit
                 formDisabled={formDisabled}
-                actions={<DeleteCommunityInterestAlert query={formData} />}
+                actions={
+                  <DeleteCommunityInterestAlert
+                    query={formData}
+                    onSuccess={handleDelete}
+                  />
+                }
                 optionsQuery={formOptions}
               />
             </div>
@@ -250,8 +262,10 @@ interface RouteParams extends Record<string, string> {
 export const UpdateCommunityInterestPage = () => {
   const intl = useIntl();
   const routes = useRoutes();
+  const [searchParams] = useSearchParams();
   const { userAuthInfo } = useAuthorization();
   const { communityInterestId } = useParams<RouteParams>();
+  const returnPath = searchParams?.get("from") ?? routes.applicantDashboard();
 
   const navigate = useNavigate();
   if (!communityInterestId) {
@@ -343,7 +357,7 @@ export const UpdateCommunityInterestPage = () => {
             description: "Toast for successful community interest update",
           }),
         );
-        await navigate(routes.applicantDashboard());
+        await navigate(returnPath);
       })
       .catch(() => {
         toast.error(
@@ -380,6 +394,7 @@ export const UpdateCommunityInterestPage = () => {
               userId={userAuthInfo.id}
               formDisabled={queryFetching || mutationFetching}
               onSubmit={submitForm}
+              returnPath={returnPath}
             />
           </div>
         ) : (

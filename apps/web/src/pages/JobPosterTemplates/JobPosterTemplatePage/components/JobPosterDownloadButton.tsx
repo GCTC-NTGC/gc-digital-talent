@@ -42,7 +42,9 @@ const JobPosterDownloadButton = ({ id }: JobPosterDownloadButtonProps) => {
       .then((res) => {
         if (res?.data?.downloadJobPosterTemplateDoc) {
           executeAsyncDownload({
-            url: paths.userGeneratedFile(res.data.downloadJobPosterTemplateDoc),
+            url: paths.userGeneratedPublicFile(
+              res.data.downloadJobPosterTemplateDoc,
+            ),
             fileName: res.data.downloadJobPosterTemplateDoc,
           }).catch(handleDownloadError);
         } else {

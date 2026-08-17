@@ -189,10 +189,15 @@ class TalentNomination extends Model
         return $this->belongsToMany(Skill::class, 'skill_talent_nomination');
     }
 
-    /** @return BelongsTo<TalentNominationGroup, $this> */
+    /**
+     * A nomination's group must always resolve, even if the nominee has since been archived -
+     * otherwise TalentNominationObserver silently skips recomputing the group's status.
+     *
+     * @return BelongsTo<TalentNominationGroup, $this>
+     */
     public function talentNominationGroup(): BelongsTo
     {
-        return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id');
+        return $this->belongsTo(TalentNominationGroup::class, 'talent_nomination_group_id')->withoutGlobalScope('activeNominee');
     }
 
     /**
@@ -213,8 +218,11 @@ class TalentNomination extends Model
         if (! is_null($this->submitted_at)) {
             // this is a submitted nomination
             if (is_null($this->talent_nomination_group_id)) {
-                // not yet attached to a group
-                $talentNominationGroup = TalentNominationGroup::firstOrCreate(
+                // not yet attached to a group;
+                // look up regardless of the nominee's archived
+                // status so an already-existing group is reused instead of violating the
+                // nominee_id/talent_nomination_event_id uniqueness constraint
+                $talentNominationGroup = TalentNominationGroup::withoutGlobalScope('activeNominee')->firstOrCreate(
                     [
                         'nominee_id' => $this->nominee_id,
                         'talent_nomination_event_id' => $this->talent_nomination_event_id,

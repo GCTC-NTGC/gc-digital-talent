@@ -63,6 +63,7 @@ if
      mkdir --parents \
         /var/site/storage/app/public \
         /var/site/storage/app/user_generated \
+        /var/site/storage/app/public_generated \
         /var/site/storage/framework/cache/data \
         /var/site/storage/framework/sessions \
         /var/site/storage/framework/testing \

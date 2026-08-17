@@ -113,6 +113,16 @@ class TalentNominationEvent extends Model
         );
     }
 
+    protected function includeDevelopmentOpportunities(): Attribute
+    {
+        /** @disregard P1003 Not using values */
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                return $this->communityDevelopmentPrograms->count() > 0;
+            }
+        );
+    }
+
     public static function scopeStatus(Builder $query, ?string $status)
     {
         if (! $status) {
