@@ -9642,10 +9642,6 @@
     "defaultMessage": "Processus fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
   },
-  "bShedV": {
-    "defaultMessage": "Veuillez ajouter au moins une possibilité de perfectionnement parmi lesquelles les personnes proposant des nominations pourront faire un choix.",
-    "description": "Message to add at least one development opportunity"
-  },
   "bTkYfa": {
     "defaultMessage": "80 612 $ à 102 712 $ · (classification AS ou équivalente)",
     "description": "Salary range for a innovation corps role"
