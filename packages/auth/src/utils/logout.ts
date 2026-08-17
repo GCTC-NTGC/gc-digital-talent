@@ -38,6 +38,8 @@ interface LogoutAndRefreshPageParameters {
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
+  // whether or not to allow the redirect when completing
+  allowRedirect?: boolean;
   // URL user came from and should be returned to after a full logout
   from?: string;
 }
@@ -48,6 +50,7 @@ function logoutAndRefreshPage({
   postLogoutOverridePath,
   broadcastLogoutMessage,
   logoutReason,
+  allowRedirect = true,
   from,
 }: LogoutAndRefreshPageParameters): void {
   defaultLogger.notice("Logging out and refreshing the page");
@@ -99,26 +102,34 @@ function logoutAndRefreshPage({
   // so they know to logout as well
   broadcastLogoutMessage?.();
 
-  // what is the the full end_session URL we are about to go to first?
-  const endSessionUrl = new URL(logoutUri);
-
   // what URL are we redirecting back to after the session is ended?
-  if (postLogoutRedirectUri) {
-    const nextLocation = new URL(postLogoutRedirectUri);
-    if (from) {
-      nextLocation.searchParams.set("from", window.location.href);
-    }
-    endSessionUrl.searchParams.set(
-      "post_logout_redirect_uri",
-      nextLocation.toString(),
-    );
+  const nextLocation = new URL(postLogoutRedirectUri);
+  if (from) {
+    nextLocation.searchParams.set("from", window.location.href);
   }
+
+  // what is the end_session URL we are about to go to first?
+  const endSessionUrl = new URL(logoutUri);
+  endSessionUrl.searchParams.set(
+    "post_logout_redirect_uri",
+    nextLocation.toString(),
+  );
 
   if (idToken) {
     endSessionUrl.searchParams.set("id_token_hint", idToken);
   }
 
-  window.location.href = endSessionUrl.toString();
+  // OK to visit if the session was already ended.  The only known requirement is that we pass an id token.
+  const canVisitEndSessionUrl = endSessionUrl.searchParams.has("id_token_hint");
+
+  if (canVisitEndSessionUrl) {
+    window.location.href = endSessionUrl.toString();
+  } else if (allowRedirect) {
+    // at least a hard refresh to URI to restart react app
+    window.location.href = nextLocation.toString();
+  } else {
+    window.location.reload();
+  }
 }
 
 export default logoutAndRefreshPage;
