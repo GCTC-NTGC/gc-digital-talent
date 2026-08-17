@@ -1,6 +1,5 @@
 import { useIntl } from "react-intl";
 import ChevronRightIcon from "@heroicons/react/20/solid/ChevronRightIcon";
-import type { ReactNode } from "react";
 
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
@@ -15,13 +14,12 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
-  getFragment,
   GovEmployeeType,
-  graphql,
 } from "@gc-digital-talent/graphql";
+import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
   getExperienceFormLabels,
@@ -31,404 +29,45 @@ import {
   isPersonalExperience,
   isWorkExperience,
   useExperienceInfo,
+  type SnapshotExperience,
 } from "~/utils/experienceUtils";
 
-import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
-import AwardContent from "./AwardContent";
-import ContentSection from "./ContentSection";
-import CommunityContent from "./CommunityContent";
-import EducationContent from "./EducationContent";
-import WorkContent from "./WorkContent";
-import EditLink from "./EditLink";
-import WorkStreamContent from "./WorkContent/WorkStreamsContent";
-import PersonalContent from "./PersonalContent";
+import ContentSection from "../ContentSection";
+import CommunityContent from "../CommunityContent";
+import WorkStreamContent from "../WorkContent/WorkStreamsContent";
+import { getV1ExperienceName } from "./utils";
+import PersonalContentV1 from "./PersonalContentV1";
+import AwardContentV1 from "./AwardContentV1";
+import WorkContentV1 from "./WorkContentV1";
+import EducationContentV1 from "./EducationContentV1";
 
-type EditMode = "link" | "dialog";
-
-export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
-  fragment ExperienceCard on Experience {
-    id
-    skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      experienceSkillRecord {
-        details
-      }
-    }
-    ... on AwardExperience {
-      details
-      title
-      issuedBy
-      awardedDate
-      awardedTo {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      awardedScope {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      projectName
-      relatedExperience {
-        ... on CommunityExperience {
-          user {
-            id
-          }
-          __typename
-          id
-          title
-          organization
-        }
-        ... on EducationExperience {
-          user {
-            id
-          }
-          __typename
-          id
-          educationType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          degreeType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          fellowshipType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          otherFellowshipType
-          otherEducationType
-          areaOfStudy
-          institution
-          licenseOrAccreditation
-          certification
-        }
-        ... on PersonalExperience {
-          user {
-            id
-          }
-          __typename
-          id
-          title
-        }
-        ... on WorkExperience {
-          user {
-            id
-          }
-          __typename
-          id
-          role
-          organization
-          employmentCategory {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          department {
-            id
-            name {
-              en
-              fr
-            }
-            departmentNumber
-          }
-          cafForce {
-            value
-            label {
-              en
-              fr
-            }
-          }
-        }
-      }
-    }
-    ... on CommunityExperience {
-      details
-      title
-      organization
-      project
-      startDate
-      endDate
-    }
-    ... on EducationExperience {
-      details
-      institution
-      areaOfStudy
-      thesisTitle
-      startDate
-      endDate
-      prospectiveEndDate
-      otherEducationType
-      degreeType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      licenseOrAccreditation
-      certification
-      courseName
-      fellowshipType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      otherFellowshipType
-      educationType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      status {
-        value
-        label {
-          en
-          fr
-        }
-      }
-    }
-    ... on PersonalExperience {
-      title
-      startDate
-      endDate
-      learningDescription
-      organization
-    }
-    ... on WorkExperience {
-      id
-      details
-      role
-      organization
-      division
-      startDate
-      endDate
-      details
-      employmentCategory {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extSizeOfOrganization {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      extRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govPositionType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorRoleSeniority {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      govContractorType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      contractorFirmAgencyName
-      cafEmploymentType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafForce {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      cafRank {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      supervisoryPosition
-      supervisedEmployees
-      supervisedEmployeesNumber
-      budgetManagement
-      annualBudgetAllocation
-      seniorManagementStatus
-      cSuiteRoleTitle {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      otherCSuiteRoleTitle
-      classification {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-        maxSalary
-        minSalary
-        groupAndLevel
-        displayName
-      }
-      department {
-        id
-        name {
-          en
-          fr
-        }
-        departmentNumber
-      }
-      workStreams {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        community {
-          id
-          key
-          name {
-            en
-            fr
-          }
-        }
-      }
-      skills {
-        id
-        key
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        name {
-          en
-          fr
-        }
-        experienceSkillRecord {
-          details
-        }
-      }
-    }
-  }
-`);
+interface FlexibleSnapshotExperience extends SnapshotExperience {
+  details?: string | null;
+  description?: string | null;
+}
 
 type SimpleSkill = Pick<Skill, "id">;
 
-interface ExperienceCardProps {
+interface ExperienceCardV1Props {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
-  experienceQuery: FragmentType<typeof ExperienceCard_Fragment>;
+  experience: FlexibleSnapshotExperience;
   headingLevel?: HeadingRank;
   showSkills?: boolean | SimpleSkill | SimpleSkill[];
-  showEdit?: boolean;
   hideDetails?: boolean;
-  editParam?: string;
-  // Override the edit path if needed
-  editPath?: string;
-  editMode?: EditMode;
-  // Allows passing in a link to view a specific experience
-  view?: ReactNode;
-  onSave?: () => void;
-  linkTo?: Skill;
-  editTrigger?: ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
   isOpen?: boolean;
 }
 
-const ExperienceCard = ({
+const ExperienceCardV1 = ({
   id,
-  experienceQuery,
-  editParam,
-  editPath: editPathProp,
-  editMode = "link",
-  view = null,
+  experience,
   hideDetails = false,
-  onSave,
-  linkTo,
-  editTrigger,
   isOpen: isOpenProp,
   onOpenChange,
   headingLevel = "h2",
   showSkills = true,
-  showEdit = true,
-}: ExperienceCardProps) => {
+}: ExperienceCardV1Props) => {
   const intl = useIntl();
   const [isOpen, setIsOpen] = useControllableState({
     controlledProp: isOpenProp,
@@ -436,9 +75,11 @@ const ExperienceCard = ({
     onChange: onOpenChange,
   });
   const experienceLabels = getExperienceFormLabels(intl);
-  const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
-  const { title, titleHtml, editPath, icon, typeMessage, date } =
-    useExperienceInfo(experience);
+  const title =
+    nodeToString(getV1ExperienceName(experience, intl)) ??
+    intl.formatMessage(commonMessages.notProvided).toString();
+  const titleHtml = getV1ExperienceName(experience, intl, true);
+  const { icon, typeMessage, date } = useExperienceInfo(experience);
   const contentHeadingLevel = incrementHeadingRank(headingLevel);
   const Icon = icon;
 
@@ -456,34 +97,6 @@ const ExperienceCard = ({
 
   const skillCount = skills?.length;
 
-  const edit =
-    (editPath || editParam) && editMode === "link" ? (
-      <EditLink
-        editUrl={`${editPathProp ?? editPath}${editParam ?? ""}`}
-        ariaLabel={intl
-          .formatMessage(
-            {
-              defaultMessage: "Edit {experienceName}",
-              id: "CDV1Cw",
-              description: "Link text to edit a specific experience",
-            },
-            {
-              experienceName: title,
-            },
-          )
-          .toString()}
-      >
-        {intl.formatMessage(commonMessages.edit)}
-      </EditLink>
-    ) : (
-      <ExperienceSkillFormDialog
-        onSave={onSave}
-        skill={linkTo}
-        trigger={editTrigger}
-        experience={experience}
-      />
-    );
-
   return (
     <div
       id={id ?? `experience-${experience.id}`}
@@ -499,12 +112,6 @@ const ExperienceCard = ({
         >
           <span>{titleHtml}</span>
         </Heading>
-        {(showEdit || view) && (
-          <div className="mt-6 mb-3 block w-full text-center xs:m-0 xs:w-auto xs:text-left">
-            {showEdit && edit}
-            {view}
-          </div>
-        )}
       </div>
       <p className="mt-3 mb-6 flex flex-wrap items-center justify-center gap-x-3 text-gray-600 xs:flex-nowrap xs:justify-normal dark:text-gray-100">
         <span>{typeMessage}</span>
@@ -645,7 +252,7 @@ const ExperienceCard = ({
           <Collapsible.Content className="pl-9">
             <Separator space="sm" />
             {isAwardExperience(experience) && (
-              <AwardContent
+              <AwardContentV1
                 experience={experience}
                 headingLevel={contentHeadingLevel}
               />
@@ -657,44 +264,31 @@ const ExperienceCard = ({
               />
             )}
             {isEducationExperience(experience) && (
-              <EducationContent
+              <EducationContentV1
                 experience={experience}
                 headingLevel={contentHeadingLevel}
               />
             )}
             {isWorkExperience(experience) && (
-              <WorkContent
+              <WorkContentV1
                 experience={experience}
                 headingLevel={contentHeadingLevel}
               />
             )}
             {isPersonalExperience(experience) && (
-              <PersonalContent
+              <PersonalContentV1
                 experience={experience}
                 headingLevel={contentHeadingLevel}
               />
             )}
-            {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
-            {(isAwardExperience(experience) ||
-              isCommunityExperience(experience) ||
-              isEducationExperience(experience) ||
-              isWorkExperience(experience)) && (
-              <>
-                <Separator space="sm" />
-                <ContentSection
-                  title={
-                    isCommunityExperience(experience) ||
-                    isWorkExperience(experience)
-                      ? experienceLabels.keyTasksAndResponsibilities
-                      : experienceLabels.details
-                  }
-                  headingLevel={headingLevel}
-                >
-                  {experience.details ??
-                    intl.formatMessage(commonMessages.notAvailable)}
-                </ContentSection>
-              </>
-            )}
+            <Separator space="sm" />
+            <ContentSection
+              title={experienceLabels.details}
+              headingLevel={headingLevel}
+            >
+              {experience.details ??
+                intl.formatMessage(commonMessages.notAvailable)}
+            </ContentSection>
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
@@ -761,4 +355,4 @@ const ExperienceCard = ({
   );
 };
 
-export default ExperienceCard;
+export default ExperienceCardV1;

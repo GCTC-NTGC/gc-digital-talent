@@ -57,6 +57,8 @@ class PersonalExperience extends Experience
         'end_date' => 'endDate',
         'learning_description' => 'learningDescription',
         'organization' => 'organization',
+        'description' => 'description', // preserved for snapshot version 1
+        'details' => 'details', // preserved for snapshot version 1
     ];
 
     public function awardExperiences(): MorphMany
@@ -64,7 +66,7 @@ class PersonalExperience extends Experience
         return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 
-    public function getTitle(): string
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

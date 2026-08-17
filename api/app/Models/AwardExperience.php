@@ -44,6 +44,7 @@ class AwardExperience extends Experience
         'awarded_date' => 'awardedDate',
         'awarded_to' => 'awardedTo',
         'awarded_scope' => 'awardedScope',
+        'project_name' => 'projectName',
     ];
 
     public function relatedExperience()
@@ -51,7 +52,7 @@ class AwardExperience extends Experience
         return $this->morphTo();
     }
 
-    public function getTitle(): string
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

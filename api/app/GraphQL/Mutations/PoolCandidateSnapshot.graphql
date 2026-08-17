@@ -130,6 +130,8 @@ query getProfile($userId: UUID!) {
       }
       maxSalary
       minSalary
+      groupAndLevel
+      displayName
     }
     isWoman
     hasDisability
@@ -241,6 +243,91 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        projectName
+        relatedExperience {
+          ... on CommunityExperience {
+            user {
+              id
+            }
+            __typename
+            id
+            title
+            organization
+          }
+          ... on EducationExperience {
+            user {
+              id
+            }
+            __typename
+            id
+            educationType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            degreeType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            fellowshipType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            otherFellowshipType
+            otherEducationType
+            areaOfStudy
+            institution
+            licenseOrAccreditation
+            certification
+          }
+          ... on PersonalExperience {
+            user {
+              id
+            }
+            __typename
+            id
+            title
+          }
+          ... on WorkExperience {
+            user {
+              id
+            }
+            __typename
+            id
+            role
+            organization
+            employmentCategory {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            department {
+              id
+              name {
+                en
+                fr
+              }
+              departmentNumber
+            }
+            cafForce {
+              value
+              label {
+                en
+                fr
+              }
+            }
+          }
+        }
       }
       ... on CommunityExperience {
         details
@@ -300,12 +387,14 @@ query getProfile($userId: UUID!) {
         organization
       }
       ... on WorkExperience {
+        id
         details
         role
         organization
         division
         startDate
         endDate
+        details
         employmentCategory {
           value
           label {
@@ -387,6 +476,8 @@ query getProfile($userId: UUID!) {
           level
           maxSalary
           minSalary
+          groupAndLevel
+          displayName
         }
         department {
           id
@@ -466,6 +557,8 @@ query getProfile($userId: UUID!) {
         }
         maxSalary
         minSalary
+        groupAndLevel
+        displayName
       }
     }
   }

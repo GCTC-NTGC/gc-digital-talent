@@ -26,6 +26,7 @@ import type {
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 import {
+  DegreeType,
   EducationStatus,
   EducationType,
   EmploymentCategory,
@@ -863,9 +864,20 @@ const getEducationExperienceDefaultValues = (
     educationType: educationType?.value,
     educationStatus:
       status?.value === EducationStatus.Audited ? null : status?.value,
-    areaOfStudy,
+    areaOfStudy:
+      degreeType?.value === DegreeType.HighSchool ||
+      educationType?.value === EducationType.LicenseAccreditation ||
+      educationType?.value === EducationType.ProfessionalCertification
+        ? null
+        : areaOfStudy,
     institution,
-    thesisTitle,
+    thesisTitle:
+      educationType?.value !== EducationType.DegreeDiplomaCertificate ||
+      degreeType?.value === DegreeType.HighSchool ||
+      degreeType?.value === DegreeType.CollegeDiploma ||
+      degreeType?.value === DegreeType.BachelorsDegree
+        ? null
+        : thesisTitle,
     startDate: startDate,
     issueDate: startDate,
     prospectiveIssueDate: startDate,
@@ -1120,9 +1132,11 @@ export const getExperienceName = <T extends ExperienceName>(
         },
       );
     } else {
-      let educationType = type?.label.localized;
+      let educationType = getLocalizedName(type?.label, intl);
       if (type?.value === EducationType.DegreeDiplomaCertificate) {
-        educationType = degreeType?.label.localized ?? educationType;
+        educationType = degreeType
+          ? getLocalizedName(degreeType?.label, intl)
+          : educationType;
       } else if (type?.value === EducationType.Fellowship) {
         educationType =
           fellowshipType?.value === FellowshipType.Other
@@ -1133,7 +1147,9 @@ export const getExperienceName = <T extends ExperienceName>(
                 description:
                   "First part of education experience title for other type",
               }))
-            : (fellowshipType?.label.localized ?? educationType);
+            : fellowshipType
+              ? getLocalizedName(fellowshipType?.label, intl)
+              : educationType;
       } else if (type?.value === EducationType.Other) {
         educationType =
           otherEducationType ??

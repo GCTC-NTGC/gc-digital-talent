@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\DegreeType;
 use App\Enums\EducationStatus;
+use App\Enums\EducationType;
+use App\Enums\FellowshipType;
+use App\Utilities\LanguageHelpers;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -33,6 +37,7 @@ use Illuminate\Support\Facades\Lang;
  * @property string $fellowship_type
  * @property string $other_fellowship_type
  * @property ?Carbon $prospective_end_date
+ * @property string $type Replaced by education_type - used in V1 snapshots
  */
 class EducationExperience extends Experience
 {
@@ -68,6 +73,7 @@ class EducationExperience extends Experience
         'institution' => 'institution',
         'area_of_study' => 'areaOfStudy',
         'thesis_title' => 'thesisTitle',
+        'type' => 'type', // preserved for snapshot version 1
         'education_type' => 'educationType',
         'status' => 'status',
         'start_date' => 'startDate',
@@ -87,9 +93,50 @@ class EducationExperience extends Experience
         return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 
-    public function getTitle(?string $lang = 'en'): string
+    public function getTitle(?string $lang = 'en', ?int $experienceVersion = null): string
     {
-        return sprintf('%s %s %s', $this->area_of_study, Lang::get('common.at', [], $lang), $this->institution);
+        $type = '';
+        $subject = $this->area_of_study;
+        if ((bool) $experienceVersion && $experienceVersion === 1) {
+            // V1 Snapshot representation of an Education Experience
+            $type = LanguageHelpers::localizeEnum($this->type, DegreeType::class, $lang);
+        } else {
+            // V2 and onwards representation of an Education Experience
+            switch ($this->education_type) {
+                case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
+                    $type = LanguageHelpers::localizeEnum($this->degree_type, DegreeType::class, $lang);
+                    break;
+                case EducationType::FELLOWSHIP->name:
+                    $type = $this->fellowship_type === FellowshipType::OTHER->name
+                        ? $this->other_fellowship_type
+                        : LanguageHelpers::localizeEnum($this->fellowship_type, FellowshipType::class, $lang);
+                    break;
+                case EducationType::OTHER->name:
+                    $type = $this->other_education_type ?? Lang::get('headings.other_type_of_education', [], $lang);
+                    break;
+                default:
+                    $type = LanguageHelpers::localizeEnum($this->education_type, EducationType::class, $lang);
+            }
+            if ($this->education_type === EducationType::PROFESSIONAL_CERTIFICATION) {
+                $subject = $this->certification;
+            } elseif ($this->education_type === EducationType::LICENSE_ACCREDITATION) {
+                $subject = $this->license_or_accreditation;
+            }
+        }
+
+        $titleComponents = [];
+        if ($type) {
+            $titleComponents[] = $type;
+        }
+        if ($subject) {
+            $titleComponents[] = ($type ? Lang::get('common.in', [], $lang).' ' : '')
+            .$subject;
+        }
+        if ($this->institution) {
+            $titleComponents[] = Lang::get('common.from', [], $lang).' '.$this->institution;
+        }
+
+        return trim(implode(' ', $titleComponents));
     }
 
     public function getExperienceType(): string
