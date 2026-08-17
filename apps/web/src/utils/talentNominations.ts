@@ -89,19 +89,6 @@ export function getNominatorWorkEmail(
 }
 
 /**
- * Get a nominator's classification by first checking nominator field then nominator fallback classification
- */
-export function getNominatorClassification(
-  nominator: NominatorProfile | null | undefined,
-  nominatorFallbackClassification: NominatorClassification | null | undefined,
-): NominatorClassification | null {
-  if (nominator) {
-    return nominator.classification ?? null;
-  }
-  return nominatorFallbackClassification ?? null;
-}
-
-/**
  * Get a nominator's department by first checking nominator field then nominator fallback department
  */
 export function getNominatorDepartment(
