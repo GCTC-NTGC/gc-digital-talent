@@ -38,8 +38,6 @@ interface LogoutAndRefreshPageParameters {
   broadcastLogoutMessage?: () => void;
   // the reason for the logout
   logoutReason?: LogoutReason;
-  // whether or not to allow the redirect when completing
-  allowRedirect?: boolean;
   // URL user came from and should be returned to after a full logout
   from?: string;
 }
@@ -50,7 +48,6 @@ function logoutAndRefreshPage({
   postLogoutOverridePath,
   broadcastLogoutMessage,
   logoutReason,
-  allowRedirect = true,
   from,
 }: LogoutAndRefreshPageParameters): void {
   defaultLogger.notice("Logging out and refreshing the page");
@@ -124,11 +121,9 @@ function logoutAndRefreshPage({
 
   if (canVisitEndSessionUrl) {
     window.location.href = endSessionUrl.toString();
-  } else if (allowRedirect) {
+  } else {
     // at least a hard refresh to URI to restart react app
     window.location.href = nextLocation.toString();
-  } else {
-    window.location.reload();
   }
 }
 
