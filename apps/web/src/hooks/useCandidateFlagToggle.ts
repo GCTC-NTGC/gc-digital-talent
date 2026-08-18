@@ -56,16 +56,13 @@ const useCandidateFlagToggle = ({
     if (id && !isUpdating) {
       const previousIsFlagged = isFlagged ?? false;
 
-      // Flip immediately so the button responds to the click, then reconcile below with
-      // the value the server actually stored.
+      // Update flag optimistically. Reconcile when mutation returns.
       setIsFlagged(!previousIsFlagged);
 
       await executeToggleFlagMutation({
         id,
       })
         .then((res) => {
-          // urql resolves with an error rather than rejecting, so failures surface here:
-          // an authorization denial, expired session, or network error.
           if (!res.data || res.error) {
             throw new Error();
           }
