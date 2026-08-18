@@ -11,7 +11,8 @@ import {
 import { WorkRegion } from "@gc-digital-talent/graphql";
 import { setInSessionStorage } from "@gc-digital-talent/storage";
 
-import { TALENT_REQUEST_STATE_KEY } from "../hooks";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
+
 import { SearchForm } from "./SearchForm";
 
 const classifications = fakeClassifications();

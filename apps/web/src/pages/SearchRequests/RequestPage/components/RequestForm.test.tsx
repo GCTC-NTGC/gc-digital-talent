@@ -15,7 +15,8 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 import richTextElements from "@gc-digital-talent/rich-text-elements";
 import { setInSessionStorage } from "@gc-digital-talent/storage";
 
-import { TALENT_REQUEST_STATE_KEY } from "../../SearchPage/hooks";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
+
 import {
   RequestForm,
   RequestFormClassification_Fragment,
