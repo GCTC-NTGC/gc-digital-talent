@@ -10,6 +10,7 @@ import {
 } from "~/utils/skillUtils";
 
 interface ApplicantExperience {
+  id: string;
   skills?: AddedSkill[] | null;
 }
 
