@@ -46,44 +46,57 @@ const useCandidateBookmarkToggle = ({
   const toggleBookmark = async () => {
     // Ignores calls made while a previous toggle is still in flight
     if (id && !isUpdating) {
+      const previousIsBookmarked = isBookmarked ?? false;
+
+      // Flip immediately so the button responds to the click, then reconcile below with
+      // the value the server actually stored.
+      setIsBookmarked(!previousIsBookmarked);
+
       await executeToggleBookmarkMutation({ id })
         .then((res) => {
-          if (!res.error) {
-            const newIsBookmarked =
-              res.data?.togglePoolCandidateUserBookmark === true;
-            if (showToast) {
-              if (newIsBookmarked) {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage: "You've bookmarked {name} for yourself",
-                      id: "9DJWk4",
-                      description: "Bookmarked a candidate",
-                    },
-                    {
-                      name,
-                    },
-                  ),
-                );
-              } else {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage: "You've removed the bookmark for {name}.",
-                      id: "UBY4qe",
-                      description: "Un-bookmarked a candidate",
-                    },
-                    {
-                      name,
-                    },
-                  ),
-                );
-              }
-            }
-            setIsBookmarked(newIsBookmarked);
+          // urql resolves with an error rather than rejecting, so failures surface here:
+          // an authorization denial, expired session, or network error.
+          if (!res.data || res.error) {
+            throw new Error();
           }
+
+          // Bookmark could come back null, treat that as false
+          const newIsBookmarked =
+            res.data.togglePoolCandidateUserBookmark === true;
+          if (showToast) {
+            if (newIsBookmarked) {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage: "You've bookmarked {name} for yourself",
+                    id: "9DJWk4",
+                    description: "Bookmarked a candidate",
+                  },
+                  {
+                    name,
+                  },
+                ),
+              );
+            } else {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage: "You've removed the bookmark for {name}.",
+                    id: "UBY4qe",
+                    description: "Un-bookmarked a candidate",
+                  },
+                  {
+                    name,
+                  },
+                ),
+              );
+            }
+          }
+
+          setIsBookmarked(newIsBookmarked);
         })
         .catch(() => {
+          setIsBookmarked(previousIsBookmarked); // undo optimistic update
           toast.error(
             intl.formatMessage({
               defaultMessage: "Error: failed to update a candidate's bookmark.",
