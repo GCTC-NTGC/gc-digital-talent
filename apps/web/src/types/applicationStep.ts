@@ -38,14 +38,18 @@ interface ApplicationStepPoolSkill {
   skill?: ApplicationStepSkill | null;
 }
 
+interface ApplicationStepQuestion {
+  id: string;
+}
+
 export interface ApplicationStepPool {
   id: string;
   areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
   publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
   language?: GenericLocalizedEnum<PoolLanguage> | null;
   poolSkills?: (ApplicationStepPoolSkill | null)[] | null;
-  generalQuestions?: ({ id: string } | null)[] | null;
-  screeningQuestions?: ({ id: string } | null)[] | null;
+  generalQuestions?: (ApplicationStepQuestion | null)[] | null;
+  screeningQuestions?: (ApplicationStepQuestion | null)[] | null;
 }
 
 export interface ApplicationBrowserState {

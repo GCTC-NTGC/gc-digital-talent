@@ -1,30 +1,41 @@
 import { empty } from "@gc-digital-talent/helpers";
 import type {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  LocalizedLanguage,
-  Pool,
-  User,
+  ArmedForcesStatus,
+  CitizenshipStatus,
+  Language,
 } from "@gc-digital-talent/graphql";
 import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
-type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
+interface AboutPool {
+  areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
+}
 
-export interface PartialUser extends Pick<
-  User,
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "telephone"
-  | "isEmailVerified"
-  | "workEmail"
-  | "isWorkEmailVerified"
-> {
-  preferredLang?: PartialLanguage;
-  preferredLanguageForInterview?: PartialLanguage;
-  preferredLanguageForExam?: PartialLanguage;
-  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
-  armedForcesStatus?: Pick<LocalizedArmedForcesStatus, "value"> | null;
+interface PartialLanguage {
+  value: Language;
+}
+
+interface PartialCitizenship {
+  value: CitizenshipStatus;
+}
+
+interface PartialArmedForcesStatus {
+  value: ArmedForcesStatus;
+}
+
+export interface PartialUser {
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  telephone?: string | null;
+  isEmailVerified?: boolean | null;
+  workEmail?: string | null;
+  isWorkEmailVerified?: boolean | null;
+  preferredLang?: PartialLanguage | null;
+  preferredLanguageForInterview?: PartialLanguage | null;
+  preferredLanguageForExam?: PartialLanguage | null;
+  citizenship?: PartialCitizenship | null;
+  armedForcesStatus?: PartialArmedForcesStatus | null;
 }
 
 export function hasAllEmptyFields({
@@ -49,7 +60,7 @@ export function hasAllEmptyFields({
 
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
-  pool?: Pick<Pool, "areaOfSelection"> | null,
+  pool?: AboutPool | null,
   isSpecialApplication?: boolean | null,
 ): boolean {
   let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;

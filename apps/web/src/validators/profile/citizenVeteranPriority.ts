@@ -1,17 +1,23 @@
 import { empty } from "@gc-digital-talent/helpers";
 import type {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  User,
+  ArmedForcesStatus,
+  CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
 
-export type PartialUser = Pick<
-  User,
-  "hasPriorityEntitlement" | "priorityNumber"
-> & {
-  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
-  armedForcesStatus?: Pick<LocalizedArmedForcesStatus, "value"> | null;
-};
+interface PartialCitizenship {
+  value: CitizenshipStatus;
+}
+
+interface PartialArmedForcesStatus {
+  value: ArmedForcesStatus;
+}
+
+export interface PartialUser {
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
+  citizenship?: PartialCitizenship | null;
+  armedForcesStatus?: PartialArmedForcesStatus | null;
+}
 
 export function hasAllEmptyFields({
   hasPriorityEntitlement,

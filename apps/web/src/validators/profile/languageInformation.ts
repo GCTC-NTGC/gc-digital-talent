@@ -1,39 +1,44 @@
 import isEmpty from "lodash/isEmpty";
 
 import type {
-  User,
-  Pool,
-  LocalizedLanguage,
-  LocalizedEstimatedLanguageAbility,
-  LocalizedEvaluatedLanguageAbility,
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  Language,
+  PoolLanguage,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
-type PartialEvaluatedLanguage = Pick<
-  LocalizedEvaluatedLanguageAbility,
-  "value"
-> | null;
+interface LanguageInformationPool {
+  language?: GenericLocalizedEnum<PoolLanguage> | null;
+}
 
-export interface PartialUser extends Pick<
-  User,
-  | "lookingForEnglish"
-  | "lookingForFrench"
-  | "lookingForBilingual"
-  | "secondLanguageExamCompleted"
-  | "secondLanguageExamValidity"
-> {
-  firstOfficialLanguage?: PartialLanguage;
-  estimatedLanguageAbility?: Pick<
-    LocalizedEstimatedLanguageAbility,
-    "value"
-  > | null;
-  writtenLevel?: PartialEvaluatedLanguage;
-  comprehensionLevel?: PartialEvaluatedLanguage;
-  verbalLevel?: PartialEvaluatedLanguage;
-  preferredLanguageForInterview?: PartialLanguage;
-  preferredLanguageForExam?: PartialLanguage;
+interface PartialLanguage {
+  value: Language;
+}
+
+interface PartialEvaluatedLanguage {
+  value: EvaluatedLanguageAbility;
+}
+
+interface PartialEstimatedLanguage {
+  value: EstimatedLanguageAbility;
+}
+
+export interface PartialUser {
+  lookingForEnglish?: boolean | null;
+  lookingForFrench?: boolean | null;
+  lookingForBilingual?: boolean | null;
+  secondLanguageExamCompleted?: boolean | null;
+  secondLanguageExamValidity?: boolean | null;
+  firstOfficialLanguage?: PartialLanguage | null;
+  estimatedLanguageAbility?: PartialEstimatedLanguage | null;
+  writtenLevel?: PartialEvaluatedLanguage | null;
+  comprehensionLevel?: PartialEvaluatedLanguage | null;
+  verbalLevel?: PartialEvaluatedLanguage | null;
+  preferredLanguageForInterview?: PartialLanguage | null;
+  preferredLanguageForExam?: PartialLanguage | null;
 }
 
 export function hasAllEmptyFields({
@@ -83,7 +88,7 @@ export function hasEmptyRequiredFields({
 
 export function hasUnsatisfiedRequirements(
   user: PartialUser,
-  pool: Pick<Pool, "language"> | null,
+  pool: LanguageInformationPool | null,
 ): boolean {
   return (
     getMissingLanguageRequirements(user, {
