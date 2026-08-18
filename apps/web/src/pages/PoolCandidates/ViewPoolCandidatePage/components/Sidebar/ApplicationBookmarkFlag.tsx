@@ -7,7 +7,7 @@ import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import type { ButtonProps } from "@gc-digital-talent/ui";
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Pending } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -58,37 +58,50 @@ const networkOnlyRequest: Partial<OperationContext> = {
   requestPolicy: "network-only",
 };
 
-const noop = () => {
-  // Placeholder handler for the buttons while their state is still unknown.
-};
-
 interface BookmarkFlagButtonsProps {
+  id: string;
+  name: string;
+  processTitle: string;
   isBookmarked: boolean;
   isFlagged: boolean;
-  bookmarkDisabled?: boolean;
-  flagDisabled?: boolean;
-  onToggleBookmark: () => void;
-  onToggleFlag: () => void;
 }
 
-/** Presentational bookmark and flag buttons, with no knowledge of where their state comes from. */
+/**
+ * Bookmark and flag buttons, owning the toggle mutations and seeded with freshly fetched
+ * server state.
+ *
+ * The toggle hooks only read their `defaultValue` on mount, so this must not be rendered
+ * until the real values are known.
+ */
 const BookmarkFlagButtons = ({
-  isBookmarked,
-  isFlagged,
-  bookmarkDisabled = false,
-  flagDisabled = false,
-  onToggleBookmark,
-  onToggleFlag,
+  id,
+  name,
+  processTitle,
+  isBookmarked: initialIsBookmarked,
+  isFlagged: initialIsFlagged,
 }: BookmarkFlagButtonsProps) => {
   const intl = useIntl();
+  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
+    useCandidateFlagToggle({
+      id,
+      defaultValue: initialIsFlagged,
+      name,
+      processTitle,
+    });
+  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
+    useCandidateBookmarkToggle({
+      id,
+      defaultValue: initialIsBookmarked,
+      name,
+    });
 
   return (
     <div className="flex flex-col gap-y-4.5">
       <Button
         {...commonProps}
         icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-        disabled={bookmarkDisabled}
-        onClick={onToggleBookmark}
+        disabled={isUpdatingBookmark}
+        onClick={toggleBookmark}
       >
         {isBookmarked
           ? intl.formatMessage({
@@ -106,8 +119,8 @@ const BookmarkFlagButtons = ({
       <Button
         {...commonProps}
         icon={isFlagged ? FlagIconSolid : FlagIconOutline}
-        disabled={flagDisabled}
-        onClick={onToggleFlag}
+        disabled={isUpdatingFlag}
+        onClick={toggleFlag}
       >
         {isFlagged
           ? intl.formatMessage({
@@ -125,53 +138,6 @@ const BookmarkFlagButtons = ({
   );
 };
 
-interface LoadedBookmarkFlagProps {
-  id: string;
-  name: string;
-  processTitle: string;
-  isBookmarked: boolean;
-  isFlagged: boolean;
-}
-
-/**
- * Owns the toggle mutations, seeded with freshly fetched server state.
- *
- * The toggle hooks only read their `defaultValue` on mount, so this is deliberately kept as a
- * separate component: it is not rendered until the real values are known.
- */
-const LoadedBookmarkFlag = ({
-  id,
-  name,
-  processTitle,
-  isBookmarked: initialIsBookmarked,
-  isFlagged: initialIsFlagged,
-}: LoadedBookmarkFlagProps) => {
-  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
-    useCandidateFlagToggle({
-      id,
-      defaultValue: initialIsFlagged,
-      name,
-      processTitle,
-    });
-  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
-    useCandidateBookmarkToggle({
-      id,
-      defaultValue: initialIsBookmarked,
-      name,
-    });
-
-  return (
-    <BookmarkFlagButtons
-      isBookmarked={isBookmarked}
-      isFlagged={isFlagged}
-      bookmarkDisabled={isUpdatingBookmark}
-      flagDisabled={isUpdatingFlag}
-      onToggleBookmark={toggleBookmark}
-      onToggleFlag={toggleFlag}
-    />
-  );
-};
-
 interface ApplicationBookmarkFlagProps {
   query: FragmentType<typeof ApplicationBookmarkFlag_Fragment>;
 }
@@ -181,7 +147,7 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
   const application = getFragment(ApplicationBookmarkFlag_Fragment, query);
 
   // This query is run separately without a cache policy, to avoid rendering stale values.
-  const [{ data, fetching }] = useQuery({
+  const [{ data, fetching, error }] = useQuery({
     query: ApplicationBookmarkFlagState_Query,
     variables: { id: application.id },
     context: networkOnlyRequest,
@@ -189,37 +155,27 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
 
   const candidate = data?.poolCandidate;
 
-  // Until the current state is known, render the buttons as inert rather than risk showing a
-  // stale value from the cache. The same applies if the query failed: an enabled button in an
-  // unverified state is worse than one that does nothing.
-  if (fetching || !candidate) {
-    return (
-      <BookmarkFlagButtons
-        isBookmarked={false}
-        isFlagged={false}
-        bookmarkDisabled
-        flagDisabled
-        onToggleBookmark={noop}
-        onToggleFlag={noop}
-      />
-    );
-  }
-
+  // A spinner stands in until the current state is known, rather than risk showing a stale
+  // value from the cache.
   return (
-    <LoadedBookmarkFlag
-      id={application.id}
-      name={getFullNameLabel(
-        application.user.firstName,
-        application.user.lastName,
-        intl,
-      )}
-      processTitle={
-        application.pool.displayName?.display.localized ??
-        intl.formatMessage(commonMessages.notAvailable)
-      }
-      isBookmarked={candidate.isBookmarked ?? false}
-      isFlagged={candidate.applicationAssessmentData?.isFlagged ?? false}
-    />
+    <Pending fetching={fetching} error={error} inline>
+      {candidate ? (
+        <BookmarkFlagButtons
+          id={application.id}
+          name={getFullNameLabel(
+            application.user.firstName,
+            application.user.lastName,
+            intl,
+          )}
+          processTitle={
+            application.pool.displayName?.display.localized ??
+            intl.formatMessage(commonMessages.notAvailable)
+          }
+          isBookmarked={candidate.isBookmarked ?? false}
+          isFlagged={candidate.applicationAssessmentData?.isFlagged ?? false}
+        />
+      ) : null}
+    </Pending>
   );
 };
 
