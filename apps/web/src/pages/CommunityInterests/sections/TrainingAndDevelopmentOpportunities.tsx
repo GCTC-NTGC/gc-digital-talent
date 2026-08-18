@@ -161,7 +161,9 @@ const TrainingAndDevelopmentOpportunities = ({
   const arrayOfDefaultValues: {
     developmentProgramId: string;
     participationStatus?:
-      DevelopmentProgramParticipationStatus | null | undefined;
+      | DevelopmentProgramParticipationStatus
+      | null
+      | undefined;
   }[] = developmentProgramUserRecordsUnpacked.map((record) => {
     return {
       developmentProgramId: record.developmentProgram.id,

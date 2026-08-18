@@ -23,7 +23,8 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 interface EquityOptionsProps {
   hasDisability?: boolean | null;
   indigenousCommunities?:
-    (LocalizedIndigenousCommunity | null | undefined)[] | null;
+    | (LocalizedIndigenousCommunity | null | undefined)[]
+    | null;
   indigenousDeclarationSignature?: string | null;
   isVisibleMinority?: boolean | null;
   isWoman?: boolean | null;

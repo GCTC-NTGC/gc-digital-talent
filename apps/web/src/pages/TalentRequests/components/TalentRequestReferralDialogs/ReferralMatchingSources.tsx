@@ -43,9 +43,11 @@ export const ReferralMatchingAdvancementSource_Fragment = graphql(
 interface ReferralMatchingSourcesProps {
   sourceLabels: string[];
   matchingPoolSources?:
-    FragmentType<typeof ReferralMatchingPoolSource_Fragment>[] | null;
+    | FragmentType<typeof ReferralMatchingPoolSource_Fragment>[]
+    | null;
   matchingAdvancementSources?:
-    FragmentType<typeof ReferralMatchingAdvancementSource_Fragment>[] | null;
+    | FragmentType<typeof ReferralMatchingAdvancementSource_Fragment>[]
+    | null;
 }
 
 const ReferralMatchingSources = ({

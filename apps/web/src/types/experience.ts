@@ -42,7 +42,11 @@ import type {
 import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 
 export type ExperienceType =
-  "award" | "community" | "education" | "personal" | "work";
+  | "award"
+  | "community"
+  | "education"
+  | "personal"
+  | "work";
 
 export type AnyExperience =
   | Omit<AwardExperience, "user">
