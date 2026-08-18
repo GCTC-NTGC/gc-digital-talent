@@ -1,10 +1,7 @@
 import type { IntlShape } from "react-intl";
 import type { JSX } from "react";
 
-import type {
-  Community,
-  TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { TalentEventNominationsTableFragment as TalentEventNominationsTableFragmentType } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupStatus } from "@gc-digital-talent/graphql";
 import { Chip, Link } from "@gc-digital-talent/ui";
 import { uniqueItems } from "@gc-digital-talent/helpers";
@@ -90,6 +87,8 @@ export function removeDuplicateIds(ids: string[]): string[] {
   return uniqueItems(userIds);
 }
 
-export function isCommunity(team: GraphqlType): team is Community {
+export function isCommunity<T extends GraphqlType>(
+  team: T,
+): team is Extract<T, { __typename: "Community" }> {
   return team?.__typename === "Community";
 }

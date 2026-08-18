@@ -68,6 +68,7 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
         name {
           localized
         }
+        includeDevelopmentOpportunities
       }
 
       ...NominateTalentNavigation
@@ -90,11 +91,18 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const subTitle = defineMessage({
+const subtitleWithDevelopmentOpportunities = defineMessage({
   defaultMessage:
     "Nominate talent for advancement, lateral movement, or development opportunities.",
   id: "OoPiFu",
   description: "Subtitle for the form to nominate talent",
+});
+
+const subtitleWithoutDevelopmentOpportunities = defineMessage({
+  defaultMessage: "Nominate talent for advancement or lateral movement.",
+  id: "sVCUyO",
+  description:
+    "Subtitle for the form to nominate talent without development opportunities",
 });
 
 type TLocation = Location<{ submitting?: boolean }>;
@@ -182,14 +190,19 @@ const NominateTalentPage = () => {
     },
   );
 
+  const formattedSubtitle = data?.talentNomination?.talentNominationEvent
+    .includeDevelopmentOpportunities
+    ? intl.formatMessage(subtitleWithDevelopmentOpportunities)
+    : intl.formatMessage(subtitleWithoutDevelopmentOpportunities);
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentNomination ? (
         <>
-          <SEO title={pageTitle} description={intl.formatMessage(subTitle)} />
+          <SEO title={pageTitle} description={formattedSubtitle} />
           <Hero
             title={pageTitle}
-            subtitle={intl.formatMessage(subTitle)}
+            subtitle={formattedSubtitle}
             crumbs={crumbs}
           />
           <Container className="my-18">

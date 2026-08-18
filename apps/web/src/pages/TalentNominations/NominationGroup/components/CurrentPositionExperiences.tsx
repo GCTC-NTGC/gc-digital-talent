@@ -2,11 +2,7 @@ import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
 
-import type {
-  FragmentType,
-  GovPositionType,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, GovPositionType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { empty, groupBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -34,6 +30,7 @@ const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
         startDate
         endDate
         govPositionType {
+          value
           label {
             localized
           }
@@ -92,7 +89,7 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiencesByGovPositionType = groupBy(
     currentWorkExperiencesSorted,
     (e) => {
-      return (e as WorkExperience).govPositionType?.value ?? "";
+      return "govPositionType" in e ? (e.govPositionType?.value ?? "") : "";
     },
   );
 
@@ -144,36 +141,36 @@ const CurrentPositionExperiences = ({
                       description:
                         "Description for the message displayed when there is no government experience for the current position",
                     })}
-                    <p className="my-3">
+                  </p>
+                  <p className="my-3">
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Contact the nominator or submitter so they can follow up with the nominee:",
+                      id: "4Ect9u",
+                      description:
+                        "Instruction to contact nominator or submitter for follow up",
+                    })}
+                  </p>
+                  <Ul>
+                    <li>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Contact the nominator or submitter so they can follow up with the nominee:",
-                        id: "4Ect9u",
+                          "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
+                        id: "e0M7vj",
                         description:
-                          "Instruction to contact nominator or submitter for follow up",
+                          "Instruction if nominee is still a Government of Canada employee",
                       })}
-                    </p>
-                    <Ul>
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "If the nominee is still a Government of Canada employee, they’ll need to update their career experience on the platform.",
-                          id: "e0M7vj",
-                          description:
-                            "Instruction if nominee is still a Government of Canada employee",
-                        })}
-                      </li>
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
-                          id: "0P591/",
-                          description:
-                            "Instruction if nominee is no longer a Government of Canada employee",
-                        })}
-                      </li>
-                    </Ul>
-                  </p>
+                    </li>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If the nominee is no longer an employee, this nomination should be marked as “Not supported”.",
+                        id: "0P591/",
+                        description:
+                          "Instruction if nominee is no longer a Government of Canada employee",
+                      })}
+                    </li>
+                  </Ul>
                 </Notice.Content>
               </Notice.Root>
             )}

@@ -1,4 +1,4 @@
-import type { EmployeeProfile } from "@gc-digital-talent/graphql";
+import { TargetRole, type EmployeeProfile } from "@gc-digital-talent/graphql";
 
 type EmployeeProfileNextRoleFragment = Pick<
   EmployeeProfile,
@@ -43,27 +43,19 @@ export function hasAllEmptyFields({
   );
 }
 
-export function hasAnyEmptyFields({
-  nextRoleClassification,
+export function hasIncompleteRequiredFields({
   nextRoleTargetRole,
-  nextRoleJobTitle,
+  nextRoleTargetRoleOther,
   nextRoleCommunity,
   nextRoleCommunityOther,
-  nextRoleWorkStreams,
-  nextRoleDepartments,
-  nextRoleAdditionalInformation,
   nextRoleIsCSuiteRole,
   nextRoleCSuiteRoleTitle,
 }: EmployeeProfileNextRoleFragment): boolean {
   return (
-    !nextRoleClassification ||
     !nextRoleTargetRole ||
-    !nextRoleJobTitle ||
-    (!nextRoleCommunity && !nextRoleCommunityOther) ||
-    ((nextRoleCommunity?.workStreams?.length ?? 0 > 0) &&
-      !(nextRoleWorkStreams?.length ?? 0 > 0)) ||
-    !(nextRoleDepartments?.length ?? 0 > 0) ||
-    !nextRoleAdditionalInformation ||
+    (nextRoleTargetRole?.value === TargetRole.Other &&
+      !nextRoleTargetRoleOther) ||
+    (!nextRoleCommunity?.id && !nextRoleCommunityOther) ||
     (!!nextRoleIsCSuiteRole && !nextRoleCSuiteRoleTitle)
   );
 }

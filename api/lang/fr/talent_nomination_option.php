@@ -2,6 +2,6 @@
 
 return [
     'advancement' => 'avancement',
-    'lateral_movement' => 'mutation latérale',
+    'lateral_movement' => 'transfert latéral',
     'development_program' => 'programme de perfectionnement',
 ];

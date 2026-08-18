@@ -5,9 +5,12 @@ import {
   getFragment,
   graphql,
   type FragmentType,
-  type LocalizedTalentRequestSource,
+  type TalentRequestSource,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
@@ -52,7 +55,7 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
-  talentSourceOptions: LocalizedTalentRequestSource[];
+  talentSourceOptions: GenericLocalizedEnum<TalentRequestSource>[];
 }
 
 const TalentRequestSourcesCard = ({
