@@ -9,6 +9,7 @@ import "~/assets/css/tailwind.css";
 
 import type { Route } from "./+types/root";
 import RootErrorBoundary from "./components/Layout/RouteErrorBoundary/RootErrorBoundary";
+import { getDocumentNonce } from "./utils/csp";
 import { makeServerConfigJS } from "./utils/runtime";
 // eslint-disable-next-line import/extensions
 import initTheme from "./utils/initTheme.js?raw";
@@ -125,14 +126,13 @@ interface LayoutProps {
 }
 
 export function Layout({ children }: LayoutProps) {
+  const nonce = getDocumentNonce();
+
   return (
     // Suppress hydration warning coming from `initTheme.js` when running watch mode
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          nonce="**CSP_NONCE**"
-          dangerouslySetInnerHTML={{ __html: initTheme }}
-        />
+        <script nonce={nonce} dangerouslySetInnerHTML={{ __html: initTheme }} />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="msapplication-TileColor" content="#9747FF" />
@@ -144,13 +144,13 @@ export function Layout({ children }: LayoutProps) {
           content="$APP_URL/images/digital-talent/banner.jpg"
         />
         <Meta />
-        <Links nonce="**CSP_NONCE**" />
+        <Links nonce={nonce} />
       </head>
       <body className="bg-[#EEF1F9] font-sans text-black dark:bg-gray-700 dark:text-white">
         <div className="isolate">{children}</div>
 
         <ScrollRestoration
-          nonce="**CSP_NONCE**"
+          nonce={nonce}
           getKey={(location) => {
             // if there's a hash then use default behavior since the ScrollToLink will be handling scrolling
             if (location.hash) {
@@ -160,10 +160,10 @@ export function Layout({ children }: LayoutProps) {
             return location.pathname;
           }}
         />
-        <Scripts nonce="**CSP_NONCE**" />
+        <Scripts nonce={nonce} />
 
         <script
-          nonce="**CSP_NONCE**"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `
               const filterUnusable = (value) => !value.startsWith("$") && value.length > 0 ? value : undefined;
