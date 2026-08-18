@@ -2,10 +2,9 @@ import { useQuery } from "urql";
 import { useMemo } from "react";
 import { useOutletContext } from "react-router";
 
-import type { Role } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
-import type { RoleName } from "@gc-digital-talent/auth";
+import type { AuthRole, RoleName } from "@gc-digital-talent/auth";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import { checkRoleDepartments } from "~/utils/departmentUtils";
@@ -31,7 +30,7 @@ interface useAvailableRolesArgs {
 }
 
 interface UseAvailableRolesReturn {
-  roles: Role[];
+  roles: AuthRole[];
   fetching: boolean;
 }
 
@@ -63,7 +62,7 @@ const useAvailableRoles = ({
     return uniqueItems(array);
   }, [departmentId, roleAssignmentsFiltered]);
 
-  const roles: Role[] = useMemo(
+  const roles: AuthRole[] = useMemo(
     () =>
       data?.roles
         ? data.roles

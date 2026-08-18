@@ -4217,7 +4217,6 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
   downloadJobPosterTemplateDoc(id: UUID!): String
-    @guard
     @canFind(ability: "view", find: "id", model: "JobPosterTemplate")
   downloadNominationDoc(id: UUID!): String
     @guard

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CspReportController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserGeneratedFilesController;
+use App\Support\FilePath;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,9 +22,10 @@ Route::prefix('support')->controller(SupportController::class)->group(function (
 
 Route::prefix('user-generated-files')
     ->controller(UserGeneratedFilesController::class)->group(function () {
-        Route::get('/{fileName}', 'getFile')
-        // api/config/auth.php
-            ->middleware('auth:api');
+        // Unauthenticated files
+        Route::get('/'.FilePath::PUBLIC_PATH.'/{fileName}', 'getPublicFile');
+        // Authentication required files
+        Route::get('/{fileName}', 'getGuardedFile')->middleware('auth:api');
     });
 
 Route::post('csp-report', [CspReportController::class, 'report'])

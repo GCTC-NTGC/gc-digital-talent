@@ -5,10 +5,8 @@ import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
 import NoSymbolIcon from "@heroicons/react/16/solid/NoSymbolIcon";
 
 import type { IconType } from "@gc-digital-talent/ui";
-import {
-  TalentRequestTrackedUserStatus,
-  type LocalizedTalentRequestTrackedUserStatus,
-} from "@gc-digital-talent/graphql";
+import { TalentRequestTrackedUserStatus } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
   [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIcon,
@@ -40,7 +38,7 @@ interface StatusIconInfo {
 }
 
 export const getStatusIcon = (
-  status?: LocalizedTalentRequestTrackedUserStatus | null,
+  status?: GenericLocalizedEnum<TalentRequestTrackedUserStatus> | null,
 ): StatusIconInfo | null => {
   if (!status?.value || !status.label.localized) return null;
 

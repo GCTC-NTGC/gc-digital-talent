@@ -6,13 +6,14 @@ import {
   type AdvancedOrderByInput,
   type TalentRequestStatus,
   type TalentRequestInput,
-  type Classification,
-  type TalentRequest,
-  type LocalizedTalentRequestStatus,
+  type TalentRequestTableRowFragment,
 } from "@gc-digital-talent/graphql";
 import { SortOrder } from "@gc-digital-talent/graphql";
 import { Chip, Chips, Link, Spoiler } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
   parseDateTimeUtc,
@@ -124,8 +125,13 @@ export const transformTalentRequestInput = (
   };
 };
 
+interface TableClassification {
+  id: string;
+  groupAndLevel: string;
+}
+
 export function classificationsAccessor(
-  classifications: Classification[] | undefined,
+  classifications: TableClassification[] | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -134,7 +140,7 @@ export function classificationsAccessor(
 }
 
 export function classificationsCell(
-  classifications: Classification[] | undefined,
+  classifications: TableClassification[] | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications
@@ -155,7 +161,7 @@ export function classificationsCell(
 }
 
 export const jobTitleCell = (
-  searchRequest: TalentRequest,
+  searchRequest: TalentRequestTableRowFragment,
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
@@ -165,7 +171,10 @@ export const jobTitleCell = (
   );
 };
 
-export const notesCell = (searchRequest: TalentRequest, intl: IntlShape) =>
+export const notesCell = (
+  searchRequest: TalentRequestTableRowFragment,
+  intl: IntlShape,
+) =>
   searchRequest?.adminNotes ? (
     <Spoiler
       text={searchRequest.adminNotes}
@@ -183,7 +192,10 @@ export const notesCell = (searchRequest: TalentRequest, intl: IntlShape) =>
     />
   ) : null;
 
-export const detailsCell = (searchRequest: TalentRequest, intl: IntlShape) =>
+export const detailsCell = (
+  searchRequest: TalentRequestTableRowFragment,
+  intl: IntlShape,
+) =>
   searchRequest?.additionalComments ? (
     <Spoiler
       text={searchRequest.additionalComments}
@@ -224,7 +236,9 @@ export const followUpDateCell = (
   );
 };
 
-export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
+export const statusCell = (
+  status?: GenericLocalizedEnum<TalentRequestStatus> | null,
+) => {
   if (!status) return null;
 
   return (
