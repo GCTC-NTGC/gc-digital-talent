@@ -355,6 +355,8 @@ class TalentNominationGroupTest extends TestCase
                 'nominator_id' => $nominator1->id,
                 'nominee_id' => $nominee->id,
                 'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
             ]);
 
         $group = $nomination1->talentNominationGroup;
@@ -372,7 +374,9 @@ class TalentNominationGroupTest extends TestCase
                 'submitter_id' => $nominator2->id,
                 'nominator_id' => $nominator2->id,
                 'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => false,
                 'nominate_for_lateral_movement' => true,
+                'nominate_for_development_programs' => false,
             ]);
 
         // the group's status must reflect the new, undecided nomination - this only works if
