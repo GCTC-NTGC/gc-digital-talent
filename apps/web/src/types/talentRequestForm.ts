@@ -35,6 +35,5 @@ export type FormValues = Pick<
 
 export type PartialApplicantFilter = Omit<ApplicantFilter, "pools"> & {
   pools?:
-    | (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[]
-    | null;
+    (Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null)[] | null;
 };

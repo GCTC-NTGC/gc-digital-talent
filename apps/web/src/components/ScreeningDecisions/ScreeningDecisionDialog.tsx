@@ -108,9 +108,7 @@ const ScreeningDecisionDialog = ({
   const labels = useLabels();
   const candidate = getFragment(ScreeningDecisionDialog_Fragment, query);
   const snapshot = JSON.parse(String(candidate?.profileSnapshot)) as
-    | ParsedSnapshot
-    | null
-    | undefined;
+    ParsedSnapshot | null | undefined;
   const step = unpackMaybes(candidate?.pool.assessmentSteps).find(
     ({ id }) => id === stepId,
   );

@@ -18,8 +18,7 @@ export interface DiversityEquityInclusionSnapshotV1 {
   hasDisability?: boolean | null;
   isVisibleMinority?: boolean | null;
   indigenousCommunities?:
-    | (GenericLocalizedEnum<IndigenousCommunity> | null)[]
-    | null;
+    (GenericLocalizedEnum<IndigenousCommunity> | null)[] | null;
 }
 
 type DiversityEquityInclusionV1Props =

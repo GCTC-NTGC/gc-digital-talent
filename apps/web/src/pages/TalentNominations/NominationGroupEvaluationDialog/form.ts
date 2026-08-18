@@ -21,9 +21,7 @@ export interface FormValues {
 }
 
 type Decision =
-  | { value?: TalentNominationGroupDecision | null }
-  | null
-  | undefined;
+  { value?: TalentNominationGroupDecision | null } | null | undefined;
 
 // return the value if the decision is approved, or null otherwise
 function ifApproved(decision: Decision, value: string | null | undefined) {

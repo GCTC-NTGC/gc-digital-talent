@@ -43,18 +43,15 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements:
-    | (GenericLocalizedEnum<OperationalRequirement> | null | undefined)[]
-    | null;
+    (GenericLocalizedEnum<OperationalRequirement> | null | undefined)[] | null;
   positionDuration: (PositionDuration | null | undefined)[] | null;
   locationPreferences:
-    | (GenericLocalizedEnum<WorkRegion> | null | undefined)[]
-    | null;
+    (GenericLocalizedEnum<WorkRegion> | null | undefined)[] | null;
   locationExemptions: string | null;
   currentCity: string | null;
   currentProvince: GenericLocalizedEnum<ProvinceOrTerritory> | null;
   flexibleWorkLocations:
-    | (GenericLocalizedEnum<FlexibleWorkLocation> | null | undefined)[]
-    | null;
+    (GenericLocalizedEnum<FlexibleWorkLocation> | null | undefined)[] | null;
 }
 
 type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;
