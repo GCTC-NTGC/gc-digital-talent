@@ -5,6 +5,7 @@ import type {
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
+import { getCommunityDevelopmentProgramsForCommunity } from "./developmentPrograms";
 
 const oldDate = new Date();
 const newDate = new Date();
@@ -44,6 +45,8 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   const firstCommunity = communities[0];
   const communityId =
     talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
+  const communityDevelopmentPrograms =
+    await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId });
   return ctx
     .post<
       GraphQLResponse<"createTalentNominationEvent", TalentNominationEvent>
@@ -55,6 +58,13 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
           ...talentNominationEvent,
           community: {
             connect: communityId,
+          },
+          communityDevelopmentPrograms: {
+            sync: [
+              {
+                id: communityDevelopmentPrograms[0].id,
+              },
+            ],
           },
         },
       },
