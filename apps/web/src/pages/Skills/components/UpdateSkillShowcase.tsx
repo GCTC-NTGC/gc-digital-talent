@@ -20,8 +20,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdateUserSkillRankingsInput,
-  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
-  UpdateSkillShowcase_SkillFragment as UpdateSkillShowcaseSkillFragmentType,
+  UpdateSkillShowcaseUserSkillFragment,
+  UpdateSkillShowcaseSkillFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 
@@ -36,14 +36,15 @@ import {
 } from "../operations";
 import SkillShowcaseCard from "./SkillShowcaseCard";
 
-export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
-  fragment UpdateSkillShowcase_UserSkill on UserSkill {
+export const UpdateSkillShowcaseUserSkill_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcaseUserSkill on UserSkill {
     id
     whenSkillUsed
     skillLevel
     topSkillsRank
     improveSkillsRank
     skill {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -61,8 +62,10 @@ export const UpdateSkillShowcase_UserSkillFragment = graphql(/* GraphQL */ `
   }
 `);
 
-export const UpdateSkillShowcase_SkillFragment = graphql(/* GraphQL */ `
-  fragment UpdateSkillShowcase_Skill on Skill {
+export const UpdateSkillShowcaseSkill_Fragment = graphql(/* GraphQL */ `
+  fragment UpdateSkillShowcaseSkill on Skill {
+    ...SkillBrowserSkill
+    ...SkillShowcaseCardSkill
     id
     key
     category {
@@ -103,10 +106,14 @@ export interface FormValues {
   userSkills: SkillBrowserDialogFormValues[];
 }
 
+interface RankedSkill extends SkillBrowserDialogFormValues {
+  skill: string;
+}
+
 interface UpdateSkillShowcaseProps {
   userId: string;
-  allUserSkills: UpdateSkillShowcaseUserSkillFragmentType[];
-  allSkills: UpdateSkillShowcaseSkillFragmentType[];
+  allUserSkills: UpdateSkillShowcaseUserSkillFragment[];
+  allSkills: UpdateSkillShowcaseSkillFragment[];
   initialData: FormValues;
   maxItems: number;
   crumbs: BreadcrumbsProps["crumbs"];
@@ -300,6 +307,10 @@ const UpdateSkillShowcase = ({
     return submitPromise;
   };
 
+  const rankedSkills = initialData.userSkills.filter(
+    (userSkill): userSkill is RankedSkill => !!userSkill.skill,
+  );
+
   return (
     <>
       <SEO title={pageInfo.title} description={pageInfo.description} />
@@ -333,14 +344,14 @@ const UpdateSkillShowcase = ({
                 <div className="mb-6">
                   <CardRepeater.Root<SkillBrowserDialogFormValues>
                     disabled={isBusy || disabled}
-                    items={initialData.userSkills.map((userSkill) => ({
-                      id: userSkill.skill ?? "unknown",
+                    items={rankedSkills.map((userSkill) => ({
+                      id: userSkill.skill,
                       ...userSkill,
                     }))}
                     max={maxItems}
                     add={
                       <SkillBrowserDialog
-                        inLibrary={allUserSkills
+                        inLibraryQuery={allUserSkills
                           .map((userSkill) => userSkill.skill)
                           .filter(
                             (skill) =>
@@ -348,7 +359,7 @@ const UpdateSkillShowcase = ({
                           )}
                         trigger={triggerProps}
                         context="showcase"
-                        skills={allSkills.filter(
+                        query={allSkills.filter(
                           (skill) =>
                             !existingSkillsRankingFiltered.includes(skill.id),
                         )}
@@ -360,12 +371,12 @@ const UpdateSkillShowcase = ({
                       handleUpdate({ userSkills: items })
                     }
                   >
-                    {initialData.userSkills.map((item, index) => (
+                    {rankedSkills.map((item, index) => (
                       <SkillShowcaseCard
                         key={item.skill}
                         item={item}
                         index={index}
-                        skills={allSkills}
+                        query={allSkills}
                         userSkillRanking={userSkillRanking}
                       />
                     ))}

@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -176,14 +175,15 @@ const AssessmentStepCard = ({
             </li>
           )}
           {skillNames.map((skillName, skillIndex) => (
-            <Fragment key={skillName}>
+            <li className="inline pl-0" key={skillName}>
+              {/* The separator lives inside the item: a <ul> only accepts <li>. */}
               {skillIndex !== 0 || isApplicationScreening ? (
                 <span className="mx-3" aria-hidden>
                   {UNICODE_CHAR.BULLET}
                 </span>
               ) : null}
-              <li className="inline pl-0">{skillName}</li>
-            </Fragment>
+              {skillName}
+            </li>
           ))}
         </ul>
       ) : (

@@ -16,5 +16,5 @@ interface FileGeneratorInterface
 
     public function setFileName(string $name): void;
 
-    public function getPath(?string $disk = 'user_generated'): string;
+    public function getPath(?string $disk = null): string;
 }

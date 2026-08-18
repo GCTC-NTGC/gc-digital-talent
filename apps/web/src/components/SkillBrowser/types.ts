@@ -1,5 +1,4 @@
 import type {
-  Skill,
   SkillCategory,
   SkillLevel,
   WhenSkillUsed,
@@ -13,6 +12,12 @@ export type SkillBrowserDialogContext =
   | "skill-proficiency-list-with-level"
   | "skill-proficiency-list-without-level";
 
+export interface SelectedSkill {
+  id: string;
+  name: string | null;
+  category: SkillCategory | null;
+}
+
 export interface FormValues {
   category?: SkillCategory | "all" | "";
   family?: string;
@@ -20,8 +25,4 @@ export interface FormValues {
   details?: string;
   skillLevel?: SkillLevel;
   whenSkillUsed?: WhenSkillUsed;
-}
-
-export interface BaseSkillBrowserProps {
-  skills: Skill[];
 }

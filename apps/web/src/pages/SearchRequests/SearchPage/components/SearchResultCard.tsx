@@ -194,7 +194,6 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           type="submit"
           mode="inline"
           {...poolSubmitProps}
-          value={pool.id}
           onClick={() => {
             setValue("pool", pool.id);
             setValue("communityId", "");

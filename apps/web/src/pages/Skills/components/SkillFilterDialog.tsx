@@ -2,13 +2,22 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { SkillCategory, SkillFamily } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType, SkillCategory } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import adminMessages from "~/messages/adminMessages";
 import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDialog";
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
+
+export const SkillFilterFamily_Fragment = graphql(/* GraphQL */ `
+  fragment SkillFilterFamily on SkillFamily {
+    key
+    name {
+      localized
+    }
+  }
+`);
 
 const SkillFilterOptions_Query = graphql(/* GraphQL */ `
   query SkillFilterOptions {
@@ -28,18 +37,19 @@ export interface FormValues {
 }
 
 interface SkillFilterDialogProps extends CommonFilterDialogProps<FormValues> {
-  skillFamilies: SkillFamily[];
+  query: FragmentType<typeof SkillFilterFamily_Fragment>[];
   fetching?: boolean;
 }
 
 const SkillFilterDialog = ({
-  skillFamilies,
+  query,
   fetching,
   initialValues,
   resetValues,
   onSubmit,
 }: SkillFilterDialogProps) => {
   const intl = useIntl();
+  const skillFamilies = getFragment(SkillFilterFamily_Fragment, query);
   const [{ data, fetching: optionsFetching }] = useQuery({
     query: SkillFilterOptions_Query,
   });
@@ -59,7 +69,9 @@ const SkillFilterDialog = ({
           doNotSort
           options={skillFamilies.map(({ key, name }) => ({
             value: key,
-            label: getLocalizedName(name, intl),
+            label:
+              name?.localized ??
+              intl.formatMessage(commonMessages.notAvailable),
           }))}
         />
         <Combobox

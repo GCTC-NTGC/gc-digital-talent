@@ -86,10 +86,12 @@ export async function getTokenForSub(sub: string) {
   // Local/CI: use local Janssen mock OAuth
   const ctx = await request.newContext();
   const query = new URLSearchParams({
-    code: "00000000-0000-0000-0123-456789abcdef",
-    grant_type: "authorization_code",
+    grant_type: "password",
     client_id: "e2e",
     client_secret: "e2e",
+    username: sub,
+    password: "e2e",
+    scope: "openid offline_access",
     sub,
   });
   const json = (await ctx

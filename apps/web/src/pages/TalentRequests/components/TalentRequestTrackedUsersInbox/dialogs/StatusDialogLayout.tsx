@@ -44,8 +44,8 @@ const StatusDialogLayout = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <p className="mb-6 flex flex-col gap-3">
-            <span>
+          <div className="mb-6 flex flex-col gap-3">
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -57,11 +57,9 @@ const StatusDialogLayout = ({
                 { count: selectedCount },
               )}
               {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
-            <span>
-              <IconLabel label={statusLabel} icon={icon} />
-            </span>
-          </p>
+            </p>
+            <IconLabel label={statusLabel} icon={icon} />
+          </div>
           {children}
         </Dialog.Body>
       </Dialog.Content>

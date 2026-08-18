@@ -43,8 +43,8 @@ const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
 
 interface DetailsProps {
   query: FragmentType<typeof TalentRequestDetails_Fragment>;
-  optionsQuery?: FragmentType<typeof TalentRequestSourceOptions_Fragment>;
-  referralOptionsQuery?: TalentRequestReferralDialogOptions;
+  optionsQuery: FragmentType<typeof TalentRequestSourceOptions_Fragment>;
+  referralOptionsQuery: TalentRequestReferralDialogOptions;
 }
 
 const Details = ({
@@ -118,7 +118,11 @@ const TalentRequestDetailsPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentRequest ? (
-        <Details query={data.talentRequest} optionsQuery={data} />
+        <Details
+          query={data.talentRequest}
+          optionsQuery={data}
+          referralOptionsQuery={data}
+        />
       ) : (
         <ThrowNotFound />
       )}
@@ -127,7 +131,13 @@ const TalentRequestDetailsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
     <TalentRequestDetailsPage />
   </RequireAuth>
 );
