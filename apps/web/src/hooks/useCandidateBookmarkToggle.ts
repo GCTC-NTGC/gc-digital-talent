@@ -44,7 +44,8 @@ const useCandidateBookmarkToggle = ({
   );
 
   const toggleBookmark = async () => {
-    if (id) {
+    // Ignores calls made while a previous toggle is still in flight
+    if (id && !isUpdating) {
       await executeToggleBookmarkMutation({ id })
         .then((res) => {
           if (!res.error) {

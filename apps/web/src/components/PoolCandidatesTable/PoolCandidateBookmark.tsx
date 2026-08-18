@@ -40,18 +40,16 @@ const PoolCandidateBookmark = ({
   );
   const poolCandidateName = getFullNameLabel(firstName, lastName, intl);
 
-  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
-    useCandidateBookmarkToggle({
-      id: poolCandidateId,
-      defaultValue: isBookmarkedDefaultValue,
-      name: poolCandidateName,
-    });
+  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+    id: poolCandidateId,
+    defaultValue: isBookmarkedDefaultValue,
+    name: poolCandidateName,
+  });
 
   return (
     <IconButton
       color={isBookmarked ? "secondary" : "black"}
       onClick={toggleBookmark}
-      disabled={isUpdatingBookmark}
       icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
       size={size}
       label={

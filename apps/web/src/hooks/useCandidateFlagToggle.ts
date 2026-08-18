@@ -52,7 +52,8 @@ const useCandidateFlagToggle = ({
   );
 
   const toggleFlag = async () => {
-    if (id) {
+    // Ignores calls made while a previous toggle is still in flight
+    if (id && !isUpdating) {
       await executeToggleFlagMutation({
         id,
       })

@@ -81,26 +81,23 @@ const BookmarkFlagButtons = ({
   isFlagged: initialIsFlagged,
 }: BookmarkFlagButtonsProps) => {
   const intl = useIntl();
-  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
-    useCandidateFlagToggle({
-      id,
-      defaultValue: initialIsFlagged,
-      name,
-      processTitle,
-    });
-  const [{ isBookmarked, isUpdating: isUpdatingBookmark }, toggleBookmark] =
-    useCandidateBookmarkToggle({
-      id,
-      defaultValue: initialIsBookmarked,
-      name,
-    });
+  const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
+    id,
+    defaultValue: initialIsFlagged,
+    name,
+    processTitle,
+  });
+  const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
+    id,
+    defaultValue: initialIsBookmarked,
+    name,
+  });
 
   return (
     <div className="flex flex-col gap-y-4.5">
       <Button
         {...commonProps}
         icon={isBookmarked ? BookmarkIconSolid : BookmarkIconOutline}
-        disabled={isUpdatingBookmark}
         onClick={toggleBookmark}
       >
         {isBookmarked
@@ -119,7 +116,6 @@ const BookmarkFlagButtons = ({
       <Button
         {...commonProps}
         icon={isFlagged ? FlagIconSolid : FlagIconOutline}
-        disabled={isUpdatingFlag}
         onClick={toggleFlag}
       >
         {isFlagged
