@@ -5,14 +5,16 @@ import { useQuery } from "urql";
 import { useAnnouncer } from "@gc-digital-talent/ui";
 import type {
   ApplicantFilterInput,
-  Classification,
   CountTalentRequestMatchesQuery,
   SearchResultCard_PoolFragment,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useSessionStorage } from "@gc-digital-talent/storage";
 
-import type { FormValues } from "~/types/talentRequestForm";
+import type {
+  FormValues,
+  TalentRequestClassification,
+} from "~/types/talentRequestForm";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
 
@@ -38,7 +40,7 @@ interface UseInitialState {
 }
 
 export const useInitialFilters = (
-  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
+  classifications: TalentRequestClassification[],
 ): UseInitialState => {
   const [{ applicantFilter }] = useTalentRequestState();
 
