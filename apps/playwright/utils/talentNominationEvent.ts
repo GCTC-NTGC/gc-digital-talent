@@ -47,6 +47,13 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
     talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
   const communityDevelopmentPrograms =
     await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId });
+  const communityDevelopmentProgramsSync = communityDevelopmentPrograms[0]?.id
+    ? [
+        {
+          id: communityDevelopmentPrograms[0].id,
+        },
+      ]
+    : [];
   return ctx
     .post<
       GraphQLResponse<"createTalentNominationEvent", TalentNominationEvent>
@@ -60,11 +67,7 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
             connect: communityId,
           },
           communityDevelopmentPrograms: {
-            sync: [
-              {
-                id: communityDevelopmentPrograms[0].id,
-              },
-            ],
+            sync: communityDevelopmentProgramsSync,
           },
         },
       },
