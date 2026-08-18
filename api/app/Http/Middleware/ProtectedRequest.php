@@ -17,7 +17,7 @@ class ProtectedRequest
     public function handle(Request $request, Closure $next)
     {
         if ($request->is('admin/*')) {
-            $request->merge(['isProtectedRequest' => true]);
+            $request->attributes->set('isProtectedRequest', true);
         }
 
         return $next($request);

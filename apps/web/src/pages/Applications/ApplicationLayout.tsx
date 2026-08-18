@@ -129,7 +129,8 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
 
   const isSubmitted =
     !!application.submittedAt ||
-    application.status?.value !== ApplicationStatus.Draft;
+    application.applicationStatusData?.status?.value !==
+      ApplicationStatus.Draft;
 
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step

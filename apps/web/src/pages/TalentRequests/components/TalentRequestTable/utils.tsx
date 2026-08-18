@@ -4,28 +4,26 @@ import type { IntlShape } from "react-intl";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   type AdvancedOrderByInput,
-  TalentRequestStatus,
+  type TalentRequestStatus,
   type TalentRequestInput,
-  type Classification,
-  type TalentRequest,
-  type LocalizedTalentRequestStatus,
+  type TalentRequestTableRowFragment,
 } from "@gc-digital-talent/graphql";
 import { SortOrder } from "@gc-digital-talent/graphql";
+import { Chip, Chips, Link, Spoiler } from "@gc-digital-talent/ui";
 import {
-  Chip,
-  Chips,
-  Link,
-  Spoiler,
-  type ChipProps,
-} from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
+  commonMessages,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
 import type useRoutes from "~/hooks/useRoutes";
-import { followUpDateOverdueInfo } from "~/utils/searchRequestUtils";
+import {
+  followUpDateOverdueInfo,
+  TALENT_REQUEST_STATUS_COLOUR_MAP,
+} from "~/utils/talentRequestUtils";
 import cells from "~/components/Table/cells";
 
 export interface FormValues {
@@ -127,8 +125,13 @@ export const transformTalentRequestInput = (
   };
 };
 
+interface TableClassification {
+  id: string;
+  groupAndLevel: string;
+}
+
 export function classificationsAccessor(
-  classifications: Classification[] | undefined,
+  classifications: TableClassification[] | undefined,
 ) {
   return classifications
     ?.filter(notEmpty)
@@ -137,7 +140,7 @@ export function classificationsAccessor(
 }
 
 export function classificationsCell(
-  classifications: Classification[] | undefined,
+  classifications: TableClassification[] | undefined,
   intl: IntlShape,
 ) {
   const filteredClassifications = classifications
@@ -158,17 +161,20 @@ export function classificationsCell(
 }
 
 export const jobTitleCell = (
-  searchRequest: TalentRequest,
+  searchRequest: TalentRequestTableRowFragment,
   paths: ReturnType<typeof useRoutes>,
 ) => {
   return (
-    <Link href={paths.searchRequestView(searchRequest.id)}>
+    <Link href={paths.talentRequestView(searchRequest.id)}>
       {searchRequest.jobTitle}
     </Link>
   );
 };
 
-export const notesCell = (searchRequest: TalentRequest, intl: IntlShape) =>
+export const notesCell = (
+  searchRequest: TalentRequestTableRowFragment,
+  intl: IntlShape,
+) =>
   searchRequest?.adminNotes ? (
     <Spoiler
       text={searchRequest.adminNotes}
@@ -186,7 +192,10 @@ export const notesCell = (searchRequest: TalentRequest, intl: IntlShape) =>
     />
   ) : null;
 
-export const detailsCell = (searchRequest: TalentRequest, intl: IntlShape) =>
+export const detailsCell = (
+  searchRequest: TalentRequestTableRowFragment,
+  intl: IntlShape,
+) =>
   searchRequest?.additionalComments ? (
     <Spoiler
       text={searchRequest.additionalComments}
@@ -211,28 +220,30 @@ export const followUpDateCell = (
 ) => {
   if (!followUpDate) return null;
 
-  const { isOverdue, daysOverdue } = followUpDateOverdueInfo(
+  const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
     parseDateTimeUtc(followUpDate),
     now,
   );
 
-  return isOverdue ? (
+  return isOverdue || isDueToday ? (
     <Chip color="error">
-      {intl.formatMessage(commonMessages.overdueDate, { daysOverdue })}
+      {isOverdue
+        ? intl.formatMessage(commonMessages.overdueDate, { daysOverdue })
+        : intl.formatMessage(commonMessages.dueToday)}
     </Chip>
   ) : (
     cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)
   );
 };
 
-const COLOUR_MAP: Record<TalentRequestStatus, ChipProps["color"]> = {
-  [TalentRequestStatus.New]: "warning",
-  [TalentRequestStatus.InProgress]: "primary",
-  [TalentRequestStatus.Completed]: "gray",
-} as const;
-
-export const statusCell = (status?: LocalizedTalentRequestStatus | null) => {
+export const statusCell = (
+  status?: GenericLocalizedEnum<TalentRequestStatus> | null,
+) => {
   if (!status) return null;
 
-  return <Chip color={COLOUR_MAP[status.value]}>{status.label.localized}</Chip>;
+  return (
+    <Chip color={TALENT_REQUEST_STATUS_COLOUR_MAP[status.value]}>
+      {status.label.localized}
+    </Chip>
+  );
 };

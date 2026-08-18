@@ -948,10 +948,12 @@ class CandidateAssessmentStatusTest extends TestCase
         mutation revertPlaceCandidate($id: UUID!) {
             revertPlaceCandidate(id: $id) {
                 id
-                status { value }
-                placedAt
-                placedDepartment {
-                    id
+                applicationStatusData {
+                    status { value }
+                    placedAt
+                    placedDepartment {
+                        id
+                    }
                 }
             }
         }

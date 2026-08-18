@@ -14,7 +14,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
 
-import type { AnyExperience } from "~/types/experience";
+import type { SnapshotExperience } from "~/utils/experienceUtils";
 
 import type { FormValues } from "./types";
 import {
@@ -85,8 +85,8 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface ParsedSnapshot {
-  experiences?: (AnyExperience | null | undefined)[];
   firstName?: string | null;
+  experiences?: (SnapshotExperience | null | undefined)[] | null;
   version?: number;
 }
 

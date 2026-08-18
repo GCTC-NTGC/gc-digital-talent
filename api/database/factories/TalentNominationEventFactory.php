@@ -49,7 +49,8 @@ class TalentNominationEventFactory extends Factory
             },
             'include_nine_box' => $this->faker->boolean(),
             'require_reference_for_advancement' => $this->faker->boolean(),
-            'custom_instructions' => $this->faker->localizedString($this->faker->sentences(3, true)),
+            'custom_instructions' => $this->faker->optional()->localizedString($this->faker->sentences(3, true)),
+            'contact_email' => $this->faker->email(),
         ];
     }
 

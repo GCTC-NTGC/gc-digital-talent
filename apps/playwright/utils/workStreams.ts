@@ -1,7 +1,7 @@
 import type {
   CreateWorkStreamInput,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
@@ -30,9 +30,9 @@ const Test_WorkStreamQueryDocument = /* GraphQL */ `
  */
 export const getWorkStreams: GraphQLRequestFunc<WorkStream[]> = async (ctx) => {
   return ctx
-    .post<
-      GraphQLResponse<"workStreams", WorkStream[]>
-    >(Test_WorkStreamQueryDocument)
+    .post<GraphQLResponse<"workStreams", WorkStream[]>>(
+      Test_WorkStreamQueryDocument,
+    )
     .then((res) => res.workStreams);
 };
 

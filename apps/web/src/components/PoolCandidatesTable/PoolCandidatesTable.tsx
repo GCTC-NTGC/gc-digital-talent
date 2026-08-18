@@ -26,11 +26,14 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import type {
   PoolCandidateSearchInput,
-  Pool,
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
-import { graphql, PublishingGroup } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  PublishingGroup,
+} from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import type {
@@ -70,15 +73,10 @@ import {
   priorityCell,
   transformFormValuesToFilterState,
   transformPoolCandidateSearchInputToFormValues,
-  getSortOrder,
   processCell,
-  getPoolNameSort,
-  getClaimVerificationSort,
   addSearchToPoolCandidateFilterInput,
-  getDepartmentSort,
-  getScreeningStageSort,
   candidateStatusCell,
-  getBaseSort,
+  transformSortStateToOrderBy,
   poolCandidateBookmarkHeader,
   poolCandidateBookmarkCell,
   applicationStatusCell,
@@ -96,7 +94,7 @@ import DownloadCandidateExcelButton from "../DownloadButton/DownloadCandidateExc
 import DownloadAllCandidateTableExcelButton from "../DownloadButton/DownloadAllCandidateTableExcelButton";
 
 type CandidatesTableCandidatesPaginatedQueryDataType =
-  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginatedAdminView"]["data"][number];
+  CandidatesTableCandidatesPaginated_QueryQuery["poolCandidatesPaginated"]["data"][number];
 
 const columnHelper =
   createColumnHelper<CandidatesTableCandidatesPaginatedQueryDataType>();
@@ -177,26 +175,16 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
     $where: PoolCandidateSearchInput
     $first: Int
     $page: Int
-    $orderByBaseInput: PoolCandidatesBaseSort!
-    $poolNameSortingInput: PoolCandidatePoolNameOrderByInput
-    $sortingInput: [QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause!]
-    $orderByClaimVerification: ClaimVerificationSort
-    $orderByEmployeeDepartment: SortOrder
-    $orderByScreeningStage: SortOrder
+    $orderBy: [AdvancedOrderByInput!]
   ) {
     me {
       ...PoolCandidate_Bookmark
     }
-    poolCandidatesPaginatedAdminView(
+    poolCandidatesPaginated(
       where: $where
       first: $first
       page: $page
-      orderByBase: $orderByBaseInput
-      orderByPoolName: $poolNameSortingInput
-      orderBy: $sortingInput
-      orderByClaimVerification: $orderByClaimVerification
-      orderByEmployeeDepartment: $orderByEmployeeDepartment
-      orderByScreeningStage: $orderByScreeningStage
+      orderBy: $orderBy
     ) {
       data {
         id
@@ -397,6 +385,16 @@ const DownloadApplicationsZip_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolCandidatesTable_PoolFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidatesTablePool on Pool {
+    displayName {
+      display {
+        localized
+      }
+    }
+  }
+`);
+
 const context: Partial<OperationContext> = {
   additionalTypenames: ["Skill", "SkillFamily"], // This lets urql know when to invalidate cache if request returns empty list. https://formidable.com/open-source/urql/docs/basics/document-caching/#document-cache-gotchas
   requestPolicy: "cache-first", // The list of skills will rarely change, so we override default request policy to avoid unnecessary cache updates.
@@ -429,7 +427,7 @@ const defaultState = {
 
 const PoolCandidatesTable = ({
   initialFilterInput,
-  currentPool,
+  currentPoolQuery,
   title,
   hidePoolFilter,
   doNotUseBookmark = false,
@@ -438,7 +436,9 @@ const PoolCandidatesTable = ({
   hiddenColumnIds: hiddenColumnIdsProp,
 }: {
   initialFilterInput?: PoolCandidateSearchInput;
-  currentPool?: Pick<Pool, "id" | "displayName"> | null;
+  currentPoolQuery?: FragmentType<
+    typeof PoolCandidatesTable_PoolFragment
+  > | null;
   title: string;
   hidePoolFilter?: boolean;
   doNotUseBookmark?: boolean;
@@ -450,6 +450,11 @@ const PoolCandidatesTable = ({
   const locale = getLocale(intl);
   const paths = useRoutes();
   const apiRoutes = useApiRoutes();
+
+  const currentPool = getFragment(
+    PoolCandidatesTable_PoolFragment,
+    currentPoolQuery,
+  );
 
   const defaultSortState = currentPool
     ? [{ id: "status", desc: false }]
@@ -576,12 +581,13 @@ const PoolCandidatesTable = ({
         searchState?.term,
         searchState?.type,
       ),
-      orderByBaseInput: getBaseSort(doNotUseBookmark, doNotUseFlag),
-      poolNameSortingInput: getPoolNameSort(sortState, locale),
-      sortingInput: getSortOrder(sortState, filterState),
-      orderByClaimVerification: getClaimVerificationSort(sortState),
-      orderByEmployeeDepartment: getDepartmentSort(sortState),
-      orderByScreeningStage: getScreeningStageSort(sortState),
+      orderBy: transformSortStateToOrderBy(
+        sortState,
+        locale,
+        doNotUseBookmark,
+        doNotUseFlag,
+        filterState,
+      ),
     }),
     [
       filterState,
@@ -604,9 +610,9 @@ const PoolCandidatesTable = ({
 
   const filteredData: CandidatesTableCandidatesPaginatedQueryDataType[] =
     useMemo(() => {
-      const poolCandidates = data?.poolCandidatesPaginatedAdminView.data ?? [];
+      const poolCandidates = data?.poolCandidatesPaginated.data ?? [];
       return poolCandidates.filter(notEmpty);
-    }, [data?.poolCandidatesPaginatedAdminView.data]);
+    }, [data?.poolCandidatesPaginated.data]);
 
   const [{ data: tableData, fetching: fetchingTableData }] = useQuery({
     query: CandidatesTable_Query,
@@ -740,10 +746,8 @@ const PoolCandidatesTable = ({
         .catch(handleDownloadError);
     }
   };
-  const firstItem =
-    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.firstItem;
-  const totalCount =
-    data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total ?? 0;
+  const firstItem = data?.poolCandidatesPaginated?.paginatorInfo.firstItem;
+  const totalCount = data?.poolCandidatesPaginated?.paginatorInfo.total ?? 0;
 
   const columns = [
     ...(doNotUseBookmark
@@ -850,13 +854,13 @@ const PoolCandidatesTable = ({
                 },
               }) =>
                 processCell(
-                  {
-                    id: pool.id,
+                  pool.id,
+                  getFullPoolTitleLabel(intl, {
                     workStream: pool.workStream,
                     name: pool.name,
                     publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
-                  },
+                  }),
                   paths,
                   intl,
                 ),
@@ -981,9 +985,7 @@ const PoolCandidatesTable = ({
       },
     ),
     columnHelper.accessor(
-      ({ poolCandidate: { placementType } }) =>
-        placementType?.label?.localized ??
-        intl.formatMessage(poolCandidateMessages.notPlaced),
+      ({ poolCandidate: { placementType } }) => placementType?.label?.localized,
       {
         id: "jobPlacement",
         header: intl.formatMessage(tableMessages.jobPlacement),
@@ -1070,6 +1072,7 @@ const PoolCandidatesTable = ({
       {
         id: "languageAbility",
         header: intl.formatMessage(commonMessages.workingLanguageAbility),
+        enableSorting: false,
       },
     ),
     columnHelper.accessor("skillCount", {
@@ -1266,7 +1269,7 @@ const PoolCandidatesTable = ({
         internal: false,
         initialState: INITIAL_STATE.paginationState,
         state: paginationState,
-        total: data?.poolCandidatesPaginatedAdminView?.paginatorInfo.total,
+        total: data?.poolCandidatesPaginated?.paginatorInfo.total,
         pageSizes: [10, 20, 50, 100, 500],
         onPaginationChange: ({ pageIndex, pageSize }: PaginationState) => {
           handlePaginationStateChange({ pageIndex, pageSize });

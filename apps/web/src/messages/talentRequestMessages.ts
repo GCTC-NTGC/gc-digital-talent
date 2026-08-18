@@ -122,10 +122,50 @@ const messages = defineMessages({
     description:
       "Help message displayed when there are no tracked users for a talent request",
   },
+  requestedSkills: {
+    defaultMessage: "Requested skills",
+    id: "aNhUkJ",
+    description:
+      "Header for the number of user skills matching requested skills",
+  },
+  markAs: {
+    defaultMessage: "Mark as {status}",
+    id: "BYi3Ah",
+    description:
+      "Label for the change status action in the talent request tracked users table",
+  },
+  markAllAs: {
+    defaultMessage: "Mark all as {status}",
+    id: "LG/8JQ",
+    description:
+      "Label for the bulk change status action affecting every tracked user in the talent request tracked users inbox",
+  },
+  referred: {
+    defaultMessage: "Referred",
+    id: "ZAHz5C",
+    description: "Status for referred candidates",
+  },
+  updateSuccess: {
+    defaultMessage: "Tracked users updated successfully.",
+    id: "p6y+4U",
+    description:
+      "Toast shown when a tracked-user bulk status change succeeds in the inbox",
+  },
+  updateError: {
+    defaultMessage: "Error: failed to update tracked users.",
+    id: "Us+OYQ",
+    description:
+      "Toast shown when a tracked-user bulk status change fails in the inbox",
+  },
   sourceOfTalent: {
     defaultMessage: "Source of talent",
     id: "qy4Ohw",
     description: "Heading for the source of the matching user.",
+  },
+  talentSource: {
+    defaultMessage: "Talent source",
+    id: "5bRS8b",
+    description: "Label for the talent source(s) selected on a talent request.",
   },
 });
 

@@ -24,13 +24,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Add user to recruitment process",
-    "fr": [
-      "Ajouter l'utilisateur au processus de recrutement",
-      "Ajouter l'utilisateur à un processus de recrutement"
-    ]
-  },
-  {
     "en": "Interested in training",
     "fr": [
       "Intérêt pour la formation",
@@ -47,7 +40,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Nominate talent",
     "fr": [
-      "Nommez un talent",
+      "Nominez un talent",
       "Présenter une mise en candidature"
     ]
   },
@@ -152,13 +145,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Sign up",
-    "fr": [
-      "S'inscrire",
-      "S'enregistrer"
-    ]
-  },
-  {
     "en": "Qualified",
     "fr": [
       "Qualifié",
@@ -236,13 +222,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "Welcome back",
-    "fr": [
-      "Bon retour!",
-      "Bon retour"
-    ]
-  },
-  {
     "en": "Request a voucher",
     "fr": [
       "Demander un bon",
@@ -266,8 +245,8 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
   {
     "en": "Nominee",
     "fr": [
-      "La personne candidate",
-      "Personne candidate"
+      "Nominé ou nominée",
+      "Le nominé ou la nominée"
     ]
   },
   {

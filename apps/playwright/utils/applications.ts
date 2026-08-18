@@ -7,8 +7,8 @@ import type {
   QualifyAndPlaceCandidateInput,
   QualifyCandidateInput,
   UpdatePoolCandidateScreeningStageInput,
-} from "@gc-digital-talent/graphql";
-import { EducationRequirementOption } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import { EducationRequirementOption } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -169,7 +169,9 @@ const Test_RemoveCandidateMutationDocument = /* GraphQL */ `
       removalReasonOther: $removalReasonOther
     ) {
       id
-      statusUpdatedAt
+      applicationStatusData {
+        statusUpdatedAt
+      }
     }
   }
 `;

@@ -5,14 +5,14 @@ import type {
   Pool,
   Skill,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   OperationalRequirement,
   WorkRegion,
   LanguageAbility,
   PositionDuration,
   FlexibleWorkLocation,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeSkills from "./fakeSkills";
 import fakePools from "./fakePools";

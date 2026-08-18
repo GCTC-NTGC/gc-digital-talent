@@ -11,7 +11,7 @@ import { getFullNameLabel } from "~/utils/nameUtils";
 import useCandidateFlagToggle from "~/hooks/useCandidateFlagToggle";
 
 export const PoolCandidate_FlagFragment = graphql(/* GraphQL */ `
-  fragment PoolCandidate_Flag on PoolCandidate {
+  fragment PoolCandidate_Flag on PoolCandidateAdminView {
     id
     isFlagged
     user {

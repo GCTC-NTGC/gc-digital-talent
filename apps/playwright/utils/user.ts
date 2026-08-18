@@ -2,7 +2,7 @@ import type {
   CreateUserInput,
   User,
   UpdateUserAsUserInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   Language,
   ProvinceOrTerritory,
@@ -11,7 +11,7 @@ import {
   ArmedForcesStatus,
   FlexibleWorkLocation,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getRoles } from "./roles";
@@ -256,6 +256,34 @@ export const me: GraphQLRequestFunc<User> = async (ctx) => {
   return ctx
     .post<GraphQLResponse<"me", User>>(Test_MeQueryDocument)
     .then((res) => res.me);
+};
+
+const Test_GetUserByIdDocument = /* GraphQL */ `
+  query Test_GetUserById($id: UUID!) {
+    user(id: $id) {
+      id
+      experiences {
+        id
+        __typename
+      }
+    }
+  }
+`;
+
+interface GetUserByIdArgs {
+  id: string;
+}
+
+export const getUserById: GraphQLRequestFunc<User, GetUserByIdArgs> = async (
+  ctx,
+  { id },
+) => {
+  return ctx
+    .post<GraphQLResponse<"user", User>>(Test_GetUserByIdDocument, {
+      isPrivileged: true,
+      variables: { id },
+    })
+    .then((res) => res.user);
 };
 
 // eslint-disable-next-line camelcase

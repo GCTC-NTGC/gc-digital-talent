@@ -6,7 +6,7 @@ import QueueListIcon from "@heroicons/react/24/outline/QueueListIcon";
 
 import type {
   FragmentType,
-  LocalizedTalentNominationEventStatus,
+  TalentNominationEventStatus,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -18,13 +18,18 @@ import {
   Pending,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  getLocale,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -56,6 +61,7 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
     }
     openDate
     closeDate
+    includeNineBox
     includeLeadershipCompetencies
     community {
       id
@@ -87,11 +93,16 @@ const TalentEventDetails_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    customInstructions {
+      en
+      fr
+    }
+    contactEmail
   }
 `);
 
 interface StatusChipProps {
-  status: LocalizedTalentNominationEventStatus | null | undefined;
+  status: GenericLocalizedEnum<TalentNominationEventStatus> | null | undefined;
 }
 
 const StatusChip = ({ status }: StatusChipProps) => {
@@ -120,6 +131,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
     .sort(sortAlphaBy((i) => i.developmentProgram.name.localized));
 
   const notFound = intl.formatMessage(commonMessages.notFound);
+  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   return (
     <>
@@ -238,6 +250,17 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
           {talentEvent.description?.fr ??
             intl.formatMessage(commonMessages.notProvided)}
         </p>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Event contact email",
+            id: "ezbo2U",
+            description:
+              "Label displayed on the talent nomination event contact email field",
+          })}
+          className="col-span-2"
+        >
+          {talentEvent.contactEmail ?? notFound}
+        </FieldDisplay>
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
@@ -298,17 +321,75 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
             )}
           </span>
         </FieldDisplay>
-        <BoolCheckIcon
-          value={talentEvent.includeLeadershipCompetencies}
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Leadership performance questions",
+            id: "D5KDrf",
+            description:
+              "Bounding box label for the include leadership performance and potential",
+          })}
           className="col-span-2"
         >
-          {intl.formatMessage({
-            defaultMessage:
-              "Leadership competencies are required to be nominated for this event",
-            id: "A3m7l/",
-            description: "Label for the include leadership competencies",
+          <BoolCheckIcon value={talentEvent.includeNineBox}>
+            {intl.formatMessage({
+              defaultMessage:
+                "The nomination must include the nominee’s performance and leadership potential",
+              id: "vRkQB+",
+              description:
+                "Label for the include leadership performance and potential",
+            })}
+          </BoolCheckIcon>
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Leadership competency requirement",
+            id: "eBH+tH",
+            description:
+              "Bounding box label for the include leadership competencies",
           })}
-        </BoolCheckIcon>
+          className="col-span-2"
+        >
+          <BoolCheckIcon value={talentEvent.includeLeadershipCompetencies}>
+            {intl.formatMessage({
+              defaultMessage:
+                "The nomination must include the nominee's top 3 leadership competencies",
+              id: "4rkX89",
+              description: "Label for the include leadership competencies",
+            })}
+          </BoolCheckIcon>
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel="en"
+        >
+          {talentEvent.customInstructions?.en ? (
+            <RichTextRenderer
+              node={htmlToRichTextJSON(talentEvent.customInstructions.en)}
+            />
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Customized instruction text",
+            id: "f1Kpkp",
+            description: "label for nomination event instructions",
+          })}
+          appendLanguageToLabel="fr"
+        >
+          {talentEvent.customInstructions?.fr ? (
+            <RichTextRenderer
+              node={htmlToRichTextJSON(talentEvent.customInstructions.fr)}
+            />
+          ) : (
+            notProvided
+          )}
+        </FieldDisplay>
         <div className="col-span-2">
           <CardSeparator space="none" decorative />
         </div>

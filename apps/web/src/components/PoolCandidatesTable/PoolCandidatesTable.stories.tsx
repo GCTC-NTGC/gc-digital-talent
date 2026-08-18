@@ -16,7 +16,17 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
     });
     return {
       id: faker.string.uuid(),
-      poolCandidate,
+      poolCandidate: {
+        id: poolCandidate.id,
+        pool: poolCandidate.pool,
+        user: poolCandidate.user,
+
+        status: poolCandidate.applicationStatusData?.status,
+        screeningStage: poolCandidate.applicationStatusData?.screeningStage,
+        statusUpdatedAt: poolCandidate.applicationStatusData?.statusUpdatedAt,
+
+        isFlagged: poolCandidate.applicationAssessmentData?.isFlagged,
+      },
       skillCount: skillCount || null,
     };
   },
@@ -39,7 +49,7 @@ export default {
     apiResponses: {
       CandidatesTableCandidatesPaginated_Query: {
         data: {
-          poolCandidatesPaginatedAdminView: {
+          poolCandidatesPaginated: {
             data: mockPoolCandidatesWithSkillCount,
             paginatorInfo: mockPaginatorInfo,
           },

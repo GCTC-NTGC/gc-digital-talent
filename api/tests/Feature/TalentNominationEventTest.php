@@ -10,6 +10,7 @@ use App\Models\TalentNominationEvent;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -29,6 +30,8 @@ class TalentNominationEventTest extends TestCase
 
     protected $talentCoordinator;
 
+    protected $community;
+
     protected $communityId;
 
     protected $otherCommunityId;
@@ -42,6 +45,7 @@ class TalentNominationEventTest extends TestCase
         'description' => ['en' => 'Test EN', 'fr' => 'Test FR'],
         'learnMoreUrl' => ['en' => 'http://en.domain.com', 'fr' => 'http://fr.domain.com'],
         'includeLeadershipCompetencies' => true,
+        'contactEmail' => 'example@example.org',
     ];
 
     protected $createMutation = <<<'GRAPHQL'
@@ -64,6 +68,7 @@ class TalentNominationEventTest extends TestCase
                         }
                     }
                 }
+                contactEmail
             }
         }
     GRAPHQL;
@@ -75,6 +80,7 @@ class TalentNominationEventTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $community = Community::factory()->create();
+        $this->community = $community;
         $this->communityId = $community->id;
 
         $otherCommunity = Community::factory()->create();
@@ -322,6 +328,96 @@ class TalentNominationEventTest extends TestCase
                             [
                                 'id' => $newCommunityDevelopmentProgram->id,
                             ],
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name);
+    }
+
+    // #17164 - a development program id already attached to the event should not
+    // block an unrelated update, even if it no longer belongs to the event's community
+    public function testStaleCommunityDevelopmentProgramIdDoesNotBlockUpdate()
+    {
+        $openDate = config('constants.far_future_datetime');
+        $closeDate = Carbon::parse($openDate)->addYear();
+        $laterCloseDate = Carbon::parse($openDate)->addYears(2);
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($this->community)
+            ->create([
+                'open_date' => $openDate,
+                'close_date' => $closeDate,
+            ]);
+
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $communityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $this->communityId,
+            'development_program_id' => $developmentProgram->id,
+        ]);
+        $talentNominationEvent->communityDevelopmentPrograms()->sync([$communityDevelopmentProgram->id]);
+
+        // the program no longer belongs to this event's community
+        $communityDevelopmentProgram->update(['community_id' => $this->otherCommunityId]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        closeDate
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => ['connect' => $this->communityId],
+                    'closeDate' => $laterCloseDate->toDateTimeString(),
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            ['id' => $communityDevelopmentProgram->id],
+                        ],
+                    ],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $talentNominationEvent->id,
+                        'closeDate' => $laterCloseDate->toDateTimeString(),
+                    ],
+                ],
+            ]);
+    }
+
+    // a genuinely new, wrongly-scoped development program id is still rejected on update
+    public function testNewDevelopmentProgramMustBelongToCommunityOnUpdate()
+    {
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($this->community)
+            ->create();
+
+        $newCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $newCommunityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $newCommunity->id,
+            'development_program_id' => $developmentProgram->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'community' => ['connect' => $this->communityId],
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            ['id' => $newCommunityDevelopmentProgram->id],
                         ],
                     ],
                 ],

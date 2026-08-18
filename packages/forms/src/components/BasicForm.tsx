@@ -123,8 +123,7 @@ function BasicForm<TFieldValues extends FieldValues>({
             Path<TFieldValues>
           >;
           const defaultValues = options?.defaultValues as
-            | TFieldValues
-            | undefined;
+            TFieldValues | undefined;
           const defaultValue: unknown = defaultValues
             ? defaultValues[field]
             : null;

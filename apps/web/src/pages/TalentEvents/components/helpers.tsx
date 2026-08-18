@@ -2,8 +2,8 @@ import type { IntlShape } from "react-intl";
 
 import type { ChipProps } from "@gc-digital-talent/ui";
 import { Chip, Link } from "@gc-digital-talent/ui";
-import type { LocalizedTalentNominationEventStatus } from "@gc-digital-talent/graphql";
 import { TalentNominationEventStatus } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import type useRoutes from "~/hooks/useRoutes";
 
@@ -23,10 +23,7 @@ const getTalentNominationEventStatusColor = (
 };
 
 export const statusCell = (
-  talentNominationEventStatus:
-    | LocalizedTalentNominationEventStatus
-    | null
-    | undefined,
+  talentNominationEventStatus?: GenericLocalizedEnum<TalentNominationEventStatus> | null,
 ) => {
   const color = getTalentNominationEventStatusColor(
     talentNominationEventStatus?.value,

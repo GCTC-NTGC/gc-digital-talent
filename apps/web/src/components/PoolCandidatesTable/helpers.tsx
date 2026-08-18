@@ -8,33 +8,22 @@ import XCircleIcon from "@heroicons/react/20/solid/XCircleIcon";
 import { tv } from "tailwind-variants";
 import PauseCircleIcon from "@heroicons/react/24/solid/PauseCircleIcon";
 
-import type { Locales } from "@gc-digital-talent/i18n";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import type { IconType } from "@gc-digital-talent/ui";
 import { Link, Chip, Spoiler } from "@gc-digital-talent/ui";
 import type {
-  Pool,
-  PoolCandidatePoolNameOrderByInput,
+  AdvancedOrderByInput,
   PoolCandidateSearchInput,
-  QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
   FragmentType,
-  LocalizedProvinceOrTerritory,
-  Classification,
+  ProvinceOrTerritory,
   LocalizedString,
-  ClaimVerificationSort,
-  QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause,
-  QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
-  QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
-  LocalizedCandidateSuspendedFilter,
-  PoolCandidatesBaseSort,
-  LocalizedCandidateStatus,
-  LocalizedApplicationStatus,
-  LocalizedAssessmentDecision,
+  ApplicationStatus,
+  CandidateStatus,
 } from "@gc-digital-talent/graphql";
 import {
   CandidateExpiryFilter,
-  OrderByRelationWithColumnAggregateFunction,
   CandidateSuspendedFilter,
   SortOrder,
   AssessmentDecision,
@@ -52,7 +41,6 @@ import {
   candidateStatusChip,
   getApplicationStatusChip,
 } from "~/utils/poolCandidate";
-import { getFullPoolTitleLabel } from "~/utils/poolUtils";
 import processMessages from "~/messages/processMessages";
 import type { CandidateNavigationState } from "~/hooks/usePoolCandidateNavigation";
 
@@ -107,21 +95,14 @@ export const candidateNameCell = (
 };
 
 export const processCell = (
-  pool: Pick<Pool, "id" | "workStream" | "name" | "publishingGroup"> & {
-    classification?: Pick<Classification, "groupAndLevel"> | null;
-  },
+  poolId: string,
+  poolName: string,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ) => {
-  const poolName = getFullPoolTitleLabel(intl, {
-    workStream: pool.workStream,
-    name: pool.name,
-    publishingGroup: pool.publishingGroup,
-    classification: pool.classification,
-  });
   return (
     <Link
-      href={paths.poolView(pool.id)}
+      href={paths.poolView(poolId)}
       aria-label={
         intl.formatMessage(processMessages.process) +
         intl.formatMessage(commonMessages.dividingColon) +
@@ -189,7 +170,7 @@ export const notesCell = (
 
 export const currentLocationAccessor = (
   city: string | null | undefined,
-  province: LocalizedProvinceOrTerritory | null | undefined,
+  province: GenericLocalizedEnum<ProvinceOrTerritory> | null | undefined,
   intl: IntlShape,
 ) =>
   `${city ?? intl.formatMessage(commonMessages.notFound)}, ${getLocalizedName(province?.label, intl)}`;
@@ -233,7 +214,7 @@ const decisionIcon = tv({
 });
 
 export const screeningResultCell = (
-  screeningResult?: LocalizedAssessmentDecision | null,
+  screeningResult?: GenericLocalizedEnum<AssessmentDecision> | null,
   defaultMessage = "",
 ) => {
   let info: DecisionInfo = defaultDecisionInfo;
@@ -253,7 +234,7 @@ export const screeningResultCell = (
 };
 
 export const applicationStatusCell = (
-  status: LocalizedApplicationStatus | null | undefined,
+  status: GenericLocalizedEnum<ApplicationStatus> | null | undefined,
   intl: IntlShape,
 ) => {
   const { label, color } = getApplicationStatusChip(status, intl);
@@ -261,7 +242,7 @@ export const applicationStatusCell = (
 };
 
 export const candidateStatusCell = (
-  status?: LocalizedCandidateStatus | null,
+  status?: GenericLocalizedEnum<CandidateStatus> | null,
 ) => {
   const chip = candidateStatusChip(status);
 
@@ -293,207 +274,109 @@ export const flagHeader = (intl: IntlShape) => (
   />
 );
 
-function transformSortStateToOrderByClause(
-  sortingRules?: SortingState,
+const COLUMN_SORTS: Record<string, string> = {
+  dateReceived: "submitted_at",
+  candidacyStatus: "suspended_at",
+  finalDecision: "status_weight",
+  status: "status_weight",
+  applicationStatus: "status_weight",
+  jobPlacement: "status",
+  notes: "notes",
+};
+
+const RELATION_SORTS: Record<string, { name: string; column: string }> = {
+  candidateName: { name: "user", column: "first_name" },
+  email: { name: "user", column: "email" },
+  preferredLang: { name: "user", column: "preferred_lang" },
+  currentLocation: { name: "user", column: "current_city" },
+  processNumber: { name: "pool", column: "process_number" },
+  assessmentStep: { name: "assessmentStep", column: "sort_order" },
+};
+
+const SCOPE_SORTS: Record<string, string> = {
+  priority: "orderByClaimVerification",
+  department: "orderByEmployeeDepartment",
+  screeningStage: "orderByScreeningStage",
+};
+
+const BOOKMARK_SORT: AdvancedOrderByInput = { scope: "orderByBookmark" };
+
+const FLAG_SORT: AdvancedOrderByInput = {
+  scope: "orderByFlag",
+  direction: SortOrder.Desc,
+};
+
+const DEFAULT_SORT: AdvancedOrderByInput = {
+  relation: { name: "user", column: "first_name" },
+  direction: SortOrder.Asc,
+};
+
+// final sort by id to handle non-unique columns
+const ID_SORT: AdvancedOrderByInput = {
+  column: "id",
+  direction: SortOrder.Desc,
+};
+
+function transformSortRuleToOrderBy(
+  rule: SortingState[number],
+  direction: SortOrder,
+  locale: Locales,
   filterState?: PoolCandidateSearchInput,
-): QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
-  const columnMap = new Map<string, string>([
-    ["dateReceived", "submitted_at"],
-    ["candidacyStatus", "suspended_at"],
-    ["finalDecision", "status_weight"],
-    ["jobPlacement", "status"],
-    ["candidateName", "FIRST_NAME"],
-    ["email", "EMAIL"],
-    ["preferredLang", "PREFERRED_LANG"],
-    ["currentLocation", "CURRENT_CITY"],
-    ["skillCount", "skill_count"],
-    ["status", "status_weight"],
-    ["notes", "notes"],
-    ["skillCount", "skillCount"],
-    ["processNumber", "PROCESS_NUMBER"],
-    ["assessmentStep", "SORT_ORDER"],
-  ]);
-
-  const sortingRule = sortingRules?.find((rule) => {
-    const columnName = columnMap.get(rule.id);
-    return !!columnName;
-  });
-
-  if (
-    sortingRule &&
-    [
-      "dateReceived",
-      "candidacyStatus",
-      "status",
-      "notes",
-      "finalDecision",
-    ].includes(sortingRule.id)
-  ) {
-    const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: columnName,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      user: undefined,
-    };
+): AdvancedOrderByInput | undefined {
+  const column = COLUMN_SORTS[rule.id];
+  if (column) {
+    return { column, direction };
   }
 
-  if (sortingRule && ["processNumber"].includes(sortingRule.id)) {
-    const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: undefined,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      pool: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column:
-          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn,
-      },
-    };
+  const relation = RELATION_SORTS[rule.id];
+  if (relation) {
+    return { relation, direction };
   }
 
-  if (sortingRule && ["assessmentStep"].includes(sortingRule.id)) {
-    const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: undefined,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      assessmentStep: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column:
-          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn,
-      },
-    };
+  const scope = SCOPE_SORTS[rule.id];
+  if (scope) {
+    return { scope, direction };
+  }
+
+  if (rule.id === "process") {
+    return { relation: { name: "pool", column: `name->${locale}` }, direction };
   }
 
   if (
-    sortingRule &&
-    ["candidateName", "email", "preferredLang", "currentLocation"].includes(
-      sortingRule.id,
-    )
-  ) {
-    const columnName = columnMap.get(sortingRule.id);
-    return {
-      column: undefined,
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      user: {
-        aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column:
-          columnName as QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
-      },
-    };
-  }
-
-  if (
-    sortingRule?.id === "skillCount" &&
+    rule.id === "skillCount" &&
     filterState?.applicantFilter?.skills &&
     filterState.applicantFilter.skills.length > 0
   ) {
-    return {
-      column: "skill_count",
-      order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-      user: undefined,
-    };
+    return { scope: "orderBySkillCount", direction };
   }
-  // input cannot be optional for QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause
-  // default final sort is column candidateName,
 
-  return {
-    column: undefined,
-    order: SortOrder.Asc,
-    user: {
-      aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-      column:
-        "FIRST_NAME" as QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn,
-    },
-  };
+  return undefined;
 }
 
-export function getBaseSort(
+export function transformSortStateToOrderBy(
+  sortState: SortingState | undefined,
+  locale: Locales,
   doNotUseBookmark: boolean,
   doNotUseFlag: boolean,
-): PoolCandidatesBaseSort {
-  return {
-    useBookmark: !doNotUseBookmark,
-    useFlag: !doNotUseFlag,
-  };
-}
-
-export function getSortOrder(
-  sortingRules?: SortingState,
   filterState?: PoolCandidateSearchInput,
-):
-  | QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause[]
-  | undefined {
-  const hasProcess = sortingRules?.find((rule) => rule.id === "process");
-
-  // handle sort in orderByClaimVerification and departments
-  if (
-    sortingRules?.find((rule) =>
-      ["priority", "department", "screeningStage"].includes(rule.id),
-    )
-  ) {
-    return undefined;
-  }
-
-  return [
-    // Do not apply other filters if we are sorting by process
-    ...(!hasProcess
-      ? [
-          transformSortStateToOrderByClause(sortingRules, filterState),
-          { column: "id", order: SortOrder.Desc }, // final sort by id to handle non-unique columns
-        ]
-      : []),
-  ];
-}
-
-export function getClaimVerificationSort(
-  sortingState?: SortingState,
-): ClaimVerificationSort | null | undefined {
-  if (sortingState?.find((rule) => rule.id === "priority")) {
-    // sort only triggers off category sort and current pool -> then no sorting is done in getSortOrder
-    const sortOrder = sortingState.find((rule) => rule.id === "priority");
-    if (sortOrder) {
-      return {
-        order: sortOrder.desc ? SortOrder.Desc : SortOrder.Asc,
-      };
-    }
-  }
-
-  return null;
-}
-
-export function getPoolNameSort(
-  sortingRules?: SortingState,
-  locale?: Locales,
-): PoolCandidatePoolNameOrderByInput | undefined {
-  const sortingRule = sortingRules?.find((rule) => rule.id === "process");
-
-  if (!sortingRule) return undefined;
-
-  return {
-    locale: locale ?? "en",
-    order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-  };
-}
-
-export function getDepartmentSort(
-  sortingRules?: SortingState,
-): SortOrder | undefined {
-  const sortingRule = sortingRules?.find((rule) => rule.id === "department");
-
-  if (!sortingRule) return undefined;
-
-  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
-}
-
-export function getScreeningStageSort(
-  sortingRules?: SortingState,
-): SortOrder | undefined {
-  const sortingRule = sortingRules?.find(
-    (rule) => rule.id === "screeningStage",
+): AdvancedOrderByInput[] {
+  const chosen = unpackMaybes(
+    sortState?.map((rule) =>
+      transformSortRuleToOrderBy(
+        rule,
+        rule.desc ? SortOrder.Desc : SortOrder.Asc,
+        locale,
+        filterState,
+      ),
+    ),
   );
 
-  if (!sortingRule) return undefined;
-
-  return sortingRule.desc ? SortOrder.Desc : SortOrder.Asc;
+  return [
+    ...(doNotUseBookmark ? [] : [BOOKMARK_SORT]),
+    ...(doNotUseFlag ? [] : [FLAG_SORT]),
+    ...(chosen.length ? chosen : [DEFAULT_SORT]),
+    ID_SORT,
+  ];
 }
 
 export function transformPoolCandidateSearchInputToFormValues(
@@ -506,10 +389,11 @@ export function transformPoolCandidateSearchInputToFormValues(
         ?.filter(notEmpty)
         .map((c) => `${c.group}-${c.level}`) ?? [],
     stream: input?.workStreams?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
-    employmentDuration: positionDurationToEmploymentDuration(
-      input?.applicantFilter?.positionDuration,
-    ),
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
+    employmentDuration:
+      positionDurationToEmploymentDuration(
+        input?.applicantFilter?.positionDuration,
+      ) ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -559,7 +443,9 @@ export function transformFormValuesToFilterState(
 ): PoolCandidateSearchInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirement,
       locationPreferences: data.workRegion,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -651,7 +537,7 @@ export const addSearchToPoolCandidateFilterInput = (
 
 // map the enum to a custom string per value
 export const candidateSuspendedFilterToCustomOptions = (
-  suspendedFilterEnums: LocalizedCandidateSuspendedFilter[],
+  suspendedFilterEnums: GenericLocalizedEnum<CandidateSuspendedFilter>[],
   intl: IntlShape,
 ): Radio[] => {
   return suspendedFilterEnums.map((enumObject) => {

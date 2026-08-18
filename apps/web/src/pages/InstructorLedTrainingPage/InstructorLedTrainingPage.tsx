@@ -353,41 +353,39 @@ export const Component = () => {
             description: "Second paragraph of apply section",
           })}
         </p>
-        <p className="mb-3">
-          <Ul space="md">
-            <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Be IT-classified or acting in an IT role for a minimum of four months plus one day",
-                id: "A66erX",
-                description: "First item in list of apply section",
-              })}
-            </li>
-            <li>
-              {intl.formatMessage({
-                defaultMessage: "Have an active Navigar account",
-                id: "A5HTBD",
-                description: "Second item in list of apply section",
-              })}
-            </li>
-            <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Have completed all required prerequisites (course-dependent)",
-                id: "a3GTSe",
-                description: "Third item in list of apply section",
-              })}
-            </li>
-            <li>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Be available to attend at least 80% of the scheduled training",
-                id: "hUf6+2",
-                description: "Fourth item in list of apply section",
-              })}
-            </li>
-          </Ul>
-        </p>
+        <Ul space="md" className="mb-3">
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "Be IT-classified or acting in an IT role for a minimum of four months plus one day",
+              id: "A66erX",
+              description: "First item in list of apply section",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage: "Have an active Navigar account",
+              id: "A5HTBD",
+              description: "Second item in list of apply section",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "Have completed all required prerequisites (course-dependent)",
+              id: "a3GTSe",
+              description: "Third item in list of apply section",
+            })}
+          </li>
+          <li>
+            {intl.formatMessage({
+              defaultMessage:
+                "Be available to attend at least 80% of the scheduled training",
+              id: "hUf6+2",
+              description: "Fourth item in list of apply section",
+            })}
+          </li>
+        </Ul>
         <div
           role="group"
           aria-labelledby="langFilter"

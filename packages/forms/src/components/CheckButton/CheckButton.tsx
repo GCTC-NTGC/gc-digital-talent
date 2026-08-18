@@ -1,3 +1,4 @@
+import type { Ref } from "react";
 import { useIntl } from "react-intl";
 import CheckIcon from "@heroicons/react/24/outline/CheckIcon";
 import MinusIcon from "@heroicons/react/24/outline/MinusIcon";
@@ -30,18 +31,22 @@ const checkBtn = tv({
 type CheckButtonVariants = VariantProps<typeof checkBtn>;
 
 export interface CheckButtonProps extends CheckButtonVariants {
+  ref?: Ref<HTMLButtonElement | null>;
   checked: boolean;
   label: string;
   indeterminate?: boolean;
   onToggle: () => void;
+  className?: string;
 }
 
 const CheckButton = ({
+  ref,
   checked,
   label,
   onToggle,
   indeterminate = false,
   color = "black",
+  className,
 }: CheckButtonProps) => {
   const intl = useIntl();
   const { btn, icon: iconStyles } = checkBtn({ color });
@@ -57,7 +62,12 @@ const CheckButton = ({
   }
 
   return (
-    <button type="button" onClick={() => onToggle()} className={btn()}>
+    <button
+      ref={ref}
+      type="button"
+      onClick={() => onToggle()}
+      className={btn({ class: className })}
+    >
       <span className="sr-only">
         {checked
           ? intl.formatMessage(formMessages.deselectCheck, { label })

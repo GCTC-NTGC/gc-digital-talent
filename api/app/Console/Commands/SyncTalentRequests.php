@@ -35,7 +35,15 @@ class SyncTalentRequests extends Command
                 request_status_changed_at, created_at, updated_at, deleted_at
             FROM pool_candidate_search_requests
             WHERE applicant_filter_id IS NOT NULL
-            ON CONFLICT (id) DO NOTHING;
+            ON CONFLICT (id) DO UPDATE SET
+                status = EXCLUDED.status,
+                in_progress_details = EXCLUDED.in_progress_details,
+                completion_details = EXCLUDED.completion_details,
+                status_changed_at = EXCLUDED.status_changed_at,
+                follow_up_date = EXCLUDED.follow_up_date,
+                admin_notes = EXCLUDED.admin_notes,
+                updated_at = EXCLUDED.updated_at
+            WHERE EXCLUDED.updated_at > talent_requests.updated_at;
             SQL
             );
 

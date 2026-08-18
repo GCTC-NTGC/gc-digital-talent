@@ -4,11 +4,14 @@ import {
   PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
-import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   CandidateRemovalReason,
   SkillCategory,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
@@ -103,14 +106,14 @@ test.describe("Application card", () => {
       removalReason: CandidateRemovalReason.Ineligible,
     });
 
-    expect(candidate.statusUpdatedAt).toBeTruthy();
+    expect(candidate.applicationStatusData?.statusUpdatedAt).toBeTruthy();
 
     const dashboard = new ApplicantDashboardPage(appPage.page);
     await loginBySub(dashboard.page, sub);
     await dashboard.toggleJobApplications();
 
     const expectedDate = rawFormat(
-      parseDateTimeUtc(candidate.statusUpdatedAt ?? ""),
+      parseDateTimeUtc(candidate.applicationStatusData?.statusUpdatedAt ?? ""),
       DATE_FORMAT_LOCALIZED,
     );
 

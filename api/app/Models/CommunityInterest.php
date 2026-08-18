@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\CommunityInterestBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -31,6 +31,11 @@ use Illuminate\Support\Str;
  * @property string $finance_other_roles_other
  * @property bool $consent_to_share_profile
  * @property bool $procurement_is_sdo
+ * @property string $referral_status
+ * @property ?Carbon $referral_follow_up_date
+ * @property ?string $referral_classification_id
+ * @property ?string $referral_notes
+ * @property ?Carbon $referral_status_data_updated_at
  */
 class CommunityInterest extends Model
 {
@@ -46,6 +51,8 @@ class CommunityInterest extends Model
     protected $casts = [
         'additional_duties' => 'array',
         'finance_other_roles' => 'array',
+        'referral_follow_up_date' => 'date',
+        'referral_status_data_updated_at' => 'datetime',
     ];
 
     /**
@@ -71,6 +78,11 @@ class CommunityInterest extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function newEloquentBuilder($query): Builder
+    {
+        return new CommunityInterestBuilder($query);
+    }
+
     /** @return BelongsTo<Community, $this> */
     public function community(): BelongsTo
     {
@@ -87,6 +99,12 @@ class CommunityInterest extends Model
     public function interestInDevelopmentPrograms(): HasMany
     {
         return $this->hasMany(DevelopmentProgramInterest::class);
+    }
+
+    /** @return BelongsTo<Classification, $this> */
+    public function referralClassification(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class, 'referral_classification_id');
     }
 
     /**
@@ -131,59 +149,6 @@ class CommunityInterest extends Model
             ->leftJoin('classifications', 'users.computed_classification', '=', 'classifications.id')
             ->orderBy('group', $order)
             ->orderBy('level', $order);
-    }
-
-    // scope the query to CommunityInterests the current user can view
-    // own interest or belongs to your community and consentToShareProfile is TRUE
-    public function scopeAuthorizedToView(Builder $query, ?array $args = null)
-    {
-        /** @var User | null */
-        $user = Auth::user();
-
-        if (isset($args['userId'])) {
-            $user = User::findOrFail($args['userId']);
-        }
-
-        // can see any community interest - return with no filters added
-        if ($user?->isAbleTo('view-any-communityInterest')) {
-            return $this;
-        }
-
-        // we might want to add some filters for some candidates
-        $filterCountBefore = count($query->getQuery()->wheres);
-        $query->where(function (Builder $query) use ($user) {
-
-            // the user might be able to view their own interests
-            if ($user?->isAbleTo('view-own-employeeProfile')) {
-                $query->orWhere('user_id', $user->id);
-            }
-
-            // the user might be able to view their communities' interests
-            if ($user?->isAbleTo('view-team-communityInterest')) {
-                $query->orWhere(function (Builder $query) use ($user) {
-
-                    // all community teams that the user is a member in
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
-
-                    // filter community teams down to those where the user also has permission to see the interests
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityInterest', $team));
-
-                    $query->whereIn('community_id', $viewPermissionCommunityTeams->pluck('teamable_id')->toArray());
-                    $query->where('consent_to_share_profile', true);
-                });
-            }
-        });
-
-        $filterCountAfter = count($query->getQuery()->wheres);
-        if ($filterCountAfter > $filterCountBefore) {
-            return;
-        }
-
-        // fall through - query will return nothing
-        $query->where('id', null);
     }
 
     public static function scopeCommunities(Builder $query, ?array $communityIds): Builder

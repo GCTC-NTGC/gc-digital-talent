@@ -7,7 +7,7 @@ import {
   GovPositionType,
   ProvinceOrTerritory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { getClassifications } from "~/utils/classification";

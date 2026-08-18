@@ -162,7 +162,7 @@ interface SkillMatchDialogProps {
   poolCandidateName: string;
 }
 
-const SkillMatchDialog = ({
+export const SkillMatchDialog = ({
   filteredSkills,
   skillsCount,
   userId,

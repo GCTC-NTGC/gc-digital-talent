@@ -3,19 +3,22 @@
 namespace Database\Factories;
 
 use App\Enums\CommunityInterestAdditionalDuty;
+use App\Enums\CommunityReferralStatus;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\FinanceChiefRole;
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\DevelopmentProgramUser;
 use App\Models\EducationExperience;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends Factory<CommunityInterest>
  */
-class CommunityInterestFactory extends Factory
+class CommunityInterestFactory extends BaseFactory
 {
     /**
      * Define the model's default state.
@@ -50,7 +53,66 @@ class CommunityInterestFactory extends Factory
             'procurement_is_sdo' => fn ($attributes) => Community::find($attributes['community_id'])->key === 'procurement'
                 ? $this->faker->boolean()
                 : null,
+            'referral_status' => CommunityReferralStatus::NEW->name,
         ];
+    }
+
+    /**
+     * Control consent to share profile
+     */
+    public function consented(bool $consent = true): self
+    {
+        return $this->state(fn () => [
+            'consent_to_share_profile' => $consent,
+        ]);
+    }
+
+    public function pendingReferral(?Carbon $followUpDate = null): self
+    {
+        $followUpDate = $followUpDate ?? $this->faker->dateTimeBetween('-1 month', '+3 months');
+
+        return $this->state(fn () => [
+            'referral_status' => CommunityReferralStatus::PENDING->name,
+            'referral_classification_id' => null,
+            'referral_follow_up_date' => $followUpDate,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
+        ]);
+    }
+
+    public function availableForReferral(?string $classificationId = null, ?Carbon $followUpDate = null): self
+    {
+        $followUpDate = $followUpDate ?? $this->faker->dateTimeBetween('-1 month', '+3 months');
+        $classificationId = $classificationId ?? $this->firstOrCreate(Classification::class)->id;
+
+        return $this->state(fn () => [
+            'referral_status' => CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name,
+            'referral_classification_id' => $classificationId,
+            'referral_follow_up_date' => $followUpDate,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
+        ]);
+    }
+
+    public function notReferred(?string $notes = null): self
+    {
+        $notes = $notes ?? $this->faker->paragraph();
+
+        return $this->state(fn () => [
+            'referral_status' => CommunityReferralStatus::NOT_REFERRED->name,
+            'referral_classification_id' => null,
+            'referral_follow_up_date' => null,
+            'referral_notes' => $notes,
+            'referral_status_data_updated_at' => $this->faker->optional()->dateTimeBetween('-1 month', 'now'),
+        ]);
+    }
+
+    public function withRandomReferralStatus(): self
+    {
+        return match ($this->faker->randomElement(CommunityReferralStatus::cases())) {
+            CommunityReferralStatus::PENDING => $this->pendingReferral(),
+            CommunityReferralStatus::AVAILABLE_FOR_REFERRAL => $this->availableForReferral(),
+            CommunityReferralStatus::NOT_REFERRED => $this->notReferred(),
+            CommunityReferralStatus::NEW => $this,
+        };
     }
 
     /**

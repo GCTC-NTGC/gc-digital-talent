@@ -17,10 +17,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 use OpenSpout\Reader\XLSX\Reader;
+use Tests\ReadsGeneratedFiles;
 use Tests\TestCase;
 
 class UserExcelGeneratorTest extends TestCase
 {
+    use ReadsGeneratedFiles;
     use RefreshDatabase;
 
     protected function setUp(): void
@@ -75,6 +77,41 @@ class UserExcelGeneratorTest extends TestCase
         $this->assertTrue($fileExists, 'File was not generated');
         $fileSize = $disk->size($path);
         $this->assertGreaterThan(0, $fileSize, 'File is empty');
+    }
+
+    /**
+     * The "community" filter should exclude users who are not in the
+     * filtered community, even when no explicit ids are set (full dataset download).
+     */
+    public function testCommunityFilterExcludesUsersOutsideCommunity(): void
+    {
+        // arrange
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+
+        $community = Community::factory()->create();
+
+        $memberUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->create([
+            'user_id' => $memberUser->id,
+            'community_id' => $community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        $outsideUser = User::factory()->withGovEmployeeProfile()->create();
+
+        // act
+        $generator = new UserExcelGenerator(fileName: 'test_community_filter', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['community' => ['id' => $community->id]]);
+        $generator->generate()->write();
+
+        // assert: a user filtered out is not written to the file, so their id is absent from it
+        $text = $this->readWorkbookText('test_community_filter');
+
+        $this->assertStringContainsString($memberUser->id, $text, 'User inside the filtered community should appear');
+        $this->assertStringNotContainsString($outsideUser->id, $text, 'User outside the filtered community should not appear');
     }
 
     /**

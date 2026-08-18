@@ -1,11 +1,10 @@
 import { useState, useMemo } from "react";
 import { useIntl } from "react-intl";
 import QuestionMarkCircleIcon from "@heroicons/react/24/outline/QuestionMarkCircleIcon";
-import sortBy from "lodash/sortBy";
 
 import { TableOfContents, CardRepeater, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { FragmentType, GeneralQuestion } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { PoolStatus, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { EditPoolSectionMetadata } from "~/types/pool";
@@ -15,7 +14,7 @@ import type {
   GeneralQuestionsSubmit,
   GeneralQuestionsSubmitData,
 } from "./utils";
-import { repeaterQuestionsToSubmitData } from "./utils";
+import { questionToSubmitData } from "./utils";
 import GeneralQuestionCard from "./GeneralQuestionCard";
 import GeneralQuestionDialog from "./GeneralQuestionDialog";
 
@@ -30,6 +29,10 @@ const EditPoolGeneralQuestions_Fragment = graphql(/* GraphQL */ `
     generalQuestions {
       id
       sortOrder
+      question {
+        en
+        fr
+      }
       ...GeneralQuestionCard
     }
   }
@@ -53,20 +56,42 @@ const GeneralQuestionsSection = ({
   const pool = getFragment(EditPoolGeneralQuestions_Fragment, poolQuery);
   const questions = useMemo(
     () =>
-      sortBy(
-        unpackMaybes(pool.generalQuestions),
-        (question) => question.sortOrder,
+      unpackMaybes(pool.generalQuestions).sort(
+        (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0),
       ),
     [pool.generalQuestions],
   );
   const { isSubmitting } = useEditPoolContext();
 
-  const handleUpdate = async (newQuestions: GeneralQuestion[]) => {
+  const handleUpdate = async (newQuestions: typeof questions) => {
     setIsUpdating(true);
-    const generalQuestions = repeaterQuestionsToSubmitData(
-      newQuestions,
-      questions,
-    );
+    const deleteItems = questions
+      .filter(
+        (question) =>
+          !newQuestions.some((newQuestion) => newQuestion.id === question.id),
+      )
+      .map((question) => question.id);
+    const addItem = newQuestions.find((question) => question.id === "new");
+    const updateItems = newQuestions
+      .filter((question) => question.id !== "new")
+      .map((question, index) => ({
+        id: question.id,
+        question: questionToSubmitData(question.question),
+        sortOrder: index + 1,
+      }));
+
+    const generalQuestions: GeneralQuestionsSubmitData["generalQuestions"] =
+      addItem
+        ? {
+            create: [
+              {
+                sortOrder: updateItems.length + 1,
+                question: questionToSubmitData(addItem.question),
+              },
+            ],
+          }
+        : { update: updateItems, delete: deleteItems };
+
     await onSave({ generalQuestions }).then(() => {
       setIsUpdating(false);
     });
@@ -91,7 +116,7 @@ const GeneralQuestionsSection = ({
         })}
       </p>
       <div className="my-6">
-        <CardRepeater.Root<GeneralQuestion>
+        <CardRepeater.Root
           items={questions}
           disabled={formDisabled}
           max={MAX_GENERAL_QUESTIONS}

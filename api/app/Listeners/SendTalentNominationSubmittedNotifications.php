@@ -25,6 +25,7 @@ class SendTalentNominationSubmittedNotifications
             config('notify.templates.nomination_received_submitter_fr'),
             config('notify.templates.nomination_received_nominator_en'),
             config('notify.templates.nomination_received_nominator_fr'),
+            config('notify.templates.nomination_received_nominator_enfr'),
         ])
             ->every(fn ($val) => ! empty($val));
     }
@@ -64,12 +65,11 @@ class SendTalentNominationSubmittedNotifications
     protected function maybeSendToAFallbackNominator(TalentNomination $talentNomination)
     {
         $nominatorWorkEmailAddress = $talentNomination->nominator_fallback_work_email;
-        $nominatorLocale = $talentNomination->submitter?->preferredLocale() ?? 'en'; // we don't know the nominator's locale so we'll use the same as submitter
 
         // only send the nominator email if there's a nominator who's different from the submitter
         if (! is_null($nominatorWorkEmailAddress) && $talentNomination->submitter?->work_email != $nominatorWorkEmailAddress) {
             Notification::route(GcNotifyEmailChannel::class, [])
-                ->notify((new TalentNominationReceivedNominator($talentNomination))->locale($nominatorLocale));
+                ->notify((new TalentNominationReceivedNominator($talentNomination))->locale('en-fr'));
         }
 
     }

@@ -5,11 +5,11 @@ import type {
   TalentRequestTrackedUserNotSelectedReason,
 } from "@gc-digital-talent/graphql";
 
-import type { StatusReasonType } from "./components/TalentRequestTrackedUsersTable/ChangeStatusForm";
-
 export interface RouteParams extends Record<string, string> {
   talentRequestId: string;
 }
+
+export type StatusReasonType = "notReferred" | "notSelected";
 
 export interface StatusDialogConfig {
   status: string;

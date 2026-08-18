@@ -4,8 +4,10 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment Application_PoolCandidate on PoolCandidate {
     id
     submittedAt
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
     }
 
     ...ApplicationSnapshot
@@ -306,6 +308,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       }
     }
     signature
+    isSpecialApplication
   }
 `);
 

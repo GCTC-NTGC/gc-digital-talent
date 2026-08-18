@@ -19,7 +19,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
-} from "~/utils/searchRequestUtils";
+} from "~/utils/talentRequestUtils";
 
 import TalentRequestSectionCard from "./TalentRequestSectionCard";
 

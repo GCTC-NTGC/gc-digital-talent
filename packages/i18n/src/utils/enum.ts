@@ -13,8 +13,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchRequestReason,
-  PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
@@ -23,15 +21,15 @@ import {
   SecurityStatus,
   WorkRegion,
   TalentRequestStatus,
+  TalentRequestTrackedUserStatus,
+  TalentRequestReason,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  | (LocalizedEnumString | null | undefined)[]
-  | null
-  | undefined;
+  (LocalizedEnumString | null | undefined)[] | null | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
@@ -124,9 +122,7 @@ export function enumInputToLocalizedEnum<T extends string>(
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
-        | GenericLocalizedEnum<T>
-        | null
-        | undefined)
+        GenericLocalizedEnum<T> | null | undefined)
     : undefined;
 }
 
@@ -191,13 +187,6 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
   ],
-  POOL_CANDIDATE_SEARCH_STATUS: [
-    PoolCandidateSearchStatus.New,
-    PoolCandidateSearchStatus.InProgress,
-    PoolCandidateSearchStatus.Waiting,
-    PoolCandidateSearchStatus.Done,
-    PoolCandidateSearchStatus.DoneNoCandidates,
-  ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
     PriorityWeight.Veteran,
@@ -238,6 +227,12 @@ export const ENUM_SORT_ORDER = {
     PauseReferralsLength.OneYear,
     PauseReferralsLength.UntilExpiry,
     PauseReferralsLength.Other,
+  ],
+  TRACKED_USER_STATUS: [
+    TalentRequestTrackedUserStatus.Referred,
+    TalentRequestTrackedUserStatus.NotReferred,
+    TalentRequestTrackedUserStatus.Selected,
+    TalentRequestTrackedUserStatus.NotSelected,
   ],
 };
 
@@ -351,25 +346,17 @@ export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   );
 }
 
-export function sortPoolCandidateSearchRequestReason(
-  poolCandidateSearchRequestReasons?: MaybeLocalizedEnums,
+export function sortTalentRequestReason(
+  TalentRequestReasons?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
     [
-      PoolCandidateSearchRequestReason.ImmediateHire,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
-      PoolCandidateSearchRequestReason.GeneralInterest,
+      TalentRequestReason.ImmediateHire,
+      TalentRequestReason.UpcomingNeed,
+      TalentRequestReason.GeneralInterest,
+      TalentRequestReason.RequiredByDirective,
     ],
-    poolCandidateSearchRequestReasons,
-  );
-}
-
-export function sortPoolCandidateSearchStatus(
-  poolCandidateSearchStatuses?: MaybeLocalizedEnums,
-) {
-  return sortLocalizedEnums(
-    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
-    poolCandidateSearchStatuses,
+    TalentRequestReasons,
   );
 }
 

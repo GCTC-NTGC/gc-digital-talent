@@ -1,20 +1,131 @@
 import FolderIcon from "@heroicons/react/24/outline/FolderIcon";
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
+import { useState } from "react";
 
-import { Card, Heading, Button } from "@gc-digital-talent/ui";
+import {
+  Accordion,
+  Card,
+  Heading,
+  Pending,
+  ThrowNotFound,
+  Button,
+  Notice,
+} from "@gc-digital-talent/ui";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import permissionConstants from "~/constants/permissionConstants";
+import useRequiredParams from "~/hooks/useRequiredParams";
 
+import NominationEventAccordionItem from "./components/NominationEventAccordionItem";
 import { detailTabMessages } from "./messages";
+import type { RouteParams } from "./types";
 
-const TalentNominationGroupHistoryPage = () => {
+const TalentNominationGroupHistoryNominationGroup_Fragment = graphql(
+  /* GraphQL */ `
+    fragment TalentNominationGroupHistoryNominationGroup on TalentNominationGroup {
+      id
+      talentNominationEvent {
+        name {
+          localized
+        }
+      }
+      nominations {
+        id
+      }
+      ...NominationEventAccordionItem
+    }
+  `,
+);
+
+const TalentNominationGroupHistoryOptions_Fragment = graphql(/* GraphQL */ `
+  fragment TalentNominationGroupHistoryOptions on Query {
+    ...TalentNominationDetailsDialogOptions
+  }
+`);
+
+const GetNomineeId_Query = graphql(/* GraphQL */ `
+  query GetNomineeId($id: UUID!) {
+    talentNominationGroup(id: $id) {
+      id
+      nominee {
+        id
+      }
+    }
+  }
+`);
+
+const TalentNominationGroupsByNominee_Query = graphql(/* GraphQL */ `
+  query TalentNominationGroupsByNominee($nomineeUserId: UUID!) {
+    talentNominationGroupsByNominee(nomineeUserId: $nomineeUserId) {
+      ...TalentNominationGroupHistoryNominationGroup
+    }
+    ...TalentNominationGroupHistoryOptions
+  }
+`);
+
+interface TalentNominationGroupHistoryProps {
+  nominationGroupsQuery: FragmentType<
+    typeof TalentNominationGroupHistoryNominationGroup_Fragment
+  >[];
+  optionsQuery: FragmentType<
+    typeof TalentNominationGroupHistoryOptions_Fragment
+  >;
+}
+
+const TalentNominationGroupHistory = ({
+  nominationGroupsQuery,
+  optionsQuery,
+}: TalentNominationGroupHistoryProps) => {
   const intl = useIntl();
+
+  const nominationGroups = getFragment(
+    TalentNominationGroupHistoryNominationGroup_Fragment,
+    nominationGroupsQuery,
+  );
+
+  const options = getFragment(
+    TalentNominationGroupHistoryOptions_Fragment,
+    optionsQuery,
+  );
+
+  // Sort groups by event name
+  nominationGroups.sort(
+    sortAlphaBy((group) => group.talentNominationEvent?.name?.localized),
+  );
+
+  //get total number of nominations across all nomination groups
+  const nominationCount = nominationGroups.reduce(
+    (total: number, group) => total + unpackMaybes(group.nominations).length,
+    0,
+  );
+
+  const eventKeys = nominationGroups.map((group) => group.id);
+
+  const [expandedValues, setExpandedValues] = useState<string[]>([]);
+  const hasOpenSections = expandedValues.length > 0;
+
+  const toggleSections = () => {
+    setExpandedValues((currentOpen) => {
+      return currentOpen.length > 0 ? [] : eventKeys;
+    });
+  };
 
   return (
     <>
-      <Card space="lg">
-        <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
+      <Card
+        className={
+          nominationCount > 0 ? "rounded-b-none pb-0 sm:pb-0" : undefined
+        }
+        space="lg"
+      >
+        <div className="flex flex-row items-center gap-y-6 xxs:items-start xxs:justify-between sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={FolderIcon}
             level="h2"
@@ -28,12 +139,113 @@ const TalentNominationGroupHistoryPage = () => {
               description: "Heading for the nomination history page",
             })}
           </Heading>
-          <Button type="button" mode="inline" color="primary">
-            {intl.formatMessage(detailTabMessages.collapseNominations)}
-          </Button>
+          {nominationCount > 0 && (
+            <Button mode="inline" color="primary" onClick={toggleSections}>
+              {intl.formatMessage(
+                hasOpenSections
+                  ? detailTabMessages.collapseNominations
+                  : detailTabMessages.expandNominations,
+              )}
+            </Button>
+          )}
         </div>
+        <p className="mt-3">
+          {intl.formatMessage({
+            defaultMessage:
+              "This tab allows you to review the nominee's nomination history by event. Current nominations appear first and you can expand each event to see available nominations as needed.",
+            id: "qo3/Sp",
+            description: "Description for the nomination history page",
+          })}
+        </p>
+        <Card.Separator className="mt-9" />
+
+        {nominationCount === 0 && (
+          <Notice.Root className="mt-9">
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "This user hasn't been nominated for any talent management events.",
+                  id: "UgHwZb",
+                  description:
+                    "Message displayed when a nominee has no nominations to show in their history",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        )}
       </Card>
+
+      {nominationCount > 0 && (
+        <Accordion.Root
+          type="multiple"
+          mode="card"
+          size="sm"
+          value={expandedValues}
+          onValueChange={setExpandedValues}
+          className="mt-0 rounded-t-none"
+        >
+          {nominationGroups.map((nominationGroup) => (
+            <NominationEventAccordionItem
+              key={nominationGroup.id}
+              nominationGroupQuery={nominationGroup}
+              optionsQuery={options}
+            />
+          ))}
+        </Accordion.Root>
+      )}
     </>
+  );
+};
+
+interface TalentNominationGroupHistoryContentProps {
+  nomineeUserId: string;
+}
+
+const TalentNominationGroupHistoryContent = ({
+  nomineeUserId,
+}: TalentNominationGroupHistoryContentProps) => {
+  const [{ data, fetching, error }] = useQuery({
+    query: TalentNominationGroupsByNominee_Query,
+    variables: { nomineeUserId },
+  });
+
+  const nominationGroups = unpackMaybes(data?.talentNominationGroupsByNominee);
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data ? (
+        <TalentNominationGroupHistory
+          nominationGroupsQuery={nominationGroups}
+          optionsQuery={data}
+        />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
+  );
+};
+
+const TalentNominationGroupHistoryPage = () => {
+  const { talentNominationGroupId } = useRequiredParams<RouteParams>(
+    "talentNominationGroupId",
+  );
+
+  const [{ data, fetching, error }] = useQuery({
+    query: GetNomineeId_Query,
+    variables: { id: talentNominationGroupId },
+  });
+
+  const nomineeId = data?.talentNominationGroup?.nominee?.id;
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {nomineeId ? (
+        <TalentNominationGroupHistoryContent nomineeUserId={nomineeId} />
+      ) : (
+        <ThrowNotFound />
+      )}
+    </Pending>
   );
 };
 

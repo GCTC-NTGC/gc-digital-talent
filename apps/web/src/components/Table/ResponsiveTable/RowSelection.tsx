@@ -401,11 +401,7 @@ export const getRowSelectionColumn = <TData extends object>(
     <Header
       table={table}
       color="white"
-      label={intl.formatMessage({
-        defaultMessage: "Select all",
-        id: "Lu5ppY",
-        description: "Label for the checkbox to select all rows in a table",
-      })}
+      label={intl.formatMessage(tableMessages.selectAll)}
     />
   ),
   cell,

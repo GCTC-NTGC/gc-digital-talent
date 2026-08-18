@@ -3,14 +3,10 @@
 namespace Tests\Feature;
 
 use App\Facades\Notify;
-use App\Models\AwardExperience;
 use App\Models\Community;
 use App\Models\Department;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\Skill;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -126,181 +122,6 @@ class PoolCandidateTest extends TestCase
             ->create();
     }
 
-    public function testSkillCount(): void
-    {
-        $query =
-            /** @lang GraphQL */
-            '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
-                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
-                    data {
-                        id
-                        skillCount
-                    }
-                }
-            }
-        ';
-
-        $orderByAsc = [
-            'column' => 'skill_count',
-            'order' => 'ASC',
-        ];
-
-        $orderByDesc = [
-            'column' => 'skill_count',
-            'order' => 'DESC',
-        ];
-
-        $skills = Skill::factory()->count(10)->create();
-        $skillSubset = [$skills[0]->id, $skills[1]->id, $skills[2]->id];
-        $missingSkills = Skill::whereNotIn('id', $skillSubset)
-            ->limit(3)
-            ->get()
-            ->pluck('id')
-            ->toArray();
-
-        $users = User::factory()->count(2)->create();
-        $award = AwardExperience::factory()->create([
-            'user_id' => $users[0]->id,
-        ]);
-        $award->syncSkills([$skills[0]]);
-        $users[0]->awardExperiences()->save($award);
-
-        $education = EducationExperience::factory()->create([
-            'user_id' => $users[0]->id,
-        ]);
-        $education->syncSkills([$skills[1]]);
-        $users[0]->educationExperiences()->save($education);
-
-        $personal = PersonalExperience::factory()->create([
-            'user_id' => $users[1]->id,
-        ]);
-        $personal->syncSkills([$skills[2]]);
-        $users[1]->personalExperiences()->save($personal);
-
-        $userOneCandidate = PoolCandidate::factory()
-            ->submitted()
-            ->for($users[0])
-            ->for($this->pool)
-            ->create();
-
-        $userTwoCandidate = PoolCandidate::factory()
-            ->submitted()
-            ->for($users[1])
-            ->for($this->pool)
-            ->create();
-
-        // Assert skill count matches the number of skills in the subset and orders by skill count in ascending order
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => $orderByAsc,
-                'where' => [
-                    'applicantFilter' => [
-                        'skills' => array_map(function ($id) {
-                            return ['id' => $id];
-                        }, $skillSubset),
-                    ],
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'id' => $userTwoCandidate->id,
-                                'skillCount' => 1,
-                            ],
-                            [
-                                'id' => $userOneCandidate->id,
-                                'skillCount' => 2,
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        // Assert skill count matches the number of skills in the subset and orders by skill count in descending order
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => $orderByDesc,
-                'where' => [
-                    'applicantFilter' => [
-                        'skills' => array_map(function ($id) {
-                            return ['id' => $id];
-                        }, $skillSubset),
-                    ],
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'id' => $userOneCandidate->id,
-                                'skillCount' => 2,
-                            ],
-                            [
-                                'id' => $userTwoCandidate->id,
-                                'skillCount' => 1,
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        // Assert no skill count when no overlapping
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => $orderByAsc,
-                'where' => [
-                    'applicantFilter' => [
-                        'skills' => array_map(function ($id) {
-                            return ['id' => $id];
-                        }, $missingSkills),
-                    ],
-                ],
-            ])->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [],
-                    ],
-                ],
-            ]);
-
-        // Assert no skill count when no skills requested
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => $orderByAsc,
-            ])->assertJsonFragment(['skillCount' => null]);
-
-        // Assert skill count only matches one skill overlapping (user two does not exist in the subset)
-        $this->actingAs($this->communityUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => $orderByAsc,
-                'where' => [
-                    'applicantFilter' => [
-                        'skills' => [
-                            ['id' => $skillSubset[0]],
-                            ['id' => $missingSkills[0]],
-                            ['id' => $missingSkills[1]],
-                            ['id' => $missingSkills[2]],
-                        ],
-                    ],
-                ],
-            ])->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'id' => $userOneCandidate->id,
-                                'skillCount' => 1,
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-    }
-
     public function testNotesAccess(): void
     {
         $basicQuery = /** @lang GraphQL */
@@ -316,7 +137,9 @@ class PoolCandidateTest extends TestCase
         '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    notes
+                    applicationAssessmentData {
+                        notes
+                    }
                 }
             }
          ';
@@ -327,7 +150,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -338,7 +163,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -349,7 +176,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -379,7 +208,9 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'notes' => $this->candidate->notes,
+                        'applicationAssessmentData' => [
+                            'notes' => $this->candidate->notes,
+                        ],
                     ],
                 ],
             ]);
@@ -396,7 +227,9 @@ class PoolCandidateTest extends TestCase
             mutation UpdatePoolCandidateNotes($id: UUID!, $notes: String) {
                 updatePoolCandidateNotes(id: $id, notes: $notes) {
                     id
-                    notes
+                    applicationAssessmentData {
+                        notes
+                    }
                 }
             }
          ';
@@ -416,7 +249,12 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesMutation, $notesVariables)
             ->assertJson([
                 'data' => [
-                    'updatePoolCandidateNotes' => $notesVariables,
+                    'updatePoolCandidateNotes' => [
+                        'id' => $this->candidate->id,
+                        'applicationAssessmentData' => [
+                            'notes' => 'new notes',
+                        ],
+                    ],
                 ],
             ]);
 
@@ -425,7 +263,12 @@ class PoolCandidateTest extends TestCase
             ->graphQL($notesMutation, $notesVariables)
             ->assertJson([
                 'data' => [
-                    'updatePoolCandidateNotes' => $notesVariables,
+                    'updatePoolCandidateNotes' => [
+                        'id' => $this->candidate->id,
+                        'applicationAssessmentData' => [
+                            'notes' => 'new notes',
+                        ],
+                    ],
                 ],
             ]);
         $this->actingAs($this->unAssociatedDepartmentUser, 'api')
@@ -443,7 +286,9 @@ class PoolCandidateTest extends TestCase
         '
             query poolCandidate($id: UUID!) {
                 poolCandidate(id: $id) {
-                    status { value }
+                    applicationStatusData {
+                        status { value }
+                    }
                 }
             }
          ';
@@ -454,8 +299,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -467,8 +314,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -480,8 +329,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -493,8 +344,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -511,8 +364,10 @@ class PoolCandidateTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'status' => [
-                            'value' => $this->candidate->application_status,
+                        'applicationStatusData' => [
+                            'status' => [
+                                'value' => $this->candidate->application_status,
+                            ],
                         ],
                     ],
                 ],
@@ -521,228 +376,6 @@ class PoolCandidateTest extends TestCase
             ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
-    }
-
-    public function testOrderByPoolName(): void
-    {
-        $query =
-            /** @lang GraphQL */
-            '
-            query PoolCandidates($orderBy: PoolCandidatePoolNameOrderByInput) {
-                poolCandidatesPaginated(orderByPoolName: $orderBy) {
-                    data {
-                        id
-                        poolCandidate {
-                            id
-                            pool {
-                                id
-                                name {
-                                    en
-                                    fr
-                                    localized
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        ';
-
-        $poolOne = Pool::factory()->published()->create([
-            'name' => ['en' => 'AA (EN)', 'fr' => 'ÀÉ (FR)'],
-        ]);
-
-        $poolTwo = Pool::factory()->published()->create([
-            'name' => ['en' => 'AB (EN)', 'fr' => 'ÀÀ (FR)'],
-        ]);
-
-        PoolCandidate::truncate();
-        PoolCandidate::factory()->submitted()->for($poolOne)->create();
-        PoolCandidate::factory()->submitted()->for($poolTwo)->create();
-
-        // Assert sorting by EN ASC returns proper order
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'locale' => 'en',
-                    'order' => 'ASC',
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolOne->name,
-                                    ],
-                                ],
-                            ],
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolTwo->name,
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        // Assert sorting by FR ASC returns proper order
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'locale' => 'fr',
-                    'order' => 'ASC',
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolTwo->name,
-                                    ],
-                                ],
-                            ],
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolOne->name,
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        // Assert sorting by EN DESC returns proper order
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'locale' => 'en',
-                    'order' => 'DESC',
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolTwo->name,
-                                    ],
-                                ],
-                            ],
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolOne->name,
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-        // Assert sorting by FR DESC returns proper order
-        $this->actingAs($this->adminUser, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'locale' => 'fr',
-                    'order' => 'DESC',
-                ],
-            ])
-            ->assertJson([
-                'data' => [
-                    'poolCandidatesPaginated' => [
-                        'data' => [
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolOne->name,
-                                    ],
-                                ],
-                            ],
-                            [
-                                'poolCandidate' => [
-                                    'pool' => [
-                                        'name' => $poolTwo->name,
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
-
-    }
-
-    public function testScopeCandidatesInCommunity(): void
-    {
-        $query =
-        /** @lang GraphQL */
-        '
-            query PoolCandidates($where: PoolCandidateSearchInput, $orderBy: QueryPoolCandidatesPaginatedOrderByRelationOrderByClause!) {
-                poolCandidatesPaginated(where: $where, orderBy: [$orderBy]) {
-                    data {
-                        id
-                    }
-                    paginatorInfo {
-                        total
-                    }
-                }
-            }
-        ';
-
-        $community = Community::factory()->create();
-        $otherCommunity = Community::factory()->create();
-        $communityPool = Pool::factory()->published()->create(['community_id' => $community->id]);
-        $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
-        $communityCandidate = PoolCandidate::factory()->availableInSearch()->for($communityPool)->create();
-        $otherCandidate = PoolCandidate::factory()->availableInSearch()->for($otherPool)->create();
-
-        // acting user belongs to both communities to avoid interaction with authorizedToViewScope
-        $communityAdmin = User::factory()
-            ->asCommunityAdmin([$community->id, $otherCommunity->id])
-            ->create();
-
-        // assert no community selection displays both candidates
-        $this->actingAs($communityAdmin, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'column' => 'id',
-                    'order' => 'ASC',
-                ],
-                'where' => [
-                    'applicantFilter' => [],
-                ],
-            ])->assertJsonFragment(['total' => 2])
-            ->assertJsonFragment(['id' => $communityCandidate->id])
-            ->assertJsonFragment(['id' => $otherCandidate->id]);
-
-        // assert selecting $community returns one candidate associated with that community
-        $this->actingAs($communityAdmin, 'api')
-            ->graphQL($query, [
-                'orderBy' => [
-                    'column' => 'id',
-                    'order' => 'ASC',
-                ],
-                'where' => [
-                    'applicantFilter' => [
-                        'community' => ['id' => $community->id],
-                    ],
-                ],
-            ])->assertJsonFragment(['total' => 1])
-            ->assertJsonFragment(['id' => $communityCandidate->id]);
     }
 
     public function testAccessingDeletedEducationExperienceIds()

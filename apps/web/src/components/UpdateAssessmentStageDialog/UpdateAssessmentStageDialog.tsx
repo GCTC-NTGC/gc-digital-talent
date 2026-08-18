@@ -54,8 +54,10 @@ function getStepLabel(
 const UpdateAssessmentStageDialog_Fragment = graphql(/** GraphQL */ `
   fragment UpdateAssessmentStageDialog on PoolCandidate {
     id
-    screeningStage {
-      value
+    applicationStatusData {
+      screeningStage {
+        value
+      }
     }
     assessmentStep {
       id
@@ -146,7 +148,8 @@ const UpdateAssessmentStageDialog = ({
       input: {
         id: candidate.id,
         screeningStage:
-          candidate?.screeningStage?.value ?? ScreeningStage.UnderAssessment,
+          candidate.applicationStatusData?.screeningStage?.value ??
+          ScreeningStage.UnderAssessment,
         assessmentStep: { connect: values.assessmentStep },
       },
     })

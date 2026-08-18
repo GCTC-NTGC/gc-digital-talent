@@ -27,10 +27,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { NullableDecision } from "~/utils/assessmentResults";
 import { NO_DECISION } from "~/utils/assessmentResults";
-import {
-  getExperienceSkills,
-  type ExperienceWithSkills,
-} from "~/utils/skillUtils";
+import type { ExperienceWithSkills } from "~/utils/skillUtils";
+import { getExperienceSkills } from "~/utils/skillUtils";
 import type { ClassificationGroup } from "~/types/classificationGroup";
 import { isClassificationGroup } from "~/types/classificationGroup";
 import { getEducationRequirementOptions } from "~/utils/educationUtils";

@@ -37,6 +37,10 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
     }
     advancementReferenceConfirmed
     advancementNotes
+    advancementClassifications {
+      id
+    }
+    referralExpiryDate
     lateralMovementDecision {
       value
     }
@@ -51,6 +55,7 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
 const NominationGroupEvaluationFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupEvaluationFormOptions on Query {
     ...NominationGroupEvaluationDialogLateralMovementOptions
+    ...NominationGroupEvaluationDialogAdvancementOptions
   }
 `);
 
@@ -146,6 +151,7 @@ const NominationGroupEvaluationForm = ({
               <Separator space="none" decorative />
               <AdvancementSection
                 talentNominationGroupQuery={talentNominationGroup}
+                talentNominationGroupOptionsQuery={talentNominationGroupOptions}
               />
             </>
           ) : null}

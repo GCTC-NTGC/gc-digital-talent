@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ErrorCode;
+use App\Enums\NineBoxRating;
 use App\Enums\TalentNominationLateralMovementOption;
 use App\Enums\TalentNominationNomineeRelationshipToNominator;
 use App\Enums\TalentNominationStep;
@@ -11,6 +12,7 @@ use App\Enums\TalentNominationUserReview;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Rules\GovernmentEmailRegex;
+use App\Rules\TalentEventOpenForUpdatingNominations;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -23,7 +25,10 @@ final class UpdateTalentNominationInputValidator extends Validator
      */
     public function rules(): array
     {
+        $event = TalentNomination::find($this->arg('id'))?->talentNominationEvent;
+
         return [
+            'id' => [new TalentEventOpenForUpdatingNominations()],
             'insertSubmittedStep' => [
                 Rule::in(array_column(TalentNominationStep::cases(), 'name')),
                 // can only review and submit using the submit mutation
@@ -78,7 +83,13 @@ final class UpdateTalentNominationInputValidator extends Validator
             ],
             'nominateForAdvancement' => ['boolean'],
             'nominateForLateralMovement' => ['boolean'],
-            'nominateForDevelopmentPrograms' => ['boolean'],
+            'nominateForDevelopmentPrograms' => [
+                Rule::when(fn () => $event?->includeDevelopmentOpportunities,
+                    ['boolean'],
+                    ['sometimes', 'declined']
+                ),
+
+            ],
 
             'advancementReference.connect' => [
                 'uuid',
@@ -125,13 +136,25 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'array',
                 'exists:skills,id',
                 'distinct',
-                Rule::when(fn ($args) => TalentNomination::find($args['id'])?->talentNominationEvent->include_leadership_competencies,
+                Rule::when(fn () => $event?->include_leadership_competencies,
                     ['max:3'],
                     ['prohibited']
                 ),
             ],
             'skills.sync.*' => [Rule::in(SkillFamily::where('key', 'klc')->sole()->skills->pluck('id')->toArray())],
             'additionalComments' => ['nullable', 'string'],
+            'nineBoxPerformance' => [
+                Rule::when(fn () => $event?->include_nine_box,
+                    [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
+            'nineBoxLeadershipPotential' => [
+                Rule::when(fn () => $event?->include_nine_box,
+                    [Rule::in(array_column(NineBoxRating::cases(), 'name'))],
+                    ['prohibited']
+                ),
+            ],
         ];
     }
 
@@ -149,6 +172,10 @@ final class UpdateTalentNominationInputValidator extends Validator
             'skills.sync.exists' => ErrorCode::SKILL_NOT_FOUND->name,
             'skills.sync.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.sync.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,
+            'nineBoxPerformance.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'nineBoxPerformance.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
+            'nineBoxLeadershipPotential.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'nineBoxLeadershipPotential.prohibited' => ErrorCode::NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT->name,
         ];
     }
 }

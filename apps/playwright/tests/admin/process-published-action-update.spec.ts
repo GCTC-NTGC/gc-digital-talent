@@ -1,5 +1,5 @@
-import type { Pool } from "@gc-digital-talent/graphql";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import type { Pool } from "@gc-digital-talent/graphql/schema-types";
+import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";

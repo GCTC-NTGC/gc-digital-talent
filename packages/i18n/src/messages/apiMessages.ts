@@ -1,5 +1,5 @@
 import type { MessageDescriptor } from "react-intl";
-import { defineMessages } from "react-intl";
+import { defineMessage, defineMessages } from "react-intl";
 
 import { ErrorCode } from "@gc-digital-talent/graphql";
 
@@ -53,6 +53,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     defaultMessage: "This skill key string is already in use",
     id: "xSecEX",
     description: "Error message that the given skill key is already in use.",
+  },
+  [ErrorCode.SkillNotFound]: {
+    defaultMessage: "Skill not found",
+    id: "tyyw1L",
+    description: "Error message that a given skill id does not exist.",
   },
   [ErrorCode.DuplicateUserSkill]: {
     defaultMessage: "The skill you selected is already linked to your profile.",
@@ -601,9 +606,20 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
   },
 });
 
+// This is the message of the restricted.html page that is triggered by trying to use the /admin pages off-network
+const firewallBlock = defineMessage({
+  defaultMessage: "This page can only be accessed on the secure network.",
+  id: "Gr4YoX",
+  description: "Firewall block",
+});
+
 export const tryFindMessageDescriptor = (
   defaultMessage: string,
 ): MessageDescriptor | null => {
+  // This is the title of the restricted.html page that is triggered by trying to use the /admin pages off-network
+  if (defaultMessage.includes("Unauthorized | Non autorisé")) {
+    return firewallBlock;
+  }
   const matchedKey = Object.keys(apiMessages).find(
     (key) => key === defaultMessage,
   );

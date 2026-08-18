@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Enums\ApplicationStatus;
+use App\Enums\PlacementType;
 use App\Events\CandidateStatusChanged;
 use App\Models\PoolCandidate;
 use App\Notifications\ApplicationStatusChanged;
@@ -26,7 +27,12 @@ class PoolCandidateObserver
     {
         $oldStatus = $poolCandidate->getOriginal('application_status');
         $newStatus = $poolCandidate->application_status;
-        $placementChanged = $poolCandidate->wasChanged('placement_type');
+
+        // NOTE: We only send when the user is being placed or changed from indeterminate
+        $oldPlacement = $poolCandidate->getOriginal('placement_type');
+        $newPlacement = $poolCandidate->placement_type;
+        $fromOrToIndertimante = $oldPlacement === PlacementType::PLACED_INDETERMINATE->name || $newPlacement === PlacementType::PLACED_INDETERMINATE->name;
+        $placementChanged = $poolCandidate->wasChanged('placement_type') && $fromOrToIndertimante;
 
         CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('application_status'), $poolCandidate);
 

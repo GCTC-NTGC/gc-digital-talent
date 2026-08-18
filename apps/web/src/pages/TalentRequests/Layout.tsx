@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { useQuery } from "urql";
 
 import {
@@ -15,7 +15,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
@@ -26,9 +25,6 @@ import adminMessages from "~/messages/adminMessages";
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-// TEMP: This is a legacy page that is soon to be removed
-// eslint-disable-next-line no-restricted-imports
-import ViewSearchRequestApi from "~/pages/SearchRequests/ViewSearchRequestPage/components/ViewSearchRequest";
 
 import TalentRequestSidebar from "./components/TalentRequestSidebar";
 import type { RouteParams } from "./types";
@@ -57,7 +53,10 @@ interface LayoutProps {
 const Layout = ({ query, optionsQuery }: LayoutProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const location = useLocation();
   const talentRequest = getFragment(TalentRequestLayout_Fragment, query);
+  const isTrackingRoute =
+    location.pathname === paths.talentRequestTracking(talentRequest.id);
 
   const pageTitle =
     talentRequest.jobTitle ?? intl.formatMessage(commonMessages.notFound);
@@ -75,18 +74,25 @@ const Layout = ({ query, optionsQuery }: LayoutProps) => {
     },
   );
 
-  const crumbs = useBreadcrumbs({
-    crumbs: [
-      {
-        label: intl.formatMessage(pageTitles.talentRequests),
-        url: paths.talentRequests(),
-      },
-      {
-        label: pageTitle,
-        url: paths.talentRequestView(talentRequest.id),
-      },
-    ],
-  });
+  const crumbsConfig = [
+    {
+      label: intl.formatMessage(pageTitles.talentRequests),
+      url: paths.talentRequests(),
+    },
+    {
+      label: pageTitle,
+      url: paths.talentRequestView(talentRequest.id),
+    },
+  ];
+
+  if (isTrackingRoute) {
+    crumbsConfig.push({
+      label: intl.formatMessage(talentRequestMessages.candidateTracking),
+      url: paths.talentRequestTracking(talentRequest.id),
+    });
+  }
+
+  const crumbs = useBreadcrumbs({ crumbs: crumbsConfig });
 
   return (
     <>
@@ -151,20 +157,16 @@ const TalentRequestLayout = () => {
   );
 };
 
-const LegacySearchRequest = () => {
-  const { talentRequestId } = useRequiredParams<RouteParams>("talentRequestId");
-
-  return <ViewSearchRequestApi searchRequestId={talentRequestId} />;
-};
-
 export const Component = () => {
-  const { talentRequests } = useFeatureFlags();
-
   return (
     <RequireAuth
-      roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}
+      roles={[
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+        ROLE_NAME.PlatformAdmin,
+      ]}
     >
-      {talentRequests ? <TalentRequestLayout /> : <LegacySearchRequest />}
+      <TalentRequestLayout />
     </RequireAuth>
   );
 };

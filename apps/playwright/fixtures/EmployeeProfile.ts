@@ -21,9 +21,14 @@ class EmployeeProfile extends AppPage {
     super(page);
   }
 
-  async goToEmployeeProfile() {
-    await this.page.goto("/en/applicant/employee-profile");
-    await this.waitForGraphqlResponse("EmployeeProfilePage");
+  async goToEmployeeVerification() {
+    await this.page.goto("/en/employee");
+    await this.waitForGraphqlResponse("EmployeeVerificationPage");
+  }
+
+  async goToCareerPlanning() {
+    await this.page.goto("/en/employee/career-planning");
+    await this.waitForGraphqlResponse("CareerPlanningPage");
   }
 
   async toggleForm(form: EmployeeProfileForm) {
@@ -131,6 +136,22 @@ class EmployeeProfile extends AppPage {
     await this.page
       .getByRole("button", { name: /save career development preferences/i })
       .click();
+  }
+
+  workEmailVerificationLabel() {
+    const card = this.page.getByRole("group", {
+      name: /Work email verification/i,
+    });
+    return card.getByRole("img").first().getAttribute("aria-label");
+  }
+
+  async removeWorkEmail() {
+    // carry removal out
+    await this.page.getByRole("button", { name: "Update work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.page.getByRole("button", { name: "Remove work email" }).click();
+    await this.waitForGraphqlResponse("RemoveUserWorkEmail");
+    await this.page.getByRole("button", { name: "Cancel" }).click();
   }
 }
 

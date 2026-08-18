@@ -3,7 +3,7 @@ import type {
   CreateAssessmentResultInput,
   PoolCandidate,
   PoolCandidateAdminView,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -11,8 +11,10 @@ const Candidate_ScreeningStageQueryDocument = /* GraphQL */ `
   query Candidate_ScreeningStage($candidateId: UUID!) {
     poolCandidate(id: $candidateId) {
       id
-      screeningStage {
-        value
+      applicationStatusData {
+        screeningStage {
+          value
+        }
       }
     }
   }
@@ -28,13 +30,18 @@ export const getCandidateScreeningStage: GraphQLRequestFunc<
     .post<
       GraphQLResponse<
         "poolCandidate",
-        { id: string; screeningStage: { value: string } }
+        {
+          id: string;
+          applicationStatusData: { screeningStage: { value: string } };
+        }
       >
     >(Candidate_ScreeningStageQueryDocument, {
       isPrivileged: true,
       variables: { candidateId },
     })
-    .then((res) => res.poolCandidate.screeningStage.value);
+    .then(
+      (res) => res.poolCandidate.applicationStatusData.screeningStage.value,
+    );
 };
 
 const Pool_AssessmentStepsQueryDocument = /* GraphQL */ `
@@ -105,7 +112,7 @@ const CandidatesTableCandidatesPaginatedDocument = /* GraphQL */ `
   query CandidatesTableCandidatesPaginated_Query(
     $where: PoolCandidateSearchInput
   ) {
-    poolCandidatesPaginatedAdminView(where: $where) {
+    poolCandidatesPaginated(where: $where) {
       data {
         poolCandidate {
           id
@@ -155,7 +162,7 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
   return ctx
     .post<
       GraphQLResponse<
-        "poolCandidatesPaginatedAdminView",
+        "poolCandidatesPaginated",
         { data: { poolCandidate: PoolCandidateAdminView }[] }
       >
     >(CandidatesTableCandidatesPaginatedDocument, {
@@ -169,8 +176,6 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
       },
     })
     .then((res) => {
-      return res.poolCandidatesPaginatedAdminView.data.map(
-        (item) => item.poolCandidate,
-      );
+      return res.poolCandidatesPaginated.data.map((item) => item.poolCandidate);
     });
 };

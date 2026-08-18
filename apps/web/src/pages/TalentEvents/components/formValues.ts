@@ -13,6 +13,7 @@ export interface FormValues {
     en: string | null;
     fr: string | null;
   };
+  includeNineBox: boolean;
   includeLeadershipCompetencies: boolean;
   community: string;
   communityDevelopmentPrograms: {
@@ -22,4 +23,9 @@ export interface FormValues {
       fr: string | null;
     };
   }[];
+  customInstructions: {
+    en: string | null;
+    fr: string | null;
+  };
+  contactEmail: string | null;
 }

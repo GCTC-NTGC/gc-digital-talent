@@ -37,10 +37,12 @@ import { rowSelectCell } from "~/components/Table/ResponsiveTable/RowSelection";
 import DownloadDocxButton from "~/components/DownloadButton/DownloadDocxButton";
 import useUserDownloads from "~/hooks/useUserDownloads";
 import useTrackedUsersMutations from "~/hooks/useTrackedUsersMutations";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 
 import {
   addSearchToWhere,
   locationAccessor,
+  poolListNameAccessor,
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
@@ -49,9 +51,8 @@ import TalentRequestMatchesFilterDialog, {
   type FormValues,
 } from "./TalentRequestMatchesFilterDialog";
 import { TalentRequestUserSkillMatch_Fragment } from "../skillMatchFragment";
-import ChangeStatusDialog from "../TalentRequestTrackedUsersTable/ChangeStatusDialog";
+import ChangeStatusDialog from "../TalentRequestReferralDialogs/ChangeStatusDialog";
 import type { StatusDialogConfig } from "../../types";
-import changeStatusMessages from "../TalentRequestTrackedUsersTable/messages";
 import TalentRequestAddReferralDialog from "../TalentRequestReferralDialogs/TalentRequestAddReferralDialog";
 import type { TalentRequestReferralDialogOptions } from "../TalentRequestReferralDialogs/ReferralFormFields";
 
@@ -98,11 +99,27 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
+          priorityWeight
+          priority {
+            label {
+              localized
+            }
+          }
         }
         ...TalentRequestAddReferralDialog
         sources {
           label {
             localized
+          }
+        }
+        matchingQualifiedInPoolSources {
+          pool {
+            id
+            displayName {
+              display {
+                localized
+              }
+            }
           }
         }
         skillCount
@@ -282,14 +299,22 @@ const TalentRequestMatchesTable = ({
         meta: { isRowTitle: true },
       },
     ),
+    columnHelper.accessor(({ user }) => user.priority?.label.localized, {
+      id: "priority",
+      header: intl.formatMessage(adminMessages.category),
+      cell: ({
+        row: {
+          original: { user },
+        },
+      }) =>
+        user.priority?.label.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      enableSorting: false,
+      enableColumnFilter: false,
+    }),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
-      header: intl.formatMessage({
-        defaultMessage: "Requested skills",
-        id: "aNhUkJ",
-        description:
-          "Header for the number of user skills matching requested skills",
-      }),
+      header: intl.formatMessage(talentRequestMessages.requestedSkills),
       enableColumnFilter: false,
       cell: ({ row: { original } }) =>
         skillMatchDialogAccessor(
@@ -308,10 +333,25 @@ const TalentRequestMatchesTable = ({
         sources.flatMap((source) => source.label.localized).join(", "),
       {
         id: "sources",
+        header: intl.formatMessage(talentRequestMessages.talentSource),
+        enableSorting: false,
+        enableColumnFilter: false,
+      },
+    ),
+    columnHelper.accessor(
+      ({ matchingQualifiedInPoolSources }) =>
+        poolListNameAccessor(
+          unpackMaybes(matchingQualifiedInPoolSources).map(
+            ({ pool }) => pool?.displayName?.display.localized,
+          ),
+        ),
+      {
+        id: "qualifiedPools",
         header: intl.formatMessage({
-          defaultMessage: "Talent source",
-          id: "ZayKDK",
-          description: "Heading for the source of the matching user",
+          defaultMessage: "Qualified pool",
+          id: "eBz7Va",
+          description:
+            "Header for the column showing which pool(s) a candidate is qualified in",
         }),
         enableSorting: false,
         enableColumnFilter: false,
@@ -332,7 +372,11 @@ const TalentRequestMatchesTable = ({
         ) : null,
     }),
     columnHelper.accessor(
-      ({ user }) => locationAccessor(user?.currentCity, user?.currentProvince),
+      ({ user }) =>
+        locationAccessor(
+          user?.currentCity,
+          user?.currentProvince?.label?.localized,
+        ),
       {
         id: "location",
         header: intl.formatMessage(profileMessages.currentLocation),
@@ -395,7 +439,7 @@ const TalentRequestMatchesTable = ({
   // (confirm or reason-based update) based on the currently chosen status.
   const statusDialogConfigs: Record<ChangeStatusKey, StatusDialogConfig> = {
     referred: {
-      status: intl.formatMessage(changeStatusMessages.referred),
+      status: intl.formatMessage(talentRequestMessages.referred),
       icon: PaperAirplaneIcon,
       disable: creatingTrackedUsersReferred,
       onConfirm: async () => {
@@ -510,8 +554,8 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(changeStatusMessages.changeStatus, {
-                  status: intl.formatMessage(changeStatusMessages.referred),
+                label={intl.formatMessage(talentRequestMessages.markAs, {
+                  status: intl.formatMessage(talentRequestMessages.referred),
                 })}
                 icon={PaperAirplaneIcon}
               />
@@ -521,7 +565,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(changeStatusMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}

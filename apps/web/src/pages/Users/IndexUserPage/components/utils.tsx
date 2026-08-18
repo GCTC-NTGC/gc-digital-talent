@@ -8,8 +8,8 @@ import {
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
+  LocalizedString,
   OrderByClause,
-  RoleAssignment,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -24,13 +24,15 @@ import type { FormValues, OtherFilter } from "./UserFilterDialog";
 import { OTHER_FILTER } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
+interface DisplayRole {
+  name: string;
+  displayName?: LocalizedString | null;
+}
+
 export function rolesAccessor(
-  roleAssignments: RoleAssignment[],
+  roles: (DisplayRole | null | undefined)[],
   intl: IntlShape,
 ): string | null {
-  if (!roleAssignments) return null;
-
-  const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
   const rolesToDisplay = unpackMaybes(roles)
     .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
     .map(
@@ -107,7 +109,9 @@ export function transformFormValuesToUserFilterInput(
 ): UserFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       locationPreferences: data.workRegion,
       operationalRequirements: data.operationalRequirement,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -143,7 +147,7 @@ export function transformUserFilterInputToFormValues(
   }
 
   return {
-    languageAbility: input?.applicantFilter?.languageAbility ?? undefined,
+    languageAbility: input?.applicantFilter?.languageAbility ?? "",
     workRegion: unpackMaybes(input?.applicantFilter?.locationPreferences),
     operationalRequirement: unpackMaybes(
       input?.applicantFilter?.operationalRequirements,
@@ -155,7 +159,7 @@ export function transformUserFilterInputToFormValues(
       input?.applicantFilter?.skills?.flatMap((skill) => skill?.id),
     ),
     employmentDuration: !positionDuration?.length
-      ? undefined
+      ? ""
       : positionDuration.includes(PositionDuration.Temporary)
         ? EmploymentDuration.Term
         : EmploymentDuration.Indeterminate,

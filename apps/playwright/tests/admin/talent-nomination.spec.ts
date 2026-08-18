@@ -1,5 +1,5 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import type { Skill } from "@gc-digital-talent/graphql";
+import type { Skill } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
@@ -215,6 +215,7 @@ test.describe("Talent nomination management", () => {
       .getByRole("button", { name: /submit nomination/i })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
+    await appPage.waitForGraphqlResponse("NominateTalent");
     await expect(
       appPage.page.getByRole("heading", {
         name: /We’ve received your nomination/i,

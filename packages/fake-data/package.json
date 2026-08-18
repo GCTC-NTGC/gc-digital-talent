@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@faker-js/faker": "^10.4.0",
+    "@faker-js/faker": "^10.5.0",
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
     "@gc-digital-talent/i18n": "workspace:*",
@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@gc-digital-talent/eslint-config": "workspace:*",
-    "@types/lodash": "^4.17.24",
+    "@types/lodash": "^4.17.25",
     "eslint": "^9.20.1",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3"

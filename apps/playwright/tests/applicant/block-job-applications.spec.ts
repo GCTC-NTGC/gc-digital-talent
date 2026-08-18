@@ -2,7 +2,7 @@ import type {
   Classification,
   Skill,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   ArmedForcesStatus,
   CitizenshipStatus,
@@ -11,7 +11,7 @@ import {
   ProvinceOrTerritory,
   SkillCategory,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";

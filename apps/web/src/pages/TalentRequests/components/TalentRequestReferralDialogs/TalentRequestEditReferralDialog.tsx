@@ -10,8 +10,7 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages, narrowEnumType } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
@@ -47,27 +46,6 @@ const UpdateTalentRequestTrackedUser_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-export const TalentRequestEditReferralDialogSourceOptions_Fragment = graphql(
-  /* GraphQL */ `
-    fragment TalentRequestEditReferralDialogSourceOptions on Query {
-      talentRequestSources: localizedEnumOptions(
-        enumName: "TalentRequestSource"
-      ) {
-        ... on LocalizedTalentRequestSource {
-          value
-          label {
-            localized
-          }
-        }
-      }
-    }
-  `,
-);
-
-export type TalentRequestEditReferralDialogSourceOptions = FragmentType<
-  typeof TalentRequestEditReferralDialogSourceOptions_Fragment
->;
-
 export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
   fragment TalentRequestEditReferralDialog on TalentRequestTrackedUser {
     id
@@ -83,9 +61,17 @@ export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
     notSelectedReason {
       value
     }
-    sources
+    sources {
+      value
+      label {
+        localized
+      }
+    }
     matchingQualifiedInPoolSources {
       ...ReferralMatchingPoolSource
+    }
+    matchingAdvancementSources {
+      ...ReferralMatchingAdvancementSource
     }
     referralSummary {
       ...ReferralHistory
@@ -101,17 +87,17 @@ export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
 interface TalentRequestEditReferralDialogProps {
   query: FragmentType<typeof TalentRequestEditReferralDialog_Fragment>;
   optionsQuery?: TalentRequestReferralDialogOptions;
-  sourceOptionsQuery?: TalentRequestEditReferralDialogSourceOptions;
   trigger?: ReactNode;
   defaultOpen?: boolean;
+  onCompleted?: () => void;
 }
 
 const TalentRequestEditReferralDialog = ({
   query,
   optionsQuery,
-  sourceOptionsQuery,
   trigger,
   defaultOpen = false,
+  onCompleted,
 }: TalentRequestEditReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
@@ -129,20 +115,9 @@ const TalentRequestEditReferralDialog = ({
     intl,
   );
 
-  const sourceOptions = narrowEnumType(
-    unpackMaybes(
-      getFragment(
-        TalentRequestEditReferralDialogSourceOptions_Fragment,
-        sourceOptionsQuery,
-      )?.talentRequestSources,
-    ),
-    "TalentRequestSource",
-  );
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const sourceLabels = trackedUser.sources.map(
-    (value) =>
-      sourceOptions.find((o) => o.value === value)?.label.localized ??
-      notAvailable,
+    (source) => source.label.localized ?? notAvailable,
   );
 
   const methods = useForm<FormValues>({
@@ -195,6 +170,7 @@ const TalentRequestEditReferralDialog = ({
         );
         methods.reset(values);
         setOpen(false);
+        onCompleted?.();
       })
       .catch(() =>
         toast.error(
@@ -219,6 +195,7 @@ const TalentRequestEditReferralDialog = ({
           <ReferralMatchingSources
             sourceLabels={sourceLabels}
             matchingPoolSources={trackedUser.matchingQualifiedInPoolSources}
+            matchingAdvancementSources={trackedUser.matchingAdvancementSources}
           />
           <ReferralHistory query={trackedUser.referralSummary} />
           <FormProvider {...methods}>

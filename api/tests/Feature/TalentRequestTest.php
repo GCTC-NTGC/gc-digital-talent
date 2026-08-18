@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\TalentRequestSource;
 use App\Models\Community;
 use App\Models\Department;
+use App\Models\TalentRequest;
 use App\Models\User;
 use Database\Seeders\CommunitySeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -38,6 +40,34 @@ class TalentRequestTest extends TestCase
 
     protected User $adminUser;
 
+    protected User $teamRecruiter;
+
+    protected Community $authorizedCommunity;
+
+    protected Community $otherCommunity;
+
+    protected string $talentRequestsQuery = <<<'GRAPHQL'
+        query TalentRequests {
+            talentRequests {
+                data {
+                    id
+                }
+                paginatorInfo {
+                    total
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $updateMutation = <<<'GRAPHQL'
+        mutation UpdateTalentRequest($id: ID!, $talentRequest: UpdateTalentRequestInput!) {
+            updateTalentRequest(id: $id, talentRequest: $talentRequest) {
+                id
+                adminNotes
+            }
+        }
+        GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -54,6 +84,16 @@ class TalentRequestTest extends TestCase
             ->create([
                 'email' => 'admin-user@test.com',
                 'sub' => 'admin-user@test.com',
+            ]);
+
+        $this->authorizedCommunity = Community::factory()->create();
+        $this->otherCommunity = Community::factory()->create();
+
+        $this->teamRecruiter = User::factory()
+            ->asCommunityRecruiter([$this->authorizedCommunity->id])
+            ->create([
+                'email' => 'team-recruiter@test.com',
+                'sub' => 'team-recruiter@test.com',
             ]);
     }
 
@@ -97,6 +137,32 @@ class TalentRequestTest extends TestCase
             ]);
     }
 
+    public function testCreateStoresTalentSources(): void
+    {
+        $response = $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                        'talentSources' => [
+                            TalentRequestSource::QUALIFIED_IN_POOL->name,
+                            TalentRequestSource::AT_LEVEL->name,
+                        ],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLErrorFree();
+
+        $id = $response->json('data.createTalentRequest.id');
+        $talentRequest = TalentRequest::find($id);
+
+        $this->assertEqualsCanonicalizing(
+            [TalentRequestSource::QUALIFIED_IN_POOL->name, TalentRequestSource::AT_LEVEL->name],
+            $talentRequest->applicantFilter->talent_sources,
+        );
+    }
+
     public function testCreateRejectsNonGovernmentEmail(): void
     {
         $this->graphQL($this->createMutation, [
@@ -121,5 +187,46 @@ class TalentRequestTest extends TestCase
             ])
             ->assertGraphQLErrorFree()
             ->assertJsonFragment(['user' => ['id' => $this->adminUser->id]]);
+    }
+
+    public function testTeamRecruiterCanQueryTalentRequestsForOwnCommunity(): void
+    {
+        $visibleRequest = TalentRequest::factory()->create([
+            'community_id' => $this->authorizedCommunity->id,
+        ]);
+        $hiddenRequest = TalentRequest::factory()->create([
+            'community_id' => $this->otherCommunity->id,
+        ]);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->talentRequestsQuery)
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['id' => $visibleRequest->id])
+            ->assertJsonMissing(['id' => $hiddenRequest->id]);
+    }
+
+    public function testTeamRecruiterCanOnlyUpdateOwnCommunityTalentRequest(): void
+    {
+        $ownRequest = TalentRequest::factory()->create([
+            'community_id' => $this->authorizedCommunity->id,
+        ]);
+        $otherRequest = TalentRequest::factory()->create([
+            'community_id' => $this->otherCommunity->id,
+        ]);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $ownRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $otherRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 }

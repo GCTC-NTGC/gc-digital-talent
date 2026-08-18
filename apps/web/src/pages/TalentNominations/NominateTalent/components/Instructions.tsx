@@ -13,6 +13,8 @@ import {
 } from "@gc-digital-talent/graphql";
 import { Link, Dialog, Button } from "@gc-digital-talent/ui";
 import { useHasPermissions } from "@gc-digital-talent/auth";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
+import { htmlToRichTextJSON, RichTextRenderer } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -26,6 +28,13 @@ export const NominateTalentInstructions_Fragment = graphql(/* GraphQL */ `
     talentNominationEvent {
       id
       closeDate
+      community {
+        teamIdForRoleAssignment
+      }
+      customInstructions {
+        localized
+      }
+      contactEmail
     }
   }
 `);
@@ -47,10 +56,11 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
 
   const canNominatePast = useHasPermissions({
     permission: Permission.CreateOwnPastTalentNomination,
+    teamId: data?.talentNominationEvent?.community?.teamIdForRoleAssignment,
   });
 
   const closeDate = data?.talentNominationEvent?.closeDate;
-  const isPastEvent = closeDate ? new Date() > new Date(closeDate) : false;
+  const isPastEvent = isPastDateTime(closeDate);
   const showDialogue = isPastEvent && canNominatePast && !showForm;
 
   const handleToNomination = () => {
@@ -134,7 +144,7 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
   }
 
   return (
-    <UpdateForm>
+    <UpdateForm isPastEvent={isPastEvent} defaultValues={{ id: data.id }}>
       <SubHeading icon={ClipboardDocumentListIcon}>
         {intl.formatMessage({
           defaultMessage: "Instructions",
@@ -144,40 +154,45 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
       </SubHeading>
       <p className="my-6">
         {intl.formatMessage({
-          defaultMessage:
-            "Welcome to the talent nomination form. This form allows you to nominate a candidate for advancement, lateral movement, or development opportunities unique to their area of work.",
-          id: "6ZwHMj",
+          defaultMessage: "Welcome to the talent nomination form.",
+          id: "hG3PGw",
           description:
             "Paragraph one, instructions on how to submit a nomination",
         })}
       </p>
-      <p className="my-6">
-        {intl.formatMessage({
-          defaultMessage:
-            "Nominations must be sponsored by a C-suite level executive working in the candidate’s domain and will be triaged by the associated functional community team. Once confirmed, the candidate will be entered in that community’s talent management system for the current year.",
-          id: "QqwcpX",
-          description:
-            "Paragraph two, instructions on how to submit a nomination",
-        })}
-      </p>
-      <p className="my-6">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Have questions? <link>Reach out to our support team</link>.",
-            id: "3RUGGK",
-            description:
-              "Paragraph two, instructions on how to submit a nomination",
-          },
-          {
-            link: (chunks: ReactNode) => (
-              <Link href={paths.support()} color="black">
-                {chunks}
-              </Link>
-            ),
-          },
-        )}
-      </p>
+      {data.talentNominationEvent.customInstructions?.localized ? (
+        <div className="my-6">
+          <RichTextRenderer
+            node={htmlToRichTextJSON(
+              data.talentNominationEvent.customInstructions.localized,
+            )}
+          />
+        </div>
+      ) : null}
+
+      {data.talentNominationEvent.contactEmail ? (
+        <div className="my-6">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Have questions? <link>Reach out to the community event team.</link>",
+              id: "jUI9DU",
+              description:
+                "Paragraph two, instructions on how to submit a nomination",
+            },
+            {
+              link: (chunks: ReactNode) => (
+                <Link
+                  href={`mailto:${data.talentNominationEvent.contactEmail}`}
+                  color="black"
+                >
+                  {chunks}
+                </Link>
+              ),
+            },
+          )}
+        </div>
+      ) : null}
     </UpdateForm>
   );
 };

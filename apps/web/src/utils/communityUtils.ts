@@ -1,16 +1,29 @@
-import type { RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
-  Role,
-  RoleAssignment,
-  UserPublicProfile,
-} from "@gc-digital-talent/graphql";
+  AuthRole,
+  AuthRoleAssignment,
+  RoleName,
+} from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-export type CommunityMember = {
-  roles: Role[];
-} & UserPublicProfile;
+interface CommunityMemberProfile {
+  id: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  workEmail?: string | null;
+}
 
-export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
+export interface CommunityMember extends CommunityMemberProfile {
+  roles: AuthRole[];
+}
+
+interface CommunityRoleAssignment {
+  role?: AuthRole | null;
+  user?: CommunityMemberProfile | null;
+}
+
+export const groupRoleAssignmentsByUser = (
+  assignments: CommunityRoleAssignment[],
+) => {
   let users: CommunityMember[] = [];
   const filteredAssignments = assignments.filter((assignment) => {
     return (
@@ -50,7 +63,7 @@ export const groupRoleAssignmentsByUser = (assignments: RoleAssignment[]) => {
  */
 export const checkRole = (
   roles: RoleName[] | null,
-  userRoleAssignments: RoleAssignment[] | null,
+  userRoleAssignments: AuthRoleAssignment[] | null,
   communityId?: string,
 ): boolean => {
   if (!roles) {

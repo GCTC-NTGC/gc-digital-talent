@@ -2,6 +2,7 @@ import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
 import type { FormatOptions } from "date-fns/format";
 import { format } from "date-fns/format";
+import { isPast } from "date-fns/isPast";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
@@ -182,6 +183,12 @@ export const parseDateTimeUtc = (d: string): Date => {
 };
 
 /**
+ * Check if an API scalar DateTime (parsed as UTC) is in the past
+ */
+export const isPastDateTime = (d?: string | null): boolean =>
+  !!d && isPast(parseDateTimeUtc(d));
+
+/**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING
  * @returns string of formatted date
  */
@@ -214,3 +221,23 @@ export function getUtcEndOfDayForLocalDate(
 
 export const getUserTimeZone = () =>
   Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+/**
+ * Given an API date (so implicitly UTC) compute whether it should appear as expired in the client.
+ * Need to account for client timezone changing what day it is
+ */
+export const isDateStringExpired = (expiryDate: string): boolean => {
+  // figure out "now" from client, in UTC
+  // API input is assumed to be in terms of UTC date, database standard
+  const now = new Date();
+  const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+  const formattedNowUTC = format(nowUTC, DATE_FORMAT_STRING);
+
+  // compare parsed values, the same timezone should be appended (if at all) to both
+  const expiryDateParsed = parseDateTimeUtc(expiryDate);
+  const nowParsed = parseDateTimeUtc(formattedNowUTC);
+
+  // the function and below line are matching the logic in
+  // PoolCandidateBuilder::whereExpiryStatus()
+  return expiryDateParsed < nowParsed ? true : false;
+};

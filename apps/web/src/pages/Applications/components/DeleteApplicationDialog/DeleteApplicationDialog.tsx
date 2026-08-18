@@ -26,8 +26,10 @@ const DeleteApplication_Mutation = graphql(/** GraphQL */ `
 const DeleteApplicationDialog_Fragment = graphql(/** GraphQL */ `
   fragment DeleteApplicationDialog on PoolCandidate {
     id
-    status {
-      value
+    applicationStatusData {
+      status {
+        value
+      }
     }
   }
 `);
@@ -51,7 +53,10 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
 
   const handleDelete = () => {
     // NOTE: Only drafts can be deleted
-    if (application.status?.value !== ApplicationStatus.Draft) {
+    if (
+      application.applicationStatusData?.status?.value !==
+      ApplicationStatus.Draft
+    ) {
       toast.error(
         intl.formatMessage({
           defaultMessage:

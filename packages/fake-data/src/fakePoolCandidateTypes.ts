@@ -1,4 +1,4 @@
-import type { PoolCandidate } from "@gc-digital-talent/graphql";
+import type { PoolCandidate } from "@gc-digital-talent/graphql/schema-types";
 
 import type {
   GeneratedAwardExperience,

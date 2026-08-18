@@ -22,6 +22,7 @@ export interface AuthTokenResponse {
 const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
+  "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
 };
 
 /**
@@ -33,6 +34,7 @@ const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
  */
 function resolveFixtureSub(sub: string): string {
   if (!sub.includes("@")) return sub;
+  if (!(sub in FIXTURE_SUB_MAP)) return sub;
   const resolved = FIXTURE_SUB_MAP[sub];
   if (!resolved) {
     throw new Error(
@@ -63,15 +65,14 @@ export async function getTokenForSub(sub: string) {
         "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
       );
     }
-    const ctx = await request.newContext();
-    const res = await ctx.get(
-      `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`,
-      { headers: { "X-Testing-Secret": secret } },
-    );
+    const url = `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`;
+    const res = await fetch(url, {
+      headers: { "X-Testing-Secret": secret },
+    });
     const body = await res.text();
-    if (!res.ok() || body.trimStart().startsWith("<")) {
+    if (!res.ok || body.trimStart().startsWith("<")) {
       throw new Error(
-        `Test token request failed (${res.status()}) for "${sub}":\n${body.slice(0, 200)}`,
+        `Test token request failed (${res.status}) for "${sub}":\n${body.slice(0, 200)}`,
       );
     }
     const json = JSON.parse(body) as AuthTokenResponse;
@@ -85,10 +86,12 @@ export async function getTokenForSub(sub: string) {
   // Local/CI: use local Janssen mock OAuth
   const ctx = await request.newContext();
   const query = new URLSearchParams({
-    code: "00000000-0000-0000-0123-456789abcdef",
-    grant_type: "authorization_code",
+    grant_type: "password",
     client_id: "e2e",
     client_secret: "e2e",
+    username: sub,
+    password: "e2e",
+    scope: "openid offline_access",
     sub,
   });
   const json = (await ctx
@@ -111,7 +114,7 @@ export async function getTokenForSub(sub: string) {
  * Login by sub
  *
  * On UAT (TESTING_ENDPOINT_SECRET set): injects tokens directly into localStorage.
- * On local/CI: navigates through the mock GCKey UI.
+ * On local/CI: navigates through the mock auth UI.
  *
  * @param {Page} page
  * @param {String} sub
@@ -121,6 +124,7 @@ export async function loginBySub(
   page: Page,
   sub: string,
   notAuthorized?: boolean,
+  claims?: Record<string, string>,
 ) {
   if (process.env.TESTING_ENDPOINT_SECRET) {
     const tokens = await getTokenForSub(sub);
@@ -138,16 +142,21 @@ export async function loginBySub(
     return;
   }
 
-  // Local: navigate through mock GCKey UI
+  // Local: navigate through mock auth UI
   await page.goto("/en/login-info");
   await expect(
-    page.getByRole("heading", { name: /sign in using gckey/i }),
+    page.getByRole("heading", { name: /sign in using canadalogin/i }),
   ).toBeVisible();
   await page
-    .getByRole("link", { name: /sign in with gckey/i })
+    .getByRole("link", { name: /get started/i })
     .first()
     .click();
   await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  if (claims) {
+    await page
+      .getByRole("textbox", { name: "Claims" })
+      .fill(JSON.stringify(claims));
+  }
   await page.getByRole("button", { name: /sign in/i }).click();
   if (notAuthorized) {
     await expect(

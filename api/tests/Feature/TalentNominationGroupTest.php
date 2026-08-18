@@ -2,6 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
+use App\Enums\TalentNominationGroupDecision;
+use App\Enums\TalentNominationGroupStatus;
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\TalentNomination;
@@ -12,6 +16,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -52,6 +57,29 @@ class TalentNominationGroupTest extends TestCase
             ]);
     }
 
+    protected function createAdvancementNomination(Community $community)
+    {
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        return [$nomination, $coordinator];
+    }
+
     protected $submitNominationMutation = <<<'GRAPHQL'
         mutation SubmitTalentNomination($id: UUID!) {
         submitTalentNomination(id: $id) {
@@ -75,6 +103,9 @@ class TalentNominationGroupTest extends TestCase
         mutation UpdateTalentNominationGroup($id: UUID!, $talentNominationGroup: UpdateTalentNominationGroupInput!) {
             updateTalentNominationGroup(id: $id, talentNominationGroup: $talentNominationGroup) {
                 id
+                advancementClassifications {
+                    id
+                }
             }
         }
     GRAPHQL;
@@ -206,6 +237,151 @@ class TalentNominationGroupTest extends TestCase
         ]);
         $response->assertGraphQLErrorFree();
 
+    }
+
+    public function testArchivedNomineeGroupExcludedFromNominationGroupsQuery()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        // archive the nominee
+        $nominee->delete();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->queryTalentNominationGroups, [
+                'talentNominationEventId' => $talentNominationEvent->id,
+            ]);
+
+        $response->assertJsonFragment(['talentNominationGroups' => []]);
+        $response->assertGraphQLErrorFree();
+    }
+
+    public function testArchivedNomineeGroupHiddenButRestorable()
+    {
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+            ]);
+        $groupId = $nomination->talentNominationGroup->id;
+
+        // archive the nominee
+        $nominee->delete();
+
+        // the group is hidden from normal queries...
+        $this->assertNull(TalentNominationGroup::find($groupId));
+        // ...but still exists, untouched
+        $this->assertNotNull(TalentNominationGroup::withoutGlobalScope('activeNominee')->find($groupId));
+
+        // restoring the nominee brings the group back automatically, no cascade required
+        $nominee->restore();
+        $this->assertNotNull(TalentNominationGroup::find($groupId));
+    }
+
+    public function testSubmittingNominationForAlreadyGroupedArchivedNomineeReusesGroup()
+    {
+        // a second nomination for the same (now-archived) nominee/event must reuse the
+        // existing hidden group rather than violating its uniqueness constraint
+        $nominator1 = $this->makeEmployee('nominator1');
+        $nominator2 = $this->makeEmployee('nominator2');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination1 = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator1->id,
+                'nominator_id' => $nominator1->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        $nominee->delete();
+
+        $nomination2 = TalentNomination::factory()
+            ->submittedRationale()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator2->id,
+                'nominator_id' => $nominator2->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        $this->actingAs($nominator2, 'api')
+            ->graphQL($this->submitNominationMutation, [
+                'id' => $nomination2->id,
+            ]);
+
+        $this->assertEqualsCanonicalizing(
+            TalentNominationGroup::withoutGlobalScope('activeNominee')->sole()->nominations->pluck('id')->toArray(),
+            [
+                $nomination1->id,
+                $nomination2->id,
+            ]
+        );
+    }
+
+    public function testStatusRecomputesForNewNominationOnArchivedNominee()
+    {
+        $nominator1 = $this->makeEmployee('nominator1');
+        $nominator2 = $this->makeEmployee('nominator2');
+        $nominee = $this->makeEmployee('nominee');
+
+        $nomination1 = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator1->id,
+                'nominator_id' => $nominator1->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $group = $nomination1->talentNominationGroup;
+        $group->update(['advancement_decision' => TalentNominationGroupDecision::APPROVED->name]);
+        $this->assertEquals(TalentNominationGroupStatus::APPROVED->name, $group->fresh()->status);
+
+        // archive the nominee
+        $nominee->delete();
+
+        // a second nominator nominates the same (now archived) nominee, for a different option
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $nominator2->id,
+                'nominator_id' => $nominator2->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_lateral_movement' => true,
+            ]);
+
+        // the group's status must reflect the new, undecided nomination - this only works if
+        // TalentNomination::talentNominationGroup() can resolve the group even though its
+        // nominee is archived (TalentNominationObserver relies on this to call updateStatus())
+        $this->assertEquals(
+            TalentNominationGroupStatus::IN_PROGRESS->name,
+            TalentNominationGroup::withoutGlobalScope('activeNominee')->find($group->id)->status
+        );
     }
 
     public function testCommunityCoordinatorFromOtherCommunityCantViewNominationGroup()
@@ -385,5 +561,174 @@ class TalentNominationGroupTest extends TestCase
 
         // Assert nominee did consent to share profile info to admins on nomination profile
         assertEquals($group->consentToShareProfile, true);
+    }
+
+    public function testCoordinatorCanAddAdvancementClassificationsWhenApproved()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $classifications = Classification::factory()->count(2)->create();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementDecision' => 'APPROVED',
+                    'advancementClassifications' => [
+                        'sync' => $classifications->pluck('id')->toArray(),
+                    ],
+                    'referralExpiryDate' => config('constants.far_future_date'),
+                ],
+            ]);
+        $response->assertGraphQLErrorFree();
+        $response->assertJsonFragment([
+            'advancementClassifications' => [
+                ['id' => $classifications[0]->id],
+                ['id' => $classifications[1]->id],
+            ],
+        ]);
+
+        $this->assertEqualsCanonicalizing(
+            $classifications->pluck('id')->toArray(),
+            $nomination->talentNominationGroup->fresh()->advancementClassifications->pluck('id')->toArray(),
+        );
+    }
+
+    public function testCannotAddAdvancementClassificationsUnlessAdvancementApproved()
+    {
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => true,
+            ]);
+
+        $classification = Classification::factory()->create();
+
+        // decision left as not approved (null) while attempting to sync a classification
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.advancementClassifications.sync',
+            ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
+    }
+
+    public function testApprovedAdvancementRequiresAtLeastOneClassification()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createAdvancementNomination($community);
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementDecision' => TalentNominationGroupDecision::APPROVED->name,
+                    'advancementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'referralExpiryDate' => config('constants.far_future_date'),
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.advancementClassifications.sync',
+            ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
+    }
+
+    public function testAdvancementClassificationsProhibitedWhenDecisionIsRejected()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createAdvancementNomination($community);
+
+        $classification = Classification::factory()->create();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementDecision' => TalentNominationGroupDecision::REJECTED->name,
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                    'referralExpiryDate' => null,
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.advancementClassifications.sync',
+            ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
+    }
+
+    public function testInvalidClassificationIdReturnsValidationError()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createAdvancementNomination($community);
+
+        $invalidClassificationId = Str::uuid()->toString();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'advancementDecision' => TalentNominationGroupDecision::APPROVED->name,
+                    'advancementClassifications' => [
+                        'sync' => [$invalidClassificationId],
+                    ],
+                    'referralExpiryDate' => config('constants.far_future_date'),
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.advancementClassifications.sync.0',
+            ErrorCode::CLASSIFICATION_NOT_FOUND->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
     }
 }

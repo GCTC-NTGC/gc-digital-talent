@@ -68,6 +68,20 @@ describe("DateInput", () => {
     await expectNoAccessibilityErrors(container);
   });
 
+  it("shows the default value on initial render, with no typing", () => {
+    renderDateInput({
+      formProps: {
+        ...defaultProps.formProps,
+        defaultValues: { date: "2020-05-15" },
+      },
+      inputProps: defaultProps.inputProps,
+    });
+
+    expect(screen.getByRole("spinbutton", { name: /year/i })).toHaveValue(2020);
+    expect(screen.getByRole("combobox", { name: /month/i })).toHaveValue("05");
+    expect(screen.getByRole("spinbutton", { name: /day/i })).toHaveValue(15);
+  });
+
   it("should render subfields", () => {
     const { rerender } = renderDateInput(defaultProps);
 
@@ -362,6 +376,62 @@ describe("DateInput", () => {
 
     await waitFor(() => {
       expect(submitFn).not.toHaveBeenCalled();
+    });
+  });
+
+  it("clears visible segments when reset without unmounting", async () => {
+    const submitFn = vi.fn();
+
+    const ResettableForm = () => {
+      const methods = useForm<FieldValues>({
+        defaultValues: { date: "" },
+        mode: "onSubmit",
+      });
+
+      return (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit((data) => {
+              submitFn(data);
+            })}
+          >
+            <DateInput id="date" name="date" legend="Date" />
+            <button type="button" onClick={() => methods.reset({ date: "" })}>
+              Reset
+            </button>
+            <button type="submit">Submit</button>
+          </form>
+        </FormProvider>
+      );
+    };
+
+    renderWithProviders(<ResettableForm />);
+
+    const year = screen.getByRole("spinbutton", { name: /year/i });
+    const month = screen.getByRole("combobox", { name: /month/i });
+    const day = screen.getByRole("spinbutton", { name: /day/i });
+
+    await user.type(year, "2023");
+    await user.selectOptions(
+      month,
+      screen.getByRole("option", { name: /january/i }),
+    );
+    await user.type(day, "15");
+
+    await waitFor(() => expect(year).toHaveValue(2023));
+    await waitFor(() => expect(month).toHaveValue("01"));
+    await waitFor(() => expect(day).toHaveValue(15));
+
+    await user.click(screen.getByRole("button", { name: /reset/i }));
+
+    await waitFor(() => expect(year).toHaveValue(null));
+    expect(month).toHaveValue("");
+    expect(day).toHaveValue(null);
+
+    await user.click(screen.getByRole("button", { name: /submit/i }));
+
+    await waitFor(() => {
+      expect(submitFn).toHaveBeenCalledWith({ date: "" });
     });
   });
 });

@@ -1,6 +1,5 @@
 import { useQuery } from "urql";
 
-import type { UserWorkEmail } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -13,12 +12,7 @@ const ManageAccessPool_WorkEmailsQuery = graphql(/* GraphQL */ `
   }
 `);
 
-interface UseAvailableUsersReturn {
-  users: UserWorkEmail[];
-  fetching: boolean;
-}
-
-const useAvailableUsers = (search: string): UseAvailableUsersReturn => {
+const useAvailableUsers = (search: string) => {
   const [{ data, fetching }] = useQuery({
     query: ManageAccessPool_WorkEmailsQuery,
     variables: {

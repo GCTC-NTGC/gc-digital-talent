@@ -11,14 +11,13 @@ import { useQuery } from "urql";
 import { useState, useMemo, useRef } from "react";
 
 import { Link } from "@gc-digital-talent/ui";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import {
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
-import type { User, UserFilterInput } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import type {
+  UserFilterInput,
+  UserTableRowFragment as UserTableRowFragmentType,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Table, {
   getTableStateFromSearchParams,
@@ -48,7 +47,7 @@ import {
 import type { FormValues } from "./UserFilterDialog";
 import UserFilterDialog from "./UserFilterDialog";
 
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<UserTableRowFragmentType>();
 
 const defaultState = {
   ...INITIAL_STATE,
@@ -70,6 +69,43 @@ const defaultState = {
   },
 };
 
+const UserTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment UserTableRow on User {
+    id
+    email
+    isGovEmployee
+    workEmail
+    firstName
+    lastName
+    telephone
+    preferredLang {
+      label {
+        localized
+      }
+    }
+    flexibleWorkLocations {
+      label {
+        localized
+      }
+    }
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    createdDate
+    updatedDate
+    authInfo {
+      roleAssignments {
+        role {
+          name
+          displayName {
+            localized
+          }
+        }
+      }
+    }
+  }
+`);
+
 const UsersPaginated_Query = graphql(/* GraphQL */ `
   query UsersPaginated(
     $where: UserFilterInput
@@ -84,58 +120,7 @@ const UsersPaginated_Query = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
-        id
-        email
-        isGovEmployee
-        workEmail
-        firstName
-        lastName
-        telephone
-        preferredLang {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        preferredLanguageForInterview {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        preferredLanguageForExam {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        flexibleWorkLocations {
-          value
-          label {
-            localized
-          }
-        }
-        lookingForEnglish
-        lookingForFrench
-        lookingForBilingual
-        createdDate
-        updatedDate
-        authInfo {
-          id
-          roleAssignments {
-            id
-            role {
-              id
-              name
-              displayName {
-                localized
-              }
-            }
-          }
-        }
+        ...UserTableRow
       }
       paginatorInfo {
         count
@@ -200,10 +185,7 @@ const UserTable = ({ title }: UserTableProps) => {
     if (selectedRows.length === 1) {
       downloadDoc({ id: selectedRows[0], anonymous });
     } else {
-      downloadZip({
-        ids: selectedRows,
-        anonymous,
-      });
+      downloadZip({ ids: selectedRows, anonymous });
     }
   };
 
@@ -306,7 +288,12 @@ const UserTable = ({ title }: UserTableProps) => {
     }),
     columnHelper.accessor(
       (user) =>
-        rolesAccessor(unpackMaybes(user?.authInfo?.roleAssignments), intl),
+        rolesAccessor(
+          unpackMaybes(user?.authInfo?.roleAssignments).map(
+            (assignment) => assignment.role,
+          ),
+          intl,
+        ),
       {
         id: "rolesAndPermissions",
         header: intl.formatMessage(adminMessages.rolesAndPermissions),
@@ -320,7 +307,9 @@ const UserTable = ({ title }: UserTableProps) => {
       cell: ({ getValue }) => cells.phone(getValue()),
     }),
     columnHelper.accessor(
-      ({ preferredLang }) => getLocalizedName(preferredLang?.label, intl),
+      ({ preferredLang }) =>
+        preferredLang?.label?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       {
         id: "preferredLang",
         enableColumnFilter: false,
@@ -385,7 +374,7 @@ const UserTable = ({ title }: UserTableProps) => {
         },
       }) => cells.date(updatedDate, intl),
     }),
-  ] as ColumnDef<User>[];
+  ] as ColumnDef<UserTableRowFragmentType>[];
 
   const [{ data, fetching }] = useQuery({
     query: UsersPaginated_Query,
@@ -403,15 +392,14 @@ const UserTable = ({ title }: UserTableProps) => {
     },
   });
 
-  const filteredData: User[] = useMemo(() => {
-    const users = data?.usersPaginated?.data ?? [];
-    return users.filter(notEmpty);
-  }, [data?.usersPaginated?.data]);
+  const filteredData = unpackMaybes(
+    getFragment(UserTableRow_Fragment, data?.usersPaginated?.data),
+  );
 
   const hasSelectedRows = selectedRows.length > 0;
 
   return (
-    <Table<User, UserFilterInput>
+    <Table<UserTableRowFragmentType, UserFilterInput>
       data={filteredData}
       caption={title}
       columns={columns}

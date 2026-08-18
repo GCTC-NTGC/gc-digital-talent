@@ -9,6 +9,8 @@ import type {
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 
+import talentRequestMessages from "~/messages/talentRequestMessages";
+
 const CreateTrackedUsersReferred_Mutation = graphql(/* GraphQL */ `
   mutation CreateTrackedUsersReferred(
     $userIds: [UUID!]!
@@ -143,27 +145,13 @@ const useTrackedUsersMutations = () => {
   ] = useMutation(UpdateTrackedUsersNotSelected_Mutation);
 
   const handleUpdateError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: failed to update tracked users.",
-        id: "MeAGh3",
-        description:
-          "Toast shown when a tracked-user bulk mutation fails in Talent Requests.",
-      }),
-    );
+    toast.error(intl.formatMessage(talentRequestMessages.updateError));
 
     return Promise.reject(new Error("Failed to update tracked users."));
   };
 
   const handleUpdateSuccess = () => {
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Tracked users updated successfully.",
-        id: "d/aUXc",
-        description:
-          "Toast shown when a tracked-user bulk mutation succeeds in Talent Requests.",
-      }),
-    );
+    toast.success(intl.formatMessage(talentRequestMessages.updateSuccess));
   };
 
   const createTrackedUsersReferred = async ({

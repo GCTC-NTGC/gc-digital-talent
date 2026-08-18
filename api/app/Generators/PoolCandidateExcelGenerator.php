@@ -528,7 +528,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'skillsIntersectional' => 'whereSkillsIntersectional',
             'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
             'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
-            'community' => 'whereCandidatesInCommunity',
+            'community' => 'whereInCommunity',
         ]);
 
         /** @var Builder<PoolCandidate> $query */

@@ -6,6 +6,11 @@ const messages = defineMessages({
     id: "84XrK+",
     description: "Default message for an empty table",
   },
+  selectAll: {
+    defaultMessage: "Select all",
+    id: "Lu5ppY",
+    description: "Label for the checkbox to select all rows in a table",
+  },
   actions: {
     defaultMessage: "Actions",
     id: "nGx7Xt",

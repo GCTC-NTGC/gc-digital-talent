@@ -1,0 +1,53 @@
+import { tv } from "tailwind-variants";
+import BookmarkSquareIcon from "@heroicons/react/16/solid/BookmarkSquareIcon";
+import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
+import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
+import NoSymbolIcon from "@heroicons/react/16/solid/NoSymbolIcon";
+
+import type { IconType } from "@gc-digital-talent/ui";
+import { TalentRequestTrackedUserStatus } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+
+export const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
+  [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIcon,
+  [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIcon,
+  [TalentRequestTrackedUserStatus.Selected]: CheckIcon,
+  [TalentRequestTrackedUserStatus.NotSelected]: NoSymbolIcon,
+};
+
+const statusIconStyle = tv({
+  base: "size-4 shrink-0",
+  variants: {
+    status: {
+      [TalentRequestTrackedUserStatus.Referred]:
+        "text-primary-600 dark:text-primary-200",
+      [TalentRequestTrackedUserStatus.NotReferred]:
+        "text-gray-500 dark:text-gray-300",
+      [TalentRequestTrackedUserStatus.Selected]:
+        "text-success-600 dark:text-success-200",
+      [TalentRequestTrackedUserStatus.NotSelected]:
+        "text-error-600 dark:text-error-200",
+    },
+  },
+});
+
+interface StatusIconInfo {
+  Icon?: IconType;
+  className: string;
+  label: string;
+}
+
+export const getStatusIcon = (
+  status?: GenericLocalizedEnum<TalentRequestTrackedUserStatus> | null,
+): StatusIconInfo | null => {
+  if (!status?.value || !status.label.localized) return null;
+
+  const statusValue = status?.value;
+  const Icon = statusValue ? statusIcons[statusValue] : undefined;
+
+  return {
+    Icon,
+    className: statusIconStyle({ status: statusValue }),
+    label: status.label.localized,
+  };
+};

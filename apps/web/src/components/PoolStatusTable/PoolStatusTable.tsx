@@ -43,10 +43,12 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       id
       ...ChangeDateDialog_PoolCandidate
-      status {
-        value
-        label {
-          localized
+      applicationStatusData {
+        status {
+          value
+          label {
+            localized
+          }
         }
       }
       expiryDate
@@ -143,14 +145,17 @@ const PoolStatusTable = ({
     ),
     columnHelper.accessor(
       (row) =>
-        row.status?.label?.localized ??
+        row.applicationStatusData?.status?.label?.localized ??
         intl.formatMessage(commonMessages.notAvailable),
       {
         id: "status",
         enableHiding: false,
         header: intl.formatMessage(commonMessages.status),
         sortingFn: ({ original: a }, { original: b }) =>
-          sortStatus(a.status?.value, b.status?.value),
+          sortStatus(
+            a.applicationStatusData?.status?.value,
+            b.applicationStatusData?.status?.value,
+          ),
       },
     ),
     columnHelper.accessor(
@@ -230,7 +235,8 @@ const PoolStatusTable = ({
   }
   if (onlyRecruitmentProcesses) {
     data = data.filter(
-      ({ status }) => status?.value === ApplicationStatus.Qualified,
+      ({ applicationStatusData }) =>
+        applicationStatusData?.status?.value === ApplicationStatus.Qualified,
     );
   }
 

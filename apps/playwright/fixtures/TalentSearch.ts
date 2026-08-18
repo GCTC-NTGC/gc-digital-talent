@@ -5,8 +5,11 @@ import type {
   Classification,
   Skill,
   WorkStream,
-} from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
@@ -66,6 +69,7 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
+
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
       name: /classification/i,
@@ -138,7 +142,7 @@ class TalentSearch extends AppPage {
       .getByRole("checkbox", { name: /overtime \(occasionally\)/i })
       .click();
 
-    await this.waitForGraphqlResponse("CandidateCount");
+    await this.waitForGraphqlResponse("CountTalentRequestMatches");
     await expect(poolCard).toBeVisible();
     await poolCard.getByRole("button", { name: /request candidates/i }).click();
   }
@@ -178,7 +182,9 @@ class TalentSearch extends AppPage {
       ),
     ).toBeVisible();
 
-    await expect(this.page.getByText(workStream?.name?.en ?? "")).toBeVisible();
+    await expect(
+      this.page.getByText(workStream?.name?.en ?? "", { exact: true }),
+    ).toBeVisible();
 
     await expect(
       this.page.getByText(new RegExp(skill?.name.en ?? "")),
@@ -196,7 +202,13 @@ class TalentSearch extends AppPage {
     await expect(this.page.getByText(/1 estimated candidate/i)).toBeVisible();
 
     await this.page.getByRole("button", { name: /submit request/i }).click();
-    await this.waitForGraphqlResponse("RequestForm_CreateRequest");
+    await this.waitForGraphqlResponse("CreateTalentRequest");
+    await expect(
+      this.page.getByRole("heading", {
+        name: /we have received your request/i,
+        level: 2,
+      }),
+    ).toBeVisible();
   }
 }
 export default TalentSearch;

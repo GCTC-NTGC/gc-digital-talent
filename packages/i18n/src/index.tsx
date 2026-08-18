@@ -17,6 +17,7 @@ import {
 import {
   combineMessages,
   getDesiredLocale,
+  getIntlForLocale,
   getPathLocale,
   STORED_LOCALE,
 } from "./utils/utils";
@@ -72,8 +73,7 @@ import {
   sortEvaluatedLanguageAbility,
   sortOpportunityLength,
   sortPlacementType,
-  sortPoolCandidateSearchRequestReason,
-  sortPoolCandidateSearchStatus,
+  sortTalentRequestReason,
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
@@ -84,7 +84,7 @@ import {
   ENUM_SORT_ORDER,
 } from "./utils/enum";
 import type { Locales, Messages } from "./types";
-import { appendLanguageName } from "./utils/lang";
+import { appendLanguageName, appendShortenedLanguageName } from "./utils/lang";
 
 export {
   isLocale,
@@ -110,6 +110,7 @@ export {
   NestedLanguageProvider,
   combineMessages,
   getIntl,
+  getIntlForLocale,
   useLocale,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
@@ -125,13 +126,13 @@ export {
   sortEvaluatedLanguageAbility,
   sortOpportunityLength,
   sortPlacementType,
-  sortPoolCandidateSearchRequestReason,
-  sortPoolCandidateSearchStatus,
+  sortTalentRequestReason,
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
   sortLocalizedEnumOptions,
   appendLanguageName,
+  appendShortenedLanguageName,
 };
 
 export {

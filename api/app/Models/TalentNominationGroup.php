@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use App\Builders\TalentNominationGroupBuilder;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
-use Database\Factories\TalentNominationGroupFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -38,18 +38,23 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $computed_status
  * @property string $comments
  * @property bool $consentToShareProfile
+ * @property ?Carbon $referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
  */
 class TalentNominationGroup extends Model
 {
-    /** @use HasFactory<TalentNominationGroupFactory> */
-    use HasFactory;
-
     use LogsActivity;
 
     protected $keyType = 'string';
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'referral_expiry_date' => 'date',
+    ];
 
     /**
      * The attributes that can be filled using mass-assignment.
@@ -76,6 +81,21 @@ class TalentNominationGroup extends Model
     protected static function booted(): void
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
+
+        // Only pull groups whose nominee is currently active; skip archived ones by default.
+        // To read/update a group even when its nominee is archived, use
+        // TalentNominationGroup::withoutGlobalScope('activeNominee') - see
+        // connectToTalentNominationGroupIfMissing() and TalentNomination::talentNominationGroup().
+        static::addGlobalScope('activeNominee', function (Builder $query) {
+            $query->whereHas('nominee', function (Builder $nomineeQuery) {
+                $nomineeQuery->whereNull('deleted_at');
+            });
+        });
+    }
+
+    public function newEloquentBuilder($query): Builder
+    {
+        return new TalentNominationGroupBuilder($query);
     }
 
     /** @return BelongsTo<TalentNominationEvent, $this> */
@@ -94,6 +114,14 @@ class TalentNominationGroup extends Model
     public function nominations(): HasMany
     {
         return $this->hasMany(TalentNomination::class, 'talent_nomination_group_id');
+    }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function advancementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement')
+            ->withTimestamps();
     }
 
     /**
@@ -237,5 +265,11 @@ class TalentNominationGroup extends Model
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['talentNominationEvent']);
+    }
+
+    /** @return BelongsTo<Classification, $this> */
+    public function classificationAtTimeOfAdvancementApproval(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class);
     }
 }

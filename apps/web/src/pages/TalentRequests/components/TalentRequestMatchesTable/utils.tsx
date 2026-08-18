@@ -7,7 +7,6 @@ import {
   SortOrder,
   type AdvancedOrderByInput,
   type FragmentType,
-  type LocalizedProvinceOrTerritory,
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -22,21 +21,25 @@ import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
 export const locationAccessor = (
   city?: string | null,
-  provinceOrTerritory?: Partial<LocalizedProvinceOrTerritory> | null,
+  provinceOrTerritoryLabel?: string | null,
 ): string | null => {
-  if (!city && !provinceOrTerritory) return null;
+  if (!city && !provinceOrTerritoryLabel) return null;
   const strings: string[] = [];
 
   if (city) {
     strings.push(city);
   }
 
-  if (provinceOrTerritory?.label?.localized) {
-    strings.push(provinceOrTerritory.label.localized);
+  if (provinceOrTerritoryLabel) {
+    strings.push(provinceOrTerritoryLabel);
   }
 
   return strings.join(", ");
 };
+
+export const poolListNameAccessor = (
+  names: (string | null | undefined)[],
+): string => names.filter(notEmpty).join(", ");
 
 export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
   /** GraphQL */ `
@@ -73,6 +76,9 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
         id
       }
       positionDuration
+      talentSources {
+        value
+      }
     }
   `,
 );
@@ -96,7 +102,7 @@ export function transformApplicantFilterToFormValues(
       ({ id }) => id,
     ),
     pools: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
-    languageAbility: applicantFilter?.languageAbility?.value ?? undefined,
+    languageAbility: applicantFilter?.languageAbility?.value ?? "",
     equity: applicantFilter?.equity
       ? [
           ...(applicantFilter.equity.isWoman ? ["isWoman"] : []),
@@ -120,8 +126,11 @@ export function transformApplicantFilterToFormValues(
     priorityWeight: [],
     govEmployee: [],
     departments: [],
-    employmentDuration: positionDurationToEmploymentDuration(
-      applicantFilter?.positionDuration,
+    employmentDuration:
+      positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
+      "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources).map(
+      ({ value }) => value,
     ),
   };
 }
@@ -141,7 +150,7 @@ export function transformWhereToFormValues(
         ?.filter(notEmpty)
         .map(({ id }) => id) ?? [],
     pools: applicantFilter?.pools?.filter(notEmpty).map(({ id }) => id) ?? [],
-    languageAbility: applicantFilter?.languageAbility ?? undefined,
+    languageAbility: applicantFilter?.languageAbility ?? "",
     equity: applicantFilter?.equity
       ? [
           ...(applicantFilter.equity.isWoman ? ["isWoman"] : []),
@@ -161,9 +170,10 @@ export function transformWhereToFormValues(
     priorityWeight: unpackMaybes(input?.priorityWeight),
     govEmployee: unpackMaybes(input?.employeeVerification),
     departments: unpackMaybes(input?.departments),
-    employmentDuration: positionDurationToEmploymentDuration(
-      applicantFilter?.positionDuration,
-    ),
+    employmentDuration:
+      positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
+      "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
 
@@ -172,7 +182,9 @@ export function transformFormValuesToWhere(
 ): TalentRequestMatchFilterInput {
   return {
     applicantFilter: {
-      languageAbility: data.languageAbility,
+      // NOTE: we do want to treat an empty string as unset
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      languageAbility: data.languageAbility || undefined,
       operationalRequirements: data.operationalRequirements,
       locationPreferences: data.workRegions,
       flexibleWorkLocations: data.flexibleWorkLocations,
@@ -198,6 +210,7 @@ export function transformFormValuesToWhere(
             durationToEnumPositionDuration(data.employmentDuration),
           ])
         : undefined,
+      talentSources: data.talentSources,
     },
     priorityWeight: data.priorityWeight,
     employeeVerification: data.govEmployee,

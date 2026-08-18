@@ -9,6 +9,7 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { Card, CardSeparator } from "@gc-digital-talent/ui";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import pageTitles from "~/messages/pageTitles";
 
@@ -28,6 +29,10 @@ const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
     ...NomineeReview
     ...NominationDetailsReview
     ...RationaleReview
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -40,12 +45,18 @@ interface ReviewAndSubmitProps {
 const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
-  const [fetching, { submit }] = useMutations();
 
   const talentNomination = getFragment(
     NominateTalentReviewAndSubmit_Fragment,
     reviewAndSubmitQuery,
   );
+
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
+  const [fetching, { submit }] = useMutations({
+    forceProtectedEndpoint: isPastEvent,
+  });
 
   const methods = useForm<BaseFormValues>({ disabled: fetching });
 

@@ -110,7 +110,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
-      href: adminRoutes.searchRequestTable(),
+      href: adminRoutes.talentRequests(),
       roles: permissionConstants.viewRequests,
     },
     {
@@ -332,12 +332,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           )}
         </div>
         <div className="mt-18 mb-12">
-          <Heading
-            size="h4"
-            icon={CogIcon}
-            color="warning"
-            className="m-t0 mb-6"
-          >
+          <Heading size="h4" icon={CogIcon} color="warning" className="mb-6">
             {intl.formatMessage({
               defaultMessage: "Your roles",
               id: "IJlJF1",

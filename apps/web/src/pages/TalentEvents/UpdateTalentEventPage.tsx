@@ -99,6 +99,7 @@ const UpdateTalentEventForm = ({
           "Canada/Pacific",
         ),
       ),
+      includeNineBox: talentNominationEvent.includeNineBox,
       includeLeadershipCompetencies:
         talentNominationEvent.includeLeadershipCompetencies,
       community: talentNominationEvent.community.id,
@@ -110,6 +111,11 @@ const UpdateTalentEventForm = ({
             fr: cdp.pivot?.descriptionForNominations?.fr,
           },
         })),
+      customInstructions: {
+        en: talentNominationEvent.customInstructions?.en,
+        fr: talentNominationEvent.customInstructions?.fr,
+      },
+      contactEmail: talentNominationEvent.contactEmail,
     },
   });
 
@@ -145,6 +151,10 @@ const UpdateTalentEventForm = ({
       );
     }
 
+    if (!formValues.contactEmail) {
+      throw new Error("contact email is mandatory"); // form enforces this - just to make TS happy
+    }
+
     return executeMutation({
       id: talentNominationEvent.id,
       talentNominationEvent: {
@@ -164,6 +174,11 @@ const UpdateTalentEventForm = ({
             })),
           ],
         },
+        customInstructions: {
+          en: formValues.customInstructions.en ?? "",
+          fr: formValues.customInstructions.fr ?? "",
+        },
+        contactEmail: formValues.contactEmail,
       },
     })
       .then(async (result) => {

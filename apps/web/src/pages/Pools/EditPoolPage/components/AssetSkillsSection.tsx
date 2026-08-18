@@ -3,15 +3,10 @@ import { useIntl } from "react-intl";
 import AcademicCapIcon from "@heroicons/react/24/outline/AcademicCapIcon";
 
 import { ToggleSection } from "@gc-digital-talent/ui";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  SkillLevel,
-  Skill,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { SkillLevel, FragmentType } from "@gc-digital-talent/graphql";
 import {
   PoolSkillType,
-  SkillCategory,
   PoolStatus,
   getFragment,
 } from "@gc-digital-talent/graphql";
@@ -20,20 +15,20 @@ import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import type { EditPoolSectionMetadata } from "~/types/pool";
 import { hasEmptyRequiredFields } from "~/validators/process/nonEssentialSkills";
 
-import SkillTable from "./SkillTable";
+import SkillTable, { type SkillTableSkill_Fragment } from "./SkillTable";
 import type { PoolSkillMutationsType } from "../types";
 import { EditPoolSkills_Fragment } from "../fragments";
 
 interface AssetSkillsSectionProps {
   poolQuery: FragmentType<typeof EditPoolSkills_Fragment>;
   sectionMetadata: EditPoolSectionMetadata;
-  skills: Skill[];
+  skillsQuery: FragmentType<typeof SkillTableSkill_Fragment>[];
   poolSkillMutations: PoolSkillMutationsType;
 }
 
 const AssetSkillsSection = ({
   poolQuery,
-  skills,
+  skillsQuery,
   sectionMetadata,
   poolSkillMutations,
 }: AssetSkillsSectionProps): JSX.Element => {
@@ -46,32 +41,9 @@ const AssetSkillsSection = ({
     fallbackIcon: AcademicCapIcon,
   });
 
-  const poolSkills = pool.poolSkills ?? [];
-  const nonessentialPoolSkills = poolSkills
-    .filter(notEmpty)
-    .filter(
-      (poolSkill) =>
-        poolSkill.type?.value === PoolSkillType.Nonessential && poolSkill.skill,
-    );
-
-  const nonessentialSkills: (Skill & {
-    poolSkillId: string;
-    requiredLevel?: SkillLevel;
-  })[] = nonessentialPoolSkills.map((poolSkill) => {
-    return {
-      // Note: We need to clean these types up
-      category: poolSkill.skill?.category ?? {
-        value: SkillCategory.Technical,
-        label: { en: "", fr: "" },
-      },
-      description: poolSkill.skill?.description,
-      id: poolSkill.skill?.id ?? poolSkill.id,
-      key: poolSkill.skill?.key ?? "",
-      name: poolSkill.skill?.name ?? {},
-      poolSkillId: poolSkill.id,
-      requiredLevel: poolSkill.requiredLevel ?? undefined,
-    };
-  });
+  const nonessentialPoolSkills = unpackMaybes(pool.poolSkills).filter(
+    (poolSkill) => poolSkill.type?.value === PoolSkillType.Nonessential,
+  );
 
   const handleCreate = async (
     skillSelected: string,
@@ -122,8 +94,8 @@ const AssetSkillsSection = ({
       <p className="my-6">{subtitle}</p>
       <SkillTable
         caption={sectionMetadata.title}
-        data={nonessentialSkills}
-        allSkills={skills}
+        poolSkillsQuery={nonessentialPoolSkills}
+        allSkillsQuery={skillsQuery}
         onCreate={handleCreate}
         onUpdate={handleUpdate}
         onRemove={handleRemove}

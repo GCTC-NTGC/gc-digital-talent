@@ -60,7 +60,7 @@ const RichTextInput = ({
   let wordLimitRule = {};
   if (wordLimit) {
     wordLimitRule = {
-      wordCount: (value: string) =>
+      wordCount: (value: string | null) =>
         countNumberOfWordsAfterReplacingHTML(value) <= wordLimit ||
         intl.formatMessage(errorMessages.overWordLimit, {
           value: wordLimit,

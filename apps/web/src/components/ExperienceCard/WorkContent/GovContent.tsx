@@ -47,6 +47,13 @@ const GovContent = ({
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
+  const group = classification?.group;
+  const level = classification?.level;
+  const groupAndLevel =
+    group && level
+      ? group + "-" + (level < 10 ? "0" : "") + level
+      : intl.formatMessage(commonMessages.notAvailable);
+
   if (govEmploymentType?.value === GovEmployeeType.Student) {
     return (
       <>
@@ -89,10 +96,7 @@ const GovContent = ({
           <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-            content={
-              classification?.groupAndLevel ??
-              intl.formatMessage(commonMessages.notAvailable)
-            }
+            content={groupAndLevel}
           />
         </div>
       </>
@@ -126,10 +130,7 @@ const GovContent = ({
           <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-            content={
-              classification?.groupAndLevel ??
-              intl.formatMessage(commonMessages.notAvailable)
-            }
+            content={groupAndLevel}
           />
         </div>
       </>
@@ -156,10 +157,7 @@ const GovContent = ({
           <ClassificationSection
             title={experienceFormLabels.classification}
             headingLevel={headingLevel}
-            content={
-              classification?.groupAndLevel ??
-              intl.formatMessage(commonMessages.notAvailable)
-            }
+            content={groupAndLevel}
           />
         </div>
       </>

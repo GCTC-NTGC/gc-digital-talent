@@ -1,7 +1,7 @@
 import type {
   CreateTalentNominationEventInput,
   TalentNominationEvent,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getCommunities } from "./communities";
@@ -17,6 +17,7 @@ export const defaultTalentNominationEvent: Partial<CreateTalentNominationEventIn
     },
     openDate: oldDate.toISOString().slice(0, 19).replace("T", " "),
     closeDate: newDate.toISOString().slice(0, 19).replace("T", " "),
+    contactEmail: "example@example.org",
   };
 
 const Test_CreateTalentNominationEventMutation = /* GraphQL */ `

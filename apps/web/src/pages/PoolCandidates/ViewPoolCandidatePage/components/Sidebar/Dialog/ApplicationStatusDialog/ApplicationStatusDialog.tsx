@@ -26,10 +26,12 @@ import messages from "./messages";
 const ApplicationStatusDialog_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialog on PoolCandidate {
     id
-    status {
-      value
-      label {
-        localized
+    applicationStatusData {
+      status {
+        value
+        label {
+          localized
+        }
       }
     }
 
@@ -63,14 +65,15 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
   const [isOpen, setOpen] = useState<boolean>(false);
 
   if (
-    !application.status?.value ||
-    application.status?.value === ApplicationStatus.Draft
+    !application.applicationStatusData?.status?.value ||
+    application.applicationStatusData?.status?.value === ApplicationStatus.Draft
   ) {
     return null;
   }
 
   const header = statusHeaderMap.get(
-    application.status?.value ?? ApplicationStatus.ToAssess,
+    application.applicationStatusData?.status?.value ??
+      ApplicationStatus.ToAssess,
   );
 
   const handleSubmit: MutationHandler = async (mutation, msgs) => {
@@ -101,12 +104,13 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
       <Dialog.Trigger>
         <StatusButton
           color={statusColorMap.get(
-            application.status?.value ?? ApplicationStatus.ToAssess,
+            application.applicationStatusData?.status?.value ??
+              ApplicationStatus.ToAssess,
           )}
           icon={PencilSquareIcon}
           block
         >
-          {application.status?.label.localized ??
+          {application.applicationStatusData?.status?.label.localized ??
             intl.formatMessage(commonMessages.notAvailable)}
         </StatusButton>
       </Dialog.Trigger>
@@ -115,19 +119,21 @@ const ApplicationStatusDialog = ({ query }: ApplicationStatusDialogProps) => {
           {intl.formatMessage(header ?? applicationMessages.applicationStatus)}
         </Dialog.Header>
 
-        {application.status?.value === ApplicationStatus.ToAssess && (
-          <ToAssessStatusForm {...commonProps} />
-        )}
+        {application.applicationStatusData?.status?.value ===
+          ApplicationStatus.ToAssess && <ToAssessStatusForm {...commonProps} />}
 
-        {application.status.value === ApplicationStatus.Qualified && (
+        {application.applicationStatusData?.status?.value ===
+          ApplicationStatus.Qualified && (
           <QualifiedStatusForm {...commonProps} query={application} />
         )}
 
-        {application.status.value === ApplicationStatus.Disqualified && (
+        {application.applicationStatusData?.status?.value ===
+          ApplicationStatus.Disqualified && (
           <DisqualifiedStatusForm {...commonProps} query={application} />
         )}
 
-        {application.status.value === ApplicationStatus.Removed && (
+        {application.applicationStatusData?.status?.value ===
+          ApplicationStatus.Removed && (
           <RemovedStatusForm {...commonProps} query={application} />
         )}
       </Dialog.Content>

@@ -7,10 +7,7 @@ import type {
 } from "@gc-digital-talent/graphql";
 
 export type EquityKeys =
-  | "isWoman"
-  | "indigenousCommunities"
-  | "isVisibleMinority"
-  | "hasDisability";
+  "isWoman" | "indigenousCommunities" | "isVisibleMinority" | "hasDisability";
 
 export type UserMutationPromise = Promise<
   UpdateUserAsUserMutation["updateUserAsUser"]

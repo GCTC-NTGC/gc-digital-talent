@@ -6,6 +6,7 @@ use App\Builders\UserBuilder;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
+use App\Support\Query\AdvancedOrder;
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,10 +14,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
-use SortDirection;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
@@ -61,32 +60,6 @@ class TalentRequestTrackedUser extends Pivot
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /** @return HasManyThrough<PoolCandidate, User, $this> */
-    public function matchingQualifiedInPoolSources(): HasManyThrough
-    {
-        // talentRequest.applicantFilter.* is pre-loaded via @with on the schema field
-        $filter = $this->talentRequest->applicantFilter;
-
-        return $this->hasManyThrough(PoolCandidate::class, User::class, 'id', 'user_id', 'user_id', 'id')
-            ->whereMatchesTalentRequest([
-                'qualifiedInClassifications' => $filter->qualifiedInClassifications
-                    ->map(fn ($c) => ['group' => $c->group, 'level' => $c->level])
-                    ->toArray(),
-                'qualifiedInWorkStreams' => $filter->qualifiedInWorkStreams
-                    ->map(fn ($ws) => ['id' => $ws->id])
-                    ->toArray(),
-                'community' => $filter->community_id,
-            ])
-            ->whereAuthorizedToView();
-    }
-
-    /** @return Attribute<array<string>, never> */
-    protected function sources(): Attribute
-    {
-        return Attribute::get(fn (): array => $this->user
-            ->talentRequestSources($this->talentRequest->applicantFilter?->toMatchFilters() ?? []));
     }
 
     /**
@@ -148,17 +121,6 @@ class TalentRequestTrackedUser extends Pivot
         ]);
     }
 
-    public function scopeWithTalentRequestMatches(Builder $query, string $talentRequestId): Builder
-    {
-        $filter = TalentRequest::with([
-            'applicantFilter.qualifiedInClassifications',
-            'applicantFilter.qualifiedInWorkStreams',
-        ])->find($talentRequestId)?->applicantFilter;
-
-        return $query->when($filter, fn (Builder $query) => $query
-            ->with(['user' => fn ($user) => $user->withTalentRequestMatches($filter->toMatchFilters())]));
-    }
-
     /**
      * Filter by a tracked user's current position in the referral → selection flow,
      * mirroring the status chip (a selection decision supersedes the referral decision).
@@ -192,15 +154,9 @@ class TalentRequestTrackedUser extends Pivot
         ));
     }
 
-    public function scopeOrderBySkillCount(Builder $query, ?array $args): Builder
+    public function scopeOrderBySkillCount(Builder $query, AdvancedOrder $args): Builder
     {
-        $direction = match ($args['order'] ?? null) {
-            'ASC' => SortDirection::Ascending,
-            'DESC' => SortDirection::Descending,
-            default => null,
-        };
-
-        return $query->when($direction, fn (Builder $query) => $query->orderBy('skill_count', $direction));
+        return $query->orderBy('skill_count', $args->direction);
     }
 
     public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder

@@ -76,13 +76,14 @@ WithResults.parameters = {
     },
   },
   apiResponses: {
-    CountApplicants: {
+    CountTalentRequestMatches: {
       data: {
-        countApplicantsForSearch: faker.number.int({ max: 50 }),
-        countPoolCandidatesByPool: poolResponse.map((pool) => ({
+        countTalentRequestMatches: faker.number.int({ max: 50 }),
+        countTalentRequestMatchesByPool: poolResponse.map((pool) => ({
           pool,
-          candidateCount: faker.number.int({ max: 10 }),
+          count: faker.number.int({ max: 10 }),
         })),
+        countTalentRequestMatchesByCommunity: [],
       },
     },
     SearchRequestOptions,

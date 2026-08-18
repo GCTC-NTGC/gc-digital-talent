@@ -1,9 +1,16 @@
 import { useIntl } from "react-intl";
 import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
-import { Heading, Separator, Notice } from "@gc-digital-talent/ui";
+import {
+  Heading,
+  Separator,
+  Notice,
+  UNICODE_CHAR,
+  wrapQuotes,
+} from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
 
@@ -23,13 +30,22 @@ const ClaimSeparator = ({ show }: ClaimSeparatorProps) => {
 const ClaimVerification_Fragment = graphql(/* GraphQL */ `
   fragment ClaimVerification on PoolCandidate {
     id
+    specialApplicationType {
+      label {
+        localized
+      }
+    }
+    specialApplicationJustification
+    isSpecialApplication
     user {
       priorityNumber
     }
-    veteranVerification
-    veteranVerificationExpiry
-    priorityVerification
-    priorityVerificationExpiry
+    applicationAssessmentData {
+      veteranVerification
+      veteranVerificationExpiry
+      priorityVerification
+      priorityVerificationExpiry
+    }
   }
 `);
 
@@ -39,17 +55,18 @@ interface ClaimVerificationProps {
 
 const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const claimVerification = getFragment(
     ClaimVerification_Fragment,
     verificationQuery,
   );
 
   const hasEitherClaim =
-    !!claimVerification.veteranVerification ||
-    !!claimVerification.priorityVerification;
+    !!claimVerification.applicationAssessmentData?.veteranVerification ||
+    !!claimVerification.applicationAssessmentData?.priorityVerification;
   const hasBothClaims =
-    !!claimVerification.priorityVerification &&
-    !!claimVerification.veteranVerification;
+    !!claimVerification.applicationAssessmentData?.priorityVerification &&
+    !!claimVerification.applicationAssessmentData?.veteranVerification;
 
   return (
     <>
@@ -73,36 +90,103 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
           description: "Lead-in text for verifying a candidates claims",
         })}
       </p>
+      {claimVerification.isSpecialApplication ? (
+        <Notice.Root color="warning" className="mb-6">
+          <Notice.Title defaultIcon as="h3">
+            {intl.formatMessage(commonMessages.specialApplication)}
+          </Notice.Title>
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This special application was created for the following reason",
+                id: "SUVTfy",
+                description: "Special application type section",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p className="my-3">
+              <span aria-hidden="true" className="mx-2">
+                {UNICODE_CHAR.BULLET}
+              </span>
+              <span className="font-bold">
+                {claimVerification.specialApplicationType?.label?.localized ??
+                  intl.formatMessage(commonMessages.notFound)}
+              </span>
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Provided justification",
+                id: "XB3D2p",
+                description: "Justification section",
+              })}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </p>
+            <p className="mt-3">
+              <span aria-hidden="true" className="mx-2">
+                {UNICODE_CHAR.BULLET}
+              </span>
+              {claimVerification.specialApplicationJustification
+                ? wrapQuotes(
+                    claimVerification.specialApplicationJustification,
+                    locale,
+                  )
+                : intl.formatMessage(commonMessages.notProvided)}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      ) : null}
       {hasEitherClaim ? (
         <>
           <ClaimRow
-            expiry={claimVerification.priorityVerificationExpiry}
-            result={claimVerification.priorityVerification}
+            expiry={
+              claimVerification.applicationAssessmentData
+                ?.priorityVerificationExpiry
+            }
+            result={
+              claimVerification.applicationAssessmentData?.priorityVerification
+            }
             title={intl.formatMessage(profileMessages.priorityStatus)}
           >
             <ClaimVerificationDialog
               context="priority"
               priorityNumber={claimVerification.user.priorityNumber}
               id={claimVerification.id}
-              result={claimVerification.priorityVerification}
-              expiry={claimVerification.priorityVerificationExpiry}
+              result={
+                claimVerification.applicationAssessmentData
+                  ?.priorityVerification
+              }
+              expiry={
+                claimVerification.applicationAssessmentData
+                  ?.priorityVerificationExpiry
+              }
             />
           </ClaimRow>
           <ClaimSeparator show={hasBothClaims} />
           <ClaimRow
-            expiry={claimVerification.veteranVerificationExpiry}
-            result={claimVerification.veteranVerification}
+            expiry={
+              claimVerification.applicationAssessmentData
+                ?.veteranVerificationExpiry
+            }
+            result={
+              claimVerification.applicationAssessmentData?.veteranVerification
+            }
             title={intl.formatMessage(profileMessages.veteranStatus)}
           >
             <ClaimVerificationDialog
               context="veteran"
               id={claimVerification.id}
-              result={claimVerification.veteranVerification}
-              expiry={claimVerification.veteranVerificationExpiry}
+              result={
+                claimVerification.applicationAssessmentData?.veteranVerification
+              }
+              expiry={
+                claimVerification.applicationAssessmentData
+                  ?.veteranVerificationExpiry
+              }
             />
           </ClaimRow>
         </>
-      ) : (
+      ) : claimVerification.isSpecialApplication ? null : (
         <Notice.Root>
           <Notice.Content>
             {intl.formatMessage({

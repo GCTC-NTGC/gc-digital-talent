@@ -17,33 +17,31 @@ enum TalentRequestSource
         return 'talent_request_source';
     }
 
-    // the User relation holding this source's matched records, or null if not implemented yet
-    public function matchRelation(): ?string
+    // the User relation holding this source's matched records
+    public function matchRelation(): string
     {
         return match ($this) {
             self::QUALIFIED_IN_POOL => 'matchingQualifiedInPoolSources',
-            default => null,
+            self::AT_LEVEL => 'matchingAtLevelSources',
+            self::ADVANCEMENT => 'matchingAdvancementSources',
         };
     }
 
     /**
-     * The implemented sources a talent request queries: those named in $selected, or every
-     * implemented source when $selected is null/empty (an unset/empty talentSources filter
-     * means "all sources"). Unimplemented sources (no matchRelation) are never returned.
+     * The sources a talent request queries: those named in $selected, or every source when
+     * $selected is null/empty (an unset/empty talentSources filter means "all sources").
      *
      * @param  ?array<string>  $selected  TalentRequestSource names, e.g. ApplicantFilter talentSources
      * @return array<self>
      */
     public static function selected(?array $selected): array
     {
-        $implemented = array_filter(self::cases(), fn (self $source) => $source->matchRelation() !== null);
-
         if (empty($selected)) {
-            return array_values($implemented);
+            return self::cases();
         }
 
         return array_values(array_filter(
-            $implemented,
+            self::cases(),
             fn (self $source) => in_array($source->name, $selected, true)
         ));
     }
