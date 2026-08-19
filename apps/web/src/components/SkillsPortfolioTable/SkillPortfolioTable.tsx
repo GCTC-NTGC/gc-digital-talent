@@ -282,8 +282,8 @@ const SkillPortfolioTable = ({
       }
       search={{
         label: intl.formatMessage({
-          defaultMessage: "Search your skills",
-          id: "bBIZ3a",
+          defaultMessage: "Search skills",
+          id: "r8mT7a",
           description: "Label for the skill library table search input",
         }),
         internal: true,

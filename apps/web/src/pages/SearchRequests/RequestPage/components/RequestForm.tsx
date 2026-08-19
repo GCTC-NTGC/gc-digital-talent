@@ -49,11 +49,9 @@ import type {
 } from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import { getBasicFullNameLabel } from "~/utils/nameUtils";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
-import {
-  TALENT_REQUEST_STATE_KEY,
-  useTalentRequestState,
-} from "../../SearchPage/hooks";
+import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
