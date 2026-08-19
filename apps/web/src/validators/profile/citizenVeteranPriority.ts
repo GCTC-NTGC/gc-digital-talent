@@ -3,20 +3,13 @@ import type {
   ArmedForcesStatus,
   CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
-
-interface PartialCitizenship {
-  value: CitizenshipStatus;
-}
-
-interface PartialArmedForcesStatus {
-  value: ArmedForcesStatus;
-}
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 export interface PartialUser {
   hasPriorityEntitlement?: boolean | null;
   priorityNumber?: string | null;
-  citizenship?: PartialCitizenship | null;
-  armedForcesStatus?: PartialArmedForcesStatus | null;
+  citizenship?: LocalizedEnumValue<CitizenshipStatus> | null;
+  armedForcesStatus?: LocalizedEnumValue<ArmedForcesStatus> | null;
 }
 
 export function hasAllEmptyFields({

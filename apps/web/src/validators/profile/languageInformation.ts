@@ -6,24 +6,15 @@ import type {
   Language,
   PoolLanguage,
 } from "@gc-digital-talent/graphql";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import type {
+  GenericLocalizedEnum,
+  LocalizedEnumValue,
+} from "@gc-digital-talent/i18n";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
 interface LanguageInformationPool {
   language?: GenericLocalizedEnum<PoolLanguage> | null;
-}
-
-interface PartialLanguage {
-  value: Language;
-}
-
-interface PartialEvaluatedLanguage {
-  value: EvaluatedLanguageAbility;
-}
-
-interface PartialEstimatedLanguage {
-  value: EstimatedLanguageAbility;
 }
 
 export interface PartialUser {
@@ -32,13 +23,13 @@ export interface PartialUser {
   lookingForBilingual?: boolean | null;
   secondLanguageExamCompleted?: boolean | null;
   secondLanguageExamValidity?: boolean | null;
-  firstOfficialLanguage?: PartialLanguage | null;
-  estimatedLanguageAbility?: PartialEstimatedLanguage | null;
-  writtenLevel?: PartialEvaluatedLanguage | null;
-  comprehensionLevel?: PartialEvaluatedLanguage | null;
-  verbalLevel?: PartialEvaluatedLanguage | null;
-  preferredLanguageForInterview?: PartialLanguage | null;
-  preferredLanguageForExam?: PartialLanguage | null;
+  firstOfficialLanguage?: LocalizedEnumValue<Language> | null;
+  estimatedLanguageAbility?: LocalizedEnumValue<EstimatedLanguageAbility> | null;
+  writtenLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  comprehensionLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  verbalLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  preferredLanguageForInterview?: LocalizedEnumValue<Language> | null;
+  preferredLanguageForExam?: LocalizedEnumValue<Language> | null;
 }
 
 export function hasAllEmptyFields({

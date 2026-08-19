@@ -6,27 +6,17 @@ import type {
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
-
-interface PartialWorkRegion {
-  value: WorkRegion;
-}
-
-interface PartialFlexibleWorkLocation {
-  value: FlexibleWorkLocation;
-}
-
-interface PartialProvinceOrTerritory {
-  value: ProvinceOrTerritory;
-}
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 export interface PartialUser {
   positionDuration?: (PositionDuration | null)[] | null;
   locationExemptions?: string | null;
   currentCity?: string | null;
-  locationPreferences?: (PartialWorkRegion | null | undefined)[] | null;
+  locationPreferences?:
+    (LocalizedEnumValue<WorkRegion> | null | undefined)[] | null;
   flexibleWorkLocations?:
-    (PartialFlexibleWorkLocation | null | undefined)[] | null;
-  currentProvince?: PartialProvinceOrTerritory | null;
+    (LocalizedEnumValue<FlexibleWorkLocation> | null | undefined)[] | null;
+  currentProvince?: LocalizedEnumValue<ProvinceOrTerritory> | null;
 }
 
 export function hasAllEmptyFields({

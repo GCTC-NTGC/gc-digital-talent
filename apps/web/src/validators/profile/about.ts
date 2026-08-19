@@ -5,22 +5,13 @@ import type {
   Language,
 } from "@gc-digital-talent/graphql";
 import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
+import type {
+  GenericLocalizedEnum,
+  LocalizedEnumValue,
+} from "@gc-digital-talent/i18n";
 
 interface AboutPool {
   areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
-}
-
-interface PartialLanguage {
-  value: Language;
-}
-
-interface PartialCitizenship {
-  value: CitizenshipStatus;
-}
-
-interface PartialArmedForcesStatus {
-  value: ArmedForcesStatus;
 }
 
 export interface PartialUser {
@@ -31,11 +22,11 @@ export interface PartialUser {
   isEmailVerified?: boolean | null;
   workEmail?: string | null;
   isWorkEmailVerified?: boolean | null;
-  preferredLang?: PartialLanguage | null;
-  preferredLanguageForInterview?: PartialLanguage | null;
-  preferredLanguageForExam?: PartialLanguage | null;
-  citizenship?: PartialCitizenship | null;
-  armedForcesStatus?: PartialArmedForcesStatus | null;
+  preferredLang?: LocalizedEnumValue<Language> | null;
+  preferredLanguageForInterview?: LocalizedEnumValue<Language> | null;
+  preferredLanguageForExam?: LocalizedEnumValue<Language> | null;
+  citizenship?: LocalizedEnumValue<CitizenshipStatus> | null;
+  armedForcesStatus?: LocalizedEnumValue<ArmedForcesStatus> | null;
 }
 
 export function hasAllEmptyFields({
