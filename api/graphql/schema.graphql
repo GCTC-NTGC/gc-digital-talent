@@ -179,12 +179,20 @@ type User {
     @guard
     @belongsToMany(scopes: ["whereAuthorizedToView"])
 
-  poolCandidateSearchRequests: [PoolCandidateSearchRequest!]
-    @canResolved(ability: "view") # Search requests submitted by a user
+  talentRequests: [TalentRequest!] @hasMany(scopes: ["whereAuthorizedToView"]) # Talent requests submitted by a user
   # Nominations
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
+}
+
+type CommunityReferralStatusData {
+  status: LocalizedCommunityReferralStatus!
+    @rename(attribute: "referral_status")
+  followUpDate: Date @rename(attribute: "referral_follow_up_date")
+  classification: Classification @belongsTo(relation: "referralClassification")
+  notes: String @rename(attribute: "referral_notes")
+  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
 }
 
 type CommunityInterest {
@@ -210,6 +218,9 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
+  referralStatus: CommunityReferralStatusData!
+    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
+    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -301,7 +312,7 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
@@ -889,10 +900,12 @@ type TalentNominationEvent {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
   status: LocalizedTalentNominationEventStatus
+  includeDevelopmentOpportunities: Boolean!
   includeNineBox: Boolean! @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedString @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 type TalentNomination {
@@ -1004,7 +1017,9 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
+  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1087,41 +1102,8 @@ type ApplicantFilter {
   qualifiedInWorkStreams: [WorkStream!] @belongsToMany # Filters applicants based on the streams of the pools they've qualified in.
   pools: [Pool] @belongsToMany @canResolved(ability: "view")
   community: Community @belongsTo # Currently does not affect search, scope needs to be added
-  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
-}
-
-type PoolCandidateSearchRequest {
-  id: ID!
-  fullName: String @rename(attribute: "full_name")
-  email: Email
-  department: Department @belongsTo
-  jobTitle: String @rename(attribute: "job_title")
-  additionalComments: String @rename(attribute: "additional_comments")
-  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
-  requestedDate: DateTime @rename(attribute: "created_at")
-  status: LocalizedPoolCandidateSearchStatus
-    @rename(attribute: "request_status")
-    @deprecated(reason: "Use talentRequestStatus instead")
-  statusChangedAt: DateTime @rename(attribute: "request_status_changed_at")
-  adminNotes: String @rename(attribute: "admin_notes")
-  poolCandidateFilter: PoolCandidateFilter
-    @belongsTo
-    @deprecated(reason: "Replaced by applicantFilter")
-  applicantFilter: ApplicantFilter @belongsTo
-  wasEmpty: Boolean @rename(attribute: "was_empty")
-  managerJobTitle: String @rename(attribute: "manager_job_title")
-  positionType: LocalizedPoolCandidateSearchPositionType
-    @rename(attribute: "position_type")
-  reason: LocalizedPoolCandidateSearchRequestReason
-  community: Community @belongsTo
-  initialResultCount: Int @rename(attribute: "initial_result_count")
-  followUpDate: Date @rename(attribute: "follow_up_date")
-  talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
-  inProgressDetails: LocalizedTalentRequestInProgressDetail
-    @rename(attribute: "in_progress_details")
-  completionDetails: LocalizedTalentRequestCompletionDetail
-    @rename(attribute: "completion_details")
-  details: LocalizedString
+  talentSources: [LocalizedTalentRequestSource!]
+    @rename(attribute: "talent_sources")
 }
 
 type TalentRequest {
@@ -1178,25 +1160,17 @@ type TalentRequestTrackedUser {
   notSelectedReason: LocalizedTalentRequestTrackedUserNotSelectedReason
     @rename(attribute: "not_selected_reason")
   sources: [LocalizedTalentRequestSource!]!
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
-  # matchingAdvancementSources is not populated yet.
+    @field(resolver: "Sources")
+    @with(relation: "talentRequest.applicantFilter")
   matchingQualifiedInPoolSources: [PoolCandidate!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAtLevelSources: [CommunityInterest!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
-    @with(relation: "user")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInClassifications")
-    @with(relation: "talentRequest.applicantFilter.qualifiedInWorkStreams")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1482,7 +1456,6 @@ input OrderByColumnInput {
   nulls: NullsOption
 }
 
-# Changes to this input will require some manual updates to api/app/GraphQL/Queries/CountPoolCandidatesByPool.php since it doesn't use the directives for automatic resolution
 input ApplicantFilterInput {
   equity: EquitySelectionsInput @scope(name: "whereEquityIn")
   hasDiploma: Boolean @scope(name: "whereHasDiploma")
@@ -1504,6 +1477,23 @@ input ApplicantFilterInput {
   qualifiedInWorkStreams: [IdInput]
     @scope(name: "whereQualifiedInWorkStreamsIn") # Filters applicants based on the stream of pools they are currently qualified and available in.
   community: IdInput @scope(name: "whereInCommunity") @pluck(key: "id")
+  talentSources: [TalentRequestSource!]
+}
+
+input TalentRequestApplicantFilterInput {
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  positionDuration: [PositionDuration]
+  pools: [IdInput] @pluck(key: "id")
+  skills: [IdInput] @pluck(key: "id")
+  skillsIntersectional: [IdInput] @pluck(key: "id")
+  qualifiedInClassifications: [ClassificationFilterInput]
+  qualifiedInWorkStreams: [IdInput]
+  community: IdInput @pluck(key: "id")
   talentSources: [TalentRequestSource!]
 }
 
@@ -1539,22 +1529,6 @@ input PoolCandidateSearchInput {
   screeningStages: [ScreeningStage!] @scope(name: "whereScreeningStageIn")
 }
 
-input PoolCandidateSearchRequestInput {
-  status: [PoolCandidateSearchStatus] @scope(name: "searchRequestStatus")
-  talentRequestStatus: [TalentRequestStatus] @scope(name: "talentRequestStatus")
-  departments: [ID] @scope
-  classifications: [ID] @scope
-  workStreams: [UUID] @scope
-  fullName: String @scope
-  email: String @scope
-  id: ID @scope
-  jobTitle: String @scope
-  additionalComments: String @scope
-  hrAdvisorEmail: String @scope
-  adminNotes: String @scope
-  generalSearch: String @scope
-}
-
 input TalentRequestInput {
   id: ID @scope(name: "whereId")
   talentRequestStatus: [TalentRequestStatus]
@@ -1570,18 +1544,8 @@ input TalentRequestInput {
   generalSearch: String @scope(name: "whereGeneralSearch")
 }
 
-input PoolCandidatePoolNameOrderByInput {
-  locale: String!
-  order: SortOrder!
-}
-
-type CandidateSearchPoolResult {
-  pool: Pool! @canResolved(ability: "view")
-  candidateCount: Int! @rename(attribute: "candidate_count")
-}
-
 input TalentRequestMatchFilterInput {
-  applicantFilter: ApplicantFilterInput
+  applicantFilter: TalentRequestApplicantFilterInput
   generalSearch: String @scope(name: "whereGeneralSearch")
   name: String @scope(name: "whereName")
   email: String @scope(name: "whereEmail")
@@ -1589,6 +1553,8 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
+  communityReferralStatuses: [CommunityReferralStatus!]
+    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -1599,7 +1565,6 @@ type TalentRequestResult {
   user: User! @self
   sources: [LocalizedTalentRequestSource!]!
     @method(name: "talentRequestSources")
-  # matchingAdvancementSources is not populated yet.
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
@@ -1610,6 +1575,13 @@ type TalentRequestResult {
 
 type TalentRequestMatchPoolCount {
   pool: Pool!
+  count: Int!
+}
+
+type TalentRequestMatchCommunityCount {
+  community: Community!
+  qualifiedInPoolCount: Int!
+  atLevelCount: Int!
   count: Int!
 }
 
@@ -1649,15 +1621,6 @@ input SitewideAnnouncementInput @validator {
   isDismissible: Boolean!
   publishDate: DateTime!
   expiryDate: DateTime!
-}
-
-input ClaimVerificationSort {
-  order: SortOrder!
-}
-
-input PoolCandidatesBaseSort {
-  useFlag: Boolean
-  useBookmark: Boolean
 }
 
 input CommunityInterestFilterInput {
@@ -1746,7 +1709,6 @@ type Query {
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
-  countApplicantsForSearch(where: ApplicantFilterInput): Int!
   talentRequestMatches(
     where: TalentRequestMatchFilterInput
       @scope(name: "whereMatchesTalentRequest")
@@ -1763,6 +1725,9 @@ type Query {
   countTalentRequestMatchesByPool(
     where: TalentRequestMatchFilterInput
   ): [TalentRequestMatchPoolCount!]!
+  countTalentRequestMatchesByCommunity(
+    where: TalentRequestMatchFilterInput
+  ): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
@@ -1798,56 +1763,22 @@ type Query {
     @find
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidatesPaginatedAdminView(
+  poolCandidatesPaginated(
     where: PoolCandidateSearchInput
       @scope(name: "wherePoolCandidateSearchInputToSpecialLocationMatching")
-    orderByBase: PoolCandidatesBaseSort @scope
-    orderByPoolName: PoolCandidatePoolNameOrderByInput @scope
-    orderByClaimVerification: ClaimVerificationSort @scope
-    orderByEmployeeDepartment: SortOrder @scope
-    orderByScreeningStage: SortOrder @scope
-    orderBy: _
-      @orderBy(
-        relations: [
-          {
-            relation: "user"
-            columns: [
-              "priority_weight"
-              "first_name"
-              "email"
-              "preferred_lang"
-              "preferred_language_for_interview"
-              "preferred_language_for_exam"
-              "current_city"
-            ]
-          }
-          { relation: "pool", columns: ["process_number"] }
-          { relation: "assessmentStep", columns: ["sort_order"] }
-        ]
-      )
-      @with(
-        relations: [
-          "user:id,first_name,last_name,email,preferred_lang,computed_department"
-          "user.poolCandidates.pool.team"
-          "user.poolCandidates.pool.community.team"
-          "user.communityInterests.community.team"
-          "pool:id,process_number"
-          "skills:id,name"
-        ]
-      ) # Limit fields for eager loading
   ): [PoolCandidateAdminViewWithSkillCount]!
     @guard
+    @advancedOrderBy
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
+      scopes: [
+        "whereSkillCount"
+        "whereAuthorizedToViewPoolCandidateAdminView"
+        "withPaginatedEagerLoads"
+      ]
       model: "App\\Models\\PoolCandidate"
     )
-  # This query lives at api/app/GraphQL/Queries/CountPoolCandidatesByPool.php.
-  # Returns the number of candidates by filtering their parent applicant, grouped by pool.
-  countPoolCandidatesByPool(
-    where: ApplicantFilterInput
-  ): [CandidateSearchPoolResult!]!
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
   classifications(availableInSearch: Boolean @scope): [Classification]!
     @all
@@ -1864,22 +1795,6 @@ type Query {
     @find
     @canFind(ability: "view", find: "id")
   jobPosterTemplates: [JobPosterTemplate!] @all @canModel(ability: "viewAny")
-  poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest
-    @find
-    @guard
-    @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  poolCandidateSearchRequestsPaginated(
-    where: PoolCandidateSearchRequestInput
-    orderBy: [OrderByClause!] @orderBy
-  ): [PoolCandidateSearchRequest]!
-    @orderBy(column: "created_at", direction: DESC)
-    @paginate(
-      defaultCount: 10
-      maxCount: 500
-      scopes: ["withPolicyEagerLoads", "authorizedToView"]
-    )
-    @guard
-    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequest(id: UUID! @eq): TalentRequest
     @find
     @guard
@@ -1894,9 +1809,7 @@ type Query {
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
-    talentRequestId: UUID!
-      @eq(key: "talent_request_id")
-      @scope(name: "withTalentRequestMatches")
+    talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @advancedOrderBy
@@ -1952,6 +1865,12 @@ type Query {
     @guard
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
 
+  talentNominationGroupsByNominee(
+    nomineeUserId: UUID! @eq(key: "nominee_id")
+  ): [TalentNominationGroup!]!
+    @all(scopes: ["withPolicyEagerLoads", "authorizedToView"])
+    @guard
+
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
@@ -1992,7 +1911,7 @@ type Query {
       maxCount: 500
       scopes: [
         "withPolicyEagerLoads"
-        "authorizedToView"
+        "whereAuthorizedToView"
         "isVerifiedGovEmployee"
         "withSkillCount"
       ]
@@ -2369,6 +2288,14 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
+input UpdateCommunityInterestReferralStatusInput @validator {
+  id: UUID!
+  status: CommunityReferralStatus!
+  followUpDate: Date
+  classification: ClassificationBelongsTo
+  notes: String
+}
+
 input CreateOffPlatformRecruitmentProcessInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   processNumber: String! @rename(attribute: "process_number")
@@ -2652,6 +2579,7 @@ input CreateTalentNominationEventInput @validator {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String! @rename(attribute: "contact_email")
 }
 
 input UpdateTalentNominationEventInput {
@@ -2669,6 +2597,7 @@ input UpdateTalentNominationEventInput {
     @rename(attribute: "require_reference_for_advancement")
   customInstructions: LocalizedStringInput
     @rename(attribute: "custom_instructions")
+  contactEmail: String @rename(attribute: "contact_email")
 }
 
 input TalentNominationEventBelongsTo {
@@ -2731,6 +2660,7 @@ input CreateTalentNominationInput @validator {
 }
 
 input UpdateTalentNominationInput @validator {
+  id: UUID!
   # can only connect a step, not disconnect or sync
   insertSubmittedStep: TalentNominationStep
   submitterRelationshipToNominator: TalentNominationSubmitterRelationshipToNominator
@@ -2800,6 +2730,7 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
+  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
@@ -2819,42 +2750,11 @@ input CreateApplicantFilterInput {
   qualifiedInClassifications: ClassificationBelongsToMany
   qualifiedInWorkStreams: WorkStreamBelongsToMany
   community: CommunityBelongsTo
+  talentSources: [TalentRequestSource!] @rename(attribute: "talent_sources")
 }
 
 input ApplicantFilterBelongsTo {
   create: CreateApplicantFilterInput!
-}
-
-input CreatePoolCandidateSearchRequestInput {
-  fullName: String! @rename(attribute: "full_name")
-  email: Email!
-  department: DepartmentBelongsTo!
-  community: CommunityBelongsTo!
-  jobTitle: String! @rename(attribute: "job_title")
-  additionalComments: String @rename(attribute: "additional_comments")
-  hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
-  applicantFilter: ApplicantFilterBelongsTo!
-  # status will be set to NEW by default in Postgres
-  wasEmpty: Boolean @rename(attribute: "was_empty")
-  managerJobTitle: String! @rename(attribute: "manager_job_title")
-  positionType: PoolCandidateSearchPositionType!
-    @rename(attribute: "position_type")
-  reason: PoolCandidateSearchRequestReason!
-  initialResultCount: Int @rename(attribute: "initial_result_count")
-}
-
-input UpdatePoolCandidateSearchRequestInput @validator {
-  adminNotes: String @rename(attribute: "admin_notes")
-  status: PoolCandidateSearchStatus @rename(attribute: "request_status")
-  followUpDate: Date @rename(attribute: "follow_up_date")
-  # talentRequestStatus changes go through updatePoolCandidateSearchRequestStatus
-}
-
-input UpdatePoolCandidateSearchRequestStatusInput {
-  status: TalentRequestStatus!
-  inProgressDetails: TalentRequestInProgressDetail
-  completionDetails: TalentRequestCompletionDetail
-  followUpDate: Date
 }
 
 input CreateTalentRequestInput {
@@ -3043,7 +2943,7 @@ input UpdateExperienceSkills {
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
 
-input ConnectExperienceSkills {
+input ConnectExperienceSkills @validator {
   id: ID!
   details: String
 }
@@ -3058,16 +2958,12 @@ input UpdateUserSkillInput {
   whenSkillUsed: WhenSkillUsed @rename(attribute: "when_skill_used")
 }
 
-input UpdateUserSkillRankingsInput {
+input UpdateUserSkillRankingsInput @validator {
   # array of skill ids
   topTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   topBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveTechnicalSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
   improveBehaviouralSkillsRanked: [UUID]
-    @rulesForArray(apply: ["nullable", "App\\Rules\\ArrayIsUnique"])
 }
 
 input WorkExperienceHasMany {
@@ -3189,10 +3085,6 @@ input UpdatePoolSkillInput {
 
 input AssessmentStepInput {
   type: AssessmentStepType
-    @rules(
-      apply: ["notIn:APPLICATION_SCREENING"]
-      messages: [{ rule: "not_in", message: "InvalidAssessmentTypeSelection" }]
-    )
   title: LocalizedStringInput
   poolSkills: PoolSkillBelongsToMany
 }
@@ -3500,6 +3392,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  updateCommunityInterestReferralStatus(
+    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
+      @spread
+  ): CommunityInterest
+    @guard
+    @canFind(
+      ability: "updateReferralStatus"
+      find: "id"
+      model: "CommunityInterest"
+    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
@@ -3770,26 +3672,6 @@ type Mutation {
     id: ID!
     developmentProgram: UpdateDevelopmentProgramInput! @spread
   ): DevelopmentProgram @update @canFind(ability: "update", find: "id")
-
-  # SearchRequest mutations
-  createPoolCandidateSearchRequest(
-    poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread
-  ): PoolCandidateSearchRequest @create @canModel(ability: "create")
-  updatePoolCandidateSearchRequest(
-    id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread
-  ): PoolCandidateSearchRequest
-    @update
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-  updatePoolCandidateSearchRequestStatus(
-    id: ID!
-    poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestStatusInput!
-      @spread
-  ): PoolCandidateSearchRequest
-    @guard
-    @canFind(ability: "update", find: "id", scopes: ["withPolicyEagerLoads"])
-    @validator
 
   # TalentRequest mutations
   createTalentRequest(
@@ -4178,8 +4060,6 @@ type Mutation {
     @guard
     @canModel(ability: "create")
   updateTalentNomination(
-    id: UUID!
-      @rules(apply: ["App\\Rules\\TalentEventOpenForUpdatingNominations"])
     talentNomination: UpdateTalentNominationInput! @spread
   ): TalentNomination @update @guard @canFind(ability: "update", find: "id")
   submitTalentNomination(
@@ -4231,11 +4111,16 @@ type Mutation {
   ): AssessmentStep
     @create
     @guard
+    @validator
     @canModel(ability: "create", injectArgs: true)
   updateAssessmentStep(
     id: UUID!
     assessmentStep: AssessmentStepInput @spread
-  ): AssessmentStep @update @guard @canFind(ability: "update", find: "id")
+  ): AssessmentStep
+    @update
+    @guard
+    @validator
+    @canFind(ability: "update", find: "id")
   swapAssessmentStepOrder(stepIdA: UUID!, stepIdB: UUID!): [AssessmentStep]
     @guard
     @canFind(ability: "update", find: "stepIdA")
@@ -4332,7 +4217,6 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
   downloadJobPosterTemplateDoc(id: UUID!): String
-    @guard
     @canFind(ability: "view", find: "id", model: "JobPosterTemplate")
   downloadNominationDoc(id: UUID!): String
     @guard

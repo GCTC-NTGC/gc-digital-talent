@@ -60,11 +60,11 @@ const ChangeStatusDialog = ({
               "Subtitle for change status dialog in the talent request tracked users table",
           })}
         >
-          {intl.formatMessage(talentRequestMessages.changeStatus, { status })}
+          {intl.formatMessage(talentRequestMessages.markAs, { status })}
         </Dialog.Header>
         <Dialog.Body>
-          <p className="mb-6 flex flex-col gap-3">
-            <span>
+          <div className="mb-6 flex flex-col gap-3">
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -76,11 +76,9 @@ const ChangeStatusDialog = ({
                 { numOfSelectedCandidates },
               )}
               {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
-            <span>
-              <IconLabel label={status} icon={icon} />
-            </span>
-          </p>
+            </p>
+            <IconLabel label={status} icon={icon} />
+          </div>
           {onUpdate ? (
             <ChangeStatusForm
               reasonType={reasonType ?? "notSelected"}

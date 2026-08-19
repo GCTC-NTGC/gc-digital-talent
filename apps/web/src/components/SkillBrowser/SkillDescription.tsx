@@ -1,18 +1,17 @@
 import { useIntl } from "react-intl";
 
 import { Notice } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { Skill } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface SkillDescriptionProps {
-  skill?: Skill | null;
+  name?: string | null;
+  description?: string | null;
 }
 
-const SkillDescription = ({ skill }: SkillDescriptionProps) => {
+const SkillDescription = ({ name, description }: SkillDescriptionProps) => {
   const intl = useIntl();
-  const description = getLocalizedName(skill?.description, intl);
 
-  if (!skill || !description) {
+  if (!description) {
     return null;
   }
 
@@ -26,7 +25,7 @@ const SkillDescription = ({ skill }: SkillDescriptionProps) => {
             description: "Heading for a specific skills definition",
           },
           {
-            skill: getLocalizedName(skill.name, intl),
+            skill: name ?? intl.formatMessage(commonMessages.notAvailable),
           },
         )}
       </Notice.Title>

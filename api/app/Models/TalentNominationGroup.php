@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Builders\TalentNominationGroupBuilder;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentNominationGroupStatus;
 use App\Observers\TalentNominationGroupObserver;
@@ -37,6 +38,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $computed_status
  * @property string $comments
  * @property bool $consentToShareProfile
+ * @property ?Carbon $referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -46,6 +48,13 @@ class TalentNominationGroup extends Model
     use LogsActivity;
 
     protected $keyType = 'string';
+
+    /**
+     * The attributes that should be cast.
+     */
+    protected $casts = [
+        'referral_expiry_date' => 'date',
+    ];
 
     /**
      * The attributes that can be filled using mass-assignment.
@@ -72,6 +81,21 @@ class TalentNominationGroup extends Model
     protected static function booted(): void
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
+
+        // Only pull groups whose nominee is currently active; skip archived ones by default.
+        // To read/update a group even when its nominee is archived, use
+        // TalentNominationGroup::withoutGlobalScope('activeNominee') - see
+        // connectToTalentNominationGroupIfMissing() and TalentNomination::talentNominationGroup().
+        static::addGlobalScope('activeNominee', function (Builder $query) {
+            $query->whereHas('nominee', function (Builder $nomineeQuery) {
+                $nomineeQuery->whereNull('deleted_at');
+            });
+        });
+    }
+
+    public function newEloquentBuilder($query): Builder
+    {
+        return new TalentNominationGroupBuilder($query);
     }
 
     /** @return BelongsTo<TalentNominationEvent, $this> */

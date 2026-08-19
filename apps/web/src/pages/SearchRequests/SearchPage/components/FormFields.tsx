@@ -6,6 +6,7 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
+  HiddenInput,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -20,7 +21,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import type {
   Classification,
-  Skill,
+  FragmentType,
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
@@ -31,8 +32,9 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 
-import { NullSelection } from "~/types/searchRequest";
+import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -66,12 +68,20 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
         localized
       }
     }
+    talentSources: localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          localized
+        }
+      }
+    }
   }
 `);
 
 interface FormFieldsProps {
   classifications: Classification[];
-  skills: Skill[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   workStreams: WorkStream[];
 }
 
@@ -157,13 +167,23 @@ const FormFields = ({
         title={intl.formatMessage(talentRequestMessages.classification)}
         text={intl.formatMessage({
           defaultMessage:
-            "Select the classification and work stream of the position you aim to fill. We'll show you how many candidates match your selection.",
-          id: "ZWUMrM",
+            "We use this filter to match candidates who express interest in a classification level or to match certain expected salaries in these classifications.",
+          id: "J7um4k",
           description:
             "Message describing the classification filter of the search form.",
         })}
       >
         <div className="flex flex-col gap-y-6">
+          <HiddenInput name="talentSources" />
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "What is the intended classification and work stream of this position?",
+              id: "VpolrX",
+              description:
+                "Question above classification and work stream filter",
+            })}
+          </p>
           <Select
             id="classifications"
             label={intl.formatMessage(talentRequestMessages.classification)}
@@ -217,7 +237,7 @@ const FormFields = ({
           },
         )}
       >
-        <SkillBrowser skills={skills || []} name="skills" />
+        <SkillBrowser query={skills} name="skills" />
         <Field.Context className="mt-1.5">
           {intl.formatMessage({
             defaultMessage:

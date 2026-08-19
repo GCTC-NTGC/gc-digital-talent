@@ -93,7 +93,7 @@ export const Component = () => {
   const activeRecruitmentPools = pools.filter(
     (p) =>
       p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      canShowOnBrowseJobs(p),
+      canShowOnBrowseJobs(p.publishingGroup?.value),
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used

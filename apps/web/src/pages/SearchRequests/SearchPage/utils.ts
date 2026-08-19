@@ -8,17 +8,16 @@ import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   ApplicantFilterInput,
   Classification,
-  CandidateCountQueryVariables,
 } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
-import type { FormValues } from "~/types/searchRequest";
-import { NullSelection } from "~/types/searchRequest";
+import type { FormValues } from "~/types/talentRequestForm";
+import { NullSelection } from "~/types/talentRequestForm";
 import { formatClassificationAriaString } from "~/utils/poolUtils";
-import { positionDurationToEmploymentDuration } from "~/utils/searchRequestUtils";
+import { positionDurationToEmploymentDuration } from "~/utils/talentRequestUtils";
 
 export const getClassificationAriaLabel = ({
   group,
@@ -33,22 +32,6 @@ export const getClassificationAriaLabel = ({
     return `${name}${separator}${groupAndLevel}`;
   }
   return groupAndLevel;
-};
-
-/**
- * Derive the currently selected classification
- * from applicant filters and location state.
- *
- * As well as transforming it to a useable string.
- * @param {Classification[] | null | undefined} selectedClassifications
- * @returns {string}
- */
-const getCurrentClassification = (
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
-): string => {
-  return selectedClassifications && selectedClassifications?.length > 0
-    ? selectedClassifications[0].groupAndLevel
-    : "";
 };
 
 const durationSelectionToEnum = (
@@ -72,7 +55,7 @@ const durationSelectionToEnum = (
 export const applicantFilterToQueryArgs = (
   filter?: ApplicantFilterInput,
   poolId?: string,
-): CandidateCountQueryVariables => {
+): { where?: ApplicantFilterInput } => {
   if (empty(filter)) {
     return {};
   }
@@ -111,22 +94,27 @@ export const applicantFilterToQueryArgs = (
 };
 
 /**
- * Transform data from location state, API and filters
+ * Transform data from stored state, API and filters
  * to a shape useable by `react-hook-form`
  *
  * @param data
- * @param selectedClassifications
- * @param pools
+ * @param classifications
  * @returns {FormValues}
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  selectedClassifications?: Pick<Classification, "groupAndLevel">[] | null,
+  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
+  const selected = data?.qualifiedInClassifications?.find(notEmpty);
 
   return {
-    classification: getCurrentClassification(selectedClassifications),
+    classification:
+      classifications.find(
+        (classification) =>
+          classification.group === selected?.group &&
+          classification.level === selected?.level,
+      )?.groupAndLevel ?? "",
     languageAbility: data?.languageAbility ?? "NULL_SELECTION",
     employmentEquity: [
       ...(data?.equity?.hasDisability ? ["hasDisability"] : []),
@@ -141,10 +129,10 @@ export const dataToFormValues = (
     flexibleWorkLocations: data.flexibleWorkLocations?.filter(notEmpty) ?? [],
     operationalRequirements:
       data.operationalRequirements?.filter(notEmpty) ?? [],
+    talentSources: data.talentSources?.filter(notEmpty) ?? [],
     employmentDuration: data.positionDuration
       ? positionDurationToEmploymentDuration(data.positionDuration)
       : "",
-    allPools: false,
   };
 };
 
@@ -166,7 +154,14 @@ export const formValuesToData = (
   });
 
   return {
-    qualifiedInClassifications: [selectedClassification].filter(notEmpty),
+    qualifiedInClassifications: selectedClassification
+      ? [
+          {
+            group: selectedClassification.group,
+            level: selectedClassification.level,
+          },
+        ]
+      : [],
     skills: values.skills
       ? values.skills
           .filter((id) => !!id)
@@ -194,5 +189,6 @@ export const formValuesToData = (
     locationPreferences: values.locationPreferences ?? [],
     flexibleWorkLocations: values.flexibleWorkLocations ?? [],
     qualifiedInWorkStreams: values.stream ? [{ id: values.stream }] : undefined,
+    talentSources: unpackMaybes(values.talentSources),
   };
 };

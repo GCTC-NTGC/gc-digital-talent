@@ -7,9 +7,7 @@ const cache = createIntlCache();
 
 const getIntl = (
   messages:
-    | Record<string, string>
-    | Record<string, MessageFormatElement[]>
-    | undefined,
+    Record<string, string> | Record<string, MessageFormatElement[]> | undefined,
 ) => {
   const locale = getDesiredLocale();
 

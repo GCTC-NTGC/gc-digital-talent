@@ -58,8 +58,9 @@ const NominationEventAccordionItem_Fragment = graphql(/* GraphQL */ `
         firstName
         lastName
       }
-      ...NominationHistoryListItem
+      ...NominationHistoryListItemNomination
     }
+    ...NominationHistoryListItemNominationGroup
   }
 `);
 
@@ -192,6 +193,7 @@ const NominationEventAccordionItem = ({
               <NominationHistoryListItem
                 key={nomination.id}
                 nominationQuery={nomination}
+                nominationGroupQuery={nominationGroup}
                 optionsQuery={optionsQuery}
                 advancementDecision={advancementDecision}
                 lateralMovementDecision={lateralMovementDecision}

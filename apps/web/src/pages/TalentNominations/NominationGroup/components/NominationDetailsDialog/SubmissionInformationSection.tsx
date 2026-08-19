@@ -41,6 +41,12 @@ const TalentNominationDetailsDialogSubmissionInformation_Fragment = graphql(
         }
       }
       submitterRelationshipToNominatorOther
+      submitter {
+        id
+      }
+      nominator {
+        id
+      }
     }
   `,
 );
@@ -76,6 +82,10 @@ const SubmissionInformationSection = ({
       )
     : nullMessage;
 
+  const shouldShowSubmitterFields =
+    !!nomination.submitter?.id &&
+    nomination.nominator?.id !== nomination.submitter?.id;
+
   return (
     <div>
       <Heading level="h3" size="h6" className="mt-0 mb-6">
@@ -103,52 +113,57 @@ const SubmissionInformationSection = ({
               })
             : nullMessage}
         </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Submitter's name",
-            id: "rgmr0x",
-            description: "Label for the submitter's name",
-          })}
-        >
-          {submitterName ?? nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Submitter's work email",
-            id: "/Wgawu",
-            description: "Label for the submitter's work email",
-          })}
-        >
-          {nomination.submitter?.workEmail ?? nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Submitter's classification",
-            id: "iC/wHw",
-            description: "Label for the submitter's classification",
-          })}
-        >
-          {nomination.submitter?.classification?.groupAndLevel ?? nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Submitter's department or agency",
-            id: "oljVrD",
-            description: "Label for the submitter's department/agency",
-          })}
-        >
-          {nomination.submitter?.department?.name.localized ?? nullMessage}
-        </FieldDisplay>
-        <FieldDisplay
-          label={intl.formatMessage({
-            defaultMessage: "Submitter’s relationship to the nominator",
-            id: "w4FBPx",
-            description: "Submitter’s relationship to the nominator field",
-          })}
-          className="xs:col-span-2"
-        >
-          {relationshipLabel ?? nullMessage}
-        </FieldDisplay>
+        {shouldShowSubmitterFields ? (
+          <>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Submitter's name",
+                id: "rgmr0x",
+                description: "Label for the submitter's name",
+              })}
+            >
+              {submitterName ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Submitter's work email",
+                id: "/Wgawu",
+                description: "Label for the submitter's work email",
+              })}
+            >
+              {nomination.submitter?.workEmail ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Submitter's classification",
+                id: "iC/wHw",
+                description: "Label for the submitter's classification",
+              })}
+            >
+              {nomination.submitter?.classification?.groupAndLevel ??
+                nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Submitter's department or agency",
+                id: "oljVrD",
+                description: "Label for the submitter's department/agency",
+              })}
+            >
+              {nomination.submitter?.department?.name.localized ?? nullMessage}
+            </FieldDisplay>
+            <FieldDisplay
+              label={intl.formatMessage({
+                defaultMessage: "Submitter’s relationship to the nominator",
+                id: "w4FBPx",
+                description: "Submitter’s relationship to the nominator field",
+              })}
+              className="xs:col-span-2"
+            >
+              {relationshipLabel ?? nullMessage}
+            </FieldDisplay>
+          </>
+        ) : null}
       </div>
     </div>
   );

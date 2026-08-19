@@ -35,6 +35,7 @@ final class CreateTalentNominationEventInputValidator extends Validator
             'includeNineBox' => ['sometimes', 'boolean'],
             'requireReferenceForAdvancement' => ['sometimes', 'boolean'],
             'customInstructions' => ['nullable', 'localized_string'],
+            'contactEmail' => ['required', 'email'],
         ];
     }
 

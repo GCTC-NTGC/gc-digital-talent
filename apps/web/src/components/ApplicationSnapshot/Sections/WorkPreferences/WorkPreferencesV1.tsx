@@ -2,12 +2,13 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import type {
-  LocalizedFlexibleWorkLocation,
-  LocalizedOperationalRequirement,
-  LocalizedProvinceOrTerritory,
-  LocalizedWorkRegion,
+  FlexibleWorkLocation,
+  OperationalRequirement,
+  ProvinceOrTerritory,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { graphql, PositionDuration } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getOperationalRequirement,
@@ -42,16 +43,15 @@ const WorkPreferencesSnapshotOptions_Query = graphql(/** GraphQL */ `
 
 export interface WorkPreferencesSnapshotV1 {
   acceptedOperationalRequirements:
-    | (LocalizedOperationalRequirement | null | undefined)[]
-    | null;
+    (GenericLocalizedEnum<OperationalRequirement> | null | undefined)[] | null;
   positionDuration: (PositionDuration | null | undefined)[] | null;
-  locationPreferences: (LocalizedWorkRegion | null | undefined)[] | null;
+  locationPreferences:
+    (GenericLocalizedEnum<WorkRegion> | null | undefined)[] | null;
   locationExemptions: string | null;
   currentCity: string | null;
-  currentProvince: LocalizedProvinceOrTerritory | null;
+  currentProvince: GenericLocalizedEnum<ProvinceOrTerritory> | null;
   flexibleWorkLocations:
-    | (LocalizedFlexibleWorkLocation | null | undefined)[]
-    | null;
+    (GenericLocalizedEnum<FlexibleWorkLocation> | null | undefined)[] | null;
 }
 
 type WorkPreferencesV1Props = SnapshotProps<WorkPreferencesSnapshotV1>;

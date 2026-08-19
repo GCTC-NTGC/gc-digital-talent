@@ -1,11 +1,13 @@
 import { useMemo, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
+import { getNonce } from "get-nonce";
 import type {
   ControllerRenderProps,
   FieldValues,
   UseFormStateReturn,
 } from "react-hook-form";
 import { tv } from "tailwind-variants";
+import get from "lodash/get";
 
 import MenuBar from "./MenuBar";
 import Footer from "./Footer";
@@ -46,9 +48,13 @@ const ControlledInput = ({
   editable,
   wordLimit,
 }: ControlledInputProps) => {
-  const content = defaultValues?.[name]
-    ? String(defaultValues[name])
-    : undefined;
+  // lodash/get handles nested values with dotted notation, too
+  const rawDefaultValue: unknown = get(defaultValues, name);
+  const content =
+    rawDefaultValue !== null && rawDefaultValue !== undefined
+      ? // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        String(rawDefaultValue)
+      : undefined;
 
   const editorProps = useMemo(
     () => ({
@@ -68,6 +74,9 @@ const ControlledInput = ({
     content,
     editorProps,
     editable,
+    // Tiptap injects its own <style> tag, which our CSP blocks unless it
+    // carries the nonce the app shares through `get-nonce` at startup.
+    injectNonce: getNonce(),
     onUpdate: ({ editor: submittedEditor }) => {
       let html = submittedEditor.getHTML();
       // If you remove existing comment, editor leaves behind

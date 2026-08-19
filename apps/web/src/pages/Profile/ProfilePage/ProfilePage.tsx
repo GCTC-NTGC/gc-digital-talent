@@ -112,7 +112,7 @@ export const ProfileForm = ({ userQuery }: ProfilePageProps) => {
         </TableOfContents.List>
         <Separator space="sm" />
         <div className="flex flex-col gap-y-3">
-          <Link href={paths.employeeProfile()}>
+          <Link href={paths.employeeVerification()}>
             {intl.formatMessage(navigationMessages.employeeProfileGC)}
           </Link>
           <Link href={paths.accountSettings()}>

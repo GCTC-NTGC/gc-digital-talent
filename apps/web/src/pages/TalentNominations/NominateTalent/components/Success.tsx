@@ -24,6 +24,7 @@ const NominateTalentSuccess_Fragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      contactEmail
     }
   }
 `);
@@ -60,38 +61,40 @@ const Success = ({ successQuery }: SuccessProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Thank you for nominating {name}! The talent management team with the {community} will review your submission soon. In the meantime, you can review your submission and its status from your dashboard.",
-            id: "wdFBSc",
+              "Thank you for nominating {name}! Their nomination will be reviewed shortly and you can follow the updates on your dashboard.",
+            id: "INPHhr",
             description:
               "First paragraph on success step of a talent nomination",
           },
 
           {
             name: talentNomination.nominee?.firstName ?? notAvailable,
-            community:
-              talentNomination.talentNominationEvent.community.name
-                ?.localized ?? notAvailable,
           },
         )}
       </p>
-      <p className="my-6">
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "If you have any questions or concerns, feel free to <link>reach out to our support team</link>.",
-            id: "duXf4a",
-            description:
-              "Instructions to contact support after nomination submission",
-          },
-          {
-            link: (chunks: ReactNode) => (
-              <Link href={paths.support()} color="black">
-                {chunks}
-              </Link>
-            ),
-          },
-        )}
-      </p>
+      {talentNomination.talentNominationEvent.contactEmail ? (
+        <p className="my-6">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "If you have any questions or need to amend your nomination, please <link>reach out to the community event team</link> and they will provide next steps.",
+              id: "FlTPg2",
+              description:
+                "Instructions to contact support after nomination submission",
+            },
+            {
+              link: (chunks: ReactNode) => (
+                <Link
+                  href={`mailto:${talentNomination.talentNominationEvent.contactEmail}`}
+                  color="black"
+                >
+                  {chunks}
+                </Link>
+              ),
+            },
+          )}
+        </p>
+      ) : null}
       <p className="mt-6">
         <Link href={paths.applicantDashboard()} mode="solid" color="primary">
           {intl.formatMessage(navigationMessages.returnToDashboard)}

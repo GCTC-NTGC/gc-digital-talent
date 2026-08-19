@@ -16,7 +16,7 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
  */
 final class RolePermissionTypeRegistrar implements TypeRegistrarInterface
 {
-    public static int $weight = 5;
+    public static int $weight = 6;
 
     public static function register(TypeRegistry $typeRegistry): void
     {

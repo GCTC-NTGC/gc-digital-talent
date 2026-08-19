@@ -2,11 +2,12 @@ import type { MessageDescriptor } from "react-intl";
 import { defineMessages, useIntl } from "react-intl";
 
 import type {
-  LocalizedEstimatedLanguageAbility,
-  LocalizedEvaluatedLanguageAbility,
-  LocalizedLanguage,
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  Language,
 } from "@gc-digital-talent/graphql";
 import { getOrThrowError } from "@gc-digital-talent/helpers";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Ul } from "@gc-digital-talent/ui";
 
@@ -49,16 +50,16 @@ export interface LanguageProfileSnapshotV1 {
   lookingForEnglish?: boolean | null;
   lookingForFrench?: boolean | null;
   lookingForBilingual?: boolean | null;
-  firstOfficialLanguage?: LocalizedLanguage | null;
+  firstOfficialLanguage?: GenericLocalizedEnum<Language> | null;
   secondLanguageExamCompleted?: boolean | null;
   secondLanguageExamValidity?: boolean | null;
-  estimatedLanguageAbility?: LocalizedEstimatedLanguageAbility | null;
-  writtenLevel?: LocalizedEvaluatedLanguageAbility | null;
-  comprehensionLevel?: LocalizedEvaluatedLanguageAbility | null;
-  verbalLevel?: LocalizedEvaluatedLanguageAbility | null;
+  estimatedLanguageAbility?: GenericLocalizedEnum<EstimatedLanguageAbility> | null;
+  writtenLevel?: GenericLocalizedEnum<EvaluatedLanguageAbility> | null;
+  comprehensionLevel?: GenericLocalizedEnum<EvaluatedLanguageAbility> | null;
+  verbalLevel?: GenericLocalizedEnum<EvaluatedLanguageAbility> | null;
   bilingualEvaluation?: BilingualEvaluation | null;
-  preferredLanguageForInterview?: LocalizedLanguage | null;
-  preferredLanguageForExam: LocalizedLanguage | null | undefined;
+  preferredLanguageForInterview?: GenericLocalizedEnum<Language> | null;
+  preferredLanguageForExam: GenericLocalizedEnum<Language> | null | undefined;
 }
 
 type LanguageProfileV1Props = SnapshotProps<LanguageProfileSnapshotV1>;

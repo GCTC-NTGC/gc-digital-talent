@@ -4,18 +4,21 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 import { getStaticSkills } from "@gc-digital-talent/fake-data";
-import type { Skill } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import SkillBrowserDialog from "./SkillBrowserDialog";
+import { SkillBrowserSkill_Fragment } from "./SkillSelection";
 import type { FormValues } from "./types";
 
-const mockSkills = getStaticSkills();
+const mockSkills = getStaticSkills().map((skill) =>
+  makeFragmentData(skill, SkillBrowserSkill_Fragment),
+);
 
 export default {
   component: SkillBrowserDialog,
   decorators: [OverlayOrDialogDecorator],
   args: {
-    skills: mockSkills,
+    query: mockSkills,
     defaultOpen: true,
   },
 };
@@ -51,5 +54,5 @@ ShowcaseContext.args = {
 export const ShowcaseShowMyLibraryContext = Template.bind({});
 ShowcaseShowMyLibraryContext.args = {
   context: "showcase",
-  inLibrary: faker.helpers.arrayElements<Skill>(mockSkills, 15),
+  inLibraryQuery: faker.helpers.arrayElements(mockSkills, 15),
 };

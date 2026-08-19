@@ -11,7 +11,7 @@ import {
   Notice,
 } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { AssessmentStep, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   AssessmentStepType,
@@ -65,42 +65,14 @@ const OrganizeSectionPool_Fragment = graphql(/* GraphQL */ `
     }
     assessmentSteps {
       id
-      title {
-        en
-        fr
-        localized
-      }
+      sortOrder
       type {
         value
-        label {
-          en
-          fr
-        }
       }
-      sortOrder
-      poolSkills {
-        id
-        skill {
-          id
-          key
-          category {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          name {
-            en
-            fr
-          }
-        }
-      }
+      ...AssessmentStepCardStep
     }
   }
 `);
-
-type StepState = Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">[];
 
 interface OrganizeSectionProps {
   poolQuery: FragmentType<typeof OrganizeSectionPool_Fragment>;
@@ -117,9 +89,8 @@ const OrganizeSection = ({
     () => sortBy(unpackMaybes(pool.assessmentSteps), (step) => step.sortOrder),
     [pool.assessmentSteps],
   );
-  const [steps, setSteps] = useState<StepState>(initialSteps);
-  const [prevInitialSteps, setPrevInitialSteps] =
-    useState<StepState>(initialSteps);
+  const [steps, setSteps] = useState(initialSteps);
+  const [prevInitialSteps, setPrevInitialSteps] = useState(initialSteps);
 
   if (initialSteps !== prevInitialSteps) {
     setSteps(initialSteps);
@@ -326,9 +297,7 @@ const OrganizeSection = ({
         </Accordion.Item>
       </Accordion.Root>
       <div className="my-6">
-        <CardRepeater.Root<
-          Pick<AssessmentStep, "id" | "type" | "title" | "poolSkills">
-        >
+        <CardRepeater.Root
           items={steps}
           disabled={formDisabled}
           max={ASSESSMENT_STEPS_MAX_STEPS}
@@ -368,7 +337,7 @@ const OrganizeSection = ({
               index={index}
               onMove={move}
               onRemove={remove}
-              assessmentStep={assessmentStep}
+              assessmentStepQuery={assessmentStep}
               poolQuery={pool}
             />
           ))}

@@ -2,7 +2,7 @@ import {
   AssessmentStepType,
   SkillCategory,
   SkillLevel,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";

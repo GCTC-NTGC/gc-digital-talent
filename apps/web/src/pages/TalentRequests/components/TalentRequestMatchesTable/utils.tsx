@@ -7,7 +7,6 @@ import {
   SortOrder,
   type AdvancedOrderByInput,
   type FragmentType,
-  type LocalizedProvinceOrTerritory,
   type TalentRequestMatchFilterInput,
 } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
@@ -22,21 +21,25 @@ import type { FormValues } from "./TalentRequestMatchesFilterDialog";
 
 export const locationAccessor = (
   city?: string | null,
-  provinceOrTerritory?: Partial<LocalizedProvinceOrTerritory> | null,
+  provinceOrTerritoryLabel?: string | null,
 ): string | null => {
-  if (!city && !provinceOrTerritory) return null;
+  if (!city && !provinceOrTerritoryLabel) return null;
   const strings: string[] = [];
 
   if (city) {
     strings.push(city);
   }
 
-  if (provinceOrTerritory?.label?.localized) {
-    strings.push(provinceOrTerritory.label.localized);
+  if (provinceOrTerritoryLabel) {
+    strings.push(provinceOrTerritoryLabel);
   }
 
   return strings.join(", ");
 };
+
+export const poolListNameAccessor = (
+  names: (string | null | undefined)[],
+): string => names.filter(notEmpty).join(", ");
 
 export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
   /** GraphQL */ `
@@ -73,6 +76,9 @@ export const TalentRequestMatchesApplicantFilter_Fragment = graphql(
         id
       }
       positionDuration
+      talentSources {
+        value
+      }
     }
   `,
 );
@@ -123,6 +129,9 @@ export function transformApplicantFilterToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources).map(
+      ({ value }) => value,
+    ),
   };
 }
 
@@ -164,6 +173,7 @@ export function transformWhereToFormValues(
     employmentDuration:
       positionDurationToEmploymentDuration(applicantFilter?.positionDuration) ??
       "",
+    talentSources: unpackMaybes(applicantFilter?.talentSources),
   };
 }
 
@@ -200,6 +210,7 @@ export function transformFormValuesToWhere(
             durationToEnumPositionDuration(data.employmentDuration),
           ])
         : undefined,
+      talentSources: data.talentSources,
     },
     priorityWeight: data.priorityWeight,
     employeeVerification: data.govEmployee,

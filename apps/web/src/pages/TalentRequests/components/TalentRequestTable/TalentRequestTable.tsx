@@ -13,10 +13,10 @@ import { useQuery } from "urql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
-  TalentRequest,
   TalentRequestInput,
+  TalentRequestTableRowFragment,
 } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
@@ -48,24 +48,61 @@ import {
 import TalentRequestFilterDialog from "./TalentRequestFilterDialog";
 import type { FormValues } from "./utils";
 
-const columnHelper = createColumnHelper<TalentRequestTableRow>();
+const columnHelper = createColumnHelper<TalentRequestTableRowFragment>();
 
-type TalentRequestTableRow = Pick<
-  TalentRequest,
-  | "id"
-  | "additionalComments"
-  | "adminNotes"
-  | "jobTitle"
-  | "talentRequestStatus"
-  | "details"
-  | "applicantFilter"
-  | "fullName"
-  | "email"
-  | "department"
-  | "followUpDate"
-  | "requestedDate"
-  | "community"
->;
+const TalentRequestTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment TalentRequestTableRow on TalentRequest {
+    additionalComments
+    adminNotes
+    applicantFilter {
+      id
+      qualifiedInClassifications {
+        id
+        group
+        level
+        groupAndLevel
+        displayName
+      }
+      qualifiedInWorkStreams {
+        id
+        name {
+          localized
+        }
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        localized
+      }
+    }
+    community {
+      id
+      key
+      name {
+        localized
+      }
+    }
+    email
+    fullName
+    id
+    jobTitle
+    followUpDate
+    requestedDate
+    talentRequestStatus {
+      value
+      label {
+        localized
+      }
+    }
+    details {
+      localized
+    }
+    statusChangedAt
+    wasEmpty
+  }
+`);
 
 const TalentRequestTable_Query = graphql(/* GraphQL */ `
   query TalentRequestTable(
@@ -81,55 +118,7 @@ const TalentRequestTable_Query = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
-        additionalComments
-        adminNotes
-        applicantFilter {
-          id
-          qualifiedInClassifications {
-            id
-            group
-            level
-            groupAndLevel
-            displayName
-          }
-          qualifiedInWorkStreams {
-            id
-            name {
-              localized
-            }
-          }
-        }
-        department {
-          id
-          departmentNumber
-          name {
-            localized
-          }
-        }
-        community {
-          id
-          key
-          name {
-            localized
-          }
-        }
-        email
-        fullName
-        id
-        jobTitle
-        followUpDate
-        requestedDate
-        talentRequestStatus {
-          value
-          label {
-            localized
-          }
-        }
-        details {
-          localized
-        }
-        statusChangedAt
-        wasEmpty
+        ...TalentRequestTableRow
       }
       paginatorInfo {
         count
@@ -346,7 +335,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       enableColumnFilter: false,
       enableSorting: false,
     }),
-  ] as ColumnDef<TalentRequestTableRow>[];
+  ] as ColumnDef<TalentRequestTableRowFragment>[];
 
   const handlePaginationStateChange = ({
     pageIndex,
@@ -388,10 +377,13 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
     },
   });
 
-  const requestData = data?.talentRequests.data.filter(notEmpty) ?? [];
+  const requestData = getFragment(
+    TalentRequestTableRow_Fragment,
+    unpackMaybes(data?.talentRequests.data),
+  );
 
   return (
-    <Table<TalentRequest, TalentRequestInput>
+    <Table<TalentRequestTableRowFragment, TalentRequestInput>
       data={requestData}
       caption={title}
       columns={columns}

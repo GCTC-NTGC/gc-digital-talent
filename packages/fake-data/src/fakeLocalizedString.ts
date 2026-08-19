@@ -1,4 +1,4 @@
-import type { LocalizedString } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql/schema-types";
 
 const toLocalizedString = (base: string): LocalizedString => {
   return {

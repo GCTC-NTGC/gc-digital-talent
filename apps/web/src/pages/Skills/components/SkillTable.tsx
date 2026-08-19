@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import type { ColumnDef, PaginationState } from "@tanstack/react-table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { createIntl, createIntlCache, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
 import { useLocation, useSearchParams } from "react-router";
@@ -10,12 +10,18 @@ import type { SubmitHandler } from "react-hook-form";
 import {
   commonMessages,
   getLocalizedName,
-  combineMessages,
+  getIntlForLocale,
+  appendShortenedLanguageName,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
-import type { Skill } from "@gc-digital-talent/graphql";
-import { SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import type { SkillTableRowFragment } from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -67,52 +73,42 @@ function transformSkillFilterInputToFormValues(
   };
 }
 
-const columnHelper = createColumnHelper<Skill>();
+const columnHelper = createColumnHelper<SkillTableRowFragment>();
+
+const SkillTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment SkillTableRow on Skill {
+    ...SkillCsv
+    id
+    category {
+      value
+      label {
+        localized
+      }
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    families {
+      key
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 const SkillTableSkills_Query = graphql(/* GraphQL */ `
   query SkillTableSkills {
     skills {
-      id
-      key
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...SkillTableRow
     }
     skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
+      ...SkillFilterFamily
     }
   }
 `);
@@ -138,29 +134,19 @@ const SkillTable = ({
   isPublic,
 }: SkillTableProps) => {
   const intl = useIntl();
-  const cache = createIntlCache();
-  const englishMessages = combineMessages("en", messages);
-  const frenchMessages = combineMessages("fr", messages);
-  const intlEn = createIntl(
-    {
-      locale: "en",
-      messages: englishMessages,
-    },
-    cache,
-  );
-  const intlFr = createIntl(
-    {
-      locale: "fr",
-      messages: frenchMessages,
-    },
-    cache,
-  );
+  const locale = getLocale(intl);
+  const intlEn = getIntlForLocale("en", messages);
+  const intlFr = getIntlForLocale("fr", messages);
+
   const [{ data, fetching, error }] = useQuery({
     query: SkillTableSkills_Query,
     context,
   });
 
-  const skills = useMemo(() => unpackMaybes(data?.skills), [data?.skills]);
+  const skills = getFragment(
+    SkillTableRow_Fragment,
+    unpackMaybes(data?.skills),
+  );
   const skillFamilies = unpackMaybes(data?.skillFamilies);
 
   const paths = useRoutes();
@@ -207,49 +193,124 @@ const SkillTable = ({
     setFilterState(transformedData);
   };
 
-  const columns = [
-    columnHelper.accessor("id", {
-      id: "id",
-      enableColumnFilter: false,
-      header: intl.formatMessage(adminMessages.id),
-    }),
-    columnHelper.accessor((skill) => getLocalizedName(skill.name, intl), {
-      id: "name",
-      header: intl.formatMessage(commonMessages.name),
+  const columnNameEnglishAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.name, intlEn),
+    {
+      id: "nameEN",
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.name),
+        lang: "en",
+        intl,
+      }),
       sortingFn: normalizedText,
       meta: {
-        isRowTitle: true,
+        isRowTitle: locale === "en",
       },
       cell: ({ row: { original: skill } }) => {
-        const skillName = getLocalizedName(skill.name, intl);
+        const skillName = getLocalizedName(skill.name, intlEn);
         return isPublic ? (
           skillName
         ) : (
           <Link href={paths.skillView(skill.id)}>{skillName}</Link>
         );
       },
+    },
+  );
+  const columnNameFrenchAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.name, intlFr),
+    {
+      id: "nameFR",
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.name),
+        lang: "fr",
+        intl,
+      }),
+      sortingFn: normalizedText,
+      meta: {
+        isRowTitle: locale !== "en",
+      },
+      cell: ({ row: { original: skill } }) => {
+        const skillName = getLocalizedName(skill.name, intlFr);
+        return isPublic ? (
+          skillName
+        ) : (
+          <Link href={paths.skillView(skill.id)}>{skillName}</Link>
+        );
+      },
+    },
+  );
+  const columnDescriptionEnglishAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.description, intlEn, true),
+    {
+      id: "descriptionEN",
+      sortingFn: normalizedText,
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.description),
+        lang: "en",
+        intl,
+      }),
+    },
+  );
+  const columnDescriptionFrenchAppended = columnHelper.accessor(
+    (skill) => getLocalizedName(skill.description, intlFr, true),
+    {
+      id: "descriptionFR",
+      sortingFn: normalizedText,
+      header: appendShortenedLanguageName({
+        label: intl.formatMessage(commonMessages.description),
+        lang: "fr",
+        intl,
+      }),
+    },
+  );
+
+  // ordering of name and description locale dependent
+  const columnsOrderedByLocale =
+    locale === "en"
+      ? [
+          columnNameEnglishAppended,
+          columnNameFrenchAppended,
+          columnDescriptionEnglishAppended,
+          columnDescriptionFrenchAppended,
+        ]
+      : [
+          columnNameFrenchAppended,
+          columnNameEnglishAppended,
+          columnDescriptionFrenchAppended,
+          columnDescriptionEnglishAppended,
+        ];
+
+  const columns = [
+    columnHelper.accessor("id", {
+      id: "id",
+      enableColumnFilter: false,
+      header: intl.formatMessage(adminMessages.id),
     }),
+    ...columnsOrderedByLocale,
     columnHelper.accessor(
-      (skill) => getLocalizedName(skill.description, intl, true),
+      (skill) =>
+        familiesAccessor(
+          skill.families?.map((family) => family.name?.localized),
+        ),
       {
-        id: "description",
+        id: "skillFamilies",
         sortingFn: normalizedText,
-        header: intl.formatMessage(commonMessages.description),
+        header: intl.formatMessage(adminMessages.skillFamilies),
+        cell: ({ row: { original: skill } }) =>
+          skillFamiliesCell(
+            skill.families?.map((family) => family.name?.localized),
+          ),
       },
     ),
-    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
-      id: "skillFamilies",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.skillFamilies),
-      cell: ({ row: { original: skill } }) =>
-        skillFamiliesCell(skill.families, intl),
-    }),
-    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
-      id: "category",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.category),
-    }),
-  ] as ColumnDef<Skill>[];
+    columnHelper.accessor(
+      ({ category }) => categoryAccessor(category.label?.localized),
+      {
+        id: "category",
+        sortingFn: normalizedText,
+        header: intl.formatMessage(adminMessages.category),
+      },
+    ),
+  ] as ColumnDef<SkillTableRowFragment>[];
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
@@ -259,7 +320,7 @@ const SkillTable = ({
   }
 
   return (
-    <Table<Skill>
+    <Table<SkillTableRowFragment>
       caption={title}
       isLoading={fetching}
       data={filteredSkills}
@@ -273,7 +334,9 @@ const SkillTable = ({
       }}
       sort={{
         internal: true,
-        initialState: [{ id: "name", desc: false }],
+        initialState: [
+          { id: locale === "en" ? "nameEN" : "nameFR", desc: false },
+        ],
       }}
       search={{
         internal: true,
@@ -305,7 +368,7 @@ const SkillTable = ({
         state: filterState,
         component: (
           <SkillFilterDialog
-            skillFamilies={skillFamilies}
+            query={skillFamilies}
             fetching={fetching}
             onSubmit={handleFilterSubmit}
             resetValues={transformSkillFilterInputToFormValues({})}
@@ -322,7 +385,7 @@ const SkillTable = ({
                 csv: {
                   headers: getSkillCsvHeaders(intl),
                   data: () => {
-                    return getSkillCsvData(skills, intlEn, intlFr);
+                    return getSkillCsvData(skills);
                   },
                   fileName: intl.formatMessage({
                     defaultMessage: "GC Digital Talent - All skills.csv",

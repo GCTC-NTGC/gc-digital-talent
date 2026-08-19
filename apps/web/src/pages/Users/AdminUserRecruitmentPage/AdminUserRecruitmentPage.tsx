@@ -10,12 +10,14 @@ import {
   TableOfContents,
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
-import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import profileMessages from "~/messages/profileMessages";
+import { checkRole } from "~/utils/teamUtils";
 
 import DownloadButton from "../DownloadButton";
 import RecruitmentProcesses, {
@@ -44,6 +46,12 @@ interface AdminUserRecruitmentProps {
 
 const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
   const intl = useIntl();
+  const { userAuthInfo } = useAuthorization();
+
+  const canInteractWithRecruitmentTools = checkRole(
+    [ROLE_NAME.PlatformAdmin],
+    unpackMaybes(userAuthInfo?.roleAssignments),
+  );
   const user = getFragment(AdminUserRecruitment_Fragment, query);
 
   return (
@@ -69,11 +77,13 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
                 )}
               </TableOfContents.AnchorLink>
             </TableOfContents.ListItem>
-            <TableOfContents.ListItem>
-              <TableOfContents.AnchorLink id={RECRUITMENT_TOOLS_ID}>
-                {intl.formatMessage(recruitmentToolsTitle)}
-              </TableOfContents.AnchorLink>
-            </TableOfContents.ListItem>
+            {canInteractWithRecruitmentTools && (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={RECRUITMENT_TOOLS_ID}>
+                  {intl.formatMessage(recruitmentToolsTitle)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
           </TableOfContents.List>
           <Separator orientation="horizontal" space="xs" decorative />
           <DownloadButton id={user.id} />
@@ -81,7 +91,7 @@ const AdminUserRecruitment = ({ query }: AdminUserRecruitmentProps) => {
         <TableOfContents.Content>
           <RecruitmentProcesses query={user} />
           <AdminOffPlatformRecruitmentProcesses query={user} />
-          <RecruitmentTools query={user} />
+          {canInteractWithRecruitmentTools && <RecruitmentTools query={user} />}
         </TableOfContents.Content>
       </TableOfContents.Wrapper>
     </Container>

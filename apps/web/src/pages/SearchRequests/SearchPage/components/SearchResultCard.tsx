@@ -48,6 +48,7 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
       fr
     }
     community {
+      id
       name {
         localized
       }
@@ -193,9 +194,9 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
           type="submit"
           mode="inline"
           {...poolSubmitProps}
-          value={pool.id}
           onClick={() => {
             setValue("pool", pool.id);
+            setValue("communityId", "");
             setValue("count", candidateCount);
           }}
         >

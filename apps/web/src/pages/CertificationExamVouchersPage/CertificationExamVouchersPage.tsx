@@ -140,58 +140,56 @@ export const Component = () => {
               description: "First paragraph of certification topics section",
             })}
           </p>
-          <p className="mb-3">
-            <Ul space="md">
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "IT project management",
-                  id: "ZiCXd1",
-                  description:
-                    "First item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Business analysis",
-                  id: "+BeD0v",
-                  description:
-                    "Second item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Cloud computing",
-                  id: "e6PlO0",
-                  description:
-                    "Third item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Cyber security",
-                  id: "hSoZzH",
-                  description:
-                    "Fourth item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Enterprise architecture",
-                  id: "GxrfIv",
-                  description:
-                    "Fifth item in list of certification topics section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "DevOps",
-                  id: "zeLVU6",
-                  description:
-                    "Sixth item in list of certification topics section",
-                })}
-              </li>
-            </Ul>
-          </p>
+          <Ul space="md" className="mb-3">
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "IT project management",
+                id: "ZiCXd1",
+                description:
+                  "First item in list of certification topics section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Business analysis",
+                id: "+BeD0v",
+                description:
+                  "Second item in list of certification topics section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Cloud computing",
+                id: "e6PlO0",
+                description:
+                  "Third item in list of certification topics section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Cyber security",
+                id: "hSoZzH",
+                description:
+                  "Fourth item in list of certification topics section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Enterprise architecture",
+                id: "GxrfIv",
+                description:
+                  "Fifth item in list of certification topics section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "DevOps",
+                id: "zeLVU6",
+                description:
+                  "Sixth item in list of certification topics section",
+              })}
+            </li>
+          </Ul>
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
@@ -231,45 +229,43 @@ export const Component = () => {
                 "Second paragraph of eligibility requirements section",
             })}
           </p>
-          <p className="mb-3">
-            <Ul space="md">
-              <li>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Be IT-classified or acting in an IT role for a minimum of four months plus one day.",
-                  id: "jjwS3G",
-                  description:
-                    "First item in list of eligibility requirements section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage: "Have an active Navigar account.",
-                  id: "saX5lc",
-                  description:
-                    "Second item in list of eligibility requirements section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Have completed any necessary preparatory training to support successful exam completion.",
-                  id: "UePGN0",
-                  description:
-                    "Fourth item in list of eligibility requirements section",
-                })}
-              </li>
-              <li>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Prepared to write the exam within 60 days of submitting your application.",
-                  id: "dSr8pX",
-                  description:
-                    "Fifth item in list of eligibility requirements section",
-                })}
-              </li>
-            </Ul>
-          </p>
+          <Ul space="md" className="mb-3">
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Be IT-classified or acting in an IT role for a minimum of four months plus one day.",
+                id: "jjwS3G",
+                description:
+                  "First item in list of eligibility requirements section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage: "Have an active Navigar account.",
+                id: "saX5lc",
+                description:
+                  "Second item in list of eligibility requirements section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Have completed any necessary preparatory training to support successful exam completion.",
+                id: "UePGN0",
+                description:
+                  "Fourth item in list of eligibility requirements section",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Prepared to write the exam within 60 days of submitting your application.",
+                id: "dSr8pX",
+                description:
+                  "Fifth item in list of eligibility requirements section",
+              })}
+            </li>
+          </Ul>
         </div>
         <div className="mb-18">
           <Heading

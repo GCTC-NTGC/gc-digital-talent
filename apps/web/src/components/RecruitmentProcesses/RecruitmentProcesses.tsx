@@ -50,7 +50,7 @@ const RecruitmentProcesses = ({
   const recruitmentProcesses = unpackMaybes(
     recruitmentProcessesFragment.poolCandidates,
   );
-  const recruitmentProcessesFiltered = recruitmentProcesses
+  let recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
         ({ applicationStatusData }) =>
           applicationStatusData?.candidateStatus?.value ===
@@ -60,7 +60,7 @@ const RecruitmentProcesses = ({
 
   // Add additional filtering for community if communityId exists
   if (communityId) {
-    recruitmentProcessesFiltered.filter(
+    recruitmentProcessesFiltered = recruitmentProcessesFiltered.filter(
       (recruitment) => recruitment.pool.community?.id === communityId,
     );
   }

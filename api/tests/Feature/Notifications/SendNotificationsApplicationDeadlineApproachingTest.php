@@ -44,10 +44,10 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will send a notification to a user if they have a draft application a pool closing in three days
     public function testSendsNotificationThreeDaysBefore(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-28 12:00:00'; // three days before closing
-        $nowInUtc = '2999-12-28 20:00:00';
+        $closingDateTimeInVancouver = '2029-12-31 23:59:59'; // pools close end of day in Vancouver
+        $closingTimeInUtc = '2030-01-01 06:59:59'; // Vancouver stays on permanent DST after March 8, 2026
+        $nowInToronto = '2029-12-28 22:00:00'; // three days before closing, at the scheduled time (api/app/Console/Kernel.php)
+        $nowInUtc = '2029-12-29 03:00:00';
 
         $pool = Pool::factory()
             ->published()
@@ -81,10 +81,10 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will not send a notification to a user if they have submitted their application
     public function testDoesNotSendNotificationIfApplicationSubmitted(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-28 12:00:00'; // three days before closing
-        $nowInUtc = '2999-12-28 20:00:00';
+        $closingDateTimeInVancouver = '2029-12-31 23:59:59'; // pools close end of day in Vancouver
+        $closingTimeInUtc = '2030-01-01 06:59:59'; // Vancouver stays on permanent DST after March 8, 2026
+        $nowInToronto = '2029-12-28 22:00:00'; // three days before closing, at the scheduled time (api/app/Console/Kernel.php)
+        $nowInUtc = '2029-12-29 03:00:00';
 
         $pool = Pool::factory()
             ->published()
@@ -116,10 +116,10 @@ class SendNotificationsApplicationDeadlineApproachingTest extends TestCase
     // will not send a notification to a user if they have a draft application a pool not closing in three days
     public function testDoesNotSendNotificationIfNotThreeDaysBefore(): void
     {
-        $closingDateTimeInPacific = '2999-12-31 23:59:59'; // pools close end of day in Pacific, by convention
-        $closingTimeInUtc = '3000-01-01 07:59:59';
-        $nowInPacific = '2999-12-30 12:00:00'; // one day before closing
-        $nowInUtc = '2999-12-30 20:00:00';
+        $closingDateTimeInVancouver = '2029-12-31 23:59:59'; // pools close end of day in Vancouver
+        $closingTimeInUtc = '2030-01-01 06:59:59'; // Vancouver stays on permanent DST after March 8, 2026
+        $nowInToronto = '2029-12-30 22:00:00'; // one day before closing
+        $nowInUtc = '2029-12-31 03:00:00';
 
         $pool = Pool::factory()
             ->published()

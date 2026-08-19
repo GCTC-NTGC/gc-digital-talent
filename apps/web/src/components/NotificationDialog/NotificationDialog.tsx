@@ -137,14 +137,6 @@ const DialogPortalWithPresence = ({
                 </Dialog.Close>
               </div>
             </div>
-            <DialogPrimitive.Description>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Welcome to your notification panel. Click or activate a notification to be taken to the relevant page. Each notification can be marked as read or deleted.",
-                id: "qek0N+",
-                description: "Instructions on how to manage notifications",
-              })}
-            </DialogPrimitive.Description>
           </div>
           <NotificationActions
             onRead={onRead}

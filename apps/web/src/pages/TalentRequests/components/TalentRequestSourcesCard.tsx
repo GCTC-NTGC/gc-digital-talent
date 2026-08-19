@@ -5,13 +5,18 @@ import {
   getFragment,
   graphql,
   type FragmentType,
+  type TalentRequestSource,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import TalentRequestSectionCard from "./TalentRequestSectionCard";
 
@@ -41,15 +46,22 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
           localized
         }
       }
+      talentSources {
+        value
+      }
     }
   }
 `);
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
+  talentSourceOptions: GenericLocalizedEnum<TalentRequestSource>[];
 }
 
-const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
+const TalentRequestSourcesCard = ({
+  query,
+  talentSourceOptions,
+}: TalentRequestSourcesCardProps) => {
   const intl = useIntl();
   const { applicantFilter } = getFragment(
     TalentRequestSourcesCard_Fragment,
@@ -62,6 +74,10 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
   );
   const pools = unpackMaybes(applicantFilter?.pools);
   const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
+
+  const selectedTalentSources = unpackMaybes(
+    applicantFilter?.talentSources?.map((source) => source?.value),
+  );
 
   return (
     <TalentRequestSectionCard
@@ -91,6 +107,24 @@ const TalentRequestSourcesCard = ({ query }: TalentRequestSourcesCardProps) => {
           ) : (
             notProvided
           )}
+        </FieldDisplay>
+        <FieldDisplay
+          label={intl.formatMessage(talentRequestMessages.talentSource)}
+        >
+          <Ul unStyled noIndent inside>
+            {talentSourceOptions.map((source) => (
+              <li key={source.value}>
+                <BoolCheckIcon
+                  value={selectedTalentSources.includes(source.value)}
+                  trueLabel={intl.formatMessage(commonMessages.selected)}
+                  falseLabel={intl.formatMessage(commonMessages.notSelected)}
+                >
+                  {source.label.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
+                </BoolCheckIcon>
+              </li>
+            ))}
+          </Ul>
         </FieldDisplay>
         <FieldDisplay
           label={intl.formatMessage({

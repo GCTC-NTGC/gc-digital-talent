@@ -524,10 +524,20 @@ const commonMessages = defineMessages({
     id: "tyc8W0",
     description: "Name of English language formatted for appending",
   },
+  englishLabelShort: {
+    defaultMessage: "(EN)",
+    id: "Q6GYga",
+    description: "Name of English language formatted for appending, shortened",
+  },
   frenchLabel: {
     defaultMessage: "(French)",
     id: "E+zFTA",
     description: "Name of French language formatted for appending",
+  },
+  frenchLabelShort: {
+    defaultMessage: "(FR)",
+    id: "tfgjgQ",
+    description: "Name of French language formatted for appending, shortened",
   },
   questions: {
     defaultMessage: "Questions",
@@ -611,6 +621,11 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
+  dueToday: {
+    defaultMessage: "Due today",
+    id: "2H5KbR",
+    description: "Message shown when something is due on the current date",
+  },
   startDate: {
     defaultMessage: "Start date",
     id: "9tH7k0",
@@ -625,6 +640,11 @@ const commonMessages = defineMessages({
     defaultMessage: "Partially approved",
     id: "M9Q1zH",
     description: "Status text for partially approved nominations",
+  },
+  specialApplication: {
+    defaultMessage: "Special application",
+    id: "96yWSc",
+    description: "Special application label",
   },
 });
 

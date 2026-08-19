@@ -104,7 +104,7 @@ const DateInput = ({
   };
 
   const isAfterMin = (value: string) => {
-    if (!rules.min) {
+    if (!rules.min?.value) {
       return true;
     }
     if (!value) {
@@ -121,7 +121,7 @@ const DateInput = ({
   };
 
   const isBeforeMax = (value: string) => {
-    if (!rules.max) {
+    if (!rules.max?.value) {
       return true;
     }
     if (!value) {

@@ -36,6 +36,8 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property bool $include_nine_box
  * @property bool $require_reference_for_advancement
  * @property ?array $custom_instructions
+ * @property ?string $contact_email
+ * @property bool $include_development_opportunities
  */
 class TalentNominationEvent extends Model
 {
@@ -109,6 +111,16 @@ class TalentNominationEvent extends Model
 
                 return null;
             },
+        );
+    }
+
+    public function includeDevelopmentOpportunities(): Attribute
+    {
+        /** @disregard P1003 Not using values */
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                return $this->communityDevelopmentPrograms->count() > 0;
+            }
         );
     }
 

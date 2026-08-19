@@ -2,6 +2,7 @@ import type { IntlShape } from "react-intl";
 import { add } from "date-fns/add";
 import type { FormatOptions } from "date-fns/format";
 import { format } from "date-fns/format";
+import { isPast } from "date-fns/isPast";
 import { parse } from "date-fns/parse";
 import { parseISO } from "date-fns/parseISO";
 import { enCA as en } from "date-fns/locale/en-CA";
@@ -180,6 +181,12 @@ export const parseDateTimeUtc = (d: string): Date => {
   }
   return parseISO(dateWithTimezone);
 };
+
+/**
+ * Check if an API scalar DateTime (parsed as UTC) is in the past
+ */
+export const isPastDateTime = (d?: string | null): boolean =>
+  !!d && isPast(parseDateTimeUtc(d));
 
 /**
  * Take the current time, convert it to UTC, and then return that time in DATETIME_FORMAT_STRING

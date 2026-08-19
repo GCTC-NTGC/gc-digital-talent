@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-import type { FragmentType, User } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentStepType,
   getFragment,
@@ -13,6 +13,8 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm, Submit } from "@gc-digital-talent/forms";
+
+import type { SnapshotExperience } from "~/utils/experienceUtils";
 
 import type { FormValues } from "./types";
 import {
@@ -82,6 +84,11 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
+interface ParsedSnapshot {
+  firstName?: string | null;
+  experiences?: (SnapshotExperience | null | undefined)[] | null;
+}
+
 export interface ScreeningDecisionDialogProps {
   query: FragmentType<typeof ScreeningDecisionDialog_Fragment>;
   stepId: string;
@@ -100,9 +107,7 @@ const ScreeningDecisionDialog = ({
   const labels = useLabels();
   const candidate = getFragment(ScreeningDecisionDialog_Fragment, query);
   const snapshot = JSON.parse(String(candidate?.profileSnapshot)) as
-    | User
-    | null
-    | undefined;
+    ParsedSnapshot | null | undefined;
   const step = unpackMaybes(candidate?.pool.assessmentSteps).find(
     ({ id }) => id === stepId,
   );

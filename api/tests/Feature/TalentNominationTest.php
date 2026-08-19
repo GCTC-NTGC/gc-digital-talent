@@ -40,8 +40,8 @@ class TalentNominationTest extends TestCase
     GRAPHQL;
 
     protected $updateMutation = <<<'GRAPHQL'
-    mutation UpdateTalentNomination($id: UUID!, $talentNomination: UpdateTalentNominationInput!) {
-        updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+    mutation UpdateTalentNomination($talentNomination: UpdateTalentNominationInput!) {
+        updateTalentNomination(talentNomination: $talentNomination) {
                 id
             }
         }
@@ -148,8 +148,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
@@ -175,8 +175,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee2, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
@@ -196,13 +196,43 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
             ]);
 
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testCanUpdateNominationWhenDevelopmentProgramsFieldOmittedAndEventExcludesDevelopmentOpportunities()
+    {
+        // $this->nominationEvent has no development programs, so includeDevelopmentOpportunities is false
+        $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $this->nominationEvent->id,
+            'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
+            'nominate_for_development_programs' => null,
+        ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'nominationRationale' => 'Updated rationale',
+                ],
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'updateTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+        $this->assertNull($nomination->fresh()->nominate_for_development_programs);
     }
 
     public function testCanAddKLCSkillsWithEventOption()
@@ -279,8 +309,8 @@ class TalentNominationTest extends TestCase
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'skills' => [
                         'sync' => [$nonKlcSkillId],
                     ],
@@ -463,15 +493,51 @@ class TalentNominationTest extends TestCase
         // updating operations (update/submit) for a nomination fails if the event is closed
         $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
-                'id' => $nomination->id,
                 'talentNomination' => [
+                    'id' => $nomination->id,
                     'additionalComments' => 'New comments',
                 ],
-            ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
+            ])->assertGraphQLValidationError('talentNomination.id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
 
         $this->actingAs($this->employee1, 'api')
             ->graphQL($this->submitMutation, [
                 'id' => $nomination->id,
             ])->assertGraphQLValidationError('id', ErrorCode::TALENT_EVENT_IS_CLOSED->name);
+    }
+
+    public function testCommunityTalentCoordinatorCanCreatePastNominationOnProtectedEndpoint()
+    {
+        $event = TalentNominationEvent::factory()->create([
+            'open_date' => config('constants.past_datetime'),
+            'close_date' => config('constants.past_datetime'),
+        ]);
+
+        $communityTalentCoordinator = User::factory()
+            ->state([
+                'computed_is_gov_employee' => true,
+                'work_email' => 'coordinator@gc.ca',
+                'work_email_verified_at' => now(),
+            ])
+            ->asGuest()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($event->community_id)
+            ->create();
+
+        $this->actingAs($communityTalentCoordinator, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $event->id,
+                    ],
+                ],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonStructure([
+                'data' => [
+                    'createTalentNomination' => [
+                        'id',
+                    ],
+                ],
+            ]);
     }
 }

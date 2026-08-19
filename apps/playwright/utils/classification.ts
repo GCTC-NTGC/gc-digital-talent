@@ -1,4 +1,4 @@
-import type { Classification } from "@gc-digital-talent/graphql";
+import type { Classification } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -23,8 +23,8 @@ export const getClassifications: GraphQLRequestFunc<Classification[]> = async (
   ctx,
 ) => {
   return await ctx
-    .post<
-      GraphQLResponse<"classifications", Classification[]>
-    >(Test_ClassificationsQueryDocument)
+    .post<GraphQLResponse<"classifications", Classification[]>>(
+      Test_ClassificationsQueryDocument,
+    )
     .then((res) => res.classifications);
 };

@@ -52,6 +52,7 @@ export const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    includeNineBox
     includeLeadershipCompetencies
     community {
       id
@@ -78,6 +79,11 @@ export const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
+    customInstructions {
+      en
+      fr
+    }
+    contactEmail
   }
 `);
 

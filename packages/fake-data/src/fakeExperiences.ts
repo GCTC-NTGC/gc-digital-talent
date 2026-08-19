@@ -11,7 +11,7 @@ import type {
   User,
   ExperienceSkillRecord,
   Skill,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   // imports required by specific experiences and are linked
   AwardedTo,
@@ -22,7 +22,7 @@ import {
   GovContractorType,
   CSuiteRoleTitle,
   GovEmployeeType,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import fakeDepartments from "./fakeDepartments";
 import { getStaticSkills } from "./fakeSkills";

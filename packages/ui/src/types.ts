@@ -30,8 +30,7 @@ export type IconProps = PropsWithoutRef<SVGProps<SVGSVGElement>> & {
 } & RefAttributes<SVGSVGElement>;
 
 export type IconType =
-  | ElementType<IconProps>
-  | ForwardRefExoticComponent<IconProps>;
+  ElementType<IconProps> | ForwardRefExoticComponent<IconProps>;
 
 type PropsOf<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T];
 export type PolymorphicProps<

@@ -8,8 +8,8 @@ import {
 } from "@gc-digital-talent/helpers";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
+  LocalizedString,
   OrderByClause,
-  RoleAssignment,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -24,13 +24,15 @@ import type { FormValues, OtherFilter } from "./UserFilterDialog";
 import { OTHER_FILTER } from "./UserFilterDialog";
 import ROLES_TO_HIDE_USERS_TABLE from "./constants";
 
+interface DisplayRole {
+  name: string;
+  displayName?: LocalizedString | null;
+}
+
 export function rolesAccessor(
-  roleAssignments: RoleAssignment[],
+  roles: (DisplayRole | null | undefined)[],
   intl: IntlShape,
 ): string | null {
-  if (!roleAssignments) return null;
-
-  const roles = roleAssignments.map((roleAssignment) => roleAssignment.role);
   const rolesToDisplay = unpackMaybes(roles)
     .filter((role) => !ROLES_TO_HIDE_USERS_TABLE.includes(role.name))
     .map(

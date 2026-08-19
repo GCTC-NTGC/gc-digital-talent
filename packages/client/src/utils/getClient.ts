@@ -59,6 +59,7 @@ export function getClient({
     url: `${apiHost}${apiUri}`,
     requestPolicy: "cache-and-network",
     fetchOptions: { headers: { "Accept-Language": locale } },
+    preferGetMethod: false,
     exchanges: [
       cacheExchange,
       protectedEndpointExchange,

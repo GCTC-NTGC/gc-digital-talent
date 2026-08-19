@@ -13,4 +13,6 @@ return [
     'reinstated' => 'Réintégré',
     'reverted' => 'Restauré',
     'published' => 'Publié',
+    'special_application_created' => 'Demande spéciale créée',
+    'special_application_submitted' => 'Demande spéciale soumise',
 ];

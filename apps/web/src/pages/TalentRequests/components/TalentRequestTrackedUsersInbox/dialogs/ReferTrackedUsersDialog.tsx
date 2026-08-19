@@ -25,6 +25,7 @@ const ReferTrackedUsersDialog = ({
   onOpenChange,
   selectedIds,
   onCompleted,
+  onCloseAutoFocus,
 }: StatusDialogProps) => {
   const intl = useIntl();
   const [, executeMutation] = useMutation(InboxReferTrackedUsers_Mutation);
@@ -52,6 +53,7 @@ const ReferTrackedUsersDialog = ({
       icon={PaperAirplaneIcon}
       statusLabel={intl.formatMessage(talentRequestMessages.referred)}
       selectedCount={selectedIds.length}
+      onCloseAutoFocus={onCloseAutoFocus}
     >
       <Dialog.Footer>
         <Button color="primary" onClick={handleConfirmReferred}>

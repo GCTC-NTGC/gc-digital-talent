@@ -4,7 +4,6 @@ import { boolToYesNo } from "@gc-digital-talent/helpers";
 import type {
   ProfileCitizenVeteranPriorityFragment,
   UpdateUserAsUserInput,
-  User,
 } from "@gc-digital-talent/graphql";
 import {
   ArmedForcesStatus,
@@ -17,7 +16,7 @@ import type { FormValues } from "./types";
 
 export const formValuesToSubmitData = (
   values: FormValues,
-  userId: User["id"],
+  userId: string,
 ): UpdateUserAsUserInput => {
   return {
     id: userId,

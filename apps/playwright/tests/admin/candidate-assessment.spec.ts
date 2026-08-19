@@ -1,4 +1,8 @@
-import type { PoolCandidate, Skill, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  Skill,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   ApplicationStatus,
   ArmedForcesStatus,
@@ -15,7 +19,7 @@ import {
   SkillCategory,
   WorkRegion,
   CandidateRemovalReason,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   FAR_FUTURE_DATE,
   FAR_PAST_DATE,
@@ -26,7 +30,7 @@ import { test, expect } from "~/fixtures";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, getUserById, me } from "~/utils/user";
 import {
   createAndSubmitApplication,
   disqualifyCandidate,
@@ -48,17 +52,25 @@ const LOCALIZED_STRING = {
 test.describe("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
-  const adminSub = "admin@test.com";
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let poolId: string;
   let user: User | undefined;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    adminCtx = await graphql.newContext();
+    // Platform admin for user management (createUserWithRoles, deleteUser)
+    platformAdminCtx = await graphql.newContext();
+    // Community admin for pool/assessment ops — AssessmentResultPolicy::create() only
+    // checks team-based permissions, so platform admin's global role is not enough.
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
 
     technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
@@ -66,7 +78,7 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
       );
     });
 
-    user = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         firstName: "Playwright",
@@ -106,9 +118,11 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
         },
       },
     });
-    const admin = await me(adminCtx, {});
+    // adminCtx is community admin, which has team-based permissions required by
+    // CreatePoolValidator and AssessmentResultPolicy.
+    const poolAdmin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
-      userId: admin?.id ?? "",
+      userId: poolAdmin?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
@@ -117,20 +131,25 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
     const applicantCtx = await graphql.newContext(
       user?.authInfo?.sub ?? "applicant@test.com",
     );
-    const applicant = await me(applicantCtx, {});
+
+    // Fetch experience ID via admin context to avoid token-minting issues for
+    // dynamically created users in UAT.
+    const createdUser = await getUserById(platformAdminCtx, {
+      id: user?.id ?? "",
+    });
+    const personalExperienceId = createdUser?.experiences?.[0]?.id ?? "";
 
     const application = await createAndSubmitApplication(applicantCtx, {
       poolId: createdPool.id,
-      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
-      signature: `${applicant.firstName} signature`,
+      personalExperienceId,
+      signature: `${user?.firstName ?? "Playwright"} signature`,
     });
 
     candidate = application;
   });
 
   test.afterEach(async () => {
-    adminCtx = await graphql.newContext();
-    if (user?.id) await deleteUser(adminCtx, { id: user.id });
+    if (user?.id) await deleteUser(platformAdminCtx, { id: user.id });
   });
 
   test("Validate Application can be screened in with applied work", async ({

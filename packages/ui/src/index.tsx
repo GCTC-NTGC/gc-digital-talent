@@ -97,6 +97,7 @@ import type {
 } from "./components/TableOfContents";
 import TableOfContents from "./components/TableOfContents";
 import Tabs from "./components/Tabs/Tabs";
+import Tooltip from "./components/Tooltip/Tooltip";
 import ToggleGroup from "./components/ToggleGroup/ToggleGroup";
 import ToggleSection from "./components/ToggleSection/ToggleSection";
 import TreeView from "./components/TreeView/TreeView";
@@ -105,7 +106,7 @@ import {
   decrementHeadingRank,
   hrefToString,
 } from "./utils";
-import { UNICODE_CHAR, wrapParens } from "./utils/unicode";
+import { UNICODE_CHAR, wrapParens, wrapQuotes } from "./utils/unicode";
 import useControllableState from "./hooks/useControllableState";
 import TaskCard from "./components/TaskCard/TaskCard";
 
@@ -213,6 +214,7 @@ export {
   TableOfContents,
   Tabs,
   TaskCard,
+  Tooltip,
   ToggleGroup,
   ToggleSection,
   TreeView,
@@ -225,5 +227,6 @@ export {
   useControllableState,
   hrefToString,
   wrapParens,
+  wrapQuotes,
   UNICODE_CHAR,
 };

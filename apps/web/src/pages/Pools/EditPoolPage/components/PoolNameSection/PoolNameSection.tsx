@@ -44,7 +44,7 @@ import processMessages from "~/messages/processMessages";
 import { useEditPoolContext } from "../EditPoolContext";
 import Display from "./Display";
 import type { FormValues, PoolNameSubmitData } from "./utils";
-import { dataToFormValues, formValuesToSubmitData } from "./utils";
+import { formValuesToSubmitData } from "./utils";
 import type { SectionProps } from "../../types";
 import ActionWrapper from "../ActionWrapper";
 import CitizensNote from "./CitizensNote";
@@ -260,7 +260,17 @@ const PoolNameSection = ({
     : workStreams;
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: {
+      areaOfSelection: pool.areaOfSelection?.value ?? undefined,
+      selectionLimitations: pool.selectionLimitations?.map((l) => l.value),
+      classification: pool.classification?.id ?? "",
+      department: pool.department?.id ?? "",
+      stream: pool.workStream?.id ?? undefined,
+      specificTitleEn: pool.name?.en ?? "",
+      specificTitleFr: pool.name?.fr ?? "",
+      publishingGroup: pool.publishingGroup?.value,
+      opportunityLength: pool.opportunityLength?.value,
+    },
   });
   const { handleSubmit, watch, resetField } = methods;
 

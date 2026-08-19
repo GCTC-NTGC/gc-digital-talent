@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from "@playwright/test";
 
-import type { PlacementType } from "@gc-digital-talent/graphql";
-import { PauseReferralsLength } from "@gc-digital-talent/graphql";
+import type { PlacementType } from "@gc-digital-talent/graphql/schema-types";
+import { PauseReferralsLength } from "@gc-digital-talent/graphql/schema-types";
 
 import { getFutureDateByMonths } from "~/utils/id";
 

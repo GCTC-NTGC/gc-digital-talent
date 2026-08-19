@@ -6,28 +6,24 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\JobPosterTemplateGenerator;
 use App\Models\JobPosterTemplate;
+use App\Support\FilePath;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\UnauthorizedException;
 
 final readonly class DownloadJobPosterTemplateDoc
 {
     /** @param  array{id: string|null}  $args */
     public function __invoke(null $_, array $args)
     {
-        $user = Auth::user();
-        throw_unless(is_string($user?->id), UnauthorizedException::class);
-
         try {
             $targetPoster = JobPosterTemplate::findOrFail($args['id']);
             $generator = new JobPosterTemplateGenerator(
                 jobPoster: $targetPoster,
-                dir: $user->id,
+                dir: null,
                 lang: App::getLocale(),
             );
 
-            $generator->setAuthenticatedUserId($user->id);
+            $generator->setDiskName(FilePath::PUBLIC_DISK);
 
             $generator->generate()->write();
 

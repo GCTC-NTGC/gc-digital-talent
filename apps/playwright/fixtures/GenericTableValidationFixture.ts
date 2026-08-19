@@ -7,8 +7,8 @@ import type {
   PlacementType,
   ScreeningStage,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
-import { ApplicationStatus } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import { ApplicationStatus } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLContext } from "~/utils/graphql";
 import { getPoolCandidatesTable } from "~/utils/candidateAssessment";

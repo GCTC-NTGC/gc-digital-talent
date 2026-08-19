@@ -1,9 +1,8 @@
 import { useQuery } from "urql";
 import { useMemo } from "react";
 
-import type { Role } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
-import { notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 const ManageAccessPool_AvailableRolesQuery = graphql(/* GraphQL */ `
   query ManageAccessPoolAvailableRolesQuery {
@@ -19,12 +18,7 @@ const ManageAccessPool_AvailableRolesQuery = graphql(/* GraphQL */ `
   }
 `);
 
-interface UseAvailableRolesReturn {
-  roles: Role[];
-  fetching: boolean;
-}
-
-const useAvailableRoles = (): UseAvailableRolesReturn => {
+const useAvailableRoles = () => {
   const [{ data, fetching }] = useQuery({
     query: ManageAccessPool_AvailableRolesQuery,
   });
@@ -34,14 +28,11 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
     return roles;
   }, []);
 
-  const roles: Role[] = useMemo(
+  const roles = useMemo(
     () =>
-      data?.roles
-        ? data.roles
-            .filter(notEmpty)
-            .filter((role) => role.isTeamBased)
-            .filter((role) => poolRolesArray.includes(role.name))
-        : [],
+      unpackMaybes(data?.roles)
+        .filter((role) => role.isTeamBased)
+        .filter((role) => poolRolesArray.includes(role.name)),
     [data?.roles, poolRolesArray],
   );
 
