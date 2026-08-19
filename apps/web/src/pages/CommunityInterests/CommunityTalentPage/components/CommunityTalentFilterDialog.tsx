@@ -20,6 +20,7 @@ import {
 } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
+  CommunityReferralStatus,
   FlexibleWorkLocation,
   LanguageAbility,
   OperationalRequirement,
@@ -43,6 +44,7 @@ export interface FormValues {
   operationalRequirements: OperationalRequirement[];
   flexibleWorkLocations: FlexibleWorkLocation[];
   skills: string[];
+  referralStatuses: CommunityReferralStatus[];
 }
 
 const context: Partial<OperationContext> = {
@@ -98,6 +100,16 @@ const CommunityTalentFilterData_Query = graphql(/* GraphQL */ `
       enumName: "FlexibleWorkLocation"
     ) {
       ... on LocalizedFlexibleWorkLocation {
+        value
+        label {
+          localized
+        }
+      }
+    }
+    referralStatuses: localizedEnumOptions(
+      enumName: "CommunityReferralStatus"
+    ) {
+      ... on LocalizedCommunityReferralStatus {
         value
         label {
           localized
@@ -164,6 +176,26 @@ const CommunityTalentFilterDialog = ({
             label: workStream.name?.localized ?? notAvailable,
           }))}
         />
+        <div className="xs:col-span-2">
+          <Combobox
+            id="referralStatuses"
+            name="referralStatuses"
+            isMulti
+            label={intl.formatMessage({
+              defaultMessage: "Community referral status",
+              id: "IiVoz9",
+              description:
+                "Label for community referral status filter in community talent filter dialog",
+            })}
+            options={narrowEnumType(
+              unpackMaybes(data?.referralStatuses),
+              "CommunityReferralStatus",
+            ).map((communityReferralStatus) => ({
+              value: communityReferralStatus.value,
+              label: communityReferralStatus.label?.localized ?? notAvailable,
+            }))}
+          />
+        </div>
       </div>
       <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
