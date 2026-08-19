@@ -71,6 +71,7 @@ return [
     'browser_user_agent_hosts' => [
         'connexion.canada.ca',
         'login.canada.ca',
+        'laws-lois.justice.gc.ca',
     ],
 
     /*
