@@ -12,14 +12,20 @@ import {
   SortOrder,
   OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
+  CommunityReferralStatus,
 } from "@gc-digital-talent/graphql";
-import { Link } from "@gc-digital-talent/ui";
+import type { ChipProps } from "@gc-digital-talent/ui";
+import { Chip } from "@gc-digital-talent/ui";
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  DATE_FORMAT_LOCALIZED,
+  parseDateTimeUtc,
+} from "@gc-digital-talent/date-helpers";
 
-import type useRoutes from "~/hooks/useRoutes";
-import { getFullNameLabel } from "~/utils/nameUtils";
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
+import { followUpDateOverdueInfo } from "~/utils/talentRequestUtils";
+import cells from "~/components/Table/cells";
 
 import type { FormValues } from "./components/CommunityTalentFilterDialog";
 
@@ -102,15 +108,49 @@ export function getClassificationSort(
   return null;
 }
 
-export const usernameCell = (
-  userId: string,
-  paths: ReturnType<typeof useRoutes>,
+const communityReferralStatusColorMap = new Map<
+  CommunityReferralStatus,
+  ChipProps["color"]
+>([
+  [CommunityReferralStatus.New, "warning"],
+  [CommunityReferralStatus.Pending, "secondary"],
+  [CommunityReferralStatus.AvailableForReferral, "success"],
+  [CommunityReferralStatus.NotReferred, "gray"],
+]);
+
+export const communityReferralStatusCell = (
+  status: {
+    value: CommunityReferralStatus;
+    label?: { localized?: string | null } | null;
+  },
   intl: IntlShape,
-  firstName?: string | null,
-  lastName?: string | null,
-): JSX.Element => {
-  const userName = getFullNameLabel(firstName, lastName, intl);
-  return <Link href={paths.userEmployeeProfile(userId)}>{userName}</Link>;
+): JSX.Element => (
+  <Chip color={communityReferralStatusColorMap.get(status.value) ?? "gray"}>
+    {status.label?.localized ?? intl.formatMessage(commonMessages.notAvailable)}
+  </Chip>
+);
+
+export const communityReferralFollowUpDateCell = (
+  followUpDate: string | null | undefined,
+  now: Date,
+  intl: IntlShape,
+): JSX.Element | string | null => {
+  if (!followUpDate) return null;
+
+  const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
+    parseDateTimeUtc(followUpDate),
+    now,
+  );
+
+  return isOverdue || isDueToday ? (
+    <Chip color="error">
+      {isOverdue
+        ? intl.formatMessage(commonMessages.overdueDate, { daysOverdue })
+        : intl.formatMessage(commonMessages.dueToday)}
+    </Chip>
+  ) : (
+    cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)
+  );
 };
 
 export function interestAccessor(
@@ -158,6 +198,7 @@ export function transformCommunityTalentInput(
     operationalRequirements: filterState?.operationalRequirements,
     skills: filterState?.skills,
     flexibleWorkLocations: filterState?.flexibleWorkLocations,
+    referralStatuses: filterState?.referralStatuses,
   };
 }
 
@@ -207,6 +248,7 @@ export function transformCommunityInterestFilterInputToFormValues(
     skills: unpackMaybes(input?.skills),
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
     classifications: unpackMaybes(input?.classifications),
+    referralStatuses: unpackMaybes(input?.referralStatuses),
   };
 }
 

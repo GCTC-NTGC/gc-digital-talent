@@ -30,8 +30,8 @@ import {
   SEARCH_PARAM_KEY,
 } from "~/components/Table/ResponsiveTable/constants";
 import { getFullNameLabel } from "~/utils/nameUtils";
-import useRoutes from "~/hooks/useRoutes";
 import cells from "~/components/Table/cells";
+import { useStableDate } from "~/hooks/useStableDate";
 import adminMessages from "~/messages/adminMessages";
 import processMessages from "~/messages/processMessages";
 import type { SearchState } from "~/components/Table/ResponsiveTable/types";
@@ -47,6 +47,7 @@ import accessors from "~/components/Table/accessors";
 
 import type { FormValues } from "./components/CommunityTalentFilterDialog";
 import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
+import CommunityReferralStatusDialog from "./components/CommunityReferralStatusDialog";
 import {
   getClassificationSort,
   interestAccessor,
@@ -54,9 +55,10 @@ import {
   transformCommunityTalentInput,
   transformFormValuesToCommunityInterestFilterInput,
   transformSortStateToOrderByClause,
-  usernameCell,
   extractUserIdsFromSelectedRows,
   transformToUserFilterInput,
+  communityReferralStatusCell,
+  communityReferralFollowUpDateCell,
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
@@ -111,6 +113,16 @@ const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
           localized
         }
       }
+      referralStatus {
+        status {
+          value
+          label {
+            localized
+          }
+        }
+        followUpDate
+      }
+      ...CommunityReferralStatusDialog
     }
     skillCount
   }
@@ -181,6 +193,10 @@ const CommunityTalentTable_Query = graphql(/* GraphQL */ `
         }
       }
     }
+    classifications {
+      id
+      displayName
+    }
   }
 `);
 
@@ -202,6 +218,7 @@ const defaultState = {
     flexibleWorkLocations: [],
     operationalRequirements: [],
     skills: [],
+    referralStatuses: [],
   },
 };
 
@@ -211,7 +228,7 @@ interface CommunityTalentTableProps {
 
 const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
+  const now = useStableDate();
   const initialState = getTableStateFromSearchParams(defaultState);
   const searchParams = new URLSearchParams(window.location.search);
   const filtersEncoded = searchParams.get(SEARCH_PARAM_KEY.FILTERS);
@@ -363,6 +380,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   const filteredSkillIds = filterState?.skills
     ?.filter(notEmpty)
     .map((skill) => skill);
+  const allClassifications = unpackMaybes(data?.classifications);
 
   const columns = [
     columnHelper.accessor(
@@ -373,14 +391,64 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         header: intl.formatMessage(commonMessages.name),
         cell: ({
           row: {
-            original: {
-              communityInterest: { user },
-            },
+            original: { communityInterest },
           },
-        }) => usernameCell(user.id, paths, intl, user.firstName, user.lastName),
+        }) => (
+          <CommunityReferralStatusDialog
+            query={communityInterest}
+            classifications={allClassifications}
+          />
+        ),
         meta: {
           isRowTitle: true,
         },
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { referralStatus } }) =>
+        referralStatus.status.label?.localized ?? "",
+      {
+        id: "communityReferralStatus",
+        header: intl.formatMessage({
+          defaultMessage: "Community referral status",
+          id: "txKdqd",
+          description:
+            "Column header for a community interest's referral status",
+        }),
+        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              communityInterest: { referralStatus },
+            },
+          },
+        }) => communityReferralStatusCell(referralStatus.status, intl),
+      },
+    ),
+    columnHelper.accessor(
+      ({ communityInterest: { referralStatus } }) =>
+        referralStatus.followUpDate ?? "",
+      {
+        id: "communityReferralFollowUpDate",
+        header: intl.formatMessage({
+          defaultMessage: "Follow-up date",
+          id: "HpcW4n",
+          description:
+            "Column header for a community interest's referral follow-up date",
+        }),
+        enableColumnFilter: false,
+        cell: ({
+          row: {
+            original: {
+              communityInterest: { referralStatus },
+            },
+          },
+        }) =>
+          communityReferralFollowUpDateCell(
+            referralStatus.followUpDate,
+            now,
+            intl,
+          ),
       },
     ),
     columnHelper.accessor("skillCount", {
