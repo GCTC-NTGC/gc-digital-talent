@@ -31,9 +31,10 @@ const NominateTalentSuccess_Fragment = graphql(/* GraphQL */ `
 
 interface SuccessProps {
   successQuery: FragmentType<typeof NominateTalentSuccess_Fragment>;
+  submitted: boolean;
 }
 
-const Success = ({ successQuery }: SuccessProps) => {
+const Success = ({ successQuery, submitted }: SuccessProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const { current } = useCurrentStep();
@@ -42,7 +43,7 @@ const Success = ({ successQuery }: SuccessProps) => {
     successQuery,
   );
 
-  if (current || !talentNomination.submittedAt) {
+  if (current || (!talentNomination.submittedAt && !submitted)) {
     return null;
   }
 
