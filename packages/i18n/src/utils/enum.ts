@@ -38,6 +38,8 @@ export interface GenericLocalizedEnum<T> {
   label: LocalizedString;
 }
 
+export type LocalizedEnumValue<T> = Pick<GenericLocalizedEnum<T>, "value">;
+
 /**
  * Retrieve the full localized enum from an array
  * of them based of a value

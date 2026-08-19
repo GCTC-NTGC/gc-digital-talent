@@ -84,7 +84,7 @@ final class UpdateTalentNominationInputValidator extends Validator
             'nominateForAdvancement' => ['boolean'],
             'nominateForLateralMovement' => ['boolean'],
             'nominateForDevelopmentPrograms' => [
-                Rule::when(fn () => $event?->includeDevelopmentOpportunities,
+                Rule::when(fn () => $event?->include_development_opportunities,
                     ['boolean'],
                     ['sometimes', 'declined']
                 ),

@@ -7,6 +7,14 @@ import { setNonce } from "get-nonce";
  */
 const NONCE_PLACEHOLDER = "**CSP_NONCE**";
 
+const getNonceElement = (): HTMLElement | null => {
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  return document.querySelector<HTMLElement>("[nonce]");
+};
+
 /**
  * Hand the nonce to `react-style-singleton`, which `react-remove-scroll` uses
  * to inject its scroll-lock `<style>` tag when a modal Radix dialog opens.
@@ -18,9 +26,12 @@ const NONCE_PLACEHOLDER = "**CSP_NONCE**";
  * property keeps the real value.
  */
 export const applyCspNonce = (): void => {
-  const nonce = document.querySelector<HTMLElement>("[nonce]")?.nonce;
+  const nonce = getNonceElement()?.nonce;
 
   if (nonce && nonce !== NONCE_PLACEHOLDER) {
     setNonce(nonce);
   }
 };
+
+export const getDocumentNonce = (): string =>
+  getNonceElement()?.getAttribute("nonce") ?? NONCE_PLACEHOLDER;

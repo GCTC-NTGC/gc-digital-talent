@@ -52,24 +52,22 @@ const CandidateFlag = ({
     intl,
   );
 
-  const [{ isFlagged, isUpdating: isUpdatingFlag }, toggleFlag] =
-    useCandidateFlagToggle({
-      id: candidate.id,
-      onChange: onFlagChange,
-      value: flagged,
-      defaultValue: candidate?.isFlagged ?? false,
-      name: candidateName,
-      processTitle:
-        processTitle ??
-        candidate.pool.displayName?.display.localized ??
-        intl.formatMessage(commonMessages.notAvailable),
-    });
+  const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
+    id: candidate.id,
+    onChange: onFlagChange,
+    value: flagged,
+    defaultValue: candidate?.isFlagged ?? false,
+    name: candidateName,
+    processTitle:
+      processTitle ??
+      candidate.pool.displayName?.display.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
+  });
 
   return (
     <IconButton
       color={isFlagged ? "warning" : "black"}
       onClick={toggleFlag}
-      disabled={isUpdatingFlag}
       icon={isFlagged ? FlagIconSolid : FlagIconOutline}
       size={size}
       label={

@@ -29,6 +29,7 @@ import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
+  RequestFormSkill_Fragment,
 } from "./RequestForm";
 
 const classifications = fakeClassifications();
@@ -45,6 +46,10 @@ const classificationFragments = classifications.map((classification) =>
   makeFragmentData(classification, RequestFormClassification_Fragment),
 );
 
+const skillFragments = skills.map((skill) =>
+  makeFragmentData(skill, RequestFormSkill_Fragment),
+);
+
 const [applicantFilter] = applicantFilters;
 applicantFilter.skills = [skills[0], skills[1]];
 applicantFilter.pools = [pools[0]];
@@ -58,7 +63,7 @@ export default {
     classificationsQuery: classificationFragments,
     applicantFilter,
     pools,
-    skills,
+    skills: skillFragments,
     candidateCount: 10,
     handleCreateTalentRequest: async (data: CreateTalentRequestInput) => {
       await new Promise((resolve) => {

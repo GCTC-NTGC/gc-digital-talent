@@ -9582,10 +9582,6 @@
     "defaultMessage": "Nous traitons les billets pendant les heures normales de travail. Si vous signalez un problème tard le soir, juste avant la date limite d’une annonce d’emploi, attendez vous à une réponse dans les deux jours ouvrables. Pour éviter les problèmes de dernière minute, nous vous encourageons à soumettre votre demande le plus tôt possible.",
     "description": "Text explaining the average time spent on applications"
   },
-  "bBIZ3a": {
-    "defaultMessage": "Recherchez vos compétences",
-    "description": "Label for the skill library table search input"
-  },
   "bDmp5T": {
     "defaultMessage": "Vous élaborez votre parcours professionnel en décrivant <strong>vos expériences professionnelles</strong>, <strong>vos études</strong>, <strong>votre participation à la vie communautaire</strong>, <strong>votre apprentissage personnel</strong>, et <strong>les récompenses </strong> que vous avez reçues. Dans une étape ultérieure, vous utiliserez ces expériences pour mettre en valeur vos compétences. Vous pouvez commencer à ajouter des expériences à votre parcours professionnel en sélectionnant le lien « <strong>Ajouter une nouvelle expérience</strong> ».",
     "description": "Application step to begin working on career timeline, paragraph two"
@@ -9641,10 +9637,6 @@
   "bSFeLf": {
     "defaultMessage": "Processus fermé avec succès!",
     "description": "Message displayed to user after pool is closed"
-  },
-  "bShedV": {
-    "defaultMessage": "Veuillez ajouter au moins une possibilité de perfectionnement parmi lesquelles les personnes proposant des nominations pourront faire un choix.",
-    "description": "Message to add at least one development opportunity"
   },
   "bTkYfa": {
     "defaultMessage": "80 612 $ à 102 712 $ · (classification AS ou équivalente)",
@@ -13666,6 +13658,10 @@
     "defaultMessage": "Aucun nom de famille fourni",
     "description": "Fallback for last name value"
   },
+  "r8mT7a": {
+    "defaultMessage": "Rechercher les compétences",
+    "description": "Label for the skill library table search input"
+  },
   "rAK3Dh": {
     "defaultMessage": "La mise à jour des informations sur le compte a échoué.",
     "description": "Error message when updating a users account information"
@@ -13957,6 +13953,10 @@
   "sTPYhS": {
     "defaultMessage": "La Bibliothèque de compétences est une ressource centralisée dans laquelle les principales compétences des collectivités fonctionnelles qui utilisent la plateforme sont définies et organisées. Elle fournit des descriptions claires de chacune des compétences, pour que les gestionnaires d’embauche, les spécialistes des RH et les personnes qui postulent comprennent la même chose.",
     "description": "Description of the skills library"
+  },
+  "sVCUyO": {
+    "defaultMessage": "Nominez une personne pour une promotion ou un transfert latéral.",
+    "description": "Subtitle for the form to nominate talent without development opportunities"
   },
   "sZhjI3": {
     "defaultMessage": "Veuillez sélectionner une collectivité fonctionnelle pour continuer.",
