@@ -1,11 +1,13 @@
 import { useIntl } from "react-intl";
+import { useQuery } from "urql";
+import type { OperationContext } from "urql";
 import FlagIconOutline from "@heroicons/react/24/outline/FlagIcon";
 import FlagIconSolid from "@heroicons/react/24/solid/FlagIcon";
 import BookmarkIconOutline from "@heroicons/react/24/outline/BookmarkIcon";
 import BookmarkIconSolid from "@heroicons/react/24/solid/BookmarkIcon";
 
 import type { ButtonProps } from "@gc-digital-talent/ui";
-import { Button } from "@gc-digital-talent/ui";
+import { Button, Pending } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -35,38 +37,59 @@ const ApplicationBookmarkFlag_Fragment = graphql(/** GraphQL */ `
         }
       }
     }
-    applicationAssessmentData {
-      isFlagged
-    }
-    isBookmarked
   }
 `);
 
-interface ApplicationBookmarkFlagProps {
-  query: FragmentType<typeof ApplicationBookmarkFlag_Fragment>;
+const ApplicationBookmarkFlagState_Query = graphql(/** GraphQL */ `
+  query ApplicationBookmarkFlagState($id: UUID!) {
+    poolCandidate(id: $id) {
+      id
+      isBookmarked
+      applicationAssessmentData {
+        isFlagged
+      }
+    }
+  }
+`);
+
+// The cached page snapshot can be stale after a toggle followed by a back-navigation (#16166),
+// so the toggle state is always re-fetched from the network rather than seeded from cache.
+const networkOnlyRequest: Partial<OperationContext> = {
+  requestPolicy: "network-only",
+};
+
+interface BookmarkFlagButtonsProps {
+  id: string;
+  name: string;
+  processTitle: string;
+  isBookmarked: boolean;
+  isFlagged: boolean;
 }
 
-const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
+/**
+ * Bookmark and flag buttons, owning the toggle mutations and seeded with freshly fetched
+ * server state.
+ *
+ * The toggle hooks only read their `defaultValue` on mount, so this must not be rendered
+ * until the real values are known.
+ */
+const BookmarkFlagButtons = ({
+  id,
+  name,
+  processTitle,
+  isBookmarked: initialIsBookmarked,
+  isFlagged: initialIsFlagged,
+}: BookmarkFlagButtonsProps) => {
   const intl = useIntl();
-  const application = getFragment(ApplicationBookmarkFlag_Fragment, query);
-
-  const name = getFullNameLabel(
-    application.user.firstName,
-    application.user.lastName,
-    intl,
-  );
-
   const [{ isFlagged }, toggleFlag] = useCandidateFlagToggle({
-    id: application.id,
-    defaultValue: application.applicationAssessmentData?.isFlagged ?? false,
+    id,
+    defaultValue: initialIsFlagged,
     name,
-    processTitle:
-      application.pool.displayName?.display.localized ??
-      intl.formatMessage(commonMessages.notAvailable),
+    processTitle,
   });
   const [{ isBookmarked }, toggleBookmark] = useCandidateBookmarkToggle({
-    id: application.id,
-    defaultValue: application.isBookmarked ?? false,
+    id,
+    defaultValue: initialIsBookmarked,
     name,
   });
 
@@ -108,6 +131,47 @@ const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
             })}
       </Button>
     </div>
+  );
+};
+
+interface ApplicationBookmarkFlagProps {
+  query: FragmentType<typeof ApplicationBookmarkFlag_Fragment>;
+}
+
+const ApplicationBookmarkFlag = ({ query }: ApplicationBookmarkFlagProps) => {
+  const intl = useIntl();
+  const application = getFragment(ApplicationBookmarkFlag_Fragment, query);
+
+  // This query is run separately without a cache policy, to avoid rendering stale values.
+  const [{ data, fetching, error }] = useQuery({
+    query: ApplicationBookmarkFlagState_Query,
+    variables: { id: application.id },
+    context: networkOnlyRequest,
+  });
+
+  const candidate = data?.poolCandidate;
+
+  // A spinner stands in until the current state is known, rather than risk showing a stale
+  // value from the cache.
+  return (
+    <Pending fetching={fetching} error={error} inline>
+      {candidate ? (
+        <BookmarkFlagButtons
+          id={application.id}
+          name={getFullNameLabel(
+            application.user.firstName,
+            application.user.lastName,
+            intl,
+          )}
+          processTitle={
+            application.pool.displayName?.display.localized ??
+            intl.formatMessage(commonMessages.notAvailable)
+          }
+          isBookmarked={candidate.isBookmarked ?? false}
+          isFlagged={candidate.applicationAssessmentData?.isFlagged ?? false}
+        />
+      ) : null}
+    </Pending>
   );
 };
 
