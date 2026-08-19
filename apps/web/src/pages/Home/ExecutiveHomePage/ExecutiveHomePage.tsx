@@ -67,7 +67,6 @@ export const HomePage = ({ pools }: HomePageProps) => {
       <HomeHero
         title={intl.formatMessage(pageTitle)}
         subtitle={intl.formatMessage(subTitle)}
-        titleSize="h2"
         img={{
           sources: { sm: execHeroSquare },
           src: execHeroLandscape,
