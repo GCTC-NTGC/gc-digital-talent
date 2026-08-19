@@ -313,6 +313,15 @@ class CommunityInterest extends Model
         return $query;
     }
 
+    public function scopeReferralStatuses(Builder $query, ?array $referralStatuses): Builder
+    {
+        if (empty($referralStatuses)) {
+            return $query;
+        }
+
+        return $query->whereIn('referral_status', $referralStatuses);
+    }
+
     public function scopeSkills(Builder $query, ?array $skillIds): Builder
     {
         if (empty($skillIds)) {
