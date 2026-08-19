@@ -65,6 +65,10 @@ jobs:
           script: |
             const fs = require("fs");
 
+            github.hook.before("request", (options) => {
+              options.headers["X-GitHub-Api-Version"] = "2022-11-28";
+            });
+
             const label = "broken-links";
             const title = "External link checker: broken links detected";
             const brokenLinks = JSON.parse(
@@ -121,6 +125,10 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
+            github.hook.before("request", (options) => {
+              options.headers["X-GitHub-Api-Version"] = "2022-11-28";
+            });
+
             const label = "broken-links";
 
             const existing = await github.rest.issues.listForRepo({
