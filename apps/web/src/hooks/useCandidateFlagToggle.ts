@@ -52,53 +52,63 @@ const useCandidateFlagToggle = ({
   );
 
   const toggleFlag = async () => {
-    if (id) {
+    // Ignores calls made while a previous toggle is still in flight
+    if (id && !isUpdating) {
+      const previousIsFlagged = isFlagged ?? false;
+
+      // Update flag optimistically. Reconcile when mutation returns.
+      setIsFlagged(!previousIsFlagged);
+
       await executeToggleFlagMutation({
         id,
       })
         .then((res) => {
-          if (!res.error) {
-            const newIsFlagged = res.data?.togglePoolCandidateFlag === true;
-            if (showToast) {
-              if (newIsFlagged) {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You've flagged {candidateName} in {processTitle}. Other authorized users can also view or remove this flag.",
-                      id: "NRX2CA",
-                      description:
-                        "Alert displayed to the user when they mark a candidate as flagged.",
-                    },
-                    {
-                      candidateName: name,
-                      processTitle,
-                    },
-                  ),
-                );
-              } else {
-                toast.success(
-                  intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "You've removed the flag for {candidateName} in {processTitle}.",
-                      id: "idwHJf",
-                      description:
-                        "Alert displayed to the user when they un-flag a candidate.",
-                    },
-                    {
-                      candidateName: name,
-                      processTitle,
-                    },
-                  ),
-                );
-              }
-            }
-
-            setIsFlagged(newIsFlagged);
+          if (!res.data || res.error) {
+            throw new Error();
           }
+
+          // flag could come back null, treat that as false
+          const newIsFlagged = res.data.togglePoolCandidateFlag === true;
+          if (showToast) {
+            if (newIsFlagged) {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You've flagged {candidateName} in {processTitle}. Other authorized users can also view or remove this flag.",
+                    id: "NRX2CA",
+                    description:
+                      "Alert displayed to the user when they mark a candidate as flagged.",
+                  },
+                  {
+                    candidateName: name,
+                    processTitle,
+                  },
+                ),
+              );
+            } else {
+              toast.success(
+                intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "You've removed the flag for {candidateName} in {processTitle}.",
+                    id: "idwHJf",
+                    description:
+                      "Alert displayed to the user when they un-flag a candidate.",
+                  },
+                  {
+                    candidateName: name,
+                    processTitle,
+                  },
+                ),
+              );
+            }
+          }
+
+          setIsFlagged(newIsFlagged);
         })
         .catch(() => {
+          setIsFlagged(previousIsFlagged); // undo optimistic update
           toast.error(
             intl.formatMessage({
               defaultMessage: "Error: failed to update a candidate's flag.",

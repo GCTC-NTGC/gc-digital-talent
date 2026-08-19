@@ -6,8 +6,8 @@ import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { compression } from "vite-plugin-compression2";
 
-import { gitVersionPlugin } from "./src/utils/gitVersionPlugin";
-import { getRuntimeConfig } from "./src/utils/runtime";
+import { gitVersionPlugin } from "./src/utils/gitVersionPlugin.ts";
+import { getRuntimeConfig } from "./src/utils/runtime.ts";
 
 dotenv.config({ path: "./.env", quiet: true });
 
@@ -23,7 +23,7 @@ const runtimeConfig = getRuntimeConfig();
 export default defineConfig(({ command }) => {
   return {
     resolve: {
-      alias: { "~": path.resolve(__dirname, "src") },
+      alias: { "~": path.resolve(import.meta.dirname, "src") },
       tsconfigPaths: true,
     },
 
