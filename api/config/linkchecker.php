@@ -28,10 +28,17 @@ return [
         'https://fonts.gstatic.com',
         'https://gcxgce.sharepoint.com',
         'http://localhost',
+
         // Sits behind Cloudflare + Kasada bot-detection (JS/TLS-fingerprint
         // challenge), so it always 403s a plain HTTP client even though the
         // page is live for real visitors. Confirmed 2026-07-30.
         'https://srvcanadavrs.ca',
+
+        // Sign-in hosts that block automated traffic (e.g. requests from cloud/CI
+        // IP ranges) with a 403 by design, regardless of User-Agent.
+        'connexion.canada.ca',
+        'login.canada.ca',
+
     ],
 
     /*
@@ -69,8 +76,6 @@ return [
     */
 
     'browser_user_agent_hosts' => [
-        'connexion.canada.ca',
-        'login.canada.ca',
         'laws-lois.justice.gc.ca',
     ],
 
