@@ -27,6 +27,9 @@ import {
 
 import useRoutes from "~/hooks/useRoutes";
 import { getFullNameLabel } from "~/utils/nameUtils";
+import poolCandidateMessages from "~/messages/poolCandidateMessages";
+
+import { messages } from "../../messages";
 
 const CommunityReferralStatusDialog_Fragment = graphql(/* GraphQL */ `
   fragment CommunityReferralStatusDialog on CommunityInterest {
@@ -184,12 +187,7 @@ const CommunityReferralStatusDialog = ({
                 <RadioGroup
                   idPrefix="communityReferralStatus"
                   name="status"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Community referral status",
-                    id: "wcRD7E",
-                    description:
-                      "Legend for the community referral status radio group",
-                  })}
+                  legend={intl.formatMessage(messages.communityReferralStatus)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
@@ -211,12 +209,9 @@ const CommunityReferralStatusDialog = ({
                     },
                     {
                       value: CommunityReferralStatus.AvailableForReferral,
-                      label: intl.formatMessage({
-                        defaultMessage: "Available for referral",
-                        id: "ywYd4X",
-                        description:
-                          "Community referral status: available for referral",
-                      }),
+                      label: intl.formatMessage(
+                        poolCandidateMessages.availableForReferral,
+                      ),
                       contentBelow: intl.formatMessage({
                         defaultMessage:
                           "Employee will appear on matching talent requests",
@@ -227,11 +222,7 @@ const CommunityReferralStatusDialog = ({
                     },
                     {
                       value: CommunityReferralStatus.NotReferred,
-                      label: intl.formatMessage({
-                        defaultMessage: "Not referred",
-                        id: "c/QJpQ",
-                        description: "Community referral status: not referred",
-                      }),
+                      label: intl.formatMessage(commonMessages.notReferred),
                       contentBelow: intl.formatMessage({
                         defaultMessage:
                           "Employee won't appear on any talent requests",
@@ -299,12 +290,7 @@ const CommunityReferralStatusDialog = ({
                       <DateInput
                         id="followUpDate"
                         name="followUpDate"
-                        legend={intl.formatMessage({
-                          defaultMessage: "Follow-up date",
-                          id: "WQlNXF",
-                          description:
-                            "Legend for the community referral follow-up date field",
-                        })}
+                        legend={intl.formatMessage(commonMessages.followUpDate)}
                         rules={{
                           required: intl.formatMessage(errorMessages.required),
                         }}
@@ -344,11 +330,7 @@ const CommunityReferralStatusDialog = ({
                   mode="inline"
                   newTab
                 >
-                  {intl.formatMessage({
-                    defaultMessage: "View profile",
-                    id: "z4XcnS",
-                    description: "Link text to view a user's profile",
-                  })}
+                  {intl.formatMessage(commonMessages.viewProfile)}
                 </Link>
               </Dialog.Footer>
             </form>

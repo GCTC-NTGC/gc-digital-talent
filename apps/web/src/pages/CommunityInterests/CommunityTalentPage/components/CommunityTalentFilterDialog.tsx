@@ -32,6 +32,8 @@ import type { CommonFilterDialogProps } from "~/components/FilterDialog/FilterDi
 import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
+import { messages } from "../../messages";
+
 export interface FormValues {
   communities: string[];
   workStreams: string[];
@@ -181,12 +183,7 @@ const CommunityTalentFilterDialog = ({
             id="referralStatuses"
             name="referralStatuses"
             isMulti
-            label={intl.formatMessage({
-              defaultMessage: "Community referral status",
-              id: "IiVoz9",
-              description:
-                "Label for community referral status filter in community talent filter dialog",
-            })}
+            label={intl.formatMessage(messages.communityReferralStatus)}
             options={narrowEnumType(
               unpackMaybes(data?.referralStatuses),
               "CommunityReferralStatus",

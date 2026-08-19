@@ -72,7 +72,7 @@ const TalentRequestFollowUpDate = ({
     followUpDate,
     now,
   );
-  const label = intl.formatMessage(talentRequestMessages.followUpDate);
+  const label = intl.formatMessage(commonMessages.followUpDate);
 
   const methods = useForm<FormValues>({
     defaultValues: {

@@ -290,7 +290,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       id: "followUpDate",
       sortDescFirst: false,
       enableColumnFilter: false,
-      header: intl.formatMessage(talentRequestMessages.followUpDate),
+      header: intl.formatMessage(commonMessages.followUpDate),
       cell: ({
         row: {
           original: { followUpDate },

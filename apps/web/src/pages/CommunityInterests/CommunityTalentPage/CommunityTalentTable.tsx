@@ -45,6 +45,7 @@ import profileMessages from "~/messages/profileMessages";
 import skillMatchDialogAccessor from "~/components/Table/SkillMatchDialog";
 import accessors from "~/components/Table/accessors";
 
+import { messages } from "../messages";
 import type { FormValues } from "./components/CommunityTalentFilterDialog";
 import CommunityTalentFilterDialog from "./components/CommunityTalentFilterDialog";
 import CommunityReferralStatusDialog from "./components/CommunityReferralStatusDialog";
@@ -409,12 +410,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         referralStatus.status.label?.localized ?? "",
       {
         id: "communityReferralStatus",
-        header: intl.formatMessage({
-          defaultMessage: "Community referral status",
-          id: "txKdqd",
-          description:
-            "Column header for a community interest's referral status",
-        }),
+        header: intl.formatMessage(messages.communityReferralStatus),
         enableColumnFilter: false,
         cell: ({
           row: {
@@ -430,12 +426,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         referralStatus.followUpDate ?? "",
       {
         id: "communityReferralFollowUpDate",
-        header: intl.formatMessage({
-          defaultMessage: "Follow-up date",
-          id: "HpcW4n",
-          description:
-            "Column header for a community interest's referral follow-up date",
-        }),
+        header: intl.formatMessage(commonMessages.followUpDate),
         enableColumnFilter: false,
         cell: ({
           row: {

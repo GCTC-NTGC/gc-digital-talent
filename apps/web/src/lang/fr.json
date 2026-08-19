@@ -1495,6 +1495,10 @@
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Secondary school education requirements"
   },
+  "3dRAA0": {
+    "defaultMessage": "Notes complémentaires",
+    "description": "Label for the community referral status additional notes field"
+  },
   "3deIgM": {
     "defaultMessage": "Admissibilité du personnel",
     "description": "Heading for the employee eligibility card"
@@ -2074,10 +2078,6 @@
   "5sZWgB": {
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
-  },
-  "5wS5V8": {
-    "defaultMessage": "Date de suivi",
-    "description": "Label for the follow-up date field"
   },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
@@ -5682,10 +5682,6 @@
   "KsS1Py": {
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
-  },
-  "KsUNz1": {
-    "defaultMessage": "Voir le profil",
-    "description": "Link text to view a user's profile in a new tab"
   },
   "Ktxmhc": {
     "defaultMessage": "Options de perfectionnement professionnel offertes aux personnes proposant des nominations à titre de recommandations de possibilités de perfectionnement durant le processus de mise en candidature.",

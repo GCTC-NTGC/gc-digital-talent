@@ -295,9 +295,7 @@ const TalentRequestStatusDialog = ({
                     <DateInput
                       id="followUpDate"
                       name="followUpDate"
-                      legend={intl.formatMessage(
-                        talentRequestMessages.followUpDate,
-                      )}
+                      legend={intl.formatMessage(commonMessages.followUpDate)}
                       round="floor"
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
