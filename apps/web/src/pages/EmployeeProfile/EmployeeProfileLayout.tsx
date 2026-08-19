@@ -11,7 +11,10 @@ import useRoutes from "~/hooks/useRoutes";
 
 // index all the sub pages for this layout
 type SubpageIds =
-  "employee-verification" | "career-planning" | "talent-nominations";
+  | "employee-verification"
+  | "career-planning"
+  | "communities"
+  | "talent-nominations";
 
 const Component = () => {
   const intl = useIntl();
@@ -49,6 +52,15 @@ const Component = () => {
       url: paths.careerPlanning(),
       hasCrumb: true,
     },
+    communities: {
+      label: intl.formatMessage({
+        defaultMessage: "Functional communities",
+        id: "QuVtMh",
+        description: "Label for functional communities field",
+      }),
+      url: paths.employeeProfileFunctionalCommunities(),
+      hasCrumb: true,
+    },
     "talent-nominations": {
       label: intl.formatMessage(talentNominationMessages.talentNominations),
       url: paths.talentNominations(),
@@ -72,11 +84,7 @@ const Component = () => {
       url: paths.applicantDashboard(),
     },
     {
-      label: intl.formatMessage({
-        defaultMessage: "Employee profile",
-        id: "4BWod5",
-        description: "Page title for a user's GC employee profile",
-      }),
+      label: title,
       url: paths.employeeVerification(),
     },
   ];

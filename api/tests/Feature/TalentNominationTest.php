@@ -205,6 +205,36 @@ class TalentNominationTest extends TestCase
         $response->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 
+    public function testCanUpdateNominationWhenDevelopmentProgramsFieldOmittedAndEventExcludesDevelopmentOpportunities()
+    {
+        // $this->nominationEvent has no development programs, so includeDevelopmentOpportunities is false
+        $nomination = TalentNomination::factory()->create([
+            'talent_nomination_event_id' => $this->nominationEvent->id,
+            'submitter_id' => $this->employee1->id,
+            'submitted_at' => null,
+            'nominate_for_development_programs' => null,
+        ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'nominationRationale' => 'Updated rationale',
+                ],
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'updateTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+        $this->assertNull($nomination->fresh()->nominate_for_development_programs);
+    }
+
     public function testCanAddKLCSkillsWithEventOption()
     {
         $event = TalentNominationEvent::factory()

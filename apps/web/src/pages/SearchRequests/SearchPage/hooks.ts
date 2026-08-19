@@ -13,10 +13,9 @@ import { graphql } from "@gc-digital-talent/graphql";
 import { useSessionStorage } from "@gc-digital-talent/storage";
 
 import type { FormValues } from "~/types/talentRequestForm";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
 import { applicantFilterToQueryArgs, dataToFormValues } from "./utils";
-
-export const TALENT_REQUEST_STATE_KEY = "talentRequestState";
 
 interface TalentRequestState {
   applicantFilter?: ApplicantFilterInput;

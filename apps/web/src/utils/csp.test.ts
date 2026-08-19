@@ -1,6 +1,6 @@
 import { getNonce, setNonce } from "get-nonce";
 
-import { applyCspNonce } from "./csp";
+import { applyCspNonce, getDocumentNonce } from "./csp";
 
 /**
  * Limitation: jsdom has no CSP, so it never blanks the `nonce` content
@@ -34,5 +34,27 @@ describe("applyCspNonce", () => {
     applyCspNonce();
 
     expect(getNonce()).toBeUndefined();
+  });
+});
+
+describe("getDocumentNonce", () => {
+  beforeEach(() => {
+    document.head.innerHTML = "";
+  });
+
+  it("returns the document nonce", () => {
+    addElementWithNonce("abc123");
+
+    expect(getDocumentNonce()).toBe("abc123");
+  });
+
+  it("returns an empty string once a browser has blanked the attribute", () => {
+    addElementWithNonce("");
+
+    expect(getDocumentNonce()).toBe("");
+  });
+
+  it("returns the placeholder when no element has a nonce", () => {
+    expect(getDocumentNonce()).toBe("**CSP_NONCE**");
   });
 });

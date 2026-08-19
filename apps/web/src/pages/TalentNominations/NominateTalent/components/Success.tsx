@@ -61,17 +61,14 @@ const Success = ({ successQuery }: SuccessProps) => {
         {intl.formatMessage(
           {
             defaultMessage:
-              "Thank you for nominating {name}! The talent management team with the {community} will review your submission soon. In the meantime, you can review your submission and its status from your dashboard.",
-            id: "wdFBSc",
+              "Thank you for nominating {name}! Their nomination will be reviewed shortly and you can follow the updates on your dashboard.",
+            id: "INPHhr",
             description:
               "First paragraph on success step of a talent nomination",
           },
 
           {
             name: talentNomination.nominee?.firstName ?? notAvailable,
-            community:
-              talentNomination.talentNominationEvent.community.name
-                ?.localized ?? notAvailable,
           },
         )}
       </p>

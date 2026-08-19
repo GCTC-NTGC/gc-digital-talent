@@ -213,6 +213,10 @@ export default [
                 "./pages/EmployeeProfile/CareerPlanningPage.tsx",
               ),
               route(
+                "communities",
+                "./pages/EmployeeProfile/FunctionalCommunitiesPage.tsx",
+              ),
+              route(
                 "nominations",
                 "./pages/EmployeeProfile/TalentNominationsPage.tsx",
               ),
