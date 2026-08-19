@@ -42,7 +42,7 @@ import CourseLanguageChip from "./CourseLanguageChip";
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunities(
-    $first: Int
+    $first: Int!
     $where: TrainingOpportunitiesFilterInput
     $orderBy: [OrderByClause!]
   ) {

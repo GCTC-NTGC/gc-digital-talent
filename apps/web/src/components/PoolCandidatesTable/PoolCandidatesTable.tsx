@@ -173,7 +173,7 @@ const CandidatesTable_Query = graphql(/* GraphQL */ `
 const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
   query CandidatesTableCandidatesPaginated_Query(
     $where: PoolCandidateSearchInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [AdvancedOrderByInput!]
   ) {

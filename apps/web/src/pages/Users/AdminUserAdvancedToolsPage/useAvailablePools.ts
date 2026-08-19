@@ -24,7 +24,7 @@ const EditUserPage_AvailablePoolsQuery = graphql(/* GraphQL */ `
     $excludeIds: [UUID!]
     $where: PoolFilterInput
     $orderByPoolBookmarks: PoolBookmarksOrderByInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
   ) {

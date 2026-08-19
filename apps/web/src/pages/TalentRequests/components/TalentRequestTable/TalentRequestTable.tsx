@@ -107,7 +107,7 @@ const TalentRequestTableRow_Fragment = graphql(/* GraphQL */ `
 const TalentRequestTable_Query = graphql(/* GraphQL */ `
   query TalentRequestTable(
     $where: TalentRequestInput
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [AdvancedOrderByInput!]
   ) {
