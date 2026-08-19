@@ -61,7 +61,17 @@ const EmployeesNominated = ({
     },
   );
 
-  const visibleNominations = showView
+  const hasClosedNominations = nominations.some((nomination) =>
+    isNominationClosed(nomination.talentNominationEvent?.closeDate),
+  );
+  const hasOpenNominations = nominations.some(
+    (nomination) =>
+      !isNominationClosed(nomination.talentNominationEvent?.closeDate),
+  );
+
+  const showViewToggle = showView && hasClosedNominations && hasOpenNominations;
+
+  const visibleNominations = showViewToggle
     ? nominations.filter((nomination) =>
         view === "closed"
           ? isNominationClosed(nomination.talentNominationEvent?.closeDate)
@@ -70,7 +80,7 @@ const EmployeesNominated = ({
     : nominations;
 
   return (
-    <div className="mt-6.75 flex flex-col gap-y-6">
+    <div className="mt-6.75 flex flex-col gap-y-1.5">
       {showView && (
         <Link
           href={paths.talentManagementEvents()}
@@ -89,7 +99,7 @@ const EmployeesNominated = ({
       )}
       {nominations.length > 0 && (
         <>
-          {showView && (
+          {showViewToggle && (
             <ToggleGroup.Root
               className="inline-flex items-center gap-x-1.5 border-none p-1.5"
               type="single"
