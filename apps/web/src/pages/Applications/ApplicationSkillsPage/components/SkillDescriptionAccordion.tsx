@@ -2,10 +2,16 @@ import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { Skill } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
+
+interface AccordionSkill {
+  id: string;
+  name: LocalizedString;
+  description?: LocalizedString | null;
+}
 
 interface SkillDescriptionAccordionProps {
-  skills: Skill[];
+  skills: AccordionSkill[];
 }
 
 const SkillDescriptionAccordion = ({
