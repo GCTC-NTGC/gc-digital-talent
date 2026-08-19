@@ -141,11 +141,12 @@ class CheckExternalLinks extends Command
             return false;
         }
 
+        $host = strtolower(parse_url($url, PHP_URL_HOST) ?? '');
         $blocklistedDomains = config('linkchecker.blocklisted_domains');
-        $lowerUrl = strtolower($url);
 
         foreach ($blocklistedDomains as $domain) {
-            if (str_starts_with($lowerUrl, strtolower($domain))) {
+            $domain = strtolower($domain);
+            if ($host === $domain || str_ends_with($host, '.'.$domain)) {
                 return false;
             }
         }

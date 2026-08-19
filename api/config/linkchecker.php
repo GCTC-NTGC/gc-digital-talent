@@ -18,21 +18,21 @@ return [
     | Blocklisted domains
     |--------------------------------------------------------------------------
     |
-    | Domains that should not be checked. Links starting with any of these
-    | are excluded from the collected list.
+    | Hosts that should not be checked. Links whose host matches (or is a
+    | subdomain of) any of these are excluded from the collected list.
     |
     */
 
     'blocklisted_domains' => [
-        'https://fonts.googleapis.com',
-        'https://fonts.gstatic.com',
-        'https://gcxgce.sharepoint.com',
-        'http://localhost',
+        'fonts.googleapis.com',
+        'fonts.gstatic.com',
+        'gcxgce.sharepoint.com',
+        'localhost',
 
         // Sits behind Cloudflare + Kasada bot-detection (JS/TLS-fingerprint
         // challenge), so it always 403s a plain HTTP client even though the
         // page is live for real visitors. Confirmed 2026-07-30.
-        'https://srvcanadavrs.ca',
+        'srvcanadavrs.ca',
 
         // Sign-in hosts that block automated traffic (e.g. requests from cloud/CI
         // IP ranges) with a 403 by design, regardless of User-Agent.
