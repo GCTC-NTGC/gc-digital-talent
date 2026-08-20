@@ -95,8 +95,8 @@ export const getLabels = (intl: IntlShape) => ({
   }),
   secondLanguageExamCompletedLabel: intl.formatMessage({
     defaultMessage:
-      "I have completed a Public Service Commission evaluation of my <strong>second official language</strong>.",
-    id: "rjfQMg",
+      '"I have completed a Public Service Commission evaluation of my second official language."',
+    id: "LMHLDs",
     description: "Label for official exam status in language information form",
   }),
   secondLanguageExamValidityLabel: intl.formatMessage({

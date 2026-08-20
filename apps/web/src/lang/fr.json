@@ -5867,6 +5867,10 @@
     "defaultMessage": "Actions pour {userName} dans {departmentName}",
     "description": "Aria label for the menu trigger for department actions"
   },
+  "LMHLDs": {
+    "defaultMessage": "« J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle. »",
+    "description": "Label for official exam status in language information form"
+  },
   "LN3sPI": {
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
@@ -13801,10 +13805,6 @@
   "ri2PBL": {
     "defaultMessage": "Erreur : échec de la création de la collectivité",
     "description": "Messaged displayed after creating community fails"
-  },
-  "rjfQMg": {
-    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma <strong>deuxième langue officielle</strong>.",
-    "description": "Label for official exam status in language information form"
   },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
