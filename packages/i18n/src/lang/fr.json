@@ -1135,10 +1135,6 @@
     "defaultMessage": "Date limite",
     "description": "Title for deadline to apply"
   },
-  "ZpTNbt": {
-    "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
-    "description": "declare self to be a CAF veteran"
-  },
   "a+twlj": {
     "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
@@ -1262,10 +1258,6 @@
   "eQ8bTh": {
     "defaultMessage": "Expire",
     "description": "Title for expires"
-  },
-  "ea6nAp": {
-    "defaultMessage": "Je ne suis pas des Forces armées canadiennes.",
-    "description": "declare self to not be in the CAF"
   },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
@@ -1394,10 +1386,6 @@
   "iSfiWx": {
     "defaultMessage": "Année",
     "description": "Label for a year input field"
-  },
-  "iYNLo1": {
-    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes.",
-    "description": "declare self to be a CAF member"
   },
   "ijGl5r": {
     "defaultMessage": "Voulez-vous continuer?",
@@ -1606,6 +1594,10 @@
   "oXrkBM": {
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
+  },
+  "oeAqAM": {
+    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes",
+    "description": "declare self to be a CAF member"
   },
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
@@ -1843,6 +1835,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
   },
+  "w6i1rO": {
+    "defaultMessage": "Je ne suis pas des Forces armées canadiennes",
+    "description": "declare self to not be in the CAF"
+  },
   "wUJqDi": {
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
     "description": "Error message that the skill selected is already linked to the user profile."
@@ -1910,6 +1906,10 @@
   "y4oBW4": {
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
+  },
+  "y9kdtr": {
+    "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes",
+    "description": "declare self to be a CAF veteran"
   },
   "yHeFkO": {
     "defaultMessage": "Janvier",

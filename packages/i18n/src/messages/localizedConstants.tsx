@@ -137,19 +137,19 @@ export const getCitizenshipStatusesProfile = (
 const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
     defaultMessage:
-      "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
-    id: "ZpTNbt",
+      "I am a <strong>veteran</strong> of the Canadian Armed Forces",
+    id: "y9kdtr",
     description: "declare self to be a CAF veteran",
   },
   [ArmedForcesStatus.Member]: {
     defaultMessage:
-      "I am an <strong>active member</strong> of the Canadian Armed Forces.",
-    id: "iYNLo1",
+      "I am an <strong>active member</strong> of the Canadian Armed Forces",
+    id: "oeAqAM",
     description: "declare self to be a CAF member",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage: "I am not a member of the Canadian Armed Forces.",
-    id: "ea6nAp",
+    defaultMessage: "I am not a member of the Canadian Armed Forces",
+    id: "w6i1rO",
     description: "declare self to not be in the CAF",
   },
 });
