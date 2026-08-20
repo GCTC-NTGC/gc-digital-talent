@@ -208,6 +208,19 @@ const ConsideredLanguages = ({
         id="secondLanguageExamCompleted"
         name="secondLanguageExamCompleted"
         label={labels.secondLanguageExamCompletedLabel}
+        context={intl.formatMessage(
+          {
+            defaultMessage:
+              "The Public Service Commission’s official evaluation provides you with 3 letter grades that indicate your proficiency in your second language. You can <selfAssessmentLink>learn more about this evaluation on their website.</selfAssessmentLink>",
+            id: "J/kDDk",
+            description:
+              "Context message for exam validity in language information form.",
+          },
+          {
+            selfAssessmentLink: (chunks: ReactNode) =>
+              selfAssessmentLink(chunks, locale),
+          },
+        )}
       />
       {hasCompletedSecondLanguageExam ? (
         <>
@@ -220,19 +233,6 @@ const ConsideredLanguages = ({
               required: intl.formatMessage(errorMessages.required),
             }}
             items={getExamValidityOptions(intl)}
-            context={intl.formatMessage(
-              {
-                defaultMessage:
-                  "The Public Service Commission’s official evaluation provides you with 3 letter grades that indicate your proficiency in your second language. You can <selfAssessmentLink>learn more about this evaluation on their website.</selfAssessmentLink>",
-                id: "J/kDDk",
-                description:
-                  "Context message for exam validity in language information form.",
-              },
-              {
-                selfAssessmentLink: (chunks: ReactNode) =>
-                  selfAssessmentLink(chunks, locale),
-              },
-            )}
           />
           <p>
             {intl.formatMessage({
