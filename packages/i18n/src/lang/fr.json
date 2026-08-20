@@ -1163,10 +1163,6 @@
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
   },
-  "bAaDat": {
-    "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
-    "description": "declare self to not be in the CAF"
-  },
   "bOA3EH": {
     "defaultMessage": "Employé(e) du gouvernement",
     "description": "Label for the government employee field"
@@ -1266,6 +1262,10 @@
   "eQ8bTh": {
     "defaultMessage": "Expire",
     "description": "Title for expires"
+  },
+  "ea6nAp": {
+    "defaultMessage": "Je ne suis pas des Forces armées canadiennes.",
+    "description": "declare self to not be in the CAF"
   },
   "edeLyW": {
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",

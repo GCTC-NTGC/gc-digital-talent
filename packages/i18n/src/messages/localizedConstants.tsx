@@ -148,9 +148,8 @@ const armedForcesStatusesProfile = defineMessages({
     description: "declare self to be a CAF member",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage:
-      "I am <strong>not a member</strong> of the Canadian Armed Forces.",
-    id: "bAaDat",
+    defaultMessage: "I am not a member of the Canadian Armed Forces.",
+    id: "ea6nAp",
     description: "declare self to not be in the CAF",
   },
 });
