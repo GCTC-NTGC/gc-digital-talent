@@ -12,7 +12,7 @@ const ErrorNotice = ({ reason }: ErrorNoticeProps) => {
 
   if (reason == "not-shared-with-community") {
     return (
-      <Notice.Root color="error" className="mt-9">
+      <Notice.Root color="error">
         <Notice.Title>
           {intl.formatMessage({
             defaultMessage:
