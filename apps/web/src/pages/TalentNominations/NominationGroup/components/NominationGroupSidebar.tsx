@@ -37,11 +37,11 @@ const MaskedDisplay = ({
   const intl = useIntl();
 
   if (!canShow) {
-    return intl.formatMessage(maskedMessage);
+    return richTextElements.red(intl.formatMessage(maskedMessage));
   }
 
   if (!value) {
-    return richTextElements.red(intl.formatMessage(defaultMessage));
+    return intl.formatMessage(defaultMessage);
   }
 
   return value;
