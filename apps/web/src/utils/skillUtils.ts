@@ -24,6 +24,10 @@ export interface PoolSkillOption {
   skill?: SkillOption | null;
 }
 
+export interface PoolWithSkills {
+  poolSkills?: (PoolSkillOption | null)[] | null;
+}
+
 export interface SkillFamilyOption {
   id: string;
   name?: LocalizedString | null;
