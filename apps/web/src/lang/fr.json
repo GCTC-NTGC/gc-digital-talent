@@ -543,10 +543,6 @@
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
   },
-  "09ijOa": {
-    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
-    "description": "Label displayed for does not have priority entitlement option"
-  },
   "0AC/BM": {
     "defaultMessage": "Retirer le perfectionnement professionnel",
     "description": "Button label for removing a professionalization"
@@ -6439,6 +6435,10 @@
     "defaultMessage": "Vous pouvez également associer une formation ou une certification de votre parcours professionnel afin d'aider les recruteurs et les gestionnaires d'embauche à valider votre participation ou votre certification.",
     "description": "Description before linked experience buttons."
   },
+  "NvdIzG": {
+    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité",
+    "description": "Label displayed for does not have priority entitlement option"
+  },
   "NxIPbD": {
     "defaultMessage": "Gérer les collectivités",
     "description": "Link to manage the users community interests"
@@ -8810,10 +8810,6 @@
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
   },
-  "Xmtw0V": {
-    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
-    "description": "Label displayed does have priority entitlement option"
-  },
   "XnXcun": {
     "defaultMessage": "Renseignements sur l’utilisateur",
     "description": "Labels for user details block"
@@ -9565,6 +9561,10 @@
   "b44Vd5": {
     "defaultMessage": "Groupe et niveau du poste actuel du nominateur ou de la nominatrice",
     "description": "Label for the nominator's classification"
+  },
+  "b5z/NI": {
+    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité",
+    "description": "Label displayed does have priority entitlement option"
   },
   "b6mzab": {
     "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
