@@ -45,7 +45,6 @@ import type {
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";
-import type { AddedSkill } from "./skillUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
 

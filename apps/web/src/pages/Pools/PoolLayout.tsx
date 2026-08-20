@@ -50,13 +50,6 @@ export const PoolLayout_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     publishedAt
     isComplete
     name {
@@ -91,7 +84,6 @@ const heroTitle = ({ currentPage, intl, pool }: HeroTitleProps) => {
   return getShortPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
 };
@@ -123,7 +115,6 @@ const PoolHeader = ({ poolQuery }: PoolHeaderProps) => {
   const pages = useAdminPoolPages(intl, {
     id: pool.id,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     workStream: pool.workStream,
     classification: pool.classification,
   });

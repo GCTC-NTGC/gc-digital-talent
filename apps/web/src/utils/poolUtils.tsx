@@ -26,10 +26,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import type {
-  LocalizedString,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
@@ -158,7 +155,6 @@ interface PoolTitleOptions {
 
 interface PartialPool {
   name?: LocalizedString | null;
-  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
   workStream?: PoolTitleWorkStream | null;
 }
 interface PartialPoolWithClassification extends PartialPool {
@@ -242,7 +238,6 @@ export const useAdminPoolPages = (
   const poolName = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
 
