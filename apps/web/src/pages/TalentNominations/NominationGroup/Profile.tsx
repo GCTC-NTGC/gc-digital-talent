@@ -1,5 +1,5 @@
 import { useQuery } from "urql";
-import { useState } from "react";
+import { useState, type ComponentProps } from "react";
 import { useIntl } from "react-intl";
 import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
@@ -11,7 +11,6 @@ import {
   Heading,
   Pending,
   ThrowNotFound,
-  Notice,
 } from "@gc-digital-talent/ui";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
@@ -26,6 +25,7 @@ import permissionConstants from "~/constants/permissionConstants";
 
 import type { RouteParams } from "./types";
 import { SECTION_KEY } from "./types";
+import ErrorNotice from "./components/ErrorNotice";
 
 const Nominee_Query = graphql(/* GraphQL */ `
   query Nominee($nomineeId: UUID!) {
@@ -48,21 +48,22 @@ const Nominee_Query = graphql(/* GraphQL */ `
 interface TalentNominationGroupProfileProps {
   nomineeId: string;
   communityId: string;
-  shareProfile?: boolean;
+  contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
   defaultOpen?: boolean;
 }
 
 const TalentNominationGroupProfile = ({
   nomineeId,
-  shareProfile,
+  contentHiddenReason,
   defaultOpen = false,
   communityId,
 }: TalentNominationGroupProfileProps) => {
   const intl = useIntl();
+  const contentIsVisible = !contentHiddenReason;
   const [{ data, fetching, error }] = useQuery({
     query: Nominee_Query,
     variables: { nomineeId },
-    pause: !shareProfile,
+    pause: !contentIsVisible,
   });
 
   const [openSections, setOpenSections] = useState<string[]>(
@@ -101,7 +102,7 @@ const TalentNominationGroupProfile = ({
                 "Heading for nominee profile page accordion sections",
             })}
           </Heading>
-          {shareProfile && (
+          {contentIsVisible && (
             <Button mode="inline" color="primary" onClick={toggleSections}>
               {hasOpenSections
                 ? intl.formatMessage({
@@ -131,28 +132,7 @@ const TalentNominationGroupProfile = ({
           })}
         </p>
         <Card.Separator className="mt-9" />
-        {!shareProfile && (
-          <Notice.Root color="error" className="mt-9">
-            <Notice.Title>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This nominee has not agreed to share their information with your community",
-                id: "4ujr5X",
-                description: "Null message for nominee profile",
-              })}
-            </Notice.Title>
-            <Notice.Content>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                  id: "8plD42",
-                  description: "Null secondary message for nominee profile",
-                })}
-              </p>
-            </Notice.Content>
-          </Notice.Root>
-        )}
+        {!contentIsVisible && <ErrorNotice reason={contentHiddenReason} />}
       </Card>
       {data?.user?.employeeProfile ? (
         <Accordion.Root
@@ -204,6 +184,7 @@ const TalentNominationGroupProfile_Query = graphql(/* GraphQL */ `
       consentToShareProfile
       nominee {
         id
+        isVerifiedGovEmployee
       }
       talentNominationEvent {
         community {
@@ -224,19 +205,25 @@ const TalentNominationGroupProfilePage = () => {
   });
 
   const nomineeId = data?.talentNominationGroup?.nominee?.id;
-  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
   const communityId =
     data?.talentNominationGroup?.talentNominationEvent?.community?.id;
 
+  let contentHiddenReason: ComponentProps<
+    typeof TalentNominationGroupProfile
+  >["contentHiddenReason"] = null;
+  if (!data?.talentNominationGroup?.consentToShareProfile) {
+    contentHiddenReason = "not-shared-with-community";
+  }
+  if (!data?.talentNominationGroup?.nominee?.isVerifiedGovEmployee) {
+    contentHiddenReason = "not-verified-gov-employee";
+  }
+
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationGroup &&
-      nomineeId &&
-      shareProfile !== null &&
-      communityId ? (
+      {data?.talentNominationGroup && nomineeId && communityId ? (
         <TalentNominationGroupProfile
           nomineeId={nomineeId}
-          shareProfile={shareProfile}
+          contentHiddenReason={contentHiddenReason}
           communityId={communityId}
         />
       ) : (
