@@ -57,7 +57,7 @@ interface FormValues extends BaseFormValues {
 }
 
 const NominatorEmployee_Fragment = graphql(/* GraphQL */ `
-  fragment NominatorEmployee on BasicGovEmployeeProfile {
+  fragment NominatorEmployee on BasicGovEmployeeProfileMasked {
     ...EmployeeSearchResult
   }
 `);

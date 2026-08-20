@@ -78,7 +78,7 @@ const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
 `);
 
 const DetailsEmployee_Fragment = graphql(/* GraphQL */ `
-  fragment DetailsEmployee on BasicGovEmployeeProfile {
+  fragment DetailsEmployee on BasicGovEmployeeProfileMasked {
     ...EmployeeSearchResult
   }
 `);
