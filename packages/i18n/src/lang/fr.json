@@ -83,6 +83,10 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
   },
+  "0RVc/y": {
+    "defaultMessage": "Ancien combattant des Forces armées canadiennes",
+    "description": "declare self to be a CAF veteran without bolding"
+  },
   "0ieoVD": {
     "defaultMessage": "Chargement des résultats…",
     "description": "Message to display when a search is currently loading results."
@@ -627,6 +631,10 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
+  "L864l0": {
+    "defaultMessage": "Membre actif des Forces armées canadiennes",
+    "description": "declare self to be a CAF member without bolding"
+  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -915,10 +923,6 @@
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
   },
-  "TRDfnp": {
-    "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
-    "description": "declare self to be a CAF member without bolding"
-  },
   "TSscCR": {
     "defaultMessage": "Citoyen(ne) canadien(ne)",
     "description": "declaring one to be a Canadian citizen"
@@ -978,6 +982,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V4n55A": {
+    "defaultMessage": "N'est pas membre des Forces armées canadiennes",
+    "description": "declare self to not be in the CAF without bolding"
   },
   "V9HdOK": {
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
@@ -1427,10 +1435,6 @@
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "Name of Bilingual (English and French)"
   },
-  "jqyjFm": {
-    "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
-    "description": "declare self to be a CAF veteran without bolding"
-  },
   "jrDTez": {
     "defaultMessage": "Qualifié(e)",
     "description": "Title for qualified"
@@ -1818,10 +1822,6 @@
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
-  },
-  "vPDtGU": {
-    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
-    "description": "declare self to not be in the CAF without bolding"
   },
   "vYi9m5": {
     "defaultMessage": "Je souhaite obtenir une accréditation professionnelle.",
