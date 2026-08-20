@@ -21,8 +21,8 @@ import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import {
   DateInput,
   RadioGroup,
-  RichTextInput,
   Select,
+  TextArea,
 } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -303,7 +303,7 @@ const CommunityReferralStatusDialog = ({
                     </div>
                   )}
                 {status !== CommunityReferralStatus.New && (
-                  <RichTextInput
+                  <TextArea
                     id="notes"
                     name="notes"
                     label={intl.formatMessage({
