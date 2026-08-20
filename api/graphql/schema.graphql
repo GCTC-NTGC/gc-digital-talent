@@ -419,6 +419,19 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   isVerifiedGovEmployee: Boolean
+  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
+  role: String @rename(attribute: "computed_gov_role")
+  department: Department @belongsTo
+  classification: Classification @belongsTo(relation: "currentClassification")
+}
+
+# Like BasicGovEmployeeProfile but it masks fields when the user isn't a verified employee
+type BasicGovEmployeeProfileMasked @model(class: "\\App\\Models\\User") {
+  id: ID!
+  workEmail: Email @rename(attribute: "work_email")
+  firstName: String @rename(attribute: "first_name")
+  lastName: String @rename(attribute: "last_name")
+  isVerifiedGovEmployee: Boolean
   preferredLang: LocalizedLanguage
     @rename(attribute: "preferred_lang")
     @nullUnless(attribute: "isVerifiedGovEmployee")
@@ -924,14 +937,14 @@ type TalentNomination {
   createdAt: DateTime @rename(attribute: "created_at")
   updatedAt: DateTime @rename(attribute: "updated_at")
   submittedAt: DateTime @rename(attribute: "submitted_at")
-  submitter: BasicGovEmployeeProfile
+  submitter: BasicGovEmployeeProfileMasked
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
     @rename(attribute: "submitter_relationship_to_nominator")
   submitterRelationshipToNominatorOther: String
     @rename(attribute: "submitter_relationship_to_nominator_other")
-  nominator: BasicGovEmployeeProfile
+  nominator: BasicGovEmployeeProfileMasked
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominatorFallbackWorkEmail: String
@@ -941,7 +954,7 @@ type TalentNomination {
   nominatorFallbackDepartment: Department @belongsTo
   nominatorReview: LocalizedTalentNominationUserReview
     @rename(attribute: "nominator_review")
-  nominee: BasicGovEmployeeProfile
+  nominee: BasicGovEmployeeProfileMasked
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nomineeReview: LocalizedTalentNominationUserReview
@@ -957,7 +970,7 @@ type TalentNomination {
   nominateForDevelopmentPrograms: Boolean
     @rename(attribute: "nominate_for_development_programs")
 
-  advancementReference: BasicGovEmployeeProfile
+  advancementReference: BasicGovEmployeeProfileMasked
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   advancementReferenceReview: LocalizedTalentNominationUserReview
@@ -992,7 +1005,7 @@ type TalentNomination {
 type TalentNominationGroup {
   id: UUID!
   createdAt: DateTime @rename(attribute: "created_at")
-  nominee: BasicGovEmployeeProfile
+  nominee: BasicGovEmployeeProfileMasked
     @belongsTo
     @canModel(ability: "viewAnyBasicGovEmployeeProfile", model: "User")
   nominations: [TalentNomination!]
