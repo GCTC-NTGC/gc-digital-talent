@@ -54,7 +54,7 @@
     "@microsoft/applicationinsights-web": "^3.4.3",
     "@react-router/node": "^8.3.0",
     "@tailwindcss/vite": "^4.3.3",
-    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-table": "^9.0.0",
     "date-fns": "^4.4.0",
     "get-nonce": "^1.0.1",
     "graphql": "^16.14.2",
