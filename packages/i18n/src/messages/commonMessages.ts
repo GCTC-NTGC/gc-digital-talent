@@ -646,6 +646,16 @@ const commonMessages = defineMessages({
     id: "96yWSc",
     description: "Special application label",
   },
+  noClassification: {
+    defaultMessage: "No classification",
+    id: "xuxKpE",
+    description: "Placeholder for when the classification can not be displayed",
+  },
+  noDepartment: {
+    defaultMessage: "No organization",
+    id: "x2TbMe",
+    description: "Placeholder for when the classification can not be displayed",
+  },
 });
 
 export default commonMessages;

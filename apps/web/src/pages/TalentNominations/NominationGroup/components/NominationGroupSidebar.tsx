@@ -6,6 +6,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import richTextElements from "@gc-digital-talent/rich-text-elements";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -90,7 +91,9 @@ const NominationGroupSidebar = ({
         <div className="flex justify-between">
           <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
             {talentNominationGroup.nominee?.classification?.groupAndLevel ??
-              intl.formatMessage(commonMessages.notProvided)}
+              richTextElements.red(
+                intl.formatMessage(commonMessages.noClassification),
+              )}
           </p>
           <DownloadNominationDocxButton
             id={talentNominationGroup.id}
@@ -107,7 +110,9 @@ const NominationGroupSidebar = ({
         </Heading>
         <p className="mb-6">
           {talentNominationGroup.nominee?.department?.name?.localized ??
-            intl.formatMessage(commonMessages.notProvided)}
+            richTextElements.red(
+              intl.formatMessage(commonMessages.noDepartment),
+            )}
         </p>
         <div className="w-full self-start">
           <NominationGroupEvaluationDialog query={talentNominationGroup} />
