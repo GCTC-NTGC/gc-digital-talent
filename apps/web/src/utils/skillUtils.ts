@@ -2,15 +2,27 @@ import uniqBy from "lodash/uniqBy";
 
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  Experience,
   LocalizedString,
-  Skill,
-  PoolSkill,
   PoolSkillType,
 } from "@gc-digital-talent/graphql";
 import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import type { SimpleAnyExperience } from "./experienceUtils";
+
+export interface SkillOption {
+  id: string;
+  key: string;
+  name: LocalizedString;
+  category: GenericLocalizedEnum<SkillCategory>;
+}
+
+export interface PoolSkillOption {
+  id: string;
+  type?: GenericLocalizedEnum<PoolSkillType> | null;
+  requiredLevel?: SkillLevel | null;
+  skill?: SkillOption | null;
+}
 
 export interface SkillFamilyOption {
   id: string;
@@ -61,22 +73,27 @@ interface InvertedExperience extends SimpleAnyExperience {
   id: string;
 }
 
-type InvertedSkillExperience = Skill & {
+type InvertedSkillExperience = SkillOption & {
   experiences: InvertedExperience[];
 };
+
+interface ExperienceWithFullSkills extends InvertedExperience {
+  skills?: SkillOption[] | null;
+}
+
 /**
  * Transforms an array of experiences with child skills into a tree of skills with child experiences.
- * @param { Experience[] } experiences - The collection of experiences with child skills to invert
- * @returns { Skill[] } - The new collection of skills with child experiences
+ * @param experiences - The collection of experiences with child skills to invert
+ * @returns - The new collection of skills with child experiences
  */
 export function invertSkillExperienceTree(
-  experiences: Omit<Experience, "user">[],
+  experiences: ExperienceWithFullSkills[],
 ): InvertedSkillExperience[] {
   const allChildSkills = experiences.flatMap((s) => s.skills).filter(notEmpty);
   const uniqueSkills = uniqBy(allChildSkills, "id");
   const skillsWithExperiences = uniqueSkills
     .filter(notEmpty)
-    .map((skill: Skill) => {
+    .map((skill: SkillOption) => {
       // step 1 - find the skills that belong to this experience
       const skillsInThisExperience = experiences.filter((experience) =>
         experience.skills?.some((childSkills) => skill.id === childSkills?.id),
@@ -92,7 +109,7 @@ export function invertSkillExperienceTree(
 }
 
 export function filterSkillsByCategory(
-  skills: Skill[] | null | undefined,
+  skills: SkillOption[] | null | undefined,
   category: SkillCategory,
 ) {
   return skills
@@ -101,8 +118,8 @@ export function filterSkillsByCategory(
 }
 
 export function categorizeSkill(
-  skills: Skill[] | null | undefined,
-): Record<SkillCategory, Skill[] | undefined> {
+  skills: SkillOption[] | null | undefined,
+): Record<SkillCategory, SkillOption[] | undefined> {
   return {
     [SkillCategory.Technical]: filterSkillsByCategory(
       skills,
@@ -122,7 +139,10 @@ export interface AddedSkill {
   } | null;
 }
 
-export const getMissingSkills = (required: Skill[], added?: AddedSkill[]) => {
+export const getMissingSkills = (
+  required: SkillOption[],
+  added?: AddedSkill[],
+) => {
   return !added?.length
     ? required
     : required.filter((skill) => {
@@ -154,7 +174,7 @@ export interface ExperienceWithSkills {
  */
 export const getExperienceSkills = <T extends ExperienceWithSkills>(
   experiences: T[],
-  skill?: Pick<Skill, "id">,
+  skill?: { id: string },
 ): T[] => {
   return experiences.filter((experience) =>
     experience.skills?.some(
@@ -165,7 +185,7 @@ export const getExperienceSkills = <T extends ExperienceWithSkills>(
 
 interface SkillExperienceGroup<
   E extends ExperienceWithSkills,
-  S extends Pick<Skill, "id">,
+  S extends { id: string },
 > {
   skill: S;
   experiences: E[];
@@ -173,7 +193,7 @@ interface SkillExperienceGroup<
 
 export function groupExperiencesBySkill<
   E extends ExperienceWithSkills,
-  S extends Pick<Skill, "id">,
+  S extends { id: string },
 >(experiences: E[], skills: S[]): SkillExperienceGroup<E, S>[] {
   return skills.map((skill) => {
     const skillExperiences = getExperienceSkills(experiences, skill);
@@ -225,10 +245,10 @@ const categoryOrder = [SkillCategory.Technical, SkillCategory.Behavioural];
  *
  * Technical first, behavioural second
  *
- * @param poolSkills PoolSkill[]
- * @returns PoolSkill[]
+ * @param poolSkills The pool skills to sort
+ * @returns The sorted pool skills
  */
-export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
+export const sortPoolSkillsBySkillCategory = <T extends PoolSkillOption[]>(
   poolSkills: T,
 ) => {
   return [...poolSkills].sort((poolSkillA, poolSkillB) => {
@@ -248,16 +268,15 @@ export const sortPoolSkillsBySkillCategory = <T extends PoolSkill[]>(
 
 /**
  * Filter poolSkills to get an array of essential or nonessential skills
- * Type PoolSkill not constrained as a maybe array of maybes won't get checked either way without a more thorough refactor
  *
- * @param poolSkills PoolSkill[]
- * @param poolSkillType PoolSkillType
- * @returns Skill[]
+ * @param poolSkills The pool skills to filter
+ * @param poolSkillType The pool skill type to keep
+ * @returns The skills attached to the kept pool skills
  */
 export const filterPoolSkillsByType = (
-  poolSkills: (PoolSkill | null)[] | null | undefined,
+  poolSkills: (PoolSkillOption | null)[] | null | undefined,
   poolSkillType: PoolSkillType,
-): Skill[] => {
+): SkillOption[] => {
   const skills = unpackMaybes(poolSkills)
     .filter((poolSkill) => poolSkill.type?.value === poolSkillType)
     .map((poolSkill) => poolSkill.skill);
@@ -265,8 +284,8 @@ export const filterPoolSkillsByType = (
 };
 
 export function groupPoolSkillByType(
-  poolSkills?: (PoolSkill | null)[] | null,
-): Map<PoolSkillType, Skill[]> {
+  poolSkills?: (PoolSkillOption | null)[] | null,
+): Map<PoolSkillType, SkillOption[]> {
   return unpackMaybes(poolSkills).reduce((map, poolSkill) => {
     const { type, skill } = poolSkill;
     if (type?.value && skill) {
@@ -276,9 +295,11 @@ export function groupPoolSkillByType(
       map.get(type.value)?.push(skill);
     }
     return map;
-  }, new Map<PoolSkillType, Skill[]>());
+  }, new Map<PoolSkillType, SkillOption[]>());
 }
 
-export function poolSkillsToSkills(poolSkills?: (PoolSkill | null)[] | null) {
+export function poolSkillsToSkills(
+  poolSkills?: (PoolSkillOption | null)[] | null,
+) {
   return unpackMaybes(poolSkills?.map((poolSkill) => poolSkill?.skill));
 }
