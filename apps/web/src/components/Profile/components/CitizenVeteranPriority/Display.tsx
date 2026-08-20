@@ -93,9 +93,10 @@ const Display = ({ query }: DisplayProps) => {
       {hasPriorityEntitlement && (
         <FieldDisplay
           label={intl.formatMessage({
-            defaultMessage: "Priority number",
-            id: "hRzk4m",
-            description: "Priority number label",
+            defaultMessage:
+              "Priority number provided by the Public Service Commission of Canada",
+            id: "5G+j56",
+            description: "Label for priority number input",
           })}
         >
           {priorityNumber ?? notProvided}

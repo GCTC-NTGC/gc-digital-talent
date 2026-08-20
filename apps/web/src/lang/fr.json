@@ -11270,10 +11270,6 @@
     "defaultMessage": "Quelles collectivités fonctionnelles utilisent la plateforme?",
     "description": "Question about functional communities"
   },
-  "hRzk4m": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "Priority number label"
-  },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants :",
     "description": "Text notifying user which process roles will be removed from the user"
