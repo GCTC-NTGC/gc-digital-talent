@@ -1083,6 +1083,17 @@ type BasicGovEmployeeProfile {
   workEmail: Email
   firstName: String
   lastName: String
+  preferredLang: LocalizedLanguage
+  role: String
+  department: Department
+  classification: Classification
+}
+
+type BasicGovEmployeeProfileMasked {
+  id: ID!
+  workEmail: Email
+  firstName: String
+  lastName: String
   isVerifiedGovEmployee: Boolean
   preferredLang: LocalizedLanguage
   role: String
@@ -1470,23 +1481,23 @@ type TalentNomination {
   createdAt: DateTime
   updatedAt: DateTime
   submittedAt: DateTime
-  submitter: BasicGovEmployeeProfile
+  submitter: BasicGovEmployeeProfileMasked
   submitterRelationshipToNominator: LocalizedTalentNominationSubmitterRelationshipToNominator
   submitterRelationshipToNominatorOther: String
-  nominator: BasicGovEmployeeProfile
+  nominator: BasicGovEmployeeProfileMasked
   nominatorFallbackWorkEmail: String
   nominatorFallbackName: String
   nominatorFallbackClassification: Classification
   nominatorFallbackDepartment: Department
   nominatorReview: LocalizedTalentNominationUserReview
-  nominee: BasicGovEmployeeProfile
+  nominee: BasicGovEmployeeProfileMasked
   nomineeReview: LocalizedTalentNominationUserReview
   nomineeRelationshipToNominator: LocalizedTalentNominationNomineeRelationshipToNominator
   nomineeRelationshipToNominatorOther: String
   nominateForAdvancement: Boolean
   nominateForLateralMovement: Boolean
   nominateForDevelopmentPrograms: Boolean
-  advancementReference: BasicGovEmployeeProfile
+  advancementReference: BasicGovEmployeeProfileMasked
   advancementReferenceReview: LocalizedTalentNominationUserReview
   advancementReferenceFallbackWorkEmail: String
   advancementReferenceFallbackName: String
@@ -1509,7 +1520,7 @@ type TalentNomination {
 type TalentNominationGroup {
   id: UUID!
   createdAt: DateTime
-  nominee: BasicGovEmployeeProfile
+  nominee: BasicGovEmployeeProfileMasked
   nominations: [TalentNomination!]
   talentNominationEvent: TalentNominationEvent!
   advancementNominationCount: Int
