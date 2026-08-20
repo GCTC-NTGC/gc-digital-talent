@@ -12,7 +12,7 @@ import {
 import type { Locales } from "@gc-digital-talent/i18n";
 import { errorMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Classification, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
@@ -58,8 +58,8 @@ export interface FormValues {
   keywordsEn: string | null;
   keywordsFr: string | null;
   classification: string | null;
-  classificationGroup: Classification["group"] | null;
-  classificationLevel: Classification["level"] | null;
+  classificationGroup: string | null;
+  classificationLevel: number | null;
   referenceId: string | null;
 }
 

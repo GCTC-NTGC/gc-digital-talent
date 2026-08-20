@@ -13,6 +13,7 @@ import { graphql, TalentNominationStep } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import SEO from "~/components/SEO/SEO";
@@ -31,6 +32,7 @@ import Instructions from "./components/Instructions";
 import Navigation from "./components/Navigation";
 import useCurrentStep, { stepOrder } from "./useCurrentStep";
 import Success from "./components/Success";
+import useMutations from "./useMutations";
 
 const tryGetCurrentStep = (
   isSubmitted: boolean,
@@ -69,6 +71,7 @@ const NominateTalent_Query = graphql(/* GraphQL */ `
           localized
         }
         includeDevelopmentOpportunities
+        closeDate
       }
 
       ...NominateTalentNavigation
@@ -120,6 +123,12 @@ const NominateTalentPage = () => {
   });
 
   const isSubmitted = !!data?.talentNomination?.submittedAt;
+
+  const [submitFetching, { submit }, submitted] = useMutations({
+    forceProtectedEndpoint: isPastDateTime(
+      data?.talentNomination?.talentNominationEvent?.closeDate,
+    ),
+  });
 
   // NOTE: If step is not set and nomination is not submitted, send them to the instructions page
   useEffect(() => {
@@ -228,8 +237,15 @@ const NominateTalentPage = () => {
                   rationaleQuery={data.talentNomination}
                   skillsQuery={unpackMaybes(data?.skills)}
                 />
-                <ReviewAndSubmit reviewAndSubmitQuery={data.talentNomination} />
-                <Success successQuery={data.talentNomination} />
+                <ReviewAndSubmit
+                  reviewAndSubmitQuery={data.talentNomination}
+                  submit={submit}
+                  fetching={submitFetching}
+                />
+                <Success
+                  successQuery={data.talentNomination}
+                  submitted={submitted}
+                />
               </TableOfContents.Content>
             </TableOfContents.Wrapper>
           </Container>

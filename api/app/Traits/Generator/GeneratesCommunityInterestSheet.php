@@ -111,7 +111,10 @@ trait GeneratesCommunityInterestSheet
             ->chunk(200, function ($interests) use ($developmentProgramIds, $communityProgramIdsMap) {
                 foreach ($interests as $interest) {
                     $this->writer->addRow($this->row(
-                        $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap)
+                        $this->applyConsentToRow(
+                            $this->buildCommunityInterestRow($interest, $developmentProgramIds, $communityProgramIdsMap),
+                            $interest->user->id
+                        )
                     ));
                 }
             });

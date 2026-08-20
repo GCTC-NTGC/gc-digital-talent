@@ -1,21 +1,22 @@
 import type {
   CreateGeneralQuestionResponseInput,
-  GeneralQuestion,
-  GeneralQuestionResponse,
-  ScreeningQuestion,
-  ScreeningQuestionResponse,
   UpdateGeneralQuestionResponseInput,
   CreateScreeningQuestionResponseInput,
   UpdateScreeningQuestionResponseInput,
 } from "@gc-digital-talent/graphql";
 
-import type { FormValues } from "./types";
+import type {
+  ApplicationGeneralQuestionResponse,
+  ApplicationQuestion,
+  ApplicationScreeningQuestionResponse,
+  FormValues,
+} from "./types";
 
 export const dataToFormValues = (
-  screeningQuestions: ScreeningQuestion[],
-  screeningResponses: ScreeningQuestionResponse[],
-  generalQuestions: GeneralQuestion[],
-  generalResponses: GeneralQuestionResponse[],
+  screeningQuestions: ApplicationQuestion[],
+  screeningResponses: ApplicationScreeningQuestionResponse[],
+  generalQuestions: ApplicationQuestion[],
+  generalResponses: ApplicationGeneralQuestionResponse[],
 ): FormValues => {
   return {
     action: "continue",
@@ -46,8 +47,8 @@ export const dataToFormValues = (
 
 export const formValuesToSubmitData = (
   formValues: FormValues,
-  existingScreeningResponses: ScreeningQuestionResponse[],
-  existingGeneralResponses: GeneralQuestionResponse[],
+  existingScreeningResponses: ApplicationScreeningQuestionResponse[],
+  existingGeneralResponses: ApplicationGeneralQuestionResponse[],
 ) => {
   let screeningCreate: CreateScreeningQuestionResponseInput[] = [];
   let screeningUpdate: UpdateScreeningQuestionResponseInput[] = [];
