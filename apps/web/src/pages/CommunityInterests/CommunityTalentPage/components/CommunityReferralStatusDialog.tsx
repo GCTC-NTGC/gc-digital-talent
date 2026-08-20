@@ -88,7 +88,7 @@ const CommunityReferralStatusDialog = ({
   const intl = useIntl();
   const paths = useRoutes();
   const [isOpen, setOpen] = useState(false);
-  const [, executeMutation] = useMutation(
+  const [{ fetching }, executeMutation] = useMutation(
     UpdateCommunityInterestReferralStatus_Mutation,
   );
   const communityInterest = getFragment(
@@ -112,7 +112,7 @@ const CommunityReferralStatusDialog = ({
   const status = watch("status");
 
   const handleSubmit = async (values: FormValues) => {
-    if (!values.status) return;
+    if (!values.status || fetching) return;
 
     const isAvailable =
       values.status === CommunityReferralStatus.AvailableForReferral;
