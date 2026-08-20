@@ -45,6 +45,8 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         'skill_details' => [],
     ];
 
+    protected bool $verifiedGovEmployeesOnly = false;
+
     protected array $headerLocaleKeys = [
         'id',
         'first_name',
@@ -319,6 +321,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         ];
     }
 
+    public function setVerifiedGovEmployeesOnly(bool $verifiedGovEmployeesOnly): static
+    {
+        $this->verifiedGovEmployeesOnly = $verifiedGovEmployeesOnly;
+
+        return $this;
+    }
+
     private function buildQuery()
     {
         $query = User::with([
@@ -378,10 +387,15 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
             'qualifiedInClassifications' => 'whereQualifiedInClassificationsIn',
             'qualifiedInWorkStreams' => 'whereQualifiedInWorkStreamsIn',
             'community' => 'whereInCommunity',
+            'classifications' => 'whereClassificationIn',
+            'lateralMoveInterest' => 'whereLateralMoveInterest',
+            'promotionMoveInterest' => 'wherePromotionMoveInterest',
         ]);
 
         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
-            ->whereUserFilterInputToSpecialLocationMatching($this->filters);
+            ->whereUserFilterInputToSpecialLocationMatching($this->filters)
+            ->when($this->verifiedGovEmployeesOnly, fn ($query) => $query->whereIsVerifiedGovEmployee())
+            ->whereHasMatchingCommunityInterest($this->filters);
 
         return $query;
 
