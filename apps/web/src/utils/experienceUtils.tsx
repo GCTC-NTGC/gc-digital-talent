@@ -13,24 +13,17 @@ import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
-import type {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  LocalizedCafForce,
-  LocalizedEducationType,
-  LocalizedEmploymentCategory,
-  LocalizedString,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
+import type { CafForce, LocalizedString } from "@gc-digital-talent/graphql";
 import {
   EducationType,
   EmploymentCategory,
   GovEmployeeType,
   GovPositionType,
 } from "@gc-digital-talent/graphql";
+import type {
+  GenericLocalizedEnum,
+  LocalizedEnumValue,
+} from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import {
   nodeToString,
@@ -52,6 +45,7 @@ import type {
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";
+import type { AddedSkill } from "./skillUtils";
 import useRoutes from "../hooks/useRoutes";
 import experienceMessages from "../messages/experienceMessages";
 
@@ -386,12 +380,12 @@ export const getExperienceFormLabels = (
  *
  * @param type  ExperienceType
  * @param data  ExperienceFormValues<AllExperienceFormValues>
- * @param hiddenSkills Skill[] | null | undefined
+ * @param hiddenSkills AddedSkill[] | null
  * @returns ExperienceDetailsSubmissionData
  */
 export const formValuesToSubmitData = (
   data: ExperienceFormValues<AllExperienceFormValues>,
-  hiddenSkills: Skill[] | null,
+  hiddenSkills: AddedSkill[] | null,
   type?: ExperienceType | "",
 ): ExperienceDetailsSubmissionData => {
   const {
@@ -548,27 +542,33 @@ export interface SimpleAnyExperience {
     | "WorkExperience";
 }
 
+type ExperienceOfType<N extends SimpleAnyExperience["__typename"]> = Extract<
+  AnyExperience,
+  { __typename?: N }
+>;
+
 export const isAwardExperience = (
   e: SimpleAnyExperience,
-): e is Omit<AwardExperience, "user"> => e.__typename === "AwardExperience";
+): e is ExperienceOfType<"AwardExperience"> =>
+  e.__typename === "AwardExperience";
 export const isCommunityExperience = (
   e: SimpleAnyExperience,
-): e is Omit<CommunityExperience, "user"> =>
+): e is ExperienceOfType<"CommunityExperience"> =>
   e.__typename === "CommunityExperience";
 export const isEducationExperience = (
   e: SimpleAnyExperience,
-): e is Omit<EducationExperience, "user"> =>
+): e is ExperienceOfType<"EducationExperience"> =>
   e.__typename === "EducationExperience";
 export const isPersonalExperience = (
   e: SimpleAnyExperience,
-): e is Omit<PersonalExperience, "user"> =>
+): e is ExperienceOfType<"PersonalExperience"> =>
   e.__typename === "PersonalExperience";
 export const isWorkExperience = (
   e: SimpleAnyExperience,
-): e is Omit<WorkExperience, "user"> => e.__typename === "WorkExperience";
+): e is ExperienceOfType<"WorkExperience"> => e.__typename === "WorkExperience";
 export const isGovWorkExperience = (
   e: SimpleAnyExperience,
-): e is Omit<WorkExperience, "user"> =>
+): e is ExperienceOfType<"WorkExperience"> =>
   isWorkExperience(e) &&
   e.employmentCategory?.value === EmploymentCategory.GovernmentOfCanada;
 
@@ -647,7 +647,7 @@ export const deriveExperienceType = (
  * @returns
  */
 const getAwardExperienceDefaultValues = (
-  experience: Omit<AwardExperience, "user">,
+  experience: ExperienceOfType<"AwardExperience">,
 ) => {
   const { title, issuedBy, awardedDate, awardedTo, awardedScope } = experience;
   return {
@@ -666,7 +666,7 @@ const getAwardExperienceDefaultValues = (
  * @returns
  */
 const getCommunityExperienceDefaultValues = (
-  experience: Omit<CommunityExperience, "user">,
+  experience: ExperienceOfType<"CommunityExperience">,
 ) => {
   const { title, organization, project, startDate, endDate } = experience;
   return {
@@ -686,7 +686,7 @@ const getCommunityExperienceDefaultValues = (
  * @returns
  */
 const getEducationExperienceDefaultValues = (
-  experience: Omit<EducationExperience, "user">,
+  experience: ExperienceOfType<"EducationExperience">,
 ) => {
   const {
     type,
@@ -716,7 +716,7 @@ const getEducationExperienceDefaultValues = (
  * @returns
  */
 const getPersonalExperienceDefaultValues = (
-  experience: Omit<PersonalExperience, "user">,
+  experience: ExperienceOfType<"PersonalExperience">,
 ) => {
   const { title, description, startDate, endDate } = experience;
   return {
@@ -736,7 +736,7 @@ const getPersonalExperienceDefaultValues = (
  * @returns
  */
 const getWorkExperienceDefaultValues = (
-  experience: Omit<WorkExperience, "user">,
+  experience: ExperienceOfType<"WorkExperience">,
 ) => {
   const {
     role,
@@ -874,15 +874,15 @@ export const queryResultToDefaultValues = (
 export interface ExperienceName extends SimpleAnyExperience {
   title?: string | null;
   organization?: string | null;
-  type?: Partial<LocalizedEducationType> | string | null;
+  type?: Partial<GenericLocalizedEnum<EducationType>> | string | null;
   areaOfStudy?: string | null;
   institution?: string | null;
   role?: string | null;
-  employmentCategory?: Partial<LocalizedEmploymentCategory> | null;
+  employmentCategory?: LocalizedEnumValue<EmploymentCategory> | null;
   department?: {
-    name?: Partial<LocalizedString> | null | undefined;
+    name?: LocalizedString | null;
   } | null;
-  cafForce?: Partial<LocalizedCafForce> | null;
+  cafForce?: Partial<GenericLocalizedEnum<CafForce>> | null;
 }
 
 /**
