@@ -79,7 +79,16 @@ const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
 
 const DetailsEmployee_Fragment = graphql(/* GraphQL */ `
   fragment DetailsEmployee on BasicGovEmployeeProfileMasked {
-    ...EmployeeSearchResult
+    id
+    workEmail
+    firstName
+    lastName
+    role
+    department {
+      name {
+        localized
+      }
+    }
   }
 `);
 

@@ -160,7 +160,15 @@ const NominateTalentNominee_Fragment = graphql(/* GraphQL */ `
     id
     nominee {
       id
-      ...EmployeeSearchResult
+      workEmail
+      firstName
+      lastName
+      role
+      department {
+        name {
+          localized
+        }
+      }
     }
     nomineeReview {
       value
