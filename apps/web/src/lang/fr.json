@@ -143,6 +143,10 @@
     "defaultMessage": "Correspondance des compétences",
     "description": "Heading displayed on the candidate skill match dialog."
   },
+  "+SYNdJ": {
+    "defaultMessage": "« Mes trois examens de niveau linguistique sont actuellement valides. »",
+    "description": "Radio option for exam validity input on language information form."
+  },
   "+SbEuu": {
     "defaultMessage": "Ajouter {name} à vos signets.",
     "description": "Bookmarking button label for an object"
@@ -11013,10 +11017,6 @@
   "gOy6PW": {
     "defaultMessage": "Je ne suis pas à la recherche d'un transfert latéral pour l'instant.",
     "description": "The lateral move interest described as not interested."
-  },
-  "gS9T4G": {
-    "defaultMessage": "« Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>. »",
-    "description": "Radio option for exam validity input on language information form."
   },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",

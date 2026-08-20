@@ -191,8 +191,8 @@ export const getExamValidityOptions = (intl: IntlShape) => [
   {
     label: intl.formatMessage({
       defaultMessage:
-        "“All three of my language level exams are <strong>currently valid</strong>.”",
-      id: "gS9T4G",
+        "“All three of my language level exams are currently valid.”",
+      id: "+SYNdJ",
       description:
         "Radio option for exam validity input on language information form.",
     }),
