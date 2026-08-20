@@ -14,6 +14,7 @@ import { Ul } from "@gc-digital-talent/ui";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import { getEvaluatedLanguageLevels } from "~/utils/userUtils";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import type { SnapshotProps } from "../types";
 
@@ -215,9 +216,11 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
                   <FieldDisplay
                     label={labels.secondLanguageExamCompletedBoundingBoxLabel}
                   >
-                    {secondLanguageExamCompleted
-                      ? labels.secondLanguageExamCompletedLabel
-                      : notProvided}
+                    <BoolCheckIcon value={true}>
+                      {secondLanguageExamCompleted
+                        ? labels.secondLanguageExamCompletedLabel
+                        : notProvided}
+                    </BoolCheckIcon>
                   </FieldDisplay>
                   <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
                     {examValidity}
