@@ -7,6 +7,7 @@ import type {
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
   UserFilterInput,
+  LocalizedString,
 } from "@gc-digital-talent/graphql";
 import {
   SortOrder,
@@ -121,7 +122,7 @@ const communityReferralStatusColor: Record<
 export const communityReferralStatusCell = (
   status: {
     value: CommunityReferralStatus;
-    label?: { localized?: string | null } | null;
+    label?: LocalizedString | null;
   },
   intl: IntlShape,
 ): JSX.Element => (
