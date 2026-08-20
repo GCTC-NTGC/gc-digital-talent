@@ -108,8 +108,15 @@ const CommunityReferralStatusDialog = ({
       notes: referralStatus.notes ?? "",
     },
   });
-  const { watch } = methods;
+  const { watch, reset } = methods;
   const status = watch("status");
+
+  const handleOpenChange = (open: boolean) => {
+    setOpen(open);
+    if (!open) {
+      reset();
+    }
+  };
 
   const handleSubmit = async (values: FormValues) => {
     if (!values.status || fetching) return;
@@ -146,7 +153,7 @@ const CommunityReferralStatusDialog = ({
               "Success message displayed when a community interest's referral status is updated",
           }),
         );
-        setOpen(false);
+        handleOpenChange(false);
       })
       .catch(() => {
         toast.error(
@@ -161,7 +168,7 @@ const CommunityReferralStatusDialog = ({
   };
 
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setOpen}>
+    <Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
       <Dialog.Trigger>
         <Button mode="inline">{userName}</Button>
       </Dialog.Trigger>
