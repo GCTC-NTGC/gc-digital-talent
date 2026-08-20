@@ -118,8 +118,8 @@ const citizenshipStatusesProfile = defineMessages({
     description: "declaring one to be a Canadian citizen",
   },
   [CitizenshipStatus.PermanentResident]: {
-    defaultMessage: "I am a permanent resident of Canada.",
-    id: "OaB49n",
+    defaultMessage: "Permanent resident of Canada",
+    id: "xsZTQv",
     description: "declaring one to be a permanent resident",
   },
   [CitizenshipStatus.Other]: commonMessages.other,

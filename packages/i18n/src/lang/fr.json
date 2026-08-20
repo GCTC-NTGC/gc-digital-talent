@@ -755,10 +755,6 @@
     "defaultMessage": "Niveau",
     "description": "Label for level"
   },
-  "OaB49n": {
-    "defaultMessage": "J'ai la résidence permanente au Canada.",
-    "description": "declaring one to be a permanent resident"
-  },
   "OeTCOs": {
     "defaultMessage": "Réduire tout",
     "description": "Generic link text to collapse all accordions in a section"
@@ -1902,6 +1898,10 @@
   "xmzq/b": {
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
+  },
+  "xsZTQv": {
+    "defaultMessage": "Résident permanent ou Résidente permanente du Canada",
+    "description": "declaring one to be a permanent resident"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",
