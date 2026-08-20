@@ -10,6 +10,7 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
@@ -156,32 +157,38 @@ const Display = ({ query, context }: DisplayProps) => {
         label={labels.consideredPositionLanguages}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <Ul>
+          <Ul unStyled>
             {lookingForEnglish && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "English-only positions",
-                  id: "b3c+iw",
-                  description: "English Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "English-only positions",
+                    id: "b3c+iw",
+                    description: "English Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
             {lookingForFrench && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "French-only positions",
-                  id: "CFIG+8",
-                  description: "French Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "French-only positions",
+                    id: "CFIG+8",
+                    description: "French Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
             {lookingForBilingual && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "Bilingual positions",
-                  id: "94Pgq+",
-                  description: "Bilingual Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "Bilingual positions",
+                    id: "94Pgq+",
+                    description: "Bilingual Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
           </Ul>
