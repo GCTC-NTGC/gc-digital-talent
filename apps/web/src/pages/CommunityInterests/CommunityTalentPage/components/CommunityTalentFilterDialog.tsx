@@ -184,9 +184,12 @@ const CommunityTalentFilterDialog = ({
             name="referralStatuses"
             isMulti
             label={intl.formatMessage(messages.communityReferralStatus)}
-            options={narrowEnumType(
-              unpackMaybes(data?.referralStatuses),
-              "CommunityReferralStatus",
+            options={sortLocalizedEnumOptions(
+              ENUM_SORT_ORDER.COMMUNITY_REFERRAL_STATUS,
+              narrowEnumType(
+                unpackMaybes(data?.referralStatuses),
+                "CommunityReferralStatus",
+              ),
             ).map((communityReferralStatus) => ({
               value: communityReferralStatus.value,
               label: communityReferralStatus.label?.localized ?? notAvailable,
