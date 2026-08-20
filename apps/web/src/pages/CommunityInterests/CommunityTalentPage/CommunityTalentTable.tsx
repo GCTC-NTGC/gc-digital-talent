@@ -412,6 +412,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         id: "communityReferralStatus",
         header: intl.formatMessage(messages.communityReferralStatus),
         enableColumnFilter: false,
+        enableSorting: false,
         cell: ({
           row: {
             original: {
@@ -428,6 +429,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         id: "communityReferralFollowUpDate",
         header: intl.formatMessage(commonMessages.followUpDate),
         enableColumnFilter: false,
+        enableSorting: false,
         cell: ({
           row: {
             original: {
