@@ -993,8 +993,8 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3(graphql@16.14.2)
       chromatic:
-        specifier: ^18.0.1
-        version: 18.0.1
+        specifier: ^18.2.0
+        version: 18.2.0
       graphql:
         specifier: ^16.14.2
         version: 16.14.2
@@ -1163,8 +1163,8 @@ importers:
         specifier: ^1.1.19
         version: 1.1.19(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       chromatic:
-        specifier: ^18.0.1
-        version: 18.0.1
+        specifier: ^18.2.0
+        version: 18.2.0
       lodash:
         specifier: ^4.18.1
         version: 4.18.1
@@ -4590,8 +4590,8 @@ packages:
     resolution: {integrity: sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==}
     engines: {node: '>= 20.19.0'}
 
-  chromatic@18.0.1:
-    resolution: {integrity: sha512-GlTYrZ4ui5ZW8Jzut6SAo5bMH3sIugYZ37Nq2DyVHBfPINeEzGA8eG5xNo4N/I2aRdM9Xnqw0SCls7wgf2llvA==}
+  chromatic@18.2.0:
+    resolution: {integrity: sha512-xyTKDhBQPDd4qrsXhJK7GAJyIStpRoSTs4b7EtPyliSL0luej3DcqkeCZ9osHxbiLXiViNyWfMxo5Xgzejex8A==}
     engines: {node: '>=22.0.0'}
     hasBin: true
     peerDependencies:
@@ -10916,7 +10916,7 @@ snapshots:
     dependencies:
       readdirp: 5.0.0
 
-  chromatic@18.0.1:
+  chromatic@18.2.0:
     dependencies:
       semver: 7.8.5
 
