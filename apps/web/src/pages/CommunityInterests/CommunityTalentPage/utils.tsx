@@ -108,15 +108,15 @@ export function getClassificationSort(
   return null;
 }
 
-const communityReferralStatusColorMap = new Map<
+const communityReferralStatusColor: Record<
   CommunityReferralStatus,
   ChipProps["color"]
->([
-  [CommunityReferralStatus.New, "warning"],
-  [CommunityReferralStatus.Pending, "secondary"],
-  [CommunityReferralStatus.AvailableForReferral, "success"],
-  [CommunityReferralStatus.NotReferred, "gray"],
-]);
+> = {
+  [CommunityReferralStatus.New]: "warning",
+  [CommunityReferralStatus.Pending]: "secondary",
+  [CommunityReferralStatus.AvailableForReferral]: "success",
+  [CommunityReferralStatus.NotReferred]: "gray",
+};
 
 export const communityReferralStatusCell = (
   status: {
@@ -125,7 +125,7 @@ export const communityReferralStatusCell = (
   },
   intl: IntlShape,
 ): JSX.Element => (
-  <Chip color={communityReferralStatusColorMap.get(status.value) ?? "gray"}>
+  <Chip color={communityReferralStatusColor[status.value]}>
     {status.label?.localized ?? intl.formatMessage(commonMessages.notAvailable)}
   </Chip>
 );
