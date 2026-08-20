@@ -57,7 +57,7 @@ class ProfilePage extends AppPage {
       })
       .click();
     await this.page
-      .getByRole("radio", { name: /yes, I do have a priority entitlement./i })
+      .getByRole("radio", { name: /yes, I have a priority entitlement./i })
       .click();
     await this.page
       .getByRole("textbox", {

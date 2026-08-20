@@ -4363,10 +4363,6 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
-  "FVAQCH": {
-    "defaultMessage": "Oui, j'ai un droit de priorité.",
-    "description": "affirm possession of priority entitlement"
-  },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'un transfert latéral, d'une possibilité de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
@@ -12893,6 +12889,10 @@
   "o+YSXN": {
     "defaultMessage": "(il y a des notifications non lues)",
     "description": "Notice of unread notifications"
+  },
+  "o/w2PT": {
+    "defaultMessage": "Oui, j'ai un droit de priorité",
+    "description": "affirm possession of priority entitlement"
   },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",

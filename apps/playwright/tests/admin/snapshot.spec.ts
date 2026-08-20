@@ -178,7 +178,7 @@ test.describe("Snapshot", () => {
       name: /citizenship, veteran status and priority entitlements/i,
     });
     await expect(
-      govEmployee.getByText(/Yes, I do have a priority/i),
+      govEmployee.getByText(/Yes, I have a priority/i),
     ).toBeVisible();
     await expect(govEmployee.getByText("Priority number123")).toBeVisible();
 
