@@ -380,12 +380,10 @@ export const getExperienceFormLabels = (
  *
  * @param type  ExperienceType
  * @param data  ExperienceFormValues<AllExperienceFormValues>
- * @param hiddenSkills AddedSkill[] | null
  * @returns ExperienceDetailsSubmissionData
  */
 export const formValuesToSubmitData = (
   data: ExperienceFormValues<AllExperienceFormValues>,
-  hiddenSkills: AddedSkill[] | null,
   type?: ExperienceType | "",
 ): ExperienceDetailsSubmissionData => {
   const {
@@ -511,14 +509,6 @@ export const formValuesToSubmitData = (
                 return {
                   id: skill.skillId,
                   details: skill.details ?? "",
-                };
-              })
-            : []),
-          ...(hiddenSkills
-            ? hiddenSkills.map((skill) => {
-                return {
-                  id: skill.id,
-                  details: skill.experienceSkillRecord?.details ?? "",
                 };
               })
             : []),
