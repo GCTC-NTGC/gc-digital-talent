@@ -132,7 +132,11 @@ const TalentNominationGroupProfile = ({
           })}
         </p>
         <Card.Separator className="mt-9" />
-        {!contentIsVisible && <ErrorNotice reason={contentHiddenReason} />}
+        {!contentIsVisible && (
+          <div className="mt-9">
+            <ErrorNotice reason={contentHiddenReason} />
+          </div>
+        )}
       </Card>
       {data?.user?.employeeProfile ? (
         <Accordion.Root
