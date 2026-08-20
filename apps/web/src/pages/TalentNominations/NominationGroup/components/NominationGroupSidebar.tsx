@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useIntl } from "react-intl";
+import { useIntl, type MessageDescriptor } from "react-intl";
 
 import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import richTextElements from "@gc-digital-talent/rich-text-elements";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -20,6 +21,32 @@ import NominationGroupEvaluationDialog from "../../NominationGroupEvaluationDial
 
 type AccordionStates = "nominee-contact-information" | "comments" | "";
 
+interface MaskedDisplayProps {
+  value: string | null | undefined;
+  canShow: boolean | null | undefined;
+  maskedMessage: MessageDescriptor;
+  defaultMessage: MessageDescriptor;
+}
+
+const MaskedDisplay = ({
+  value,
+  canShow,
+  maskedMessage,
+  defaultMessage,
+}: MaskedDisplayProps) => {
+  const intl = useIntl();
+
+  if (!canShow) {
+    return intl.formatMessage(maskedMessage);
+  }
+
+  if (!value) {
+    return richTextElements.red(intl.formatMessage(defaultMessage));
+  }
+
+  return value;
+};
+
 export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
   fragment NominationGroupSidebar on TalentNominationGroup {
     id
@@ -33,6 +60,7 @@ export const NominationGroupSidebar_Fragment = graphql(/* GraphQL */ `
     }
     nominee {
       id
+      isVerifiedGovEmployee
       workEmail
       firstName
       lastName
@@ -89,8 +117,14 @@ const NominationGroupSidebar = ({
       <Card className="mb-3 flex flex-col justify-center pb-3">
         <div className="flex justify-between">
           <p className="mb-1.5 text-sm text-gray-600 dark:text-gray-200">
-            {talentNominationGroup.nominee?.classification?.groupAndLevel ??
-              intl.formatMessage(commonMessages.notProvided)}
+            <MaskedDisplay
+              value={
+                talentNominationGroup.nominee?.classification?.groupAndLevel
+              }
+              canShow={talentNominationGroup.nominee?.isVerifiedGovEmployee}
+              maskedMessage={commonMessages.noClassification}
+              defaultMessage={commonMessages.notProvided}
+            />
           </p>
           <DownloadNominationDocxButton
             id={talentNominationGroup.id}
@@ -106,8 +140,12 @@ const NominationGroupSidebar = ({
           )}
         </Heading>
         <p className="mb-6">
-          {talentNominationGroup.nominee?.department?.name?.localized ??
-            intl.formatMessage(commonMessages.notProvided)}
+          <MaskedDisplay
+            value={talentNominationGroup.nominee?.department?.name?.localized}
+            canShow={talentNominationGroup.nominee?.isVerifiedGovEmployee}
+            maskedMessage={commonMessages.noDepartment}
+            defaultMessage={commonMessages.notProvided}
+          />
         </p>
         <div className="w-full self-start">
           <NominationGroupEvaluationDialog query={talentNominationGroup} />
