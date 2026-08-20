@@ -1083,6 +1083,7 @@ type BasicGovEmployeeProfile {
   workEmail: Email
   firstName: String
   lastName: String
+  isVerifiedGovEmployee: Boolean
   preferredLang: LocalizedLanguage
   role: String
   department: Department
