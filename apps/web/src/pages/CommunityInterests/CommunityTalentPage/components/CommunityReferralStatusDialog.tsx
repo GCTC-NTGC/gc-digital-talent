@@ -17,7 +17,7 @@ import {
   uiMessages,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import { Button, Dialog, Link, Notice } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import {
   DateInput,
   RadioGroup,
@@ -198,6 +198,16 @@ const CommunityReferralStatusDialog = ({
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}
+                  context={
+                    status === CommunityReferralStatus.New
+                      ? intl.formatMessage({
+                          defaultMessage: "Please select a status to continue.",
+                          id: "Z1JAqo",
+                          description:
+                            "Notice shown when a community interest's referral status has not yet been reviewed",
+                        })
+                      : undefined
+                  }
                   items={[
                     {
                       value: CommunityReferralStatus.Pending,
@@ -240,18 +250,6 @@ const CommunityReferralStatusDialog = ({
                     },
                   ]}
                 />
-                {status === CommunityReferralStatus.New && (
-                  <Notice.Root small color="gray" role="alert">
-                    <Notice.Content>
-                      {intl.formatMessage({
-                        defaultMessage: "Please select a status to continue.",
-                        id: "Z1JAqo",
-                        description:
-                          "Notice shown when a community interest's referral status has not yet been reviewed",
-                      })}
-                    </Notice.Content>
-                  </Notice.Root>
-                )}
                 {status === CommunityReferralStatus.AvailableForReferral && (
                   <Select
                     id="classification"
