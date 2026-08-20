@@ -8,7 +8,6 @@ import {
   Button,
   Heading,
   Ul,
-  Notice,
   wrapParens,
   Card,
 } from "@gc-digital-talent/ui";

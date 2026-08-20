@@ -653,8 +653,8 @@ const commonMessages = defineMessages({
   },
   noDepartment: {
     defaultMessage: "No organization",
-    id: "x2TbMe",
-    description: "Placeholder for when the classification can not be displayed",
+    id: "wpNvbg",
+    description: "Placeholder for when the department can not be displayed",
   },
 });
 
