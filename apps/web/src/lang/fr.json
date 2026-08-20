@@ -19,6 +19,10 @@
     "defaultMessage": "Développement de carrière",
     "description": "Card title for career development"
   },
+  "+24DRY": {
+    "defaultMessage": "« Je suis parfaitement bilingue. »",
+    "description": "Message for the advanced language ability option"
+  },
   "+2vO9m": {
     "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
     "description": "Message when user is a Senior Designated Official"
@@ -4911,6 +4915,10 @@
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
   },
+  "HwGLec": {
+    "defaultMessage": "Avancé",
+    "description": "Message for the advanced language ability level"
+  },
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
@@ -6662,6 +6670,10 @@
   "Osh6TL": {
     "defaultMessage": "Découvrez les ressources d'aide aux spécialistes en RH et en recrutement au sein du gouvernement, dont la bibliothèque de compétences et les modèles d'offre d'emploi.",
     "description": "Description of platform resources for HR."
+  },
+  "OtLau2": {
+    "defaultMessage": "Intermédiaire",
+    "description": "Message for the intermediate language ability level"
   },
   "OtZDuZ": {
     "defaultMessage": "Programme de perfectionnement créé avec succès.",
@@ -9302,10 +9314,6 @@
     "defaultMessage": "Créer le ministère",
     "description": "Button label to create a department"
   },
-  "ZuFBx5": {
-    "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
-    "description": "Message for the beginner language ability option"
-  },
   "ZvrwDW": {
     "defaultMessage": "Examinez et vérifiez le statut prioritaire du candidat",
     "description": "Subtitle for verifying a candidate's priority claim"
@@ -9933,6 +9941,10 @@
   "ceofev": {
     "defaultMessage": "Langue de communication",
     "description": "Legend text for communication language preference"
+  },
+  "cfZo2h": {
+    "defaultMessage": "« Je possède des compétences de base en lecture, écriture et communication verbale. »",
+    "description": "Message for the beginner language ability option"
   },
   "cgLdec": {
     "defaultMessage": "<strong>Les compétences techniques</strong> sont des connaissances précises que l’on peut enseigner et qui sont pertinentes pour certains emplois ou postes au sein d’une organisation. On les acquiert habituellement au cours d’études, de formations ou d’une expérience de travail pratique.",
@@ -12158,6 +12170,10 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
+  "kzkW5D": {
+    "defaultMessage": "« J'ai des compétences robustes en lecture, écriture et communication verbale. »",
+    "description": "Message for the intermediate language ability option"
+  },
   "kzmlCw": {
     "defaultMessage": "Cette nomination pour un transfert latéral n'est pas retenue.",
     "description": "Label for lateral movement nomination is rejected"
@@ -13286,10 +13302,6 @@
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
   },
-  "paLFgh": {
-    "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
-    "description": "Message for the advanced language ability option"
-  },
   "paLmhR": {
     "defaultMessage": "Plusieurs postes devraient être pourvus dans le cadre de ce processus. Vous pouvez poser votre candidature à ce processus si vous répondez au profil linguistique bilingue intermédiaire (B B B) ou bilingue avancé (C B C).",
     "description": "Various bilingual language requirement description"
@@ -14101,10 +14113,6 @@
   "t4+h/N": {
     "defaultMessage": "Vous êtes sur le point de modifier la date de clôture de ce processus : <strong>{poolName}</strong>",
     "description": "Text to confirm the process to be extend"
-  },
-  "t5G3Fz": {
-    "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
-    "description": "Message for the intermediate language ability option"
   },
   "t7hBcy": {
     "defaultMessage": "Vous devez confirmer votre adresse courriel pour continuer. Veuillez utiliser le bouton « Envoyer le courriel de confirmation » et saisir le code reçu dans le champ prévu à cet effet.",
@@ -15612,6 +15620,10 @@
   "z9erMM": {
     "defaultMessage": "{educationType} en {areaOfStudy} de {institution}",
     "description": "Study at institution"
+  },
+  "z9k+6h": {
+    "defaultMessage": "Débutant",
+    "description": "Message for the beginner language ability level"
   },
   "zA8GrW": {
     "defaultMessage": "il y a une <strong>pénurie de travailleurs qualifiés</strong> dans ce domaine, selon des enquêtes locales ou régionales du marché du travail menées par des organisations reconnues;",
