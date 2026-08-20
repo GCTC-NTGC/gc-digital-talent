@@ -19,10 +19,6 @@
     "defaultMessage": "Développement de carrière",
     "description": "Card title for career development"
   },
-  "+2PPS3": {
-    "defaultMessage": "Statut de priorité",
-    "description": "Title for priority status"
-  },
   "+2vO9m": {
     "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
     "description": "Message when user is a Senior Designated Official"
@@ -6658,6 +6654,10 @@
   "OoYh86": {
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
     "description": "Describes the 'contact email' section of a process' advertisement"
+  },
+  "Op5hGy": {
+    "defaultMessage": "Droits de priorité",
+    "description": "Title for priority status"
   },
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
