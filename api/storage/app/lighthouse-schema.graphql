@@ -762,6 +762,7 @@ type Mutation {
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadCommunityTalentExcel(ids: [UUID!], where: CommunityTalentFilterInput): Boolean!
   downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -2055,6 +2056,23 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
   classifications: [UUID!]
+}
+
+input CommunityTalentFilterInput {
+  generalSearch: String
+  communities: [UUID!]
+  workStreams: [UUID!]
+  classifications: [UUID!]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  lateralMoveInterest: Boolean
+  promotionMoveInterest: Boolean
+  languageAbility: LanguageAbility
+  positionDuration: [PositionDuration]
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  skills: [UUID!]
 }
 
 input DateRangeOptional {

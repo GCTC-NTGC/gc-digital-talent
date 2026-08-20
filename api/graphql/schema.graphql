@@ -1641,6 +1641,24 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
   classifications: [UUID!] @scope
 }
+
+input CommunityTalentFilterInput {
+  generalSearch: String
+  communities: [UUID!]
+  workStreams: [UUID!]
+  classifications: [UUID!]
+  jobInterest: Boolean
+  trainingInterest: Boolean
+  lateralMoveInterest: Boolean
+  promotionMoveInterest: Boolean
+  languageAbility: LanguageAbility
+  positionDuration: [PositionDuration]
+  locationPreferences: [WorkRegion]
+  flexibleWorkLocations: [FlexibleWorkLocation]
+  operationalRequirements: [OperationalRequirement]
+  skills: [UUID!]
+}
+
 input DateRangeOptional {
   from: DateTime
   to: DateTime @rules(apply: ["after_or_equal:from"])
@@ -4189,6 +4207,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityTalentExcel(
+    ids: [UUID!]
+    where: CommunityTalentFilterInput
+  ): Boolean! @guard
   downloadTrackedUsersExcel(
     talentRequestId: UUID!
     where: TalentRequestTrackedUserFilterInput
