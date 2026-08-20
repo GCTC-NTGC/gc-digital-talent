@@ -4691,6 +4691,10 @@
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
   },
+  "GiHzdH": {
+    "defaultMessage": "Oui, j'ai un droit de priorité",
+    "description": "affirm possession of priority entitlement"
+  },
   "GjL/7z": {
     "defaultMessage": "Poursuivre la demande<hidden> pour {poolName}</hidden>",
     "description": "Label for continue application link"
@@ -4962,10 +4966,6 @@
   "I5q1n6": {
     "defaultMessage": "Soumettre aux fins de publication",
     "description": "Title for dialog to submit a process for publishing"
-  },
-  "I6Qz7N": {
-    "defaultMessage": "Non, je n'ai pas de droit de priorité.",
-    "description": "affirm no entitlement"
   },
   "I78S4w": {
     "defaultMessage": "Détails de l’emploi",
@@ -10118,6 +10118,10 @@
     "defaultMessage": "Pouvoir passer l’examen dans les 60 jours suivant la soumission de la demande.",
     "description": "Fifth item in list of eligibility requirements section"
   },
+  "dSxICg": {
+    "defaultMessage": "Non, je n'ai pas de droit de priorité",
+    "description": "affirm no entitlement"
+  },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
     "description": "Paragraph two for the self-declaration explanation dialog"
@@ -12885,10 +12889,6 @@
   "o+YSXN": {
     "defaultMessage": "(il y a des notifications non lues)",
     "description": "Notice of unread notifications"
-  },
-  "o/w2PT": {
-    "defaultMessage": "Oui, j'ai un droit de priorité",
-    "description": "affirm possession of priority entitlement"
   },
   "o0Yt8Q": {
     "defaultMessage": "Établissement",
