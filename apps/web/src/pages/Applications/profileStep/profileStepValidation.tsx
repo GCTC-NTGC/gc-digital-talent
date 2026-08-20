@@ -1,9 +1,9 @@
-import type {
-  Application_PoolCandidateFragment,
-  Pool,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment } from "@gc-digital-talent/graphql";
 
-import type { ApplicationBrowserState } from "~/types/applicationStep";
+import type {
+  ApplicationBrowserState,
+  ApplicationStepPool,
+} from "~/types/applicationStep";
 import type {
   PartialUserAbout,
   PartialUserDei,
@@ -30,7 +30,7 @@ interface PartialUser
 
 const stepHasError = (
   user: PartialUser,
-  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
+  pool: ApplicationStepPool,
   _application: Application_PoolCandidateFragment | null | undefined,
   browserState: ApplicationBrowserState | null | undefined,
 ) => {

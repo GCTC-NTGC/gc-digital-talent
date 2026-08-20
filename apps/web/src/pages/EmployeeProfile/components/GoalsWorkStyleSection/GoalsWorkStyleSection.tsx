@@ -17,7 +17,7 @@ import {
   formMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import type { FragmentType, EmployeeProfile } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { useAuthorization } from "@gc-digital-talent/auth";
@@ -117,14 +117,12 @@ const GoalsWorkStyleSection = ({
     );
   };
 
-  const dataToFormValues = (initialData: EmployeeProfile): FormValues => ({
-    aboutYou: initialData.aboutYou ?? "",
-    learningGoals: initialData.learningGoals ?? "",
-    workStyle: initialData.workStyle ?? "",
-  });
-
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(employeeProfile),
+    defaultValues: {
+      aboutYou: employeeProfile.aboutYou ?? "",
+      learningGoals: employeeProfile.learningGoals ?? "",
+      workStyle: employeeProfile.workStyle ?? "",
+    },
   });
   const { handleSubmit } = methods;
 
