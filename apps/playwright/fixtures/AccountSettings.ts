@@ -85,7 +85,7 @@ class AccountSettings extends AppPage {
       })
       .click();
     await this.locators[FIELD.CITIZENSHIP_STATUS]
-      .getByRole("radio", { name: /I am a Canadian citizen./i })
+      .getByRole("radio", { name: /Canadian citizen/i })
       .click();
     await this.locators[FIELD.SAVE_CHANGES].click();
     await this.waitForGraphqlResponse("UpdateUserAsUser");

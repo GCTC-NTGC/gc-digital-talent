@@ -919,6 +919,10 @@
     "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
     "description": "declare self to be a CAF member without bolding"
   },
+  "TSscCR": {
+    "defaultMessage": "Citoyen(ne) canadien(ne)",
+    "description": "declaring one to be a Canadian citizen"
+  },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
     "description": "Name of Career timeline page"
@@ -1474,10 +1478,6 @@
   "l2XtbB": {
     "defaultMessage": "J'accepte de travailler par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7.",
     "description": "The operational requirement described as 24/7 on-call."
-  },
-  "l4wLn9": {
-    "defaultMessage": "J'ai la citoyenneté canadienne.",
-    "description": "declaring one to be a Canadian citizen"
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
