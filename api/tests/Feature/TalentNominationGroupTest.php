@@ -735,4 +735,68 @@ class TalentNominationGroupTest extends TestCase
 
         $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
     }
+
+    public function testNomineeClassificationHiddenWhenNotCurrentlyGovEmployee()
+    {
+        // TalentNominationGroup::nominee() has no whereIsVerifiedGovEmployee() scope
+        // (nominees need not be employees), so stale computed_classification data
+        // must be hidden by the BasicGovEmployeeProfile type itself.
+        $community = Community::factory()->create();
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $staleClassification = Classification::factory()->create();
+        $nominee->update([
+            'computed_is_gov_employee' => false,
+            'computed_classification' => $staleClassification->id,
+        ]);
+
+        $coordinator = User::factory()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create([
+                'email' => 'coordinator@test.com',
+                'computed_is_gov_employee' => true,
+                'work_email' => 'coordinator@gc.ca',
+                'work_email_verified_at' => now(),
+            ]);
+
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+            ]);
+
+        $query = <<<'GRAPHQL'
+            query TalentNominationGroupsWithNomineeClassification($talentNominationEventId: UUID!) {
+                talentNominationEvent(id: $talentNominationEventId) {
+                    talentNominationGroups {
+                        nominee {
+                            id
+                            classification { id }
+                        }
+                    }
+                }
+            }
+        GRAPHQL;
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($query, [
+                'talentNominationEventId' => $talentNominationEvent->id,
+            ]);
+
+        $response->assertGraphQLErrorFree();
+        $response->assertJsonFragment([
+            'nominee' => [
+                'id' => $nominee->id,
+                'classification' => null,
+            ],
+        ]);
+    }
 }

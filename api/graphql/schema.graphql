@@ -418,10 +418,18 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   workEmail: Email @rename(attribute: "work_email")
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
-  preferredLang: LocalizedLanguage @rename(attribute: "preferred_lang")
-  role: String @rename(attribute: "computed_gov_role")
-  department: Department @belongsTo
-  classification: Classification @belongsTo(relation: "currentClassification")
+  preferredLang: LocalizedLanguage
+    @rename(attribute: "preferred_lang")
+    @nullUnless(attribute: "computed_is_gov_employee")
+  role: String
+    @rename(attribute: "computed_gov_role")
+    @nullUnless(attribute: "computed_is_gov_employee")
+  department: Department
+    @belongsTo
+    @nullUnless(attribute: "computed_is_gov_employee")
+  classification: Classification
+    @belongsTo(relation: "currentClassification")
+    @nullUnless(attribute: "computed_is_gov_employee")
 }
 
 # Mini type to support search by work email
