@@ -24,6 +24,10 @@ services:
     build:
       context: ./
       dockerfile: infrastructure/webserver.Dockerfile
+      args:
+        # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
+        HOST_UID: "${HOST_UID:-33}"
+        HOST_GID: "${HOST_GID:-33}"
     restart: always
     volumes:
       - ./:/home/site/wwwroot
@@ -49,6 +53,16 @@ services:
   maintenance:
     build: ./infrastructure/maintenance-container
     working_dir: /root/scripts
+    # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
+    user: "${HOST_UID:-0}:${HOST_GID:-0}"
+    environment:
+      # An arbitrary uid has no /etc/passwd entry, so HOME has to be set
+      # explicitly for the composer and pnpm caches to land on the volume below.
+      HOME: /root
+      # pnpm otherwise puts its store at the filesystem root of the project
+      # (/.pnpm-store), which is not writable by a non-root user. Keeping it in
+      # HOME also means it persists on the volume between runs.
+      npm_config_store_dir: /root/.pnpm-store
     deploy:
       mode: replicated
       replicas: 0

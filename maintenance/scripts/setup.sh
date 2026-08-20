@@ -44,7 +44,8 @@ else
 fi
 php artisan lighthouse:print-schema --write
 php artisan optimize:clear
-chown -R www-data ./storage ./vendor
+# No chown here: this script may run as the host user, which cannot chown. The
+# chmod below is what lets a differently-id'd webserver write these paths.
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
 cd /var/www/html/apps/web

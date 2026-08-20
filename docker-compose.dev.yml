@@ -20,6 +20,8 @@ services:
       - ./.git:/var/www/html/.git:ro
     env_file:
       - ./api/.env
+    # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
+    user: "${HOST_UID:-0}:${HOST_GID:-0}"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -31,21 +33,20 @@ services:
       retries: 30
       start_period: 15s
 
-  # Ensures ./node_modules exists and is owned by the host user before the
-  # web container starts. Docker creates missing bind-mount directories as
-  # root; this service corrects that so pnpm install can write to it.
+  # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
   node-init:
     image: alpine
-    command: chown "${UID:-1000}:${GID:-1000}" /node_modules
+    command: chown "${HOST_UID:-1000}:${HOST_GID:-1000}" /node_modules
     volumes:
       - ./node_modules:/node_modules
 
+  # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
   web:
     build:
       context: ./
       dockerfile: infrastructure/dev/web.Dockerfile
     restart: unless-stopped
-    user: "${UID:-1000}:${GID:-1000}"
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
     volumes:
       - ./apps:/var/www/html/apps
       - ./packages:/var/www/html/packages
