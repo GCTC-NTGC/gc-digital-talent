@@ -4,6 +4,7 @@ import { useMutation } from "urql";
 import type {
   UserFilterInput,
   TalentRequestTrackedUserFilterInput,
+  CommunityTalentFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -15,6 +16,11 @@ import useAsyncFileDownload from "./useAsyncFileDownload";
 interface DownloadExcelArgs {
   ids?: string[];
   where?: UserFilterInput | null;
+}
+
+interface DownloadCommunityTalentExcelArgs {
+  ids?: string[];
+  where?: CommunityTalentFilterInput | null;
 }
 
 interface DownloadTrackedUsersExcelArgs {
@@ -40,6 +46,15 @@ const DownloadUsersExcel_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
+const DownloadCommunityTalentExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityTalentExcel(
+    $ids: [UUID!]
+    $where: CommunityTalentFilterInput
+  ) {
+    downloadCommunityTalentExcel(ids: $ids, where: $where)
+  }
+`);
+
 const DownloadTrackedUsersExcel_Mutation = graphql(/* GraphQL */ `
   mutation DownloadTrackedUsersExcel(
     $talentRequestId: UUID!
@@ -60,6 +75,10 @@ const useUserDownloads = () => {
   const [{ fetching: downloadingExcel }, executeExcelMutation] = useMutation(
     DownloadUsersExcel_Mutation,
   );
+  const [
+    { fetching: downloadingCommunityTalentExcel },
+    executeCommunityTalentExcelMutation,
+  ] = useMutation(DownloadCommunityTalentExcel_Mutation);
   const [
     { fetching: downloadingTrackedUsersExcel },
     executeTrackedUsersExcelMutation,
@@ -125,6 +144,15 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
+  const downloadCommunityTalentExcel = ({
+    ids,
+    where,
+  }: DownloadCommunityTalentExcelArgs) => {
+    executeCommunityTalentExcelMutation({ ids, where })
+      .then((res) => handleDownloadRes(!!res.data))
+      .catch(handleDownloadError);
+  };
+
   const downloadTrackedUsersExcel = ({
     talentRequestId,
     where,
@@ -139,6 +167,8 @@ const useUserDownloads = () => {
     downloadingZip,
     downloadExcel,
     downloadingExcel,
+    downloadCommunityTalentExcel,
+    downloadingCommunityTalentExcel,
     downloadTrackedUsersExcel,
     downloadingTrackedUsersExcel,
     downloadDoc,

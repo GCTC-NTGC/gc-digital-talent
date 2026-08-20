@@ -6,7 +6,7 @@ import type {
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
-  UserFilterInput,
+  CommunityTalentFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   SortOrder,
@@ -210,20 +210,35 @@ export function transformCommunityInterestFilterInputToFormValues(
   };
 }
 
-export function transformToUserFilterInput(
-  _filterState: CommunityInterestFilterInput | undefined,
-  searchTerm: string | undefined,
-  _searchType: string | undefined,
-): UserFilterInput | undefined {
-  if (!searchTerm) {
+export function transformToCommunityTalentFilterInput(
+  filterState: CommunityInterestFilterInput | undefined,
+  searchBarTerm: string | undefined,
+  searchType: string | undefined,
+): CommunityTalentFilterInput | undefined {
+  if (
+    filterState === undefined &&
+    searchBarTerm === undefined &&
+    searchType === undefined
+  ) {
     return undefined;
   }
 
-  const userFilter: UserFilterInput = {};
-
-  userFilter.generalSearch = searchTerm;
-
-  return userFilter;
+  return {
+    generalSearch: searchBarTerm && !searchType ? searchBarTerm : undefined,
+    communities: unpackMaybes(filterState?.communities),
+    workStreams: unpackMaybes(filterState?.workStreams),
+    classifications: unpackMaybes(filterState?.classifications),
+    jobInterest: filterState?.jobInterest,
+    trainingInterest: filterState?.trainingInterest,
+    lateralMoveInterest: filterState?.lateralMoveInterest,
+    promotionMoveInterest: filterState?.promotionMoveInterest,
+    languageAbility: filterState?.languageAbility,
+    positionDuration: filterState?.positionDuration,
+    locationPreferences: filterState?.locationPreferences,
+    operationalRequirements: filterState?.operationalRequirements,
+    skills: unpackMaybes(filterState?.skills),
+    flexibleWorkLocations: filterState?.flexibleWorkLocations,
+  };
 }
 
 export function extractUserIdsFromSelectedRows(
