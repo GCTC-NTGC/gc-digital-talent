@@ -79,6 +79,7 @@ const LockedNotice = ({
 export const TalentNominations_Fragment = graphql(/** GraphQL */ `
   fragment TalentNominations on User {
     isVerifiedGovEmployee
+    ...NominationsReceived
     ...EmployeesNominated
   }
 `);
@@ -159,6 +160,7 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                 <LockedNotice includePastNominationsNote />
               )}
               <NominationsReceived
+                userQuery={user}
                 isVerifiedGovEmployee={isVerifiedGovEmployee}
               />
             </TableOfContents.Section>
