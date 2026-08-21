@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -61,6 +60,12 @@ class CheckExternalLinks extends Command
 
         $brokenLinks = $this->checkLinks($links);
 
+        // one extra attempt
+        if (! empty($brokenLinks)) {
+            usleep(500_000);
+            $brokenLinks = $this->checkLinks($brokenLinks);
+        }
+
         Storage::disk('local')->put('external-broken-links.json', json_encode($brokenLinks, JSON_PRETTY_PRINT));
 
         $this->info(count($links).' links checked, '.count($brokenLinks).' broken.');
@@ -71,6 +76,12 @@ class CheckExternalLinks extends Command
     /**
      * Check each link and return the ones that did not respond successfully.
      *
+     * Retries (see handle()) are done by calling this method again with the
+     * remaining broken links, rather than via ->retry() inside the pool,
+     * because Guzzle's retry middleware blocks on the shared curl_multi
+     * handle the pool is already ticking, which can throw "Invoking the
+     * wait callback did not resolve the promise".
+     *
      * @param  array<int, array{file: string, url: string}>  $links
      * @return array<int, array{file: string, url: string, status: int|string}>
      */
@@ -80,7 +91,6 @@ class CheckExternalLinks extends Command
             fn ($link) => [$link['url'] => $pool->as($link['url'])
                 ->timeout(config('linkchecker.timeout'))
                 ->withUserAgent($this->userAgentFor($link['url']))
-                ->retry(2, 500, fn ($e) => $e instanceof ConnectionException, throw: false)
                 ->get($link['url'])]
         )->all(), config('linkchecker.concurrency'));
 
