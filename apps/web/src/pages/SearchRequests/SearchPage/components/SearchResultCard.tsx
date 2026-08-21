@@ -33,13 +33,6 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     classification {
       groupAndLevel
     }
@@ -110,7 +103,6 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
         {getShortPoolTitleHtml(intl, {
           workStream: pool.workStream,
           name: pool.name,
-          publishingGroup: pool.publishingGroup,
           classification: pool.classification,
         })}
       </p>
