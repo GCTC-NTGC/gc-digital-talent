@@ -481,13 +481,13 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $referenceDetails['department'], // reference department
                         $this->localizeEnum($nomination->nine_box_performance?->name, NineBoxRating::class), // nine box performance
                         $this->localizeEnum($nomination->nine_box_leadership_potential?->name, NineBoxRating::class), // nine box leadership potential
-                        $this->canShare($consentToShare, $lateralMovementOptionsStr),  // lateral experience recommendations
-                        $this->canShare($consentToShare, $nomination->lateral_movement_options_other ?? ''), // other lateral experience
-                        $this->canShare($consentToShare, $developmentProgramsStr),   // development program recommendations
-                        $this->canShare($consentToShare, $nomination->development_program_options_other ?? ''), // other development program experience
-                        $this->canShare($consentToShare, $nomination->nomination_rationale ?? ''), // rationale
+                        $lateralMovementOptionsStr,  // lateral experience recommendations
+                        $nomination->lateral_movement_options_other ?? '', // other lateral experience
+                        $developmentProgramsStr,   // development program recommendations
+                        $nomination->development_program_options_other ?? '', // other development program experience
+                        $nomination->nomination_rationale ?? '', // rationale
                         $leadershipCompetenciesStr, // leadership competencies
-                        $this->canShare($consentToShare, $nomination->additional_comments ?? ''), // additional comments
+                        $nomination->additional_comments ?? '', // additional comments
                     ];
 
                     $this->writer->addRow($this->row($values));
