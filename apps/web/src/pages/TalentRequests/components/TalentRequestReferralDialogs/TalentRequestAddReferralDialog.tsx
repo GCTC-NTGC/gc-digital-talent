@@ -146,7 +146,11 @@ const TalentRequestAddReferralDialog = ({
   return (
     <Dialog.Root open={isOpen} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        {trigger ?? <Button mode="text">{userName}</Button>}
+        {trigger ?? (
+          <Button mode="text" className="text-left">
+            {userName}
+          </Button>
+        )}
       </Dialog.Trigger>
       <Dialog.Content>
         <ReferralDialogHeader userName={userName} />
