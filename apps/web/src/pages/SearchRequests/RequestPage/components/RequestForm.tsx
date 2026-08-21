@@ -35,14 +35,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import type {
   TalentRequestReason,
-  EquitySelections,
-  DepartmentBelongsTo,
-  Classification,
-  OperationalRequirement,
-  Pool,
-  Skill,
-  ApplicantFilter,
-  ApplicantFilterInput,
   FragmentType,
   CreateTalentRequestMutation,
   CreateTalentRequestInput,
@@ -57,11 +49,9 @@ import type {
 } from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import { getBasicFullNameLabel } from "~/utils/nameUtils";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
-import {
-  TALENT_REQUEST_STATE_KEY,
-  useTalentRequestState,
-} from "../../SearchPage/hooks";
+import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -78,26 +68,7 @@ interface FormValues {
   reason: TalentRequestReason;
   additionalComments?: string;
   hrAdvisorEmail?: string;
-  applicantFilter?: {
-    qualifiedInClassifications?: {
-      sync?: (Classification["id"] | null)[];
-    };
-    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
-    skills?: {
-      sync?: (Skill["id"] | null)[];
-    };
-    hasDiploma?: ApplicantFilterInput["hasDiploma"];
-    positionDuration?: ApplicantFilterInput["positionDuration"];
-    equity?: EquitySelections;
-    languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: (OperationalRequirement | null)[];
-    pools?: {
-      sync?: (Pool["id"] | null)[];
-    };
-    locationPreferences?: ApplicantFilterInput["locationPreferences"];
-    flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
-  };
-  department?: DepartmentBelongsTo["connect"];
+  department?: string;
 }
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
@@ -107,6 +78,15 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     level
     groupAndLevel
     displayName
+  }
+`);
+
+export const RequestFormSkill_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormSkill on Skill {
+    id
+    name {
+      localized
+    }
   }
 `);
 
@@ -239,7 +219,7 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
 
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
-  skills: Skill[];
+  skills: FragmentType<typeof RequestFormSkill_Fragment>[];
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
@@ -253,7 +233,7 @@ export interface RequestFormProps {
 
 export const RequestForm = ({
   departmentsQuery,
-  skills,
+  skills: skillsQuery,
   classificationsQuery,
   communitiesQuery,
   defaultUserQuery,
@@ -272,6 +252,7 @@ export const RequestForm = ({
       includeIds: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
     },
   });
+  const skills = getFragment(RequestFormSkill_Fragment, skillsQuery);
   const classifications = getFragment(
     RequestFormClassification_Fragment,
     classificationsQuery,
@@ -766,19 +747,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
       ...RequestFormDepartment
     }
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      ...RequestFormSkill
     }
     classifications {
       ...RequestFormClassification
@@ -797,8 +766,6 @@ const RequestFormApi = () => {
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
   });
-
-  const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
@@ -826,7 +793,7 @@ const RequestFormApi = () => {
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
           communitiesQuery={unpackMaybes(lookupData?.communities)}
-          skills={skills}
+          skills={unpackMaybes(lookupData?.skills)}
           handleCreateTalentRequest={handleCreateTalentRequest}
           defaultUserQuery={lookupData?.me ?? {}}
         />

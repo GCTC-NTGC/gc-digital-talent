@@ -13,15 +13,17 @@ import {
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  Classification,
   ApplicantFilterInput,
   FragmentType,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import type { FormValues } from "~/types/talentRequestForm";
+import type {
+  FormValues,
+  TalentRequestClassification,
+  TalentRequestWorkStream,
+} from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
 import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 
@@ -51,9 +53,9 @@ const submitOnlyFields: string[] = [
 ] satisfies (keyof FormValues)[];
 
 interface SearchFormProps {
-  classifications: Classification[];
+  classifications: TalentRequestClassification[];
   skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
-  workStreams: WorkStream[];
+  workStreams: TalentRequestWorkStream[];
 }
 
 export const SearchForm = ({
@@ -129,7 +131,8 @@ export const SearchForm = ({
       workStream.id === applicantFilter?.qualifiedInWorkStreams?.[0]?.id,
   );
   const selectedWorkStreamName = selectedWorkStream
-    ? getLocalizedName(selectedWorkStream.name, intl)
+    ? (selectedWorkStream.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable))
     : undefined;
 
   const handleSubmit = async (values: FormValues) => {
@@ -296,8 +299,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
     workStreams(talentSearchable: true) {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     skills {

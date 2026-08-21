@@ -15,15 +15,10 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
-  getLocalizedName,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import type {
-  Classification,
-  FragmentType,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   WorkRegion,
@@ -32,6 +27,10 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 
+import type {
+  TalentRequestClassification,
+  TalentRequestWorkStream,
+} from "~/types/talentRequestForm";
 import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
 import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
@@ -80,9 +79,9 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Classification[];
+  classifications: TalentRequestClassification[];
   skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
-  workStreams: WorkStream[];
+  workStreams: TalentRequestWorkStream[];
 }
 
 const internalLink = (href: string, chunks: ReactNode) => (
@@ -108,7 +107,9 @@ const FormFields = ({
 
   const workStreamOptions = workStreams.map((workStream) => ({
     value: workStream.id,
-    label: getLocalizedName(workStream.name, intl),
+    label:
+      workStream.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
   }));
 
   const languageAbilityOptions = localizedEnumToOptions(

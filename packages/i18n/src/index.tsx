@@ -62,6 +62,7 @@ import {
 import {
   type MaybeLocalizedEnums,
   type GenericLocalizedEnum,
+  type LocalizedEnumValue,
   enumInputToLocalizedEnum,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
@@ -170,6 +171,7 @@ export type {
   Messages,
   MaybeLocalizedEnums,
   GenericLocalizedEnum,
+  LocalizedEnumValue,
   TEmploymentDuration,
 };
 export { fr };

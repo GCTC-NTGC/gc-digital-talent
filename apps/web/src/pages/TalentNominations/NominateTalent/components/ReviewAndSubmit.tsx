@@ -9,7 +9,6 @@ import {
   TalentNominationStep,
 } from "@gc-digital-talent/graphql";
 import { Card, CardSeparator } from "@gc-digital-talent/ui";
-import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import pageTitles from "~/messages/pageTitles";
 
@@ -17,7 +16,7 @@ import useCurrentStep from "../useCurrentStep";
 import type { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
-import useMutations from "../useMutations";
+import type { TalentNominationMutations } from "../useMutations";
 import NominatorReview from "./ReviewAndSubmit/NominatorReview";
 import NomineeReview from "./ReviewAndSubmit/NomineeReview";
 import NominationDetailsReview from "./ReviewAndSubmit/NominationDetailsReview";
@@ -40,9 +39,15 @@ interface ReviewAndSubmitProps {
   reviewAndSubmitQuery: FragmentType<
     typeof NominateTalentReviewAndSubmit_Fragment
   >;
+  submit: TalentNominationMutations["submit"];
+  fetching: boolean;
 }
 
-const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
+const ReviewAndSubmit = ({
+  reviewAndSubmitQuery,
+  submit,
+  fetching,
+}: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
 
@@ -50,13 +55,6 @@ const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
     NominateTalentReviewAndSubmit_Fragment,
     reviewAndSubmitQuery,
   );
-
-  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
-  const isPastEvent = isPastDateTime(closeDate);
-
-  const [fetching, { submit }] = useMutations({
-    forceProtectedEndpoint: isPastEvent,
-  });
 
   const methods = useForm<BaseFormValues>({ disabled: fetching });
 

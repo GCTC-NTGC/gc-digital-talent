@@ -173,7 +173,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 type="hidden"
                 name={`screeningAnswers.${index}.questionId`}
               />
-              <AnswerInput index={index} question={question} />
+              <AnswerInput
+                index={index}
+                question={question}
+                answerPrefix="screeningAnswers"
+              />
             </Fragment>
           ))}
         </div>
@@ -224,7 +228,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 type="hidden"
                 name={`generalAnswers.${index}.questionId`}
               />
-              <AnswerInput index={index} question={question} />
+              <AnswerInput
+                index={index}
+                question={question}
+                answerPrefix="generalAnswers"
+              />
             </Fragment>
           ))}
         </>
