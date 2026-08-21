@@ -183,7 +183,9 @@ test.describe("Snapshot", () => {
       govEmployee.getByText(/Yes, I have a priority/i),
     ).toBeVisible();
     await expect(
-      govEmployee.getByText("Priority entitlements123"),
+      govEmployee.getByText(
+        "Priority number provided by the Public Service Commission of Canada123",
+      ),
     ).toBeVisible();
 
     // signature
