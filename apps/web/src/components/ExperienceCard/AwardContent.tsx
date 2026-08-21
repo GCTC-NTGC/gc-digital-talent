@@ -1,17 +1,24 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AwardExperience } from "@gc-digital-talent/graphql";
+import type { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
+interface AwardContentExperience {
+  issuedBy?: string | null;
+  awardedTo?: GenericLocalizedEnum<AwardedTo> | null;
+  awardedScope?: GenericLocalizedEnum<AwardedScope> | null;
+}
+
 const AwardContent = ({
   experience: { awardedTo, issuedBy, awardedScope },
   headingLevel,
-}: ContentProps<Omit<AwardExperience, "user">>) => {
+}: ContentProps<AwardContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
