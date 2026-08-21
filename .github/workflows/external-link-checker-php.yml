@@ -31,10 +31,6 @@ jobs:
           composer install --prefer-dist --no-scripts
 
       - name: Run External Link Checker
-        # A non-zero exit here just means broken links were found (see
-        # Command::FAILURE in CheckExternalLinks) -- that's reported via the
-        # issue below, not treated as a CI infrastructure failure.
-        continue-on-error: true
         working-directory: api
         run: php artisan app:check-external-links
 

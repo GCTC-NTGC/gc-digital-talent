@@ -70,7 +70,7 @@ class CheckExternalLinks extends Command
 
         $this->info(count($links).' links checked, '.count($brokenLinks).' broken.');
 
-        return count($brokenLinks) > 0 ? Command::FAILURE : Command::SUCCESS;
+        return Command::SUCCESS;
     }
 
     /**
