@@ -425,6 +425,95 @@ class TalentNominationEventTest extends TestCase
             ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name);
     }
 
+    // #17681 - a community-scoped development program can be added to a PAST event
+    public function testNewDevelopmentProgramCanBeAddedToPastEvent()
+    {
+        $openDate = config('constants.far_past_datetime');
+        $closeDate = config('constants.past_datetime');
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($this->community)
+            ->create([
+                'open_date' => $openDate,
+                'close_date' => $closeDate,
+            ]);
+
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $communityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $this->communityId,
+            'development_program_id' => $developmentProgram->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                        communityDevelopmentPrograms { id }
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            ['id' => $communityDevelopmentProgram->id],
+                        ],
+                    ],
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'updateTalentNominationEvent' => [
+                        'id' => $talentNominationEvent->id,
+                        'communityDevelopmentPrograms' => [
+                            ['id' => $communityDevelopmentProgram->id],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    // #17681 - a development program that does not belong to the event's community is still rejected on a PAST event
+    public function testNewDevelopmentProgramMustBelongToCommunityOnPastEvent()
+    {
+        $openDate = config('constants.far_past_datetime');
+        $closeDate = config('constants.past_datetime');
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($this->community)
+            ->create([
+                'open_date' => $openDate,
+                'close_date' => $closeDate,
+            ]);
+
+        $newCommunity = Community::factory()->create();
+        $developmentProgram = DevelopmentProgram::factory()->create();
+        $newCommunityDevelopmentProgram = CommunityDevelopmentProgram::create([
+            'community_id' => $newCommunity->id,
+            'development_program_id' => $developmentProgram->id,
+        ]);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL(<<<'GRAPHQL'
+                mutation UpdateTalentNominationEvent($id: UUID!, $talentNominationEvent: UpdateTalentNominationEventInput!) {
+                    updateTalentNominationEvent(id: $id, talentNominationEvent: $talentNominationEvent) {
+                        id
+                    }
+                }
+                GRAPHQL, [
+                'id' => $talentNominationEvent->id,
+                'talentNominationEvent' => [
+                    'communityDevelopmentPrograms' => [
+                        'sync' => [
+                            ['id' => $newCommunityDevelopmentProgram->id],
+                        ],
+                    ],
+                ],
+            ])
+            ->assertGraphQLValidationError('talentNominationEvent.communityDevelopmentPrograms.sync.0.id', ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND_OR_INVALID->name);
+    }
+
     // test conditionally blocking of editing closing date sooner
     public function testMovingClosingDateSoonerBlockedForActiveEvents()
     {
