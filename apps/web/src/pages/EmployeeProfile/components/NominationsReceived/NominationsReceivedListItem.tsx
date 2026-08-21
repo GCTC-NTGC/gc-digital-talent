@@ -147,8 +147,8 @@ const NominationsReceivedListItem = ({
       children: (
         <span>
           {intl.formatMessage({
-            defaultMessage: "Accepted",
-            id: "0gM/Z2",
+            defaultMessage: "Accepted on",
+            id: "BOPQKQ",
             description: "Label for accepted date of a nomination received",
           })}
           {intl.formatMessage(commonMessages.dividingColon)}

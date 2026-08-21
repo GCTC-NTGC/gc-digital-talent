@@ -69,7 +69,7 @@ const EmployeesNominated = ({
       !isNominationClosed(nomination.talentNominationEvent?.closeDate),
   );
 
-  const showViewToggle = showView && hasClosedNominations && hasOpenNominations;
+  const showViewToggle = hasClosedNominations && hasOpenNominations;
 
   const visibleNominations = showViewToggle
     ? nominations.filter((nomination) =>
