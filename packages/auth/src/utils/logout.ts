@@ -100,6 +100,8 @@ function logoutAndRefreshPage({
         logoutReason: logoutReason ?? "unknown",
       },
     );
+
+    void appInsights.onunloadFlush?.();
   }
   let authSessionIsCurrentlyActive = false; // assume false unless we can prove it below
 

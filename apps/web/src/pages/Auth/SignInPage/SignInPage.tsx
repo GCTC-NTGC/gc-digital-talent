@@ -16,6 +16,7 @@ import {
   Notice,
   Chip,
 } from "@gc-digital-talent/ui";
+g;
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { RadioGroup } from "@gc-digital-talent/forms";
@@ -122,7 +123,7 @@ export const Component = () => {
     );
     // The click triggers a full-page navigation off-site, so flush the buffer
     // to avoid the event being dropped on unload.
-    void appInsights.flush();
+    void appInsights.onunloadFlush();
   };
 
   const InstructionCards = () => {
