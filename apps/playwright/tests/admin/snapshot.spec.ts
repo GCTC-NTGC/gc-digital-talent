@@ -117,7 +117,9 @@ test.describe("Snapshot", () => {
     await expect(
       appPage.page
         .locator("div")
-        .filter({ hasText: /^Priority statusThis claim is unverified\.$/ })
+        .filter({
+          hasText: /^Priority entitlementsThis claim is unverified\.$/,
+        })
         .getByRole("paragraph"),
     ).toBeVisible();
     await expect(
