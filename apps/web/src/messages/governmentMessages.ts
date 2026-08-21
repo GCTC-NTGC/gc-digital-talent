@@ -17,8 +17,8 @@ const messages = defineMessages({
     description: "affirm possession of priority entitlement",
   },
   noPriorityEntitlement: {
-    defaultMessage: "No, I do not have a priority entitlement",
-    id: "dSxICg",
+    defaultMessage: "No, I don't have a priority entitlement",
+    id: "cqgLoi",
     description: "affirm no entitlement",
   },
 });

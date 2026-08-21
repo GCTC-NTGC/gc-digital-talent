@@ -1351,6 +1351,10 @@
     "defaultMessage": "Critères de la candidature",
     "description": "Heading for section outlining the criteria submitted for a talent request"
   },
+  "33tIFz": {
+    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité",
+    "description": "Label displayed does have priority entitlement option"
+  },
   "34NvoS": {
     "defaultMessage": "L'ancienneté du poste",
     "description": "Label for the seniority of the role radio group"
@@ -6455,10 +6459,6 @@
     "defaultMessage": "Vous pouvez également associer une formation ou une certification de votre parcours professionnel afin d'aider les recruteurs et les gestionnaires d'embauche à valider votre participation ou votre certification.",
     "description": "Description before linked experience buttons."
   },
-  "NvdIzG": {
-    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité",
-    "description": "Label displayed for does not have priority entitlement option"
-  },
   "NxIPbD": {
     "defaultMessage": "Gérer les collectivités",
     "description": "Link to manage the users community interests"
@@ -9578,10 +9578,6 @@
     "defaultMessage": "Groupe et niveau du poste actuel du nominateur ou de la nominatrice",
     "description": "Label for the nominator's classification"
   },
-  "b5z/NI": {
-    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité",
-    "description": "Label displayed does have priority entitlement option"
-  },
   "b6mzab": {
     "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
     "description": "Message displayed after a talent requests status was updated"
@@ -10014,6 +10010,10 @@
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
   },
+  "cqgLoi": {
+    "defaultMessage": "Non, je n'ai pas de droit de priorit",
+    "description": "affirm no entitlement"
+  },
   "cqqrXH": {
     "defaultMessage": "La participation au processus de gestion des talents est obligatoire pour tous les cadres de la gestion financière et tous les dirigeants principaux des finances et leurs adjoints qui occupent un poste dans un groupe et à un niveau autres qu’EX.",
     "description": "List item one financial management content"
@@ -10137,10 +10137,6 @@
   "dSr8pX": {
     "defaultMessage": "Pouvoir passer l’examen dans les 60 jours suivant la soumission de la demande.",
     "description": "Fifth item in list of eligibility requirements section"
-  },
-  "dSxICg": {
-    "defaultMessage": "Non, je n'ai pas de droit de priorité",
-    "description": "affirm no entitlement"
   },
   "dT/c1r": {
     "defaultMessage": "Ces occasions favorisent l’amélioration des perspectives d’emploi et des résultats économiques des peuples autochtones, conformément aux principes énoncés dans la Déclaration des Nations unies sur les droits des peuples autochtones. Elles soutiennent également le processus de réconciliation dans notre pays.",
@@ -11641,6 +11637,10 @@
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
+  },
+  "ixQu7+": {
+    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité",
+    "description": "Label displayed for does not have priority entitlement option"
   },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
