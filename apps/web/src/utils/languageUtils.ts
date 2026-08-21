@@ -95,8 +95,8 @@ export const getLabels = (intl: IntlShape) => ({
   }),
   secondLanguageExamCompletedLabel: intl.formatMessage({
     defaultMessage:
-      "I have completed a Public Service Commission evaluation of my <strong>second official language</strong>.",
-    id: "rjfQMg",
+      '"I have completed a Public Service Commission evaluation of my second official language."',
+    id: "LMHLDs",
     description: "Label for official exam status in language information form",
   }),
   secondLanguageExamValidityLabel: intl.formatMessage({
@@ -147,26 +147,41 @@ export const getEstimatedAbilityOptions = (intl: IntlShape) => [
   {
     value: EstimatedLanguageAbility.Beginner,
     label: intl.formatMessage({
+      defaultMessage: "Beginner",
+      id: "z9k+6h",
+      description: "Message for the beginner language ability level",
+    }),
+    contentBelow: intl.formatMessage({
       defaultMessage:
-        "Beginner <gray>- I have basic reading, writing and verbal communication skills.</gray>",
-      id: "ZuFBx5",
+        '"I have basic reading, writing and verbal communication skills."',
+      id: "cfZo2h",
       description: "Message for the beginner language ability option",
     }),
   },
   {
     value: EstimatedLanguageAbility.Intermediate,
     label: intl.formatMessage({
+      defaultMessage: "Intermediate",
+      id: "OtLau2",
+      description: "Message for the intermediate language ability level",
+    }),
+    contentBelow: intl.formatMessage({
       defaultMessage:
-        "Intermediate <gray>- I have strong reading, writing and verbal communication skills.</gray>",
-      id: "t5G3Fz",
+        '"I have strong reading, writing and verbal communication skills."',
+      id: "kzkW5D",
       description: "Message for the intermediate language ability option",
     }),
   },
   {
     value: EstimatedLanguageAbility.Advanced,
     label: intl.formatMessage({
-      defaultMessage: "Advanced <gray>- I am completely fluent.</gray>",
-      id: "paLFgh",
+      defaultMessage: "Advanced",
+      id: "HwGLec",
+      description: "Message for the advanced language ability level",
+    }),
+    contentBelow: intl.formatMessage({
+      defaultMessage: '"I am completely fluent."',
+      id: "+24DRY",
       description: "Message for the advanced language ability option",
     }),
   },
@@ -176,8 +191,8 @@ export const getExamValidityOptions = (intl: IntlShape) => [
   {
     label: intl.formatMessage({
       defaultMessage:
-        "“All three of my language level exams are <strong>currently valid</strong>.”",
-      id: "gS9T4G",
+        "“All three of my language level exams are currently valid.”",
+      id: "+SYNdJ",
       description:
         "Radio option for exam validity input on language information form.",
     }),

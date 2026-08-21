@@ -19,9 +19,9 @@
     "defaultMessage": "Développement de carrière",
     "description": "Card title for career development"
   },
-  "+2PPS3": {
-    "defaultMessage": "Statut de priorité",
-    "description": "Title for priority status"
+  "+24DRY": {
+    "defaultMessage": "« Je suis parfaitement bilingue. »",
+    "description": "Message for the advanced language ability option"
   },
   "+2vO9m": {
     "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
@@ -142,6 +142,10 @@
   "+PVO13": {
     "defaultMessage": "Correspondance des compétences",
     "description": "Heading displayed on the candidate skill match dialog."
+  },
+  "+SYNdJ": {
+    "defaultMessage": "« Mes trois examens de niveau linguistique sont actuellement valides. »",
+    "description": "Radio option for exam validity input on language information form."
   },
   "+SbEuu": {
     "defaultMessage": "Ajouter {name} à vos signets.",
@@ -347,6 +351,10 @@
     "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
     "description": "The directives digital enabling conditions component"
   },
+  "/Bd2Ey": {
+    "defaultMessage": "Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.",
+    "description": "Text requesting language levels given from bilingual evaluation in language information form"
+  },
   "/Bih8t": {
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
@@ -546,10 +554,6 @@
   "08IbRz": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
-  },
-  "09ijOa": {
-    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
-    "description": "Label displayed for does not have priority entitlement option"
   },
   "0AC/BM": {
     "defaultMessage": "Retirer le perfectionnement professionnel",
@@ -1346,6 +1350,10 @@
   "33ENCz": {
     "defaultMessage": "Critères de la candidature",
     "description": "Heading for section outlining the criteria submitted for a talent request"
+  },
+  "33tIFz": {
+    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité",
+    "description": "Label displayed does have priority entitlement option"
   },
   "34NvoS": {
     "defaultMessage": "L'ancienneté du poste",
@@ -4367,10 +4375,6 @@
     "defaultMessage": "Veuillez sélectionner exactement 3 compétences en matière de leadership",
     "description": "Error message when the incorrect number of leadership competencies is selected"
   },
-  "FVAQCH": {
-    "defaultMessage": "Oui, j'ai un droit de priorité.",
-    "description": "affirm possession of priority entitlement"
-  },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'un transfert latéral, d'une possibilité de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
@@ -4699,6 +4703,10 @@
     "defaultMessage": "Sélectionnez une compétence ou plus",
     "description": "Placeholder displayed on the skill family form skills field."
   },
+  "GiHzdH": {
+    "defaultMessage": "Oui, j'ai un droit de priorité",
+    "description": "affirm possession of priority entitlement"
+  },
   "GjL/7z": {
     "defaultMessage": "Poursuivre la demande<hidden> pour {poolName}</hidden>",
     "description": "Label for continue application link"
@@ -4919,6 +4927,10 @@
     "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
   },
+  "HwGLec": {
+    "defaultMessage": "Avancé",
+    "description": "Message for the advanced language ability level"
+  },
   "HwPuG0": {
     "defaultMessage": "Date d'expiration mise à jour avec succès",
     "description": "Toast for successful expiry date update on view-user page"
@@ -4970,10 +4982,6 @@
   "I5q1n6": {
     "defaultMessage": "Soumettre aux fins de publication",
     "description": "Title for dialog to submit a process for publishing"
-  },
-  "I6Qz7N": {
-    "defaultMessage": "Non, je n'ai pas de droit de priorité.",
-    "description": "affirm no entitlement"
   },
   "I78S4w": {
     "defaultMessage": "Détails de l’emploi",
@@ -5871,6 +5879,10 @@
     "defaultMessage": "Actions pour {userName} dans {departmentName}",
     "description": "Aria label for the menu trigger for department actions"
   },
+  "LMHLDs": {
+    "defaultMessage": "« J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle. »",
+    "description": "Label for official exam status in language information form"
+  },
   "LN3sPI": {
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
@@ -6659,6 +6671,10 @@
     "defaultMessage": "Les coordonnées suivantes seront fournies. Elles serviront aux personnes candidates qui ont des questions et des demandes d'accommodements, ainsi qu'aux membres du personnel qui souhaitent discuter de leur demande rejetée.",
     "description": "Describes the 'contact email' section of a process' advertisement"
   },
+  "Op5hGy": {
+    "defaultMessage": "Droits de priorité",
+    "description": "Title for priority status"
+  },
   "Opn8nz": {
     "defaultMessage": "Décrivez la façon dont la compétence {skillName} a été mise en valeur dans ce rôle",
     "description": "More descriptive label for the textarea in the skills in detail section"
@@ -6666,6 +6682,10 @@
   "Osh6TL": {
     "defaultMessage": "Découvrez les ressources d'aide aux spécialistes en RH et en recrutement au sein du gouvernement, dont la bibliothèque de compétences et les modèles d'offre d'emploi.",
     "description": "Description of platform resources for HR."
+  },
+  "OtLau2": {
+    "defaultMessage": "Intermédiaire",
+    "description": "Message for the intermediate language ability level"
   },
   "OtZDuZ": {
     "defaultMessage": "Programme de perfectionnement créé avec succès.",
@@ -8814,10 +8834,6 @@
     "defaultMessage": "S'enregistrer",
     "description": "Message displayed to users to sign up for an account"
   },
-  "Xmtw0V": {
-    "defaultMessage": "<strong>Oui</strong>, j'ai un droit de priorité.",
-    "description": "Label displayed does have priority entitlement option"
-  },
   "XnXcun": {
     "defaultMessage": "Renseignements sur l’utilisateur",
     "description": "Labels for user details block"
@@ -9310,10 +9326,6 @@
     "defaultMessage": "Créer le ministère",
     "description": "Button label to create a department"
   },
-  "ZuFBx5": {
-    "defaultMessage": "Débutant <gray>- Je possède des compétences de base en lecture, écriture et communication verbale.</gray>",
-    "description": "Message for the beginner language ability option"
-  },
   "ZvrwDW": {
     "defaultMessage": "Examinez et vérifiez le statut prioritaire du candidat",
     "description": "Subtitle for verifying a candidate's priority claim"
@@ -9413,10 +9425,6 @@
   "aNhUkJ": {
     "defaultMessage": "Compétences demandées",
     "description": "Header for the number of user skills matching requested skills"
-  },
-  "aO23nW": {
-    "defaultMessage": "<strong>Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.</strong>",
-    "description": "Text requesting language levels given from bilingual evaluation in language information form"
   },
   "aOpiSU": {
     "defaultMessage": "Voici les exigences que doit satisfaire la candidature idéale pour ce poste.",
@@ -9758,10 +9766,6 @@
     "defaultMessage": "Confirmer une autre adresse courriel professionnelle",
     "description": "Link to update to a different email when initially your work email and contact email are the same"
   },
-  "buZsS/": {
-    "defaultMessage": "<strong>Veuillez sélectionner un niveau approprié de maîtrise de la deuxième langue sur la base des définitions fournies.</strong>",
-    "description": "Text requesting language levels given from bilingual evaluation in language information form"
-  },
   "bw4CAS": {
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la candidate ou du candidat</hidden>, {name}",
     "description": "Title for applicant dashboard on the talent cloud admin portal."
@@ -9938,6 +9942,10 @@
     "defaultMessage": "Langue de communication",
     "description": "Legend text for communication language preference"
   },
+  "cfZo2h": {
+    "defaultMessage": "« Je possède des compétences de base en lecture, écriture et communication verbale. »",
+    "description": "Message for the beginner language ability option"
+  },
   "cgLdec": {
     "defaultMessage": "<strong>Les compétences techniques</strong> sont des connaissances précises que l’on peut enseigner et qui sont pertinentes pour certains emplois ou postes au sein d’une organisation. On les acquiert habituellement au cours d’études, de formations ou d’une expérience de travail pratique.",
     "description": "Definition of technical skills"
@@ -9978,6 +9986,10 @@
     "defaultMessage": "Précisez les options de perfectionnement professionnel parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
     "description": "Description for subsection in talent management event form"
   },
+  "cmVa0p": {
+    "defaultMessage": "Veuillez indiquer vos niveaux les plus récents obtenus auprès de la Commission de la fonction publique.",
+    "description": "Text requesting language levels given from bilingual evaluation in language information form"
+  },
   "cnoxKB": {
     "defaultMessage": "Examiner et consigner les résultats de {candidateName} concernant « {skillName} ».",
     "description": "Subtitle for education requirement screening decision dialog."
@@ -9997,6 +10009,10 @@
   "cqJw3g": {
     "defaultMessage": "Vous êtes sur le point de supprimer cette compétence de votre vitrine de compétences.",
     "description": "First paragraph for remove skill dialog"
+  },
+  "cqgLoi": {
+    "defaultMessage": "Non, je n'ai pas de droit de priorit",
+    "description": "affirm no entitlement"
   },
   "cqqrXH": {
     "defaultMessage": "La participation au processus de gestion des talents est obligatoire pour tous les cadres de la gestion financière et tous les dirigeants principaux des finances et leurs adjoints qui occupent un poste dans un groupe et à un niveau autres qu’EX.",
@@ -10998,10 +11014,6 @@
     "defaultMessage": "Je ne suis pas à la recherche d'un transfert latéral pour l'instant.",
     "description": "The lateral move interest described as not interested."
   },
-  "gS9T4G": {
-    "defaultMessage": "« Mes trois examens de niveau linguistique sont <strong>actuellement valides</strong>. »",
-    "description": "Radio option for exam validity input on language information form."
-  },
   "gU/nxf": {
     "defaultMessage": "Ajoutez une expérience à votre parcours professionnel",
     "description": "Title for application career timeline add experience"
@@ -11273,10 +11285,6 @@
   "hR7Cxv": {
     "defaultMessage": "Quelles collectivités fonctionnelles utilisent la plateforme?",
     "description": "Question about functional communities"
-  },
-  "hRzk4m": {
-    "defaultMessage": "Numéro de priorité",
-    "description": "Priority number label"
   },
   "hS96pl": {
     "defaultMessage": "L'utilisateur ou l'utilisatrice perdra tous les rôles suivants :",
@@ -11629,6 +11637,10 @@
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
+  },
+  "ixQu7+": {
+    "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité",
+    "description": "Label displayed for does not have priority entitlement option"
   },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
@@ -12161,6 +12173,10 @@
   "kzd/yK": {
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
+  },
+  "kzkW5D": {
+    "defaultMessage": "« J'ai des compétences robustes en lecture, écriture et communication verbale. »",
+    "description": "Message for the intermediate language ability option"
   },
   "kzmlCw": {
     "defaultMessage": "Cette nomination pour un transfert latéral n'est pas retenue.",
@@ -13290,10 +13306,6 @@
     "defaultMessage": "Avant de supprimer la compétence, veuillez lire attentivement ce qui suit.",
     "description": "Subtitle for confirmation to delete a skill"
   },
-  "paLFgh": {
-    "defaultMessage": "Avancé <gray>– Je suis parfaitement bilingue.</gray>",
-    "description": "Message for the advanced language ability option"
-  },
   "paLmhR": {
     "defaultMessage": "Plusieurs postes devraient être pourvus dans le cadre de ce processus. Vous pouvez poser votre candidature à ce processus si vous répondez au profil linguistique bilingue intermédiaire (B B B) ou bilingue avancé (C B C).",
     "description": "Various bilingual language requirement description"
@@ -13794,10 +13806,6 @@
     "defaultMessage": "Erreur : échec de la création de la collectivité",
     "description": "Messaged displayed after creating community fails"
   },
-  "rjfQMg": {
-    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma <strong>deuxième langue officielle</strong>.",
-    "description": "Label for official exam status in language information form"
-  },
   "rlWajt": {
     "defaultMessage": "Les définitions de chaque possibilité de lieu de travail sont présentées ici",
     "description": "Lead-in text to definitions of different work location terminology"
@@ -14105,10 +14113,6 @@
   "t4+h/N": {
     "defaultMessage": "Vous êtes sur le point de modifier la date de clôture de ce processus : <strong>{poolName}</strong>",
     "description": "Text to confirm the process to be extend"
-  },
-  "t5G3Fz": {
-    "defaultMessage": "Intermédiaire <gray>– J'ai des compétences robustes en lecture, écriture et communication verbale.</gray>",
-    "description": "Message for the intermediate language ability option"
   },
   "t7hBcy": {
     "defaultMessage": "Vous devez confirmer votre adresse courriel pour continuer. Veuillez utiliser le bouton « Envoyer le courriel de confirmation » et saisir le code reçu dans le champ prévu à cet effet.",
@@ -15616,6 +15620,10 @@
   "z9erMM": {
     "defaultMessage": "{educationType} en {areaOfStudy} de {institution}",
     "description": "Study at institution"
+  },
+  "z9k+6h": {
+    "defaultMessage": "Débutant",
+    "description": "Message for the beginner language ability level"
   },
   "zA8GrW": {
     "defaultMessage": "il y a une <strong>pénurie de travailleurs qualifiés</strong> dans ce domaine, selon des enquêtes locales ou régionales du marché du travail menées par des organisations reconnues;",

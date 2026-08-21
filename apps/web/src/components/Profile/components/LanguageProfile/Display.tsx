@@ -7,9 +7,14 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { getExamValidityOptions, getLabels } from "~/utils/languageUtils";
+import {
+  getEstimatedAbilityOptions,
+  getExamValidityOptions,
+  getLabels,
+} from "~/utils/languageUtils";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 const LanguageProfileDisplay_Fragment = graphql(/** GraphQL */ `
   fragment LanguageProfileDisplay on User {
@@ -92,6 +97,7 @@ const Display = ({ query, context }: DisplayProps) => {
     preferredLanguageForInterview,
     preferredLanguageForExam,
   } = user;
+  const estimatedAbilityOptions = getEstimatedAbilityOptions(intl);
 
   let examValidity = null;
   switch (secondLanguageExamValidity) {
@@ -108,6 +114,10 @@ const Display = ({ query, context }: DisplayProps) => {
     default:
       examValidity = null;
   }
+
+  const estimatedAbility = estimatedAbilityOptions.find(
+    (option) => option.value == estimatedLanguageAbility?.value,
+  );
 
   return (
     <div className="grid gap-6">
@@ -156,32 +166,38 @@ const Display = ({ query, context }: DisplayProps) => {
         label={labels.consideredPositionLanguages}
       >
         {lookingForEnglish || lookingForFrench || lookingForBilingual ? (
-          <Ul>
+          <Ul unStyled>
             {lookingForEnglish && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "English-only positions",
-                  id: "b3c+iw",
-                  description: "English Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "English-only positions",
+                    id: "b3c+iw",
+                    description: "English Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
             {lookingForFrench && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "French-only positions",
-                  id: "CFIG+8",
-                  description: "French Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "French-only positions",
+                    id: "CFIG+8",
+                    description: "French Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
             {lookingForBilingual && (
               <li>
-                {intl.formatMessage({
-                  defaultMessage: "Bilingual positions",
-                  id: "94Pgq+",
-                  description: "Bilingual Positions message",
-                })}
+                <BoolCheckIcon value={true}>
+                  {intl.formatMessage({
+                    defaultMessage: "Bilingual positions",
+                    id: "94Pgq+",
+                    description: "Bilingual Positions message",
+                  })}
+                </BoolCheckIcon>
               </li>
             )}
           </Ul>
@@ -197,18 +213,27 @@ const Display = ({ query, context }: DisplayProps) => {
               : notProvided}
           </FieldDisplay>
           <FieldDisplay label={labels.estimatedLanguageAbility}>
-            {estimatedLanguageAbility?.label
-              ? estimatedLanguageAbility.label.localized
-              : notProvided}
+            {estimatedLanguageAbility?.label ? (
+              <>
+                <span className="block">{estimatedAbility?.label}</span>
+                <span className="text-gray-500 dark:text-gray-200">
+                  {estimatedAbility?.contentBelow}
+                </span>
+              </>
+            ) : (
+              notProvided
+            )}
           </FieldDisplay>
           {secondLanguageExamCompleted ? (
             <>
               <FieldDisplay
                 label={labels.secondLanguageExamCompletedBoundingBoxLabel}
               >
-                {secondLanguageExamCompleted
-                  ? labels.secondLanguageExamCompletedLabel
-                  : notProvided}
+                <BoolCheckIcon value={true}>
+                  {secondLanguageExamCompleted
+                    ? labels.secondLanguageExamCompletedLabel
+                    : notProvided}
+                </BoolCheckIcon>
               </FieldDisplay>
               <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
                 {examValidity}

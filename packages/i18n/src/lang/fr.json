@@ -83,6 +83,10 @@
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
   },
+  "0RVc/y": {
+    "defaultMessage": "Ancien combattant des Forces armées canadiennes",
+    "description": "declare self to be a CAF veteran without bolding"
+  },
   "0ieoVD": {
     "defaultMessage": "Chargement des résultats…",
     "description": "Message to display when a search is currently loading results."
@@ -627,6 +631,10 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
+  "L864l0": {
+    "defaultMessage": "Membre actif des Forces armées canadiennes",
+    "description": "declare self to be a CAF member without bolding"
+  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -746,10 +754,6 @@
   "OUcSEy": {
     "defaultMessage": "Niveau",
     "description": "Label for level"
-  },
-  "OaB49n": {
-    "defaultMessage": "J'ai la résidence permanente au Canada.",
-    "description": "declaring one to be a permanent resident"
   },
   "OeTCOs": {
     "defaultMessage": "Réduire tout",
@@ -915,9 +919,9 @@
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
   },
-  "TRDfnp": {
-    "defaultMessage": "Je suis un membre actif des Forces armées canadiennes.",
-    "description": "declare self to be a CAF member without bolding"
+  "TSscCR": {
+    "defaultMessage": "Citoyen(ne) canadien(ne)",
+    "description": "declaring one to be a Canadian citizen"
   },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
@@ -974,6 +978,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V4n55A": {
+    "defaultMessage": "N'est pas membre des Forces armées canadiennes",
+    "description": "declare self to not be in the CAF without bolding"
   },
   "V9HdOK": {
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
@@ -1123,10 +1131,6 @@
     "defaultMessage": "Date limite",
     "description": "Title for deadline to apply"
   },
-  "ZpTNbt": {
-    "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
-    "description": "declare self to be a CAF veteran"
-  },
   "a+twlj": {
     "defaultMessage": "Les possibilités de réseautage entre pairs m'intéressent.",
     "description": "Interest label for peer networking."
@@ -1150,10 +1154,6 @@
   "ayG2k7": {
     "defaultMessage": "Oui",
     "description": "Affirmative answer"
-  },
-  "bAaDat": {
-    "defaultMessage": "Je <strong>ne suis pas</strong> des Forces armées canadiennes.",
-    "description": "declare self to not be in the CAF"
   },
   "bOA3EH": {
     "defaultMessage": "Employé(e) du gouvernement",
@@ -1383,10 +1383,6 @@
     "defaultMessage": "Année",
     "description": "Label for a year input field"
   },
-  "iYNLo1": {
-    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes.",
-    "description": "declare self to be a CAF member"
-  },
   "ijGl5r": {
     "defaultMessage": "Voulez-vous continuer?",
     "description": "A request to confirm that the user wants to continue"
@@ -1422,10 +1418,6 @@
   "jStpFw": {
     "defaultMessage": "Bilingue (français et anglais)",
     "description": "Name of Bilingual (English and French)"
-  },
-  "jqyjFm": {
-    "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes.",
-    "description": "declare self to be a CAF veteran without bolding"
   },
   "jrDTez": {
     "defaultMessage": "Qualifié(e)",
@@ -1474,10 +1466,6 @@
   "l2XtbB": {
     "defaultMessage": "J'accepte de travailler par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7.",
     "description": "The operational requirement described as 24/7 on-call."
-  },
-  "l4wLn9": {
-    "defaultMessage": "J'ai la citoyenneté canadienne.",
-    "description": "declaring one to be a Canadian citizen"
   },
   "lXgeJr": {
     "defaultMessage": "Veuillez relier au moins une expérience du calendrier de carrière à chacune des exigences techniques requises, et veillez à ce que chaque compétence possède des détails sur la façon de s’en servir.",
@@ -1602,6 +1590,10 @@
   "oXrkBM": {
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
+  },
+  "oeAqAM": {
+    "defaultMessage": "Je suis un <strong>membre actif </strong> des Forces armées canadiennes",
+    "description": "declare self to be a CAF member"
   },
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
@@ -1819,10 +1811,6 @@
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"
   },
-  "vPDtGU": {
-    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes.",
-    "description": "declare self to not be in the CAF without bolding"
-  },
   "vYi9m5": {
     "defaultMessage": "Je souhaite obtenir une accréditation professionnelle.",
     "description": "Interest label for professional accreditation."
@@ -1842,6 +1830,10 @@
   "w2tWfH": {
     "defaultMessage": "Un champ obligatoire est vide : Titres des volets/emplois",
     "description": "Error message that the pool advertisement must have a stream."
+  },
+  "w6i1rO": {
+    "defaultMessage": "Je ne suis pas des Forces armées canadiennes",
+    "description": "declare self to not be in the CAF"
   },
   "wUJqDi": {
     "defaultMessage": "La compétence que vous avez sélectionnée est déjà reliée à votre profil.",
@@ -1907,9 +1899,17 @@
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
   },
+  "xsZTQv": {
+    "defaultMessage": "Résident permanent ou Résidente permanente du Canada",
+    "description": "declaring one to be a permanent resident"
+  },
   "y4oBW4": {
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
+  },
+  "y9kdtr": {
+    "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes",
+    "description": "declare self to be a CAF veteran"
   },
   "yHeFkO": {
     "defaultMessage": "Janvier",
