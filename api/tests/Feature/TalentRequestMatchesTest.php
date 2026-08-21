@@ -465,6 +465,9 @@ class TalentRequestMatchesTest extends TestCase
         $department = Department::factory()->create();
         $pool = Pool::factory()->candidatesAvailableInSearch()->create();
         $inDepartment = $this->matchingUser($pool, [], true);
+        $inDepartmentWorkExperience = $inDepartment->currentGovWorkExperience()->firstOrFail();
+        $inDepartmentWorkExperience->department_id = $department->id;
+        $inDepartmentWorkExperience->save();
         $this->matchingUser($pool, [], false);
 
         $this->runMatches(['departments' => [$department->id]])
