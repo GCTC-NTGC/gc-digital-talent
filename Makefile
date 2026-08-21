@@ -20,7 +20,10 @@ down:
 logs:
 	docker compose $(COMPOSE_FLAGS) logs -f
 
+# node_modules is pre-created because docker creates a missing bind-mount directory as root,
+# which a container running as the host user cannot write to.
 setup:
+	mkdir -p node_modules
 	$(DOCKER_RUN) setup.sh
 
 codespace-setup:

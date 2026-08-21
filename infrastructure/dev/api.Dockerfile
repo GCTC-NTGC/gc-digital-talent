@@ -28,7 +28,7 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 WORKDIR /var/www/html/api
 
 # Mark git directory as safe (for version info)
-RUN git config --global --add safe.directory /var/www/html
+RUN git config --system --add safe.directory /var/www/html
 
 # Copy entrypoint script
 COPY infrastructure/dev/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
