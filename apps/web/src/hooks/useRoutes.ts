@@ -319,7 +319,7 @@ const getRoutes = (lang: Locales) => {
     careerPlanning: () => `${baseUrl}/employee/career-planning`,
     employeeProfileFunctionalCommunities: () =>
       `${baseUrl}/employee/communities`,
-    talentNominations: () => `${baseUrl}/employee`, // update in #17294
+    talentNominations: () => `${baseUrl}/employee/nominations`,
 
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),

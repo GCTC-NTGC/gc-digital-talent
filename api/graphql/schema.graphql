@@ -184,6 +184,10 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
+    @hasMany(
+      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
+    )
 }
 
 type CommunityReferralStatusData {

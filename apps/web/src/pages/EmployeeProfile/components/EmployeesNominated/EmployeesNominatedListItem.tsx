@@ -6,7 +6,6 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { HeadingLevel } from "@gc-digital-talent/ui";
 import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -15,13 +14,18 @@ import { NominationMetaDataDate } from "~/components/NominationMetaDataDate/Nomi
 import ReviewTalentNominationDialog from "~/components/ReviewTalentNominationDialog/ReviewTalentNominationDialog";
 
 const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
-  fragment PreviewListItemTalentNomination on TalentNomination {
+  fragment EmployeeProfilePreviewListItemTalentNomination on TalentNomination {
     id
     createdAt
     submittedAt
     talentNominationEvent {
       name {
         localized
+      }
+      community {
+        name {
+          localized
+        }
       }
       closeDate
     }
@@ -35,15 +39,13 @@ const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
 
 interface TalentNominationListItemProps {
   headingAs?: HeadingLevel;
-  displayCreatedDate: boolean;
   talentNominationListItemQuery: FragmentType<
     typeof PreviewListItemTalentNomination_Fragment
   >;
 }
 
-const TalentNominationListItem = ({
+const EmployeesNominatedListItem = ({
   headingAs,
-  displayCreatedDate,
   talentNominationListItemQuery,
 }: TalentNominationListItemProps) => {
   const intl = useIntl();
@@ -59,22 +61,32 @@ const TalentNominationListItem = ({
     talentNominationListItemFragment.nominee?.lastName,
     intl,
   );
-  const localizedDateString = talentNominationListItemFragment.createdAt
-    ? formatDate({
-        date: parseDateTimeUtc(talentNominationListItemFragment.createdAt),
-        formatString: "p PPP",
-        intl,
-      })
-    : intl.formatMessage(commonMessages.notProvided);
-  const title = displayCreatedDate
-    ? `${fullName} (${localizedDateString})`
-    : `${fullName}`;
+
+  const title = (
+    <span className="font-normal">
+      {intl.formatMessage(
+        {
+          defaultMessage: "Nomination for {name}",
+          id: "p9H+Nl",
+          description:
+            "Title for a talent nomination in a preview list, naming the nominee",
+        },
+        {
+          name: <span className="font-bold">{fullName}</span>,
+        },
+      )}
+    </span>
+  );
+
   const statusChip = useMetaDataTalentNominationChip({
     submittedAt: talentNominationListItemFragment.submittedAt,
   });
   const nominationEventName =
     talentNominationListItemFragment.talentNominationEvent?.name?.localized ??
     intl.formatMessage(commonMessages.notFound);
+  const communityName =
+    talentNominationListItemFragment.talentNominationEvent?.community?.name
+      ?.localized ?? intl.formatMessage(commonMessages.notFound);
 
   type MetaDataProps = React.ComponentProps<
     typeof PreviewList.Item
@@ -93,6 +105,11 @@ const TalentNominationListItem = ({
       children: nominationEventName,
     },
     {
+      key: "community",
+      type: "text",
+      children: communityName,
+    },
+    {
       key: "date",
       type: "text",
       children: (
@@ -107,35 +124,33 @@ const TalentNominationListItem = ({
   ];
 
   return (
-    <>
-      <PreviewList.Item
-        title={title}
-        metaData={metaDataProps}
-        action={
-          talentNominationListItemFragment.submittedAt ? (
-            <ReviewTalentNominationDialog
-              talentNominationQuery={talentNominationListItemFragment}
-            />
-          ) : (
-            <PreviewList.Link
-              label={intl.formatMessage(
-                {
-                  defaultMessage: "Go to draft nomination for {eventName}",
-                  id: "wtjCOv",
-                  description:
-                    "Accessibility text for preview link, points to draft nomination workflow",
-                },
-                { eventName: nominationEventName },
-              )}
-              href={paths.talentNomination(talentNominationListItemFragment.id)}
-              icon={PencilSquareIcon}
-            />
-          )
-        }
-        headingAs={headingAs}
-      ></PreviewList.Item>
-    </>
+    <PreviewList.Item
+      title={title}
+      metaData={metaDataProps}
+      action={
+        talentNominationListItemFragment.submittedAt ? (
+          <ReviewTalentNominationDialog
+            talentNominationQuery={talentNominationListItemFragment}
+          />
+        ) : (
+          <PreviewList.Link
+            label={intl.formatMessage(
+              {
+                defaultMessage: "Go to draft nomination for {eventName}",
+                id: "wtjCOv",
+                description:
+                  "Accessibility text for preview link, points to draft nomination workflow",
+              },
+              { eventName: nominationEventName },
+            )}
+            href={paths.talentNomination(talentNominationListItemFragment.id)}
+            icon={PencilSquareIcon}
+          />
+        )
+      }
+      headingAs={headingAs}
+    ></PreviewList.Item>
   );
 };
 
-export default TalentNominationListItem;
+export default EmployeesNominatedListItem;
