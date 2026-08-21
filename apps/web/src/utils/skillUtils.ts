@@ -8,8 +8,6 @@ import type {
 import { SkillLevel, SkillCategory } from "@gc-digital-talent/graphql";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
-import type { SimpleAnyExperience } from "./experienceUtils";
-
 export interface SkillOption {
   id: string;
   key: string;
@@ -71,45 +69,6 @@ export function invertSkillSkillFamilyTree(skills: SkillWithFamilies[]) {
     };
   });
   return skillFamiliesWithSkills;
-}
-
-interface InvertedExperience extends SimpleAnyExperience {
-  id: string;
-}
-
-type InvertedSkillExperience = SkillOption & {
-  experiences: InvertedExperience[];
-};
-
-interface ExperienceWithFullSkills extends InvertedExperience {
-  skills?: SkillOption[] | null;
-}
-
-/**
- * Transforms an array of experiences with child skills into a tree of skills with child experiences.
- * @param experiences - The collection of experiences with child skills to invert
- * @returns - The new collection of skills with child experiences
- */
-export function invertSkillExperienceTree(
-  experiences: ExperienceWithFullSkills[],
-): InvertedSkillExperience[] {
-  const allChildSkills = experiences.flatMap((s) => s.skills).filter(notEmpty);
-  const uniqueSkills = uniqBy(allChildSkills, "id");
-  const skillsWithExperiences = uniqueSkills
-    .filter(notEmpty)
-    .map((skill: SkillOption) => {
-      // step 1 - find the skills that belong to this experience
-      const skillsInThisExperience = experiences.filter((experience) =>
-        experience.skills?.some((childSkills) => skill.id === childSkills?.id),
-      );
-
-      // step 2 - clone the skill and attach the experience collection
-      return {
-        ...skill,
-        experiences: skillsInThisExperience,
-      };
-    });
-  return skillsWithExperiences;
 }
 
 export function filterSkillsByCategory(
