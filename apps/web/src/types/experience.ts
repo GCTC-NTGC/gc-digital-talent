@@ -35,6 +35,8 @@ import type {
   GovContractorType,
   CSuiteRoleTitle,
   DepartmentBelongsTo,
+  DegreeType,
+  FellowshipType,
 } from "@gc-digital-talent/graphql";
 
 import type { SimpleAnyExperience } from "~/utils/experienceUtils";
@@ -57,15 +59,18 @@ export interface ExperienceForDate extends SimpleAnyExperience {
 
 interface FormValueDateRange {
   startDate: string;
-  endDate?: string;
+  endDate?: string | null;
 }
 
-interface AwardFormValues {
+export interface AwardFormValues {
   awardTitle: string;
   awardedTo: AwardedTo;
   issuedBy: string;
   awardedScope: AwardedScope;
   awardedDate: string;
+  projectName?: string | null;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
@@ -79,18 +84,30 @@ export type CommunityFormValues = FormValueDateRange & {
 
 export type EducationFormValues = FormValueDateRange & {
   institution: string;
-  areaOfStudy: string;
+  areaOfStudy?: string;
   thesisTitle?: string;
   educationType: EducationType;
   educationStatus: EducationStatus;
-  currentRole: boolean;
+  otherEducationType?: string;
+  degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
+  fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  issueDate?: string;
+  prospectiveIssueDate?: string;
+  expiryDate?: string;
+  prospectiveExpiryDate?: string;
+  expectedEndDate?: string;
 };
 
 export type PersonalFormValues = FormValueDateRange & {
   experienceTitle: string;
-  experienceDescription: string;
   disclaimer: boolean;
-  currentRole: boolean;
+  learningDescription: string;
+  organization: string;
+  roleStatus: "active" | "past";
 };
 
 export type WorkFormValues = FormValueDateRange & {
@@ -111,7 +128,7 @@ export type WorkFormValues = FormValueDateRange & {
   cafEmploymentType?: CafEmploymentType | null;
   cafForce?: CafForce | null;
   cafRank?: CafRank | null;
-  currentRole: boolean;
+  roleStatus: "active" | "past";
   workStreams?: string[];
   supervisoryPosition?: boolean;
   supervisedEmployees?: boolean;
@@ -156,18 +173,25 @@ export interface ExperienceDetailsSubmissionData {
   description?: string;
   details?: string;
   division?: string | null;
-  currentRole?: boolean;
   endDate?: string | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
   project?: string;
   role?: string | null;
-  startDate?: string;
+  startDate?: string | null;
   status?: EducationStatus;
   thesisTitle?: string;
   title?: string | null;
-  type?: EducationType;
+  educationType?: EducationType;
+  otherEducationType?: string;
+  degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
+  fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  prospectiveEndDate?: string | null;
   employmentCategory?: EmploymentCategory | null;
   extSizeOfOrganization?: ExternalSizeOfOrganization | null;
   extRoleSeniority?: ExternalRoleSeniority | null;
@@ -200,6 +224,10 @@ export interface ExperienceDetailsSubmissionData {
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle | null;
   otherCSuiteRoleTitle?: string | null;
+  learningDescription?: string;
+  projectName?: string | null;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string | null;
 }
 
 type ExperienceMutations = CreateAwardExperienceMutation &
@@ -256,6 +284,14 @@ export interface ExperienceDetailsDefaultValues {
   thesisTitle?: string;
   title?: string;
   educationType?: EducationType;
+  otherEducationType?: string;
+  degreeType?: DegreeType;
+  licenseOrAccreditation?: string;
+  certification?: string;
+  courseName?: string;
+  fellowshipType?: FellowshipType;
+  otherFellowshipType?: string;
+  prospectiveEndDate?: string;
   employmentCategory?: EmploymentCategory;
   extSizeOfOrganization?: ExternalSizeOfOrganization;
   extRoleSeniority?: ExternalRoleSeniority;
@@ -279,4 +315,8 @@ export interface ExperienceDetailsDefaultValues {
   seniorManagementStatus?: boolean;
   cSuiteRoleTitle?: CSuiteRoleTitle;
   otherCSuiteRoleTitle?: string;
+  learningDescription?: string;
+  projectName?: string;
+  relatedExperienceId?: string;
+  relatedExperienceType?: string;
 }

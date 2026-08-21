@@ -26,8 +26,11 @@ import type {
   WorkExperience,
 } from "@gc-digital-talent/graphql";
 import {
+  DegreeType,
+  EducationStatus,
   EducationType,
   EmploymentCategory,
+  FellowshipType,
   GovEmployeeType,
   GovPositionType,
 } from "@gc-digital-talent/graphql";
@@ -68,39 +71,6 @@ export const getExperienceFormLabels = (
   intl: IntlShape,
   experienceType?: ExperienceType,
 ) => {
-  let currentRole = intl.formatMessage({
-    defaultMessage: "Current role",
-    id: "n4pwef",
-    description:
-      "Label displayed on an Experience form for current role bounded box",
-  });
-  switch (experienceType) {
-    case "award":
-      break;
-    case "community":
-      break;
-    case "education":
-      currentRole = intl.formatMessage({
-        defaultMessage: "Current education",
-        id: "SZeO9P",
-        description:
-          "Label displayed on Education Experience form for current education bounded box",
-      });
-      break;
-    case "personal":
-      currentRole = intl.formatMessage({
-        defaultMessage: "Current Experience",
-        id: "OAOnyY",
-        description:
-          "Label displayed on Personal Experience form for current experience bounded box",
-      });
-      break;
-    case "work":
-      break;
-    default:
-      break;
-  }
-
   let organization = intl.formatMessage(commonMessages.organization);
 
   if (experienceType === "community") {
@@ -130,8 +100,8 @@ export const getExperienceFormLabels = (
         "Heading for the experience type section fo the experience form",
     }),
     awardTitle: intl.formatMessage({
-      defaultMessage: "Award title",
-      id: "lhCCs2",
+      defaultMessage: "Title of the award",
+      id: "aDzHrq",
       description: "Label displayed on award form for award title input",
     }),
     awardedDate: intl.formatMessage({
@@ -140,19 +110,30 @@ export const getExperienceFormLabels = (
       description: "Label displayed on award form for date awarded input",
     }),
     awardedTo: intl.formatMessage({
-      defaultMessage: "Awarded to",
-      id: "0H0CLx",
+      defaultMessage: "Recipient",
+      id: "850QUT",
       description: "Label displayed on Award form for awarded to input",
     }),
     issuedBy: intl.formatMessage({
-      defaultMessage: "Issuing organization",
-      id: "NGEgVN",
+      defaultMessage: "Issuing organization or institution",
+      id: "bW9d6v",
       description: "Label displayed on award form for organization section",
     }),
     awardedScope: intl.formatMessage({
-      defaultMessage: "Award scope",
-      id: "gnEK8V",
+      defaultMessage: "Scope of the award",
+      id: "cvI3z6",
       description: "Label displayed on Award form for award scope input",
+    }),
+    relatedExperience: intl.formatMessage({
+      defaultMessage: "Related experience",
+      id: "G/VuSY",
+      description: "Label displayed on Award form for related experience input",
+    }),
+    projectName: intl.formatMessage({
+      defaultMessage: "Name of the project",
+      id: "1NdwmN",
+      description:
+        "Label displayed on Award form for awarded to project name input",
     }),
     employmentCategory: intl.formatMessage({
       defaultMessage: "Employment category",
@@ -169,7 +150,12 @@ export const getExperienceFormLabels = (
       id: "nyQyqM",
       description: "Label displayed on an Experience form for role input",
     }),
-    currentRole,
+    jobTitle: intl.formatMessage({
+      defaultMessage: "Job title",
+      id: "0DjWBj",
+      description:
+        "Label displayed on Work Experience form for job title input",
+    }),
     organization,
     project: intl.formatMessage({
       defaultMessage: "Project or product",
@@ -182,16 +168,39 @@ export const getExperienceFormLabels = (
       id: "Yaxm1W",
       description: "Label displayed on an Experience form for start date input",
     }),
+    issueDate: intl.formatMessage({
+      defaultMessage: "Issue date",
+      id: "TTE5K9",
+      description: "Label displayed on an Experience form for issue date input",
+    }),
+    prospectiveIssueDate: intl.formatMessage({
+      defaultMessage: "Prospective issue date",
+      id: "yKcyL9",
+      description:
+        "Label displayed on an Experience form for prospective issue date input",
+    }),
     endDate: intl.formatMessage({
       defaultMessage: "End date",
       id: "cD3QKi",
       description: "Label displayed on an Experience form for end date input",
     }),
     expectedEndDate: intl.formatMessage({
-      defaultMessage: "Expected end date",
-      id: "0qwyH4",
+      defaultMessage: "Prospective end date",
+      id: "GUMYhp",
       description:
-        "Label displayed on an Experience form for expected end date input",
+        "Label displayed on an Experience form for prospective end date input",
+    }),
+    expiryDate: intl.formatMessage({
+      defaultMessage: "Expiry date",
+      id: "2voWST",
+      description:
+        "Label displayed on an Experience form for expiry date input",
+    }),
+    prospectiveExpiryDate: intl.formatMessage({
+      defaultMessage: "Prospective expiry date",
+      id: "2UKk4c",
+      description:
+        "Label displayed on an Experience form for prospective expiry date input",
     }),
     dateRange: intl.formatMessage({
       defaultMessage: "Start/end date",
@@ -199,9 +208,15 @@ export const getExperienceFormLabels = (
       description: "Label for the start/end date for an experience",
     }),
     educationType: intl.formatMessage({
-      defaultMessage: "Type of education",
-      id: "AAvLM5",
+      defaultMessage: "Type of education or certificate",
+      id: "NVEnZS",
       description: "Label displayed on Education form for education type input",
+    }),
+    degreeType: intl.formatMessage({
+      defaultMessage: "Type of degree or diploma",
+      id: "XYtPRu",
+      description:
+        "Label displayed on Education form for degree/diploma/certificate type input",
     }),
     areaOfStudy: intl.formatMessage({
       defaultMessage: "Area of study",
@@ -209,15 +224,53 @@ export const getExperienceFormLabels = (
       description: "Label displayed on education form for area of study input",
     }),
     institution: intl.formatMessage({
-      defaultMessage: "Institution",
-      id: "o0Yt8Q",
+      defaultMessage: "Institution or school",
+      id: "0CeQ12",
       description: "Label displayed on education form for institution input",
     }),
-    educationStatus: intl.formatMessage(commonMessages.status),
+    educationStatus: intl.formatMessage({
+      defaultMessage: "Completion status",
+      id: "M/KgP9",
+      description: "Label displayed on education form for status input",
+    }),
     thesisTitle: intl.formatMessage({
-      defaultMessage: "Thesis title",
-      id: "E9I34y",
+      defaultMessage: "Thesis or dissertation",
+      id: "mXwAfu",
       description: "Label displayed on education form for thesis title input",
+    }),
+    licenseOrAccreditation: intl.formatMessage({
+      defaultMessage: "License or accreditation",
+      id: "Z8yKiP",
+      description:
+        "Label displayed on education form for license or accreditation input",
+    }),
+    certification: intl.formatMessage({
+      defaultMessage: "Certification",
+      id: "uAe0kc",
+      description: "Label displayed on education form for certification input",
+    }),
+    courseName: intl.formatMessage({
+      defaultMessage: "Course name",
+      id: "iJXHYu",
+      description: "Label displayed on education form for course name input",
+    }),
+    fellowshipType: intl.formatMessage({
+      defaultMessage: "Type of fellowship",
+      id: "SevzT7",
+      description:
+        "Label displayed on education form for fellowship type input",
+    }),
+    otherFellowshipType: intl.formatMessage({
+      defaultMessage: "Other type of fellowship",
+      id: "hr2X3H",
+      description:
+        "Label displayed on education form for other fellowship type input",
+    }),
+    otherEducationType: intl.formatMessage({
+      defaultMessage: "Other type of education",
+      id: "EXf+z4",
+      description:
+        "Label displayed on education form for other education type input",
     }),
     experienceTitle: intl.formatMessage({
       defaultMessage: "Short title for this experience",
@@ -231,6 +284,18 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Personal Experience form for experience description input",
     }),
+    learningDescription: intl.formatMessage({
+      defaultMessage: "Learning description",
+      id: "FEffiH",
+      description:
+        "Label displayed on Personal Experience form for learning description input",
+    }),
+    organizationOrPlatform: intl.formatMessage({
+      defaultMessage: "Organization, platform, or theme",
+      id: "2I1HYQ",
+      description:
+        "Label displayed on Personal Experience form for organization or overarching theme input",
+    }),
     disclaimer: intl.formatMessage({
       defaultMessage: "Disclaimer",
       id: "sapxcU",
@@ -238,10 +303,10 @@ export const getExperienceFormLabels = (
         "Label displayed on Personal Experience form for disclaimer bounded box",
     }),
     team: intl.formatMessage({
-      defaultMessage: "Team, group, or division",
-      id: "qn77WI",
+      defaultMessage: "Team or division",
+      id: "LcgdMY",
       description:
-        "Label displayed on Work Experience form for team/group/division input",
+        "Label displayed on Work Experience form for team/division input",
     }),
     details: intl.formatMessage({
       defaultMessage: "Additional details",
@@ -374,6 +439,18 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Experience form for key tasks and responsibilities field.",
     }),
+    keyTasksDescription: intl.formatMessage({
+      defaultMessage:
+        "The following section should be a high-level overview focusing on what you did in the role. Try to keep this field clear and concise as you'll be able to provide more detailed information when linking skills to this experience.",
+      id: "NEycpM",
+      description:
+        "Help text for the experience key tasks and responsibilities field",
+    }),
+    projectOrRole: intl.formatMessage({
+      defaultMessage: "The project or role",
+      id: "II8QD3",
+      description: "Label for the personal experience title",
+    }),
   };
 };
 
@@ -411,9 +488,20 @@ export const formValuesToSubmitData = (
     areaOfStudy,
     institution,
     thesisTitle,
+    otherEducationType,
+    degreeType,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType,
+    otherFellowshipType,
+    issueDate,
+    prospectiveIssueDate,
+    expectedEndDate,
+    expiryDate,
+    prospectiveExpiryDate,
     experienceTitle,
-    experienceDescription,
-    currentRole,
+    learningDescription,
     employmentCategory,
     extSizeOfOrganization,
     extRoleSeniority,
@@ -436,6 +524,9 @@ export const formValuesToSubmitData = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    projectName,
+    relatedExperienceId,
+    relatedExperienceType,
   } = data;
 
   // for government employee experiences only, expected end date is present in end date field
@@ -444,6 +535,41 @@ export const formValuesToSubmitData = (
     employmentCategory === EmploymentCategory.GovernmentOfCanada &&
     govPositionType !== GovPositionType.Substantive;
 
+  // Determine dates for education experiences
+  const licenseOrCertification =
+    educationType === EducationType.LicenseAccreditation ||
+    educationType === EducationType.ProfessionalCertification;
+  let educationStartDate: string | undefined | null;
+  let educationEndDate: string | undefined | null;
+  let educationProspectiveEndDate: string | undefined | null;
+  if (educationStatus === EducationStatus.InProgress) {
+    if (licenseOrCertification) {
+      educationStartDate = prospectiveIssueDate;
+      educationEndDate = null;
+      educationProspectiveEndDate = prospectiveExpiryDate;
+    } else {
+      educationStartDate = startDate;
+      educationEndDate = null;
+      educationProspectiveEndDate = expectedEndDate;
+    }
+  } else {
+    if (licenseOrCertification) {
+      if (educationStatus === EducationStatus.DidNotComplete) {
+        educationStartDate = null;
+        educationEndDate = null;
+        educationProspectiveEndDate = null;
+      } else {
+        educationStartDate = issueDate;
+        educationEndDate = expiryDate;
+        educationProspectiveEndDate = null;
+      }
+    } else {
+      educationStartDate = startDate;
+      educationEndDate = endDate;
+      educationProspectiveEndDate = null;
+    }
+  }
+
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
       title: awardTitle,
@@ -451,36 +577,49 @@ export const formValuesToSubmitData = (
       awardedDate,
       awardedTo,
       awardedScope,
+      projectName,
+      relatedExperienceId,
+      relatedExperienceType: relatedExperienceType
+        ? `App\\Models\\${relatedExperienceType}`
+        : null,
     },
     community: {
       title: role,
       organization,
       project,
       startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      endDate: endDate ?? null,
     },
     education: {
-      type: educationType,
+      educationType,
       status: educationStatus,
       areaOfStudy,
       institution,
       thesisTitle,
-      startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      startDate: educationStartDate,
+      endDate: educationEndDate,
+      otherEducationType,
+      degreeType,
+      licenseOrAccreditation,
+      certification,
+      courseName,
+      fellowshipType,
+      otherFellowshipType,
+      prospectiveEndDate: educationProspectiveEndDate,
     },
     personal: {
       title: experienceTitle,
-      description: experienceDescription,
+      organization,
+      learningDescription: learningDescription,
       startDate,
-      endDate: !currentRole && endDate ? endDate : null,
+      endDate: endDate ?? null,
     },
     work: {
       role,
       organization,
       division: team,
       startDate,
-      endDate:
-        allowExpectedEndDate || (!currentRole && endDate) ? endDate : null,
+      endDate: allowExpectedEndDate || endDate ? endDate : null,
       employmentCategory,
       extSizeOfOrganization,
       extRoleSeniority,
@@ -649,13 +788,26 @@ export const deriveExperienceType = (
 const getAwardExperienceDefaultValues = (
   experience: Omit<AwardExperience, "user">,
 ) => {
-  const { title, issuedBy, awardedDate, awardedTo, awardedScope } = experience;
+  const {
+    title,
+    issuedBy,
+    awardedDate,
+    awardedTo,
+    awardedScope,
+    projectName,
+    relatedExperience,
+    details,
+  } = experience;
   return {
     awardTitle: title,
     issuedBy,
     awardedDate,
     awardedTo: awardedTo?.value,
     awardedScope: awardedScope?.value,
+    projectName,
+    relatedExperienceId: relatedExperience?.id,
+    relatedExperienceType: relatedExperience?.__typename,
+    details,
   };
 };
 
@@ -668,7 +820,8 @@ const getAwardExperienceDefaultValues = (
 const getCommunityExperienceDefaultValues = (
   experience: Omit<CommunityExperience, "user">,
 ) => {
-  const { title, organization, project, startDate, endDate } = experience;
+  const { title, organization, project, startDate, endDate, details } =
+    experience;
   return {
     role: title,
     organization,
@@ -676,6 +829,7 @@ const getCommunityExperienceDefaultValues = (
     startDate,
     roleStatus: endDate ? "past" : "active",
     endDate,
+    details,
   };
 };
 
@@ -689,23 +843,56 @@ const getEducationExperienceDefaultValues = (
   experience: Omit<EducationExperience, "user">,
 ) => {
   const {
-    type,
+    educationType,
     status,
     areaOfStudy,
     institution,
     thesisTitle,
     startDate,
     endDate,
+    details,
+    otherEducationType,
+    degreeType,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType,
+    otherFellowshipType,
+    prospectiveEndDate,
   } = experience;
   return {
-    educationType: type?.value,
-    educationStatus: status?.value,
-    areaOfStudy,
+    educationType: educationType?.value,
+    educationStatus:
+      status?.value === EducationStatus.Audited ? null : status?.value,
+    areaOfStudy:
+      degreeType?.value === DegreeType.HighSchool ||
+      educationType?.value === EducationType.LicenseAccreditation ||
+      educationType?.value === EducationType.ProfessionalCertification
+        ? null
+        : areaOfStudy,
     institution,
-    thesisTitle,
-    startDate,
-    currentRole: endDate === null,
-    endDate,
+    thesisTitle:
+      educationType?.value !== EducationType.DegreeDiplomaCertificate ||
+      degreeType?.value === DegreeType.HighSchool ||
+      degreeType?.value === DegreeType.CollegeDiploma ||
+      degreeType?.value === DegreeType.BachelorsDegree
+        ? null
+        : thesisTitle,
+    startDate: startDate,
+    issueDate: startDate,
+    prospectiveIssueDate: startDate,
+    endDate: endDate,
+    expiryDate: endDate,
+    expectedEndDate: prospectiveEndDate,
+    prospectiveExpiryDate: prospectiveEndDate,
+    details,
+    otherEducationType,
+    degreeType: degreeType?.value,
+    licenseOrAccreditation,
+    certification,
+    courseName,
+    fellowshipType: fellowshipType?.value,
+    otherFellowshipType,
   };
 };
 
@@ -718,14 +905,16 @@ const getEducationExperienceDefaultValues = (
 const getPersonalExperienceDefaultValues = (
   experience: Omit<PersonalExperience, "user">,
 ) => {
-  const { title, description, startDate, endDate } = experience;
+  const { title, startDate, endDate, learningDescription, organization } =
+    experience;
   return {
     experienceTitle: title,
-    experienceDescription: description,
     startDate,
-    currentRole: endDate === null,
     endDate,
     disclaimer: true,
+    learningDescription,
+    organization,
+    roleStatus: endDate ? "past" : "active",
   };
 };
 
@@ -766,6 +955,7 @@ const getWorkExperienceDefaultValues = (
     seniorManagementStatus,
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
+    details,
   } = experience;
 
   const isIndeterminate =
@@ -801,7 +991,7 @@ const getWorkExperienceDefaultValues = (
     organization,
     team: division,
     startDate,
-    currentRole,
+    roleStatus: currentRole ? "active" : "past",
     endDate,
     employmentCategory: employmentCategory?.value,
     extSizeOfOrganization: extSizeOfOrganization?.value,
@@ -826,6 +1016,7 @@ const getWorkExperienceDefaultValues = (
     seniorManagementStatus,
     cSuiteRoleTitle: cSuiteRoleTitle?.value,
     otherCSuiteRoleTitle,
+    details,
   };
 };
 
@@ -858,7 +1049,6 @@ export const queryResultToDefaultValues = (
   }
 
   return {
-    details: experience.details ?? "",
     ...unsharedValues,
     skills: experience.skills
       ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
@@ -918,38 +1108,84 @@ export const getExperienceName = <T extends ExperienceName>(
   }
 
   if (isEducationExperience(experience)) {
-    const { type, areaOfStudy, institution } = experience;
+    const {
+      educationType: type,
+      areaOfStudy,
+      institution,
+      otherEducationType,
+      degreeType,
+      fellowshipType,
+      otherFellowshipType,
+      licenseOrAccreditation,
+      certification,
+    } = experience;
 
-    // shape of type changed at some point from string to object. this is a imperfect solution.
-    let educationType;
-    if (typeof type !== "string") {
-      educationType =
-        type?.value === EducationType.Other
-          ? intl.formatMessage({
-              defaultMessage: "Other type of education",
-              id: "wrKBLf",
-              description:
-                "First part of education experience title for other type",
-            })
-          : getLocalizedName(type?.label, intl);
+    // shape of type changed at some point from string to object. this is an imperfect solution.
+    if (typeof type === "string") {
+      return intl.formatMessage(
+        html
+          ? experienceMessages.educationAtWithoutTypeHtml
+          : experienceMessages.educationAtWithoutType,
+        {
+          areaOfStudy,
+          institution,
+        },
+      );
+    } else {
+      let educationType = getLocalizedName(type?.label, intl);
+      if (type?.value === EducationType.DegreeDiplomaCertificate) {
+        educationType = degreeType
+          ? getLocalizedName(degreeType?.label, intl)
+          : educationType;
+      } else if (type?.value === EducationType.Fellowship) {
+        educationType =
+          fellowshipType?.value === FellowshipType.Other
+            ? (otherFellowshipType ??
+              intl.formatMessage({
+                defaultMessage: "Other type of fellowship",
+                id: "CQhXfC",
+                description:
+                  "First part of education experience title for other type",
+              }))
+            : fellowshipType
+              ? getLocalizedName(fellowshipType?.label, intl)
+              : educationType;
+      } else if (type?.value === EducationType.Other) {
+        educationType =
+          otherEducationType ??
+          intl.formatMessage({
+            defaultMessage: "Other type of education",
+            id: "wrKBLf",
+            description:
+              "First part of education experience title for other type",
+          });
+      }
+
+      let subject = areaOfStudy;
+      if (type?.value === EducationType.ProfessionalCertification) {
+        subject = certification;
+      } else if (type?.value === EducationType.LicenseAccreditation) {
+        subject = licenseOrAccreditation;
+      }
+
+      if (!subject) {
+        return intl.formatMessage(
+          html
+            ? experienceMessages.educationAtWithoutSubject
+            : experienceMessages.educationAtWithoutSubjectHtml,
+          {
+            educationType,
+            institution,
+          },
+        );
+      }
       return intl.formatMessage(
         html
           ? experienceMessages.educationAtHtml
           : experienceMessages.educationAt,
         {
           educationType,
-          areaOfStudy,
-          institution,
-        },
-      );
-    } else {
-      return intl.formatMessage(
-        html
-          ? experienceMessages.educationAtWithoutTypeHtml
-          : experienceMessages.educationAtWithoutType,
-        {
-          educationType,
-          areaOfStudy,
+          areaOfStudy: subject,
           institution,
         },
       );
@@ -1052,6 +1288,30 @@ export const getExperienceDate = (
       : getDateRange({ startDate, endDate, intl });
   }
 
+  if (isEducationExperience(experience)) {
+    if (!startDate) {
+      return intl.formatMessage({
+        defaultMessage: "Not completed",
+        id: "5TYx7Y",
+        description: "Message that education experience was not completed",
+      });
+    }
+
+    if (experience.status?.value === EducationStatus.InProgress) {
+      return experience.prospectiveEndDate
+        ? `${getDateRange({ startDate, endDate: experience.prospectiveEndDate, intl })} (${getExperienceFormLabels(intl, "education").expectedEndDate})`
+        : intl.formatMessage(experienceMessages.dateRangeMissingEndDate, {
+            startDate,
+          });
+    } else {
+      return endDate
+        ? getDateRange({ startDate, endDate, intl })
+        : intl.formatMessage(experienceMessages.dateRangeMissingEndDate, {
+            startDate,
+          });
+    }
+  }
+
   return getDateRange({ startDate, endDate, intl });
 };
 
@@ -1123,10 +1383,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
 export const organizationSuggestionsFromExperiences = (
   experiences: SimpleAnyExperience[],
 ): string[] => {
-  const experiencesWithoutPersonal = experiences.filter(
-    (exp) => exp?.__typename && exp.__typename !== "PersonalExperience",
-  );
-  const organizationsForAutocomplete = experiencesWithoutPersonal.map((exp) => {
+  const organizationsForAutocomplete = experiences.map((exp) => {
     if (isAwardExperience(exp)) {
       return exp.issuedBy;
     }
@@ -1135,6 +1392,9 @@ export const organizationSuggestionsFromExperiences = (
     }
     if (isEducationExperience(exp)) {
       return exp.institution;
+    }
+    if (isPersonalExperience(exp)) {
+      return exp.organization;
     }
     if (isWorkExperience(exp)) {
       return exp.organization;

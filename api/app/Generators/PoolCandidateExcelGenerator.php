@@ -160,6 +160,9 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     // pull data from application snapshot
                     // mirrors logic found in ApplicationDocGenerator
                     $snapshot = $candidate->profile_snapshot;
+                    $snapshotVersion = $candidate->profile_snapshot['version'] ?
+                        $candidate->profile_snapshot['version'] :
+                        1;
                     $userHydrated = User::hydrateSnapshot($snapshot);
                     $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
                     // the snapshot stores the department and classification models connected by relation
@@ -182,7 +185,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $department = $userHydrated->department()->first();
                     $preferences = $userHydrated->getOperationalRequirements();
                     $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
-                        return $experience->getTitle();
+                        return $experience->getTitle($this->lang);
                     })->flatten()->unique()->toArray();
 
                     $values = [
@@ -299,8 +302,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                                     array_push(
                                         $experienceSkillArray,
                                         $experienceModelFound && $skillFound['experienceSkillRecord'] && $skillFound['experienceSkillRecord']['details'] ?
-                                        $experienceModelFound->getTitle().': '.$skillFound['experienceSkillRecord']['details'] :
-                                        $experienceModelFound->getTitle().': '.Lang::get('common.not_found', [], $this->lang),
+                                        $experienceModelFound->getTitle($this->lang, $snapshotVersion).': '.$skillFound['experienceSkillRecord']['details'] :
+                                        $experienceModelFound->getTitle($this->lang, $snapshotVersion).': '.Lang::get('common.not_found', [], $this->lang),
                                     );
                                 }
                             }

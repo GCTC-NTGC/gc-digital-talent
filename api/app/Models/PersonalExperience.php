@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Lang;
@@ -14,18 +15,31 @@ use Illuminate\Support\Facades\Lang;
  * @property string $id
  * @property string $user_id
  * @property string $title
- * @property string $description
  * @property ?Carbon $start_date
  * @property ?Carbon $end_date
- * @property string $details
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ * @property string $learning_description
+ * @property string $organization
  */
 class PersonalExperience extends Experience
 {
     use HasFactory;
     use HasUuids;
     use SoftDeletes;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($experience) {
+            // Delete all related award experiences
+            $experience->awardExperiences->each(function ($award) {
+                $award->relatedExperience()->dissociate();
+                $award->save();
+            });
+        });
+    }
 
     /**
      * The attributes that should be cast.
@@ -39,12 +53,20 @@ class PersonalExperience extends Experience
 
     protected static $hydrationFields = [
         'title' => 'title',
-        'description' => 'description',
         'start_date' => 'startDate',
         'end_date' => 'endDate',
+        'learning_description' => 'learningDescription',
+        'organization' => 'organization',
+        'description' => 'description', // preserved for snapshot version 1
+        'details' => 'details', // preserved for snapshot version 1
     ];
 
-    public function getTitle(): string
+    public function awardExperiences(): MorphMany
+    {
+        return $this->morphMany(AwardExperience::class, 'related_experience');
+    }
+
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

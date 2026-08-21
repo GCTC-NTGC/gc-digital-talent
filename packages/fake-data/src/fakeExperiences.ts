@@ -68,7 +68,7 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): GeneratedAwardExperience => {
+const generateAward = (): Omit<AwardExperience, "relatedExperience"> => {
   return {
     __typename: "AwardExperience",
     user: sampleApp,
@@ -125,7 +125,7 @@ const generateEducation = (): GeneratedEducationExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     areaOfStudy: faker.music.genre(),
-    type: toLocalizedEnum(
+    educationType: toLocalizedEnum(
       faker.helpers.arrayElement<EducationType>(Object.values(EducationType)),
     ),
     institution: faker.person.lastName(),
@@ -152,14 +152,14 @@ const generatePersonal = (): GeneratedPersonalExperience => {
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.lorem.words()}`,
     title: faker.person.jobTitle(),
     startDate: staticDates.start,
     endDate: staticDates.end,
-    description: `experience description ${faker.lorem.paragraph()}`,
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    learningDescription: faker.lorem.paragraph(),
+    organization: faker.company.buzzPhrase(),
   };
 };
 
