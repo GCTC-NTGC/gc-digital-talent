@@ -16,7 +16,6 @@ import {
   Notice,
   Chip,
 } from "@gc-digital-talent/ui";
-g;
 import { useApiRoutes } from "@gc-digital-talent/auth";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { RadioGroup } from "@gc-digital-talent/forms";
