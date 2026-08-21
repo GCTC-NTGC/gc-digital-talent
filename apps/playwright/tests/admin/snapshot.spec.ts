@@ -182,7 +182,9 @@ test.describe("Snapshot", () => {
     await expect(
       govEmployee.getByText(/Yes, I have a priority/i),
     ).toBeVisible();
-    await expect(govEmployee.getByText("Priority number123")).toBeVisible();
+    await expect(
+      govEmployee.getByText("Priority entitlements123"),
+    ).toBeVisible();
 
     // signature
     const signature = appPage.page.getByRole("region", {
