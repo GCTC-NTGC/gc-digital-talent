@@ -88,6 +88,7 @@ const EmployeesNominated = ({
           color="primary"
           mode="placeholder"
           block
+          className="mb-3"
         >
           {intl.formatMessage({
             defaultMessage: "Browse open talent events",

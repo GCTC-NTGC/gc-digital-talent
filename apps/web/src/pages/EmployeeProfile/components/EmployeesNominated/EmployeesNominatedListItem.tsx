@@ -124,34 +124,32 @@ const EmployeesNominatedListItem = ({
   ];
 
   return (
-    <>
-      <PreviewList.Item
-        title={title}
-        metaData={metaDataProps}
-        action={
-          talentNominationListItemFragment.submittedAt ? (
-            <ReviewTalentNominationDialog
-              talentNominationQuery={talentNominationListItemFragment}
-            />
-          ) : (
-            <PreviewList.Link
-              label={intl.formatMessage(
-                {
-                  defaultMessage: "Go to draft nomination for {eventName}",
-                  id: "wtjCOv",
-                  description:
-                    "Accessibility text for preview link, points to draft nomination workflow",
-                },
-                { eventName: nominationEventName },
-              )}
-              href={paths.talentNomination(talentNominationListItemFragment.id)}
-              icon={PencilSquareIcon}
-            />
-          )
-        }
-        headingAs={headingAs}
-      ></PreviewList.Item>
-    </>
+    <PreviewList.Item
+      title={title}
+      metaData={metaDataProps}
+      action={
+        talentNominationListItemFragment.submittedAt ? (
+          <ReviewTalentNominationDialog
+            talentNominationQuery={talentNominationListItemFragment}
+          />
+        ) : (
+          <PreviewList.Link
+            label={intl.formatMessage(
+              {
+                defaultMessage: "Go to draft nomination for {eventName}",
+                id: "wtjCOv",
+                description:
+                  "Accessibility text for preview link, points to draft nomination workflow",
+              },
+              { eventName: nominationEventName },
+            )}
+            href={paths.talentNomination(talentNominationListItemFragment.id)}
+            icon={PencilSquareIcon}
+          />
+        )
+      }
+      headingAs={headingAs}
+    ></PreviewList.Item>
   );
 };
 
