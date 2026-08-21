@@ -1,17 +1,20 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { PersonalExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
+interface PersonalContentExperience {
+  description?: string | null;
+}
+
 const PersonalContent = ({
   experience: { description },
   headingLevel,
-}: ContentProps<Omit<PersonalExperience, "user">>) => {
+}: ContentProps<PersonalContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
