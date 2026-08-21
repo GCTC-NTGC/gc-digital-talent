@@ -37,6 +37,7 @@ final class UpdateTalentNominationEventValidator extends Validator
             TalentNominationEventStatus::ACTIVE->name,
             TalentNominationEventStatus::PAST->name => $thisEvent->community_id,
             TalentNominationEventStatus::UPCOMING->name => $this->arg('talentNominationEvent.community.connect'),
+            default => $thisEvent->community_id,
         };
 
         $attachedCommunityDevelopmentProgramIds = $thisEvent->communityDevelopmentPrograms()
