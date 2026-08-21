@@ -122,7 +122,7 @@ export const Component = () => {
     );
     // The click triggers a full-page navigation off-site, so flush the buffer
     // to avoid the event being dropped on unload.
-    void appInsights.flush();
+    void appInsights.onunloadFlush();
   };
 
   const InstructionCards = () => {
