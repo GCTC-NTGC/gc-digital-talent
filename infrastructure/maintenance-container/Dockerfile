@@ -38,13 +38,14 @@ RUN npm install --location=global pnpm@10.27.0
 # install composer from official image
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# When this container runs as the host user (see HOST_UID in docker-compose.yml)
-# it still uses /root as HOME, so the composer and pnpm caches need to be
-# writable by an arbitrary uid.
-RUN chmod 777 /root
-
 # The workspace root itself belongs to the image (only its contents are bind
 # mounts), and pnpm and turbo write directly into it -- a probe file to pick a
-# store location, a root-level .turbo, debug logs. Same reason as the chmod in
-# infrastructure/dev/web.Dockerfile.
-RUN mkdir -p /var/www/html && chmod 777 /var/www/html
+# store location, a root-level .turbo, debug logs.
+RUN mkdir -p /var/www/html
+
+# Start as root, adopt the ids of whoever owns the mounted project, then drop to
+# them. This container has no CMD: every invocation is `docker compose run --rm
+# maintenance <cmd>`, and the entrypoint execs that command unchanged.
+COPY infrastructure/bin/entrypoint-uid.sh /usr/local/bin/entrypoint-uid.sh
+RUN chmod +x /usr/local/bin/entrypoint-uid.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint-uid.sh"]

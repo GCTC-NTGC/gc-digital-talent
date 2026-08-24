@@ -24,11 +24,11 @@ services:
     build:
       context: ./
       dockerfile: infrastructure/webserver.Dockerfile
-      args:
-        # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
-        HOST_UID: "${HOST_UID:-33}"
-        HOST_GID: "${HOST_GID:-33}"
     restart: always
+    # Azure's init_container.sh takes a startup command and runs it as root
+    # before starting nginx and php-fpm. We use it to remap www-data to whoever
+    # owns the mounted project, so php-fpm's writes land as files you can edit.
+    command: ["/home/site/wwwroot/infrastructure/bin/remap-www-data.sh"]
     volumes:
       - ./:/home/site/wwwroot
       - ./infrastructure/conf/nginx-local.conf:/etc/nginx/conf.d/default.conf:ro
@@ -38,6 +38,9 @@ services:
     ports:
       - 8000:8080
     environment:
+      # Optional override for the uid detection in remap-www-data.sh.
+      - HOST_UID
+      - HOST_GID
       - ROBOTS_FILENAME=dev.robots.txt
       - WEBSITE_SITE_NAME=localhost
       - GCNOTIFY_API_KEY
@@ -51,18 +54,32 @@ services:
       - "host.docker.internal:host-gateway"
 
   maintenance:
-    build: ./infrastructure/maintenance-container
+    build:
+      context: ./
+      dockerfile: infrastructure/maintenance-container/Dockerfile
     working_dir: /root/scripts
-    # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
-    user: "${HOST_UID:-0}:${HOST_GID:-0}"
     environment:
-      # An arbitrary uid has no /etc/passwd entry, so HOME has to be set
-      # explicitly for the composer and pnpm caches to land on the volume below.
+      # Optional override for the uid detection in entrypoint-uid.sh.
+      HOST_UID: "${HOST_UID:-}"
+      HOST_GID: "${HOST_GID:-}"
+      # The entrypoint reads HOME before it has a passwd entry to look it up in,
+      # and it is what keeps the composer and pnpm caches on the volume below.
       HOME: /root
       # pnpm otherwise puts its store at the filesystem root of the project
       # (/.pnpm-store), which is not writable by a non-root user. Keeping it in
       # HOME also means it persists on the volume between runs.
       npm_config_store_dir: /root/.pnpm-store
+      # Docker creates a missing bind-mount target as root, and an older
+      # root-run container may have left these behind.
+      GCDT_FIX_PATHS: >-
+        /var/www/html/node_modules
+        /var/www/html/api/vendor
+        /var/www/html/api/storage
+        /var/www/html/api/bootstrap/cache
+        /var/www/html/packages/graphql/src/gql
+      # pnpm and turbo write into the workspace root itself -- a probe file to
+      # pick a store location, a root-level .turbo, debug logs.
+      GCDT_FIX_DIRS: /var/www/html
     deploy:
       mode: replicated
       replicas: 0

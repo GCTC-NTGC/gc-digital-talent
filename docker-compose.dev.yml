@@ -20,8 +20,14 @@ services:
       - ./.git:/var/www/html/.git:ro
     env_file:
       - ./api/.env
-    # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
-    user: "${HOST_UID:-0}:${HOST_GID:-0}"
+    environment:
+      # Optional override for the uid detection in entrypoint-uid.sh.
+      HOST_UID: "${HOST_UID:-}"
+      HOST_GID: "${HOST_GID:-}"
+      GCDT_FIX_PATHS: >-
+        /var/www/html/api/vendor
+        /var/www/html/api/storage
+        /var/www/html/api/bootstrap/cache
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -33,20 +39,11 @@ services:
       retries: 30
       start_period: 15s
 
-  # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
-  node-init:
-    image: alpine
-    command: chown "${HOST_UID:-1000}:${HOST_GID:-1000}" /node_modules
-    volumes:
-      - ./node_modules:/node_modules
-
-  # Set HOST_UID and HOST_GID in .env so created files have your normal user permissions.
   web:
     build:
       context: ./
       dockerfile: infrastructure/dev/web.Dockerfile
     restart: unless-stopped
-    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
     volumes:
       - ./apps:/var/www/html/apps
       - ./packages:/var/www/html/packages
@@ -64,9 +61,17 @@ services:
     environment:
       # Disable devServer redirect since nginx proxy handles routing
       DOCKER_DEV: "true"
+      # Optional override for the uid detection in entrypoint-uid.sh.
+      HOST_UID: "${HOST_UID:-}"
+      HOST_GID: "${HOST_GID:-}"
+      # The api dir is not mounted here, so probe something that is.
+      GCDT_UID_PROBE: /var/www/html/apps
+      # Docker creates node_modules as root if it does not already exist; the
+      # entrypoint taking it over is what the old node-init service did.
+      GCDT_FIX_PATHS: /var/www/html/node_modules
+      # pnpm and turbo write into the workspace root itself.
+      GCDT_FIX_DIRS: /var/www/html
     depends_on:
-      node-init:
-        condition: service_completed_successfully
       api:
         condition: service_healthy
     healthcheck:

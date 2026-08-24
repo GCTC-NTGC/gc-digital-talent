@@ -30,12 +30,14 @@ WORKDIR /var/www/html/api
 # Mark git directory as safe (for version info)
 RUN git config --system --add safe.directory /var/www/html
 
-# Copy entrypoint script
+# Copy entrypoint scripts. entrypoint-uid.sh runs first: it adopts the ids of
+# whoever owns the mounted project and drops to them before handing over.
 COPY infrastructure/dev/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
-RUN chmod +x /usr/local/bin/api-entrypoint.sh
+COPY infrastructure/bin/entrypoint-uid.sh /usr/local/bin/entrypoint-uid.sh
+RUN chmod +x /usr/local/bin/api-entrypoint.sh /usr/local/bin/entrypoint-uid.sh
 
 # Expose Laravel dev server port
 EXPOSE 8080
 
 # Use entrypoint script to generate schema and start server
-ENTRYPOINT ["/usr/local/bin/api-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint-uid.sh", "/usr/local/bin/api-entrypoint.sh"]
