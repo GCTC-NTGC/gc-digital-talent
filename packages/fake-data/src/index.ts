@@ -12,7 +12,6 @@ import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
 import fakePoolSkills from "./fakePoolSkills";
 import fakeRoles from "./fakeRoles";
-import fakeSearchRequests from "./fakeSearchRequests";
 import fakeSkillFamilies, { getStaticSkillFamilies } from "./fakeSkillFamilies";
 import fakeSkills, { getStaticSkills } from "./fakeSkills";
 import fakeTalentRequests from "./fakeTalentRequests";
@@ -36,7 +35,6 @@ export {
   fakePoolSkills,
   fakeRoles,
   fakePoolCandidates,
-  fakeSearchRequests,
   fakeApplicantFilters,
   fakeSkillFamilies,
   fakeSkills,

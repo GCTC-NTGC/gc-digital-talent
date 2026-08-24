@@ -90,7 +90,7 @@ const Step = ({
         className={link()}
         aria-label={ariaLabel}
       >
-        <span className="absolute -top-0.5 left-0 h-full w-9">
+        <div className="absolute -top-0.5 left-0 h-full w-9">
           {!last && <div className={tail()} />}
 
           <span className={icon()}>
@@ -101,7 +101,7 @@ const Step = ({
               <span className="absolute top-1/2 left-1/2 size-5 -translate-1/2 transform rounded-full border-3 border-white dark:border-gray-700" />
             )}
           </span>
-        </span>
+        </div>
         <span className={text()}>{label}</span>
       </StepLink>
     </li>

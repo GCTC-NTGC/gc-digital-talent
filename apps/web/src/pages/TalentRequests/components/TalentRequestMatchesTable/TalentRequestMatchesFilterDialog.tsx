@@ -9,7 +9,7 @@ import {
   type LanguageAbility,
   type OperationalRequirement,
   type PriorityWeight,
-  TalentRequestSource,
+  type TalentRequestSource,
   type TalentRequestUserSkillMatchFragment,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -203,13 +203,10 @@ const TalentRequestMatchesFilterDialog = ({
         items={narrowEnumType(
           unpackMaybes(options?.talentSources),
           "TalentRequestSource",
-        )
-          // TODO: remove this filter once Advancement is implemented, see #17382
-          .filter((source) => source.value !== TalentRequestSource.Advancement)
-          .map((talentSource) => ({
-            value: talentSource.value,
-            label: talentSource.label?.localized ?? notAvailable,
-          }))}
+        ).map((talentSource) => ({
+          value: talentSource.value,
+          label: talentSource.label?.localized ?? notAvailable,
+        }))}
       />
       <Heading level="h3" size="h5" className="my-6 font-bold">
         {intl.formatMessage({

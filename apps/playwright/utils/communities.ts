@@ -5,7 +5,7 @@ import type {
   CreateCommunityInput,
   CreateCommunityInterestWithDevelopmentProgramsInput,
   DevelopmentProgram,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { generateUniqueTestId } from "./id";
@@ -30,9 +30,9 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
  */
 export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
   return await ctx
-    .post<
-      GraphQLResponse<"communities", Community[]>
-    >(Test_CommunitiesQueryDocument)
+    .post<GraphQLResponse<"communities", Community[]>>(
+      Test_CommunitiesQueryDocument,
+    )
     .then((res) => res.communities);
 };
 
@@ -218,9 +218,10 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
   { userId: string; teamId: string }
 > = async (ctx, { userId, teamId }) => {
   const roles = await ctx
-    .post<
-      GraphQLResponse<"roles", { id: string; name: string }[]>
-    >(Test_RolesQueryDocument, { isPrivileged: true })
+    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
+      Test_RolesQueryDocument,
+      { isPrivileged: true },
+    )
     .then((res) => res.roles);
   const communityAdminRoleId = roles.find(
     (r) => r.name === "community_admin",

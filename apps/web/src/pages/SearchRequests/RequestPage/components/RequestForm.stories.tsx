@@ -10,12 +10,12 @@ import {
   fakeSkills,
   fakeWorkStreams,
 } from "@gc-digital-talent/fake-data";
-import type { CreatePoolCandidateSearchRequestInput } from "@gc-digital-talent/graphql";
+import type { CreateTalentRequestInput } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   LanguageAbility,
   makeFragmentData,
-  PoolCandidateSearchRequestReason,
+  TalentRequestReason,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 import {
@@ -29,6 +29,7 @@ import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
+  RequestFormSkill_Fragment,
 } from "./RequestForm";
 
 const classifications = fakeClassifications();
@@ -45,6 +46,10 @@ const classificationFragments = classifications.map((classification) =>
   makeFragmentData(classification, RequestFormClassification_Fragment),
 );
 
+const skillFragments = skills.map((skill) =>
+  makeFragmentData(skill, RequestFormSkill_Fragment),
+);
+
 const [applicantFilter] = applicantFilters;
 applicantFilter.skills = [skills[0], skills[1]];
 applicantFilter.pools = [pools[0]];
@@ -58,15 +63,13 @@ export default {
     classificationsQuery: classificationFragments,
     applicantFilter,
     pools,
-    skills,
+    skills: skillFragments,
     candidateCount: 10,
-    handleCreatePoolCandidateSearchRequest: async (
-      data: CreatePoolCandidateSearchRequestInput,
-    ) => {
+    handleCreateTalentRequest: async (data: CreateTalentRequestInput) => {
       await new Promise((resolve) => {
         setTimeout(resolve, 1000);
       });
-      action("Create Pool Candidate Search Request")(data);
+      action("Create Talent Request")(data);
       return null;
     },
   },
@@ -87,7 +90,7 @@ export default {
       },
       RequestOptions: {
         data: {
-          requestReasons: fakeLocalizedEnum(PoolCandidateSearchRequestReason),
+          requestReasons: fakeLocalizedEnum(TalentRequestReason),
           languageAbilities: fakeLocalizedEnum(LanguageAbility),
           workRegions: fakeLocalizedEnum(WorkRegion),
           flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),

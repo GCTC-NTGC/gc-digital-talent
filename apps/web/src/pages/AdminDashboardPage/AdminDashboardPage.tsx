@@ -110,7 +110,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
     },
     {
       label: intl.formatMessage(pageTitles.talentRequests),
-      href: adminRoutes.searchRequestTable(),
+      href: adminRoutes.talentRequests(),
       roles: permissionConstants.viewRequests,
     },
     {
@@ -137,6 +137,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(navigationMessages.jobTemplatesLibrary),
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
+    },
+    {
+      label: intl.formatMessage(adminMessages.rolesAndPermissions),
+      href: adminRoutes.rolesAndPermissions(),
+      roles: [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityTalentCoordinator,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+      ],
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
@@ -167,16 +177,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(adminMessages.developmentPrograms),
       href: adminRoutes.developmentProgramTable(),
       roles: [ROLE_NAME.PlatformAdmin],
-    },
-    {
-      label: intl.formatMessage(adminMessages.rolesAndPermissions),
-      href: adminRoutes.rolesAndPermissions(),
-      roles: [
-        ROLE_NAME.PlatformAdmin,
-        ROLE_NAME.CommunityTalentCoordinator,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.CommunityAdmin,
-      ],
     },
     {
       label: intl.formatMessage(navigationMessages.skills),

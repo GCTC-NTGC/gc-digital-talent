@@ -2,19 +2,13 @@ import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Input, TextArea, Submit, Combobox } from "@gc-digital-talent/forms";
-import {
-  getLocale,
-  errorMessages,
-  getLocalizedName,
-  commonMessages,
-} from "@gc-digital-talent/i18n";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   Pending,
   Heading,
@@ -22,8 +16,11 @@ import {
   Link,
   CardSeparator,
 } from "@gc-digital-talent/ui";
-import type { Skill, CreateSkillFamilyInput } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type {
+  CreateSkillFamilyInput,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
 import SEO from "~/components/SEO/SEO";
@@ -48,11 +45,6 @@ const CreateSkillFamily_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface Option<V> {
-  value: V;
-  label: string;
-}
-
 interface FormValues {
   key: string;
   name: {
@@ -66,20 +58,26 @@ interface FormValues {
   skills: string[] | undefined;
 }
 
+export const CreateSkillFamilySkill_Fragment = graphql(/* GraphQL */ `
+  fragment CreateSkillFamilySkill on Skill {
+    id
+    name {
+      localized
+    }
+  }
+`);
+
 interface CreateSkillFamilyProps {
-  skills: Skill[];
+  query: FragmentType<typeof CreateSkillFamilySkill_Fragment>[];
 }
 
-export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
+export const CreateSkillFamily = ({ query }: CreateSkillFamilyProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
-  const sortedSkills = sortBy(skills, (skill) => {
-    return skill.name?.[locale]?.toLocaleUpperCase();
-  });
+  const skills = getFragment(CreateSkillFamilySkill_Fragment, query);
   const [, executeMutation] = useMutation(CreateSkillFamily_Mutation);
 
   const formValuesToSubmitData = (
@@ -148,10 +146,12 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
       .catch(handleError);
   };
 
-  const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
-  }));
+  const skillOptions = [...skills]
+    .sort(sortAlphaBy((skill) => skill.name?.localized))
+    .map(({ id, name }) => ({
+      value: id,
+      label: name?.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    }));
 
   return (
     <>
@@ -287,19 +287,7 @@ export const CreateSkillFamily = ({ skills }: CreateSkillFamilyProps) => {
 const SkillFamilySkills_Query = graphql(/* GraphQL */ `
   query SkillFamilySkills {
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      ...CreateSkillFamilySkill
     }
   }
 `);
@@ -312,7 +300,7 @@ const CreateSkillFamilyPage = () => {
   return (
     <>
       <Pending fetching={fetching} error={error}>
-        <CreateSkillFamily skills={unpackMaybes(lookupData?.skills)} />
+        <CreateSkillFamily query={unpackMaybes(lookupData?.skills)} />
       </Pending>
     </>
   );

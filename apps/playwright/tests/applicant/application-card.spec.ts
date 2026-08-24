@@ -4,11 +4,14 @@ import {
   PAST_DATE,
   rawFormat,
 } from "@gc-digital-talent/date-helpers";
-import type { PoolCandidate, User } from "@gc-digital-talent/graphql";
+import type {
+  PoolCandidate,
+  User,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   CandidateRemovalReason,
   SkillCategory,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";

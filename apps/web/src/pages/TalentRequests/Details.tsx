@@ -1,4 +1,6 @@
 import { useQuery } from "urql";
+import MagnifyingGlassPlusIcon from "@heroicons/react/24/outline/MagnifyingGlassPlusIcon";
+import { useIntl } from "react-intl";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -7,35 +9,91 @@ import {
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { narrowEnumType } from "@gc-digital-talent/i18n";
 
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import { TalentRequestSourceOptions_Fragment } from "~/components/SearchRequestFilters/fragment";
 
 import type { RouteParams } from "./types";
 import TalentRequestDetailsCard from "./components/TalentRequestDetailsCard";
 import TalentRequestSourcesCard from "./components/TalentRequestSourcesCard";
 import TalentRequestCriteriaCard from "./components/TalentRequestCriteriaCard";
+import TalentRequestEmptyNotice from "./components/TalentRequestEmptyNotice";
+import TalentRequestSectionCard from "./components/TalentRequestSectionCard";
+import TalentRequestMatchesTable from "./components/TalentRequestMatchesTable/TalentRequestMatchesTable";
+import type { TalentRequestReferralDialogOptions } from "./components/TalentRequestReferralDialogs/ReferralFormFields";
 
 const TalentRequestDetails_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestDetails on TalentRequest {
+    ...TalentRequestEmptyNotice
     ...TalentRequestDetailsCard
     ...TalentRequestSourcesCard
     ...TalentRequestCriteriaCard
+    ...TalentRequestMatchesTableTalentRequest
+
+    applicantFilter {
+      skills {
+        ...TalentRequestUserSkillMatch
+      }
+    }
   }
 `);
 
 interface DetailsProps {
   query: FragmentType<typeof TalentRequestDetails_Fragment>;
+  optionsQuery: FragmentType<typeof TalentRequestSourceOptions_Fragment>;
+  referralOptionsQuery: TalentRequestReferralDialogOptions;
 }
 
-const Details = ({ query }: DetailsProps) => {
+const Details = ({
+  query,
+  optionsQuery,
+  referralOptionsQuery,
+}: DetailsProps) => {
+  const intl = useIntl();
   const talentRequest = getFragment(TalentRequestDetails_Fragment, query);
+  const talentSourceOptions = narrowEnumType(
+    unpackMaybes(
+      getFragment(TalentRequestSourceOptions_Fragment, optionsQuery)
+        ?.talentSource,
+    ),
+    "TalentRequestSource",
+  );
 
   return (
     <div className="flex flex-col gap-y-6">
+      <TalentRequestEmptyNotice query={talentRequest} />
       <TalentRequestDetailsCard query={talentRequest} />
-      <TalentRequestSourcesCard query={talentRequest} />
+      <TalentRequestSourcesCard
+        query={talentRequest}
+        talentSourceOptions={talentSourceOptions}
+      />
       <TalentRequestCriteriaCard query={talentRequest} />
+      <TalentRequestSectionCard
+        color="warning"
+        icon={MagnifyingGlassPlusIcon}
+        title={intl.formatMessage({
+          defaultMessage: "Find matching candidates",
+          id: "CtcCZj",
+          description:
+            "Heading for the table that contains users who match talent request criteria",
+        })}
+        subtitle={intl.formatMessage({
+          defaultMessage:
+            "This list is always up-to-date, find new candidates that match to this talent request.",
+          id: "JT8Azd",
+          description:
+            "Description of the table showing users who match talent request criteria",
+        })}
+      >
+        <TalentRequestMatchesTable
+          query={talentRequest}
+          skillsQuery={unpackMaybes(talentRequest?.applicantFilter?.skills)}
+          optionsQuery={referralOptionsQuery}
+        />
+      </TalentRequestSectionCard>
     </div>
   );
 };
@@ -45,6 +103,8 @@ const TalentRequestDetails_Query = graphql(/** GraphQL */ `
     talentRequest(id: $id) {
       ...TalentRequestDetails
     }
+    ...TalentRequestSourceOptionsFragment
+    ...TalentRequestReferralDialogOptions
   }
 `);
 
@@ -58,7 +118,11 @@ const TalentRequestDetailsPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.talentRequest ? (
-        <Details query={data.talentRequest} />
+        <Details
+          query={data.talentRequest}
+          optionsQuery={data}
+          referralOptionsQuery={data}
+        />
       ) : (
         <ThrowNotFound />
       )}
@@ -67,7 +131,13 @@ const TalentRequestDetailsPage = () => {
 };
 
 export const Component = () => (
-  <RequireAuth roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}>
+  <RequireAuth
+    roles={[
+      ROLE_NAME.CommunityRecruiter,
+      ROLE_NAME.CommunityAdmin,
+      ROLE_NAME.PlatformAdmin,
+    ]}
+  >
     <TalentRequestDetailsPage />
   </RequireAuth>
 );

@@ -5,38 +5,57 @@ import { useQuery } from "urql";
 import { useState, useEffect } from "react";
 
 import {
-  Button,
   Container,
   Heading,
   Loading,
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  Classification,
   ApplicantFilterInput,
-  Skill,
-  WorkStream,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
-import { graphql, FlexibleWorkLocation } from "@gc-digital-talent/graphql";
+import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
-import type { FormValues } from "~/types/searchRequest";
+import type {
+  FormValues,
+  TalentRequestClassification,
+  TalentRequestWorkStream,
+} from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 
 import { formValuesToData } from "../utils";
-import { useCandidateCount, useInitialFilters } from "../hooks";
+import {
+  useCandidateCount,
+  useInitialFilters,
+  useTalentRequestState,
+} from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
+import CommunityResultCard from "./CommunityResultCard";
+
+const defaultRequestState = {
+  applicantFilter: {},
+  candidateCount: 0,
+};
+
+// Fields the result cards set on click to describe the submission, not the filters.
+const submitOnlyFields: string[] = [
+  "pool",
+  "communityId",
+  "count",
+] satisfies (keyof FormValues)[];
 
 interface SearchFormProps {
-  classifications: Classification[];
-  skills: Skill[];
-  workStreams: WorkStream[];
+  classifications: TalentRequestClassification[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  workStreams: TalentRequestWorkStream[];
 }
 
 export const SearchForm = ({
@@ -47,31 +66,29 @@ export const SearchForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { defaultValues, initialFilters } = useInitialFilters();
+  const { defaultValues, initialFilters } = useInitialFilters(classifications);
+  const [, setRequestState] = useTalentRequestState({
+    ...defaultRequestState,
+    applicantFilter: initialFilters,
+  });
 
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
-  };
+    talentSources: [TalentRequestSource.QualifiedInPool],
+  } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
-  };
+    talentSources: [TalentRequestSource.QualifiedInPool],
+  } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
     initialFiltersAdjusted,
   );
 
-  const { fetching, candidateCount, results } =
+  const { fetching, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
 
   const methods = useForm<FormValues>({
@@ -79,11 +96,14 @@ export const SearchForm = ({
     mode: "onSubmit",
     reValidateMode: "onBlur",
   });
-  const { watch, register, setValue } = methods;
-  const poolSubmitProps = register("pool");
+  const { watch } = methods;
 
   useEffect(() => {
-    const subscription = watch((newValues) => {
+    const subscription = watch((newValues, { name }) => {
+      if (name && submitOnlyFields.includes(name)) {
+        return;
+      }
+
       const newFilters = formValuesToData(
         newValues as FormValues,
         classifications,
@@ -94,30 +114,56 @@ export const SearchForm = ({
     return () => subscription.unsubscribe();
   }, [classifications, watch]);
 
+  // An empty selection means "all sources" on the backend (TalentRequestSource::selected()),
+  // so show both breakdown lines until the user narrows it down to one.
+  const hasTalentSourceSelection = !!applicantFilter?.talentSources?.length;
+  const showQualifiedInPool =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(
+      TalentRequestSource.QualifiedInPool,
+    );
+  const showAtLevel =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(TalentRequestSource.AtLevel);
+
+  const selectedWorkStream = workStreams.find(
+    (workStream) =>
+      workStream.id === applicantFilter?.qualifiedInWorkStreams?.[0]?.id,
+  );
+  const selectedWorkStreamName = selectedWorkStream
+    ? (selectedWorkStream.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable))
+    : undefined;
+
   const handleSubmit = async (values: FormValues) => {
-    let poolIds = values.pool ? [{ id: values.pool }] : [];
-    if (values.allPools && results && results?.length > 0) {
-      poolIds = results.flatMap((result) => ({ id: result.pool.id }));
+    let poolIds: { id: string }[] = [];
+    let community: { id: string } | undefined;
+
+    if (values.communityId) {
+      poolIds = (results ?? [])
+        .filter((result) => result.pool.community?.id === values.communityId)
+        .map((result) => ({ id: result.pool.id }));
+      community = { id: values.communityId };
+    } else if (values.pool) {
+      poolIds = [{ id: values.pool }];
+      const clickedPool = results?.find(
+        (result) => result.pool.id === values.pool,
+      )?.pool;
+      community = clickedPool?.community?.id
+        ? { id: clickedPool.community.id }
+        : undefined;
     }
 
-    await navigate(paths.request(), {
-      state: {
-        applicantFilter: {
-          ...applicantFilter,
-          pools: poolIds,
-        },
-        allPools: values.allPools,
-        candidateCount: values.count,
-        selectedClassifications:
-          applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
+    setRequestState({
+      applicantFilter: {
+        ...applicantFilter,
+        pools: poolIds,
+        community,
       },
+      candidateCount: values.count,
     });
-  };
 
-  const handleSubmitAllPools = () => {
-    setValue("allPools", true);
-    setValue("pool", "");
-    setValue("count", candidateCount);
+    await navigate(paths.request());
   };
 
   return (
@@ -171,62 +217,61 @@ export const SearchForm = ({
           ) : (
             <>
               <Heading level="h3" size="h4" id="results">
-                {intl.formatMessage(
-                  {
-                    defaultMessage: `Results: {totalCandidateCount, plural,
-                      =0 {<heavyPrimary>#</heavyPrimary> matching candidates}
-                      one {<heavyPrimary>#</heavyPrimary> matching candidate}
-                      other {<heavyPrimary>#</heavyPrimary> matching candidates} } across {numPools, plural,
-                      =0 {<heavyPrimary>#</heavyPrimary> pools}
-                      one {<heavyPrimary>#</heavyPrimary> pool}
-                      other {<heavyPrimary>#</heavyPrimary> pools} }`,
-                    id: "58n1gP",
-                    description:
-                      "Heading for total matching candidates across a certain number of pools in results section of search page.",
-                  },
-                  {
-                    totalCandidateCount: candidateCount,
-                    numPools: results?.length ?? 0,
-                  },
-                )}
+                {intl.formatMessage({
+                  defaultMessage: "Results",
+                  id: "UK1PlW",
+                  description:
+                    "Heading for the results section of search page.",
+                }) + intl.formatMessage(commonMessages.dividingColon)}
               </Heading>
               <SearchFilterAdvice filters={applicantFilter} />
-              {results?.length && candidateCount > 0 ? (
+              {communities.length || results?.length ? (
                 <>
-                  <p className="my-6">
-                    <Button
-                      color="secondary"
-                      type="submit"
-                      {...poolSubmitProps}
-                      value=""
-                      onClick={handleSubmitAllPools}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Request candidates from all pools",
-                        id: "DxNuJ9",
-                        description:
-                          "Button text to submit search request for candidates across all pools",
-                      })}
-                    </Button>
-                  </p>
-                  <p className="mt-9 mb-1.5 text-2xl lg:text-3xl">
-                    {intl.formatMessage({
-                      defaultMessage: "Or request candidates by pool",
-                      id: "l1f8zy",
-                      description:
-                        "Lead-in text to list of pools managers can request candidates from",
-                    })}
-                    {intl.formatMessage(commonMessages.dividingColon)}
-                  </p>
-                  <div className="flex flex-col gap-y-6">
-                    {results.map(({ pool, count: resultsCount }) => (
-                      <SearchResultCard
-                        key={pool.id}
-                        candidateCount={resultsCount}
-                        pool={pool}
-                      />
-                    ))}
-                  </div>
+                  {communities.length ? (
+                    <div className="flex flex-col gap-y-6">
+                      {communities.map(
+                        ({
+                          community,
+                          qualifiedInPoolCount,
+                          atLevelCount,
+                          count: communityCount,
+                        }) => (
+                          <CommunityResultCard
+                            key={community.id}
+                            community={community}
+                            workStreamName={selectedWorkStreamName}
+                            qualifiedInPoolCount={qualifiedInPoolCount}
+                            atLevelCount={atLevelCount}
+                            count={communityCount}
+                            showQualifiedInPool={showQualifiedInPool}
+                            showAtLevel={showAtLevel}
+                          />
+                        ),
+                      )}
+                    </div>
+                  ) : null}
+                  {results?.length ? (
+                    <>
+                      <Heading level="h3" size="h4">
+                        {intl.formatMessage({
+                          defaultMessage: "Results by pool",
+                          id: "p4hCip",
+                          description:
+                            "Lead-in text to list of pools managers can request candidates from",
+                        })}
+                        {intl.formatMessage(commonMessages.dividingColon)}
+                      </Heading>
+                      <div className="flex flex-col gap-y-6">
+                        {results.map(({ pool, count: resultsCount }) => (
+                          <SearchResultCard
+                            key={pool.id}
+                            candidateCount={resultsCount}
+                            pool={pool}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
                 </>
               ) : (
                 <NoResults />
@@ -254,11 +299,11 @@ const SearchForm_Query = graphql(/* GraphQL */ `
     workStreams(talentSearchable: true) {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     skills {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -295,7 +340,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
 const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
-  const skills = unpackMaybes<Skill>(data?.skills);
+  const skills = unpackMaybes(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
   const workStreams = unpackMaybes(data?.workStreams);
 

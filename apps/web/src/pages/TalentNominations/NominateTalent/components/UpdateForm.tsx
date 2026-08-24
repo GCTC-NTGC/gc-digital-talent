@@ -22,15 +22,19 @@ interface UpdateFormProps<TFormValues extends BaseFormValues> {
   // Some pre-submit validation to be ran
   // Returns string of error message or null if it is okay
   preSubmitValidation?: (values: TFormValues) => string | null;
+  isPastEvent: boolean;
 }
 
 const UpdateForm = <TFormValues extends BaseFormValues>({
   defaultValues,
   submitDataTransformer,
   preSubmitValidation,
+  isPastEvent,
   children,
 }: UpdateFormProps<TFormValues>) => {
-  const [fetching, { update }] = useMutations();
+  const [fetching, { update }] = useMutations({
+    forceProtectedEndpoint: isPastEvent,
+  });
   const { current } = useCurrentStep();
   const methods = useForm<TFormValues>({
     defaultValues,
@@ -47,7 +51,9 @@ const UpdateForm = <TFormValues extends BaseFormValues>({
     await update(
       {
         insertSubmittedStep: current,
-        ...(submitDataTransformer ? submitDataTransformer(values) : {}),
+        ...(submitDataTransformer
+          ? submitDataTransformer(values)
+          : { id: values.id }),
       },
       values.intent,
     );

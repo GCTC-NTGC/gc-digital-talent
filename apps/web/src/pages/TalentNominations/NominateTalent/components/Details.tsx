@@ -10,6 +10,7 @@ import type {
 import {
   getFragment,
   graphql,
+  NineBoxRating,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
   TalentNominationUserReview,
@@ -29,6 +30,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Notice } from "@gc-digital-talent/ui";
 import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -42,6 +44,7 @@ import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
+import NineBoxDescription from "./NineBoxDescription";
 import labels from "../labels";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
@@ -100,12 +103,20 @@ const DetailsCommunityDevelopmentProgram_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const DetailsTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
+  fragment DetailsTalentNominationEvent on TalentNominationEvent {
+    id
+    includeNineBox
+    includeDevelopmentOpportunities
+  }
+`);
+
 type NominationOption =
-  | "advancement"
-  | "lateralMovement"
-  | "developmentProgram";
+  "advancement" | "lateralMovement" | "developmentProgram";
 
 interface FormValues extends BaseFormValues {
+  nineBoxPerformance?: NineBoxRating;
+  nineBoxLeadershipPotential?: NineBoxRating;
   nominationOptions: (NominationOption | null)[];
   advancementReference: string | null;
   advancementReferenceReview?: TalentNominationUserReview;
@@ -131,12 +142,14 @@ interface DetailsFieldsProps {
   communityDevelopmentProgramQuery?: FragmentType<
     typeof DetailsCommunityDevelopmentProgram_Fragment
   >[];
+  eventQuery?: FragmentType<typeof DetailsTalentNominationEvent_Fragment>;
 }
 
 const DetailsFields = ({
   optionsQuery,
   employeeQuery,
   communityDevelopmentProgramQuery,
+  eventQuery,
 }: DetailsFieldsProps) => {
   const intl = useIntl();
 
@@ -149,6 +162,7 @@ const DetailsFields = ({
     DetailsCommunityDevelopmentProgram_Fragment,
     communityDevelopmentProgramQuery,
   );
+  const event = getFragment(DetailsTalentNominationEvent_Fragment, eventQuery);
 
   const { watch, resetField: baseReset } = useFormContext<FormValues>();
   const [
@@ -156,11 +170,15 @@ const DetailsFields = ({
     advancementReference,
     lateralMovementOptions,
     communityDevelopmentPrograms,
+    nineBoxPerformance,
+    nineBoxLeadershipPotential,
   ] = watch([
     "nominationOptions",
     "advancementReference",
     "lateralMovementOptions",
     "communityDevelopmentPrograms",
+    "nineBoxPerformance",
+    "nineBoxLeadershipPotential",
   ]);
 
   const noOptionsSelected = nominationOptions?.length === 0;
@@ -199,6 +217,60 @@ const DetailsFields = ({
 
   return (
     <div className="flex flex-col gap-6">
+      {event?.includeNineBox && (
+        <>
+          <RadioGroup
+            idPrefix="nineBoxPerformance"
+            id="nineBoxPerformance"
+            name="nineBoxPerformance"
+            legend={intl.formatMessage(labels.nomineePerformance)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={[
+              {
+                value: NineBoxRating.Low,
+                label: intl.formatMessage(labels.lowPerformance),
+              },
+              {
+                value: NineBoxRating.Moderate,
+                label: intl.formatMessage(labels.moderatePerformance),
+              },
+              {
+                value: NineBoxRating.High,
+                label: intl.formatMessage(labels.highPerformance),
+              },
+            ]}
+          />
+          <RadioGroup
+            idPrefix="nineBoxLeadershipPotential"
+            id="nineBoxLeadershipPotential"
+            name="nineBoxLeadershipPotential"
+            legend={intl.formatMessage(labels.nomineeLeadershipPotential)}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            items={[
+              {
+                value: NineBoxRating.Low,
+                label: intl.formatMessage(labels.lowPotential),
+              },
+              {
+                value: NineBoxRating.Moderate,
+                label: intl.formatMessage(labels.moderatePotential),
+              },
+              {
+                value: NineBoxRating.High,
+                label: intl.formatMessage(labels.highPotential),
+              },
+            ]}
+          />
+          <NineBoxDescription
+            performance={nineBoxPerformance}
+            leadershipPotential={nineBoxLeadershipPotential}
+          />
+        </>
+      )}
       <Checklist
         idPrefix="nominationOptions"
         name="nominationOptions"
@@ -234,17 +306,23 @@ const DetailsFields = ({
                 "Description for the lateral movement nomination option on the details step",
             }),
           },
-          {
-            value: "developmentProgram",
-            label: intl.formatMessage(adminMessages.developmentOpportunities),
-            contentBelow: intl.formatMessage({
-              defaultMessage:
-                "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
-              id: "5MFMo5",
-              description:
-                "Description for the development program nomination option on the details step",
-            }),
-          },
+          ...(event?.includeDevelopmentOpportunities
+            ? [
+                {
+                  value: "developmentProgram",
+                  label: intl.formatMessage(
+                    adminMessages.developmentOpportunities,
+                  ),
+                  contentBelow: intl.formatMessage({
+                    defaultMessage:
+                      "The employee would benefit from a development or learning opportunity to help prepare them for their next role.",
+                    id: "5MFMo5",
+                    description:
+                      "Description for the development program nomination option on the details step",
+                  }),
+                },
+              ]
+            : []),
         ]}
       />
       {noOptionsSelected ? (
@@ -544,10 +622,19 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
   fragment NominateTalentDetails on TalentNomination {
     id
     talentNominationEvent {
+      id
+      ...DetailsTalentNominationEvent
       communityDevelopmentPrograms(trashed: WITH) {
         id
         ...DetailsCommunityDevelopmentProgram
       }
+      closeDate
+    }
+    nineBoxPerformance {
+      value
+    }
+    nineBoxLeadershipPotential {
+      value
     }
     nominateForAdvancement
     advancementReference {
@@ -602,6 +689,9 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
     advancementReference = { disconnect: true };
   }
   return {
+    id: values.id,
+    nineBoxPerformance: values.nineBoxPerformance ?? null,
+    nineBoxLeadershipPotential: values.nineBoxLeadershipPotential ?? null,
     nominateForAdvancement: hasAdvancement ?? null,
     nominateForLateralMovement: hasLateralMovement ?? null,
     nominateForDevelopmentPrograms: hasDevelopmentProgram ?? null,
@@ -709,11 +799,18 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
     defaultReference = talentNomination.advancementReference?.id ?? null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       preSubmitValidation={preSubmitValidation}
       defaultValues={{
+        id: talentNomination.id,
+        nineBoxPerformance: talentNomination?.nineBoxPerformance?.value,
+        nineBoxLeadershipPotential:
+          talentNomination?.nineBoxLeadershipPotential?.value,
         nominationOptions,
         advancementReference: defaultReference,
         advancementReferenceReview:
@@ -747,6 +844,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         developmentProgramOptionsOther:
           talentNomination?.developmentProgramOptionsOther ?? "",
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={RectangleGroupIcon}>
         {intl.formatMessage(messages.nominationDetails)}
@@ -765,6 +863,7 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
         communityDevelopmentProgramQuery={unpackMaybes(
           talentNomination?.talentNominationEvent?.communityDevelopmentPrograms,
         )}
+        eventQuery={talentNomination?.talentNominationEvent}
       />
     </UpdateForm>
   );

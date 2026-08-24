@@ -1,24 +1,39 @@
 import { useIntl } from "react-intl";
 
 import { Accordion } from "@gc-digital-talent/ui";
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { GenericJobTitle } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import ClassificationDefinition from "./ClassificationDefinition";
 
+export const GenericJobTitleAccordion_Fragment = graphql(/* GraphQL */ `
+  fragment GenericJobTitleAccordion on GenericJobTitle {
+    id
+    key
+    name {
+      localized
+    }
+  }
+`);
+
 interface GenericJobTitleAccordionProps {
-  genericJobTitle: GenericJobTitle;
+  genericJobTitleQuery: FragmentType<typeof GenericJobTitleAccordion_Fragment>;
   classification: string;
 }
 
 const GenericJobTitleAccordion = ({
-  genericJobTitle,
+  genericJobTitleQuery,
   classification,
 }: GenericJobTitleAccordionProps) => {
   const intl = useIntl();
+  const genericJobTitle = getFragment(
+    GenericJobTitleAccordion_Fragment,
+    genericJobTitleQuery,
+  );
 
   return (
-    <Accordion.Item value={genericJobTitle?.id}>
+    <Accordion.Item value={genericJobTitle.id}>
       <Accordion.Trigger as="h3">
         {intl.formatMessage(
           {
@@ -29,7 +44,9 @@ const GenericJobTitleAccordion = ({
           },
           {
             classification,
-            genericTitle: getLocalizedName(genericJobTitle.name, intl),
+            genericTitle:
+              genericJobTitle.name?.localized ??
+              intl.formatMessage(commonMessages.notAvailable),
           },
         )}
       </Accordion.Trigger>

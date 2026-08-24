@@ -152,6 +152,19 @@ return [
             ]),
             'ignore_exceptions' => false,
         ],
+
+        // used for artisan commands invoked from post_deployment.sh (eg migrate) so their
+        // exceptions reach Azure Monitor without routing regular web request logs there too
+        'cli' => [
+            'driver' => 'stack',
+            'level' => env('LOG_LEVEL', 'debug'),
+            'channels' => array_filter([
+                'single',
+                // only try to include the azure logger in the stack if configured
+                ! empty(env('AZURE_LOG_INGESTION_ENDPOINT')) ? 'azure' : null,
+            ]),
+            'ignore_exceptions' => false,
+        ],
     ],
 
 ];

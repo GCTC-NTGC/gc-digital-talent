@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use App\Enums\ActivityLog;
 use App\Enums\ApplicationStatus;
-use App\Enums\PoolCandidateSearchPositionType;
-use App\Enums\PoolCandidateSearchRequestReason;
+use App\Enums\TalentRequestPositionType;
+use App\Enums\TalentRequestReason;
 use App\Models\Activity;
 use App\Models\Community;
 use App\Models\Department;
@@ -185,17 +185,17 @@ class ActivityLogTest extends TestCase
         $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-                mutation createPoolCandidateSearchRequest(
-                    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!){
-                    createPoolCandidateSearchRequest(poolCandidateSearchRequest: $poolCandidateSearchRequest) {
+                mutation createTalentRequest(
+                    $talentRequest: CreateTalentRequestInput!){
+                    createTalentRequest(talentRequest: $talentRequest) {
                         id
                     }
                     }
                 ',
             [
-                'poolCandidateSearchRequest' => [
+                'talentRequest' => [
                     'fullName' => 'Full Name',
-                    'email' => 'test@test.com',
+                    'email' => 'test@gc.ca',
                     'department' => [
                         'connect' => $testDepartment->id,
                     ],
@@ -204,8 +204,8 @@ class ActivityLogTest extends TestCase
                     ],
                     'jobTitle' => 'CEO',
                     'managerJobTitle' => 'Manager',
-                    'positionType' => PoolCandidateSearchPositionType::INDIVIDUAL_CONTRIBUTOR->name,
-                    'reason' => PoolCandidateSearchRequestReason::GENERAL_INTEREST->name,
+                    'positionType' => TalentRequestPositionType::INDIVIDUAL_CONTRIBUTOR->name,
+                    'reason' => TalentRequestReason::GENERAL_INTEREST->name,
                     'applicantFilter' => [
                         'create' => [
                             'hasDiploma' => true,
@@ -222,7 +222,7 @@ class ActivityLogTest extends TestCase
         assertEquals(4, count(Activity::all()));
 
         // quick assertion the above search request was created successfully and stored value from applicant filter
-        $requestEvent = Activity::where('subject_type', 'App\Models\PoolCandidateSearchRequest')->sole();
+        $requestEvent = Activity::where('subject_type', 'App\Models\TalentRequest')->sole();
         assertEquals(true, $requestEvent->properties['attributes']['applicantFilter.has_diploma']);
 
         // assert can query all the actions undertaken or caused by a user

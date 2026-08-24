@@ -70,6 +70,9 @@ export const TalentRequestEditReferralDialog_Fragment = graphql(/* GraphQL */ `
     matchingQualifiedInPoolSources {
       ...ReferralMatchingPoolSource
     }
+    matchingAdvancementSources {
+      ...ReferralMatchingAdvancementSource
+    }
     referralSummary {
       ...ReferralHistory
     }
@@ -86,6 +89,7 @@ interface TalentRequestEditReferralDialogProps {
   optionsQuery?: TalentRequestReferralDialogOptions;
   trigger?: ReactNode;
   defaultOpen?: boolean;
+  onCompleted?: () => void;
 }
 
 const TalentRequestEditReferralDialog = ({
@@ -93,6 +97,7 @@ const TalentRequestEditReferralDialog = ({
   optionsQuery,
   trigger,
   defaultOpen = false,
+  onCompleted,
 }: TalentRequestEditReferralDialogProps) => {
   const intl = useIntl();
   const [isOpen, setOpen] = useState(defaultOpen);
@@ -165,6 +170,7 @@ const TalentRequestEditReferralDialog = ({
         );
         methods.reset(values);
         setOpen(false);
+        onCompleted?.();
       })
       .catch(() =>
         toast.error(
@@ -189,6 +195,7 @@ const TalentRequestEditReferralDialog = ({
           <ReferralMatchingSources
             sourceLabels={sourceLabels}
             matchingPoolSources={trackedUser.matchingQualifiedInPoolSources}
+            matchingAdvancementSources={trackedUser.matchingAdvancementSources}
           />
           <ReferralHistory query={trackedUser.referralSummary} />
           <FormProvider {...methods}>

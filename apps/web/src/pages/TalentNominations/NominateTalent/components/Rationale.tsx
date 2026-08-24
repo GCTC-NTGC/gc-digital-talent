@@ -14,6 +14,7 @@ import {
   errorMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
@@ -49,7 +50,9 @@ const NominateTalentRationale_Fragment = graphql(/* GraphQL */ `
     nominationRationale
     additionalComments
     talentNominationEvent {
+      id
       includeLeadershipCompetencies
+      closeDate
     }
   }
 `);
@@ -63,6 +66,7 @@ const leadershipSkillsRangeError = defineMessage({
 
 const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
   return {
+    id: values.id,
     nominationRationale: values.nominationRationale ?? null,
     skills: { sync: values.skills ?? [] },
     additionalComments: values.additionalComments ?? null,
@@ -90,16 +94,21 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       defaultValues={{
+        id: talentNomination.id,
         nominationRationale: talentNomination?.nominationRationale ?? "",
         additionalComments: talentNomination?.additionalComments ?? "",
         skills: unpackMaybes(
           talentNomination?.skills?.flatMap((skill) => skill?.id),
         ),
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={ChatBubbleBottomCenterTextIcon}>
         {intl.formatMessage(messages.rationale)}

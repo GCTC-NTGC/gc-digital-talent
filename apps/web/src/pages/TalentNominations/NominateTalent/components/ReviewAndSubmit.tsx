@@ -16,7 +16,7 @@ import useCurrentStep from "../useCurrentStep";
 import type { BaseFormValues } from "../types";
 import Actions from "./Actions";
 import SubHeading from "./SubHeading";
-import useMutations from "../useMutations";
+import type { TalentNominationMutations } from "../useMutations";
 import NominatorReview from "./ReviewAndSubmit/NominatorReview";
 import NomineeReview from "./ReviewAndSubmit/NomineeReview";
 import NominationDetailsReview from "./ReviewAndSubmit/NominationDetailsReview";
@@ -28,6 +28,10 @@ const NominateTalentReviewAndSubmit_Fragment = graphql(/* GraphQL */ `
     ...NomineeReview
     ...NominationDetailsReview
     ...RationaleReview
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
@@ -35,12 +39,17 @@ interface ReviewAndSubmitProps {
   reviewAndSubmitQuery: FragmentType<
     typeof NominateTalentReviewAndSubmit_Fragment
   >;
+  submit: TalentNominationMutations["submit"];
+  fetching: boolean;
 }
 
-const ReviewAndSubmit = ({ reviewAndSubmitQuery }: ReviewAndSubmitProps) => {
+const ReviewAndSubmit = ({
+  reviewAndSubmitQuery,
+  submit,
+  fetching,
+}: ReviewAndSubmitProps) => {
   const intl = useIntl();
   const { current } = useCurrentStep();
-  const [fetching, { submit }] = useMutations();
 
   const talentNomination = getFragment(
     NominateTalentReviewAndSubmit_Fragment,

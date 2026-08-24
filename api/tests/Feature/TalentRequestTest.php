@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\TalentRequestSource;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\TalentRequest;
@@ -54,6 +55,15 @@ class TalentRequestTest extends TestCase
                 paginatorInfo {
                     total
                 }
+            }
+        }
+        GRAPHQL;
+
+    protected string $updateMutation = <<<'GRAPHQL'
+        mutation UpdateTalentRequest($id: ID!, $talentRequest: UpdateTalentRequestInput!) {
+            updateTalentRequest(id: $id, talentRequest: $talentRequest) {
+                id
+                adminNotes
             }
         }
         GRAPHQL;
@@ -127,6 +137,32 @@ class TalentRequestTest extends TestCase
             ]);
     }
 
+    public function testCreateStoresTalentSources(): void
+    {
+        $response = $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                        'talentSources' => [
+                            TalentRequestSource::QUALIFIED_IN_POOL->name,
+                            TalentRequestSource::AT_LEVEL->name,
+                        ],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLErrorFree();
+
+        $id = $response->json('data.createTalentRequest.id');
+        $talentRequest = TalentRequest::find($id);
+
+        $this->assertEqualsCanonicalizing(
+            [TalentRequestSource::QUALIFIED_IN_POOL->name, TalentRequestSource::AT_LEVEL->name],
+            $talentRequest->applicantFilter->talent_sources,
+        );
+    }
+
     public function testCreateRejectsNonGovernmentEmail(): void
     {
         $this->graphQL($this->createMutation, [
@@ -167,5 +203,30 @@ class TalentRequestTest extends TestCase
             ->assertGraphQLErrorFree()
             ->assertJsonFragment(['id' => $visibleRequest->id])
             ->assertJsonMissing(['id' => $hiddenRequest->id]);
+    }
+
+    public function testTeamRecruiterCanOnlyUpdateOwnCommunityTalentRequest(): void
+    {
+        $ownRequest = TalentRequest::factory()->create([
+            'community_id' => $this->authorizedCommunity->id,
+        ]);
+        $otherRequest = TalentRequest::factory()->create([
+            'community_id' => $this->otherCommunity->id,
+        ]);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $ownRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $otherRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 }

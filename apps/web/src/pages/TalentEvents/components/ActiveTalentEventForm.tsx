@@ -3,7 +3,7 @@ import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { useMutation } from "urql";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 import { CardSeparator, Heading, Link, Notice } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -17,9 +17,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DateInput,
-  htmlToRichTextJSON,
   Input,
-  RichTextRenderer,
+  RichTextInput,
   Submit,
   TextArea,
 } from "@gc-digital-talent/forms";
@@ -51,6 +50,7 @@ import { isCommunity } from "../TalentEvent/util";
 import AddDialog from "./AddDialog";
 import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
+import { instructionsWordCountLimits } from "./constants";
 
 interface ActiveTalentEventFormProps {
   userQuery: FragmentType<typeof TalentNominationEvent_Fragment>;
@@ -74,6 +74,7 @@ const ActiveTalentEventForm = ({
   const {
     community,
     name,
+    includeNineBox,
     includeLeadershipCompetencies,
     openDate,
     description,
@@ -84,7 +85,6 @@ const ActiveTalentEventForm = ({
     customInstructions,
   } = talentNominationEvent;
   const notFound = intl.formatMessage(commonMessages.notFound);
-  const notProvided = intl.formatMessage(commonMessages.notProvided);
 
   const methods = useForm<FormValues>({
     defaultValues: {
@@ -109,6 +109,10 @@ const ActiveTalentEventForm = ({
         }),
       ),
       contactEmail: contactEmail,
+      customInstructions: {
+        en: customInstructions?.en ?? "",
+        fr: customInstructions?.fr ?? "",
+      },
     },
   });
 
@@ -156,6 +160,7 @@ const ActiveTalentEventForm = ({
           ],
         },
         contactEmail: formValues.contactEmail,
+        customInstructions: formValues.customInstructions,
       },
     })
       .then(async (result) => {
@@ -222,6 +227,8 @@ const ActiveTalentEventForm = ({
 
   const [editOpen, setEditOpen] = useState<string | null>(null);
   const [removeOpen, setRemoveOpen] = useState<string | null>(null);
+
+  const instructionsDescriptionId = useId();
 
   return (
     <>
@@ -399,6 +406,26 @@ const ActiveTalentEventForm = ({
             <div className="col-span-2">
               <FieldDisplay
                 label={intl.formatMessage({
+                  defaultMessage: "Leadership performance questions",
+                  id: "D5KDrf",
+                  description:
+                    "Bounding box label for the include leadership performance and potential",
+                })}
+              >
+                <BoolCheckIcon value={includeNineBox}>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "The nomination must include the nominee’s performance and leadership potential",
+                    id: "vRkQB+",
+                    description:
+                      "Label for the include leadership performance and potential",
+                  })}
+                </BoolCheckIcon>
+              </FieldDisplay>
+            </div>
+            <div className="col-span-2">
+              <FieldDisplay
+                label={intl.formatMessage({
                   defaultMessage: "Leadership competency requirement",
                   id: "eBH+tH",
                   description:
@@ -416,38 +443,39 @@ const ActiveTalentEventForm = ({
                 </BoolCheckIcon>
               </FieldDisplay>
             </div>
-            <FieldDisplay
+            <div className="xs:col-span-2" id={instructionsDescriptionId}>
+              {intl.formatMessage({
+                defaultMessage:
+                  "The nomination form offers basic instructions at the beginning of each nomination to help guide the nominator through the process. You use the following optional field to include extra context that might be unique to your event.",
+                id: "5jkq2u",
+                description: "description for custom event instructions",
+              })}
+            </div>
+
+            <RichTextInput
+              id={"customInstructions.en"}
+              name={"customInstructions.en"}
+              wordLimit={instructionsWordCountLimits.en}
               label={intl.formatMessage({
                 defaultMessage: "Customized instruction text",
                 id: "f1Kpkp",
                 description: "label for nomination event instructions",
               })}
-              appendLanguageToLabel="en"
-            >
-              {customInstructions?.en ? (
-                <RichTextRenderer
-                  node={htmlToRichTextJSON(customInstructions.en)}
-                />
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
-            <FieldDisplay
+              appendLanguageToLabel={"en"}
+              aria-describedby={instructionsDescriptionId}
+            />
+            <RichTextInput
+              id={"customInstructions.fr"}
+              name={"customInstructions.fr"}
+              wordLimit={instructionsWordCountLimits.fr}
               label={intl.formatMessage({
                 defaultMessage: "Customized instruction text",
                 id: "f1Kpkp",
                 description: "label for nomination event instructions",
               })}
-              appendLanguageToLabel="fr"
-            >
-              {customInstructions?.fr ? (
-                <RichTextRenderer
-                  node={htmlToRichTextJSON(customInstructions.fr)}
-                />
-              ) : (
-                notProvided
-              )}
-            </FieldDisplay>
+              appendLanguageToLabel={"fr"}
+              aria-describedby={instructionsDescriptionId}
+            />
           </div>
           {community !== null && (
             <>
@@ -487,94 +515,79 @@ const ActiveTalentEventForm = ({
                 />
 
                 <div>
-                  {fields.length === 0 ? (
-                    <Notice.Root>
-                      <Notice.Content>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Please add at least one development opportunity for nominators to select from.",
-                          id: "bShedV",
-                          description:
-                            "Message to add at least one development opportunity",
-                        })}
-                      </Notice.Content>
-                    </Notice.Root>
-                  ) : (
-                    <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
-                      <DevelopmentProgramCard.Root>
-                        {fields.map((field, index) => {
-                          const developmentProgram =
-                            developmentProgramOptions.find(
-                              ({ value }) => value === field.value,
-                            );
-
-                          return (
-                            <DevelopmentProgramCard.Item
-                              id={field.id}
-                              key={field.id}
-                              title={developmentProgram?.label ?? notFound}
-                              description={
-                                <>
-                                  <span className="mb-3 block">
-                                    {developmentProgram?.description ??
-                                      notFound}
-                                  </span>
-                                  {field.description && (
-                                    <span>{field.description[locale]}</span>
-                                  )}
-                                </>
-                              }
-                              iconLabel={intl.formatMessage(
-                                {
-                                  defaultMessage:
-                                    "More actions for development opportunity {title}",
-                                  id: "L8zYRQ",
-                                  description:
-                                    "Aria label for the menu trigger for development program actions",
-                                },
-                                {
-                                  title:
-                                    developmentProgram?.label ??
-                                    intl.formatMessage(commonMessages.notFound),
-                                },
-                              )}
-                              edit={
-                                <EditDialog
-                                  communityDevelopmentProgramId={field.id}
-                                  developmentProgramOptions={
-                                    developmentProgramOptions
-                                  }
-                                  defaultValues={{
-                                    value: field.value,
-                                    description: field.description,
-                                  }}
-                                  onSubmit={(values) => update(index, values)}
-                                  active
-                                  open={editOpen === field.id}
-                                  setOpen={setEditOpen}
-                                />
-                              }
-                              remove={
-                                !fixedDevelopmentPrograms?.includes(
-                                  field.value,
-                                ) ? (
-                                  <RemoveDialog
-                                    communityDevelopmentProgramId={field.id}
-                                    title={developmentProgram?.label}
-                                    onRemove={() => remove(index)}
-                                    open={removeOpen === field.id}
-                                    setOpen={setRemoveOpen}
-                                  />
-                                ) : null
-                              }
-                              setEditOpen={setEditOpen}
-                              setRemoveOpen={setRemoveOpen}
-                            />
+                  <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+                    <DevelopmentProgramCard.Root>
+                      {fields.map((field, index) => {
+                        const developmentProgram =
+                          developmentProgramOptions.find(
+                            ({ value }) => value === field.value,
                           );
-                        })}
-                      </DevelopmentProgramCard.Root>
-                    </div>
-                  )}
+
+                        return (
+                          <DevelopmentProgramCard.Item
+                            id={field.id}
+                            key={field.id}
+                            title={developmentProgram?.label ?? notFound}
+                            description={
+                              <>
+                                <span className="mb-3 block">
+                                  {developmentProgram?.description ?? notFound}
+                                </span>
+                                {field.description && (
+                                  <span>{field.description[locale]}</span>
+                                )}
+                              </>
+                            }
+                            iconLabel={intl.formatMessage(
+                              {
+                                defaultMessage:
+                                  "More actions for development opportunity {title}",
+                                id: "L8zYRQ",
+                                description:
+                                  "Aria label for the menu trigger for development program actions",
+                              },
+                              {
+                                title:
+                                  developmentProgram?.label ??
+                                  intl.formatMessage(commonMessages.notFound),
+                              },
+                            )}
+                            edit={
+                              <EditDialog
+                                communityDevelopmentProgramId={field.id}
+                                developmentProgramOptions={
+                                  developmentProgramOptions
+                                }
+                                defaultValues={{
+                                  value: field.value,
+                                  description: field.description,
+                                }}
+                                onSubmit={(values) => update(index, values)}
+                                active
+                                open={editOpen === field.id}
+                                setOpen={setEditOpen}
+                              />
+                            }
+                            remove={
+                              !fixedDevelopmentPrograms?.includes(
+                                field.value,
+                              ) ? (
+                                <RemoveDialog
+                                  communityDevelopmentProgramId={field.id}
+                                  title={developmentProgram?.label}
+                                  onRemove={() => remove(index)}
+                                  open={removeOpen === field.id}
+                                  setOpen={setRemoveOpen}
+                                />
+                              ) : null
+                            }
+                            setEditOpen={setEditOpen}
+                            setRemoveOpen={setRemoveOpen}
+                          />
+                        );
+                      })}
+                    </DevelopmentProgramCard.Root>
+                  </div>
                 </div>
               </div>
             </>

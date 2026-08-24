@@ -15,6 +15,13 @@ test.describe("Anonymous user", () => {
     );
   });
 
+  test("Redirects the talent request page to sign in", async ({ page }) => {
+    await page.goto("/en/search/request");
+    await page.waitForURL("**/login-info*");
+    expect(page.url()).toContain("/en/login-info");
+    expect(page.url()).toContain("from=%2Fen%2Fsearch%2Frequest");
+  });
+
   test("Redirects app login page to auth login page", async ({ page }) => {
     await page.goto("/login");
     await page.waitForURL(`**${AUTH.SERVER_ROOT}/authorize*`);

@@ -62,6 +62,7 @@ import {
 import {
   type MaybeLocalizedEnums,
   type GenericLocalizedEnum,
+  type LocalizedEnumValue,
   enumInputToLocalizedEnum,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
@@ -75,8 +76,7 @@ import {
   sortEvaluatedLanguageAbility,
   sortOpportunityLength,
   sortPlacementType,
-  sortPoolCandidateSearchRequestReason,
-  sortPoolCandidateSearchStatus,
+  sortTalentRequestReason,
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
@@ -131,8 +131,7 @@ export {
   sortEvaluatedLanguageAbility,
   sortOpportunityLength,
   sortPlacementType,
-  sortPoolCandidateSearchRequestReason,
-  sortPoolCandidateSearchStatus,
+  sortTalentRequestReason,
   sortPoolLanguage,
   sortPriorityWeight,
   sortSecurityStatus,
@@ -176,6 +175,7 @@ export type {
   Messages,
   MaybeLocalizedEnums,
   GenericLocalizedEnum,
+  LocalizedEnumValue,
   TEmploymentDuration,
 };
 export { fr };

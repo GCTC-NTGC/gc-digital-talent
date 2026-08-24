@@ -1,24 +1,27 @@
 import { useMutation } from "urql";
-import { useIntl } from "react-intl";
+import { defineMessage, useIntl } from "react-intl";
 import { useNavigate, useSearchParams } from "react-router";
 
 import type { UpdateTalentNominationInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import {
+  errorMessages,
+  tryFindMessageDescriptor,
+} from "@gc-digital-talent/i18n";
 
 import useRequiredParams from "~/hooks/useRequiredParams";
 import useRoutes from "~/hooks/useRoutes";
+import { getProtectedOperationContext } from "~/utils/protectedUrqlContext";
 
 import type { RouteParams, SubmitIntent } from "./types";
 import useCurrentStep from "./useCurrentStep";
 
 const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `
   mutation NominateTalentUpdate(
-    $id: UUID!
     $talentNomination: UpdateTalentNominationInput!
   ) {
-    updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+    updateTalentNomination(talentNomination: $talentNomination) {
       id
     }
   }
@@ -32,7 +35,7 @@ const NominateTalentSubmit_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface TalentNominationMutations {
+export interface TalentNominationMutations {
   update: (
     talentNomination: UpdateTalentNominationInput,
     intent: SubmitIntent,
@@ -40,9 +43,13 @@ interface TalentNominationMutations {
   submit: (intent: SubmitIntent) => Promise<void> | null;
 }
 
-type UseMutationsReturn = [boolean, TalentNominationMutations];
+type UseMutationsReturn = [boolean, TalentNominationMutations, boolean];
 
-const useMutations = (): UseMutationsReturn => {
+interface UseMutationsOptions {
+  forceProtectedEndpoint: boolean;
+}
+
+const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
   const intl = useIntl();
   const { id } = useRequiredParams<RouteParams>("id");
   const paths = useRoutes();
@@ -52,15 +59,17 @@ const useMutations = (): UseMutationsReturn => {
   const [{ fetching: updating }, executeUpdateMutation] = useMutation(
     NominateTalentUpdate_Mutation,
   );
-  const [{ fetching: submitting }, executeSubmitMutation] = useMutation(
-    NominateTalentSubmit_Mutation,
-  );
+  const [{ fetching: submitting, data: submitData }, executeSubmitMutation] =
+    useMutation(NominateTalentSubmit_Mutation);
+  const queryContext = options.forceProtectedEndpoint
+    ? getProtectedOperationContext()
+    : undefined;
 
   const update: TalentNominationMutations["update"] = async (
     talentNomination,
     intent,
   ) => {
-    return executeUpdateMutation({ id, talentNomination })
+    return executeUpdateMutation({ talentNomination }, queryContext)
       .then(async (res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -83,15 +92,16 @@ const useMutations = (): UseMutationsReturn => {
 
         throw new Error(intl.formatMessage(errorMessages.error));
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
+      .catch((error: Error) => {
+        const messageDescriptor =
+          tryFindMessageDescriptor(error.message) ??
+          defineMessage({
             defaultMessage: "Error updating talent nomination",
             id: "UlK+Qm",
             description:
               "Error message displayed when a talent nomination could not be updated",
-          }),
-        );
+          });
+        toast.error(intl.formatMessage(messageDescriptor));
       });
   };
 
@@ -100,7 +110,7 @@ const useMutations = (): UseMutationsReturn => {
       return await navigate(paths.applicantDashboard());
     }
 
-    return executeSubmitMutation({ id })
+    return executeSubmitMutation({ id }, queryContext)
       .then((res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -119,19 +129,24 @@ const useMutations = (): UseMutationsReturn => {
 
         throw new Error(intl.formatMessage(errorMessages.error));
       })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
+      .catch((error: Error) => {
+        const messageDescriptor =
+          tryFindMessageDescriptor(error.message) ??
+          defineMessage({
             defaultMessage: "Error submitting talent nomination",
             id: "afkBMh",
             description:
               "Error message displayed when a talent nomination could not be submitted",
-          }),
-        );
+          });
+        toast.error(intl.formatMessage(messageDescriptor));
       });
   };
 
-  return [updating || submitting, { update, submit }];
+  return [
+    updating || submitting,
+    { update, submit },
+    !!submitData?.submitTalentNomination,
+  ];
 };
 
 export default useMutations;

@@ -2,11 +2,9 @@ import type {
   ControllerFieldState,
   ControllerRenderProps,
   FieldValues,
-  UseFormStateReturn,
 } from "react-hook-form";
 import { useIntl } from "react-intl";
 import type { ChangeEvent } from "react";
-import get from "lodash/get";
 import { tv } from "tailwind-variants";
 
 import { dateMessages } from "@gc-digital-talent/i18n";
@@ -36,7 +34,6 @@ const selectInput = tv({
 interface ControlledInputProps {
   field: ControllerRenderProps<FieldValues, string>;
   fieldState: ControllerFieldState;
-  formState: UseFormStateReturn<FieldValues>;
   show: DateSegment[];
   round?: RoundingMethod;
   state: FieldState;
@@ -44,20 +41,12 @@ interface ControlledInputProps {
 
 const ControlledInput = ({
   field: { onChange, value, name },
-  formState: { defaultValues },
   show,
   round,
   state: stateStyles,
 }: ControlledInputProps) => {
   const intl = useIntl();
-  const rawDefaultValue: unknown = get(defaultValues, name);
-  const defaultValue =
-    rawDefaultValue !== null && rawDefaultValue !== undefined
-      ? // It's a input field so it should be stringable
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
-        String(rawDefaultValue)
-      : undefined;
-  const { year, month, day } = splitSegments(defaultValue);
+  const { year, month, day } = splitSegments(value ? String(value) : undefined);
   const ID = {
     YEAR: `${name}Year`,
     MONTH: `${name}Month`,
@@ -88,7 +77,10 @@ const ControlledInput = ({
 
   const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value: newDay } = e.target;
-    handleChange(newDay ? newDay.padStart(2, "0") : "", DATE_SEGMENT.Day);
+    handleChange(
+      newDay ? String(Number(newDay)).padStart(2, "0") : "",
+      DATE_SEGMENT.Day,
+    );
   };
 
   const months = getMonthOptions(intl);
@@ -105,7 +97,7 @@ const ControlledInput = ({
             name={ID.YEAR}
             type="number"
             onChange={handleYearChange}
-            defaultValue={year}
+            value={year ? Number(year) : ""}
             placeholder={intl.formatMessage(dateMessages.yearPlaceholder)}
             min={1900}
             className={numberInput({ state: stateStyles })}
@@ -121,7 +113,7 @@ const ControlledInput = ({
             id={ID.MONTH}
             name={ID.MONTH}
             onChange={handleMonthChange}
-            defaultValue={month ?? ""}
+            value={month ?? ""}
             className={selectInput({ state: stateStyles })}
           >
             <option className="text-gray-600/70 dark:text-gray-200/70" value="">
@@ -145,7 +137,7 @@ const ControlledInput = ({
             name={ID.DAY}
             type="number"
             onChange={handleDayChange}
-            defaultValue={day}
+            value={day ?? ""}
             max={31}
             min={1}
             placeholder={intl.formatMessage(dateMessages.dayPlaceholder)}

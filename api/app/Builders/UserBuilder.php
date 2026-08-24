@@ -11,11 +11,11 @@ use App\Enums\LanguageAbility;
 use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestSource;
 use App\Models\User;
+use App\Support\Query\AdvancedOrder;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -179,6 +179,13 @@ class UserBuilder extends Builder
         });
     }
 
+    public function whereHasCommunityInterestWithReferralStatusIn(?array $referralStatuses): self
+    {
+        return $this->when($referralStatuses, fn (self $query, array $statuses) => $query
+            ->whereHas('communityInterests', fn (Builder $interests) => $interests
+                ->whereIn('referral_status', $statuses)));
+    }
+
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         // if no filters provided then return query unchanged
@@ -329,33 +336,6 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Return users who have an available PoolCandidate in at least one IT pool.
-     */
-    public function whereHasTalentSearchablePublishingGroups($args): self
-    {
-
-        return $this->whereHas('poolCandidates', function ($innerQueryBuilder) use ($args) {
-            $filters = Arr::get($args ?? [], 'where', []);
-
-            $innerQueryBuilder->whereHas('pool', function ($query) use ($filters) {
-                $query->wherePublished();
-
-                if (array_key_exists('qualifiedInClassifications', $filters)) {
-                    $query->whereClassifications($filters['qualifiedInClassifications']);
-                }
-
-                if (array_key_exists('qualifiedInWorkStreams', $filters)) {
-                    $query->whereWorkStreamsIn($filters['qualifiedInWorkStreams']);
-                }
-            })
-                ->whereAvailable()
-                ->whereInTalentSearchablePublishingGroup();
-
-            return $innerQueryBuilder;
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
@@ -369,19 +349,7 @@ class UserBuilder extends Builder
             }
         });
 
-        // user-level attribute and location filters
-        $this->whereHasDiploma($filters['hasDiploma'] ?? null)
-            ->whereEquityIn($filters['equity'] ?? null)
-            ->whereLanguageAbility($filters['languageAbility'] ?? null)
-            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
-            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
-            ->whereSkillsAdditive($skillIds)
-            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
-            ->whereFlexibleLocationAndRegionSpecialMatching(
-                $filters['locationPreferences'] ?? null,
-                $filters['flexibleWorkLocations'] ?? null
-            );
-
+        $this->whereUserAttributesMatchTalentRequest($filters);
         $this->addSkillCountSelect($skillIds);
         $this->withTalentRequestMatches($filters);
 
@@ -394,15 +362,28 @@ class UserBuilder extends Builder
         return $this;
     }
 
+    // Only the request's user-level attribute and location filters.
+    public function whereUserAttributesMatchTalentRequest(?array $args): self
+    {
+        $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
+
+        return $this->whereHasDiploma($filters['hasDiploma'] ?? null)
+            ->whereEquityIn($filters['equity'] ?? null)
+            ->whereLanguageAbility($filters['languageAbility'] ?? null)
+            ->whereOperationalRequirementsIn($filters['operationalRequirements'] ?? null)
+            ->wherePositionDurationIn($filters['positionDuration'] ?? null)
+            ->whereSkillsAdditive($filters['skills'] ?? [])
+            ->whereSkillsIntersectional($filters['skillsIntersectional'] ?? [])
+            ->whereFlexibleLocationAndRegionSpecialMatching(
+                $filters['locationPreferences'] ?? null,
+                $filters['flexibleWorkLocations'] ?? null
+            );
+    }
+
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
-            $relation = $source->matchRelation();
-            if (! $relation) {
-                continue;
-            }
-
-            $this->with([$relation => fn ($r) => $r
+            $this->with([$source->matchRelation() => fn ($r) => $r
                 ->whereMatchesTalentRequest($filters)
                 ->whereAuthorizedToView()]);
         }
@@ -425,9 +406,9 @@ class UserBuilder extends Builder
         return $this->whereIn('priority_weight', $weights);
     }
 
-    public function orderBySkillCount(array $args): self
+    public function orderBySkillCount(AdvancedOrder $args): self
     {
-        return $this->orderBy('skill_count', $args['direction'] ?? 'asc');
+        return $this->orderBy('skill_count', $args->direction);
     }
 
     // Always selects a skill_count column so the field is resolvable: the real count of the

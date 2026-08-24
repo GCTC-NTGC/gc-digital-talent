@@ -15,6 +15,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\Language;
 use App\Enums\LearningOpportunitiesInterest;
 use App\Enums\Mentorship;
+use App\Enums\NineBoxRating;
 use App\Enums\OperationalRequirement;
 use App\Enums\OrganizationTypeInterest;
 use App\Enums\ProvinceOrTerritory;
@@ -31,7 +32,10 @@ use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
 use App\Traits\Generator\Filterable;
+use App\Traits\Generator\GeneratesCareerExperienceSheet;
+use App\Traits\Generator\GeneratesCommunityInterestSheet;
 use App\Traits\Generator\GeneratesFile;
+use App\Traits\Generator\GeneratesSharedExcelData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Lang;
@@ -40,7 +44,10 @@ use OpenSpout\Writer\XLSX\Writer;
 class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorInterface
 {
     use Filterable;
+    use GeneratesCareerExperienceSheet;
+    use GeneratesCommunityInterestSheet;
     use GeneratesFile;
+    use GeneratesSharedExcelData;
 
     protected array $generatedHeaders = [
         'general_questions' => [],
@@ -56,6 +63,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'nominators',
         'nomination_options',
         'advancement_approval',
+        'advancement_classifications',
         'advancement_approval_notes',
         'lateral_movement_approval',
         'lateral_movement_approval_notes',
@@ -157,6 +165,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'reference_email',
         'reference_classification',
         'reference_department',
+        'nine_box_performance',
+        'nine_box_leadership_potential',
         'lateral_experience_recommendations',
         'other_lateral_experience',
         'development_program_recommendations',
@@ -169,6 +179,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
     {
         parent::__construct($fileName, $dir);
+
+        // apply consent to share profile check
+        $this->enforceConsentToShare = true;
     }
 
     private function getExcelSheetTitle(string $key): string
@@ -197,6 +210,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $nominationDetailsSheet = $this->writer->addNewSheetAndMakeItCurrent();
             $nominationDetailsSheet->setName($this->getExcelSheetTitle('headings.nominations_details'));
             $this->generateNominationDetailsTab();
+
+            // Career experience sheet
+            $careerExperienceSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $careerExperienceSheet->setName($this->getExcelSheetTitle('headings.career_experience'));
+            $this->generateCareerExperienceTab();
+
+            // Community Interest sheet
+            $communityInterestSheet = $this->writer->addNewSheetAndMakeItCurrent();
+            $communityInterestSheet->setName($this->getExcelSheetTitle('headings.community_interest'));
+            $this->generateCommunityInterestTab();
         } finally {
             $this->writer->close();
         }
@@ -232,12 +255,15 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class),
                     $nominators->join(', '),
                     $optionsStr,
                     $this->localizeEnum($this->isNominatedForAdvancement($talentNominationGroup) ? $talentNominationGroup->advancement_decision : null, TalentNominationGroupDecision::class),
+                    $this->canShare($consentToShare, $talentNominationGroup->advancementClassifications->map(function ($classification) {
+                        return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
+                    })->join(', ')),
                     $this->canShare($consentToShare, $this->isNominatedForAdvancement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->advancement_notes ?? '')) : ''),
                     $this->localizeEnum($this->isNominatedForLateralMovement($talentNominationGroup) ? $talentNominationGroup->lateral_movement_decision : null, TalentNominationGroupDecision::class),
                     $this->canShare($consentToShare, $this->isNominatedForLateralMovement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->lateral_movement_notes ?? '')) : ''),
@@ -261,20 +287,20 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         $this->writer->addRow($this->row($localizedHeaders));
 
-        $processedUserIds = [];
         $query = $this->buildQuery();
 
-        $query->chunk(200, function ($talentNominationGroups) use (&$processedUserIds) {
+        $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $user = $talentNominationGroup->nominee;
 
                 // Skip if already processed
-                if (in_array($user->id, $processedUserIds)) {
+                if (in_array($user->id, $this->userIds)) {
                     continue;
                 }
 
-                $processedUserIds[] = $user->id;
+                $this->userIds[] = $user->id;
                 $consentToShare = $talentNominationGroup->consentToShareProfile;
+                $this->consentToShareByUserId[$user->id] = $consentToShare;
 
                 $department = $user->department()->first();
                 $preferences = $user->getOperationalRequirements();
@@ -323,8 +349,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                 $values = [
                     $user->id,
-                    $this->canShare($consentToShare, $user->first_name),
-                    $this->canShare($consentToShare, $user->last_name),
+                    $user->first_name,
+                    $user->last_name,
                     $this->canShare($consentToShare, $user->email ?? ''),
                     $this->canShare($consentToShare, $user->telephone ?? ''),
                     $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class)),
@@ -421,7 +447,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $query = $this->buildQuery();
         $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
-                $consentToShare = $talentNominationGroup->consentToShareProfile;
                 $user = $talentNominationGroup->nominee;
 
                 foreach ($talentNominationGroup->nominations as $nomination) {
@@ -437,8 +462,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
                     $values = [
                         $user->id,
-                        $this->canShare($consentToShare, $user->first_name), // nominee's first name
-                        $this->canShare($consentToShare, $user->last_name), // nominee's last name
+                        $user->first_name, // nominee's first name
+                        $user->last_name, // nominee's last name
                         $nomination->submitted_at ? $nomination->submitted_at->format('Y-m-d') : '', // Date received
                         $optionsStr, // nomination options
                         $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
@@ -453,13 +478,15 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                         $referenceDetails['email'], // reference email
                         $referenceDetails['classification'], // reference classification
                         $referenceDetails['department'], // reference department
-                        $this->canShare($consentToShare, $lateralMovementOptionsStr),  // lateral experience recommendations
-                        $this->canShare($consentToShare, $nomination->lateral_movement_options_other ?? ''), // other lateral experience
-                        $this->canShare($consentToShare, $developmentProgramsStr),   // development program recommendations
-                        $this->canShare($consentToShare, $nomination->development_program_options_other ?? ''), // other development program experience
-                        $this->canShare($consentToShare, $nomination->nomination_rationale ?? ''), // rationale
+                        $this->localizeEnum($nomination->nine_box_performance?->name, NineBoxRating::class), // nine box performance
+                        $this->localizeEnum($nomination->nine_box_leadership_potential?->name, NineBoxRating::class), // nine box leadership potential
+                        $lateralMovementOptionsStr,  // lateral experience recommendations
+                        $nomination->lateral_movement_options_other ?? '', // other lateral experience
+                        $developmentProgramsStr,   // development program recommendations
+                        $nomination->development_program_options_other ?? '', // other development program experience
+                        $nomination->nomination_rationale ?? '', // rationale
                         $leadershipCompetenciesStr, // leadership competencies
-                        $this->canShare($consentToShare, $nomination->additional_comments ?? ''), // additional comments
+                        $nomination->additional_comments ?? '', // additional comments
                     ];
 
                     $this->writer->addRow($this->row($values));
@@ -705,32 +732,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         );
     }
 
-    /**
-     * Get looking for languages
-     */
-    private function lookingForLanguages(User $user): string
-    {
-        $languages = [];
-
-        if ($user->looking_for_english) {
-            $languages[] = $this->localize('language.en');
-        }
-
-        if ($user->looking_for_french) {
-            $languages[] = $this->localize('language.fr');
-        }
-
-        if ($user->looking_for_bilingual) {
-            $languages[] = $this->localize('common.bilingual');
-        }
-
-        return implode(', ', $languages);
-    }
-
     private function buildQuery()
     {
         $query = TalentNominationGroup::with([
             'talentNominationEvent',
+            'advancementClassifications',
             'nominee' => function ($query) {
                 $query->with([
                     'department',
@@ -775,8 +781,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
 
         /** @var Builder<TalentNominationGroup> $query */
         $query
-            ->authorizedToView(['userId' => $this->authenticatedUserId])
-            ->isVerifiedGovEmployee();
+            ->authorizedToView(['userId' => $this->authenticatedUserId]);
 
         return $query;
 

@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
 
-import type { LocalizedIndigenousCommunity } from "@gc-digital-talent/graphql";
 import { IndigenousCommunity } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getEmploymentEquityStatement,
@@ -17,7 +17,8 @@ export interface DiversityEquityInclusionSnapshotV1 {
   isWoman?: boolean | null;
   hasDisability?: boolean | null;
   isVisibleMinority?: boolean | null;
-  indigenousCommunities?: (LocalizedIndigenousCommunity | null)[] | null;
+  indigenousCommunities?:
+    (GenericLocalizedEnum<IndigenousCommunity> | null)[] | null;
 }
 
 type DiversityEquityInclusionV1Props =

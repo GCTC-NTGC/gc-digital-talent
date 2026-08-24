@@ -10,7 +10,6 @@ use App\Enums\ErrorCode;
 use App\Enums\FlexibleWorkLocation;
 use App\Enums\GovEmployeeType;
 use App\Enums\IndigenousCommunity;
-use App\Enums\LanguageAbility;
 use App\Enums\OperationalRequirement;
 use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
@@ -1580,112 +1579,6 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'data' => $usersByName,
                 ],
-            ],
-        ]);
-    }
-
-    public function testCountApplicantsQuery(): void
-    {
-        // Get the ID of the base admin user
-        $user = User::All()->first();
-
-        // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-        $pool2 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
-
-        PoolCandidate::factory()->count(8)->placed(PlacementType::NOT_PLACED)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        PoolCandidate::factory()->count(5)->placed(PlacementType::PLACED_TENTATIVE)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => false,
-                'looking_for_french' => true,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Should appear in searches, but in pool 2.
-        PoolCandidate::factory()->placed(PlacementType::PLACED_CASUAL)->for($pool2)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Expired in pool - should not appear in searches
-        PoolCandidate::factory()->expired()->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // Already placed - should not appear in searches
-        PoolCandidate::factory()->placed(PlacementType::PLACED_TERM)->for($pool1)->create([
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-        // User status inactive - should not appear in searches
-        PoolCandidate::factory()->qualified()->for($pool1)->create([
-            'pause_referrals_at' => config('constants.past_date'),
-            'user_id' => User::factory([
-                'looking_for_english' => true,
-                'looking_for_french' => false,
-                'looking_for_bilingual' => false,
-            ]),
-        ]);
-
-        // Query specifying just a pool will return all non-expired, available-status candidates whose Users are looking for or open to opportunities.
-        $response = $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicantsForSearch($where: ApplicantFilterInput) {
-                countApplicantsForSearch(where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                ],
-            ]
-        );
-        $response->assertJson([
-            'data' => [
-                'countApplicantsForSearch' => 15, // including base admin user
-            ],
-        ]);
-
-        // Assert query with another filter will return proper count
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-            query countApplicantsForSearch($where: ApplicantFilterInput) {
-                countApplicantsForSearch(where: $where)
-            }
-        ',
-            [
-                'where' => [
-                    'pools' => [
-                        ['id' => $pool1['id']],
-                    ],
-                    'languageAbility' => LanguageAbility::ENGLISH->name,
-                ],
-            ]
-        )->assertJson([
-            'data' => [
-                'countApplicantsForSearch' => 10, // including base admin user
             ],
         ]);
     }

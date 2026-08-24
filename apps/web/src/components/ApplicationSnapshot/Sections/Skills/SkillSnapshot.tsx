@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import { useIntl } from "react-intl";
 
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -23,8 +23,12 @@ import ExperienceCard, {
 } from "~/components/ExperienceCard/ExperienceCard";
 import { groupExperiencesBySkill } from "~/utils/skillUtils";
 
+interface SnapshotSkill {
+  id: string;
+}
+
 interface SkillExperiencesProps {
-  skill: Pick<Skill, "id">;
+  skill: SnapshotSkill;
   experiences: SnapshotExperience[];
 }
 

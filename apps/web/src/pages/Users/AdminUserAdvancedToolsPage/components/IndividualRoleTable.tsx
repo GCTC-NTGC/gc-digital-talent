@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
+import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import { normalizedText } from "~/components/Table/sortingFns";
@@ -16,7 +16,7 @@ import { getRoleTableFragments, roleCell } from "../utils";
 import RemoveIndividualRoleDialog from "./RemoveIndividualRoleDialog";
 import AddIndividualRoleDialog from "./AddIndividualRoleDialog";
 
-const columnHelper = createColumnHelper<RoleAssignment>();
+const columnHelper = createColumnHelper<AuthRoleAssignment>();
 
 const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
   const intl = useIntl();
@@ -41,7 +41,7 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
       header: intl.formatMessage(commonMessages.role),
       cell: ({ getValue }) => roleCell(getValue()),
     }),
-  ] as ColumnDef<RoleAssignment>[];
+  ] as ColumnDef<AuthRoleAssignment>[];
 
   const data = unpackMaybes(user.authInfo?.roleAssignments).filter(
     (assignment) => !assignment.role?.isTeamBased,
@@ -58,7 +58,7 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
       <Heading level="h3" size="h4" className="font-bold">
         {pageTitle}
       </Heading>
-      <Table<RoleAssignment>
+      <Table<AuthRoleAssignment>
         caption={pageTitle}
         data={data}
         columns={columns}

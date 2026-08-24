@@ -4,7 +4,8 @@ import { useClient } from "urql";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Accordion, Heading, Ul, Notice } from "@gc-digital-talent/ui";
-import { graphql, type Skill } from "@gc-digital-talent/graphql";
+import type { ExperienceFormSkillFragment } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 
 import SkillsInDetail from "~/components/SkillsInDetail/SkillsInDetail";
 import type { ExperienceType, FormSkill, FormSkills } from "~/types/experience";
@@ -28,7 +29,7 @@ interface ExperienceSkillValues {
 type AccordionStates = "learn-more" | "";
 
 interface ExperienceSkillsProps {
-  skills: Skill[];
+  skills: ExperienceFormSkillFragment[];
   experienceType?: ExperienceType;
   experienceId?: string;
 }
@@ -203,7 +204,7 @@ const ExperienceSkills = ({
                 }),
               }}
               context="experience"
-              skills={unclaimedSkills}
+              query={unclaimedSkills}
               onSave={handleAddSkill}
             />
           </div>

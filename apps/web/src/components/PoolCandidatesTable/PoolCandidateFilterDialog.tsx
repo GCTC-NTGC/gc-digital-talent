@@ -9,7 +9,7 @@ import {
   RadioGroup,
   Select,
 } from "@gc-digital-talent/forms";
-import type { FragmentType, AssessmentStep } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -194,13 +194,27 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
   }
 `);
 
+export const PoolCandidateFilterDialog_StepFragment = graphql(/* GraphQL */ `
+  fragment PoolCandidateFilterDialogStep on AssessmentStep {
+    sortOrder
+    title {
+      localized
+    }
+    type {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
+
 export type PoolCandidateFilterDialogProps =
   CommonFilterDialogProps<FormValues> & {
     hidePoolFilter?: boolean;
     query?: FragmentType<typeof PoolCandidateFilterDialog_Query>;
     availableSteps?:
-      | Pick<AssessmentStep, "id" | "type" | "sortOrder" | "title">[]
-      | null;
+      FragmentType<typeof PoolCandidateFilterDialog_StepFragment>[] | null;
   };
 
 const PoolCandidateFilterDialog = ({
@@ -215,7 +229,12 @@ const PoolCandidateFilterDialog = ({
   const data = getFragment(PoolCandidateFilterDialog_Query, query);
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
-  const assessmentSteps = unpackMaybes(availableSteps)
+  const steps = getFragment(
+    PoolCandidateFilterDialog_StepFragment,
+    availableSteps,
+  );
+
+  const assessmentSteps = unpackMaybes(steps)
     .filter(
       (step) =>
         !!step.sortOrder &&
@@ -237,8 +256,9 @@ const PoolCandidateFilterDialog = ({
     <FilterDialog<FormValues>
       options={{ defaultValues: initialValues }}
       // Remove hidden pools filters from count
+      // Default hard-coded filters: expiryStatus, suspendedStatus and poolId
       {...(hidePoolFilter && {
-        modifyFilterCount: -5,
+        modifyFilterCount: -3,
       })}
       {...{ resetValues, onSubmit }}
     >

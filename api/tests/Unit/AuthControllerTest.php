@@ -21,6 +21,48 @@ class AuthControllerTest extends TestCase
         parent::setUp();
     }
 
+    public function testLoginSendsPkceChallengeAndStoresVerifier()
+    {
+        $response = $this->call('GET', '/login');
+
+        $location = $response->headers->get('Location');
+        parse_str(parse_url($location, PHP_URL_QUERY), $query);
+
+        $this->assertSame('S256', $query['code_challenge_method']);
+        $this->assertNotEmpty($query['code_challenge']);
+
+        $codeVerifier = $this->app['session']->get('code_verifier');
+        $this->assertNotEmpty($codeVerifier);
+        $this->assertSame($query['code_challenge'], rtrim(strtr(base64_encode(hash('sha256', $codeVerifier, true)), '+/', '-_'), '='));
+    }
+
+    public function testAuthCallbackSendsCodeVerifierToTokenEndpoint()
+    {
+        $this->seed(RolePermissionSeeder::class);
+
+        // id_token generated at jwt.io with payload:
+        // {"sub":"1234567890","nonce":"abc","state":"abc","iat":1516239022}
+        Http::fakeSequence()
+            ->push([
+                'id_token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibm9uY2UiOiJhYmMiLCJzdGF0ZSI6ImFiYyIsImlhdCI6MTUxNjIzOTAyMn0.p4GMaQjmIcUAxjAZ7Y51C1q1mu5sVXJLdX1zybt4jFc',
+            ], 200)
+            ->whenEmpty(Http::response());
+
+        $this->withSession([
+            'state' => 'abc',
+            'nonce' => 'abc',
+            'code_verifier' => 'test-verifier',
+        ])->call('GET', '/auth-callback', [
+            'state' => 'abc',
+            'nonce' => 'abc',
+            'code' => 'code',
+        ]);
+
+        Http::assertSent(function ($request) {
+            return $request['code_verifier'] === 'test-verifier';
+        });
+    }
+
     public function testNewUserCreationOnLogin()
     {
         $this->seed(RolePermissionSeeder::class);
@@ -166,5 +208,41 @@ class AuthControllerTest extends TestCase
         $newUser = User::where('sub', 'newsub')->sole();
         $this->assertSame('duplicate@gc.ca', $newUser->email);
         $this->assertSame('duplicate@gc.ca', $newUser->work_email);
+    }
+
+    public function testMismatchedSessionStateRedirectsToLoggedOutWithoutError()
+    {
+        Http::fake();
+
+        $response = $this->withSession([
+            'state' => 'original-state',
+            'nonce' => 'original-nonce',
+        ])->call('GET', '/auth-callback', [
+            'state' => 'different-state',
+            'nonce' => 'original-nonce',
+            'code' => 'code',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertStringContainsString('reason=invalid-session', $response->headers->get('Location'));
+        Http::assertNothingSent();
+        assertSame(0, count(User::all()));
+    }
+
+    public function testMissingSessionStateRedirectsToLoggedOutWithoutError()
+    {
+        Http::fake();
+
+        // no 'state' or 'nonce' put into the session, simulating an expired
+        // or already-consumed session (eg. from a repeat callback request)
+        $response = $this->withSession([])->call('GET', '/auth-callback', [
+            'state' => 'some-state',
+            'nonce' => 'some-nonce',
+            'code' => 'code',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertStringContainsString('reason=invalid-session', $response->headers->get('Location'));
+        Http::assertNothingSent();
     }
 }

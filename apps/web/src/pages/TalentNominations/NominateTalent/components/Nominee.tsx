@@ -17,6 +17,7 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
+import { isPastDateTime } from "@gc-digital-talent/date-helpers";
 
 import EmployeeSearchInput from "~/components/EmployeeSearchInput/EmployeeSearchInput";
 import { fragmentToEmployee } from "~/components/EmployeeSearchInput/utils";
@@ -168,11 +169,16 @@ const NominateTalentNominee_Fragment = graphql(/* GraphQL */ `
       value
     }
     nomineeRelationshipToNominatorOther
+    talentNominationEvent {
+      id
+      closeDate
+    }
   }
 `);
 
 const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
   return {
+    id: values.id,
     nominee: { connect: values.nominee },
     nomineeReview: values.nomineeReview,
     nomineeRelationshipToNominator: values.nomineeRelationshipToNominator,
@@ -197,10 +203,14 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
     return null;
   }
 
+  const closeDate = talentNomination?.talentNominationEvent?.closeDate;
+  const isPastEvent = isPastDateTime(closeDate);
+
   return (
     <UpdateForm<FormValues>
       submitDataTransformer={transformSubmitData}
       defaultValues={{
+        id: talentNomination.id,
         nominee: talentNomination.nominee?.id,
         nomineeReview: talentNomination.nomineeReview?.value,
         nomineeRelationshipToNominator:
@@ -208,6 +218,7 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
         nomineeRelationshipToNominatorOther:
           talentNomination.nomineeRelationshipToNominatorOther ?? "",
       }}
+      isPastEvent={isPastEvent}
     >
       <SubHeading icon={UserCircleIcon}>
         {intl.formatMessage(messages.nomineeInfo)}
@@ -215,8 +226,8 @@ const Nominee = ({ nomineeQuery, optionsQuery }: NomineeProps) => {
       <p className="my-6">
         {intl.formatMessage({
           defaultMessage:
-            "Now that we know a little about who is submitting the nomination, let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
-          id: "BG9koi",
+            "Now let’s collect some information about the nominee. We'll start by checking if they have a GC Digital Talent account using their work email.",
+          id: "sOEIhS",
           description: "Subtitle for nomination nominee step",
         })}
       </p>

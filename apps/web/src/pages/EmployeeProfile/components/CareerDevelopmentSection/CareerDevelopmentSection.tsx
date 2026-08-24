@@ -30,11 +30,11 @@ import {
   getLearningOpportunitiesInterest,
   getMentorshipInterest,
   getMentorshipStatus,
+  localizedEnumArrayToInput,
   MentorshipStatus,
 } from "@gc-digital-talent/i18n";
 import type {
   FragmentType,
-  EmployeeProfile,
   UpdateEmployeeProfileInput,
   TimeFrame,
   OrganizationTypeInterest,
@@ -81,41 +81,6 @@ const UpdateEmployeeProfileCareerDevelopment_Mutation = graphql(/* GraphQL */ `
     }
   }
 `);
-
-const dataToFormValues = ({
-  lateralMoveInterest,
-  lateralMoveTimeFrame,
-  lateralMoveOrganizationType,
-  promotionMoveInterest,
-  promotionMoveTimeFrame,
-  promotionMoveOrganizationType,
-  learningOpportunitiesInterest,
-  eligibleRetirementYearKnown,
-  eligibleRetirementYear,
-  mentorshipStatus,
-  mentorshipInterest,
-  execInterest,
-  execCoachingStatus,
-  execCoachingInterest,
-}: EmployeeProfile): FormValues => ({
-  lateralMoveInterest: boolToYesNo(lateralMoveInterest),
-  lateralMoveTimeFrame: lateralMoveTimeFrame?.value,
-  lateralMoveOrganizationType:
-    lateralMoveOrganizationType?.map((x) => x.value) ?? [],
-  promotionMoveInterest: boolToYesNo(promotionMoveInterest),
-  promotionMoveTimeFrame: promotionMoveTimeFrame?.value,
-  promotionMoveOrganizationType:
-    promotionMoveOrganizationType?.map((x) => x.value) ?? [],
-  learningOpportunitiesInterest:
-    learningOpportunitiesInterest?.map((x) => x.value) ?? [],
-  eligibleRetirementYearKnown: boolToYesNo(eligibleRetirementYearKnown),
-  eligibleRetirementYear: eligibleRetirementYear ?? null,
-  mentorshipStatus: mentorshipStatusToFormValues(mentorshipStatus),
-  mentorshipInterest: mentorshipInterest?.map((x) => x.value) ?? [],
-  execInterest: boolToYesNo(execInterest),
-  execCoachingStatus: execCoachingStatusToFormValues(execCoachingStatus),
-  execCoachingInterest: execCoachingInterest?.map((x) => x.value) ?? [],
-});
 
 export interface FormValues extends Pick<
   UpdateEmployeeProfileInput,
@@ -197,7 +162,38 @@ const CareerDevelopmentSection = ({
   };
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(employeeProfile),
+    defaultValues: {
+      lateralMoveInterest: boolToYesNo(employeeProfile.lateralMoveInterest),
+      lateralMoveTimeFrame: employeeProfile.lateralMoveTimeFrame?.value,
+      lateralMoveOrganizationType: localizedEnumArrayToInput(
+        employeeProfile.lateralMoveOrganizationType,
+      ),
+      promotionMoveInterest: boolToYesNo(employeeProfile.promotionMoveInterest),
+      promotionMoveTimeFrame: employeeProfile.promotionMoveTimeFrame?.value,
+      promotionMoveOrganizationType: localizedEnumArrayToInput(
+        employeeProfile.promotionMoveOrganizationType,
+      ),
+      learningOpportunitiesInterest: localizedEnumArrayToInput(
+        employeeProfile.learningOpportunitiesInterest,
+      ),
+      eligibleRetirementYearKnown: boolToYesNo(
+        employeeProfile.eligibleRetirementYearKnown,
+      ),
+      eligibleRetirementYear: employeeProfile.eligibleRetirementYear ?? null,
+      mentorshipStatus: mentorshipStatusToFormValues(
+        employeeProfile.mentorshipStatus,
+      ),
+      mentorshipInterest: localizedEnumArrayToInput(
+        employeeProfile.mentorshipInterest,
+      ),
+      execInterest: boolToYesNo(employeeProfile.execInterest),
+      execCoachingStatus: execCoachingStatusToFormValues(
+        employeeProfile.execCoachingStatus,
+      ),
+      execCoachingInterest: localizedEnumArrayToInput(
+        employeeProfile.execCoachingInterest,
+      ),
+    },
   });
   const { watch, resetField, handleSubmit } = methods;
 

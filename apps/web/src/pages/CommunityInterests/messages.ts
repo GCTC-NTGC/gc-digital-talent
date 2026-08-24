@@ -22,4 +22,9 @@ export const messages = defineMessages({
     id: "tL6hvG",
     description: "Short title for the edit community interest page",
   },
+  communityReferralStatus: {
+    defaultMessage: "Community referral status",
+    id: "AoCTYC",
+    description: "Label for a community interest's referral status",
+  },
 });

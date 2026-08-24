@@ -20,7 +20,7 @@ import {
 } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getLogger } from "@gc-digital-talent/logger";
-import { useFeatureFlags } from "@gc-digital-talent/env";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -29,6 +29,7 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import authMessages from "~/messages/authMessages";
 import useReturnPath from "~/hooks/useReturnPath";
 import { urlMatchesAppHostName } from "~/utils/utils";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
 const supportLink = (chunks: ReactNode, path: string) => (
   <Link href={path} state={{ referrer: window.location.href }} color="black">
@@ -38,11 +39,19 @@ const supportLink = (chunks: ReactNode, path: string) => (
 
 export const clientLoader: ClientLoaderFunction = ({ request }) => {
   const logger = getLogger();
+
+  removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
+
   const url = new URL(request.url);
   const from = url.searchParams.get("from");
   if (from && (urlMatchesAppHostName(from) || from.startsWith("/"))) {
     // eslint-disable-next-line @typescript-eslint/only-throw-error
     throw redirect(from);
+  }
+
+  const reason = url.searchParams.get("logout_reason");
+  if (reason) {
+    localStorage.setItem(LOGOUT_REASON_KEY, reason);
   }
 
   const overridePath = sessionStorage.getItem(POST_LOGOUT_OVERRIDE_PATH_KEY);
@@ -70,11 +79,9 @@ export const Component = () => {
     LOGOUT_REASON_KEY,
   ) as LogoutReason | null; // no way to make compile time guarantees on this
 
-  // feature flag
-  const { canadaLogin } = useFeatureFlags();
-
   let alert;
   switch (logoutReason) {
+    case "invalid-session":
     case "session-expired":
       alert = (
         <Notice.Root color="warning" mode="card">
@@ -87,25 +94,14 @@ export const Component = () => {
             })}
           </Notice.Title>
           <Notice.Content>
-            {canadaLogin ? (
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
-                  id: "FC9V56",
-                  description: "Message displayed to a user after signing out",
-                })}
-              </p>
-            ) : (
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon.",
-                  id: "neMFtr",
-                  description: "Message displayed to a user after signing out",
-                })}
-              </p>
-            )}
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
+                id: "FC9V56",
+                description: "Message displayed to a user after signing out",
+              })}
+            </p>
           </Notice.Content>
         </Notice.Root>
       );
@@ -153,25 +149,14 @@ export const Component = () => {
             })}
           </Notice.Title>
           <Notice.Content>
-            {canadaLogin ? (
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
-                  id: "FC9V56",
-                  description: "Message displayed to a user after signing out",
-                })}
-              </p>
-            ) : (
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "To sign back in, you'll need to use your GCKey username and password. We hope to see you soon.",
-                  id: "neMFtr",
-                  description: "Message displayed to a user after signing out",
-                })}
-              </p>
-            )}
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "To sign back in, you’ll need to use your CanadaLogin email and password. We hope to see you soon.",
+                id: "FC9V56",
+                description: "Message displayed to a user after signing out",
+              })}
+            </p>
           </Notice.Content>
         </Notice.Root>
       );
@@ -250,15 +235,13 @@ export const Component = () => {
           <AlertDialog.Title>
             {intl.formatMessage(authMessages.signOut)}
           </AlertDialog.Title>
-          <AlertDialog.Description>
-            <p className="text-xl/[1.1] lg:text-2xl/[1.1]">
-              {intl.formatMessage({
-                defaultMessage: "Are you sure you would like to sign out?",
-                id: "mNNgEF",
-                description:
-                  "Question displayed when authenticated user lands on /logged-out.",
-              })}
-            </p>
+          <AlertDialog.Description className="text-xl/[1.1] lg:text-2xl/[1.1]">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to sign out?",
+              id: "mNNgEF",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
           </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Action>

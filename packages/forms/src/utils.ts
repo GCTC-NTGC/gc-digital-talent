@@ -180,8 +180,10 @@ export const countNumberOfWords = (text: string): number => {
  * @param text String you want the word count for after removing HTML tags
  * @returns number
  */
-export const countNumberOfWordsAfterReplacingHTML = (text: string): number => {
-  if (text === "") {
+export const countNumberOfWordsAfterReplacingHTML = (
+  text: string | null,
+): number => {
+  if (text === "" || text == null) {
     return 0; // otherwise this sometimes returns "<empty string>"
   }
 
