@@ -8,7 +8,6 @@ import {
   fakeLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
-import type { GeneralQuestionResponse, User } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
   makeFragmentData,
@@ -21,7 +20,7 @@ import ApplicationSnapshot, {
 faker.seed(0);
 
 const question = faker.lorem.words(6);
-const generalQuestionResponses: GeneralQuestionResponse[] = [
+const generalQuestionResponses = [
   {
     id: faker.string.uuid(),
     answer: faker.lorem.sentences(3),
@@ -30,23 +29,22 @@ const generalQuestionResponses: GeneralQuestionResponse[] = [
       question: {
         en: `${question}? (EN)`,
         fr: `${question}? (FR)`,
+        localized: `${question}? (EN)`,
       },
     },
   },
 ];
 
 const mockPool = fakePools(1)[0];
-let mockPoolCandidate = fakePoolCandidates(1)[0];
-let mockUser: User = fakeUsers(1)[0];
-mockUser = {
-  ...mockUser,
-  experiences: mockPoolCandidate.educationRequirementExperiences,
-  poolCandidates: [mockPoolCandidate],
+const fakeCandidate = fakePoolCandidates(1)[0];
+const mockUser = {
+  ...fakeUsers(1)[0],
+  experiences: fakeCandidate.educationRequirementExperiences,
+  poolCandidates: [fakeCandidate],
 };
 
-mockPoolCandidate = {
-  __typename: "PoolCandidate",
-  ...mockPoolCandidate,
+const mockPoolCandidate = {
+  ...fakeCandidate,
   pool: mockPool,
   user: mockUser,
   profileSnapshot: JSON.stringify(mockUser),

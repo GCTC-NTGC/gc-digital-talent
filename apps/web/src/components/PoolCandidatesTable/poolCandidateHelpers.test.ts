@@ -1,4 +1,4 @@
-import type { ApplicantFilter } from "@gc-digital-talent/graphql";
+import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import {
   CandidateExpiryFilter,
   CandidateSuspendedFilter,
@@ -38,10 +38,12 @@ describe("Transform form values to filter state", () => {
     });
 
     expect(hasDisabilityFilters).toEqual(
-      expect.objectContaining<{ applicantFilter: Partial<ApplicantFilter> }>({
+      expect.objectContaining<{
+        applicantFilter: Partial<ApplicantFilterInput>;
+      }>({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
 
@@ -54,7 +56,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isWoman: true },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
 
@@ -67,7 +69,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isVisibleMinority: true },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
 
@@ -80,7 +82,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { isIndigenous: true },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
   });
@@ -95,7 +97,7 @@ describe("Transform form values to filter state", () => {
       expect.objectContaining({
         applicantFilter: expect.objectContaining({
           equity: { hasDisability: true, isIndigenous: true },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
 
@@ -113,7 +115,7 @@ describe("Transform form values to filter state", () => {
             isWoman: true,
             isVisibleMinority: true,
           },
-        }) as Partial<ApplicantFilter>,
+        }) as Partial<ApplicantFilterInput>,
       }),
     );
   });

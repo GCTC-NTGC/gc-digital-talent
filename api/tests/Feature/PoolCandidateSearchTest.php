@@ -139,12 +139,12 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (
+            query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
                     orderBy: [
-                  { column: "status_weight", order: ASC }
-                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
-                  { column: "id", order: ASC }
+                  { column: "status_weight", direction: ASC }
+                  { relation: { name: "user", column: "priority_weight" }, direction: ASC }
+                  { column: "id", direction: ASC }
                 ], where: $where) {
                     data {
                         id
@@ -161,7 +161,7 @@ class PoolCandidateSearchTest extends TestCase
             ])
             ->assertJson([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $candidateFour->id],
                             ['id' => $candidateTwo->id],
@@ -194,7 +194,7 @@ class PoolCandidateSearchTest extends TestCase
                 ]
             )->assertJson([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $candidateFour->id],
                             ['id' => $candidateFive->id],
@@ -217,12 +217,12 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
                   where: $where
                   orderBy: [
-                  { column: "status_weight", order: ASC }
-                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  { column: "status_weight", direction: ASC }
+                  { relation: { name: "user", column: "priority_weight" }, direction: ASC }
                 ]) {
                     paginatorInfo {
                         count
@@ -241,7 +241,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 3,
                     ],
@@ -259,7 +259,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 1,
                     ],
@@ -277,7 +277,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 4,
                     ],
@@ -302,12 +302,12 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
                   where: $where
                   orderBy: [
-                  { column: "status_weight", order: ASC }
-                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  { column: "status_weight", direction: ASC }
+                  { relation: { name: "user", column: "priority_weight" }, direction: ASC }
                 ]) {
                     paginatorInfo {
                         count
@@ -326,7 +326,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 6,
                     ],
@@ -344,7 +344,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 6,
                     ],
@@ -362,7 +362,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 2,
                     ],
@@ -380,7 +380,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 8,
                     ],
@@ -412,12 +412,12 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
                   where: $where
                   orderBy: [
-                  { column: "status_weight", order: ASC }
-                  { user: { aggregate: MAX, column: PRIORITY_WEIGHT }, order: ASC }
+                  { column: "status_weight", direction: ASC }
+                  { relation: { name: "user", column: "priority_weight" }, direction: ASC }
                 ]) {
                     paginatorInfo {
                         count
@@ -436,7 +436,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 8,
                     ],
@@ -454,7 +454,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 5,
                     ],
@@ -491,8 +491,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-            query poolCandidatesPaginatedAdminView ($where: PoolCandidateSearchInput) {
-                poolCandidatesPaginatedAdminView (
+            query poolCandidatesPaginated ($where: PoolCandidateSearchInput) {
+                poolCandidatesPaginated (
                   where: $where
                   ) {
                     paginatorInfo {
@@ -512,7 +512,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 9,
                     ],
@@ -535,7 +535,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 6,
                     ],
@@ -560,7 +560,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 5,
                     ],
@@ -579,8 +579,8 @@ class PoolCandidateSearchTest extends TestCase
         $query =
             /** @lang GraphQL */
             '
-        query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(
+        query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginated(
                 where: $where
             ) {
                 paginatorInfo {
@@ -599,7 +599,7 @@ class PoolCandidateSearchTest extends TestCase
             ]
         )->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 1,
                     ],
@@ -612,7 +612,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -642,7 +642,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -658,7 +658,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -695,7 +695,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -711,7 +711,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -748,7 +748,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -764,7 +764,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -796,7 +796,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -811,7 +811,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -845,7 +845,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -860,7 +860,7 @@ class PoolCandidateSearchTest extends TestCase
     {
         $query = <<<'GRAPHQL'
         query PoolCandidates($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+            poolCandidatesPaginated(where: $where) {
                 data {
                     id
                 }
@@ -900,7 +900,7 @@ class PoolCandidateSearchTest extends TestCase
                 ],
             ])->assertJsonFragment([
                 'data' => [
-                    'poolCandidatesPaginatedAdminView' => [
+                    'poolCandidatesPaginated' => [
                         'data' => [
                             ['id' => $expectedCandidate->id],
                         ],
@@ -972,8 +972,8 @@ class PoolCandidateSearchTest extends TestCase
             ]);
 
         $query = <<<'GRAPHQL'
-        query poolCandidatesPaginatedAdminView($where: PoolCandidateSearchInput) {
-            poolCandidatesPaginatedAdminView(where: $where) {
+        query poolCandidatesPaginated($where: PoolCandidateSearchInput) {
+            poolCandidatesPaginated(where: $where) {
                 paginatorInfo {
                     count
                 }
@@ -989,7 +989,7 @@ class PoolCandidateSearchTest extends TestCase
             'where' => ['referralStatuses' => [CandidateReferralFilter::REFERRING->name]],
         ])->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 2,
                     ],
@@ -1002,7 +1002,7 @@ class PoolCandidateSearchTest extends TestCase
             'where' => ['referralStatuses' => [CandidateReferralFilter::NOT_REFERRING->name]],
         ])->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 2,
                     ],
@@ -1015,7 +1015,7 @@ class PoolCandidateSearchTest extends TestCase
             'where' => ['referralStatuses' => array_column(CandidateReferralFilter::cases(), 'name')],
         ])->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 4,
                     ],
@@ -1028,7 +1028,7 @@ class PoolCandidateSearchTest extends TestCase
             'where' => ['referralStatuses' => []],
         ])->assertJson([
             'data' => [
-                'poolCandidatesPaginatedAdminView' => [
+                'poolCandidatesPaginated' => [
                     'paginatorInfo' => [
                         'count' => 6,
                     ],

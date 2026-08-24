@@ -1,4 +1,5 @@
-import type { FragmentType, RoleAssignment } from "@gc-digital-talent/graphql";
+import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 
 import type Hero from "~/components/Hero";
 
@@ -20,7 +21,7 @@ export interface ContextType {
   teamId: string | null | undefined;
   navTabs: React.ComponentProps<typeof Hero>["navTabs"];
   navigationCrumbs: React.ComponentProps<typeof Hero>["crumbs"];
-  roleAssignmentsFiltered: RoleAssignment[];
+  roleAssignmentsFiltered: AuthRoleAssignment[];
   canViewManageAccess: boolean;
   canEditAdmin: boolean;
   canEditAdvisor: boolean;

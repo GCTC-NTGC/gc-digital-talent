@@ -9,12 +9,10 @@ import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
-  getLocale,
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
 import type {
-  Classification,
   LocalizedEnumString,
   LocalizedTalentRequestSource,
 } from "@gc-digital-talent/graphql";
@@ -36,21 +34,12 @@ import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 
 const ApplicantFilters = ({
   applicantFilter,
-  selectedClassifications,
   flexibleWorkLocationOptions,
 }: {
   applicantFilter?: PartialApplicantFilter | null;
-  selectedClassifications?: (
-    Pick<Classification, "groupAndLevel"> | null | undefined
-  )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  // else set values if filters prop is of ApplicantFilterInput type
-  const classificationsFromBrowserHistory = selectedClassifications?.map(
-    (classification) => wrapAbbr(classification?.groupAndLevel, intl),
-  );
 
   const classifications = applicantFilter?.qualifiedInClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
@@ -59,7 +48,7 @@ const ApplicantFilters = ({
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
-      skill?.name[locale] ??
+      skill?.name?.localized ??
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         id: "0T3NB0",
@@ -153,7 +142,6 @@ const ApplicantFilters = ({
                     getShortPoolTitleHtml(intl, {
                       workStream: pool.workStream,
                       name: pool.name,
-                      publishingGroup: pool.publishingGroup,
                       classification: pool.classification,
                     }),
                   )
@@ -167,10 +155,7 @@ const ApplicantFilters = ({
               description:
                 "Title for group and level on summary of filters section",
             })}
-            content={uniqueItems(
-              classificationsFromBrowserHistory ??
-                classificationsFromApplicantFilter,
-            )}
+            content={uniqueItems(classificationsFromApplicantFilter)}
           />
           <FilterBlock
             title={intl.formatMessage(talentRequestMessages.stream)}
@@ -276,21 +261,16 @@ const ApplicantFilters = ({
 
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | null;
-  selectedClassifications?: (
-    Pick<Classification, "groupAndLevel"> | null | undefined
-  )[];
   flexibleWorkLocationOptions: LocalizedEnumString[];
   talentSourceOptions?: LocalizedTalentRequestSource[];
 }
 
 const SearchRequestFilters = ({
   filters,
-  selectedClassifications,
   flexibleWorkLocationOptions,
 }: SearchRequestFiltersProps) => (
   <ApplicantFilters
     applicantFilter={filters}
-    selectedClassifications={selectedClassifications}
     flexibleWorkLocationOptions={flexibleWorkLocationOptions}
   />
 );

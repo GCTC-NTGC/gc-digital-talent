@@ -1,4 +1,4 @@
-import type { User } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql/schema-types";
 
 import { expect, test } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";

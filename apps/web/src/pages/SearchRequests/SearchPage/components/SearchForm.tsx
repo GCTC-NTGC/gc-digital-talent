@@ -11,25 +11,28 @@ import {
   Pending,
   Separator,
 } from "@gc-digital-talent/ui";
-import { unpackMaybes, notEmpty } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
-  Classification,
   ApplicantFilterInput,
-  Skill,
-  WorkStream,
+  FragmentType,
 } from "@gc-digital-talent/graphql";
-import {
-  graphql,
-  FlexibleWorkLocation,
-  TalentRequestSource,
-} from "@gc-digital-talent/graphql";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { graphql, TalentRequestSource } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
-import type { FormValues } from "~/types/talentRequestForm";
+import type {
+  FormValues,
+  TalentRequestClassification,
+  TalentRequestWorkStream,
+} from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 
 import { formValuesToData } from "../utils";
-import { useCandidateCount, useInitialFilters } from "../hooks";
+import {
+  useCandidateCount,
+  useInitialFilters,
+  useTalentRequestState,
+} from "../hooks";
 import FormFields from "./FormFields";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -37,10 +40,22 @@ import NoResults from "./NoResults";
 import SearchResultCard from "./SearchResultCard";
 import CommunityResultCard from "./CommunityResultCard";
 
+const defaultRequestState = {
+  applicantFilter: {},
+  candidateCount: 0,
+};
+
+// Fields the result cards set on click to describe the submission, not the filters.
+const submitOnlyFields: string[] = [
+  "pool",
+  "communityId",
+  "count",
+] satisfies (keyof FormValues)[];
+
 interface SearchFormProps {
-  classifications: Classification[];
-  skills: Skill[];
-  workStreams: WorkStream[];
+  classifications: TalentRequestClassification[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  workStreams: TalentRequestWorkStream[];
 }
 
 export const SearchForm = ({
@@ -51,26 +66,22 @@ export const SearchForm = ({
   const intl = useIntl();
   const navigate = useNavigate();
   const paths = useRoutes();
-  const { defaultValues, initialFilters } = useInitialFilters();
+  const { defaultValues, initialFilters } = useInitialFilters(classifications);
+  const [, setRequestState] = useTalentRequestState({
+    ...defaultRequestState,
+    applicantFilter: initialFilters,
+  });
 
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
     talentSources: [TalentRequestSource.QualifiedInPool],
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
   } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
     talentSources: [TalentRequestSource.QualifiedInPool],
-    flexibleWorkLocations: [
-      FlexibleWorkLocation.Remote,
-      FlexibleWorkLocation.Hybrid,
-    ],
   } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
@@ -88,7 +99,11 @@ export const SearchForm = ({
   const { watch } = methods;
 
   useEffect(() => {
-    const subscription = watch((newValues) => {
+    const subscription = watch((newValues, { name }) => {
+      if (name && submitOnlyFields.includes(name)) {
+        return;
+      }
+
       const newFilters = formValuesToData(
         newValues as FormValues,
         classifications,
@@ -116,7 +131,8 @@ export const SearchForm = ({
       workStream.id === applicantFilter?.qualifiedInWorkStreams?.[0]?.id,
   );
   const selectedWorkStreamName = selectedWorkStream
-    ? getLocalizedName(selectedWorkStream.name, intl)
+    ? (selectedWorkStream.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable))
     : undefined;
 
   const handleSubmit = async (values: FormValues) => {
@@ -138,18 +154,16 @@ export const SearchForm = ({
         : undefined;
     }
 
-    await navigate(paths.request(), {
-      state: {
-        applicantFilter: {
-          ...applicantFilter,
-          pools: poolIds,
-          community,
-        },
-        candidateCount: values.count,
-        selectedClassifications:
-          applicantFilter?.qualifiedInClassifications?.filter(notEmpty),
+    setRequestState({
+      applicantFilter: {
+        ...applicantFilter,
+        pools: poolIds,
+        community,
       },
+      candidateCount: values.count,
     });
+
+    await navigate(paths.request());
   };
 
   return (
@@ -285,11 +299,11 @@ const SearchForm_Query = graphql(/* GraphQL */ `
     workStreams(talentSearchable: true) {
       id
       name {
-        en
-        fr
+        localized
       }
     }
     skills {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -326,7 +340,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
 const SearchFormAPI = () => {
   const [{ data, fetching, error }] = useQuery({ query: SearchForm_Query });
 
-  const skills = unpackMaybes<Skill>(data?.skills);
+  const skills = unpackMaybes(data?.skills);
   const classifications = unpackMaybes(data?.classifications);
   const workStreams = unpackMaybes(data?.workStreams);
 

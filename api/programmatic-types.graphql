@@ -124,6 +124,11 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
+  value: CommunityReferralStatus!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -291,21 +296,6 @@ type LocalizedPlacementType implements LocalizedEnumOption {
 
 type LocalizedPoolAreaOfSelection implements LocalizedEnumOption {
   value: PoolAreaOfSelection!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchPositionType implements LocalizedEnumOption {
-  value: PoolCandidateSearchPositionType!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchRequestReason implements LocalizedEnumOption {
-  value: PoolCandidateSearchRequestReason!
-  label: LocalizedString!
-}
-
-type LocalizedPoolCandidateSearchStatus implements LocalizedEnumOption {
-  value: PoolCandidateSearchStatus!
   label: LocalizedString!
 }
 
@@ -608,15 +598,6 @@ type PoolCandidateAdminViewWithSkillCountPaginator {
   data: [PoolCandidateAdminViewWithSkillCount!]!
 }
 
-"A paginated list of PoolCandidateSearchRequest items."
-type PoolCandidateSearchRequestPaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of PoolCandidateSearchRequest items."
-  data: [PoolCandidateSearchRequest!]!
-}
-
 "A paginated list of TalentRequest items."
 type TalentRequestPaginator {
   "Pagination information about the list of items."
@@ -705,72 +686,6 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn {
-  PRIORITY_WEIGHT
-  FIRST_NAME
-  EMAIL
-  PREFERRED_LANG
-  PREFERRED_LANGUAGE_FOR_INTERVIEW
-  PREFERRED_LANGUAGE_FOR_EXAM
-  CURRENT_CITY
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.user."
-input QueryPoolCandidatesPaginatedAdminViewOrderByUser {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByUserColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn {
-  PROCESS_NUMBER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.pool."
-input QueryPoolCandidatesPaginatedAdminViewOrderByPool {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByPoolColumn
-}
-
-"Allowed column names for Query.poolCandidatesPaginatedAdminView.orderBy."
-enum QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn {
-  SORT_ORDER
-}
-
-"Aggregate specification for Query.poolCandidatesPaginatedAdminView.orderBy.assessmentStep."
-input QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStep {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
-
-  "Name of the column to use."
-  column: QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStepColumn
-}
-
-"Order by clause for Query.poolCandidatesPaginatedAdminView.orderBy."
-input QueryPoolCandidatesPaginatedAdminViewOrderByRelationOrderByClause {
-  "The column that is used for ordering."
-  column: String
-
-  "The direction that is used for ordering."
-  order: SortOrder!
-
-  "Aggregate specification."
-  user: QueryPoolCandidatesPaginatedAdminViewOrderByUser
-
-  "Aggregate specification."
-  pool: QueryPoolCandidatesPaginatedAdminViewOrderByPool
-
-  "Aggregate specification."
-  assessmentStep: QueryPoolCandidatesPaginatedAdminViewOrderByAssessmentStep
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
@@ -1124,6 +1039,9 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
+  ViewAnyCommunityInterestReferralStatus
+  ViewTeamCommunityInterestReferralStatus
+  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -1354,6 +1272,13 @@ enum CommunityInterestAdditionalDuty {
   REAL_PROPERTY_MANAGEMENT
 }
 
+enum CommunityReferralStatus {
+  NEW
+  PENDING
+  AVAILABLE_FOR_REFERRAL
+  NOT_REFERRED
+}
+
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -1455,6 +1380,7 @@ enum ErrorCode {
   ASSESSMENT_STEP_MISSING_SKILLS
   POOL_SKILLS_WITHOUT_ASSESSMENTS
   ASSESSMENT_STEP_CANNOT_SWAP
+  ASSESSMENT_STEP_INVALID_TYPE
   ASSESSMENT_RESULT_REFERENCES_MULTIPLE_POOLS
   SKILL_JUSTIFICATION_FOR_EDUCATION_ASSESSMENT
   EDUCATION_JUSTIFICATIONS_FOR_SKILL_ASSESSMENT
@@ -1779,27 +1705,6 @@ enum PlacementType {
 enum PoolAreaOfSelection {
   PUBLIC
   EMPLOYEES
-}
-
-enum PoolCandidateSearchPositionType {
-  INDIVIDUAL_CONTRIBUTOR
-  TEAM_LEAD
-}
-
-enum PoolCandidateSearchRequestReason {
-  IMMEDIATE_HIRE
-  UPCOMING_NEED
-  GENERAL_INTEREST
-  REQUIRED_BY_DIRECTIVE
-}
-
-enum PoolCandidateSearchStatus {
-  NEW
-  IN_PROGRESS
-  WAITING
-  DONE
-  DONE_NO_CANDIDATES
-  NOT_COMPLIANT
 }
 
 enum PoolLanguage {

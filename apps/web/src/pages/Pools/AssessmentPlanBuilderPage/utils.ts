@@ -1,39 +1,32 @@
 import type { IntlShape } from "react-intl";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AssessmentStep, PoolSkill } from "@gc-digital-talent/graphql";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 export const assessmentStepDisplayName = (
-  assessmentStep: Pick<AssessmentStep, "type" | "title">,
+  title: string | null | undefined,
+  typeLabel: string | null | undefined,
   intl: IntlShape,
 ): string => {
-  const localizedTitle = getLocalizedName(assessmentStep?.title, intl, true);
-  const localizedType = getLocalizedName(
-    assessmentStep.type?.label,
-    intl,
-    true,
-  );
-  if (localizedTitle && localizedType) {
-    return `${localizedTitle} (${localizedType})`;
+  if (title && typeLabel) {
+    return `${title} (${typeLabel})`;
   }
 
-  if (!localizedTitle && localizedType) {
-    return localizedType;
+  if (!title && typeLabel) {
+    return typeLabel;
   }
 
-  if (localizedTitle && !localizedType) {
-    return localizedTitle;
+  if (title && !typeLabel) {
+    return title;
   }
 
   return intl.formatMessage(commonMessages.notAvailable);
 };
 
 export const poolSkillToOption = (
-  poolSkill: Pick<PoolSkill, "id" | "skill">,
+  id: string,
+  skillName: string | null | undefined,
   intl: IntlShape,
 ) => ({
-  value: poolSkill.id,
-  label: poolSkill?.skill?.name
-    ? getLocalizedName(poolSkill.skill.name, intl)
-    : intl.formatMessage(commonMessages.nameNotLoaded),
+  value: id,
+  label: skillName ?? intl.formatMessage(commonMessages.nameNotLoaded),
 });

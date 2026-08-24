@@ -6,11 +6,17 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import OpenJobs from "./OpenJobsPage";
+
+interface MockPool {
+  id: string;
+  publishingGroup: GenericLocalizedEnum<PublishingGroup>;
+  status: GenericLocalizedEnum<PoolStatus>;
+}
 
 const publishedItJobsPool = {
   id: "publishedItJobsPool",
@@ -43,11 +49,7 @@ const publishedIAPJobsPool = {
 };
 
 describe("OpenJobsPage", () => {
-  function renderOpenJobsPage({
-    pools,
-  }: {
-    pools: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">[];
-  }) {
+  function renderOpenJobsPage({ pools }: { pools: MockPool[] }) {
     // Source: https://formidable.com/open-source/urql/docs/advanced/testing/
     const mockClient = {
       executeQuery: () =>

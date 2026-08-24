@@ -94,11 +94,6 @@ const messages = defineMessages({
     id: "VrLfLw",
     description: "Input label asking for the HR advisor's email address.",
   },
-  followUpDate: {
-    defaultMessage: "Follow-up date",
-    id: "5wS5V8",
-    description: "Label for the follow-up date field",
-  },
   candidateTracking: {
     defaultMessage: "Candidate tracking",
     id: "4uFJb+",
@@ -128,11 +123,17 @@ const messages = defineMessages({
     description:
       "Header for the number of user skills matching requested skills",
   },
-  changeStatus: {
-    defaultMessage: "Change status to {status}",
-    id: "DVWX9O",
+  markAs: {
+    defaultMessage: "Mark as {status}",
+    id: "BYi3Ah",
     description:
       "Label for the change status action in the talent request tracked users table",
+  },
+  markAllAs: {
+    defaultMessage: "Mark all as {status}",
+    id: "LG/8JQ",
+    description:
+      "Label for the bulk change status action affecting every tracked user in the talent request tracked users inbox",
   },
   referred: {
     defaultMessage: "Referred",

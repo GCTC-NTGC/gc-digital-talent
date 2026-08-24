@@ -4,11 +4,13 @@ import FolderOpenIcon from "@heroicons/react/24/outline/FolderOpenIcon";
 import {
   getFragment,
   graphql,
-  TalentRequestSource,
   type FragmentType,
-  type LocalizedTalentRequestSource,
+  type TalentRequestSource,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  type GenericLocalizedEnum,
+} from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Ul } from "@gc-digital-talent/ui";
 
@@ -53,7 +55,7 @@ const TalentRequestSourcesCard_Fragment = graphql(/** GraphQL */ `
 
 interface TalentRequestSourcesCardProps {
   query: FragmentType<typeof TalentRequestSourcesCard_Fragment>;
-  talentSourceOptions: LocalizedTalentRequestSource[];
+  talentSourceOptions: GenericLocalizedEnum<TalentRequestSource>[];
 }
 
 const TalentRequestSourcesCard = ({
@@ -73,10 +75,6 @@ const TalentRequestSourcesCard = ({
   const pools = unpackMaybes(applicantFilter?.pools);
   const workStreams = unpackMaybes(applicantFilter?.qualifiedInWorkStreams);
 
-  // TODO: remove this filter once Advancement is implemented, see #17382
-  const talentSourceOptionsFiltered = talentSourceOptions.filter(
-    (source) => source.value !== TalentRequestSource.Advancement,
-  );
   const selectedTalentSources = unpackMaybes(
     applicantFilter?.talentSources?.map((source) => source?.value),
   );
@@ -114,7 +112,7 @@ const TalentRequestSourcesCard = ({
           label={intl.formatMessage(talentRequestMessages.talentSource)}
         >
           <Ul unStyled noIndent inside>
-            {talentSourceOptionsFiltered.map((source) => (
+            {talentSourceOptions.map((source) => (
               <li key={source.value}>
                 <BoolCheckIcon
                   value={selectedTalentSources.includes(source.value)}

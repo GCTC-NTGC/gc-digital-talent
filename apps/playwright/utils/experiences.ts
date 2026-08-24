@@ -3,7 +3,7 @@ import type {
   EducationExperienceInput,
   WorkExperience,
   WorkExperienceInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 

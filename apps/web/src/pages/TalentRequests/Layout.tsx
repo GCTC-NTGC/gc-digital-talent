@@ -160,7 +160,11 @@ const TalentRequestLayout = () => {
 export const Component = () => {
   return (
     <RequireAuth
-      roles={[ROLE_NAME.CommunityRecruiter, ROLE_NAME.CommunityAdmin]}
+      roles={[
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+        ROLE_NAME.PlatformAdmin,
+      ]}
     >
       <TalentRequestLayout />
     </RequireAuth>

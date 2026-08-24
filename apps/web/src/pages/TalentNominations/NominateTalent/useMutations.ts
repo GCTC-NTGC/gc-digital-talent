@@ -19,10 +19,9 @@ import useCurrentStep from "./useCurrentStep";
 
 const NominateTalentUpdate_Mutation = graphql(/* GraphQL */ `
   mutation NominateTalentUpdate(
-    $id: UUID!
     $talentNomination: UpdateTalentNominationInput!
   ) {
-    updateTalentNomination(id: $id, talentNomination: $talentNomination) {
+    updateTalentNomination(talentNomination: $talentNomination) {
       id
     }
   }
@@ -36,7 +35,7 @@ const NominateTalentSubmit_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-interface TalentNominationMutations {
+export interface TalentNominationMutations {
   update: (
     talentNomination: UpdateTalentNominationInput,
     intent: SubmitIntent,
@@ -44,7 +43,7 @@ interface TalentNominationMutations {
   submit: (intent: SubmitIntent) => Promise<void> | null;
 }
 
-type UseMutationsReturn = [boolean, TalentNominationMutations];
+type UseMutationsReturn = [boolean, TalentNominationMutations, boolean];
 
 interface UseMutationsOptions {
   forceProtectedEndpoint: boolean;
@@ -60,9 +59,8 @@ const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
   const [{ fetching: updating }, executeUpdateMutation] = useMutation(
     NominateTalentUpdate_Mutation,
   );
-  const [{ fetching: submitting }, executeSubmitMutation] = useMutation(
-    NominateTalentSubmit_Mutation,
-  );
+  const [{ fetching: submitting, data: submitData }, executeSubmitMutation] =
+    useMutation(NominateTalentSubmit_Mutation);
   const queryContext = options.forceProtectedEndpoint
     ? getProtectedOperationContext()
     : undefined;
@@ -71,7 +69,7 @@ const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
     talentNomination,
     intent,
   ) => {
-    return executeUpdateMutation({ id, talentNomination }, queryContext)
+    return executeUpdateMutation({ talentNomination }, queryContext)
       .then(async (res) => {
         if (res.error?.message) {
           throw new Error(res.error.message);
@@ -144,7 +142,11 @@ const useMutations = (options: UseMutationsOptions): UseMutationsReturn => {
       });
   };
 
-  return [updating || submitting, { update, submit }];
+  return [
+    updating || submitting,
+    { update, submit },
+    !!submitData?.submitTalentNomination,
+  ];
 };
 
 export default useMutations;

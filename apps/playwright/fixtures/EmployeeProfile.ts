@@ -21,9 +21,14 @@ class EmployeeProfile extends AppPage {
     super(page);
   }
 
-  async goToEmployeeProfile() {
-    await this.page.goto("/en/applicant/employee-profile");
-    await this.waitForGraphqlResponse("EmployeeProfilePage");
+  async goToEmployeeVerification() {
+    await this.page.goto("/en/employee");
+    await this.waitForGraphqlResponse("EmployeeVerificationPage");
+  }
+
+  async goToCareerPlanning() {
+    await this.page.goto("/en/employee/career-planning");
+    await this.waitForGraphqlResponse("CareerPlanningPage");
   }
 
   async toggleForm(form: EmployeeProfileForm) {
@@ -146,7 +151,6 @@ class EmployeeProfile extends AppPage {
     await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.page.getByRole("button", { name: "Remove work email" }).click();
     await this.waitForGraphqlResponse("RemoveUserWorkEmail");
-    await this.page.getByRole("button", { name: "Cancel" }).click();
   }
 }
 

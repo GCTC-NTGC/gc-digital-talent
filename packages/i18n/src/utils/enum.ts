@@ -15,7 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
@@ -26,6 +25,7 @@ import {
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
+  CommunityReferralStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -38,6 +38,8 @@ export interface GenericLocalizedEnum<T> {
   value: T;
   label: LocalizedString;
 }
+
+export type LocalizedEnumValue<T> = Pick<GenericLocalizedEnum<T>, "value">;
 
 /**
  * Retrieve the full localized enum from an array
@@ -149,7 +151,7 @@ export function localizedEnumToInput<T>(
  */
 export function localizedEnumArrayToInput<T>(
   localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
-): (T | null | undefined)[] | undefined {
+): T[] {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),
@@ -189,13 +191,6 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTerm,
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
-  ],
-  POOL_CANDIDATE_SEARCH_STATUS: [
-    PoolCandidateSearchStatus.New,
-    PoolCandidateSearchStatus.InProgress,
-    PoolCandidateSearchStatus.Waiting,
-    PoolCandidateSearchStatus.Done,
-    PoolCandidateSearchStatus.DoneNoCandidates,
   ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
@@ -243,6 +238,12 @@ export const ENUM_SORT_ORDER = {
     TalentRequestTrackedUserStatus.NotReferred,
     TalentRequestTrackedUserStatus.Selected,
     TalentRequestTrackedUserStatus.NotSelected,
+  ],
+  COMMUNITY_REFERRAL_STATUS: [
+    CommunityReferralStatus.New,
+    CommunityReferralStatus.Pending,
+    CommunityReferralStatus.AvailableForReferral,
+    CommunityReferralStatus.NotReferred,
   ],
 };
 
@@ -396,15 +397,6 @@ export function sortTalentRequestReason(
       TalentRequestReason.RequiredByDirective,
     ],
     TalentRequestReasons,
-  );
-}
-
-export function sortPoolCandidateSearchStatus(
-  poolCandidateSearchStatuses?: MaybeLocalizedEnums,
-) {
-  return sortLocalizedEnums(
-    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
-    poolCandidateSearchStatuses,
   );
 }
 

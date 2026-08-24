@@ -6,4 +6,5 @@ export type SubmitIntent = "save-draft" | "next-step";
 
 export interface BaseFormValues {
   intent: SubmitIntent;
+  id: string;
 }

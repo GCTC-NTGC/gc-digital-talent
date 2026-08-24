@@ -73,8 +73,7 @@ test.describe("Verified work email", () => {
   }) => {
     const profilePage = new EmployeeProfile(appPage.page);
     await loginBySub(profilePage.page, unverified.sub);
-    await appPage.page.goto("/en/applicant/employee-profile");
-    await appPage.waitForGraphqlResponse("EmployeeProfilePage");
+    await profilePage.goToEmployeeVerification();
 
     expect(await profilePage.workEmailVerificationLabel()).toBe("Not verified");
 

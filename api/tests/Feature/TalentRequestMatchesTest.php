@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
+use App\Enums\CommunityReferralStatus;
 use App\Enums\EmployeeVerification;
 use App\Enums\EmploymentCategory;
 use App\Enums\FlexibleWorkLocation;
@@ -17,6 +18,7 @@ use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
+use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentRequestSource;
 use App\Enums\WorkRegion;
 use App\Facades\Notify;
@@ -27,6 +29,8 @@ use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Skill;
+use App\Models\TalentNominationEvent;
+use App\Models\TalentNominationGroup;
 use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
@@ -58,6 +62,19 @@ class TalentRequestMatchesTest extends TestCase
                     sources { value }
                     matchingQualifiedInPoolSources { pool { id } }
                     skillCount
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
+    protected string $atLevelQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingAtLevelSources { id }
                 }
                 paginatorInfo { total }
             }
@@ -162,6 +179,73 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         return $user;
+    }
+
+    // A verified gov employee whose current substantive classification is $classification,
+    // with no community interest and no pool candidacy.
+    private function atLevelEmployee(Classification $classification, string $workEmail, array $attributes = []): User
+    {
+        $user = User::factory()->create(array_merge([
+            'work_email' => $workEmail,
+            'work_email_verified_at' => now(),
+        ], $attributes));
+        WorkExperience::factory()->for($user)->for($classification)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'end_date' => null,
+        ]);
+
+        return $user;
+    }
+
+    private function runAtLevelMatchesForClassification(Classification $classification): TestResponse
+    {
+        return $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ]);
+    }
+
+    // A user nominated for advancement: verified gov employee with a consented Community
+    // Interest and an approved, non-expired TalentNominationGroup, no pool candidacy.
+    private function advancementUser(
+        Community $community,
+        ?Classification $classification = null,
+        ?string $advancementDecision = null,
+        $referralExpiryDate = null,
+    ): TalentNominationGroup {
+        $user = User::factory()->create([
+            'work_email' => 'advancement.user@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+        $event = TalentNominationEvent::factory()->create([
+            'community_id' => $community->id,
+        ]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => $advancementDecision ?? TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        // referral_expiry_date is not mass-assignable; set it directly.
+        $group->referral_expiry_date = $referralExpiryDate ?? now()->addMonths(6);
+        $group->save();
+
+        if ($classification) {
+            $group->advancementClassifications()->attach($classification->id);
+        }
+
+        return $group;
     }
 
     public function testReturnsOnlyUsersWithAMatchingCandidacy(): void
@@ -623,6 +707,49 @@ class TalentRequestMatchesTest extends TestCase
                 ],
             ],
         ]);
+    }
+
+    public function testCommunitylessPoolExcludedFromCountsAndTotal(): void
+    {
+        $classification = Classification::factory()->create();
+        $community = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $community->id,
+        ]);
+        $this->matchingUser($pool);
+
+        // matches every other filter, but its pool has no community attached
+        $communitylessPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+        ]);
+        $communitylessPool->forceFill(['community_id' => null])->save();
+        $this->matchingUser($communitylessPool);
+
+        $where = [
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ];
+
+        // total excludes the communityless pool's candidate
+        $this->runCountMatches($where)
+            ->assertJson(['data' => ['countTalentRequestMatches' => 1]]);
+
+        // by-pool breakdown only lists the community-attached pool
+        $this->runCountByPool($where)->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByPool' => [
+                    ['pool' => ['id' => $pool->id], 'count' => 1],
+                ],
+            ],
+        ]);
+
+        // by-community breakdown is unaffected and matches the total
+        $this->runCountByCommunity($where)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $community->id)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 1);
     }
 
     public function testCountByCommunityCountsBreakdownAndDedupesTotal(): void
@@ -1105,19 +1232,6 @@ class TalentRequestMatchesTest extends TestCase
         $this->assertEqualsCanonicalizing([$itUser->id, $executiveUser->id, $otherUser->id], $userIds);
     }
 
-    protected string $atLevelQuery = <<<'GRAPHQL'
-        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
-            talentRequestMatches(where: $where) {
-                data {
-                    user { id }
-                    sources { value }
-                    matchingAtLevelSources { id }
-                }
-                paginatorInfo { total }
-            }
-        }
-        GRAPHQL;
-
     public function testAtLevelSourceMatchesUserWithCommunityInterest(): void
     {
         $community = Community::factory()->create();
@@ -1359,5 +1473,505 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->assertContains($poolUser->id, $userIds);
         $this->assertContains($atLevelUser->id, $userIds);
+    }
+
+    public function testAtLevelNotReferredInterestNeverMatches(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $user = $this->atLevelEmployee($classification, 'not.referred@gc.ca');
+        CommunityInterest::factory()->consented()->notReferred()->for($user)->create();
+
+        $this->runAtLevelMatchesForClassification($classification)
+            ->assertJsonMissing(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAtLevelPendingInterestMatchesOnCurrentSubstantiveClassification(): void
+    {
+        $current = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $user = $this->atLevelEmployee($current, 'pending@gc.ca');
+        $interest = CommunityInterest::factory()->consented()->pendingReferral()->for($user)->create();
+
+        $this->runAtLevelMatchesForClassification($current)
+            ->assertJsonFragment(['user' => ['id' => $user->id]])
+            ->assertJsonFragment(['matchingAtLevelSources' => [['id' => $interest->id]]]);
+    }
+
+    public function testAtLevelPendingInterestDoesNotMatchAnotherClassification(): void
+    {
+        $current = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $other = Classification::factory()->create(['group' => 'BB', 'level' => 2]);
+        $user = $this->atLevelEmployee($current, 'pending@gc.ca');
+        CommunityInterest::factory()->consented()->pendingReferral()->for($user)->create();
+
+        $this->runAtLevelMatchesForClassification($other)
+            ->assertJsonMissing(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAtLevelAvailableForReferralInterestMatchesOnReferralClassification(): void
+    {
+        $current = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $referral = Classification::factory()->create(['group' => 'BB', 'level' => 2]);
+        $user = $this->atLevelEmployee($current, 'available@gc.ca');
+        $interest = CommunityInterest::factory()
+            ->consented()
+            ->availableForReferral($referral->id)
+            ->for($user)
+            ->create();
+
+        $this->runAtLevelMatchesForClassification($referral)
+            ->assertJsonFragment(['user' => ['id' => $user->id]])
+            ->assertJsonFragment(['matchingAtLevelSources' => [['id' => $interest->id]]]);
+    }
+
+    public function testAtLevelAvailableForReferralInterestDoesNotMatchOnCurrentSubstantiveClassification(): void
+    {
+        $current = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $referral = Classification::factory()->create(['group' => 'BB', 'level' => 2]);
+        $user = $this->atLevelEmployee($current, 'available@gc.ca');
+        CommunityInterest::factory()
+            ->consented()
+            ->availableForReferral($referral->id)
+            ->for($user)
+            ->create();
+
+        $this->runAtLevelMatchesForClassification($current)
+            ->assertJsonMissing(['user' => ['id' => $user->id]]);
+    }
+
+    public function testReferralStatusFilterNarrowsToTheSelectedStatuses(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+
+        $pending = $this->atLevelEmployee($classification, 'pending.filter@gc.ca');
+        CommunityInterest::factory()->consented()->pendingReferral()->for($pending)->create();
+
+        $available = $this->atLevelEmployee($classification, 'available.filter@gc.ca');
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($available)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]],
+                    'communityReferralStatuses' => [CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $available->id]])
+            ->assertJsonMissing(['user' => ['id' => $pending->id]]);
+    }
+
+    public function testReferralStatusFilterWithNoValuesIncludesEveryStatus(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+
+        $pending = $this->atLevelEmployee($classification, 'pending.all@gc.ca');
+        CommunityInterest::factory()->consented()->pendingReferral()->for($pending)->create();
+
+        $available = $this->atLevelEmployee($classification, 'available.all@gc.ca');
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($available)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $available->id]])
+            ->assertJsonFragment(['user' => ['id' => $pending->id]]);
+    }
+
+    public function testReferralStatusFilterForNotReferredReturnsNoMatches(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+
+        $notReferred = $this->atLevelEmployee($classification, 'not.referred.filter@gc.ca');
+        CommunityInterest::factory()->consented()->notReferred()->for($notReferred)->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->atLevelQuery, [
+                'where' => [
+                    'applicantFilter' => ['talentSources' => [TalentRequestSource::AT_LEVEL->name]],
+                    'communityReferralStatuses' => [CommunityReferralStatus::NOT_REFERRED->name],
+                ],
+            ])
+            ->assertJsonMissing(['user' => ['id' => $notReferred->id]]);
+    }
+
+    public function testAtLevelAvailableForReferralCountExcludesUnverifiedEmployees(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $community = Community::factory()->create();
+
+        $verified = $this->atLevelEmployee($classification, 'verified.available@gc.ca');
+        $unverified = $this->atLevelEmployee($classification, 'unverified.available@gc.ca', ['work_email_verified_at' => null]);
+
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($verified)->for($community)->create();
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($unverified)->for($community)->create();
+
+        $counts = $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ])->json('data.countTalentRequestMatchesByCommunity');
+
+        $this->assertSame([[
+            'community' => ['id' => $community->id],
+            'qualifiedInPoolCount' => 0,
+            'atLevelCount' => 1,
+            'count' => 1,
+        ]], $counts);
+    }
+
+    public function testAtLevelAvailableForReferralCountAppliesUserAttributeFilters(): void
+    {
+        $classification = Classification::factory()->create(['group' => 'AA', 'level' => 1]);
+        $community = Community::factory()->create();
+
+        $withDiploma = $this->atLevelEmployee($classification, 'has.diploma@gc.ca', ['has_diploma' => true]);
+        $withoutDiploma = $this->atLevelEmployee($classification, 'no.diploma@gc.ca', ['has_diploma' => false]);
+
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($withDiploma)->for($community)->create();
+        CommunityInterest::factory()->consented()->availableForReferral($classification->id)->for($withoutDiploma)->for($community)->create();
+
+        $counts = $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [TalentRequestSource::AT_LEVEL->name],
+                'hasDiploma' => true,
+            ],
+        ])->json('data.countTalentRequestMatchesByCommunity');
+
+        $this->assertSame([[
+            'community' => ['id' => $community->id],
+            'qualifiedInPoolCount' => 0,
+            'atLevelCount' => 1,
+            'count' => 1,
+        ]], $counts);
+    }
+
+    protected string $advancementQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingAdvancementSources { id }
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
+    public function testAdvancementSourceMatchesApprovedNominee(): void
+    {
+        $community = Community::factory()->create();
+
+        $group = $this->advancementUser($community);
+
+        // has a Community Interest but no nomination at all — should not match
+        User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, ['where' => []])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $group->nominee_id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAdvancementSources.0.id', $group->id);
+    }
+
+    public function testAdvancementExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'advancement.noconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented(false)->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+        $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    public function testAdvancementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
+    {
+        $nominationCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'advancement.mixedconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+
+        // Consents to share their interest in the nomination's own community...
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $nominationCommunity->id,
+        ]);
+
+        // ...but the work stream the filter asks about lives on a different, non-consenting interest.
+        $otherInterest = CommunityInterest::factory()->consented(false)->withWorkStreams()->create([
+            'user_id' => $user->id,
+            'community_id' => $otherCommunity->id,
+        ]);
+        $workStreamId = $otherInterest->workStreams()->first()->id;
+
+        $event = TalentNominationEvent::factory()->create(['community_id' => $nominationCommunity->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    public function testAdvancementExcludesUnapprovedDecision(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->advancementUser($community, advancementDecision: TalentNominationGroupDecision::REJECTED->name);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    // "referralExpiryDate is current or past" in the source ticket actually means "not yet
+    // expired" — a past expiry date must EXCLUDE the match. Confirmed with product.
+    public function testAdvancementExcludesPastReferralExpiryDate(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->advancementUser($community, referralExpiryDate: now()->subDay());
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    public function testAdvancementExcludesUnverifiedGovEmployee(): void
+    {
+        $community = Community::factory()->create();
+
+        $group = $this->advancementUser($community);
+        $group->nominee->forceFill(['work_email_verified_at' => null])->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+    }
+
+    public function testAdvancementWorkStreamFilterMatchesUserWithoutCandidacy(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'advancement.workstream@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
+        $workStreamId = $interest->workStreams()->first()->id;
+        $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testAdvancementClassificationFilterMatchesAgainstAdvancementClassifications(): void
+    {
+        $community = Community::factory()->create();
+        $classification = Classification::factory()->create();
+
+        $group = $this->advancementUser($community, $classification);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $group->nominee_id]]);
+    }
+
+    // Regression/divergence test: unlike AT_LEVEL, the classification filter for ADVANCEMENT
+    // must match against the nomination group's advancementClassifications, not the nominee's
+    // currentClassification.
+    public function testAdvancementClassificationFilterIgnoresCurrentClassification(): void
+    {
+        $community = Community::factory()->create();
+        $advancementClassification = Classification::factory()->create();
+        $currentClassification = Classification::factory()->create();
+
+        $group = $this->advancementUser($community, $advancementClassification);
+        WorkExperience::factory()->for($group->nominee)->for($currentClassification)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'end_date' => null,
+        ]);
+
+        // filtering by the nominee's currentClassification (not their advancementClassifications) should not match
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $currentClassification->group, 'level' => $currentClassification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+
+        // filtering by the group's advancementClassifications should match
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $advancementClassification->group, 'level' => $advancementClassification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $group->nominee_id]]);
+    }
+
+    public function testAdvancementCommunityFilterNarrowsResults(): void
+    {
+        $matching = Community::factory()->create();
+        $other = Community::factory()->create();
+
+        $included = $this->advancementUser($matching);
+
+        // Community Interest is in $matching but the nomination event's community is $other —
+        // should not match.
+        $excludedUser = User::factory()->create([
+            'work_email' => 'advancement.mismatch@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $excludedUser->id,
+            'community_id' => $matching->id,
+        ]);
+        $event = TalentNominationEvent::factory()->create(['community_id' => $other->id]);
+        $excludedGroup = TalentNominationGroup::create([
+            'nominee_id' => $excludedUser->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $excludedGroup->referral_expiry_date = now()->addMonths(6);
+        $excludedGroup->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => [
+                    'community' => ['id' => $matching->id],
+                    // scope to ADVANCEMENT — otherwise $excludedUser's Community Interest in
+                    // $matching alone would also satisfy AT_LEVEL for this community filter.
+                    'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
+                ]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $included->nominee_id);
+    }
+
+    public function testTalentSourcesAdvancementOnlyExcludesOtherSourceUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $community = Community::factory()->create();
+
+        // QUALIFIED_IN_POOL only — no advancement nomination
+        $this->matchingUser($pool);
+
+        $group = $this->advancementUser($community);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
+            ])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $group->nominee_id)
+            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAdvancementSources.0.id', $group->id);
+    }
+
+    public function testTalentSourcesAllSourcesReturnsAllThreeSourceUsers(): void
+    {
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $atLevelCommunity = Community::factory()->create();
+        $advancementCommunity = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create([
+            'work_email' => 'verified.employee@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $atLevelCommunity->id,
+        ]);
+
+        $advancementGroup = $this->advancementUser($advancementCommunity);
+
+        $userIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, ['where' => []])
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertContains($poolUser->id, $userIds);
+        $this->assertContains($atLevelUser->id, $userIds);
+        $this->assertContains($advancementGroup->nominee_id, $userIds);
     }
 }

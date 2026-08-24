@@ -11,7 +11,6 @@ import {
   formDateStringToDate,
   DATE_FORMAT_STRING,
 } from "@gc-digital-talent/date-helpers";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { Pending } from "@gc-digital-talent/ui";
 import { fakePools } from "@gc-digital-talent/fake-data";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
@@ -186,19 +185,23 @@ const RenderDependantTemplate: StoryFn<DateInputArgs> = (args) => {
 
 export const HideInputWhenInvalid = RenderDependantTemplate.bind({});
 
+interface MockPool {
+  closingDate?: string | null;
+}
+
 interface AsyncArgs extends DateInputProps {
-  mockQuery: () => Promise<Pool>;
+  mockQuery: () => Promise<MockPool>;
 }
 
 const AsyncTemplate: StoryFn<AsyncArgs> = (args) => {
   const intl = useIntl();
   const { mockQuery, ...rest } = args;
   const [fetching, setFetching] = useState<boolean>(true);
-  const [pool, setPool] = useState<Pool | null>(null);
+  const [pool, setPool] = useState<MockPool | null>(null);
 
   useEffect(() => {
     mockQuery()
-      .then((res: Pool) => {
+      .then((res: MockPool) => {
         setPool(res);
       })
       .catch((err) => {
@@ -237,7 +240,7 @@ const mockPool = fakePools(1)[0];
 
 export const AsyncDefaultValue = AsyncTemplate.bind({});
 AsyncDefaultValue.args = {
-  mockQuery: async (): Promise<Pool> => {
+  mockQuery: async (): Promise<MockPool> => {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(mockPool);

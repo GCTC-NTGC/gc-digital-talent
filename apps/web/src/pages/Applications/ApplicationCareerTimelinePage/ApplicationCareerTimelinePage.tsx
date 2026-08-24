@@ -16,7 +16,6 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Experience } from "@gc-digital-talent/graphql";
 import { ApplicationStep, makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -435,9 +434,7 @@ export const ApplicationCareerTimeline = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
+  const experiences = unpackMaybes(application.user.experiences);
 
   return application ? (
     <ApplicationCareerTimeline

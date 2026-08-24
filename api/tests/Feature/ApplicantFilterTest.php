@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Enums\LanguageAbility;
-use App\Enums\PoolCandidateSearchStatus;
+use App\Enums\TalentRequestStatus;
 use App\Facades\Notify;
 use App\Models\ApplicantFilter;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\PoolCandidateSearchRequest;
+use App\Models\TalentRequest;
 use App\Models\User;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\CommunitySeeder;
@@ -133,15 +133,15 @@ class ApplicantFilterTest extends TestCase
     public function testQueryApplicantFilter()
     {
         $filter = ApplicantFilter::factory()->create();
-        $request = PoolCandidateSearchRequest::factory()->create([
+        $request = TalentRequest::factory()->create([
             'applicant_filter_id' => $filter->id,
         ]);
 
         $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query poolCandidateSearchRequest($id: ID!) {
-                poolCandidateSearchRequest(id: $id) {
+            query talentRequest($id: UUID!) {
+                talentRequest(id: $id) {
                     applicantFilter {
                         id
                         hasDiploma
@@ -272,14 +272,14 @@ class ApplicantFilterTest extends TestCase
         ]);
 
         $filter = ApplicantFilter::factory()->withRelationships()->create();
-        $request = PoolCandidateSearchRequest::factory()->create([
+        $request = TalentRequest::factory()->create([
             'applicant_filter_id' => $filter->id,
         ]);
         $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query poolCandidateSearchRequest($id: ID!) {
-                poolCandidateSearchRequest(id: $id) {
+            query talentRequest($id: UUID!) {
+                talentRequest(id: $id) {
                     applicantFilter {
                         id
                         skills {
@@ -319,7 +319,7 @@ class ApplicantFilterTest extends TestCase
             ]
         );
         // Assert that each relationship collection has the right size.
-        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+        $retrievedFilter = $response->json('data.talentRequest.applicantFilter');
         $this->assertCount($filter->qualifiedInClassifications->count(), $retrievedFilter['qualifiedInClassifications']);
         $this->assertCount($filter->skills->count(), $retrievedFilter['skills']);
         $this->assertCount($filter->pools->count(), $retrievedFilter['pools']);
@@ -348,7 +348,7 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
-     * Test that a PoolCandidateSearchRequest can be created, containing an ApplicantFilter
+     * Test that a TalentRequest can be created, containing an ApplicantFilter
      */
     public function testCanCreateARequest()
     {
@@ -361,22 +361,23 @@ class ApplicantFilterTest extends TestCase
         $filter = ApplicantFilter::factory()->withRelationships()->create();
 
         // make a request to pull fake data from - don't save it in DB.
-        $request = PoolCandidateSearchRequest::factory()->make([
-            'pool_candidate_filter_id' => null,
+        // createTalentRequest requires a government email domain.
+        $request = TalentRequest::factory()->make([
             'applicant_filter_id' => null,
+            'email' => 'talent-request@gc.ca',
         ]);
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
-            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
-                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+            mutation createSearchRequest($request: CreateTalentRequestInput!) {
+                createTalentRequest(talentRequest: $request) {
                     id
                     email
                     fullName
                     jobTitle
                     managerJobTitle
                     positionType { value }
-                    status { value }
+                    talentRequestStatus { value }
                     reason { value }
                     department {
                         id
@@ -406,7 +407,7 @@ class ApplicantFilterTest extends TestCase
         );
         $response->assertJson([
             'data' => [
-                'createPoolCandidateSearchRequest' => [
+                'createTalentRequest' => [
                     'email' => $request->email,
                     'fullName' => $request->full_name,
                     'jobTitle' => $request->job_title,
@@ -417,8 +418,8 @@ class ApplicantFilterTest extends TestCase
                     'reason' => [
                         'value' => $request->reason,
                     ],
-                    'status' => [
-                        'value' => PoolCandidateSearchStatus::NEW->name,
+                    'talentRequestStatus' => [
+                        'value' => TalentRequestStatus::NEW->name,
                     ],
                     'department' => [
                         'id' => $request->department_id,
@@ -429,7 +430,7 @@ class ApplicantFilterTest extends TestCase
     }
 
     /**
-     * Test that we can use an ApplicantFilter in a search, save it as part of a PoolCandidateSearchRequest, retrieve it, and get the same results again.
+     * Test that we can use an ApplicantFilter in a search, save it as part of a TalentRequest, retrieve it, and get the same results again.
      */
     public function testFilterCanBeStoredAndRetrievedWithoutChangingResults()
     {
@@ -521,16 +522,17 @@ class ApplicantFilterTest extends TestCase
         // Store the filter with a search request
 
         // make a request to pull fake data from - don't save it in DB.
-        $request = PoolCandidateSearchRequest::factory()->make([
-            'pool_candidate_filter_id' => null,
+        // createTalentRequest requires a government email domain.
+        $request = TalentRequest::factory()->make([
             'applicant_filter_id' => null,
             'community_id' => $community->id,
+            'email' => 'talent-request@gc.ca',
         ]);
         $response = $this->graphQL(
             /** @lang GraphQL */
             '
-            mutation createSearchRequest($request: CreatePoolCandidateSearchRequestInput!) {
-                createPoolCandidateSearchRequest(poolCandidateSearchRequest: $request) {
+            mutation createSearchRequest($request: CreateTalentRequestInput!) {
+                createTalentRequest(talentRequest: $request) {
                     id
                 }
             }
@@ -555,12 +557,12 @@ class ApplicantFilterTest extends TestCase
                 ],
             ]
         );
-        $requestId = $response->json('data.createPoolCandidateSearchRequest.id');
+        $requestId = $response->json('data.createTalentRequest.id');
         $response = $this->actingAs($this->adminUser, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query poolCandidateSearchRequest($id: ID!) {
-                poolCandidateSearchRequest(id: $id) {
+            query talentRequest($id: UUID!) {
+                talentRequest(id: $id) {
                     applicantFilter {
                         hasDiploma
                         equity {
@@ -596,7 +598,7 @@ class ApplicantFilterTest extends TestCase
                 'id' => $requestId,
             ]
         );
-        $retrievedFilter = $response->json('data.poolCandidateSearchRequest.applicantFilter');
+        $retrievedFilter = $response->json('data.talentRequest.applicantFilter');
 
         $retrievedFilter['locationPreferences'] = $this->filterEnumToInput($retrievedFilter, 'locationPreferences');
         $retrievedFilter['flexibleWorkLocations'] = $this->filterEnumToInput($retrievedFilter, 'flexibleWorkLocations');

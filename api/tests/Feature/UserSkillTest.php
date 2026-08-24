@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
+use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Enums\WhenSkillUsed;
 use App\Models\ExperienceSkill;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -1055,5 +1057,43 @@ class UserSkillTest extends TestCase
                     ],
                 ]
             )->assertJsonFragment(['id' => $this->user->id]);
+    }
+
+    public function testNonexistentSkillsInShowcase(): void
+    {
+        $technicalSkill = Skill::factory()->create(['category' => SkillCategory::TECHNICAL->name]);
+        $behaviouralSkill = Skill::factory()->create(['category' => SkillCategory::BEHAVIOURAL->name]);
+        $nonexistentSkillId = Str::uuid()->toString();
+
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [$technicalSkill->id, $nonexistentSkillId],
+                        'topBehaviouralSkillsRanked' => [$nonexistentSkillId],
+                        'improveTechnicalSkillsRanked' => [$nonexistentSkillId],
+                        'improveBehaviouralSkillsRanked' => [$nonexistentSkillId],
+                    ],
+                ]
+            )
+            ->assertGraphQLValidationError('userSkillRanking.topTechnicalSkillsRanked', ErrorCode::SKILL_NOT_FOUND->name)
+            ->assertGraphQLValidationError('userSkillRanking.topBehaviouralSkillsRanked', ErrorCode::SKILL_NOT_FOUND->name)
+            ->assertGraphQLValidationError('userSkillRanking.improveTechnicalSkillsRanked', ErrorCode::SKILL_NOT_FOUND->name)
+            ->assertGraphQLValidationError('userSkillRanking.improveBehaviouralSkillsRanked', ErrorCode::SKILL_NOT_FOUND->name);
+
+        $this->actingAs($this->user, 'api')
+            ->graphQL(
+                $this->updateUserSkillRankings,
+                [
+                    'userId' => $this->user->id,
+                    'userSkillRanking' => [
+                        'topTechnicalSkillsRanked' => [$technicalSkill->id],
+                        'topBehaviouralSkillsRanked' => [$behaviouralSkill->id],
+                    ],
+                ]
+            )
+            ->assertJsonFragment(['topSkillsRank' => 1]);
     }
 }

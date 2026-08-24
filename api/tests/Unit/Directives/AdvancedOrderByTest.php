@@ -5,6 +5,7 @@ namespace Tests\Unit\Directives;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Support\Query\AdvancedOrder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -92,6 +93,7 @@ class AdvancedOrderByTest extends TestCase
                 ->for($pool)
                 ->create([
                     'notes' => $data['notes'] ?? null,
+                    'is_flagged' => $data['is_flagged'] ?? false,
                 ]);
         }
 
@@ -144,14 +146,14 @@ class AdvancedOrderByTest extends TestCase
                 [['column' => 'notes', 'direction' => 'ASC', 'caseInsensitive' => true]],
                 ['apple', 'Banana', 'Zebra'],
             ],
-            'Builder Scope: orderByPoolName' => [
+            'Builder Scope: orderByFlag' => [
                 [
-                    ['notes' => 'Candidate B', 'pool_name' => 'Beta Pool'],
-                    ['notes' => 'Candidate A', 'pool_name' => 'Alpha Pool'],
+                    ['notes' => 'Candidate B', 'is_flagged' => false],
+                    ['notes' => 'Candidate A', 'is_flagged' => true],
                 ],
                 [[
-                    'scope' => 'orderByPoolName',
-                    'direction' => 'ASC',
+                    'scope' => 'orderByFlag',
+                    'direction' => 'DESC',
                 ]],
                 ['Candidate A', 'Candidate B'],
             ],
@@ -203,5 +205,116 @@ class AdvancedOrderByTest extends TestCase
                 'direction' => 'DESC',
             ]],
         ])->assertGraphQLValidationError('orderBy.0.column', 'You must provide a column, scope, or relation.');
+    }
+
+    #[DataProvider('injectionDataProvider')]
+    public function testItRejectsInjectionAttempts(array $orderByArgs, string $expectedMessage): void
+    {
+        PoolCandidate::factory()->create(['notes' => 'A']);
+
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => $orderByArgs,
+        ])->assertGraphQLErrorMessage($expectedMessage);
+    }
+
+    public static function injectionDataProvider(): array
+    {
+        return [
+            'Unknown column with trailing SQL' => [
+                [['column' => "notes' , (SELECT 1/0) --"]],
+                "Invalid column: notes' , (SELECT 1/0) --",
+            ],
+            'Relation column with trailing SQL' => [
+                [['relation' => ['name' => 'user', 'column' => "first_name' , (SELECT 1/0) --"]]],
+                "Invalid related column: first_name' , (SELECT 1/0) --",
+            ],
+            'Nested JSON keys' => [
+                [['relation' => ['name' => 'pool', 'column' => 'name->en->fr']]],
+                'Only one JSON key is supported: name->en->fr',
+            ],
+        ];
+    }
+
+    #[DataProvider('boundJsonKeyDataProvider')]
+    public function testItBindsJsonKeysWithoutExecutingThem(array $orderByArgs): void
+    {
+        PoolCandidate::factory()->create(['notes' => 'A']);
+
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => $orderByArgs,
+        ])->assertGraphQLErrorFree();
+    }
+
+    public static function boundJsonKeyDataProvider(): array
+    {
+        return [
+            'JSON key with quote and subquery' => [
+                [['relation' => ['name' => 'pool', 'column' => "name->en' , (SELECT CASE WHEN (1=1) THEN 1 ELSE (SELECT 1/0) END) --"]]],
+            ],
+            'JSON key that is only a comment' => [
+                [['relation' => ['name' => 'pool', 'column' => 'name-> --']]],
+            ],
+        ];
+    }
+
+    #[DataProvider('rejectedSourceDataProvider')]
+    public function testItRejectsUnusableSources(array $orderByArgs, string $expectedMessage): void
+    {
+        PoolCandidate::factory()->create(['notes' => 'A']);
+
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => $orderByArgs,
+        ])->assertGraphQLErrorMessage($expectedMessage);
+    }
+
+    public static function rejectedSourceDataProvider(): array
+    {
+        return [
+            'Unknown relation name' => [
+                [['relation' => ['name' => 'notARelation', 'column' => 'notes']]],
+                'Invalid relation: notARelation',
+            ],
+            'Model method that is not a relation' => [
+                [['relation' => ['name' => 'isDraft', 'column' => 'notes']]],
+                'Method isDraft is not a valid Eloquent relation.',
+            ],
+            'Many to many relation' => [
+                [['relation' => ['name' => 'bookmarkedByUsers', 'column' => 'first_name']]],
+                'Relation type Illuminate\Database\Eloquent\Relations\BelongsToMany is not supported for sub-query sorting.',
+            ],
+            'Unknown scope with the orderBy prefix' => [
+                [['scope' => 'orderByNothing']],
+                'Invalid scope: orderByNothing',
+            ],
+        ];
+    }
+
+    public function testItIgnoresScopesWithoutTheOrderByPrefix(): void
+    {
+        PoolCandidate::factory()->create(['notes' => 'A']);
+
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => [['scope' => 'authorizedToView']],
+        ])->assertGraphQLErrorFree()->assertJsonFragment(['notes' => 'A']);
+    }
+
+    #[DataProvider('advancedOrderArgsDataProvider')]
+    public function testItNormalisesDirectionAndNulls(array $input, string $expectedDirection, ?string $expectedNulls): void
+    {
+        $args = new AdvancedOrder($input);
+
+        $this->assertSame($expectedDirection, $args->direction);
+        $this->assertSame($expectedNulls, $args->nulls);
+    }
+
+    public static function advancedOrderArgsDataProvider(): array
+    {
+        return [
+            'Empty input' => [[], 'ASC', null],
+            'Lowercase values' => [['direction' => 'desc', 'nulls' => 'first'], 'DESC', 'FIRST'],
+            'Unknown direction' => [['direction' => 'ASC NULLS LAST --'], 'ASC', null],
+            'Unknown nulls' => [['nulls' => "LAST' , (SELECT 1/0) --"], 'ASC', null],
+            'Null nulls' => [['nulls' => null], 'ASC', null],
+        ];
     }
 }

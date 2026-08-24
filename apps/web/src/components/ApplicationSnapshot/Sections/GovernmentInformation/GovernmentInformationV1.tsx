@@ -1,10 +1,8 @@
 import { useIntl } from "react-intl";
 
-import type {
-  LocalizedGovEmployeeType,
-  LocalizedGovPositionType,
-} from "@gc-digital-talent/graphql";
+import type { GovPositionType } from "@gc-digital-talent/graphql";
 import { GovEmployeeType } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 
@@ -19,8 +17,8 @@ import type { RelatedSnapshotModel, SnapshotProps } from "../types";
 export interface GovernmentInformationSnapshotV1 {
   isGovEmployee?: boolean | null;
   department?: RelatedSnapshotModel<"name"> | null;
-  govEmployeeType?: LocalizedGovEmployeeType | null;
-  govPositionType?: LocalizedGovPositionType | null;
+  govEmployeeType?: GenericLocalizedEnum<GovEmployeeType> | null;
+  govPositionType?: GenericLocalizedEnum<GovPositionType> | null;
   govEndDate?: string | null;
   currentClassification?: { group: string; level: number } | null;
   hasPriorityEntitlement?: boolean | null;

@@ -21,14 +21,13 @@ import {
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import type {
-  Classification,
+  LocalizedString,
   SupervisoryStatus,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
-  alphaSortOptions,
   Checklist,
+  Combobox,
   Input,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
@@ -127,10 +126,20 @@ function assertIncludes(haystack: string[], needle?: string | null): boolean {
   return false;
 }
 
+interface PreviewClassification {
+  id: string;
+  groupAndLevel: string;
+}
+
+interface PreviewWorkStream {
+  id: string;
+  name?: LocalizedString | null;
+}
+
 function previewMetaData(
   intl: IntlShape,
-  classification?: Classification | null,
-  workStream?: WorkStream | null,
+  classification?: PreviewClassification | null,
+  workStream?: PreviewWorkStream | null,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {
@@ -384,16 +393,17 @@ const JobPosterTemplatesPage = () => {
                         description: "Legend for supervisory status input",
                       })}
                     />
-                    <Checklist
-                      idPrefix="workStreams"
+                    <Combobox
+                      id="workStreams"
                       name="workStreams"
-                      items={alphaSortOptions(
-                        unpackMaybes(data?.workStreams).map((workStream) => ({
+                      isMulti
+                      options={unpackMaybes(data?.workStreams).map(
+                        (workStream) => ({
                           value: workStream.id,
                           label: getLocalizedName(workStream.name, intl),
-                        })),
+                        }),
                       )}
-                      legend={intl.formatMessage({
+                      label={intl.formatMessage({
                         defaultMessage: "Filter by work streams",
                         id: "eeU13V",
                         description: "Legend for pool streams input",

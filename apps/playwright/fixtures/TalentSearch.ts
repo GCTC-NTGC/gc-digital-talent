@@ -5,8 +5,11 @@ import type {
   Classification,
   Skill,
   WorkStream,
-} from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
@@ -200,6 +203,12 @@ class TalentSearch extends AppPage {
 
     await this.page.getByRole("button", { name: /submit request/i }).click();
     await this.waitForGraphqlResponse("CreateTalentRequest");
+    await expect(
+      this.page.getByRole("heading", {
+        name: /we have received your request/i,
+        level: 2,
+      }),
+    ).toBeVisible();
   }
 }
 export default TalentSearch;

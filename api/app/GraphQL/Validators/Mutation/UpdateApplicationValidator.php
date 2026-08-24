@@ -18,10 +18,12 @@ final class UpdateApplicationValidator extends Validator
     {
         $applicationId = $this->arg('id');
 
-        $userId = PoolCandidate::query()
-            ->select('user_id')
-            ->findOrFail($applicationId)
-            ->user_id;
+        $application = PoolCandidate::query()
+            ->select(['user_id', 'pool_id'])
+            ->findOrFail($applicationId);
+
+        $userId = $application->user_id;
+        $poolId = $application->pool_id;
 
         return [
             'application.educationRequirementAwardExperiences.sync.*' => [
@@ -50,11 +52,17 @@ final class UpdateApplicationValidator extends Validator
             'application.generalQuestionResponses.delete.*' => [
                 Rule::exists('general_question_responses', 'id')->where('pool_candidate_id', $applicationId),
             ],
+            'application.generalQuestionResponses.create.*.generalQuestion.connect' => [
+                Rule::exists('general_questions', 'id')->where('pool_id', $poolId),
+            ],
             'application.screeningQuestionResponses.update.*.id' => [
                 Rule::exists('screening_question_responses', 'id')->where('pool_candidate_id', $applicationId),
             ],
             'application.screeningQuestionResponses.delete.*' => [
                 Rule::exists('screening_question_responses', 'id')->where('pool_candidate_id', $applicationId),
+            ],
+            'application.screeningQuestionResponses.create.*.screeningQuestion.connect' => [
+                Rule::exists('screening_questions', 'id')->where('pool_id', $poolId),
             ],
         ];
     }

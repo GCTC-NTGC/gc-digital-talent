@@ -2,7 +2,6 @@ import { useNavigate } from "react-router";
 import { useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import sortBy from "lodash/sortBy";
 import { useMutation, useQuery } from "urql";
 import IdentificationIcon from "@heroicons/react/24/outline/IdentificationIcon";
 
@@ -14,9 +13,8 @@ import {
   TextArea,
   unpackIds,
 } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 import {
-  getLocale,
   errorMessages,
   commonMessages,
   getLocalizedName,
@@ -31,7 +29,8 @@ import {
   CardSeparator,
 } from "@gc-digital-talent/ui";
 import type {
-  SkillFamily,
+  LocalizedString,
+  UpdateSkillFamilyFragment,
   UpdateSkillFamilyInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -49,29 +48,17 @@ import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
 import messages from "./messages";
 
-interface Option<V> {
-  value: V;
-  label: string;
-}
-
-interface FormValues extends Pick<SkillFamily, "name" | "description"> {
+interface FormValues {
+  name?: LocalizedString | null;
+  description?: LocalizedString | null;
   skills: string[];
 }
 
 export const UpdateSkillFamilySkill_Fragment = graphql(/* GraphQL */ `
   fragment UpdateSkillFamilySkill on Skill {
     id
-    key
     name {
-      en
-      fr
-    }
-    category {
-      value
-      label {
-        en
-        fr
-      }
+      localized
     }
   }
 `);
@@ -129,16 +116,12 @@ export const UpdateSkillFamily = ({
   skillsQuery,
 }: UpdateSkillFamilyProps) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const navigate = useNavigate();
   const paths = useRoutes();
   const skillFamily = getFragment(UpdateSkillFamily_Fragment, skillFamilyQuery);
   const skills = getFragment(UpdateSkillFamilySkill_Fragment, skillsQuery);
-  const sortedSkills = sortBy([...skills], (skill) => {
-    return skill.name?.[locale]?.toLocaleUpperCase();
-  });
 
-  const dataToFormValues = (data: SkillFamily): FormValues => ({
+  const dataToFormValues = (data: UpdateSkillFamilyFragment): FormValues => ({
     ...data,
     skills: unpackIds(data?.skills),
   });
@@ -235,10 +218,12 @@ export const UpdateSkillFamily = ({
       .catch(handleError);
   };
 
-  const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
-    value: id,
-    label: getLocalizedName(name, intl),
-  }));
+  const skillOptions = [...skills]
+    .sort(sortAlphaBy((skill) => skill.name?.localized))
+    .map(({ id, name }) => ({
+      value: id,
+      label: name?.localized ?? intl.formatMessage(commonMessages.notAvailable),
+    }));
 
   return (
     <>

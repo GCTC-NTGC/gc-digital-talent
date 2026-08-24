@@ -1,19 +1,18 @@
-import type { RoleAssignment } from "@gc-digital-talent/graphql";
-
 import { ROLE_NAME } from "../const";
+import type { AuthRoleAssignment } from "../types";
 import { hasRequiredRoles } from "./hasRequiredRoles";
 
 describe("Has required roles", () => {
   const f = hasRequiredRoles;
 
   // Re-usable mock data
-  const mockProcessOperator: RoleAssignment = {
+  const mockProcessOperator: AuthRoleAssignment = {
     id: "a1",
     role: { id: "r1", name: ROLE_NAME.ProcessOperator, isTeamBased: true },
     team: { id: "team-alpha", name: "Alpha Team" },
   };
 
-  const mockPlatformAdmin: RoleAssignment = {
+  const mockPlatformAdmin: AuthRoleAssignment = {
     id: "a2",
     role: { id: "r2", name: ROLE_NAME.PlatformAdmin, isTeamBased: false },
     team: null,
@@ -118,7 +117,7 @@ describe("Has required roles", () => {
   });
 
   test("fails if assignment is missing a team but role is team-based", () => {
-    const brokenAssignment: RoleAssignment = {
+    const brokenAssignment: AuthRoleAssignment = {
       id: "err-1",
       role: { id: "r1", name: ROLE_NAME.ProcessOperator, isTeamBased: true },
       team: null, // Data error

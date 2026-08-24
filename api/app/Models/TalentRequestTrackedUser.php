@@ -6,6 +6,7 @@ use App\Builders\UserBuilder;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
+use App\Support\Query\AdvancedOrder;
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Carbon;
-use SortDirection;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
@@ -154,15 +154,9 @@ class TalentRequestTrackedUser extends Pivot
         ));
     }
 
-    public function scopeOrderBySkillCount(Builder $query, ?array $args): Builder
+    public function scopeOrderBySkillCount(Builder $query, AdvancedOrder $args): Builder
     {
-        $direction = match ($args['order'] ?? null) {
-            'ASC' => SortDirection::Ascending,
-            'DESC' => SortDirection::Descending,
-            default => null,
-        };
-
-        return $query->when($direction, fn (Builder $query) => $query->orderBy('skill_count', $direction));
+        return $query->orderBy('skill_count', $args->direction);
     }
 
     public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder

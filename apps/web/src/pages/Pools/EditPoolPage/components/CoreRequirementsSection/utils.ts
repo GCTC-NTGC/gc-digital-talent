@@ -1,7 +1,6 @@
 import { empty } from "@gc-digital-talent/helpers";
 import type {
   LocalizedString,
-  Pool,
   PoolLanguage,
   SecurityStatus,
   UpdatePoolInput,
@@ -29,16 +28,16 @@ export interface FormValues {
 }
 
 export const dataToFormValues = (
-  initialData: Pick<
-    Pool,
-    "language" | "securityClearance" | "isRemote" | "location"
-  >,
+  language: PoolLanguage | null | undefined,
+  securityClearance: SecurityStatus | null | undefined,
+  isRemote: boolean | null | undefined,
+  location: LocalizedString | null | undefined,
 ): FormValues => ({
-  languageRequirement: initialData.language?.value,
-  securityRequirement: initialData.securityClearance?.value,
-  locationOption: getLocationOption(initialData.isRemote),
-  specificLocationEn: initialData.location?.en,
-  specificLocationFr: initialData.location?.fr,
+  languageRequirement: language ?? undefined,
+  securityRequirement: securityClearance ?? undefined,
+  locationOption: getLocationOption(isRemote),
+  specificLocationEn: location?.en,
+  specificLocationFr: location?.fr,
 });
 
 export type CoreRequirementsSubmitData = Pick<

@@ -23,11 +23,7 @@ import {
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import { toast } from "@gc-digital-talent/toast";
-import type {
-  PoolSkill,
-  ScreeningQuestion,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   graphql,
   AssessmentStepType,
@@ -113,8 +109,7 @@ const AssessmentDetailsDialogPoolSkill_Fragment = graphql(/* GraphQL */ `
       }
       key
       name {
-        en
-        fr
+        localized
       }
     }
     assessmentSteps {
@@ -170,40 +165,9 @@ interface FormValues {
   assessedSkillsScreeningQuestions?: string[] | null;
 }
 
-interface InitialValues extends Omit<
-  FormValues,
-  "poolId" | "screeningQuestionFieldArray"
-> {
+interface InitialValues extends Omit<FormValues, "poolId"> {
   poolId: NonNullable<FormValues["poolId"]>;
-  screeningQuestions?: ScreeningQuestion[];
 }
-
-const getDefaultValues = (initialValues: InitialValues): FormValues => {
-  const { screeningQuestions, ...restInitial } = initialValues;
-  if (screeningQuestions) {
-    screeningQuestions.sort((a, b) =>
-      (a.sortOrder ?? Number.MAX_SAFE_INTEGER) >
-      (b.sortOrder ?? Number.MAX_SAFE_INTEGER)
-        ? 1
-        : -1,
-    );
-  }
-
-  return {
-    ...restInitial,
-    screeningQuestionFieldArray: screeningQuestions?.map(
-      (initialScreeningQuestion) => ({
-        id: null, // filled by react-hook-form
-        screeningQuestion: {
-          id: initialScreeningQuestion.id,
-          sortOrder: initialScreeningQuestion.sortOrder,
-          en: initialScreeningQuestion.question?.en,
-          fr: initialScreeningQuestion.question?.fr,
-        },
-      }),
-    ),
-  };
-};
 
 interface AssessmentDetailsDialogProps {
   initialValues: InitialValues;
@@ -247,7 +211,7 @@ const AssessmentDetailsDialog = ({
   ] = useMutation(AssessmentDetailsDialog_ScreeningQuestionMutation);
 
   const methods = useForm<FormValues>({
-    defaultValues: getDefaultValues(initialValues),
+    defaultValues: initialValues,
   });
   const {
     handleSubmit,
@@ -314,7 +278,7 @@ const AssessmentDetailsDialog = ({
 
   // NOTE: Required to update form when initial values change
   useEffect(() => {
-    reset(getDefaultValues(initialValues));
+    reset(initialValues);
   }, [reset, initialValues]);
 
   const submitCreateAssessmentStepMutation = (
@@ -447,14 +411,15 @@ const AssessmentDetailsDialog = ({
   const canAddScreeningQuestions =
     fields.length < SCREENING_QUESTIONS_MAX_QUESTIONS;
 
-  const assessedSkillsItems: AssessedSkillsItems = allPoolSkills.reduce(
-    (assessedSkills: AssessedSkillsItems, poolSkill: PoolSkill) => {
+  const assessedSkillsItems = allPoolSkills.reduce<AssessedSkillsItems>(
+    (assessedSkills, poolSkill) => {
       if (poolSkill.type?.value === PoolSkillType.Essential) {
         return {
           essentialSkillItems: [
             ...assessedSkills.essentialSkillItems,
             poolSkillToOption(
-              { id: poolSkill.id, skill: poolSkill.skill },
+              poolSkill.id,
+              poolSkill.skill?.name?.localized,
               intl,
             ),
           ],
@@ -467,7 +432,8 @@ const AssessmentDetailsDialog = ({
           assetSkills: [
             ...assessedSkills.assetSkills,
             poolSkillToOption(
-              { id: poolSkill.id, skill: poolSkill.skill },
+              poolSkill.id,
+              poolSkill.skill?.name?.localized,
               intl,
             ),
           ],
