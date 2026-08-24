@@ -11,7 +11,9 @@ use App\Enums\CafForce;
 use App\Enums\CafRank;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\DegreeType;
 use App\Enums\EducationStatus;
+use App\Enums\EducationType;
 use App\Enums\EmploymentCategory;
 use App\Enums\EstimatedLanguageAbility;
 use App\Enums\ExecCoaching;
@@ -431,13 +433,39 @@ trait GeneratesUserDoc
             $title = $experience->getTitle($this->lang, $experienceVersion);
             $section->addTitle($title, $headingRank);
             $section->addText($experience->getDateRange($this->lang));
-            $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
-            $this->addLabelText($section, $this->localize('headings.completion_status'), $this->localizeEnum($experience->status, EducationStatus::class));
-            $this->addLabelText($section, $this->localize('headings.thesis_title'), $experience->thesis_title);
-            $this->addLabelText($section, $this->localize('headings.license_accreditation'), $experience->license_or_accreditation);
-            $this->addLabelText($section, $this->localize('headings.certification'), $experience->certification);
-            $this->addLabelText($section, $this->localize('headings.course_name'), $experience->course_name);
-            $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            if ((bool) $experienceVersion && $experienceVersion === 1) {
+                // V1 Snapshot representation of an Education Experience
+                $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
+                $this->addLabelText($section, $this->localize('common.status'), $this->localizeEnum($experience->status, EducationStatus::class));
+                $this->addLabelText($section, $this->localize('headings.thesis_title'), $experience->thesis_title);
+                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            } else {
+                // V2 and onwards representation of an Education Experience
+                // default rendering
+                if (($experience->education_type === EducationType::DEGREE_DIPLOMA_CERTIFICATE->name &&
+                            $experience->degree_type !== DegreeType::HIGH_SCHOOL->name) ||
+                        $experience->education_type === EducationType::INDIVIDUAL_COURSE->name ||
+                        $experience->education_type === EducationType::FELLOWSHIP->name ||
+                        $experience->education_type === EducationType::OTHER->name) {
+                    $this->addLabelText($section, $this->localize('headings.area_of_study'), $experience->area_of_study);
+                }
+                $this->addLabelText($section, $this->localize('headings.completion_status'), $this->localizeEnum($experience->status, EducationStatus::class));
+                if ($experience->education_type === EducationType::DEGREE_DIPLOMA_CERTIFICATE->name &&
+                        ($experience->degree_type === DegreeType::MASTERS_DEGREE->name ||
+                        $experience->degree_type === DegreeType::PHD->name)) {
+                    $this->addLabelText($section, $this->localize('headings.thesis_title'), $experience->thesis_title);
+                }
+                if ($experience->education_type === EducationType::LICENSE_ACCREDITATION->name) {
+                    $this->addLabelText($section, $this->localize('headings.license_accreditation'), $experience->license_or_accreditation);
+                }
+                if ($experience->education_type === EducationType::PROFESSIONAL_CERTIFICATION->name) {
+                    $this->addLabelText($section, $this->localize('headings.certification'), $experience->certification);
+                }
+                if ($experience->education_type === EducationType::INDIVIDUAL_COURSE->name) {
+                    $this->addLabelText($section, $this->localize('headings.course_name'), $experience->course_name);
+                }
+                $this->addLabelText($section, $this->localize('headings.additional_details'), $experience->details);
+            }
 
             if ($withSkills) {
                 $experience->load(['userSkills' => ['skill']]);
