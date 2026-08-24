@@ -113,13 +113,13 @@ export const getEmploymentEquityStatement = (
 
 const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
-    defaultMessage: "I am a Canadian citizen.",
-    id: "l4wLn9",
+    defaultMessage: "Canadian citizen",
+    id: "TSscCR",
     description: "declaring one to be a Canadian citizen",
   },
   [CitizenshipStatus.PermanentResident]: {
-    defaultMessage: "I am a permanent resident of Canada.",
-    id: "OaB49n",
+    defaultMessage: "Permanent resident of Canada",
+    id: "xsZTQv",
     description: "declaring one to be a permanent resident",
   },
   [CitizenshipStatus.Other]: commonMessages.other,
@@ -137,38 +137,37 @@ export const getCitizenshipStatusesProfile = (
 const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
     defaultMessage:
-      "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
-    id: "ZpTNbt",
+      "I am a <strong>veteran</strong> of the Canadian Armed Forces",
+    id: "y9kdtr",
     description: "declare self to be a CAF veteran",
   },
   [ArmedForcesStatus.Member]: {
     defaultMessage:
-      "I am an <strong>active member</strong> of the Canadian Armed Forces.",
-    id: "iYNLo1",
+      "I am an <strong>active member</strong> of the Canadian Armed Forces",
+    id: "oeAqAM",
     description: "declare self to be a CAF member",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage:
-      "I am <strong>not a member</strong> of the Canadian Armed Forces.",
-    id: "bAaDat",
+    defaultMessage: "I am not a member of the Canadian Armed Forces",
+    id: "w6i1rO",
     description: "declare self to not be in the CAF",
   },
 });
 
 const armedForcesStatusesProfileNoBold = defineMessages({
   [ArmedForcesStatus.Veteran]: {
-    defaultMessage: "I am a veteran of the Canadian Armed Forces.",
-    id: "jqyjFm",
+    defaultMessage: "Veteran of the Canadian Armed Forces",
+    id: "0RVc/y",
     description: "declare self to be a CAF veteran without bolding",
   },
   [ArmedForcesStatus.Member]: {
-    defaultMessage: "I am an active member of the Canadian Armed Forces.",
-    id: "TRDfnp",
+    defaultMessage: "Active member of the Canadian Armed Forces",
+    id: "L864l0",
     description: "declare self to be a CAF member without bolding",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage: "I am not a member of the Canadian Armed Forces.",
-    id: "vPDtGU",
+    defaultMessage: "Not a member of the Canadian Armed Forces",
+    id: "V4n55A",
     description: "declare self to not be in the CAF without bolding",
   },
 });

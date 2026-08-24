@@ -12,13 +12,13 @@ const messages = defineMessages({
     description: "Message to state user is not employed by government",
   },
   yesPriorityEntitlement: {
-    defaultMessage: "Yes, I do have a priority entitlement.",
-    id: "FVAQCH",
+    defaultMessage: "Yes, I have a priority entitlement",
+    id: "GiHzdH",
     description: "affirm possession of priority entitlement",
   },
   noPriorityEntitlement: {
-    defaultMessage: "No, I do not have a priority entitlement.",
-    id: "I6Qz7N",
+    defaultMessage: "No, I don't have a priority entitlement",
+    id: "cqgLoi",
     description: "affirm no entitlement",
   },
 });

@@ -109,8 +109,8 @@ const FormFields = ({ labels }: FormFieldsProps) => {
             value: "no",
             label: intl.formatMessage({
               defaultMessage:
-                "<strong>No</strong>, I do not have a priority entitlement.",
-              id: "09ijOa",
+                "<strong>No</strong>, I don't have a priority entitlement",
+              id: "ixQu7+",
               description:
                 "Label displayed for does not have priority entitlement option",
             }),
@@ -119,8 +119,8 @@ const FormFields = ({ labels }: FormFieldsProps) => {
             value: "yes",
             label: intl.formatMessage({
               defaultMessage:
-                "<strong>Yes</strong>, I do have a priority entitlement.",
-              id: "Xmtw0V",
+                "<strong>Yes</strong>, I have a priority entitlement",
+              id: "33tIFz",
               description:
                 "Label displayed does have priority entitlement option",
             }),
