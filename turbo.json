@@ -1,27 +1,12 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
-  "globalDependencies": [
-    "package.json",
-    "**/.env",
-    "pnpm-workspace.yaml"
-  ],
+  "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^intl-compile",
-        "intl-compile",
-        "^codegen",
-        "typegen"
-      ],
-      "inputs": [
-        "src/**",
-        "index.html",
-        "package.json"
-      ],
-      "outputs": [
-        "dist/**"
-      ],
+      "dependsOn": ["^intl-compile", "intl-compile", "^codegen", "typegen"],
+      "inputs": ["src/**", "index.html", "package.json"],
+      "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
     "codegen": {
@@ -32,65 +17,34 @@
         "src/**/*.ts",
         "src/**/*.tsx"
       ],
-      "outputs": [
-        "src/index.ts"
-      ],
+      "outputs": ["src/index.ts"],
       "cache": false,
       "outputLogs": "new-only"
     },
     "typegen": {
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx"
-      ],
-      "outputs": [
-        ".react-router/**"
-      ],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": [".react-router/**"],
       "outputLogs": "new-only"
     },
     "dev": {
-      "dependsOn": [
-        "intl-compile",
-        "^intl-compile",
-        "^codegen",
-        "typegen"
-      ],
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "package.json",
-        "index.html"
-      ],
-      "outputs": [
-        "dist/**"
-      ],
+      "dependsOn": ["intl-compile", "^intl-compile", "^codegen", "typegen"],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx", "package.json", "index.html"],
+      "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
     "watch": {
-      "dependsOn": [
-        "intl-compile",
-        "^intl-compile"
-      ],
+      "dependsOn": ["intl-compile", "^intl-compile"],
       "cache": false,
       "persistent": true
     },
     "build:intl-cli": {
-      "inputs": [
-        "src/cli.ts"
-      ],
-      "outputs": [
-        "dist/cli.js"
-      ],
+      "inputs": ["src/cli.ts"],
+      "outputs": ["dist/cli.js"],
       "outputLogs": "new-only"
     },
     "intl-extract": {
-      "inputs": [
-        "src/**/*.ts",
-        "src/**/*.tsx"
-      ],
-      "outputs": [
-        "src/lang/en.json"
-      ],
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": ["src/lang/en.json"],
       "outputLogs": "new-only"
     },
     "intl-compile": {
@@ -102,13 +56,8 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": [
-        "intl-extract",
-        "^intl-extract"
-      ],
-      "outputs": [
-        "src/lang/*{Compiled}.json"
-      ],
+      "dependsOn": ["intl-extract", "^intl-extract"],
+      "outputs": ["src/lang/*{Compiled}.json"],
       "cache": false,
       "outputLogs": "new-only"
     },
@@ -123,26 +72,16 @@
         "src/lang/ojw.json",
         "src/lang/mic.json"
       ],
-      "dependsOn": [
-        "intl-compile",
-        "^intl-compile"
-      ],
+      "dependsOn": ["intl-compile", "^intl-compile"],
       "cache": false,
       "outputLogs": "new-only"
     },
     "storybook": {
-      "dependsOn": [
-        "^codegen",
-        "^intl-compile",
-        "intl-compile"
-      ],
+      "dependsOn": ["^codegen", "^intl-compile", "intl-compile"],
       "outputs": []
     },
     "build-storybook": {
-      "outputs": [
-        "dist/**",
-        "storybook-static/**"
-      ]
+      "outputs": ["dist/**", "storybook-static/**"]
     },
     "test": {
       "outputLogs": "new-only"
@@ -164,6 +103,7 @@
         "PLAYWRIGHT_PLATFORM_ADMIN_SUB",
         "PLAYWRIGHT_COMMUNITY_ADMIN_SUB",
         "PLAYWRIGHT_APPLICANT_SUB",
+        "PLAYWRIGHT_NO_ROLES_SUB",
         "E2E_COVERAGE"
       ]
     },
@@ -186,18 +126,10 @@
       ]
     },
     "prettier": {
-      "inputs": [
-        "./.prettierrc",
-        "**/*.{ts,tsx}",
-        "!node_modules"
-      ]
+      "inputs": ["./.prettierrc", "**/*.{ts,tsx}", "!node_modules"]
     },
     "prettier:fix": {
-      "inputs": [
-        "./.prettierrc",
-        "**/*.{ts,tsx}",
-        "!node_modules"
-      ]
+      "inputs": ["./.prettierrc", "**/*.{ts,tsx}", "!node_modules"]
     },
     "tsc": {}
   }

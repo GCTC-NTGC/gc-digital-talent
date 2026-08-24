@@ -7,18 +7,20 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("User search", () => {
+test.describe("User search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
-  let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let user: User;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
     const userName = `Playwright ${uniqueTestId}`;
     const sub = `playwright.sub.${uniqueTestId}`;
+    platformAdminCtx = await graphql.newContext();
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         firstName: userName,
         email: `${sub}@test.org`,
@@ -32,13 +34,13 @@ test.describe("User search", () => {
 
   test.afterAll(async () => {
     if (user) {
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("User can be searched by name", async ({ appPage }) => {
     const userName = user?.firstName ?? "";
-    await loginBySub(appPage.page, "admin@test.com", false);
+    await loginBySub(appPage.page, platformAdminSub, false);
     await appPage.page.goto("/admin/users");
     await appPage.page.getByRole("button", { name: /filter by/i }).click();
     await appPage.page

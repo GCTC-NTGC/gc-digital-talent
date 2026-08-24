@@ -1,4 +1,4 @@
-import type { Download } from "@playwright/test";
+import { expect, type Download } from "@playwright/test";
 
 import AppPage from "./AppPage";
 
@@ -50,9 +50,12 @@ class PoolCandidatePage extends AppPage {
       .getByRole("menuitem", { name: /download profiles excel/i })
       .click();
 
-    // Give server time to generate file
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(1500);
+    // The export is generated asynchronously. A "notificationReceived"
+    // subscription pushes a toast once it's actually ready, so wait for
+    // that instead of a fixed delay/an already-present notification.
+    await expect(
+      this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
+    ).toBeVisible({ timeout: 60_000 });
 
     const now = new Date();
     const today = now.toISOString().split("T")[0];
@@ -63,6 +66,8 @@ class PoolCandidatePage extends AppPage {
     await this.waitForGraphqlResponse("NotificationDialog");
     await this.page.getByRole("button", { name: /refresh/i }).click();
     await this.waitForGraphqlResponse("NotificationDialog");
+    // Notifications are ordered newest first, so once the ready toast has
+    // fired, the first matching link is guaranteed to be the new file.
     await this.page
       .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()

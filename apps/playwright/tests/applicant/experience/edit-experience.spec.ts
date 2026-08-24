@@ -5,24 +5,26 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { me } from "~/utils/user";
 
-test("Can edit work experience", async ({ appPage }) => {
+test("Can edit work experience", { tag: "@uat" }, async ({ appPage }) => {
   const uniqueTestId = generateUniqueTestId();
   const role = `Test edit work experience (${uniqueTestId})`;
   const experiencePage = new ExperiencePage(appPage.page);
-  await loginBySub(experiencePage.page, "applicant@test.com");
+  const applicantSub =
+    process.env.PLAYWRIGHT_APPLICANT_SUB ?? "applicant@test.com";
+  await loginBySub(experiencePage.page, applicantSub);
 
   await experiencePage.addCafWorkExperience({
     role,
     startDate: "2001-01",
   });
 
-  await expect(experiencePage.page.getByRole("alert")).toContainText(
+  await expect(experiencePage.page.getByRole("alert").last()).toContainText(
     /successfully added experience/i,
   );
 
   await experiencePage.goToIndex();
 
-  const applicantCtx = await graphql.newContext("applicant@test.com");
+  const applicantCtx = await graphql.newContext(applicantSub);
   const applicant = await me(applicantCtx, {});
 
   const workExperience = applicant.experiences?.find((ex) =>
@@ -34,4 +36,6 @@ test("Can edit work experience", async ({ appPage }) => {
     startDate: "2001-01",
     endDate: "2200-01",
   });
+
+  await experiencePage.removeExperience(`${workExperience?.id}`);
 });

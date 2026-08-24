@@ -15,6 +15,7 @@ import {
 import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
@@ -28,25 +29,34 @@ const LOCALIZED_STRING = {
   fr: "test FR",
 };
 
-test.describe("Pool candidates", () => {
+test.describe("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let user: User | undefined;
+  let adminCtx, platformAdminCtx: GraphQLContext;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
+  let applicantSub: string;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+    );
 
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
+
+    technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
 
-    user = await createUserWithRoles(adminCtx, {
+    user = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
@@ -91,9 +101,7 @@ test.describe("Pool candidates", () => {
       name: LOCALIZED_STRING,
     });
 
-    const applicantCtx = await graphql.newContext(
-      user?.authInfo?.sub ?? "applicant@test.com",
-    );
+    const applicantCtx = await graphql.newContext(applicantSub);
     const applicant = await me(applicantCtx, {});
 
     const application = await createAndSubmitApplication(applicantCtx, {
@@ -107,13 +115,12 @@ test.describe("Pool candidates", () => {
 
   test.afterEach(async () => {
     if (user?.id) {
-      const adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("Verification and notes mutations", async ({ appPage }) => {
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, adminSub);
     await appPage.page.goto(`/en/admin/candidates/${candidate.id}/application`);
     await appPage.waitForGraphqlResponse("PoolCandidateSnapshot");
 
