@@ -58,6 +58,8 @@ return [
     |--------------------------------------------------------------------------
     |
     | Number of links to check at the same time.
+    | As of 2026-08-24 concurrency throttling doesn't seem to work reliably on
+    | PHP in Docker on MacOS.  Use "1" for no concurrency.
     |
     */
 
