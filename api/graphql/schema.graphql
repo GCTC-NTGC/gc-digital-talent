@@ -900,6 +900,7 @@ type TalentNominationEvent {
       scopes: ["withPolicyEagerLoads", "authorizedToView"]
     )
   status: LocalizedTalentNominationEventStatus
+  includeDevelopmentOpportunities: Boolean!
   includeNineBox: Boolean! @rename(attribute: "include_nine_box")
   requireReferenceForAdvancement: Boolean!
     @rename(attribute: "require_reference_for_advancement")
@@ -1639,6 +1640,7 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
   classifications: [UUID!] @scope
+  referralStatuses: [CommunityReferralStatus!] @scope
 }
 input DateRangeOptional {
   from: DateTime
@@ -4216,7 +4218,6 @@ type Mutation {
     @guard
     @canFind(ability: "view", find: "id", model: "PoolCandidate")
   downloadJobPosterTemplateDoc(id: UUID!): String
-    @guard
     @canFind(ability: "view", find: "id", model: "JobPosterTemplate")
   downloadNominationDoc(id: UUID!): String
     @guard

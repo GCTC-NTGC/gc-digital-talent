@@ -1,39 +1,35 @@
 import isEmpty from "lodash/isEmpty";
 
 import type {
-  User,
-  Pool,
-  LocalizedLanguage,
-  LocalizedEstimatedLanguageAbility,
-  LocalizedEvaluatedLanguageAbility,
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  Language,
+  PoolLanguage,
 } from "@gc-digital-talent/graphql";
+import type {
+  GenericLocalizedEnum,
+  LocalizedEnumValue,
+} from "@gc-digital-talent/i18n";
 
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
 
-type PartialLanguage = Pick<LocalizedLanguage, "value"> | null;
-type PartialEvaluatedLanguage = Pick<
-  LocalizedEvaluatedLanguageAbility,
-  "value"
-> | null;
+interface LanguageInformationPool {
+  language?: GenericLocalizedEnum<PoolLanguage> | null;
+}
 
-export interface PartialUser extends Pick<
-  User,
-  | "lookingForEnglish"
-  | "lookingForFrench"
-  | "lookingForBilingual"
-  | "secondLanguageExamCompleted"
-  | "secondLanguageExamValidity"
-> {
-  firstOfficialLanguage?: PartialLanguage;
-  estimatedLanguageAbility?: Pick<
-    LocalizedEstimatedLanguageAbility,
-    "value"
-  > | null;
-  writtenLevel?: PartialEvaluatedLanguage;
-  comprehensionLevel?: PartialEvaluatedLanguage;
-  verbalLevel?: PartialEvaluatedLanguage;
-  preferredLanguageForInterview?: PartialLanguage;
-  preferredLanguageForExam?: PartialLanguage;
+export interface PartialUser {
+  lookingForEnglish?: boolean | null;
+  lookingForFrench?: boolean | null;
+  lookingForBilingual?: boolean | null;
+  secondLanguageExamCompleted?: boolean | null;
+  secondLanguageExamValidity?: boolean | null;
+  firstOfficialLanguage?: LocalizedEnumValue<Language> | null;
+  estimatedLanguageAbility?: LocalizedEnumValue<EstimatedLanguageAbility> | null;
+  writtenLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  comprehensionLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  verbalLevel?: LocalizedEnumValue<EvaluatedLanguageAbility> | null;
+  preferredLanguageForInterview?: LocalizedEnumValue<Language> | null;
+  preferredLanguageForExam?: LocalizedEnumValue<Language> | null;
 }
 
 export function hasAllEmptyFields({
@@ -83,7 +79,7 @@ export function hasEmptyRequiredFields({
 
 export function hasUnsatisfiedRequirements(
   user: PartialUser,
-  pool: Pick<Pool, "language"> | null,
+  pool: LanguageInformationPool | null,
 ): boolean {
   return (
     getMissingLanguageRequirements(user, {

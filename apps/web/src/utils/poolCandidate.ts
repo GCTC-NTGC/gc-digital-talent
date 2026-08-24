@@ -11,16 +11,12 @@ import type { ReactNode } from "react";
 import { differenceInDays } from "date-fns/differenceInDays";
 
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, ENUM_SORT_ORDER } from "@gc-digital-talent/i18n";
 import type { ChipProps } from "@gc-digital-talent/ui";
 import type {
-  AssessmentStep,
-  Pool,
   ScreeningStage,
   AssessmentStepType,
-  LocalizedCandidateStatus,
-  LocalizedCandidateInterest,
-  LocalizedApplicationStatus,
 } from "@gc-digital-talent/graphql";
 import {
   CandidateStatus,
@@ -36,9 +32,13 @@ export const isLegacyAssessmentStepType = (
   return !!(type ? LEGACY_ASSESSMENT_STEP_TYPES.includes(type) : false);
 };
 
-// too generic to narrow
-export const getOrderedSteps = (assessmentSteps: AssessmentStep[]) =>
-  sortBy(assessmentSteps, (step) => step.sortOrder);
+interface SortableAssessmentStep {
+  sortOrder?: number | null;
+}
+
+export const getOrderedSteps = <T extends SortableAssessmentStep>(
+  assessmentSteps: T[],
+) => sortBy(assessmentSteps, (step) => step.sortOrder);
 
 const applicationStatusColourMap = new Map<
   ApplicationStatus,
@@ -66,7 +66,7 @@ interface StatusChip {
  * assessment progress than that shown to applicants.
  */
 export const getApplicationStatusChip = (
-  status: LocalizedApplicationStatus | null | undefined,
+  status: GenericLocalizedEnum<ApplicationStatus> | null | undefined,
   intl: IntlShape,
 ): StatusChip => {
   return {
@@ -242,7 +242,7 @@ export const qualifiedRecruitmentStatusDescriptions = defineMessages({
  * @returns
  */
 export const deadlineToApply = (
-  closingDate: Pool["closingDate"],
+  closingDate: string | null | undefined,
   status?: CandidateStatus | null,
 ): boolean => {
   const lessThanThreeDaysTillClosingDate = closingDate
@@ -289,7 +289,7 @@ export const candidateStatusColorMap = new Map<
 ]);
 
 export const candidateStatusChip = (
-  status?: LocalizedCandidateStatus | null,
+  status?: GenericLocalizedEnum<CandidateStatus> | null,
 ): StatusChip | null => {
   if (!status?.label.localized) return null;
 
@@ -310,7 +310,7 @@ export const candidateInterestColorMap = new Map<
 ]);
 
 export const candidateInterestChip = (
-  interest?: LocalizedCandidateInterest | null,
+  interest?: GenericLocalizedEnum<CandidateInterest> | null,
 ): StatusChip | null => {
   if (!interest?.label?.localized || !interest.value) return null;
 

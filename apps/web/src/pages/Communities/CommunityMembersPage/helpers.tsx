@@ -5,17 +5,15 @@ import EllipsisVerticalIcon from "@heroicons/react/16/solid/EllipsisVerticalIcon
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 import { DropdownMenu, IconButton, Link, Ul } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  Role,
-  CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { CommunityMembersPage_CommunityFragment as CommunityMembersPageCommunityFragmentType } from "@gc-digital-talent/graphql";
+import type { AuthRole } from "@gc-digital-talent/auth";
 
 import type { CommunityMember } from "~/utils/communityUtils";
 
 import EditCommunityMemberDialog from "./components/EditCommunityMemberDialog";
 import RemoveCommunityMemberDialog from "./components/RemoveCommunityMemberDialog";
 
-export function orderRoles(roles: Role[], intl: IntlShape) {
+export function orderRoles(roles: AuthRole[], intl: IntlShape) {
   return orderBy(roles, ({ displayName }) => {
     const value = getLocalizedName(displayName, intl);
 
@@ -98,7 +96,7 @@ export function emailLinkCell(
 }
 
 export function roleCell(
-  roles: (Role | null | undefined)[] | null | undefined,
+  roles: (AuthRole | null | undefined)[] | null | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = unpackMaybes(roles);
@@ -112,7 +110,7 @@ export function roleCell(
 }
 
 export function roleAccessor(
-  roles: (Role | null | undefined)[] | null | undefined,
+  roles: (AuthRole | null | undefined)[] | null | undefined,
   intl: IntlShape,
 ) {
   const nonEmptyRoles = roles?.filter(notEmpty);

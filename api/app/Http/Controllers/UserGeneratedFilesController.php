@@ -5,21 +5,38 @@ namespace App\Http\Controllers;
 use App\Support\FilePath;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class UserGeneratedFilesController extends Controller
 {
-    public function getFile(string $fileName)
+    /**
+     * Streams a public file that does not require authentication
+     *
+     * @param  string  $fileName  The name of the file to be streamed
+     */
+    public function getPublicFile(string $fileName): StreamedResponse
+    {
+        return $this->streamFile(FilePath::PUBLIC_DISK, null, $fileName);
+    }
+
+    public function getGuardedFile(string $fileName): StreamedResponse
     {
         // https://laravel.com/docs/10.x/authentication#accessing-specific-guard-instances
         $userId = Auth::guard('api')->id();
         throw_unless(is_string($userId) && ! empty($userId), UnauthorizedHttpException::class);
 
-        $safeFileName = FilePath::sanitize($fileName, true);
-        $filePath = $userId.'/'.$safeFileName;
+        return $this->streamFile(FilePath::GUARDED_DISK, $userId, $fileName);
+    }
 
-        throw_unless(Storage::disk('user_generated')->exists($filePath), NotFoundHttpException::class);
+    private function streamFile(string $diskName, ?string $parentDir, string $fileName): StreamedResponse
+    {
+        $safeFileName = FilePath::sanitize($fileName, true);
+        $filePath = $parentDir ? $parentDir.DIRECTORY_SEPARATOR.$safeFileName : $safeFileName;
+        $disk = Storage::disk($diskName);
+
+        throw_unless($disk->exists($filePath), NotFoundHttpException::class);
 
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
@@ -34,8 +51,8 @@ class UserGeneratedFilesController extends Controller
         };
 
         /* buffered response */
-        return response()->streamDownload(function () use ($filePath) {
-            $handle = Storage::disk('user_generated')->readStream($filePath);
+        return response()->streamDownload(function () use ($disk, $filePath) {
+            $handle = $disk->readStream($filePath);
             if ($handle) {
                 fpassthru($handle);
                 // Check to avoid warnings if the handle is already closed or invalid
@@ -44,6 +61,5 @@ class UserGeneratedFilesController extends Controller
                 }
             }
         }, $safeFileName, ['Content-Type' => $contentType]);
-
     }
 }

@@ -709,6 +709,49 @@ class TalentRequestMatchesTest extends TestCase
         ]);
     }
 
+    public function testCommunitylessPoolExcludedFromCountsAndTotal(): void
+    {
+        $classification = Classification::factory()->create();
+        $community = Community::factory()->create();
+
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+            'community_id' => $community->id,
+        ]);
+        $this->matchingUser($pool);
+
+        // matches every other filter, but its pool has no community attached
+        $communitylessPool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'classification_id' => $classification->id,
+        ]);
+        $communitylessPool->forceFill(['community_id' => null])->save();
+        $this->matchingUser($communitylessPool);
+
+        $where = [
+            'applicantFilter' => [
+                'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+            ],
+        ];
+
+        // total excludes the communityless pool's candidate
+        $this->runCountMatches($where)
+            ->assertJson(['data' => ['countTalentRequestMatches' => 1]]);
+
+        // by-pool breakdown only lists the community-attached pool
+        $this->runCountByPool($where)->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByPool' => [
+                    ['pool' => ['id' => $pool->id], 'count' => 1],
+                ],
+            ],
+        ]);
+
+        // by-community breakdown is unaffected and matches the total
+        $this->runCountByCommunity($where)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.community.id', $community->id)
+            ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 1);
+    }
+
     public function testCountByCommunityCountsBreakdownAndDedupesTotal(): void
     {
         $classification = Classification::factory()->create();

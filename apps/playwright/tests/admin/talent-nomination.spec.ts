@@ -216,6 +216,7 @@ test.describe("Talent nomination management", () => {
       .click();
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
     await appPage.waitForGraphqlResponse("NominateTalent");
+
     await expect(
       appPage.page.getByRole("heading", {
         name: /We’ve received your nomination/i,

@@ -154,9 +154,8 @@ const Instructions = ({ instructionsQuery }: InstructionsProps) => {
       </SubHeading>
       <p className="my-6">
         {intl.formatMessage({
-          defaultMessage:
-            "Welcome to the talent nomination form. This form allows you to nominate a candidate for advancement, lateral movement, or development opportunities unique to their area of work.",
-          id: "6ZwHMj",
+          defaultMessage: "Welcome to the talent nomination form.",
+          id: "hG3PGw",
           description:
             "Paragraph one, instructions on how to submit a nomination",
         })}

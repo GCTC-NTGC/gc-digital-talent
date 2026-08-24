@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
-import { screen } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import type { ComponentPropsWithoutRef } from "react";
 
@@ -61,6 +61,36 @@ describe("Accordion", () => {
       children: <DefaultChildren />,
     });
     await expectNoAccessibilityErrors(container);
+  });
+
+  // A heading is flow content, which is invalid inside <button>, so the heading
+  // has to wrap the trigger rather than sit within it.
+  it.each([
+    ["h2" as const, 2],
+    ["h3" as const, 3],
+    ["h4" as const, 4],
+  ])("should render an %s around the trigger, not inside it", (as, level) => {
+    renderAccordion({
+      type: "single",
+      children: (
+        <Accordion.Item value="one">
+          <Accordion.Trigger as={as} subtitle="Accordion subtitle" context="12">
+            Accordion One
+          </Accordion.Trigger>
+          <Accordion.Content>
+            <Text />
+          </Accordion.Content>
+        </Accordion.Item>
+      ),
+    });
+
+    const trigger = screen.getByRole("button", { name: /accordion one/i });
+    expect(within(trigger).queryByRole("heading")).toBeNull();
+
+    const heading = screen.getByRole("heading", { level });
+    expect(heading).toContainElement(trigger);
+    // The context is a sibling of the heading, so it stays out of its text.
+    expect(heading).not.toHaveTextContent("12");
   });
 
   it("should only open one when single", async () => {

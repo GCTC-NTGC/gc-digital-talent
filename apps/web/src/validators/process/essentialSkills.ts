@@ -1,13 +1,13 @@
 import { empty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { PoolSkillType } from "@gc-digital-talent/graphql";
 
+import type { PoolWithSkills } from "~/utils/skillUtils";
 import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 // Note: Only one field to check here
 export function hasEmptyRequiredFields({
   poolSkills,
-}: Pick<Pool, "poolSkills">): boolean {
+}: PoolWithSkills): boolean {
   // has at least one essential skill, and all essential skills have associated required skill levels
 
   const poolSkillsUnpacked = unpackMaybes(poolSkills);
