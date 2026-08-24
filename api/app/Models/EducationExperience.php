@@ -117,9 +117,9 @@ class EducationExperience extends Experience
                 default:
                     $type = LanguageHelpers::localizeEnum($this->education_type, EducationType::class, $lang);
             }
-            if ($this->education_type === EducationType::PROFESSIONAL_CERTIFICATION) {
+            if ($this->education_type === EducationType::PROFESSIONAL_CERTIFICATION->name) {
                 $subject = $this->certification;
-            } elseif ($this->education_type === EducationType::LICENSE_ACCREDITATION) {
+            } elseif ($this->education_type === EducationType::LICENSE_ACCREDITATION->name) {
                 $subject = $this->license_or_accreditation;
             }
         }
