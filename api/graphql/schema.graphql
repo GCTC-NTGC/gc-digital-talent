@@ -690,12 +690,8 @@ type PoolCandidate {
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
 
-  # Candidate-facing summaries of the internal status. These intentionally sit
-  # outside `applicationStatusData` with no permission guard: they are designed
-  # to be safe for anyone who can view the PoolCandidate, including the
-  # candidate themselves. `candidateStatus` bundles application status, removal
-  # reason and screening stage; `candidateInterest` bundles expiry, suspension
-  # and placement type.
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
   candidateStatus: LocalizedCandidateStatus
   candidateInterest: LocalizedCandidateInterest
   statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
