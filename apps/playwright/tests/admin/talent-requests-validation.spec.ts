@@ -115,7 +115,10 @@ test.describe("Talent search", { tag: "@uat" }, () => {
             OperationalRequirement.OvertimeOccasional,
           ],
           locationPreferences: [WorkRegion.Ontario],
-          flexibleWorkLocations: [FlexibleWorkLocation.Hybrid],
+          flexibleWorkLocations: [
+            FlexibleWorkLocation.Onsite,
+            FlexibleWorkLocation.Hybrid,
+          ],
           personalExperiences: {
             create: [
               {

@@ -92,13 +92,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
       }
     }
     departments {
@@ -138,7 +131,6 @@ export const ViewPoolCandidate = ({
         label: getFullPoolTitleLabel(intl, {
           workStream: poolCandidate.pool.workStream,
           name: poolCandidate.pool.name,
-          publishingGroup: poolCandidate.pool.publishingGroup,
           classification: poolCandidate.pool.classification,
         }),
         url: paths.poolView(poolCandidate.pool.id),

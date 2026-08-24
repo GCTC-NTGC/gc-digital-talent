@@ -1,8 +1,8 @@
-import { defineMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useEffect, useId, useRef, useState } from "react";
 
-import { CardSeparator, Heading, Notice } from "@gc-digital-talent/ui";
+import { CardSeparator, Heading } from "@gc-digital-talent/ui";
 import { getFragment, type FragmentType } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -33,13 +33,6 @@ import EditDialog from "./EditDialog";
 import RemoveDialog from "./RemoveDialog";
 import { instructionsWordCountLimits } from "./constants";
 
-const atLeastOne = defineMessage({
-  defaultMessage:
-    "Please add at least one development opportunity for nominators to select from.",
-  id: "bShedV",
-  description: "Message to add at least one development opportunity",
-});
-
 interface UpcomingTalentEventFormProps {
   query?: FragmentType<typeof TalentNominationEvent_Fragment>;
 }
@@ -49,16 +42,12 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   const locale = getLocale(intl);
   const user = getFragment(TalentNominationEvent_Fragment, query);
   const methods = useFormContext<FormValues>();
-  const { watch, control, getFieldState } = methods;
+  const { watch, control } = methods;
 
   const { fields, append, update, remove, replace } = useFieldArray<FormValues>(
     {
       name: "communityDevelopmentPrograms",
       control,
-      rules: {
-        required: intl.formatMessage(errorMessages.required),
-        validate: (value) => value.length > 0 || intl.formatMessage(atLeastOne),
-      },
     },
   );
 
@@ -112,10 +101,6 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
   }, [replace, watchCommunity]);
 
   const notFound = intl.formatMessage(commonMessages.notFound);
-
-  const { invalid: invalidDevelopmentPrograms } = getFieldState(
-    "communityDevelopmentPrograms",
-  );
 
   const [editOpen, setEditOpen] = useState<string | null>(null);
   const [removeOpen, setRemoveOpen] = useState<string | null>(null);
@@ -371,85 +356,74 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
             />
 
             <>
-              {fields.length === 0 ? (
-                <Notice.Root
-                  color={invalidDevelopmentPrograms ? "error" : "gray"}
-                  className="text-center"
-                >
-                  <Notice.Content>
-                    {intl.formatMessage(atLeastOne)}
-                  </Notice.Content>
-                </Notice.Root>
-              ) : (
-                <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
-                  <DevelopmentProgramCard.Root>
-                    {fields.map((field, index) => {
-                      const developmentProgram = developmentProgramOptions.find(
-                        ({ value }) => value === field.value,
-                      );
+              <div className="overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
+                <DevelopmentProgramCard.Root>
+                  {fields.map((field, index) => {
+                    const developmentProgram = developmentProgramOptions.find(
+                      ({ value }) => value === field.value,
+                    );
 
-                      return (
-                        <DevelopmentProgramCard.Item
-                          id={field.id}
-                          key={field.id}
-                          title={developmentProgram?.label ?? notFound}
-                          description={
-                            <>
-                              <span className="mb-3 block">
-                                {developmentProgram?.description ?? notFound}
-                              </span>
-                              {field.description && (
-                                <span>{field.description[locale]}</span>
-                              )}
-                            </>
-                          }
-                          iconLabel={intl.formatMessage(
-                            {
-                              defaultMessage:
-                                "More actions for development opportunity {title}",
-                              id: "L8zYRQ",
-                              description:
-                                "Aria label for the menu trigger for development program actions",
-                            },
-                            {
-                              title:
-                                developmentProgram?.label ??
-                                intl.formatMessage(commonMessages.notFound),
-                            },
-                          )}
-                          edit={
-                            <EditDialog
-                              key={field.id}
-                              communityDevelopmentProgramId={field.id}
-                              developmentProgramOptions={
-                                developmentProgramOptions
-                              }
-                              defaultValues={{
-                                value: field.value,
-                                description: field.description,
-                              }}
-                              onSubmit={(values) => update(index, values)}
-                              open={editOpen === field.id}
-                              setOpen={setEditOpen}
-                            />
-                          }
-                          remove={
-                            <RemoveDialog
-                              communityDevelopmentProgramId={field.id}
-                              title={developmentProgram?.label}
-                              onRemove={() => remove(index)}
-                              open={removeOpen === field.id}
-                              setOpen={setRemoveOpen}
-                            />
-                          }
-                          setEditOpen={setEditOpen}
-                          setRemoveOpen={setRemoveOpen}
-                        />
-                      );
-                    })}
-                  </DevelopmentProgramCard.Root>
-                </div>
-              )}
+                    return (
+                      <DevelopmentProgramCard.Item
+                        id={field.id}
+                        key={field.id}
+                        title={developmentProgram?.label ?? notFound}
+                        description={
+                          <>
+                            <span className="mb-3 block">
+                              {developmentProgram?.description ?? notFound}
+                            </span>
+                            {field.description && (
+                              <span>{field.description[locale]}</span>
+                            )}
+                          </>
+                        }
+                        iconLabel={intl.formatMessage(
+                          {
+                            defaultMessage:
+                              "More actions for development opportunity {title}",
+                            id: "L8zYRQ",
+                            description:
+                              "Aria label for the menu trigger for development program actions",
+                          },
+                          {
+                            title:
+                              developmentProgram?.label ??
+                              intl.formatMessage(commonMessages.notFound),
+                          },
+                        )}
+                        edit={
+                          <EditDialog
+                            key={field.id}
+                            communityDevelopmentProgramId={field.id}
+                            developmentProgramOptions={
+                              developmentProgramOptions
+                            }
+                            defaultValues={{
+                              value: field.value,
+                              description: field.description,
+                            }}
+                            onSubmit={(values) => update(index, values)}
+                            open={editOpen === field.id}
+                            setOpen={setEditOpen}
+                          />
+                        }
+                        remove={
+                          <RemoveDialog
+                            communityDevelopmentProgramId={field.id}
+                            title={developmentProgram?.label}
+                            onRemove={() => remove(index)}
+                            open={removeOpen === field.id}
+                            setOpen={setRemoveOpen}
+                          />
+                        }
+                        setEditOpen={setEditOpen}
+                        setRemoveOpen={setRemoveOpen}
+                      />
+                    );
+                  })}
+                </DevelopmentProgramCard.Root>
+              </div>
             </>
           </div>
         </>

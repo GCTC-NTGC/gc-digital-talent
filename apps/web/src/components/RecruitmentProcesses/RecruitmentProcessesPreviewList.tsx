@@ -177,20 +177,20 @@ const RecruitmentProcessPreviewList = ({
             description: "Off-platform section information",
           })}
         </p>
-        <p className="mb-6">
-          {offPlatformRecruitmentProcesses?.length ? (
-            <OffPlatformRecruitmentProcessList
-              processesQuery={offPlatformRecruitmentProcesses}
-            />
-          ) : (
-            intl.formatMessage({
+        {offPlatformRecruitmentProcesses?.length ? (
+          <OffPlatformRecruitmentProcessList
+            processesQuery={offPlatformRecruitmentProcesses}
+          />
+        ) : (
+          <p className="mb-6">
+            {intl.formatMessage({
               defaultMessage:
                 "The nominee has not added any off-platform processes.",
               id: "4NtC0R",
               description: "Null state for off-platform section",
-            })
-          )}
-        </p>
+            })}
+          </p>
+        )}
       </div>
     </>
   );

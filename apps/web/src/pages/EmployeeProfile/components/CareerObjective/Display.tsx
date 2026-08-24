@@ -8,7 +8,7 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import employeeProfileMessages from "~/messages/employeeProfileMessages";
-import { hasAnyEmptyFields } from "~/validators/employeeProfile/careerObjective";
+import { hasIncompleteRequiredFields } from "~/validators/employeeProfile/careerObjective";
 
 import messages from "../../messages";
 
@@ -63,15 +63,13 @@ const Display = ({
 
   return (
     <div className="flex flex-col gap-y-6">
-      {hasAnyEmptyFields({
-        careerObjectiveClassification,
+      {hasIncompleteRequiredFields({
         careerObjectiveTargetRole,
-        careerObjectiveJobTitle,
+        careerObjectiveTargetRoleOther,
         careerObjectiveCommunity,
         careerObjectiveCommunityOther,
-        careerObjectiveWorkStreams,
-        careerObjectiveDepartments,
-        careerObjectiveAdditionalInformation,
+        careerObjectiveIsCSuiteRole,
+        careerObjectiveCSuiteRoleTitle,
       }) && (
         <>
           <Notice.Root>

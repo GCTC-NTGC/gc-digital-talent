@@ -341,7 +341,9 @@ const TalentRequestMatchesTable = ({
     columnHelper.accessor(
       ({ matchingQualifiedInPoolSources }) =>
         poolListNameAccessor(
-          unpackMaybes(matchingQualifiedInPoolSources).map(({ pool }) => pool),
+          unpackMaybes(matchingQualifiedInPoolSources).map(
+            ({ pool }) => pool?.displayName?.display.localized,
+          ),
         ),
       {
         id: "qualifiedPools",
@@ -370,7 +372,11 @@ const TalentRequestMatchesTable = ({
         ) : null,
     }),
     columnHelper.accessor(
-      ({ user }) => locationAccessor(user?.currentCity, user?.currentProvince),
+      ({ user }) =>
+        locationAccessor(
+          user?.currentCity,
+          user?.currentProvince?.label?.localized,
+        ),
       {
         id: "location",
         header: intl.formatMessage(profileMessages.currentLocation),
@@ -548,7 +554,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(talentRequestMessages.referred),
                 })}
                 icon={PaperAirplaneIcon}
@@ -559,7 +565,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}

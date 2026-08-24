@@ -1,9 +1,9 @@
 import { useQuery } from "urql";
 import { useMemo } from "react";
 
-import type { Role } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import type { AuthRole } from "@gc-digital-talent/auth";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 
 import { checkRole } from "~/utils/communityUtils";
@@ -23,7 +23,7 @@ const CommunityMembers_AvailableRolesQuery = graphql(/* GraphQL */ `
 `);
 
 interface UseAvailableRolesReturn {
-  roles: Role[];
+  roles: AuthRole[];
   fetching: boolean;
 }
 
@@ -42,7 +42,7 @@ const useAvailableRoles = (): UseAvailableRolesReturn => {
     return array;
   }, [roleAssignments]);
 
-  const roles: Role[] = useMemo(
+  const roles: AuthRole[] = useMemo(
     () =>
       data?.roles
         ? data.roles

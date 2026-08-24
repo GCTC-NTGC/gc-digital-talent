@@ -24,19 +24,21 @@ const TEXT_AREA_MAX_WORDS = 200;
 
 interface ContextBlockProps {
   messages: string[];
-  key: string;
+  idPrefix: string;
 }
 
-const ContextBlock = ({ messages, key }: ContextBlockProps) => (
+// NOTE: not named `key` — React strips that before props reach a component,
+// so it would always arrive undefined.
+const ContextBlock = ({ messages, idPrefix }: ContextBlockProps) => (
   <div className="mb-3">
     {messages.map((message, index) => (
-      <span
-        key={`${key}-${index + 1}`}
+      <div
+        key={`${idPrefix}-${index + 1}`}
         className="mb-3 flex justify-start gap-3"
       >
         <CheckIcon className="size-6" />
         <p>{message}</p>
-      </span>
+      </div>
     ))}
   </div>
 );
@@ -175,7 +177,7 @@ const ScreeningDecisionDialogForm = ({
                     educationContext ? (
                       <ContextBlock
                         messages={educationContext.messages}
-                        key={educationContext.key}
+                        idPrefix={educationContext.key}
                       />
                     ) : null
                   }

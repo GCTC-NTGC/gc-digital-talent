@@ -475,7 +475,7 @@ export const Component = () => {
                     "Paragraph 1 for the 'Indigenous talent ready for IT apprenticeships' section",
                 })}
               </p>
-              <p className="m-y3">
+              <p>
                 {intl.formatMessage({
                   defaultMessage: "You will receive candidates who have:",
                   id: "SeJ1eB",

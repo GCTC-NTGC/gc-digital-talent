@@ -8,8 +8,8 @@ import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import type {
-  Skill,
-  UpdateSkillShowcase_UserSkillFragment as UpdateSkillShowcaseUserSkillFragmentType,
+  UpdateSkillShowcaseSkillFragment,
+  UpdateSkillShowcaseUserSkillFragment,
 } from "@gc-digital-talent/graphql";
 import {
   graphql,
@@ -23,8 +23,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import type { FormValues } from "./components/UpdateSkillShowcase";
 import UpdateSkillShowcase, {
-  UpdateSkillShowcase_SkillFragment,
-  UpdateSkillShowcase_UserSkillFragment,
+  UpdateSkillShowcaseSkill_Fragment,
+  UpdateSkillShowcaseUserSkill_Fragment,
 } from "./components/UpdateSkillShowcase";
 import { UpdateUserSkillRankings_Mutation } from "./operations";
 
@@ -35,18 +35,18 @@ const ImproveTechnicalSkillsPage_Query = graphql(/* GraphQL */ `
     me {
       id
       userSkills {
-        ...UpdateSkillShowcase_UserSkill
+        ...UpdateSkillShowcaseUserSkill
       }
     }
     skills {
-      ...UpdateSkillShowcase_Skill
+      ...UpdateSkillShowcaseSkill
     }
   }
 `);
 
 interface ImproveTechnicalSkillsProps {
-  skills: Skill[];
-  userSkills: UpdateSkillShowcaseUserSkillFragmentType[];
+  skills: UpdateSkillShowcaseSkillFragment[];
+  userSkills: UpdateSkillShowcaseUserSkillFragment[];
   initialSkills: FormValues;
   stale: boolean;
 }
@@ -178,13 +178,13 @@ const ImproveTechnicalSkillsPage = () => {
 
   const userSkillsQuery = data?.me?.userSkills?.filter(notEmpty);
   const userSkills = getFragment(
-    UpdateSkillShowcase_UserSkillFragment,
+    UpdateSkillShowcaseUserSkill_Fragment,
     userSkillsQuery,
   );
 
   const skillsQuery = data?.skills.filter(notEmpty);
   const skills = getFragment(
-    UpdateSkillShowcase_SkillFragment,
+    UpdateSkillShowcaseSkill_Fragment,
     skillsQuery,
   )?.filter(notEmpty);
   const technicalSkills = skills

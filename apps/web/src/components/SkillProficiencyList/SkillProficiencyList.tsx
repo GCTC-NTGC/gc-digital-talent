@@ -16,6 +16,7 @@ import SkillBrowserDialog from "../SkillBrowser/SkillBrowserDialog";
 export const Options_Fragment = graphql(/* GraphQL */ `
   fragment SkillProficiencyListOptions on Query {
     skills {
+      ...SkillBrowserSkill
       id
       key
       name {
@@ -154,7 +155,7 @@ const SkillProficiencyList = ({
             ? "skill-proficiency-list-with-level"
             : "skill-proficiency-list-without-level"
         }
-        skills={availableSkills}
+        query={availableSkills}
         onSave={async (value) => {
           await onAdd({
             skillId: value.skill ?? null,

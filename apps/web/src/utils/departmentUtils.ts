@@ -1,18 +1,28 @@
-import type { RoleName } from "@gc-digital-talent/auth";
-import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
-  Role,
-  RoleAssignment,
-  UserPublicProfile,
-  DepartmentNameQuery,
-} from "@gc-digital-talent/graphql";
+  AuthRole,
+  AuthRoleAssignment,
+  RoleName,
+} from "@gc-digital-talent/auth";
+import { notEmpty } from "@gc-digital-talent/helpers";
 
-export type DepartmentMember = {
-  roles: Role[];
-} & UserPublicProfile;
+interface DepartmentMemberProfile {
+  id: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  workEmail?: string | null;
+}
+
+export interface DepartmentMember extends DepartmentMemberProfile {
+  roles: AuthRole[];
+}
+
+interface DepartmentRoleAssignment {
+  role?: AuthRole | null;
+  user?: DepartmentMemberProfile | null;
+}
 
 export const groupRoleAssignmentsByUserDepartments = (
-  assignments: RoleAssignment[],
+  assignments: DepartmentRoleAssignment[],
 ) => {
   let users: DepartmentMember[] = [];
   const filteredAssignments = assignments.filter((assignment) => {
@@ -43,10 +53,6 @@ export const groupRoleAssignmentsByUserDepartments = (
   return users;
 };
 
-type RoleAssignmentsCustom = NonNullable<
-  DepartmentNameQuery["myAuth"]
->["roleAssignments"];
-
 /**
  * Check to see if user contains one or more roles
  *
@@ -57,7 +63,7 @@ type RoleAssignmentsCustom = NonNullable<
  */
 export const checkRoleDepartments = (
   roles: RoleName[] | null,
-  userRoleAssignments: RoleAssignmentsCustom,
+  userRoleAssignments: AuthRoleAssignment[] | null,
   departmentId?: string,
 ): boolean => {
   if (!roles) {

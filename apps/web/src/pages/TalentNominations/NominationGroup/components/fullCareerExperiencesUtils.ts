@@ -1,7 +1,6 @@
 import type { IntlShape } from "react-intl";
 
 import type {
-  AwardExperience,
   FullCareerExperiencesTalentNominationGroupFragment,
   FullCareerExperiencesUserFragment,
 } from "@gc-digital-talent/graphql";
@@ -91,14 +90,11 @@ export function buildExperienceByTypeData(
       experiences:
         experiences
           .filter(isAwardExperience)
-          .map(
-            (awardExperience) =>
-              ({
-                ...awardExperience,
-                startDate: awardExperience.awardedDate,
-                endDate: awardExperience.awardedDate,
-              }) as AwardExperience & { startDate: string; endDate: string },
-          )
+          .map((awardExperience) => ({
+            ...awardExperience,
+            startDate: awardExperience.awardedDate,
+            endDate: awardExperience.awardedDate,
+          }))
           .sort(compareByDate) ?? [],
     } as const,
     {

@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
-import { Notice } from "@gc-digital-talent/ui";
+import { Notice, PreviewList } from "@gc-digital-talent/ui";
 
 import { hasAllEmptyFields as hasAllEmptyFieldsNextRole } from "~/validators/employeeProfile/nextRole";
 import { hasAllEmptyFields as hasAllEmptyFieldsCareerObjective } from "~/validators/employeeProfile/careerObjective";
@@ -67,26 +67,28 @@ const NextRoleAndCareerObjective = ({
     );
   }
   return (
-    <div className="space-y-6">
+    <PreviewList.Root>
       {hasNextRole ? (
         <NextRolePreview
           nextRolePreviewQuery={nextRoleAndCareerObjective}
           dialogSubtitle={nextRoleDialogSubtitle}
         />
       ) : (
-        <Notice.Root>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "The employee has not provided information about the next role they'd like to achieve.",
-                id: "U5plJQ",
-                description:
-                  "Message displayed if employee hasn't filled out next role",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
+        <li>
+          <Notice.Root className="my-6">
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The employee has not provided information about the next role they'd like to achieve.",
+                  id: "U5plJQ",
+                  description:
+                    "Message displayed if employee hasn't filled out next role",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        </li>
       )}
 
       {/* Career Objective Section */}
@@ -97,21 +99,23 @@ const NextRoleAndCareerObjective = ({
           dialogSubtitle={dialogSubtitle}
         />
       ) : (
-        <Notice.Root>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "The employee has not provided information about their ultimate career objective.",
-                id: "ZhccbH",
-                description:
-                  "Message displayed if employee hasn't filled out career objective",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
+        <li>
+          <Notice.Root className="my-6">
+            <Notice.Content>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "The employee has not provided information about their ultimate career objective.",
+                  id: "ZhccbH",
+                  description:
+                    "Message displayed if employee hasn't filled out career objective",
+                })}
+              </p>
+            </Notice.Content>
+          </Notice.Root>
+        </li>
       )}
-    </div>
+    </PreviewList.Root>
   );
 };
 

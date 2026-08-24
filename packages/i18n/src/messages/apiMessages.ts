@@ -54,6 +54,11 @@ export const apiMessages: Record<string, MessageDescriptor> = defineMessages({
     id: "xSecEX",
     description: "Error message that the given skill key is already in use.",
   },
+  [ErrorCode.SkillNotFound]: {
+    defaultMessage: "Skill not found",
+    id: "tyyw1L",
+    description: "Error message that a given skill id does not exist.",
+  },
   [ErrorCode.DuplicateUserSkill]: {
     defaultMessage: "The skill you selected is already linked to your profile.",
     id: "wUJqDi",

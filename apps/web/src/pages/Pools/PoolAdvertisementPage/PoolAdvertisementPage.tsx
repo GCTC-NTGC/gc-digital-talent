@@ -246,13 +246,6 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     processNumber
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     community {
       key
     }
@@ -312,13 +305,11 @@ export const PoolPoster = ({
   const poolTitle = getShortPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const fullPoolTitle = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const formattedSubTitle = intl.formatMessage(subTitle);
@@ -933,7 +924,7 @@ export const PoolPoster = ({
                     size="h3"
                     icon={QuestionMarkCircleIcon}
                     color="success"
-                    className="m-t18 mb-0"
+                    className="mb-0"
                   >
                     {sections.moreInfo.title}
                   </TableOfContents.Heading>
@@ -1056,24 +1047,24 @@ export const PoolPoster = ({
                             internalLink(paths.register(), chunks),
                         },
                       )}
-                      <Text>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we'll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
-                          id: "adaiV0",
-                          description:
-                            "Text explaining the average time spent on applications",
-                        })}
-                      </Text>
-                      <Text>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "Applying early also allows hiring managers to review your application sooner. They can begin assessing your application as soon as you submit it, even if the deadline hasn't passed yet.",
-                          id: "ay8mcT",
-                          description:
-                            "Text explaining the benefits of applying early",
-                        })}
-                      </Text>
+                    </Text>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "First-time users report spending between 2 to 3 hours on average on their first application. The second time you apply, it should take significantly less time since we'll reuse most of your information. Return users spend on average between 30 minutes to 1 hour on each application.",
+                        id: "adaiV0",
+                        description:
+                          "Text explaining the average time spent on applications",
+                      })}
+                    </Text>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Applying early also allows hiring managers to review your application sooner. They can begin assessing your application as soon as you submit it, even if the deadline hasn't passed yet.",
+                        id: "ay8mcT",
+                        description:
+                          "Text explaining the benefits of applying early",
+                      })}
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
@@ -1144,24 +1135,24 @@ export const PoolPoster = ({
                             internalLink(paths.support(), chunks),
                         },
                       )}
-                      <Text>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "We review tickets during business hours. If you report an issue late at night, right before a job advertisement deadline, expect a response within 2 business days. To avoid last-minute issues, we encourage you to submit your application as early as possible.",
-                          id: "b9gGFH",
-                          description:
-                            "Text explaining the average time spent on applications",
-                        })}
-                      </Text>
-                      <Text>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "If you submit your ticket after the application deadline has passed, we won't be able to assist you, and your application won't be accepted.",
-                          id: "4DfNUW",
-                          description:
-                            "Text explaining the benefits of applying early",
-                        })}
-                      </Text>
+                    </Text>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "We review tickets during business hours. If you report an issue late at night, right before a job advertisement deadline, expect a response within 2 business days. To avoid last-minute issues, we encourage you to submit your application as early as possible.",
+                        id: "b9gGFH",
+                        description:
+                          "Text explaining the average time spent on applications",
+                      })}
+                    </Text>
+                    <Text>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "If you submit your ticket after the application deadline has passed, we won't be able to assist you, and your application won't be accepted.",
+                        id: "4DfNUW",
+                        description:
+                          "Text explaining the benefits of applying early",
+                      })}
                     </Text>
                   </Accordion.Content>
                 </Accordion.Item>
@@ -1176,7 +1167,7 @@ export const PoolPoster = ({
                     })}
                   </Accordion.Trigger>
                   <Accordion.Content>
-                    <Text className="m-y0">
+                    <Text className="my-0">
                       {intl.formatMessage(
                         {
                           defaultMessage:

@@ -89,7 +89,7 @@ const SkillProficiencyAccordionItem = ({
       type: "button-component",
       component: (
         <SkillBrowserDialog
-          skills={availableSkills}
+          query={availableSkills}
           initialState={
             {
               skill: skillId,

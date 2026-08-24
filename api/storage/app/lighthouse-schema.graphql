@@ -113,6 +113,11 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
+  value: CommunityReferralStatus!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -631,6 +636,7 @@ type Mutation {
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
   updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
+  updateCommunityInterestReferralStatus(communityInterestReferral: UpdateCommunityInterestReferralStatusInput!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
@@ -896,6 +902,14 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
 }
 
+type CommunityReferralStatusData {
+  status: LocalizedCommunityReferralStatus!
+  followUpDate: Date
+  classification: Classification
+  notes: String
+  updatedAt: DateTime
+}
+
 type CommunityInterest {
   id: UUID!
   community: Community!
@@ -912,6 +926,7 @@ type CommunityInterest {
   consentToShareProfile: Boolean
   createdAt: DateTime
   procurementIsSDO: Boolean
+  referralStatus: CommunityReferralStatusData!
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1440,6 +1455,7 @@ type TalentNominationEvent {
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
+  includeDevelopmentOpportunities: Boolean!
   includeNineBox: Boolean!
   requireReferenceForAdvancement: Boolean!
   customInstructions: LocalizedString
@@ -1957,6 +1973,7 @@ input TalentRequestMatchFilterInput {
   priorityWeight: [PriorityWeight]
   employeeVerification: [EmployeeVerification]
   departments: [UUID!]
+  communityReferralStatuses: [CommunityReferralStatus!]
   excludeTrackedByRequestId: UUID
 }
 
@@ -2300,6 +2317,14 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestReferralStatusInput {
+  id: UUID!
+  status: CommunityReferralStatus!
+  followUpDate: Date
+  classification: ClassificationBelongsTo
+  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
@@ -3740,6 +3765,9 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
+  ViewAnyCommunityInterestReferralStatus
+  ViewTeamCommunityInterestReferralStatus
+  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -3968,6 +3996,13 @@ enum CommunityInterestAdditionalDuty {
   PROCUREMENT
   PROJECT_MANAGEMENT
   REAL_PROPERTY_MANAGEMENT
+}
+
+enum CommunityReferralStatus {
+  NEW
+  PENDING
+  AVAILABLE_FOR_REFERRAL
+  NOT_REFERRED
 }
 
 enum CourseFormat {

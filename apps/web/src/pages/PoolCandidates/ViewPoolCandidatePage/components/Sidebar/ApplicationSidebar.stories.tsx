@@ -94,6 +94,17 @@ const meta = {
           },
         },
       },
+      ApplicationBookmarkFlagState: {
+        data: {
+          poolCandidate: {
+            id: application.id,
+            isBookmarked: application.isBookmarked ?? false,
+            applicationAssessmentData: {
+              isFlagged: application.applicationAssessmentData?.isFlagged,
+            },
+          },
+        },
+      },
       ApplicationStatusFormOptions: {
         data: {
           statuses: fakeLocalizedEnum(ApplicationStatus).map((value) => ({
@@ -137,7 +148,7 @@ export default meta;
 
 type Story = StoryObj<typeof ApplicationSidebar>;
 
-export const ToAsses: Story = {
+export const ToAssess: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
