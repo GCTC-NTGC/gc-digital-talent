@@ -31,8 +31,6 @@ import { DateInput, RadioGroup, Select } from "@gc-digital-talent/forms";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 
-import talentRequestMessages from "~/messages/talentRequestMessages";
-
 const COLOUR_MAP: Record<
   TalentRequestStatus | "default",
   StatusButtonProps["color"]
@@ -295,9 +293,7 @@ const TalentRequestStatusDialog = ({
                     <DateInput
                       id="followUpDate"
                       name="followUpDate"
-                      legend={intl.formatMessage(
-                        talentRequestMessages.followUpDate,
-                      )}
+                      legend={intl.formatMessage(commonMessages.followUpDate)}
                       round="floor"
                       rules={{
                         required: intl.formatMessage(errorMessages.required),
