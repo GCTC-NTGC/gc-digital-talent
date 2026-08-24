@@ -32,9 +32,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         parent::__construct($fileName, $dir);
         $this->anonymous = false;
 
-        $this->snapshotVersion = $candidate->profile_snapshot['version'] ?
-            $candidate->profile_snapshot['version'] :
-            1;
+        $this->snapshotVersion = $candidate->profile_snapshot['version'] ?? 1;
     }
 
     public function generate(): self

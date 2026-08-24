@@ -160,9 +160,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     // pull data from application snapshot
                     // mirrors logic found in ApplicationDocGenerator
                     $snapshot = $candidate->profile_snapshot;
-                    $snapshotVersion = $candidate->profile_snapshot['version'] ?
-                        $candidate->profile_snapshot['version'] :
-                        1;
+                    $snapshotVersion = $candidate->profile_snapshot['version'] ?? 1;
                     $userHydrated = User::hydrateSnapshot($snapshot);
                     $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
                     // the snapshot stores the department and classification models connected by relation
