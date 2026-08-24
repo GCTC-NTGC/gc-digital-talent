@@ -1,10 +1,15 @@
 import type { IntlShape } from "react-intl";
 import uniqBy from "lodash/uniqBy";
 
-import type { Classification } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { getLocalizedName, localizeSalaryRange } from "@gc-digital-talent/i18n";
 
 import { splitAndJoin } from "./nameUtils";
+
+export interface ClassificationSalary {
+  minSalary?: number | null;
+  maxSalary?: number | null;
+}
 
 /**
  * Get the salary range of a classification
@@ -14,7 +19,7 @@ import { splitAndJoin } from "./nameUtils";
  */
 export const getSalaryRange = (
   locale: string,
-  classification?: Pick<Classification, "minSalary" | "maxSalary"> | null,
+  classification?: ClassificationSalary | null,
 ) => {
   if (!classification) return null;
 
@@ -25,11 +30,16 @@ export const getSalaryRange = (
   );
 };
 
+export interface ClassificationGroupOption {
+  group: string;
+  name?: LocalizedString | null;
+}
+
 /**
  * Get classification group options
  */
 export const getGroupOptions = (
-  classifications: Pick<Classification, "group" | "name">[],
+  classifications: ClassificationGroupOption[],
   intl: IntlShape,
 ) => {
   const classGroupsWithDupes: {
@@ -59,6 +69,11 @@ export const getGroupOptions = (
   });
 };
 
+export interface ClassificationLevelOption {
+  group: string;
+  level: number;
+}
+
 /**
  * Generate a level options based on the
  * currently selected group
@@ -68,8 +83,8 @@ export const getGroupOptions = (
  * @returns
  */
 export const getLevelOptions = (
-  classifications: Pick<Classification, "group" | "level">[],
-  groupSelection?: Classification["group"],
+  classifications: ClassificationLevelOption[],
+  groupSelection?: string | null,
 ) =>
   classifications
     .filter((x) => x.group === groupSelection)

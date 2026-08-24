@@ -48,13 +48,6 @@ export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       classification {
         id
         groupAndLevel
@@ -174,7 +167,6 @@ const ChangeDateDialog = ({
             {getShortPoolTitleHtml(intl, {
               workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
-              publishingGroup: selectedCandidate.pool.publishingGroup,
               classification: selectedCandidate.pool.classification,
             })}
           </p>

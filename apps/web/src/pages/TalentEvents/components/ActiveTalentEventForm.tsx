@@ -110,8 +110,8 @@ const ActiveTalentEventForm = ({
       ),
       contactEmail: contactEmail,
       customInstructions: {
-        en: customInstructions?.en,
-        fr: customInstructions?.fr,
+        en: customInstructions?.en ?? "",
+        fr: customInstructions?.fr ?? "",
       },
     },
   });

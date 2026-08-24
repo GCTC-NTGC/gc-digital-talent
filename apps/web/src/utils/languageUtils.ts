@@ -1,12 +1,18 @@
 import type { IntlShape, MessageDescriptor } from "react-intl";
 
-import type { User, Pool } from "@gc-digital-talent/graphql";
 import {
   PoolLanguage,
   EstimatedLanguageAbility,
 } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
-export type PartialUser = Pick<User, "lookingForBilingual">;
+export interface PartialUser {
+  lookingForBilingual?: boolean | null;
+}
+
+interface LanguagePool {
+  language?: LocalizedEnumValue<PoolLanguage> | null;
+}
 
 const BILINGUAL_LANG = [
   PoolLanguage.VariousBilingual,
@@ -17,7 +23,7 @@ const BILINGUAL_LANG = [
 // Is the user missing the "looking for bilingual" profile option for this bilingual pool?
 const isMissingLookingForBilingual = (
   user?: PartialUser,
-  pool?: Pick<Pool, "language"> | null,
+  pool?: LanguagePool | null,
 ): boolean => {
   const userLookingForBilingual = !!user?.lookingForBilingual;
   const poolNeedsBilingual =
@@ -31,7 +37,7 @@ const isMissingLookingForBilingual = (
 // Get a list of missing language requirement error message descriptors
 export const getMissingLanguageRequirements = (
   user?: PartialUser,
-  pool?: Pick<Pool, "language"> | null,
+  pool?: LanguagePool | null,
 ): MessageDescriptor[] => {
   const errorMessages: MessageDescriptor[] = [];
 
