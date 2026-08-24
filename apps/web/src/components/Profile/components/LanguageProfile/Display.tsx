@@ -230,9 +230,7 @@ const Display = ({ query, context }: DisplayProps) => {
                 label={labels.secondLanguageExamCompletedBoundingBoxLabel}
               >
                 <BoolCheckIcon value={true}>
-                  {secondLanguageExamCompleted
-                    ? labels.secondLanguageExamCompletedLabel
-                    : notProvided}
+                  {labels.secondLanguageExamCompletedLabel}
                 </BoolCheckIcon>
               </FieldDisplay>
               <FieldDisplay label={labels.secondLanguageExamValidityLabel}>

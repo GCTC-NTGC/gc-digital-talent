@@ -217,9 +217,7 @@ const LanguageProfileV1 = ({ snapshot }: LanguageProfileV1Props) => {
                     label={labels.secondLanguageExamCompletedBoundingBoxLabel}
                   >
                     <BoolCheckIcon value={true}>
-                      {secondLanguageExamCompleted
-                        ? labels.secondLanguageExamCompletedLabel
-                        : notProvided}
+                      {labels.secondLanguageExamCompletedLabel}
                     </BoolCheckIcon>
                   </FieldDisplay>
                   <FieldDisplay label={labels.secondLanguageExamValidityLabel}>
