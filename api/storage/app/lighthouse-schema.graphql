@@ -1260,13 +1260,10 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
-  statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
   placementType: LocalizedPlacementType
   placedAt: DateTime
@@ -1298,6 +1295,9 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   educationRequirementExperienceIds: [UUID!]
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime
   applicationStatusData: PoolCandidateStatusData
   applicationAssessmentData: PoolCandidateAssessmentData
   assessmentResults: [AssessmentResult]
