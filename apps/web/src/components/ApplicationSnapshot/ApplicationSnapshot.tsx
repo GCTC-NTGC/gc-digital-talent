@@ -228,6 +228,7 @@ const ApplicationSnapshot = ({
             <TechnicalEssentialSkillsSnapshot
               query={application}
               experiences={experiences}
+              snapshotVersion={snapshot.version}
             />
           </Accordion.Content>
         </Accordion.Item>
@@ -243,6 +244,7 @@ const ApplicationSnapshot = ({
             <TechnicalAssetSkillsSnapshot
               query={application}
               experiences={experiences}
+              snapshotVersion={snapshot.version}
             />
           </Accordion.Content>
         </Accordion.Item>
