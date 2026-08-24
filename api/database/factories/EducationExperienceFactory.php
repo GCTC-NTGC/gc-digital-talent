@@ -51,11 +51,11 @@ class EducationExperienceFactory extends Factory
             'details' => $this->faker->text(),
             'education_type' => $this->faker->randomElement(EducationType::cases())->name,
             'status' => fn ($attributes) => (
-                $attributes['education_type'] === EducationType::LICENSE_ACCREDITATION ||
-                $attributes['education_type'] === EducationType::PROFESSIONAL_CERTIFICATION
+                $attributes['education_type'] === EducationType::LICENSE_ACCREDITATION->name ||
+                $attributes['education_type'] === EducationType::PROFESSIONAL_CERTIFICATION->name
             )
-                ? $this->faker->randomElement($generalStatuses)->name
-                : $this->faker->randomElement($licenseOrCertificationStatuses)->name,
+                ? $this->faker->randomElement($licenseOrCertificationStatuses)->name
+                : $this->faker->randomElement($generalStatuses)->name,
             'other_education_type' => fn ($attributes) => $attributes['education_type'] === EducationType::OTHER->name
                             ? $this->faker->word()
                             : null,
