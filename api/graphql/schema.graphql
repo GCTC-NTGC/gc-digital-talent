@@ -1019,7 +1019,8 @@ type TalentNominationGroup {
   comments: String
   classificationAtTimeOfAdvancementApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  referralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -2731,7 +2732,8 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  referralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {

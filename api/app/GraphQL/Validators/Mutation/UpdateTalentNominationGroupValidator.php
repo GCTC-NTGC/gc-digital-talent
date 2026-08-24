@@ -69,8 +69,8 @@ final class UpdateTalentNominationGroupValidator extends Validator
             'talentNominationGroup.advancementClassifications.sync.min' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
             'talentNominationGroup.advancementClassifications.sync.prohibited' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name,
             'talentNominationGroup.advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
-            'talentNominationGroup.referralExpiryDate.present_with' => ErrorCode::REFERRAL_EXPIRY_DATE_REQUIRED->name,
-            'talentNominationGroup.referralExpiryDate.prohibited' => ErrorCode::REFERRAL_EXPIRY_DATE_PROHIBITED->name,
+            'talentNominationGroup.referralExpiryDate.present_with' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED->name,
+            'talentNominationGroup.referralExpiryDate.prohibited' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED->name,
         ];
     }
 }
