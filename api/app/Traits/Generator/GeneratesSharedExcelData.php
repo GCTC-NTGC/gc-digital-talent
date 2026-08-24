@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Lang;
  */
 trait GeneratesSharedExcelData
 {
+    // number of identity columns (id, first_name, last_name) that always remain visible in download
+    private const IDENTITY_COLUMN_COUNT = 3;
+
     // store user ids
     protected array $userIds = [];
 
@@ -33,6 +36,8 @@ trait GeneratesSharedExcelData
 
     /**
      * Hide user data if no consent to share
+     *
+     * Id, first name, last name always remain visible
      */
     private function applyConsentToRow(array $row, ?string $userId): array
     {
@@ -41,7 +46,7 @@ trait GeneratesSharedExcelData
         }
 
         return array_map(function ($value, $index) {
-            return $index === 0 ? $value : Lang::get('common.not_available', [], $this->lang);
+            return $index < self::IDENTITY_COLUMN_COUNT ? $value : Lang::get('common.not_available', [], $this->lang);
         }, $row, array_keys($row));
     }
 

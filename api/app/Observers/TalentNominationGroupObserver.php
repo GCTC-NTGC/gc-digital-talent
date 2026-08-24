@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
+use App\Models\User;
 
 class TalentNominationGroupObserver
 {
@@ -25,8 +26,11 @@ class TalentNominationGroupObserver
         // if advancement decision changes to approved then record the classification
         if ($talentNominationGroup->getOriginal('advancement_decision') !== TalentNominationGroupDecision::APPROVED->name &&
             $talentNominationGroup->advancement_decision === TalentNominationGroupDecision::APPROVED->name) {
-            $talentNominationGroup->loadMissing('nominee');
-            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->associate($talentNominationGroup->nominee->currentClassification);
+            // nominee() excludes archived users by default; look up directly with
+            // withTrashed() so approving a decision never fails just because the
+            // nominee has since been archived
+            $nominee = User::withTrashed()->find($talentNominationGroup->nominee_id);
+            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->associate($nominee?->currentClassification);
         }
 
         // if advancement decision changes from approved then clear the classification

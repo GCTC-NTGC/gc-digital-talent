@@ -1,20 +1,18 @@
 import { tv } from "tailwind-variants";
-import PaperAirplaneIcon from "@heroicons/react/16/solid/PaperAirplaneIcon";
+import BookmarkSquareIcon from "@heroicons/react/16/solid/BookmarkSquareIcon";
 import ArchiveBoxIcon from "@heroicons/react/16/solid/ArchiveBoxIcon";
 import CheckIcon from "@heroicons/react/16/solid/CheckIcon";
-import XMarkIcon from "@heroicons/react/16/solid/XMarkIcon";
+import NoSymbolIcon from "@heroicons/react/16/solid/NoSymbolIcon";
 
 import type { IconType } from "@gc-digital-talent/ui";
-import {
-  TalentRequestTrackedUserStatus,
-  type LocalizedTalentRequestTrackedUserStatus,
-} from "@gc-digital-talent/graphql";
+import { TalentRequestTrackedUserStatus } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export const statusIcons: Record<TalentRequestTrackedUserStatus, IconType> = {
-  [TalentRequestTrackedUserStatus.Referred]: PaperAirplaneIcon,
+  [TalentRequestTrackedUserStatus.Referred]: BookmarkSquareIcon,
   [TalentRequestTrackedUserStatus.NotReferred]: ArchiveBoxIcon,
   [TalentRequestTrackedUserStatus.Selected]: CheckIcon,
-  [TalentRequestTrackedUserStatus.NotSelected]: XMarkIcon,
+  [TalentRequestTrackedUserStatus.NotSelected]: NoSymbolIcon,
 };
 
 const statusIconStyle = tv({
@@ -40,7 +38,7 @@ interface StatusIconInfo {
 }
 
 export const getStatusIcon = (
-  status?: LocalizedTalentRequestTrackedUserStatus | null,
+  status?: GenericLocalizedEnum<TalentRequestTrackedUserStatus> | null,
 ): StatusIconInfo | null => {
   if (!status?.value || !status.label.localized) return null;
 

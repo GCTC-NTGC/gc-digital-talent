@@ -12,11 +12,7 @@ import {
   formatDate,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
-import type {
-  Pool,
-  UpdatePoolInput,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { UpdatePoolInput, FragmentType } from "@gc-digital-talent/graphql";
 import { PoolStatus, graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import useDeepCompareEffect from "~/hooks/useDeepCompareEffect";
@@ -51,7 +47,7 @@ const EditPoolClosingDate_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FormValues {
-  endDate?: Pool["closingDate"];
+  endDate?: string | null;
 }
 
 export type ClosingDateSubmitData = Pick<UpdatePoolInput, "closingDate">;
@@ -77,20 +73,16 @@ const ClosingDateSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "closingDate">,
-  ): FormValues => {
-    const closingDateInPacific = initialData.closingDate
+    closingDate: string | null | undefined,
+  ): FormValues => ({
+    endDate: closingDate
       ? convertDateTimeToDate(
-          convertDateTimeZone(initialData.closingDate, "UTC", "Canada/Pacific"),
+          convertDateTimeZone(closingDate, "UTC", "Canada/Pacific"),
         )
-      : null;
+      : null,
+  });
 
-    return {
-      endDate: closingDateInPacific,
-    };
-  };
-
-  const suppliedValues = dataToFormValues(pool);
+  const suppliedValues = dataToFormValues(pool.closingDate);
   const methods = useForm<FormValues>({
     defaultValues: suppliedValues,
   });

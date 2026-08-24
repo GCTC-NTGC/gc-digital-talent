@@ -451,4 +451,36 @@ class ScreeningQuestionsTest extends TestCase
 
         assertNotNull(ScreeningQuestionResponse::find($victimResponse->id), 'Victim response should not be deleted');
     }
+
+    public function testCannotCreateScreeningQuestionResponseForQuestionFromDifferentPool(): void
+    {
+        $application = PoolCandidate::factory()->for($this->publishedPool)->create([
+            'application_status' => ApplicationStatus::DRAFT->name,
+            'user_id' => $this->applicantUser->id,
+        ]);
+
+        $otherPool = Pool::factory()->withScreeningQuestions()->create([
+            'community_id' => $this->community->id,
+        ]);
+        $otherPoolQuestionId = $otherPool->screeningQuestions->first()->id;
+
+        $this->actingAs($this->applicantUser, 'api')->graphQL($this->updateApplication, [
+            'id' => $application->id,
+            'application' => [
+                'screeningQuestionResponses' => [
+                    'create' => [
+                        [
+                            'screeningQuestion' => [
+                                'connect' => $otherPoolQuestionId,
+                            ],
+                            'answer' => 'the answer',
+                        ],
+                    ],
+                ],
+            ],
+        ])->assertGraphQLValidationError(
+            'application.screeningQuestionResponses.create.0.screeningQuestion.connect',
+            'The selected application.screeningQuestionResponses.create.0.screeningQuestion.connect is invalid.'
+        );
+    }
 }

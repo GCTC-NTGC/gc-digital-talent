@@ -1,24 +1,22 @@
 import isEmpty from "lodash/isEmpty";
 
 import type {
-  LocalizedFlexibleWorkLocation,
-  LocalizedProvinceOrTerritory,
-  LocalizedWorkRegion,
-  User,
+  PositionDuration,
+  ProvinceOrTerritory,
+  WorkRegion,
 } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
-export interface PartialUser extends Pick<
-  User,
-  "positionDuration" | "locationExemptions" | "currentCity"
-> {
+export interface PartialUser {
+  positionDuration?: (PositionDuration | null)[] | null;
+  locationExemptions?: string | null;
+  currentCity?: string | null;
   locationPreferences?:
-    | (Pick<LocalizedWorkRegion, "value"> | null | undefined)[]
-    | null;
+    (LocalizedEnumValue<WorkRegion> | null | undefined)[] | null;
   flexibleWorkLocations?:
-    | (Pick<LocalizedFlexibleWorkLocation, "value"> | null | undefined)[]
-    | null;
-  currentProvince?: Pick<LocalizedProvinceOrTerritory, "value"> | null;
+    (LocalizedEnumValue<FlexibleWorkLocation> | null | undefined)[] | null;
+  currentProvince?: LocalizedEnumValue<ProvinceOrTerritory> | null;
 }
 
 export function hasAllEmptyFields({

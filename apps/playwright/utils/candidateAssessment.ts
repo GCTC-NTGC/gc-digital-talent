@@ -3,7 +3,7 @@ import type {
   CreateAssessmentResultInput,
   PoolCandidate,
   PoolCandidateAdminView,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 
@@ -112,7 +112,7 @@ const CandidatesTableCandidatesPaginatedDocument = /* GraphQL */ `
   query CandidatesTableCandidatesPaginated_Query(
     $where: PoolCandidateSearchInput
   ) {
-    poolCandidatesPaginatedAdminView(where: $where) {
+    poolCandidatesPaginated(where: $where) {
       data {
         poolCandidate {
           id
@@ -162,7 +162,7 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
   return ctx
     .post<
       GraphQLResponse<
-        "poolCandidatesPaginatedAdminView",
+        "poolCandidatesPaginated",
         { data: { poolCandidate: PoolCandidateAdminView }[] }
       >
     >(CandidatesTableCandidatesPaginatedDocument, {
@@ -176,8 +176,6 @@ export const getPoolCandidatesTable: GraphQLRequestFunc<
       },
     })
     .then((res) => {
-      return res.poolCandidatesPaginatedAdminView.data.map(
-        (item) => item.poolCandidate,
-      );
+      return res.poolCandidatesPaginated.data.map((item) => item.poolCandidate);
     });
 };

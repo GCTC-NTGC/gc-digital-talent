@@ -1,42 +1,25 @@
-import type { IntlShape } from "react-intl";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-import { getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty } from "@gc-digital-talent/helpers";
-import type {
-  LocalizedSkillCategory,
-  Skill,
-  SkillFamily,
-} from "@gc-digital-talent/graphql";
-
-export function categoryAccessor(
-  category: LocalizedSkillCategory | null,
-  intl: IntlShape,
-) {
-  return category?.label ? getLocalizedName(category.label, intl) : "";
+export function categoryAccessor(categoryLabel: string | null | undefined) {
+  return categoryLabel ?? "";
 }
 
 export function skillFamiliesCell(
-  skillFamilies: (SkillFamily | null)[] | null | undefined,
-  intl: IntlShape,
+  familyNames: (string | null | undefined)[] | null | undefined,
 ) {
-  const familyNames = skillFamilies
-    ?.filter(notEmpty)
-    .sort()
-    .map((family) => getLocalizedName(family.name, intl));
+  const sortedNames = unpackMaybes(familyNames).sort((a, b) =>
+    a.localeCompare(b),
+  );
 
-  familyNames?.sort((a, b) => a.localeCompare(b));
-
-  const familyItems = familyNames?.map((familyName) => (
+  const familyItems = sortedNames.map((familyName) => (
     <li key={familyName}>{familyName}</li>
   ));
 
-  return familyItems ? <ul>{familyItems}</ul> : null;
+  return familyItems.length ? <ul>{familyItems}</ul> : null;
 }
 
-export function familiesAccessor(skill: Skill, intl: IntlShape) {
-  return skill.families
-    ?.map((family) => getLocalizedName(family.name, intl, true))
-    .filter(notEmpty)
-    .sort()
-    .join(", ");
+export function familiesAccessor(
+  familyNames: (string | null | undefined)[] | null | undefined,
+) {
+  return unpackMaybes(familyNames).sort().join(", ");
 }

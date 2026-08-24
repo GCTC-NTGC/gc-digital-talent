@@ -9,7 +9,6 @@ import { Button, Dialog } from "@gc-digital-talent/ui";
 import { Input, Submit } from "@gc-digital-talent/forms";
 import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 import { useAuthorization } from "@gc-digital-talent/auth";
 
 import { API_CODE_VERIFICATION_FAILED } from "../EmailVerification/constants";
@@ -64,14 +63,14 @@ interface EmailVerificationFormProps {
   formEmailType: EmailType;
   initialEmailAddress: string | null;
   onFormSubmit: (formValues: FormValues) => Promise<void>;
-  onClickCancel: () => void;
+  onClose: () => void;
 }
 
 const EmailVerificationForm = ({
   formEmailType,
   initialEmailAddress,
   onFormSubmit,
-  onClickCancel,
+  onClose,
 }: EmailVerificationFormProps) => {
   const intl = useIntl();
   const {
@@ -84,7 +83,6 @@ const EmailVerificationForm = ({
   const auth = useAuthorization();
 
   const formMethods = useForm<FormValues>();
-  const featureFlags = useFeatureFlags();
 
   const submitHandler = (formValues: FormValues): Promise<void> => {
     setRequestCodeMessage(null);
@@ -163,15 +161,15 @@ const EmailVerificationForm = ({
               })}
             />
             {formEmailType === EmailType.Work &&
-            featureFlags.canadaLogin === true &&
             auth.userAuthInfo?.id &&
             initialEmailAddress ? (
               <WipeWorkEmailDialog
                 id={auth.userAuthInfo.id}
                 workEmail={initialEmailAddress}
+                onSuccess={onClose}
               />
             ) : null}
-            <Button color="warning" mode="inline" onClick={onClickCancel}>
+            <Button color="warning" mode="inline" onClick={onClose}>
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </Dialog.Footer>
@@ -258,7 +256,7 @@ const EmailVerificationDialog = ({
                 formEmailType={dialogEmailType}
                 initialEmailAddress={initialEmailAddress}
                 onFormSubmit={handleFormSubmit}
-                onClickCancel={() => setOpen(false)}
+                onClose={() => setOpen(false)}
               />
             </EmailVerification.Provider>
           ) : null}

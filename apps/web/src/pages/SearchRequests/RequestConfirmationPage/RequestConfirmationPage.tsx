@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 import { defineMessage, useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
+import { getNonce } from "get-nonce";
 
 import {
   Notice,
@@ -76,6 +77,9 @@ export const Component = () => {
   const handlePrint = useReactToPrint({
     contentRef: componentRef,
     pageStyle: printStyles,
+    // Printing injects `pageStyle` as a <style> tag, which our CSP blocks
+    // without the nonce the app shares through `get-nonce` at startup.
+    nonce: getNonce(),
     documentTitle: intl.formatMessage({
       defaultMessage: "Request submitted",
       id: "0zo274",

@@ -2,14 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ActivityEvent;
+use App\Enums\ApplicationStatus;
 use App\Enums\ErrorCode;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
 use App\Enums\SpecialApplicationType;
+use App\Models\Activity;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -57,8 +61,11 @@ class SpecialApplicationTest extends TestCase
     }
 
     // can create for user WITHOUT an existing application
+    // also check a log was created during
     public function testCanCreateNewSpecialApplication(): void
     {
+        Activity::truncate();
+
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [
                 'poolCandidate' => [
@@ -80,9 +87,29 @@ class SpecialApplicationTest extends TestCase
                     ],
                 ],
             ]);
+
+        // single record created for the event type
+        $activity = Activity::where('event', ActivityEvent::SPECIAL_APPLICATION_CREATED->value)
+            ->where('subject_type', PoolCandidate::class)
+            ->where('causer_id', $this->admin->id)
+            ->sole();
+
+        $attributes = $activity->properties['attributes'];
+        $dateTimeObject = new DateTime($attributes['special_application_closing_date']);
+        $dateTimeString = $dateTimeObject->format('Y-m-d H:i:s');
+
+        // check property attributes
+        assertSame($this->applicant->id, $attributes['user_id']);
+        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->pool->id, $attributes['pool_id']);
+        assertSame(ApplicationStatus::DRAFT->name, $attributes['application_status']);
+        assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
+        assertSame('reasons', $attributes['special_application_justification']);
+        assertSame(config('constants.far_future_datetime'), $dateTimeString);
     }
 
     // can create for user WITH an existing application
+    // also check a log was created during
     public function testCanConvertExistingDraftApplication(): void
     {
         $existingApplication = PoolCandidate::factory()->create([
@@ -90,6 +117,8 @@ class SpecialApplicationTest extends TestCase
             'user_id' => $this->applicant->id,
             'submitted_at' => null,
         ]);
+
+        Activity::truncate();
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->createMutation, [
@@ -116,6 +145,28 @@ class SpecialApplicationTest extends TestCase
         // assert existing record was the one affected
         $existingApplication->refresh();
         assertSame($existingApplication->special_application_type, SpecialApplicationType::PRIORITY->name);
+
+        // single record created for the event type
+        // given it was an existing application, can query by subject_id too
+        $activity = Activity::where('event', ActivityEvent::SPECIAL_APPLICATION_CREATED->value)
+            ->where('subject_type', PoolCandidate::class)
+            ->where('subject_id', $existingApplication->id)
+            ->where('causer_id', $this->admin->id)
+            ->sole();
+
+        $attributes = $activity->properties['attributes'];
+        $dateTimeObject = new DateTime($attributes['special_application_closing_date']);
+        $dateTimeString = $dateTimeObject->format('Y-m-d H:i:s');
+
+        // check property attributes
+        assertSame($this->applicant->id, $attributes['user_id']);
+        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->pool->id, $attributes['pool_id']);
+        assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['fr'], $attributes['special_application_type_fr']);
+        assertSame('reasons', $attributes['special_application_justification']);
+        assertSame(config('constants.far_future_datetime'), $dateTimeString);
     }
 
     // validation rejects when the existing application is already submitted
@@ -192,6 +243,7 @@ class SpecialApplicationTest extends TestCase
     }
 
     // a special application can bypass standard validation when submitting
+    // also check a log was created during
     public function testSpecialApplicationBypassesNormalValidation(): void
     {
         // pool is internal and closed
@@ -217,6 +269,8 @@ class SpecialApplicationTest extends TestCase
         $newPoolCandidate->submitted_at = null;
         $newPoolCandidate->save();
 
+        Activity::truncate();
+
         // applicant able to successfully submit the application
         $this->actingAs($this->applicant, 'api')
             ->graphQL(
@@ -235,6 +289,23 @@ class SpecialApplicationTest extends TestCase
             )->assertJsonFragment([
                 'signature' => 'sign',
             ]);
+
+        // single record created for the event type
+        // given it was an existing application, can query by subject_id too
+        $activity = Activity::where('event', ActivityEvent::SPECIAL_APPLICATION_SUBMITTED->value)
+            ->where('subject_type', PoolCandidate::class)
+            ->where('subject_id', $newPoolCandidate->id)
+            ->where('causer_id', $this->applicant->id)
+            ->sole();
+
+        $attributes = $activity->properties['attributes'];
+
+        // check property attributes
+        assertSame($this->applicant->fullName, $attributes['user_name']);
+        assertSame($this->pool->id, $attributes['pool_id']);
+        assertSame(SpecialApplicationType::PRIORITY->name, $attributes['special_application_type']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['en'], $attributes['special_application_type_en']);
+        assertSame(SpecialApplicationType::localizedString(SpecialApplicationType::PRIORITY->name)['fr'], $attributes['special_application_type_fr']);
     }
 
     // a special application cannot be created for all pool states

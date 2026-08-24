@@ -4,6 +4,19 @@ import type { ReactNode } from "react";
 import { nodeToString } from "@gc-digital-talent/helpers";
 import { commonMessages, getAbbreviations } from "@gc-digital-talent/i18n";
 
+export const getBasicFullNameLabel = (
+  firstName: string | null | undefined,
+  lastName: string | null | undefined,
+): string => {
+  if (!firstName && !lastName) return "";
+
+  if (firstName && !lastName) return firstName;
+
+  if (lastName && !firstName) return lastName;
+
+  return `${firstName} ${lastName}`;
+};
+
 export const getFullNameLabel = (
   firstName: string | null | undefined,
   lastName: string | null | undefined,

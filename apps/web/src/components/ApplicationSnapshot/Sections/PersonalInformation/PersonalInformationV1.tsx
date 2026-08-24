@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
-import type { LocalizedLanguage } from "@gc-digital-talent/graphql";
+import type { Language } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Link } from "@gc-digital-talent/ui";
 
@@ -16,7 +17,7 @@ export interface PersonalInformationSnapshotV1 {
   email: string | null;
   isEmailVerified: boolean | null;
   telephone: string | null;
-  preferredLang: LocalizedLanguage | null;
+  preferredLang: GenericLocalizedEnum<Language> | null;
 }
 
 type PersonalInformationV1Props = SnapshotProps<PersonalInformationSnapshotV1>;

@@ -7,16 +7,12 @@ import type {
   CommunityExperienceInput,
   AwardExperienceInput,
   EducationExperienceInput,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 
 export type ExperienceType =
-  | "award"
-  | "community"
-  | "education"
-  | "personal"
-  | "work";
+  "award" | "community" | "education" | "personal" | "work";
 
 /**
  * Experience Page

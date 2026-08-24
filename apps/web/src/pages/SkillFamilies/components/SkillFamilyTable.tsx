@@ -4,30 +4,43 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 import { useQuery } from "urql";
 
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, Pending } from "@gc-digital-talent/ui";
-import type { SkillFamily } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type {
+  FragmentType,
+  SkillFamilyTableRowFragment,
+} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import adminMessages from "~/messages/adminMessages";
 import { normalizedText } from "~/components/Table/sortingFns";
 
-const columnHelper = createColumnHelper<SkillFamily>();
+const columnHelper = createColumnHelper<SkillFamilyTableRowFragment>();
+
+export const SkillFamilyTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment SkillFamilyTableRow on SkillFamily {
+    id
+    name {
+      localized
+    }
+    description {
+      localized
+    }
+  }
+`);
 
 interface SkillFamilyTableProps {
-  skillFamilies: SkillFamily[];
+  query: FragmentType<typeof SkillFamilyTableRow_Fragment>[];
   title: string;
 }
 
-export const SkillFamilyTable = ({
-  skillFamilies,
-  title,
-}: SkillFamilyTableProps) => {
+export const SkillFamilyTable = ({ query, title }: SkillFamilyTableProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const data = getFragment(SkillFamilyTableRow_Fragment, query);
   const columns = [
     columnHelper.accessor("id", {
       id: "id",
@@ -35,7 +48,9 @@ export const SkillFamilyTable = ({
       header: intl.formatMessage(adminMessages.id),
     }),
     columnHelper.accessor(
-      (skillFamily) => getLocalizedName(skillFamily.name, intl),
+      (skillFamily) =>
+        skillFamily.name?.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
       {
         id: "name",
         sortingFn: normalizedText,
@@ -56,22 +71,20 @@ export const SkillFamilyTable = ({
       },
     ),
     columnHelper.accessor(
-      (skillFamily) => getLocalizedName(skillFamily.description, intl, true),
+      (skillFamily) => skillFamily.description?.localized ?? "",
       {
         id: "description",
         sortingFn: normalizedText,
         header: intl.formatMessage(commonMessages.description),
       },
     ),
-  ] as ColumnDef<SkillFamily>[];
-
-  const data = skillFamilies.filter(notEmpty);
+  ] as ColumnDef<SkillFamilyTableRowFragment>[];
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
 
   return (
-    <Table<SkillFamily>
+    <Table<SkillFamilyTableRowFragment>
       caption={title}
       data={data}
       columns={columns}
@@ -116,31 +129,7 @@ export const SkillFamilyTable = ({
 const SkillFamilies_Query = graphql(/* GraphQL */ `
   query SkillFamilies {
     skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      skills {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-      }
+      ...SkillFamilyTableRow
     }
   }
 `);
@@ -153,7 +142,7 @@ const SkillFamilyTableApi = ({ title }: { title: string }) => {
   return (
     <Pending fetching={fetching} error={error}>
       <SkillFamilyTable
-        skillFamilies={unpackMaybes(data?.skillFamilies)}
+        query={unpackMaybes(data?.skillFamilies)}
         title={title}
       />
     </Pending>

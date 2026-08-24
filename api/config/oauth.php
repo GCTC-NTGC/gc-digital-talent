@@ -70,10 +70,8 @@ return [
 
     /**
      * When this request parameter is present, the authorization endpoint implementation should satisfy one of them in authenticating the end-user.
-     * gckeymfa for MFA on (production)
-     * gckey for MFA off (for testing purposes on local, dev, or uat: cannot be overridden in production)
      */
-    'acr_values' => env('OAUTH_ACR_VALUES', 'gckeymfa'),
+    'acr_values' => env('OAUTH_ACR_VALUES', null),
 
     /**
      * This server's client id and secret, known to the OAuth server.
@@ -88,6 +86,11 @@ return [
     'post_login_registration_redirect' => env('OAUTH_POST_LOGIN_REGISTRATION_REDIRECT'),
     'dev_post_login_redirect' => env('DEV_OAUTH_POST_LOGIN_REDIRECT'),
     'dev_post_login_registration_redirect' => env('DEV_OAUTH_POST_LOGIN_REGISTRATION_REDIRECT'),
+
+    /**
+     * Where is the user redirected to retry logging in when it fails
+     */
+    'logged_out_redirect' => env('OAUTH_LOGGED_OUT_REDIRECT'),
 
     /**
      * How many times should requests to the OAUTH server be retried when there are errors

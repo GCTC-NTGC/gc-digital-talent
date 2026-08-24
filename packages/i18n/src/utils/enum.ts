@@ -15,8 +15,6 @@ import {
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
-  PoolCandidateSearchRequestReason,
-  PoolCandidateSearchStatus,
   PoolLanguage,
   PoolOpportunityLength,
   PriorityWeight,
@@ -26,20 +24,22 @@ import {
   WorkRegion,
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
+  TalentRequestReason,
+  CommunityReferralStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getLocalizedName } from "./localize";
 
 export type MaybeLocalizedEnums =
-  | (LocalizedEnumString | null | undefined)[]
-  | null
-  | undefined;
+  (LocalizedEnumString | null | undefined)[] | null | undefined;
 
 export interface GenericLocalizedEnum<T> {
   value: T;
   label: LocalizedString;
 }
+
+export type LocalizedEnumValue<T> = Pick<GenericLocalizedEnum<T>, "value">;
 
 /**
  * Retrieve the full localized enum from an array
@@ -127,9 +127,7 @@ export function enumInputToLocalizedEnum<T extends string>(
 ) {
   return input
     ? (getLocalizedEnumByValue(input, localizedEnumArray) as
-        | GenericLocalizedEnum<T>
-        | null
-        | undefined)
+        GenericLocalizedEnum<T> | null | undefined)
     : undefined;
 }
 
@@ -153,7 +151,7 @@ export function localizedEnumToInput<T>(
  */
 export function localizedEnumArrayToInput<T>(
   localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
-): (T | null | undefined)[] | undefined {
+): T[] {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),
@@ -193,13 +191,6 @@ export const ENUM_SORT_ORDER = {
     PlacementType.PlacedTerm,
     PlacementType.PlacedActing,
     PlacementType.PlacedIndeterminate,
-  ],
-  POOL_CANDIDATE_SEARCH_STATUS: [
-    PoolCandidateSearchStatus.New,
-    PoolCandidateSearchStatus.InProgress,
-    PoolCandidateSearchStatus.Waiting,
-    PoolCandidateSearchStatus.Done,
-    PoolCandidateSearchStatus.DoneNoCandidates,
   ],
   PRIORITY_WEIGHT: [
     PriorityWeight.PriorityEntitlement,
@@ -247,6 +238,12 @@ export const ENUM_SORT_ORDER = {
     TalentRequestTrackedUserStatus.NotReferred,
     TalentRequestTrackedUserStatus.Selected,
     TalentRequestTrackedUserStatus.NotSelected,
+  ],
+  COMMUNITY_REFERRAL_STATUS: [
+    CommunityReferralStatus.New,
+    CommunityReferralStatus.Pending,
+    CommunityReferralStatus.AvailableForReferral,
+    CommunityReferralStatus.NotReferred,
   ],
 };
 
@@ -389,25 +386,17 @@ export function sortPlacementType(placementTypes?: MaybeLocalizedEnums) {
   );
 }
 
-export function sortPoolCandidateSearchRequestReason(
-  poolCandidateSearchRequestReasons?: MaybeLocalizedEnums,
+export function sortTalentRequestReason(
+  TalentRequestReasons?: MaybeLocalizedEnums,
 ) {
   return sortLocalizedEnums(
     [
-      PoolCandidateSearchRequestReason.ImmediateHire,
-      PoolCandidateSearchRequestReason.UpcomingNeed,
-      PoolCandidateSearchRequestReason.GeneralInterest,
+      TalentRequestReason.ImmediateHire,
+      TalentRequestReason.UpcomingNeed,
+      TalentRequestReason.GeneralInterest,
+      TalentRequestReason.RequiredByDirective,
     ],
-    poolCandidateSearchRequestReasons,
-  );
-}
-
-export function sortPoolCandidateSearchStatus(
-  poolCandidateSearchStatuses?: MaybeLocalizedEnums,
-) {
-  return sortLocalizedEnums(
-    ENUM_SORT_ORDER.POOL_CANDIDATE_SEARCH_STATUS,
-    poolCandidateSearchStatuses,
+    TalentRequestReasons,
   );
 }
 

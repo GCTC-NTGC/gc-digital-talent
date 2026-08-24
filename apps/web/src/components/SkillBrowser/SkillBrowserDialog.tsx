@@ -6,29 +6,33 @@ import { useEffect, useState } from "react";
 
 import type { ButtonProps, IconType } from "@gc-digital-talent/ui";
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type { Skill } from "@gc-digital-talent/graphql";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, SkillCategory } from "@gc-digital-talent/graphql";
 
 import SkillDetails from "./SkillDetails";
-import SkillSelection from "./SkillSelection";
+import SkillSelection, { SkillBrowserSkill_Fragment } from "./SkillSelection";
 import {
   defaultFormValues,
   getSkillBrowserDialogMessages,
   showDetails,
 } from "./utils";
-import type { SkillBrowserDialogContext, FormValues } from "./types";
+import type {
+  SkillBrowserDialogContext,
+  FormValues,
+  SelectedSkill,
+} from "./types";
 import SkillDetailsPool from "./SkillDetailsPool";
 import useRoutes from "../../hooks/useRoutes";
 
 interface SkillBrowserDialogProps {
   // All available skills
-  skills: Skill[];
+  query: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   // The context in which the dialog is being used
   context?: SkillBrowserDialogContext;
   // Currently selected skills (only needed if you want to display them in the selection)
-  inLibrary?: Skill[];
+  inLibraryQuery?: FragmentType<typeof SkillBrowserSkill_Fragment>[];
   // Should the dialog be open on page load?
   defaultOpen?: boolean;
   // Customize the trigger text and icon
@@ -50,11 +54,11 @@ interface SkillBrowserDialogProps {
 }
 
 const SkillBrowserDialog = ({
-  skills,
+  query,
   onSave,
   context,
   trigger,
-  inLibrary,
+  inLibraryQuery,
   initialState,
   defaultOpen = false,
   noToast = false,
@@ -65,7 +69,9 @@ const SkillBrowserDialog = ({
   const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
   const [adding, setAdding] = useState<boolean>(false);
-  const [selectedSkill, setSelectedSkill] = useState<Skill | null>(null);
+  const [selectedSkill, setSelectedSkill] = useState<SelectedSkill | null>(
+    null,
+  );
   const methods = useForm<FormValues>({
     defaultValues: initialState ?? defaultFormValues,
   });
@@ -101,7 +107,10 @@ const SkillBrowserDialog = ({
           reset();
           if (!noToast)
             toast.success(
-              selected(getLocalizedName(selectedSkill?.name, intl)),
+              selected(
+                selectedSkill?.name ??
+                  intl.formatMessage(commonMessages.notAvailable),
+              ),
             );
         })
         .finally(() => setAdding(false));
@@ -141,9 +150,10 @@ const SkillBrowserDialog = ({
     }
   }, [watchSkill, formTrigger]);
 
-  const skillInLibrary = !!inLibrary?.find(
-    (librarySkill) => selectedSkill?.id === librarySkill.id,
-  );
+  const skillInLibrary = !!getFragment(
+    SkillBrowserSkill_Fragment,
+    inLibraryQuery,
+  )?.find((librarySkill) => selectedSkill?.id === librarySkill.id);
   const shouldShowDetails = showDetails(skillInLibrary, context);
   const shouldShowDetailsPool =
     context === "pool" || context === "skill-proficiency-list-with-level";
@@ -168,21 +178,17 @@ const SkillBrowserDialog = ({
               }}
             >
               <SkillSelection
-                {...{ skills, inLibrary }}
+                {...{ query, inLibraryQuery }}
                 onSelectSkill={setSelectedSkill}
               />
               {selectedSkill && shouldShowDetails && (
                 <SkillDetails
-                  category={
-                    selectedSkill.category.value ?? SkillCategory.Technical
-                  }
+                  category={selectedSkill.category ?? SkillCategory.Technical}
                 />
               )}
               {selectedSkill && shouldShowDetailsPool && (
                 <SkillDetailsPool
-                  category={
-                    selectedSkill.category.value ?? SkillCategory.Technical
-                  }
+                  category={selectedSkill.category ?? SkillCategory.Technical}
                 />
               )}
               <Dialog.Footer>

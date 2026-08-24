@@ -4,7 +4,7 @@ import type {
   User,
   Classification,
   Department,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   Language,
   ProvinceOrTerritory,
@@ -18,7 +18,7 @@ import {
   IndigenousCommunity,
   FlexibleWorkLocation,
   WorkRegion,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import type {
   GeneratedAwardExperience,

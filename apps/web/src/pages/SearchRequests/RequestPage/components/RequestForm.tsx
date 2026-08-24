@@ -1,9 +1,10 @@
-import { useNavigate, useLocation } from "react-router";
+import { useBlocker, useNavigate } from "react-router";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useMutation, useQuery } from "urql";
 import type { ReactNode } from "react";
+import { useEffect } from "react";
 
 import {
   Checkbox,
@@ -20,51 +21,37 @@ import {
   errorMessages,
   enumInputToLocalizedEnum,
   narrowEnumType,
-  sortPoolCandidateSearchRequestReason,
+  sortTalentRequestReason,
   commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
-import {
-  getFromSessionStorage,
-  removeFromSessionStorage,
-  setInSessionStorage,
-} from "@gc-digital-talent/storage";
+import { removeFromSessionStorage } from "@gc-digital-talent/storage";
 import {
   graphql,
   getFragment,
-  PoolCandidateSearchPositionType,
   FlexibleWorkLocation,
   TalentRequestPositionType,
 } from "@gc-digital-talent/graphql";
 import type {
   TalentRequestReason,
-  EquitySelections,
-  CreatePoolCandidateSearchRequestInput,
-  DepartmentBelongsTo,
-  Classification,
-  OperationalRequirement,
-  Pool,
-  Skill,
-  ApplicantFilter,
-  ApplicantFilterInput,
   FragmentType,
-  RequestForm_CreateRequestMutation as CreateRequestMutation,
   CreateTalentRequestMutation,
-  PoolCandidateSearchRequestReason,
   CreateTalentRequestInput,
 } from "@gc-digital-talent/graphql";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import SEO from "~/components/SEO/SEO";
 import SearchRequestFilters from "~/components/SearchRequestFilters/SearchRequestFilters";
 import useRoutes from "~/hooks/useRoutes";
 import type {
-  BrowserHistoryState,
   PartialApplicantFilter,
   FormValues as SearchFormValues,
-} from "~/types/searchRequest";
+} from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import { getBasicFullNameLabel } from "~/utils/nameUtils";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
+
+import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -78,29 +65,10 @@ interface FormValues {
   jobTitle?: string;
   managerJobTitle?: string;
   positionType?: boolean;
-  reason: PoolCandidateSearchRequestReason | TalentRequestReason | null;
+  reason: TalentRequestReason;
   additionalComments?: string;
   hrAdvisorEmail?: string;
-  applicantFilter?: {
-    qualifiedInClassifications?: {
-      sync?: (Classification["id"] | null)[];
-    };
-    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
-    skills?: {
-      sync?: (Skill["id"] | null)[];
-    };
-    hasDiploma?: ApplicantFilterInput["hasDiploma"];
-    positionDuration?: ApplicantFilterInput["positionDuration"];
-    equity?: EquitySelections;
-    languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: (OperationalRequirement | null)[];
-    pools?: {
-      sync?: (Pool["id"] | null)[];
-    };
-    locationPreferences?: ApplicantFilterInput["locationPreferences"];
-    flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
-  };
-  department?: DepartmentBelongsTo["connect"];
+  department?: string;
 }
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
@@ -110,6 +78,15 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     level
     groupAndLevel
     displayName
+  }
+`);
+
+export const RequestFormSkill_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormSkill on Skill {
+    id
+    name {
+      localized
+    }
   }
 `);
 
@@ -131,6 +108,20 @@ const RequestFormCommunity_Fragment = graphql(/* GraphQL */ `
     name {
       en
       fr
+    }
+  }
+`);
+
+const RequestFormDefaultUser_Fragment = graphql(/** GraphQL */ `
+  fragment RequestFormDefaultUser on User {
+    govEmployeeProfile {
+      firstName
+      lastName
+      role
+      workEmail
+      department {
+        id
+      }
     }
   }
 `);
@@ -165,9 +156,7 @@ const PoolsInFilter_Query = graphql(/* GraphQL */ `
 
 const RequestOptions_Query = graphql(/* GraphQL */ `
   query RequestOptions {
-    requestReasons: localizedEnumStrings(
-      enumName: "PoolCandidateSearchRequestReason"
-    ) {
+    requestReasons: localizedEnumStrings(enumName: "TalentRequestReason") {
       value
       label {
         en
@@ -228,24 +217,15 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
   }
 `);
 
-type SubmitData<T extends boolean> = T extends true
-  ? CreateTalentRequestInput
-  : CreatePoolCandidateSearchRequestInput;
-
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
-  skills: Skill[];
+  skills: FragmentType<typeof RequestFormSkill_Fragment>[];
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
   communitiesQuery: FragmentType<typeof RequestFormCommunity_Fragment>[];
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
+  defaultUserQuery?: FragmentType<typeof RequestFormDefaultUser_Fragment>;
   searchFormInitialValues?: SearchFormValues;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
-  handleCreatePoolCandidateSearchRequest: (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) => Promise<CreateRequestMutation["createPoolCandidateSearchRequest"]>;
   handleCreateTalentRequest: (
     data: CreateTalentRequestInput,
   ) => Promise<CreateTalentRequestMutation["createTalentRequest"]>;
@@ -253,22 +233,16 @@ export interface RequestFormProps {
 
 export const RequestForm = ({
   departmentsQuery,
-  skills,
+  skills: skillsQuery,
   classificationsQuery,
   communitiesQuery,
-  applicantFilter,
-  candidateCount,
-  selectedClassifications,
-  handleCreatePoolCandidateSearchRequest,
+  defaultUserQuery,
   handleCreateTalentRequest,
 }: RequestFormProps) => {
-  const { talentRequests } = useFeatureFlags();
   const intl = useIntl();
   const paths = useRoutes();
   const navigate = useNavigate();
-  const cacheKey = "ts-createRequest";
-  const location = useLocation();
-  const state = location.state as BrowserHistoryState;
+  const [{ applicantFilter, candidateCount }] = useTalentRequestState();
   const [{ data: optionsData }] = useQuery({
     query: RequestOptions_Query,
   });
@@ -278,6 +252,7 @@ export const RequestForm = ({
       includeIds: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
     },
   });
+  const skills = getFragment(RequestFormSkill_Fragment, skillsQuery);
   const classifications = getFragment(
     RequestFormClassification_Fragment,
     classificationsQuery,
@@ -290,6 +265,11 @@ export const RequestForm = ({
     RequestFormCommunity_Fragment,
     communitiesQuery,
   );
+  const defaultUser = getFragment(
+    RequestFormDefaultUser_Fragment,
+    defaultUserQuery,
+  );
+  const user = defaultUser?.govEmployeeProfile;
 
   // We should always receive exactly one stream and only its ID
   const selectedStreamId = applicantFilter?.qualifiedInWorkStreams?.[0]?.id;
@@ -309,29 +289,36 @@ export const RequestForm = ({
     "TalentRequestSource",
   );
 
-  const formMethods = useForm<FormValues>({
-    defaultValues: getFromSessionStorage(cacheKey, {}),
-  });
-  const { handleSubmit, watch } = formMethods;
+  // The search form repopulates from the stored request state, so only clear
+  // that state when leaving for anywhere else.
+  const blocker = useBlocker(
+    ({ nextLocation }) => nextLocation.pathname !== paths.search(),
+  );
 
-  watch((data) => setInSessionStorage(cacheKey, data));
-
-  const formValuesToSubmitData = <T extends boolean = false>(
-    isTalentRequest: T,
-    values: FormValues,
-  ): SubmitData<T> => {
-    // checkbox checked/true means position has supervising duties
-    let positionTypeMassaged = null;
-
-    if (isTalentRequest) {
-      positionTypeMassaged = values?.positionType
-        ? TalentRequestPositionType.TeamLead
-        : TalentRequestPositionType.IndividualContributor;
-    } else {
-      positionTypeMassaged = values?.positionType
-        ? PoolCandidateSearchPositionType.TeamLead
-        : PoolCandidateSearchPositionType.IndividualContributor;
+  useEffect(() => {
+    if (blocker.state === "blocked") {
+      removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
+      blocker.proceed();
     }
+  }, [blocker]);
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: {
+      fullName: getBasicFullNameLabel(user?.firstName, user?.lastName),
+      email: user?.workEmail ?? "",
+      managerJobTitle: user?.role ?? "",
+      department: user?.department?.id,
+    },
+  });
+  const { handleSubmit } = formMethods;
+
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): CreateTalentRequestInput => {
+    // checkbox checked/true means position has supervising duties
+    const positionTypeMassaged = values?.positionType
+      ? TalentRequestPositionType.TeamLead
+      : TalentRequestPositionType.IndividualContributor;
 
     // always append ONSITE to the flexible locations region
     const adjustedFlexibleWorkLocations = [
@@ -404,7 +391,7 @@ export const RequestForm = ({
         },
       },
       department: { connect: values.department ?? "" },
-    } as SubmitData<T>;
+    };
   };
 
   const handleSubmitError = () => {
@@ -420,18 +407,13 @@ export const RequestForm = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = talentRequests
-        ? await handleCreateTalentRequest({
-            ...formValuesToSubmitData(true, data),
-            initialResultCount: candidateCount,
-          })
-        : await handleCreatePoolCandidateSearchRequest({
-            ...formValuesToSubmitData(false, data),
-            initialResultCount: candidateCount,
-          });
+      const res = await handleCreateTalentRequest({
+        ...formValuesToSubmitData(data),
+        initialResultCount: candidateCount,
+      });
 
       if (res) {
-        removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
+        removeFromSessionStorage(TALENT_REQUEST_STATE_KEY);
         await navigate(paths.requestConfirmation(res.id));
         toast.success(
           intl.formatMessage({
@@ -452,7 +434,7 @@ export const RequestForm = ({
   // The applicantFilter from the location state needs to be changed from ApplicantFilterInput to the type ApplicantFilter for the SearchRequestFilters visual component.
   const applicantFilterInputToType: PartialApplicantFilter = {
     __typename: "ApplicantFilter",
-    id: "", // Set Id to empty string since the PoolCandidateSearchRequest doesn't exist yet.
+    id: "", // Set Id to empty string since the TalentRequest doesn't exist yet.
     ...applicantFilter,
     positionDuration: unpackMaybes(applicantFilter?.positionDuration),
     languageAbility: enumInputToLocalizedEnum(
@@ -610,7 +592,7 @@ export const RequestForm = ({
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             items={localizedEnumToOptions(
-              sortPoolCandidateSearchRequestReason(optionsData?.requestReasons),
+              sortTalentRequestReason(optionsData?.requestReasons),
               intl,
             )}
           />
@@ -701,11 +683,9 @@ export const RequestForm = ({
           </Heading>
           <SearchRequestFilters
             filters={applicantFilterInputToType}
-            selectedClassifications={selectedClassifications}
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
-            talentSourceOptions={talentSourceOptionsData}
           />
           <Separator />
           <p className="mb-6 font-bold">
@@ -730,14 +710,7 @@ export const RequestForm = ({
                 description: "Submit button text on request form.",
               })}
             />
-            <Link
-              mode="inline"
-              color="warning"
-              href={paths.search()}
-              state={{
-                ...state,
-              }}
-            >
+            <Link mode="inline" color="warning" href={paths.search()}>
               {intl.formatMessage({
                 defaultMessage: "Back",
                 id: "L8k+lC",
@@ -751,29 +724,6 @@ export const RequestForm = ({
     </section>
   );
 };
-
-const RequestForm_CreateRequestMutation = graphql(/* GraphQL */ `
-  mutation RequestForm_CreateRequest(
-    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
-  ) {
-    createPoolCandidateSearchRequest(
-      poolCandidateSearchRequest: $poolCandidateSearchRequest
-    ) {
-      id
-      fullName
-      email
-      department {
-        id
-      }
-      jobTitle
-      additionalComments
-      hrAdvisorEmail
-      poolCandidateFilter {
-        id
-      }
-    }
-  }
-`);
 
 const CreateTalentRequest_Mutation = graphql(/* GraphQL */ `
   mutation CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
@@ -797,19 +747,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
       ...RequestFormDepartment
     }
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      ...RequestFormSkill
     }
     classifications {
       ...RequestFormClassification
@@ -817,53 +755,29 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
     communities {
       ...RequestFormCommunity
     }
+    me {
+      ...RequestFormDefaultUser
+    }
   }
 `);
 
-const RequestFormApi = ({
-  applicantFilter,
-  candidateCount,
-  searchFormInitialValues,
-  selectedClassifications,
-}: {
-  applicantFilter: ApplicantFilterInput | null;
-  candidateCount: number | null;
-  searchFormInitialValues?: SearchFormValues;
-  selectedClassifications: Pick<Classification, "groupAndLevel">[];
-}) => {
+const RequestFormApi = () => {
   const intl = useIntl();
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
   });
 
-  const skills: Skill[] = unpackMaybes(lookupData?.skills);
-
-  // TODO: Remove mutation and handler once talentRequests feature flag is turned on.
-  const [, executePoolCandidateMutation] = useMutation(
-    RequestForm_CreateRequestMutation,
-  );
-  const handleCreatePoolCandidateSearchRequest = (
-    data: CreatePoolCandidateSearchRequestInput,
-  ) =>
-    executePoolCandidateMutation({ poolCandidateSearchRequest: data }).then(
-      (result) => {
-        if (result.data?.createPoolCandidateSearchRequest) {
-          return Promise.resolve(result.data?.createPoolCandidateSearchRequest);
-        }
-        return Promise.reject(new Error(result.error?.toString()));
-      },
-    );
-
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
   );
-  const handleCreateTalentRequest = (data: CreateTalentRequestInput) =>
-    executeTalentRequestMutation({ talentRequest: data }).then((result) => {
-      if (result.data?.createTalentRequest) {
-        return Promise.resolve(result.data?.createTalentRequest);
-      }
-      return Promise.reject(new Error(result.error?.toString()));
-    });
+
+  const handleCreateTalentRequest = async (data: CreateTalentRequestInput) => {
+    const result = await executeTalentRequestMutation({ talentRequest: data });
+    if (result.data?.createTalentRequest) {
+      return Promise.resolve(result.data?.createTalentRequest);
+    }
+    return await Promise.reject(new Error(result.error?.toString()));
+  };
 
   return (
     <>
@@ -879,15 +793,9 @@ const RequestFormApi = ({
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
           communitiesQuery={unpackMaybes(lookupData?.communities)}
-          skills={skills}
-          applicantFilter={applicantFilter}
-          candidateCount={candidateCount}
-          searchFormInitialValues={searchFormInitialValues}
-          selectedClassifications={selectedClassifications}
-          handleCreatePoolCandidateSearchRequest={
-            handleCreatePoolCandidateSearchRequest
-          }
+          skills={unpackMaybes(lookupData?.skills)}
           handleCreateTalentRequest={handleCreateTalentRequest}
+          defaultUserQuery={lookupData?.me ?? {}}
         />
       </Pending>
     </>

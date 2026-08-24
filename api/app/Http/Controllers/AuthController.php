@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Jose\Component\Core\Util\Base64UrlSafe;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
@@ -36,6 +37,12 @@ class AuthController extends Controller
         $request->session()->put('state', $state);
         $request->session()->put('nonce', $nonce);
 
+        // PKCE (RFC 7636): pair a one-time verifier with a hashed challenge so that
+        // whoever exchanges the auth code later must prove they're who initiated login.
+        $codeVerifier = Base64UrlSafe::encodeUnpadded(random_bytes(64));
+        $codeChallenge = Base64UrlSafe::encodeUnpadded(hash('sha256', $codeVerifier, binary: true));
+        $request->session()->put('code_verifier', $codeVerifier);
+
         $request->session()->put(
             'from',
             $request->input('from')
@@ -48,13 +55,10 @@ class AuthController extends Controller
 
         $requestedLocale = $request->input('locale');
         if (strcasecmp($requestedLocale, 'en') == 0) {
-            $ui_locales = 'en-CA en';
             $lang = 'en';
         } elseif (strcasecmp($requestedLocale, 'fr') == 0) {
-            $ui_locales = 'fr-CA fr';
             $lang = 'fr';
         } else {
-            $ui_locales = $requestedLocale;
             $lang = $requestedLocale;
         }
 
@@ -68,9 +72,10 @@ class AuthController extends Controller
             'state' => $state,
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
-            'ui_locales' => $ui_locales, // This is what SIC wants
-            'lang' => $lang,  // This is what CanadaLogin wants
+            'lang' => $lang,
             'skipmigration' => $request->input('skipmigration', null),
+            'code_challenge' => $codeChallenge,
+            'code_challenge_method' => 'S256',
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -81,11 +86,13 @@ class AuthController extends Controller
         // pull the original nonce and state from  beginning to compare with returned values
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
+        $codeVerifier = $request->session()->pull('code_verifier');
 
-        throw_unless(
-            strlen($state) > 0 && $state === $request->state,
-            new InvalidArgumentException('Invalid session state')
-        );
+        // Session state does not match or is empty, do not login.
+        if (! (strlen($state) > 0 && $state === $request->state)) {
+            return redirect(config('oauth.logged_out_redirect').'?'.http_build_query(['logout_reason' => 'invalid-session']));
+
+        }
 
         $tokenPayload = [
             'grant_type' => 'authorization_code',
@@ -93,6 +100,7 @@ class AuthController extends Controller
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
+            'code_verifier' => $codeVerifier,
         ];
         $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;

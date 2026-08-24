@@ -103,8 +103,8 @@ const deriveWhoCanApplyMessages = (
       ? intl.formatMessage(
           {
             defaultMessage:
-              "* Preference will be given to eligible veterans, eligible Canadian Armed Forces members, and persons employed with the following departments or agencies: {department}.",
-            id: "mnrRuo",
+              "* Preference will be given to persons employed with the following departments or agencies: {department}.",
+            id: "8t1KYs",
             description:
               "Fine print of a note describing that a pool is only open to employees with departmental preference",
           },

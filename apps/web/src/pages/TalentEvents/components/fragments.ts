@@ -52,6 +52,7 @@ export const UpdateTalentNominationEvent_Fragment = graphql(/* GraphQL */ `
       en
       fr
     }
+    includeNineBox
     includeLeadershipCompetencies
     community {
       id

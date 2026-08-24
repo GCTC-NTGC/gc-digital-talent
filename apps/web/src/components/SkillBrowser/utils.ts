@@ -3,9 +3,8 @@ import type { ReactNode } from "react";
 
 import type { Option } from "@gc-digital-talent/forms";
 import type {
-  Skill,
+  SkillBrowserSkillFragment,
   SkillCategory,
-  SkillFamily,
 } from "@gc-digital-talent/graphql";
 
 import { invertSkillSkillFamilyTree } from "~/utils/skillUtils";
@@ -202,32 +201,28 @@ export const showDetails = (
 };
 
 interface GetFilteredFamiliesArgs {
-  skills: Skill[];
+  skills: SkillBrowserSkillFragment[];
 }
 
-type GetFilteredFamilies = (args: GetFilteredFamiliesArgs) => SkillFamily[];
-
-export const getFilteredFamilies: GetFilteredFamilies = ({ skills }) => {
+export const getFilteredFamilies = ({ skills }: GetFilteredFamiliesArgs) => {
   const invertedTree = invertSkillSkillFamilyTree(skills);
 
   return invertedTree;
 };
 
 interface GetFilteredSkillsArgs {
-  skills: Skill[];
+  skills: SkillBrowserSkillFragment[];
   family?: string;
   category?: SkillCategory | "all" | "";
-  inLibrary?: Skill[];
+  inLibrary?: SkillBrowserSkillFragment[];
 }
 
-type GetFilteredSkills = (args: GetFilteredSkillsArgs) => Skill[];
-
-export const getFilteredSkills: GetFilteredSkills = ({
+export const getFilteredSkills = ({
   skills,
   family,
   category,
   inLibrary,
-}) => {
+}: GetFilteredSkillsArgs): SkillBrowserSkillFragment[] => {
   if (inLibrary && family && family === "library") {
     // If `inLibrary` was passed and selected, filter by those instead of family
     return skills.filter((currentSkill) =>
@@ -255,12 +250,12 @@ export const getFilteredSkills: GetFilteredSkills = ({
 };
 
 export const getFamilyOptions = (
-  skills: Skill[],
+  skillIds: string[],
   intl: IntlShape,
-  inLibrary?: Skill[],
+  inLibraryIds?: string[],
 ): Option[] => {
-  const filteredLibrary = inLibrary?.filter((librarySkill) =>
-    skills.some((skill) => skill.id === librarySkill.id),
+  const filteredLibrary = inLibraryIds?.filter((librarySkillId) =>
+    skillIds.includes(librarySkillId),
   );
 
   let familyOptions = [

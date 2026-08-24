@@ -36,7 +36,13 @@ const ScreeningQuestionResponsesSnapshot = ({
 
   return (
     <QuestionResponses
-      responses={unpackMaybes(application?.screeningQuestionResponses)}
+      responses={unpackMaybes(application?.screeningQuestionResponses).map(
+        ({ id, answer, screeningQuestion }) => ({
+          id,
+          answer,
+          question: screeningQuestion?.question,
+        }),
+      )}
     />
   );
 };

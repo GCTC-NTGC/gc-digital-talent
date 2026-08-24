@@ -8,7 +8,7 @@ import { Link, Loading, ToggleSection, Notice } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { BasicForm } from "@gc-digital-talent/forms";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { FragmentType, Pool } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
@@ -20,7 +20,7 @@ import {
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import useRoutes from "~/hooks/useRoutes";
 
-import type { SectionProps } from "../../types";
+import type { ProfileSectionPool, SectionProps } from "../../types";
 import FormActions from "../FormActions";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import { formValuesToSubmitData, dataToFormValues } from "./utils";
@@ -60,7 +60,7 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface PersonalInformationProps extends SectionProps<Pick<Pool, "id">> {
+interface PersonalInformationProps extends SectionProps<ProfileSectionPool> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
 }
 
@@ -93,7 +93,7 @@ const PersonalInformation = ({
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    return onUpdate(user.id, formValuesToSubmitData(formValues, user))
+    return onUpdate(user.id, formValuesToSubmitData(formValues, user.id))
       .then((response) => {
         if (response) {
           toast.success(

@@ -6,6 +6,7 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
+  HiddenInput,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -14,27 +15,25 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
-  getLocalizedName,
-  narrowEnumType,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
-import type {
-  Classification,
-  Skill,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
-  TalentRequestSource,
   WorkRegion,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link } from "@gc-digital-talent/ui";
 
-import { NullSelection } from "~/types/searchRequest";
+import type {
+  TalentRequestClassification,
+  TalentRequestWorkStream,
+} from "~/types/talentRequestForm";
+import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
+import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -80,9 +79,9 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 `);
 
 interface FormFieldsProps {
-  classifications: Classification[];
-  skills: Skill[];
-  workStreams: WorkStream[];
+  classifications: TalentRequestClassification[];
+  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  workStreams: TalentRequestWorkStream[];
 }
 
 const internalLink = (href: string, chunks: ReactNode) => (
@@ -108,7 +107,9 @@ const FormFields = ({
 
   const workStreamOptions = workStreams.map((workStream) => ({
     value: workStream.id,
-    label: getLocalizedName(workStream.name, intl),
+    label:
+      workStream.name?.localized ??
+      intl.formatMessage(commonMessages.notAvailable),
   }));
 
   const languageAbilityOptions = localizedEnumToOptions(
@@ -160,47 +161,6 @@ const FormFields = ({
     };
   });
 
-  const talentSourceOptionsData = narrowEnumType(
-    unpackMaybes(data?.talentSources),
-    "TalentRequestSource",
-  )
-    // TODO: remove this filter once Advancement is implemented, see #17382
-    .filter((source) => source.value !== TalentRequestSource.Advancement);
-
-  const talentSourceOptions: CheckboxOption[] = talentSourceOptionsData.map(
-    (source) => {
-      if (source.value === TalentRequestSource.QualifiedInPool) {
-        return {
-          value: source.value,
-          label: intl.formatMessage(talentRequestMessages.qualifiedInPoolLabel),
-          contentBelow: intl.formatMessage({
-            defaultMessage: "Candidates qualified in a pool",
-            id: "tUObm7",
-            description: "Checklist option explanatory note",
-          }),
-        };
-      }
-      if (source.value === TalentRequestSource.AtLevel) {
-        return {
-          value: source.value,
-          label: intl.formatMessage(talentRequestMessages.atLevelLabel),
-          contentBelow: intl.formatMessage({
-            defaultMessage:
-              "At-level GC employees who have self-identified as interested in lateral movement",
-            id: "mXWCC2",
-            description: "Checklist option explanatory note",
-          }),
-        };
-      }
-      return {
-        value: source.value,
-        label:
-          source.label?.localized ??
-          intl.formatMessage(commonMessages.notAvailable),
-      };
-    },
-  );
-
   return (
     <>
       <FilterBlock
@@ -215,16 +175,7 @@ const FormFields = ({
         })}
       >
         <div className="flex flex-col gap-y-6">
-          <Checklist
-            idPrefix="talentSources"
-            id="talentSources"
-            name="talentSources"
-            legend={intl.formatMessage(talentRequestMessages.talentSource)}
-            items={talentSourceOptions}
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-          />
+          <HiddenInput name="talentSources" />
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -287,7 +238,7 @@ const FormFields = ({
           },
         )}
       >
-        <SkillBrowser skills={skills || []} name="skills" />
+        <SkillBrowser query={skills} name="skills" />
         <Field.Context className="mt-1.5">
           {intl.formatMessage({
             defaultMessage:

@@ -42,6 +42,7 @@ import talentRequestMessages from "~/messages/talentRequestMessages";
 import {
   addSearchToWhere,
   locationAccessor,
+  poolListNameAccessor,
   transformApplicantFilterToFormValues,
   transformFormValuesToWhere,
   transformSortStateToOrderBy,
@@ -98,11 +99,27 @@ const TalentRequestMatchingUsers_Query = graphql(/** GraphQL */ `
               localized
             }
           }
+          priorityWeight
+          priority {
+            label {
+              localized
+            }
+          }
         }
         ...TalentRequestAddReferralDialog
         sources {
           label {
             localized
+          }
+        }
+        matchingQualifiedInPoolSources {
+          pool {
+            id
+            displayName {
+              display {
+                localized
+              }
+            }
           }
         }
         skillCount
@@ -282,6 +299,19 @@ const TalentRequestMatchesTable = ({
         meta: { isRowTitle: true },
       },
     ),
+    columnHelper.accessor(({ user }) => user.priority?.label.localized, {
+      id: "priority",
+      header: intl.formatMessage(adminMessages.category),
+      cell: ({
+        row: {
+          original: { user },
+        },
+      }) =>
+        user.priority?.label.localized ??
+        intl.formatMessage(commonMessages.notAvailable),
+      enableSorting: false,
+      enableColumnFilter: false,
+    }),
     columnHelper.accessor("skillCount", {
       id: "skillCount",
       header: intl.formatMessage(talentRequestMessages.requestedSkills),
@@ -308,6 +338,25 @@ const TalentRequestMatchesTable = ({
         enableColumnFilter: false,
       },
     ),
+    columnHelper.accessor(
+      ({ matchingQualifiedInPoolSources }) =>
+        poolListNameAccessor(
+          unpackMaybes(matchingQualifiedInPoolSources).map(
+            ({ pool }) => pool?.displayName?.display.localized,
+          ),
+        ),
+      {
+        id: "qualifiedPools",
+        header: intl.formatMessage({
+          defaultMessage: "Qualified pool",
+          id: "eBz7Va",
+          description:
+            "Header for the column showing which pool(s) a candidate is qualified in",
+        }),
+        enableSorting: false,
+        enableColumnFilter: false,
+      },
+    ),
     columnHelper.accessor(({ user }) => user.email, {
       id: "email",
       header: intl.formatMessage(commonMessages.email),
@@ -323,7 +372,11 @@ const TalentRequestMatchesTable = ({
         ) : null,
     }),
     columnHelper.accessor(
-      ({ user }) => locationAccessor(user?.currentCity, user?.currentProvince),
+      ({ user }) =>
+        locationAccessor(
+          user?.currentCity,
+          user?.currentProvince?.label?.localized,
+        ),
       {
         id: "location",
         header: intl.formatMessage(profileMessages.currentLocation),
@@ -501,7 +554,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(talentRequestMessages.referred),
                 })}
                 icon={PaperAirplaneIcon}
@@ -512,7 +565,7 @@ const TalentRequestMatchesTable = ({
           {
             label: (
               <IconLabel
-                label={intl.formatMessage(talentRequestMessages.changeStatus, {
+                label={intl.formatMessage(talentRequestMessages.markAs, {
                   status: intl.formatMessage(commonMessages.notReferred),
                 })}
                 icon={ArchiveBoxIcon}

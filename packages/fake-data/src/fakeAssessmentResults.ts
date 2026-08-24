@@ -4,13 +4,13 @@ import type {
   PoolSkill,
   AssessmentStep,
   AssessmentResult,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
   AssessmentResultType,
   AssessmentResultJustification,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 
 import toLocalizedEnum from "./fakeLocalizedEnum";
 

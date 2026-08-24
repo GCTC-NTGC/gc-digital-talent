@@ -59,6 +59,15 @@ class TalentRequestTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $updateMutation = <<<'GRAPHQL'
+        mutation UpdateTalentRequest($id: ID!, $talentRequest: UpdateTalentRequestInput!) {
+            updateTalentRequest(id: $id, talentRequest: $talentRequest) {
+                id
+                adminNotes
+            }
+        }
+        GRAPHQL;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -194,5 +203,30 @@ class TalentRequestTest extends TestCase
             ->assertGraphQLErrorFree()
             ->assertJsonFragment(['id' => $visibleRequest->id])
             ->assertJsonMissing(['id' => $hiddenRequest->id]);
+    }
+
+    public function testTeamRecruiterCanOnlyUpdateOwnCommunityTalentRequest(): void
+    {
+        $ownRequest = TalentRequest::factory()->create([
+            'community_id' => $this->authorizedCommunity->id,
+        ]);
+        $otherRequest = TalentRequest::factory()->create([
+            'community_id' => $this->otherCommunity->id,
+        ]);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $ownRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['adminNotes' => 'hardcoded message here']);
+
+        $this->actingAs($this->teamRecruiter, 'api')
+            ->graphQL($this->updateMutation, [
+                'id' => $otherRequest->id,
+                'talentRequest' => ['adminNotes' => 'hardcoded message here'],
+            ])
+            ->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 }

@@ -40,11 +40,9 @@ export const checkFeatureFlag = (name: string): boolean => {
  * A convenience function which makes explicit all expected feature flags.
  */
 export const getFeatureFlags = () => ({
-  canadaLogin: checkFeatureFlag("FEATURE_CANADALOGIN"),
   graphqlSubscriptions: checkFeatureFlag("FEATURE_GRAPHQL_SUBSCRIPTIONS"),
   activityTimer: checkFeatureFlag("FEATURE_ACTIVITY_TIMER"),
   authInAppMigration: checkFeatureFlag("FEATURE_AUTH_IN_APP_MIGRATION"),
-  talentRequests: checkFeatureFlag("FEATURE_TALENT_REQUESTS"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;

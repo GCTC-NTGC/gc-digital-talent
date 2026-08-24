@@ -5,8 +5,11 @@ import type {
   Classification,
   Skill,
   WorkStream,
-} from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
@@ -66,8 +69,6 @@ class TalentSearch extends AppPage {
     skill: Skill,
   ) {
     const poolCard = await this.poolCardVisibility(poolName);
-
-    await this.page.getByRole("checkbox", { name: /pool candidates/i }).click();
 
     const selectedClassification = classification.groupAndLevel;
     const classificationFilter = this.page.getByRole("combobox", {
@@ -201,7 +202,13 @@ class TalentSearch extends AppPage {
     await expect(this.page.getByText(/1 estimated candidate/i)).toBeVisible();
 
     await this.page.getByRole("button", { name: /submit request/i }).click();
-    await this.waitForGraphqlResponse("RequestForm_CreateRequest");
+    await this.waitForGraphqlResponse("CreateTalentRequest");
+    await expect(
+      this.page.getByRole("heading", {
+        name: /we have received your request/i,
+        level: 2,
+      }),
+    ).toBeVisible();
   }
 }
 export default TalentSearch;

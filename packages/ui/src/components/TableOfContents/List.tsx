@@ -5,7 +5,7 @@ import { tv } from "tailwind-variants";
 export type ListItemProps = HTMLProps<HTMLLIElement>;
 
 export const ListItem = ({ children, ...rest }: ListItemProps) => (
-  <li className="mb-1.5" {...rest}>
+  <li className="not-last:mb-1.5" {...rest}>
     {children}
   </li>
 );

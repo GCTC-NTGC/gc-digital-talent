@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 
-import type { User } from "@gc-digital-talent/graphql";
-import { SkillCategory } from "@gc-digital-talent/graphql";
+import type { User } from "@gc-digital-talent/graphql/schema-types";
+import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";

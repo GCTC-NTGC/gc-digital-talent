@@ -1,5 +1,4 @@
 import type {
-  LocalizedTalentNominationGroupDecision,
   NominationGroupEvaluationFormFragment,
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
@@ -22,9 +21,7 @@ export interface FormValues {
 }
 
 type Decision =
-  | Pick<LocalizedTalentNominationGroupDecision, "value">
-  | null
-  | undefined;
+  { value?: TalentNominationGroupDecision | null } | null | undefined;
 
 // return the value if the decision is approved, or null otherwise
 function ifApproved(decision: Decision, value: string | null | undefined) {

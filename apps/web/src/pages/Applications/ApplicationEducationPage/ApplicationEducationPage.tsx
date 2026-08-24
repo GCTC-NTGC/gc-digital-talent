@@ -12,7 +12,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Experience } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
   EducationRequirementOption,
@@ -406,9 +405,7 @@ const ApplicationEducation = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
+  const experiences = unpackMaybes(application.user.experiences);
 
   return application?.pool ? (
     <ApplicationEducation application={application} experiences={experiences} />

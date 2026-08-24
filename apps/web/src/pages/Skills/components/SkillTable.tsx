@@ -16,8 +16,12 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { Link, LoadingErrorMessage } from "@gc-digital-talent/ui";
-import type { Skill } from "@gc-digital-talent/graphql";
-import { SkillCategory, graphql } from "@gc-digital-talent/graphql";
+import type { SkillTableRowFragment } from "@gc-digital-talent/graphql";
+import {
+  SkillCategory,
+  getFragment,
+  graphql,
+} from "@gc-digital-talent/graphql";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -69,52 +73,42 @@ function transformSkillFilterInputToFormValues(
   };
 }
 
-const columnHelper = createColumnHelper<Skill>();
+const columnHelper = createColumnHelper<SkillTableRowFragment>();
+
+const SkillTableRow_Fragment = graphql(/* GraphQL */ `
+  fragment SkillTableRow on Skill {
+    ...SkillCsv
+    id
+    category {
+      value
+      label {
+        localized
+      }
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    families {
+      key
+      name {
+        localized
+      }
+    }
+  }
+`);
 
 const SkillTableSkills_Query = graphql(/* GraphQL */ `
   query SkillTableSkills {
     skills {
-      id
-      key
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-        description {
-          en
-          fr
-        }
-      }
+      ...SkillTableRow
     }
     skillFamilies {
-      id
-      key
-      name {
-        en
-        fr
-      }
+      ...SkillFilterFamily
     }
   }
 `);
@@ -149,7 +143,10 @@ const SkillTable = ({
     context,
   });
 
-  const skills = useMemo(() => unpackMaybes(data?.skills), [data?.skills]);
+  const skills = getFragment(
+    SkillTableRow_Fragment,
+    unpackMaybes(data?.skills),
+  );
   const skillFamilies = unpackMaybes(data?.skillFamilies);
 
   const paths = useRoutes();
@@ -290,19 +287,30 @@ const SkillTable = ({
       header: intl.formatMessage(adminMessages.id),
     }),
     ...columnsOrderedByLocale,
-    columnHelper.accessor((skill) => familiesAccessor(skill, intl), {
-      id: "skillFamilies",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.skillFamilies),
-      cell: ({ row: { original: skill } }) =>
-        skillFamiliesCell(skill.families, intl),
-    }),
-    columnHelper.accessor(({ category }) => categoryAccessor(category, intl), {
-      id: "category",
-      sortingFn: normalizedText,
-      header: intl.formatMessage(adminMessages.category),
-    }),
-  ] as ColumnDef<Skill>[];
+    columnHelper.accessor(
+      (skill) =>
+        familiesAccessor(
+          skill.families?.map((family) => family.name?.localized),
+        ),
+      {
+        id: "skillFamilies",
+        sortingFn: normalizedText,
+        header: intl.formatMessage(adminMessages.skillFamilies),
+        cell: ({ row: { original: skill } }) =>
+          skillFamiliesCell(
+            skill.families?.map((family) => family.name?.localized),
+          ),
+      },
+    ),
+    columnHelper.accessor(
+      ({ category }) => categoryAccessor(category.label?.localized),
+      {
+        id: "category",
+        sortingFn: normalizedText,
+        header: intl.formatMessage(adminMessages.category),
+      },
+    ),
+  ] as ColumnDef<SkillTableRowFragment>[];
 
   const { pathname, search, hash } = useLocation();
   const currentUrl = `${pathname}${search}${hash}`;
@@ -312,7 +320,7 @@ const SkillTable = ({
   }
 
   return (
-    <Table<Skill>
+    <Table<SkillTableRowFragment>
       caption={title}
       isLoading={fetching}
       data={filteredSkills}
@@ -360,7 +368,7 @@ const SkillTable = ({
         state: filterState,
         component: (
           <SkillFilterDialog
-            skillFamilies={skillFamilies}
+            query={skillFamilies}
             fetching={fetching}
             onSubmit={handleFilterSubmit}
             resetValues={transformSkillFilterInputToFormValues({})}
@@ -377,7 +385,7 @@ const SkillTable = ({
                 csv: {
                   headers: getSkillCsvHeaders(intl),
                   data: () => {
-                    return getSkillCsvData(skills, intlEn, intlFr);
+                    return getSkillCsvData(skills);
                   },
                   fileName: intl.formatMessage({
                     defaultMessage: "GC Digital Talent - All skills.csv",

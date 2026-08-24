@@ -49,7 +49,7 @@ const GeneralQuestionDialog = ({
   const question = getFragment(GeneralQuestionDialog_Fragment, questionQuery);
   const isUpdate = !!question;
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(question),
+    defaultValues: dataToFormValues(question?.id, question?.question),
   });
   const { setValue, register, reset } = methods;
   const actionProps = register("action");

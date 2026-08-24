@@ -90,6 +90,7 @@ interface FormValues extends ExperienceFormValues<AllExperienceFormValues> {
 
 export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormSkill on Skill {
+    ...SkillBrowserSkill
     id
     key
     name {
@@ -459,7 +460,7 @@ export const ExperienceForm = ({
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    const data = formValuesToSubmitData(formValues, [], type);
+    const data = formValuesToSubmitData(formValues, type);
     return handleUpdateExperience(data);
   };
 

@@ -1,29 +1,59 @@
 import type { IntlShape } from "react-intl";
 
 import type { DownloadCsvProps } from "@gc-digital-talent/ui";
-import type { Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { appendLanguageName, commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import { getSkillFamilies } from "~/utils/csvUtils";
 import adminMessages from "~/messages/adminMessages";
 
+export const SkillCsv_Fragment = graphql(/* GraphQL */ `
+  fragment SkillCsv on Skill {
+    id
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    category {
+      label {
+        en
+        fr
+      }
+    }
+    families {
+      name {
+        en
+        fr
+      }
+    }
+  }
+`);
+
 export const getSkillCsvData = (
-  skills: Skill[],
-  intlEn: IntlShape,
-  intlFr: IntlShape,
+  query: FragmentType<typeof SkillCsv_Fragment>[],
 ) => {
+  const skills = getFragment(SkillCsv_Fragment, query);
   const data: DownloadCsvProps["data"] = skills.map(
     ({ id, name, description, category, families }) => {
       return {
         id,
         nameEn: name.en,
         categoryEn: category.label?.en,
-        skillFamiliesEn: getSkillFamilies(families, intlEn),
+        skillFamiliesEn: getSkillFamilies(
+          families?.map((family) => family.name?.en),
+        ),
         descriptionEn: description?.en ?? "",
         nameFr: name.fr,
         categoryFr: category.label?.fr,
-        skillFamiliesFr: getSkillFamilies(families, intlFr),
+        skillFamiliesFr: getSkillFamilies(
+          families?.map((family) => family.name?.fr),
+        ),
         descriptionFr: description?.fr ?? "",
       };
     },

@@ -7,7 +7,6 @@ import { RichTextInput, Submit } from "@gc-digital-talent/forms";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
-  Pool,
   UpdatePoolInput,
   FragmentType,
 } from "@gc-digital-talent/graphql";
@@ -85,14 +84,14 @@ const WorkTasksSection = ({
   });
 
   const dataToFormValues = (
-    initialData: Pick<Pool, "keyTasks">,
+    keyTasks: LocalizedString | null | undefined,
   ): FormValues => ({
-    YourWorkEn: initialData.keyTasks?.en ?? "",
-    YourWorkFr: initialData.keyTasks?.fr ?? "",
+    YourWorkEn: keyTasks?.en ?? "",
+    YourWorkFr: keyTasks?.fr ?? "",
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(pool),
+    defaultValues: dataToFormValues(pool.keyTasks),
   });
   const { handleSubmit, watch } = methods;
   const values = watch();

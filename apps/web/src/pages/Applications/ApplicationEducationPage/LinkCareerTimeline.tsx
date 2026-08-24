@@ -7,7 +7,6 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import { Checklist } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
-import type { Classification } from "@gc-digital-talent/graphql";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
 import type { SimpleAnyExperience } from "~/utils/experienceUtils";
@@ -78,7 +77,7 @@ interface ExperienceItems {
 }
 
 interface CheckListSectionProps {
-  group?: Classification["group"];
+  group?: string;
   experiences: ExperienceItems;
   path: string;
 }

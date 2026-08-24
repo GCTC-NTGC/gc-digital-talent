@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use App\Support\FilePath;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +14,8 @@ class FileGenerator
     protected ?string $authenticatedUserId;
 
     protected string $extension = '';
+
+    protected string $diskName = FilePath::GUARDED_DISK;
 
     public function __construct(protected string $fileName, protected ?string $dir) {}
 
@@ -41,7 +44,7 @@ class FileGenerator
      *
      * @param  ?string  $diskName  Name of the disk we want to save file to
      */
-    public function getPath(?string $diskName = 'user_generated'): string
+    public function getPath(?string $diskName = null): string
     {
         $disk = $this->getDisk($diskName);
 
@@ -53,7 +56,7 @@ class FileGenerator
      *
      * @param  ?string  $diskName  Name of the disk we want to save file to
      */
-    public function getDisk(?string $diskName = 'user_generated'): FilesystemAdapter
+    public function getDisk(?string $diskName = null): FilesystemAdapter
     {
         /**
          * We don't actually put the file with
@@ -62,7 +65,7 @@ class FileGenerator
          * so we need to manually create the directory if
          * it doesn't exist
          */
-        $disk = Storage::disk($diskName);
+        $disk = Storage::disk($diskName ?? $this->diskName);
         if ($this->dir && ! $disk->exists($this->dir)) {
             File::makeDirectory($disk->path($this->dir));
         }
@@ -106,6 +109,18 @@ class FileGenerator
     public function setAuthenticatedUserId(string $authenticatedUserId)
     {
         $this->authenticatedUserId = $authenticatedUserId;
+
+        return $this;
+    }
+
+    /**
+     * Set the disk the file is written to and read from
+     *
+     * @param  string  $diskName  Name of the disk
+     */
+    public function setDiskName(string $diskName)
+    {
+        $this->diskName = $diskName;
 
         return $this;
     }

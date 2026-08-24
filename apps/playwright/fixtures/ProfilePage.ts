@@ -1,7 +1,10 @@
 import type { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
-import { FlexibleWorkLocation, WorkRegion } from "@gc-digital-talent/graphql";
+import {
+  FlexibleWorkLocation,
+  WorkRegion,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
