@@ -42,7 +42,7 @@ final class AwardExperienceInputValidator extends Validator
                 'nullable',
                 'string',
                 Rule::requiredIf(
-                    $this->arg('awarded_to') === AwardedTo::MY_PROJECT->name
+                    $this->arg('awardedTo') === AwardedTo::MY_PROJECT->name
                 ),
             ],
             'relatedExperienceId' => [
