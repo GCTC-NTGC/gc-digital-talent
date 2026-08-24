@@ -7,6 +7,7 @@ use App\Enums\AwardedTo;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use App\Traits\HasLocalizedEnums;
 use Illuminate\Contracts\Support\Arrayable;
@@ -31,7 +32,7 @@ class AwardExperienceResource extends JsonResource
             WorkExperience::class => new WorkExperienceResource($this->relatedExperience),
             EducationExperience::class => new EducationExperienceResource($this->relatedExperience),
             CommunityExperience::class => new CommunityExperienceResource($this->relatedExperience),
-            PersonalExperienceResource::class => new PersonalExperienceResource($this->relatedExperience),
+            PersonalExperience::class => new PersonalExperienceResource($this->relatedExperience),
             // Another award shouldn't be possible here but just in case we change it at some point
             AwardExperience::class => new AwardExperienceResource($this->relatedExperience),
             default => null
