@@ -201,7 +201,7 @@ const UpdateTalentEventForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {user != null && user != undefined ? (
+        {user != null ? (
           <UpcomingTalentEventForm query={userQuery} />
         ) : (
           <NotFound
