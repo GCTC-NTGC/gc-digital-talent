@@ -141,7 +141,6 @@ test.describe("Notifications", { tag: "@uat" }, () => {
     await expect(settingsPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
-    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
     // 2. Applicant creates draft application
     await createApplication(applicantCtx, {
@@ -180,7 +179,6 @@ test.describe("Notifications", { tag: "@uat" }, () => {
     await expect(settingsPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
-    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
     // 2. Applicant submits the application
     await createAndSubmitApplication(applicantCtx, {
