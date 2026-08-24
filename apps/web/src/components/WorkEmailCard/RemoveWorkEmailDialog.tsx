@@ -18,9 +18,14 @@ const RemoveUserWorkEmail_Mutation = graphql(/* GraphQL */ `
 interface WipeWorkEmailDialogProps {
   id: string;
   workEmail: string;
+  onSuccess?: () => void;
 }
 
-const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
+const WipeWorkEmailDialog = ({
+  id,
+  workEmail,
+  onSuccess,
+}: WipeWorkEmailDialogProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const intl = useIntl();
 
@@ -54,6 +59,7 @@ const WipeWorkEmailDialog = ({ id, workEmail }: WipeWorkEmailDialogProps) => {
             }),
           );
           setIsOpen(false);
+          onSuccess?.();
         } else {
           void handleError();
         }

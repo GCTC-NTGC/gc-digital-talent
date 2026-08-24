@@ -30,9 +30,15 @@ final class UpdateTalentNominationEventValidator extends Validator
         $storedOpenDate = $thisEvent->open_date;
         $storedCloseDate = $thisEvent->close_date ?? null;
 
-        $communityId = $eventStatus === TalentNominationEventStatus::ACTIVE->name
-            ? $thisEvent->community_id
-            : $this->arg('talentNominationEvent.community.connect');
+        // Determine the community ID based on the event status
+        // If the event is active or past use the existing community ID
+        // If the event is upcoming use the community ID from the input
+        $communityId = match ($eventStatus) {
+            TalentNominationEventStatus::ACTIVE->name,
+            TalentNominationEventStatus::PAST->name => $thisEvent->community_id,
+            TalentNominationEventStatus::UPCOMING->name => $this->arg('talentNominationEvent.community.connect'),
+            default => $thisEvent->community_id,
+        };
 
         $attachedCommunityDevelopmentProgramIds = $thisEvent->communityDevelopmentPrograms()
             ->withTrashed()

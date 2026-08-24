@@ -69,7 +69,7 @@ const EditExperienceForm = ({
   const handleSubmit: SubmitHandler<ExperienceExperienceFormValues> = (
     formValues,
   ) => {
-    const submitData = formValuesToSubmitData(formValues, [], experienceType);
+    const submitData = formValuesToSubmitData(formValues, experienceType);
     const args = getMutationArgs(experience?.id || "", submitData);
     if (executeMutation) {
       executeMutation(args)
