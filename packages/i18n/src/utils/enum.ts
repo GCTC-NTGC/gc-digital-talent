@@ -25,6 +25,7 @@ import {
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
+  CommunityReferralStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -237,6 +238,12 @@ export const ENUM_SORT_ORDER = {
     TalentRequestTrackedUserStatus.NotReferred,
     TalentRequestTrackedUserStatus.Selected,
     TalentRequestTrackedUserStatus.NotSelected,
+  ],
+  COMMUNITY_REFERRAL_STATUS: [
+    CommunityReferralStatus.New,
+    CommunityReferralStatus.Pending,
+    CommunityReferralStatus.AvailableForReferral,
+    CommunityReferralStatus.NotReferred,
   ],
 };
 

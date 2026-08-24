@@ -246,13 +246,6 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
       }
     }
     processNumber
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     community {
       key
     }
@@ -312,13 +305,11 @@ export const PoolPoster = ({
   const poolTitle = getShortPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const fullPoolTitle = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const formattedSubTitle = intl.formatMessage(subTitle);

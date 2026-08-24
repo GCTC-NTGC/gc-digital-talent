@@ -142,7 +142,6 @@ const ApplicantFilters = ({
                     getShortPoolTitleHtml(intl, {
                       workStream: pool.workStream,
                       name: pool.name,
-                      publishingGroup: pool.publishingGroup,
                       classification: pool.classification,
                     }),
                   )
