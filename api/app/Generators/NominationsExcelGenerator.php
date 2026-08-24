@@ -447,7 +447,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $query = $this->buildQuery();
         $query->chunk(200, function ($talentNominationGroups) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
-                $consentToShare = $talentNominationGroup->consentToShareProfile;
                 $user = $talentNominationGroup->nominee;
 
                 foreach ($talentNominationGroup->nominations as $nomination) {
