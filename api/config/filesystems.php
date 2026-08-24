@@ -40,6 +40,11 @@ return [
             'root' => storage_path('app/user_generated'),
         ],
 
+        'public_generated' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public_generated'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

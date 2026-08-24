@@ -46,6 +46,16 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     }
 
     /**
+     * Scopes the query to exclude PoolCandidates in a pool that isn't attached to a community
+     */
+    public function whereHasCommunity(): self
+    {
+        return $this->whereHas('pool', function ($query) {
+            $query->whereNotNull('community_id');
+        });
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -141,6 +151,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         // so its id is pulled out first.
         return $this->whereAvailable()
             ->whereInTalentSearchablePublishingGroup()
+            ->whereHasCommunity()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
             ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
             ->whereInCommunity($filters['community'] ?? null)

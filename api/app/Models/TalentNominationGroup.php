@@ -81,6 +81,16 @@ class TalentNominationGroup extends Model
     protected static function booted(): void
     {
         TalentNominationGroup::observe(TalentNominationGroupObserver::class);
+
+        // Only pull groups whose nominee is currently active; skip archived ones by default.
+        // To read/update a group even when its nominee is archived, use
+        // TalentNominationGroup::withoutGlobalScope('activeNominee') - see
+        // connectToTalentNominationGroupIfMissing() and TalentNomination::talentNominationGroup().
+        static::addGlobalScope('activeNominee', function (Builder $query) {
+            $query->whereHas('nominee', function (Builder $nomineeQuery) {
+                $nomineeQuery->whereNull('deleted_at');
+            });
+        });
     }
 
     public function newEloquentBuilder($query): Builder

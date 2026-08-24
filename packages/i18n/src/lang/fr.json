@@ -1008,7 +1008,7 @@
     "description": "Full name of abbreviation for EC"
   },
   "W87tD/": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un grand ministère ou un grand organisme.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral dans un grand ministère ou un grand organisme.",
     "description": "The talent nomination lateral movement option description for large department"
   },
   "W9SXxj": {
@@ -1447,6 +1447,10 @@
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
   },
+  "kBUk+T": {
+    "defaultMessage": "Date de suivi",
+    "description": "Label displayed before follow-up date"
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1460,7 +1464,7 @@
     "description": "Error message when human readable message not found"
   },
   "kv960y": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un ministère central ou un organisme central.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral vers un ministère central ou un organisme central.",
     "description": "The talent nomination lateral movement option description for central department"
   },
   "l+x5JF": {
@@ -1508,7 +1512,7 @@
     "description": "Null selection for community select input."
   },
   "m2cqv9": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un programme au sein d'un autre ministère ou d'un autre organisme.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral vers un programme au sein d'un autre ministère ou d'un autre organisme.",
     "description": "The talent nomination lateral movement option description for program experience"
   },
   "mDOWWQ": {
@@ -1696,7 +1700,7 @@
     "description": "Link text to create a new nomination"
   },
   "s7lyFN": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans un petit ministère ou un petit organisme.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral dans un petit ministère ou un petit organisme.",
     "description": "The talent nomination lateral movement option description for small department"
   },
   "sJ+F9z": {
@@ -1808,7 +1812,7 @@
     "description": "Descriptor for an info alert"
   },
   "vMc12L": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale vers un autre domaine politique.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral vers un autre domaine politique.",
     "description": "The talent nomination lateral movement option description for policy experience"
   },
   "vNVMlM": {
@@ -1832,7 +1836,7 @@
     "description": "The operational requirement described as 24/7 on-call."
   },
   "vrgXIT": {
-    "defaultMessage": "Le membre du personnel bénéficierait d'une mutation latérale dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
+    "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral dans n'importe quel autre ministère ou organisme, quelle que soit sa taille ou son type.",
     "description": "The talent nomination lateral movement option description for new department"
   },
   "vy6A5+": {
@@ -1930,6 +1934,10 @@
   "yz4qnT": {
     "defaultMessage": "Classifications",
     "description": "Name of classifications page"
+  },
+  "z4XcnS": {
+    "defaultMessage": "Voir le profil",
+    "description": "Link text to view a user's profile"
   },
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",

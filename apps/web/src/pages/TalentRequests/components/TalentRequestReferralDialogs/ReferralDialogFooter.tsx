@@ -30,11 +30,7 @@ const ReferralDialogFooter = ({
         </Button>
       </Dialog.Close>
       <Link href={paths.userView(userId)} mode="inline" newTab>
-        {intl.formatMessage({
-          defaultMessage: "View profile",
-          id: "KsUNz1",
-          description: "Link text to view a user's profile in a new tab",
-        })}
+        {intl.formatMessage(commonMessages.viewProfile)}
       </Link>
     </Dialog.Footer>
   );

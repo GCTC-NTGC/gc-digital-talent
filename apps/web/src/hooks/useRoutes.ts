@@ -317,7 +317,8 @@ const getRoutes = (lang: Locales) => {
     // Employee profile
     employeeVerification: () => `${baseUrl}/employee`,
     careerPlanning: () => `${baseUrl}/employee/career-planning`,
-    functionalCommunities: () => `${baseUrl}/employee`, // update in #17293
+    employeeProfileFunctionalCommunities: () =>
+      `${baseUrl}/employee/communities`,
     talentNominations: () => `${baseUrl}/employee`, // update in #17294
 
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
@@ -342,10 +343,26 @@ const getRoutes = (lang: Locales) => {
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
     // Community interests
-    createCommunityInterest: () =>
-      [applicantUrl, "community-interests", "create"].join("/"),
-    updateCommunityInterest: (id: string) =>
-      [applicantUrl, "community-interests", id].join("/"),
+    createCommunityInterest: (opts?: { from?: string }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      return (
+        [applicantUrl, "community-interests", "create"].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
+    updateCommunityInterest: (id: string, opts?: { from?: string }) => {
+      const searchParams = new Map<string, string>();
+      if (opts?.from) {
+        searchParams.set("from", opts.from);
+      }
+      return (
+        [applicantUrl, "community-interests", id].join("/") +
+        createSearchQuery(searchParams)
+      );
+    },
 
     // Job poster templates
     jobPosterTemplates: () => [baseUrl, "job-templates"].join("/"),

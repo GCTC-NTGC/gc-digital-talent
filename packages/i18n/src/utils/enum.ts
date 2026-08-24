@@ -25,6 +25,7 @@ import {
   TalentRequestStatus,
   TalentRequestTrackedUserStatus,
   TalentRequestReason,
+  CommunityReferralStatus,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -37,6 +38,8 @@ export interface GenericLocalizedEnum<T> {
   value: T;
   label: LocalizedString;
 }
+
+export type LocalizedEnumValue<T> = Pick<GenericLocalizedEnum<T>, "value">;
 
 /**
  * Retrieve the full localized enum from an array
@@ -148,7 +151,7 @@ export function localizedEnumToInput<T>(
  */
 export function localizedEnumArrayToInput<T>(
   localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
-): (T | null | undefined)[] | undefined {
+): T[] {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),
@@ -235,6 +238,12 @@ export const ENUM_SORT_ORDER = {
     TalentRequestTrackedUserStatus.NotReferred,
     TalentRequestTrackedUserStatus.Selected,
     TalentRequestTrackedUserStatus.NotSelected,
+  ],
+  COMMUNITY_REFERRAL_STATUS: [
+    CommunityReferralStatus.New,
+    CommunityReferralStatus.Pending,
+    CommunityReferralStatus.AvailableForReferral,
+    CommunityReferralStatus.NotReferred,
   ],
 };
 

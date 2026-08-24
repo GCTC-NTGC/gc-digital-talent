@@ -1,5 +1,32 @@
-import type { EmployeeProfile } from "@gc-digital-talent/graphql";
+import type {
+  ExecCoaching,
+  Mentorship,
+  OrganizationTypeInterest,
+  TimeFrame,
+} from "@gc-digital-talent/graphql";
 import { empty } from "@gc-digital-talent/helpers";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
+
+interface RequiredFields {
+  lateralMoveInterest?: boolean | null;
+  promotionMoveInterest?: boolean | null;
+  eligibleRetirementYearKnown?: boolean | null;
+  eligibleRetirementYear?: string | null;
+  mentorshipStatus?: LocalizedEnumValue<Mentorship>[] | null;
+  execInterest?: boolean | null;
+  execCoachingStatus?: LocalizedEnumValue<ExecCoaching>[] | null;
+}
+
+interface AllFields extends RequiredFields {
+  lateralMoveTimeFrame?: LocalizedEnumValue<TimeFrame> | null;
+  lateralMoveOrganizationType?:
+    LocalizedEnumValue<OrganizationTypeInterest>[] | null;
+  promotionMoveTimeFrame?: LocalizedEnumValue<TimeFrame> | null;
+  promotionMoveOrganizationType?:
+    LocalizedEnumValue<OrganizationTypeInterest>[] | null;
+  mentorshipInterest?: LocalizedEnumValue<Mentorship>[] | null;
+  execCoachingInterest?: LocalizedEnumValue<ExecCoaching>[] | null;
+}
 
 export function hasAllEmptyFields({
   lateralMoveInterest,
@@ -15,22 +42,7 @@ export function hasAllEmptyFields({
   execInterest,
   execCoachingStatus,
   execCoachingInterest,
-}: Pick<
-  EmployeeProfile,
-  | "lateralMoveInterest"
-  | "lateralMoveTimeFrame"
-  | "lateralMoveOrganizationType"
-  | "promotionMoveInterest"
-  | "promotionMoveTimeFrame"
-  | "promotionMoveOrganizationType"
-  | "eligibleRetirementYearKnown"
-  | "eligibleRetirementYear"
-  | "mentorshipStatus"
-  | "mentorshipInterest"
-  | "execInterest"
-  | "execCoachingInterest"
-  | "execCoachingStatus"
->): boolean {
+}: AllFields): boolean {
   return (
     empty(lateralMoveInterest) &&
     !lateralMoveTimeFrame &&
@@ -56,18 +68,7 @@ export function hasEmptyRequiredFields({
   mentorshipStatus,
   execInterest,
   execCoachingStatus,
-}: Partial<
-  Pick<
-    EmployeeProfile,
-    | "lateralMoveInterest"
-    | "promotionMoveInterest"
-    | "eligibleRetirementYearKnown"
-    | "eligibleRetirementYear"
-    | "mentorshipStatus"
-    | "execInterest"
-    | "execCoachingStatus"
-  >
->): boolean {
+}: RequiredFields): boolean {
   return (
     empty(lateralMoveInterest) ||
     empty(promotionMoveInterest) ||

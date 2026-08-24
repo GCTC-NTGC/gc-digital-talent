@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { OperationContext } from "urql";
 import { useQuery } from "urql";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
 import {
@@ -38,9 +38,7 @@ import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
 import TalentManagementTaskCard from "./components/TalentManagementTaskCard";
-import ApplicantDashboardProvider, {
-  ApplicantDashboardContext,
-} from "./ApplicantDashboardProvider";
+import ApplicantDashboardProvider from "./ApplicantDashboardProvider";
 import { ACCORDION_ID } from "./constants";
 
 export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
@@ -203,10 +201,6 @@ export const DashboardPage = ({
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
-
-  const { communityAccordionRef, setCommunityAccordionValue } = useContext(
-    ApplicantDashboardContext,
-  );
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -430,23 +424,7 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions[functionalCommunitiesState],
                           )}
-                          href={
-                            communityInterests.length > 0
-                              ? undefined
-                              : paths.createCommunityInterest()
-                          }
-                          scrollTo={
-                            communityInterests.length > 0
-                              ? PAGE_SECTION_ID.FUNCTIONAL_COMMUNITIES
-                              : undefined
-                          }
-                          onScrollTo={() => {
-                            // focus the accordion and pop it open
-                            communityAccordionRef.current?.focus();
-                            setCommunityAccordionValue(
-                              ACCORDION_ID.FUNCTIONAL_COMMUNITIES,
-                            );
-                          }}
+                          href={paths.employeeProfileFunctionalCommunities()}
                           asListItem={false}
                         />
                       ) : (
@@ -462,7 +440,7 @@ export const DashboardPage = ({
                           hiddenContextPrefix={intl.formatMessage(
                             stateDescriptions.locked,
                           )}
-                          href={paths.functionalCommunities()}
+                          href={paths.employeeVerification()}
                           asListItem={false}
                         />
                       )}

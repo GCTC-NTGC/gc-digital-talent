@@ -1,9 +1,3 @@
-interface ApiRoutes {
-  login: (from?: string, locale?: string) => string;
-  refreshAccessToken: () => string;
-  userGeneratedFile: (fileName: string) => string;
-}
-
 const isDevServer =
   typeof IS_DEV_SERVER !== "undefined" ? IS_DEV_SERVER : false;
 
@@ -32,6 +26,10 @@ const apiRoutes = {
     const filePath = `api/user-generated-files/${fileName}`;
     return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
   },
+  userGeneratedPublicFile: (fileName: string): string => {
+    const filePath = `api/user-generated-files/public/${fileName}`;
+    return apiHost ? new URL(filePath, apiHost).toString() : `/${filePath}`;
+  },
 };
 export default apiRoutes;
 
@@ -39,6 +37,6 @@ export default apiRoutes;
  * A hook version of loginRoutes which gets the locale from the intl context.
  * @returns LoginRoutes
  */
-export const useApiRoutes = (): ApiRoutes => {
+export const useApiRoutes = () => {
   return apiRoutes;
 };

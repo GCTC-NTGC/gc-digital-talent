@@ -138,6 +138,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
+    {
+      label: intl.formatMessage(adminMessages.rolesAndPermissions),
+      href: adminRoutes.rolesAndPermissions(),
+      roles: [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityTalentCoordinator,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+      ],
+    },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
@@ -162,16 +172,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(adminMessages.departments),
       href: adminRoutes.departmentTable(),
       roles: [ROLE_NAME.PlatformAdmin],
-    },
-    {
-      label: intl.formatMessage(adminMessages.rolesAndPermissions),
-      href: adminRoutes.rolesAndPermissions(),
-      roles: [
-        ROLE_NAME.PlatformAdmin,
-        ROLE_NAME.CommunityTalentCoordinator,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.CommunityAdmin,
-      ],
     },
     {
       label: intl.formatMessage(navigationMessages.skills),
@@ -332,12 +332,7 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
           )}
         </div>
         <div className="mt-18 mb-12">
-          <Heading
-            size="h4"
-            icon={CogIcon}
-            color="warning"
-            className="m-t0 mb-6"
-          >
+          <Heading size="h4" icon={CogIcon} color="warning" className="mb-6">
             {intl.formatMessage({
               defaultMessage: "Your roles",
               id: "IJlJF1",

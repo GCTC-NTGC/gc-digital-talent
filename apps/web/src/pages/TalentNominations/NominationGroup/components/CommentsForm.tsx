@@ -12,10 +12,7 @@ import {
   RichTextRenderer,
   Submit,
 } from "@gc-digital-talent/forms";
-import type {
-  FragmentType,
-  TalentNominationGroup,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -37,7 +34,7 @@ const CommentsForm_Fragment = graphql(/* Graphql */ `
 `);
 
 interface FormValues {
-  comments?: TalentNominationGroup["comments"];
+  comments?: string | null;
 }
 
 interface CommentsFormProps {

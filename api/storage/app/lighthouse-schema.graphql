@@ -1455,6 +1455,7 @@ type TalentNominationEvent {
   talentNominationGroups: [TalentNominationGroup!]
   countTalentNominationGroups: Int!
   status: LocalizedTalentNominationEventStatus
+  includeDevelopmentOpportunities: Boolean!
   includeNineBox: Boolean!
   requireReferenceForAdvancement: Boolean!
   customInstructions: LocalizedString
@@ -2054,6 +2055,7 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
   classifications: [UUID!]
+  referralStatuses: [CommunityReferralStatus!]
 }
 
 input DateRangeOptional {
