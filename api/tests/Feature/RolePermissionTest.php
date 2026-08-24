@@ -116,7 +116,6 @@ class RolePermissionTest extends TestCase
         $this->assertTrue($this->user->hasRole('applicant'));
         $this->assertTrue($this->user->isAbleTo([
             'view-own-application',
-            'view-own-applicationStatus',
             'view-own-applicationDecision',
             'view-own-applicationPlacement',
             'submit-own-draftApplication',

@@ -1031,9 +1031,6 @@ return [
             'submittedApplication' => [
                 'own' => ['archive', 'suspend'],
             ],
-            'applicationStatus' => [
-                'own' => ['view'],
-            ],
             'applicationDecision' => [
                 'own' => ['view'],
             ],
