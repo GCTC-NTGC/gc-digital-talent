@@ -578,7 +578,7 @@ export const formValuesToSubmitData = (
       awardedTo,
       awardedScope,
       projectName,
-      relatedExperienceId,
+      relatedExperienceId: relatedExperienceId ?? null,
       relatedExperienceType: relatedExperienceType
         ? `App\\Models\\${relatedExperienceType}`
         : null,
@@ -1079,32 +1079,22 @@ export interface ExperienceName extends SimpleAnyExperience {
  * Get the name of any experience type
  *
  * @param AnyExperience experience
- * @return string|ReactNode
+ * @return string
  */
 export const getExperienceName = <T extends ExperienceName>(
   experience: T,
   intl: IntlShape,
-  html = false,
-) => {
+): string => {
   if (isAwardExperience(experience) || isPersonalExperience(experience)) {
-    return html ? (
-      <span className="font-bold">{experience.title}</span>
-    ) : (
-      experience.title
-    );
+    return experience.title ?? intl.formatMessage(commonMessages.notAvailable);
   }
 
   if (isCommunityExperience(experience)) {
     const { title, organization } = experience;
-    return intl.formatMessage(
-      html
-        ? experienceMessages.communityAtHtml
-        : experienceMessages.communityAt,
-      {
-        title,
-        organization,
-      },
-    );
+    return intl.formatMessage(experienceMessages.communityAt, {
+      title,
+      organization,
+    });
   }
 
   if (isEducationExperience(experience)) {
@@ -1122,15 +1112,10 @@ export const getExperienceName = <T extends ExperienceName>(
 
     // shape of type changed at some point from string to object. this is an imperfect solution.
     if (typeof type === "string") {
-      return intl.formatMessage(
-        html
-          ? experienceMessages.educationAtWithoutTypeHtml
-          : experienceMessages.educationAtWithoutType,
-        {
-          areaOfStudy,
-          institution,
-        },
-      );
+      return intl.formatMessage(experienceMessages.educationAtWithoutType, {
+        areaOfStudy,
+        institution,
+      });
     } else {
       let educationType = getLocalizedName(type?.label, intl);
       if (type?.value === EducationType.DegreeDiplomaCertificate) {
@@ -1170,25 +1155,18 @@ export const getExperienceName = <T extends ExperienceName>(
 
       if (!subject) {
         return intl.formatMessage(
-          html
-            ? experienceMessages.educationAtWithoutSubject
-            : experienceMessages.educationAtWithoutSubjectHtml,
+          experienceMessages.educationAtWithoutSubject,
           {
             educationType,
             institution,
           },
         );
       }
-      return intl.formatMessage(
-        html
-          ? experienceMessages.educationAtHtml
-          : experienceMessages.educationAt,
-        {
-          educationType,
-          areaOfStudy: subject,
-          institution,
-        },
-      );
+      return intl.formatMessage(experienceMessages.educationAt, {
+        educationType,
+        areaOfStudy: subject,
+        institution,
+      });
     }
   }
 
@@ -1197,37 +1175,151 @@ export const getExperienceName = <T extends ExperienceName>(
       experience;
     switch (employmentCategory?.value) {
       case EmploymentCategory.ExternalOrganization:
-        return intl.formatMessage(
-          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
-          {
-            role,
-            group: organization,
-          },
-        );
+        return intl.formatMessage(experienceMessages.workWith, {
+          role,
+          group: organization,
+        });
       case EmploymentCategory.GovernmentOfCanada:
-        return intl.formatMessage(
-          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
-          {
-            role,
-            group: getLocalizedName(department?.name, intl),
-          },
-        );
+        return intl.formatMessage(experienceMessages.workWith, {
+          role,
+          group: getLocalizedName(department?.name, intl),
+        });
       case EmploymentCategory.CanadianArmedForces:
-        return intl.formatMessage(
-          html ? experienceMessages.workWithHtml : experienceMessages.workWith,
-          {
-            role,
-            group: getLocalizedName(cafForce?.label, intl),
-          },
-        );
+        return intl.formatMessage(experienceMessages.workWith, {
+          role,
+          group: getLocalizedName(cafForce?.label, intl),
+        });
       default:
+        return intl.formatMessage(experienceMessages.workAt, {
+          role,
+          organization,
+        });
+    }
+  }
+
+  // We should never get here but just in case we do, return no provided
+  return intl.formatMessage(commonMessages.notProvided);
+};
+
+/**
+ * Get the name of any experience type
+ *
+ * @param AnyExperience experience
+ * @return string|ReactNode
+ */
+export const getExperienceNameHtml = <T extends ExperienceName>(
+  experience: T,
+  intl: IntlShape,
+) => {
+  if (isAwardExperience(experience) || isPersonalExperience(experience)) {
+    return <span className="font-bold">{experience.title}</span>;
+  }
+
+  if (isCommunityExperience(experience)) {
+    const { title, organization } = experience;
+    return intl.formatMessage(experienceMessages.communityAtHtml, {
+      title,
+      organization,
+    });
+  }
+
+  if (isEducationExperience(experience)) {
+    const {
+      educationType: type,
+      areaOfStudy,
+      institution,
+      otherEducationType,
+      degreeType,
+      fellowshipType,
+      otherFellowshipType,
+      licenseOrAccreditation,
+      certification,
+    } = experience;
+
+    // shape of type changed at some point from string to object. this is an imperfect solution.
+    if (typeof type === "string") {
+      return intl.formatMessage(experienceMessages.educationAtWithoutTypeHtml, {
+        areaOfStudy,
+        institution,
+      });
+    } else {
+      let educationType = getLocalizedName(type?.label, intl);
+      if (type?.value === EducationType.DegreeDiplomaCertificate) {
+        educationType = degreeType
+          ? getLocalizedName(degreeType?.label, intl)
+          : educationType;
+      } else if (type?.value === EducationType.Fellowship) {
+        educationType =
+          fellowshipType?.value === FellowshipType.Other
+            ? (otherFellowshipType ??
+              intl.formatMessage({
+                defaultMessage: "Other type of fellowship",
+                id: "CQhXfC",
+                description:
+                  "First part of education experience title for other type",
+              }))
+            : fellowshipType
+              ? getLocalizedName(fellowshipType?.label, intl)
+              : educationType;
+      } else if (type?.value === EducationType.Other) {
+        educationType =
+          otherEducationType ??
+          intl.formatMessage({
+            defaultMessage: "Other type of education",
+            id: "wrKBLf",
+            description:
+              "First part of education experience title for other type",
+          });
+      }
+
+      let subject = areaOfStudy;
+      if (type?.value === EducationType.ProfessionalCertification) {
+        subject = certification;
+      } else if (type?.value === EducationType.LicenseAccreditation) {
+        subject = licenseOrAccreditation;
+      }
+
+      if (!subject) {
         return intl.formatMessage(
-          html ? experienceMessages.workAtHtml : experienceMessages.workAt,
+          experienceMessages.educationAtWithoutSubjectHtml,
           {
-            role,
-            organization,
+            educationType,
+            institution,
           },
         );
+      }
+      return intl.formatMessage(experienceMessages.educationAtHtml, {
+        educationType,
+        areaOfStudy: subject,
+        institution,
+      });
+    }
+  }
+
+  if (isWorkExperience(experience)) {
+    const { role, organization, employmentCategory, department, cafForce } =
+      experience;
+    switch (employmentCategory?.value) {
+      case EmploymentCategory.ExternalOrganization:
+        return intl.formatMessage(experienceMessages.workWithHtml, {
+          role,
+          group: organization,
+        });
+      case EmploymentCategory.GovernmentOfCanada:
+        return intl.formatMessage(experienceMessages.workWithHtml, {
+          role,
+          group: getLocalizedName(department?.name, intl),
+        });
+      case EmploymentCategory.CanadianArmedForces:
+        return intl.formatMessage(experienceMessages.workWithHtml, {
+          role,
+          group: getLocalizedName(cafForce?.label, intl),
+        });
+      default:
+        return intl.formatMessage(experienceMessages.workAtHtml, {
+          role,
+          organization,
+        });
     }
   }
 
@@ -1366,7 +1458,7 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
 
   return {
     title: nodeToString(getExperienceName(experience, intl)) ?? defaults.title,
-    titleHtml: getExperienceName(experience, intl, true),
+    titleHtml: getExperienceNameHtml(experience, intl),
     editPath: paths.editExperience(experience.id),
     typeMessage: typeMessages.get(experienceType) ?? defaults.typeMessage,
     icon: icons.get(experienceType) ?? defaults.icon,

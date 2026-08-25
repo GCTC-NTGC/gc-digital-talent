@@ -10,7 +10,7 @@ import {
   localizedEnumToOptions,
   TextArea,
   RadioGroup,
-  Select,
+  Combobox,
 } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
 import {
@@ -18,7 +18,6 @@ import {
   sortAwardedTo,
   sortAwardedScope,
   getLocale,
-  uiMessages,
 } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { AwardedScope, AwardedTo, graphql } from "@gc-digital-talent/graphql";
@@ -158,11 +157,13 @@ const AwardFields = ({
     }
 
     // Set the related experience type
-    const relatedExperienceType = myExperiences.find(
+    const relatedExperience = myExperiences.find(
       (experience) => experience.id === watchRelatedExperienceId,
     );
-    if (relatedExperienceType) {
-      setValue("relatedExperienceType", relatedExperienceType.__typename);
+    if (relatedExperience) {
+      setValue("relatedExperienceType", relatedExperience.__typename);
+    } else {
+      setValue("relatedExperienceType", null);
     }
   }, [
     watchAwardedTo,
@@ -222,11 +223,10 @@ const AwardFields = ({
                 })}
               </datalist>
             )}
-            <Select
+            <Combobox
               id="relatedExperienceId"
               label={labels.relatedExperience}
               name="relatedExperienceId"
-              nullSelection={intl.formatMessage(uiMessages.nullSelectionOption)}
               options={myExperiences.map((experience) => ({
                 value: experience.id,
                 label: getExperienceName(experience, intl),

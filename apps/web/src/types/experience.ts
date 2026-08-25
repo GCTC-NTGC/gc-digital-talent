@@ -69,8 +69,8 @@ export interface AwardFormValues {
   awardedScope: AwardedScope;
   awardedDate: string;
   projectName?: string | null;
-  relatedExperienceId?: string;
-  relatedExperienceType?: string;
+  relatedExperienceId?: string | null;
+  relatedExperienceType?: string | null;
 }
 
 export type CommunityFormValues = FormValueDateRange & {
@@ -226,7 +226,7 @@ export interface ExperienceDetailsSubmissionData {
   otherCSuiteRoleTitle?: string | null;
   learningDescription?: string;
   projectName?: string | null;
-  relatedExperienceId?: string;
+  relatedExperienceId?: string | null;
   relatedExperienceType?: string | null;
 }
 
