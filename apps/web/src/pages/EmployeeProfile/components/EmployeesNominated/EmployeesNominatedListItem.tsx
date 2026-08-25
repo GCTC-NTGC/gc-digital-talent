@@ -100,14 +100,14 @@ const EmployeesNominatedListItem = ({
       children: statusChip.label,
     },
     {
-      key: "name",
-      type: "text",
-      children: nominationEventName,
-    },
-    {
       key: "community",
       type: "text",
       children: communityName,
+    },
+    {
+      key: "name",
+      type: "text",
+      children: nominationEventName,
     },
     {
       key: "date",
