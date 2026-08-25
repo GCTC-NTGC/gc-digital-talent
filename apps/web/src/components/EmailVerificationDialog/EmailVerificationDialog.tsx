@@ -63,14 +63,14 @@ interface EmailVerificationFormProps {
   formEmailType: EmailType;
   initialEmailAddress: string | null;
   onFormSubmit: (formValues: FormValues) => Promise<void>;
-  onClickCancel: () => void;
+  onClose: () => void;
 }
 
 const EmailVerificationForm = ({
   formEmailType,
   initialEmailAddress,
   onFormSubmit,
-  onClickCancel,
+  onClose,
 }: EmailVerificationFormProps) => {
   const intl = useIntl();
   const {
@@ -166,9 +166,10 @@ const EmailVerificationForm = ({
               <WipeWorkEmailDialog
                 id={auth.userAuthInfo.id}
                 workEmail={initialEmailAddress}
+                onSuccess={onClose}
               />
             ) : null}
-            <Button color="warning" mode="inline" onClick={onClickCancel}>
+            <Button color="warning" mode="inline" onClick={onClose}>
               {intl.formatMessage(commonMessages.cancel)}
             </Button>
           </Dialog.Footer>
@@ -255,7 +256,7 @@ const EmailVerificationDialog = ({
                 formEmailType={dialogEmailType}
                 initialEmailAddress={initialEmailAddress}
                 onFormSubmit={handleFormSubmit}
-                onClickCancel={() => setOpen(false)}
+                onClose={() => setOpen(false)}
               />
             </EmailVerification.Provider>
           ) : null}

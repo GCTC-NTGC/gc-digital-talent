@@ -3,7 +3,6 @@ import { differenceInCalendarDays } from "date-fns/differenceInCalendarDays";
 
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
 import type { ChipProps } from "@gc-digital-talent/ui";
-import type { EquitySelections } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   TalentRequestPositionType,
@@ -51,8 +50,15 @@ export const hasDiplomaToEducationLevel = (
           "Education level message when candidate does not have a diploma found on the request page.",
       });
 
+interface EquityDescriptions {
+  isWoman?: boolean | null;
+  isVisibleMinority?: boolean | null;
+  isIndigenous?: boolean | null;
+  hasDisability?: boolean | null;
+}
+
 export const equitySelectionsToDescriptions = (
-  equity: EquitySelections | null | undefined,
+  equity: EquityDescriptions | null | undefined,
   intl: IntlShape,
 ): string[] => [
   ...(equity?.isWoman

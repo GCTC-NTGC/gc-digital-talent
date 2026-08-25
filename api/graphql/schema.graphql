@@ -1644,6 +1644,7 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
   classifications: [UUID!] @scope
+  referralStatuses: [CommunityReferralStatus!] @scope
 }
 input DateRangeOptional {
   from: DateTime

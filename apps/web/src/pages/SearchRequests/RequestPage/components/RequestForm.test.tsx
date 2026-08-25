@@ -21,6 +21,7 @@ import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
+  RequestFormSkill_Fragment,
 } from "./RequestForm";
 
 const mockClient = {
@@ -35,6 +36,9 @@ const departmentsQuery = fakeDepartments().map((department) =>
 const classificationsQuery = fakeClassifications().map((classification) =>
   makeFragmentData(classification, RequestFormClassification_Fragment),
 );
+const skillsQuery = fakeSkills().map((skill) =>
+  makeFragmentData(skill, RequestFormSkill_Fragment),
+);
 
 const renderRequestForm = () => {
   const router = createMemoryRouter(
@@ -46,7 +50,7 @@ const renderRequestForm = () => {
             departmentsQuery={departmentsQuery}
             classificationsQuery={classificationsQuery}
             communitiesQuery={[]}
-            skills={fakeSkills()}
+            skills={skillsQuery}
             handleCreateTalentRequest={vi.fn()}
           />
         ),
