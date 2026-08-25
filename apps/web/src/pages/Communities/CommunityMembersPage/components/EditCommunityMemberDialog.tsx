@@ -89,17 +89,19 @@ const EditCommunityMemberDialog = forwardRef<
       },
     })
       .then((res) => {
-        if (!res.error) {
-          setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Roles updated successfully",
-              id: "Jc9FDx",
-              description:
-                "Alert displayed to user when a community member's roles have been updated",
-            }),
-          );
+        if (!res.data || res.error) {
+          throw new Error();
         }
+
+        setIsOpen(false);
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Roles updated successfully",
+            id: "Jc9FDx",
+            description:
+              "Alert displayed to user when a community member's roles have been updated",
+          }),
+        );
       })
       .catch(() => {
         toast.error(

@@ -78,19 +78,19 @@ const RemoveDepartmentMembershipDialog = forwardRef<
       },
     })
       .then((res) => {
-        if (!res.error) {
-          setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Member removed successfully",
-              id: "KWXIKL",
-              description:
-                "Alert displayed to user when a community member is removed",
-            }),
-          );
-        } else {
-          handleError();
+        if (!res.data || res.error) {
+          throw new Error();
         }
+
+        setIsOpen(false);
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Member removed successfully",
+            id: "KWXIKL",
+            description:
+              "Alert displayed to user when a community member is removed",
+          }),
+        );
       })
       .catch(handleError);
   };
