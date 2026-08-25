@@ -4143,6 +4143,10 @@
     "defaultMessage": "Êtes-vous sûr de vouloir ramener cette personne candidate à une étape précédente du processus?",
     "description": "Content for move to previous step in screening stage notice"
   },
+  "ENdwj1": {
+    "defaultMessage": "Parcourir les événements de gestion des talents actifs",
+    "description": "Link to browse open talent events when an employee has not submitted any nominations"
+  },
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
     "description": "Application step skipped page details"

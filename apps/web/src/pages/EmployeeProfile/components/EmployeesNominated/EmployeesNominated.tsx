@@ -91,8 +91,8 @@ const EmployeesNominated = ({
           className="mb-3"
         >
           {intl.formatMessage({
-            defaultMessage: "Browse open talent events",
-            id: "QIRY9D",
+            defaultMessage: "Browse active talent events",
+            id: "ENdwj1",
             description:
               "Link to browse open talent events when an employee has not submitted any nominations",
           })}
