@@ -660,6 +660,15 @@ const commonMessages = defineMessages({
     defaultMessage: "Employees you've nominated",
     id: "VIZdFw",
     description: "Label for employees nominated",
+  noClassification: {
+    defaultMessage: "No classification",
+    id: "xuxKpE",
+    description: "Placeholder for when the classification can not be displayed",
+  },
+  noDepartment: {
+    defaultMessage: "No organization",
+    id: "wpNvbg",
+    description: "Placeholder for when the department can not be displayed",
   },
   followUpDate: {
     defaultMessage: "Follow-up date",
