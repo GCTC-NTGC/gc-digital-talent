@@ -583,6 +583,7 @@ class TalentNominationTest extends TestCase
                     'talentNominationEvent' => [
                         'connect' => $this->nominationEvent->id,
                     ],
+                    'nominateForAdvancement' => false,
                     'advancementClassifications' => [
                         'sync' => [$classification->id],
                     ],
@@ -596,11 +597,13 @@ class TalentNominationTest extends TestCase
     public function testCanUpdateNominationWithAdvancementWithClassifications()
     {
         $classification = Classification::factory()->create();
-        $nomination = TalentNomination::factory()->create([
-            'talent_nomination_event_id' => $this->nominationEvent->id,
-            'submitter_id' => $this->employee1->id,
-            'submitted_at' => null,
-        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $this->employee1->id,
+
+            ]);
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
@@ -629,17 +632,18 @@ class TalentNominationTest extends TestCase
     public function testUpdateCreateNominationWithoutAdvancementWithClassifications()
     {
         $classification = Classification::factory()->create();
-        $nomination = TalentNomination::factory()->create([
-            'talent_nomination_event_id' => $this->nominationEvent->id,
-            'submitter_id' => $this->employee1->id,
-            'submitted_at' => null,
-            'nominate_for_advancement' => false,
-        ]);
+        $nomination = TalentNomination::factory()
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $this->employee1->id,
+            ]);
 
         $response = $this->actingAs($this->employee1, 'api')
             ->graphQL($this->updateMutation, [
                 'talentNomination' => [
                     'id' => $nomination->id,
+                    'nominateForAdvancement' => false,
                     'advancementClassifications' => [
                         'sync' => [$classification->id],
                     ],
