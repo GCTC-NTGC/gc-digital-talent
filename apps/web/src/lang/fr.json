@@ -7787,10 +7787,6 @@
     "defaultMessage": "Étant donné que les plateformes de médias sociaux sont gérées par des tiers fournisseurs de services, elles n’ont pas à être conformes aux normes du gouvernement du Canada en matière d’accessibilité du Web.",
     "description": "Paragraph for comments and interaction section"
   },
-  "TN9ndX": {
-    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
-    "description": "Message displayed when no skills match a users filters"
-  },
   "TOnXeM": {
     "defaultMessage": "Employé(e)s",
     "description": "Combined eligibility string for 'employees only' with no other limitations"
@@ -11157,6 +11153,10 @@
   "guYbEb": {
     "defaultMessage": "Dernière mise à jour du profil du nominé ou de la nominée : {lastUpdated}",
     "description": "Last time user's profile was updated"
+  },
+  "gvElTk": {
+    "defaultMessage": "Tentez d’utiliser un autre terme.",
+    "description": "Message displayed when no skills match a users filters"
   },
   "gwpmTn": {
     "defaultMessage": "Veuillez sélectionner au moins une compétence essentielle ou une compétence constituant un atout pour cette méthode d'évaluation.",
