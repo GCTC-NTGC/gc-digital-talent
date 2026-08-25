@@ -157,17 +157,20 @@ export const ApplicationSkills = ({
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated your skills!",
-              id: "j7nWu/",
-              description:
-                "Message displayed to users when saving skills is successful.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your skills!",
+            id: "j7nWu/",
+            description:
+              "Message displayed to users when saving skills is successful.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         toast.error(

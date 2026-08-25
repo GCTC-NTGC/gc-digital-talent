@@ -222,17 +222,20 @@ export const ApplicationCareerTimeline = ({
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated your career timeline!",
-              id: "dfkNm9",
-              description:
-                "Message displayed to users when saving career timeline is successful.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your career timeline!",
+            id: "dfkNm9",
+            description:
+              "Message displayed to users when saving career timeline is successful.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         toast.error(
