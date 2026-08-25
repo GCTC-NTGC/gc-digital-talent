@@ -6,6 +6,7 @@ use App\Enums\DegreeType;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
 use App\Enums\FellowshipType;
+use App\Enums\OldEducationType;
 use App\Utilities\LanguageHelpers;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -99,7 +100,7 @@ class EducationExperience extends Experience
         $subject = $this->area_of_study;
         if ((bool) $experienceVersion && $experienceVersion === 1) {
             // V1 Snapshot representation of an Education Experience
-            $type = LanguageHelpers::localizeEnum($this->type, DegreeType::class, $lang);
+            $type = LanguageHelpers::localizeEnum($this->type, OldEducationType::class, $lang);
         } else {
             // V2 and onwards representation of an Education Experience
             switch ($this->education_type) {
