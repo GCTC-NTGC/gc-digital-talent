@@ -72,33 +72,33 @@ services:
       # Docker creates a missing bind-mount target as root, and an older
       # root-run container may have left these behind.
       GCDT_FIX_PATHS: >-
-        /var/www/html/node_modules
-        /var/www/html/api/vendor
-        /var/www/html/api/storage
-        /var/www/html/api/bootstrap/cache
-        /var/www/html/packages/graphql/src/gql
+        /home/site/wwwroot/node_modules
+        /home/site/wwwroot/api/vendor
+        /home/site/wwwroot/api/storage
+        /home/site/wwwroot/api/bootstrap/cache
+        /home/site/wwwroot/packages/graphql/src/gql
       # pnpm and turbo write into the workspace root itself -- a probe file to
       # pick a store location, a root-level .turbo, debug logs.
-      GCDT_FIX_DIRS: /var/www/html
+      GCDT_FIX_DIRS: /home/site/wwwroot
     deploy:
       mode: replicated
       replicas: 0
     volumes:
       - maintenancedata:/root
-      - ./.git:/var/www/html/.git
-      - ./.gitignore:/var/www/html/.gitignore
-      - ./.gitattributes:/var/www/html/.gitattributes
+      - ./.git:/home/site/wwwroot/.git
+      - ./.gitignore:/home/site/wwwroot/.gitignore
+      - ./.gitattributes:/home/site/wwwroot/.gitattributes
       - ./maintenance/scripts:/root/scripts
-      - ./api:/var/www/html/api
-      - ./apps:/var/www/html/apps
-      - ./packages:/var/www/html/packages
-      - ./tc-report:/var/www/html/tc-report
-      - ./package.json:/var/www/html/package.json
-      - ./pnpm-lock.yaml:/var/www/html/pnpm-lock.yaml
-      - ./pnpm-workspace.yaml:/var/www/html/pnpm-workspace.yaml
-      - ./.npmrc:/var/www/html/.npmrc
-      - ./node_modules:/var/www/html/node_modules
-      - ./turbo.json:/var/www/html/turbo.json
+      - ./api:/home/site/wwwroot/api
+      - ./apps:/home/site/wwwroot/apps
+      - ./packages:/home/site/wwwroot/packages
+      - ./tc-report:/home/site/wwwroot/tc-report
+      - ./package.json:/home/site/wwwroot/package.json
+      - ./pnpm-lock.yaml:/home/site/wwwroot/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/home/site/wwwroot/pnpm-workspace.yaml
+      - ./.npmrc:/home/site/wwwroot/.npmrc
+      - ./node_modules:/home/site/wwwroot/node_modules
+      - ./turbo.json:/home/site/wwwroot/turbo.json
 
   # We proxy the auth server through apache, so it's at localhost.
   # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration

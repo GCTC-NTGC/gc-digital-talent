@@ -25,7 +25,7 @@
 
 set -eu
 
-probe="${GCDT_UID_PROBE:-/var/www/html/api}"
+probe="${GCDT_UID_PROBE:-/home/site/wwwroot/api}"
 
 if [ -n "${HOST_UID:-}" ]; then
     uid="${HOST_UID}"

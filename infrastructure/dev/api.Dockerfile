@@ -25,10 +25,10 @@ RUN apt-get update \
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # Set working directory
-WORKDIR /var/www/html/api
+WORKDIR /home/site/wwwroot/api
 
 # Mark git directory as safe (for version info)
-RUN git config --system --add safe.directory /var/www/html
+RUN git config --system --add safe.directory /home/site/wwwroot
 
 # Copy entrypoint scripts. entrypoint-uid.sh runs first: it adopts the ids of
 # whoever owns the mounted project and drops to them before handing over.
