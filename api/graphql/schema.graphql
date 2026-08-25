@@ -422,6 +422,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+  isVerifiedGovEmployee: Boolean
 }
 
 # Mini type to support search by work email
@@ -1640,6 +1641,7 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
   classifications: [UUID!] @scope
+  referralStatuses: [CommunityReferralStatus!] @scope
 }
 input DateRangeOptional {
   from: DateTime

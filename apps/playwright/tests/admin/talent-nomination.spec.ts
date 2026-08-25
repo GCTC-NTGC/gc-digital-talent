@@ -14,6 +14,7 @@ import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", { tag: "@uat" }, () => {
   let skillOptions: Skill[];
+
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
@@ -207,6 +208,10 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
     await appPage.page
       .getByRole("textbox", { name: /nomination rationale/i })
       .fill("They are the nominators best friend.");
+    expect(
+      skillOptions.length,
+      "Expected at least 3 KLC skills for 'Top 3 key leadership competencies'.",
+    ).toBeGreaterThanOrEqual(3);
     const skillCombobox = appPage.page.getByRole("combobox", {
       name: /top 3 key leadership competencies/i,
     });
