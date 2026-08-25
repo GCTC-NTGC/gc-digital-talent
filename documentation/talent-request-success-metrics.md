@@ -5,7 +5,8 @@ epic [#16136 Improving request tracking](https://github.com/GC-Digital-Talent/gc
 
 The queries live in [`talent-request-success-metrics.sql`](./talent-request-success-metrics.sql).
 This document covers what each metric means, what it cannot tell us, and the
-options for collecting it on a recurring basis.
+options for collecting it on a recurring basis. Every metric is sliced by
+community, with an overall total row alongside.
 
 ## The six metrics
 
@@ -82,10 +83,40 @@ the work being done.
 value an admin selected. `(not recorded)` means the field was never filled in.
 Collapsing them would hide non-adoption as a deliberate choice.
 
-**No slicing.** These are overall totals. At current volumes a per-community or
-per-month breakdown would produce cells of two or three requests, where a single
-request moves a median by weeks. Add slicing when volume justifies it — the
-queries are structured so a `GROUP BY` on the `requests` CTE is a small change.
+**Per-community rows are small.** Every metric is sliced by community (see
+below), and at current volumes a community may have only a handful of requests,
+where one request moves a median by weeks or a rate by tens of percent. Read the
+count columns next to every rate, and treat a community-level change as a
+question to investigate rather than a trend.
+
+## Slicing by community
+
+Each query emits one row per community plus an `(all communities)` total row,
+via `GROUP BY GROUPING SETS ((community_key), ())`. Because
+`talent_requests.community_id` is `NOT NULL`, a NULL community in the output can
+only mean the totals row; `grouping()` labels it and sorts it last.
+
+Communities are keyed on `communities.key` — stable and machine-readable — with
+`name->>'en'` alongside for legibility. Swap in `->>'fr'` to report in French.
+
+Two things to know about how communities appear and disappear:
+
+- Metric 4 groups over **all** requests in the window rather than only completed
+  ones, so a community with no completions shows zeros and a NULL rate instead
+  of vanishing from the results. Filtering before grouping would have made that
+  community invisible rather than visibly empty.
+- Metric 6 is the exception: it is a breakdown by reason, so a community with no
+  `NOT_SELECTED` candidates genuinely has nothing to list and produces no rows.
+  Before reading anything into an absent community, check its
+  `requests_with_no_tracked_users` in metric 5 — absence almost always means
+  decisions were never recorded, not that every referral was hired.
+
+Adding a second dimension (month, talent source) is a matter of extending the
+grouping sets, but be careful: at these volumes a two-dimensional breakdown
+produces cells of one or two requests, which is noise rather than signal. Talent
+source is also stored as a jsonb array on `applicant_filters.talent_sources`, so
+a request can belong to several — that slice needs unnesting and its rows will
+not sum to the total.
 
 ## Time window
 
