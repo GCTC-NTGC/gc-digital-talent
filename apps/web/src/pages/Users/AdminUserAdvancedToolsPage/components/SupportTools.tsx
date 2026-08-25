@@ -102,7 +102,7 @@ const SupportTools = ({ query }: SupportToolsProps) => {
   };
 
   return (
-    <TableOfContents.Section id={SUPPORT_TOOLS_ID}>
+    <TableOfContents.Section id={SUPPORT_TOOLS_ID} className="mb-18">
       <TableOfContents.Heading
         icon={WrenchScrewdriverIcon}
         color="secondary"

@@ -162,7 +162,7 @@ const AccountInformation = ({
   };
 
   return (
-    <TableOfContents.Section id={ACCOUNT_INFORMATION_ID}>
+    <TableOfContents.Section id={ACCOUNT_INFORMATION_ID} className="mb-18">
       <TableOfContents.Heading
         icon={UserCircleIcon}
         color="secondary"
