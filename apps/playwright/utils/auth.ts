@@ -24,6 +24,12 @@ const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
   "noroles@test.com": process.env.PLAYWRIGHT_NO_ROLES_SUB,
+  "talent-coordinator@test.com":
+    process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB,
+  "recruiter@test.com": process.env.PLAYWRIGHT_COMMUNITY_RECRUITER_SUB,
+  "department-admin@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADMIN_SUB,
+  "department-advisor@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADVISOR_SUB,
+  "process@test.com": process.env.PLAYWRIGHT_PROCESS_OPERATOR_SUB,
 };
 
 /**

@@ -2,10 +2,13 @@ import type {
   CommunityInterest,
   DevelopmentProgram,
   EducationExperience,
+  User,
 } from "@gc-digital-talent/graphql/schema-types";
 import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql/schema-types";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import {
   createCommunity,
@@ -16,7 +19,7 @@ import {
 } from "~/utils/communities";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { createWorkStream } from "~/utils/workStreams";
-import { me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createEducationExperience } from "~/utils/experiences";
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -24,169 +27,225 @@ import { loginBySub } from "../../utils/auth";
 
 const uniqueId = generateUniqueTestId();
 
-test.describe("Cross-community development program status", () => {
-  test.describe.configure({ mode: "serial" });
-  test.slow();
+test.describe(
+  "Cross-community development program status",
+  { tag: "@uat" },
+  () => {
+    test.describe.configure({ mode: "serial" });
+    test.slow();
+    let applicantEmployee: User | undefined;
+    let communityInterestB: CommunityInterest | undefined;
+    const uniqueTestId = generateUniqueTestId();
+    const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
+    let platformAdminCtx: GraphQLContext,
+      communityAdminCtx: GraphQLContext,
+      communityTalentCoordinatorCtx: GraphQLContext,
+      applicantCtx: GraphQLContext;
 
-  let communityInterestB: CommunityInterest | undefined;
+    test.beforeAll(async () => {
+      [platformAdminCtx, communityAdminCtx, communityTalentCoordinatorCtx] =
+        await Promise.all([
+          graphql.newContext(),
+          graphql.newContext(
+            process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+          ),
+          graphql.newContext(
+            process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+              "talent-coordinator@test.com",
+          ),
+        ]);
+      applicantEmployee = await createUserWithRoles(platformAdminCtx, {
+        user: {
+          email: `${applicantSub}@example.org`,
+          sub: applicantSub,
+          isGovEmployee: true,
+          workEmail: `${applicantSub}@gc.ca`,
+          workEmailVerifiedAt: nowUTCDateTime(),
+        },
+        roles: ["guest", "base_user", "applicant"],
+      });
+      applicantCtx = await graphql.newContext(applicantSub);
 
-  test.beforeAll(async () => {
-    const [adminCtx, communityCtx, applicantCtx] = await Promise.all([
-      graphql.newContext(),
-      graphql.newContext("community@test.com"),
-      graphql.newContext("applicant-employee@test.com"),
-    ]);
+      const [communityUser, applicantUser, communityA, communityB] =
+        await Promise.all([
+          me(communityAdminCtx, {}),
+          me(applicantCtx, {}),
+          createCommunity(platformAdminCtx, {
+            key: `playwright-cross-community-a-${uniqueId}`,
+            name: {
+              en: `Cross Community A EN ${uniqueId}`,
+              fr: `Cross Community A FR ${uniqueId}`,
+            },
+          }),
+          createCommunity(platformAdminCtx, {
+            key: `playwright-cross-community-b-${uniqueId}`,
+            name: {
+              en: `Cross Community B EN ${uniqueId}`,
+              fr: `Cross Community B FR ${uniqueId}`,
+            },
+          }),
+        ]);
 
-    const [communityUser, applicantUser, communityA, communityB] =
-      await Promise.all([
-        me(communityCtx, {}),
-        me(applicantCtx, {}),
-        createCommunity(adminCtx, {
-          key: `playwright-cross-community-a-${uniqueId}`,
+      if (!communityA) throw new Error("Community A creation failed");
+      if (!communityB) throw new Error("Community B creation failed");
+
+      const [devProgram, educationExperience] = await Promise.all([
+        createDevelopmentProgram(platformAdminCtx, {
           name: {
-            en: `Cross Community A EN ${uniqueId}`,
-            fr: `Cross Community A FR ${uniqueId}`,
+            en: `Cross-community dev program EN ${uniqueId}`,
+            fr: `Cross-community dev program FR ${uniqueId}`,
           },
         }),
-        createCommunity(adminCtx, {
-          key: `playwright-cross-community-b-${uniqueId}`,
-          name: {
-            en: `Cross Community B EN ${uniqueId}`,
-            fr: `Cross Community B FR ${uniqueId}`,
+        createEducationExperience(applicantCtx, {
+          userId: applicantUser.id,
+          educationExperience: {
+            institution: `Cross-community University ${uniqueId}`,
+            areaOfStudy: "Computer Science",
+            startDate: "2018-09-01",
+            endDate: "2022-05-01",
           },
+        }),
+        assignCommunityAdminRole(platformAdminCtx, {
+          userId: communityUser.id,
+          teamId: communityA.teamIdForRoleAssignment!,
+        }),
+        assignCommunityAdminRole(platformAdminCtx, {
+          userId: communityUser.id,
+          teamId: communityB.teamIdForRoleAssignment!,
+        }),
+        createTalentNominationEvent(communityTalentCoordinatorCtx, {
+          community: { connect: communityA.id },
+        }),
+        createTalentNominationEvent(communityTalentCoordinatorCtx, {
+          community: { connect: communityB.id },
+        }),
+        createWorkStream(platformAdminCtx, {
+          community: { connect: communityA.id },
+        }),
+        createWorkStream(platformAdminCtx, {
+          community: { connect: communityB.id },
         }),
       ]);
 
-    if (!communityA) throw new Error("Community A creation failed");
-    if (!communityB) throw new Error("Community B creation failed");
+      if (!devProgram) throw new Error("Development program creation failed");
+      if (!educationExperience)
+        throw new Error("Education experience creation failed");
 
-    const [devProgram, educationExperience] = await Promise.all([
-      createDevelopmentProgram(adminCtx, {
-        name: {
-          en: `Cross-community dev program EN ${uniqueId}`,
-          fr: `Cross-community dev program FR ${uniqueId}`,
-        },
-      }),
-      createEducationExperience(applicantCtx, {
-        userId: applicantUser.id,
-        educationExperience: {
-          institution: `Cross-community University ${uniqueId}`,
-          areaOfStudy: "Computer Science",
-          startDate: "2018-09-01",
-          endDate: "2022-05-01",
-        },
-      }),
-      assignCommunityAdminRole(adminCtx, {
-        userId: communityUser.id,
-        teamId: communityA.teamIdForRoleAssignment!,
-      }),
-      assignCommunityAdminRole(adminCtx, {
-        userId: communityUser.id,
-        teamId: communityB.teamIdForRoleAssignment!,
-      }),
-      createTalentNominationEvent(adminCtx, {
-        community: { connect: communityA.id },
-      }),
-      createTalentNominationEvent(adminCtx, {
-        community: { connect: communityB.id },
-      }),
-      createWorkStream(adminCtx, { community: { connect: communityA.id } }),
-      createWorkStream(adminCtx, { community: { connect: communityB.id } }),
-    ]);
-
-    if (!devProgram) throw new Error("Development program creation failed");
-    if (!educationExperience)
-      throw new Error("Education experience creation failed");
-
-    await Promise.all([
-      createCommunityDevelopmentProgram(communityCtx, {
-        communityId: communityA.id,
-        developmentProgramId: devProgram.id,
-      }),
-      createCommunityDevelopmentProgram(communityCtx, {
-        communityId: communityB.id,
-        developmentProgramId: devProgram.id,
-      }),
-    ]);
-
-    // Community Interest A: mark the dev program as Completed with the education experience linked
-    await createCommunityInterest(applicantCtx, {
-      userId: applicantUser.id,
-      communityInterest: {
-        communityId: communityA.id,
-        consentToShareProfile: true,
-        jobInterest: true,
-        trainingInterest: true,
-      },
-      developmentPrograms: [
-        {
+      await Promise.all([
+        createCommunityDevelopmentProgram(communityAdminCtx, {
+          communityId: communityA.id,
           developmentProgramId: devProgram.id,
-          participationStatus: DevelopmentProgramParticipationStatus.Completed,
-          educationExperienceId: educationExperience.id,
+        }),
+        createCommunityDevelopmentProgram(communityAdminCtx, {
+          communityId: communityB.id,
+          developmentProgramId: devProgram.id,
+        }),
+      ]);
+
+      // Community Interest A: mark the dev program as Completed with the education experience linked
+      await createCommunityInterest(applicantCtx, {
+        userId: applicantUser.id,
+        communityInterest: {
+          communityId: communityA.id,
+          consentToShareProfile: true,
+          jobInterest: true,
+          trainingInterest: true,
         },
-      ],
+        developmentPrograms: [
+          {
+            developmentProgramId: devProgram.id,
+            participationStatus:
+              DevelopmentProgramParticipationStatus.Completed,
+            educationExperienceId: educationExperience.id,
+          },
+        ],
+      });
+
+      // Community Interest B: no developmentPrograms specified so the shared
+      // DevelopmentProgramUser record (Completed + experience from Community A) is preserved
+      communityInterestB = await createCommunityInterest(applicantCtx, {
+        userId: applicantUser.id,
+        communityInterest: {
+          communityId: communityB.id,
+          consentToShareProfile: true,
+          jobInterest: true,
+          trainingInterest: true,
+        },
+      });
+
+      if (!communityInterestB)
+        throw new Error("Community Interest B creation failed");
     });
 
-    // Community Interest B: no developmentPrograms specified so the shared
-    // DevelopmentProgramUser record (Completed + experience from Community A) is preserved
-    communityInterestB = await createCommunityInterest(applicantCtx, {
-      userId: applicantUser.id,
-      communityInterest: {
-        communityId: communityB.id,
-        consentToShareProfile: true,
-        jobInterest: true,
-        trainingInterest: true,
-      },
+    test.afterAll(async () => {
+      if (applicantEmployee?.id) {
+        await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
+      }
     });
 
-    if (!communityInterestB)
-      throw new Error("Community Interest B creation failed");
-  });
+    test("Opening a second community interest pre-populates completed status and linked experience from the shared dev program record", async ({
+      appPage,
+    }) => {
+      await loginBySub(appPage.page, applicantSub);
+      await appPage.page.goto(
+        `/en/applicant/community-interests/${communityInterestB?.id}`,
+      );
+      await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
 
-  test("Opening a second community interest pre-populates completed status and linked experience from the shared dev program record", async ({
-    appPage,
-  }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
-    await appPage.page.goto(
-      `/en/applicant/community-interests/${communityInterestB?.id}`,
-    );
-    await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
+      // The Completed radio should be pre-selected (not NotInterested which was passed at creation)
+      await expect(
+        appPage.page.getByRole("radio", { name: /successfully completed/i }),
+      ).toBeChecked();
 
-    // The Completed radio should be pre-selected (not NotInterested which was passed at creation)
-    await expect(
-      appPage.page.getByRole("radio", { name: /successfully completed/i }),
-    ).toBeChecked();
+      // The linked education experience card should be visible
+      await expect(appPage.page.getByText("Computer Science")).toBeVisible();
+    });
+  },
+);
 
-    // The linked education experience card should be visible
-    await expect(appPage.page.getByText("Computer Science")).toBeVisible();
-  });
-});
-
-test.describe("Development Program Interest", () => {
+test.describe("Development Program Interest", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   test.slow();
 
+  let applicantEmployee: User | undefined;
   let communityInterest: CommunityInterest | undefined;
   let devProgram: DevelopmentProgram | undefined;
   let educationExperience: EducationExperience | undefined;
+  const uniqueTestId = generateUniqueTestId();
+  const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
+  let platformAdminCtx: GraphQLContext,
+    communityAdminCtx: GraphQLContext,
+    applicantCtx: GraphQLContext;
 
   test.beforeAll(async () => {
-    const [adminCtx, communityCtx, applicantCtx] = await Promise.all([
+    [platformAdminCtx, communityAdminCtx] = await Promise.all([
       graphql.newContext(),
-      graphql.newContext("community@test.com"),
-      graphql.newContext("applicant-employee@test.com"),
+      graphql.newContext(
+        process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+      ),
     ]);
+    applicantEmployee = await createUserWithRoles(platformAdminCtx, {
+      user: {
+        email: `${applicantSub}@example.org`,
+        sub: applicantSub,
+        isGovEmployee: true,
+        workEmail: `${applicantSub}@gc.ca`,
+        workEmailVerifiedAt: nowUTCDateTime(),
+      },
+      roles: ["guest", "base_user", "applicant"],
+    });
+    applicantCtx = await graphql.newContext(applicantSub);
 
     const [communityUser, applicantUser, community] = await Promise.all([
-      me(communityCtx, {}),
+      me(communityAdminCtx, {}),
       me(applicantCtx, {}),
-      createCommunity(adminCtx, {}),
+      createCommunity(platformAdminCtx, {}),
     ]);
 
     if (!community) throw new Error("Community creation failed");
 
     const [resolvedDevProgram] = await Promise.all([
-      createDevelopmentProgram(adminCtx, {
+      createDevelopmentProgram(platformAdminCtx, {
         name: {
           en: `Playwright dev program EN ${uniqueId}`,
           fr: `Playwright dev program FR ${uniqueId}`,
@@ -196,14 +255,14 @@ test.describe("Development Program Interest", () => {
           fr: `Playwright dev program description FR ${uniqueId}`,
         },
       }),
-      assignCommunityAdminRole(adminCtx, {
+      assignCommunityAdminRole(platformAdminCtx, {
         userId: communityUser.id,
         teamId: community.teamIdForRoleAssignment!,
       }),
-      createTalentNominationEvent(adminCtx, {
+      createTalentNominationEvent(platformAdminCtx, {
         community: { connect: community.id },
       }),
-      createWorkStream(adminCtx, {
+      createWorkStream(platformAdminCtx, {
         community: { connect: community.id },
       }),
     ]);
@@ -211,7 +270,7 @@ test.describe("Development Program Interest", () => {
     devProgram = resolvedDevProgram;
     if (!devProgram) throw new Error("Development program creation failed");
 
-    await createCommunityDevelopmentProgram(communityCtx, {
+    await createCommunityDevelopmentProgram(communityAdminCtx, {
       communityId: community.id,
       developmentProgramId: devProgram.id,
     });
@@ -252,10 +311,16 @@ test.describe("Development Program Interest", () => {
       throw new Error("Education experience creation failed");
   });
 
+  test.afterAll(async () => {
+    if (applicantEmployee?.id) {
+      await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
+    }
+  });
+
   test("Development program section is visible with participation options", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto(
       `/en/applicant/community-interests/${communityInterest?.id}`,
     );
@@ -297,7 +362,7 @@ test.describe("Development Program Interest", () => {
   test("Selecting 'completed' shows link experience controls", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto(
       `/en/applicant/community-interests/${communityInterest?.id}`,
     );
@@ -322,7 +387,7 @@ test.describe("Development Program Interest", () => {
   test("Link experience dialog has correct content and allows linking", async ({
     appPage,
   }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto(
       `/en/applicant/community-interests/${communityInterest?.id}`,
     );
@@ -378,7 +443,7 @@ test.describe("Development Program Interest", () => {
   });
 
   test("Linked experience can be removed", async ({ appPage }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto(
       `/en/applicant/community-interests/${communityInterest?.id}`,
     );

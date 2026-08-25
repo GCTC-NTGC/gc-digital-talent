@@ -4,7 +4,7 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getCommunities } from "./communities";
+import { getMyCommunity } from "./communities";
 import { getCommunityDevelopmentProgramsForCommunity } from "./developmentPrograms";
 
 const oldDate = new Date();
@@ -41,10 +41,19 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   TalentNominationEvent | undefined,
   Partial<CreateTalentNominationEventInput>
 > = async (ctx, talentNominationEvent) => {
-  const communities = await getCommunities(ctx, {});
-  const firstCommunity = communities[0];
+  // Talent nomination events can be created by community_admin or
+  // community_talent_coordinator (not community_recruiter), so this can't
+  // reuse getMyCommunity's pool-creation default role list.
+  const myCommunity = await getMyCommunity(ctx, {
+    roles: ["community_admin", "community_talent_coordinator"],
+  });
   const communityId =
-    talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
+    talentNominationEvent.community?.connect ?? myCommunity?.id;
+  if (!communityId) {
+    throw new Error(
+      "No community found for the current user to create a talent nomination event for",
+    );
+  }
   const communityDevelopmentPrograms =
     await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId });
   const communityDevelopmentProgramsSync = communityDevelopmentPrograms[0]?.id

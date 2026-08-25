@@ -64,7 +64,10 @@ const Test_MyCommunityQueryDocument = /* GraphQL */ `
 // process (see createProcessCommunityRoles in web's CreatePoolPage.tsx).
 // A role like community_talent_coordinator resolves to a Community teamable
 // too, but isn't offered as an option there, so it must be excluded here.
-const CREATE_PROCESS_COMMUNITY_ROLES = ["community_admin", "community_recruiter"];
+const CREATE_PROCESS_COMMUNITY_ROLES = [
+  "community_admin",
+  "community_recruiter",
+];
 
 interface MyRoleAssignment {
   role?: { name?: string | null } | null;
@@ -72,26 +75,32 @@ interface MyRoleAssignment {
 }
 
 /**
- * Get a community the currently authenticated user can create a process
- * for.
+ * Get a community the currently authenticated user is scoped to, restricted
+ * to a given set of role names.
  *
  * A test user may only be assigned to some communities rather than all of
- * them, so this reflects what they can actually pick in the UI.
+ * them, so this reflects what they can actually pick in the UI. Defaults to
+ * the roles the pool creation UI accepts (see CREATE_PROCESS_COMMUNITY_ROLES);
+ * pass a different `roles` list for other flows (e.g. talent nomination
+ * events, which community_talent_coordinator can create but not
+ * community_recruiter).
  */
 export const getMyCommunity: GraphQLRequestFunc<
-  Community | undefined
-> = async (ctx) => {
+  Community | undefined,
+  { roles?: string[] }
+> = async (ctx, { roles = CREATE_PROCESS_COMMUNITY_ROLES } = {}) => {
   const me = await ctx
     .post<
-      GraphQLResponse<"me", { authInfo?: { roleAssignments?: MyRoleAssignment[] } }>
+      GraphQLResponse<
+        "me",
+        { authInfo?: { roleAssignments?: MyRoleAssignment[] } }
+      >
     >(Test_MyCommunityQueryDocument)
     .then((res) => res.me);
 
   return (
     me?.authInfo?.roleAssignments?.find(
-      (ra) =>
-        !!ra.teamable &&
-        CREATE_PROCESS_COMMUNITY_ROLES.includes(ra.role?.name ?? ""),
+      (ra) => !!ra.teamable && roles.includes(ra.role?.name ?? ""),
     )?.teamable ?? undefined
   );
 };

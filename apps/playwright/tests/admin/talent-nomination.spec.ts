@@ -3,6 +3,7 @@ import type { Skill } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createUserWithRoles } from "~/utils/user";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
@@ -11,22 +12,32 @@ import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
-test.describe("Talent nomination management", () => {
+test.describe("Talent nomination management", { tag: "@uat" }, () => {
   let skillOptions: Skill[];
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
+  let talentCoordinatorCtx, platformAdminCtx: GraphQLContext;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+  const talentCoordinatorSub =
+    process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+    "talent-coordinator@test.com";
 
   test.beforeAll(async () => {
+    platformAdminCtx = await graphql.newContext();
+    talentCoordinatorCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+        "talent-coordinator@test.com",
+    );
     // Prepare the test environment
-    const adminCtx = await graphql.newContext();
-    skillOptions = await getSkills(adminCtx, {}).then((skills) => {
+    skillOptions = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.filter((s) =>
         s.families?.some((family) => family.key === "klc"),
       );
     });
 
-    await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${nominatorSub}@example.org`,
         sub: nominatorSub,
@@ -36,7 +47,7 @@ test.describe("Talent nomination management", () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
-    await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(platformAdminCtx, {
       user: {
         lastName: uniqueTestId.toString(),
         email: `${nomineeSub}@example.org`,
@@ -48,7 +59,7 @@ test.describe("Talent nomination management", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    await createTalentNominationEvent(adminCtx, {
+    await createTalentNominationEvent(talentCoordinatorCtx, {
       name: {
         en: `Playwright Event ${uniqueTestId} EN`,
         fr: `Playwright Event ${uniqueTestId} FR`,
@@ -59,8 +70,8 @@ test.describe("Talent nomination management", () => {
 
   test("Create a talent nomination", async ({ appPage }) => {
     test.setTimeout(70_000);
-    // Navigate from the homepage to start a nomination
-    await loginBySub(appPage.page, "admin@test.com");
+    // Navigate from the homepage to start a nomination [Verified goc employee can only nominate]
+    await loginBySub(appPage.page, platformAdminSub);
     await appPage.page.goto("/en");
 
     await appPage.page
@@ -240,7 +251,7 @@ test.describe("Talent nomination management", () => {
   });
 
   test("Evaluate a nominee", async ({ appPage }) => {
-    await loginBySub(appPage.page, "talent-coordinator@test.com");
+    await loginBySub(appPage.page, talentCoordinatorSub);
     await appPage.page.goto("/en/community");
     await appPage.waitForGraphqlResponse("CommunityDashboard_Query");
 

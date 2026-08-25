@@ -51,7 +51,7 @@ class UserPage extends AppPage {
     // that instead of racing an already-present notification.
     await expect(
       this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
-    ).toBeVisible({ timeout: 60_000 });
+    ).toBeVisible({ timeout: 90_000 });
 
     const now = new Date();
     const today = now.toISOString().split("T")[0];
