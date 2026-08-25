@@ -660,6 +660,7 @@ const commonMessages = defineMessages({
     defaultMessage: "Employees you've nominated",
     id: "VIZdFw",
     description: "Label for employees nominated",
+  },
   noClassification: {
     defaultMessage: "No classification",
     id: "xuxKpE",
