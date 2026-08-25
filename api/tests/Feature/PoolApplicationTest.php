@@ -535,6 +535,7 @@ class PoolApplicationTest extends TestCase
             ->create();
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
+        // a submitted application awaiting screening is RECEIVED
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
@@ -543,8 +544,8 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => [
-                    'value' => ApplicationStatus::TO_ASSESS->name,
+                'candidateStatus' => [
+                    'value' => CandidateStatus::RECEIVED->name,
                 ],
             ]);
     }
@@ -846,8 +847,8 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => [
-                    'value' => ApplicationStatus::TO_ASSESS->name,
+                'candidateStatus' => [
+                    'value' => CandidateStatus::RECEIVED->name,
                 ],
             ]);
 
