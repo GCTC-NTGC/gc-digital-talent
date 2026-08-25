@@ -317,8 +317,8 @@ const SkillPortfolioTable = ({
           description: "Title for when no skills match a users filters.",
         }),
         description: intl.formatMessage({
-          defaultMessage: "Try using a different term",
-          id: "gvElTk",
+          defaultMessage: "Try using a different term.",
+          id: "LOYLe7",
           description: "Message displayed when no skills match a users filters",
         }),
       }}
