@@ -52,28 +52,30 @@ const PoolBookmark = ({
         poolId,
       })
         .then((res) => {
-          if (!res.error) {
-            if (!isBookmarked) {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Process successfully bookmarked.",
-                  id: "lZ8lct",
+          if (!res.data || res.error) {
+            throw new Error();
+          }
 
-                  description:
-                    "Alert displayed to the user when they mark a pool as bookmarked.",
-                }),
-              );
-            } else {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage: "Process's bookmark removed successfully.",
-                  id: "g4F/WB",
+          if (!isBookmarked) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Process successfully bookmarked.",
+                id: "lZ8lct",
 
-                  description:
-                    "Alert displayed to the user when they un-mark a pool as bookmarked.",
-                }),
-              );
-            }
+                description:
+                  "Alert displayed to the user when they mark a pool as bookmarked.",
+              }),
+            );
+          } else {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage: "Process's bookmark removed successfully.",
+                id: "g4F/WB",
+
+                description:
+                  "Alert displayed to the user when they un-mark a pool as bookmarked.",
+              }),
+            );
           }
         })
         .catch(() => {
