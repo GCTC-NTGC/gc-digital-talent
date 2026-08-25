@@ -40,7 +40,7 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
     advancementClassifications {
       id
     }
-    referralExpiryDate
+    advancementReferralExpiryDate
     lateralMovementDecision {
       value
     }
