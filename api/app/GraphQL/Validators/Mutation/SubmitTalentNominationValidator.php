@@ -147,7 +147,7 @@ final class SubmitTalentNominationValidator extends Validator
                 'array',
                 Rule::prohibitedUnless(fn () => $this->nomination->nominate_for_advancement),
             ],
-            'advancement_classifications.*' => [
+            'advancement_classifications.*.id' => [
                 'distinct',
                 'exists:classifications,id',
             ],

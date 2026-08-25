@@ -103,7 +103,7 @@ final class CreateTalentNominationInputValidator extends Validator
             'advancementClassifications.sync' => [
                 'list',
                 'distinct',
-                Rule::prohibitedUnless(fn ($attributes) => $attributes->get('nominateForAdvancement')),
+                Rule::prohibitedUnless(fn () => $this->arg('nominateForAdvancement')),
             ],
             'advancementClassifications.sync.*' => [
                 'exists:classifications,id',
