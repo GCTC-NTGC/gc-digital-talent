@@ -10,6 +10,7 @@ import { Link, PreviewList, ToggleGroup } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -19,7 +20,7 @@ export const EmployeesNominated_Fragment = graphql(/* GraphQL */ `
   fragment EmployeesNominated on User {
     talentNominationsAsSubmitter {
       id
-      createdAt
+      updatedAt
       submittedAt
       nominee {
         id
@@ -53,13 +54,26 @@ const EmployeesNominated = ({
   const user = getFragment(EmployeesNominated_Fragment, userQuery);
 
   // Sort nominations
-  const nominations = unpackMaybes(user?.talentNominationsAsSubmitter).sort(
-    (a, b) => {
-      const aDate = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
-      const bDate = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
-      return bDate - aDate;
-    },
-  );
+  const nominations = unpackMaybes(user?.talentNominationsAsSubmitter)
+    .sort((a, b) => {
+      const aUpdated = a?.updatedAt
+        ? new Date(a.updatedAt).getTime()
+        : MAX_DATE.getTime();
+      const bUpdated = b?.updatedAt
+        ? new Date(b.updatedAt).getTime()
+        : MAX_DATE.getTime();
+      return aUpdated - bUpdated;
+    })
+    .sort((a, b) => {
+      const aDeadline = a?.talentNominationEvent?.closeDate
+        ? new Date(a.talentNominationEvent.closeDate).getTime()
+        : MAX_DATE.getTime();
+      const bDeadline = b?.talentNominationEvent?.closeDate
+        ? new Date(b.talentNominationEvent.closeDate).getTime()
+        : MAX_DATE.getTime();
+      return aDeadline - bDeadline;
+    })
+    .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
   const hasClosedNominations = nominations.some((nomination) =>
     isNominationClosed(nomination.talentNominationEvent?.closeDate),
