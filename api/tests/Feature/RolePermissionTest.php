@@ -209,6 +209,7 @@ class RolePermissionTest extends TestCase
             'create-any-developmentProgram',
             'update-any-developmentProgram',
             'view-any-poolNotes',
+            'view-any-platformMetrics',
         ];
 
         $allPermissions = Permission::all()->pluck('name')->toArray();
