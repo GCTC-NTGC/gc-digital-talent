@@ -228,6 +228,12 @@ class TalentNominationFactory extends Factory
                         )
                     );
                 }
+
+                if ($talentNomination->nominate_for_advancement) {
+                    $talentNomination->advancementClassifications()->sync(
+                        Classification::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get()
+                    );
+                }
             });
     }
 
