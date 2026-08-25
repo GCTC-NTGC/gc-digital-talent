@@ -5903,6 +5903,10 @@
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
   },
+  "LOYLe7": {
+    "defaultMessage": "Tentez d’utiliser un autre terme.",
+    "description": "Message displayed when no skills match a users filters"
+  },
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
@@ -7798,10 +7802,6 @@
   "TKONR6": {
     "defaultMessage": "Étant donné que les plateformes de médias sociaux sont gérées par des tiers fournisseurs de services, elles n’ont pas à être conformes aux normes du gouvernement du Canada en matière d’accessibilité du Web.",
     "description": "Paragraph for comments and interaction section"
-  },
-  "TN9ndX": {
-    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
-    "description": "Message displayed when no skills match a users filters"
   },
   "TOnXeM": {
     "defaultMessage": "Employé(e)s",
