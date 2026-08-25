@@ -110,7 +110,6 @@ const PoolStatusTable = ({
         getShortPoolTitleLabel(intl, {
           workStream: row.pool.workStream,
           name: row.pool.name,
-          publishingGroup: row.pool.publishingGroup,
           classification: row.pool.classification,
         }),
       {

@@ -268,13 +268,6 @@ const CandidatesTableCandidatesPaginated_Query = graphql(/* GraphQL */ `
                 fr
               }
             }
-            publishingGroup {
-              value
-              label {
-                en
-                fr
-              }
-            }
             closingDate
             areaOfSelection {
               value
@@ -839,7 +832,6 @@ const PoolCandidatesTable = ({
               getFullPoolTitleLabel(intl, {
                 workStream: pool.workStream,
                 name: pool.name,
-                publishingGroup: pool.publishingGroup,
                 classification: pool.classification,
               }),
             {
@@ -858,7 +850,6 @@ const PoolCandidatesTable = ({
                   getFullPoolTitleLabel(intl, {
                     workStream: pool.workStream,
                     name: pool.name,
-                    publishingGroup: pool.publishingGroup,
                     classification: pool.classification,
                   }),
                   paths,
