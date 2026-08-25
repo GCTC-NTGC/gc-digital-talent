@@ -143,6 +143,14 @@ final class SubmitTalentNominationValidator extends Validator
                 'required_with:advancement_reference_fallback_work_email,advancement_reference_fallback_name,advancement_reference_fallback_classification_id',
                 'prohibited_unless:advancement_reference_id,null',
             ],
+            'advancement_classifications' => [
+                'array',
+                Rule::prohibitedUnless(fn () => $this->nomination->nominate_for_advancement),
+            ],
+            'advancement_classifications.*' => [
+                'distinct',
+                'exists:classifications,id',
+            ],
 
             'lateral_movement_options' => ['array'],
             'lateral_movement_options.*' => [

@@ -97,6 +97,17 @@ final class CreateTalentNominationInputValidator extends Validator
                 'uuid',
                 'exists:departments,id',
             ],
+            'advancementClassifications' => [
+                'required_with:nominateForAdvancement,nominateForLateralMovement,nominateForDevelopmentPrograms',
+            ],
+            'advancementClassifications.sync' => [
+                'list',
+                'distinct',
+                Rule::prohibitedUnless(fn ($attributes) => $attributes->get('nominateForAdvancement')),
+            ],
+            'advancementClassifications.sync.*' => [
+                'exists:classifications,id',
+            ],
 
             'lateralMovementOptions' => ['array'],
             'lateralMovementOptions.*' => [

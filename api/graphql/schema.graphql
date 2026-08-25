@@ -960,6 +960,7 @@ type TalentNomination {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: Classification @belongsTo
   advancementReferenceFallbackDepartment: Department @belongsTo
+  advancementClassifications: [Classification!] @belongsToMany
 
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2643,6 +2644,7 @@ input CreateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2699,6 +2701,7 @@ input UpdateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
