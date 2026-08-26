@@ -75,7 +75,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             $group->save();
         }
 
-        // seed some nominations for the"Employees you've nominated". That tab shows nominations where the employee is
+        // seed some nominations for the "Employees you've nominated". That tab shows nominations where the employee is
         // split into drafts vs submitted and open vs closed (by the event's close date).
 
         // a couple of drafts at different stages (open event)
