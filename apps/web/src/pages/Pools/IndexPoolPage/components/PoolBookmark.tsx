@@ -52,7 +52,7 @@ const PoolBookmark = ({
         poolId,
       })
         .then((res) => {
-          if (!res.data || res.error) {
+          if (!res.data?.togglePoolUserBookmark?.id || res.error) {
             throw new Error();
           }
 

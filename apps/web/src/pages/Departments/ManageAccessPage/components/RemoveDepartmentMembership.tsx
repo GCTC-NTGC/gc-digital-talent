@@ -78,7 +78,7 @@ const RemoveDepartmentMembershipDialog = forwardRef<
       },
     })
       .then((res) => {
-        if (!res.data || res.error) {
+        if (!res.data?.updateUserRoles?.id || res.error) {
           throw new Error();
         }
 

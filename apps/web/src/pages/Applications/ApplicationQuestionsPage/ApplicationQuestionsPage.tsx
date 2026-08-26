@@ -79,7 +79,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       },
     })
       .then(async (res) => {
-        if (!res.data || res.error) {
+        if (!res.data?.updateApplication?.id || res.error) {
           throw new Error();
         }
 

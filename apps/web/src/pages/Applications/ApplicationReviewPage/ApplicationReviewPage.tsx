@@ -124,7 +124,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       signature: formValues.signature,
     })
       .then(async (res) => {
-        if (!res.data || res.error) {
+        if (!res.data?.submitApplication?.id || res.error) {
           throw new Error();
         }
 
