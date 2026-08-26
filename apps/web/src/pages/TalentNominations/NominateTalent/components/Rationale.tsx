@@ -114,21 +114,12 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         {intl.formatMessage(messages.rationale)}
       </SubHeading>
       <p className="my-6">
-        {talentNomination?.talentNominationEvent.includeLeadershipCompetencies
-          ? intl.formatMessage({
-              defaultMessage:
-                "The final step in the nomination process is to explain why this candidate is being nominated. Please also provide the top 3 key leadership competencies demonstrated by the nominee.",
-              id: "AJ9XL4",
-              description:
-                "Subtitle for nomination rationale step with leadership competencies",
-            })
-          : intl.formatMessage({
-              defaultMessage:
-                "The final step in the nomination process is to explain why this candidate is being nominated.",
-              id: "kYuVEA",
-              description:
-                "Subtitle for nomination rationale step without leadership competencies",
-            })}
+        {intl.formatMessage({
+          defaultMessage:
+            "The final step in the nomination process is to explain why this candidate is being nominated.",
+          id: "I7F7E1",
+          description: "Description for nomination rationale step",
+        })}
       </p>
       <div className="flex flex-col gap-6">
         <TextArea
@@ -140,29 +131,40 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         />
         {talentNomination?.talentNominationEvent
           .includeLeadershipCompetencies && (
-          <Combobox
-            isMulti
-            id="skills"
-            name="skills"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-              max: {
-                value: 3,
-                message: intl.formatMessage(leadershipSkillsRangeError),
-              },
-              min: {
-                value: 3,
-                message: intl.formatMessage(leadershipSkillsRangeError),
-              },
-            }}
-            label={intl.formatMessage(labels.leadershipCompetencies)}
-            options={unpackMaybes(skills).map((skill) => ({
-              value: skill.id,
-              label:
-                skill.name.localized ??
-                intl.formatMessage(commonMessages.notFound),
-            }))}
-          />
+          <>
+            <p className="mt-6">
+              {intl.formatMessage({
+                defaultMessage:
+                  "Please provide the top 3 key leadership competencies demonstrated by the nominee.",
+                id: "fL9Qgn",
+                description:
+                  "Description for nomination rationale step with leadership competencies",
+              })}
+            </p>
+            <Combobox
+              isMulti
+              id="skills"
+              name="skills"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                max: {
+                  value: 3,
+                  message: intl.formatMessage(leadershipSkillsRangeError),
+                },
+                min: {
+                  value: 3,
+                  message: intl.formatMessage(leadershipSkillsRangeError),
+                },
+              }}
+              label={intl.formatMessage(labels.leadershipCompetencies)}
+              options={unpackMaybes(skills).map((skill) => ({
+                value: skill.id,
+                label:
+                  skill.name.localized ??
+                  intl.formatMessage(commonMessages.notFound),
+              }))}
+            />
+          </>
         )}
         <TextArea
           id="additionalComments"
