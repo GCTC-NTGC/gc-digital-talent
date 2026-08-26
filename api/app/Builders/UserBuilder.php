@@ -342,13 +342,7 @@ class UserBuilder extends Builder
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        $this->where(function ($query) use ($filters) {
-            $query->whereRaw('1 = 0'); // false starting point for the orWhereHas chain
-            foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
-            }
-        });
-
+        $this->whereMatchesAnyTalentSource($filters['talentSources'] ?? null, $filters);
         $this->whereUserAttributesMatchTalentRequest($filters);
         $this->addSkillCountSelect($skillIds);
         $this->withTalentRequestMatches($filters);
@@ -360,6 +354,27 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    // Users matching at least one of the request's talent sources.
+    public function whereMatchesAnyTalentSource(?array $talentSources, array $filters): self
+    {
+        $sources = TalentRequestSource::selected($talentSources);
+
+        if (empty($sources)) {
+            return $this->whereRaw('1 = 0');
+        }
+
+        return $this->where(function ($query) use ($sources, $filters) {
+            foreach ($sources as $index => $source) {
+                if ($index === 0) {
+                    // First iteration must use whereHas instead of orWhereHas
+                    $query->whereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                } else {
+                    $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                }
+            }
+        });
     }
 
     // Only the request's user-level attribute and location filters.
