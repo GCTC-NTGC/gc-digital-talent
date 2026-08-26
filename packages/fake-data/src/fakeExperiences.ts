@@ -22,6 +22,8 @@ import {
   GovContractorType,
   CSuiteRoleTitle,
   GovEmployeeType,
+  DegreeType,
+  FellowshipType,
 } from "@gc-digital-talent/graphql/schema-types";
 
 import fakeDepartments from "./fakeDepartments";
@@ -140,6 +142,15 @@ const generateEducation = (): GeneratedEducationExperience => {
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    degreeType: toLocalizedEnum(
+      faker.helpers.arrayElement<DegreeType>(Object.values(DegreeType)),
+    ),
+    certification: faker.lorem.words(),
+    courseName: faker.lorem.words(),
+    licenseOrAccreditation: faker.lorem.words(),
+    fellowshipType: toLocalizedEnum(
+      faker.helpers.arrayElement<FellowshipType>(Object.values(FellowshipType)),
+    ),
   };
 };
 
