@@ -999,6 +999,10 @@
     "defaultMessage": "Le fonds vise à compléter les budgets ministériels de formation en offrant des possibilités de formation supplémentaires, uniformes et de grande qualité qui permettent :",
     "description": "title for a list of fund objectives"
   },
+  "1mNea9": {
+    "defaultMessage": "Si c’est le cas, demandez-lui de faire confirmer son statut d’emploi en vérifiant son adresse courriel professionnelle et en ajoutant son expérience de travail actuelle au gouvernement du Canada.",
+    "description": "Null secondary message for nominee profile"
+  },
   "1mYPEx": {
     "defaultMessage": "Je ne suis <strong>pas disponible</strong> et je ne veux pas que l’on communique avec moi au sujet de possibilités découlant de ce processus de recrutement.",
     "description": "Radio button label for not available for opportunities option"
@@ -4403,6 +4407,10 @@
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par le nominateur ou la nominatrice.",
     "description": "Statement of confirmation for reference check"
   },
+  "FcINAB": {
+    "defaultMessage": "Pour consulter les renseignements du profil et l’expérience professionnelle du nominé ou de la nominée, veuillez communiquer avec le nominateur ou la nominatrice et lui demander de contacter la personne nominée afin de confirmer si elle est toujours à l’emploi du gouvernement du Canada.",
+    "description": "Null secondary message for nominee profile"
+  },
   "FclnNa": {
     "defaultMessage": "Le Corps d’innovation",
     "description": "Heading for innovation corps"
@@ -5895,6 +5903,10 @@
     "defaultMessage": "Détails sur l’évaluation",
     "description": "Title for Assessment details dialog"
   },
+  "LOYLe7": {
+    "defaultMessage": "Tentez d’utiliser un autre terme.",
+    "description": "Message displayed when no skills match a users filters"
+  },
   "LOjdrP": {
     "defaultMessage": "Collectivité",
     "description": "Title for community"
@@ -6883,6 +6895,10 @@
     "defaultMessage": "Grade en économie, en sociologie ou en statistique",
     "description": "Heading for the `just education` option for EC education requirements"
   },
+  "PbTf7L": {
+    "defaultMessage": "Le statut d’emploi du nominé ou de la nominée au gouvernement du Canada n’est plus vérifié",
+    "description": "Null message for nominee profile"
+  },
   "PbUHEk": {
     "defaultMessage": "Sélectionner une expérience d’études ou de certification",
     "description": "Label for the education experience dropdown in the link experience dialog"
@@ -7786,10 +7802,6 @@
   "TKONR6": {
     "defaultMessage": "Étant donné que les plateformes de médias sociaux sont gérées par des tiers fournisseurs de services, elles n’ont pas à être conformes aux normes du gouvernement du Canada en matière d’accessibilité du Web.",
     "description": "Paragraph for comments and interaction section"
-  },
-  "TN9ndX": {
-    "defaultMessage": "Tentez d’utiliser un autre terme ou une autre recherche pour la compétence, en vous servant du bouton « Ajouter une nouvelle compétence » fourni à cet effet.",
-    "description": "Message displayed when no skills match a users filters"
   },
   "TOnXeM": {
     "defaultMessage": "Employé(e)s",
@@ -11293,6 +11305,10 @@
   "hNIQyO": {
     "defaultMessage": "Événement de mise en candidature {eventId} introuvable.",
     "description": "Message displayed for talent nomination event not found."
+  },
+  "hOiaIL": {
+    "defaultMessage": "Si ce n’est pas le cas, indiquez que cette mise en candidature est « Non appuyée ».",
+    "description": "Null secondary message for nominee profile"
   },
   "hOnqmx": {
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
