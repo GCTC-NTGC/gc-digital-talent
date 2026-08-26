@@ -306,12 +306,7 @@ const AccountInformation = ({
                   <GovernmentEmployeeFields />
                 </div>
                 <div className="mt-6 flex flex-col flex-wrap items-center gap-6 sm:flex-row sm:gap-3">
-                  <Button
-                    type="submit"
-                    color="primary"
-                    mode="solid"
-                    disabled={fetching}
-                  >
+                  <Button type="submit" color="primary" mode="solid">
                     {intl.formatMessage(formMessages.saveChanges)}
                   </Button>
                   <ToggleSection.Close>
