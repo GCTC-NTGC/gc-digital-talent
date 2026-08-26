@@ -45,6 +45,8 @@ class AwardExperience extends Experience
         'awarded_to' => 'awardedTo',
         'awarded_scope' => 'awardedScope',
         'project_name' => 'projectName',
+        'related_experience_id' => 'relatedExperienceId',
+        'related_experience_type' => 'relatedExperienceType',
     ];
 
     public function relatedExperience()
