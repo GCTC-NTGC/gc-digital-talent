@@ -246,18 +246,19 @@ query getProfile($userId: UUID!) {
         projectName
         relatedExperience {
           ... on CommunityExperience {
-            user {
-              id
-            }
             __typename
             id
             title
             organization
-          }
-          ... on EducationExperience {
-            user {
+            skills {
               id
             }
+            details
+            endDate
+            project
+            startDate
+          }
+          ... on EducationExperience {
             __typename
             id
             educationType {
@@ -289,17 +290,11 @@ query getProfile($userId: UUID!) {
             certification
           }
           ... on PersonalExperience {
-            user {
-              id
-            }
             __typename
             id
             title
           }
           ... on WorkExperience {
-            user {
-              id
-            }
             __typename
             id
             role

@@ -56,8 +56,8 @@ class SnapshotTest extends TestCase
             ->withGovEmployeeProfile()
             ->create();
 
-        AwardExperience::factory()->create(['user_id' => $user->id]);
-        CommunityExperience::factory()->create(['user_id' => $user->id]);
+        $communityExperience = CommunityExperience::factory()->create(['user_id' => $user->id]);
+        AwardExperience::factory()->for($communityExperience, 'relatedExperience')->create(['user_id' => $user->id]);
         EducationExperience::factory()->create(['user_id' => $user->id]);
         PersonalExperience::factory()->create(['user_id' => $user->id]);
 

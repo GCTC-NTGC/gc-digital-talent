@@ -1,12 +1,12 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AwardExperience } from "@gc-digital-talent/graphql";
 
 import {
   getExperienceFormLabels,
   getExperienceName,
 } from "~/utils/experienceUtils";
+import type { AwardExperienceWithoutUser } from "~/types/experience";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
@@ -14,7 +14,7 @@ import type { ContentProps } from "./types";
 const AwardContent = ({
   experience,
   headingLevel,
-}: ContentProps<Omit<AwardExperience, "user">>) => {
+}: ContentProps<AwardExperienceWithoutUser>) => {
   const intl = useIntl();
   const { awardedTo, issuedBy, awardedScope, projectName, relatedExperience } =
     experience;

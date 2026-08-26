@@ -96,18 +96,12 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       projectName
       relatedExperience {
         ... on CommunityExperience {
-          user {
-            id
-          }
           __typename
           id
           title
           organization
         }
         ... on EducationExperience {
-          user {
-            id
-          }
           __typename
           id
           educationType {
@@ -139,17 +133,11 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           certification
         }
         ... on PersonalExperience {
-          user {
-            id
-          }
           __typename
           id
           title
         }
         ... on WorkExperience {
-          user {
-            id
-          }
           __typename
           id
           role

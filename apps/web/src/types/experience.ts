@@ -44,8 +44,21 @@ import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 export type ExperienceType =
   "award" | "community" | "education" | "personal" | "work";
 
+export type AwardExperienceWithoutUser = Omit<
+  AwardExperience,
+  "user" | "relatedExperience"
+> & {
+  relatedExperience?: Omit<
+    | CommunityExperience
+    | EducationExperience
+    | PersonalExperience
+    | WorkExperience,
+    "user"
+  > | null;
+};
+
 export type AnyExperience =
-  | Omit<AwardExperience, "user">
+  | AwardExperienceWithoutUser
   | Omit<CommunityExperience, "user">
   | Omit<EducationExperience, "user">
   | Omit<PersonalExperience, "user">

@@ -14,7 +14,6 @@ import { isPast } from "date-fns/isPast";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
 import type {
-  AwardExperience,
   CommunityExperience,
   EducationExperience,
   LocalizedCafForce,
@@ -47,6 +46,7 @@ import { defaultLogger } from "@gc-digital-talent/logger";
 import type {
   AllExperienceFormValues,
   AnyExperience,
+  AwardExperienceWithoutUser,
   ExperienceDetailsDefaultValues,
   ExperienceDetailsSubmissionData,
   ExperienceForDate,
@@ -689,7 +689,7 @@ export interface SimpleAnyExperience {
 
 export const isAwardExperience = (
   e: SimpleAnyExperience,
-): e is Omit<AwardExperience, "user"> => e.__typename === "AwardExperience";
+): e is AwardExperienceWithoutUser => e.__typename === "AwardExperience";
 export const isCommunityExperience = (
   e: SimpleAnyExperience,
 ): e is Omit<CommunityExperience, "user"> =>
@@ -786,7 +786,7 @@ export const deriveExperienceType = (
  * @returns
  */
 const getAwardExperienceDefaultValues = (
-  experience: Omit<AwardExperience, "user">,
+  experience: AwardExperienceWithoutUser,
 ) => {
   const {
     title,
