@@ -152,8 +152,8 @@ const SupportTools = ({ query }: SupportToolsProps) => {
         <Accordion.Item value="update_subject">
           <Accordion.Trigger as="h3">
             {intl.formatMessage({
-              defaultMessage: "Update subject",
-              id: "ugdr1V",
+              defaultMessage: "Replace account subject",
+              id: "ej6PFj",
               description: "Heading for form to update a users subject",
             })}
           </Accordion.Trigger>
