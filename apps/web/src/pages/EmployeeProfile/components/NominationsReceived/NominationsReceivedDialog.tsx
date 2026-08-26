@@ -198,8 +198,8 @@ const NominationsReceivedDialog = ({
                 {
                   defaultMessage:
                     "Congratulations on being nominated to {eventName}!",
-                  id: "ZlD1Sv",
-                  description: "Title for important update notice",
+                  id: "OC2S1k",
+                  description: "Title of nomination received dialog",
                 },
                 { eventName: eventName ?? nullMessage },
               )}
@@ -210,8 +210,8 @@ const NominationsReceivedDialog = ({
                   {
                     defaultMessage:
                       "{eventName} is an annual talent management roundtable that identifies EX-01, 02, and 03 talent in the digital community of practice. The roundtable exercise focuses on highlighting leadership potential and potential for the purposes of advancement, lateral movement, and development opportunities.",
-                    id: "qoR3tk",
-                    description: "Description for important update notice",
+                    id: "SFUV13",
+                    description: "Description of nomination received dialog",
                   },
                   { eventName: eventName ?? nullMessage },
                 )}
