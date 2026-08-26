@@ -8,6 +8,7 @@ import { Heading } from "@gc-digital-talent/ui";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 
 import type { MetricRow } from "./metricRows";
+import { metricLabels } from "./metricsMessages";
 
 /** Builds a column that reads one figure out of a row's `values`. */
 export type MetricColumnFactory<TValues> = (
@@ -52,11 +53,7 @@ const MetricSection = <TValues,>({
   const communityColumn = columnHelper.accessor((row) => row.community, {
     id: "community",
     enableColumnFilter: false,
-    header: intl.formatMessage({
-      defaultMessage: "Community",
-      id: 'CJKG6e',
-      description: "Column header for the community a metric is broken down by",
-    }),
+    header: intl.formatMessage(metricLabels.community),
     cell: ({ getValue, row }) =>
       row.original.isTotal ? <strong>{getValue()}</strong> : getValue(),
   }) as ColumnDef<MetricRow<TValues>>;
