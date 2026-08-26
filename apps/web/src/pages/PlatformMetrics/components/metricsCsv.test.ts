@@ -2,7 +2,11 @@ import { createIntl, createIntlCache } from "react-intl";
 
 import type { TalentRequestMetricsFragment } from "@gc-digital-talent/graphql";
 
-import { getMetricsCsvData, getMetricsCsvHeaders } from "./metricsCsv";
+import {
+  getMetricsCsvData,
+  getMetricsCsvFileName,
+  getMetricsCsvHeaders,
+} from "./metricsCsv";
 
 const intl = createIntl({ locale: "en" }, createIntlCache());
 
@@ -200,6 +204,19 @@ describe("metricsCsv", () => {
         value: "20.0%",
       },
     ]);
+  });
+
+  it("names the file after the snapshot date, not the download date", () => {
+    // Late evening UTC, so a download-date stamp in a western timezone would
+    // disagree with the snapshot this file actually contains.
+    const fileName = getMetricsCsvFileName(intl, "2026-08-26T23:30:00.000000Z");
+
+    expect(fileName).toBe(
+      "gc_digital_talent_platform_metrics_2026_08_26.csv",
+    );
+    // No spaces or capitals to trip up shells and case-sensitive filesystems.
+    expect(fileName).toBe(fileName.toLowerCase());
+    expect(fileName).not.toContain(" ");
   });
 
   it("covers all six metrics", () => {

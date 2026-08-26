@@ -103,6 +103,7 @@ export const PlatformMetricsPage = () => {
                 </p>
                 <TalentRequestMetricsSections
                   metricsQuery={metrics.talentRequests}
+                  computedAt={metrics.computedAt}
                 />
               </>
             ) : (

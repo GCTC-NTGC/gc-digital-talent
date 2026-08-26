@@ -4,6 +4,7 @@ import { defineMessages } from "react-intl";
 import type { DownloadCsvProps } from "@gc-digital-talent/ui";
 import type { TalentRequestMetricsFragment } from "@gc-digital-talent/graphql";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
+import { parseDateTimeUtc, rawFormat } from "@gc-digital-talent/date-helpers";
 
 import {
   formatMetricDays,
@@ -35,7 +36,7 @@ const csvMessages = defineMessages({
     description: "CSV measure naming the share for a non-hire reason",
   },
   fileName: {
-    defaultMessage: "GC Digital Talent - Platform metrics.csv", id: '8NyhIA',
+    defaultMessage: "gc_digital_talent_platform_metrics_{date}.csv", id: 'LHQ+dQ',
     description: "Filename for the platform metrics CSV download",
   },
   downloadLabel: {
@@ -68,6 +69,25 @@ export const getMetricsCsvHeaders = (
   { id: "measure", displayName: intl.formatMessage(csvMessages.measure) },
   { id: "value", displayName: intl.formatMessage(csvMessages.value) },
 ];
+
+/**
+ * Filename for the download, stamped with the date the snapshot was computed.
+ *
+ * Deliberately not the download date: the file's contents belong to one nightly
+ * run, so naming it after that run identifies the data rather than the moment
+ * someone clicked. It also removes a day-boundary trap — a download made late
+ * in the evening would otherwise carry a date the data has nothing to do with.
+ *
+ * Formatted from the same parsed timestamp the page displays, so the filename
+ * and the "last calculated" line on screen always agree.
+ */
+export const getMetricsCsvFileName = (
+  intl: IntlShape,
+  computedAt: string,
+): string =>
+  intl.formatMessage(csvMessages.fileName, {
+    date: rawFormat(parseDateTimeUtc(computedAt), "yyyy_MM_dd"),
+  });
 
 /** A metric's figures, as (label, formatted value) pairs. */
 type Measures<TValues> = (

@@ -13,6 +13,7 @@ import { metricLabels, metricTitles } from "./metricsMessages";
 import {
   csvMessages,
   getMetricsCsvData,
+  getMetricsCsvFileName,
   getMetricsCsvHeaders,
 } from "./metricsCsv";
 import {
@@ -209,10 +210,13 @@ interface NonHireReasonRow {
 
 interface TalentRequestMetricsSectionsProps {
   metricsQuery: FragmentType<typeof TalentRequestMetrics_Fragment>;
+  /** Names the CSV, so the file identifies the snapshot it came from. */
+  computedAt: string;
 }
 
 const TalentRequestMetricsSections = ({
   metricsQuery,
+  computedAt,
 }: TalentRequestMetricsSectionsProps) => {
   const intl = useIntl();
   const metrics = getFragment(TalentRequestMetrics_Fragment, metricsQuery);
@@ -255,7 +259,7 @@ const TalentRequestMetricsSections = ({
       <DownloadCsv
         headers={getMetricsCsvHeaders(intl)}
         data={() => getMetricsCsvData(metrics, intl)}
-        fileName={intl.formatMessage(csvMessages.fileName)}
+        fileName={getMetricsCsvFileName(intl, computedAt)}
         mode="inline"
       >
         {intl.formatMessage(csvMessages.downloadLabel)}
