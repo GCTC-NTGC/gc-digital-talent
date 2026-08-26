@@ -27,6 +27,47 @@ import { loginBySub } from "../../utils/auth";
 
 const uniqueId = generateUniqueTestId();
 
+async function createDisposableTestUsers(
+  platformAdminCtx: GraphQLContext,
+  applicantSub: string,
+  communityAdminSub: string,
+) {
+  const [applicantEmployee, communityAdminEmployee] = await Promise.all([
+    createUserWithRoles(platformAdminCtx, {
+      user: {
+        email: `${applicantSub}@example.org`,
+        sub: applicantSub,
+        isGovEmployee: true,
+        workEmail: `${applicantSub}@gc.ca`,
+        workEmailVerifiedAt: nowUTCDateTime(),
+      },
+      roles: ["guest", "base_user", "applicant"],
+    }),
+    createUserWithRoles(platformAdminCtx, {
+      user: {
+        email: `${communityAdminSub}@example.org`,
+        sub: communityAdminSub,
+      },
+      roles: ["guest", "base_user"],
+    }),
+  ]);
+  if (!applicantEmployee) throw new Error("Applicant user creation failed");
+  if (!communityAdminEmployee)
+    throw new Error("Community admin user creation failed");
+
+  const [applicantCtx, communityAdminCtx] = await Promise.all([
+    graphql.newContext(applicantSub),
+    graphql.newContext(communityAdminSub),
+  ]);
+
+  return {
+    applicantEmployee,
+    communityAdminEmployee,
+    applicantCtx,
+    communityAdminCtx,
+  };
+}
+
 test.describe(
   "Cross-community development program status",
   { tag: "@uat" },
@@ -34,57 +75,53 @@ test.describe(
     test.describe.configure({ mode: "serial" });
     test.slow();
     let applicantEmployee: User | undefined;
+    let communityAdminEmployee: User | undefined;
     let communityInterestB: CommunityInterest | undefined;
     const uniqueTestId = generateUniqueTestId();
     const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
+    const communityAdminSub = `playwright.sub.${uniqueTestId}.communityAdmin`;
     let platformAdminCtx: GraphQLContext,
       communityAdminCtx: GraphQLContext,
       communityTalentCoordinatorCtx: GraphQLContext,
       applicantCtx: GraphQLContext;
 
     test.beforeAll(async () => {
-      [platformAdminCtx, communityAdminCtx, communityTalentCoordinatorCtx] =
-        await Promise.all([
-          graphql.newContext(),
-          graphql.newContext(
-            process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
-          ),
-          graphql.newContext(
-            process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
-              "talent-coordinator@test.com",
-          ),
-        ]);
-      applicantEmployee = await createUserWithRoles(platformAdminCtx, {
-        user: {
-          email: `${applicantSub}@example.org`,
-          sub: applicantSub,
-          isGovEmployee: true,
-          workEmail: `${applicantSub}@gc.ca`,
-          workEmailVerifiedAt: nowUTCDateTime(),
-        },
-        roles: ["guest", "base_user", "applicant"],
-      });
-      applicantCtx = await graphql.newContext(applicantSub);
+      [platformAdminCtx, communityTalentCoordinatorCtx] = await Promise.all([
+        graphql.newContext(),
+        graphql.newContext(
+          process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+            "talent-coordinator@test.com",
+        ),
+      ]);
 
-      const [communityUser, applicantUser, communityA, communityB] =
-        await Promise.all([
-          me(communityAdminCtx, {}),
-          me(applicantCtx, {}),
-          createCommunity(platformAdminCtx, {
-            key: `playwright-cross-community-a-${uniqueId}`,
-            name: {
-              en: `Cross Community A EN ${uniqueId}`,
-              fr: `Cross Community A FR ${uniqueId}`,
-            },
-          }),
-          createCommunity(platformAdminCtx, {
-            key: `playwright-cross-community-b-${uniqueId}`,
-            name: {
-              en: `Cross Community B EN ${uniqueId}`,
-              fr: `Cross Community B FR ${uniqueId}`,
-            },
-          }),
-        ]);
+      ({
+        applicantEmployee,
+        communityAdminEmployee,
+        applicantCtx,
+        communityAdminCtx,
+      } = await createDisposableTestUsers(
+        platformAdminCtx,
+        applicantSub,
+        communityAdminSub,
+      ));
+
+      const [applicantUser, communityA, communityB] = await Promise.all([
+        me(applicantCtx, {}),
+        createCommunity(platformAdminCtx, {
+          key: `playwright-cross-community-a-${uniqueId}`,
+          name: {
+            en: `Cross Community A EN ${uniqueId}`,
+            fr: `Cross Community A FR ${uniqueId}`,
+          },
+        }),
+        createCommunity(platformAdminCtx, {
+          key: `playwright-cross-community-b-${uniqueId}`,
+          name: {
+            en: `Cross Community B EN ${uniqueId}`,
+            fr: `Cross Community B FR ${uniqueId}`,
+          },
+        }),
+      ]);
 
       if (!communityA) throw new Error("Community A creation failed");
       if (!communityB) throw new Error("Community B creation failed");
@@ -106,11 +143,11 @@ test.describe(
           },
         }),
         assignCommunityAdminRole(platformAdminCtx, {
-          userId: communityUser.id,
+          userId: communityAdminEmployee.id,
           teamId: communityA.teamIdForRoleAssignment!,
         }),
         assignCommunityAdminRole(platformAdminCtx, {
-          userId: communityUser.id,
+          userId: communityAdminEmployee.id,
           teamId: communityB.teamIdForRoleAssignment!,
         }),
         createTalentNominationEvent(communityTalentCoordinatorCtx, {
@@ -142,7 +179,6 @@ test.describe(
         }),
       ]);
 
-      // Community Interest A: mark the dev program as Completed with the education experience linked
       await createCommunityInterest(applicantCtx, {
         userId: applicantUser.id,
         communityInterest: {
@@ -161,8 +197,7 @@ test.describe(
         ],
       });
 
-      // Community Interest B: no developmentPrograms specified so the shared
-      // DevelopmentProgramUser record (Completed + experience from Community A) is preserved
+      // No developmentPrograms passed here -- tests that the shared record from Community A carries over
       communityInterestB = await createCommunityInterest(applicantCtx, {
         userId: applicantUser.id,
         communityInterest: {
@@ -181,6 +216,9 @@ test.describe(
       if (applicantEmployee?.id) {
         await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
       }
+      if (communityAdminEmployee?.id) {
+        await deleteUser(platformAdminCtx, { id: communityAdminEmployee.id });
+      }
     });
 
     test("Opening a second community interest pre-populates completed status and linked experience from the shared dev program record", async ({
@@ -192,12 +230,11 @@ test.describe(
       );
       await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
 
-      // The Completed radio should be pre-selected (not NotInterested which was passed at creation)
+      // Pre-selected via the shared record, not the (absent) status passed at creation
       await expect(
         appPage.page.getByRole("radio", { name: /successfully completed/i }),
       ).toBeChecked();
 
-      // The linked education experience card should be visible
       await expect(appPage.page.getByText("Computer Science")).toBeVisible();
     });
   },
@@ -208,36 +245,32 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
   test.slow();
 
   let applicantEmployee: User | undefined;
+  let communityAdminEmployee: User | undefined;
   let communityInterest: CommunityInterest | undefined;
   let devProgram: DevelopmentProgram | undefined;
   let educationExperience: EducationExperience | undefined;
   const uniqueTestId = generateUniqueTestId();
   const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
+  const communityAdminSub = `playwright.sub.${uniqueTestId}.communityAdmin`;
   let platformAdminCtx: GraphQLContext,
     communityAdminCtx: GraphQLContext,
     applicantCtx: GraphQLContext;
 
   test.beforeAll(async () => {
-    [platformAdminCtx, communityAdminCtx] = await Promise.all([
-      graphql.newContext(),
-      graphql.newContext(
-        process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
-      ),
-    ]);
-    applicantEmployee = await createUserWithRoles(platformAdminCtx, {
-      user: {
-        email: `${applicantSub}@example.org`,
-        sub: applicantSub,
-        isGovEmployee: true,
-        workEmail: `${applicantSub}@gc.ca`,
-        workEmailVerifiedAt: nowUTCDateTime(),
-      },
-      roles: ["guest", "base_user", "applicant"],
-    });
-    applicantCtx = await graphql.newContext(applicantSub);
+    platformAdminCtx = await graphql.newContext();
 
-    const [communityUser, applicantUser, community] = await Promise.all([
-      me(communityAdminCtx, {}),
+    ({
+      applicantEmployee,
+      communityAdminEmployee,
+      applicantCtx,
+      communityAdminCtx,
+    } = await createDisposableTestUsers(
+      platformAdminCtx,
+      applicantSub,
+      communityAdminSub,
+    ));
+
+    const [applicantUser, community] = await Promise.all([
       me(applicantCtx, {}),
       createCommunity(platformAdminCtx, {}),
     ]);
@@ -256,7 +289,7 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
         },
       }),
       assignCommunityAdminRole(platformAdminCtx, {
-        userId: communityUser.id,
+        userId: communityAdminEmployee.id,
         teamId: community.teamIdForRoleAssignment!,
       }),
       createTalentNominationEvent(platformAdminCtx, {
@@ -315,6 +348,9 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     if (applicantEmployee?.id) {
       await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
     }
+    if (communityAdminEmployee?.id) {
+      await deleteUser(platformAdminCtx, { id: communityAdminEmployee.id });
+    }
   });
 
   test("Development program section is visible with participation options", async ({
@@ -368,17 +404,14 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     );
     await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
 
-    // Select "completed" for the dev program
     await appPage.page
       .getByRole("radio", { name: /successfully completed/i })
       .click();
 
-    // "Link existing experience" button should appear
     await expect(
       appPage.page.getByRole("button", { name: /link existing experience/i }),
     ).toBeVisible();
 
-    // "Add new experience" link should also appear
     await expect(
       appPage.page.getByRole("link", { name: /add a new experience/i }),
     ).toBeVisible();
@@ -393,12 +426,10 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     );
     await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
 
-    // Select "completed"
     await appPage.page
       .getByRole("radio", { name: /successfully completed/i })
       .click();
 
-    // Open the link experience dialog
     await appPage.page
       .getByRole("button", { name: /link existing experience/i })
       .click();
@@ -406,25 +437,21 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     const dialog = appPage.page.getByRole("dialog");
     await expect(dialog).toBeVisible();
 
-    // Dialog header should show the development program name
     await expect(
       dialog.getByRole("heading", {
         name: new RegExp(devProgram?.name?.en ?? "", "i"),
       }),
     ).toBeVisible();
 
-    // Dialog should show the dev program description
     const devProgramDescription = `Playwright dev program description EN ${uniqueId}`;
     await expect(dialog.getByText(devProgramDescription)).toBeVisible();
 
-    // Education experience select should be present
     await expect(
       dialog.getByRole("combobox", {
         name: /select education or certificate experience/i,
       }),
     ).toBeVisible();
 
-    // Select the education experience we created
     const expLabel = `Playwright University ${uniqueId} – Computer Science`;
     await dialog
       .getByRole("combobox", {
@@ -432,13 +459,9 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
       })
       .selectOption({ label: expLabel });
 
-    // Confirm the link
     await dialog.getByRole("button", { name: /link experience/i }).click();
-
-    // Dialog should close
     await expect(dialog).toBeHidden();
 
-    // The linked experience card should appear
     await expect(appPage.page.getByText(`Computer Science`)).toBeVisible();
   });
 
@@ -449,14 +472,12 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     );
     await appPage.waitForGraphqlResponse("UpdateCommunityInterest_Query");
 
-    // If the previous test saved, we start in completed state with an experience linked.
-    // Select "completed" to ensure we're in the right state (in case tests run independently).
+    // Re-select "completed" for test independence, in case this test runs on its own
     const completedRadio = appPage.page.getByRole("radio", {
       name: /successfully completed/i,
     });
     await completedRadio.click();
 
-    // Link an experience via dialog first (in case none is linked)
     const linkBtn = appPage.page.getByRole("button", {
       name: /link existing experience/i,
     });
@@ -471,7 +492,6 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
     await dialog.getByRole("button", { name: /link experience/i }).click();
     await expect(dialog).toBeHidden();
 
-    // Open the card dropdown menu and remove the linked experience
     await appPage.page
       .getByRole("button", { name: /edit linked education experience/i })
       .click();
@@ -479,7 +499,6 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
       .getByRole("menuitem", { name: /remove experience/i })
       .click();
 
-    // The card should be gone and the link button should reappear
     await expect(
       appPage.page.getByRole("button", { name: /link existing experience/i }),
     ).toBeVisible();

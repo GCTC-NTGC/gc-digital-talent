@@ -27,6 +27,10 @@ const Test_CreateTalentNominationEventMutation = /* GraphQL */ `
   ) {
     createTalentNominationEvent(talentNominationEvent: $talentNominationEvent) {
       id
+      name {
+        en
+        fr
+      }
       community {
         id
       }
@@ -41,12 +45,7 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   TalentNominationEvent | undefined,
   Partial<CreateTalentNominationEventInput>
 > = async (ctx, talentNominationEvent) => {
-  // Talent nomination events can be created by community_admin or
-  // community_talent_coordinator (not community_recruiter), so this can't
-  // reuse getMyCommunity's pool-creation default role list.
-  const myCommunity = await getMyCommunity(ctx, {
-    roles: ["community_admin", "community_talent_coordinator"],
-  });
+  const myCommunity = await getMyCommunity(ctx, {});
   const communityId =
     talentNominationEvent.community?.connect ?? myCommunity?.id;
   if (!communityId) {

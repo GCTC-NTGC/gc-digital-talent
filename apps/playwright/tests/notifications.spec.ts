@@ -15,7 +15,11 @@ import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { changePoolClosingDate, createAndPublishPool } from "~/utils/pools";
+import {
+  changePoolClosingDate,
+  createAndPublishPool,
+  retirePublishedPool,
+} from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
 import { getMyCommunity } from "~/utils/communities";
@@ -126,6 +130,12 @@ test.describe("Notifications", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     if (user?.id) {
       await deleteUser(platformAdminCtx, { id: user.id });
+    }
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

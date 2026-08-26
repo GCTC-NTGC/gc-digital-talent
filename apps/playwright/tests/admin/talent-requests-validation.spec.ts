@@ -31,7 +31,7 @@ import {
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getClassifications } from "~/utils/classification";
 import { getWorkStreams } from "~/utils/workStreams";
 import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
@@ -171,6 +171,9 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     if (user) {
       await deleteUser(platformAdminCtx, { id: user.id });
+    }
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

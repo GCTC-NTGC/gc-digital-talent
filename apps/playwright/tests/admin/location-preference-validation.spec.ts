@@ -29,7 +29,7 @@ import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
 import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePage";
 import { getSkills } from "~/utils/skills";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { createAndSubmitApplication } from "~/utils/applications";
 import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import { getClassifications } from "~/utils/classification";
@@ -171,6 +171,9 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
     if (user) {
       await deleteUser(platformAdminCtx, { id: user.id });
     }
+    if (id) {
+      await retirePublishedPool(adminCtx, id);
+    }
   });
 
   test("Validate Location preference update in Users table", async ({
@@ -231,6 +234,7 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
     await appPage.page
       .getByRole("button", { name: "Work preferences", exact: true })
       .click();
+    await appPage.waitForGraphqlResponse("WorkPreferencesSnapshotOptions");
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
 

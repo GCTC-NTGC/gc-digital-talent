@@ -20,7 +20,7 @@ import graphql from "~/utils/graphql";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createAndSubmitApplication } from "~/utils/applications";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -35,7 +35,8 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
   let candidate: PoolCandidate;
   let technicalSkill: Skill | undefined;
   let user: User | undefined;
-  let adminCtx, platformAdminCtx: GraphQLContext;
+  let adminCtx: GraphQLContext, platformAdminCtx: GraphQLContext;
+  let poolId: string;
   const adminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
   let applicantSub: string;
@@ -100,6 +101,7 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: LOCALIZED_STRING,
     });
+    poolId = createdPool.id;
 
     const applicantCtx = await graphql.newContext(applicantSub);
     const applicant = await me(applicantCtx, {});
@@ -116,6 +118,9 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     if (user?.id) {
       await deleteUser(platformAdminCtx, { id: user.id });
+    }
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

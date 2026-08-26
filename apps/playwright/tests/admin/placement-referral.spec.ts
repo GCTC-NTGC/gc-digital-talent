@@ -32,7 +32,7 @@ import {
   qualifyCandidate,
   ResumeCandidateReferrals,
 } from "~/utils/applications";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { generateUniqueTestId } from "~/utils/id";
 import { loginBySub } from "~/utils/auth";
 import AssessmentPage from "~/fixtures/AssessmentPage";
@@ -142,6 +142,12 @@ test.describe("Placement and Referral", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     if (user?.id) {
       await deleteUser(platformAdminCtx, { id: user.id });
+    }
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

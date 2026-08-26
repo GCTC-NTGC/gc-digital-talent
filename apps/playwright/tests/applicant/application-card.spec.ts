@@ -23,7 +23,7 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool, deletePool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
@@ -102,7 +102,7 @@ test.describe("Application card", { tag: "@uat" }, () => {
       await deleteUser(platformAdminCtx, { id: user.id });
     }
     if (poolId) {
-      await deletePool(platformAdminCtx, { id: poolId });
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

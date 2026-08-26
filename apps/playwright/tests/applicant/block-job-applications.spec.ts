@@ -20,6 +20,7 @@ import graphql from "~/utils/graphql";
 import {
   createAndPublishInternalPool,
   createAndPublishPool,
+  retirePublishedPool,
 } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
@@ -176,6 +177,12 @@ test.describe("Block job applications", { tag: "@uat" }, () => {
     if (unverifiedContactEmailUser.id && unverifiedWorkEmailUser.id) {
       await deleteUser(platformAdminCtx, { id: unverifiedContactEmailUser.id });
       await deleteUser(platformAdminCtx, { id: unverifiedWorkEmailUser.id });
+    }
+    if (publicPoolId) {
+      await retirePublishedPool(adminCtx, publicPoolId);
+    }
+    if (internalPoolId) {
+      await retirePublishedPool(adminCtx, internalPoolId);
     }
   });
 

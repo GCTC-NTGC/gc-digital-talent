@@ -38,7 +38,7 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
@@ -223,6 +223,10 @@ test.describe("Candidate Table Validation", { tag: "@uat" }, () => {
           .map((user) => deleteUser(platformAdminCtx, { id: user.id })),
       );
     });
+
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
+    }
   });
 
   test("Validate application statuses reflect correct values in the candidate table", async ({

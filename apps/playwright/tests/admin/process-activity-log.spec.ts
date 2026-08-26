@@ -31,7 +31,7 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
@@ -164,6 +164,12 @@ test.describe("Process activity log", { tag: "@uat" }, () => {
   test.afterEach(async () => {
     if (applicantUser.id) {
       await deleteUser(platformAdminCtx, { id: applicantUser.id });
+    }
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 

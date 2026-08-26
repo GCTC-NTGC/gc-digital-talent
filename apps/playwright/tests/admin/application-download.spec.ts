@@ -22,7 +22,7 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 
@@ -31,6 +31,7 @@ test.describe("Application download", { tag: "@uat" }, () => {
   let sub: string;
   let adminCtx: GraphQLContext;
   let application: PoolCandidate;
+  let poolId: string;
   const adminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
   let platformAdminCtx: GraphQLContext;
@@ -98,6 +99,7 @@ test.describe("Application download", { tag: "@uat" }, () => {
         fr: `App download ${testId} (FR)`,
       },
     });
+    poolId = createdPool.id;
 
     const applicantCtx = await graphql.newContext(applicantSub);
     applicant = await me(applicantCtx, {});
@@ -109,6 +111,12 @@ test.describe("Application download", { tag: "@uat" }, () => {
     });
 
     application = candidate;
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
+    }
   });
 
   test("Verify application download contents", async ({ appPage }) => {

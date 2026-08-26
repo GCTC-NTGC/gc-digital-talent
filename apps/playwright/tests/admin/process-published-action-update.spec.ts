@@ -5,7 +5,7 @@ import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { me } from "~/utils/user";
 import { loginBySub } from "~/utils/auth";
 import type AppPage from "~/fixtures/AppPage";
@@ -53,6 +53,12 @@ test.describe("Update published process", { tag: "@uat" }, () => {
     });
 
     pool = createdPool;
+  });
+
+  test.afterAll(async () => {
+    if (pool?.id) {
+      await retirePublishedPool(adminCtx, pool.id);
+    }
   });
 
   test("Community admin can update process number when published", async ({

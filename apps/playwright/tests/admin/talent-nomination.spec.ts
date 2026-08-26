@@ -1,5 +1,8 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import type { Skill } from "@gc-digital-talent/graphql/schema-types";
+import type {
+  Skill,
+  TalentNominationEvent,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
@@ -13,7 +16,9 @@ import { generateUniqueTestId } from "~/utils/id";
 import { loginBySub } from "../../utils/auth";
 
 test.describe("Talent nomination management", { tag: "@uat" }, () => {
+  test.describe.configure({ mode: "serial" });
   let skillOptions: Skill[];
+  let talentEvent: TalentNominationEvent | undefined;
 
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
@@ -60,13 +65,15 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    await createTalentNominationEvent(talentCoordinatorCtx, {
+    talentEvent = await createTalentNominationEvent(talentCoordinatorCtx, {
       name: {
         en: `Playwright Event ${uniqueTestId} EN`,
         fr: `Playwright Event ${uniqueTestId} FR`,
       },
       includeLeadershipCompetencies: true,
     });
+    if (!talentEvent)
+      throw new Error("Talent nomination event creation failed");
   });
 
   test("Create a talent nomination", async ({ appPage }) => {
@@ -88,7 +95,7 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
     await appPage.waitForGraphqlResponse("TalentManagementEventsPage");
     await appPage.page
       .getByRole("link", {
-        name: `Start a nomination for Playwright Event ${uniqueTestId} EN`,
+        name: `Start a nomination for ${talentEvent?.name?.en}`,
       })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalent");
@@ -269,10 +276,12 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       }),
     ).toBeVisible();
 
-    await talentManagement.viewActiveTalentNominationEvent();
+    await talentManagement.viewActiveTalentNominationEvent(
+      talentEvent?.name?.en ?? "",
+    );
     await expect(
       talentManagement.page.getByRole("heading", {
-        name: /test talent nomination event active en 0/i,
+        name: talentEvent?.name?.en ?? "",
         level: 1,
       }),
     ).toBeVisible();
@@ -285,7 +294,7 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       }),
     ).toBeVisible();
 
-    await talentManagement.viewNominee();
+    await talentManagement.viewNominee(uniqueTestId.toString());
 
     await talentManagement.evaluateNomineeNotSupported();
     await expect(appPage.page.getByRole("alert").last()).toContainText(

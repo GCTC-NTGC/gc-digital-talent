@@ -42,7 +42,7 @@ const Test_MyCommunityQueryDocument = /* GraphQL */ `
       authInfo {
         roleAssignments {
           role {
-            name
+            isTeamBased
           }
           teamable {
             ... on Community {
@@ -60,35 +60,21 @@ const Test_MyCommunityQueryDocument = /* GraphQL */ `
   }
 `;
 
-// Roles the pool creation UI treats as authorized to pick a community for a
-// process (see createProcessCommunityRoles in web's CreatePoolPage.tsx).
-// A role like community_talent_coordinator resolves to a Community teamable
-// too, but isn't offered as an option there, so it must be excluded here.
-const CREATE_PROCESS_COMMUNITY_ROLES = [
-  "community_admin",
-  "community_recruiter",
-];
-
 interface MyRoleAssignment {
-  role?: { name?: string | null } | null;
+  role?: { isTeamBased?: boolean | null } | null;
   teamable?: Community | null;
 }
 
 /**
- * Get a community the currently authenticated user is scoped to, restricted
- * to a given set of role names.
+ * Get the community the currently authenticated ctx is scoped to.
  *
- * A test user may only be assigned to some communities rather than all of
- * them, so this reflects what they can actually pick in the UI. Defaults to
- * the roles the pool creation UI accepts (see CREATE_PROCESS_COMMUNITY_ROLES);
- * pass a different `roles` list for other flows (e.g. talent nomination
- * events, which community_talent_coordinator can create but not
- * community_recruiter).
+ * Relies on role.isTeamBased rather than a hardcoded role-name list -- any
+ * team-based role assignment pointing at a community counts.
+ * this returns whichever one the API lists first.
  */
-export const getMyCommunity: GraphQLRequestFunc<
-  Community | undefined,
-  { roles?: string[] }
-> = async (ctx, { roles = CREATE_PROCESS_COMMUNITY_ROLES } = {}) => {
+export const getMyCommunity: GraphQLRequestFunc<Community | undefined> = async (
+  ctx,
+) => {
   const me = await ctx
     .post<
       GraphQLResponse<
@@ -100,19 +86,21 @@ export const getMyCommunity: GraphQLRequestFunc<
 
   return (
     me?.authInfo?.roleAssignments?.find(
-      (ra) => !!ra.teamable && roles.includes(ra.role?.name ?? ""),
+      (ra) => !!ra.role?.isTeamBased && !!ra.teamable?.id,
     )?.teamable ?? undefined
   );
 };
 
-const uniqueTestId = generateUniqueTestId();
-export const defaultCommunity: Partial<CreateCommunityInput> = {
-  key: `playwright-test-community ${uniqueTestId}`,
-  name: {
-    en: `Playwright test community EN ${uniqueTestId}`,
-    fr: `Playwright test community FR ${uniqueTestId}`,
-  },
-};
+function defaultCommunity(): Partial<CreateCommunityInput> {
+  const uniqueTestId = generateUniqueTestId();
+  return {
+    key: `playwright-test-community ${uniqueTestId}`,
+    name: {
+      en: `Playwright test community EN ${uniqueTestId}`,
+      fr: `Playwright test community FR ${uniqueTestId}`,
+    },
+  };
+}
 
 const Test_CreateCommunityMutation = /* GraphQL */ `
   mutation Test_CreateCommunity($community: CreateCommunityInput!) {
@@ -142,7 +130,7 @@ export const createCommunity: GraphQLRequestFunc<
         isPrivileged: true,
         variables: {
           community: {
-            ...defaultCommunity,
+            ...defaultCommunity(),
             ...community,
           },
         },
@@ -303,6 +291,37 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
         userId,
         roleAssignmentsInput: {
           attach: [{ roleId: communityAdminRoleId, teamId }],
+        },
+      },
+    },
+  });
+};
+
+/**
+ * Revoke Community Admin Role
+ *
+ */
+export const revokeCommunityAdminRole: GraphQLRequestFunc<
+  void,
+  { userId: string; teamId: string }
+> = async (ctx, { userId, teamId }) => {
+  const roles = await ctx
+    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
+      Test_RolesQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) => res.roles);
+  const communityAdminRoleId = roles.find(
+    (r) => r.name === "community_admin",
+  )?.id;
+  if (!communityAdminRoleId) throw new Error("community_admin role not found");
+  await ctx.post(Test_UpdateUserRolesMutation, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          detach: [{ roleId: communityAdminRoleId, teamId }],
         },
       },
     },
