@@ -273,6 +273,11 @@ type LocalizedNineBoxRating implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedOldEducationType implements LocalizedEnumOption {
+  value: OldEducationType!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -4429,6 +4434,17 @@ enum NotificationFamily {
 enum NullsOption {
   ORDER_FIRST
   ORDER_LAST
+}
+
+enum OldEducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 enum OperationalRequirement {
