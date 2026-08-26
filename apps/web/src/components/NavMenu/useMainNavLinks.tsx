@@ -206,6 +206,14 @@ const useMainNavLinks = () => {
     />
   );
 
+  const PlatformMetrics = (
+    <NavItem
+      key="platformMetrics"
+      href={paths.platformMetrics()}
+      title={intl.formatMessage(pageTitles.platformMetrics)}
+      subMenu
+    />
+  );
   const Classifications = (
     <NavItem
       key="classifications"
@@ -397,6 +405,7 @@ const useMainNavLinks = () => {
           Classifications,
           Communities,
           Departments,
+          PlatformMetrics,
           Skills,
           SkillFamilies,
         ],
