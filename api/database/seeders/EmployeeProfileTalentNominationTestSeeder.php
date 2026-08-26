@@ -88,24 +88,23 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
                 'submitted_at' => null, // not submitted
             ]);
 
-        // a submitted nomination on an open event
+        // submitted nominations on an open event
         TalentNomination::factory()
             ->count(1)
             ->submittedReviewAndSubmit()
             ->create([
                 'talent_nomination_event_id' => $activeEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $activeEvent->close_date->subDays(1), // submitted before the event closes
+                'submitted_at' => now()->subDays(1), // submitted in the past, before the event closes
             ]);
 
-        // a submitted nomination on an open event
         TalentNomination::factory()
             ->count(1)
             ->submittedReviewAndSubmit()
             ->create([
                 'talent_nomination_event_id' => $activeEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $activeEvent->close_date->subDays(3), // submitted before the event closes
+                'submitted_at' => now()->subDays(3), // submitted in the past, before the event closes
             ]);
 
         // a submitted nomination on a closed/past event, so the open/closed toggle appears
@@ -115,7 +114,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $pastEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $pastEvent->close_date->subDays(1), // submitted before the event closes
+                'submitted_at' => $pastEvent->close_date->subDays(1), // submitted before the event closed
             ]);
 
         TalentNomination::factory()
@@ -124,10 +123,10 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $pastEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $pastEvent->close_date->subDays(10), // submitted before the event closes
+                'submitted_at' => $pastEvent->close_date->subDays(10), // submitted before the event closed
             ]);
 
-        // a draft nomination on a closed/past event
+        // draft nomination on a closed/past event
         TalentNomination::factory()
             ->count(1)
             ->submittedNominationDetails()
