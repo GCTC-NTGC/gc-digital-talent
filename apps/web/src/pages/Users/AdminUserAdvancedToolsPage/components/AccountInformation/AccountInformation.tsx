@@ -222,7 +222,7 @@ const AccountInformation = ({
         </ToggleSection.Header>
         <ToggleSection.Content>
           <ToggleSection.InitialContent>
-            {isNull ? <NullDisplay /> : <Display query={user} />}
+            {isNull ? <NullDisplay /> : <Display query={query} />}
           </ToggleSection.InitialContent>
           <ToggleSection.OpenContent>
             {fetching ? (

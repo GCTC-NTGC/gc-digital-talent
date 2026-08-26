@@ -1,13 +1,16 @@
 import { useIntl } from "react-intl";
 
-import type { AccountInformationFormFragment } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import EmailVerificationStatus from "~/components/Profile/components/EmailVerificationStatus";
 
+import { AccountInformationForm_Fragment } from "./AccountInformation";
+
 interface DisplayProps {
-  query: AccountInformationFormFragment;
+  query: FragmentType<typeof AccountInformationForm_Fragment>;
 }
 
 const Display = ({ query }: DisplayProps) => {
@@ -23,7 +26,7 @@ const Display = ({ query }: DisplayProps) => {
     isGovEmployee,
     workEmail,
     isWorkEmailVerified,
-  } = query;
+  } = getFragment(AccountInformationForm_Fragment, query);
 
   return (
     <div className="grid gap-6 xs:grid-cols-2">
