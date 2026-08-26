@@ -11,7 +11,7 @@ export interface FormValues {
   advancementApprovedNotes: string | null;
   advancementRejectedNotes: string | null;
   advancementClassifications: string[];
-  referralExpiryDate: string;
+  advancementReferralExpiryDate: string;
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
@@ -66,7 +66,8 @@ export function convertQueryDataToFormData(
     advancementClassifications: unpackMaybes(
       queryData?.advancementClassifications,
     ).map(({ id }) => id),
-    referralExpiryDate: queryData?.referralExpiryDate ?? "",
+    advancementReferralExpiryDate:
+      queryData?.advancementReferralExpiryDate ?? "",
     lateralMovementDecision: queryData?.lateralMovementDecision?.value ?? null,
     lateralMovementApprovedNotes: ifApproved(
       queryData?.lateralMovementDecision,
@@ -115,6 +116,7 @@ export function convertFormValuesToMutationInput(
     advancementClassifications: {
       sync: formValues.advancementClassifications,
     },
-    referralExpiryDate: formValues.referralExpiryDate || null,
+    advancementReferralExpiryDate:
+      formValues.advancementReferralExpiryDate || null,
   };
 }

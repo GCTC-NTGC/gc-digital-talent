@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { useId, useState } from "react";
 import { useIntl } from "react-intl";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
@@ -8,7 +8,6 @@ import {
   Button,
   Heading,
   Ul,
-  Notice,
   wrapParens,
   Card,
 } from "@gc-digital-talent/ui";
@@ -30,6 +29,7 @@ import {
   buildExperienceByTypeData,
   buildExperienceByWorkStreamData,
 } from "./fullCareerExperiencesUtils";
+import ErrorNotice from "./ErrorNotice";
 
 const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
   fragment FullCareerExperiencesUser on User {
@@ -94,16 +94,17 @@ interface FullCareerExperiencesProps {
     | FragmentType<typeof FullCareerExperiencesTalentNominationGroup_Fragment>
     | null
     | undefined;
-  shareProfile?: boolean;
+  contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
   defaultOpen?: boolean;
 }
 
 const FullCareerExperiences = ({
   userQuery,
   talentNominationGroupQuery,
-  shareProfile,
+  contentHiddenReason,
   defaultOpen = false,
 }: FullCareerExperiencesProps) => {
+  const contentIsVisible = !contentHiddenReason;
   const intl = useIntl();
   const showExperienceByLabelId = useId();
   const user = getFragment(FullCareerExperiencesUser_Fragment, userQuery);
@@ -184,7 +185,7 @@ const FullCareerExperiences = ({
             description: "Heading for career experience",
           })}
         </Heading>
-        {shareProfile && (
+        {contentIsVisible && (
           <Button
             type="button"
             mode="inline"
@@ -211,7 +212,7 @@ const FullCareerExperiences = ({
 
       <Card.Separator className="my-9" />
 
-      {shareProfile ? (
+      {contentIsVisible ? (
         <>
           <div className="mb-3 flex items-center gap-6">
             <p id={showExperienceByLabelId}>
@@ -294,26 +295,7 @@ const FullCareerExperiences = ({
           ) : null}
         </>
       ) : (
-        <Notice.Root color="error">
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "This nominee has not agreed to share their information with your community",
-              id: "4ujr5X",
-              description: "Null message for nominee profile",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                id: "8plD42",
-                description: "Null secondary message for nominee profile",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
+        <ErrorNotice reason={contentHiddenReason} />
       )}
     </>
   );

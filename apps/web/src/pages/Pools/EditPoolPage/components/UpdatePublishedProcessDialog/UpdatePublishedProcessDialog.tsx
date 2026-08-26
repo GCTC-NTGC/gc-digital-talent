@@ -30,13 +30,6 @@ const UpdatePublishedProcessDialog_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     name {
       en
       fr
@@ -63,7 +56,6 @@ const UpdatePublishedProcessDialog = ({
   const title = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
 

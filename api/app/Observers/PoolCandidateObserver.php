@@ -31,8 +31,8 @@ class PoolCandidateObserver
         // NOTE: We only send when the user is being placed or changed from indeterminate
         $oldPlacement = $poolCandidate->getOriginal('placement_type');
         $newPlacement = $poolCandidate->placement_type;
-        $fromOrToIndertimante = $oldPlacement === PlacementType::PLACED_INDETERMINATE->name || $newPlacement === PlacementType::PLACED_INDETERMINATE->name;
-        $placementChanged = $poolCandidate->wasChanged('placement_type') && $fromOrToIndertimante;
+        $fromOrToIndeterminate = $oldPlacement === PlacementType::PLACED_INDETERMINATE->name || $newPlacement === PlacementType::PLACED_INDETERMINATE->name;
+        $placementChanged = $poolCandidate->wasChanged('placement_type') && $fromOrToIndeterminate;
 
         CandidateStatusChanged::dispatchIf($poolCandidate->wasChanged('application_status'), $poolCandidate);
 
@@ -53,7 +53,7 @@ class PoolCandidateObserver
     /**
      * Determine if the user should be notified of the status/placement change.
      */
-    private function shouldNotifyUser($oldStatus, $newStatus, $placementChanged): bool
+    private function shouldNotifyUser(?string $oldStatus, ?string $newStatus, bool $placementChanged): bool
     {
 
         $triggerGroup = ApplicationStatus::statusChangedNotificationGroup();
