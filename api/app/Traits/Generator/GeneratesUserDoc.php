@@ -763,6 +763,7 @@ trait GeneratesUserDoc
             'department',
             'currentClassification',
             'awardExperiences',
+            'awardExperiences.relatedExperience',
             'communityExperiences',
             'educationExperiences',
             'personalExperiences',
