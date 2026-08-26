@@ -13,7 +13,10 @@ function useIsSmallScreen(threshold: Breakpoint): boolean;
 function useIsSmallScreen(threshold: string): boolean;
 function useIsSmallScreen(threshold: string): boolean {
   const value = breakpoints[threshold as Breakpoint] ?? threshold;
-  const query = `(max-width: ${value})`;
+  // Must be the exact complement of the Tailwind `sm:` variant, which compiles
+  // to `(width >= <value>)`. A `max-width` query would also match at exactly
+  // <value>, leaving CSS on the desktop side while this hook reports mobile.
+  const query = `(width < ${value})`;
 
   const [isSmallScreen, setIsSmallScreen] = useState(
     typeof window !== "undefined" ? window.matchMedia(query).matches : false,
