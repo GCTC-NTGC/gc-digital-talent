@@ -78,38 +78,63 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
         // seed some nominations for the "Employees you've nominated". That tab shows nominations where the employee is
         // split into drafts vs submitted and open vs closed (by the event's close date).
 
-        // a couple of drafts at different stages (open event)
-        TalentNomination::factory()
-            ->count(1)
-            ->submittedInstructions()
-            ->create([
-                'talent_nomination_event_id' => $activeEvent->id,
-                'submitter_id' => $employee->id,
-            ]);
+        // a draft nomination on an open event
         TalentNomination::factory()
             ->count(1)
             ->submittedNominationDetails()
             ->create([
                 'talent_nomination_event_id' => $activeEvent->id,
                 'submitter_id' => $employee->id,
+                'submitted_at' => null, // not submitted
             ]);
 
-        // a couple of submitted nominations on an open event
-        TalentNomination::factory()
-            ->count(2)
-            ->submittedReviewAndSubmit()
-            ->create([
-                'talent_nomination_event_id' => $activeEvent->id,
-                'submitter_id' => $employee->id,
-            ]);
-
-        // a submitted nomination on a closed/past event, so the open/closed toggle appears
+        // a submitted nomination on an open event
         TalentNomination::factory()
             ->count(1)
             ->submittedReviewAndSubmit()
             ->create([
+                'talent_nomination_event_id' => $activeEvent->id,
+                'submitter_id' => $employee->id,
+                'submitted_at' => $activeEvent->close_date->subDays(1), // submitted before the event closes
+            ]);
+
+        // a submitted nomination on an open event
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $activeEvent->id,
+                'submitter_id' => $employee->id,
+                'submitted_at' => $activeEvent->close_date->subDays(3), // submitted before the event closes
+            ]);
+
+        // a submitted nomination on a closed/past event, so the open/closed toggle appears
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->count(1)
+            ->create([
                 'talent_nomination_event_id' => $pastEvent->id,
                 'submitter_id' => $employee->id,
+                'submitted_at' => $pastEvent->close_date->subDays(1), // submitted before the event closes
+            ]);
+
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->count(1)
+            ->create([
+                'talent_nomination_event_id' => $pastEvent->id,
+                'submitter_id' => $employee->id,
+                'submitted_at' => $pastEvent->close_date->subDays(10), // submitted before the event closes
+            ]);
+
+        // a draft nomination on a closed/past event
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $pastEvent->id,
+                'submitter_id' => $employee->id,
+                'submitted_at' => null, // not submitted
             ]);
     }
 }

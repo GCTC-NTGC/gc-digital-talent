@@ -20,7 +20,6 @@ export const EmployeesNominated_Fragment = graphql(/* GraphQL */ `
   fragment EmployeesNominated on User {
     talentNominationsAsSubmitter {
       id
-      updatedAt
       submittedAt
       nominee {
         id
@@ -54,26 +53,30 @@ const EmployeesNominated = ({
   const user = getFragment(EmployeesNominated_Fragment, userQuery);
 
   // Sort nominations
-  const nominations = unpackMaybes(user?.talentNominationsAsSubmitter)
-    .sort((a, b) => {
-      const aUpdated = a?.updatedAt
-        ? new Date(a.updatedAt).getTime()
+  const nominations = unpackMaybes(user?.talentNominationsAsSubmitter).sort(
+    (a, b) => {
+      // sort drafts before submitted nominations
+      const submittedOrder = (a.submittedAt ? 1 : 0) - (b.submittedAt ? 1 : 0);
+      if (submittedOrder !== 0) return submittedOrder;
+
+      // Submitted nominations most recent first
+      if (a.submittedAt && b.submittedAt) {
+        return (
+          parseDateTimeUtc(b.submittedAt).getTime() -
+          parseDateTimeUtc(a.submittedAt).getTime()
+        );
+      }
+
+      // Drafts sort by close date, closest to closing first
+      const aCloseDate = a.talentNominationEvent?.closeDate
+        ? parseDateTimeUtc(a.talentNominationEvent.closeDate).getTime()
         : MAX_DATE.getTime();
-      const bUpdated = b?.updatedAt
-        ? new Date(b.updatedAt).getTime()
+      const bCloseDate = b.talentNominationEvent?.closeDate
+        ? parseDateTimeUtc(b.talentNominationEvent.closeDate).getTime()
         : MAX_DATE.getTime();
-      return aUpdated - bUpdated;
-    })
-    .sort((a, b) => {
-      const aDeadline = a?.talentNominationEvent?.closeDate
-        ? new Date(a.talentNominationEvent.closeDate).getTime()
-        : MAX_DATE.getTime();
-      const bDeadline = b?.talentNominationEvent?.closeDate
-        ? new Date(b.talentNominationEvent.closeDate).getTime()
-        : MAX_DATE.getTime();
-      return aDeadline - bDeadline;
-    })
-    .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
+      return aCloseDate - bCloseDate;
+    },
+  );
 
   const hasClosedNominations = nominations.some((nomination) =>
     isNominationClosed(nomination.talentNominationEvent?.closeDate),
