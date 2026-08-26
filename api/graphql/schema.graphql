@@ -422,6 +422,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+  isVerifiedGovEmployee: Boolean
 }
 
 # Mini type to support search by work email
@@ -1019,7 +1020,8 @@ type TalentNominationGroup {
   comments: String
   classificationAtTimeOfAdvancementApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  advancementReferralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -2731,7 +2733,8 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  advancementReferralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {

@@ -1087,6 +1087,7 @@ type BasicGovEmployeeProfile {
   role: String
   department: Department
   classification: Classification
+  isVerifiedGovEmployee: Boolean
 }
 
 type UserWorkEmail {
@@ -1526,7 +1527,7 @@ type TalentNominationGroup {
   comments: String
   classificationAtTimeOfAdvancementApproval: Classification
   advancementClassifications: [Classification!]
-  referralExpiryDate: Date
+  advancementReferralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -2679,7 +2680,7 @@ input UpdateTalentNominationGroupInput {
   developmentProgramsNotes: String
   comments: String
   advancementClassifications: ClassificationBelongsToMany
-  referralExpiryDate: Date
+  advancementReferralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
@@ -4206,8 +4207,8 @@ enum ErrorCode {
   NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   ADVANCEMENT_CLASSIFICATIONS_REQUIRED
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
-  REFERRAL_EXPIRY_DATE_REQUIRED
-  REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED

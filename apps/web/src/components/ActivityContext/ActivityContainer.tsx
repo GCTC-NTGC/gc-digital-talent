@@ -8,11 +8,8 @@ import InactivityDialog, {
   type InactivityDialogProps,
 } from "./InactivityDialog";
 
-// const timeout = 1000 * 60 * 60; // 60 minutes to milliseconds
-// const promptBeforeIdle = 1000 * 60 * 5; // prompt five minutes before timing out
-
-const timeout = 1000 * 60 * 7; // 7 minutes
-const promptBeforeIdle = 1000 * 60; // prompt at the 6-minute mark
+const timeout = 1000 * 60 * 60; // 60 minutes to milliseconds
+const promptBeforeIdle = 1000 * 60 * 5; // prompt five minutes before timing out
 
 interface InnerActivityContainerProps {
   logout: ReturnType<typeof useAuthentication>["logout"];
