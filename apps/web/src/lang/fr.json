@@ -799,10 +799,6 @@
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
   },
-  "sDBI5c": {
-    "defaultMessage": "Options de classification recommandées pour le candidat",
-    "description": "Label for advancement eligible classifications field"
-  },
   "13WmnE": {
     "defaultMessage": "Modifier le stade de l'évaluation",
     "description": "Heading for form to update a candidates assessment stage"
@@ -13957,6 +13953,10 @@
   "sBU6QB": {
     "defaultMessage": "Membres du ministère",
     "description": "Page title for the department manage access page"
+  },
+  "sDBI5c": {
+    "defaultMessage": "Options de classification recommandées pour le candidat",
+    "description": "Label for advancement eligible classifications field"
   },
   "sDqpzq": {
     "defaultMessage": "Télécharger la trousse du gestionnaire",
