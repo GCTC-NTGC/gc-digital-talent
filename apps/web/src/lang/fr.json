@@ -799,6 +799,10 @@
     "defaultMessage": "nous <strong>recherchons un employé hautement qualifié ou expérimenté</strong> qui peut assumer immédiatement toutes les responsabilités du poste.",
     "description": "List of conditions for starting at a higher rate, item 3"
   },
+  "12rHnD": {
+    "defaultMessage": "Options de classification recommandées pour le candidat",
+    "description": "Label for advancement eligible classifications field"
+  },
   "13WmnE": {
     "defaultMessage": "Modifier le stade de l'évaluation",
     "description": "Heading for form to update a candidates assessment stage"
@@ -974,6 +978,10 @@
   "1d2BaE": {
     "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
     "description": "Definition for 'hybrid positions'"
+  },
+  "1e2+hH": {
+    "defaultMessage": "Classifications recommandées pour promotion",
+    "description": "Label for advancement eligible classifications field"
   },
   "1e84jV": {
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
@@ -5510,6 +5518,10 @@
   "Jv/Blc": {
     "defaultMessage": "Afficher toutes les informations disponibles pour cet utilisateur ou cette utilisatrice.",
     "description": "Subtitle for user section"
+  },
+  "JwOJSW": {
+    "defaultMessage": "Veuillez recommander une ou plusieurs options de classification pour lesquelles le candidat doit être pris en considération durant le processus de recommandation, compte tenu de la classification de son poste d’attache et de son rendement actuels.",
+    "description": "Intro for advancement nomination classification selection"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
