@@ -1,5 +1,6 @@
 import ChatBubbleBottomCenterTextIcon from "@heroicons/react/24/outline/ChatBubbleBottomCenterTextIcon";
 import { defineMessage, useIntl } from "react-intl";
+import { useId } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -79,6 +80,7 @@ interface RationaleProps {
 }
 
 const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
+  const descriptionId = useId();
   const intl = useIntl();
   const locale = getLocale(intl);
   const wordLimitMultiplier =
@@ -132,7 +134,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
         {talentNomination?.talentNominationEvent
           .includeLeadershipCompetencies && (
           <>
-            <p className="mt-6">
+            <p className="mt-6" id={descriptionId}>
               {intl.formatMessage({
                 defaultMessage:
                   "Please provide the top 3 key leadership competencies demonstrated by the nominee.",
@@ -157,6 +159,7 @@ const Rationale = ({ rationaleQuery, skillsQuery }: RationaleProps) => {
                 },
               }}
               label={intl.formatMessage(labels.leadershipCompetencies)}
+              aria-describedby={descriptionId}
               options={unpackMaybes(skills).map((skill) => ({
                 value: skill.id,
                 label:
