@@ -192,7 +192,7 @@ const generateWork = (): GeneratedWorkExperience => {
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
-    department: fakeDepartments()[5],
+    department: fakeDepartments(true)[5],
     employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
     govEmploymentType: toLocalizedEnum(GovEmployeeType.Contractor),
     govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
