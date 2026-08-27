@@ -3919,16 +3919,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v5.10.2",
+            "version": "v5.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "2072cdd00e7b1cd40d9ddcc080f329b12f85775a"
+                "reference": "768de11ba9634394501bceb6f24944d0624caaa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/2072cdd00e7b1cd40d9ddcc080f329b12f85775a",
-                "reference": "2072cdd00e7b1cd40d9ddcc080f329b12f85775a",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/768de11ba9634394501bceb6f24944d0624caaa5",
+                "reference": "768de11ba9634394501bceb6f24944d0624caaa5",
                 "shasum": ""
             },
             "require": {
@@ -3948,7 +3948,7 @@
                 "phpstan/phpstan": "^2.2.8",
                 "phpstan/phpstan-phpunit": "^2.0.18",
                 "phpstan/phpstan-strict-rules": "^2.0.12",
-                "phpunit/phpunit": "^13.2.6"
+                "phpunit/phpunit": "^13.3.1"
             },
             "suggest": {
                 "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
@@ -3996,7 +3996,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v5.10.2"
+                "source": "https://github.com/openspout/openspout/tree/v5.10.3"
             },
             "funding": [
                 {
@@ -4008,7 +4008,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-05T08:27:38+00:00"
+            "time": "2026-08-17T06:24:46+00:00"
         },
         {
             "name": "phpoffice/math",
