@@ -167,16 +167,16 @@ class TalentManagement extends AppPage {
     await this.page.getByRole("option").first().click();
     await this.page.keyboard.press("Tab");
 
-    const referralExpiryDate = this.page.getByRole("group", {
+    const advancementReferralExpiryDate = this.page.getByRole("group", {
       name: /referral expiry date/i,
     });
-    await referralExpiryDate
+    await advancementReferralExpiryDate
       .getByRole("spinbutton", { name: /year/i })
       .fill("2099");
-    await referralExpiryDate
+    await advancementReferralExpiryDate
       .getByRole("combobox", { name: /month/i })
       .selectOption("12");
-    await referralExpiryDate
+    await advancementReferralExpiryDate
       .getByRole("spinbutton", { name: /day/i })
       .fill("31");
 
