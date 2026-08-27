@@ -3147,10 +3147,6 @@
     "defaultMessage": "CléGC est en cours de remplacement",
     "description": "Title for important update notic"
   },
-  "AJ9XL4": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi cette personne est nominée. Veuillez également indiquer les trois principales compétences clés en leadership dont le nominé ou la nominée fait preuve.",
-    "description": "Subtitle for nomination rationale step with leadership competencies"
-  },
   "ALIgEC": {
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -5002,6 +4998,10 @@
   "I78S4w": {
     "defaultMessage": "Détails de l’emploi",
     "description": "The job details of a job poster template"
+  },
+  "I7F7E1": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi cette personne est nominée.",
+    "description": "Description for nomination rationale step"
   },
   "I7qIfR": {
     "defaultMessage": "Navigation des pages des activités du processus",
@@ -10714,6 +10714,10 @@
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
   },
+  "fL9Qgn": {
+    "defaultMessage": "Veuillez indiquer les trois principales compétences clés en leadership dont le nominé ou la nominée fait preuve.",
+    "description": "Description for nomination rationale step with leadership competencies"
+  },
   "fM48Ck": {
     "defaultMessage": "Pour retirer entièrement cette collectivité fonctionnelle, utilisez le bouton de la poubelle sur l'écran précédent et enregistrez vos modifications.",
     "description": "Instructions for deselecting work streams"
@@ -12105,10 +12109,6 @@
   "kY05h1": {
     "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
     "description": "Message displayed when a user successfully updates sitewide announcement information"
-  },
-  "kYuVEA": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne est nominée.",
-    "description": "Subtitle for nomination rationale step without leadership competencies"
   },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
