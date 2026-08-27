@@ -495,8 +495,8 @@ const DetailsFields = ({
                 isMulti
                 label={intl.formatMessage({
                   defaultMessage:
-                    "Classifications this nominee is recommended to advance to",
-                  id: "12rHnD",
+                    "Classification options recommended for this nominee",
+                  id: "sDBI5c",
                   description:
                     "Label for advancement eligible classifications field",
                 })}
