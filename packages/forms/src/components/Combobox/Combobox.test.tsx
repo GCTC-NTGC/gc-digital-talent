@@ -33,7 +33,10 @@ const Form = ({ defaultValues, comboboxProps }: FormProps) => {
   );
 };
 
-const renderCombobox = (defaultValues: FieldValues) =>
+const renderCombobox = (
+  defaultValues: FieldValues,
+  overrideProps: Partial<ComboboxProps> = {},
+) =>
   renderWithProviders(
     <Form
       defaultValues={defaultValues}
@@ -43,6 +46,7 @@ const renderCombobox = (defaultValues: FieldValues) =>
         isMulti: true,
         label: "Work streams",
         options,
+        ...overrideProps,
       }}
     />,
   );
@@ -78,5 +82,34 @@ describe("Combobox", () => {
     expect(
       screen.getByRole("button", { name: /access to information/i }),
     ).toBeInTheDocument();
+  });
+
+  it("forwards a caller-supplied aria-describedby to the input", async () => {
+    renderCombobox({ streams: [] }, { "aria-describedby": "external-help" });
+
+    expect(await screen.findByRole("combobox")).toHaveAttribute(
+      "aria-describedby",
+      "external-help",
+    );
+  });
+
+  it("merges a caller-supplied aria-describedby with the internal context id", async () => {
+    renderCombobox(
+      { streams: [] },
+      { "aria-describedby": "external-help", context: "Pick your streams" },
+    );
+
+    expect(await screen.findByRole("combobox")).toHaveAttribute(
+      "aria-describedby",
+      "external-help context-streams",
+    );
+  });
+
+  it("omits aria-describedby when the caller passes none", async () => {
+    renderCombobox({ streams: [] });
+
+    expect(await screen.findByRole("combobox")).not.toHaveAttribute(
+      "aria-describedby",
+    );
   });
 });
