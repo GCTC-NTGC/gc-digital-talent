@@ -355,7 +355,7 @@ const DetailsFields = ({
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Provide a secondary senior leader reference who can confirm the candidate's readiness for promotion.",
+                      "Provide a secondary leader reference who can confirm the candidate's readiness for promotion.",
                     id: "fhpWug",
                     description:
                       "Description for advancement options section in nominations details step",
