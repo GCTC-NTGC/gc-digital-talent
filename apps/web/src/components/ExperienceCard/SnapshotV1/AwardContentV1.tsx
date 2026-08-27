@@ -11,7 +11,7 @@ import type { ContentProps } from "../types";
 const AwardContentV1 = ({
   experience: { awardedTo, issuedBy, awardedScope },
   headingLevel,
-}: ContentProps<Omit<AwardExperience, "user">>) => {
+}: ContentProps<Omit<AwardExperience, "user" | "relatedExperience">>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
