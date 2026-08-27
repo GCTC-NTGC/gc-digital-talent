@@ -367,12 +367,7 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($sources, $filters) {
             foreach ($sources as $index => $source) {
-                if ($index === 0) {
-                    // First iteration must use whereHas instead of orWhereHas
-                    $query->whereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
-                } else {
-                    $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
-                }
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
             }
         });
     }
