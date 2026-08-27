@@ -1,19 +1,23 @@
-import { TargetRole, type EmployeeProfile } from "@gc-digital-talent/graphql";
+import type { CSuiteRoleTitle } from "@gc-digital-talent/graphql";
+import { TargetRole } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
-type EmployeeProfileNextRoleFragment = Pick<
-  EmployeeProfile,
-  | "nextRoleClassification"
-  | "nextRoleTargetRole"
-  | "nextRoleTargetRoleOther"
-  | "nextRoleJobTitle"
-  | "nextRoleCommunity"
-  | "nextRoleCommunityOther"
-  | "nextRoleWorkStreams"
-  | "nextRoleDepartments"
-  | "nextRoleAdditionalInformation"
-  | "nextRoleIsCSuiteRole"
-  | "nextRoleCSuiteRoleTitle"
->;
+interface IncompleteFields {
+  nextRoleTargetRole?: LocalizedEnumValue<TargetRole> | null;
+  nextRoleTargetRoleOther?: string | null;
+  nextRoleCommunity?: { id: string } | null;
+  nextRoleCommunityOther?: string | null;
+  nextRoleIsCSuiteRole?: boolean | null;
+  nextRoleCSuiteRoleTitle?: LocalizedEnumValue<CSuiteRoleTitle> | null;
+}
+
+interface AllFields extends IncompleteFields {
+  nextRoleClassification?: { id: string } | null;
+  nextRoleJobTitle?: string | null;
+  nextRoleWorkStreams?: { id: string }[] | null;
+  nextRoleDepartments?: { id: string }[] | null;
+  nextRoleAdditionalInformation?: string | null;
+}
 
 export function hasAllEmptyFields({
   nextRoleClassification,
@@ -27,7 +31,7 @@ export function hasAllEmptyFields({
   nextRoleAdditionalInformation,
   nextRoleIsCSuiteRole,
   nextRoleCSuiteRoleTitle,
-}: EmployeeProfileNextRoleFragment): boolean {
+}: AllFields): boolean {
   return (
     !nextRoleClassification &&
     !nextRoleTargetRole &&
@@ -50,7 +54,7 @@ export function hasIncompleteRequiredFields({
   nextRoleCommunityOther,
   nextRoleIsCSuiteRole,
   nextRoleCSuiteRoleTitle,
-}: EmployeeProfileNextRoleFragment): boolean {
+}: IncompleteFields): boolean {
   return (
     !nextRoleTargetRole ||
     (nextRoleTargetRole?.value === TargetRole.Other &&
@@ -60,9 +64,7 @@ export function hasIncompleteRequiredFields({
   );
 }
 
-export function hasEmptyRequiredFields(
-  _: EmployeeProfileNextRoleFragment,
-): boolean {
+export function hasEmptyRequiredFields(_: unknown): boolean {
   // no required fields
   return false;
 }

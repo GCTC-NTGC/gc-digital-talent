@@ -138,6 +138,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
+    {
+      label: intl.formatMessage(adminMessages.rolesAndPermissions),
+      href: adminRoutes.rolesAndPermissions(),
+      roles: [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityTalentCoordinator,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+      ],
+    },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),

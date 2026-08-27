@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Enums\CommunityInterestAdditionalDuty;
+use App\Enums\CommunityReferralStatus;
 use App\Enums\DevelopmentProgramParticipationStatus;
 use App\Enums\ErrorCode;
 use App\Models\Community;
@@ -696,6 +697,63 @@ class CommunityInterestTest extends TestCase
             ]
         )->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityInterestWithBothInterests->id]);
+    }
+
+    public function testCommunityInterestFilterByReferralStatus(): void
+    {
+        CommunityInterest::truncate();
+        $pendingInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory()->withGovEmployeeProfile(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'referral_status' => CommunityReferralStatus::PENDING->name,
+        ]);
+        $availableInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory()->withGovEmployeeProfile(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'referral_status' => CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name,
+        ]);
+        $notReferredInterest = CommunityInterest::factory()->create([
+            'user_id' => User::factory()->withGovEmployeeProfile(),
+            'community_id' => $this->communityId,
+            'consent_to_share_profile' => true,
+            'referral_status' => CommunityReferralStatus::NOT_REFERRED->name,
+        ]);
+
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'referralStatuses' => [CommunityReferralStatus::PENDING->name],
+                ],
+            ]
+        )->assertJsonFragment(['total' => 1])
+            ->assertJsonFragment(['id' => $pendingInterest->id]);
+
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [
+                    'referralStatuses' => [
+                        CommunityReferralStatus::PENDING->name,
+                        CommunityReferralStatus::AVAILABLE_FOR_REFERRAL->name,
+                    ],
+                ],
+            ]
+        )->assertJsonFragment(['total' => 2])
+            ->assertJsonFragment(['id' => $pendingInterest->id])
+            ->assertJsonFragment(['id' => $availableInterest->id]);
+
+        $this->actingAs($this->communityTalentCoordinator, 'api')->graphQL(
+            $this->paginatedCommunityInterestsQuery,
+            [
+                'where' => [],
+            ]
+        )->assertJsonFragment(['total' => 3])
+            ->assertJsonFragment(['id' => $pendingInterest->id])
+            ->assertJsonFragment(['id' => $availableInterest->id])
+            ->assertJsonFragment(['id' => $notReferredInterest->id]);
     }
 
     /**

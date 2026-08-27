@@ -1,7 +1,9 @@
-import type { Pool } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({
-  specialNote,
-}: Pick<Pool, "specialNote">): boolean {
+interface SpecialNoteFields {
+  specialNote?: LocalizedString | null;
+}
+
+export function hasAllEmptyFields({ specialNote }: SpecialNoteFields): boolean {
   return !!(!specialNote?.en && !specialNote?.fr);
 }

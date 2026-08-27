@@ -1447,6 +1447,10 @@
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
   },
+  "kBUk+T": {
+    "defaultMessage": "Date de suivi",
+    "description": "Label displayed before follow-up date"
+  },
   "kDw+xr": {
     "defaultMessage": "Chaque compétence doit être incluse dans une évaluation",
     "description": "Error message that the pool advertisement skills are lacking an assessment"
@@ -1855,6 +1859,10 @@
     "defaultMessage": "La date doit être égale ou postérieure à la {label}",
     "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
   },
+  "wpNvbg": {
+    "defaultMessage": "Aucune organisation",
+    "description": "Placeholder for when the department can not be displayed"
+  },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
@@ -1907,6 +1915,10 @@
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
   },
+  "xuxKpE": {
+    "defaultMessage": "Aucune classification",
+    "description": "Placeholder for when the classification can not be displayed"
+  },
   "y4oBW4": {
     "defaultMessage": "Décembre",
     "description": "Name of the twelfth month"
@@ -1930,6 +1942,10 @@
   "yz4qnT": {
     "defaultMessage": "Classifications",
     "description": "Name of classifications page"
+  },
+  "z4XcnS": {
+    "defaultMessage": "Voir le profil",
+    "description": "Link text to view a user's profile"
   },
   "z7UVe6": {
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",

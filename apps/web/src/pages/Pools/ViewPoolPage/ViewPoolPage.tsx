@@ -53,13 +53,6 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
     ...AssessmentPlanStatus
     id
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     publishedAt
     isComplete
     status {
@@ -122,7 +115,6 @@ export const ViewPool = ({
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const advertisementStatus = getAdvertisementStatus({
