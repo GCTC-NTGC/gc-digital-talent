@@ -3,10 +3,20 @@
 Spike output for [#17384](https://github.com/GC-Digital-Talent/gc-digital-talent/issues/17384), under the
 epic [#16136 Improving request tracking](https://github.com/GC-Digital-Talent/gc-digital-talent/issues/16136).
 
-The queries live in [`talent-request-success-metrics.sql`](./talent-request-success-metrics.sql).
-This document covers what each metric means, what it cannot tell us, and the
-options for collecting it on a recurring basis. Every metric is sliced by
-community, with an overall total row alongside.
+This document covers what each metric means, what it cannot tell us, and how it
+is collected. Every metric is sliced by community, with an overall total row
+alongside.
+
+The metrics are now served in-app at **`/admin/settings/metrics`**, to platform
+admins only. **The PHP implementation is canonical**:
+`api/app/Services/Metrics/TalentRequestMetricsCalculator.php` is what the
+product actually runs.
+
+[`talent-request-success-metrics.sql`](./talent-request-success-metrics.sql)
+remains as the readable reference and the Power BI source. **Nothing enforces
+that the two agree** — no test compares them — so a change to a metric's
+definition has to be made in both places, and a change made only in the SQL will
+not reach the page. Treat the PHP as the answer whenever they differ.
 
 ## The six metrics
 
@@ -126,9 +136,47 @@ requests would drag metrics 4–6 toward zero for reasons that have nothing to d
 with performance. Metrics 1–3 could technically reach back further, but using one
 window for all six keeps them comparable.
 
-Adjust the date literal in each query, or bind it to a parameter, to move the window.
+In the SQL, adjust the date literal in each query or bind it to a parameter. In
+the product it is `TalentRequestMetricsCalculator::WINDOW_START`, and it belongs
+to the metric group rather than to the snapshot — a future group of metrics can
+carry its own window without disturbing this one.
 
-## Collection options
+## How the metrics are collected
+
+`app:compute-platform-metrics` runs nightly at 2:00 Eastern
+(`api/app/Console/Kernel.php`) and writes one row to
+`platform_metric_snapshots`. The page reads the most recent row; it never
+computes on request.
+
+That indirection is not incidental. `activity_log` has no index on `created_at`
+or `event`, so metrics 2 and 3 seq-scan it — acceptable once a night, not on a
+page load. There is no Redis in this environment (production is Azure App
+Service with a per-slot file cache, and Lighthouse's cache tags are disabled),
+so a precomputed table is the only cache that survives a restart and is shared
+across instances.
+
+Consequences to expect:
+
+- **Figures can be up to a day stale.** The page states when the snapshot was
+  computed, and the CSV filename carries that same date so a downloaded file
+  identifies the run it came from.
+- **The page can legitimately show nothing.** Before the first nightly run — and
+  again briefly after any release that changes the payload shape — there is no
+  readable snapshot and the page shows an empty state. That is expected, not an
+  error. See `PlatformMetricSnapshot::SHAPE_VERSION`.
+- **Snapshots accumulate.** Rows are never updated or pruned, which is what
+  makes charting these over time possible later.
+
+Adding a new group of metrics means implementing `MetricsCalculator`, listing it
+in `PlatformMetricsCollector`, and bumping `SHAPE_VERSION`.
+
+## Collection options considered
+
+> These were the options weighed during the spike. **Option C was chosen and
+> built**, contrary to the spike's own recommendation — the argument that won
+> was that definitions living in the codebase cannot drift from the enums they
+> depend on, and that the numbers reach anyone with the right role without a BI
+> licence. Kept here because the trade-offs still apply to whoever maintains it.
 
 ### Option A — Artisan command
 
@@ -202,20 +250,26 @@ synchronously on page load without caching or a materialized rollup.
   whether these six metrics are the right six. Premature to commit to while
   metric 5 suggests tracked-user adoption is still ramping.
 
-### Recommendation
+### What was decided
 
-**B now, A shortly after, C only if the metrics prove themselves.**
+The spike recommended **B now, A shortly after, C only if the metrics prove
+themselves** — Power BI first, because it costs almost no engineering time.
 
-Power BI gets numbers in front of people this week at near-zero engineering cost,
-which is the actual point of a spike. Adding the artisan command afterward gives
-a reviewable, version-controlled implementation of the same definitions and a
-way to spot drift in the Power BI copy.
+**C was built instead**, and A came with it: the nightly artisan command is
+option A, and the dashboard reads what it produces. Option B remains available,
+since the `.sql` file is unchanged and Power BI still has read access to
+production.
 
-Hold option C until the metrics have been reported a few times and we know which
-ones people actually use. Building a dashboard for six metrics chosen before any
-of them had been measured is how you end up maintaining four charts nobody reads.
+The spike's caution against C still stands as a risk rather than a mistake:
+these six metrics were chosen before any of them had been measured, so some may
+turn out to be the wrong six. The cheapest response is to delete a section, not
+to keep it out of loyalty to the original list.
 
-## When to collect, and how often
+## When to read them, and how often
+
+Collection is automatic now — the question is when the numbers are worth
+_reading_, which is not the same thing. Nightly computation means a figure is
+always available; it does not mean a figure is always meaningful.
 
 **First read: roughly three months after launch**, so around September 2026.
 That is not arbitrary — metric 3 cannot produce a meaningful median until a
@@ -224,7 +278,8 @@ describes only the fastest requests. A first read taken too early will look
 flattering and be wrong.
 
 There is one measurement worth taking _immediately_, though, and it is not one of
-the six: `requests_with_no_tracked_users` from query 5. If admins are not using
+the six: `requestsWithNoTrackedUsers`, shown as "Nobody tracked" on the
+referrals-per-request table. If admins are not using
 the tracked-users feature, metrics 5 and 6 will be meaningless in three months
 and it is much cheaper to find that out now.
 
@@ -238,3 +293,35 @@ today may not close for months, so a month's figures keep changing after that
 month ends. Report them against submission cohorts, not "requests closed this
 month", and expect recent months to fill in. Second, do not read a month-over-month
 change as a trend until the underlying counts are in the dozens.
+
+## Follow-up if this is adopted
+
+**Define a ticket for `activity_log` indexing.** Deliberately not filed yet — it
+only matters if the nightly metrics job ships.
+
+`activity_log` has no index on `created_at` or `event`:
+
+- `activity_log_pkey` — `id`
+- `activity_log_log_name_index` — `log_name`
+- `causer` — `(causer_type, causer_id)`
+- `subject` — `(subject_type, subject_id)`
+
+The metrics queries filter `subject_type` + `event = 'updated'` and aggregate
+over `created_at`, so metrics 2 and 3 seq-scan the table. That is the only
+access pattern in the codebase with no usable index — the process activity page
+(`Pool.activities`, via `Activity::scopeWhereIsAggregatePoolActivity`) narrows
+by `log_name` and `(subject_type, subject_id)` first, both indexed, before its
+own `created_at` and `event` filters apply.
+
+So the cost here is one nightly seq-scan off the request path, which is why this
+is a follow-up rather than a blocker. Anyone picking it up should measure before
+indexing — `EXPLAIN (ANALYZE, BUFFERS)` against production-sized data — and
+check the table's row count first: `api/config/activitylog.php` sets
+`clean_after_days => 365`, but nothing in `api/app/Console/Kernel.php` schedules
+`activitylog:clean`, so the table may hold far more than a year. Pruning would
+beat any index.
+
+Two unindexable queries on that same table are worth measuring at the same time,
+though neither is caused by this work: `Activity.php` does a
+`whereJsonContains` against the `json` (not `jsonb`) `attribute_changes` column,
+and a `properties::text ILIKE` general search.
