@@ -74,7 +74,7 @@
     "urql": "^5.0.3"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.5.0",
+    "@faker-js/faker": "^10.6.0",
     "@formatjs/cli": "^6.16.14",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
