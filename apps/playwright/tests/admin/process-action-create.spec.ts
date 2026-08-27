@@ -89,8 +89,8 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
     communityName = community?.name?.en ?? "";
     const workStreams = await getWorkStreams(platformAdminCtx, {});
     workStreamName =
-      workStreams.find((ws) => ws.community?.id === community?.id)?.name
-        ?.en ?? "";
+      workStreams.find((ws) => ws.community?.id === community?.id)?.name?.en ??
+      "";
     const classifications = await getClassifications(platformAdminCtx, {});
     const classification = classifications[0];
 

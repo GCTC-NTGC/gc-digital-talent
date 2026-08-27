@@ -140,14 +140,8 @@ test.describe("Application download", { tag: "@uat" }, () => {
     ).toBeVisible();
   });
 
-  // NOTE: Skipping until subscriptions are added so we know when the file has been generated
-  // This was broken when we removed the polling query
-  // Remember, you will need to modify the downloadProfileExcel function for subscriptions likely
-  //
-  // REF: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15038
-  //
-
   test("Verify profile excel contents", async ({ appPage }) => {
+    test.slow();
     const candidatePage = new PoolCandidatePage(appPage.page);
     await loginBySub(candidatePage.page, adminSub);
 

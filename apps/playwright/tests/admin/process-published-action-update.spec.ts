@@ -18,9 +18,9 @@ test.describe("Update published process", { tag: "@uat" }, () => {
   const communityAdminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
   const platformAdminSub =
-    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "platform@test.com";
   const recruiterSub =
-    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "recruiter@test.com";
+    process.env.PLAYWRIGHT_COMMUNITY_RECRUITER_SUB ?? "recruiter@test.com";
 
   async function loginAndNavigate(appPage: AppPage, sub: string) {
     await loginBySub(appPage.page, sub);

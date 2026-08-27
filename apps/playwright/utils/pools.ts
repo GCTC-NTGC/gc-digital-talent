@@ -540,10 +540,7 @@ export const archivePool: GraphQLRequestFunc<Pool, ArchivePoolArgs> = async (
     .then((res) => res.archivePool);
 };
 
-export const retirePublishedPool = async (
-  ctx: GraphQLContext,
-  id: string,
-) => {
+export const retirePublishedPool = async (ctx: GraphQLContext, id: string) => {
   await closePool(ctx, { id });
   await archivePool(ctx, { id });
 };
