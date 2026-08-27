@@ -363,6 +363,10 @@
     "defaultMessage": "Groupe de classification",
     "description": "The classification group for a job poster template"
   },
+  "/OP7BB": {
+    "defaultMessage": "Votre mise en candidature pour une mutation latérale signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
+    "description": "Description for lateral movement nomination meaning"
+  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -1450,6 +1454,10 @@
   "3PwQT7": {
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
+  },
+  "3REesV": {
+    "defaultMessage": "Votre mise en candidature pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "description": "Description for development nomination meaning"
   },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
@@ -4066,6 +4074,10 @@
   "E4AMEH": {
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} one {# expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
+  },
+  "E6/qXV": {
+    "defaultMessage": "Votre mise en candidature pour une promotion signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que la promotion est peutêtre le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. Veuillez communiquer avec l’équipe des activités de la collectivité pour en savoir plus sur cellesci.",
+    "description": "Description for advancement nomination meaning"
   },
   "E8q/Zm": {
     "defaultMessage": "L’archivage de ce ministère le supprimera des options pouvant être sélectionnées dans l’ensemble de la plateforme. Tout ce qui l’utilise déjà ne changera pas.",

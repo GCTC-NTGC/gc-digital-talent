@@ -115,8 +115,8 @@ const NominationsReceivedDialog = ({
           meaning: intl.formatMessage(
             {
               defaultMessage:
-                "Being nominated for advancement means that you have been identified as someone who might benefit from challenging new opportunities. For certain events, this might result in you being referred for opportunities at higher levels than your current substantive classification for a period of time. <link>Reach out to the community event team</link> for event-specific details.",
-              id: "1hARSA",
+                "Being nominated for advancement means that you have been identified as someone who might benefit from new and challenging opportunities. This nomination recognizes that promotion may be the most effective way to maximize your contribution to your organization and the broader public service. <link>Reach out to the community event team</link> for event-specific details.",
+              id: "E6/qXV",
               description: "Description for advancement nomination meaning",
             },
             {
@@ -139,8 +139,8 @@ const NominationsReceivedDialog = ({
           ),
           meaning: intl.formatMessage({
             defaultMessage:
-              "Being nominated for lateral movement means that you might benefit from diversifying your experience in similar roles that will expand your understanding of the enterprise, programs or services. A lateral move is usually suggested to help you prepare for advancement into a role that requires more holistic knowledge or specific skills.",
-            id: "b1sexz",
+              "Being nominated for lateral movement means that you might benefit from diversifying your experience in similar roles that will expand your understanding of the enterprise and its programs and services. Lateral moves can support professional goals and are an opportunity to gain new perspectives, strengthen skills and build the breadth of experience needed for future advancement.",
+            id: "/OP7BB",
             description: "Description for lateral movement nomination meaning",
           }),
         }
@@ -198,8 +198,8 @@ const NominationsReceivedDialog = ({
                 {
                   defaultMessage:
                     "Congratulations on being nominated to {eventName}!",
-                  id: "OC2S1k",
-                  description: "Title of nomination received dialog",
+                  id: "ZlD1Sv",
+                  description: "Title for important update notice",
                 },
                 { eventName: eventName ?? nullMessage },
               )}
@@ -210,8 +210,8 @@ const NominationsReceivedDialog = ({
                   {
                     defaultMessage:
                       "{eventName} is an annual talent management roundtable that identifies EX-01, 02, and 03 talent in the digital community of practice. The roundtable exercise focuses on highlighting leadership potential and potential for the purposes of advancement, lateral movement, and development opportunities.",
-                    id: "SFUV13",
-                    description: "Description of nomination received dialog",
+                    id: "qoR3tk",
+                    description: "Description for important update notice",
                   },
                   { eventName: eventName ?? nullMessage },
                 )}
