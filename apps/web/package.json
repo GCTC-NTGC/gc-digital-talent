@@ -59,7 +59,7 @@
     "get-nonce": "^1.0.1",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
-    "motion": "^13.0.0",
+    "motion": "^13.1.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-focus-on": "^3.10.2",
@@ -71,10 +71,10 @@
     "tailwind-merge": "^3.6.0",
     "tailwind-variants": "^3.3.1",
     "tailwindcss": "^4.3.3",
-    "urql": "^5.0.3"
+    "urql": "^5.0.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^10.5.0",
+    "@faker-js/faker": "^10.6.0",
     "@formatjs/cli": "^6.16.14",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
@@ -83,10 +83,10 @@
     "@gc-digital-talent/vitest-helpers": "workspace:*",
     "@react-router/dev": "^8.3.0",
     "@storybook/addon-designs": "^11.1.4",
-    "@storybook/react-vite": "^10.5.7",
+    "@storybook/react-vite": "^10.5.10",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
-    "@testing-library/user-event": "^14.6.3",
+    "@testing-library/user-event": "^14.6.6",
     "@types/lodash": "^4.17.25",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
@@ -97,7 +97,7 @@
     "prettier": "^3.9.5",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vite": "^8.2.1",
+    "vite": "^8.2.2",
     "vite-plugin-compression2": "^2.5.3",
     "vitest": "^4.1.8",
     "wonka": "^6.3.6"
