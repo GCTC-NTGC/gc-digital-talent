@@ -7719,6 +7719,10 @@
     "defaultMessage": "Statut de ce rôle",
     "description": "Label for status of this role experience field"
   },
+  "T2nOMo": {
+    "defaultMessage": "Réduire toutes<hidden> les sections</hidden> des outils d’assistance",
+    "description": "Button text to close all support tools accordions"
+  },
   "T3aDLD": {
     "defaultMessage": "Les renseignements suivants sont facultatifs, mais ils visent à aider les candidates et candidats à mieux comprendre le processus d'embauche. Vos réponses à ces questions apparaîtront avec d'autres renseignements importants, comme l'équité, les mesures d'adaptation et les coordonnées.",
     "description": "Sub title for common questions"
@@ -8349,6 +8353,10 @@
   "Vfa3Ek": {
     "defaultMessage": "Compétence mise à jour avec succès!",
     "description": "Message displayed when a user updates a skill"
+  },
+  "VgKm/x": {
+    "defaultMessage": "Afficher toutes<hidden> les sections</hidden> des outils d’assistance",
+    "description": "Button text to open all support tools accordions"
   },
   "VgyUtZ": {
     "defaultMessage": "Modifier les rôles liés à un ministère",
@@ -10554,6 +10562,10 @@
     "defaultMessage": "Langue d'expression à l'entrevue",
     "description": "Legend text for spoken interview language preference for interviews"
   },
+  "ej6PFj": {
+    "defaultMessage": "Remplacer le sujet du compte",
+    "description": "Heading for form to update a users subject"
+  },
   "ejzPh7": {
     "defaultMessage": "Veuillez sélectionner les possibilités souples qui vous intéressent quant au lieu de travail. N’oubliez pas que la plupart des emplois au gouvernement du Canada font l’objet d’un modèle de travail hybride.",
     "description": "Flexible work locations field label for work location preference form"
@@ -11657,6 +11669,10 @@
   "imNqyO": {
     "defaultMessage": "Rédaction (ou expression écrite))",
     "description": "Proficiency level related skill on language requirements dialog"
+  },
+  "io5nXU": {
+    "defaultMessage": "Modifier les renseignements sur le compte",
+    "description": "Button text to start editing account information"
   },
   "ipDTrs": {
     "defaultMessage": "Historique des notifications",
@@ -13438,10 +13454,6 @@
     "defaultMessage": "Nous examinons actuellement votre candidature.",
     "description": "Status description for an application under review"
   },
-  "puB/J+": {
-    "defaultMessage": "Mettre à jour les informations",
-    "description": "Submit button text to update user account information"
-  },
   "pvQVVh": {
     "defaultMessage": "Veuillez soumettre cette demande « telle quelle », puis nous vous reviendrons.",
     "description": "Instructions telling the user to submit a request even though there are no candidates"
@@ -14549,10 +14561,6 @@
   "ucT19y": {
     "defaultMessage": "Description",
     "description": "The description of a job poster template"
-  },
-  "ugdr1V": {
-    "defaultMessage": "Mettre à jour le sujet",
-    "description": "Heading for form to update a users subject"
   },
   "uhescL": {
     "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement",
