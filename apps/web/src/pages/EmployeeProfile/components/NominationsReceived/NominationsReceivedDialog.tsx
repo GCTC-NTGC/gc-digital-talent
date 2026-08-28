@@ -31,6 +31,9 @@ export const NominationsReceivedDialog_Fragment = graphql(/* GraphQL */ `
       name {
         localized
       }
+      description {
+        localized
+      }
       community {
         name {
           localized
@@ -72,6 +75,9 @@ const NominationsReceivedDialog = ({
 
   const eventName =
     nominationGroup.talentNominationEvent?.name?.localized ?? nullMessage;
+
+  const eventDescription =
+    nominationGroup.talentNominationEvent?.description?.localized;
 
   const contactEmail = nominationGroup.talentNominationEvent?.contactEmail;
 
@@ -204,19 +210,11 @@ const NominationsReceivedDialog = ({
                 { eventName: eventName ?? nullMessage },
               )}
             </Notice.Title>
-            <Notice.Content>
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "{eventName} is an annual talent management roundtable that identifies EX-01, 02, and 03 talent in the digital community of practice. The roundtable exercise focuses on highlighting leadership potential and potential for the purposes of advancement, lateral movement, and development opportunities.",
-                    id: "qoR3tk",
-                    description: "Description for important update notice",
-                  },
-                  { eventName: eventName ?? nullMessage },
-                )}
-              </p>
-            </Notice.Content>
+            {eventDescription ? (
+              <Notice.Content>
+                <p>{eventDescription}</p>
+              </Notice.Content>
+            ) : null}
           </Notice.Root>
 
           <div className="flex flex-col gap-6">
