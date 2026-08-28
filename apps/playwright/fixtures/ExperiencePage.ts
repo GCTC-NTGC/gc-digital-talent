@@ -697,6 +697,17 @@ class ExperiencePage extends AppPage {
     await this.page.getByRole("option", { name: skill }).click();
     await this.page.getByRole("radio", { name: skillLevel }).check();
   }
+
+  async removeExperience(experienceID: string) {
+    await this.edit(experienceID);
+    await this.page
+      .getByRole("button", { name: /delete this experience/i })
+      .click();
+    await this.page.getByRole("button", { name: /delete/i }).click();
+    await expect(this.page.getByRole("alert").last()).toContainText(
+      /experience deleted/i,
+    );
+  }
 }
 
 export default ExperiencePage;

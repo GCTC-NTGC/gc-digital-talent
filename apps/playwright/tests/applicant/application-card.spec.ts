@@ -23,29 +23,35 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool, deletePool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
-test.describe("Application card", () => {
+test.describe("Application card", { tag: "@uat" }, () => {
   let sub: string;
   let user: User;
   let application: PoolCandidate;
   let poolId: string;
   let poolName: string;
   let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
+  let applicantSub: string;
 
   test.beforeAll(async () => {
     const testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
     sub = `application-card-${testId}`;
     poolName = `Pool ${testId}`;
+    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
 
-    const skill = await getSkills(adminCtx, {}).then((skills) => {
+    const skill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
@@ -78,7 +84,7 @@ test.describe("Application card", () => {
 
     poolId = pool.id;
 
-    const applicantCtx = await graphql.newContext(sub);
+    const applicantCtx = await graphql.newContext(applicantSub);
     const applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
@@ -93,10 +99,10 @@ test.describe("Application card", () => {
 
   test.afterAll(async () => {
     if (user) {
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
     if (poolId) {
-      await deletePool(adminCtx, { id: poolId });
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 
@@ -109,7 +115,7 @@ test.describe("Application card", () => {
     expect(candidate.applicationStatusData?.statusUpdatedAt).toBeTruthy();
 
     const dashboard = new ApplicantDashboardPage(appPage.page);
-    await loginBySub(dashboard.page, sub);
+    await loginBySub(dashboard.page, applicantSub);
     await dashboard.toggleJobApplications();
 
     const expectedDate = rawFormat(

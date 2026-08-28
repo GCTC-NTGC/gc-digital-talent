@@ -1,19 +1,26 @@
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createPool } from "~/utils/pools";
 import { me } from "~/utils/user";
 
 const UPDATE_MUTATION = "UpdatePool";
 
-test.describe("Update pool", () => {
+test.describe("Update pool", { tag: "@uat" }, () => {
+  let adminCtx: GraphQLContext;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
+
   test.beforeEach(async ({ appPage }) => {
-    const adminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+    );
     const user = await me(adminCtx, {});
     const createdPool = await createPool(adminCtx, {
       userId: user.id,
     });
-    await loginBySub(appPage.page, "admin@test.com");
+    await loginBySub(appPage.page, adminSub);
     await appPage.page.goto(`/en/admin/pools/${createdPool.id}`);
     await appPage.waitForGraphqlResponse("ViewPoolPage");
     await appPage.page

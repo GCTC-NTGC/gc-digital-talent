@@ -19,26 +19,39 @@ import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import WordDocument from "~/fixtures/WordDocument";
 import { createAndSubmitApplication } from "~/utils/applications";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 
-test.describe("Application download", () => {
-  let user: User;
+test.describe("Application download", { tag: "@uat" }, () => {
+  let applicant: User;
+  let sub: string;
+  let adminCtx: GraphQLContext;
   let application: PoolCandidate;
+  let poolId: string;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
+  let platformAdminCtx: GraphQLContext;
+  let applicantSub: string;
 
   test.beforeAll(async () => {
     const testId = generateUniqueTestId();
-    const adminCtx = await graphql.newContext();
-    const sub = `application.download.${testId}`;
+    sub = `application.download.${testId}`;
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+    );
 
-    const skill = await getSkills(adminCtx, {}).then((skills) => {
+    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
+
+    const skill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
@@ -86,11 +99,10 @@ test.describe("Application download", () => {
         fr: `App download ${testId} (FR)`,
       },
     });
+    poolId = createdPool.id;
 
-    const applicantCtx = await graphql.newContext(
-      createdUser?.authInfo?.sub ?? "applicant@test.com",
-    );
-    const applicant = await me(applicantCtx, {});
+    const applicantCtx = await graphql.newContext(applicantSub);
+    applicant = await me(applicantCtx, {});
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
       poolId: createdPool.id,
@@ -99,12 +111,17 @@ test.describe("Application download", () => {
     });
 
     application = candidate;
-    user = createdUser ?? { id: "" };
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
+    }
   });
 
   test("Verify application download contents", async ({ appPage }) => {
     const candidatePage = new PoolCandidatePage(appPage.page);
-    await loginBySub(candidatePage.page, "admin@test.com");
+    await loginBySub(candidatePage.page, adminSub);
 
     await candidatePage.toGoCandidate(application.id);
 
@@ -113,7 +130,7 @@ test.describe("Application download", () => {
     const doc = new WordDocument(appPage.page);
     await doc.setContent(path);
 
-    const name = user.firstName ?? "Failed test, no user name";
+    const name = applicant.firstName ?? applicantSub;
 
     await expect(
       doc.page.getByRole("heading", { name: new RegExp(name, "i") }),
@@ -123,18 +140,12 @@ test.describe("Application download", () => {
     ).toBeVisible();
   });
 
-  // NOTE: Skipping until subscriptions are added so we know when the file has been generated
-  // This was broken when we removed the polling query
-  // Remember, you will need to modify the downloadProfileExcel function for subscriptions likely
-  //
-  // REF: https://github.com/GCTC-NTGC/gc-digital-talent/issues/15038
-  //
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip("Verify profile excel contents", async ({ appPage }) => {
+  test("Verify profile excel contents", async ({ appPage }) => {
+    test.slow();
     const candidatePage = new PoolCandidatePage(appPage.page);
-    await loginBySub(candidatePage.page, "admin@test.com");
+    await loginBySub(candidatePage.page, adminSub);
 
-    const name = user.firstName ?? "Failed test, no user name";
+    const name = applicant.firstName ?? "Failed test, no user name";
 
     await candidatePage.searchForCandidate(name);
     await candidatePage.page

@@ -3,16 +3,24 @@ import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { me } from "~/utils/user";
 import { loginBySub } from "~/utils/auth";
 import type AppPage from "~/fixtures/AppPage";
 
 const UPDATE_PUBLISHED_MUTATION = "UpdatePublishedPool";
 
-test.describe("Update published process", () => {
+test.describe("Update published process", { tag: "@uat" }, () => {
   let pool: Pool;
+  let adminCtx: GraphQLContext;
+  const communityAdminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "platform@test.com";
+  const recruiterSub =
+    process.env.PLAYWRIGHT_COMMUNITY_RECRUITER_SUB ?? "recruiter@test.com";
 
   async function loginAndNavigate(appPage: AppPage, sub: string) {
     await loginBySub(appPage.page, sub);
@@ -21,8 +29,12 @@ test.describe("Update published process", () => {
   }
 
   test.beforeAll(async () => {
-    const communityCtx = await graphql.newContext("community@test.com");
-    const adminCtx = await graphql.newContext();
+    const communityCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
+    );
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
     const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
@@ -43,10 +55,16 @@ test.describe("Update published process", () => {
     pool = createdPool;
   });
 
+  test.afterAll(async () => {
+    if (pool?.id) {
+      await retirePublishedPool(adminCtx, pool.id);
+    }
+  });
+
   test("Community admin can update process number when published", async ({
     appPage,
   }) => {
-    await loginAndNavigate(appPage, "community@test.com");
+    await loginAndNavigate(appPage, communityAdminSub);
 
     await appPage.page
       .getByRole("button", { name: /edit process number/i })
@@ -75,7 +93,7 @@ test.describe("Update published process", () => {
   test("Platform admin cannot update process number when published", async ({
     appPage,
   }) => {
-    await loginAndNavigate(appPage, "platform@test.com");
+    await loginAndNavigate(appPage, platformAdminSub);
 
     await expect(
       appPage.page.getByRole("button", { name: /edit process number/i }),
@@ -85,7 +103,7 @@ test.describe("Update published process", () => {
   test("Community recruiter cannot update process number when published", async ({
     appPage,
   }) => {
-    await loginAndNavigate(appPage, "recruiter@test.com");
+    await loginAndNavigate(appPage, recruiterSub);
 
     await expect(
       appPage.page.getByRole("button", { name: /edit process number/i }),

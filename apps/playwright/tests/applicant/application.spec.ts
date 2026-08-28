@@ -14,7 +14,7 @@ import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
@@ -456,6 +456,8 @@ test.describe("Application", () => {
           name: /return to your dashboard/i,
         }),
       ).toBeVisible();
+
+      await retirePublishedPool(adminCtx, pool.id);
     },
   );
 

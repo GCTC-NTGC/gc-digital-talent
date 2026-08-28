@@ -5,7 +5,6 @@ import { loginBySub } from "~/utils/auth";
 import { deleteUser } from "~/utils/user";
 import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
 import graphql from "~/utils/graphql";
-import testConfig from "~/constants/config";
 
 import AppPage from "./AppPage";
 import UserPage from "./UserPage";
@@ -142,9 +141,9 @@ class Registration extends AppPage {
     await this.locators[FIELD.SKIP_ADD_WORK_EXPERIENCE].click();
   }
 
-  async deleteNewUser() {
+  async deleteNewUser(sub: string) {
     const userName = `${this.firstName} ${this.lastName}`;
-    await loginBySub(this.page, testConfig.signInSubs.adminSignIn, false);
+    await loginBySub(this.page, sub, false);
     const userPage = new UserPage(this.page);
     await userPage.goToIndex();
     await userPage.searchUserByName(

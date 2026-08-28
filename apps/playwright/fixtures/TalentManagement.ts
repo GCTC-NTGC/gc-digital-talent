@@ -18,13 +18,11 @@ class TalentManagement extends AppPage {
     await this.page.getByRole("button", { name: /status/i }).click();
   }
 
-  async viewActiveTalentNominationEvent() {
+  async viewActiveTalentNominationEvent(eventName: string) {
     await this.page.getByRole("button", { name: /show 10/i }).click();
     await this.page.getByRole("menuitemradio", { name: /^50$/i }).click();
     await this.page.keyboard.press("Escape");
-    await this.page
-      .getByRole("link", { name: /test talent nomination event active en 0/i })
-      .click();
+    await this.page.getByRole("link", { name: eventName }).click();
     await this.waitForGraphqlResponse("TalentEventDetails");
   }
 
@@ -33,8 +31,15 @@ class TalentManagement extends AppPage {
     await this.waitForGraphqlResponse("TalentEventNominations");
   }
 
-  async viewNominee() {
-    await this.page.getByRole("link", { name: /jaime bilodeau/i }).click();
+  async viewNominee(nomineeIdentifier: string) {
+    // Scoped to the nominations table/region -- matching on the page at
+    // large is ambiguous, since the event's own heading/breadcrumb link is
+    // also named "Playwright Event {id} EN" and can share a substring with
+    // a nominee whose last name embeds the same unique test id.
+    await this.page
+      .getByRole("region", { name: /talent nominations/i })
+      .getByRole("link", { name: nomineeIdentifier })
+      .click();
     await this.waitForGraphqlResponse("TalentNominationGroupDetails");
   }
 
@@ -71,7 +76,20 @@ class TalentManagement extends AppPage {
       .getByRole("textbox", {
         name: /reason for not supporting this nomination/i,
       })
-      .last()
+      .nth(1)
+      .fill("Additional details");
+
+    await this.page
+      .getByRole("group", { name: /Development programs approval/i })
+      .getByRole("radio", {
+        name: /this nomination for development programs is not supported./i,
+      })
+      .click();
+    await this.page
+      .getByRole("textbox", {
+        name: /reason for not supporting this nomination/i,
+      })
+      .nth(2)
       .fill("Additional details");
 
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
@@ -105,6 +123,13 @@ class TalentManagement extends AppPage {
       .getByRole("group", { name: /Lateral movement approval/i })
       .getByRole("radio", {
         name: /this nomination for lateral movement is approved./i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /Development programs approval/i })
+      .getByRole("radio", {
+        name: /this nomination for development programs is approved./i,
       })
       .click();
 
@@ -159,6 +184,13 @@ class TalentManagement extends AppPage {
       .getByRole("group", { name: /Lateral movement approval/i })
       .getByRole("radio", {
         name: /this nomination for lateral movement is approved./i,
+      })
+      .click();
+
+    await this.page
+      .getByRole("group", { name: /Development programs approval/i })
+      .getByRole("radio", {
+        name: /this nomination for development programs is approved./i,
       })
       .click();
 

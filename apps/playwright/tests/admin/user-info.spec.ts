@@ -13,11 +13,15 @@ import { createUserWithRoles } from "~/utils/user";
 import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";
 
-test.describe("User information", () => {
-  let adminCtx: GraphQLContext;
+test.describe("User information", { tag: "@uat" }, () => {
+  let platformAdminCtx: GraphQLContext;
   let uniqueTestId: string;
   let user: User;
   let sub: string;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+  const applicantSub =
+    process.env.PLAYWRIGHT_APPLICANT_SUB ?? "applicant@test.com";
 
   const loginAndVisitUser = async (
     appPage: AppPage,
@@ -42,13 +46,15 @@ test.describe("User information", () => {
     const userName = `Playwright ${uniqueTestId}`;
     sub = `playwright.sub.${uniqueTestId}`;
 
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
 
-    const technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
-      return skills.find((s) => s.category.value === SkillCategory.Technical);
-    });
+    const technicalSkill = await getSkills(platformAdminCtx, {}).then(
+      (skills) => {
+        return skills.find((s) => s.category.value === SkillCategory.Technical);
+      },
+    );
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         firstName: userName,
         email: `${sub}@example.org`,
@@ -79,7 +85,7 @@ test.describe("User information", () => {
   });
 
   test("Applicant cannot access", async ({ appPage }) => {
-    await loginBySub(appPage.page, "applicant@test.com", false);
+    await loginBySub(appPage.page, applicantSub, false);
     await appPage.page.goto(`/en/admin/users/${user?.id}`);
     await appPage.waitForGraphqlResponse("authorizationQuery");
     await expect(
@@ -90,7 +96,7 @@ test.describe("User information", () => {
   });
 
   test("Platform admin can access", async ({ appPage }) => {
-    await loginAndVisitUser(appPage, "admin@test.com", user);
+    await loginAndVisitUser(appPage, platformAdminSub, user);
     await assertSuccess(appPage.page);
   });
 });

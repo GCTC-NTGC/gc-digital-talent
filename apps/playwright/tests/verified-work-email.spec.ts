@@ -4,6 +4,7 @@ import { test, expect } from "~/fixtures";
 import AdminUser from "~/fixtures/AdminUser";
 import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
@@ -13,17 +14,20 @@ interface UserInfo {
   sub: string;
 }
 
-test.describe("Verified work email", () => {
+test.describe("Verified work email", { tag: "@uat" }, () => {
   let verified: UserInfo = { sub: "", id: "" };
   let unverified: UserInfo = { sub: "", id: "" };
+  let platformAdminCtx: GraphQLContext;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeAll(async () => {
-    const adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
     const testId = generateUniqueTestId();
     const verifiedSub = `verified.${testId}@gc.ca`;
     const unverifiedSub = `unverified.${testId}@gc.ca`;
 
-    const verifiedUser = await createUserWithRoles(adminCtx, {
+    const verifiedUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `verified.contact.${testId}@test.com`,
@@ -38,7 +42,7 @@ test.describe("Verified work email", () => {
       id: verifiedUser?.id ?? "",
     };
 
-    const unverifiedUser = await createUserWithRoles(adminCtx, {
+    const unverifiedUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `unverified.contact.${testId}@test.com`,
@@ -56,7 +60,7 @@ test.describe("Verified work email", () => {
 
   test("Verified user shows badge in admin", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
-    await loginBySub(adminUser.page, "admin@test.com");
+    await loginBySub(adminUser.page, platformAdminSub);
     await adminUser.goToUser(verified.id);
 
     await adminUser.locators.govInfoTrigger.click();
@@ -86,7 +90,7 @@ test.describe("Verified work email", () => {
 
   test("Unverified user does not show badge in admin", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
-    await loginBySub(adminUser.page, "admin@test.com");
+    await loginBySub(adminUser.page, platformAdminSub);
     await adminUser.goToUser(unverified.id);
 
     await adminUser.locators.govInfoTrigger.click();

@@ -1,35 +1,56 @@
 import type {
   Community,
+  User,
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
+import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 
 import CommunityInterest from "~/fixtures/CommunityInterest";
 import ApplicantDashboard from "~/fixtures/ApplicantDashboardPage";
 import { test, expect } from "~/fixtures";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createCommunity } from "~/utils/communities";
-import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { createWorkStream } from "~/utils/workStreams";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
-test.describe("Community Interest", () => {
+test.describe("Community Interest", { tag: "@uat" }, () => {
   let community: Community | undefined;
   let workStream: WorkStream | undefined;
+  let applicant: User | undefined;
+  let platformAdminCtx: GraphQLContext;
+  const uniqueTestId = generateUniqueTestId();
+  const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
 
   test.beforeAll(async () => {
-    const adminCtx = await graphql.newContext();
-    community = await createCommunity(adminCtx, {});
-    await createTalentNominationEvent(adminCtx, {
+    platformAdminCtx = await graphql.newContext();
+    community = await createCommunity(platformAdminCtx, {});
+    workStream = await createWorkStream(platformAdminCtx, {
       community: { connect: community?.id },
     });
-    workStream = await createWorkStream(adminCtx, {
-      community: { connect: community?.id },
+    applicant = await createUserWithRoles(platformAdminCtx, {
+      user: {
+        email: `${applicantSub}@example.org`,
+        sub: applicantSub,
+        isGovEmployee: true,
+        workEmail: `${applicantSub}@gc.ca`,
+        workEmailVerifiedAt: nowUTCDateTime(),
+      },
+      roles: ["guest", "base_user", "applicant"],
     });
   });
 
+  test.afterAll(async () => {
+    if (applicant?.id) {
+      await deleteUser(platformAdminCtx, { id: applicant.id });
+    }
+  });
+
   test("Create, review, and delete community interest", async ({ appPage }) => {
-    await loginBySub(appPage.page, "applicant-employee@test.com");
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto("/en/applicant");
     await appPage.waitForGraphqlResponse("ApplicantDashboard");
 
@@ -42,7 +63,7 @@ test.describe("Community Interest", () => {
       community?.name?.en ?? "",
       workStream?.name?.en ?? "",
     );
-    await expect(appPage.page.getByRole("alert")).toContainText(
+    await expect(appPage.page.getByRole("alert").last()).toContainText(
       /community interest created successfully/i,
     );
 
@@ -81,7 +102,10 @@ test.describe("Community Interest", () => {
     await appPage.waitForGraphqlResponse("ApplicantDashboard");
     await expect(
       appPage.page.getByRole("heading", {
-        name: /welcome back to your applicant dashboard , jaime bilodeau/i,
+        name: new RegExp(
+          `welcome back to your applicant dashboard , ${applicant?.firstName} ${applicant?.lastName}`,
+          "i",
+        ),
         level: 1,
       }),
     ).toBeVisible();
