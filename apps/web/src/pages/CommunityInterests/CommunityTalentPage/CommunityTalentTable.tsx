@@ -57,7 +57,6 @@ import {
   transformFormValuesToCommunityInterestFilterInput,
   transformSortStateToOrderByClause,
   extractUserIdsFromSelectedRows,
-  transformToCommunityTalentFilterInput,
   communityReferralStatusCell,
   communityReferralFollowUpDateCell,
 } from "./utils";
@@ -267,8 +266,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadCommunityTalentExcel,
-    downloadingCommunityTalentExcel,
+    downloadCommunityInterestExcel,
+    downloadingCommunityInterestExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -293,9 +292,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       return;
     }
 
-    downloadCommunityTalentExcel({
+    downloadCommunityInterestExcel({
       ids: userIds,
-      where: transformToCommunityTalentFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -304,9 +303,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   };
 
   const handleExcelDownloadAll = () => {
-    downloadCommunityTalentExcel({
+    downloadCommunityInterestExcel({
       ids: undefined,
-      where: transformToCommunityTalentFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -713,12 +712,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingCommunityTalentExcel,
+          downloading: downloadingCommunityInterestExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingCommunityTalentExcel,
+          downloading: downloadingCommunityInterestExcel,
         },
         doc: {
           enable: true,

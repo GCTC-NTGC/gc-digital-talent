@@ -4,7 +4,7 @@ import { useMutation } from "urql";
 import type {
   UserFilterInput,
   TalentRequestTrackedUserFilterInput,
-  CommunityTalentFilterInput,
+  CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { toast } from "@gc-digital-talent/toast";
@@ -18,9 +18,9 @@ interface DownloadExcelArgs {
   where?: UserFilterInput | null;
 }
 
-interface DownloadCommunityTalentExcelArgs {
+interface DownloadCommunityInterestExcelArgs {
   ids?: string[];
-  where?: CommunityTalentFilterInput | null;
+  where?: CommunityInterestFilterInput | null;
 }
 
 interface DownloadTrackedUsersExcelArgs {
@@ -46,12 +46,12 @@ const DownloadUsersExcel_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityTalentExcel_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityTalentExcel(
+const DownloadCommunityInterestExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityInterestExcel(
     $ids: [UUID!]
-    $where: CommunityTalentFilterInput
+    $where: CommunityInterestFilterInput
   ) {
-    downloadCommunityTalentExcel(ids: $ids, where: $where)
+    downloadCommunityInterestExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -76,9 +76,9 @@ const useUserDownloads = () => {
     DownloadUsersExcel_Mutation,
   );
   const [
-    { fetching: downloadingCommunityTalentExcel },
-    executeCommunityTalentExcelMutation,
-  ] = useMutation(DownloadCommunityTalentExcel_Mutation);
+    { fetching: downloadingCommunityInterestExcel },
+    executeCommunityInterestExcelMutation,
+  ] = useMutation(DownloadCommunityInterestExcel_Mutation);
   const [
     { fetching: downloadingTrackedUsersExcel },
     executeTrackedUsersExcelMutation,
@@ -144,11 +144,11 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
-  const downloadCommunityTalentExcel = ({
+  const downloadCommunityInterestExcel = ({
     ids,
     where,
-  }: DownloadCommunityTalentExcelArgs) => {
-    executeCommunityTalentExcelMutation({ ids, where })
+  }: DownloadCommunityInterestExcelArgs) => {
+    executeCommunityInterestExcelMutation({ ids, where })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -167,8 +167,8 @@ const useUserDownloads = () => {
     downloadingZip,
     downloadExcel,
     downloadingExcel,
-    downloadCommunityTalentExcel,
-    downloadingCommunityTalentExcel,
+    downloadCommunityInterestExcel,
+    downloadingCommunityInterestExcel,
     downloadTrackedUsersExcel,
     downloadingTrackedUsersExcel,
     downloadDoc,

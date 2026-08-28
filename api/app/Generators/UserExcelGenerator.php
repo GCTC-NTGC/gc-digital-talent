@@ -366,6 +366,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
 
         $this->applyFilters($query, [
             'poolFilters' => 'wherePoolExists',
+            'userName' => 'whereName',
             'isProfileComplete' => 'whereProfileComplete',
             'isGovEmployee' => 'whereIsGovEmployee',
             'telephone' => 'whereTelephone',
