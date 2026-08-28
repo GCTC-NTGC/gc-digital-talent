@@ -82,6 +82,10 @@ const NominationDetailsReview_Fragment = graphql(/* GraphQL */ `
     advancementReferenceFallbackClassification {
       groupAndLevel
     }
+    advancementClassifications {
+      id
+      groupAndLevel
+    }
 
     # Lateral movement details
     lateralMovementOptionsOther
@@ -263,6 +267,25 @@ const NominationDetailsReview = ({
               label={intl.formatMessage(labels.referencesDepartment)}
             >
               {referenceDepartment?.name?.localized ?? notProvided}
+            </FieldDisplay>
+            <FieldDisplay
+              className="col-span-2"
+              label={intl.formatMessage({
+                defaultMessage: "Recommended classifications for advancement",
+                id: "1e2+hH",
+                description:
+                  "Label for advancement eligible classifications field",
+              })}
+            >
+              {talentNomination.advancementClassifications?.length ? (
+                <Ul space="md">
+                  {talentNomination.advancementClassifications.map((c) => (
+                    <li key={c.id}>{c.groupAndLevel}</li>
+                  ))}
+                </Ul>
+              ) : (
+                intl.formatMessage(commonMessages.notProvided)
+              )}
             </FieldDisplay>
           </>
         )}
