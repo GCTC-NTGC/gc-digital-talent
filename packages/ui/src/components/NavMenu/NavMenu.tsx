@@ -164,10 +164,10 @@ const navMenuLink = tv({
       false: "flex px-3 py-2 sm:py-4.5",
     },
     type: {
-      // Gated on the same Tailwind breakpoint that sets the menu background in
-      // Menu.tsx, so the text and the surface behind it cannot disagree. When
-      // this was driven from `useIsSmallScreen` the two resolved independently
-      // and could land on the same colour.
+      // Desktop colours come from the `sm:` breakpoint, the same media query that
+      // picks the panel background in Menu.tsx. They previously came from
+      // `useIsSmallScreen`, so text colour and background were decided separately
+      // and could both resolve to white in light mode.
       link: "sm:text-white sm:data-active:text-primary-200 sm:hover:data-icon:text-primary-700 sm:dark:data-active:text-primary-100 sm:dark:hover:data-icon:text-primary-700",
       subMenuLink:
         "hover:text-primary-600 data-active:text-primary-600 data-active:hover:text-primary-700 data-active:dark:text-primary-200 data-active:dark:hover:text-primary-100",
