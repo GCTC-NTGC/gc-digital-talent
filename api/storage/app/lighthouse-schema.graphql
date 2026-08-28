@@ -1492,6 +1492,7 @@ type TalentNomination {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: Classification
   advancementReferenceFallbackDepartment: Department
+  advancementClassifications: [Classification!]
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms(
@@ -2624,6 +2625,7 @@ input CreateTalentNominationInput {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
@@ -2659,6 +2661,7 @@ input UpdateTalentNominationInput {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
