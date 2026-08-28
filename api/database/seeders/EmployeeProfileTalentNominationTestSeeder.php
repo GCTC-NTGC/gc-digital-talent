@@ -6,6 +6,7 @@ use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
 use App\Models\User;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class EmployeeProfileTalentNominationTestSeeder extends Seeder
@@ -19,6 +20,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker::create();
         $admin = User::where('sub', 'admin@test.com')->sole();
         $employee = User::where('sub', 'applicant-employee@test.com')->sole();
         $activeEvent = TalentNominationEvent::where('name', 'ILIKE', '%'.'test talent nomination event active en'.'%')->first();
@@ -78,6 +80,12 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
         // seed some nominations for the "Employees you've nominated". That tab shows nominations where the employee is
         // split into drafts vs submitted and open vs closed (by the event's close date).
 
+        // helper to generate a random date
+        $submitted = fn (TalentNominationEvent $event) => $faker->dateTimeBetween(
+            $event->open_date,
+            min($event->close_date, now()),
+        );
+
         // a draft nomination on an open event
         TalentNomination::factory()
             ->count(1)
@@ -95,7 +103,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $activeEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => now()->subDays(1), // submitted in the past, before the event closes
+                'submitted_at' => $submitted($activeEvent),
             ]);
 
         TalentNomination::factory()
@@ -104,7 +112,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $activeEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => now()->subDays(3), // submitted in the past, before the event closes
+                'submitted_at' => $submitted($activeEvent),
             ]);
 
         // a submitted nomination on a closed/past event, so the open/closed toggle appears
@@ -114,7 +122,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $pastEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $pastEvent->close_date->subDays(1), // submitted before the event closed
+                'submitted_at' => $submitted($pastEvent),
             ]);
 
         TalentNomination::factory()
@@ -123,7 +131,7 @@ class EmployeeProfileTalentNominationTestSeeder extends Seeder
             ->create([
                 'talent_nomination_event_id' => $pastEvent->id,
                 'submitter_id' => $employee->id,
-                'submitted_at' => $pastEvent->close_date->subDays(10), // submitted before the event closed
+                'submitted_at' => $submitted($pastEvent),
             ]);
 
         // draft nomination on a closed/past event
