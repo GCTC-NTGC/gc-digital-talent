@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -206,8 +207,24 @@ abstract class Experience extends Model
                     'details' => 'details',
                 ];
 
-                $model = new $hydrationModel();
-                $experiences[] = self::hydrateFields($experience, $fields, $model);
+                // the snapshot nests these as objects; $hydrationFields expects ids
+                if (isset($experience['department'])) {
+                    $experience['departmentId'] = $experience['department']['id'];
+                }
+                if (isset($experience['classification'])) {
+                    $experience['classificationId'] = $experience['classification']['id'];
+                }
+                if (isset($experience['workStreams'])) {
+                    $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
+                }
+                $model = self::hydrateFields($experience, $fields, new $hydrationModel());
+
+                // an award's related experience renders from the snapshot, not the live row
+                if (! empty($experience['relatedExperience'])) {
+                    $model->setRelation('relatedExperience', self::hydrateSnapshot([$experience['relatedExperience']])[0] ?? null);
+                }
+
+                $experiences[] = $model;
             }
         }
 

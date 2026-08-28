@@ -82,26 +82,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
         $snapshotExperiences = $snapshot['experiences'] ?? [];
-        // the snapshot stores the department and classification models connected by relation
-        // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
-        foreach ($snapshotExperiences as &$experience) {
-            if ($experience['__typename'] === 'AwardExperience') {
-                if (isset($experience['relatedExperience'])) {
-                    $experience['relatedExperienceId'] = $experience['relatedExperience']['id'];
-                    $experience['relatedExperienceType'] = 'App\\Models\\'.$experience['relatedExperience']['__typename'];
-                }
-            } elseif ($experience['__typename'] === 'WorkExperience') {
-                if (isset($experience['department'])) {
-                    $experience['departmentId'] = $experience['department']['id'];
-                }
-                if (isset($experience['classification'])) {
-                    $experience['classificationId'] = $experience['classification']['id'];
-                }
-                if (isset($experience['workStreams'])) {
-                    $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
-                }
-            }
-        }
 
         $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
         // group experiences by type i.e. award, community, education, personal, work
