@@ -975,6 +975,10 @@
     "defaultMessage": "<strong>Les postes hybrides</strong> requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.",
     "description": "Definition for 'hybrid positions'"
   },
+  "1e2+hH": {
+    "defaultMessage": "Classifications recommandées pour promotion",
+    "description": "Label for advancement eligible classifications field"
+  },
   "1e84jV": {
     "defaultMessage": "Les visiteurs doivent également savoir que l’information offerte par les sites autres que ceux du gouvernement du Canada, accessibles à l’aide des liens de ce site Web, n’est pas assujettie à la <privacyActLink>Loi sur la protection des renseignements personnels</privacyActLink> ni à la <langActLink>Loi sur les langues officielles</langActLink> et pourrait ne pas être accessible aux personnes handicapées. Il est probable que l’information offerte ne soit disponible que dans les langues employées dans les sites en question. En ce qui a trait aux renseignements personnels, nous invitons les visiteurs à consulter les politiques de ces sites Web non gouvernementaux en matière de protection des renseignements personnels avant de fournir leurs renseignements personnels.",
     "description": "Paragraph two describing linking to gov section"
@@ -3147,10 +3151,6 @@
     "defaultMessage": "CléGC est en cours de remplacement",
     "description": "Title for important update notic"
   },
-  "AJ9XL4": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi cette personne est nominée. Veuillez également indiquer les trois principales compétences clés en leadership dont le nominé ou la nominée fait preuve.",
-    "description": "Subtitle for nomination rationale step with leadership competencies"
-  },
   "ALIgEC": {
     "defaultMessage": "Les rôles des membres ont été mis à jour avec succès",
     "description": "Alert displayed to user when a team member's roles have been updated"
@@ -5003,6 +5003,10 @@
     "defaultMessage": "Détails de l’emploi",
     "description": "The job details of a job poster template"
   },
+  "I7F7E1": {
+    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi cette personne est nominée.",
+    "description": "Description for nomination rationale step"
+  },
   "I7qIfR": {
     "defaultMessage": "Navigation des pages des activités du processus",
     "description": "Label for activity pagination"
@@ -5510,6 +5514,10 @@
   "Jv/Blc": {
     "defaultMessage": "Afficher toutes les informations disponibles pour cet utilisateur ou cette utilisatrice.",
     "description": "Subtitle for user section"
+  },
+  "JwOJSW": {
+    "defaultMessage": "Veuillez recommander une ou plusieurs options de classification pour lesquelles le candidat doit être pris en considération durant le processus de recommandation, compte tenu de la classification de son poste d’attache et de son rendement actuels.",
+    "description": "Intro for advancement nomination classification selection"
   },
   "JxDtt+": {
     "defaultMessage": "Révisez votre candidature",
@@ -10714,6 +10722,10 @@
     "defaultMessage": "Supprimer cette compétence",
     "description": "Button text to remove a skill from a users profile"
   },
+  "fL9Qgn": {
+    "defaultMessage": "Veuillez indiquer les trois principales compétences clés en leadership dont le nominé ou la nominée fait preuve.",
+    "description": "Description for nomination rationale step with leadership competencies"
+  },
   "fM48Ck": {
     "defaultMessage": "Pour retirer entièrement cette collectivité fonctionnelle, utilisez le bouton de la poubelle sur l'écran précédent et enregistrez vos modifications.",
     "description": "Instructions for deselecting work streams"
@@ -10841,10 +10853,6 @@
   "fhi1EG": {
     "defaultMessage": "Examinez le profil de {userName} et modifiez son statut pour cette demande.",
     "description": "Subtitle for talent request referral"
-  },
-  "fhpWug": {
-    "defaultMessage": "Veuillez fournir les informations d’une deuxième personne de référence de niveau cadre supérieur qui peut confirmer que la personne nominée est prête à être promue.",
-    "description": "Description for advancement options section in nominations details step"
   },
   "fkYYe3": {
     "defaultMessage": "Plan d'évaluation",
@@ -11385,6 +11393,10 @@
   "hhVBJP": {
     "defaultMessage": "Gérer les demandes de talents",
     "description": "Permissions related to managing talent requests"
+  },
+  "hhvfWc": {
+    "defaultMessage": "Veuillez fournir les informations d’une deuxième personne de référence de niveau supérieur qui peut confirmer que la personne nominée est prête à être promue.",
+    "description": "Description for advancement options section in nominations details step"
   },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
@@ -12105,10 +12117,6 @@
   "kY05h1": {
     "defaultMessage": "L'annonce à l’échelle du site a été mise à jour avec succès!",
     "description": "Message displayed when a user successfully updates sitewide announcement information"
-  },
-  "kYuVEA": {
-    "defaultMessage": "La dernière étape du processus de nomination consiste à expliquer pourquoi la personne est nominée.",
-    "description": "Subtitle for nomination rationale step without leadership competencies"
   },
   "kbMB6R": {
     "defaultMessage": "Lieu de travail et terminologie",
@@ -13945,6 +13953,10 @@
   "sBU6QB": {
     "defaultMessage": "Membres du ministère",
     "description": "Page title for the department manage access page"
+  },
+  "sDBI5c": {
+    "defaultMessage": "Options de classification recommandées pour le candidat",
+    "description": "Label for advancement eligible classifications field"
   },
   "sDqpzq": {
     "defaultMessage": "Télécharger la trousse du gestionnaire",
