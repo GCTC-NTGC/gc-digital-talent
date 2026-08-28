@@ -15,7 +15,6 @@ import {
 import {
   BasicForm,
   Input,
-  localizedEnumToOptions,
   Select,
   SwitchInput,
 } from "@gc-digital-talent/forms";
@@ -23,9 +22,10 @@ import {
   commonMessages,
   errorMessages,
   formMessages,
+  narrowEnumType,
   uiMessages,
 } from "@gc-digital-talent/i18n";
-import { workEmailDomainRegex } from "@gc-digital-talent/helpers";
+import { unpackMaybes, workEmailDomainRegex } from "@gc-digital-talent/helpers";
 
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import ToggleForm from "~/components/ToggleForm/ToggleForm";
@@ -119,11 +119,12 @@ export const AccountInformationForm_Fragment = graphql(/** GraphQL */ `
 
 const AccountInformationFormOptions_Fragment = graphql(/** GraphQL */ `
   fragment AccountInformationFormOptions on Query {
-    languages: localizedEnumStrings(enumName: "Language") {
-      value
-      label {
-        en
-        fr
+    languages: localizedEnumOptions(enumName: "Language") {
+      ... on LocalizedLanguage {
+        value
+        label {
+          localized
+        }
       }
     }
   }
@@ -156,7 +157,13 @@ const AccountInformation = ({
     fallbackIcon: UserCircleIcon,
   });
 
-  const languageOptions = localizedEnumToOptions(options?.languages, intl);
+  const languageOptions = narrowEnumType(
+    unpackMaybes(options?.languages),
+    "Language",
+  ).map(({ value, label }) => ({
+    value,
+    label: label.localized ?? intl.formatMessage(commonMessages.notAvailable),
+  }));
 
   const handleSubmit = async (values: FormValues) => {
     if (fetching) return;
