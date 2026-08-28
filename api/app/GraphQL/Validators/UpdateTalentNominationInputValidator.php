@@ -110,6 +110,17 @@ final class UpdateTalentNominationInputValidator extends Validator
                 'uuid',
                 'exists:departments,id',
             ],
+            'advancementClassifications' => [
+                'required_with:nominateForAdvancement,nominateForLateralMovement,nominateForDevelopmentPrograms',
+            ],
+            'advancementClassifications.sync' => [
+                'list',
+                'distinct',
+                Rule::prohibitedUnless(fn () => $this->arg('nominateForAdvancement')),
+            ],
+            'advancementClassifications.sync.*' => [
+                'exists:classifications,id',
+            ],
 
             'lateralMovementOptions' => ['array'],
             'lateralMovementOptions.*' => [
@@ -169,6 +180,7 @@ final class UpdateTalentNominationInputValidator extends Validator
             'advancementReferenceFallbackClassification.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_CLASSIFICATION_NOT_FOUND->name,
             'advancementReferenceFallbackDepartment.connect.exists' => ErrorCode::ADVANCEMENT_REFERENCE_DEPARTMENT_NOT_FOUND->name,
             'communityDevelopmentPrograms.sync.exists' => ErrorCode::COMMUNITY_DEVELOPMENT_PROGRAM_NOT_FOUND->name,
+            'advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
             'skills.sync.exists' => ErrorCode::SKILL_NOT_FOUND->name,
             'skills.sync.*.in' => ErrorCode::SKILL_NOT_KLC->name,
             'skills.sync.prohibited' => ErrorCode::SKILLS_NOT_ALLOWED_FOR_EVENT->name,

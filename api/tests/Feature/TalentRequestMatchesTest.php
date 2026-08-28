@@ -882,6 +882,29 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
     }
 
+    public function testCountByCommunityAppliesUserAttributeFilters(): void
+    {
+        $community = Community::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $community->id,
+        ]);
+        $this->matchingUser($pool, ['looking_for_english' => true, 'looking_for_french' => false]);
+        $this->matchingUser($pool, ['looking_for_english' => false, 'looking_for_french' => true]);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+                'languageAbility' => LanguageAbility::FRENCH->name,
+            ],
+        ])->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByCommunity' => [
+                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'count' => 1],
+                ],
+            ],
+        ]);
+    }
+
     // The following tests port applicantFilter scenarios previously covered only by the
     // now-removed countApplicantsForSearch/countPoolCandidatesByPool queries.
 
