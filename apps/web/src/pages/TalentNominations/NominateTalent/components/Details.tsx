@@ -6,6 +6,7 @@ import { useCallback, useEffect, useId } from "react";
 import type {
   FragmentType,
   UpdateTalentNominationInput,
+  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -13,7 +14,6 @@ import {
   NineBoxRating,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
-  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,
@@ -47,6 +47,7 @@ import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 import NineBoxDescription from "./NineBoxDescription";
 import labels from "../labels";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
   fragment DetailsFieldsOptions on Query {
@@ -403,11 +404,7 @@ const DetailsFields = ({
                     items={localizedEnumToOptions(
                       options?.advancementReferenceReviewOptions,
                       intl,
-                      [
-                        TalentNominationUserReview.Correct,
-                        TalentNominationUserReview.Incorrect,
-                        TalentNominationUserReview.OutOfDate,
-                      ],
+                      userReviewOptionsSortOrder,
                     )}
                   />
                 </>

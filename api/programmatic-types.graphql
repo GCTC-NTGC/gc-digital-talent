@@ -1872,8 +1872,8 @@ enum TalentNominationSubmitterRelationshipToNominator {
 
 enum TalentNominationUserReview {
   CORRECT
-  INCORRECT
-  OUT_OF_DATE
+  INCORRECT_OUT_OF_DATE
+  WRONG_PERSON
 }
 
 enum TalentRequestCompletionDetail {
