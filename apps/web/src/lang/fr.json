@@ -10846,10 +10846,6 @@
     "defaultMessage": "Examinez le profil de {userName} et modifiez son statut pour cette demande.",
     "description": "Subtitle for talent request referral"
   },
-  "fhpWug": {
-    "defaultMessage": "Veuillez fournir les informations d’une deuxième personne de référence de niveau cadre supérieur qui peut confirmer que la personne nominée est prête à être promue.",
-    "description": "Description for advancement options section in nominations details step"
-  },
   "fkYYe3": {
     "defaultMessage": "Plan d'évaluation",
     "description": "Title for the assessment plan builder"
@@ -11389,6 +11385,10 @@
   "hhVBJP": {
     "defaultMessage": "Gérer les demandes de talents",
     "description": "Permissions related to managing talent requests"
+  },
+  "hhvfWc": {
+    "defaultMessage": "Veuillez fournir les informations d’une deuxième personne de référence de niveau supérieur qui peut confirmer que la personne nominée est prête à être promue.",
+    "description": "Description for advancement options section in nominations details step"
   },
   "hjxxaQ": {
     "defaultMessage": "Titres des compétences",
