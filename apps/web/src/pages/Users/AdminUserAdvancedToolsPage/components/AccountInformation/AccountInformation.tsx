@@ -158,24 +158,13 @@ const AccountInformation = ({
 
   const languageOptions = localizedEnumToOptions(options?.languages, intl);
 
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Failed to update account information.",
-        id: "rAK3Dh",
-        description: "Error message when updating a users account information",
-      }),
-    );
-  };
-
   const handleSubmit = async (values: FormValues) => {
     if (fetching) return;
 
     await executeMutation({ id: user.id, input: { id: user.id, ...values } })
       .then((res) => {
-        if (res.error || !res.data?.updateUserAsAdmin?.id) {
-          handleError();
-          return;
+        if (!res.data?.updateUserAsAdmin?.id || res.error) {
+          throw new Error();
         }
 
         toast.success(
@@ -188,7 +177,16 @@ const AccountInformation = ({
         );
         setIsEditing(false);
       })
-      .catch(handleError);
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Failed to update account information.",
+            id: "rAK3Dh",
+            description:
+              "Error message when updating a users account information",
+          }),
+        );
+      });
   };
 
   return (
