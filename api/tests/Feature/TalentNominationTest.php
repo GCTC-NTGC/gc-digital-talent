@@ -666,6 +666,7 @@ class TalentNominationTest extends TestCase
             ->create([
                 // override factory logic
                 'nominate_for_advancement' => true,
+                'advancement_reference_id' => null,
                 'advancement_reference_fallback_work_email' => 'reference@gc.ca',
                 'advancement_reference_fallback_name' => 'Reference Name',
                 'advancement_reference_fallback_classification_id' => Classification::factory()->create()->id,
