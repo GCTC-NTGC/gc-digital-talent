@@ -1,11 +1,12 @@
 import RectangleGroupIcon from "@heroicons/react/24/outline/RectangleGroupIcon";
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useId } from "react";
 
 import type {
   FragmentType,
   UpdateTalentNominationInput,
+  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   getFragment,
@@ -13,10 +14,10 @@ import {
   NineBoxRating,
   TalentNominationLateralMovementOption,
   TalentNominationStep,
-  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   Checklist,
+  Combobox,
   Input,
   localizedEnumToOptions,
   RadioGroup,
@@ -46,6 +47,7 @@ import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 import NineBoxDescription from "./NineBoxDescription";
 import labels from "../labels";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
   fragment DetailsFieldsOptions on Query {
@@ -67,6 +69,8 @@ const DetailsFieldsOptions_Fragment = graphql(/* GraphQL */ `
     }
     classifications {
       ...ClassificationInput
+      id
+      groupAndLevel
     }
     departments {
       id
@@ -126,6 +130,7 @@ interface FormValues extends BaseFormValues {
   advancementReferenceFallbackClassificationGroup: string | null;
   advancementReferenceFallbackClassificationLevel: string | null;
   advancementReferenceFallbackDepartment: string;
+  advancementClassifications: string[];
   lateralMovementOptions: TalentNominationLateralMovementOption[] | null;
   lateralMovementOptionsOther: string | null;
   communityDevelopmentPrograms: string[];
@@ -214,6 +219,9 @@ const DetailsFields = ({
       resetField("advancementReferenceReview");
     }
   }, [advancementReference, resetField]);
+
+  const advancementReferenceDescription = useId();
+  const advancementClassificationsDescription = useId();
 
   return (
     <div className="flex flex-col gap-6">
@@ -352,11 +360,11 @@ const DetailsFields = ({
                       "Title for advancement options section in nominations details step",
                   })}
                 </Heading>
-                <p>
+                <p id={advancementReferenceDescription}>
                   {intl.formatMessage({
                     defaultMessage:
-                      "Provide a secondary senior leader reference who can confirm the candidate's readiness for promotion.",
-                    id: "fhpWug",
+                      "Provide a secondary leader reference who can confirm the candidate's readiness for promotion.",
+                    id: "hhvfWc",
                     description:
                       "Description for advancement options section in nominations details step",
                   })}
@@ -374,6 +382,7 @@ const DetailsFields = ({
                     "Label for search reference input field on a nomination",
                 })}
                 errorSeverities={{ NO_PROFILE: "warning" }}
+                aria-describedby={advancementReferenceDescription}
               />
               {!advancementReferenceUnset && !advancementReferenceNotFound && (
                 <>
@@ -395,11 +404,7 @@ const DetailsFields = ({
                     items={localizedEnumToOptions(
                       options?.advancementReferenceReviewOptions,
                       intl,
-                      [
-                        TalentNominationUserReview.Correct,
-                        TalentNominationUserReview.Incorrect,
-                        TalentNominationUserReview.OutOfDate,
-                      ],
+                      userReviewOptionsSortOrder,
                     )}
                   />
                 </>
@@ -472,6 +477,36 @@ const DetailsFields = ({
                   />
                 </>
               )}
+              <p id={advancementClassificationsDescription}>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Based on the nominee’s current substantive classification and performance, please recommend one or more classification options the nominee should be considered for during the referral process.",
+                  id: "JwOJSW",
+                  description:
+                    "Intro for advancement nomination classification selection",
+                })}
+              </p>
+              <Combobox
+                id="advancementClassifications"
+                name="advancementClassifications"
+                isMulti
+                label={intl.formatMessage({
+                  defaultMessage:
+                    "Classification options recommended for this nominee",
+                  id: "sDBI5c",
+                  description:
+                    "Label for advancement eligible classifications field",
+                })}
+                options={unpackMaybes(options?.classifications).map(
+                  ({ id, groupAndLevel }) => ({
+                    value: id,
+                    label:
+                      groupAndLevel ??
+                      intl.formatMessage(commonMessages.notProvided),
+                  }),
+                )}
+                aria-describedby={advancementClassificationsDescription}
+              />
             </div>
           )}
           {lateralMovement && (
@@ -654,6 +689,9 @@ const NominateTalentDetails_Fragment = graphql(/* GraphQL */ `
     advancementReferenceFallbackDepartment {
       id
     }
+    advancementClassifications {
+      id
+    }
     nominateForLateralMovement
     nominateForDevelopmentPrograms
     lateralMovementOptions {
@@ -716,6 +754,9 @@ const transformSubmitData: SubmitDataTransformer<FormValues> = (values) => {
       hasAdvancement && !hasAdvancementReference
         ? { connect: values.advancementReferenceFallbackDepartment }
         : { disconnect: true },
+    advancementClassifications: {
+      sync: hasAdvancement ? values.advancementClassifications : [],
+    },
     lateralMovementOptions: hasLateralMovement
       ? values.lateralMovementOptions
       : [],
@@ -827,6 +868,9 @@ const Details = ({ detailsQuery, optionsQuery }: DetailsProps) => {
           talentNomination?.advancementReferenceFallbackClassification?.level.toString(),
         advancementReferenceFallbackDepartment:
           talentNomination?.advancementReferenceFallbackDepartment?.id,
+        advancementClassifications: unpackMaybes(
+          talentNomination?.advancementClassifications?.flatMap((c) => c.id),
+        ),
         lateralMovementOptions:
           talentNomination?.lateralMovementOptions?.map((x) => x.value) ?? null,
         lateralMovementOptionsOther:

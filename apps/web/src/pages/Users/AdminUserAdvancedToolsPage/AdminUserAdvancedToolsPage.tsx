@@ -19,7 +19,7 @@ import adminMessages from "~/messages/adminMessages";
 import AccountInformation, {
   ACCOUNT_INFORMATION_ID,
   accountInformationTitle,
-} from "./components/AccountInformation";
+} from "./components/AccountInformation/AccountInformation";
 import SupportTools, {
   SUPPORT_TOOLS_ID,
   supportToolsTitle,

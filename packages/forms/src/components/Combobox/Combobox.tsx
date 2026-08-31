@@ -61,6 +61,7 @@ const Combobox = ({
   isExternalSearch = false,
   isMulti = false,
   doNotSort = false,
+  "aria-describedby": describedBy,
 }: ComboboxProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -83,6 +84,7 @@ const Combobox = ({
   const hasSelection = Array.isArray(rawValue) ? !!rawValue.length : !!rawValue;
   const [descriptionIds, ariaDescribedBy] = useInputDescribedBy({
     id,
+    describedBy,
     show: {
       error: isInvalid,
       context,

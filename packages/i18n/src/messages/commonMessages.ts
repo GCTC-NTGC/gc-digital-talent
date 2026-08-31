@@ -195,11 +195,6 @@ const commonMessages = defineMessages({
     id: "2wKf2U",
     description: "Text to trigger edit action",
   },
-  viewProfile: {
-    defaultMessage: "View profile",
-    id: "z4XcnS",
-    description: "Link text to view a user's profile",
-  },
   pendingSecondOpinion: {
     defaultMessage: "Pending second opinion",
     id: "Rp+NHA",
@@ -670,11 +665,6 @@ const commonMessages = defineMessages({
     defaultMessage: "No organization",
     id: "wpNvbg",
     description: "Placeholder for when the department can not be displayed",
-  },
-  followUpDate: {
-    defaultMessage: "Follow-up date",
-    id: "kBUk+T",
-    description: "Label displayed before follow-up date",
   },
 });
 

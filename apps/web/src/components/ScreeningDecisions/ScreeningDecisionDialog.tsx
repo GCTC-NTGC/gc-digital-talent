@@ -87,6 +87,7 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
 interface ParsedSnapshot {
   firstName?: string | null;
   experiences?: (SnapshotExperience | null | undefined)[] | null;
+  version?: number;
 }
 
 export interface ScreeningDecisionDialogProps {
@@ -204,6 +205,7 @@ const ScreeningDecisionDialog = ({
             <SupportingEvidence
               query={candidate}
               experiences={unpackMaybes(snapshot?.experiences)}
+              snapshotVersion={snapshot?.version}
               skillId={poolSkill?.skill?.id}
               dialogType={dialogType}
             />

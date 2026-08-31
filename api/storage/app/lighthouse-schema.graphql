@@ -133,6 +133,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedDegreeType implements LocalizedEnumOption {
+  value: DegreeType!
+  label: LocalizedString!
+}
+
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
   label: LocalizedString!
@@ -198,6 +203,11 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFellowshipType implements LocalizedEnumOption {
+  value: FellowshipType!
+  label: LocalizedString!
+}
+
 type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   value: FinanceChiefRole!
   label: LocalizedString!
@@ -260,6 +270,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
 
 type LocalizedNineBoxRating implements LocalizedEnumOption {
   value: NineBoxRating!
+  label: LocalizedString!
+}
+
+type LocalizedOldEducationType implements LocalizedEnumOption {
+  value: OldEducationType!
   label: LocalizedString!
 }
 
@@ -1493,6 +1508,7 @@ type TalentNomination {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: Classification
   advancementReferenceFallbackDepartment: Department
+  advancementClassifications: [Classification!]
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms(
@@ -1697,7 +1713,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
@@ -1737,19 +1752,21 @@ type WorkExperience implements Experience {
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
+  awardExperiences: [AwardExperience]
 }
 
 type PersonalExperience implements Experience {
   id: ID!
   user: User!
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  learningDescription: String
+  organization: String
+  awardExperiences: [AwardExperience]
 }
 
 type CommunityExperience implements Experience {
@@ -1764,6 +1781,7 @@ type CommunityExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  awardExperiences: [AwardExperience]
 }
 
 type EducationExperience implements Experience {
@@ -1774,12 +1792,21 @@ type EducationExperience implements Experience {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: LocalizedEducationType
+  educationType: LocalizedEducationType
   status: LocalizedEducationStatus
+  otherEducationType: String
+  degreeType: LocalizedDegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: LocalizedFellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  awardExperiences: [AwardExperience]
 }
 
 type AwardExperience implements Experience {
@@ -1794,7 +1821,11 @@ type AwardExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  projectName: String
+  relatedExperience: RelatedExperience
 }
+
+union RelatedExperience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience
 
 type ExperienceSkillRecord {
   details: String
@@ -2057,7 +2088,6 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
   classifications: [UUID!]
-  referralStatuses: [CommunityReferralStatus!]
 }
 
 input DateRangeOptional {
@@ -2625,6 +2655,7 @@ input CreateTalentNominationInput {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
@@ -2660,6 +2691,7 @@ input UpdateTalentNominationInput {
   advancementReferenceFallbackName: String
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
   lateralMovementOptionsOther: String
   communityDevelopmentPrograms: CommunityDevelopmentProgramBelongsToMany
@@ -2829,11 +2861,11 @@ input WorkExperienceInput {
 
 input PersonalExperienceInput {
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: UpdateExperienceSkills
+  learningDescription: String
+  organization: String
 }
 
 input CommunityExperienceInput {
@@ -2852,8 +2884,16 @@ input EducationExperienceInput {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: EducationType
+  educationType: EducationType
   status: EducationStatus
+  otherEducationType: String
+  degreeType: DegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: FellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: UpdateExperienceSkills
 }
@@ -2866,6 +2906,9 @@ input AwardExperienceInput {
   awardedScope: AwardedScope
   details: String
   skills: UpdateExperienceSkills
+  projectName: String
+  relatedExperienceId: UUID
+  relatedExperienceType: String
 }
 
 input UpdateExperienceSkills {
@@ -4024,6 +4067,14 @@ enum DeadlineStatus {
   EXPIRED
 }
 
+enum DegreeType {
+  HIGH_SCHOOL
+  COLLEGE_DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+}
+
 enum DepartmentSize {
   MICRO
   SMALL
@@ -4055,16 +4106,15 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
+  DEGREE_DIPLOMA_CERTIFICATE
+  LICENSE_ACCREDITATION
+  PROFESSIONAL_CERTIFICATION
+  INDIVIDUAL_COURSE
+  FELLOWSHIP
   OTHER
 }
 
@@ -4276,6 +4326,12 @@ enum ExternalSizeOfOrganization {
   ONE_THOUSAND_PLUS
 }
 
+enum FellowshipType {
+  POST_DOCTORAL
+  INDUSTRY
+  OTHER
+}
+
 enum FinanceChiefRole {
   CHIEF_SECURITY_OFFICER
   CHIEF_INFORMATION_OFFICER
@@ -4321,6 +4377,7 @@ enum GovEmployeeType {
   TERM
   INDETERMINATE
   CONTRACTOR
+  INTERCHANGE
 }
 
 enum GovPositionType {
@@ -4382,6 +4439,17 @@ enum NotificationFamily {
 enum NullsOption {
   ORDER_FIRST
   ORDER_LAST
+}
+
+enum OldEducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 enum OperationalRequirement {
@@ -4600,8 +4668,8 @@ enum TalentNominationSubmitterRelationshipToNominator {
 
 enum TalentNominationUserReview {
   CORRECT
-  INCORRECT
-  OUT_OF_DATE
+  INCORRECT_OUT_OF_DATE
+  WRONG_PERSON
 }
 
 enum TalentRequestCompletionDetail {
