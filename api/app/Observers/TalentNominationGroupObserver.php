@@ -30,13 +30,13 @@ class TalentNominationGroupObserver
             // withTrashed() so approving a decision never fails just because the
             // nominee has since been archived
             $nominee = User::withTrashed()->find($talentNominationGroup->nominee_id);
-            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->associate($nominee?->currentClassification);
+            $talentNominationGroup->classificationAtTimeOfLastApproval()->associate($nominee?->currentClassification);
         }
 
         // if advancement decision changes from approved then clear the classification
         if ($talentNominationGroup->getOriginal('advancement_decision') === TalentNominationGroupDecision::APPROVED->name &&
            $talentNominationGroup->advancement_decision !== TalentNominationGroupDecision::APPROVED->name) {
-            $talentNominationGroup->classificationAtTimeOfAdvancementApproval()->dissociate();
+            $talentNominationGroup->classificationAtTimeOfLastApproval()->dissociate();
         }
 
         $talentNominationGroup->saveQuietly();
