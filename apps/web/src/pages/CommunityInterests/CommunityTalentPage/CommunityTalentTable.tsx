@@ -196,7 +196,7 @@ const defaultState = {
     jobInterest: undefined,
     trainingInterest: undefined,
     lateralMoveInterest: undefined,
-    promotionalMoveInterest: undefined,
+    promotionMoveInterest: undefined,
     languageAbility: undefined,
     positionDuration: [],
     flexibleWorkLocations: [],
