@@ -10,11 +10,13 @@ export interface FormValues {
   advancementReferenceConfirmed: boolean | null;
   advancementApprovedNotes: string | null;
   advancementRejectedNotes: string | null;
-  advancementClassifications: string[];
-  advancementReferralExpiryDate: string;
+  advancementClassifications: string[] | null;
+  advancementReferralExpiryDate: string | null;
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
+  lateralMovementClassifications: string[] | null;
+  lateralMovementReferralExpiryDate: string | null;
   developmentProgramsDecision: TalentNominationGroupDecision | null;
   developmentProgramsApprovedNotes: string | null;
   developmentProgramsRejectedNotes: string | null;
@@ -77,6 +79,11 @@ export function convertQueryDataToFormData(
       queryData?.lateralMovementDecision,
       queryData?.lateralMovementNotes,
     ),
+    lateralMovementClassifications: unpackMaybes(
+      queryData?.lateralMovementClassifications,
+    ).map(({ id }) => id),
+    lateralMovementReferralExpiryDate:
+      queryData?.lateralMovementReferralExpiryDate ?? "",
     developmentProgramsDecision:
       queryData?.developmentProgramsDecision?.value ?? null,
     developmentProgramsApprovedNotes: ifApproved(
@@ -101,22 +108,27 @@ export function convertFormValuesToMutationInput(
       formValues.advancementApprovedNotes,
       formValues.advancementRejectedNotes,
     ),
+    advancementClassifications: {
+      sync: formValues.advancementClassifications,
+    },
+    advancementReferralExpiryDate:
+      formValues.advancementReferralExpiryDate ?? null,
     lateralMovementDecision: formValues.lateralMovementDecision,
     lateralMovementNotes: chooseValue(
       formValues.lateralMovementDecision,
       formValues.lateralMovementApprovedNotes,
       formValues.lateralMovementRejectedNotes,
     ),
+    lateralMovementClassifications: {
+      sync: formValues.lateralMovementClassifications,
+    },
+    lateralMovementReferralExpiryDate:
+      formValues.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision: formValues.developmentProgramsDecision,
     developmentProgramsNotes: chooseValue(
       formValues.developmentProgramsDecision,
       formValues.developmentProgramsApprovedNotes,
       formValues.developmentProgramsRejectedNotes,
     ),
-    advancementClassifications: {
-      sync: formValues.advancementClassifications,
-    },
-    advancementReferralExpiryDate:
-      formValues.advancementReferralExpiryDate || null,
   };
 }

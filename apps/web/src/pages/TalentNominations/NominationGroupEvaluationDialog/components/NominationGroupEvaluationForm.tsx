@@ -45,6 +45,10 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
       value
     }
     lateralMovementNotes
+    lateralMovementClassifications {
+      id
+    }
+    lateralMovementReferralExpiryDate
     developmentProgramsDecision {
       value
     }

@@ -3,6 +3,8 @@ import { useFormContext } from "react-hook-form";
 import { useEffect } from "react";
 
 import {
+  Combobox,
+  DateInput,
   localizedEnumToOptions,
   RadioGroup,
   RichTextInput,
@@ -16,7 +18,11 @@ import {
   TalentNominationGroupDecision,
   TalentNominationLateralMovementOption,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, uniqueItems } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  uniqueItems,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
@@ -36,6 +42,10 @@ const NominationGroupEvaluationDialogLateralMovementOptions_Fragment = graphql(
           localized
         }
       }
+      classifications {
+        id
+        groupAndLevel
+      }
     }
   `,
 );
@@ -53,6 +63,16 @@ const NominationGroupEvaluationDialogLateralMovement_Fragment = graphql(
           }
         }
         lateralMovementOptionsOther
+      }
+      lateralMovementClassifications {
+        id
+        groupAndLevel
+      }
+      lateralMovementReferralExpiryDate
+      nominee {
+        classification {
+          groupAndLevel
+        }
       }
     }
   `,
@@ -79,7 +99,7 @@ const LateralMovementSection = ({
   useEffect(() => {
     const resetDirtyField = (
       name: keyof FormValues,
-      defaultValue: null | string | boolean,
+      defaultValue: null | string | boolean | string[],
     ) => {
       resetField(name, { keepDirty: false, defaultValue });
     };
@@ -88,6 +108,8 @@ const LateralMovementSection = ({
       selectedLateralMovementDecision !== TalentNominationGroupDecision.Approved
     ) {
       resetDirtyField("lateralMovementApprovedNotes", null);
+      resetDirtyField("lateralMovementClassifications", []);
+      resetDirtyField("lateralMovementReferralExpiryDate", "");
     }
 
     if (
@@ -224,11 +246,67 @@ const LateralMovementSection = ({
       />
       {selectedLateralMovementDecision ==
       TalentNominationGroupDecision.Approved ? (
-        <RichTextInput
-          id="lateralMovementApprovedNotes"
-          name="lateralMovementApprovedNotes"
-          label={intl.formatMessage(formMessages.approvalNotes)}
-        />
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "If the nominee’s substantive classification has eligible equivalencies that might be a good fit for lateral movement, please specify the equivalencies in the field provided.",
+              id: "8GVLu/",
+              description: "Lateral movement classifications introduction",
+            })}
+          </p>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Nominee’s substantive classification",
+              id: "JB3nXV",
+              description: "The substantive classification of the nominee",
+            })}
+          >
+            {talentNominationGroup.nominee?.classification?.groupAndLevel ??
+              intl.formatMessage(commonMessages.notFound)}
+          </FieldDisplay>
+          <Combobox
+            id="lateralMovementClassifications"
+            name="lateralMovementClassifications"
+            isMulti
+            label={intl.formatMessage({
+              defaultMessage: "Relevant referral equivalencies",
+              id: "MwviYD",
+              description: "Label for lateral movement classifications field",
+            })}
+            options={unpackMaybes(
+              talentNominationGroupOptions?.classifications,
+            ).map(({ id, groupAndLevel }) => ({
+              value: id,
+              label:
+                groupAndLevel ?? intl.formatMessage(commonMessages.notProvided),
+            }))}
+          />
+          <DateInput
+            id="lateralMovementReferralExpiryDate"
+            name="lateralMovementReferralExpiryDate"
+            legend={intl.formatMessage({
+              defaultMessage: "Referral expiry date",
+              id: "VeYTqO",
+              description: "Label for referral expiry date field",
+            })}
+            context={intl.formatMessage({
+              defaultMessage:
+                "The nominee will be referred for lateral movement for opportunities in their current substantive classification as well as classifications selected above until this date (inclusive).",
+              id: "XQJch1",
+              description:
+                "Help text for lateral movement referral expiry date field",
+            })}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+          />
+          <RichTextInput
+            id="lateralMovementApprovedNotes"
+            name="lateralMovementApprovedNotes"
+            label={intl.formatMessage(formMessages.approvalNotes)}
+          />
+        </>
       ) : null}
       {selectedLateralMovementDecision ==
       TalentNominationGroupDecision.Rejected ? (
