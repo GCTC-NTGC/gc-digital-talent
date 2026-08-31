@@ -50,6 +50,10 @@ import ExperienceHeading from "~/components/ExperienceFormFields/ExperienceHeadi
 import {
   deriveExperienceType,
   formValuesToSubmitData,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
   organizationSuggestionsFromExperiences,
   queryResultToDefaultValues,
 } from "~/utils/experienceUtils";
@@ -130,7 +134,6 @@ export const ExperienceFormSkill_Fragment = graphql(/* GraphQL */ `
 const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceFormExperience on Experience {
     id
-    details
     skills {
       id
       key
@@ -150,6 +153,7 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       }
     }
     ... on AwardExperience {
+      details
       title
       issuedBy
       awardedDate
@@ -167,21 +171,74 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      projectName
+      relatedExperience {
+        ... on CommunityExperience {
+          id
+          user {
+            id
+          }
+        }
+        ... on EducationExperience {
+          id
+          user {
+            id
+          }
+        }
+        ... on PersonalExperience {
+          id
+          user {
+            id
+          }
+        }
+        ... on WorkExperience {
+          id
+          user {
+            id
+          }
+        }
+      }
     }
     ... on CommunityExperience {
+      details
       title
       organization
       project
       startDate
       endDate
+      awardExperiences {
+        id
+        user {
+          id
+        }
+      }
     }
     ... on EducationExperience {
+      details
       institution
       areaOfStudy
       thesisTitle
       startDate
       endDate
-      type {
+      otherEducationType
+      licenseOrAccreditation
+      certification
+      courseName
+      otherFellowshipType
+      prospectiveEndDate
+      educationType {
+        value
+        label {
+          localized
+        }
+      }
+      degreeType {
+        value
+        label {
+          localized
+        }
+      }
+      fellowshipType {
         value
         label {
           localized
@@ -190,18 +247,31 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
       status {
         value
         label {
-          en
-          fr
+          localized
+        }
+      }
+      awardExperiences {
+        id
+        user {
+          id
         }
       }
     }
     ... on PersonalExperience {
       title
-      description
       startDate
       endDate
+      learningDescription
+      organization
+      awardExperiences {
+        id
+        user {
+          id
+        }
+      }
     }
     ... on WorkExperience {
+      details
       role
       organization
       division
@@ -309,6 +379,12 @@ const ExperienceFormExperience_Fragment = graphql(/* GraphQL */ `
         }
       }
       otherCSuiteRoleTitle
+      awardExperiences {
+        id
+        user {
+          id
+        }
+      }
     }
   }
 `);
@@ -508,6 +584,14 @@ export const ExperienceForm = ({
     ? intl.formatMessage(editSubTitle)
     : intl.formatMessage(addSubTitle);
 
+  const isAttachedToAwardExp =
+    experience &&
+    (isCommunityExperience(experience) ||
+      isEducationExperience(experience) ||
+      isPersonalExperience(experience) ||
+      isWorkExperience(experience)) &&
+    experience.awardExperiences?.length;
+
   return (
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
@@ -624,15 +708,28 @@ export const ExperienceForm = ({
                             description: "Delete confirmation",
                           })}
                         </AlertDialog.Title>
-                        <AlertDialog.Description>
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
-                            id: "IhXvCe",
-                            description:
-                              "Question displayed when a user attempts to delete an experience from their profile",
-                          })}
-                        </AlertDialog.Description>
+                        <div className="grid gap-6">
+                          <AlertDialog.Description>
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Are you sure you would like to delete this experience from your profile? This action cannot be undone.",
+                              id: "IhXvCe",
+                              description:
+                                "Question displayed when a user attempts to delete an experience from their profile",
+                            })}
+                          </AlertDialog.Description>
+                          {isAttachedToAwardExp ? (
+                            <AlertDialog.Description>
+                              {intl.formatMessage({
+                                defaultMessage:
+                                  "Please note that by deleting this experience, it will no longer appear on any related award experiences.",
+                                id: "qgp94h",
+                                description:
+                                  "Note displayed when a user attempts to delete an experience from their profile with related experiences attached",
+                              })}
+                            </AlertDialog.Description>
+                          ) : null}
+                        </div>
                         <AlertDialog.Footer>
                           <AlertDialog.Cancel>
                             <Button type="button" color="primary">

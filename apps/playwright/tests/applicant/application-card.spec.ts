@@ -55,8 +55,8 @@ test.describe("Application card", () => {
         personalExperiences: {
           create: [
             {
-              description: "Test",
-              details: "Test",
+              organization: "Test Organization or platform",
+              learningDescription: "Test Experience Learning Description",
               skills: {
                 sync: [{ details: "Test", id: skill?.id ?? "" }],
               },
