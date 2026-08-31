@@ -2,10 +2,8 @@ import { useIntl } from "react-intl";
 
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  EducationStatus,
-  EducationType,
-} from "@gc-digital-talent/graphql";
+import type { EducationStatus } from "@gc-digital-talent/graphql";
+import { EducationType } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 

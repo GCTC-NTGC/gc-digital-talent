@@ -19,8 +19,8 @@ import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
 
 interface GovContentClassification {
-  group?: string | null;
-  level?: number | null;
+  group: string;
+  level: number;
 }
 
 export interface GovContentExperience {
