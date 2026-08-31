@@ -9,7 +9,7 @@ import {
   uniqueItems,
   unpackMaybes,
 } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { getLocalizedName } from "@gc-digital-talent/i18n";
 
 import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 import pageTitles from "~/messages/pageTitles";
@@ -37,7 +37,6 @@ const WorkStreamContent = ({
   headingLevel = "h3",
 }: WorkStreamsContentProps) => {
   const intl = useIntl();
-  const na = intl.formatMessage(commonMessages.notAvailable);
 
   if (!workStreams?.length) {
     return null;
@@ -56,7 +55,7 @@ const WorkStreamContent = ({
     Object.keys(groupedWorkStreams).map((id) => {
       const community = communities.find((c) => c?.id === id);
       const streams = groupedWorkStreams[id].sort(
-        sortAlphaBy((workStream) => workStream?.name?.localized),
+        sortAlphaBy((workStream) => getLocalizedName(workStream?.name, intl)),
       );
       if (!community || !streams?.length) {
         return undefined;
@@ -67,7 +66,11 @@ const WorkStreamContent = ({
         workStreams: streams,
       };
     }),
-  ).sort(sortAlphaBy((workStream) => workStream.community.name?.localized));
+  ).sort(
+    sortAlphaBy((workStream) =>
+      getLocalizedName(workStream.community.name, intl),
+    ),
+  );
 
   return workStreamsByCommunity.length > 0 ? (
     <>
@@ -79,12 +82,12 @@ const WorkStreamContent = ({
         <Ul>
           {workStreamsByCommunity.map((item) => (
             <li key={item.community.id} className="font-bold">
-              {item.community.name?.localized ?? na}
+              {getLocalizedName(item.community.name, intl)}
               <Ul unStyled className="mb-3 list-none! font-normal" space="md">
                 {item.workStreams.map((workStream) => (
                   <li key={workStream.id}>
                     <BoolCheckIcon value={true}>
-                      {workStream.name?.localized ?? na}
+                      {getLocalizedName(workStream.name, intl)}
                     </BoolCheckIcon>
                   </li>
                 ))}

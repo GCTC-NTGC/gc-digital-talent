@@ -10,8 +10,6 @@ import {
   AwardedTo,
   CandidateRemovalReason,
   CandidateStatus,
-  EducationStatus,
-  EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
@@ -278,13 +276,13 @@ export function sortAwardedTo(awardTo?: MaybeLocalizedEnums) {
 export function sortAwardedScope(awardedScopes?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [
-      AwardedScope.International,
-      AwardedScope.National,
-      AwardedScope.Provincial,
       AwardedScope.Local,
       AwardedScope.Community,
-      AwardedScope.Organizational,
       AwardedScope.SubOrganizational,
+      AwardedScope.Organizational,
+      AwardedScope.Provincial,
+      AwardedScope.National,
+      AwardedScope.International,
     ],
     awardedScopes,
   );
@@ -301,35 +299,6 @@ export function sortCandidateRemovalReason(
       CandidateRemovalReason.Other,
     ],
     removalReasons,
-  );
-}
-
-export function sortEducationType(educationTypes?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationType.Diploma,
-      EducationType.BachelorsDegree,
-      EducationType.MastersDegree,
-      EducationType.Phd,
-      EducationType.PostDoctoralFellowship,
-      EducationType.OnlineCourse,
-      EducationType.Certification,
-      EducationType.Other,
-    ],
-    educationTypes,
-  );
-}
-
-export function sortEducationStatus(educationStatuses?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationStatus.SuccessCredential,
-      EducationStatus.SuccessNoCredential,
-      EducationStatus.InProgress,
-      EducationStatus.Audited,
-      EducationStatus.DidNotComplete,
-    ],
-    educationStatuses,
   );
 }
 

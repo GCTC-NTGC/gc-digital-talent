@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
@@ -8,23 +9,31 @@ import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
 interface PersonalContentExperience {
-  description?: string | null;
+  learningDescription?: string | null;
+  organization?: string | null;
 }
 
 const PersonalContent = ({
-  experience: { description },
+  experience: { learningDescription, organization },
   headingLevel,
 }: ContentProps<PersonalContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
-    <div className="grid gap-6">
+    <div>
       <ContentSection
-        title={experienceFormLabels.experienceDescription}
+        title={experienceFormLabels.organizationOrPlatform}
         headingLevel={headingLevel}
       >
-        {description ?? intl.formatMessage(commonMessages.notAvailable)}
+        {organization ?? intl.formatMessage(commonMessages.notAvailable)}
+      </ContentSection>
+      <Separator space="sm" decorative />
+      <ContentSection
+        title={experienceFormLabels.learningDescription}
+        headingLevel={headingLevel}
+      >
+        {learningDescription ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
     </div>
   );

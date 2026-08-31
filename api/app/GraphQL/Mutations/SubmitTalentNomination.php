@@ -18,7 +18,8 @@ final class SubmitTalentNomination
     {
         $nomination = TalentNomination::find($args['id'])
             ->load('communityDevelopmentPrograms')
-            ->load('skills');
+            ->load('skills')
+            ->load('advancementClassifications');
         $submitValidator = new SubmitTalentNominationValidator($nomination);
         $validator = Validator::make($nomination->toArray(), $submitValidator->rules(), $submitValidator->messages());
         if ($validator->fails()) {

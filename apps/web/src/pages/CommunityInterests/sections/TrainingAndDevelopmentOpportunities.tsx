@@ -81,7 +81,7 @@ const EducationExperiencesRefresh_Query = graphql(/* GraphQL */ `
         areaOfStudy
         startDate
         endDate
-        type {
+        educationType {
           value
           label {
             localized
@@ -448,7 +448,7 @@ const TrainingAndDevelopmentOpportunities = ({
                       }
                       skillCount={linkedExp.skills?.length}
                       experienceType={
-                        linkedExp.type?.label?.localized ??
+                        linkedExp.educationType?.label?.localized ??
                         intl.formatMessage(experienceMessages.education)
                       }
                       iconLabel={intl.formatMessage({

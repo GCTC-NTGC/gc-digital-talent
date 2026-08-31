@@ -7,7 +7,11 @@ import type {
   GovPositionType,
 } from "@gc-digital-talent/graphql";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
-import { Separator, type HeadingRank } from "@gc-digital-talent/ui";
+import {
+  Separator,
+  UNICODE_CHAR,
+  type HeadingRank,
+} from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
@@ -188,7 +192,7 @@ const GovContent = ({
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingLevel={headingLevel}
@@ -224,6 +228,43 @@ const GovContent = ({
             </ContentSection>
           </>
         )}
+      </>
+    );
+  } else if (govEmploymentType?.value === GovEmployeeType.Interchange) {
+    return (
+      <>
+        <ContentSection
+          title={experienceFormLabels.team}
+          headingLevel={headingLevel}
+          className="sm:border-r sm:border-gray-200 dark:border-gray-500"
+        >
+          {division ?? intl.formatMessage(commonMessages.notAvailable)}
+        </ContentSection>
+        <Separator space="sm" decorative />
+        <div className="grid gap-6 sm:grid-cols-2">
+          <ContentSection
+            title={experienceFormLabels.govEmploymentType}
+            headingLevel={headingLevel}
+            className="sm:border-r sm:border-gray-200 dark:border-gray-500"
+          >
+            {getLocalizedName(govEmploymentType.label, intl)}
+          </ContentSection>
+          <ContentSection
+            title={experienceFormLabels.classification}
+            headingLevel={headingLevel}
+          >
+            {classification ? (
+              <>
+                {classification.group}
+                <span>{UNICODE_CHAR.HYPHEN}</span>
+                {classification.level < 10 ? "0" : ""}
+                {classification.level}
+              </>
+            ) : (
+              intl.formatMessage(commonMessages.notAvailable)
+            )}
+          </ContentSection>
+        </div>
       </>
     );
   }

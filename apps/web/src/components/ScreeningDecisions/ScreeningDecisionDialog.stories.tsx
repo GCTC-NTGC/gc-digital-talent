@@ -71,10 +71,11 @@ const user = {
   experiences: [experience],
   userSkills: fakeUserSkills(1, skill),
 };
+const snapshot = { ...user, version: 2 };
 const poolCandidate = {
   ...fakeCandidate,
   pool,
-  profileSnapshot: JSON.stringify(user),
+  profileSnapshot: JSON.stringify(snapshot),
   user,
 };
 

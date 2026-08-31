@@ -6,6 +6,7 @@ import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
+  getLocalizedName,
   localizeCurrency,
 } from "@gc-digital-talent/i18n";
 
@@ -152,7 +153,7 @@ const SupervisoryContent = ({
                 headingLevel={headingLevel}
               >
                 {cSuiteRoleTitle
-                  ? cSuiteRoleTitle?.label.localized
+                  ? getLocalizedName(cSuiteRoleTitle?.label, intl)
                   : intl.formatMessage(commonMessages.notApplicable)}
               </ContentSection>
               {cSuiteRoleTitle?.value === CSuiteRoleTitle.Other && (

@@ -1615,6 +1615,10 @@
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Title for work email address"
   },
+  "pdT/ln": {
+    "defaultMessage": "La date de délivrance ne peut pas être dans le futur. Entrez une date antérieure.",
+    "description": "Error message that the end date cannot be in the future."
+  },
   "pnoSK6": {
     "defaultMessage": "Non sélectionnée",
     "description": "Label when an item is not selected"
@@ -1855,6 +1859,10 @@
     "defaultMessage": "La date doit être égale ou postérieure à la {label}",
     "description": "Error message when a date was entered that is less than the minimum required, referencing an associated input label"
   },
+  "wpNvbg": {
+    "defaultMessage": "Aucune organisation",
+    "description": "Placeholder for when the department can not be displayed"
+  },
   "wqBryV": {
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
@@ -1906,6 +1914,10 @@
   "xmzq/b": {
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
+  },
+  "xuxKpE": {
+    "defaultMessage": "Aucune classification",
+    "description": "Placeholder for when the classification can not be displayed"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",
