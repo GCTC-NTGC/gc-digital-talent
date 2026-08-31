@@ -55,6 +55,7 @@ class TalentNominationGroup extends Model
      */
     protected $casts = [
         'advancement_referral_expiry_date' => 'date',
+        'lateral_movement_referral_expiry_date' => 'date',
     ];
 
     /**
