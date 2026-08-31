@@ -56,6 +56,27 @@ final class UpdateTalentNominationGroupValidator extends Validator
                     ['date'],
                     ['prohibited']), // must be null if not approved
             ],
+            'talentNominationGroup.lateralMovementClassifications' => [
+                // when updating a decision, updating the classifications is also required
+                'required_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+            ],
+            'talentNominationGroup.lateralMovementClassifications.sync' => [
+                'list',
+                'distinct',
+                Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.lateralMovementDecision') === 'APPROVED',
+                    ['min:0'],
+                    ['prohibited']), // unless approved, can't sync any classifications
+            ],
+            'talentNominationGroup.lateralMovementClassifications.sync.*' => [
+                'exists:classifications,id',
+            ],
+            'talentNominationGroup.lateralMovementReferralExpiryDate' => [
+                // when updating a decision, updating the referral expiry date is also required
+                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.lateralMovementDecision') === 'APPROVED',
+                    ['date'],
+                    ['prohibited']), // must be null if not approved
+            ],
         ];
     }
 
@@ -71,6 +92,12 @@ final class UpdateTalentNominationGroupValidator extends Validator
             'talentNominationGroup.advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
             'talentNominationGroup.advancementReferralExpiryDate.present_with' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED->name,
             'talentNominationGroup.advancementReferralExpiryDate.prohibited' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED->name,
+            'talentNominationGroup.lateralMovementClassifications.required_with' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.lateralMovementClassifications.sync.min' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.lateralMovementClassifications.sync.prohibited' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED->name,
+            'talentNominationGroup.lateralMovementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
+            'talentNominationGroup.lateralMovementReferralExpiryDate.present_with' => ErrorCode::LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED->name,
+            'talentNominationGroup.lateralMovementReferralExpiryDate.prohibited' => ErrorCode::LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED->name,
         ];
     }
 }
