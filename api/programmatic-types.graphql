@@ -144,6 +144,11 @@ type LocalizedDeadlineStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedDegreeType implements LocalizedEnumOption {
+  value: DegreeType!
+  label: LocalizedString!
+}
+
 type LocalizedDepartmentSize implements LocalizedEnumOption {
   value: DepartmentSize!
   label: LocalizedString!
@@ -209,6 +214,11 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFellowshipType implements LocalizedEnumOption {
+  value: FellowshipType!
+  label: LocalizedString!
+}
+
 type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   value: FinanceChiefRole!
   label: LocalizedString!
@@ -271,6 +281,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
 
 type LocalizedNineBoxRating implements LocalizedEnumOption {
   value: NineBoxRating!
+  label: LocalizedString!
+}
+
+type LocalizedOldEducationType implements LocalizedEnumOption {
+  value: OldEducationType!
   label: LocalizedString!
 }
 
@@ -1295,6 +1310,14 @@ enum DeadlineStatus {
   EXPIRED
 }
 
+enum DegreeType {
+  HIGH_SCHOOL
+  COLLEGE_DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+}
+
 enum DepartmentSize {
   MICRO
   SMALL
@@ -1326,16 +1349,15 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
+  DEGREE_DIPLOMA_CERTIFICATE
+  LICENSE_ACCREDITATION
+  PROFESSIONAL_CERTIFICATION
+  INDIVIDUAL_COURSE
+  FELLOWSHIP
   OTHER
 }
 
@@ -1547,6 +1569,12 @@ enum ExternalSizeOfOrganization {
   ONE_THOUSAND_PLUS
 }
 
+enum FellowshipType {
+  POST_DOCTORAL
+  INDUSTRY
+  OTHER
+}
+
 enum FinanceChiefRole {
   CHIEF_SECURITY_OFFICER
   CHIEF_INFORMATION_OFFICER
@@ -1654,6 +1682,17 @@ enum NotificationFamily {
 enum NullsOption {
   ORDER_FIRST
   ORDER_LAST
+}
+
+enum OldEducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 enum OperationalRequirement {
