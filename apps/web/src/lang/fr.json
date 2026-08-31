@@ -2050,6 +2050,10 @@
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
   },
+  "5e7fPy": {
+    "defaultMessage": "Personnes que vous avez nommées",
+    "description": "Title for the employees nominated section"
+  },
   "5eTpEJ": {
     "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI, toutes fonctions ou expériences confondues, qui cherchent à améliorer leurs compétences.",
     "description": "An item in a list of points about online learning"
@@ -3458,6 +3462,10 @@
     "defaultMessage": "Autre possibilité de transfert latéral",
     "description": "Label other lateral move option input on the details step"
   },
+  "BNhG2U": {
+    "defaultMessage": "Nominations que vous avez reçues",
+    "description": "Title for the nominations received section"
+  },
   "BPFC5k": {
     "defaultMessage": "Renseignements propres à la collectivité",
     "description": "Title for community-specific information section"
@@ -3782,6 +3790,10 @@
     "defaultMessage": "Trouver des candidatures correspondantes",
     "description": "Heading for the table that contains users who match talent request criteria"
   },
+  "CtftRC": {
+    "defaultMessage": "Ce qu’une nomination signifie ",
+    "description": "Label for the meaning of a nomination status, with the status name as a variable"
+  },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
@@ -3821,6 +3833,10 @@
   "D/Ymty": {
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
+  },
+  "D0NNSD": {
+    "defaultMessage": "Qui est à l’origine de votre nomination",
+    "description": "Label for who nominated the person"
   },
   "D0Yslc": {
     "defaultMessage": "Voir l'offre d'emploi {name}",
@@ -7270,6 +7286,10 @@
     "defaultMessage": "Dans cette étape, des questions de présélection et des questions générales peuvent vous être posées. Vos réponses aux <strong>questions de présélection seront évaluées</strong> dans le cadre de votre candidature. Assurez-vous de donner des réponses réfléchies et détaillées qui vous représentent vraiment ainsi que votre expérience.",
     "description": "Application step for additional questions, introduction description, paragraph one"
   },
+  "Qmo6Wc": {
+    "defaultMessage": "Consultez les activités de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
+    "description": "Paragraph explaining what employees nominated are and how they work"
+  },
   "Qn8C+Z": {
     "defaultMessage": "Domaines de certification",
     "description": "Title for certification topics section"
@@ -9295,6 +9315,10 @@
     "defaultMessage": "Recommandé",
     "description": "Status for referred candidates"
   },
+  "ZArId5": {
+    "defaultMessage": "Plus d’information sur votre nomination pour {eventName}",
+    "description": "Subtitle for the received nomination details dialog"
+  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -9410,6 +9434,10 @@
   "ZijW8r": {
     "defaultMessage": "J'ai occupé ce rôle par le passé.",
     "description": "Label displayed on Experience form for past role option."
+  },
+  "ZlD1Sv": {
+    "defaultMessage": "Félicitations pour votre nomination aux fins de {eventName}.",
+    "description": "Title for important update notice"
   },
   "ZoZNDf": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
@@ -10776,6 +10804,10 @@
   "fCgDxi": {
     "defaultMessage": "réduire la dépendance à l’égard de la sous-traitance;",
     "description": "an item in a list of fund objectives"
+  },
+  "fDaeWB": {
+    "defaultMessage": "Les collectivités fonctionnelles organisent parfois des activités de gestion des talents qui mettent en valeur les membres du personnel démontrant un rendement élevé, faisant preuve de leadership ou possédant des compétences recherchées. Dans certains cas, la gestion ou la haute direction pourrait vous nommer et préciser que vous avez le bon profil pour obtenir une promotion, effectuer un transfert latéral ou profiter de possibilités de formation particulières. Toute nomination approuvée s’affichera automatiquement ici; vous n’aurez aucune mesure à prendre pour qu’elle soit prise en considération.",
+    "description": "Paragraph explaining what nominations received are and how they work"
   },
   "fDwDJU": {
     "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés.",
@@ -13020,6 +13052,10 @@
     "defaultMessage": "Non épinglé en haut des possibilités de formation",
     "description": "Message displayed indicating a training opportunity is not pinned to the top of the list"
   },
+  "nvpGHw": {
+    "defaultMessage": "Nomination par {nominatorName} pour {nominationOptions}",
+    "description": "Title showing who nominated and what for"
+  },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
@@ -13299,6 +13335,10 @@
   "p8o9cO": {
     "defaultMessage": "Le contenu de ce site Web a été produit ou rassemblé afin d’offrir aux Canadiens l’accès aux renseignements concernant les programmes et les services offerts par le gouvernement du Canada. Vous pouvez l’utiliser et le reproduire des façons suivantes :",
     "description": "Paragraph describing ownership and usage section"
+  },
+  "p9H+Nl": {
+    "defaultMessage": "Nomination pour {name} ",
+    "description": "Title for a talent nomination in a preview list, naming the nominee"
   },
   "pB5bOl": {
     "defaultMessage": "Hors du Canada et des États-Unis",
@@ -15099,6 +15139,10 @@
   "wRDpHo": {
     "defaultMessage": "Raisons pourquoi la personne n'a pas été choisie",
     "description": "Lead-in for the list of not-selected reasons in referral history"
+  },
+  "wRsQe+": {
+    "defaultMessage": "Pourquoi vous méritez une nomination",
+    "description": "Label for the type(s) of a received nomination"
   },
   "wSlABO": {
     "defaultMessage": "Modifier un groupe de compétences",

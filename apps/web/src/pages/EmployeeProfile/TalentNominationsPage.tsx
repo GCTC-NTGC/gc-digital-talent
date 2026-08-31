@@ -14,7 +14,6 @@ import {
   ThrowNotFound,
 } from "@gc-digital-talent/ui";
 import { useLocalStorage } from "@gc-digital-talent/storage";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -145,7 +144,11 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                 size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}
               >
-                {intl.formatMessage(commonMessages.nominationsReceived)}
+                {intl.formatMessage({
+                  defaultMessage: "Nominations you've received",
+                  id: "BNhG2U",
+                  description: "Title for the nominations received section",
+                })}
               </Heading>
               <p className="mt-3 mb-3">
                 {intl.formatMessage({
@@ -174,7 +177,11 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
                 size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}
               >
-                {intl.formatMessage(commonMessages.employeesNominated)}
+                {intl.formatMessage({
+                  defaultMessage: "Employees you've nominated",
+                  id: "5e7fPy",
+                  description: "Title for the employees nominated section",
+                })}
               </Heading>
               <p className="mt-3 mb-3">
                 {intl.formatMessage({
