@@ -96,6 +96,12 @@ const EmployeesNominated = ({
       )
     : nominations;
 
+  const viewByLabel = {
+    defaultMessage: "View by",
+    id: "MB3J/o",
+    description: "Label for the nominations view toggle",
+  };
+
   return (
     <div className="mt-6.75 flex flex-col gap-y-1.5">
       {showView && (
@@ -127,26 +133,19 @@ const EmployeesNominated = ({
                 if (value) setView(value as NominationView);
               }}
               label={
-                intl.formatMessage({
-                  defaultMessage: "View",
-                  id: "N7/ui3",
-                  description: "Label for the nominations view toggle",
-                }) + intl.formatMessage(commonMessages.dividingColon)
+                intl.formatMessage(viewByLabel) +
+                intl.formatMessage(commonMessages.dividingColon)
               }
-              aria-label={intl.formatMessage({
-                defaultMessage: "View nominations",
-                id: "EG+jnD",
-                description: "Accessible label for the nominations view toggle",
-              })}
+              aria-label={intl.formatMessage(viewByLabel)}
             >
               <ToggleGroup.Item
                 value="open"
                 className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Open nominations",
-                  id: "S9eqVM",
-                  description: "Toggle option to view open nominations",
+                  defaultMessage: "Active events",
+                  id: "9SO6OE",
+                  description: "Title for active events section",
                 })}
               </ToggleGroup.Item>
               <ToggleGroup.Item
@@ -154,8 +153,8 @@ const EmployeesNominated = ({
                 className="cursor-pointer p-1.5 underline outline-none data-[state=on]:font-bold data-[state=on]:no-underline"
               >
                 {intl.formatMessage({
-                  defaultMessage: "Closed nominations",
-                  id: "I+Kr8Q",
+                  defaultMessage: "Past events",
+                  id: "ixjaCE",
                   description: "Toggle option to view closed nominations",
                 })}
               </ToggleGroup.Item>
