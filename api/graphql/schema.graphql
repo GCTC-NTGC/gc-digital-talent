@@ -641,14 +641,11 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int @rename(attribute: "status_weight")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
   removalReasonOther: String @rename(attribute: "removal_reason_other")
-  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
   # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
@@ -693,6 +690,12 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 
   applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
