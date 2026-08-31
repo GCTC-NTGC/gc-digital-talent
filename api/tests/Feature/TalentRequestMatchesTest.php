@@ -218,7 +218,7 @@ class TalentRequestMatchesTest extends TestCase
         Community $community,
         ?Classification $classification = null,
         ?string $advancementDecision = null,
-        $referralExpiryDate = null,
+        $advancementReferralExpiryDate = null,
     ): TalentNominationGroup {
         $user = User::factory()->create([
             'work_email' => 'advancement.user@gc.ca',
@@ -237,8 +237,8 @@ class TalentRequestMatchesTest extends TestCase
             'talent_nomination_event_id' => $event->id,
             'advancement_decision' => $advancementDecision ?? TalentNominationGroupDecision::APPROVED->name,
         ]);
-        // referral_expiry_date is not mass-assignable; set it directly.
-        $group->referral_expiry_date = $referralExpiryDate ?? now()->addMonths(6);
+        // advancement_referral_expiry_date is not mass-assignable; set it directly.
+        $group->advancement_referral_expiry_date = $advancementReferralExpiryDate ?? now()->addMonths(6);
         $group->save();
 
         if ($classification) {
@@ -880,6 +880,29 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->runCountMatches()
             ->assertJson(['data' => ['countTalentRequestMatches' => $listTotal]]);
+    }
+
+    public function testCountByCommunityAppliesUserAttributeFilters(): void
+    {
+        $community = Community::factory()->create();
+        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+            'community_id' => $community->id,
+        ]);
+        $this->matchingUser($pool, ['looking_for_english' => true, 'looking_for_french' => false]);
+        $this->matchingUser($pool, ['looking_for_english' => false, 'looking_for_french' => true]);
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [TalentRequestSource::QUALIFIED_IN_POOL->name],
+                'languageAbility' => LanguageAbility::FRENCH->name,
+            ],
+        ])->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByCommunity' => [
+                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'count' => 1],
+                ],
+            ],
+        ]);
     }
 
     // The following tests port applicantFilter scenarios previously covered only by the
@@ -1696,7 +1719,7 @@ class TalentRequestMatchesTest extends TestCase
             'talent_nomination_event_id' => $event->id,
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $group->referral_expiry_date = now()->addMonths(6);
+        $group->advancement_referral_expiry_date = now()->addMonths(6);
         $group->save();
 
         $this->actingAs($this->admin, 'api')
@@ -1736,7 +1759,7 @@ class TalentRequestMatchesTest extends TestCase
             'talent_nomination_event_id' => $event->id,
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $group->referral_expiry_date = now()->addMonths(6);
+        $group->advancement_referral_expiry_date = now()->addMonths(6);
         $group->save();
 
         $this->actingAs($this->admin, 'api')
@@ -1764,13 +1787,13 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
     }
 
-    // "referralExpiryDate is current or past" in the source ticket actually means "not yet
+    // "advancementReferralExpiryDate is current or past" in the source ticket actually means "not yet
     // expired" — a past expiry date must EXCLUDE the match. Confirmed with product.
-    public function testAdvancementExcludesPastReferralExpiryDate(): void
+    public function testAdvancementExcludesPastAdvancementReferralExpiryDate(): void
     {
         $community = Community::factory()->create();
 
-        $this->advancementUser($community, referralExpiryDate: now()->subDay());
+        $this->advancementUser($community, advancementReferralExpiryDate: now()->subDay());
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->advancementQuery, [
@@ -1810,7 +1833,7 @@ class TalentRequestMatchesTest extends TestCase
             'talent_nomination_event_id' => $event->id,
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $group->referral_expiry_date = now()->addMonths(6);
+        $group->advancement_referral_expiry_date = now()->addMonths(6);
         $group->save();
 
         $this->actingAs($this->admin, 'api')
@@ -1910,7 +1933,7 @@ class TalentRequestMatchesTest extends TestCase
             'talent_nomination_event_id' => $event->id,
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $excludedGroup->referral_expiry_date = now()->addMonths(6);
+        $excludedGroup->advancement_referral_expiry_date = now()->addMonths(6);
         $excludedGroup->save();
 
         $this->actingAs($this->admin, 'api')

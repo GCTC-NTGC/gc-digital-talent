@@ -1,9 +1,10 @@
 <?php
 
 return [
-    'success_credential' => 'Successful Completion (Credential Awarded)',
-    'success_no_credential' => 'Successful Completion (No Credential Awarded)',
-    'in_progress' => 'In Progress',
+    'success_credential' => 'Completed with a credential',
+    'success_no_credential' => 'Completed without a credential',
+    'in_progress' => 'In progress',
     'audited' => 'Audited',
     'did_not_complete' => 'Did not complete',
+    'success' => 'Completed',
 ];
