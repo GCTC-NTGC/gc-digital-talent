@@ -1023,6 +1023,9 @@ type TalentNominationGroup {
   advancementClassifications: [Classification!] @belongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: [Classification!] @belongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -2756,6 +2759,9 @@ input UpdateTalentNominationGroupInput {
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
