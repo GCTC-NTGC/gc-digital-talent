@@ -1,15 +1,25 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import {
-  EducationType,
-  type EducationExperience,
-} from "@gc-digital-talent/graphql";
+import type { EducationStatus } from "@gc-digital-talent/graphql";
+import { EducationType } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
+
+interface EducationContentExperience {
+  __typename?: "EducationExperience";
+  areaOfStudy?: string | null;
+  thesisTitle?: string | null;
+  status?: GenericLocalizedEnum<EducationStatus> | null;
+  educationType?: GenericLocalizedEnum<EducationType> | null;
+  licenseOrAccreditation?: string | null;
+  certification?: string | null;
+  courseName?: string | null;
+}
 
 const EducationContent = ({
   experience: {
@@ -22,7 +32,7 @@ const EducationContent = ({
     courseName,
   },
   headingLevel,
-}: ContentProps<Omit<EducationExperience, "user">>) => {
+}: ContentProps<EducationContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 
-import type { WorkStream } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import {
@@ -16,8 +16,19 @@ import pageTitles from "~/messages/pageTitles";
 
 import ContentSection from "../ContentSection";
 
+interface WorkStreamCommunity {
+  id: string;
+  name?: LocalizedString | null;
+}
+
+interface WorkStreamsContentWorkStream {
+  id: string;
+  name?: LocalizedString | null;
+  community?: WorkStreamCommunity | null;
+}
+
 interface WorkStreamsContentProps {
-  workStreams?: WorkStream[] | null;
+  workStreams?: WorkStreamsContentWorkStream[] | null;
   headingLevel?: HeadingRank;
 }
 
