@@ -2294,10 +2294,6 @@
     "defaultMessage": "Activez le mode sombre",
     "description": "Button text to set theme mode to dark"
   },
-  "6wsUEv": {
-    "defaultMessage": "Le candidat a un rendement inférieur aux attentes, mais un potentiel manifeste en matière de leadership. Un soutien et un encadrement ciblés pourraient le préparer à assumer des responsabilités dans ce domaine. Nous recommandons le perfectionnement plutôt qu’une mutation latérale ou une promotion.",
-    "description": "Nine-box recommendation description for low performance and moderate leadership potential"
-  },
   "6xQf6q": {
     "defaultMessage": "Mobilité des talents",
     "description": "Card label, for nomination feature"
@@ -2659,7 +2655,7 @@
     "description": "Text for date range values for Accepting nominations"
   },
   "8VO06T": {
-    "defaultMessage": "Le candidat est fiable et efficace dans son poste actuel et fait montre d’un potentiel de croissance modéré. Sa mutation latérale vers un poste d’une complexité ou d’une portée supérieure, accompagnée d’un perfectionnement ciblé, pourrait lui faire prendre de l’expérience et renforcer ses capacités en matière de leadership.",
+    "defaultMessage": "Le nominé ou la nominée est fiable et efficace dans son poste actuel et fait montre d’un potentiel de croissance modéré. Un transfert latéral vers un poste d’une complexité ou d’une portée supérieure, accompagnée d’un perfectionnement ciblé, pourrait lui faire prendre de l’expérience et renforcer ses capacités en matière de leadership.",
     "description": "Nine-box recommendation description for moderate performance and moderate leadership potential"
   },
   "8VQWN3": {
@@ -4414,10 +4410,6 @@
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
   },
-  "FWuONX": {
-    "defaultMessage": "Le candidat aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement. Il pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités. Nous recommandons le perfectionnement plutôt qu’une mutation latérale ou une promotion.",
-    "description": "Nine-box recommendation description for low performance and low leadership potential"
-  },
   "FYCNAa": {
     "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'un transfert latéral, d'une possibilité de perfectionnement ou d'une promotion.",
     "description": "Describes the career objective section of employee profile"
@@ -4954,7 +4946,7 @@
     "description": "Subject line of a manager's email for apprenticeship"
   },
   "Hr7xF2": {
-    "defaultMessage": "Le candidat produit des résultats constants et montre une capacité à exercer des responsabilités élargies en matière de leadership. Les affectations enrichies, les mutations latérales et les possibilités de promotion pourront lui faire prendre de l’expérience et accélérer sa préparation en vue d’assumer la relève à moyen et à long terme.",
+    "defaultMessage": "Le nominé ou la nominée produit des résultats constants et montre une capacité à exercer des responsabilités élargies en matière de leadership. Les affectations enrichies, les mutations latérales et les possibilités de promotion pourront lui faire prendre de l’expérience et accélérer sa préparation en vue d’assumer la relève à moyen et à long terme.",
     "description": "Nine-box recommendation description for high performance and moderate leadership potential"
   },
   "HrRgTT": {
@@ -6140,7 +6132,7 @@
     "description": "Breadcrumb title for the edit skill page link."
   },
   "M4O7dx": {
-    "defaultMessage": "Le candidat affiche un excellent rendement et possède un fort potentiel en matière de leadership. Les mutations latérales et les possibilités de promotion pourront favoriser son perfectionnement stratégique, lui faire prendre de l’expérience en leadership et le préparer aux possibilités d’assumer la relève à moyen et à long terme.",
+    "defaultMessage": "Le nominé ou la nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Un transfert latéral ou un avancement pourrait favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
     "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "M4sGS2": {
@@ -7390,6 +7382,10 @@
     "defaultMessage": "La candidature de la personne n'a encore jamais été envoyée.",
     "description": "Message shown when a user has no referral history"
   },
+  "RE2oVS": {
+    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un potentiel manifeste en matière de leadership. Un soutien et un encadrement ciblés pourraient le préparer à assumer des responsabilités dans ce domaine. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for low performance and moderate leadership potential"
+  },
   "REF6ea": {
     "defaultMessage": "Taille du ministère",
     "description": "Label for the size of a department"
@@ -8383,6 +8379,10 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
+  "VaiX1a": {
+    "defaultMessage": "Le nominé ou la nominée aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement et pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for low performance and low leadership potential"
+  },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
@@ -8600,7 +8600,7 @@
     "description": "Message when user is not a Senior Designated Official"
   },
   "WWTY2/": {
-    "defaultMessage": "Le candidat a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Une mutation latérale vers un poste correspondant mieux à ses forces, accompagnée d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
+    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Un transfert latéral vers un poste correspondant mieux à ses forces, accompagné d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
     "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
   "WWrQYI": {
@@ -9692,7 +9692,7 @@
     "description": "Message displayed after a talent requests status was updated"
   },
   "b99hey": {
-    "defaultMessage": "Le candidat est très efficace dans son poste actuel et possède une vaste expertise qui est essentielle dans son domaine. Une mutation latérale à un poste où il pourra mettre à profit ou enrichir son expertise pourrait contribuer grandement à son perfectionnement et être avantageuse pour son organisation, notamment si les responsabilités élargies en matière de leadership ne correspondent pas à ses aspirations professionnelles.",
+    "defaultMessage": "Le nominé ou la nominée est très efficace dans son poste actuel et possède une vaste expertise qui est essentielle dans son domaine. Un transfert latéral dans un poste où il serait possible de mettre à profit ou enrichir son expertise pourrait contribuer grandement à son perfectionnement et être avantageuse pour son organisation, notamment si les responsabilités élargies en matière de leadership ne correspondent pas à ses aspirations professionnelles.",
     "description": "Nine-box recommendation description for high performance and low leadership potential"
   },
   "b9aCAt": {
@@ -10020,7 +10020,7 @@
     "description": "Description of analytics and planning for HR professionals"
   },
   "cU9OEC": {
-    "defaultMessage": "Le candidat excelle dans son poste actuel et fait montre d’un potentiel exceptionnel en matière de leadership. Il doit être considéré en priorité pour une promotion et la planification de la relève en lien avec son poste, y compris les possibilités d’assumer des responsabilités accrues à court terme et d’intégrer la relève à moyen et à long terme.",
+    "defaultMessage": "Le nominé ou la nominée excelle dans son poste actuel et fait montre d’un potentiel exceptionnel en matière de leadership, et doit être pris en considération prioritairement pour un avancement ainsi que dans la planification de la relève en lien avec son poste, y compris les possibilités d’assumer des responsabilités accrues à court terme et d’intégrer la relève à moyen et à long terme.",
     "description": "Nine-box recommendation description for high performance and high leadership potential"
   },
   "cXszfI": {
@@ -12512,10 +12512,6 @@
     "defaultMessage": "Ajouter une collectivité",
     "description": "Title for the create community interest page"
   },
-  "lzwuWa": {
-    "defaultMessage": "Le candidat répond aux attentes en matière de rendement, mais n’a pas encore démontré de potentiel en matière de leadership. Son profil cadre bien avec les postes dans lesquels la fiabilité opérationnelle, l’expertise et la production de résultats sont importantes. Nous recommandons le perfectionnement plutôt qu’une mutation latérale ou une promotion.",
-    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
-  },
   "m/9bKR": {
     "defaultMessage": "La Défense nationale (MDN) se prépare à croître et à s’adapter pour relever les défis posés dans un contexte international complexe. De son côté, le gouvernement du Canada a annoncé qu’il projette d’augmenter et d’accélérer son <strong>investissement en défense</strong>, ce qui renforcera ses engagements qui touchent <strong>la souveraineté, la sécurité et la prospérité du pays</strong>.",
     "description": "Paragraph one, describing DND recruitment campaign"
@@ -13703,6 +13699,10 @@
   "qbv2v0": {
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement reference classification"
+  },
+  "qfTGNi": {
+    "defaultMessage": "Le nominé ou la nominée répond aux attentes en matière de rendement, mais n’a pas encore démontré de potentiel en matière de leadership. Son profil cadre bien avec les postes dans lesquels la fiabilité opérationnelle, l’expertise et la production de résultats sont importantes. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
   },
   "qgp94h": {
     "defaultMessage": "Veuillez noter qu'en supprimant cette expérience, elle n’apparaîtra plus dans les expériences liées à un prix.",

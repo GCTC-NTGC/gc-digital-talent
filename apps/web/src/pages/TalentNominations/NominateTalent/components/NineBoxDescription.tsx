@@ -23,8 +23,8 @@ const messages: Record<
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee would benefit from focused development and performance support. They may require performance management or reassignment to a role better aligned with their strengths and capabilities. Development is recommended rather than lateral movement or advancement.",
-        id: "FWuONX",
+          "This nominee would benefit from focused development and performance support. They may require performance management or reassignment to a role better aligned with their strengths and capabilities. Development is recommended rather than a nomination for a lateral movement or advancement.",
+        id: "VaiX1a",
         description:
           "Nine-box recommendation description for low performance and low leadership potential",
       }),
@@ -38,8 +38,8 @@ const messages: Record<
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee's performance is below expectations, but their leadership potential is evident. Targeted support and coaching could build readiness for leadership responsibilities. Development is recommended rather than lateral movement or advancement.",
-        id: "6wsUEv",
+          "This nominee's performance is below expectations, but their leadership potential is evident. Targeted support and coaching could build readiness for leadership responsibilities. Development is recommended rather than a nomination for a lateral movement or advancement.",
+        id: "RE2oVS",
         description:
           "Nine-box recommendation description for low performance and moderate leadership potential",
       }),
@@ -71,8 +71,8 @@ const messages: Record<
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee meets performance expectations but has not yet demonstrated leadership potential. They are well suited to roles that value operational reliability, expertise and delivery. Development is recommended rather than lateral movement or advancement.",
-        id: "lzwuWa",
+          "This nominee meets performance expectations but has not yet demonstrated leadership potential. They are well suited to roles that value operational reliability, expertise and delivery. Development is recommended rather than a nomination for a lateral movement or advancement.",
+        id: "qfTGNi",
         description:
           "Nine-box recommendation description for moderate performance and low leadership potential",
       }),
