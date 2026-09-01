@@ -19,63 +19,61 @@ final class UpdateTalentNominationGroupValidator extends Validator
     {
         $talentNominationGroup = TalentNominationGroup::find($this->arg('id'));
 
+        // many fields are required to be present if a decision is provided
+        $presentWithADecision = 'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision';
+
         return [
             'talentNominationGroup.advancementDecision' => [
                 'nullable',
                 Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->advancement_nomination_count == 0, ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->advancement_nomination_count > 0, ['required'], ['prohibited']),
+                $presentWithADecision,
             ],
             'talentNominationGroup.lateralMovementDecision' => [
                 'nullable',
                 Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->lateral_movement_nomination_count == 0, ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->lateral_movement_nomination_count > 0, ['required'], ['prohibited']),
+                $presentWithADecision,
             ],
             'talentNominationGroup.developmentProgramsDecision' => [
                 'nullable',
                 Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->development_programs_nomination_count == 0, ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->development_programs_nomination_count > 0, ['required'], ['prohibited']),
+                $presentWithADecision,
             ],
             'talentNominationGroup.advancementClassifications' => [
-                // when updating a decision, updating the classifications is also required
-                'required_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                $presentWithADecision,
             ],
             'talentNominationGroup.advancementClassifications.sync' => [
                 'list',
                 'distinct',
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
-                    ['min:1'],
-                    ['prohibited']), // unless approved, can't sync any classifications
+                    ['min:1'], ['prohibited']),
             ],
             'talentNominationGroup.advancementClassifications.sync.*' => [
                 'exists:classifications,id',
             ],
             'talentNominationGroup.advancementReferralExpiryDate' => [
-                // when updating a decision, updating the referral expiry date is also required
-                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                $presentWithADecision,
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.advancementDecision') === 'APPROVED',
-                    ['date'],
-                    ['prohibited']), // must be null if not approved
+                    ['date'], ['prohibited']),
             ],
             'talentNominationGroup.lateralMovementClassifications' => [
-                // when updating a decision, updating the classifications is also required
-                'required_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                $presentWithADecision,
             ],
             'talentNominationGroup.lateralMovementClassifications.sync' => [
                 'list',
                 'distinct',
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.lateralMovementDecision') === 'APPROVED',
-                    ['min:0'],
-                    ['prohibited']), // unless approved, can't sync any classifications
+                    ['min:1'], ['prohibited']),
             ],
             'talentNominationGroup.lateralMovementClassifications.sync.*' => [
                 'exists:classifications,id',
             ],
             'talentNominationGroup.lateralMovementReferralExpiryDate' => [
-                // when updating a decision, updating the referral expiry date is also required
-                'present_with:talentNominationGroup.advancementDecision,talentNominationGroup.lateralMovementDecision,talentNominationGroup.developmentProgramsDecision',
+                $presentWithADecision,
                 Rule::when(fn ($attributes) => $attributes->get('talentNominationGroup.lateralMovementDecision') === 'APPROVED',
-                    ['date'],
-                    ['prohibited']), // must be null if not approved
+                    ['date'], ['prohibited']),
             ],
         ];
     }
@@ -83,18 +81,29 @@ final class UpdateTalentNominationGroupValidator extends Validator
     public function messages(): array
     {
         return [
+            'talentNominationGroup.advancementDecision.required' => ErrorCode::ADVANCEMENT_DECISION_REQUIRED->name,
+            'talentNominationGroup.advancementDecision.present_with' => ErrorCode::ADVANCEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.advancementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE->name,
+            'talentNominationGroup.advancementDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'talentNominationGroup.lateralMovementDecision.required' => ErrorCode::LATERAL_MOVEMENT_DECISION_REQUIRED->name,
+            'talentNominationGroup.lateralMovementDecision.present_with' => ErrorCode::LATERAL_MOVEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.lateralMovementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE->name,
+            'talentNominationGroup.lateralMovementDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'talentNominationGroup.developmentProgramsDecision.required' => ErrorCode::DEVELOPMENT_PROGRAMS_DECISION_REQUIRED->name,
+            'talentNominationGroup.developmentProgramsDecision.present_with' => ErrorCode::DEVELOPMENT_PROGRAMS_DECISION_REQUIRED->name,
             'talentNominationGroup.developmentProgramsDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE->name,
-            'talentNominationGroup.advancementClassifications.required_with' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.developmentProgramsDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
+            'talentNominationGroup.advancementClassifications.present_with' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
             'talentNominationGroup.advancementClassifications.sync.min' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_REQUIRED->name,
             'talentNominationGroup.advancementClassifications.sync.prohibited' => ErrorCode::ADVANCEMENT_CLASSIFICATIONS_PROHIBITED->name,
+            'talentNominationGroup.advancementClassifications.sync.distinct' => ErrorCode::ARRAY_CONTAINS_DUPLICATES->name,
             'talentNominationGroup.advancementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
             'talentNominationGroup.advancementReferralExpiryDate.present_with' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED->name,
             'talentNominationGroup.advancementReferralExpiryDate.prohibited' => ErrorCode::ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED->name,
-            'talentNominationGroup.lateralMovementClassifications.required_with' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name,
+            'talentNominationGroup.lateralMovementClassifications.present_with' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name,
             'talentNominationGroup.lateralMovementClassifications.sync.min' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name,
             'talentNominationGroup.lateralMovementClassifications.sync.prohibited' => ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED->name,
+            'talentNominationGroup.lateralMovementClassifications.sync.distinct' => ErrorCode::ARRAY_CONTAINS_DUPLICATES->name,
             'talentNominationGroup.lateralMovementClassifications.sync.*.exists' => ErrorCode::CLASSIFICATION_NOT_FOUND->name,
             'talentNominationGroup.lateralMovementReferralExpiryDate.present_with' => ErrorCode::LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED->name,
             'talentNominationGroup.lateralMovementReferralExpiryDate.prohibited' => ErrorCode::LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED->name,
