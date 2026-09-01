@@ -4197,7 +4197,7 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
-  downloadCommunityInterestExcel(
+  downloadCommunityTalentExcel(
     ids: [UUID!]
     where: CommunityInterestFilterInput
   ): Boolean! @guard

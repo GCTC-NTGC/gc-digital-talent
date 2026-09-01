@@ -248,8 +248,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadCommunityInterestExcel,
-    downloadingCommunityInterestExcel,
+    downloadCommunityTalentExcel,
+    downloadingCommunityTalentExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -274,7 +274,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       return;
     }
 
-    downloadCommunityInterestExcel({
+    downloadCommunityTalentExcel({
       ids: userIds,
       where: transformCommunityTalentInput(
         filterState,
@@ -285,7 +285,7 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   };
 
   const handleExcelDownloadAll = () => {
-    downloadCommunityInterestExcel({
+    downloadCommunityTalentExcel({
       ids: undefined,
       where: transformCommunityTalentInput(
         filterState,
@@ -651,12 +651,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingCommunityInterestExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingCommunityInterestExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         doc: {
           enable: true,

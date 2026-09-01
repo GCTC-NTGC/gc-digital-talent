@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 
-final class DownloadCommunityInterestExcel
+final class DownloadCommunityTalentExcel
 {
     /**
      * @disregard P1003 We are not going to be using this var

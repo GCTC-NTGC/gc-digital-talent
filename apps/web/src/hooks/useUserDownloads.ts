@@ -18,7 +18,7 @@ interface DownloadExcelArgs {
   where?: UserFilterInput | null;
 }
 
-interface DownloadCommunityInterestExcelArgs {
+interface DownloadCommunityTalentExcelArgs {
   ids?: string[];
   where?: CommunityInterestFilterInput | null;
 }
@@ -46,12 +46,12 @@ const DownloadUsersExcel_Mutation = graphql(/* GraphQL */ `
   }
 `);
 
-const DownloadCommunityInterestExcel_Mutation = graphql(/* GraphQL */ `
-  mutation DownloadCommunityInterestExcel(
+const DownloadCommunityTalentExcel_Mutation = graphql(/* GraphQL */ `
+  mutation DownloadCommunityTalentExcel(
     $ids: [UUID!]
     $where: CommunityInterestFilterInput
   ) {
-    downloadCommunityInterestExcel(ids: $ids, where: $where)
+    downloadCommunityTalentExcel(ids: $ids, where: $where)
   }
 `);
 
@@ -76,9 +76,9 @@ const useUserDownloads = () => {
     DownloadUsersExcel_Mutation,
   );
   const [
-    { fetching: downloadingCommunityInterestExcel },
-    executeCommunityInterestExcelMutation,
-  ] = useMutation(DownloadCommunityInterestExcel_Mutation);
+    { fetching: downloadingCommunityTalentExcel },
+    executeCommunityTalentExcelMutation,
+  ] = useMutation(DownloadCommunityTalentExcel_Mutation);
   const [
     { fetching: downloadingTrackedUsersExcel },
     executeTrackedUsersExcelMutation,
@@ -144,11 +144,11 @@ const useUserDownloads = () => {
       .catch(handleDownloadError);
   };
 
-  const downloadCommunityInterestExcel = ({
+  const downloadCommunityTalentExcel = ({
     ids,
     where,
-  }: DownloadCommunityInterestExcelArgs) => {
-    executeCommunityInterestExcelMutation({ ids, where })
+  }: DownloadCommunityTalentExcelArgs) => {
+    executeCommunityTalentExcelMutation({ ids, where })
       .then((res) => handleDownloadRes(!!res.data))
       .catch(handleDownloadError);
   };
@@ -167,8 +167,8 @@ const useUserDownloads = () => {
     downloadingZip,
     downloadExcel,
     downloadingExcel,
-    downloadCommunityInterestExcel,
-    downloadingCommunityInterestExcel,
+    downloadCommunityTalentExcel,
+    downloadingCommunityTalentExcel,
     downloadTrackedUsersExcel,
     downloadingTrackedUsersExcel,
     downloadDoc,
