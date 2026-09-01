@@ -180,13 +180,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereHasCommunityInterestWithReferralStatusIn(?array $referralStatuses): self
-    {
-        return $this->when($referralStatuses, fn (self $query, array $statuses) => $query
-            ->whereHas('communityInterests', fn (Builder $interests) => $interests
-                ->whereIn('referral_status', $statuses)));
-    }
-
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         // if no filters provided then return query unchanged

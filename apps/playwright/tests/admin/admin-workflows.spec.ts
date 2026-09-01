@@ -47,10 +47,13 @@ test.describe("Admin workflows", () => {
     await appPage.page.getByRole("link", { name: /advanced tools/i }).click();
 
     await appPage.page
+      .getByRole("button", { name: /edit account information/i })
+      .click();
+    await appPage.page
       .getByRole("textbox", { name: /telephone/i })
       .fill("+10123456789");
     await appPage.page
-      .getByRole("button", { name: /update information/i })
+      .getByRole("button", { name: /save changes/i })
       .first()
       .click();
 

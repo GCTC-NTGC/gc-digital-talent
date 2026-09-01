@@ -25,6 +25,7 @@ import { DateInput } from "@gc-digital-talent/forms";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { useStableDate } from "~/hooks/useStableDate";
+import talentRequestMessages from "~/messages/talentRequestMessages";
 import { followUpDateOverdueInfo } from "~/utils/talentRequestUtils";
 
 const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
@@ -71,7 +72,7 @@ const TalentRequestFollowUpDate = ({
     followUpDate,
     now,
   );
-  const label = intl.formatMessage(commonMessages.followUpDate);
+  const label = intl.formatMessage(talentRequestMessages.followUpDate);
 
   const methods = useForm<FormValues>({
     defaultValues: {

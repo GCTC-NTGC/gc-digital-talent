@@ -186,15 +186,6 @@ type User {
     @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-    @rename(attribute: "referral_status")
-  followUpDate: Date @rename(attribute: "referral_follow_up_date")
-  classification: Classification @belongsTo(relation: "referralClassification")
-  notes: String @rename(attribute: "referral_notes")
-  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
-}
-
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
@@ -218,9 +209,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
-  referralStatus: CommunityReferralStatusData!
-    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
-    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -641,14 +629,11 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int @rename(attribute: "status_weight")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
   removalReasonOther: String @rename(attribute: "removal_reason_other")
-  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
   # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
@@ -693,6 +678,12 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 
   applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
@@ -960,6 +951,7 @@ type TalentNomination {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: Classification @belongsTo
   advancementReferenceFallbackDepartment: Department @belongsTo
+  advancementClassifications: [Classification!] @belongsToMany
 
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -1234,7 +1226,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
@@ -1289,20 +1280,22 @@ type WorkExperience implements Experience {
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type PersonalExperience implements Experience {
   id: ID!
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
-  description: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  learningDescription: String @rename(attribute: "learning_description")
+  organization: String
+  awardExperiences: [AwardExperience] @morphMany
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -1318,6 +1311,7 @@ type CommunityExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -1327,14 +1321,23 @@ type EducationExperience implements Experience {
   thesisTitle: String @rename(attribute: "thesis_title")
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  type: LocalizedEducationType
+  educationType: LocalizedEducationType @rename(attribute: "education_type")
   status: LocalizedEducationStatus
+  otherEducationType: String @rename(attribute: "other_education_type")
+  degreeType: LocalizedDegreeType @rename(attribute: "degree_type")
+  licenseOrAccreditation: String @rename(attribute: "license_or_accreditation")
+  certification: String
+  courseName: String @rename(attribute: "course_name")
+  fellowshipType: LocalizedFellowshipType @rename(attribute: "fellowship_type")
+  otherFellowshipType: String @rename(attribute: "other_fellowship_type")
+  prospectiveEndDate: Date @rename(attribute: "prospective_end_date")
   details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -1350,7 +1353,15 @@ type AwardExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  projectName: String @rename(attribute: "project_name")
+  relatedExperience: RelatedExperience @morphTo
 }
+
+union RelatedExperience =
+  | WorkExperience
+  | PersonalExperience
+  | CommunityExperience
+  | EducationExperience
 
 type ExperienceSkillRecord {
   details: String
@@ -1555,8 +1566,6 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
-  communityReferralStatuses: [CommunityReferralStatus!]
-    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -1642,7 +1651,6 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement] @scope
   skills: [UUID] @scope
   classifications: [UUID!] @scope
-  referralStatuses: [CommunityReferralStatus!] @scope
 }
 
 input DateRangeOptional {
@@ -2292,14 +2300,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
 }
 
-input UpdateCommunityInterestReferralStatusInput @validator {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
-}
-
 input CreateOffPlatformRecruitmentProcessInput @validator {
   userId: UUID! @rename(attribute: "user_id")
   processNumber: String! @rename(attribute: "process_number")
@@ -2645,6 +2645,7 @@ input CreateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2701,6 +2702,7 @@ input UpdateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2903,11 +2905,11 @@ input WorkExperienceInput {
 }
 input PersonalExperienceInput {
   title: String
-  description: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  details: String
   skills: UpdateExperienceSkills @spread
+  learningDescription: String @rename(attribute: "learning_description")
+  organization: String
 }
 input CommunityExperienceInput {
   title: String
@@ -2918,18 +2920,26 @@ input CommunityExperienceInput {
   details: String
   skills: UpdateExperienceSkills @spread
 }
-input EducationExperienceInput {
+input EducationExperienceInput @validator {
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  type: EducationType
+  educationType: EducationType @rename(attribute: "education_type")
   status: EducationStatus
+  otherEducationType: String @rename(attribute: "other_education_type")
+  degreeType: DegreeType @rename(attribute: "degree_type")
+  licenseOrAccreditation: String @rename(attribute: "license_or_accreditation")
+  certification: String
+  courseName: String @rename(attribute: "course_name")
+  fellowshipType: FellowshipType @rename(attribute: "fellowship_type")
+  otherFellowshipType: String @rename(attribute: "other_fellowship_type")
+  prospectiveEndDate: Date @rename(attribute: "prospective_end_date")
   details: String
   skills: UpdateExperienceSkills @spread
 }
-input AwardExperienceInput {
+input AwardExperienceInput @validator {
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -2937,6 +2947,9 @@ input AwardExperienceInput {
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
   skills: UpdateExperienceSkills @spread
+  projectName: String @rename(attribute: "project_name")
+  relatedExperienceId: UUID @rename(attribute: "related_experience_id")
+  relatedExperienceType: String @rename(attribute: "related_experience_type")
 }
 
 input UpdateExperienceSkills {
@@ -3397,16 +3410,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateCommunityInterestReferralStatus(
-    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
-      @spread
-  ): CommunityInterest
-    @guard
-    @canFind(
-      ability: "updateReferralStatus"
-      find: "id"
-      model: "CommunityInterest"
-    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess

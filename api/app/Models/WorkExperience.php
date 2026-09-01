@@ -10,9 +10,9 @@ use App\Notifications\System as SystemNotification;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -159,6 +159,14 @@ class WorkExperience extends Experience
                 }
             }
         });
+
+        static::deleting(function ($experience) {
+            // Delete all related award experiences
+            $experience->awardExperiences->each(function ($award) {
+                $award->relatedExperience()->dissociate();
+                $award->save();
+            });
+        });
     }
 
     public function getTitle(?string $lang = 'en'): string
@@ -248,5 +256,10 @@ class WorkExperience extends Experience
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function awardExperiences(): MorphMany
+    {
+        return $this->morphMany(AwardExperience::class, 'related_experience');
     }
 }

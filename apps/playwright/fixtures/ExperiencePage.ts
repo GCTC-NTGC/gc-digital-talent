@@ -47,8 +47,24 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -66,7 +82,7 @@ class ExperiencePage extends AppPage {
     await organization.fill(input.organization ?? "test org");
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     await this.page
@@ -83,18 +99,8 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.page.getByRole("button", { name: /add work streams/i }).click();
@@ -120,8 +126,14 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    await this.page
+      .getByRole("radio", { name: /currently active in this role/i })
+      .click();
+
+    await this.fillDate(input.startDate);
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -131,11 +143,18 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
+      .getByRole("combobox", {
+        name: /organization/i,
+      })
+      .click();
+    await this.page
+      .getByRole("option", {
+        name: "Treasury Board of Canada Secretariat",
+      })
+      .click();
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     await this.page
@@ -145,21 +164,15 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.fillDate(input.startDate);
-
-    await this.page
-      .getByRole("checkbox", { name: /i am currently active in this role/i })
-      .click();
-
-    // Ensure label changes to "Expected end date" when currently active in the role is selected
+    // Ensure label changes to "Prospective end date" when currently active in the role is selected
     await expect(
       this.page.getByRole("group", { name: /end date/i }),
-    ).toContainText("Expected end date");
+    ).toContainText("Prospective end date");
 
     await this.fillDate(input.endDate, true);
 
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.save();
@@ -171,8 +184,24 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -182,11 +211,18 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
+      .getByRole("combobox", {
+        name: /organization/i,
+      })
+      .click();
+    await this.page
+      .getByRole("option", {
+        name: "Treasury Board of Canada Secretariat",
+      })
+      .click();
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     await this.page
@@ -196,9 +232,8 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.page
-      .getByRole("combobox", { name: /group/i })
-      .selectOption({ label: "IT" });
+    await this.page.getByRole("combobox", { name: /group/i }).click();
+    await this.page.getByRole("option", { name: "IT", exact: true }).click();
     await this.page
       .getByRole("combobox", { name: /level/i })
       .selectOption({ label: "1" });
@@ -210,18 +245,8 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.save();
@@ -236,8 +261,24 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -247,11 +288,18 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
+      .getByRole("combobox", {
+        name: /organization/i,
+      })
+      .click();
+    await this.page
+      .getByRole("option", {
+        name: "Treasury Board of Canada Secretariat",
+      })
+      .click();
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     // Set the employment type to "Term"
@@ -282,25 +330,14 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.page
-      .getByRole("combobox", { name: /group/i })
-      .selectOption({ label: "IT" });
+    await this.page.getByRole("combobox", { name: /group/i }).click();
+    await this.page.getByRole("option", { name: "IT", exact: true }).click();
     await this.page
       .getByRole("combobox", { name: /level/i })
       .selectOption({ label: "1" });
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     if (save) {
@@ -314,8 +351,24 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -325,11 +378,18 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
+      .getByRole("combobox", {
+        name: /organization/i,
+      })
+      .click();
+    await this.page
+      .getByRole("option", {
+        name: "Treasury Board of Canada Secretariat",
+      })
+      .click();
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     // Set the employment type to "Term"
@@ -370,18 +430,8 @@ class ExperiencePage extends AppPage {
       .getByRole("textbox", { name: /contracting firm or agency/i })
       .fill("test contracting firm");
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.save();
@@ -393,8 +443,24 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("work");
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -424,18 +490,8 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
     await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.save();
@@ -446,8 +502,24 @@ class ExperiencePage extends AppPage {
     await this.edit(id);
 
     await this.page
-      .getByRole("textbox", { name: /my role/i })
+      .getByRole("textbox", { name: /job title/i })
       .fill(input.role ?? "edit test role");
+
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /role I held in the past/i })
+        .click();
+    }
+
+    await this.fillDate(input.startDate);
+
+    if (input.endDate) {
+      await this.fillDate(input.endDate, true);
+    }
 
     await this.page
       .getByRole("group", { name: /employment category/i })
@@ -457,11 +529,18 @@ class ExperiencePage extends AppPage {
       .click();
 
     await this.page
-      .getByRole("combobox", { name: /department/i })
-      .selectOption({ label: "Treasury Board of Canada Secretariat" });
+      .getByRole("combobox", {
+        name: /organization/i,
+      })
+      .click();
+    await this.page
+      .getByRole("option", {
+        name: "Treasury Board of Canada Secretariat",
+      })
+      .click();
 
     await this.page
-      .getByRole("textbox", { name: /team, group, or division/i })
+      .getByRole("textbox", { name: /team or division/i })
       .fill(input.division ?? "test team");
 
     await this.page
@@ -471,32 +550,14 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    await this.page
-      .getByRole("combobox", { name: /group/i })
-      .selectOption({ label: "IT" });
+    await this.page.getByRole("combobox", { name: /group/i }).click();
+    await this.page.getByRole("option", { name: "IT", exact: true }).click();
     await this.page
       .getByRole("combobox", { name: /level/i })
       .selectOption({ label: "1" });
 
     await this.page
-      .getByRole("group", { name: /employment type/i })
-      .getByRole("radio", {
-        name: /casual/i,
-      })
-      .click();
-
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", { name: /i am currently active in this role/i })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
-    await this.page
-      .getByRole("textbox", { name: /additional details/i })
+      .getByRole("textbox", { name: /key tasks/i })
       .fill(input.details ?? "test details");
 
     await this.save();
@@ -508,34 +569,34 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("personal");
 
     await this.page
-      .getByRole("textbox", { name: /short title for this experience/i })
+      .getByRole("textbox", { name: /the project or role/i })
       .fill(input.title ?? "test short title");
 
+    if (!input.endDate) {
+      await this.page
+        .getByRole("radio", { name: /i'm currently active in this role/i })
+        .click();
+    } else {
+      await this.page
+        .getByRole("radio", { name: /this is a role i held in the past/i })
+        .click();
+      await this.fillDate(input.endDate, true);
+    }
+    await this.fillDate(input.startDate);
+
     await this.page
-      .getByRole("textbox", { name: /experience description/i })
-      .fill(input.description ?? "test description");
+      .getByRole("combobox", { name: /organization, platform, or theme/i })
+      .fill(input.organization ?? "test organization");
+
+    await this.page
+      .getByRole("textbox", { name: /learning description/i })
+      .fill(input.learningDescription ?? "test learning description");
 
     await this.page
       .getByRole("checkbox", {
         name: /i agree to share this information with verified government of canada hiring managers and hr advisors who have access to this platform./i,
       })
       .click();
-
-    await this.fillDate(input.startDate);
-
-    if (!input.endDate) {
-      await this.page
-        .getByRole("checkbox", {
-          name: /i am currently active in this experience/i,
-        })
-        .click();
-    } else {
-      await this.fillDate(input.endDate, true);
-    }
-
-    await this.page
-      .getByRole("textbox", { name: /additional details/i })
-      .fill(input.details ?? "test details");
 
     await this.save();
     await this.waitForGraphqlResponse("CreatePersonalExperience");
@@ -581,24 +642,31 @@ class ExperiencePage extends AppPage {
   async addAwardExperience(input: AwardExperienceInput) {
     await this.create();
     await this.typeLocator.selectOption("award");
+    await this.waitForGraphqlResponse("AwardOptions");
 
     await this.page
-      .getByRole("textbox", { name: /award title/i })
+      .getByRole("textbox", { name: /title of the award/i })
       .fill(input.title ?? "test award title");
 
-    await this.page
-      .getByRole("combobox", { name: /awarded to/i })
-      .selectOption({ label: "Me" });
+    await this.fillDate(input.awardedDate, false, /date awarded/i);
 
     await this.page
-      .getByLabel(/issuing organization/i)
+      .getByLabel(/issuing organization or institution/i)
       .fill(input?.issuedBy ?? "test org");
 
     await this.page
-      .getByRole("combobox", { name: /award scope/i })
-      .selectOption({ label: "Local" });
+      .getByRole("group", { name: /recipient/i })
+      .getByRole("radio", {
+        name: /awarded to your team/i,
+      })
+      .click();
 
-    await this.fillDate(input.awardedDate, false, /date awarded/i);
+    await this.page
+      .getByRole("group", { name: /scope of the award/i })
+      .getByRole("radio", {
+        name: /local award/i,
+      })
+      .click();
 
     await this.page
       .getByRole("textbox", { name: /additional details/i })
@@ -613,36 +681,56 @@ class ExperiencePage extends AppPage {
     await this.typeLocator.selectOption("education");
 
     await this.page
-      .getByRole("combobox", { name: /type of education/i })
-      .selectOption({ label: "PhD" });
+      .getByRole("group", {
+        name: /type of education or certificate/i,
+      })
+      .getByRole("radio", { name: /degree, diploma, or certificate/i })
+      .click();
+
+    await this.page
+      .getByRole("group", {
+        name: /type of degree or diploma/i,
+      })
+      .getByRole("radio", { name: /PhD/i })
+      .click();
+
+    await this.page
+      .getByLabel(/institution/i)
+      .fill(input?.institution ?? "test institution");
 
     await this.page
       .getByRole("textbox", { name: /area of study/i })
       .fill(input?.areaOfStudy ?? "test area of study");
 
     await this.page
-      .getByLabel(/institution/i)
-      .fill(input?.areaOfStudy ?? "test institution");
-
-    await this.page
-      .getByRole("combobox", { name: /status/i })
-      .selectOption({ label: "Audited" });
-
-    await this.page
-      .getByRole("textbox", { name: /thesis title/i })
+      .getByRole("textbox", { name: /thesis or dissertation/i })
       .fill(input?.thesisTitle ?? "test thesis title");
-
-    await this.fillDate(input.startDate);
 
     if (!input.endDate) {
       await this.page
-        .getByRole("checkbox", {
-          name: /i am currently active in this education/i,
+        .getByRole("group", {
+          name: /completion status/i,
         })
+        .getByRole("radio", { name: /in progress/i })
         .click();
+
+      await this.fillDate(
+        input.prospectiveEndDate,
+        true,
+        /prospective end date/i,
+      );
     } else {
+      await this.page
+        .getByRole("group", {
+          name: /completion status/i,
+        })
+        .getByRole("radio", { name: /completed with a credential/i })
+        .click();
+
       await this.fillDate(input.endDate, true);
     }
+
+    await this.fillDate(input.startDate);
 
     await this.page
       .getByRole("textbox", { name: /additional details/i })
