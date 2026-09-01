@@ -109,7 +109,7 @@ const LateralMovementSection = ({
     ) {
       resetDirtyField("lateralMovementApprovedNotes", null);
       resetDirtyField("lateralMovementClassifications", []);
-      resetDirtyField("lateralMovementReferralExpiryDate", "");
+      resetDirtyField("lateralMovementReferralExpiryDate", null);
     }
 
     if (

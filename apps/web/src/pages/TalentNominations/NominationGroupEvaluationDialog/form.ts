@@ -69,7 +69,7 @@ export function convertQueryDataToFormData(
       queryData?.advancementClassifications,
     ).map(({ id }) => id),
     advancementReferralExpiryDate:
-      queryData?.advancementReferralExpiryDate ?? "",
+      queryData?.advancementReferralExpiryDate ?? null,
     lateralMovementDecision: queryData?.lateralMovementDecision?.value ?? null,
     lateralMovementApprovedNotes: ifApproved(
       queryData?.lateralMovementDecision,
@@ -83,7 +83,7 @@ export function convertQueryDataToFormData(
       queryData?.lateralMovementClassifications,
     ).map(({ id }) => id),
     lateralMovementReferralExpiryDate:
-      queryData?.lateralMovementReferralExpiryDate ?? "",
+      queryData?.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision:
       queryData?.developmentProgramsDecision?.value ?? null,
     developmentProgramsApprovedNotes: ifApproved(
