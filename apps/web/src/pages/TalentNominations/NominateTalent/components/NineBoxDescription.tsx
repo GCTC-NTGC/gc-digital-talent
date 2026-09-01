@@ -17,14 +17,14 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities.",
-        id: "uhescL",
+          "We recommend this person participate in development opportunities",
+        id: "Z2/I99",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee would benefit from focusing on improvement. Low performance and limited leadership growth potential may require reassignment or performance management.",
-        id: "4nRmpf",
+          "This nominee would benefit from focused development and performance support. They may require performance management or reassignment to a role better aligned with their strengths and capabilities. Development is recommended rather than lateral movement or advancement.",
+        id: "FWuONX",
         description:
           "Nine-box recommendation description for low performance and low leadership potential",
       }),
@@ -32,14 +32,14 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities.",
-        id: "uhescL",
+          "We recommend this person participate in development opportunities",
+        id: "Z2/I99",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee's performance is below expectations, but their leadership potential is evident. They might benefit from targeted support and development opportunities.",
-        id: "ulkj7X",
+          "This nominee's performance is below expectations, but their leadership potential is evident. Targeted support and coaching could build readiness for leadership responsibilities. Development is recommended rather than lateral movement or advancement.",
+        id: "6wsUEv",
         description:
           "Nine-box recommendation description for low performance and moderate leadership potential",
       }),
@@ -47,15 +47,15 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities and lateral movement.",
-        id: "0ea8yF",
+          "We recommend this person be nominated for lateral movement",
+        id: "QwoLNe",
         description:
           "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
-          "Gems are nominees who are performing below expectation but possess high leadership potential. They may benefit from coaching, clearer goals or role realignment to unlock their capabilities.",
-        id: "J8c5xW",
+          "This nominee’s performance is below expectations, but they demonstrate high leadership potential. A lateral move to a role better aligned with their strengths, combined with coaching and clear objectives, could unlock potential.",
+        id: "WWTY2/",
         description:
           "Nine-box recommendation description for low performance and high leadership potential",
       }),
@@ -65,14 +65,14 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities.",
-        id: "uhescL",
+          "We recommend this person participate in development opportunities",
+        id: "Z2/I99",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee meets performance expectations and contributes steadily but has not yet demonstrated leadership potential. They are best suited for roles in operations that need reliable leadership.",
-        id: "HxLjMP",
+          "This nominee meets performance expectations but has not yet demonstrated leadership potential. They are well suited to roles that value operational reliability, expertise and delivery. Development is recommended rather than lateral movement or advancement.",
+        id: "lzwuWa",
         description:
           "Nine-box recommendation description for moderate performance and low leadership potential",
       }),
@@ -80,15 +80,15 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities and lateral movement.",
-        id: "0ea8yF",
+          "We recommend this person be nominated for lateral movement",
+        id: "QwoLNe",
         description:
           "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee is reliable and effective in their current role and has moderate potential for growth. They could take on more complex leadership roles with support and focused development.",
-        id: "o96aNX",
+          "This nominee is reliable and effective in their current role and demonstrates moderate potential for growth. A lateral move to a role offering greater complexity or scope, supported by focused development, could broaden their experience and build their leadership capabilities.",
+        id: "8VO06T",
         description:
           "Nine-box recommendation description for moderate performance and moderate leadership potential",
       }),
@@ -96,15 +96,15 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities, lateral movement and advancement.",
-        id: "IdNL0m",
+          "We recommend this person be nominated for lateral movement or advancement",
+        id: "0SY3xR",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee is a solid performer with strong potential for leadership. They are likely ready for strategic development and medium- to long-term succession pipelines.",
-        id: "Spiz26",
+          "This nominee is a strong performer with significant leadership potential. Lateral movement and advancement opportunities can provide strategic development, broaden leadership experience, and prepare them for medium- to long-term succession opportunities.",
+        id: "M4O7dx",
         description:
           "Nine-box recommendation description for moderate performance and high leadership potential",
       }),
@@ -114,15 +114,15 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities and lateral movement.",
-        id: "0ea8yF",
+          "We recommend this person be nominated for lateral movement",
+        id: "QwoLNe",
         description:
           "Nine-box recommendation title for development and lateral",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee is an expert contributor. They are highly effective in their current role and have deep expertise. They may not seek or be suited for an expanded leadership role, but they are critical in their domain.",
-        id: "FZ6MRQ",
+          "This nominee is highly effective in their current role and brings deep expertise that is critical to their domain. A lateral move that leverages or expands their expertise could provide meaningful development and organizational value, particularly where broader leadership responsibilities are not their preferred or best-fit path.",
+        id: "b99hey",
         description:
           "Nine-box recommendation description for high performance and low leadership potential",
       }),
@@ -130,15 +130,15 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities, lateral movement and advancement.",
-        id: "IdNL0m",
+          "We recommend this person be nominated for lateral movement or advancement",
+        id: "0SY3xR",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee consistently delivers results and shows capacity for broader leadership. They may be ready for stretch assignments or cross-functional roles and medium- to long-term succession pipelines.",
-        id: "+3bi5L",
+          "This nominee consistently delivers results and demonstrates the capacity for broader leadership. Stretch assignments, lateral moves, and advancement opportunities can broaden their experience and accelerate their readiness for medium- to long-term succession opportunities.",
+        id: "Hr7xF2",
         description:
           "Nine-box recommendation description for high performance and moderate leadership potential",
       }),
@@ -146,15 +146,15 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this employee be nominated for development opportunities, lateral movement and advancement.",
-        id: "IdNL0m",
+          "We recommend this person be nominated for lateral movement or advancement",
+        id: "0SY3xR",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee excels in their current role and demonstrates exceptional leadership potential. They're an ideal candidate for short-term, role-specific succession planning and medium- to long-term succession pipelines.",
-        id: "uXu/Vu",
+          "This nominee excels in their current role and demonstrates exceptional leadership potential. They should be considered a priority for advancement and role-specific succession planning, including opportunities to assume greater responsibility in the short term and inclusion in medium- to long-term succession pipelines.",
+        id: "cU9OEC",
         description:
           "Nine-box recommendation description for high performance and high leadership potential",
       }),
