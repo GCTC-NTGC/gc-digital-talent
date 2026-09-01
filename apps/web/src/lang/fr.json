@@ -9247,6 +9247,10 @@
     "defaultMessage": "Profil ajouté au suivi.",
     "description": "Success message after adding a user to a talent request's tracking list"
   },
+  "Z2/I99": {
+    "defaultMessage": "Nous recommandons que cette personne participe à des possibilités de perfectionnement",
+    "description": "Nine-box recommendation title for development"
+  },
   "Z2BMGx": {
     "defaultMessage": "Retirer l'adresse courriel professionnelle",
     "description": "Action text"
