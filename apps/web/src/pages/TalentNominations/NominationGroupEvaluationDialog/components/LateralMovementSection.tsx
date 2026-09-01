@@ -250,8 +250,8 @@ const LateralMovementSection = ({
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "If the nominee’s substantive classification has eligible equivalencies that might be a good fit for lateral movement, please specify the equivalencies in the field provided.",
-              id: "8GVLu/",
+                "By default, the nominee will be referred for their current substantive classification. If the nominee’s substantive classification has eligible equivalencies that might be a good fit for lateral movement, please specify the equivalencies in the field provided.",
+              id: "hPq1v7",
               description: "Lateral movement classifications introduction",
             })}
           </p>
