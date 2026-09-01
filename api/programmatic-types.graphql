@@ -124,6 +124,11 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
+  value: CommunityReferralStatus!
+  label: LocalizedString!
+}
+
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -1049,6 +1054,9 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
+  ViewAnyCommunityInterestReferralStatus
+  ViewTeamCommunityInterestReferralStatus
+  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -1277,6 +1285,13 @@ enum CommunityInterestAdditionalDuty {
   PROCUREMENT
   PROJECT_MANAGEMENT
   REAL_PROPERTY_MANAGEMENT
+}
+
+enum CommunityReferralStatus {
+  NEW
+  PENDING
+  AVAILABLE_FOR_REFERRAL
+  NOT_REFERRED
 }
 
 enum CourseFormat {

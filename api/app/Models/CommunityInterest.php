@@ -31,6 +31,11 @@ use Illuminate\Support\Str;
  * @property string $finance_other_roles_other
  * @property bool $consent_to_share_profile
  * @property bool $procurement_is_sdo
+ * @property string $referral_status
+ * @property ?Carbon $referral_follow_up_date
+ * @property ?string $referral_classification_id
+ * @property ?string $referral_notes
+ * @property ?Carbon $referral_status_data_updated_at
  */
 class CommunityInterest extends Model
 {
@@ -46,6 +51,8 @@ class CommunityInterest extends Model
     protected $casts = [
         'additional_duties' => 'array',
         'finance_other_roles' => 'array',
+        'referral_follow_up_date' => 'date',
+        'referral_status_data_updated_at' => 'datetime',
     ];
 
     /**
@@ -92,6 +99,12 @@ class CommunityInterest extends Model
     public function interestInDevelopmentPrograms(): HasMany
     {
         return $this->hasMany(DevelopmentProgramInterest::class);
+    }
+
+    /** @return BelongsTo<Classification, $this> */
+    public function referralClassification(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class, 'referral_classification_id');
     }
 
     /**

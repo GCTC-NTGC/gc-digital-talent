@@ -186,6 +186,15 @@ type User {
     @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
+type CommunityReferralStatusData {
+  status: LocalizedCommunityReferralStatus!
+    @rename(attribute: "referral_status")
+  followUpDate: Date @rename(attribute: "referral_follow_up_date")
+  classification: Classification @belongsTo(relation: "referralClassification")
+  notes: String @rename(attribute: "referral_notes")
+  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
+}
+
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
@@ -209,6 +218,9 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
+  referralStatus: CommunityReferralStatusData!
+    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
+    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1566,6 +1578,8 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
+  communityReferralStatuses: [CommunityReferralStatus!]
+    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -2298,6 +2312,14 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
+}
+
+input UpdateCommunityInterestReferralStatusInput @validator {
+  id: UUID!
+  status: CommunityReferralStatus!
+  followUpDate: Date
+  classification: ClassificationBelongsTo
+  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -3410,6 +3432,16 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
+  updateCommunityInterestReferralStatus(
+    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
+      @spread
+  ): CommunityInterest
+    @guard
+    @canFind(
+      ability: "updateReferralStatus"
+      find: "id"
+      model: "CommunityInterest"
+    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
