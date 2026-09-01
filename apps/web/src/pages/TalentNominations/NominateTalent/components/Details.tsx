@@ -262,14 +262,21 @@ const DetailsFields = ({
               {
                 value: NineBoxRating.Low,
                 label: intl.formatMessage(labels.lowPotential),
+                contentBelow: intl.formatMessage(labels.lowPotentialDefinition),
               },
               {
                 value: NineBoxRating.Moderate,
                 label: intl.formatMessage(labels.moderatePotential),
+                contentBelow: intl.formatMessage(
+                  labels.moderatePotentialDefinition,
+                ),
               },
               {
                 value: NineBoxRating.High,
                 label: intl.formatMessage(labels.highPotential),
+                contentBelow: intl.formatMessage(
+                  labels.highPotentialDefinition,
+                ),
               },
             ]}
           />
