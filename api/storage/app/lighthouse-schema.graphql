@@ -2071,6 +2071,7 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
   classifications: [UUID!]
+  referralStatuses: [CommunityReferralStatus!]
 }
 
 input DateRangeOptional {

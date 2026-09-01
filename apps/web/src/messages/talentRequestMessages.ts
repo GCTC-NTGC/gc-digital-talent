@@ -94,11 +94,6 @@ const messages = defineMessages({
     id: "VrLfLw",
     description: "Input label asking for the HR advisor's email address.",
   },
-  followUpDate: {
-    defaultMessage: "Follow-up date",
-    id: "5wS5V8",
-    description: "Label for the follow-up date field",
-  },
   candidateTracking: {
     defaultMessage: "Candidate tracking",
     id: "4uFJb+",

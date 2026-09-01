@@ -1526,6 +1526,10 @@
     "defaultMessage": "La réussite de deux années d'études secondaires.",
     "description": "Secondary school education requirements"
   },
+  "3dRAA0": {
+    "defaultMessage": "Notes complémentaires",
+    "description": "Label for the community referral status additional notes field"
+  },
   "3deIgM": {
     "defaultMessage": "Admissibilité du personnel",
     "description": "Heading for the employee eligibility card"
@@ -1565,6 +1569,10 @@
   "3qzYUJ": {
     "defaultMessage": "Il s'agit d'un rôle de cadre supérieur.",
     "description": "Label text for employee profile, is c-suite"
+  },
+  "3rkuAy": {
+    "defaultMessage": "Classification de la collectivité",
+    "description": "Label for the community classification select"
   },
   "3tu/Mv": {
     "defaultMessage": "« réfère au fait qu'une personne est ou non une minorité visible, tel que défini dans la Loi sur l'équité en matière d'emploi. Dans le cadre de la Loi sur l'équité en matière d'emploi, les minorités visibles sont définies comme « les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche ».  La population des minorités visibles est principalement composée des groupes suivants : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais. »",
@@ -2110,10 +2118,6 @@
     "defaultMessage": "Objectifs et style de travail",
     "description": "Title for Goals and work style section of user employee information page"
   },
-  "5wS5V8": {
-    "defaultMessage": "Date de suivi",
-    "description": "Label for the follow-up date field"
-  },
   "5zJ+/1": {
     "defaultMessage": "Compétences techniques constituant un atout - Exemples",
     "description": "Long title of the 'asset technical skills' section of the job poster template page"
@@ -2397,6 +2401,10 @@
   "7Je/3u": {
     "defaultMessage": "a un accès complet aux outils de gestion de la collectivité;",
     "description": "Description of the permission to manage communities"
+  },
+  "7JwBrE": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de l'état de recommandation par la collectivité",
+    "description": "Error message displayed when a community interest's referral status fails to update"
   },
   "7KfLEe": {
     "defaultMessage": "Une nouvelle occasion est maintenant offerte, {displayName}. Découvrez si elle correspond à votre profil et présentez votre candidature.",
@@ -3006,6 +3014,10 @@
     "defaultMessage": "Cette revendication ne s’applique pas à ce processus",
     "description": "Label for the rejected claim option"
   },
+  "9qVtmg": {
+    "defaultMessage": "Changer l'état de recommandation par la collectivité",
+    "description": "Title for the community referral status dialog"
+  },
   "9qzCX/": {
     "defaultMessage": "Veuillez soumettre une demande vide et nous essayerons de vous aider.",
     "description": "Link text to scroll to the submit button when no candidates were found"
@@ -3281,6 +3293,10 @@
   "AlhZFb": {
     "defaultMessage": "* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a><italic>Loi sur l’emploi dans la fonction publique</italic></a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.",
     "description": "Body p2 of a note describing that a pool is only open to canadian citizens"
+  },
+  "AoCTYC": {
+    "defaultMessage": "État de recommandation par la collectivité",
+    "description": "Label for a community interest's referral status"
   },
   "Aq7OCi": {
     "defaultMessage": "Reprendre la recommandation pour cette candidature",
@@ -5744,10 +5760,6 @@
     "defaultMessage": "Profil linguistique",
     "description": "Title for the language profile snapshot section"
   },
-  "KsUNz1": {
-    "defaultMessage": "Voir le profil",
-    "description": "Link text to view a user's profile in a new tab"
-  },
   "Ktxmhc": {
     "defaultMessage": "Options de perfectionnement professionnel offertes aux personnes proposant des nominations à titre de recommandations de possibilités de perfectionnement durant le processus de mise en candidature.",
     "description": "Description above development opportunities"
@@ -7645,6 +7657,14 @@
     "defaultMessage": "Le code saisi est invalide. Veuillez en demander un nouveau.",
     "description": "Error message when the code is not valid."
   },
+  "SYs9hG": {
+    "defaultMessage": "En attente",
+    "description": "Community referral status: pending"
+  },
+  "SZeO9P": {
+    "defaultMessage": "Éducation actuelle",
+    "description": "Label displayed on Education Experience form for current education bounded box"
+  },
   "SaPE+p": {
     "defaultMessage": "Filtrer par niveaux",
     "description": "Label for the classification input"
@@ -7800,6 +7820,10 @@
   "TA5562": {
     "defaultMessage": "Dernière modification",
     "description": "Label for the date an item was changed on"
+  },
+  "TB/Yuy": {
+    "defaultMessage": "Ajoutez une date de suivi pour vérifier les renseignements de cet employé.",
+    "description": "Context for the follow-up date field when the community referral status is available for referral"
   },
   "TB5Pnf": {
     "defaultMessage": "En raison de la nature de l’apprentissage, le programme a élaboré un cercle unique de soutien pour les apprenti·es. Il s’agit notamment d’un·e partenaire pair pour le jumelage et le soutien au quotidien, ainsi que d’un mentor qui fournit des conseils expérimentés.",
@@ -9239,6 +9263,10 @@
     "defaultMessage": "Profil ajouté au suivi.",
     "description": "Success message after adding a user to a talent request's tracking list"
   },
+  "Z1JAqo": {
+    "defaultMessage": "Veuillez choisir un état pour continuer.",
+    "description": "Notice shown when a community interest's referral status has not yet been reviewed"
+  },
   "Z2BMGx": {
     "defaultMessage": "Retirer l'adresse courriel professionnelle",
     "description": "Action text"
@@ -9698,6 +9726,10 @@
   "bGi9fO": {
     "defaultMessage": "Création réussie de la compétence!",
     "description": "Message displayed to user after skill is created successfully."
+  },
+  "bIA6Ty": {
+    "defaultMessage": "Ajoutez une date de suivi pour vérifier si cet employé est membre de [MP1.1]cette collectivité.",
+    "description": "Context for the follow-up date field when the community referral status is pending"
   },
   "bKRX6C": {
     "defaultMessage": "Curieux de savoir comment la plateforme Talents numériques du <abbreviation>GC</abbreviation> a été développée? Vous voulez en savoir plus sur les idées, les conceptions et la philosophie de celle-ci? Découvrez le chemin parcouru depuis le pilote expérimental du Nuage de talents du <abbreviation>GC</abbreviation> jusqu’à la plateforme d’aujourd’hui.",
@@ -11313,6 +11345,10 @@
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
   },
+  "h8K/RQ": {
+    "defaultMessage": "Le nom de l'employé figurera dans les résultats des demandes de talents[MP2.1]",
+    "description": "Description of the available for referral community referral status"
+  },
   "h9XSU5": {
     "defaultMessage": "Notes complémentaires",
     "description": "Label for approval notes"
@@ -11448,6 +11484,10 @@
   "hdBTPI": {
     "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
     "description": "Learn more dialog question ten paragraph one"
+  },
+  "hhCkpd": {
+    "defaultMessage": "L'état de recommandation par la collectivité a été mis à jour",
+    "description": "Success message displayed when a community interest's referral status is updated"
   },
   "hhE2b6": {
     "defaultMessage": "Votre signature",
@@ -11879,6 +11919,10 @@
   "jDvQEV": {
     "defaultMessage": "Modifier {sectionTitle}",
     "description": "Button text to start editing a specific section"
+  },
+  "jES7+O": {
+    "defaultMessage": " Le nom de l'employé ne figurera pas dans les résultats des demandes de talents[MP3.1]",
+    "description": "Description of the not referred community referral status"
   },
   "jFInhC": {
     "defaultMessage": "Autorisation de sécurité de niveau secret",
@@ -14480,6 +14524,10 @@
     "defaultMessage": "Pour empêcher temporairement cette candidature de figurer dans les demandes de talents, utilisez l'option suivante.",
     "description": "Blurb for the pause candidate's referral status dialog"
   },
+  "u2EsqC": {
+    "defaultMessage": "Gérer la visibilité de cet employé dans les demandes de talents présentées à cette collectivité",
+    "description": "Subtitle for the community referral status dialog"
+  },
   "u3CPra": {
     "defaultMessage": "Recevoir une notification lorsqu'un nouvel emploi est publié sur la plateforme.",
     "description": "Subtitle for job alerts checklist"
@@ -14803,6 +14851,10 @@
   "vLOt3K": {
     "defaultMessage": "Limites de la sélection des employés",
     "description": "Label for a process' selection limitations when area of selection is for employees"
+  },
+  "vLwOT+": {
+    "defaultMessage": "Les renseignements de cet employé font actuellement l'objet d'un examen.",
+    "description": "Description of the pending community referral status"
   },
   "vM3MHo": {
     "defaultMessage": "Votre collectivité n'a aucun perfectionnement professionnel pour le moment.",
