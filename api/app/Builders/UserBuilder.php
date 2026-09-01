@@ -687,6 +687,7 @@ class UserBuilder extends Builder
             ->whereHas('communityInterests', function ($interests) use ($fields) {
                 /** @var CommunityInterestBuilder $interests */
                 $interests
+                    ->where('consent_to_share_profile', true)
                     ->communities($fields['communities'] ?? null)
                     ->workStreams($fields['workStreams'] ?? null)
                     ->jobInterest($fields['jobInterest'] ?? null)
