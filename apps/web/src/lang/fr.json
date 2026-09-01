@@ -7661,10 +7661,6 @@
     "defaultMessage": "En attente",
     "description": "Community referral status: pending"
   },
-  "SZeO9P": {
-    "defaultMessage": "Éducation actuelle",
-    "description": "Label displayed on Education Experience form for current education bounded box"
-  },
   "SaPE+p": {
     "defaultMessage": "Filtrer par niveaux",
     "description": "Label for the classification input"
