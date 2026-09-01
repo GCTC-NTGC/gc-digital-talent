@@ -1053,9 +1053,15 @@ export const queryResultToDefaultValues = (
 export interface ExperienceName extends SimpleAnyExperience {
   title?: string | null;
   organization?: string | null;
-  type?: Partial<GenericLocalizedEnum<EducationType>> | string | null;
+  educationType?: Partial<GenericLocalizedEnum<EducationType>> | string | null;
+  degreeType?: Partial<GenericLocalizedEnum<DegreeType>> | null;
+  fellowshipType?: Partial<GenericLocalizedEnum<FellowshipType>> | null;
+  otherFellowshipType?: string | null;
+  otherEducationType?: string | null;
   areaOfStudy?: string | null;
   institution?: string | null;
+  licenseOrAccreditation?: string | null;
+  certification?: string | null;
   role?: string | null;
   employmentCategory?: LocalizedEnumValue<EmploymentCategory> | null;
   department?: {

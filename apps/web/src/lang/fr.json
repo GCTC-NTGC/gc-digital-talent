@@ -2930,6 +2930,10 @@
     "defaultMessage": "Nominateurs ou nominatrices",
     "description": "Label or header"
   },
+  "9bwb2b": {
+    "defaultMessage": "L’employé s’acquitte efficacement de ses fonctions actuelles, mais il montre rarement l’intérêt, la capacité ou l’engagement nécessaires pour occuper à l’avenir des postes comportant des responsabilités en matière de leadership. À moins que l’employé affiche plus tard un rendement exceptionnel, sa candidature à de tels postes est exclue.",
+    "description": "label for low potential definition"
+  },
   "9c/MAZ": {
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
@@ -3801,6 +3805,10 @@
   "Cxy9bi": {
     "defaultMessage": "Retirer l’expérience",
     "description": "Button to remove the linked education experience from a development program"
+  },
+  "CybW3a": {
+    "defaultMessage": "L’employé répond aux attentes en matière de leadership et manifeste souvent sa volonté d’apprendre, de s’adapter et de contribuer, tout en faisant preuve d’un intérêt et d’un engagement satisfaisants. S’il prend de l’expérience et développe les compétences appropriées, il pourra assumer des responsabilités accrues en matière de leadership.",
+    "description": "label for moderate potential definition"
   },
   "CzZm8F": {
     "defaultMessage": "Restaurer l'utilisateur",
@@ -11943,6 +11951,10 @@
   "jRnA1D": {
     "defaultMessage": "Communiquer avec l'équipe de soutien",
     "description": "Link for the 'contact support' card"
+  },
+  "jT5w4o": {
+    "defaultMessage": "L’employé dépasse constamment les attentes en matière de leadership. Il recherche activement les possibilités de croissance, s’adapte facilement aux défis complexes, inspire et guide les autres et montre un engagement ferme envers son perfectionnement et la réussite de l’organisation. Les gestionnaires affirment que l’employé a un fort potentiel d’avancement en matière de leadership et s’attendent à ce qu’il occupe des postes d’influence comportant d’importantes responsabilités.",
+    "description": "label for high potential definition"
   },
   "jTN0bg": {
     "defaultMessage": "Embauchez des talents pour votre équipe",
