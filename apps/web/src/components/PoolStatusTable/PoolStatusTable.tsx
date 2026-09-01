@@ -21,7 +21,7 @@ import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
-import { ChangeDateDialog_PoolCandidateFragment } from "~/components/CandidateDialog/ChangeDateDialog";
+import type { ChangeDateDialog_PoolCandidateFragment } from "~/components/CandidateDialog/ChangeDateDialog";
 import type {
   PoolTitleClassification,
   PoolTitleWorkStream,
