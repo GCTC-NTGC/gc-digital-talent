@@ -11,6 +11,7 @@ import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
 interface EducationContentExperience {
+  __typename?: "EducationExperience";
   areaOfStudy?: string | null;
   thesisTitle?: string | null;
   status?: GenericLocalizedEnum<EducationStatus> | null;

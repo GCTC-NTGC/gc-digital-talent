@@ -24,6 +24,7 @@ interface WorkContentExperience
     ExternalContentExperience,
     GovContentExperience,
     SupervisoryContentExperience {
+  __typename?: "WorkExperience";
   employmentCategory?: GenericLocalizedEnum<EmploymentCategory> | null;
 }
 

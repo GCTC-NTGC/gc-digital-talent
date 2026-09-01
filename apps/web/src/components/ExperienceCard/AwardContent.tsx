@@ -14,6 +14,7 @@ import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
 interface AwardContentExperience {
+  __typename?: "AwardExperience";
   issuedBy?: string | null;
   awardedTo?: GenericLocalizedEnum<AwardedTo> | null;
   awardedScope?: GenericLocalizedEnum<AwardedScope> | null;

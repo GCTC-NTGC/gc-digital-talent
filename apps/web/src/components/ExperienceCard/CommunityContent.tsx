@@ -8,6 +8,7 @@ import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
 interface CommunityContentExperience {
+  __typename?: "CommunityExperience";
   project?: string | null;
 }
 
