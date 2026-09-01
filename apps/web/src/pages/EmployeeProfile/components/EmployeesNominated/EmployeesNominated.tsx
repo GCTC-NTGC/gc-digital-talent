@@ -96,12 +96,6 @@ const EmployeesNominated = ({
       )
     : nominations;
 
-  const viewByLabel = {
-    defaultMessage: "View by",
-    id: "MB3J/o",
-    description: "Label for the nominations view toggle",
-  };
-
   return (
     <div className="mt-6.75 flex flex-col gap-y-1.5">
       {showView && (
@@ -133,10 +127,12 @@ const EmployeesNominated = ({
                 if (value) setView(value as NominationView);
               }}
               label={
-                intl.formatMessage(viewByLabel) +
-                intl.formatMessage(commonMessages.dividingColon)
+                intl.formatMessage({
+                  defaultMessage: "View by",
+                  id: "MB3J/o",
+                  description: "Label for the nominations view toggle",
+                }) + intl.formatMessage(commonMessages.dividingColon)
               }
-              aria-label={intl.formatMessage(viewByLabel)}
             >
               <ToggleGroup.Item
                 value="open"
