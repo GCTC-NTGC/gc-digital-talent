@@ -46,12 +46,10 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
   fragment ReviewApplicationDialog on PoolCandidate {
     id
     submittedAt
-    applicationStatusData {
-      candidateStatus {
-        value
-        label {
-          localized
-        }
+    candidateStatus {
+      value
+      label {
+        localized
       }
     }
     pool {
@@ -204,15 +202,11 @@ const ReviewApplicationDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div className="grid gap-6 xs:grid-cols-2">
-            {application.applicationStatusData?.candidateStatus && (
+            {application.candidateStatus && (
               <StatusSummary
-                label={
-                  application.applicationStatusData?.candidateStatus.label
-                    .localized
-                }
+                label={application.candidateStatus.label.localized}
                 description={candidateStatusDesc({
-                  status:
-                    application.applicationStatusData?.candidateStatus.value,
+                  status: application.candidateStatus.value,
                   employeesOnly:
                     pool.areaOfSelection?.value ===
                     PoolAreaOfSelection.Employees,
@@ -221,7 +215,7 @@ const ReviewApplicationDialog = ({
                 })}
                 color={
                   candidateStatusColorMap.get(
-                    application.applicationStatusData?.candidateStatus.value,
+                    application.candidateStatus.value,
                   ) ?? "gray"
                 }
                 className="xs:col-span-2"
@@ -266,8 +260,7 @@ const ReviewApplicationDialog = ({
             >
               {pool.department?.name?.localized ?? nullMessage}
             </FieldDisplay>
-            {application?.applicationStatusData?.candidateStatus?.value ===
-            CandidateStatus.Expired ? (
+            {application?.candidateStatus?.value === CandidateStatus.Expired ? (
               <FieldDisplay
                 label={intl.formatMessage(commonMessages.deadlineToApply)}
                 className="xs:col-span-2"
@@ -384,7 +377,7 @@ const ReviewApplicationDialog = ({
                 </Accordion.Content>
               </Accordion.Item>
             </Accordion.Root>
-            {application.applicationStatusData?.candidateStatus?.value ===
+            {application.candidateStatus?.value ===
               CandidateStatus.Qualified && (
               <>
                 <Separator decorative className="m-0 xs:col-span-2" />

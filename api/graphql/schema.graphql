@@ -186,15 +186,6 @@ type User {
     @canResolved(ability: "view") # Search talent requests submitted by a user
 }
 
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-    @rename(attribute: "referral_status")
-  followUpDate: Date @rename(attribute: "referral_follow_up_date")
-  classification: Classification @belongsTo(relation: "referralClassification")
-  notes: String @rename(attribute: "referral_notes")
-  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
-}
-
 type CommunityInterest {
   id: UUID!
   community: Community! @belongsTo
@@ -218,9 +209,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
-  referralStatus: CommunityReferralStatusData!
-    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
-    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -641,14 +629,11 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int @rename(attribute: "status_weight")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
   removalReasonOther: String @rename(attribute: "removal_reason_other")
-  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
   # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
@@ -693,6 +678,12 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 
   applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
@@ -1575,8 +1566,6 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
-  communityReferralStatuses: [CommunityReferralStatus!]
-    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -2308,14 +2297,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
-}
-
-input UpdateCommunityInterestReferralStatusInput @validator {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -3428,16 +3409,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateCommunityInterestReferralStatus(
-    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
-      @spread
-  ): CommunityInterest
-    @guard
-    @canFind(
-      ability: "updateReferralStatus"
-      find: "id"
-      model: "CommunityInterest"
-    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess

@@ -342,7 +342,6 @@ class UserFactory extends Factory
                 CommunityInterest::factory()
                     ->withWorkStreams()
                     ->withDevelopmentProgramInterests()
-                    ->withRandomReferralStatus()
                     ->create([
                         'consent_to_share_profile' => $consent,
                         'user_id' => $user->id,

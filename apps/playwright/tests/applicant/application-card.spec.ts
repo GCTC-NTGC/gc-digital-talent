@@ -106,14 +106,14 @@ test.describe("Application card", () => {
       removalReason: CandidateRemovalReason.Ineligible,
     });
 
-    expect(candidate.applicationStatusData?.statusUpdatedAt).toBeTruthy();
+    expect(candidate.statusUpdatedAt).toBeTruthy();
 
     const dashboard = new ApplicantDashboardPage(appPage.page);
     await loginBySub(dashboard.page, sub);
     await dashboard.toggleJobApplications();
 
     const expectedDate = rawFormat(
-      parseDateTimeUtc(candidate.applicationStatusData?.statusUpdatedAt ?? ""),
+      parseDateTimeUtc(candidate.statusUpdatedAt ?? ""),
       DATE_FORMAT_LOCALIZED,
     );
 

@@ -97,12 +97,12 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->suspend($owner, $submitted)));
     }
 
-    public function testOwnerCanViewTheirOwnApplicationStatus(): void
+    public function testOwnerCannotViewTheirOwnApplicationStatus(): void
     {
         $owner = User::factory()->asApplicant()->create();
         $candidate = PoolCandidate::factory()->for($owner)->for($this->primaryPool)->create();
 
-        $this->assertTrue($this->ensureBool($this->policy->viewApplicationStatus($owner, $candidate)));
+        $this->assertFalse($this->ensureBool($this->policy->viewApplicationStatus($owner, $candidate)));
     }
 
     public function testNonOwnerCannotModifyOrSubmitApplication(): void
