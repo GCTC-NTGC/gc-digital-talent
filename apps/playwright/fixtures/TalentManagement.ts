@@ -108,6 +108,19 @@ class TalentManagement extends AppPage {
       })
       .click();
 
+    const lateralReferralExpiryDate = this.page.getByRole("group", {
+      name: /referral expiry date/i,
+    });
+    await lateralReferralExpiryDate
+      .getByRole("spinbutton", { name: /year/i })
+      .fill("2099");
+    await lateralReferralExpiryDate
+      .getByRole("combobox", { name: /month/i })
+      .selectOption("12");
+    await lateralReferralExpiryDate
+      .getByRole("spinbutton", { name: /day/i })
+      .fill("31");
+
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
 
