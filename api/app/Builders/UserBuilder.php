@@ -16,6 +16,7 @@ use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -675,6 +676,35 @@ class UserBuilder extends Builder
                     $communityQuery->whereIn('id', $communityIds);
                 });
         });
+    }
+
+    public function whereHasMatchingCommunityInterest(?array $filter): self
+    {
+        $filter ??= [];
+        $fields = Arr::only($filter, ['communities', 'workStreams', 'jobInterest', 'trainingInterest']);
+
+        return $this->when(array_filter($fields), fn (self $query) => $query
+            ->whereHas('communityInterests', function ($interests) use ($fields) {
+                /** @var CommunityInterestBuilder $interests */
+                $interests
+                    ->where('consent_to_share_profile', true)
+                    ->communities($fields['communities'] ?? null)
+                    ->workStreams($fields['workStreams'] ?? null)
+                    ->jobInterest($fields['jobInterest'] ?? null)
+                    ->trainingInterest($fields['trainingInterest'] ?? null);
+            }));
+    }
+
+    public function whereLateralMoveInterest(?bool $lateralMoveInterest): self
+    {
+        return $this->when($lateralMoveInterest, fn (self $query) => $query
+            ->where('career_planning_lateral_move_interest', true));
+    }
+
+    public function wherePromotionMoveInterest(?bool $promotionMoveInterest): self
+    {
+        return $this->when($promotionMoveInterest, fn (self $query) => $query
+            ->where('career_planning_promotion_move_interest', true));
     }
 
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
