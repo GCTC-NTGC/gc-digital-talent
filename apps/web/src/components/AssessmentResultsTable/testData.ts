@@ -9,12 +9,7 @@ import {
   fakeUserSkills,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type {
-  AssessmentResult,
-  AssessmentStep,
-  PoolCandidate,
-  PoolSkill,
-} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   AssessmentDecision,
   AssessmentDecisionLevel,
@@ -27,49 +22,53 @@ import {
 faker.seed(0);
 
 const poolCandidate = fakePoolCandidates(1)[0];
-const assessmentSteps = poolCandidate.pool.assessmentSteps as AssessmentStep[];
+const assessmentSteps = unpackMaybes(poolCandidate.pool.assessmentSteps);
 
-const essentialPoolSkills: PoolSkill[] =
-  fakePoolSkills(2).map(() => {
-    return {
-      id: faker.string.uuid(),
-      type: toLocalizedEnum(PoolSkillType.Essential),
-      requiredLevel: SkillLevel.Beginner,
-      skill: {
-        ...fakeSkills(1)[0],
-        id: faker.string.uuid(),
-        name: {
-          en: `EN ${faker.lorem.word()}`,
-          fr: `FR ${faker.lorem.word()}`,
-        },
-      },
-    };
-  }) || [];
+const makeTestPoolSkill = (type: PoolSkillType) => ({
+  id: faker.string.uuid(),
+  type: toLocalizedEnum(type),
+  requiredLevel: SkillLevel.Beginner,
+  skill: {
+    ...fakeSkills(1)[0],
+    id: faker.string.uuid(),
+    name: {
+      en: `EN ${faker.lorem.word()}`,
+      fr: `FR ${faker.lorem.word()}`,
+    },
+  },
+});
 
-const nonEssentialPoolSkills: PoolSkill[] =
-  fakePoolSkills(2).map(() => {
-    return {
-      id: faker.string.uuid(),
-      type: toLocalizedEnum(PoolSkillType.Nonessential),
-      requiredLevel: SkillLevel.Beginner,
-      skill: {
-        ...fakeSkills(1)[0],
-        id: faker.string.uuid(),
-        name: {
-          en: `EN ${faker.lorem.word()}`,
-          fr: `FR ${faker.lorem.word()}`,
-        },
-      },
-    };
-  }) || [];
+type TestPoolSkill = ReturnType<typeof makeTestPoolSkill>;
+
+const makeTestAssessmentStep = (
+  type: AssessmentStepType,
+  sortOrder: number,
+  poolSkills: TestPoolSkill[],
+) => ({
+  ...assessmentSteps[0],
+  id: faker.string.uuid(),
+  type: toLocalizedEnum(type),
+  sortOrder,
+  poolSkills,
+});
+
+type TestAssessmentStep = ReturnType<typeof makeTestAssessmentStep>;
+
+const essentialPoolSkills = fakePoolSkills(2).map(() =>
+  makeTestPoolSkill(PoolSkillType.Essential),
+);
+
+const nonEssentialPoolSkills = fakePoolSkills(2).map(() =>
+  makeTestPoolSkill(PoolSkillType.Nonessential),
+);
 
 const getAssessmentResult = (
-  assessmentStep?: AssessmentStep,
+  assessmentStep?: TestAssessmentStep,
   type?: AssessmentResultType,
   decision?: AssessmentDecision,
   level?: AssessmentDecisionLevel,
-  poolSkill?: PoolSkill,
-): AssessmentResult => ({
+  poolSkill?: TestPoolSkill,
+) => ({
   ...fakeAssessmentResults(1)[0],
   assessmentDecision: decision ? toLocalizedEnum(decision) : undefined,
   assessmentResultType: type ?? AssessmentResultType.Skill,
@@ -81,14 +80,12 @@ const getAssessmentResult = (
 });
 
 /* Application screening step data (To assess status) */
-export const applicationScreeningStep: AssessmentStep = {
-  ...assessmentSteps[0],
-  id: faker.string.uuid(),
-  type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
-  sortOrder: 1,
-  poolSkills: [...essentialPoolSkills, ...nonEssentialPoolSkills],
-};
-const applicationScreeningResults: AssessmentResult[] = [
+export const applicationScreeningStep = makeTestAssessmentStep(
+  AssessmentStepType.ApplicationScreening,
+  1,
+  [...essentialPoolSkills, ...nonEssentialPoolSkills],
+);
+const applicationScreeningResults = [
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(applicationScreeningStep, undefined, undefined),
   getAssessmentResult(
@@ -107,14 +104,12 @@ if (experiencePoolSkill.skill) {
 }
 
 /* Screening questions step (Unsuccessful status) */
-export const screeningQuestionsStep: AssessmentStep = {
-  ...assessmentSteps[0],
-  id: faker.string.uuid(),
-  type: toLocalizedEnum(AssessmentStepType.ScreeningQuestionsAtApplication),
-  sortOrder: 2,
-  poolSkills: [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
-};
-const screeningQuestionsResults: AssessmentResult[] = [
+export const screeningQuestionsStep = makeTestAssessmentStep(
+  AssessmentStepType.ScreeningQuestionsAtApplication,
+  2,
+  [essentialPoolSkills[1], nonEssentialPoolSkills[0]],
+);
+const screeningQuestionsResults = [
   getAssessmentResult(
     screeningQuestionsStep,
     AssessmentResultType.Skill,
@@ -125,14 +120,12 @@ const screeningQuestionsResults: AssessmentResult[] = [
 ];
 
 /* Reference check step data (Hold status) */
-export const referenceCheckStep: AssessmentStep = {
-  ...assessmentSteps[0],
-  id: faker.string.uuid(),
-  type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
-  sortOrder: 4,
-  poolSkills: [essentialPoolSkills[0]],
-};
-const referenceCheckResults: AssessmentResult[] = [
+export const referenceCheckStep = makeTestAssessmentStep(
+  AssessmentStepType.ReferenceCheck,
+  4,
+  [essentialPoolSkills[0]],
+);
+const referenceCheckResults = [
   getAssessmentResult(
     referenceCheckStep,
     AssessmentResultType.Skill,
@@ -143,14 +136,12 @@ const referenceCheckResults: AssessmentResult[] = [
 ];
 
 /* Interview group step data (successful status) */
-export const interviewGroupStep: AssessmentStep = {
-  ...assessmentSteps[0],
-  id: faker.string.uuid(),
-  type: toLocalizedEnum(AssessmentStepType.InterviewGroup),
-  sortOrder: 3,
-  poolSkills: [...essentialPoolSkills],
-};
-const interviewGroupResults: AssessmentResult[] = [
+export const interviewGroupStep = makeTestAssessmentStep(
+  AssessmentStepType.InterviewGroup,
+  3,
+  [...essentialPoolSkills],
+);
+const interviewGroupResults = [
   getAssessmentResult(
     interviewGroupStep,
     AssessmentResultType.Skill,
@@ -167,16 +158,16 @@ const interviewGroupResults: AssessmentResult[] = [
   ),
 ];
 
-export const testPoolCandidate: PoolCandidate = {
+export const testPoolCandidate = {
   ...poolCandidate,
   id: faker.string.uuid(),
   user: {
     ...poolCandidate.user,
     userSkills: [
-      fakeUserSkills(1, essentialPoolSkills[0].skill!)[0],
-      fakeUserSkills(1, essentialPoolSkills[1].skill!)[0],
-      fakeUserSkills(1, nonEssentialPoolSkills[0].skill!)[0],
-      fakeUserSkills(1, nonEssentialPoolSkills[1].skill!)[0],
+      fakeUserSkills(1, essentialPoolSkills[0].skill)[0],
+      fakeUserSkills(1, essentialPoolSkills[1].skill)[0],
+      fakeUserSkills(1, nonEssentialPoolSkills[0].skill)[0],
+      fakeUserSkills(1, nonEssentialPoolSkills[1].skill)[0],
       fakeUserSkills(1, experiencePoolSkill.skill!)[0],
     ],
     experiences: [experience],
