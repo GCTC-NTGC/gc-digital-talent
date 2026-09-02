@@ -281,7 +281,7 @@ return [
 
     'nominations_overview' => 'Aperçu des nominations',
     'nominee_profiles' => 'Profil des candidats',
-    'nominations_details' => 'Détails de la candidature',
+    'nominations_details' => 'Détails de la nomination',
     'nominee_first_name' => 'Prénom du nominé ou de la nominée',
     'nominee_last_name' => 'Nom du nominé ou de la nominée',
     'nominee_user_id' => 'Identifiant utilisateur du nominé ou de la nominée',
@@ -303,9 +303,9 @@ return [
     'nominator_classification' => 'Classification du nominateur ou de la nominatrice',
     'nominator_department' => 'Ministère du nominateur ou de la nominatrice',
 
-    'submitters_name' => 'Nom de la personne ayant soumis la candidature',
-    'submitters_email' => 'Adresse courriel professionnelle de la personne ayant soumis la candidature',
-    'submitters_relationship_to_nominator' => 'Lien entre la personne ayant soumis la candidature et le nominateur ou la nominatrice',
+    'submitters_name' => 'Nom de la personne ayant soumis la nomination',
+    'submitters_email' => 'Adresse courriel professionnelle de la personne ayant soumis la nomination',
+    'submitters_relationship_to_nominator' => 'Lien entre la personne ayant soumis la nomination et le nominateur ou la nominatrice',
     'reference_name' => 'Nom de la personne de référence',
     'reference_email' => 'Adresse courriel professionnelle de la personne de référence',
     'reference_classification' => 'Classification de la personne de référence',

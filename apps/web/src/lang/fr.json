@@ -2927,7 +2927,7 @@
     "description": "Label or header"
   },
   "9bwb2b": {
-    "defaultMessage": "L’employé s’acquitte efficacement de ses fonctions actuelles, mais il montre rarement l’intérêt, la capacité ou l’engagement nécessaires pour occuper à l’avenir des postes comportant des responsabilités en matière de leadership. À moins que l’employé affiche plus tard un rendement exceptionnel, sa candidature à de tels postes est exclue.",
+    "defaultMessage": "L’employé s’acquitte efficacement de ses fonctions actuelles, mais il montre rarement l’intérêt, la capacité ou l’engagement nécessaires pour occuper à l’avenir des postes comportant des responsabilités en matière de leadership. À moins que l’employé affiche plus tard un rendement exceptionnel, sa nomination à de tels postes est exclue.",
     "description": "label for low potential definition"
   },
   "9c/MAZ": {
@@ -7211,7 +7211,7 @@
     "description": "Error message displayed when a users personal information is incomplete"
   },
   "Qds8Yz": {
-    "defaultMessage": "Ces options permettent de préciser les restrictions de classification, le type de nominations acceptées ainsi que la période pendant laquelle l’événement acceptera les candidatures.",
+    "defaultMessage": "Ces options permettent de préciser les restrictions de classification, le type de nominations acceptées ainsi que la période pendant laquelle l’événement acceptera les nominations.",
     "description": "Description for subsection create talent management event"
   },
   "QeP4Rb": {
@@ -8860,7 +8860,7 @@
     "description": "Label displayed on Education form for degree/diploma/certificate type input"
   },
   "Xb11ag": {
-    "defaultMessage": "Une personne tierce a soumis cette candidature au nom du nominateur ou de la nominatrice. Vous trouverez leurs coordonnées ici.",
+    "defaultMessage": "Une personne tierce a soumis cette nomination au nom du nominateur ou de la nominatrice. Vous trouverez leurs coordonnées ici.",
     "description": "Information in dialog about submitter being different from nominator"
   },
   "XbsYGW": {
@@ -10104,7 +10104,7 @@
     "description": "Paragraph for comments and interaction section"
   },
   "cm1uO9": {
-    "defaultMessage": "Précisez les options de perfectionnement professionnel parmi lesquelles les personnes proposant des candidatures peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
+    "defaultMessage": "Précisez les options de perfectionnement professionnel parmi lesquelles les personnes proposant des nominations peuvent choisir lorsqu'elles recommandent une personne pour des possibilités de perfectionnement. Vous pouvez également fournir, au besoin, du contexte additionnel pour mieux orienter les choix. Si vous ne trouvez pas le programme ou le certificat requis, veuillez communiquer avec la personne chargée de l'administration de votre collectivité afin d'ajouter les options nécessaires.",
     "description": "Description for subsection in talent management event form"
   },
   "cnoxKB": {
@@ -11953,7 +11953,7 @@
     "description": "Label to remove the skill"
   },
   "jQiIbl": {
-    "defaultMessage": "Une fois un événement de gestion des talents publié et ouvert pour recevoir des nominations, seules certaines parties peuvent être modifiées afin d’assurer l’équité et la clarté pour les personnes proposant des candidatures et les personnes candidates.",
+    "defaultMessage": "Une fois un événement de gestion des talents publié et ouvert pour recevoir des nominations, seules certaines parties peuvent être modifiées afin d’assurer l’équité et la clarté pour les personnes proposant des nominations et les personnes nominées.",
     "description": "Description for warning notice in active talent event form"
   },
   "jRmRd+": {
