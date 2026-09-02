@@ -15,7 +15,8 @@ export interface FormValues {
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
-  lateralMovementClassifications: string[] | null;
+  lateralMovementClassificationSubstantive: string | null;
+  lateralMovementClassificationsAdditional: string[] | null;
   lateralMovementReferralExpiryDate: string | null;
   developmentProgramsDecision: TalentNominationGroupDecision | null;
   developmentProgramsApprovedNotes: string | null;
@@ -40,10 +41,10 @@ function ifRejected(decision: Decision, value: string | null | undefined) {
 }
 
 // return the right value if the decision is approved or rejected
-function chooseValue(
+function chooseValue<T>(
   decision: TalentNominationGroupDecision | null,
-  approvedValue: string | null,
-  rejectedValue: string | null,
+  approvedValue: T | null,
+  rejectedValue: T | null,
 ) {
   if (decision == TalentNominationGroupDecision.Approved) return approvedValue;
   if (decision == TalentNominationGroupDecision.Rejected) return rejectedValue;
@@ -79,9 +80,13 @@ export function convertQueryDataToFormData(
       queryData?.lateralMovementDecision,
       queryData?.lateralMovementNotes,
     ),
-    lateralMovementClassifications: unpackMaybes(
+    lateralMovementClassificationSubstantive:
+      queryData.nominee?.classification?.id ?? null,
+    lateralMovementClassificationsAdditional: unpackMaybes(
       queryData?.lateralMovementClassifications,
-    ).map(({ id }) => id),
+    )
+      .map(({ id }) => id)
+      .filter((id) => id !== queryData.nominee?.classification?.id), // only want the additional classifications, the substantive is in the field above
     lateralMovementReferralExpiryDate:
       queryData?.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision:
@@ -120,7 +125,15 @@ export function convertFormValuesToMutationInput(
       formValues.lateralMovementRejectedNotes,
     ),
     lateralMovementClassifications: {
-      sync: formValues.lateralMovementClassifications,
+      // pack the substantive and the additional classifications together
+      sync: chooseValue(
+        formValues.lateralMovementDecision,
+        unpackMaybes([
+          formValues.lateralMovementClassificationSubstantive,
+          ...(formValues.lateralMovementClassificationsAdditional ?? []),
+        ]),
+        [],
+      ),
     },
     lateralMovementReferralExpiryDate:
       formValues.lateralMovementReferralExpiryDate ?? null,

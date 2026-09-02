@@ -108,7 +108,7 @@ const LateralMovementSection = ({
       selectedLateralMovementDecision !== TalentNominationGroupDecision.Approved
     ) {
       resetDirtyField("lateralMovementApprovedNotes", null);
-      resetDirtyField("lateralMovementClassifications", []);
+      resetDirtyField("lateralMovementClassificationsAdditional", []);
       resetDirtyField("lateralMovementReferralExpiryDate", null);
     }
 
@@ -262,12 +262,14 @@ const LateralMovementSection = ({
               description: "The substantive classification of the nominee",
             })}
           >
+            {/* this field exists in the form state as lateralMovementClassificationSubstantive
+                so it gets submitted with lateralMovementClassificationsAdditional */}
             {talentNominationGroup.nominee?.classification?.groupAndLevel ??
               intl.formatMessage(commonMessages.notFound)}
           </FieldDisplay>
           <Combobox
-            id="lateralMovementClassifications"
-            name="lateralMovementClassifications"
+            id="lateralMovementClassificationsAdditional"
+            name="lateralMovementClassificationsAdditional"
             isMulti
             label={intl.formatMessage({
               defaultMessage: "Relevant referral equivalencies",
