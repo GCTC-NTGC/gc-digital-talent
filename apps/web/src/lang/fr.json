@@ -424,7 +424,7 @@
     "description": "Heading for filters associated with an applications status"
   },
   "/eyJbp": {
-    "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes candidates doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nommées. Veuillez contacter la candidate ou le candidat et leur demander de créer un profil avant de continuer.",
+    "defaultMessage": "Il semble que cette adresse courriel professionnelle ne soit pas liée à un profil. Les personnes nominées doivent disposer d'un compte sur Talents numériques du GC pour pouvoir être nominé. Veuillez contacter la personne nominée et leur demander de créer un profil avant de continuer.",
     "description": "Body of the error message when the profile of a nominee cannot be found"
   },
   "/fglL0": {
@@ -2503,7 +2503,7 @@
     "description": "IT-03 advisor description"
   },
   "7xTRE7": {
-    "defaultMessage": "Évaluation de rendement du candidat",
+    "defaultMessage": "Évaluation de rendement de la personne nominée",
     "description": "Label for the nominee's performance assessment field"
   },
   "7yvOlL": {
@@ -3863,7 +3863,7 @@
     "description": "Title for unique ID of a resource"
   },
   "DAOkQv": {
-    "defaultMessage": "Potentiel de leadership du candidat",
+    "defaultMessage": "Potentiel de leadership de la personne nominée",
     "description": "Label for the nominee's leadership potential field"
   },
   "DBczOG": {
@@ -4419,7 +4419,7 @@
     "description": "Breadcrumb title for the edit department page link."
   },
   "FcHUIQ": {
-    "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par le nominateur ou la nominatrice.",
+    "defaultMessage": "J'ai confirmé l'admissibilité de la personne nominée en contactant la référence secondaire fournie par le nominateur ou la nominatrice.",
     "description": "Statement of confirmation for reference check"
   },
   "FcINAB": {
@@ -5537,7 +5537,7 @@
     "description": "Subtitle for user section"
   },
   "JwOJSW": {
-    "defaultMessage": "Veuillez recommander une ou plusieurs options de classification pour lesquelles le candidat doit être pris en considération durant le processus de recommandation, compte tenu de la classification de son poste d’attache et de son rendement actuels.",
+    "defaultMessage": "Veuillez recommander une ou plusieurs options de classification pour lesquelles la personne nominée doit être pris en considération durant le processus de recommandation, compte tenu de la classification de son poste d’attache et de son rendement actuels.",
     "description": "Intro for advancement nomination classification selection"
   },
   "JxDtt+": {
@@ -13773,7 +13773,7 @@
     "description": "Label for the result of an application screening"
   },
   "qwqI/Y": {
-    "defaultMessage": "Classification du candidat au moment de sa nomination",
+    "defaultMessage": "Classification de la personne nominée au moment de sa nomination",
     "description": "Label for nominee’s classification at the time of advancement"
   },
   "qxCyZM": {
@@ -14061,7 +14061,7 @@
     "description": "Page title for the department manage access page"
   },
   "sDBI5c": {
-    "defaultMessage": "Options de classification recommandées pour le candidat",
+    "defaultMessage": "Options de classification recommandées pour la personne nominée",
     "description": "Label for advancement eligible classifications field"
   },
   "sDqpzq": {
