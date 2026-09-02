@@ -155,9 +155,11 @@ class TalentManagement extends AppPage {
     await this.page.getByRole("option").first().click();
     await this.page.keyboard.press("Tab");
 
-    const advancementReferralExpiryDate = this.page.getByRole("group", {
-      name: /referral expiry date/i,
-    });
+    const advancementReferralExpiryDate = this.page
+      .getByRole("group", {
+        name: /referral expiry date/i,
+      })
+      .first();
     await advancementReferralExpiryDate
       .getByRole("spinbutton", { name: /year/i })
       .fill("2099");
@@ -174,6 +176,21 @@ class TalentManagement extends AppPage {
         name: /this nomination for lateral movement is approved./i,
       })
       .click();
+
+    const lateralReferralExpiryDate = this.page
+      .getByRole("group", {
+        name: /referral expiry date/i,
+      })
+      .last();
+    await lateralReferralExpiryDate
+      .getByRole("spinbutton", { name: /year/i })
+      .fill("2099");
+    await lateralReferralExpiryDate
+      .getByRole("combobox", { name: /month/i })
+      .selectOption("12");
+    await lateralReferralExpiryDate
+      .getByRole("spinbutton", { name: /day/i })
+      .fill("31");
 
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
