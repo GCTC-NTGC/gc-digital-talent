@@ -35,10 +35,6 @@
     "defaultMessage": "Talents de la collectivité",
     "description": "Label for community talent"
   },
-  "+3bi5L": {
-    "defaultMessage": "Ce candidat produit des résultats constants et démontre une capacité à exercer un leadership élargi. Il est probablement prêt à accepter des affectations enrichies ou des rôles interfonctionnels ainsi qu’à intégrer la relève à moyen et à long terme.",
-    "description": "Nine-box recommendation description for high performance and moderate leadership potential"
-  },
   "+6syC7": {
     "defaultMessage": "Votre fichier est prêt à être téléchargé",
     "description": "Notification for when q requested download is ready"
@@ -666,6 +662,10 @@
     "defaultMessage": "Les notes ont été mises à jour avec succès.",
     "description": "Success message displayed after updating notes"
   },
+  "0SY3xR": {
+    "defaultMessage": "Nous recommandons que cette personne soit nominée pour un transfert latéral ou un avancement",
+    "description": "Nine-box recommendation title for development and lateral and advancement"
+  },
   "0T3NB0": {
     "defaultMessage": "Erreur : nom de compétence non trouvé",
     "description": "Error message when skill name is not found on request page."
@@ -733,10 +733,6 @@
   "0dQ62G": {
     "defaultMessage": "Nombre de compétences appariées",
     "description": "Title displayed on the candidate skill count column."
-  },
-  "0ea8yF": {
-    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement et un transfert latéral.",
-    "description": "Nine-box recommendation title for development and lateral"
   },
   "0jV7Rn": {
     "defaultMessage": "Complet",
@@ -1802,10 +1798,6 @@
     "defaultMessage": "Enregistrer et ajouter cette compétence",
     "description": "Button text to save a specific skill to a users profile"
   },
-  "4nRmpf": {
-    "defaultMessage": "Ce candidat devrait se concentrer sur son amélioration. Son faible rendement et la faible possibilité qu’il améliore son potentiel de leadership pourraient justifier une réaffectation ou la prise de mesures de gestion du rendement.",
-    "description": "Nine-box recommendation description for low performance and low leadership potential"
-  },
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
@@ -2661,6 +2653,10 @@
   "8UrSRQ": {
     "defaultMessage": "Acceptation des nominations du {openDate} au {closeDate}.",
     "description": "Text for date range values for Accepting nominations"
+  },
+  "8VO06T": {
+    "defaultMessage": "Le nominé ou la nominée est fiable et efficace dans son poste actuel et fait montre d’un potentiel de croissance modéré. Un transfert latéral vers un poste d’une complexité ou d’une portée supérieure, accompagnée d’un perfectionnement ciblé, pourrait lui faire prendre de l’expérience et renforcer ses capacités en matière de leadership.",
+    "description": "Nine-box recommendation description for moderate performance and moderate leadership potential"
   },
   "8VQWN3": {
     "defaultMessage": "n’est pas en mesure de publier des processus de recrutement;",
@@ -4422,10 +4418,6 @@
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
     "description": "Breadcrumb title for the edit department page link."
   },
-  "FZ6MRQ": {
-    "defaultMessage": "Ce candidat est un contributeur expert. Il est très efficace dans son rôle actuel et possède une expertise approfondie. Il ne cherche peut-être pas à assumer un rôle de leadership élargi et n’est peut-être pas fait pour cela. Toutefois, il est essentiel dans son domaine.",
-    "description": "Nine-box recommendation description for high performance and low leadership potential"
-  },
   "FcHUIQ": {
     "defaultMessage": "J'ai confirmé l'admissibilité de la candidate ou du candidat en contactant la référence secondaire fournie par le nominateur ou la nominatrice.",
     "description": "Statement of confirmation for reference check"
@@ -4953,6 +4945,10 @@
     "defaultMessage": "Je suis intéressé(e) à offrir un stage",
     "description": "Subject line of a manager's email for apprenticeship"
   },
+  "Hr7xF2": {
+    "defaultMessage": "Le nominé ou la nominée produit des résultats constants et montre une capacité à exercer des responsabilités élargies en matière de leadership. Les affectations enrichies, les mutations latérales et les possibilités de promotion pourront lui faire prendre de l’expérience et accélérer sa préparation en vue d’assumer la relève à moyen et à long terme.",
+    "description": "Nine-box recommendation description for high performance and moderate leadership potential"
+  },
   "HrRgTT": {
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
@@ -4980,10 +4976,6 @@
   "Hwt9jD": {
     "defaultMessage": "Consultez les renseignements détaillés d'un processus de recrutement auquel vous participez et indiquez si vous aimeriez continuer à recevoir des offres d'emploi.",
     "description": "Subtitle for the review recruitment process dialog"
-  },
-  "HxLjMP": {
-    "defaultMessage": "Ce candidat répond aux attentes en matière de rendement et apporte une contribution régulière, mais il n’a pas démontré de potentiel de leadership. Un rôle lié aux opérations nécessitant un leadership fiable lui conviendrait parfaitement.",
-    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
   },
   "Hy2UdW": {
     "defaultMessage": "Vous êtes sur le point de retirer un rôle de cet utilisateur ou cette utilisatrice :<strong>{userName}</strong>",
@@ -5212,10 +5204,6 @@
     "defaultMessage": "Masquer tout<hidden>es les sections de vos processus</hidden>",
     "description": "Button text to hide all your processes sections"
   },
-  "IdNL0m": {
-    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement, un transfert latéral et une promotion.",
-    "description": "Nine-box recommendation title for development and lateral and advancement"
-  },
   "IexFo4": {
     "defaultMessage": "Connaissance de l’autre langue officielle",
     "description": "Second language proficiency label"
@@ -5371,10 +5359,6 @@
   "J8Nltm": {
     "defaultMessage": "Comment vous avez pu mettre en œuvre la compétence « {skillName} » dans le cadre de cette expérience",
     "description": "Heading for a single skill on an experience."
-  },
-  "J8c5xW": {
-    "defaultMessage": "Les candidats prometteurs sont des candidats dont le rendement est inférieur aux attentes, mais dont le potentiel de leadership est élevé. Un encadrement, des objectifs plus clairs ou la redéfinition de leur rôle les aideraient à s’épanouir.",
-    "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
   "J9HjFN": {
     "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
@@ -6146,6 +6130,10 @@
   "M2LfhH": {
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
+  },
+  "M4O7dx": {
+    "defaultMessage": "Le nominé ou la nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Un transfert latéral ou un avancement pourrait favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
+    "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "M4sGS2": {
     "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
@@ -7314,6 +7302,10 @@
     "defaultMessage": "Non placé",
     "description": "Messaged displayed when a user is qualified but has yet to be placed"
   },
+  "QwoLNe": {
+    "defaultMessage": "Nous recommandons que cette personne soit nominée pour un transfert latéral",
+    "description": "Nine-box recommendation title for development and lateral"
+  },
   "Qx8ezq": {
     "defaultMessage": "Commencer à rédiger une demande d'emploi",
     "description": "Title for the apply now section of a pool advertisement"
@@ -7389,6 +7381,10 @@
   "RDr0HX": {
     "defaultMessage": "La candidature de la personne n'a encore jamais été envoyée.",
     "description": "Message shown when a user has no referral history"
+  },
+  "RE2oVS": {
+    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un potentiel manifeste en matière de leadership. Un soutien et un encadrement ciblés pourraient le préparer à assumer des responsabilités dans ce domaine. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for low performance and moderate leadership potential"
   },
   "REF6ea": {
     "defaultMessage": "Taille du ministère",
@@ -7732,10 +7728,6 @@
   "SojYxS": {
     "defaultMessage": "Les compétences essentielles ou requises (également appelées critères de mérite) sont les compétences de base dont une personne candidate a besoin pour effectuer le travail. Cette liste comprend des compétences communes qui sont souvent requises dans le cadre de ce poste, mais nous recommandons de ne choisir que les compétences qui sont absolument nécessaires. Une liste plus courte de compétences requises permet de présenter des candidatures plus solides et simplifie le processus d’évaluation.",
     "description": "Description displayed on the job poster template 'essential technical skills' section."
-  },
-  "Spiz26": {
-    "defaultMessage": "Ce candidat a un bon rendement et présente un fort potentiel de leadership. Il est vraisemblablement prêt à participer à des activités de perfectionnement stratégique et à intégrer la relève à moyen et long terme.",
-    "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "Sth/c4": {
     "defaultMessage": "Prochain type de poste",
@@ -8387,6 +8379,10 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
+  "VaiX1a": {
+    "defaultMessage": "Le nominé ou la nominée aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement et pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for low performance and low leadership potential"
+  },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
@@ -8602,6 +8598,10 @@
   "WWJRlj": {
     "defaultMessage": "Je n'occupe pas de rôle de cadre supérieur désigné (CSD).",
     "description": "Message when user is not a Senior Designated Official"
+  },
+  "WWTY2/": {
+    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Un transfert latéral vers un poste correspondant mieux à ses forces, accompagné d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
+    "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
@@ -9247,6 +9247,10 @@
     "defaultMessage": "Profil ajouté au suivi.",
     "description": "Success message after adding a user to a talent request's tracking list"
   },
+  "Z2/I99": {
+    "defaultMessage": "Nous recommandons que cette personne participe à des possibilités de perfectionnement",
+    "description": "Nine-box recommendation title for development"
+  },
   "Z2BMGx": {
     "defaultMessage": "Retirer l'adresse courriel professionnelle",
     "description": "Action text"
@@ -9687,6 +9691,10 @@
     "defaultMessage": "Le statut de la demande de talents a été mis à jour avec succès.",
     "description": "Message displayed after a talent requests status was updated"
   },
+  "b99hey": {
+    "defaultMessage": "Le nominé ou la nominée est très efficace dans son poste actuel et possède une vaste expertise qui est essentielle dans son domaine. Un transfert latéral dans un poste où il serait possible de mettre à profit ou enrichir son expertise pourrait contribuer grandement à son perfectionnement et être avantageuse pour son organisation, notamment si les responsabilités élargies en matière de leadership ne correspondent pas à ses aspirations professionnelles.",
+    "description": "Nine-box recommendation description for high performance and low leadership potential"
+  },
   "b9aCAt": {
     "defaultMessage": "Expérience de travail actuelle",
     "description": "Title for current experience part of employee verification "
@@ -10010,6 +10018,10 @@
   "cU+2HB": {
     "defaultMessage": "La plateforme recueille des données aux fins de planification de l’effectif : ces données font ressortir les compétences en demande, les lacunes dans les équipes et les emplois auxquels les gens postulent. Elles aident en outre les RH et la direction à faire en sorte que l’embauche, la formation et le perfectionnement correspondent aux futures priorités numériques.",
     "description": "Description of analytics and planning for HR professionals"
+  },
+  "cU9OEC": {
+    "defaultMessage": "Le nominé ou la nominée excelle dans son poste actuel et fait montre d’un potentiel exceptionnel en matière de leadership, et doit être pris en considération prioritairement pour un avancement ainsi que dans la planification de la relève en lien avec son poste, y compris les possibilités d’assumer des responsabilités accrues à court terme et d’intégrer la relève à moyen et à long terme.",
+    "description": "Nine-box recommendation description for high performance and high leadership potential"
   },
   "cXszfI": {
     "defaultMessage": "Sélectionnez l’option qui représente le mieux votre raison pour soumettre la présente demande de talent",
@@ -13076,10 +13088,6 @@
     "defaultMessage": "Vous n'avez rejoint aucune collectivité fonctionnelle.",
     "description": "Label for when user has not expressed interest in any communities"
   },
-  "o96aNX": {
-    "defaultMessage": "Ce candidat est fiable et efficace dans son rôle actuel. Son potentiel de progression est modéré. Un soutien et des occasions de perfectionnement ciblées pourraient lui permettre d’assumer des rôles de leadership plus complexes.",
-    "description": "Nine-box recommendation description for moderate performance and moderate leadership potential"
-  },
   "oAC+SM": {
     "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
     "description": "Message when user is a Senior Designated Official"
@@ -13691,6 +13699,10 @@
   "qbv2v0": {
     "defaultMessage": "Classification de la personne de référence",
     "description": "Label for the advancement reference classification"
+  },
+  "qfTGNi": {
+    "defaultMessage": "Le nominé ou la nominée répond aux attentes en matière de rendement, mais n’a pas encore démontré de potentiel en matière de leadership. Son profil cadre bien avec les postes dans lesquels la fiabilité opérationnelle, l’expertise et la production de résultats sont importantes. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
   },
   "qgp94h": {
     "defaultMessage": "Veuillez noter qu'en supprimant cette expérience, elle n’apparaîtra plus dans les expériences liées à un prix.",
@@ -14624,10 +14636,6 @@
     "defaultMessage": "La décision a été annulée avec succès.",
     "description": "Success message when an application decision was reverted"
   },
-  "uXu/Vu": {
-    "defaultMessage": "Ce candidat excelle dans son rôle actuel et démontre un potentiel de leadership exceptionnel. Il cadre parfaitement avec les plans de relève à court terme pour ces fonctions, ainsi qu’avec les bassins de relève à moyen et à long terme.",
-    "description": "Nine-box recommendation description for high performance and high leadership potential"
-  },
   "uaEMMO": {
     "defaultMessage": "Type d'emploi",
     "description": "Label for the employment type radio group"
@@ -14644,10 +14652,6 @@
     "defaultMessage": "Description",
     "description": "The description of a job poster template"
   },
-  "uhescL": {
-    "defaultMessage": "Nous recommandons que ce candidat soit considéré pour des occasions de perfectionnement",
-    "description": "Nine-box recommendation title for development"
-  },
   "uhoPHh": {
     "defaultMessage": "Réglementation",
     "description": "Label for a regulatory department"
@@ -14659,10 +14663,6 @@
   "ukcsxj": {
     "defaultMessage": "Si vous choisissez de vous autodéclarer dans votre profil et que vous postulez un emploi chez Talents numériques du GC, ces renseignements peuvent être utilisés à n’importe quelle étape du processus d’emploi, de la demande initiale à l’évaluation en passant par la nomination. Les gestionnaires d’embauche ou l’équipe de recrutement de Talents numériques du GC pourraient utiliser ces renseignements",
     "description": "Paragraph 2, how self-declaration data is used"
-  },
-  "ulkj7X": {
-    "defaultMessage": "Le rendement de ce candidat est inférieur aux attentes, mais son potentiel de leadership est évident. Il pourrait bénéficier d’un soutien ciblé et d’occasions de perfectionnement.",
-    "description": "Nine-box recommendation description for low performance and moderate leadership potential"
   },
   "uoX7ou": {
     "defaultMessage": "Cette page est accessible en langues autochtones",

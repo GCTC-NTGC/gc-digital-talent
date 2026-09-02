@@ -10,7 +10,7 @@ import {
   getLocale,
 } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
-import type { Experience, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import {
@@ -20,11 +20,13 @@ import {
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
+import type { SkillLinkableExperience } from "./ExperienceSkillFormDialog";
+
 const TEXT_AREA_MAX_WORDS_EN = 400;
 
 const getSkillArgs = (
   skillId: string,
-  experience?: Omit<Experience, "user">,
+  experience?: SkillLinkableExperience,
   details?: string,
   remove?: boolean,
 ) => {

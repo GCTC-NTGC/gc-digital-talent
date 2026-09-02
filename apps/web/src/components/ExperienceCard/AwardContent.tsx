@@ -1,20 +1,31 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import type { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 
+import type { ExperienceName } from "~/utils/experienceUtils";
 import {
   getExperienceFormLabels,
   getExperienceName,
 } from "~/utils/experienceUtils";
-import type { AwardExperienceWithoutUser } from "~/types/experience";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
+interface AwardContentExperience {
+  __typename?: "AwardExperience";
+  issuedBy?: string | null;
+  awardedTo?: GenericLocalizedEnum<AwardedTo> | null;
+  awardedScope?: GenericLocalizedEnum<AwardedScope> | null;
+  projectName?: string | null;
+  relatedExperience?: ExperienceName | null;
+}
+
 const AwardContent = ({
   experience,
   headingLevel,
-}: ContentProps<AwardExperienceWithoutUser>) => {
+}: ContentProps<AwardContentExperience>) => {
   const intl = useIntl();
   const { awardedTo, issuedBy, awardedScope, projectName, relatedExperience } =
     experience;
