@@ -3466,6 +3466,10 @@
     "defaultMessage": "Nominations que vous avez reçues",
     "description": "Title for the nominations received section"
   },
+  "BOPQKQ": {
+    "defaultMessage": "Acceptée le",
+    "description": "Label for accepted date of a nomination received"
+  },
   "BPFC5k": {
     "defaultMessage": "Renseignements propres à la collectivité",
     "description": "Title for community-specific information section"
@@ -3905,6 +3909,10 @@
   "DNUZPm": {
     "defaultMessage": "Processus ajouté à vos favoris",
     "description": "Bookmarked processes expandable"
+  },
+  "DNjn83": {
+    "defaultMessage": "Les nominations s’affichent automatiquement ici lorsque vous les recevez.",
+    "description": "Message displayed when an employee has not received any nominations"
   },
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
@@ -6183,6 +6191,10 @@
     "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
     "description": "Unordered list heading warning user before removing a professionalization"
   },
+  "MB3J/o": {
+    "defaultMessage": "Consulter par",
+    "description": "Label for the nominations view toggle"
+  },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
@@ -7553,6 +7565,10 @@
     "defaultMessage": "Groupe et niveau",
     "description": "Title for group and level on summary of filters section"
   },
+  "Rnry4P": {
+    "defaultMessage": "Voir l’information sur la nomination pour {eventName}",
+    "description": "Label for the received nomination details dialog trigger"
+  },
   "RojSQE": {
     "defaultMessage": "Montréal, Quebec",
     "description": "Location name of Montreal, Quebec"
@@ -7864,6 +7880,10 @@
   "TFAsYS": {
     "defaultMessage": "Créer la possibilité de formation",
     "description": "Button label to submit the create an opportunity form"
+  },
+  "TFDGG/": {
+    "defaultMessage": "Si vous faites actuellement partie du personnel du gouvernement du Canada, vérifiez votre courriel au travail et assurez-vous que votre expérience de travail est à jour pour pouvoir utiliser les outils destinés au personnel. Les nominations liées à des postes précédents au gouvernement du Canada continueront de s’afficher ici.",
+    "description": "Notice description on sections for employee profile page when not a verified employee."
   },
   "THBjEx": {
     "defaultMessage": "Date d'expiration",
@@ -11831,6 +11851,10 @@
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
+  },
+  "ixjaCE": {
+    "defaultMessage": "Activités passées",
+    "description": "Toggle option to view closed nominations"
   },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
