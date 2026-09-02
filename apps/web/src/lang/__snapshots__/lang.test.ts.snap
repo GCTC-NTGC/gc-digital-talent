@@ -38,6 +38,13 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
+    "en": "Nominate talent",
+    "fr": [
+      "Nominez un talent",
+      "Présenter une nomination"
+    ]
+  },
+  {
     "en": "Add department role",
     "fr": [
       "Ajouter un rôle lié à un ministère",
