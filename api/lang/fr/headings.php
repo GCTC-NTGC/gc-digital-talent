@@ -214,7 +214,7 @@ return [
     'nonessential_technical_skills_examples' => 'Compétences techniques constituant un atout - Exemples',
 
     // Nomination
-    'talent_management_nomination' => 'Mise en candidature pour la gestion des talents',
+    'talent_management_nomination' => 'Nomination pour la gestion des talents',
     'talent_management_event' => 'Événement axé sur la gestion des talents',
     'nominations_opening_date' => "Date d'ouverture des nominations",
     'nominations_closing_date' => 'Date de clôture des nominations',
@@ -279,15 +279,15 @@ return [
     'other_sdo_position' => 'Autre poste de CSD',
     'procurement_sdo_status' => 'Statut de CSD',
 
-    'nominations_overview' => 'Aperçu des candidatures',
+    'nominations_overview' => 'Aperçu des nominations',
     'nominee_profiles' => 'Profil des candidats',
     'nominations_details' => 'Détails de la candidature',
     'nominee_first_name' => 'Prénom du nominé ou de la nominée',
     'nominee_last_name' => 'Nom du nominé ou de la nominée',
     'nominee_user_id' => 'Identifiant utilisateur du nominé ou de la nominée',
-    'nomination_status' => 'Statut de la mise en candidature',
+    'nomination_status' => 'Statut de la nomination',
 
-    'nomination_options' => 'Options de mise en candidature',
+    'nomination_options' => 'Options de nomination',
     'advancement_approval' => 'Approbation de l’avancement',
     'advancement_classifications' => 'Classifications possibles aux fins d’avancement',
     'advancement_approval_notes' => 'Notes d’approbation de l’avancement',
