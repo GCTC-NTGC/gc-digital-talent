@@ -2044,7 +2044,7 @@ input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
-  email: Email @lowerCase
+  email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -2076,7 +2076,7 @@ input UpdateUserAsAdminInput @validator {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
+  workEmail: Email @rename(attribute: "work_email")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
