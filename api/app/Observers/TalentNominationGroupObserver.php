@@ -23,8 +23,8 @@ class TalentNominationGroupObserver
     public function updated(TalentNominationGroup $talentNominationGroup): void
     {
         $advancementDecisionChanged = $talentNominationGroup->getOriginal('advancement_decision') !== $talentNominationGroup->advancement_decision;
-        $lateralMovementDecisionChanged = $talentNominationGroup->getOriginal('lateralMovementDecision') !== $talentNominationGroup->lateralMovementDecision;
-        $developmentProgramsDecisionChanged = $talentNominationGroup->getOriginal('developmentProgramsDecision') !== $talentNominationGroup->developmentProgramsDecision;
+        $lateralMovementDecisionChanged = $talentNominationGroup->getOriginal('lateral_movement_decision') !== $talentNominationGroup->lateral_movement_decision;
+        $developmentProgramsDecisionChanged = $talentNominationGroup->getOriginal('development_programs_decision') !== $talentNominationGroup->development_programs_decision;
 
         $decisionsChanged = collect([$advancementDecisionChanged, $lateralMovementDecisionChanged, $developmentProgramsDecisionChanged]);
 
