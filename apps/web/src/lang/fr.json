@@ -654,6 +654,10 @@
     "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
     "description": "Second paragraph describing the directive on digital talent"
   },
+  "0QqkWJ": {
+    "defaultMessage": "Apprenez-en davantage sur les événements axés sur les possibilités d’avancement, de transfert lateral ou de perfectionnement.",
+    "description": "Subtitle for talent management events page"
+  },
   "0R9I+p": {
     "defaultMessage": "Le gouvernement du Canada modernise sa façon d’attirer et d’embaucher des talents numériques en passant du processus habituel de dotation axé sur l’expérience à une approche axée sur les compétences. Cette nouvelle approche vise à recruter des personnes qui doivent démontrer qu’elles possèdent des compétences précises et non plus seulement faire valoir leur expérience comme auparavant.",
     "description": "Paragraph one, answer about skills-based recruitment"
@@ -4873,10 +4877,6 @@
     "defaultMessage": "Taille de l'organisation",
     "description": "Label for the size of the organization radio group"
   },
-  "HPaQCC": {
-    "defaultMessage": "Apprenez-en davantage sur les événements axés sur la promotion des talents, les mutations latérales et le perfectionnement professionnel.",
-    "description": "Subtitle for talent management events page"
-  },
   "HVrV+A": {
     "defaultMessage": "Créer un programme de perfectionnement",
     "description": "Breadcrumb title for the create development program page link."
@@ -6064,7 +6064,7 @@
     "description": "Hint to let users know a table column can be sorted"
   },
   "Lwz/VQ": {
-    "defaultMessage": "Référence secondaire pour la promotion",
+    "defaultMessage": "Référence secondaire pour l'avancement",
     "description": "Trigger title for advancement reference"
   },
   "LxGqKt": {
@@ -7187,7 +7187,7 @@
     "description": "Alert message informing user to add education experience in application education page."
   },
   "QaifFj": {
-    "defaultMessage": "Le nominé ou la nominée démontre de façon constante et efficace les comportements attendus liés aux compétences avancées et au mérite, ainsi que le potentiel et le désir d'occuper un poste plus élevé. La promotion peut être la meilleure approche pour maximiser sa contribution à l'organisation et à la fonction publique.",
+    "defaultMessage": "Le nominé ou la nominée démontre de façon constante et efficace les comportements attendus liés aux compétences avancées et au mérite, ainsi que le potentiel et le désir d'occuper un poste plus élevé. L'avancement peut être la meilleure approche pour maximiser sa contribution à l'organisation et à la fonction publique.",
     "description": "Description for the advancement nomination option on the details step"
   },
   "QbEUq9": {

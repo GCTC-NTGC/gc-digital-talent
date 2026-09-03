@@ -237,7 +237,7 @@ return [
     'submitters_classification' => 'Classification de la personne déposante',
     'submitters_department' => 'Ministère ou organisme de la personne déposante',
     'submitters_relationship' => 'Lien de parenté entre la personne déposante et le nominateur ou la nominatrice',
-    'advancement_secondary_reference' => 'Référence secondaire pour la promotion',
+    'advancement_secondary_reference' => 'Référence secondaire pour l\'avancement',
     'references_work_email' => 'Courriel professionnel de la personne de référence',
     'references_classification' => 'Classification de la personne de référence',
     'references_department' => 'Ministère ou organisme de la personne de référence',
