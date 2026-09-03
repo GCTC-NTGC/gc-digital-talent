@@ -297,6 +297,7 @@ const SCOPE_SORTS: Record<string, string> = {
   priority: "orderByClaimVerification",
   department: "orderByEmployeeDepartment",
   screeningStage: "orderByScreeningStage",
+  screeningResult: "orderByScreeningResult",
 };
 
 const BOOKMARK_SORT: AdvancedOrderByInput = { scope: "orderByBookmark" };
