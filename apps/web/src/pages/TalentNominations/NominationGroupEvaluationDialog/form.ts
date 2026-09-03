@@ -125,16 +125,15 @@ export function convertFormValuesToMutationInput(
       formValues.lateralMovementRejectedNotes,
     ),
     lateralMovementClassifications: {
-      sync: chooseValue(
-        formValues.lateralMovementDecision,
-        // pack the substantive and the additional classifications together
-        uniqueItems(
-          unpackMaybes([
-            formValues.lateralMovementClassificationSubstantive,
-            ...(formValues.lateralMovementClassificationsAdditional ?? []),
-          ]),
-        ),
-        [],
+      sync: uniqueItems(
+        unpackMaybes([
+          // pack the substantive (if approved) and the additional classifications together
+          formValues.lateralMovementDecision ==
+          TalentNominationGroupDecision.Approved
+            ? formValues.lateralMovementClassificationSubstantive
+            : null,
+          ...(formValues.lateralMovementClassificationsAdditional ?? []),
+        ]),
       ),
     },
     lateralMovementReferralExpiryDate:
