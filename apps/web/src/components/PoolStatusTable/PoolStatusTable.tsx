@@ -8,18 +8,24 @@ import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import type {
   FragmentType,
-  PoolCandidate,
-  PoolStatusTableFragment,
+  LocalizedString,
+  PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import type { ChangeDateDialog_PoolCandidateFragment } from "~/components/CandidateDialog/ChangeDateDialog";
+import type {
+  PoolTitleClassification,
+  PoolTitleWorkStream,
+} from "~/utils/poolUtils";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
@@ -28,7 +34,7 @@ import accessors from "../Table/accessors";
 import { expiryCell } from "./cells";
 import sortStatus from "./sortStatus";
 
-const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
+const isSuspended = (suspendedAt?: string | null): boolean => {
   if (!suspendedAt) return false;
 
   const suspendedAtDate = parseDateTimeUtc(suspendedAt);
@@ -83,11 +89,30 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type RowDef = NonNullable<
-  NonNullable<PoolStatusTableFragment["poolCandidates"]>[number]
->;
+interface PoolStatusRowPool {
+  id: string;
+  processNumber?: string | null;
+  name?: LocalizedString | null;
+  classification?: PoolTitleClassification | null;
+  workStream?: PoolTitleWorkStream | null;
+  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
+}
 
-const columnHelper = createColumnHelper<RowDef>();
+interface PoolStatusRowStatus {
+  status?: GenericLocalizedEnum<ApplicationStatus> | null;
+}
+
+type PoolStatusRow = FragmentType<
+  typeof ChangeDateDialog_PoolCandidateFragment
+> & {
+  id: string;
+  expiryDate?: string | null;
+  suspendedAt?: string | null;
+  applicationStatusData?: PoolStatusRowStatus | null;
+  pool: PoolStatusRowPool;
+};
+
+const columnHelper = createColumnHelper<PoolStatusRow>();
 
 interface PoolStatusTableProps {
   currentPoolId?: string;
@@ -224,7 +249,7 @@ const PoolStatusTable = ({
           "Title of the 'Expiry date' column for the table on view-user page",
       }),
     }),
-  ] as ColumnDef<RowDef>[];
+  ] as ColumnDef<PoolStatusRow>[];
 
   let data = unpackMaybes(user.poolCandidates);
   if (currentPoolId) {
@@ -240,7 +265,7 @@ const PoolStatusTable = ({
   }
 
   return (
-    <Table<RowDef>
+    <Table<PoolStatusRow>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
         id: "ptOxLJ",

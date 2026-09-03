@@ -6,7 +6,6 @@ import type {
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
   QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
-  UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   SortOrder,
@@ -208,22 +207,6 @@ export function transformCommunityInterestFilterInputToFormValues(
     flexibleWorkLocations: unpackMaybes(input?.flexibleWorkLocations),
     classifications: unpackMaybes(input?.classifications),
   };
-}
-
-export function transformToUserFilterInput(
-  _filterState: CommunityInterestFilterInput | undefined,
-  searchTerm: string | undefined,
-  _searchType: string | undefined,
-): UserFilterInput | undefined {
-  if (!searchTerm) {
-    return undefined;
-  }
-
-  const userFilter: UserFilterInput = {};
-
-  userFilter.generalSearch = searchTerm;
-
-  return userFilter;
 }
 
 export function extractUserIdsFromSelectedRows(

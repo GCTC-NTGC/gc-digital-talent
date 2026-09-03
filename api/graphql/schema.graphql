@@ -1652,6 +1652,7 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
   classifications: [UUID!] @scope
 }
+
 input DateRangeOptional {
   from: DateTime
   to: DateTime @rules(apply: ["after_or_equal:from"])
@@ -4196,6 +4197,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityTalentExcel(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
   downloadTrackedUsersExcel(
     talentRequestId: UUID!
     where: TalentRequestTrackedUserFilterInput

@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 import { parseISO } from "date-fns/parseISO";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import type { Pool } from "@gc-digital-talent/graphql";
 import {
   makeFragmentData,
   PoolAreaOfSelection,
@@ -19,8 +18,8 @@ const fakedPool = fakedPools[0];
 const staticDate = new Date(parseISO(fakedPool.publishedAt!));
 Date.now = () => Number(staticDate); // set now to be static
 
-const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
-  __typename: "Pool",
+const nullPool = {
+  __typename: "Pool" as const,
   id: "uuid",
 };
 
