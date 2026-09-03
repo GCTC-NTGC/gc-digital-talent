@@ -777,7 +777,7 @@ class PoolCandidateAdminViewTest extends TestCase
             ->create();
         $unsuccessful = PoolCandidate::factory()
             ->submitted()
-            ->for($this->pool)
+            ->for($this->otherPool)
             ->create();
 
         $decisions = [
@@ -786,11 +786,17 @@ class PoolCandidateAdminViewTest extends TestCase
             $unsuccessful->id => AssessmentDecision::UNSUCCESSFUL->name,
         ];
 
+        $screeningSteps = [
+            $hold->id => $this->pool->screening_step->id,
+            $successful->id => $this->pool->screening_step->id,
+            $unsuccessful->id => $this->otherPool->screening_step->id,
+        ];
+
         foreach ($decisions as $candidateId => $decision) {
             AssessmentResult::factory()
                 ->withResultType(AssessmentResultType::EDUCATION)
                 ->create([
-                    'assessment_step_id' => $this->pool->screening_step->id,
+                    'assessment_step_id' => $screeningSteps[$candidateId],
                     'pool_candidate_id' => $candidateId,
                     'assessment_decision' => $decision,
                 ]);
