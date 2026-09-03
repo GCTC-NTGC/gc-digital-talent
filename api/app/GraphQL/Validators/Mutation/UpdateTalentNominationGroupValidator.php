@@ -25,20 +25,23 @@ final class UpdateTalentNominationGroupValidator extends Validator
         return [
             'talentNominationGroup.advancementDecision' => [
                 'nullable',
-                Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->advancement_nomination_count > 0, ['required'], ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->advancement_nomination_count > 0,
+                    [Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name'))],
+                    ['prohibited']),
                 $presentWithADecision,
             ],
             'talentNominationGroup.lateralMovementDecision' => [
                 'nullable',
-                Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->lateral_movement_nomination_count > 0, ['required'], ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->lateral_movement_nomination_count > 0,
+                    [Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name'))],
+                    ['prohibited']),
                 $presentWithADecision,
             ],
             'talentNominationGroup.developmentProgramsDecision' => [
                 'nullable',
-                Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
-                Rule::when(fn () => $talentNominationGroup->development_programs_nomination_count > 0, ['required'], ['prohibited']),
+                Rule::when(fn () => $talentNominationGroup->development_programs_nomination_count > 0,
+                    Rule::in(array_column(TalentNominationGroupDecision::cases(), 'name')),
+                    ['prohibited']),
                 $presentWithADecision,
             ],
             'talentNominationGroup.advancementClassifications' => [
