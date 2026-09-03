@@ -930,6 +930,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return $this->hasMany(TalentNomination::class, 'submitter_id');
     }
 
+    /** @return HasMany<TalentNominationGroup, $this> */
+    public function talentNominationGroupsAsNominee(): HasMany
+    {
+        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
+    }
+
     public static function hydrateSnapshot(mixed $snapshot): User|array
     {
         $user = new User();
