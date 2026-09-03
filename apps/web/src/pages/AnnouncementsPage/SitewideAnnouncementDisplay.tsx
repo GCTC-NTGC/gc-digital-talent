@@ -5,7 +5,8 @@ import {
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
-import type { SitewideAnnouncement } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { RichTextRenderer, htmlToRichTextJSON } from "@gc-digital-talent/forms";
 
@@ -13,14 +14,35 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 
 import labels from "./labels";
 
+export const SitewideAnnouncementDisplay_Fragment = graphql(/* GraphQL */ `
+  fragment SitewideAnnouncementDisplay on SitewideAnnouncement {
+    isEnabled
+    isDismissible
+    publishDate
+    expiryDate
+    title {
+      en
+      fr
+    }
+    message {
+      en
+      fr
+    }
+  }
+`);
+
 interface SitewideAnnouncementDisplayProps {
-  initialData: SitewideAnnouncement | null | undefined;
+  query:
+    | FragmentType<typeof SitewideAnnouncementDisplay_Fragment>
+    | null
+    | undefined;
 }
 
 const SitewideAnnouncementDisplay = ({
-  initialData,
+  query,
 }: SitewideAnnouncementDisplayProps) => {
   const intl = useIntl();
+  const initialData = getFragment(SitewideAnnouncementDisplay_Fragment, query);
   if (!initialData) {
     return <ToggleForm.NullDisplay />;
   }
