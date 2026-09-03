@@ -85,7 +85,7 @@
     "@storybook/addon-designs": "^11.1.4",
     "@storybook/react-vite": "^10.5.10",
     "@testing-library/jest-dom": "^7.0.1",
-    "@testing-library/react": "^16.3.2",
+    "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.6",
     "@types/lodash": "^4.17.25",
     "@types/react": "^19.2.18",
