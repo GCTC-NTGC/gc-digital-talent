@@ -1,7 +1,6 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { WorkExperience } from "@gc-digital-talent/graphql";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
 import { Separator, type HeadingRank } from "@gc-digital-talent/ui";
 
@@ -9,6 +8,7 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
+import type { GovContentExperience } from "../WorkContent/GovContent";
 
 interface ClassificationSectionProps {
   title: string;
@@ -39,7 +39,7 @@ const GovContentV1 = ({
     contractorFirmAgencyName,
   },
   headingLevel,
-}: ContentProps<Omit<WorkExperience, "user">>) => {
+}: ContentProps<GovContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

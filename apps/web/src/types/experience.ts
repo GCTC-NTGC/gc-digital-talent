@@ -2,27 +2,22 @@ import type { OperationResult } from "urql";
 
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import type {
-  AwardExperience,
   AwardExperienceInput,
   AwardedScope,
   AwardedTo,
-  CommunityExperience,
   CommunityExperienceInput,
   CreateAwardExperienceMutation,
   CreateCommunityExperienceMutation,
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
-  EducationExperience,
   EducationExperienceInput,
   EducationStatus,
   EducationType,
   Exact,
   LocalizedString,
-  PersonalExperience,
   PersonalExperienceInput,
   WorkExperienceInput,
-  WorkExperience,
   EmploymentCategory,
   ExternalSizeOfOrganization,
   ExternalRoleSeniority,
@@ -43,26 +38,6 @@ import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 
 export type ExperienceType =
   "award" | "community" | "education" | "personal" | "work";
-
-export type AwardExperienceWithoutUser = Omit<
-  AwardExperience,
-  "user" | "relatedExperience"
-> & {
-  relatedExperience?: Omit<
-    | CommunityExperience
-    | EducationExperience
-    | PersonalExperience
-    | WorkExperience,
-    "user"
-  > | null;
-};
-
-export type AnyExperience =
-  | AwardExperienceWithoutUser
-  | Omit<CommunityExperience, "user">
-  | Omit<EducationExperience, "user">
-  | Omit<PersonalExperience, "user">
-  | Omit<WorkExperience, "user">;
 
 export interface ExperienceForDate extends SimpleAnyExperience {
   awardedDate?: string | null;

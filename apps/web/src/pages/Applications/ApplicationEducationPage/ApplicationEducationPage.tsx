@@ -19,7 +19,6 @@ import {
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
@@ -184,7 +183,7 @@ const ApplicationEducation = ({
         (
           accumulator: EducationRequirementExperiences,
 
-          experience: SimpleAnyExperience,
+          experience: ApplicationEducationExperience,
         ) => {
           return {
             ...accumulator,

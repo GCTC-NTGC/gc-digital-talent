@@ -19,6 +19,7 @@ import {
   EmploymentCategory,
   GovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
@@ -34,6 +35,7 @@ import {
 
 import ContentSection from "../ContentSection";
 import CommunityContent from "../CommunityContent";
+import type { ExperienceWorkStream } from "../WorkContent/WorkStreamsContent";
 import WorkStreamContent from "../WorkContent/WorkStreamsContent";
 import { getV1ExperienceName } from "./utils";
 import PersonalContentV1 from "./PersonalContentV1";
@@ -44,6 +46,9 @@ import EducationContentV1 from "./EducationContentV1";
 interface FlexibleSnapshotExperience extends SnapshotExperience {
   details?: string | null;
   description?: string | null;
+  employmentCategory?: GenericLocalizedEnum<EmploymentCategory> | null;
+  govEmploymentType?: GenericLocalizedEnum<GovEmployeeType> | null;
+  workStreams?: ExperienceWorkStream[] | null;
 }
 
 type SimpleSkill = Pick<Skill, "id">;
