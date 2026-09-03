@@ -12,10 +12,7 @@ import {
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  LocalizedEnumString,
-  LocalizedTalentRequestSource,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -262,7 +259,6 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions?: LocalizedTalentRequestSource[];
 }
 
 const SearchRequestFilters = ({

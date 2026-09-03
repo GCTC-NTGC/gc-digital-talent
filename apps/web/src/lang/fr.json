@@ -359,6 +359,10 @@
     "defaultMessage": "Groupe de classification",
     "description": "The classification group for a job poster template"
   },
+  "/OP7BB": {
+    "defaultMessage": "Votre mise en candidature pour une mutation latérale signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
+    "description": "Description for lateral movement nomination meaning"
+  },
   "/SLyVF": {
     "defaultMessage": "Les analystes (<abbreviation>IT-02</abbreviation>) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la <abbreviation>TI</abbreviation> se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
@@ -1474,6 +1478,10 @@
     "defaultMessage": "Vous n'avez pas de demande active pour le moment.",
     "description": "Title for notice when there are no pool candidate search requests"
   },
+  "3REesV": {
+    "defaultMessage": "Votre mise en candidature pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "description": "Description for development nomination meaning"
+  },
   "3Rad8l": {
     "defaultMessage": "Souhaitez-vous poursuivre? Ceci vous éloignera de cette page-ci.",
     "description": "Text explaining what will happen after duplicating a pool and confirming the action"
@@ -2033,6 +2041,10 @@
   "5dhDA+": {
     "defaultMessage": "Rappelez-vous que, {skillName} est défini comme",
     "description": "Lead-in text to a skill description"
+  },
+  "5e7fPy": {
+    "defaultMessage": "Personnes que vous avez nommées",
+    "description": "Title for the employees nominated section"
   },
   "5eTpEJ": {
     "defaultMessage": "<strong>Clientèle visée</strong> : membres admissibles du groupe TI, toutes fonctions ou expériences confondues, qui cherchent à améliorer leurs compétences.",
@@ -3450,6 +3462,14 @@
     "defaultMessage": "Autre possibilité de transfert latéral",
     "description": "Label other lateral move option input on the details step"
   },
+  "BNhG2U": {
+    "defaultMessage": "Nominations que vous avez reçues",
+    "description": "Title for the nominations received section"
+  },
+  "BOPQKQ": {
+    "defaultMessage": "Acceptée le",
+    "description": "Label for accepted date of a nomination received"
+  },
   "BPFC5k": {
     "defaultMessage": "Renseignements propres à la collectivité",
     "description": "Title for community-specific information section"
@@ -3774,6 +3794,10 @@
     "defaultMessage": "Trouver des candidatures correspondantes",
     "description": "Heading for the table that contains users who match talent request criteria"
   },
+  "CtftRC": {
+    "defaultMessage": "Ce qu’une nomination signifie ",
+    "description": "Label for the meaning of a nomination status, with the status name as a variable"
+  },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
@@ -3817,6 +3841,10 @@
   "D/Ymty": {
     "defaultMessage": "Ministère d’attache",
     "description": "Label displayed on the pool form department field."
+  },
+  "D0NNSD": {
+    "defaultMessage": "Qui est à l’origine de votre nomination",
+    "description": "Label for who nominated the person"
   },
   "D0Yslc": {
     "defaultMessage": "Voir l'offre d'emploi {name}",
@@ -3885,6 +3913,10 @@
   "DNUZPm": {
     "defaultMessage": "Processus ajouté à vos favoris",
     "description": "Bookmarked processes expandable"
+  },
+  "DNjn83": {
+    "defaultMessage": "Les nominations s’affichent automatiquement ici lorsque vous les recevez.",
+    "description": "Message displayed when an employee has not received any nominations"
   },
   "DOQi5y": {
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
@@ -4082,6 +4114,10 @@
     "defaultMessage": "{experienceCount, plural, =0 {0 expérience professionnelle} one {# expérience professionnelle} other {# expériences professionnelles}}",
     "description": "list a number of work experiences"
   },
+  "E6/qXV": {
+    "defaultMessage": "Votre mise en candidature pour une promotion signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que la promotion est peut-être le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. <link>Veuillez communiquer avec l’équipe des activités de la collectivité</link> pour en savoir plus sur celles-ci.",
+    "description": "Description for advancement nomination meaning"
+  },
   "E8q/Zm": {
     "defaultMessage": "L’archivage de ce ministère le supprimera des options pouvant être sélectionnées dans l’ensemble de la plateforme. Tout ce qui l’utilise déjà ne changera pas.",
     "description": "Descriptive text for department archiving"
@@ -4157,6 +4193,10 @@
   "EKsn4N": {
     "defaultMessage": "Êtes-vous sûr de vouloir ramener cette personne candidate à une étape précédente du processus?",
     "description": "Content for move to previous step in screening stage notice"
+  },
+  "ENdwj1": {
+    "defaultMessage": "Parcourir les événements de gestion des talents actifs",
+    "description": "Link to browse open talent events when an employee has not submitted any nominations"
   },
   "EPF4Ac": {
     "defaultMessage": "Le processus de demande repose sur la collecte et l’examen des renseignements de manière linéaire. Par conséquent, il n’est pas encore possible de passer à cette étape. La dernière étape sur laquelle vous travailliez est mise en surbrillance dans la zone des étapes de la page, ou vous pouvez utiliser le bouton fourni pour y accéder directement.",
@@ -6147,6 +6187,10 @@
     "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
     "description": "Unordered list heading warning user before removing a professionalization"
   },
+  "MB3J/o": {
+    "defaultMessage": "Consulter par",
+    "description": "Label for the nominations view toggle"
+  },
   "MCFcrj": {
     "defaultMessage": "Un groupe diversifié de personnes, représentant toutes les races, tous les genres et toutes les origines, réunies dans l'unité. Tout le monde est le bienvenu ici!",
     "description": "Hero image alt text."
@@ -7250,6 +7294,10 @@
     "defaultMessage": "Dans cette étape, des questions de présélection et des questions générales peuvent vous être posées. Vos réponses aux <strong>questions de présélection seront évaluées</strong> dans le cadre de votre candidature. Assurez-vous de donner des réponses réfléchies et détaillées qui vous représentent vraiment ainsi que votre expérience.",
     "description": "Application step for additional questions, introduction description, paragraph one"
   },
+  "Qmo6Wc": {
+    "defaultMessage": "Consultez les activités de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
+    "description": "Paragraph explaining what employees nominated are and how they work"
+  },
   "Qn8C+Z": {
     "defaultMessage": "Domaines de certification",
     "description": "Title for certification topics section"
@@ -7520,6 +7568,10 @@
   "Rn5e/i": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title for group and level on summary of filters section"
+  },
+  "Rnry4P": {
+    "defaultMessage": "Voir l’information sur la nomination pour {eventName}",
+    "description": "Label for the received nomination details dialog trigger"
   },
   "RojSQE": {
     "defaultMessage": "Montréal, Quebec",
@@ -7828,6 +7880,10 @@
   "TFAsYS": {
     "defaultMessage": "Créer la possibilité de formation",
     "description": "Button label to submit the create an opportunity form"
+  },
+  "TFDGG/": {
+    "defaultMessage": "Si vous faites actuellement partie du personnel du gouvernement du Canada, vérifiez votre courriel au travail et assurez-vous que votre expérience de travail est à jour pour pouvoir utiliser les outils destinés au personnel. Les nominations liées à des postes précédents au gouvernement du Canada continueront de s’afficher ici.",
+    "description": "Notice description on sections for employee profile page when not a verified employee."
   },
   "THBjEx": {
     "defaultMessage": "Date d'expiration",
@@ -9291,6 +9347,10 @@
     "defaultMessage": "Recommandé",
     "description": "Status for referred candidates"
   },
+  "ZArId5": {
+    "defaultMessage": "Plus d’information sur votre nomination pour {eventName}",
+    "description": "Subtitle for the received nomination details dialog"
+  },
   "ZCUy93": {
     "defaultMessage": "Erreur : La mise à jour de l’exigence relative aux études a échoué.",
     "description": "Message displayed to user after education requirement fails to be updated."
@@ -9406,6 +9466,10 @@
   "ZijW8r": {
     "defaultMessage": "J'ai occupé ce rôle par le passé.",
     "description": "Label displayed on Experience form for past role option."
+  },
+  "ZlD1Sv": {
+    "defaultMessage": "Félicitations pour votre nomination aux fins de {eventName}.",
+    "description": "Title for important update notice"
   },
   "ZoZNDf": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
@@ -10781,6 +10845,10 @@
     "defaultMessage": "réduire la dépendance à l’égard de la sous-traitance;",
     "description": "an item in a list of fund objectives"
   },
+  "fDaeWB": {
+    "defaultMessage": "Les collectivités fonctionnelles organisent parfois des activités de gestion des talents qui mettent en valeur les membres du personnel démontrant un rendement élevé, faisant preuve de leadership ou possédant des compétences recherchées. Dans certains cas, la gestion ou la haute direction pourrait vous nommer et préciser que vous avez le bon profil pour obtenir une promotion, effectuer un transfert latéral ou profiter de possibilités de formation particulières. Toute nomination approuvée s’affichera automatiquement ici; vous n’aurez aucune mesure à prendre pour qu’elle soit prise en considération.",
+    "description": "Paragraph explaining what nominations received are and how they work"
+  },
   "fDwDJU": {
     "defaultMessage": "Il semble que cette adresse de courriel professionnelle ne soit pas liée à un profil. Essayez de rechercher une autre adresse de courriel ou fournissez les renseignements demandés.",
     "description": "Description of default error message when an employee could not be found"
@@ -11803,6 +11871,10 @@
   "ivG/Sh": {
     "defaultMessage": "Consulter les emplois offerts",
     "description": "Link text to the page to find jobs"
+  },
+  "ixjaCE": {
+    "defaultMessage": "Activités passées",
+    "description": "Toggle option to view closed nominations"
   },
   "iy3pRH": {
     "defaultMessage": "<strong>{name}</strong> a restauré",
@@ -13028,6 +13100,10 @@
     "defaultMessage": "Non épinglé en haut des possibilités de formation",
     "description": "Message displayed indicating a training opportunity is not pinned to the top of the list"
   },
+  "nvpGHw": {
+    "defaultMessage": "Nomination par {nominatorName} pour {nominationOptions}",
+    "description": "Title showing who nominated and what for"
+  },
   "nxAw/X": {
     "defaultMessage": "Cet avis a été préparé pour expliquer la façon dont le gouvernement du Canada interagit avec le public sur les plateformes de médias sociaux.",
     "description": "Paragraph describing social media section"
@@ -13303,6 +13379,10 @@
   "p8o9cO": {
     "defaultMessage": "Le contenu de ce site Web a été produit ou rassemblé afin d’offrir aux Canadiens l’accès aux renseignements concernant les programmes et les services offerts par le gouvernement du Canada. Vous pouvez l’utiliser et le reproduire des façons suivantes :",
     "description": "Paragraph describing ownership and usage section"
+  },
+  "p9H+Nl": {
+    "defaultMessage": "Nomination pour {name} ",
+    "description": "Title for a talent nomination in a preview list, naming the nominee"
   },
   "pB5bOl": {
     "defaultMessage": "Hors du Canada et des États-Unis",
@@ -15095,6 +15175,10 @@
   "wRDpHo": {
     "defaultMessage": "Raisons pourquoi la personne n'a pas été choisie",
     "description": "Lead-in for the list of not-selected reasons in referral history"
+  },
+  "wRsQe+": {
+    "defaultMessage": "Pourquoi vous méritez une nomination",
+    "description": "Label for the type(s) of a received nomination"
   },
   "wSlABO": {
     "defaultMessage": "Modifier un groupe de compétences",
