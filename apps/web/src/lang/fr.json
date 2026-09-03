@@ -2174,10 +2174,6 @@
     "defaultMessage": "Vos options en matière d'équité",
     "description": "Title for the subsection for viewing/selecting employment equity"
   },
-  "6KS1jD": {
-    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées dans le cadre d'une promotion, d'un transfert latéral ou d'une possibilité de perfectionnement professionnel.",
-    "description": "Lead-in text explaining the users career plan"
-  },
   "6LOBmp": {
     "defaultMessage": "peut consulter et modifier l’ébauche d’une annonce d’emploi;",
     "description": "Description of the permission to view/edit job adverts"
@@ -2289,6 +2285,10 @@
   "6tqGpT": {
     "defaultMessage": "En savoir plus<hidden> le Programme d’apprentissage en TI pour les populations autochtones</hidden>",
     "description": "Link text to the IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "6vwp1u": {
+    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient.",
+    "description": "Describes the career objective section of employee profile"
   },
   "6wCHq2": {
     "defaultMessage": "Activez le mode sombre",
@@ -4409,10 +4409,6 @@
   "FVAQCH": {
     "defaultMessage": "Oui, j'ai un droit de priorité.",
     "description": "affirm possession of priority entitlement"
-  },
-  "FYCNAa": {
-    "defaultMessage": "Expliquez quel est votre objectif de carrière ultime. Votre contribution peut aider le personnel responsable de la gestion des talents à cerner la prochaine étape qui vous convient, qu'il s'agisse d'un transfert latéral, d'une possibilité de perfectionnement ou d'une promotion.",
-    "description": "Describes the career objective section of employee profile"
   },
   "FYIbdJ": {
     "defaultMessage": "Modifier<hidden> le ministère</hidden>",
@@ -6723,7 +6719,7 @@
     "description": "Heading for the add employment equity option to profile dialogs"
   },
   "OoPiFu": {
-    "defaultMessage": "Nominez une personne pour une promotion, un transfert latéral ou un programme de perfectionnement.",
+    "defaultMessage": "Nominez une personne pour des possibilités d’avancement, de transfert latéral ou de perfectionnement.",
     "description": "Subtitle for the form to nominate talent"
   },
   "OoYh86": {
@@ -9855,6 +9851,10 @@
   "bozF1y": {
     "defaultMessage": "Vous êtes sur le point de supprimer ce processus : {poolName}",
     "description": "Text to confirm the process to be deleted"
+  },
+  "bpL6JV": {
+    "defaultMessage": "Nous aimerions en savoir plus sur le cheminement de carrière que vous souhaitez suivre. Fournir des renseignements sur vos préférences et vos aspirations aidera les gestionnaires de talents à prendre des décisions plus éclairées.",
+    "description": "Lead-in text explaining the users career plan"
   },
   "bq1MMd": {
     "defaultMessage": "Nous n’avons trouvé aucun candidat qui répondait automatiquement à vos critères, mais nous pouvons peut-être encore vous aider.",
@@ -14130,7 +14130,7 @@
     "description": "Description of the skills library"
   },
   "sVCUyO": {
-    "defaultMessage": "Nominez une personne pour une promotion ou un transfert latéral.",
+    "defaultMessage": "Nominez une personne pour des possibilités d’avancement ou de transfert latéral.",
     "description": "Subtitle for the form to nominate talent without development opportunities"
   },
   "sZhjI3": {
@@ -14274,7 +14274,7 @@
     "description": "Button text for returning to default language from Indigenous language"
   },
   "t3lsT1": {
-    "defaultMessage": "Une nomination pour une promotion exige que le nominateur ou la nominatrice fournisse une référence secondaire. Si l'adresse courriel professionnelle de la référence correspondait à un profil sur la plateforme, nous avons utilisé les coordonnées les plus récentes. Si nous n'avons pas trouvé de correspondance, le nominateur ou la nominatrice a fourni des coordonnées de base.",
+    "defaultMessage": "Une nomination pour avancement exige que le nominateur ou la nominatrice fournisse une référence secondaire. Si l'adresse courriel professionnelle de la référence correspondait à un profil sur la plateforme, nous avons utilisé les coordonnées les plus récentes. Si nous n'avons pas trouvé de correspondance, le nominateur ou la nominatrice a fourni des coordonnées de base.",
     "description": "Trigger subtitle for advancement reference"
   },
   "t4+h/N": {
@@ -15883,7 +15883,7 @@
     "description": "Error message displayed when something went wrong deleting a community interest"
   },
   "zXWJ/5": {
-    "defaultMessage": "Intérêt pour une promotion et une avancement",
+    "defaultMessage": "Intérêt pour une promotion et un avancement",
     "description": "Label for an employee profile career development preference field"
   },
   "zYKPdV": {
