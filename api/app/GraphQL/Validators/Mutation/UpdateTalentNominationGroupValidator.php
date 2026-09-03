@@ -84,15 +84,12 @@ final class UpdateTalentNominationGroupValidator extends Validator
     public function messages(): array
     {
         return [
-            'talentNominationGroup.advancementDecision.required' => ErrorCode::ADVANCEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.advancementDecision.present_with' => ErrorCode::ADVANCEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.advancementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_ADVANCEMENT_TO_DECIDE->name,
             'talentNominationGroup.advancementDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
-            'talentNominationGroup.lateralMovementDecision.required' => ErrorCode::LATERAL_MOVEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.lateralMovementDecision.present_with' => ErrorCode::LATERAL_MOVEMENT_DECISION_REQUIRED->name,
             'talentNominationGroup.lateralMovementDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_LATERAL_MOVEMENT_TO_DECIDE->name,
             'talentNominationGroup.lateralMovementDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
-            'talentNominationGroup.developmentProgramsDecision.required' => ErrorCode::DEVELOPMENT_PROGRAMS_DECISION_REQUIRED->name,
             'talentNominationGroup.developmentProgramsDecision.present_with' => ErrorCode::DEVELOPMENT_PROGRAMS_DECISION_REQUIRED->name,
             'talentNominationGroup.developmentProgramsDecision.prohibited' => ErrorCode::NO_NOMINATIONS_FOR_DEVELOPMENT_PROGRAMS_TO_DECIDE->name,
             'talentNominationGroup.developmentProgramsDecision.in' => ErrorCode::ENUM_NOT_FOUND->name,
