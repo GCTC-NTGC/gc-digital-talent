@@ -3,7 +3,7 @@ import type {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 export interface FormValues {
   advancementDecision: TalentNominationGroupDecision | null;
@@ -125,13 +125,15 @@ export function convertFormValuesToMutationInput(
       formValues.lateralMovementRejectedNotes,
     ),
     lateralMovementClassifications: {
-      // pack the substantive and the additional classifications together
       sync: chooseValue(
         formValues.lateralMovementDecision,
-        unpackMaybes([
-          formValues.lateralMovementClassificationSubstantive,
-          ...(formValues.lateralMovementClassificationsAdditional ?? []),
-        ]),
+        // pack the substantive and the additional classifications together
+        uniqueItems(
+          unpackMaybes([
+            formValues.lateralMovementClassificationSubstantive,
+            ...(formValues.lateralMovementClassificationsAdditional ?? []),
+          ]),
+        ),
         [],
       ),
     },
