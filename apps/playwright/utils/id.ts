@@ -30,7 +30,7 @@ export function generateUniqueNumber() {
 }
 
 export function fetchIdentificationNumber(url: string, entity: string): string {
-  //  This function is primarily used to fetch the ID (UUID) from recently entity such as users, departments, etc.
+  // This function is primarily used to fetch the ID (UUID) from a recent entity, such as users, departments, etc.
   const currentURLParts = new URL(url).pathname.split("/");
   const entityIndex = currentURLParts.indexOf(entity);
 
