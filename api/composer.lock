@@ -3920,16 +3920,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v5.10.3",
+            "version": "v5.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "768de11ba9634394501bceb6f24944d0624caaa5"
+                "reference": "310bab7b5a29f23fc01774752613236c474bce2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/768de11ba9634394501bceb6f24944d0624caaa5",
-                "reference": "768de11ba9634394501bceb6f24944d0624caaa5",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/310bab7b5a29f23fc01774752613236c474bce2b",
+                "reference": "310bab7b5a29f23fc01774752613236c474bce2b",
                 "shasum": ""
             },
             "require": {
@@ -3943,8 +3943,8 @@
             "require-dev": {
                 "ext-fileinfo": "*",
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.95.18",
-                "infection/infection": "^0.34",
+                "friendsofphp/php-cs-fixer": "^3.95.20",
+                "infection/infection": "^0.35",
                 "phpbench/phpbench": "^1.7.0",
                 "phpstan/phpstan": "^2.2.8",
                 "phpstan/phpstan-phpunit": "^2.0.18",
@@ -3997,7 +3997,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v5.10.3"
+                "source": "https://github.com/openspout/openspout/tree/v5.11.0"
             },
             "funding": [
                 {
@@ -4009,7 +4009,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-17T06:24:46+00:00"
+            "time": "2026-08-20T06:06:05+00:00"
         },
         {
             "name": "phpoffice/math",
