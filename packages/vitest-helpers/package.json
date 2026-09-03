@@ -26,7 +26,7 @@
     "@gc-digital-talent/rich-text-elements": "workspace:*",
     "axe-core": "^4.13.0",
     "react-intl": "^10.1.18",
-    "react-router": "^8.3.0",
+    "react-router": "^8.3.1",
     "vite": "^8.2.2",
     "vitest": "^4.1.8",
     "vitest-axe": "1.0.0-pre.5",
