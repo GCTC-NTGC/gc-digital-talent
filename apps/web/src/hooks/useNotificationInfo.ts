@@ -2,16 +2,8 @@ import type { IntlShape } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type {
-  ApplicationDeadlineApproachingNotification,
-  ApplicationDeadlineExtendedNotification,
-  ApplicationStatusChangedNotification,
-  NewJobPostedNotification,
-  Notification,
-  SystemNotification,
-  UserFileGeneratedNotification,
-  UserFileGenerationErrorNotification,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   errorMessages,
@@ -29,6 +21,58 @@ import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import useRoutes from "./useRoutes";
 
+export const UseNotificationInfo_Fragment = graphql(/* GraphQL */ `
+  fragment UseNotificationInfo on Notification {
+    ... on ApplicationDeadlineApproachingNotification {
+      closingDate
+      poolName {
+        en
+        fr
+      }
+      poolId
+      poolCandidateId
+    }
+    ... on ApplicationDeadlineExtendedNotification {
+      userName
+      closingDate
+      poolName {
+        en
+        fr
+      }
+      poolCandidateId
+    }
+    ... on ApplicationStatusChangedNotification {
+      poolName {
+        en
+        fr
+      }
+    }
+    ... on NewJobPostedNotification {
+      poolId
+      displayName {
+        en
+        fr
+      }
+    }
+    ... on SystemNotification {
+      message {
+        en
+        fr
+      }
+      href {
+        en
+        fr
+      }
+    }
+    ... on UserFileGeneratedNotification {
+      fileName
+    }
+    ... on UserFileGenerationErrorNotification {
+      fileName
+    }
+  }
+`);
+
 interface NotificationInfo {
   message: ReactNode;
   label: string;
@@ -37,16 +81,57 @@ interface NotificationInfo {
   external?: boolean;
 }
 
+interface DeadlineApproachingNotification {
+  __typename?: "ApplicationDeadlineApproachingNotification";
+  closingDate?: string | null;
+  poolName?: LocalizedString | null;
+  poolCandidateId?: string | null;
+}
+
+interface DeadlineExtendedNotification {
+  __typename?: "ApplicationDeadlineExtendedNotification";
+  closingDate?: string | null;
+  poolName?: LocalizedString | null;
+  poolCandidateId?: string | null;
+}
+
+interface StatusChangedNotification {
+  __typename?: "ApplicationStatusChangedNotification";
+  poolName?: LocalizedString | null;
+}
+
+interface JobPostedNotification {
+  __typename?: "NewJobPostedNotification";
+  poolId?: string | null;
+  displayName?: LocalizedString | null;
+}
+
+interface PlatformNotification {
+  __typename?: "SystemNotification";
+  message?: LocalizedString | null;
+  href?: LocalizedString | null;
+}
+
+interface FileGeneratedNotification {
+  __typename?: "UserFileGeneratedNotification";
+  fileName?: string | null;
+}
+
+interface FileGenerationErrorNotification {
+  __typename?: "UserFileGenerationErrorNotification";
+  fileName?: string | null;
+}
+
 function isApplicationDeadlineApproachingNotification(
   notification: GraphqlType,
-): notification is ApplicationDeadlineApproachingNotification {
+): notification is DeadlineApproachingNotification {
   return (
     notification.__typename === "ApplicationDeadlineApproachingNotification"
   );
 }
 
 const applicationDeadlineApproachingNotificationToInfo = (
-  notification: ApplicationDeadlineApproachingNotification,
+  notification: DeadlineApproachingNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
@@ -94,12 +179,12 @@ const applicationDeadlineApproachingNotificationToInfo = (
 
 function isApplicationDeadlineExtendedNotification(
   notification: GraphqlType,
-): notification is ApplicationDeadlineExtendedNotification {
+): notification is DeadlineExtendedNotification {
   return notification.__typename === "ApplicationDeadlineExtendedNotification";
 }
 
 const applicationDeadlineExtendedNotificationToInfo = (
-  notification: ApplicationDeadlineExtendedNotification,
+  notification: DeadlineExtendedNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
@@ -147,12 +232,12 @@ const applicationDeadlineExtendedNotificationToInfo = (
 
 function isApplicationStatusChangedNotification(
   notification: GraphqlType,
-): notification is ApplicationStatusChangedNotification {
+): notification is StatusChangedNotification {
   return notification.__typename === "ApplicationStatusChangedNotification";
 }
 
 const applicationStatusChangedNotificationToInfo = (
-  notification: ApplicationStatusChangedNotification,
+  notification: StatusChangedNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
@@ -188,12 +273,12 @@ const applicationStatusChangedNotificationToInfo = (
 
 function isNewJobPostedNotification(
   notification: GraphqlType,
-): notification is NewJobPostedNotification {
+): notification is JobPostedNotification {
   return notification.__typename === "NewJobPostedNotification";
 }
 
 const newJobPostedNotificationToInfo = (
-  notification: NewJobPostedNotification,
+  notification: JobPostedNotification,
   paths: ReturnType<typeof useRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
@@ -228,12 +313,12 @@ const newJobPostedNotificationToInfo = (
 
 function isSystemNotification(
   notification: GraphqlType,
-): notification is SystemNotification {
+): notification is PlatformNotification {
   return notification.__typename === "SystemNotification";
 }
 
 const systemNotificationToInfo = (
-  notification: SystemNotification,
+  notification: PlatformNotification,
   intl: IntlShape,
 ): NotificationInfo => {
   return {
@@ -245,12 +330,12 @@ const systemNotificationToInfo = (
 
 function isUserFileGenerationErrorNotification(
   notification: GraphqlType,
-): notification is UserFileGenerationErrorNotification {
+): notification is FileGenerationErrorNotification {
   return notification.__typename === "UserFileGenerationErrorNotification";
 }
 
 const userFileGenerationErrorNotificationToInfo = (
-  notification: UserFileGenerationErrorNotification,
+  notification: FileGenerationErrorNotification,
   intl: IntlShape,
 ): NotificationInfo => {
   return {
@@ -265,7 +350,7 @@ const userFileGenerationErrorNotificationToInfo = (
 
 function isUserFileGeneratedNotification(
   notification: GraphqlType,
-): notification is UserFileGeneratedNotification {
+): notification is FileGeneratedNotification {
   return notification.__typename === "UserFileGeneratedNotification";
 }
 
@@ -276,7 +361,7 @@ const fileDownloadMessage = defineMessage({
 });
 
 const userFileGeneratedNotificationToInfo = (
-  notification: UserFileGeneratedNotification,
+  notification: FileGeneratedNotification,
   paths: ReturnType<typeof useApiRoutes>,
   intl: IntlShape,
 ): NotificationInfo => {
@@ -290,12 +375,13 @@ const userFileGeneratedNotificationToInfo = (
 };
 
 const useNotificationInfo = (
-  notification: Notification & GraphqlType,
+  query: FragmentType<typeof UseNotificationInfo_Fragment>,
 ): NotificationInfo | null => {
   const intl = useIntl();
   const paths = useRoutes();
   const apiPaths = useApiRoutes();
   const logger = getLogger();
+  const notification = getFragment(UseNotificationInfo_Fragment, query);
 
   if (isApplicationDeadlineApproachingNotification(notification)) {
     return applicationDeadlineApproachingNotificationToInfo(
