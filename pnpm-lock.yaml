@@ -106,8 +106,8 @@ importers:
         specifier: ^1.12.1
         version: 1.12.1
       monocart-coverage-reports:
-        specifier: ^2.12.12
-        version: 2.12.12
+        specifier: ^2.13.0
+        version: 2.13.0
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -589,7 +589,7 @@ importers:
         version: 7.16.2(eslint@9.39.2(jiti@2.7.0))(typescript@6.0.3)
       eslint-plugin-turbo:
         specifier: ^2.10.11
-        version: 2.10.11(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.11)
+        version: 2.10.11(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.12)
       globals:
         specifier: ^17.11.0
         version: 17.11.0
@@ -3822,8 +3822,18 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  '@turbo/darwin-64@2.10.12':
+    resolution: {integrity: sha512-9nKgKoF6ZOUsM+or0OtNf+TTJSfGvDNP7ZFv/ZGWVwOSCkumyctQiTeHwB4UNljHTnC41AqylgbunLDHoccNrA==}
+    cpu: [x64]
+    os: [darwin]
+
   '@turbo/darwin-arm64@2.10.11':
     resolution: {integrity: sha512-R0a0CvGAeYYsBgPIgFNB3agGXh6qukjduNhFlwVVX1Ss2IdBJLXmgjytNGmo084bLKS0B6UdLRwKhXMHKKaObQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  '@turbo/darwin-arm64@2.10.12':
+    resolution: {integrity: sha512-H4Elb1jqTZVeIC9bbcNwjSzemZ6RegoTOVHeuV5Osirt2Z8UguTyisMEkvZjPVZgMeN9J4ERZBFad40tFnkb7w==}
     cpu: [arm64]
     os: [darwin]
 
@@ -3832,8 +3842,18 @@ packages:
     cpu: [x64]
     os: [android, linux]
 
+  '@turbo/linux-64@2.10.12':
+    resolution: {integrity: sha512-lr7KIotukvjZwEXiFSYAeOH3BWzjFVBbSzTbv0fuGFsNukYyH0+g1hB5ecqnJkgkYU+KHEMG1edOhnjiKON1wQ==}
+    cpu: [x64]
+    os: [android, linux]
+
   '@turbo/linux-arm64@2.10.11':
     resolution: {integrity: sha512-eSP9+jjsSCBs2x0QpJZlp49dSD1EIMwXH7PsMIhdWk7w6IThhuKJ+jL95JQ2IW7tRjRmdh8gKcKQtrHLD5R5lA==}
+    cpu: [arm64]
+    os: [android, linux]
+
+  '@turbo/linux-arm64@2.10.12':
+    resolution: {integrity: sha512-f0pZDTtvzB5SuNwuXBaKbZHUCMCukgc8nMlHEuvLmj91Fzec+MEbr3cAvGNor5htEDqZnO6Lxt9N/GPI/77oGA==}
     cpu: [arm64]
     os: [android, linux]
 
@@ -3842,8 +3862,18 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@turbo/windows-64@2.10.12':
+    resolution: {integrity: sha512-SDOueJRjS/QcykWf2KCRtTLmIl5YMKsLbXkXQGhDwcTXvKXZiS5ih5lBl/gkwZIpYFjqA/rAlfMzlAFcVHNe0g==}
+    cpu: [x64]
+    os: [win32]
+
   '@turbo/windows-arm64@2.10.11':
     resolution: {integrity: sha512-m8tJkIrTrbQ9O1uHxV0GUq623Zg1678xGna8eMsy4KbygUX/wVFgdZDYV/AxyoyaW/U7nyKoBvaDVwm22p9xqA==}
+    cpu: [arm64]
+    os: [win32]
+
+  '@turbo/windows-arm64@2.10.12':
+    resolution: {integrity: sha512-0i0mVUa4kKk+/B3RwEwPMf9CB+T7ul56hn5FFHNA4VUNTOoLBEd6aNf3FaKfCatDNZ6cicCEf6if9QUTVyzzcA==}
     cpu: [arm64]
     os: [win32]
 
@@ -6159,8 +6189,8 @@ packages:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
 
-  monocart-coverage-reports@2.12.12:
-    resolution: {integrity: sha512-d9FdUr2dn58Crweon0IE0zVi8r/i4vLvfvb2G7eL5vL5LfrxCB2X6F6qzuiwV6RioA4zbAI//7CYi6LjCvN3zA==}
+  monocart-coverage-reports@2.13.0:
+    resolution: {integrity: sha512-RJfwzbn+EvR0OhCSU3bX2mKd0tSv4RLvood0weoCZV1L99+kBYH0Yq5SnnBFRik7nRoEoGB4mLuZAvO1Fr3DpQ==}
     hasBin: true
 
   monocart-locator@1.0.3:
@@ -7167,6 +7197,10 @@ packages:
 
   turbo@2.10.11:
     resolution: {integrity: sha512-yQfwQVoRXwOuyX1LxiJFBFNg6VfuYh+/RyZLd82+isgyLkBXw3S5XRRzvcck1FAjSCG5sVyLd+O1eDMvYa3J7g==}
+    hasBin: true
+
+  turbo@2.10.12:
+    resolution: {integrity: sha512-AswgMPnpOoaVZHrrSBejETzEbuIA69OVGwfkHwfrY0A23VjWXBANzgq9+OymWOHAIArB7D1+1z498WY8fGg1Jw==}
     hasBin: true
 
   tweetnacl@1.0.3:
@@ -9985,19 +10019,37 @@ snapshots:
   '@turbo/darwin-64@2.10.11':
     optional: true
 
+  '@turbo/darwin-64@2.10.12':
+    optional: true
+
   '@turbo/darwin-arm64@2.10.11':
+    optional: true
+
+  '@turbo/darwin-arm64@2.10.12':
     optional: true
 
   '@turbo/linux-64@2.10.11':
     optional: true
 
+  '@turbo/linux-64@2.10.12':
+    optional: true
+
   '@turbo/linux-arm64@2.10.11':
+    optional: true
+
+  '@turbo/linux-arm64@2.10.12':
     optional: true
 
   '@turbo/windows-64@2.10.11':
     optional: true
 
+  '@turbo/windows-64@2.10.12':
+    optional: true
+
   '@turbo/windows-arm64@2.10.11':
+    optional: true
+
+  '@turbo/windows-arm64@2.10.12':
     optional: true
 
   '@tybys/wasm-util@0.10.3':
@@ -11518,11 +11570,11 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-turbo@2.10.11(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.11):
+  eslint-plugin-turbo@2.10.11(eslint@9.39.2(jiti@2.7.0))(turbo@2.10.12):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.2(jiti@2.7.0)
-      turbo: 2.10.11
+      turbo: 2.10.12
 
   eslint-scope@8.4.0:
     dependencies:
@@ -12524,7 +12576,7 @@ snapshots:
     dependencies:
       minimist: 1.2.8
 
-  monocart-coverage-reports@2.12.12:
+  monocart-coverage-reports@2.13.0:
     dependencies:
       acorn: 8.18.0
       acorn-loose: 8.5.2
@@ -13644,6 +13696,15 @@ snapshots:
       '@turbo/linux-arm64': 2.10.11
       '@turbo/windows-64': 2.10.11
       '@turbo/windows-arm64': 2.10.11
+
+  turbo@2.10.12:
+    optionalDependencies:
+      '@turbo/darwin-64': 2.10.12
+      '@turbo/darwin-arm64': 2.10.12
+      '@turbo/linux-64': 2.10.12
+      '@turbo/linux-arm64': 2.10.12
+      '@turbo/windows-64': 2.10.12
+      '@turbo/windows-arm64': 2.10.12
 
   tweetnacl@1.0.3: {}
 
