@@ -55,7 +55,7 @@ importers:
         version: 10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8)
       storybook-react-intl:
         specifier: ^10.2.1
-        version: 10.2.1(react-intl@10.1.18(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)(storybook@10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8))
+        version: 10.2.1(react-intl@10.1.24(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)(storybook@10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8))
       turbo:
         specifier: ^2.10.12
         version: 2.10.12
@@ -208,8 +208,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       react-router:
         specifier: ^8.3.1
         version: 8.3.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -233,8 +233,8 @@ importers:
         specifier: ^10.6.0
         version: 10.6.0
       '@formatjs/cli':
-        specifier: ^6.16.14
-        version: 6.16.14
+        specifier: ^6.16.21
+        version: 6.16.21
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom
@@ -436,8 +436,8 @@ importers:
         specifier: ^8.6.0
         version: 8.6.0
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       urql:
         specifier: ^5.0.4
         version: 5.0.4(@urql/core@6.0.3(graphql@16.14.2))(react@19.2.8)
@@ -494,8 +494,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
     devDependencies:
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
@@ -737,8 +737,8 @@ importers:
         specifier: ^7.86.0
         version: 7.86.0(react@19.2.8)
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -838,8 +838,8 @@ importers:
         version: 8.3.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     devDependencies:
       '@formatjs/cli':
-        specifier: ^6.16.14
-        version: 6.16.14
+        specifier: ^6.16.21
+        version: 6.16.21
       '@gc-digital-talent/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config-custom
@@ -874,8 +874,8 @@ importers:
         specifier: ^19.2.8
         version: 19.2.8
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1073,8 +1073,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.8)
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       react-toastify:
         specifier: ^11.1.0
         version: 11.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1224,8 +1224,8 @@ importers:
         specifier: ^19.2.8
         version: 19.2.8(react@19.2.8)
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1248,8 +1248,8 @@ importers:
         specifier: ^4.13.0
         version: 4.13.0
       react-intl:
-        specifier: ^10.1.18
-        version: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+        specifier: ^10.1.24
+        version: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       react-router:
         specifier: ^8.3.1
         version: 8.3.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1779,42 +1779,42 @@ packages:
   '@floating-ui/utils@0.2.12':
     resolution: {integrity: sha512-HpCo8tmWzLVad5s2d19EhAz5zqrrQ6s69qd6moPMQvkOuSwDT1YgRfWSVuc4ennqrgv3OHppiOGMQ7oC13yIww==}
 
-  '@formatjs/cli-native-darwin-arm64@1.1.8':
-    resolution: {integrity: sha512-uIHA6JFbG5vE3GlQodIrbYMmQc50mhBBVJ++ze99Tetfj4eFmIOtVKz2UMt8P8QmvCUZQMyEH95Jm+FbBDY46A==}
+  '@formatjs/cli-native-darwin-arm64@1.1.15':
+    resolution: {integrity: sha512-bVAkzlLJJrTM19WrXEktofSHF+wdXXcVCcx2kvfw2Il8mE4shrGiJ6w4kS5RPY5xoFsbQeEjqn4p/gDlgAHU4Q==}
     cpu: [arm64]
     os: [darwin]
 
-  '@formatjs/cli-native-linux-arm64-musl@1.0.6':
-    resolution: {integrity: sha512-ZiM2H4w61rrvkAwhDFWjFEhW43/AphNNHa3lTdZvNOttst1mQ2gUS4+bLGBOfMqKG8+AU+6B9PCF67AbDOlwPg==}
+  '@formatjs/cli-native-linux-arm64-musl@1.0.13':
+    resolution: {integrity: sha512-Xi8eIHgfBLMi7eRQa7jaNk/DUPW8jwZkMR59h7KoScpXTuLcdP2QGF67HweGGudhN40N9tQJCPZpM3uyOc148w==}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@formatjs/cli-native-linux-arm64@1.2.8':
-    resolution: {integrity: sha512-EfrurpWY66hjWvtlO9BjWMDze0SBw4dMMZkUnAZYNdBmOTTRJC+CLi62nRxiSoSVV7QzP8BN6W/zZ5qLySYl0w==}
+  '@formatjs/cli-native-linux-arm64@1.2.15':
+    resolution: {integrity: sha512-Isl/sv+Zy/Zq3a4JgEis/rE9zYBog+chL+a2O8CMu5rIqSqUPRg9U10BQVTW+Z5o6M9x/WXCGKY4ktpcHXhWJw==}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@formatjs/cli-native-linux-x64-musl@1.0.6':
-    resolution: {integrity: sha512-Va4rt4gL5p02gixW73VFLCvhgvXhsaT9dMdGfQE32/dqn4NYxg/8gquhauIBvTCkKPYgOhtXRcMWKQINxMB8oA==}
+  '@formatjs/cli-native-linux-x64-musl@1.0.13':
+    resolution: {integrity: sha512-jMe3BJSx3FObWTju7NSbC7nRN1vgPdADtq7OxsVrSrYwRS1IxEhQzPHsrBPSiObXQgEZcsTTSqTf+5kYiwkoHQ==}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@formatjs/cli-native-linux-x64@1.1.8':
-    resolution: {integrity: sha512-J3aInCY7VKSyBrjpXedz/AYNbr+X82zLpSwfeO3obnOqUxn6dko9tnHlaQxuSnZHMx4sAOjJyTzUqDHD6Ft2GA==}
+  '@formatjs/cli-native-linux-x64@1.1.15':
+    resolution: {integrity: sha512-i66nb7iVeOvqwRiJKlAflbjSddVCbFMWHB8KA6GhgaGCYY52d0FsfQT7JsfF7slPPHmX1GrTdeDj9Boom4pILg==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@formatjs/cli-native-win32-x64@1.1.9':
-    resolution: {integrity: sha512-EUH4z1WhKmjJ4FIn+dvzmgbtJRZ4YHCP3kbHiZv0tgmrQiQ5Q4Flv0Smt66kwYMEnyEf9/mY1JmKdBIjPaQM6A==}
+  '@formatjs/cli-native-win32-x64@1.1.16':
+    resolution: {integrity: sha512-7HcdDvfbPD4pBHlNRjDH2FM3kCRKufhTNIdtwGb2Tdyovzihb+qTOmByiNYNIh4re2jvIYzt+f5H28+MtNcy8g==}
     cpu: [x64]
     os: [win32]
 
-  '@formatjs/cli@6.16.14':
-    resolution: {integrity: sha512-aortaTMdCWuGtHnksxpznioudRVvSVkY2/6AQrpUR3tpATGl8sWCuhU9XUEG4ba7UWbFGMv7XLME93rCPfIrJw==}
+  '@formatjs/cli@6.16.21':
+    resolution: {integrity: sha512-N10aDIqCz7OzmP4gRem0Lgck0C62khai2HwemZNtJE5TDiHTmXudk2az91pQIDsQzL2Qietf5D7DOZQ4PmjXhg==}
     engines: {node: '>= 20.12.0'}
     hasBin: true
     peerDependencies:
@@ -1847,11 +1847,14 @@ packages:
   '@formatjs/icu-messageformat-parser@3.5.15':
     resolution: {integrity: sha512-5o4grXKotAB3JqQuisLApHG43g17N+paoRTa92Jiz35Zvfemq0cVf4EDvuxyHAzmsJji7igaEowicLO/VmfJ8Q==}
 
+  '@formatjs/icu-messageformat-parser@3.5.17':
+    resolution: {integrity: sha512-cN9jhVqT7u0K9tix43fhjoUwL0nazyW6zsNIXs2QdPADr+nurPfYyssUiMqcSCGlPcCiqnYVxgSn7zBSuI+5Bg==}
+
   '@formatjs/icu-skeleton-parser@2.1.11':
     resolution: {integrity: sha512-j8cUmOJzVgkHuS0QiQ6ga76UIoLOFSAMWhs7aZJztH3aAdCOAE6vpC8KVvFB4cU10ON0y2/5oOVmPJ43s2lTwA==}
 
-  '@formatjs/intl@4.1.17':
-    resolution: {integrity: sha512-IxluRkzOZH8ahaDip5g8YH9kJi1munUZi9i1BJs1wVFQIY2pROoCSiOlybZegyiPsZlMaYfADkD99zP2xmBfjQ==}
+  '@formatjs/intl@4.1.19':
+    resolution: {integrity: sha512-bZMROATl+rzfL8wsDZ53i8XWHx5e6rVr8QlGT5GDvHImEUro4WE9pxUd2dobzmI3CtD+zkt/wkEdqcb+3CK8Fg==}
 
   '@formatjs/ts-transformer@4.4.17':
     resolution: {integrity: sha512-20NZFTZhKyhtE0Nmiuwr6rh9FkA0L5dHkTi8pX8UNMwKmhVvEWK3yyra8MVmmOZ2PC5tIp9cqjo5H84UscSo6Q==}
@@ -5466,8 +5469,8 @@ packages:
     resolution: {integrity: sha512-4gd7VpWNQNB4UKKCFFVcp1AVv+FMOgs9NKzjHKusc8jTMhd5eL1NqQqOpE0KzMds804/yHlglp3uxgluOqAPLw==}
     engines: {node: '>= 0.4'}
 
-  intl-messageformat@11.2.12:
-    resolution: {integrity: sha512-KW70Xxfcvy7vV3qODfvShWkFDPMqKDAa4N+hSyVBWGNtVhTUFYaqlD/l88DaYPKiVcPP4rPQ3qnH7i5K82Mg7g==}
+  intl-messageformat@11.2.14:
+    resolution: {integrity: sha512-9f2VD1HFuxUvMw0RxsaP8WmMns6JRTnsNB/zghTFrp11ZktiXWwVDeZBPQchBKEmo+Gx/ZhxI7Qht7YglFD4PA==}
 
   invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -6537,8 +6540,8 @@ packages:
       react: '>=16'
       react-dom: '>=16'
 
-  react-intl@10.1.18:
-    resolution: {integrity: sha512-4JMOYakqVn/IajJt8Ad341Iwd6RDtiP1WQZiHRcFpHDBhVW4E9T0vkypSOk69Adg3dEbIYOE4HKTehH/1sSwnw==}
+  react-intl@10.1.24:
+    resolution: {integrity: sha512-8hiXRnnmOMEPvE5xb1T1Ce1AsmuSWX2voosCsmiyOEGEq83d1mbHy2M1DeoGKt4yF5oPPkzp+aUwSOtf+NYKPA==}
     peerDependencies:
       '@types/react': '>=18.0.0'
       react: '>=18.0.0'
@@ -7965,32 +7968,32 @@ snapshots:
 
   '@floating-ui/utils@0.2.12': {}
 
-  '@formatjs/cli-native-darwin-arm64@1.1.8':
+  '@formatjs/cli-native-darwin-arm64@1.1.15':
     optional: true
 
-  '@formatjs/cli-native-linux-arm64-musl@1.0.6':
+  '@formatjs/cli-native-linux-arm64-musl@1.0.13':
     optional: true
 
-  '@formatjs/cli-native-linux-arm64@1.2.8':
+  '@formatjs/cli-native-linux-arm64@1.2.15':
     optional: true
 
-  '@formatjs/cli-native-linux-x64-musl@1.0.6':
+  '@formatjs/cli-native-linux-x64-musl@1.0.13':
     optional: true
 
-  '@formatjs/cli-native-linux-x64@1.1.8':
+  '@formatjs/cli-native-linux-x64@1.1.15':
     optional: true
 
-  '@formatjs/cli-native-win32-x64@1.1.9':
+  '@formatjs/cli-native-win32-x64@1.1.16':
     optional: true
 
-  '@formatjs/cli@6.16.14':
+  '@formatjs/cli@6.16.21':
     optionalDependencies:
-      '@formatjs/cli-native-darwin-arm64': 1.1.8
-      '@formatjs/cli-native-linux-arm64': 1.2.8
-      '@formatjs/cli-native-linux-arm64-musl': 1.0.6
-      '@formatjs/cli-native-linux-x64': 1.1.8
-      '@formatjs/cli-native-linux-x64-musl': 1.0.6
-      '@formatjs/cli-native-win32-x64': 1.1.9
+      '@formatjs/cli-native-darwin-arm64': 1.1.15
+      '@formatjs/cli-native-linux-arm64': 1.2.15
+      '@formatjs/cli-native-linux-arm64-musl': 1.0.13
+      '@formatjs/cli-native-linux-x64': 1.1.15
+      '@formatjs/cli-native-linux-x64-musl': 1.0.13
+      '@formatjs/cli-native-win32-x64': 1.1.16
 
   '@formatjs/fast-memoize@3.1.7': {}
 
@@ -7998,13 +8001,17 @@ snapshots:
     dependencies:
       '@formatjs/icu-skeleton-parser': 2.1.11
 
+  '@formatjs/icu-messageformat-parser@3.5.17':
+    dependencies:
+      '@formatjs/icu-skeleton-parser': 2.1.11
+
   '@formatjs/icu-skeleton-parser@2.1.11': {}
 
-  '@formatjs/intl@4.1.17':
+  '@formatjs/intl@4.1.19':
     dependencies:
       '@formatjs/fast-memoize': 3.1.7
-      '@formatjs/icu-messageformat-parser': 3.5.15
-      intl-messageformat: 11.2.12
+      '@formatjs/icu-messageformat-parser': 3.5.17
+      intl-messageformat: 11.2.14
 
   '@formatjs/ts-transformer@4.4.17':
     dependencies:
@@ -11789,10 +11796,10 @@ snapshots:
       hasown: 2.0.4
       side-channel: 1.1.0
 
-  intl-messageformat@11.2.12:
+  intl-messageformat@11.2.14:
     dependencies:
       '@formatjs/fast-memoize': 3.1.7
-      '@formatjs/icu-messageformat-parser': 3.5.15
+      '@formatjs/icu-messageformat-parser': 3.5.17
 
   invariant@2.2.4:
     dependencies:
@@ -12838,12 +12845,12 @@ snapshots:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  react-intl@10.1.18(@types/react@19.2.18)(react@19.2.8):
+  react-intl@10.1.24(@types/react@19.2.18)(react@19.2.8):
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.15
-      '@formatjs/intl': 4.1.17
+      '@formatjs/icu-messageformat-parser': 3.5.17
+      '@formatjs/intl': 4.1.19
       '@types/react': 19.2.18
-      intl-messageformat: 11.2.12
+      intl-messageformat: 11.2.14
       react: 19.2.8
 
   react-is@16.13.1: {}
@@ -13228,9 +13235,9 @@ snapshots:
     transitivePeerDependencies:
       - react
 
-  storybook-react-intl@10.2.1(react-intl@10.1.18(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)(storybook@10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8)):
+  storybook-react-intl@10.2.1(react-intl@10.1.24(@types/react@19.2.18)(react@19.2.8))(react@19.2.8)(storybook@10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8)):
     dependencies:
-      react-intl: 10.1.18(@types/react@19.2.18)(react@19.2.8)
+      react-intl: 10.1.24(@types/react@19.2.18)(react@19.2.8)
       storybook: 10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8)
       storybook-i18n: 10.1.1(react@19.2.8)(storybook@10.5.10(@types/react@19.2.18)(prettier@3.9.5)(react@19.2.8))
     transitivePeerDependencies:
