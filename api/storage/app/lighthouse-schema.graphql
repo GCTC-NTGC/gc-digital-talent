@@ -113,11 +113,6 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
-  value: CommunityReferralStatus!
-  label: LocalizedString!
-}
-
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -130,6 +125,11 @@ type LocalizedCourseLanguage implements LocalizedEnumOption {
 
 type LocalizedDeadlineStatus implements LocalizedEnumOption {
   value: DeadlineStatus!
+  label: LocalizedString!
+}
+
+type LocalizedDegreeType implements LocalizedEnumOption {
+  value: DegreeType!
   label: LocalizedString!
 }
 
@@ -198,6 +198,11 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFellowshipType implements LocalizedEnumOption {
+  value: FellowshipType!
+  label: LocalizedString!
+}
+
 type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   value: FinanceChiefRole!
   label: LocalizedString!
@@ -260,6 +265,11 @@ type LocalizedMentorship implements LocalizedEnumOption {
 
 type LocalizedNineBoxRating implements LocalizedEnumOption {
   value: NineBoxRating!
+  label: LocalizedString!
+}
+
+type LocalizedOldEducationType implements LocalizedEnumOption {
+  value: OldEducationType!
   label: LocalizedString!
 }
 
@@ -636,7 +646,6 @@ type Mutation {
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
   updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
-  updateCommunityInterestReferralStatus(communityInterestReferral: UpdateCommunityInterestReferralStatusInput!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
@@ -762,6 +771,7 @@ type Mutation {
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadCommunityTalentExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -900,14 +910,7 @@ type User {
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
-}
-
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-  followUpDate: Date
-  classification: Classification
-  notes: String
-  updatedAt: DateTime
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
 }
 
 type CommunityInterest {
@@ -926,7 +929,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean
   createdAt: DateTime
   procurementIsSDO: Boolean
-  referralStatus: CommunityReferralStatusData!
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1261,13 +1263,10 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
-  statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
   placementType: LocalizedPlacementType
   placedAt: DateTime
@@ -1299,6 +1298,9 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   educationRequirementExperienceIds: [UUID!]
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime
   applicationStatusData: PoolCandidateStatusData
   applicationAssessmentData: PoolCandidateAssessmentData
   assessmentResults: [AssessmentResult]
@@ -1697,7 +1699,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
@@ -1737,19 +1738,21 @@ type WorkExperience implements Experience {
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
+  awardExperiences: [AwardExperience]
 }
 
 type PersonalExperience implements Experience {
   id: ID!
   user: User!
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  learningDescription: String
+  organization: String
+  awardExperiences: [AwardExperience]
 }
 
 type CommunityExperience implements Experience {
@@ -1764,6 +1767,7 @@ type CommunityExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  awardExperiences: [AwardExperience]
 }
 
 type EducationExperience implements Experience {
@@ -1774,12 +1778,21 @@ type EducationExperience implements Experience {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: LocalizedEducationType
+  educationType: LocalizedEducationType
   status: LocalizedEducationStatus
+  otherEducationType: String
+  degreeType: LocalizedDegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: LocalizedFellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  awardExperiences: [AwardExperience]
 }
 
 type AwardExperience implements Experience {
@@ -1794,7 +1807,11 @@ type AwardExperience implements Experience {
   skills: [Skill!]
   experienceSkillRecord: ExperienceSkillRecord
   deletedDate: DateTime
+  projectName: String
+  relatedExperience: RelatedExperience
 }
+
+union RelatedExperience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience
 
 type ExperienceSkillRecord {
   details: String
@@ -1975,7 +1992,6 @@ input TalentRequestMatchFilterInput {
   priorityWeight: [PriorityWeight]
   employeeVerification: [EmployeeVerification]
   departments: [UUID!]
-  communityReferralStatuses: [CommunityReferralStatus!]
   excludeTrackedByRequestId: UUID
 }
 
@@ -2057,7 +2073,6 @@ input CommunityInterestFilterInput {
   operationalRequirements: [OperationalRequirement]
   skills: [UUID]
   classifications: [UUID!]
-  referralStatuses: [CommunityReferralStatus!]
 }
 
 input DateRangeOptional {
@@ -2320,14 +2335,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
-}
-
-input UpdateCommunityInterestReferralStatusInput {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
@@ -2831,11 +2838,11 @@ input WorkExperienceInput {
 
 input PersonalExperienceInput {
   title: String
-  description: String
   startDate: Date
   endDate: Date
-  details: String
   skills: UpdateExperienceSkills
+  learningDescription: String
+  organization: String
 }
 
 input CommunityExperienceInput {
@@ -2854,8 +2861,16 @@ input EducationExperienceInput {
   thesisTitle: String
   startDate: Date
   endDate: Date
-  type: EducationType
+  educationType: EducationType
   status: EducationStatus
+  otherEducationType: String
+  degreeType: DegreeType
+  licenseOrAccreditation: String
+  certification: String
+  courseName: String
+  fellowshipType: FellowshipType
+  otherFellowshipType: String
+  prospectiveEndDate: Date
   details: String
   skills: UpdateExperienceSkills
 }
@@ -2868,6 +2883,9 @@ input AwardExperienceInput {
   awardedScope: AwardedScope
   details: String
   skills: UpdateExperienceSkills
+  projectName: String
+  relatedExperienceId: UUID
+  relatedExperienceType: String
 }
 
 input UpdateExperienceSkills {
@@ -3770,9 +3788,6 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
-  ViewAnyCommunityInterestReferralStatus
-  ViewTeamCommunityInterestReferralStatus
-  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -4003,13 +4018,6 @@ enum CommunityInterestAdditionalDuty {
   REAL_PROPERTY_MANAGEMENT
 }
 
-enum CommunityReferralStatus {
-  NEW
-  PENDING
-  AVAILABLE_FOR_REFERRAL
-  NOT_REFERRED
-}
-
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -4024,6 +4032,14 @@ enum CourseLanguage {
 enum DeadlineStatus {
   PUBLISHED
   EXPIRED
+}
+
+enum DegreeType {
+  HIGH_SCHOOL
+  COLLEGE_DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
 }
 
 enum DepartmentSize {
@@ -4057,16 +4073,15 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
+  DEGREE_DIPLOMA_CERTIFICATE
+  LICENSE_ACCREDITATION
+  PROFESSIONAL_CERTIFICATION
+  INDIVIDUAL_COURSE
+  FELLOWSHIP
   OTHER
 }
 
@@ -4278,6 +4293,12 @@ enum ExternalSizeOfOrganization {
   ONE_THOUSAND_PLUS
 }
 
+enum FellowshipType {
+  POST_DOCTORAL
+  INDUSTRY
+  OTHER
+}
+
 enum FinanceChiefRole {
   CHIEF_SECURITY_OFFICER
   CHIEF_INFORMATION_OFFICER
@@ -4323,6 +4344,7 @@ enum GovEmployeeType {
   TERM
   INDETERMINATE
   CONTRACTOR
+  INTERCHANGE
 }
 
 enum GovPositionType {
@@ -4384,6 +4406,17 @@ enum NotificationFamily {
 enum NullsOption {
   ORDER_FIRST
   ORDER_LAST
+}
+
+enum OldEducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 enum OperationalRequirement {
@@ -4602,8 +4635,8 @@ enum TalentNominationSubmitterRelationshipToNominator {
 
 enum TalentNominationUserReview {
   CORRECT
-  INCORRECT
-  OUT_OF_DATE
+  INCORRECT_OUT_OF_DATE
+  WRONG_PERSON
 }
 
 enum TalentRequestCompletionDetail {

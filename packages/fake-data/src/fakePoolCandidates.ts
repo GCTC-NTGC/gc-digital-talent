@@ -74,14 +74,14 @@ const generatePoolCandidate = (
           Object.values(ScreeningStage),
         ),
       ),
-      statusUpdatedAt: faker.date
-        .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
-        .toISOString()
-        .substring(0, 10),
       pauseReferralsAt: faker.date.past().toISOString(),
       resumeReferralsAt: expiryDate,
       pauseReferralsReason: faker.lorem.sentence(),
     },
+    statusUpdatedAt: faker.date
+      .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
+      .toISOString()
+      .substring(0, 10),
     archivedAt: faker.helpers.maybe(() =>
       faker.date.past().toISOString().substring(0, 10),
     ),

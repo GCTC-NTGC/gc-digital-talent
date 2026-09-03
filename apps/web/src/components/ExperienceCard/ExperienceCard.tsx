@@ -15,7 +15,7 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
   getFragment,
@@ -33,6 +33,7 @@ import {
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
+import type { SkillLink } from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
@@ -48,7 +49,6 @@ type EditMode = "link" | "dialog";
 export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceCard on Experience {
     id
-    details
     skills {
       id
       key
@@ -76,6 +76,7 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       }
     }
     ... on AwardExperience {
+      details
       title
       issuedBy
       awardedDate
@@ -93,8 +94,82 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
           fr
         }
       }
+      projectName
+      relatedExperience {
+        ... on CommunityExperience {
+          __typename
+          id
+          title
+          organization
+        }
+        ... on EducationExperience {
+          __typename
+          id
+          educationType {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          degreeType {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          otherFellowshipType
+          otherEducationType
+          areaOfStudy
+          institution
+          licenseOrAccreditation
+          certification
+        }
+        ... on PersonalExperience {
+          __typename
+          id
+          title
+        }
+        ... on WorkExperience {
+          __typename
+          id
+          role
+          organization
+          employmentCategory {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          department {
+            id
+            name {
+              en
+              fr
+            }
+            departmentNumber
+          }
+          cafForce {
+            value
+            label {
+              en
+              fr
+            }
+          }
+        }
+      }
     }
     ... on CommunityExperience {
+      details
       title
       organization
       project
@@ -102,15 +177,35 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       endDate
     }
     ... on EducationExperience {
+      details
       institution
       areaOfStudy
       thesisTitle
       startDate
       endDate
-      type {
+      prospectiveEndDate
+      otherEducationType
+      degreeType {
         value
         label {
-          localized
+          en
+          fr
+        }
+      }
+      licenseOrAccreditation
+      certification
+      courseName
+      fellowshipType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      otherFellowshipType
+      educationType {
+        value
+        label {
           en
           fr
         }
@@ -118,7 +213,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       status {
         value
         label {
-          localized
           en
           fr
         }
@@ -126,12 +220,14 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
     }
     ... on PersonalExperience {
       title
-      description
       startDate
       endDate
+      learningDescription
+      organization
     }
     ... on WorkExperience {
       id
+      details
       role
       organization
       division
@@ -141,7 +237,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       employmentCategory {
         value
         label {
-          localized
           en
           fr
         }
@@ -149,7 +244,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       extSizeOfOrganization {
         value
         label {
-          localized
           en
           fr
         }
@@ -157,7 +251,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       extRoleSeniority {
         value
         label {
-          localized
           en
           fr
         }
@@ -165,7 +258,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govEmploymentType {
         value
         label {
-          localized
           en
           fr
         }
@@ -173,7 +265,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govPositionType {
         value
         label {
-          localized
           en
           fr
         }
@@ -181,7 +272,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govContractorRoleSeniority {
         value
         label {
-          localized
           en
           fr
         }
@@ -189,7 +279,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       govContractorType {
         value
         label {
-          localized
           en
           fr
         }
@@ -198,7 +287,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafEmploymentType {
         value
         label {
-          localized
           en
           fr
         }
@@ -206,7 +294,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafForce {
         value
         label {
-          localized
           en
           fr
         }
@@ -214,7 +301,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cafRank {
         value
         label {
-          localized
           en
           fr
         }
@@ -228,14 +314,14 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       cSuiteRoleTitle {
         value
         label {
-          localized
+          en
+          fr
         }
       }
       otherCSuiteRoleTitle
       classification {
         id
         name {
-          localized
           en
           fr
         }
@@ -249,7 +335,6 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
       department {
         id
         name {
-          localized
           en
           fr
         }
@@ -259,13 +344,15 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
         id
         key
         name {
-          localized
+          en
+          fr
         }
         community {
           id
           key
           name {
-            localized
+            en
+            fr
           }
         }
       }
@@ -275,7 +362,8 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
         category {
           value
           label {
-            localized
+            en
+            fr
           }
         }
         name {
@@ -290,7 +378,9 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type SimpleSkill = Pick<Skill, "id">;
+interface SimpleSkill {
+  id: string;
+}
 
 interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
@@ -307,7 +397,7 @@ interface ExperienceCardProps {
   // Allows passing in a link to view a specific experience
   view?: ReactNode;
   onSave?: () => void;
-  linkTo?: Skill;
+  linkTo?: SkillLink;
   editTrigger?: ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
   isOpen?: boolean;
@@ -575,14 +665,27 @@ const ExperienceCard = ({
                 headingLevel={contentHeadingLevel}
               />
             )}
-            <Separator space="sm" />
-            <ContentSection
-              title={experienceLabels.details}
-              headingLevel={headingLevel}
-            >
-              {experience.details ??
-                intl.formatMessage(commonMessages.notAvailable)}
-            </ContentSection>
+            {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
+            {(isAwardExperience(experience) ||
+              isCommunityExperience(experience) ||
+              isEducationExperience(experience) ||
+              isWorkExperience(experience)) && (
+              <>
+                <Separator space="sm" />
+                <ContentSection
+                  title={
+                    isCommunityExperience(experience) ||
+                    isWorkExperience(experience)
+                      ? experienceLabels.keyTasksAndResponsibilities
+                      : experienceLabels.details
+                  }
+                  headingLevel={headingLevel}
+                >
+                  {experience.details ??
+                    intl.formatMessage(commonMessages.notAvailable)}
+                </ContentSection>
+              </>
+            )}
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />

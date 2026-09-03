@@ -114,6 +114,90 @@ class UserExcelGeneratorTest extends TestCase
         $this->assertStringNotContainsString($outsideUser->id, $text, 'User outside the filtered community should not appear');
     }
 
+    public function testCommunitiesFilterAcceptsMultipleCommunities(): void
+    {
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $communityOne = Community::factory()->create();
+        $communityTwo = Community::factory()->create();
+        $communityThree = Community::factory()->create();
+
+        $userOne = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($userOne)->for($communityOne)->create(['consent_to_share_profile' => true]);
+
+        $userTwo = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($userTwo)->for($communityTwo)->create(['consent_to_share_profile' => true]);
+
+        $outsideUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($outsideUser)->for($communityThree)->create(['consent_to_share_profile' => true]);
+
+        $generator = new UserExcelGenerator(fileName: 'test_communities_filter', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['communities' => [$communityOne->id, $communityTwo->id]]);
+        $generator->generate()->write();
+
+        $text = $this->readWorkbookText('test_communities_filter');
+
+        $this->assertStringContainsString($userOne->id, $text);
+        $this->assertStringContainsString($userTwo->id, $text);
+        $this->assertStringNotContainsString($outsideUser->id, $text);
+    }
+
+    public function testCommunitiesAndJobInterestMustMatchSameCommunityInterest(): void
+    {
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $communityOne = Community::factory()->create();
+        $communityTwo = Community::factory()->create();
+
+        $matchingUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($matchingUser)->for($communityOne)
+            ->create(['job_interest' => true, 'consent_to_share_profile' => true]);
+
+        $splitUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($splitUser)->for($communityOne)
+            ->create(['job_interest' => false, 'consent_to_share_profile' => true]);
+        CommunityInterest::factory()->for($splitUser)->for($communityTwo)
+            ->create(['job_interest' => true, 'consent_to_share_profile' => true]);
+
+        $generator = new UserExcelGenerator(fileName: 'test_communities_job_interest', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['communities' => [$communityOne->id], 'jobInterest' => true]);
+        $generator->generate()->write();
+
+        $text = $this->readWorkbookText('test_communities_job_interest');
+
+        $this->assertStringContainsString($matchingUser->id, $text);
+        $this->assertStringNotContainsString($splitUser->id, $text);
+    }
+
+    public function testVerifiedGovEmployeesOnlyExcludesUnverifiedWorkEmail(): void
+    {
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $community = Community::factory()->create();
+
+        $verifiedUser = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()->for($verifiedUser)->for($community)->create(['consent_to_share_profile' => true]);
+
+        $unverifiedUser = User::factory()->withGovEmployeeProfile()->create(['work_email_verified_at' => null]);
+        CommunityInterest::factory()->for($unverifiedUser)->for($community)->create(['consent_to_share_profile' => true]);
+
+        $generator = new UserExcelGenerator(fileName: 'test_verified_gov_only', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setVerifiedGovEmployeesOnly(true)
+            ->setIds(null)
+            ->setFilters(['communities' => [$community->id]]);
+        $generator->generate()->write();
+
+        $text = $this->readWorkbookText('test_verified_gov_only');
+
+        $this->assertStringContainsString($verifiedUser->id, $text);
+        $this->assertStringNotContainsString($unverifiedUser->id, $text);
+    }
+
     /**
      * Community interest sheet should have paired headers per development program:
      * "{program name}" and "{program name} - Linked experience"

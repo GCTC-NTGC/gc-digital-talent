@@ -23,7 +23,7 @@ const mockPoolCandidatesWithSkillCount = poolCandidateData.map(
 
         status: poolCandidate.applicationStatusData?.status,
         screeningStage: poolCandidate.applicationStatusData?.screeningStage,
-        statusUpdatedAt: poolCandidate.applicationStatusData?.statusUpdatedAt,
+        statusUpdatedAt: poolCandidate.statusUpdatedAt,
 
         isFlagged: poolCandidate.applicationAssessmentData?.isFlagged,
       },

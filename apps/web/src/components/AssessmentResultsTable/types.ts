@@ -1,32 +1,39 @@
 import type { ColumnDef } from "@tanstack/react-table";
 
 import type {
-  PoolSkill,
-  Skill,
-  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
+  AssessmentDecision,
+  AssessmentResultType,
+  LocalizedString,
+  PoolSkillType,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
 
-type PoolSkillForTableRow = Pick<PoolSkill, "id" | "requiredLevel" | "type"> & {
-  skill?: Pick<Skill, "id" | "name" | "category" | "key"> | null;
-};
+interface AssessedSkill {
+  id: string;
+  name?: LocalizedString | null;
+}
+
+interface AssessedPoolSkill {
+  id: string;
+  type?: GenericLocalizedEnum<PoolSkillType> | null;
+  skill?: AssessedSkill | null;
+}
+
+export interface AssessmentRowResult {
+  id: string;
+  assessmentResultType?: AssessmentResultType | null;
+  assessmentDecision?: GenericLocalizedEnum<AssessmentDecision> | null;
+  assessmentStep?: { id: string } | null;
+  poolSkill?: { id: string } | null;
+}
 
 export interface AssessmentTableRow {
-  poolSkill?: PoolSkillForTableRow;
-  assessmentResults: AssessmentResultsTableFragmentType["assessmentResults"];
+  poolSkill?: AssessedPoolSkill;
+  assessmentResults: AssessmentRowResult[];
 }
 
 export type AssessmentTableRowColumn = ColumnDef<AssessmentTableRow>;
-
-const assessmentResultsTableFragmentSteps: AssessmentResultsTableFragmentType["pool"]["assessmentSteps"] =
-  [];
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const assessmentResultsTableFragmentStepsUnpacked = unpackMaybes(
-  assessmentResultsTableFragmentSteps,
-);
-export type AssessmentResultsTableFragmentStepType =
-  (typeof assessmentResultsTableFragmentStepsUnpacked)[number];
 
 export type StatusColor = "error" | "hold" | "toAssess" | "success" | "gray";
 
