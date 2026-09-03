@@ -6492,7 +6492,7 @@
     "description": "IT-04 senior advisor description precursor to work stream list"
   },
   "Ney+Il": {
-    "defaultMessage": "Nous avons trouvé un utilisateur dont l'adresse courriel est fournie, mais qui n'a pas confirmé son statut d'employée ou d'employé. À l'heure actuelle, seuls les membres du personnel vérifiés peuvent être nommés. L'utilisateur peut vérifier son statut d'employée ou d'employé en ouvrant une session dans la plateforme et en vérifiant son adresse courriel professionnelle.",
+    "defaultMessage": "Nous avons trouvé un utilisateur dont l'adresse courriel est fournie, mais qui n'a pas confirmé son statut d'employée ou d'employé. À l'heure actuelle, seuls les membres du personnel vérifiés peuvent être nominés. L'utilisateur peut vérifier son statut d'employée ou d'employé en ouvrant une session dans la plateforme et en vérifiant son adresse courriel professionnelle.",
     "description": "Description of default message when user was found but not a verified employee"
   },
   "NiAtY6": {
@@ -8189,7 +8189,8 @@
     "description": "List item one financial management label"
   },
   "UpM9RV": {
-    "defaultMessage": "Le poste (classification, niveau, rôle et ministère) auquel vous avez été nommé pour une durée indéterminée."
+    "defaultMessage": "Le poste (classification, niveau, rôle et ministère) auquel vous avez été nommé pour une durée indéterminée.",
+    "description": "Description for the substantive government position option in work experience"
   },
   "UrU9Kt": {
     "defaultMessage": "Recevez directement les dernières mises à jour, ressources et événements de la collectivité de l’approvisionnement du Bureau du développement de la collectivité du Bureau du contrôleur général dans votre boîte de réception.",
@@ -9436,7 +9437,7 @@
     "description": "Subtitle for verifying a candidate's priority claim"
   },
   "Zw4Pdj": {
-    "defaultMessage": "{nomineeName} a été nommé(e) pour",
+    "defaultMessage": "{nomineeName} a été nominé(e) pour",
     "description": "Introduction for list of nomination options for form to evaluate a nomination group"
   },
   "ZwvEk6": {
@@ -10216,7 +10217,7 @@
     "description": "Employment equity with a number in parentheses"
   },
   "dFl7AN": {
-    "defaultMessage": "Un coordonnateur des talents de la collectivité s’occupe principalement de la mobilité des talents au sein de sa collectivité fonctionnelle. Il peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans la collectivité et ceux des personnes candidates nommées dans le cadre d’activités liées à la gestion des talents.",
+    "defaultMessage": "Un coordonnateur des talents de la collectivité s’occupe principalement de la mobilité des talents au sein de sa collectivité fonctionnelle. Il peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans la collectivité et ceux des personnes nominées dans le cadre d’activités liées à la gestion des talents.",
     "description": "Description of the community talent coordinator role"
   },
   "dGgEAz": {
@@ -10878,7 +10879,7 @@
     "description": "Sub-heading for language requirements dialog"
   },
   "fTm+ln": {
-    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de nomination, où les personnes peuvent être nommées pour une promotion, un mouvement latéral ou des possibilités de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de nomination, les types de nominations acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
+    "defaultMessage": "Les événements de gestion des talents permettent à la collectivité d’ouvrir une période de nomination, où les personnes peuvent être nominées pour des possibilités d’avancement, de transfert latéral ou de perfectionnement. Ce formulaire vous permet de personnaliser les détails de l’événement, notamment la période de nomination, les types de nominations acceptées et la question de savoir si l’événement est ciblé vers des classifications particulières.",
     "description": "Description for talent management event form"
   },
   "fVbf8w": {
