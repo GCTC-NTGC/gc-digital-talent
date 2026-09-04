@@ -9,10 +9,10 @@ export const list = tv({
       unordered: "list-disc [&_ul]:list-[circle]",
     },
     space: {
-      sm: "[&_li]:not-last:mb-0.75",
-      md: "[&_li]:not-last:mb-1.5",
-      lg: "[&_li]:not-last:mb-3",
-      xl: "[&_li]:not-last:mb-6",
+      sm: "[&>li]:not-last:mb-0.75",
+      md: "[&>li]:not-last:mb-1.5",
+      lg: "[&>li]:not-last:mb-3",
+      xl: "[&>li]:not-last:mb-6",
     },
     unStyled: {
       true: "",
