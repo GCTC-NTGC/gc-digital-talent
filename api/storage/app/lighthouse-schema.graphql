@@ -1531,6 +1531,8 @@ type TalentNominationGroup {
   classificationAtTimeOfAdvancementApproval: Classification
   advancementClassifications: [Classification!]
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: [Classification!]
+  lateralMovementReferralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -2691,6 +2693,8 @@ input UpdateTalentNominationGroupInput {
   comments: String
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
@@ -4227,6 +4231,13 @@ enum ErrorCode {
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_DECISION_REQUIRED
+  LATERAL_MOVEMENT_DECISION_REQUIRED
+  DEVELOPMENT_PROGRAMS_DECISION_REQUIRED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED

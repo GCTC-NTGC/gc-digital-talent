@@ -25,6 +25,10 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
 
     nominee {
       firstName
+      classification {
+        id
+        groupAndLevel
+      }
     }
 
     advancementNominationCount
@@ -45,6 +49,10 @@ const NominationGroupEvaluationForm_Fragment = graphql(/* GraphQL */ `
       value
     }
     lateralMovementNotes
+    lateralMovementClassifications {
+      id
+    }
+    lateralMovementReferralExpiryDate
     developmentProgramsDecision {
       value
     }

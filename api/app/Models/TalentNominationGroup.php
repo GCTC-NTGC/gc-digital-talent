@@ -39,6 +39,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $comments
  * @property bool $consentToShareProfile
  * @property ?Carbon $advancement_referral_expiry_date
+ * @property ?Carbon $lateral_movement_referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -54,6 +55,7 @@ class TalentNominationGroup extends Model
      */
     protected $casts = [
         'advancement_referral_expiry_date' => 'date',
+        'lateral_movement_referral_expiry_date' => 'date',
     ];
 
     /**
@@ -121,6 +123,14 @@ class TalentNominationGroup extends Model
     {
         return $this
             ->belongsToMany(Classification::class, 'classification_talent_nomination_group_advancement')
+            ->withTimestamps();
+    }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function lateralMovementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_group_lateral_movement')
             ->withTimestamps();
     }
 
