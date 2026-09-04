@@ -21,6 +21,8 @@ use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+use ReflectionMethod;
+use ReflectionNamedType;
 
 /**
  * Class AdvancedOrderByDirective
@@ -118,6 +120,19 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
 
         if (! method_exists($model, $relationName)) {
             throw new UserError("Invalid relation: {$relationName}");
+        }
+
+        // Decide from the signature whether this is a relation, before calling it.
+        // method_exists() admits every method the model defines, and the instanceof
+        // check below only runs once the call has already happened - together with
+        // whatever that call did.
+        $method = new ReflectionMethod($model, $relationName);
+        $returnType = $method->getReturnType();
+
+        if (! $method->isPublic()
+            || ! $returnType instanceof ReflectionNamedType
+            || ! is_a($returnType->getName(), Relation::class, true)) {
+            throw new UserError("Method {$relationName} is not a valid Eloquent relation.");
         }
 
         $relation = $model->{$relationName}();

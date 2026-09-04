@@ -278,6 +278,10 @@ class AdvancedOrderByTest extends TestCase
                 [['relation' => ['name' => 'isDraft', 'column' => 'notes']]],
                 'Method isDraft is not a valid Eloquent relation.',
             ],
+            'Model method with a side effect' => [
+                [['relation' => ['name' => 'save', 'column' => 'notes']]],
+                'Method save is not a valid Eloquent relation.',
+            ],
             'Many to many relation' => [
                 [['relation' => ['name' => 'bookmarkedByUsers', 'column' => 'first_name']]],
                 'Relation type Illuminate\Database\Eloquent\Relations\BelongsToMany is not supported for sub-query sorting.',
@@ -287,6 +291,22 @@ class AdvancedOrderByTest extends TestCase
                 'Invalid scope: orderByNothing',
             ],
         ];
+    }
+
+    /**
+     * A relation name is client supplied, so the method it names must be rejected on its
+     * signature rather than by inspecting what a call returned.
+     */
+    public function testItDoesNotCallMethodsThatAreNotRelations(): void
+    {
+        PoolCandidate::factory()->create(['notes' => 'A']);
+        $before = PoolCandidate::count();
+
+        $this->actingAs($this->admin, 'api')->graphQL($this->query, [
+            'orderBy' => [['relation' => ['name' => 'save', 'column' => 'notes']]],
+        ])->assertGraphQLErrorMessage('Method save is not a valid Eloquent relation.');
+
+        $this->assertSame($before, PoolCandidate::count());
     }
 
     public function testItIgnoresScopesWithoutTheOrderByPrefix(): void
