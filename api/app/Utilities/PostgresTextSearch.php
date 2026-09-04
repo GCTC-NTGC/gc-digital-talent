@@ -14,22 +14,6 @@ enum PostgresTextSearchMatchingType
 // https://www.postgresql.org/docs/current/textsearch-controls.html#TEXTSEARCH-PARSING-QUERIES
 class PostgresTextSearch
 {
-    public static $invalidPatterns =
-        '/'.
-        '^&'.'|'.       // & at the beginning
-        '&$'.'|'.       // & at the end
-        '^\|'.'|'.      // | at the beginning
-        '\|$'.'|'.      // | at the end
-        ':'.'|'.        // : anywhere
-        '^.+?\!'.'|'.   // ! not at the beginning
-        '^\!$'.'|'.     // ! at the end
-        '\('.'|'.       // ( anywhere
-        '\)'.'|'.       // ) anywhere
-        '<'.'|'.        // < anywhere
-        '>'.'|'.        // > anywhere
-        "'$".           // ' at the end
-        '/';
-
     // convert a search string to query text with prefix matching
     // similar to websearch_to_tsquery but adds prefix matching to each term
     // refer to PostgresTextSearchTest for examples of the expected transform
@@ -110,7 +94,7 @@ class PostgresTextSearch
                 is_array($node) => self::nodeToQueryText($node, $matchingType),         // if it's another node, recurse into it
                 default => throw new \Error('Unexpected type')
             })
-            ->filter(fn ($term) => strlen($term) > 0)
+            ->filter(fn ($term) => $term !== null && $term !== '')
             ->join($joiner);
     }
 
@@ -118,19 +102,30 @@ class PostgresTextSearch
     private static function singleTermToQueryText(string $term, PostgresTextSearchMatchingType $matchingType): ?string
     {
         // handle negation
-        if (Str::startsWith($term, '-')) {
-            $term = Str::substrReplace($term, '!', 0, 1);
+        $negated = Str::startsWith($term, '-');
+        if ($negated) {
+            $term = Str::substr($term, 1);
         }
 
-        // remove terms with invalid patterns
-        if (preg_match(self::$invalidPatterns, $term) != false) {
+        if ($term === '') {
             return null;
+        }
+
+        // Quote the term so that tsquery operators inside it (& | ! ( ) : < > *) are read
+        // as text rather than as syntax.  Denylisting them term by term let some through:
+        // 'a&&b' reached to_tsquery as a syntax error, and 'te&rm1' silently became
+        // 'te' & 'rm1', answering a different question than the user asked.
+        // A term holding no lexemes yields an empty tsquery, which matches nothing.
+        $quoted = "'".str_replace("'", "''", $term)."'";
+
+        if ($negated) {
+            $quoted = '!'.$quoted;
         }
 
         // handle prefix searching
         return match ($matchingType) {
-            PostgresTextSearchMatchingType::EXACT => $term,
-            PostgresTextSearchMatchingType::PREFIX => $term.':*',
+            PostgresTextSearchMatchingType::EXACT => $quoted,
+            PostgresTextSearchMatchingType::PREFIX => $quoted.':*',
         };
     }
 }
