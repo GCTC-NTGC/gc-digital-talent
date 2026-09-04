@@ -294,9 +294,8 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 ->visible($consented),
             Field::text('priority_number', fn ($g) => $g->nominee->priority_number)
                 ->visible($consented),
-            Field::bool('accept_temporary', fn ($g) => $g->nominee->wouldAcceptTemporary())
-                ->visible($consented)
-                ->visible(fn ($g) => (bool) $g->nominee->position_duration, ''),
+            Field::bool('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null)
+                ->visible($consented),
             Field::enum('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted'])
                 ->visible($consented),
             Field::enum('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee))
