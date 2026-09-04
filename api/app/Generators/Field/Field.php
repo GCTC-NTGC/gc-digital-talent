@@ -80,12 +80,16 @@ final class Field
     /**
      * Prevent a field from being rendered based
      * on some condition (i.e consent to share profile)
+     *
+     * @param  \Closure(mixed): bool  $condition
+     * @param  ?string  $fallback  Rendered when $condition returns false
      */
-    public function guard(\Closure $guarded): self
+    public function visible(\Closure $condition, ?string $fallback = null): self
     {
         return new self($this->heading, $this->type, $this->accessor, [
             ...$this->options,
-            'guarded' => $guarded,
+            'visible' => $condition,
+            'fallback' => $fallback,
         ]);
     }
 }
