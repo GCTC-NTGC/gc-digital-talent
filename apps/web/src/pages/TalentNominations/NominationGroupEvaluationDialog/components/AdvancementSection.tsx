@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useEffect, useId } from "react";
+import uniqBy from "lodash/uniqBy";
 
 import {
   Checkbox,
@@ -17,11 +18,7 @@ import {
   graphql,
   TalentNominationGroupDecision,
 } from "@gc-digital-talent/graphql";
-import {
-  notEmpty,
-  uniqueItems,
-  unpackMaybes,
-} from "@gc-digital-talent/helpers";
+import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -126,10 +123,11 @@ const AdvancementSection = ({
     .filter(notEmpty)
     .join(", ");
 
-  const allRecommendedAdvancementClassifications = uniqueItems(
+  const allRecommendedAdvancementClassifications = uniqBy(
     unpackMaybes(
       nominations?.flatMap((n) => n.recommendedAdvancementClassifications),
     ),
+    (classification) => classification.id,
   );
   allRecommendedAdvancementClassifications.sort((a, b) =>
     (a?.groupAndLevel ?? "").localeCompare(b?.groupAndLevel ?? ""),
