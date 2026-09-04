@@ -1947,27 +1947,13 @@ input PoolsHasMany {
 """
 When creating a User, name is required.
 """
-input CreateUserInput {
+input CreateUserInput @validator {
   sub: String
-    @rules(
-      apply: ["sometimes", "unique:users,sub"]
-      messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
-    )
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
   lastName: String! @rename(attribute: "last_name")
   email: Email
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
   # emailVerifiedAt only used for e2e testing
   emailVerifiedAt: Date @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
@@ -1999,18 +1985,7 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email
-    @rename(attribute: "work_email")
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
+  workEmail: Email @rename(attribute: "work_email")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")

@@ -48,6 +48,29 @@ class UserTest extends TestCase
 
     protected $platformAdmin;
 
+    private $updateUserAsAdminMutation =
+        /** @lang GraphQL */
+        'mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
+            updateUserAsAdmin(id: $id, user: $user) {
+                id
+                email
+                isEmailVerified
+                workEmail
+                isWorkEmailVerified
+                telephone
+            }
+        }';
+
+    private $createUserMutation =
+        /** @lang GraphQL */
+        'mutation CreateUser($user: CreateUserInput!) {
+            createUser(user: $user) {
+                id
+                email
+                workEmail
+            }
+        }';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -2252,22 +2275,6 @@ class UserTest extends TestCase
         $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
     }
 
-    private $updateUserAsAdminMutation =
-        /** @lang GraphQL */
-        'mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
-            updateUserAsAdmin(id: $id, user: $user) {
-                id
-                email
-                isEmailVerified
-                workEmail
-                isWorkEmailVerified
-                telephone
-            }
-        }';
-
-    // Regression test for #17833: resubmitting the same, already-verified
-    // work email/email (in their original case) alongside an unrelated field
-    // must not clear their verified status.
     public function testUpdateUserAsAdminUnrelatedFieldChangeDoesNotResetVerifiedEmail(): void
     {
         $user = User::factory()->create([
@@ -2302,8 +2309,6 @@ class UserTest extends TestCase
         $this->assertNotNull($user->work_email_verified_at);
     }
 
-    // Actually changing the work email/email to a new value must still clear
-    // verified status - only same-value resubmission should be forgiven.
     public function testUpdateUserAsAdminChangingEmailStillResetsVerifiedStatus(): void
     {
         $user = User::factory()->create([
@@ -2337,8 +2342,6 @@ class UserTest extends TestCase
         $this->assertNull($user->work_email_verified_at);
     }
 
-    // The "no one else's email/work email matches mine" constraint must hold
-    // case-insensitively, even without the removed @lowerCase directive.
     public function testUpdateUserAsAdminRejectsCaseVariantDuplicateEmails(): void
     {
         User::factory()->create([
@@ -2364,6 +2367,36 @@ class UserTest extends TestCase
                 'id' => $user->id,
                 'user' => [
                     'id' => $user->id,
+                    'email' => 'DUPLICATE.CONTACT@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.email', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCreateUserRejectsCaseVariantDuplicateEmails(): void
+    {
+        User::factory()->create([
+            'email' => 'duplicate.contact@example.com',
+            'work_email' => 'duplicate.work@canada.ca',
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->createUserMutation,
+            [
+                'user' => [
+                    'firstName' => 'Test',
+                    'lastName' => 'User',
+                    'workEmail' => 'DUPLICATE.WORK@CANADA.CA',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.workEmail', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->createUserMutation,
+            [
+                'user' => [
+                    'firstName' => 'Test',
+                    'lastName' => 'User',
                     'email' => 'DUPLICATE.CONTACT@EXAMPLE.COM',
                 ],
             ]
