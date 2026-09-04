@@ -54,6 +54,7 @@ trait RendersFields
 
         return match ($field->type) {
             FieldType::TEXT => $this->text($value),
+            FieldType::HTML => $this->html($value),
             FieldType::NUMBER => $this->number($value),
             FieldType::ENUM => is_array($value) ?
                 $this->enumList($value, $field->options['enum'], $default) :
@@ -75,6 +76,17 @@ trait RendersFields
     private function text(string $value): string
     {
         return str_replace(["\r", "\n"], ' ', $value);
+    }
+
+    /**
+     * Render HTML source as plain text
+     *
+     * @param  string  $value  HTML source to be rendered
+     * @return string New string with no tags and no new lines
+     */
+    private function html(string $value): string
+    {
+        return $this->text(strip_tags($value));
     }
 
     /**
