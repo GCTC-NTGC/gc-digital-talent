@@ -918,7 +918,6 @@ const PoolCandidatesTable = ({
           id: "qwLrrx",
           description: "Label for the result of an application screening",
         }),
-        enableSorting: false,
         enableColumnFilter: false,
         cell: ({
           row: {

@@ -910,6 +910,7 @@ type User {
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
 }
 
 type CommunityInterest {
