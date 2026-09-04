@@ -13,10 +13,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
- * Search terms reach ILIKE patterns as bound values, which stops injection but not the
- * pattern language: unescaped % and _ stay wildcards, so "50%" matches far more than
- * asked for and "%" matches everything.  These cases execute the scopes rather than
- * asserting on a built string, so removing the escaping fails here.
+ * These run the scopes rather than checking a built string, so dropping the escaping
+ * fails here.
  */
 class SearchTermSanitisationTest extends TestCase
 {
@@ -70,11 +68,11 @@ class SearchTermSanitisationTest extends TestCase
         ];
         [$wildcardTerm, $sharedPrefix] = $terms[$scope];
 
-        // the % must match literally, so only the row that contains one
+        // only the row with a literal % should match
         $matched = User::query()->{$scope}($wildcardTerm)->pluck('id')->all();
         $this->assertSame([$literal->id], $matched);
 
-        // control: a term both rows share still matches both, so the scope still works
+        // control: a shared term still matches both rows
         $this->assertCount(2, User::query()->{$scope}($sharedPrefix)->get());
     }
 
@@ -101,9 +99,9 @@ class SearchTermSanitisationTest extends TestCase
             ]);
         }
 
-        // "%" would otherwise match every row through properties::text
+        // unescaped, "%" would match every row
         $this->assertCount(0, Activity::query()->wherePropertiesLike('%')->get());
-        // control: a term that really is present still matches
+        // control: a real term still matches
         $this->assertCount(1, Activity::query()->wherePropertiesLike('second')->get());
     }
 
@@ -111,8 +109,7 @@ class SearchTermSanitisationTest extends TestCase
     {
         User::factory()->count(3)->create();
 
-        // whitespace only survives the empty() guard but sanitises away; the filter must
-        // not silently drop out and return every user
+        // whitespace passes the empty() guard but sanitises away to nothing
         $this->assertCount(0, User::query()->whereGeneralSearch('   ')->get());
         $this->assertGreaterThan(0, User::query()->count());
     }

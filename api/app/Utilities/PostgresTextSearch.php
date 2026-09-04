@@ -111,11 +111,9 @@ class PostgresTextSearch
             return null;
         }
 
-        // Quote the term so that tsquery operators inside it (& | ! ( ) : < > *) are read
-        // as text rather than as syntax.  Denylisting them term by term let some through:
-        // 'a&&b' reached to_tsquery as a syntax error, and 'te&rm1' silently became
-        // 'te' & 'rm1', answering a different question than the user asked.
-        // A term holding no lexemes yields an empty tsquery, which matches nothing.
+        // Quote the term so tsquery operators in it (& | ! ( ) : < > *) are read as
+        // text, not syntax. A term with no lexemes gives an empty tsquery, which
+        // matches nothing.
         $quoted = "'".str_replace("'", "''", $term)."'";
 
         if ($negated) {

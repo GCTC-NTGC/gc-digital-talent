@@ -910,8 +910,8 @@ class UserBuilder extends Builder
                 ->from('users')
                 ->orderByDesc('search_rank');
         } else {
-            // Sanitising reduced the term to nothing - a whitespace only search, say.
-            // Match no rows rather than falling through and returning every user.
+            // The term sanitized away to nothing, e.g. all whitespace.
+            // Match nothing rather than everything.
             $this->whereRaw('1 = 0');
         }
 

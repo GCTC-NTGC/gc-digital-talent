@@ -5,19 +5,17 @@ namespace App\Utilities;
 /**
  * Escaping for LIKE / ILIKE search patterns.
  *
- * Binding a value protects against injection but not against the pattern language:
- * % and _ remain wildcards inside the bound value, so a search for "50%" matches far
- * more than the user asked for, and a search for "%" matches everything.
+ * Binding a value stops injection but not wildcards: % and _ still work inside the
+ * bound value, so searching for "%" matches every row.
  *
  * https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-LIKE
  */
 class PostgresLike
 {
     /**
-     * Escape the LIKE metacharacters in a user supplied search term.
+     * Escape the wildcards in a user supplied search term.
      *
-     * Backslash is Postgres's default escape character for LIKE, so callers do not
-     * need an explicit ESCAPE clause.
+     * No ESCAPE clause needed - backslash is Postgres's default for LIKE.
      */
     public static function escape(string $value): string
     {

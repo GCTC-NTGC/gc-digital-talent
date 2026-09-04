@@ -116,8 +116,7 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        // Backslash is Postgres's default LIKE escape character, so the escaped
-        // pattern keeps treating % and _ literally without an explicit ESCAPE clause.
+        // No ESCAPE clause needed - backslash is Postgres's default for LIKE.
         $escapedPattern = '%'.PostgresLike::escape($searchTerm).'%';
 
         return $query->where(function (Builder $mainQuery) use ($searchTerm, $escapedPattern) {

@@ -294,8 +294,8 @@ class AdvancedOrderByTest extends TestCase
     }
 
     /**
-     * A relation name is client supplied, so the method it names must be rejected on its
-     * signature rather than by inspecting what a call returned.
+     * The relation name comes from the client, so reject it on its signature rather
+     * than by calling it and checking the result.
      */
     public function testItDoesNotCallMethodsThatAreNotRelations(): void
     {

@@ -122,10 +122,8 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Invalid relation: {$relationName}");
         }
 
-        // Decide from the signature whether this is a relation, before calling it.
-        // method_exists() admits every method the model defines, and the instanceof
-        // check below only runs once the call has already happened - together with
-        // whatever that call did.
+        // Check the signature before calling: method_exists() is true for any method
+        // on the model, and the instanceof check below runs after the call took effect.
         $method = new ReflectionMethod($model, $relationName);
         $returnType = $method->getReturnType();
 
