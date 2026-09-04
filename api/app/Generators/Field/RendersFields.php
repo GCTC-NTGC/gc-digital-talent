@@ -61,9 +61,6 @@ trait RendersFields
                 $this->enum($value, $field->options['enum'], $default),
             FieldType::BOOL => $this->bool($value),
             FieldType::DATE => $this->date($value, $field->options['format'], $default),
-
-            default => $default,
-
         };
     }
 
