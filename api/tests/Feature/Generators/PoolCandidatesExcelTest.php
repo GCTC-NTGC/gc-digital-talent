@@ -7,6 +7,7 @@ use App\Models\Community;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use App\Support\FilePath;
 use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
@@ -81,6 +82,53 @@ class PoolCandidatesExcelTest extends TestCase
     }
 
     /**
+     * Regression test for https://github.com/GCTC-NTGC/gc-digital-talent/issues/17762
+     *
+     * DownloadPoolCandidatesExcel sanitizes the filename before handing it to the
+     * generator, and UserGeneratedFilesController sanitizes again before looking the
+     * file up on disk. This confirms both steps agree on the same on-disk name for
+     * the ROD filename in both locales (the French string previously contained
+     * parentheses that survived generation but were stripped on lookup, causing a 404).
+     */
+    public function testRodFilenameSurvivesSanitizeRoundTripInBothLocales(): void
+    {
+        // arrange
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $targetUser = User::factory()->asApplicant()->withNonGovProfile()->create();
+        $application = PoolCandidate::factory()
+            ->availableInSearch()
+            ->withSnapshot()
+            ->create(['user_id' => $targetUser->id]);
+        $disk = Storage::disk('user_generated');
+
+        // act + assert: build the filename the same way DownloadPoolCandidatesExcel
+        // does, generate the file, then confirm it exists both where it was written
+        // and where UserGeneratedFilesController::streamFile() would look it up
+        foreach (['en', 'fr'] as $lang) {
+            $fileName = FilePath::sanitize(sprintf('%s_%s', __('filename.candidates_rod', [], $lang), date('Y-m-d_His')));
+
+            $generator = new PoolCandidateExcelGenerator(
+                fileName: $fileName,
+                dir: 'test',
+                lang: $lang,
+                withROD: true,
+            );
+            $generator
+                ->setAuthenticatedUserId($adminUser->id)
+                ->setIds([$application->id])
+                ->setFilters([]);
+            $generator->generate()->write();
+
+            $writtenPath = 'test'.DIRECTORY_SEPARATOR.$fileName.'.xlsx';
+            $this->assertTrue($disk->exists($writtenPath), "File was not written for locale [$lang]");
+
+            $lookupName = FilePath::sanitize($fileName.'.xlsx', true);
+            $lookupPath = 'test'.DIRECTORY_SEPARATOR.$lookupName;
+            $this->assertTrue($disk->exists($lookupPath), "Download lookup would 404 for locale [$lang]");
+        }
+    }
+
+    /**
      * The "community" filter should exclude candidates whose pool is not in
      * the filtered community, even when no explicit ids are set (full dataset download).
      */
@@ -130,6 +178,23 @@ class PoolCandidatesExcelTest extends TestCase
 
         $this->assertStringContainsString($memberUser->email, $text, 'Candidate inside the filtered community should appear');
         $this->assertStringNotContainsString($outsideUser->email, $text, 'Candidate outside the filtered community should not appear');
+    }
+
+    // FilePath::sanitize() must keep stripping directory traversal characters
+    public function testSanitizeStripsDirectoryTraversalSequences(): void
+    {
+        $sanitized = FilePath::sanitize('../../etc/passwd', true);
+
+        $this->assertStringNotContainsString('..', $sanitized);
+        $this->assertStringNotContainsString('/', $sanitized);
+    }
+
+    public function testSanitizeStripsBackslashes(): void
+    {
+        $sanitized = FilePath::sanitize('..\\..\\windows\\system32', true);
+
+        $this->assertStringNotContainsString('..', $sanitized);
+        $this->assertStringNotContainsString('\\', $sanitized);
     }
 
     // A free-text field starting with "=" must be written as text, not a formula.
