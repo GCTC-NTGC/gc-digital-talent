@@ -909,6 +909,10 @@ class UserBuilder extends Builder
                 ->addSelect(['users.*'])
                 ->from('users')
                 ->orderByDesc('search_rank');
+        } else {
+            // Sanitising reduced the term to nothing - a whitespace only search, say.
+            // Match no rows rather than falling through and returning every user.
+            $this->whereRaw('1 = 0');
         }
 
         return $this;
