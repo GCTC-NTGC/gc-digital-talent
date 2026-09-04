@@ -7,6 +7,7 @@ use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Enums\TalentRequestTrackedUserStatus;
 use App\Support\Query\AdvancedOrder;
+use App\Utilities\PostgresLike;
 use Database\Factories\TalentRequestTrackedUserFactory;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -161,14 +162,16 @@ class TalentRequestTrackedUser extends Pivot
 
     public function scopeWhereUserNameOrEmail(Builder $query, ?string $search): Builder
     {
+        $pattern = $search === null ? null : '%'.PostgresLike::escape($search).'%';
+
         return $query->when(
             $search,
             fn (Builder $query) => $query->whereHas('user', fn (Builder $userQuery) => $userQuery
                 ->where(fn (Builder $nameQuery) => $nameQuery
-                    ->whereRaw("CONCAT(first_name, ' ', last_name) ILIKE ?", ["%{$search}%"])
-                    ->orWhere('first_name', 'ilike', "%{$search}%")
-                    ->orWhere('last_name', 'ilike', "%{$search}%")
-                    ->orWhere('email', 'ilike', "%{$search}%")))
+                    ->whereRaw("CONCAT(first_name, ' ', last_name) ILIKE ?", [$pattern])
+                    ->orWhere('first_name', 'ilike', $pattern)
+                    ->orWhere('last_name', 'ilike', $pattern)
+                    ->orWhere('email', 'ilike', $pattern)))
         );
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Utilities\PostgresLike;
 use Database\Helpers\TeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -115,13 +116,9 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        // Sanitize the input from the user
-        $escapeLike = function ($value) {
-            return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $value);
-        };
         // Backslash is Postgres's default LIKE escape character, so the escaped
         // pattern keeps treating % and _ literally without an explicit ESCAPE clause.
-        $escapedPattern = '%'.$escapeLike($searchTerm).'%';
+        $escapedPattern = '%'.PostgresLike::escape($searchTerm).'%';
 
         return $query->where(function (Builder $mainQuery) use ($searchTerm, $escapedPattern) {
             // Search in properties JSON (whole structure)
@@ -202,9 +199,11 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        return $query->where(function (Builder $subQuery) use ($searchTerm) {
-            $subQuery->where('properties', 'ilike', "%$searchTerm%")
-                ->orWhere('attribute_changes', 'ilike', "%$searchTerm%");
+        $pattern = '%'.PostgresLike::escape($searchTerm).'%';
+
+        return $query->where(function (Builder $subQuery) use ($pattern) {
+            $subQuery->where('properties', 'ilike', $pattern)
+                ->orWhere('attribute_changes', 'ilike', $pattern);
         });
     }
 
