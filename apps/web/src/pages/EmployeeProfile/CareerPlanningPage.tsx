@@ -233,8 +233,8 @@ export const CareerPlanning = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "We'd like to learn more about the career path you'd like to follow. Providing information about preferences and aspirations will help talent managers make more informed decisions when you've been nominated for a promotion, lateral movement, or professional development opportunity.",
-                  id: "6KS1jD",
+                    "We'd like to learn more about the career path you'd like to follow. Providing information about preferences and aspirations will help talent managers make more informed decisions.",
+                  id: "bpL6JV",
                   description: "Lead-in text explaining the users career plan",
                 })}
               </p>
