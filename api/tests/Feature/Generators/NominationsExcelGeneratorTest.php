@@ -171,6 +171,111 @@ class NominationsExcelGeneratorTest extends TestCase
         $this->assertEquals($employee1->id, $dataRows[0][0]);
     }
 
+    public function testEveryTabHasMatchingHeadingAndDataCellCounts(): void
+    {
+        // arrange
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $talentCoordinator = User::factory()
+            ->withGovEmployeeProfile()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        $employee = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()
+            ->for($employee)
+            ->for($community)
+            ->create(['consent_to_share_profile' => true]);
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+        $nomination = TalentNomination::factory()
+            ->evaluated()
+            ->create([
+                'nominee_id' => $employee->id,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ]);
+        $nominationGroup = $nomination->talentNominationGroup;
+
+        // act
+        $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
+        $generator = new NominationsExcelGenerator(
+            fileName: $fileName,
+            talentNominationEventId: $talentNominationEvent->id,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $generator
+            ->setAuthenticatedUserId($talentCoordinator->id)
+            ->setIds([$nominationGroup->id]);
+
+        $generator->generate()->write();
+
+        // assert
+        foreach ([0, 1, 2] as $sheetIndex) {
+            $rows = $this->readSheetRows($fileName, sheetIndex: $sheetIndex, rowCount: 2);
+            $this->assertCount(2, $rows);
+            $this->assertCount(count($rows[0]), $rows[1]);
+        }
+    }
+
+    public function testOverviewTabRedactsGuardedColumnsWithoutConsent(): void
+    {
+        // arrange
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $talentCoordinator = User::factory()
+            ->withGovEmployeeProfile()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        $employee = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()
+            ->for($employee)
+            ->for($community)
+            ->create(['consent_to_share_profile' => false]);
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+        $nomination = TalentNomination::factory()
+            ->evaluated()
+            ->create([
+                'nominee_id' => $employee->id,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ]);
+        $nominationGroup = $nomination->talentNominationGroup;
+
+        // act
+        $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
+        $generator = new NominationsExcelGenerator(
+            fileName: $fileName,
+            talentNominationEventId: $talentNominationEvent->id,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $generator
+            ->setAuthenticatedUserId($talentCoordinator->id)
+            ->setIds([$nominationGroup->id]);
+
+        $generator->generate()->write();
+
+        // assert
+        $rows = $this->readSheetRows($fileName, sheetIndex: 0, rowCount: 2);
+        $dataRow = $rows[1];
+
+        $this->assertEquals($employee->id, $dataRow[0]);
+        $this->assertEquals($employee->first_name, $dataRow[1]);
+        $this->assertEquals($employee->last_name, $dataRow[2]);
+
+        foreach ([7, 8, 10, 12] as $guardedColumn) {
+            $this->assertEquals(__('common.not_available'), $dataRow[$guardedColumn]);
+        }
+    }
+
     /**
      * Read the first $rowCount rows from a specific sheet of a generated test file.
      * Returns an array of rows, each row being an array of cell values.
