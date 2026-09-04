@@ -5,6 +5,7 @@ namespace App\Generators\Field;
 enum FieldType
 {
     case TEXT;
+    case HTML;
     case ENUM;
     case BOOL;
     case DATE;

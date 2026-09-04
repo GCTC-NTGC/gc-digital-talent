@@ -33,6 +33,14 @@ final class Field
     }
 
     /**
+     * @param  \Closure(mixed): ?string  $accessor
+     */
+    public static function html(string $heading, \Closure $accessor): self
+    {
+        return new self($heading, FieldType::HTML, $accessor);
+    }
+
+    /**
      * @param  \Closure(mixed): (int|float|string|null)  $accessor
      */
     public static function number(string $heading, \Closure $accessor): self
