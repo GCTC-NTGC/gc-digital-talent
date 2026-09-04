@@ -29,7 +29,7 @@ parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
 
 # setup api project
-cd /var/www/html/api
+cd /home/site/wwwroot/api
 cp .env.example .env --preserve=all
 ${parent_path}/update_env_secrets.sh .env
 touch ./storage/logs/laravel.log
@@ -44,15 +44,16 @@ else
 fi
 php artisan lighthouse:print-schema --write
 php artisan optimize:clear
-chown -R www-data ./storage ./vendor
+# No chown here: this script may run as the host user, which cannot chown. The
+# chmod below is what lets a differently-id'd webserver write these paths.
 chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
-cd /var/www/html/apps/web
+cd /home/site/wwwroot/apps/web
 cp .env.example .env --preserve=all
 
 # build projects
-git config --global --add safe.directory /var/www/html
-cd /var/www/html
+git config --global --add safe.directory /home/site/wwwroot
+cd /home/site/wwwroot
 pnpm install
 if [ "$GCDT_CI" = true ]; then
   pnpm run build:fresh
