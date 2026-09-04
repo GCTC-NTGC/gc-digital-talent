@@ -38,6 +38,13 @@ trait RendersFields
      */
     private function getRenderer(Field $field, mixed $context, ?string $default): string
     {
+
+        // Return not available if a guard exists and returns true
+        $guarded = $field->options['guarded'] ?? null;
+        if ($guarded && ! $guarded($context)) {
+            return $this->localize('common.not_available');
+        }
+
         $value = ($field->accessor)($context);
         $default = $field->options['default'] ?? $default ?? '';
 

@@ -68,4 +68,16 @@ final class Field
     {
         return new self($heading, FieldType::BOOL, $accessor);
     }
+
+    /**
+     * Prevent a field from being rendered based
+     * on some condition (i.e consent to share profile)
+     */
+    public function guard(\Closure $guarded): self
+    {
+        return new self($this->heading, $this->type, $this->accessor, [
+            ...$this->options,
+            'guarded' => $guarded,
+        ]);
+    }
 }
