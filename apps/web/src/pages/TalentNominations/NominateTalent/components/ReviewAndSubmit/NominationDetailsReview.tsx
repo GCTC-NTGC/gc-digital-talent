@@ -270,12 +270,9 @@ const NominationDetailsReview = ({
             </FieldDisplay>
             <FieldDisplay
               className="col-span-2"
-              label={intl.formatMessage({
-                defaultMessage: "Recommended classifications for advancement",
-                id: "1e2+hH",
-                description:
-                  "Label for advancement eligible classifications field",
-              })}
+              label={intl.formatMessage(
+                labels.recommendedAdvancementClassifications,
+              )}
             >
               {talentNomination.advancementClassifications?.length ? (
                 <Ul space="md">

@@ -1,6 +1,7 @@
 import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
+import uniqBy from "lodash/uniqBy";
 
 import {
   Checkbox,
@@ -9,7 +10,7 @@ import {
   RadioGroup,
   RichTextInput,
 } from "@gc-digital-talent/forms";
-import { Heading, Notice } from "@gc-digital-talent/ui";
+import { Heading, Notice, Ul } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -17,7 +18,11 @@ import {
   graphql,
   TalentNominationGroupDecision,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  sortAlphaBy,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -34,6 +39,10 @@ const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
           workEmail
         }
         advancementReferenceFallbackWorkEmail
+        recommendedAdvancementClassifications: advancementClassifications {
+          id
+          groupAndLevel
+        }
       }
       advancementClassifications {
         id
@@ -69,6 +78,7 @@ const AdvancementSection = ({
   talentNominationGroupOptionsQuery,
 }: AdvancementSectionProps) => {
   const intl = useIntl();
+  const advancementClassificationIntroductionId = useId();
 
   const { watch, resetField } = useFormContext<FormValues>();
   const [selectedAdvancementDecision] = watch(["advancementDecision"]);
@@ -116,6 +126,16 @@ const AdvancementSection = ({
     )
     .filter(notEmpty)
     .join(", ");
+
+  const allRecommendedAdvancementClassifications = uniqBy(
+    unpackMaybes(
+      nominations?.flatMap((n) => n.recommendedAdvancementClassifications),
+    ),
+    (classification) => classification.id,
+  );
+  allRecommendedAdvancementClassifications.sort(
+    sortAlphaBy((c) => c.groupAndLevel),
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -172,6 +192,31 @@ const AdvancementSection = ({
               required: intl.formatMessage(errorMessages.required),
             }}
           />
+          <p id={advancementClassificationIntroductionId}>
+            {intl.formatMessage({
+              defaultMessage:
+                "Please indicate the classifications this nominee should be referred for. The recommended classifications supplied by the nominator have been provided as reference.",
+              id: "A4+XAq",
+              description: "introduction for advancement classifications",
+            })}
+          </p>
+          <FieldDisplay
+            label={intl.formatMessage({
+              defaultMessage: "Proposed classifications for advancement",
+              id: "FEjHL6",
+              description: "A list of classifications for advancement",
+            })}
+          >
+            {allRecommendedAdvancementClassifications.length ? (
+              <Ul space="md">
+                {allRecommendedAdvancementClassifications.map((c) => (
+                  <li key={c.id}>{c.groupAndLevel}</li>
+                ))}
+              </Ul>
+            ) : (
+              intl.formatMessage(commonMessages.notProvided)
+            )}
+          </FieldDisplay>
           <Combobox
             id="advancementClassifications"
             name="advancementClassifications"
@@ -193,6 +238,7 @@ const AdvancementSection = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
+            aria-describedby={advancementClassificationIntroductionId}
           />
           <DateInput
             id="advancementReferralExpiryDate"
