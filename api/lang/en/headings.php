@@ -131,7 +131,6 @@ return [
     'gov_position_type' => 'GC position type',
     'management_or_supervisory_status' => 'Management or supervisory status',
     'number_of_supervised_employees' => 'Number of supervised employees',
-    'annual_budget_allocation' => 'Annual budget allocation',
     'c_suite_title' => 'C-suite role',
     'caf_employment_type' => 'CAF employment type',
     'caf_rank_category' => 'CAF Rank category',
