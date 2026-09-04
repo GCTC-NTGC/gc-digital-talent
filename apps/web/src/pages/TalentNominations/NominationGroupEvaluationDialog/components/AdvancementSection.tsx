@@ -18,7 +18,11 @@ import {
   graphql,
   TalentNominationGroupDecision,
 } from "@gc-digital-talent/graphql";
-import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import {
+  notEmpty,
+  sortAlphaBy,
+  unpackMaybes,
+} from "@gc-digital-talent/helpers";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 
@@ -129,8 +133,8 @@ const AdvancementSection = ({
     ),
     (classification) => classification.id,
   );
-  allRecommendedAdvancementClassifications.sort((a, b) =>
-    (a?.groupAndLevel ?? "").localeCompare(b?.groupAndLevel ?? ""),
+  allRecommendedAdvancementClassifications.sort(
+    sortAlphaBy((c) => c.groupAndLevel),
   );
 
   return (
@@ -203,11 +207,15 @@ const AdvancementSection = ({
               description: "A list of classifications for advancement",
             })}
           >
-            <Ul space="md">
-              {allRecommendedAdvancementClassifications.map((c) => (
-                <li key={c.id}>{c.groupAndLevel}</li>
-              ))}
-            </Ul>
+            {allRecommendedAdvancementClassifications.length ? (
+              <Ul space="md">
+                {allRecommendedAdvancementClassifications.map((c) => (
+                  <li key={c.id}>{c.groupAndLevel}</li>
+                ))}
+              </Ul>
+            ) : (
+              intl.formatMessage(commonMessages.notProvided)
+            )}
           </FieldDisplay>
           <Combobox
             id="advancementClassifications"

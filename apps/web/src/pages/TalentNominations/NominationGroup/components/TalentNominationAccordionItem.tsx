@@ -11,7 +11,7 @@ import {
 import { Accordion, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -212,9 +212,9 @@ const TalentNominationAccordionItem = ({
 
   const advancementReferenceIsAUser = !!talentNomination.advancementReference;
 
-  talentNomination.advancementClassifications?.sort((a, b) =>
-    (a?.groupAndLevel ?? "").localeCompare(b?.groupAndLevel ?? ""),
-  );
+  const sortedAdvancementClassifications = unpackMaybes(
+    talentNomination.advancementClassifications,
+  ).sort(sortAlphaBy((c) => c.groupAndLevel));
 
   const lateralMovementOptionValuesInThisNomination =
     talentNomination.lateralMovementOptions?.map((option) => option.value) ??
@@ -407,11 +407,15 @@ const TalentNominationAccordionItem = ({
                     )}
                     className="xs:col-span-2"
                   >
-                    <Ul space="md">
-                      {talentNomination.advancementClassifications?.map((c) => (
-                        <li key={c.id}>{c.groupAndLevel}</li>
-                      ))}
-                    </Ul>
+                    {sortedAdvancementClassifications?.length ? (
+                      <Ul space="md">
+                        {sortedAdvancementClassifications.map((c) => (
+                          <li key={c.id}>{c.groupAndLevel}</li>
+                        ))}
+                      </Ul>
+                    ) : (
+                      intl.formatMessage(commonMessages.notProvided)
+                    )}
                   </FieldDisplay>
                 </div>
               </Accordion.Content>
