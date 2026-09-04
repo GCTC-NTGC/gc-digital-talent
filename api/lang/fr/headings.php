@@ -143,7 +143,6 @@ return [
     'classification' => 'Classification',
     'management_or_supervisory_status' => 'Statut de direction ou de supervision',
     'number_of_supervised_employees' => 'Nombre d\'employées et employés supervisés',
-    'annual_budget_allocation' => 'Allocation budgétaire annuelle',
     'c_suite_title' => 'Rôle de cadre supérieur',
     'additional_details' => 'Détails additionnels',
     'details_or_key_tasks' => 'Détails supplémentaires ou tâches et responsabilités principales',
