@@ -29,7 +29,7 @@ final class UpdateUserAsAdminInputValidator extends Validator
                  * for allowing a user to be updated while the email
                  * remains the same.
                  *
-                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 * REF: App\Rules\CaseInsensitiveUnique
                  */
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($this->arg('id'), 'id'),
                 (new CaseInsensitiveUnique('users', 'work_email'))->ignore($this->arg('id'), 'id'),
@@ -44,7 +44,7 @@ final class UpdateUserAsAdminInputValidator extends Validator
                  * for allowing a user to be updated while the email
                  * remains the same.
                  *
-                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 * REF: App\Rules\CaseInsensitiveUnique
                  */
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($this->arg('id'), 'id'),
                 (new CaseInsensitiveUnique('users', 'work_email'))->ignore($this->arg('id'), 'id'),
