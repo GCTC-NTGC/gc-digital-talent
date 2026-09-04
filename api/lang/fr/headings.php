@@ -164,7 +164,7 @@ return [
     'issuing_organization' => 'Organisation émettrice',
     'awarded_scope' => 'Portée du prix',
     'project_name' => 'Nom du projet',
-    'related_experience' => 'Expérience connexe',
+    'related_experience' => 'Expérience associée',
     'project' => 'Projet ou produit',
     'thesis_title' => 'Mémoire ou thèse',
     'license_accreditation' => 'Permis ou accréditation',
