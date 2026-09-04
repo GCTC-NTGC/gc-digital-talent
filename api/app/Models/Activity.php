@@ -119,67 +119,68 @@ class Activity extends SpatieActivity
         $escapeLike = function ($value) {
             return str_replace(['\\', '%', '_'], ['\\\\', '\%', '\_'], $value);
         };
+        // Backslash is Postgres's default LIKE escape character, so the escaped
+        // pattern keeps treating % and _ literally without an explicit ESCAPE clause.
         $escapedPattern = '%'.$escapeLike($searchTerm).'%';
-        $ilikeRaw = "ILIKE ? ESCAPE '\\'";
 
-        return $query->where(function (Builder $mainQuery) use ($searchTerm, $escapedPattern, $ilikeRaw) {
+        return $query->where(function (Builder $mainQuery) use ($searchTerm, $escapedPattern) {
             // Search in properties JSON (whole structure)
             self::scopeWherePropertiesLike($mainQuery, $searchTerm);
 
             // Causer (User) name
-            $mainQuery->orWhere(function ($q) use ($escapedPattern, $ilikeRaw) {
-                $q->whereExists(function ($subQ) use ($escapedPattern, $ilikeRaw) {
+            $mainQuery->orWhere(function ($q) use ($escapedPattern) {
+                $q->whereExists(function ($subQ) use ($escapedPattern) {
                     $subQ->selectRaw('1')
                         ->from('users as causer_users')
-                        ->whereRaw('activity_log.causer_id = causer_users.id')
-                        ->whereRaw('activity_log.causer_type = ?', [User::class])
-                        ->where(function ($w) use ($escapedPattern, $ilikeRaw) {
-                            $w->whereRaw("causer_users.first_name $ilikeRaw", [$escapedPattern])
-                                ->orWhereRaw("causer_users.last_name $ilikeRaw", [$escapedPattern]);
+                        ->whereColumn('activity_log.causer_id', 'causer_users.id')
+                        ->where('activity_log.causer_type', User::class)
+                        ->where(function ($w) use ($escapedPattern) {
+                            $w->where('causer_users.first_name', 'ilike', $escapedPattern)
+                                ->orWhere('causer_users.last_name', 'ilike', $escapedPattern);
                         });
                 });
             });
 
             // Subject (PoolCandidate) user name
-            $mainQuery->orWhere(function ($q) use ($escapedPattern, $ilikeRaw) {
+            $mainQuery->orWhere(function ($q) use ($escapedPattern) {
                 $q->where('activity_log.subject_type', PoolCandidate::class)
-                    ->whereExists(function ($subQ) use ($escapedPattern, $ilikeRaw) {
+                    ->whereExists(function ($subQ) use ($escapedPattern) {
                         $subQ->selectRaw('1')
                             ->from('pool_candidates as pc_subject')
                             ->join('users as pc_users', 'pc_subject.user_id', '=', 'pc_users.id')
-                            ->whereRaw('activity_log.subject_id = pc_subject.id')
-                            ->where(function ($w) use ($escapedPattern, $ilikeRaw) {
-                                $w->whereRaw("pc_users.first_name $ilikeRaw", [$escapedPattern])
-                                    ->orWhereRaw("pc_users.last_name $ilikeRaw", [$escapedPattern]);
+                            ->whereColumn('activity_log.subject_id', 'pc_subject.id')
+                            ->where(function ($w) use ($escapedPattern) {
+                                $w->where('pc_users.first_name', 'ilike', $escapedPattern)
+                                    ->orWhere('pc_users.last_name', 'ilike', $escapedPattern);
                             });
                     });
             });
 
             // Subject (PoolSkill) skill name (localized, en/fr)
-            $mainQuery->orWhere(function ($q) use ($escapedPattern, $ilikeRaw) {
+            $mainQuery->orWhere(function ($q) use ($escapedPattern) {
                 $q->where('activity_log.subject_type', PoolSkill::class)
-                    ->whereExists(function ($subQ) use ($escapedPattern, $ilikeRaw) {
+                    ->whereExists(function ($subQ) use ($escapedPattern) {
                         $subQ->selectRaw('1')
                             ->from('pool_skill as ps_subject')
                             ->join('skills as ps_skills', 'ps_subject.skill_id', '=', 'ps_skills.id')
-                            ->whereRaw('activity_log.subject_id = ps_subject.id')
-                            ->where(function ($w) use ($escapedPattern, $ilikeRaw) {
-                                $w->whereRaw("ps_skills.name->>'en' $ilikeRaw", [$escapedPattern])
-                                    ->orWhereRaw("ps_skills.name->>'fr' $ilikeRaw", [$escapedPattern]);
+                            ->whereColumn('activity_log.subject_id', 'ps_subject.id')
+                            ->where(function ($w) use ($escapedPattern) {
+                                $w->where('ps_skills.name->en', 'ilike', $escapedPattern)
+                                    ->orWhere('ps_skills.name->fr', 'ilike', $escapedPattern);
                             });
                     });
             });
 
             // Subject (AssessmentStep) title (en/fr) & type (enum and localized display)
-            $mainQuery->orWhere(function ($q) use ($escapedPattern, $ilikeRaw, $searchTerm) {
+            $mainQuery->orWhere(function ($q) use ($escapedPattern, $searchTerm) {
                 $q->where('activity_log.subject_type', AssessmentStep::class)
-                    ->whereExists(function ($subQ) use ($escapedPattern, $ilikeRaw, $searchTerm) {
+                    ->whereExists(function ($subQ) use ($escapedPattern, $searchTerm) {
                         $subQ->selectRaw('1')
                             ->from('assessment_steps as as_subject')
-                            ->whereRaw('activity_log.subject_id = as_subject.id')
-                            ->where(function ($w) use ($escapedPattern, $ilikeRaw, $searchTerm) {
-                                $w->whereRaw("as_subject.title->>'en' $ilikeRaw", [$escapedPattern])
-                                    ->orWhereRaw("as_subject.title->>'fr' $ilikeRaw", [$escapedPattern]);
+                            ->whereColumn('activity_log.subject_id', 'as_subject.id')
+                            ->where(function ($w) use ($escapedPattern, $searchTerm) {
+                                $w->where('as_subject.title->en', 'ilike', $escapedPattern)
+                                    ->orWhere('as_subject.title->fr', 'ilike', $escapedPattern);
                                 $matchingEnumNames = collect(AssessmentStepType::cases())->filter(function ($enum) use ($searchTerm) {
                                     $display = AssessmentStepType::localizedString($enum->name);
 
@@ -201,7 +202,10 @@ class Activity extends SpatieActivity
             return $query;
         }
 
-        return $query->whereRaw('(properties::text ILIKE ? OR attribute_changes::text ILIKE ?)', ["%$searchTerm%", "%$searchTerm%"]);
+        return $query->where(function (Builder $subQuery) use ($searchTerm) {
+            $subQuery->where('properties', 'ilike', "%$searchTerm%")
+                ->orWhere('attribute_changes', 'ilike', "%$searchTerm%");
+        });
     }
 
     public function scopeAuthorizedToViewPoolActivity(Builder $query)
