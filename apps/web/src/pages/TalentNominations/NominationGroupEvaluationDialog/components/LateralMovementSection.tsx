@@ -71,6 +71,7 @@ const NominationGroupEvaluationDialogLateralMovement_Fragment = graphql(
       lateralMovementReferralExpiryDate
       nominee {
         classification {
+          id
           groupAndLevel
         }
       }
@@ -283,6 +284,12 @@ const LateralMovementSection = ({
               label:
                 groupAndLevel ?? intl.formatMessage(commonMessages.notProvided),
             }))}
+            rules={{
+              // only required if there's no nominee substantive classification registered already
+              required: talentNominationGroup.nominee?.classification?.id
+                ? undefined
+                : intl.formatMessage(errorMessages.required),
+            }}
           />
           <DateInput
             id="lateralMovementReferralExpiryDate"
