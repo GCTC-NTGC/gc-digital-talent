@@ -6,6 +6,11 @@ export default defineMessages({
     id: "ll9u08",
     description: "Page title for the announcements page",
   },
+  platformMetrics: {
+    defaultMessage: "Platform metrics",
+    id: 'kwc/iy',
+    description: "Page title for the platform metrics page",
+  },
   candidateSearch: {
     defaultMessage: "Candidate search",
     id: "i16C7G",

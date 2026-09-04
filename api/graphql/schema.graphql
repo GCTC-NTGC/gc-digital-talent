@@ -1184,6 +1184,195 @@ type TalentRequestNotSelectedReasonCount {
   count: Int!
 }
 
+# ---------------------------------------------------------------------------
+# Platform metrics
+#
+# Served from a nightly snapshot (platform_metric_snapshots), never computed on
+# request. Every metric carries an `overall` figure plus a `byCommunity`
+# breakdown; the two are computed together in one pass rather than the total
+# being a sum of the parts, so `overall` stays authoritative.
+#
+# Counts are non-null. Medians, means and rates are nullable, and null means
+# "no value to report" rather than zero — a community with no completions has
+# no fulfillment rate, which is not the same as a rate of 0%.
+# ---------------------------------------------------------------------------
+
+type PlatformMetrics {
+  "When the snapshot was computed. Metrics can lag reality by up to a day."
+  computedAt: DateTime!
+  talentRequests: TalentRequestMetrics!
+}
+
+type TalentRequestMetrics {
+  """
+  Start of this group's reporting window. Per group rather than per snapshot,
+  since a window belongs to what is being measured.
+  """
+  windowStart: Date!
+  submittedRequests: SubmittedRequestsMetric!
+  timeToReferralSent: TimeToReferralSentMetric!
+  timeToCompletion: TimeToCompletionMetric!
+  fulfillmentRate: FulfillmentRateMetric!
+  referralsPerRequest: ReferralsPerRequestMetric!
+  nonHireReasons: NonHireReasonsMetric!
+}
+
+"""
+A community as it stood when the snapshot was taken. Copied into the snapshot
+rather than joined, so a later rename does not rewrite past numbers - which
+also means the id may no longer resolve to a live community.
+"""
+type MetricCommunity {
+  id: UUID!
+  name: LocalizedString
+}
+
+type SubmittedRequestsMetric {
+  overall: SubmittedRequestsValues!
+  byCommunity: [SubmittedRequestsByCommunity!]!
+}
+
+type SubmittedRequestsByCommunity {
+  community: MetricCommunity!
+  values: SubmittedRequestsValues!
+}
+
+type SubmittedRequestsValues {
+  submittedRequests: Int!
+  "Submitted when the search matched nobody - demand the talent pool is not meeting."
+  submittedWithNoMatches: Int!
+  statusNew: Int!
+  statusInProgress: Int!
+  statusCompleted: Int!
+}
+
+type TimeToReferralSentMetric {
+  overall: TimeToReferralSentValues!
+  byCommunity: [TimeToReferralSentByCommunity!]!
+}
+
+type TimeToReferralSentByCommunity {
+  community: MetricCommunity!
+  values: TimeToReferralSentValues!
+}
+
+type TimeToReferralSentValues {
+  "Null when nothing in this group ever reached the state."
+  medianDaysToReferralSent: Float
+  """
+  Read the median against these two: one covering few of many describes a
+  fast-moving minority rather than the cohort.
+  """
+  requestsWithReferralSent: Int!
+  totalRequests: Int!
+}
+
+type TimeToCompletionMetric {
+  overall: TimeToCompletionValues!
+  byCommunity: [TimeToCompletionByCommunity!]!
+}
+
+type TimeToCompletionByCommunity {
+  community: MetricCommunity!
+  values: TimeToCompletionValues!
+}
+
+type TimeToCompletionValues {
+  "Excludes duplicate and non-compliant requests, matching the fulfillment denominator."
+  medianDaysToCompletion: Float
+  completionsMeasured: Int!
+  completedRequests: Int!
+  """
+  A median over completions alone is biased toward fast ones, since a request
+  open for a year contributes nothing until it closes. These two make that
+  bias visible: open requests much older than the median mean it understates.
+  """
+  stillOpen: Int!
+  medianAgeOfOpenRequests: Float
+}
+
+type FulfillmentRateMetric {
+  overall: FulfillmentRateValues!
+  byCommunity: [FulfillmentRateByCommunity!]!
+}
+
+type FulfillmentRateByCommunity {
+  community: MetricCommunity!
+  values: FulfillmentRateValues!
+}
+
+type FulfillmentRateValues {
+  hires: Int!
+  "Completed requests we actually tried to fill; excludes duplicate and non-compliant."
+  eligibleCompletions: Int!
+  "Null when there were no eligible completions - not the same as a rate of 0."
+  fulfillmentRatePct: Float
+  """
+  Closed with no completion detail. These sit in the denominator but can never
+  be in the numerator, so a large count means the rate is understated.
+  """
+  completedWithoutDetail: Int!
+  excludedFromDenominator: Int!
+}
+
+type ReferralsPerRequestMetric {
+  overall: ReferralsPerRequestValues!
+  byCommunity: [ReferralsPerRequestByCommunity!]!
+}
+
+type ReferralsPerRequestByCommunity {
+  community: MetricCommunity!
+  values: ReferralsPerRequestValues!
+}
+
+type ReferralsPerRequestValues {
+  requests: Int!
+  """
+  Requests nobody worked in the tool, not requests with no matches: candidates
+  are computed live from the applicant filter and only get a tracked row once
+  an admin acts on them. An adoption signal - the other referral figures mean
+  little until this is low.
+  """
+  requestsWithNoTrackedUsers: Int!
+  meanReviewedPerRequest: Float
+  medianReviewedPerRequest: Float
+  meanReferredPerRequest: Float
+  medianReferredPerRequest: Float
+  totalReviewed: Int!
+  "Includes selected candidates, who are always marked referred first."
+  totalReferred: Int!
+  referredShareOfReviewedPct: Float
+}
+
+type NonHireReasonsMetric {
+  overall: NonHireReasonsValues!
+  """
+  Unlike the other metrics, a community with no rejections is absent here
+  rather than reporting zeros - there is no breakdown to show.
+  """
+  byCommunity: [NonHireReasonsByCommunity!]!
+}
+
+type NonHireReasonsByCommunity {
+  community: MetricCommunity!
+  values: NonHireReasonsValues!
+}
+
+type NonHireReasonsValues {
+  reasons: [NonHireReason!]!
+}
+
+type NonHireReason {
+  """
+  Null means the reason was never recorded, which is different from the
+  NO_REASON value an admin deliberately chose.
+  """
+  reason: LocalizedTalentRequestTrackedUserNotSelectedReason
+  candidates: Int!
+  "Share within this community, or within the overall total."
+  pctOfNotSelected: Float
+}
+
 type SkillFamily {
   id: ID!
   key: KeyString!
@@ -1824,6 +2013,14 @@ type Query {
     )
     @guard
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
+  """
+  Platform-wide success metrics, read from the latest nightly snapshot.
+  Null until the first run has happened, and again after a deploy that changes
+  the snapshot shape - clients must render an empty state rather than assume.
+  """
+  platformMetrics: PlatformMetrics
+    @guard
+    @canModel(ability: "viewAny", model: "PlatformMetricSnapshot")
   talentRequestTrackedUsers(
     talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput

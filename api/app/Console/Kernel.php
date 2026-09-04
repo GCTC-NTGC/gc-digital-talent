@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\AuthPing;
+use App\Console\Commands\ComputePlatformMetrics;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\ResumeReferrals;
 use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
@@ -54,6 +55,14 @@ class Kernel extends ConsoleKernel
         $schedule->command(AuthPing::class)
             ->everyFiveMinutes()
             ->appendOutputTo(storage_path('logs/auth-ping.log'));
+
+        // Precompute platform metrics overnight. These queries seq-scan
+        // activity_log, so they must never run on the request path.
+        $schedule->command(ComputePlatformMetrics::class)
+            ->timezone('America/Toronto')
+            ->dailyAt('2:00')
+            ->withoutOverlapping()
+            ->appendOutputTo(storage_path('logs/compute-platform-metrics.log'));
     }
 
     /**
