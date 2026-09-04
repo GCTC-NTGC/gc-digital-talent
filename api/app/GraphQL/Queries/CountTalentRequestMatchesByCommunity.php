@@ -75,7 +75,7 @@ final class CountTalentRequestMatchesByCommunity
 
         $counts = DB::query()
             ->fromSub($combined, 'matches')
-            ->selectRaw('community_id')
+            ->addSelect('community_id')
             ->selectRaw("count(distinct case when source = 'pool' then user_id end) as qualified_in_pool_count")
             ->selectRaw("count(distinct case when source = 'interest' then user_id end) as at_level_count")
             ->selectRaw('count(distinct user_id) as count')
