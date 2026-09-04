@@ -9,8 +9,6 @@ import ChevronDownIcon from "@heroicons/react/24/solid/ChevronDownIcon";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
-
 import type { LinkProps as BaseLinkProps } from "../Link/Link";
 import OurLink from "../Link/Link";
 import type { IconLinkProps as BaseIconLinkProps } from "../Link/IconLink";
@@ -161,16 +159,16 @@ const useActiveLink = (
 const navMenuLink = tv({
   base: "items-center font-normal text-black hover:text-primary-200 focus-visible:text-black data-active:font-bold data-active:text-primary-200 data-active:hover:text-primary data-active:focus-visible:text-black hover:data-icon:text-primary-700 dark:text-white dark:hover:text-primary-100 dark:data-active:text-primary-200 dark:data-active:hover:text-primary-200 dark:hover:data-icon:text-primary-700 iap:data-active:hover:text-primary-600 data-active:[&_span]:no-underline",
   variants: {
-    isSmallScreen: {
-      true: "",
-      false: "",
-    },
     isIcon: {
       true: "",
       false: "flex px-3 py-2 sm:py-4.5",
     },
     type: {
-      link: "",
+      // Desktop colours come from the `sm:` breakpoint, the same media query that
+      // picks the panel background in Menu.tsx. They previously came from
+      // `useIsSmallScreen`, so text colour and background were decided separately
+      // and could both resolve to white in light mode.
+      link: "sm:text-white sm:data-active:text-primary-200 sm:hover:data-icon:text-primary-700 sm:dark:data-active:text-primary-100 sm:dark:hover:data-icon:text-primary-700",
       subMenuLink:
         "hover:text-primary-600 data-active:text-primary-600 data-active:hover:text-primary-700 data-active:dark:text-primary-200 data-active:dark:hover:text-primary-100",
     },
@@ -179,12 +177,6 @@ const navMenuLink = tv({
     isIcon: false,
   },
   compoundVariants: [
-    {
-      isSmallScreen: false,
-      type: "link",
-      class:
-        "data-active text-white data-active:text-primary-200 hover:data-icon:text-primary-700 dark:data-active:text-primary-100 dark:hover:data-icon:text-primary-700",
-    },
     {
       type: "subMenuLink",
       isIcon: false,
@@ -210,7 +202,6 @@ const IconLink = forwardRef<
 >(({ children, type = "link", icon, href, ...rest }, forwardedRef) => {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const { isActive } = useActiveLink(href, !!icon, linkRef);
-  const isSmallScreen = useIsSmallScreen("sm");
   const navContext = useNavMenuContext();
 
   return (
@@ -232,7 +223,6 @@ const IconLink = forwardRef<
         icon={icon}
         className={navMenuLink({
           isIcon: true,
-          isSmallScreen,
           type,
         })}
         data-icon
@@ -273,7 +263,6 @@ const Link = forwardRef<
   ) => {
     const linkRef = useRef<HTMLAnchorElement>(null);
     const { isActive } = useActiveLink(href, !!icon, linkRef);
-    const isSmallScreen = useIsSmallScreen("sm");
     const navContext = useNavMenuContext();
 
     return (
@@ -299,7 +288,6 @@ const Link = forwardRef<
           state={state}
           className={navMenuLink({
             isIcon: false,
-            isSmallScreen,
             type,
           })}
           aria-label={ariaLabel}
