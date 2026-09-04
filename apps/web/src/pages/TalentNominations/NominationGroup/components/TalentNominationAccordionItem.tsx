@@ -11,7 +11,7 @@ import {
 import { Accordion, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { localizedEnumToOptions } from "@gc-digital-talent/forms";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
@@ -103,6 +103,10 @@ const TalentNominationAccordionItem_Fragment = graphql(/* GraphQL */ `
       name {
         localized
       }
+    }
+    advancementClassifications {
+      id
+      groupAndLevel
     }
 
     lateralMovementOptions {
@@ -207,6 +211,10 @@ const TalentNominationAccordionItem = ({
         });
 
   const advancementReferenceIsAUser = !!talentNomination.advancementReference;
+
+  talentNomination.advancementClassifications?.sort((a, b) =>
+    (a?.groupAndLevel ?? "").localeCompare(b?.groupAndLevel ?? ""),
+  );
 
   const lateralMovementOptionValuesInThisNomination =
     talentNomination.lateralMovementOptions?.map((option) => option.value) ??
@@ -392,6 +400,18 @@ const TalentNominationAccordionItem = ({
                       : talentNomination.advancementReferenceFallbackDepartment
                           ?.name.localized) ??
                       intl.formatMessage(commonMessages.notFound)}
+                  </FieldDisplay>
+                  <FieldDisplay
+                    label={intl.formatMessage(
+                      nominationLabels.recommendedAdvancementClassifications,
+                    )}
+                    className="xs:col-span-2"
+                  >
+                    <Ul space="md">
+                      {talentNomination.advancementClassifications?.map((c) => (
+                        <li key={c.id}>{c.groupAndLevel}</li>
+                      ))}
+                    </Ul>
                   </FieldDisplay>
                 </div>
               </Accordion.Content>
