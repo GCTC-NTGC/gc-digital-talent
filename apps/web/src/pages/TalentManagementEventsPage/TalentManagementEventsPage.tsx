@@ -49,8 +49,8 @@ export const Component = () => {
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Learn more about the events that focus on talent promotion, lateral movement, and professional development.",
-    id: "HPaQCC",
+      "Learn more about the events that focus on talent advancement, lateral movement, and professional development.",
+    id: "0QqkWJ",
     description: "Subtitle for talent management events page",
   });
 
