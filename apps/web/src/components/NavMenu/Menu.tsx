@@ -100,8 +100,11 @@ const Menu = ({
     };
   }, [isSmallScreen, isMenuOpen]);
 
-  const showMenu = !isSmallScreen || isMenuOpen;
-  const showOverlay = isSmallScreen && isMenuOpen;
+  // What you can see is decided by `sm:` classes below. `isSmallScreen` is only
+  // for the things a class cannot do.
+  const trapFocus = isSmallScreen && isMenuOpen;
+  // NotificationDialog opens a subscription, so only ever mount one of them.
+  const mountNavNotifications = !isSmallScreen || isMenuOpen;
 
   useEffect(() => {
     if (isMenuOpen && homeLinkRef.current) homeLinkRef.current.focus();
@@ -109,7 +112,7 @@ const Menu = ({
 
   return (
     <div className="fixed right-4.5 bottom-21 left-4.5 z-40 max-h-[85vh] overflow-y-auto sm:sticky sm:top-[-1px] sm:right-auto sm:bottom-auto sm:left-auto sm:w-full sm:overflow-y-visible md:max-h-none">
-      <FocusOn returnFocus enabled={showOverlay}>
+      <FocusOn returnFocus enabled={trapFocus}>
         <NavMenuProvider
           open={isMenuOpen}
           onOpenToggle={handleOpenToggle}
@@ -120,96 +123,94 @@ const Menu = ({
             // NOTE: Do not remove, required by anchor link offsets
             id="main-nav"
           >
-            {showMenu ? (
-              <NavMenu.Root
-                onKeyDown={handleKeyDown}
-                aria-label={
-                  label ??
-                  intl.formatMessage({
-                    defaultMessage: "Main menu",
-                    id: "SY1LIh",
-                    description: "Label for the main navigation",
-                  })
-                }
-                data-state={isMenuOpen ? "open" : "closed"}
-                className="rounded-md bg-white pt-3 pb-1.5 sm:rounded-none sm:bg-gray-700/90 sm:py-0 dark:bg-gray-600 sm:dark:bg-gray-700/90"
+            <NavMenu.Root
+              onKeyDown={handleKeyDown}
+              aria-label={
+                label ??
+                intl.formatMessage({
+                  defaultMessage: "Main menu",
+                  id: "SY1LIh",
+                  description: "Label for the main navigation",
+                })
+              }
+              data-state={isMenuOpen ? "open" : "closed"}
+              className={`rounded-md bg-white pt-3 pb-1.5 sm:rounded-none sm:bg-gray-700/90 sm:py-0 dark:bg-gray-600 sm:dark:bg-gray-700/90 ${isMenuOpen ? "" : "hidden sm:block"}`}
+            >
+              <Container
+                center
+                size={{ sm: "lg" }}
+                className="items-center px-0 sm:flex sm:justify-between sm:px-6 [&>div]:w-full"
               >
-                <Container
-                  center
-                  size={{ sm: "lg" }}
-                  className="items-center px-0 sm:flex sm:justify-between sm:px-6 [&>div]:w-full"
-                >
-                  <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
-                    <div className="flex justify-center sm:flex-auto sm:justify-normal">
-                      <ThemeSwitcher />
-                    </div>
-
-                    <a
-                      className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
-                      href={languageTogglePath}
-                      lang={changeToLang === "en" ? "en" : "fr"}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "<hidden>Changer la langue en </hidden>Français",
-                        id: "Z3h103",
-                        description: "Title for the language toggle link.",
-                      })}
-                    </a>
+                <div className="flex items-center justify-center gap-x-6 sm:m-0 sm:hidden">
+                  <div className="flex justify-center sm:flex-auto sm:justify-normal">
+                    <ThemeSwitcher />
                   </div>
 
-                  <MenuSeparator orientation="horizontal" />
+                  <a
+                    className="text-right underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black sm:flex-auto dark:hover:text-primary-200"
+                    href={languageTogglePath}
+                    lang={changeToLang === "en" ? "en" : "fr"}
+                  >
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "<hidden>Changer la langue en </hidden>Français",
+                      id: "Z3h103",
+                      description: "Title for the language toggle link.",
+                    })}
+                  </a>
+                </div>
 
-                  <NavMenu.List type="main" className="flex">
-                    <NavItem
-                      className="sm:hidden"
-                      href={homeLink?.href ?? paths.home()}
-                      title={intl.formatMessage(navigationMessages.home)}
-                    />
+                <MenuSeparator orientation="horizontal" />
 
-                    {children}
-                    {accountLinks}
-                    {loggedIn && (
-                      <>
-                        <NavMenu.Item
-                          className={`m-[0] ${borderItem({
-                            borderLeft: true,
-                            class:
-                              "sm:ml-initial hidden before:mr-3 sm:inline-flex",
-                          })}`}
-                        >
-                          <NotificationDialog
-                            open={isNotificationDialogOpen}
-                            onOpenChange={setNotificationDialogOpen}
-                          />
-                        </NavMenu.Item>
-                      </>
-                    )}
-                    {!loggedIn ? (
-                      <>
-                        <NavItem
-                          key="signIn"
-                          href={`${paths.login()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.signIn)}
-                          className="sm:ml-initial ml-auto"
+                <NavMenu.List type="main" className="flex">
+                  <NavItem
+                    className="sm:hidden"
+                    href={homeLink?.href ?? paths.home()}
+                    title={intl.formatMessage(navigationMessages.home)}
+                  />
+
+                  {children}
+                  {accountLinks}
+                  {loggedIn && mountNavNotifications && (
+                    <>
+                      <NavMenu.Item
+                        className={`m-[0] ${borderItem({
+                          borderLeft: true,
+                          class:
+                            "sm:ml-initial hidden before:mr-3 sm:inline-flex",
+                        })}`}
+                      >
+                        <NotificationDialog
+                          open={isNotificationDialogOpen}
+                          onOpenChange={setNotificationDialogOpen}
                         />
-                        <NavItem
-                          key="signUp"
-                          href={`${paths.register()}${authParams ?? ""}`}
-                          title={intl.formatMessage(authMessages.register)}
-                        />
-                      </>
-                    ) : null}
-                  </NavMenu.List>
-                </Container>
-              </NavMenu.Root>
-            ) : null}
+                      </NavMenu.Item>
+                    </>
+                  )}
+                  {!loggedIn ? (
+                    <>
+                      <NavItem
+                        key="signIn"
+                        href={`${paths.login()}${authParams ?? ""}`}
+                        title={intl.formatMessage(authMessages.signIn)}
+                        className="sm:ml-initial ml-auto"
+                      />
+                      <NavItem
+                        key="signUp"
+                        href={`${paths.register()}${authParams ?? ""}`}
+                        title={intl.formatMessage(authMessages.register)}
+                      />
+                    </>
+                  ) : null}
+                </NavMenu.List>
+              </Container>
+            </NavMenu.Root>
           </div>
           <AnimatePresence>
-            {showOverlay && (
+            {isMenuOpen && (
               <m.div
                 onClick={() => setMenuOpen(false)}
-                className="fixed inset-0 z-[6] overflow-auto bg-gray-700"
+                className="fixed inset-0 z-[6] overflow-auto bg-gray-700 sm:hidden"
                 initial={{ opacity: 0.85 }}
                 animate={{ opacity: 0.85 }}
                 exit={{ opacity: 0.85 }}
@@ -218,43 +219,41 @@ const Menu = ({
             )}
           </AnimatePresence>
         </NavMenuProvider>
-        {isSmallScreen && (
-          <div className="fixed right-4.5 bottom-4.5 z-30 flex gap-3">
-            <Button
+        <div className="fixed right-4.5 bottom-4.5 z-30 flex gap-3 sm:hidden">
+          <Button
+            color="black"
+            mode="solid"
+            icon={isMenuOpen ? XMarkIcon : Bars3Icon}
+            aria-expanded={isMenuOpen}
+            aria-controls="main-nav"
+            onClick={() => {
+              if (isNotificationDialogOpen) {
+                setNotificationDialogOpen(false);
+                setMenuOpen(true);
+              } else {
+                setMenuOpen(!isMenuOpen);
+              }
+            }}
+          >
+            {isMenuOpen
+              ? intl.formatMessage(uiMessages.closeMenu)
+              : intl.formatMessage(uiMessages.openMenu)}
+          </Button>
+          {loggedIn && isSmallScreen && (
+            <NotificationDialog
               color="black"
-              mode="solid"
-              icon={isMenuOpen ? XMarkIcon : Bars3Icon}
-              aria-expanded={isMenuOpen}
-              aria-controls="main-nav"
-              onClick={() => {
-                if (isNotificationDialogOpen) {
-                  setNotificationDialogOpen(false);
-                  setMenuOpen(true);
+              open={isNotificationDialogOpen}
+              onOpenChange={() => {
+                if (isMenuOpen) {
+                  setMenuOpen(false);
+                  setNotificationDialogOpen(true);
                 } else {
-                  setMenuOpen(!isMenuOpen);
+                  setNotificationDialogOpen(!isNotificationDialogOpen);
                 }
               }}
-            >
-              {isMenuOpen
-                ? intl.formatMessage(uiMessages.closeMenu)
-                : intl.formatMessage(uiMessages.openMenu)}
-            </Button>
-            {loggedIn && (
-              <NotificationDialog
-                color="black"
-                open={isNotificationDialogOpen}
-                onOpenChange={() => {
-                  if (isMenuOpen) {
-                    setMenuOpen(false);
-                    setNotificationDialogOpen(true);
-                  } else {
-                    setNotificationDialogOpen(!isNotificationDialogOpen);
-                  }
-                }}
-              />
-            )}
-          </div>
-        )}
+            />
+          )}
+        </div>
       </FocusOn>
     </div>
   );

@@ -8,7 +8,6 @@ import {
   localizePath,
   oppositeLocale,
 } from "@gc-digital-talent/i18n";
-import { useIsSmallScreen } from "@gc-digital-talent/helpers";
 import { Container } from "@gc-digital-talent/ui";
 
 import { GocLogoEn, GocLogoFr, GocLogoWhiteEn, GocLogoWhiteFr } from "../Svg";
@@ -31,7 +30,6 @@ const Header = () => {
   const location = useLocation();
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
-  const isSmallScreen = useIsSmallScreen("sm");
 
   return (
     <header className="border-b border-black/20 bg-white py-6 xs:py-4.5 dark:border-white/20 dark:bg-gray-700">
@@ -64,27 +62,25 @@ const Header = () => {
               </span>
             </a>
           </div>
-          {!isSmallScreen && (
-            <div className="flex flex-col items-center justify-center gap-3 text-center xs:flex-row xs:justify-end xs:gap-6 xs:text-left">
-              <div>
-                <ThemeSwitcher />
-              </div>
-              <div>
-                <a
-                  className="underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black dark:hover:text-primary-200"
-                  href={languageTogglePath}
-                  lang={changeToLang === "en" ? "en" : "fr"}
-                >
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "<hidden>Changer la langue en </hidden>Français",
-                    id: "Z3h103",
-                    description: "Title for the language toggle link.",
-                  })}
-                </a>
-              </div>
+          <div className="hidden flex-col items-center justify-center gap-3 text-center xs:flex-row xs:justify-end xs:gap-6 xs:text-left sm:flex">
+            <div>
+              <ThemeSwitcher />
             </div>
-          )}
+            <div>
+              <a
+                className="underline outline-none hover:text-primary-600 focus-visible:bg-focus focus-visible:text-black dark:hover:text-primary-200"
+                href={languageTogglePath}
+                lang={changeToLang === "en" ? "en" : "fr"}
+              >
+                {intl.formatMessage({
+                  defaultMessage:
+                    "<hidden>Changer la langue en </hidden>Français",
+                  id: "Z3h103",
+                  description: "Title for the language toggle link.",
+                })}
+              </a>
+            </div>
+          </div>
         </div>
       </Container>
     </header>

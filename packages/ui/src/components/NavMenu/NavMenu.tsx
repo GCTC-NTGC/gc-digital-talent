@@ -42,7 +42,7 @@ const Trigger = forwardRef<
     asChild
     onPointerMove={(event) => event.preventDefault()}
     onPointerLeave={(event) => event.preventDefault()}
-    className="w-full px-3 py-2 text-left font-normal hover:text-primary-600 sm:py-4.5 sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
+    className="w-full px-3 py-2 text-left font-normal hover:text-primary-600 sm:py-4.5 sm:text-white sm:hover:text-primary-200 dark:hover:text-primary-100 [&_svg]:mt-0! [&_svg]:size-4.5! [&_svg]:transform [&_svg]:transition-transform [&_svg]:duration-200 data-[state=closed]:[&_svg]:rotate-0 data-[state=open]:[&_svg]:rotate-180"
     {...rest}
   >
     <Button utilityIcon={ChevronDownIcon} mode={mode} color={color} noUnderline>
