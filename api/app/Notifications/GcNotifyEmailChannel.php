@@ -38,7 +38,7 @@ class GcNotifyEmailChannel
      */
     private function resolveQueuePriority(CanBeSentViaGcNotifyEmail $notification): string
     {
-        $queue = config('queue.connections.database.queue');
+        $queue = config('queue.name');
 
         if ($notification instanceof LowPriorityJob) {
             return $queue.LowPriorityJob::QUEUE_SUFFIX;
