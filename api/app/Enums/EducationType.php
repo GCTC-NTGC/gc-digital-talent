@@ -8,13 +8,11 @@ enum EducationType
 {
     use HasLocalization;
 
-    case DIPLOMA;
-    case BACHELORS_DEGREE;
-    case MASTERS_DEGREE;
-    case PHD;
-    case POST_DOCTORAL_FELLOWSHIP;
-    case ONLINE_COURSE;
-    case CERTIFICATION;
+    case DEGREE_DIPLOMA_CERTIFICATE;
+    case LICENSE_ACCREDITATION;
+    case PROFESSIONAL_CERTIFICATION;
+    case INDIVIDUAL_COURSE;
+    case FELLOWSHIP;
     case OTHER;
 
     public static function getLangFilename(): string

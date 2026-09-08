@@ -22,6 +22,8 @@ import {
   GovContractorType,
   CSuiteRoleTitle,
   GovEmployeeType,
+  DegreeType,
+  FellowshipType,
 } from "@gc-digital-talent/graphql/schema-types";
 
 import fakeDepartments from "./fakeDepartments";
@@ -68,7 +70,7 @@ const staticDates = {
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (): GeneratedAwardExperience => {
+const generateAward = (): Omit<AwardExperience, "relatedExperience"> => {
   return {
     __typename: "AwardExperience",
     user: sampleApp,
@@ -125,7 +127,7 @@ const generateEducation = (): GeneratedEducationExperience => {
     })),
     details: `experience details ${faker.lorem.words()}`,
     areaOfStudy: faker.music.genre(),
-    type: toLocalizedEnum(
+    educationType: toLocalizedEnum(
       faker.helpers.arrayElement<EducationType>(Object.values(EducationType)),
     ),
     institution: faker.person.lastName(),
@@ -140,6 +142,15 @@ const generateEducation = (): GeneratedEducationExperience => {
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    degreeType: toLocalizedEnum(
+      faker.helpers.arrayElement<DegreeType>(Object.values(DegreeType)),
+    ),
+    certification: faker.lorem.words(),
+    courseName: faker.lorem.words(),
+    licenseOrAccreditation: faker.lorem.words(),
+    fellowshipType: toLocalizedEnum(
+      faker.helpers.arrayElement<FellowshipType>(Object.values(FellowshipType)),
+    ),
   };
 };
 
@@ -152,14 +163,14 @@ const generatePersonal = (): GeneratedPersonalExperience => {
       ...skill,
       experienceSkillRecord: theExperienceSkillRecord,
     })),
-    details: `experience details ${faker.lorem.words()}`,
     title: faker.person.jobTitle(),
     startDate: staticDates.start,
     endDate: staticDates.end,
-    description: `experience description ${faker.lorem.paragraph()}`,
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
+    learningDescription: faker.lorem.paragraph(),
+    organization: faker.company.buzzPhrase(),
   };
 };
 
@@ -181,7 +192,7 @@ const generateWork = (): GeneratedWorkExperience => {
     experienceSkillRecord: {
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
-    department: fakeDepartments()[5],
+    department: fakeDepartments(true)[5],
     employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
     govEmploymentType: toLocalizedEnum(GovEmployeeType.Contractor),
     govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),

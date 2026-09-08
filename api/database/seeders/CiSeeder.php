@@ -31,6 +31,7 @@ class CiSeeder extends Seeder
             PoolTestSeeder::class,
             PoolCandidateTestSeeder::class,
             AssessmentResultTestSeeder::class,
+            EmployeeProfileTalentNominationTestSeeder::class,
         ]);
     }
 }

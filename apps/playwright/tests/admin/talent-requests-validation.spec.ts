@@ -122,8 +122,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
           personalExperiences: {
             create: [
               {
-                description: "Test Experience Description",
-                details: "A Playwright test personal experience",
+                learningDescription: "Test Experience Description",
                 skills: {
                   sync: [
                     {

@@ -45,7 +45,7 @@ const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
       ... on EducationExperience {
         startDate
         endDate
-        type {
+        educationType {
           value
           label {
             localized
@@ -55,6 +55,8 @@ const FullCareerExperiencesUser_Fragment = graphql(/* GraphQL */ `
       ... on PersonalExperience {
         startDate
         endDate
+        learningDescription
+        organization
       }
       ... on WorkExperience {
         startDate

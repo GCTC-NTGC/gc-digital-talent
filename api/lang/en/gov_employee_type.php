@@ -6,4 +6,5 @@ return [
     'term' => 'Term',
     'indeterminate' => 'Indeterminate',
     'contractor' => 'Contractor',
+    'interchange' => 'Interchange Canada',
 ];

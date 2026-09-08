@@ -15,8 +15,8 @@ test(
     await loginBySub(experiencePage.page, applicantSub);
 
     await experiencePage.addEducationExperience({
-      areaOfStudy: studyIn,
       startDate: "2001-01",
+      endDate: "2004-12",
     });
 
     await expect(experiencePage.page.getByRole("alert").last()).toContainText(

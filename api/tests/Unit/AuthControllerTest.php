@@ -245,4 +245,57 @@ class AuthControllerTest extends TestCase
         $this->assertStringContainsString('reason=invalid-session', $response->headers->get('Location'));
         Http::assertNothingSent();
     }
+
+    public function testRefreshAcceptsTokenViaPostBody()
+    {
+        Http::fake([
+            '*' => Http::response(['access_token' => 'new-access-token', 'refresh_token' => 'new-refresh-token'], 200),
+        ]);
+
+        $response = $this->postJson('/refresh', ['refresh_token' => 'old-refresh-token']);
+
+        $response->assertStatus(200);
+        $response->assertJson(['access_token' => 'new-access-token', 'refresh_token' => 'new-refresh-token']);
+
+        Http::assertSent(function ($request) {
+            return $request['grant_type'] === 'refresh_token' && $request['refresh_token'] === 'old-refresh-token';
+        });
+    }
+
+    public function testRefreshStillAcceptsLegacyGetQueryParam()
+    {
+        Http::fake([
+            '*' => Http::response(['access_token' => 'new-access-token', 'refresh_token' => 'new-refresh-token'], 200),
+        ]);
+
+        $response = $this->call('GET', '/refresh', ['refresh_token' => 'old-refresh-token']);
+
+        $response->assertStatus(200);
+
+        Http::assertSent(function ($request) {
+            return $request['refresh_token'] === 'old-refresh-token';
+        });
+    }
+
+    public function testRefreshFailsWhenTokenIsMissing()
+    {
+        Http::fake([
+            '*' => Http::response(['error' => 'invalid_grant'], 400),
+        ]);
+
+        $response = $this->postJson('/refresh', []);
+
+        $response->assertStatus(400);
+    }
+
+    public function testRefreshFailsWhenUpstreamRejectsInvalidToken()
+    {
+        Http::fake([
+            '*' => Http::response(['error' => 'invalid_grant'], 400),
+        ]);
+
+        $response = $this->postJson('/refresh', ['refresh_token' => 'not-a-real-token']);
+
+        $response->assertStatus(400);
+    }
 }

@@ -34,7 +34,7 @@ class AuthTokenFixture {
     // Prepare the refresh listener
     // eslint-disable-next-line playwright/missing-playwright-await
     const refresh = this.page.waitForRequest(
-      (req) => req.url().includes("/refresh") && req.method() === "GET",
+      (req) => req.url().includes("/refresh") && req.method() === "POST",
     );
 
     // Prepare a graphql request listener
@@ -52,9 +52,10 @@ class AuthTokenFixture {
 
   // Get the refresh token used in the last refresh request made
   async getRefreshTokenUsed(listener: Promise<Request>) {
-    return await listener.then((req) =>
-      new URL(req.url()).searchParams.get("refresh_token"),
-    );
+    return await listener.then((req) => {
+      const body = req.postDataJSON() as { refresh_token?: string };
+      return body.refresh_token ?? null;
+    });
   }
 
   // Get the authorization header from the last graphql request

@@ -160,29 +160,15 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     // pull data from application snapshot
                     // mirrors logic found in ApplicationDocGenerator
                     $snapshot = $candidate->profile_snapshot;
+                    $snapshotVersion = $candidate->profile_snapshot['version'] ?? 1;
                     $userHydrated = User::hydrateSnapshot($snapshot);
                     $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
-                    // the snapshot stores the department and classification models connected by relation
-                    // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
-                    foreach ($snapshotExperiences as &$experience) {
-                        if ($experience['__typename'] === 'WorkExperience') {
-                            if (isset($experience['department'])) {
-                                $experience['departmentId'] = $experience['department']['id'];
-                            }
-                            if (isset($experience['classification'])) {
-                                $experience['classificationId'] = $experience['classification']['id'];
-                            }
-                            if (isset($experience['workStreams'])) {
-                                $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
-                            }
-                        }
-                    }
                     $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
 
                     $department = $userHydrated->department()->first();
                     $preferences = $userHydrated->getOperationalRequirements();
                     $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
-                        return $experience->getTitle();
+                        return $experience->getTitle($this->lang);
                     })->flatten()->unique()->toArray();
 
                     $values = [
@@ -299,8 +285,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                                     array_push(
                                         $experienceSkillArray,
                                         $experienceModelFound && $skillFound['experienceSkillRecord'] && $skillFound['experienceSkillRecord']['details'] ?
-                                        $experienceModelFound->getTitle().': '.$skillFound['experienceSkillRecord']['details'] :
-                                        $experienceModelFound->getTitle().': '.Lang::get('common.not_found', [], $this->lang),
+                                        $experienceModelFound->getTitle($this->lang, $snapshotVersion).': '.$skillFound['experienceSkillRecord']['details'] :
+                                        $experienceModelFound->getTitle($this->lang, $snapshotVersion).': '.Lang::get('common.not_found', [], $this->lang),
                                     );
                                 }
                             }

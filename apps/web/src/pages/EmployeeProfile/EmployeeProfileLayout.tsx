@@ -4,12 +4,17 @@ import { Outlet, useLocation } from "react-router";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { Container } from "@gc-digital-talent/ui";
 
+import talentNominationMessages from "~/messages/talentNominationMessages";
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 
 // index all the sub pages for this layout
-type SubpageIds = "employee-verification" | "career-planning" | "communities";
+type SubpageIds =
+  | "employee-verification"
+  | "career-planning"
+  | "communities"
+  | "talent-nominations";
 
 const Component = () => {
   const intl = useIntl();
@@ -54,6 +59,11 @@ const Component = () => {
         description: "Label for functional communities field",
       }),
       url: paths.employeeProfileFunctionalCommunities(),
+      hasCrumb: true,
+    },
+    "talent-nominations": {
+      label: intl.formatMessage(talentNominationMessages.talentNominations),
+      url: paths.talentNominations(),
       hasCrumb: true,
     },
   } as const;

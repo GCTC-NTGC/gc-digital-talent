@@ -34,8 +34,8 @@ test.describe("User skills", { tag: "@uat" }, () => {
           create: [
             {
               title: uniqueTestId,
-              description: uniqueTestId,
-              details: uniqueTestId,
+              organization: "Test Organization or platform",
+              learningDescription: "Test Experience Learning Description",
               startDate: FAR_PAST_DATE,
               skills: {
                 sync: [

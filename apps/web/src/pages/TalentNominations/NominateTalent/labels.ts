@@ -153,6 +153,24 @@ const labels = defineMessages({
     id: "Kv7YgK",
     description: "Label for the role of the user submitting a nomination",
   },
+  lowPotentialDefinition: {
+    defaultMessage:
+      "Works effectively in their current role but does not regularly show the interest, ability or commitment needed for future leadership. Because they rarely demonstrate the capacity for greater leadership responsibilities, they are not considered a candidate for these roles unless their performance becomes exceptional.",
+    id: "9bwb2b",
+    description: "label for low potential definition",
+  },
+  moderatePotentialDefinition: {
+    defaultMessage:
+      "The employee meets leadership expectations and regularly shows they are willing to learn, adapt and contribute while maintaining satisfactory interest and commitment. They are capable of taking on bigger leadership responsibilities with the right skill development and experience.",
+    id: "CybW3a",
+    description: "label for moderate potential definition",
+  },
+  highPotentialDefinition: {
+    defaultMessage:
+      "Consistently exceeds leadership expectations. They actively look for growth opportunities, easily adapt to complex challenges, inspire and guide others, and show a strong commitment to both personal development and organizational success. Managers state that the employee has a high capacity for leadership advancement and expect them to move into roles with more responsibility and impact.",
+    id: "jT5w4o",
+    description: "label for high potential definition",
+  },
 });
 
 export default labels;

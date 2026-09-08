@@ -42,12 +42,13 @@ const mockUser = {
   experiences: fakeCandidate.educationRequirementExperiences,
   poolCandidates: [fakeCandidate],
 };
+const mockSnapshot = { ...mockUser, version: 2 };
 
 const mockPoolCandidate = {
   ...fakeCandidate,
   pool: mockPool,
   user: mockUser,
-  profileSnapshot: JSON.stringify(mockUser),
+  profileSnapshot: JSON.stringify(mockSnapshot),
   generalQuestionResponses,
 };
 

@@ -5,20 +5,19 @@ import {
   fakeUsers,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type { User, Pool } from "@gc-digital-talent/graphql";
 import { PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements from "./MissingLanguageRequirements";
 
 type MissingLanguageRequirementsComponent = typeof MissingLanguageRequirements;
 
-const unilingualUser: User = {
-  ...(fakeUsers(1)[0] as User),
+const unilingualUser = {
+  ...fakeUsers(1)[0],
   lookingForEnglish: true,
   lookingForFrench: false,
   lookingForBilingual: false,
 };
-const bilingualPool: Pool = {
+const bilingualPool = {
   ...fakePools(1)[0],
   language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
 };

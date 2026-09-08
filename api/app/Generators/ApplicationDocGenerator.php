@@ -3,7 +3,6 @@
 namespace App\Generators;
 
 use App\Enums\EducationRequirementOption;
-use App\Enums\EducationType;
 use App\Enums\PoolSkillType;
 use App\Exceptions\MissingProfileSnapshotException;
 use App\Models\AwardExperience;
@@ -20,6 +19,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 {
     use GeneratesUserDoc;
 
+    private int $snapshotVersion;
+
     public function __construct(protected PoolCandidate $candidate, public ?string $dir, protected ?string $lang)
     {
         $fileName = sprintf(
@@ -30,6 +31,8 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
 
         parent::__construct($fileName, $dir);
         $this->anonymous = false;
+
+        $this->snapshotVersion = $candidate->profile_snapshot['version'] ?? 1;
     }
 
     public function generate(): self
@@ -79,21 +82,6 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $snapshot = $candidate->profile_snapshot;
         $user = User::hydrateSnapshot($snapshot);
         $snapshotExperiences = $snapshot['experiences'] ?? [];
-        // the snapshot stores the department and classification models connected by relation
-        // to render with GeneratesUserDoc or use hydrateSnapshot, map the models to a string with the appropriate property name per $hydrationFields
-        foreach ($snapshotExperiences as &$experience) {
-            if ($experience['__typename'] === 'WorkExperience') {
-                if (isset($experience['department'])) {
-                    $experience['departmentId'] = $experience['department']['id'];
-                }
-                if (isset($experience['classification'])) {
-                    $experience['classificationId'] = $experience['classification']['id'];
-                }
-                if (isset($experience['workStreams'])) {
-                    $experience['workStreamIds'] = Arr::map($experience['workStreams'], fn ($value) => $value['id']);
-                }
-            }
-        }
 
         $experiences = collect(Experience::hydrateSnapshot($snapshotExperiences))
         // group experiences by type i.e. award, community, education, personal, work
@@ -130,7 +118,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         $this->addLabelText($section, $this->localizeHeading('requirement_selection'), $this->localizeEnum($candidate->education_requirement_option, EducationRequirementOption::class));
         $candidate->educationRequirementExperiences->each(function ($educationExperience) use ($section) {
             /** @var EducationExperience $educationExperience */
-            $section->addListItem($this->formatEducationTitle($educationExperience));
+            $section->addListItem($educationExperience->getTitle($this->lang));
 
         });
 
@@ -167,7 +155,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
         }
 
         if ($experiences && count($experiences) > 0) {
-            $this->experiences($section, collect($experiences), false, 2);
+            $this->experiences($section, collect($experiences), false, 2, $this->snapshotVersion);
         }
 
         $section->addTitle($this->localizeHeading('personal_info'), 2);
@@ -222,7 +210,7 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
                 }
 
                 return [
-                    'title' => $experience['experience']->getTitle($this->lang),
+                    'title' => $experience['experience']->getTitle($this->lang, $this->snapshotVersion),
                     'details' => $skill['details'] ?? '',
                     'experience_obj' => $experience['experience'],
                     'is_education' => $experience['experience'] instanceof EducationExperience,
@@ -256,44 +244,13 @@ class ApplicationDocGenerator extends DocGenerator implements FileGeneratorInter
             $section->addTitle($skillDetails['skill']['name'][$this->lang], 4);
             foreach ($skillDetails['experiences'] as $experience) {
                 $title = $experience['is_education'] && $experience['experience_obj'] instanceof EducationExperience
-                    ? $this->formatEducationTitle($experience['experience_obj'])
+                    ? $experience['experience_obj']->getTitle($this->lang, $this->snapshotVersion)
                     : $experience['title'];
 
                 $section->addTitle($title, 5);
                 $section->addText($experience['details']);
             }
         });
-    }
-
-    /**
-     * Format education title
-     *
-     * @param  Experience  $educationExperience  The education experience to format
-     * @return string The formatted title
-     */
-    private function formatEducationTitle(Experience $educationExperience): string
-    {
-
-        if (! $educationExperience instanceof EducationExperience) {
-            return $educationExperience->getTitle();
-        }
-        $degreeType = $educationExperience->type
-        ? $this->localizeEnum($educationExperience->type, EducationType::class)
-        : null;
-        $titleComponents = [];
-        if ($degreeType) {
-            $titleComponents[] = $degreeType;
-        }
-        if ($educationExperience->area_of_study) {
-            $titleComponents[] = ($degreeType ? $this->localize('common.in').' ' : '')
-            .$educationExperience->area_of_study;
-        }
-        if ($educationExperience->institution) {
-            $titleComponents[] = $this->localize('common.from').' '.$educationExperience->institution;
-        }
-
-        return trim(implode(' ', $titleComponents)) ?: $educationExperience->getTitle($this->lang);
-
     }
 
     /**

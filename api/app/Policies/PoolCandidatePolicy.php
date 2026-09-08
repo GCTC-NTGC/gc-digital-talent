@@ -181,11 +181,6 @@ class PoolCandidatePolicy
 
     public function viewApplicationStatus(User $user, PoolCandidate $poolCandidate)
     {
-        // Ownership check
-        if ($user->id === $poolCandidate->user_id && $user->isAbleTo('view-own-applicationStatus')) {
-            return true;
-        }
-
         // Global permissions
         if ($user->isAbleTo('view-any-applicationStatus')) {
             return true;

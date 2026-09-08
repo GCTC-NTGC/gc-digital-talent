@@ -231,6 +231,13 @@ class TalentNominationGroup extends Model
             return;
         }
 
+        // a nominee can view their own nomination groups
+        if ($user) {
+            $query->where('nominee_id', $user->id);
+
+            return;
+        }
+
         // fall through, return nothing
         $query->where('id', null);
     }
@@ -265,6 +272,15 @@ class TalentNominationGroup extends Model
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['talentNominationEvent']);
+    }
+
+    public static function scopeApproved(Builder $query): Builder
+    {
+        $query->whereIn('computed_status', [
+            TalentNominationGroupStatus::APPROVED->name,
+        ]);
+
+        return $query;
     }
 
     /** @return BelongsTo<Classification, $this> */
