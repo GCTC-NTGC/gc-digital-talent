@@ -204,7 +204,7 @@ class FieldRendererTest extends TestCase
     public function testFailedAccessorRendersTheDefaultAndLogsOnce(): void
     {
         Log::shouldReceive('channel')->once()->with('jobs')->andReturnSelf();
-        Log::shouldReceive('warning')->once();
+        Log::shouldReceive('error')->once();
 
         $field = Field::text('heading', fn ($context) => $context->missingProperty);
         $renderer = $this->renderer();
@@ -216,7 +216,7 @@ class FieldRendererTest extends TestCase
     public function testUnparsableDateLogsAndRendersTheDefault(): void
     {
         Log::shouldReceive('channel')->once()->with('jobs')->andReturnSelf();
-        Log::shouldReceive('warning')->once();
+        Log::shouldReceive('error')->once();
 
         $field = Field::date('heading', 'Y-m-d', fn ($context) => 'not a date');
 
@@ -226,7 +226,7 @@ class FieldRendererTest extends TestCase
     public function testEachFailingFieldHeadingLogsSeparately(): void
     {
         Log::shouldReceive('channel')->twice()->with('jobs')->andReturnSelf();
-        Log::shouldReceive('warning')->twice();
+        Log::shouldReceive('error')->twice();
 
         $renderer = $this->renderer();
         $first = Field::text('first_heading', fn ($context) => $context->missingProperty);
@@ -239,7 +239,7 @@ class FieldRendererTest extends TestCase
     public function testFailedVisibleConditionRendersTheDefault(): void
     {
         Log::shouldReceive('channel')->once()->with('jobs')->andReturnSelf();
-        Log::shouldReceive('warning')->once();
+        Log::shouldReceive('error')->once();
 
         $field = Field::text('heading', fn ($context) => 'secret')
             ->visible(fn ($context) => $context->missingProperty);
