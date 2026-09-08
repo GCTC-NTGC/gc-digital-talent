@@ -12,7 +12,7 @@ class LogArtisanCommand
 {
     private static ?float $startedAt = null;
 
-    public function started(CommandStarting $event): void
+    public function starting(CommandStarting $event): void
     {
         self::$startedAt = microtime(true);
 

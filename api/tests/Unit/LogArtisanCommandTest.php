@@ -31,7 +31,7 @@ class LogArtisanCommandTest extends TestCase
         }));
 
         $listener = new LogArtisanCommand();
-        $listener->started(new CommandStarting('migrate', $input, $output));
+        $listener->starting(new CommandStarting('migrate', $input, $output));
         $listener->finished(new CommandFinished('migrate', $input, $output, 0));
     }
 

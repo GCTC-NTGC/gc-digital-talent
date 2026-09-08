@@ -55,7 +55,7 @@ class EventServiceProvider extends ServiceProvider
             LogTimedOutJob::class,
         ],
         CommandStarting::class => [
-            LogArtisanCommand::class.'@started',
+            LogArtisanCommand::class.'@starting',
         ],
         CommandFinished::class => [
             LogArtisanCommand::class.'@finished',
