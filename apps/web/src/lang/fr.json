@@ -3110,10 +3110,6 @@
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
   },
-  "A4+XAq": {
-    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
-    "description": "introduction for advancement classifications"
-  },
   "A4dp/3": {
     "defaultMessage": "Masquer tout<hidden>es les sections de perfectionnement de carrière</hidden>",
     "description": "Button text to hide all career development sections"
@@ -11409,6 +11405,10 @@
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
+  },
+  "h8vBvw": {
+    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "description": "introduction for advancement classifications"
   },
   "h9XSU5": {
     "defaultMessage": "Notes complémentaires",

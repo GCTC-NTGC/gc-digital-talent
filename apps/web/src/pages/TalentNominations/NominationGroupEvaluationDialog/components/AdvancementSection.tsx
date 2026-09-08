@@ -195,8 +195,8 @@ const AdvancementSection = ({
           <p id={advancementClassificationIntroductionId}>
             {intl.formatMessage({
               defaultMessage:
-                "Please indicate the classifications this nominee should be referred for. The recommended classifications supplied by the nominator have been provided as reference.",
-              id: "A4+XAq",
+                "Please indicate the classifications this nominee should be referred for. The recommended classifications supplied by the nominator have been provided as a reference.",
+              id: "h8vBvw",
               description: "introduction for advancement classifications",
             })}
           </p>
