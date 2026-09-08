@@ -7869,6 +7869,10 @@
     "defaultMessage": "Employé(e)s",
     "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
+  "TPFMK3": {
+    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
+    "description": "Help text for lateral movement referral expiry date field"
+  },
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
@@ -8826,10 +8830,6 @@
   "XQCxDQ": {
     "defaultMessage": "Détails du processus",
     "description": "Heading for filters directly related to the process"
-  },
-  "XQJch1": {
-    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
-    "description": "Help text for lateral movement referral expiry date field"
   },
   "XRqYGj": {
     "defaultMessage": "*Veuillez noter que cette ressource n'est disponible que pour les employées et employés du gouvernement du Canada sur les réseaux officiels.",

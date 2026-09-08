@@ -301,8 +301,8 @@ const LateralMovementSection = ({
             })}
             context={intl.formatMessage({
               defaultMessage:
-                "The nominee will be referred for lateral movement for opportunities in their current substantive classification as well as classifications selected above until this date (inclusive).",
-              id: "XQJch1",
+                "The nominee will be referred for lateral movement for opportunities in their current substantive classification as well as for classifications selected above until this date (inclusive).",
+              id: "TPFMK3",
               description:
                 "Help text for lateral movement referral expiry date field",
             })}
