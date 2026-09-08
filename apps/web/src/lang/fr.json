@@ -3110,6 +3110,10 @@
     "defaultMessage": "Passer au contenu principal",
     "description": "Default Skip to main content message."
   },
+  "A4+XAq": {
+    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "description": "introduction for advancement classifications"
+  },
   "A4dp/3": {
     "defaultMessage": "Masquer tout<hidden>es les sections de perfectionnement de carrière</hidden>",
     "description": "Button text to hide all career development sections"
@@ -4381,6 +4385,10 @@
   "FEffiH": {
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description input"
+  },
+  "FEjHL6": {
+    "defaultMessage": "Classifications proposées pour la promotion",
+    "description": "A list of classifications for advancement"
   },
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
