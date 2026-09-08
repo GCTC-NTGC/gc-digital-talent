@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Events\CommandProducedResults;
 use App\Listeners\LogArtisanCommand;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Console\Events\CommandStarting;
@@ -47,5 +48,21 @@ class LogArtisanCommandTest extends TestCase
 
         $listener = new LogArtisanCommand();
         $listener->finished(new CommandFinished('migrate', $input, $output, 0));
+    }
+
+    public function testProducedResultsLogsMessageAndContext(): void
+    {
+        Log::shouldReceive('channel')->with('cli')->andReturnSelf();
+        Log::shouldReceive('info')->once()->with('Artisan command produced results', [
+            'command' => 'app:check-external-links',
+            'linksChecked' => 42,
+            'brokenLinks' => 2,
+        ]);
+
+        $listener = new LogArtisanCommand();
+        $listener->produced(new CommandProducedResults('app:check-external-links', [
+            'linksChecked' => 42,
+            'brokenLinks' => 2,
+        ]));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\CommandProducedResults;
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Support\Facades\Log;
@@ -32,6 +33,14 @@ class LogArtisanCommand
         ]);
 
         self::$startedAt = null;
+    }
+
+    public function produced(CommandProducedResults $event): void
+    {
+        Log::channel('cli')->info('Artisan command produced results', [
+            'command' => $event->command,
+            ...$event->context,
+        ]);
     }
 
     private function durationMs(): ?int

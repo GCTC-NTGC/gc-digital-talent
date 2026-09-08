@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\AssessmentResultSaved;
+use App\Events\CommandProducedResults;
 use App\Events\TalentNominationSubmitted;
 use App\Events\UserFileGenerated;
 use App\Events\WorkExperienceSaved;
@@ -59,6 +60,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CommandFinished::class => [
             LogArtisanCommand::class.'@finished',
+        ],
+        CommandProducedResults::class => [
+            LogArtisanCommand::class.'@produced',
         ],
     ];
 
