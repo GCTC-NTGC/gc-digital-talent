@@ -2,6 +2,7 @@
 
 namespace App\Generators\Field;
 
+use App\Generators\FileGeneratorInterface;
 use App\Utilities\LanguageHelpers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
@@ -23,9 +24,12 @@ trait RendersFields
         } catch (\Throwable $e) {
             if (! isset($this->loggedFields[$field->heading])) {
                 $this->loggedFields[$field->heading] = true;
-                Log::channel('jobs')->warning('Field rendering failed', [
+                Log::channel('jobs')->error('Field rendering failed', [
                     'field' => $field->heading,
                     'message' => $e->getMessage(),
+                    'file' => $this instanceof FileGeneratorInterface
+                        ? $this->getFileNameWithExtension()
+                        : null,
                 ]);
             }
 
