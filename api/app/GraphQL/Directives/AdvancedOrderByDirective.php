@@ -128,6 +128,7 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
         $returnType = $method->getReturnType();
 
         if (! $method->isPublic()
+            || $method->isStatic()
             || ! $returnType instanceof ReflectionNamedType
             || ! is_a($returnType->getName(), Relation::class, true)) {
             throw new UserError("Method {$relationName} is not a valid Eloquent relation.");
