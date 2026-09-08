@@ -276,6 +276,66 @@ class NominationsExcelGeneratorTest extends TestCase
         }
     }
 
+    public function testNomineeProfilesTabRedactsEveryGuardedColumnWithoutConsent(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $talentCoordinator = User::factory()
+            ->withGovEmployeeProfile()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        $employee = User::factory()->withGovEmployeeProfile()->create();
+        CommunityInterest::factory()
+            ->for($employee)
+            ->for($community)
+            ->create(['consent_to_share_profile' => false]);
+
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create();
+        $nomination = TalentNomination::factory()
+            ->evaluated()
+            ->create([
+                'nominee_id' => $employee->id,
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+            ]);
+        $nominationGroup = $nomination->talentNominationGroup;
+
+        $fileName = sprintf('%s_%s', __('filename.users'), date('Y-m-d_His'));
+        $generator = new NominationsExcelGenerator(
+            fileName: $fileName,
+            talentNominationEventId: $talentNominationEvent->id,
+            dir: 'test',
+            lang: 'en'
+        );
+
+        $generator
+            ->setAuthenticatedUserId($talentCoordinator->id)
+            ->setIds([$nominationGroup->id]);
+
+        $generator->generate()->write();
+
+        $rows = $this->readSheetRows($fileName, sheetIndex: 1, rowCount: 2);
+        $headingRow = $rows[0];
+        $dataRow = $rows[1];
+
+        $this->assertEquals($employee->id, $dataRow[0]);
+        $this->assertEquals($employee->first_name, $dataRow[1]);
+        $this->assertEquals($employee->last_name, $dataRow[2]);
+
+        $guardedColumns = range(3, count($headingRow) - 1);
+        $this->assertGreaterThan(0, count($guardedColumns));
+
+        foreach ($guardedColumns as $guardedColumn) {
+            $this->assertEquals(
+                __('common.not_available'),
+                $dataRow[$guardedColumn],
+                sprintf('Column %d (%s) was not redacted', $guardedColumn, $headingRow[$guardedColumn])
+            );
+        }
+    }
+
     /**
      * Read the first $rowCount rows from a specific sheet of a generated test file.
      * Returns an array of rows, each row being an array of cell values.

@@ -244,152 +244,84 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function nomineeProfileFields(): array
     {
-        $consented = fn ($g) => (bool) $g->consentToShareProfile;
+        $consented = fn ($row) => $row->visible(fn ($g) => (bool) $g->consentToShareProfile);
 
         return [
             Field::text('id', fn ($g) => $g->nominee->id),
             Field::text('first_name', fn ($g) => $g->nominee->first_name),
             Field::text('last_name', fn ($g) => $g->nominee->last_name),
-            Field::text('email', fn ($g) => $g->nominee->email)
-                ->visible($consented),
-            Field::text('phone', fn ($g) => $g->nominee->telephone)
-                ->visible($consented),
-            Field::enum('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status)
-                ->visible($consented),
-            Field::enum('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship)
-                ->visible($consented),
-            Field::text('current_city', fn ($g) => $g->nominee->current_city)
-                ->visible($consented),
-            Field::enum('current_province', ProvinceOrTerritory::class, fn ($g) => $g->nominee->current_province)
-                ->visible($consented),
-            Field::enum('preferred_communication_language', Language::class, fn ($g) => $g->nominee->preferred_lang)
-                ->visible($consented),
-            Field::text('interested_in_languages', fn ($g) => $this->lookingForLanguages($g->nominee))
-                ->visible($consented),
-            Field::enum('first_official_language', Language::class, fn ($g) => $g->nominee->first_official_language)
-                ->visible($consented),
-            Field::enum('estimated_language_ability', EstimatedLanguageAbility::class, fn ($g) => $g->nominee->estimated_language_ability)
-                ->visible($consented),
-            Field::bool('second_language_exam_completed', fn ($g) => $g->nominee->second_language_exam_completed)
-                ->visible($consented),
-            Field::bool('second_language_exam_validity', fn ($g) => $g->nominee->second_language_exam_validity)
-                ->visible($consented),
-            Field::enum('comprehension_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->comprehension_level)
-                ->visible($consented),
-            Field::enum('writing_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->written_level)
-                ->visible($consented),
-            Field::enum('oral_interaction_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->verbal_level)
-                ->visible($consented),
-            Field::bool('government_employee', fn ($g) => $g->nominee->computed_is_gov_employee)
-                ->visible($consented),
-            Field::text('department', fn ($g) => $g->nominee->department()->first()?->name[$this->lang])
-                ->visible($consented),
-            Field::enum('employee_type', GovEmployeeType::class, fn ($g) => $g->nominee->computed_gov_employee_type)
-                ->visible($consented),
-            Field::text('work_email', fn ($g) => $g->nominee->work_email)
-                ->visible($consented),
-            Field::text('classification', fn ($g) => $g->nominee->getClassification())
-                ->visible($consented),
-            Field::bool('priority_entitlement', fn ($g) => $g->nominee->has_priority_entitlement)
-                ->visible($consented),
-            Field::text('priority_number', fn ($g) => $g->nominee->priority_number)
-                ->visible($consented),
-            Field::bool('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null)
-                ->visible($consented),
-            Field::enum('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted'])
-                ->visible($consented),
-            Field::enum('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee))
-                ->visible($consented),
-            Field::enum('flexible_work_locations', FlexibleWorkLocation::class, fn ($g) => $g->nominee->flexible_work_locations)
-                ->visible($consented),
-            Field::text('location_exemptions', fn ($g) => $g->nominee->location_exemptions)
-                ->visible($consented),
-            Field::bool('woman', fn ($g) => $g->nominee->is_woman)
-                ->visible($consented),
-            Field::enum('indigenous', IndigenousCommunity::class, fn ($g) => $this->getIndigenousCommunities($g->nominee))
-                ->visible($consented),
-            Field::bool('visible_minority', fn ($g) => $g->nominee->is_visible_minority)
-                ->visible($consented),
-            Field::bool('disability', fn ($g) => $g->nominee->has_disability)
-                ->visible($consented),
-            Field::text('skills', fn ($g) => $this->getUserSkills($g->nominee))
-                ->visible($consented),
-            Field::bool('career_planning_lateral_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_interest)
-                ->visible($consented),
-            Field::enum('career_planning_lateral_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_time_frame)
-                ->visible($consented),
-            Field::enum('career_planning_lateral_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_organization_type)
-                ->visible($consented),
-            Field::bool('career_planning_promotion_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_interest)
-                ->visible($consented),
-            Field::enum('career_planning_promotion_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_time_frame)
-                ->visible($consented),
-            Field::enum('career_planning_promotion_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_organization_type)
-                ->visible($consented),
-            Field::enum('career_planning_learning_opportunities_interest', LearningOpportunitiesInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_opportunities_interest)
-                ->visible($consented),
-            Field::date('eligible_retirement_year', 'Y', fn ($g) => $g->nominee->employeeProfile?->eligible_retirement_year)
-                ->visible($consented),
-            Field::enum('career_planning_mentorship_status', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_status)
-                ->visible($consented),
-            Field::enum('career_planning_mentorship_interest', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_interest)
-                ->visible($consented),
-            Field::bool('career_planning_exec_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_interest)
-                ->visible($consented),
-            Field::enum('career_planning_exec_coaching_status', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_status)
-                ->visible($consented),
-            Field::enum('career_planning_exec_coaching_interest', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_interest)
-                ->visible($consented),
-            Field::text('next_role_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->group)
-                ->visible($consented),
-            Field::number('next_role_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->level)
-                ->visible($consented),
-            Field::enum('next_role_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->next_role_target_role)
-                ->visible($consented),
-            Field::bool('next_role_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->next_role_is_c_suite_role)
-                ->visible($consented),
-            Field::enum('next_role_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->next_role_c_suite_role_title)
-                ->visible($consented),
-            Field::text('next_role_job_title', fn ($g) => $g->nominee->employeeProfile?->next_role_job_title)
-                ->visible($consented),
-            Field::text('next_role_functional_community', fn ($g) => $g->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang])
-                ->visible($consented),
-            Field::text('next_role_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleWorkStreams, ','))
-                ->visible($consented),
-            Field::text('next_role_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleDepartments))
-                ->visible($consented),
-            Field::text('next_role_additional_information', fn ($g) => $g->nominee->employeeProfile?->next_role_additional_information)
-                ->visible($consented),
-            Field::text('career_objective_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->group)
-                ->visible($consented),
-            Field::number('career_objective_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->level)
-                ->visible($consented),
-            Field::enum('career_objective_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_target_role)
-                ->visible($consented),
-            Field::bool('career_objective_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->career_objective_is_c_suite_role)
-                ->visible($consented),
-            Field::enum('career_objective_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_c_suite_role_title)
-                ->visible($consented),
-            Field::text('career_objective_job_title', fn ($g) => $g->nominee->employeeProfile?->career_objective_job_title)
-                ->visible($consented),
-            Field::text('career_objective_functional_community', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang])
-                ->visible($consented),
-            Field::text('career_objective_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveWorkStreams))
-                ->visible($consented),
-            Field::text('career_objective_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveDepartments))
-                ->visible($consented),
-            Field::text('career_objective_additional_information', fn ($g) => $g->nominee->employeeProfile?->career_objective_additional_information)
-                ->visible($consented),
-            Field::text('career_planning_about_you', fn ($g) => $g->nominee->employeeProfile?->career_planning_about_you)
-                ->visible($consented),
-            Field::text('career_planning_learning_goals', fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_goals)
-                ->visible($consented),
-            Field::text('career_planning_work_style', fn ($g) => $g->nominee->employeeProfile?->career_planning_work_style)
-                ->visible($consented),
-            Field::text('digital_talent_processes', fn ($g) => $this->getAppliedPools($g->nominee))
-                ->visible($consented),
-            Field::text('off_platform_processes_not_verified', fn ($g) => $this->getOffPlatformProcesses($g->nominee))
-                ->visible($consented),
+            ...array_map($consented, [
+                Field::text('email', fn ($g) => $g->nominee->email),
+                Field::text('phone', fn ($g) => $g->nominee->telephone),
+                Field::enum('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
+                Field::enum('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
+                Field::text('current_city', fn ($g) => $g->nominee->current_city),
+                Field::enum('current_province', ProvinceOrTerritory::class, fn ($g) => $g->nominee->current_province),
+                Field::enum('preferred_communication_language', Language::class, fn ($g) => $g->nominee->preferred_lang),
+                Field::text('interested_in_languages', fn ($g) => $this->lookingForLanguages($g->nominee)),
+                Field::enum('first_official_language', Language::class, fn ($g) => $g->nominee->first_official_language),
+                Field::enum('estimated_language_ability', EstimatedLanguageAbility::class, fn ($g) => $g->nominee->estimated_language_ability),
+                Field::bool('second_language_exam_completed', fn ($g) => $g->nominee->second_language_exam_completed),
+                Field::bool('second_language_exam_validity', fn ($g) => $g->nominee->second_language_exam_validity),
+                Field::enum('comprehension_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->comprehension_level),
+                Field::enum('writing_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->written_level),
+                Field::enum('oral_interaction_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->verbal_level),
+                Field::bool('government_employee', fn ($g) => $g->nominee->computed_is_gov_employee),
+                Field::text('department', fn ($g) => $g->nominee->department()->first()?->name[$this->lang]),
+                Field::enum('employee_type', GovEmployeeType::class, fn ($g) => $g->nominee->computed_gov_employee_type),
+                Field::text('work_email', fn ($g) => $g->nominee->work_email),
+                Field::text('classification', fn ($g) => $g->nominee->getClassification()),
+                Field::bool('priority_entitlement', fn ($g) => $g->nominee->has_priority_entitlement),
+                Field::text('priority_number', fn ($g) => $g->nominee->priority_number),
+                Field::bool('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null),
+                Field::enum('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted']),
+                Field::enum('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee)),
+                Field::enum('flexible_work_locations', FlexibleWorkLocation::class, fn ($g) => $g->nominee->flexible_work_locations),
+                Field::text('location_exemptions', fn ($g) => $g->nominee->location_exemptions),
+                Field::bool('woman', fn ($g) => $g->nominee->is_woman),
+                Field::enum('indigenous', IndigenousCommunity::class, fn ($g) => $this->getIndigenousCommunities($g->nominee)),
+                Field::bool('visible_minority', fn ($g) => $g->nominee->is_visible_minority),
+                Field::bool('disability', fn ($g) => $g->nominee->has_disability),
+                Field::text('skills', fn ($g) => $this->getUserSkills($g->nominee)),
+                Field::bool('career_planning_lateral_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_interest),
+                Field::enum('career_planning_lateral_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_time_frame),
+                Field::enum('career_planning_lateral_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_organization_type),
+                Field::bool('career_planning_promotion_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_interest),
+                Field::enum('career_planning_promotion_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_time_frame),
+                Field::enum('career_planning_promotion_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_organization_type),
+                Field::enum('career_planning_learning_opportunities_interest', LearningOpportunitiesInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_opportunities_interest),
+                Field::date('eligible_retirement_year', 'Y', fn ($g) => $g->nominee->employeeProfile?->eligible_retirement_year),
+                Field::enum('career_planning_mentorship_status', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_status),
+                Field::enum('career_planning_mentorship_interest', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_interest),
+                Field::bool('career_planning_exec_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_interest),
+                Field::enum('career_planning_exec_coaching_status', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_status),
+                Field::enum('career_planning_exec_coaching_interest', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_interest),
+                Field::text('next_role_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->group),
+                Field::number('next_role_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->level),
+                Field::enum('next_role_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->next_role_target_role),
+                Field::bool('next_role_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->next_role_is_c_suite_role),
+                Field::enum('next_role_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->next_role_c_suite_role_title),
+                Field::text('next_role_job_title', fn ($g) => $g->nominee->employeeProfile?->next_role_job_title),
+                Field::text('next_role_functional_community', fn ($g) => $g->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang]),
+                Field::text('next_role_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleWorkStreams, ',')),
+                Field::text('next_role_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleDepartments)),
+                Field::text('next_role_additional_information', fn ($g) => $g->nominee->employeeProfile?->next_role_additional_information),
+                Field::text('career_objective_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->group),
+                Field::number('career_objective_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->level),
+                Field::enum('career_objective_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_target_role),
+                Field::bool('career_objective_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->career_objective_is_c_suite_role),
+                Field::enum('career_objective_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_c_suite_role_title),
+                Field::text('career_objective_job_title', fn ($g) => $g->nominee->employeeProfile?->career_objective_job_title),
+                Field::text('career_objective_functional_community', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang]),
+                Field::text('career_objective_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveWorkStreams)),
+                Field::text('career_objective_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveDepartments)),
+                Field::text('career_objective_additional_information', fn ($g) => $g->nominee->employeeProfile?->career_objective_additional_information),
+                Field::text('career_planning_about_you', fn ($g) => $g->nominee->employeeProfile?->career_planning_about_you),
+                Field::text('career_planning_learning_goals', fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_goals),
+                Field::text('career_planning_work_style', fn ($g) => $g->nominee->employeeProfile?->career_planning_work_style),
+                Field::text('digital_talent_processes', fn ($g) => $this->getAppliedPools($g->nominee)),
+                Field::text('off_platform_processes_not_verified', fn ($g) => $this->getOffPlatformProcesses($g->nominee)),
+            ]),
         ];
     }
 
