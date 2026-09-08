@@ -113,8 +113,9 @@ class PostgresTextSearch
 
         // Quote the term so tsquery operators in it (& | ! ( ) : < > *) are read as
         // text, not syntax. A term with no lexemes gives an empty tsquery, which
-        // matches nothing.
-        $quoted = "'".str_replace("'", "''", $term)."'";
+        // matches nothing. Backslash is an escape inside the quotes, so it has to be
+        // doubled or a trailing one escapes the closing quote.
+        $quoted = "'".str_replace(['\\', "'"], ['\\\\', "''"], $term)."'";
 
         if ($negated) {
             $quoted = '!'.$quoted;

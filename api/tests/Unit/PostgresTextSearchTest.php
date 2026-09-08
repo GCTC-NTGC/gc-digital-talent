@@ -132,6 +132,21 @@ class PostgresTextSearchTest extends TestCase
                 'searchString' => "te&rm1 te|rm2 !term3 'term4 te'rm5",
                 'expectedOutput' => "'te&rm1' & 'te|rm2' & '!term3' & '''term4' & 'te''rm5'",
             ],
+            'prefix, trailing backslash' => [
+                'matchingType' => 'PREFIX',
+                'searchString' => 'abc\\',
+                'expectedOutput' => "'abc\\\\':*",
+            ],
+            'exact, trailing backslash' => [
+                'matchingType' => 'EXACT',
+                'searchString' => 'abc\\',
+                'expectedOutput' => "'abc\\\\'",
+            ],
+            'prefix, backslash only' => [
+                'matchingType' => 'PREFIX',
+                'searchString' => '\\',
+                'expectedOutput' => "'\\\\':*",
+            ],
         ];
     }
 }
