@@ -284,7 +284,7 @@ class TalentNominationGroup extends Model
     }
 
     /** @return BelongsTo<Classification, $this> */
-    public function classificationAtTimeOfAdvancementApproval(): BelongsTo
+    public function classificationAtTimeOfLastApproval(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }

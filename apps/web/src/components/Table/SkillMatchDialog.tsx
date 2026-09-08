@@ -4,11 +4,11 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { Button, Dialog, Pending, Separator, Ul } from "@gc-digital-talent/ui";
-import type { Skill } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
 
+import type { SkillTreeSkill } from "~/components/SkillTree/SkillTree";
 import SkillTree, {
   SkillTreeExperience_Fragment,
 } from "~/components/SkillTree/SkillTree";
@@ -37,7 +37,7 @@ const SkillMatchDialog_Query = graphql(/* GraphQL */ `
 
 interface SkillMatchDialogBodyProps {
   intl: IntlShape;
-  filteredSkills: Skill[];
+  filteredSkills: SkillTreeSkill[];
   userId: string;
   poolCandidateName: string;
 }
@@ -156,7 +156,7 @@ const SkillMatchDialogBody = ({
 };
 
 interface SkillMatchDialogProps {
-  filteredSkills: Skill[];
+  filteredSkills: SkillTreeSkill[];
   skillsCount: number | null | undefined;
   userId: string;
   poolCandidateName: string;
@@ -281,7 +281,7 @@ export const SkillMatchDialog = ({
 };
 
 function skillMatchDialogAccessor(
-  filteredSkills: Skill[],
+  filteredSkills: SkillTreeSkill[],
   skillCount: number | null | undefined,
   userId: string,
   poolCandidateName: string,

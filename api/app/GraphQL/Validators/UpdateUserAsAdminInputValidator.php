@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Enums\ErrorCode;
+use App\Rules\CaseInsensitiveUnique;
 use App\Rules\IsStatusOrNonStatus;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -28,10 +29,10 @@ final class UpdateUserAsAdminInputValidator extends Validator
                  * for allowing a user to be updated while the email
                  * remains the same.
                  *
-                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 * REF: App\Rules\CaseInsensitiveUnique
                  */
-                Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
-                Rule::unique('users', 'work_email')->ignore($this->arg('id'), 'id'),
+                (new CaseInsensitiveUnique('users', 'email'))->ignore($this->arg('id'), 'id'),
+                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($this->arg('id'), 'id'),
             ],
             'workEmail' => [
                 'sometimes',
@@ -43,10 +44,10 @@ final class UpdateUserAsAdminInputValidator extends Validator
                  * for allowing a user to be updated while the email
                  * remains the same.
                  *
-                 * REF: https://laravel.com/docs/9.x/validation#rule-unique
+                 * REF: App\Rules\CaseInsensitiveUnique
                  */
-                Rule::unique('users', 'email')->ignore($this->arg('id'), 'id'),
-                Rule::unique('users', 'work_email')->ignore($this->arg('id'), 'id'),
+                (new CaseInsensitiveUnique('users', 'email'))->ignore($this->arg('id'), 'id'),
+                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($this->arg('id'), 'id'),
             ],
             'sub' => [
                 'sometimes',
@@ -63,8 +64,8 @@ final class UpdateUserAsAdminInputValidator extends Validator
     public function messages(): array
     {
         return [
-            'email.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
-            'workEmail.unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'email.case_insensitive_unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
+            'workEmail.case_insensitive_unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
             'sub.unique' => ErrorCode::SUB_IN_USE->name,
         ];
     }
