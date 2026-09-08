@@ -4382,6 +4382,10 @@
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description input"
   },
+  "FEjHL6": {
+    "defaultMessage": "Classifications proposées pour la promotion",
+    "description": "A list of classifications for advancement"
+  },
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
@@ -11413,6 +11417,10 @@
   "h8BHov": {
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
+  },
+  "h8vBvw": {
+    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "description": "introduction for advancement classifications"
   },
   "h9XSU5": {
     "defaultMessage": "Notes complémentaires",
