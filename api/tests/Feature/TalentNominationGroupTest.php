@@ -598,7 +598,7 @@ class TalentNominationGroupTest extends TestCase
                     'advancementClassifications' => [
                         'sync' => $classifications->pluck('id')->toArray(),
                     ],
-                    'referralExpiryDate' => config('constants.far_future_date'),
+                    'advancementReferralExpiryDate' => config('constants.far_future_date'),
                 ],
             ]);
         $response->assertGraphQLErrorFree();
@@ -670,7 +670,7 @@ class TalentNominationGroupTest extends TestCase
                     'advancementClassifications' => [
                         'sync' => [],
                     ],
-                    'referralExpiryDate' => config('constants.far_future_date'),
+                    'advancementReferralExpiryDate' => config('constants.far_future_date'),
                 ],
             ]);
 
@@ -697,7 +697,7 @@ class TalentNominationGroupTest extends TestCase
                     'advancementClassifications' => [
                         'sync' => [$classification->id],
                     ],
-                    'referralExpiryDate' => null,
+                    'advancementReferralExpiryDate' => null,
                 ],
             ]);
 
@@ -724,7 +724,7 @@ class TalentNominationGroupTest extends TestCase
                     'advancementClassifications' => [
                         'sync' => [$invalidClassificationId],
                     ],
-                    'referralExpiryDate' => config('constants.far_future_date'),
+                    'advancementReferralExpiryDate' => config('constants.far_future_date'),
                 ],
             ]);
 

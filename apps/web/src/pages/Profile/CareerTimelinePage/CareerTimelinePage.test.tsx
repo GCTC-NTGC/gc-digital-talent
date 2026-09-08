@@ -1,28 +1,10 @@
-import type {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  User,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
-
+import type { ExperienceForDate } from "~/types/experience";
 import { compareByDate } from "~/utils/experienceUtils";
 
-export type ExperienceForDate =
-  | (AwardExperience & { startDate: string; endDate: string })
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
-
-const user: User = { email: "blank", id: "blank" };
 const generateExperience = (
   startDate?: string,
   endDate?: string,
 ): ExperienceForDate => ({
-  id: "0",
-  user,
   endDate,
   startDate,
 });

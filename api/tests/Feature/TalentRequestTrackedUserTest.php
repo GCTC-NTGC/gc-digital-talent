@@ -2053,7 +2053,7 @@ class TalentRequestTrackedUserTest extends TestCase
                 'talent_nomination_event_id' => $event->id,
                 'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
             ]);
-            $group->referral_expiry_date = now()->addMonths(6);
+            $group->advancement_referral_expiry_date = now()->addMonths(6);
             $group->save();
             TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
         }

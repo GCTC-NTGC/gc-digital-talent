@@ -10,10 +10,9 @@ import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 import useRoutes from "~/hooks/useRoutes";
-
-import { useMetaDataTalentNominationChip } from "./hooks";
-import { NominationMetaDataDate } from "./NominationMetaDataDate";
-import ReviewTalentNominationDialog from "./ReviewTalentNominationDialog";
+import { useMetaDataTalentNominationChip } from "~/hooks/useMetaDataTalentNominationChip";
+import { NominationMetaDataDate } from "~/components/NominationMetaDataDate/NominationMetaDataDate";
+import ReviewTalentNominationDialog from "~/components/ReviewTalentNominationDialog/ReviewTalentNominationDialog";
 
 const PreviewListItemTalentNomination_Fragment = graphql(/* GraphQL */ `
   fragment PreviewListItemTalentNomination on TalentNomination {

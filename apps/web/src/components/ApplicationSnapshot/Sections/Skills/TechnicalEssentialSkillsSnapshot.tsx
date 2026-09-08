@@ -29,11 +29,13 @@ const TechnicalEssentialSkillsSnapshot_Fragment = graphql(/** GraphQL */ `
 interface TechnicalEssentialSkillsSnapshotProps {
   query?: FragmentType<typeof TechnicalEssentialSkillsSnapshot_Fragment>;
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
 }
 
 const TechnicalEssentialSkillsSnapshot = ({
   query,
   experiences,
+  snapshotVersion,
 }: TechnicalEssentialSkillsSnapshotProps) => {
   const application = getFragment(
     TechnicalEssentialSkillsSnapshot_Fragment,
@@ -50,7 +52,11 @@ const TechnicalEssentialSkillsSnapshot = ({
   );
 
   return (
-    <SkillSnapshot query={technicalEssentialSkills} experiences={experiences} />
+    <SkillSnapshot
+      query={technicalEssentialSkills}
+      experiences={experiences}
+      snapshotVersion={snapshotVersion}
+    />
   );
 };
 

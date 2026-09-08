@@ -38,7 +38,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $computed_status
  * @property string $comments
  * @property bool $consentToShareProfile
- * @property ?Carbon $referral_expiry_date
+ * @property ?Carbon $advancement_referral_expiry_date
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -53,7 +53,7 @@ class TalentNominationGroup extends Model
      * The attributes that should be cast.
      */
     protected $casts = [
-        'referral_expiry_date' => 'date',
+        'advancement_referral_expiry_date' => 'date',
     ];
 
     /**
@@ -231,6 +231,13 @@ class TalentNominationGroup extends Model
             return;
         }
 
+        // a nominee can view their own nomination groups
+        if ($user) {
+            $query->where('nominee_id', $user->id);
+
+            return;
+        }
+
         // fall through, return nothing
         $query->where('id', null);
     }
@@ -267,8 +274,17 @@ class TalentNominationGroup extends Model
         return $query->with(['talentNominationEvent']);
     }
 
+    public static function scopeApproved(Builder $query): Builder
+    {
+        $query->whereIn('computed_status', [
+            TalentNominationGroupStatus::APPROVED->name,
+        ]);
+
+        return $query;
+    }
+
     /** @return BelongsTo<Classification, $this> */
-    public function classificationAtTimeOfAdvancementApproval(): BelongsTo
+    public function classificationAtTimeOfLastApproval(): BelongsTo
     {
         return $this->belongsTo(Classification::class);
     }

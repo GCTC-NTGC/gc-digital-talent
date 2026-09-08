@@ -16,6 +16,7 @@ use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -179,13 +180,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereHasCommunityInterestWithReferralStatusIn(?array $referralStatuses): self
-    {
-        return $this->when($referralStatuses, fn (self $query, array $statuses) => $query
-            ->whereHas('communityInterests', fn (Builder $interests) => $interests
-                ->whereIn('referral_status', $statuses)));
-    }
-
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         // if no filters provided then return query unchanged
@@ -342,13 +336,7 @@ class UserBuilder extends Builder
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        $this->where(function ($query) use ($filters) {
-            $query->whereRaw('1 = 0'); // false starting point for the orWhereHas chain
-            foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
-            }
-        });
-
+        $this->whereMatchesAnyTalentSource($filters['talentSources'] ?? null, $filters);
         $this->whereUserAttributesMatchTalentRequest($filters);
         $this->addSkillCountSelect($skillIds);
         $this->withTalentRequestMatches($filters);
@@ -360,6 +348,22 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    // Users matching at least one of the request's talent sources.
+    public function whereMatchesAnyTalentSource(?array $talentSources, array $filters): self
+    {
+        $sources = TalentRequestSource::selected($talentSources);
+
+        if (empty($sources)) {
+            return $this->whereRaw('1 = 0');
+        }
+
+        return $this->where(function ($query) use ($sources, $filters) {
+            foreach ($sources as $index => $source) {
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+            }
+        });
     }
 
     // Only the request's user-level attribute and location filters.
@@ -672,6 +676,35 @@ class UserBuilder extends Builder
                     $communityQuery->whereIn('id', $communityIds);
                 });
         });
+    }
+
+    public function whereHasMatchingCommunityInterest(?array $filter): self
+    {
+        $filter ??= [];
+        $fields = Arr::only($filter, ['communities', 'workStreams', 'jobInterest', 'trainingInterest']);
+
+        return $this->when(array_filter($fields), fn (self $query) => $query
+            ->whereHas('communityInterests', function ($interests) use ($fields) {
+                /** @var CommunityInterestBuilder $interests */
+                $interests
+                    ->where('consent_to_share_profile', true)
+                    ->communities($fields['communities'] ?? null)
+                    ->workStreams($fields['workStreams'] ?? null)
+                    ->jobInterest($fields['jobInterest'] ?? null)
+                    ->trainingInterest($fields['trainingInterest'] ?? null);
+            }));
+    }
+
+    public function whereLateralMoveInterest(?bool $lateralMoveInterest): self
+    {
+        return $this->when($lateralMoveInterest, fn (self $query) => $query
+            ->where('career_planning_lateral_move_interest', true));
+    }
+
+    public function wherePromotionMoveInterest(?bool $promotionMoveInterest): self
+    {
+        return $this->when($promotionMoveInterest, fn (self $query) => $query
+            ->where('career_planning_promotion_move_interest', true));
     }
 
     public function whereHasPriorityEntitlement(?bool $hasPriority): self

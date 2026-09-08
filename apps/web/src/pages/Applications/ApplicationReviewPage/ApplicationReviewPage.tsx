@@ -124,31 +124,35 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       signature: formValues.signature,
     })
       .then(async (res) => {
-        if (!res.error) {
-          // Log the submission of the application with app insights
-          if (appInsights) {
-            const aiUserId = appInsights?.context?.user?.id || "unknown";
-            appInsights.trackEvent?.(
-              { name: "Job application submitted" },
-              {
-                aiUserId,
-                pageUrl: window.location.href,
-                timestamp: new Date().toISOString(),
-                referrer: document.referrer || "none",
-                source: "ApplicationReviewPage",
-              },
-            );
-          }
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "We've successfully received your application",
-              id: "2SSm+L",
-              description:
-                "Success message after submission for the application review page.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data?.submitApplication?.id || res.error) {
+          throw new Error();
         }
+
+        // Log the submission of the application with app insights
+        if (appInsights) {
+          const aiUserId = appInsights?.context?.user?.id || "unknown";
+          appInsights.trackEvent?.(
+            { name: "Job application submitted" },
+            {
+              aiUserId,
+              pageUrl: window.location.href,
+              timestamp: new Date().toISOString(),
+              referrer: document.referrer || "none",
+              source: "ApplicationReviewPage",
+            },
+          );
+        }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "We've successfully received your application",
+            id: "2SSm+L",
+            description:
+              "Success message after submission for the application review page.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         if (appInsights) {

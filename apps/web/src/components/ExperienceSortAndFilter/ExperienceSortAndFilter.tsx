@@ -5,24 +5,17 @@ import { useEffect } from "react";
 
 import { formMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Select } from "@gc-digital-talent/forms";
-import type {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-} from "@gc-digital-talent/graphql";
 
 import experienceMessages from "~/messages/experienceMessages";
 
 type SortOptions = "date_desc" | "title_asc";
 type FilterOptions =
   | "none"
-  | NonNullable<AwardExperience["__typename"]>
-  | NonNullable<CommunityExperience["__typename"]>
-  | NonNullable<EducationExperience["__typename"]>
-  | NonNullable<PersonalExperience["__typename"]>
-  | NonNullable<WorkExperience["__typename"]>;
+  | "AwardExperience"
+  | "CommunityExperience"
+  | "EducationExperience"
+  | "PersonalExperience"
+  | "WorkExperience";
 
 export interface FormValues {
   sortBy: SortOptions;

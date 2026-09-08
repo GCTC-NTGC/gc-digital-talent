@@ -1,6 +1,6 @@
 import { randomBytes, randomInt } from "node:crypto";
 
-import { add, format } from "date-fns";
+import { format } from "date-fns";
 
 // Keep CodeQL happy and sanitize our env vars
 function sanitize(str: string) {
@@ -37,7 +37,9 @@ export function fetchIdentificationNumber(url: string, entity: string): string {
 }
 
 export function getFutureDateByMonths(monthsToAdd: number): string {
-  return format(add(new Date(), { months: monthsToAdd }), "yyyy-MM-dd");
+  const futureDate = new Date();
+  futureDate.setMonth(futureDate.getMonth() + monthsToAdd);
+  return format(futureDate, "yyyy-MM-dd");
 }
 
 // copied from apps/web/src/hooks/useRequiredParams.ts

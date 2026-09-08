@@ -1,11 +1,12 @@
 import { useIntl } from "react-intl";
 
-import type { WorkExperience } from "@gc-digital-talent/graphql";
 import { CSuiteRoleTitle } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
+  getLocalizedName,
   localizeCurrency,
 } from "@gc-digital-talent/i18n";
 
@@ -13,6 +14,17 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
+
+export interface SupervisoryContentExperience {
+  supervisoryPosition?: boolean | null;
+  supervisedEmployees?: boolean | null;
+  supervisedEmployeesNumber?: number | null;
+  budgetManagement?: boolean | null;
+  annualBudgetAllocation?: number | null;
+  seniorManagementStatus?: boolean | null;
+  cSuiteRoleTitle?: GenericLocalizedEnum<CSuiteRoleTitle> | null;
+  otherCSuiteRoleTitle?: string | null;
+}
 
 const SupervisoryContent = ({
   experience: {
@@ -26,7 +38,7 @@ const SupervisoryContent = ({
     otherCSuiteRoleTitle,
   },
   headingLevel,
-}: ContentProps<Omit<WorkExperience, "user">>) => {
+}: ContentProps<SupervisoryContentExperience>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -141,7 +153,7 @@ const SupervisoryContent = ({
                 headingLevel={headingLevel}
               >
                 {cSuiteRoleTitle
-                  ? cSuiteRoleTitle?.label.localized
+                  ? getLocalizedName(cSuiteRoleTitle?.label, intl)
                   : intl.formatMessage(commonMessages.notApplicable)}
               </ContentSection>
               {cSuiteRoleTitle?.value === CSuiteRoleTitle.Other && (

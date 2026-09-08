@@ -29,11 +29,13 @@ const TechnicalAssetSkillsSnapshot_Fragment = graphql(/** GraphQL */ `
 interface TechnicalAssetSkillsSnapshotProps {
   query?: FragmentType<typeof TechnicalAssetSkillsSnapshot_Fragment>;
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
 }
 
 const TechnicalAssetSkillsSnapshot = ({
   query,
   experiences,
+  snapshotVersion,
 }: TechnicalAssetSkillsSnapshotProps) => {
   const application = getFragment(TechnicalAssetSkillsSnapshot_Fragment, query);
 
@@ -47,7 +49,11 @@ const TechnicalAssetSkillsSnapshot = ({
   );
 
   return (
-    <SkillSnapshot query={technicalAssetSkills} experiences={experiences} />
+    <SkillSnapshot
+      query={technicalAssetSkills}
+      experiences={experiences}
+      snapshotVersion={snapshotVersion}
+    />
   );
 };
 

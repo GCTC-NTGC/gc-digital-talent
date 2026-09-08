@@ -54,13 +54,11 @@ const ReviewRecruitmentProcessDialog_Fragment = graphql(/* GraphQL */ `
     id
     expiryDate
     suspendedAt
-    applicationStatusData {
-      statusUpdatedAt
-      candidateInterest {
-        value
-        label {
-          localized
-        }
+    statusUpdatedAt
+    candidateInterest {
+      value
+      label {
+        localized
       }
     }
     pool {
@@ -236,22 +234,16 @@ const ReviewRecruitmentProcessDialog = ({
         </Dialog.Header>
         <Dialog.Body>
           <div className="grid gap-6 xs:grid-cols-2">
-            {recruitmentProcess.applicationStatusData?.candidateInterest && (
+            {recruitmentProcess.candidateInterest && (
               <StatusSummary
-                label={
-                  recruitmentProcess.applicationStatusData?.candidateInterest
-                    .label.localized
-                }
+                label={recruitmentProcess.candidateInterest.label.localized}
                 description={candidateInterestDesc({
-                  interest:
-                    recruitmentProcess.applicationStatusData?.candidateInterest
-                      .value,
+                  interest: recruitmentProcess.candidateInterest.value,
                   intl,
                 })}
                 color={
                   candidateInterestColorMap.get(
-                    recruitmentProcess.applicationStatusData?.candidateInterest
-                      .value,
+                    recruitmentProcess.candidateInterest.value,
                   ) ?? "secondary"
                 }
                 className="xs:col-span-2"
@@ -297,11 +289,9 @@ const ReviewRecruitmentProcessDialog = ({
               {pool.department?.name.localized}
             </FieldDisplay>
             <FieldDisplay label={intl.formatMessage(commonMessages.qualified)}>
-              {recruitmentProcess.applicationStatusData?.statusUpdatedAt
+              {recruitmentProcess.statusUpdatedAt
                 ? formatDate({
-                    date: parseDateTimeUtc(
-                      recruitmentProcess.applicationStatusData.statusUpdatedAt,
-                    ),
+                    date: parseDateTimeUtc(recruitmentProcess.statusUpdatedAt),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
                   })

@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Enums\ErrorCode;
+use App\Models\Classification;
+use App\Models\Department;
 use App\Models\SkillFamily;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
@@ -539,5 +541,181 @@ class TalentNominationTest extends TestCase
                     ],
                 ],
             ]);
+    }
+
+    // Can create a nomination with advancement classifications when the advancement option is chosen
+    public function testCanCreateNominationWithAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $this->nominationEvent->id,
+                    ],
+                    'nominateForAdvancement' => true,
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'createTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
+    // Can't create a nomination with advancement classifications when the advancement option is not chosen
+    public function testCantCreateNominationWithoutAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->createMutation, [
+                'talentNomination' => [
+                    'talentNominationEvent' => [
+                        'connect' => $this->nominationEvent->id,
+                    ],
+                    'nominateForAdvancement' => false,
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError('talentNomination.advancementClassifications.sync', 'The talent nomination.advancement classifications.sync field is prohibited.');
+    }
+
+    // Can update a nomination with advancement classifications when the advancement option is chosen
+    public function testCanUpdateNominationWithAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+        $nomination = TalentNomination::factory()
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $this->employee1->id,
+
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'nominateForAdvancement' => true,
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'updateTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+        $this->assertSame([$classification->id], $nomination->fresh()->advancementClassifications->pluck('id')->all());
+    }
+
+    // Can't update a nomination with advancement classifications when the advancement option is not chosen
+    public function testUpdateCreateNominationWithoutAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+        $nomination = TalentNomination::factory()
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+                'submitter_id' => $this->employee1->id,
+            ]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->updateMutation, [
+                'talentNomination' => [
+                    'id' => $nomination->id,
+                    'nominateForAdvancement' => false,
+                    'advancementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError('talentNomination.advancementClassifications.sync', 'The talent nomination.advancement classifications.sync field is prohibited.');
+    }
+
+    // Can submit a nomination with advancement classifications when the advancement option is chosen
+    public function testCanSubmitNominationWithAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'nominate_for_advancement' => true,
+                'advancement_reference_id' => null,
+                'advancement_reference_fallback_work_email' => 'reference@gc.ca',
+                'advancement_reference_fallback_name' => 'Reference Name',
+                'advancement_reference_fallback_classification_id' => Classification::factory()->create()->id,
+                'advancement_reference_fallback_department_id' => Department::factory()->create()->id,
+            ]);
+        $nomination->advancementClassifications()->sync([$classification->id]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'submitTalentNomination' => [
+                    'id',
+                ],
+            ],
+        ]);
+
+        $response->assertGraphQLErrorFree();
+    }
+
+    // Can't submit a nomination with advancement classifications when the advancement option is not chosen
+    public function testCantSubmitNominationWithoutAdvancementWithClassifications()
+    {
+        $classification = Classification::factory()->create();
+        $nomination = TalentNomination::factory()
+            ->state([
+                'submitter_id' => $this->employee1->id,
+                'talent_nomination_event_id' => $this->nominationEvent->id,
+            ])
+            ->submittedRationale()
+            ->create([
+                // override factory logic
+                'nominate_for_advancement' => false,
+                'advancement_reference_id' => null,
+                'advancement_reference_fallback_work_email' => null,
+                'advancement_reference_fallback_name' => null,
+                'advancement_reference_fallback_classification_id' => null,
+                'advancement_reference_fallback_department_id' => null,
+            ]);
+        $nomination->advancementClassifications()->sync([$classification->id]);
+
+        $response = $this->actingAs($this->employee1, 'api')
+            ->graphQL($this->submitMutation, [
+                'id' => $nomination->id,
+            ]);
+
+        $response->assertGraphQLValidationError('advancement_classifications', 'The advancement classifications field is prohibited.');
     }
 }

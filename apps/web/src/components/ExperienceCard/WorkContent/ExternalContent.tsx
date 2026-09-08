@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { WorkExperience } from "@gc-digital-talent/graphql";
+import type {
+  ExternalRoleSeniority,
+  ExternalSizeOfOrganization,
+} from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -9,10 +13,16 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
 
+export interface ExternalContentExperience {
+  division?: string | null;
+  extSizeOfOrganization?: GenericLocalizedEnum<ExternalSizeOfOrganization> | null;
+  extRoleSeniority?: GenericLocalizedEnum<ExternalRoleSeniority> | null;
+}
+
 const ExternalContent = ({
   experience: { division, extSizeOfOrganization, extRoleSeniority },
   headingLevel,
-}: ContentProps<Omit<WorkExperience, "user">>) => {
+}: ContentProps<ExternalContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

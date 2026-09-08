@@ -72,17 +72,19 @@ const AddDepartmentMembershipDialog = ({
       },
     })
       .then((res) => {
-        if (!res.error) {
-          setIsOpen(false);
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Member added successfully",
-              id: "KESOSJ",
-              description:
-                "Alert displayed to user when a community member was added to a community",
-            }),
-          );
+        if (!res.data?.updateUserRoles?.id || res.error) {
+          throw new Error();
         }
+
+        setIsOpen(false);
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Member added successfully",
+            id: "KESOSJ",
+            description:
+              "Alert displayed to user when a community member was added to a community",
+          }),
+        );
       })
       .catch(() => {
         toast.error(

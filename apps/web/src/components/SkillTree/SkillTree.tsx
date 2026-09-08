@@ -11,7 +11,7 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { ExperienceWithSkills } from "~/utils/skillUtils";
@@ -19,9 +19,15 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 
+export interface SkillTreeSkill {
+  id: string;
+  name?: LocalizedString | null;
+  description?: LocalizedString | null;
+}
+
 const filterExperienceSkills = <T extends ExperienceWithSkills>(
   experience: T,
-  skill: Skill,
+  skill: SkillTreeSkill,
 ) => {
   return {
     ...experience,
@@ -43,7 +49,7 @@ export const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface SkillTreeProps {
-  skill: Skill;
+  skill: SkillTreeSkill;
   experiencesQuery: FragmentType<typeof SkillTreeExperience_Fragment>[];
   headingAs?: HeadingLevel;
   hideConnectButton?: boolean;

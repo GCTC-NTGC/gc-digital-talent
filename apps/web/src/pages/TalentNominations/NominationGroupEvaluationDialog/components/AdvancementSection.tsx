@@ -39,7 +39,7 @@ const NominationGroupEvaluationDialogAdvancement_Fragment = graphql(
         id
         groupAndLevel
       }
-      referralExpiryDate
+      advancementReferralExpiryDate
     }
   `,
 );
@@ -87,7 +87,7 @@ const AdvancementSection = ({
       resetDirtyField("advancementReferenceConfirmed", null);
       resetDirtyField("advancementApprovedNotes", null);
       resetDirtyField("advancementClassifications", []);
-      resetDirtyField("referralExpiryDate", "");
+      resetDirtyField("advancementReferralExpiryDate", "");
     }
 
     if (
@@ -195,8 +195,8 @@ const AdvancementSection = ({
             }}
           />
           <DateInput
-            id="referralExpiryDate"
-            name="referralExpiryDate"
+            id="advancementReferralExpiryDate"
+            name="advancementReferralExpiryDate"
             legend={intl.formatMessage({
               defaultMessage: "Referral expiry date",
               id: "VeYTqO",

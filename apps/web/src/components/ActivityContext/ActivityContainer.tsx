@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useState } from "react";
-import { useIdleTimer } from "react-idle-timer";
+import { useIdleTimer, workerTimers } from "react-idle-timer";
 
 import { useAuthentication } from "@gc-digital-talent/auth";
 import { useFeatureFlags } from "@gc-digital-talent/env";
@@ -55,6 +55,11 @@ const InnerActivityContainer = ({
     crossTab: true,
     leaderElection: true,
     syncTimers: 200,
+    // Main thread timers (the library default) get throttled or suspended by
+    // the browser once this tab is backgrounded, which can delay or skip
+    // onIdle entirely for a real ~60 minute inactivity window. Worker timers
+    // run outside that throttling so the countdown stays accurate.
+    timers: workerTimers,
   });
 
   useEffect(() => {

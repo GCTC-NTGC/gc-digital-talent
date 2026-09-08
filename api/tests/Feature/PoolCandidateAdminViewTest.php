@@ -3,7 +3,10 @@
 namespace Tests\Feature;
 
 use App\Enums\ApplicationStatus;
+use App\Enums\AssessmentDecision;
+use App\Enums\AssessmentResultType;
 use App\Enums\ScreeningStage;
+use App\Models\AssessmentResult;
 use App\Models\AwardExperience;
 use App\Models\Community;
 use App\Models\CommunityInterest;
@@ -739,6 +742,101 @@ class PoolCandidateAdminViewTest extends TestCase
                         'data' => [
                             ['poolCandidate' => ['id' => $underAssessment->id]],
                             ['poolCandidate' => ['id' => $newApplication->id]],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testOrderByScreeningResult(): void
+    {
+        $query = <<<'GRAPHQL'
+            query PoolCandidates($orderBy: AdvancedOrderByInput!) {
+                poolCandidatesPaginated(orderBy: [$orderBy]) {
+                    data {
+                        poolCandidate {
+                            id
+                        }
+                    }
+                }
+            }
+        GRAPHQL;
+
+        PoolCandidate::truncate();
+        $notAssessed = PoolCandidate::factory()
+            ->submitted()
+            ->for($this->pool)
+            ->create();
+        $hold = PoolCandidate::factory()
+            ->submitted()
+            ->for($this->pool)
+            ->create();
+        $successful = PoolCandidate::factory()
+            ->submitted()
+            ->for($this->pool)
+            ->create();
+        $unsuccessful = PoolCandidate::factory()
+            ->submitted()
+            ->for($this->otherPool)
+            ->create();
+
+        $decisions = [
+            $hold->id => AssessmentDecision::HOLD->name,
+            $successful->id => AssessmentDecision::SUCCESSFUL->name,
+            $unsuccessful->id => AssessmentDecision::UNSUCCESSFUL->name,
+        ];
+
+        $screeningSteps = [
+            $hold->id => $this->pool->screening_step->id,
+            $successful->id => $this->pool->screening_step->id,
+            $unsuccessful->id => $this->otherPool->screening_step->id,
+        ];
+
+        foreach ($decisions as $candidateId => $decision) {
+            AssessmentResult::factory()
+                ->withResultType(AssessmentResultType::EDUCATION)
+                ->create([
+                    'assessment_step_id' => $screeningSteps[$candidateId],
+                    'pool_candidate_id' => $candidateId,
+                    'assessment_decision' => $decision,
+                ]);
+        }
+
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'scope' => 'orderByScreeningResult',
+                    'direction' => 'ASC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $notAssessed->id]],
+                            ['poolCandidate' => ['id' => $hold->id]],
+                            ['poolCandidate' => ['id' => $successful->id]],
+                            ['poolCandidate' => ['id' => $unsuccessful->id]],
+                        ],
+                    ],
+                ],
+            ]);
+
+        $this->actingAs($this->platformAdmin, 'api')
+            ->graphQL($query, [
+                'orderBy' => [
+                    'scope' => 'orderByScreeningResult',
+                    'direction' => 'DESC',
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'poolCandidatesPaginated' => [
+                        'data' => [
+                            ['poolCandidate' => ['id' => $unsuccessful->id]],
+                            ['poolCandidate' => ['id' => $successful->id]],
+                            ['poolCandidate' => ['id' => $hold->id]],
+                            ['poolCandidate' => ['id' => $notAssessed->id]],
                         ],
                     ],
                 ],

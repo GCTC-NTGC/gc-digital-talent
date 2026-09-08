@@ -235,15 +235,13 @@ export const Component = () => {
           <AlertDialog.Title>
             {intl.formatMessage(authMessages.signOut)}
           </AlertDialog.Title>
-          <AlertDialog.Description>
-            <p className="text-xl/[1.1] lg:text-2xl/[1.1]">
-              {intl.formatMessage({
-                defaultMessage: "Are you sure you would like to sign out?",
-                id: "mNNgEF",
-                description:
-                  "Question displayed when authenticated user lands on /logged-out.",
-              })}
-            </p>
+          <AlertDialog.Description className="text-xl/[1.1] lg:text-2xl/[1.1]">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to sign out?",
+              id: "mNNgEF",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
           </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Action>

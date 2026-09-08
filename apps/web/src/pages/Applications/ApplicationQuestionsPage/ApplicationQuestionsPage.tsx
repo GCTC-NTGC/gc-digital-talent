@@ -79,21 +79,24 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated question responses!",
-              id: "Bs/9PZ",
-              description:
-                "Message displayed to users when saving question responses is successful.",
-            }),
-          );
-          await navigate(
-            formValues.action === "continue"
-              ? paths.applicationReview(application.id)
-              : cancelPath,
-          );
+        if (!res.data?.updateApplication?.id || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated question responses!",
+            id: "Bs/9PZ",
+            description:
+              "Message displayed to users when saving question responses is successful.",
+          }),
+        );
+
+        await navigate(
+          formValues.action === "continue"
+            ? paths.applicationReview(application.id)
+            : cancelPath,
+        );
       })
       .catch(() => {
         toast.error(

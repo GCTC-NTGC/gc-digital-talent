@@ -2,8 +2,10 @@ import { faker } from "@faker-js/faker/locale/en";
 
 import type { Department } from "@gc-digital-talent/graphql/schema-types";
 
-export default (): Department[] => {
-  faker.seed(0); // repeatable results
+export default (preventFakerReset = false): Department[] => {
+  if (!preventFakerReset) {
+    faker.seed(0); // repeatable results
+  }
   return [
     {
       id: faker.string.uuid(),

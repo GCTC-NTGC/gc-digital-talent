@@ -16,6 +16,8 @@ import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
 
 const OffPlatformRecruitmentProcessList_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformRecruitmentProcessList on OffPlatformRecruitmentProcess {
+    ...OffPlatformProcessDialogProcess
+
     id
     processNumber
     department {
@@ -130,7 +132,7 @@ const OffPlatformRecruitmentProcessList = ({
             {editDialogQuery && (
               <OffPlatformProcessDialog
                 query={editDialogQuery}
-                process={process}
+                processQuery={process}
               />
             )}
           </li>
