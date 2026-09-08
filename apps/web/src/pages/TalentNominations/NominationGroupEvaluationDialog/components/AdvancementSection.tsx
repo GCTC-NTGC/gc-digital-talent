@@ -87,7 +87,7 @@ const AdvancementSection = ({
       resetDirtyField("advancementReferenceConfirmed", null);
       resetDirtyField("advancementApprovedNotes", null);
       resetDirtyField("advancementClassifications", []);
-      resetDirtyField("advancementReferralExpiryDate", "");
+      resetDirtyField("advancementReferralExpiryDate", null);
     }
 
     if (
