@@ -5376,6 +5376,10 @@
     "defaultMessage": "P. ex., conception de sites Web",
     "description": "Placeholder for keyword search input"
   },
+  "JB3nXV": {
+    "defaultMessage": "Classification du poste d’attache de la nominée ou du nominé",
+    "description": "The substantive classification of the nominee"
+  },
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
     "description": "Label for input confirmation of need for special note on edit pool."
@@ -6330,6 +6334,10 @@
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
+  },
+  "MwviYD": {
+    "defaultMessage": "Équivalences de recommandation pertinentes",
+    "description": "Label for lateral movement classifications field"
   },
   "MxmB1v": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
@@ -8818,6 +8826,10 @@
   "XQCxDQ": {
     "defaultMessage": "Détails du processus",
     "description": "Heading for filters directly related to the process"
+  },
+  "XQJch1": {
+    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
+    "description": "Help text for lateral movement referral expiry date field"
   },
   "XRqYGj": {
     "defaultMessage": "*Veuillez noter que cette ressource n'est disponible que pour les employées et employés du gouvernement du Canada sur les réseaux officiels.",
@@ -11392,6 +11404,10 @@
   "hOnqmx": {
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
     "description": "Description of the 'disqualified' application status"
+  },
+  "hPq1v7": {
+    "defaultMessage": "Par défaut, la personne nominée sera recommandée en fonction de la classification actuelle de son poste d’attache. Si cette classification comporte des équivalences admissibles qui peuvent convenir à un transfert latéral, veuillez les préciser dans le champ prévu à cet effet.",
+    "description": "Lateral movement classifications introduction"
   },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",
