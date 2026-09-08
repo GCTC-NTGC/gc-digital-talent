@@ -64,10 +64,12 @@ class CheckExternalLinks extends Command
 
         Storage::disk('local')->put('external-broken-links.json', json_encode($brokenLinks, JSON_PRETTY_PRINT));
 
-        CommandProducedResults::dispatch($this->getName(), [
-            'linksChecked' => count($links),
-            'brokenLinks' => count($brokenLinks),
-        ]);
+        $resultSet = [
+            'Links Checked' => count($links),
+            'Broken Links' => count($brokenLinks),
+        ];
+        CommandProducedResults::dispatch($this->getName(), $resultSet);
+        $this->table(['Metric', 'Count'], collect($resultSet)->map(fn ($v, $k) => [$k, $v]));
 
         return Command::SUCCESS;
     }
