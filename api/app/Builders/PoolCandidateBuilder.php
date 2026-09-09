@@ -14,7 +14,11 @@ use App\Enums\PlacementType;
 use App\Enums\PriorityWeight;
 use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
+use App\Models\Community;
+use App\Models\Department;
+use App\Models\Pool;
 use App\Models\Skill;
+use App\Models\Team;
 use App\Models\User;
 use App\Support\Query\AdvancedOrder;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
@@ -912,6 +916,32 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ->andAuthorizedToViewStatus($user, $teamIdsByPermission);
     }
 
+    // The pools a set of teams grants access to. A team owns the pool directly, or owns the community or department it belongs to
+    // Resolved up front rather than as nested whereHas() operations
+    // Checking whereHas() chains in OR blocks is handled poorly by Postgres planning, the EXISTs that result inside the OR are poorly optimized
+    //
+    // withTrashed() is required as PoolCandidate::pool() is declared withTrashed(), so candidates connected to a deleted pool remain retrievable
+    private function poolIdsForTeams(array $teamIds): array
+    {
+        if (empty($teamIds)) {
+            return [];
+        }
+
+        $owned = Team::query()->whereIn('id', $teamIds)
+            ->get(['teamable_type', 'teamable_id'])
+            ->groupBy('teamable_type')
+            ->map(fn ($teams) => $teams->pluck('teamable_id')->all());
+
+        return Pool::withTrashed()
+            ->where(function (Builder $query) use ($owned) {
+                $query->whereIn('id', $owned->get(Pool::class, []))
+                    ->orWhereIn('community_id', $owned->get(Community::class, []))
+                    ->orWhereIn('department_id', $owned->get(Department::class, []));
+            })
+            ->pluck('id')
+            ->all();
+    }
+
     // represents the functionality of PoolCandidatePolicy::view()
     // minus the view own ability as this is intended for admins not applicants
     private function andAuthorizedToViewCandidate(User $user, array $teamIdsByPermission): self
@@ -924,21 +954,8 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-submittedApplication')) {
             $teamIds = $teamIdsByPermission['view-team-submittedApplication'];
 
-            return $this->where(function (Builder $query) use ($teamIds) {
-                $query->whereNotNull('submitted_at')
-                    ->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
-                        return $poolQuery->where(function (Builder $poolQuery) use ($teamIds) {
-                            $poolQuery->orWhereHas('team', function (Builder $poolQuery) use ($teamIds) {
-                                return $poolQuery->whereIn('id', $teamIds);
-                            })->orWhereHas('community.team', function (Builder $poolQuery) use ($teamIds) {
-                                return $poolQuery->whereIn('id', $teamIds);
-                            })->orWhereHas('department.team', function (Builder $poolQuery) use ($teamIds) {
-                                return $poolQuery->whereIn('id', $teamIds);
-                            });
-                        });
-                    });
-            });
-
+            return $this->whereNotNull('submitted_at')
+                ->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
         }
 
         // fall through
@@ -955,19 +972,9 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-draftPool')) {
             $teamIds = $teamIdsByPermission['view-team-draftPool'];
 
-            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                $poolQuery->orWhereNotNull('published_at');
-                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                    return $query->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                    });
-                });
+            return $this->whereHas('pool', function (Builder $poolQuery) use ($teamIds) {
+                $poolQuery->whereNotNull('published_at')
+                    ->orWhereIn('id', $this->poolIdsForTeams($teamIds));
             });
         }
 
@@ -994,20 +1001,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
                 $teamIdsByPermission['view-team-communityTalent'] ?? []
             ));
 
-            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                    return $query->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                    });
-                });
-            });
-
+            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
         }
 
         // fall through
@@ -1024,19 +1018,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-applicationAssessment')) {
             $teamIds = $teamIdsByPermission['view-team-applicationAssessment'];
 
-            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                    return $query->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                    });
-                });
-            });
+            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
         }
 
         // fall through
@@ -1053,19 +1035,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-applicationStatus')) {
             $teamIds = $teamIdsByPermission['view-team-applicationStatus'];
 
-            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                    return $query->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
-                    });
-                });
-            });
+            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
         }
 
         // fall through
