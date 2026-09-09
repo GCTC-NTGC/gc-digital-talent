@@ -126,6 +126,14 @@ class TalentManagement extends AppPage {
       })
       .click();
 
+    const lateralClassificationsCombobox = this.page.getByRole("combobox", {
+      name: /relevant referral equivalencies/i,
+    });
+    await lateralClassificationsCombobox.click();
+    await lateralClassificationsCombobox.press("ArrowDown");
+    await lateralClassificationsCombobox.press("Enter");
+    await this.page.keyboard.press("Tab");
+
     const lateralReferralExpiryDate = this.page.getByRole("group", {
       name: /referral expiry date/i,
     });
@@ -201,6 +209,14 @@ class TalentManagement extends AppPage {
         name: /this nomination for lateral movement is approved./i,
       })
       .click();
+
+    const lateralClassificationsCombobox = this.page.getByRole("combobox", {
+      name: /relevant referral equivalencies/i,
+    });
+    await lateralClassificationsCombobox.click();
+    await lateralClassificationsCombobox.press("ArrowDown");
+    await lateralClassificationsCombobox.press("Enter");
+    await this.page.keyboard.press("Tab");
 
     const lateralReferralExpiryDate = this.page
       .getByRole("group", {

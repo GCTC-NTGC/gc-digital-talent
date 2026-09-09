@@ -27,6 +27,7 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 
 test.describe("Application download", { tag: "@uat" }, () => {
+  test.describe.configure({ mode: "serial" });
   let applicant: User;
   let sub: string;
   let adminCtx: GraphQLContext;
