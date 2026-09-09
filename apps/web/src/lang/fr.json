@@ -4382,6 +4382,10 @@
     "defaultMessage": "Description de l’apprentissage",
     "description": "Label displayed on Personal Experience form for learning description input"
   },
+  "FEjHL6": {
+    "defaultMessage": "Classifications proposées pour la promotion",
+    "description": "A list of classifications for advancement"
+  },
   "FGUGtr": {
     "defaultMessage": "Groupe et niveau",
     "description": "Title displayed for the Pool table Group and Level column."
@@ -5404,6 +5408,10 @@
     "defaultMessage": "P. ex., conception de sites Web",
     "description": "Placeholder for keyword search input"
   },
+  "JB3nXV": {
+    "defaultMessage": "Classification du poste d’attache de la nominée ou du nominé",
+    "description": "The substantive classification of the nominee"
+  },
   "JBavNE": {
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
     "description": "Label for input confirmation of need for special note on edit pool."
@@ -6366,6 +6374,10 @@
   "Mwq0NB": {
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
+  },
+  "MwviYD": {
+    "defaultMessage": "Équivalences de recommandation pertinentes",
+    "description": "Label for lateral movement classifications field"
   },
   "MxmB1v": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
@@ -7912,6 +7924,10 @@
   "TOnXeM": {
     "defaultMessage": "Employé(e)s",
     "description": "Combined eligibility string for 'employees only' with no other limitations"
+  },
+  "TPFMK3": {
+    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
+    "description": "Help text for lateral movement referral expiry date field"
   },
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
@@ -11402,6 +11418,10 @@
     "defaultMessage": "Étape {stepOrdinal} (Intro)",
     "description": "Breadcrumb link text for a numbered application step introduction page"
   },
+  "h8vBvw": {
+    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "description": "introduction for advancement classifications"
+  },
   "h9XSU5": {
     "defaultMessage": "Notes complémentaires",
     "description": "Label for approval notes"
@@ -11481,6 +11501,10 @@
   "hOnqmx": {
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
     "description": "Description of the 'disqualified' application status"
+  },
+  "hPq1v7": {
+    "defaultMessage": "Par défaut, la personne nominée sera recommandée en fonction de la classification actuelle de son poste d’attache. Si cette classification comporte des équivalences admissibles qui peuvent convenir à un transfert latéral, veuillez les préciser dans le champ prévu à cet effet.",
+    "description": "Lateral movement classifications introduction"
   },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",

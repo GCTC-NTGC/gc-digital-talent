@@ -12,6 +12,7 @@ use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Support\Query\AdvancedOrder;
+use App\Utilities\PostgresLike;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
@@ -533,8 +534,9 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $value)
-                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $value);
+                $escaped = PostgresLike::escape($value);
+                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $escaped)
+                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $escaped);
             }
         });
     }
@@ -545,7 +547,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('telephone', 'ilike', "%{$telephone}%");
+        return $this->where('telephone', 'ilike', '%'.PostgresLike::escape($telephone).'%');
     }
 
     public function whereEmail(?string $email): self
@@ -554,7 +556,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     public function whereWorkEmail(?string $email): self
@@ -563,7 +565,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
@@ -907,6 +909,10 @@ class UserBuilder extends Builder
                 ->addSelect(['users.*'])
                 ->from('users')
                 ->orderByDesc('search_rank');
+        } else {
+            // The term sanitized away to nothing, e.g. all whitespace.
+            // Match nothing rather than everything.
+            $this->whereRaw('1 = 0');
         }
 
         return $this;

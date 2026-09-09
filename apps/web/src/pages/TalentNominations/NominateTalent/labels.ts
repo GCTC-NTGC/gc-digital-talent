@@ -171,6 +171,11 @@ const labels = defineMessages({
     id: "jT5w4o",
     description: "label for high potential definition",
   },
+  recommendedAdvancementClassifications: {
+    defaultMessage: "Recommended classifications for advancement",
+    id: "1e2+hH",
+    description: "Label for advancement eligible classifications field",
+  },
 });
 
 export default labels;
