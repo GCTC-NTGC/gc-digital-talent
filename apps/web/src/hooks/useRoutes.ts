@@ -69,6 +69,7 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return applicantUrl + fragment;
     },
+    applications: () => [applicantUrl, "applications"].join("/"),
 
     // Admin
     adminDashboard: () => adminUrl,

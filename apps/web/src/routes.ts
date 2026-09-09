@@ -146,6 +146,10 @@ export default [
               "notifications",
               "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
             ),
+            route(
+              "applications",
+              "./pages/Applications/ApplicationsPage/ApplicationsPage.tsx",
+            ),
 
             layout("./pages/Profile/ProfileLayout.tsx", [
               route(
