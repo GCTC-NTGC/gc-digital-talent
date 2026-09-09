@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\CommandProducedResults;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -63,7 +64,12 @@ class CheckExternalLinks extends Command
 
         Storage::disk('local')->put('external-broken-links.json', json_encode($brokenLinks, JSON_PRETTY_PRINT));
 
-        $this->info(count($links).' links checked, '.count($brokenLinks).' broken.');
+        $resultSet = [
+            'Links Checked' => count($links),
+            'Broken Links' => count($brokenLinks),
+        ];
+        CommandProducedResults::dispatch($this->getName(), $resultSet);
+        $this->table(['Metric', 'Count'], collect($resultSet)->map(fn ($v, $k) => [$k, $v]));
 
         return Command::SUCCESS;
     }
