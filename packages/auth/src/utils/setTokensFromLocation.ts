@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-debugging-utils */
-import { appInsights } from "@gc-digital-talent/app-insights";
+import { trackEvent } from "@gc-digital-talent/app-insights";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import {
@@ -50,20 +50,9 @@ export function setTokensFromLocation(url: URL): boolean {
 
       // Log the successful login event
       logger.debug("Logging Auth login success event");
-      const referrer = document.referrer || "none";
-      if (appInsights) {
-        const aiUserId = appInsights?.context?.user?.id || "unknown";
-        appInsights.trackEvent?.(
-          { name: "Auth Login Success" },
-          {
-            aiUserId,
-            pageUrl: window.location.href,
-            timestamp: new Date().toISOString(),
-            referrer,
-            source: "AuthenticationContainer",
-          },
-        );
-      }
+      trackEvent("Auth Login Success", {
+        source: "AuthenticationContainer",
+      });
       // also clear the last logout reason
       localStorage.removeItem(LOGOUT_REASON_KEY);
     }

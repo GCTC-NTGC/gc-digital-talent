@@ -1,7 +1,7 @@
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getRuntimeVariableNotNull } from "@gc-digital-talent/env";
 import { defaultLogger } from "@gc-digital-talent/logger";
-import { appInsights } from "@gc-digital-talent/app-insights";
+import { trackEvent } from "@gc-digital-talent/app-insights";
 
 export function getLogoutVars(locale: Locales) {
   const logoutUri = getRuntimeVariableNotNull("OAUTH_LOGOUT_URI");
@@ -79,21 +79,11 @@ function logoutAndRefreshPage({
   }
 
   // track the logout event in application insights
-  if (appInsights) {
-    const aiUserId = appInsights?.context?.user?.id || "unknown";
-    appInsights.trackEvent?.(
-      { name: "Auth Logout" },
-      {
-        aiUserId,
-        pageUrl: window.location.href,
-        timestamp: new Date().toISOString(),
-        referrer: document.referrer || "none",
-        source: "AuthenticationContainer",
-        authStatus: "logout",
-        logoutReason: logoutReason ?? "unknown",
-      },
-    );
-  }
+  trackEvent("Auth Logout", {
+    source: "AuthenticationContainer",
+    authStatus: "logout",
+    logoutReason: logoutReason ?? "unknown",
+  });
 
   // Post a logout message to the broadcast channel
   // so they know to logout as well
