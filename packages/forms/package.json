@@ -57,6 +57,6 @@
     "react-intl": "^10.1.24",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.11"
   }
 }
