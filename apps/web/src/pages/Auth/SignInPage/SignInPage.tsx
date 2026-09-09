@@ -7,7 +7,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import ChevronDoubleRightIcon from "@heroicons/react/24/solid/ChevronDoubleRightIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 
-import { appInsights } from "@gc-digital-talent/app-insights";
+import { trackEvent } from "@gc-digital-talent/app-insights";
 import {
   Accordion,
   Container,
@@ -104,25 +104,11 @@ export const Component = () => {
   // the IdP. Shared by both the CanadaLogin and legacy GCKey layouts so the two
   // can't drift apart.
   const trackLoginInitiated = () => {
-    if (!appInsights) return;
-
-    const aiUserId = appInsights?.context?.user?.id || "unknown";
-
-    appInsights.trackEvent(
-      { name: "Auth Login Initiated" },
-      {
-        aiUserId,
-        pageUrl: window.location.href,
-        path: window.location.pathname,
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        referrer: document.referrer || "none",
-        loginStatus: "initiated",
-      },
-    );
-    // The click triggers a full-page navigation off-site, so flush the buffer
-    // to avoid the event being dropped on unload.
-    void appInsights.flush();
+    trackEvent("Auth Login Initiated", {
+      path: window.location.pathname,
+      userAgent: navigator.userAgent,
+      loginStatus: "initiated",
+    });
   };
 
   const InstructionCards = () => {
