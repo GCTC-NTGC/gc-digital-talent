@@ -45,7 +45,7 @@ test.describe("Application download", { tag: "@uat" }, () => {
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
     );
 
-    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
+    applicantSub = sub;
 
     const skill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);

@@ -270,9 +270,11 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
     appPage,
   }) => {
     const page = appPage.page;
+    const recruiterSub =
+      process.env.PLAYWRIGHT_COMMUNITY_RECRUITER_SUB ?? "recruiter@test.com";
     tableValidation = new GenericTableValidationFixture(page);
     userPage = new UserPage(appPage.page);
-    await loginBySub(page, adminSub, false);
+    await loginBySub(page, recruiterSub, false);
     await page.goto("/en/admin/community-talent");
     await expect(
       page.getByRole("heading", {

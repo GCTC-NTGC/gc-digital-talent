@@ -23,7 +23,8 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
-  let talentCoordinatorCtx, platformAdminCtx: GraphQLContext;
+  let talentCoordinatorCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   const platformAdminSub =
     process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
   const talentCoordinatorSub =

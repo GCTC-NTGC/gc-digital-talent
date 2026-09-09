@@ -49,7 +49,7 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
     );
 
-    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
+    applicantSub = sub;
 
     technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find(
