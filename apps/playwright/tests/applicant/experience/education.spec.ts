@@ -1,6 +1,7 @@
 import { test, expect } from "~/fixtures";
 import ExperiencePage from "~/fixtures/ExperiencePage";
 import { loginBySub } from "~/utils/auth";
+import { generateUniqueTestId } from "~/utils/id";
 import graphql from "~/utils/graphql";
 import { me } from "~/utils/user";
 
@@ -11,10 +12,12 @@ test(
     const experiencePage = new ExperiencePage(appPage.page);
     const applicantSub =
       process.env.PLAYWRIGHT_APPLICANT_SUB ?? "applicant@test.com";
-    const studyIn = "Playwright Test Learning";
+    const uniqueTestId = generateUniqueTestId();
+    const studyIn = `Playwright Test Learning (${uniqueTestId})`;
     await loginBySub(experiencePage.page, applicantSub);
 
     await experiencePage.addEducationExperience({
+      areaOfStudy: studyIn,
       startDate: "2001-01",
       endDate: "2004-12",
     });
