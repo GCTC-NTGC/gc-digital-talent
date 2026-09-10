@@ -248,13 +248,13 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function nomineeProfileFields(): array
     {
-        $consented = fn ($row) => $row->visibleIf(fn ($g) => (bool) $g->consentToShareProfile);
+        $visibleIfConsentedToShare = fn ($field) => $field->visibleIf(fn ($g) => (bool) $g->consentToShareProfile);
 
         return [
             new TextField('id', fn ($g) => $g->nominee->id),
             new TextField('first_name', fn ($g) => $g->nominee->first_name),
             new TextField('last_name', fn ($g) => $g->nominee->last_name),
-            ...array_map($consented, [
+            ...array_map($visibleIfConsentedToShare, [
                 new TextField('email', fn ($g) => $g->nominee->email),
                 new TextField('phone', fn ($g) => $g->nominee->telephone),
                 new EnumField('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
