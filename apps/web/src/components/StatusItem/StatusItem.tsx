@@ -196,7 +196,7 @@ const StatusItem = ({
         </StatusItemTitle>
       </span>
 
-      {itemCount && <span>{itemCount}</span>}
+      {itemCount !== undefined && itemCount > 0 && <span>{itemCount}</span>}
     </Wrapper>
   );
 };
