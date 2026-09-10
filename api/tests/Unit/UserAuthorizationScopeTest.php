@@ -33,6 +33,13 @@ class UserAuthorizationScopeTest extends TestCase
             ->create();
     }
 
+    protected static function createEmployee()
+    {
+        return User::factory()
+            ->withGovEmployeeProfile()
+            ->create();
+    }
+
     protected static function createPool(Community|Department $teamable, User $owner)
     {
         $builder = Pool::factory()
@@ -224,7 +231,8 @@ class UserAuthorizationScopeTest extends TestCase
         CommunityInterest::factory()
             ->for(User::factory()
                 ->withGovEmployeeProfile()
-                ->create(['computed_is_gov_employee' => false]))
+                ->afterCreating(fn ($createdUser) => $createdUser->workExperiences->each->delete())
+                ->create())
             ->for($community)
             ->create(['consent_to_share_profile' => true]);
 
@@ -266,10 +274,10 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($actor);
 
-        $talentInActorsCommunity = self::createApplicant();
+        $talentInActorsCommunity = self::createEmployee();
         self::createCommunityInterest($talentInActorsCommunity, $actorsCommunity);
 
-        $talentInOtherCommunity = self::createApplicant();
+        $talentInOtherCommunity = self::createEmployee();
         self::createCommunityInterest($talentInOtherCommunity, $otherCommunity);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
@@ -334,10 +342,10 @@ class UserAuthorizationScopeTest extends TestCase
         Auth::shouldReceive('user')
             ->andReturn($actor);
 
-        $talentInActorsCommunity = self::createApplicant();
+        $talentInActorsCommunity = self::createEmployee();
         self::createCommunityInterest($talentInActorsCommunity, $actorsCommunity);
 
-        $talentInOtherCommunity = self::createApplicant();
+        $talentInOtherCommunity = self::createEmployee();
         self::createCommunityInterest($talentInOtherCommunity, $otherCommunity);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
