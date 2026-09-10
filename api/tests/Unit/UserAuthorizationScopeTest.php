@@ -3,11 +3,11 @@
 namespace Tests\Unit;
 
 use App\Models\Community;
+use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Carbon\Carbon;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +55,17 @@ class UserAuthorizationScopeTest extends TestCase
         return PoolCandidate::factory()
             ->for($applicant)
             ->for($pool)
+            ->submitted()
+            ->create();
+    }
+
+    protected static function createCommunityInterest(User $user, Community $community)
+    {
+        return CommunityInterest::factory()
+            ->for($user)
+            ->for($community)
             ->create([
-                'submitted_at' => Carbon::now(),
+                'consent_to_share_profile' => true,
             ]);
     }
 
@@ -188,7 +197,88 @@ class UserAuthorizationScopeTest extends TestCase
         ], $userIds);
     }
 
-    // todo community talent coordinator -community talent
+    // community talent coordinator can only see community talent
+    // and their own self
+    public function testCommunityTalentCoordinatorSeesCommunityTalent(): void
+    {
+        $community = Community::factory()->create();
+
+        $actor = User::factory()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($actor);
+
+        // perfectly set up
+        $perfectUser = User::factory()
+            ->withGovEmployeeProfile()
+            ->create();
+        CommunityInterest::factory()
+            ->for($perfectUser)
+            ->for($community)
+            ->create(['consent_to_share_profile' => true]);
+
+        // not a gov employee
+        CommunityInterest::factory()
+            ->for(User::factory()
+                ->withGovEmployeeProfile()
+                ->create(['computed_is_gov_employee' => false]))
+            ->for($community)
+            ->create(['consent_to_share_profile' => true]);
+
+        // not verified work email
+        CommunityInterest::factory()
+            ->for(User::factory()
+                ->withGovEmployeeProfile()
+                ->create(['work_email_verified_at' => null]))
+            ->for($community)
+            ->create(['consent_to_share_profile' => true]);
+
+        // no consent
+        CommunityInterest::factory()
+            ->for(User::factory()
+                ->withGovEmployeeProfile()
+                ->create())
+            ->for($community)
+            ->create(['consent_to_share_profile' => false]);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
+        assertEqualsCanonicalizing([
+            $actor->id,
+            $perfectUser->id,
+        ], $userIds->toArray());
+    }
+
+    // community talent coordinator can only see the community talent in the community that they belong to
+    // and their own self
+    public function testCommunityTalentCoordinatorSeesTheirCommunityTalent(): void
+    {
+        $actorsCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+
+        $actor = User::factory()
+            ->asApplicant()
+            ->asCommunityTalentCoordinator($actorsCommunity->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($actor);
+
+        $talentInActorsCommunity = self::createApplicant();
+        self::createCommunityInterest($talentInActorsCommunity, $actorsCommunity);
+
+        $talentInOtherCommunity = self::createApplicant();
+        self::createCommunityInterest($talentInOtherCommunity, $otherCommunity);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $actor->id,
+            $talentInActorsCommunity->id,
+        ], $userIds);
+    }
 
     // community admin can only see the user that submitted an application to the pool that is connected to the community that they belong to
     // and their own self
@@ -229,7 +319,34 @@ class UserAuthorizationScopeTest extends TestCase
         ], $userIds);
     }
 
-    // todo community admin -community talent
+    // community admin can only see the community talent in the community that they belong to
+    // and their own self
+    public function testCommunityAdminSeesTheirCommunityTalent(): void
+    {
+        $actorsCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+
+        $actor = User::factory()
+            ->asApplicant()
+            ->asCommunityAdmin($actorsCommunity->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($actor);
+
+        $talentInActorsCommunity = self::createApplicant();
+        self::createCommunityInterest($talentInActorsCommunity, $actorsCommunity);
+
+        $talentInOtherCommunity = self::createApplicant();
+        self::createCommunityInterest($talentInOtherCommunity, $otherCommunity);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $actor->id,
+            $talentInActorsCommunity->id,
+        ], $userIds);
+    }
 
     // department advisor can only see the user that submitted an application to the pool that is connected to the department that they belong to
     // and their own self
