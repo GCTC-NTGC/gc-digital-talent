@@ -19,259 +19,293 @@ class UserAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $platformAdmin;
+    protected static function createPlatformAdmin()
+    {
+        return User::factory()
+            ->asAdmin()
+            ->create();
+    }
 
-    protected $communityA;
+    protected static function createApplicant()
+    {
+        return User::factory()
+            ->asApplicant()
+            ->create();
+    }
 
-    protected $communityB;
+    protected static function createPool(Community|Department $teamable, User $owner)
+    {
+        $builder = Pool::factory()
+            ->for($owner)
+            ->published();
 
-    protected $pool1;
+        return match (true) {
+            $teamable instanceof Community => $builder->create([
+                'community_id' => $teamable->id,
+            ]),
+            $teamable instanceof Department => $builder->create([
+                'department_id' => $teamable->id,
+            ]),
+            default => throw new \Error('Unexpected teamable'),
+        };
+    }
 
-    protected $pool2;
-
-    protected $user1;
-
-    protected $user2;
-
-    protected $candidate1;
-
-    protected $candidate2;
+    protected static function createPoolCandidate(User $applicant, Pool $pool)
+    {
+        return PoolCandidate::factory()
+            ->for($applicant)
+            ->for($pool)
+            ->create([
+                'submitted_at' => Carbon::now(),
+            ]);
+    }
 
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
+    }
 
-        $this->platformAdmin = User::factory()
+    // a guest should be able to view no users
+    public function testGuestSeesNoOne(): void
+    {
+        // no $actor User or mock for guest
+
+        $someoneElse = self::createApplicant();
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
+        assertEqualsCanonicalizing([], $userIds->toArray());
+    }
+
+    // an applicant should be able to view just themselves
+    public function testApplicantSeesOnlyThemselves(): void
+    {
+        $actor = User::factory()
+            ->asApplicant()
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($actor);
+
+        $someoneElse = self::createApplicant();
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
+        assertEqualsCanonicalizing([
+            $actor->id,
+        ], $userIds->toArray());
+    }
+
+    // a platform admin should be able to view any user
+    public function testAdminSeesEveryone(): void
+    {
+        $actor = User::factory()
             ->asAdmin()
             ->create();
 
-        $this->communityA = Community::factory()->create();
-        $this->communityB = Community::factory()->create();
-
-        $this->pool1 = Pool::factory()
-            ->for($this->platformAdmin)
-            ->published()
-            ->create([
-                'community_id' => $this->communityA->id,
-            ]);
-
-        $this->pool2 = Pool::factory()
-            ->for($this->platformAdmin)
-            ->published()
-            ->create([
-                'community_id' => $this->communityB->id,
-            ]);
-
-        $this->user1 = User::factory()
-            ->asApplicant()
-            ->create();
-
-        $this->user2 = User::factory()
-            ->asApplicant()
-            ->create();
-
-        $this->candidate1 = PoolCandidate::factory()
-            ->for($this->user1)
-            ->for($this->pool1)
-            ->create([
-                'submitted_at' => Carbon::now(),
-            ]);
-
-        $this->candidate2 = PoolCandidate::factory()
-            ->for($this->user2)
-            ->for($this->pool2)
-            ->create([
-                'submitted_at' => Carbon::now(),
-            ]);
-    }
-
-    // a guest should be able to view no users
-    public function testViewAsGuest(): void
-    {
         Auth::shouldReceive('user')
-            ->andReturn(null);
+            ->andReturn($actor);
 
-        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([], $userIds->toArray());
-    }
-
-    // an applicant should be able to view just themselves
-    public function testViewAsApplicant(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn($this->user1);
+        $otherApplicant = self::createApplicant();
+        $otherAdmin = self::createPlatformAdmin();
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
-            $this->user1->id,
-        ], $userIds->toArray());
-    }
-
-    // a platform admin should be able to view any user
-    public function testViewAsPlatformAdmin(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn($this->platformAdmin);
-
-        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->platformAdmin->id,
-            $this->user1->id,
-            $this->user2->id,
-        ], $userIds->toArray());
-    }
-
-    // a guest should be able to view no users
-    public function testViewBasicAsGuest(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn(null);
-
-        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
-        assertEqualsCanonicalizing([], $userIds->toArray());
-    }
-
-    // an applicant should be able to view just themselves
-    public function testViewBasicAsApplicant(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn($this->user1);
-
-        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->user1->id,
-        ], $userIds->toArray());
-    }
-
-    // a platform admin should be able to view any user
-    public function testViewBasicAsPlatformAdmin(): void
-    {
-        Auth::shouldReceive('user')
-            ->andReturn($this->platformAdmin);
-
-        $userIds = User::whereAuthorizedToViewBasicInfo()->get()->pluck('id');
-        assertEqualsCanonicalizing([
-            $this->platformAdmin->id,
-            $this->user1->id,
-            $this->user2->id,
+            $actor->id,
+            $otherApplicant->id,
+            $otherAdmin->id,
         ], $userIds->toArray());
     }
 
     // process operator can only see the user that submitted an application to the pool they are an operator on
     // and their own self
-    public function testScopeAuthorizedToViewAsProcessOperator(): void
+    public function testProcessOperatorSeesApplicantsToTheirPool(): void
     {
-        $processOperator = User::factory()
-            ->asProcessOperator($this->pool1->id)
+        $community = Community::factory()->create();
+        $admin = self::createPlatformAdmin();
+
+        $actorsPool = self::createPool($community, $admin);
+        $otherPool = self::createPool($community, $admin);
+
+        $actor = User::factory()
             ->asApplicant()
+            ->asProcessOperator($actorsPool->id)
             ->create();
 
         Auth::shouldReceive('user')
-            ->andReturn($processOperator);
+            ->andReturn($actor);
+
+        $applicantToActorsPool = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool, $actorsPool);
+
+        $applicantToOtherPool = self::createApplicant();
+        self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
-            $processOperator->id,
-            $this->user1->id,
+            $actor->id,
+            $applicantToActorsPool->id,
         ], $userIds);
     }
 
     // community recruiter can only see the user that submitted an application to the pool that is connected to the community that they belong to
     // and their own self
-    public function testScopeAuthorizedToViewAsCommunityRecruiter(): void
+    public function testCommunityRecruiterSeesApplicantsToTheirCommunityPools(): void
     {
-        $community = Community::factory()->create();
-        $this->pool2->community_id = $community->id;
-        $this->pool2->save();
+        $actorsCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
 
-        $communityRecruiter = User::factory()
-            ->asCommunityRecruiter($community->id)
+        $admin = self::createPlatformAdmin();
+
+        $actorsPool1 = self::createPool($actorsCommunity, $admin);
+        $actorsPool2 = self::createPool($actorsCommunity, $admin);
+        $otherPool = self::createPool($otherCommunity, $admin);
+
+        $actor = User::factory()
             ->asApplicant()
+            ->asCommunityRecruiter($actorsCommunity->id)
             ->create();
 
         Auth::shouldReceive('user')
-            ->andReturn($communityRecruiter);
+            ->andReturn($actor);
+
+        $applicantToActorsPool1 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
+
+        $applicantToActorsPool2 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
+
+        $applicantToOtherPool = self::createApplicant();
+        self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
-            $communityRecruiter->id,
-            $this->user2->id,
+            $actor->id,
+            $applicantToActorsPool1->id,
+            $applicantToActorsPool2->id,
         ], $userIds);
     }
 
+    // todo community talent coordinator -community talent
+
     // community admin can only see the user that submitted an application to the pool that is connected to the community that they belong to
     // and their own self
-    public function testScopeAuthorizedToViewAsCommunityAdmin(): void
+    public function testCommunityAdminSeesApplicantsToTheirCommunityPools(): void
     {
-        $community = Community::factory()->create();
-        $this->pool2->community_id = $community->id;
-        $this->pool2->save();
+        $actorsCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
 
-        $communityAdmin = User::factory()
-            ->asCommunityAdmin($community->id)
+        $admin = self::createPlatformAdmin();
+
+        $actorsPool1 = self::createPool($actorsCommunity, $admin);
+        $actorsPool2 = self::createPool($actorsCommunity, $admin);
+        $otherPool = self::createPool($otherCommunity, $admin);
+
+        $actor = User::factory()
             ->asApplicant()
+            ->asCommunityAdmin($actorsCommunity->id)
             ->create();
 
         Auth::shouldReceive('user')
-            ->andReturn($communityAdmin);
+            ->andReturn($actor);
+
+        $applicantToActorsPool1 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
+
+        $applicantToActorsPool2 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
+
+        $applicantToOtherPool = self::createApplicant();
+        self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
-            $communityAdmin->id,
-            $this->user2->id,
+            $actor->id,
+            $applicantToActorsPool1->id,
+            $applicantToActorsPool2->id,
+        ], $userIds);
+    }
+
+    // todo community admin -community talent
+
+    // department advisor can only see the user that submitted an application to the pool that is connected to the department that they belong to
+    // and their own self
+    public function testDepartmentAdvisorSeesApplicantsToTheirDepartmentPools(): void
+    {
+        $actorsDepartment = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
+
+        $admin = self::createPlatformAdmin();
+
+        $actorsPool1 = self::createPool($actorsDepartment, $admin);
+        $actorsPool2 = self::createPool($actorsDepartment, $admin);
+        $otherPool = self::createPool($otherDepartment, $admin);
+
+        $actor = User::factory()
+            ->asApplicant()
+            ->asDepartmentHRAdvisor($actorsDepartment->id)
+            ->create();
+
+        Auth::shouldReceive('user')
+            ->andReturn($actor);
+
+        $applicantToActorsPool1 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
+
+        $applicantToActorsPool2 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
+
+        $applicantToOtherPool = self::createApplicant();
+        self::createPoolCandidate($applicantToOtherPool, $otherPool);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
+
+        assertEqualsCanonicalizing([
+            $actor->id,
+            $applicantToActorsPool1->id,
+            $applicantToActorsPool2->id,
         ], $userIds);
     }
 
     // department admin can only see the user that submitted an application to the pool that is connected to the department that they belong to
     // and their own self
-    public function testScopeAuthorizedToViewAsDepartmentAdmin(): void
+    public function testDepartmentAdminSeesApplicantsToTheirDepartmentPools(): void
     {
-        $department = Department::factory()->create();
-        $this->pool2->department_id = $department->id;
-        $this->pool2->save();
+        $actorsDepartment = Department::factory()->create();
+        $otherDepartment = Department::factory()->create();
 
-        $departmentAdmin = User::factory()
-            ->asDepartmentAdmin($department->id)
+        $admin = self::createPlatformAdmin();
+
+        $actorsPool1 = self::createPool($actorsDepartment, $admin);
+        $actorsPool2 = self::createPool($actorsDepartment, $admin);
+        $otherPool = self::createPool($otherDepartment, $admin);
+
+        $actor = User::factory()
             ->asApplicant()
+            ->asDepartmentAdmin($actorsDepartment->id)
             ->create();
 
         Auth::shouldReceive('user')
-            ->andReturn($departmentAdmin);
+            ->andReturn($actor);
+
+        $applicantToActorsPool1 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool1, $actorsPool1);
+
+        $applicantToActorsPool2 = self::createApplicant();
+        self::createPoolCandidate($applicantToActorsPool2, $actorsPool2);
+
+        $applicantToOtherPool = self::createApplicant();
+        self::createPoolCandidate($applicantToOtherPool, $otherPool);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
 
         assertEqualsCanonicalizing([
-            $departmentAdmin->id,
-            $this->user2->id,
-        ], $userIds);
-    }
-
-    // department advisor can only see the user that submitted an application to the pool that is connected to the department that they belong to
-    // and their own self
-    public function testScopeAuthorizedToViewAsDepartmentAdvisor(): void
-    {
-        $department = Department::factory()->create();
-        $this->pool1->department_id = $department->id;
-        $this->pool1->save();
-
-        $departmentAdvisor = User::factory()
-            ->asDepartmentHRAdvisor($department->id)
-            ->asApplicant()
-            ->create();
-
-        Auth::shouldReceive('user')
-            ->andReturn($departmentAdvisor);
-
-        $userIds = User::whereAuthorizedToView()->get()->pluck('id')->toArray();
-
-        assertEqualsCanonicalizing([
-            $departmentAdvisor->id,
-            $this->user1->id,
+            $actor->id,
+            $applicantToActorsPool1->id,
+            $applicantToActorsPool2->id,
         ], $userIds);
     }
 }
