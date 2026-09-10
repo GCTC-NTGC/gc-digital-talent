@@ -3920,16 +3920,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v5.11.0",
+            "version": "v5.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "310bab7b5a29f23fc01774752613236c474bce2b"
+                "reference": "b87edb8617354be52b0b5addfccdba97c4fc6c5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/310bab7b5a29f23fc01774752613236c474bce2b",
-                "reference": "310bab7b5a29f23fc01774752613236c474bce2b",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/b87edb8617354be52b0b5addfccdba97c4fc6c5e",
+                "reference": "b87edb8617354be52b0b5addfccdba97c4fc6c5e",
                 "shasum": ""
             },
             "require": {
@@ -3943,13 +3943,13 @@
             "require-dev": {
                 "ext-fileinfo": "*",
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.95.20",
+                "friendsofphp/php-cs-fixer": "^3.95.24",
                 "infection/infection": "^0.35",
                 "phpbench/phpbench": "^1.7.0",
-                "phpstan/phpstan": "^2.2.8",
+                "phpstan/phpstan": "^2.2.12",
                 "phpstan/phpstan-phpunit": "^2.0.18",
                 "phpstan/phpstan-strict-rules": "^2.0.12",
-                "phpunit/phpunit": "^13.3.1"
+                "phpunit/phpunit": "^13.3.2"
             },
             "suggest": {
                 "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
@@ -3997,7 +3997,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v5.11.0"
+                "source": "https://github.com/openspout/openspout/tree/v5.11.3"
             },
             "funding": [
                 {
@@ -4009,7 +4009,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-20T06:06:05+00:00"
+            "time": "2026-09-02T15:27:53+00:00"
         },
         {
             "name": "phpoffice/math",
