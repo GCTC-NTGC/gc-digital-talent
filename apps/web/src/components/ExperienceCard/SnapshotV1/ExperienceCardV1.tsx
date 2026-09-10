@@ -14,7 +14,6 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { Skill } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
   GovEmployeeType,
@@ -51,7 +50,9 @@ interface FlexibleSnapshotExperience extends SnapshotExperience {
   workStreams?: ExperienceWorkStream[] | null;
 }
 
-type SimpleSkill = Pick<Skill, "id">;
+interface SimpleSkill {
+  id: string;
+}
 
 interface ExperienceCardV1Props {
   // Override ID if more than one card is used, for uniqueness
