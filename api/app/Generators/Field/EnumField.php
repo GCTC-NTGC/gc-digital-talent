@@ -4,7 +4,7 @@ namespace App\Generators\Field;
 
 use App\Utilities\LanguageHelpers;
 
-final class EnumField extends Field
+class EnumField extends Field
 {
     /**
      * @param  class-string<\UnitEnum>  $enum  Class name of the enum being rendered

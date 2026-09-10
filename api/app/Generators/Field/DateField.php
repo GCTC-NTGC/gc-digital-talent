@@ -4,7 +4,7 @@ namespace App\Generators\Field;
 
 use Carbon\Carbon;
 
-final class DateField extends Field
+class DateField extends Field
 {
     /**
      * @param  string  $format  A PHP date format string

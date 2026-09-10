@@ -2,7 +2,7 @@
 
 namespace App\Generators\Field;
 
-final class HtmlField extends TextField
+class HtmlField extends TextField
 {
     /**
      * Render HTML source as plain text

@@ -2,7 +2,7 @@
 
 namespace App\Generators\Field;
 
-final class NumberField extends Field
+class NumberField extends Field
 {
     /**
      * @param  \Closure(mixed): (int|float|string|null)  $accessor

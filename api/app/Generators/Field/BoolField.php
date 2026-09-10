@@ -4,7 +4,7 @@ namespace App\Generators\Field;
 
 use Illuminate\Support\Facades\Lang;
 
-final class BoolField extends Field
+class BoolField extends Field
 {
     /**
      * @param  \Closure(mixed): ?bool  $accessor
