@@ -763,18 +763,24 @@ class UserBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-team-communityTalent')) {
-                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
+                $query->orWhere(function (Builder $communityTalentSubquery) use ($user) {
+                    // community talent must be verified employees
+                    $communityTalentSubquery->whereIsVerifiedGovEmployee();
 
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
+                    // community talent must have consented community interest
+                    $communityTalentSubquery->whereHas('communityInterests', function (Builder $query) use ($user) {
+                        $allCommunityTeams = $user->rolesTeams()
+                            ->where('teamable_type', "App\Models\Community")
+                            ->get();
 
-                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
+                        $viewPermissionCommunityTeams = $allCommunityTeams
+                            ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
 
-                    $query->whereIn('community_id', $communityIds);
-                    $query->where('consent_to_share_profile', true);
+                        $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
+
+                        $query->whereIn('community_id', $communityIds);
+                        $query->where('consent_to_share_profile', true);
+                    });
                 });
             }
 
