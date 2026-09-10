@@ -422,8 +422,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $query->chunk(200, function ($talentNominationGroups) use ($fields) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 foreach ($talentNominationGroup->nominations as $nomination) {
-                    $nomination->setRelation('talentNominationGroup', $talentNominationGroup);
-
                     $this->writeDataRow($fields, $nomination);
                 }
             }
@@ -734,19 +732,21 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'offPlatformRecruitmentProcesses.department',
                 ]);
             },
-            'nominations' => [
-                'nominator.department',
-                'nominator.currentClassification',
-                'submitter',
-                'advancementReference.department',
-                'advancementReference.currentClassification',
-                'nominatorFallbackClassification',
-                'nominatorFallbackDepartment',
-                'advancementReferenceFallbackClassification',
-                'advancementReferenceFallbackDepartment',
-                'developmentProgramsThroughPivot',
-                'skills',
-            ],
+            'nominations' => fn ($query) => $query
+                ->chaperone('talentNominationGroup')
+                ->with([
+                    'nominator.department',
+                    'nominator.currentClassification',
+                    'submitter',
+                    'advancementReference.department',
+                    'advancementReference.currentClassification',
+                    'nominatorFallbackClassification',
+                    'nominatorFallbackDepartment',
+                    'advancementReferenceFallbackClassification',
+                    'advancementReferenceFallbackDepartment',
+                    'developmentProgramsThroughPivot',
+                    'skills',
+                ]),
         ])->where('talent_nomination_event_id', $this->talentNominationEventId);
 
         $this->applyFilters($query, []);
