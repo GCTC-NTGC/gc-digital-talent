@@ -1,0 +1,12 @@
+# Every image here builds from the repo root as its context, but between them
+# they only COPY a couple of small scripts -- the source is bind-mounted at run
+# time. Keeping the generated trees out of the context makes builds much faster.
+.git
+node_modules
+**/node_modules
+**/.turbo
+api/vendor
+api/storage
+apps/*/dist
+storybook-static
+coverage

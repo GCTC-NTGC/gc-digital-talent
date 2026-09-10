@@ -25,17 +25,19 @@ RUN apt-get update \
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # Set working directory
-WORKDIR /var/www/html/api
+WORKDIR /home/site/wwwroot/api
 
 # Mark git directory as safe (for version info)
-RUN git config --global --add safe.directory /var/www/html
+RUN git config --system --add safe.directory /home/site/wwwroot
 
-# Copy entrypoint script
+# Copy entrypoint scripts. entrypoint-uid.sh runs first: it adopts the ids of
+# whoever owns the mounted project and drops to them before handing over.
 COPY infrastructure/dev/api-entrypoint.sh /usr/local/bin/api-entrypoint.sh
-RUN chmod +x /usr/local/bin/api-entrypoint.sh
+COPY infrastructure/bin/entrypoint-uid.sh /usr/local/bin/entrypoint-uid.sh
+RUN chmod +x /usr/local/bin/api-entrypoint.sh /usr/local/bin/entrypoint-uid.sh
 
 # Expose Laravel dev server port
 EXPOSE 8080
 
 # Use entrypoint script to generate schema and start server
-ENTRYPOINT ["/usr/local/bin/api-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint-uid.sh", "/usr/local/bin/api-entrypoint.sh"]
