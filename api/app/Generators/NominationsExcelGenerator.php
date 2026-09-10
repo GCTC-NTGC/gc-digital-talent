@@ -200,7 +200,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             }
 
             return $name;
-        })->join(', ');
+        })->filter()->join(', ');
     }
 
     /**
