@@ -29,11 +29,9 @@ export const UseNotificationInfo_Fragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      poolId
       poolCandidateId
     }
     ... on ApplicationDeadlineExtendedNotification {
-      userName
       closingDate
       poolName {
         en
