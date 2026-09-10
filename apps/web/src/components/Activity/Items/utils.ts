@@ -14,7 +14,6 @@ import { tv } from "tailwind-variants";
 import { isValid } from "date-fns/isValid";
 import { format } from "date-fns/format";
 
-import type { ActivityProperties } from "@gc-digital-talent/graphql";
 import { ActivityEvent } from "@gc-digital-talent/graphql";
 import type { IconType } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
@@ -44,6 +43,12 @@ export const icon = tv({
 });
 
 export type IconVariants = VariantProps<typeof icon>;
+
+export interface ActivityItemProperties {
+  __typename?: "ActivityProperties";
+  attributes?: unknown;
+  old?: unknown;
+}
 
 export interface ActivityEventInfo {
   message: MessageDescriptor;
@@ -227,7 +232,7 @@ const commonKeyMap = new Map<string, MessageDescriptor>([
 
 export function normalizePropKeys(
   intl: IntlShape,
-  propsObj?: ActivityProperties | null,
+  propsObj?: ActivityItemProperties | null,
   keyMap?: Map<string, MessageDescriptor>,
   logger?: Logger,
 ): string[] {

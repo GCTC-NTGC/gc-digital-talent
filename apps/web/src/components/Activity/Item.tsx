@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 
-import type { Activity, FragmentType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import AssessmentStepActivityItem from "./Items/AssessmentStepActivityItem";
@@ -13,10 +13,7 @@ import type { CommonItemProps } from "./Items/BaseActivityItem";
 type SubComponentProps = Omit<PoolActivityItemProps, "query"> & CommonItemProps;
 type SubComponent = (props: SubComponentProps) => JSX.Element | null;
 
-const COMPONENT_MAP: Record<
-  NonNullable<Activity["subjectType"]>,
-  SubComponent
-> = {
+const COMPONENT_MAP: Record<string, SubComponent> = {
   "App\\Models\\AssessmentStep": AssessmentStepActivityItem,
   "App\\Models\\Pool": PoolActivityItem,
   "App\\Models\\PoolCandidate": PoolCandidateActivityItem,
