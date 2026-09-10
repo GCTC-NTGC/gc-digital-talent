@@ -90,16 +90,6 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
             fr
           }
         }
-        courseFormat {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        registrationDeadline
-        trainingStart
-        trainingEnd
         applicationUrl {
           en
           fr
