@@ -3,18 +3,21 @@ import type {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
-import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 
 export interface FormValues {
   advancementDecision: TalentNominationGroupDecision | null;
   advancementReferenceConfirmed: boolean | null;
   advancementApprovedNotes: string | null;
   advancementRejectedNotes: string | null;
-  advancementClassifications: string[];
-  advancementReferralExpiryDate: string;
+  advancementClassifications: string[] | null;
+  advancementReferralExpiryDate: string | null;
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
+  lateralMovementClassificationSubstantive: string | null;
+  lateralMovementClassificationsAdditional: string[] | null;
+  lateralMovementReferralExpiryDate: string | null;
   developmentProgramsDecision: TalentNominationGroupDecision | null;
   developmentProgramsApprovedNotes: string | null;
   developmentProgramsRejectedNotes: string | null;
@@ -38,10 +41,10 @@ function ifRejected(decision: Decision, value: string | null | undefined) {
 }
 
 // return the right value if the decision is approved or rejected
-function chooseValue(
+function chooseValue<T>(
   decision: TalentNominationGroupDecision | null,
-  approvedValue: string | null,
-  rejectedValue: string | null,
+  approvedValue: T | null,
+  rejectedValue: T | null,
 ) {
   if (decision == TalentNominationGroupDecision.Approved) return approvedValue;
   if (decision == TalentNominationGroupDecision.Rejected) return rejectedValue;
@@ -67,7 +70,7 @@ export function convertQueryDataToFormData(
       queryData?.advancementClassifications,
     ).map(({ id }) => id),
     advancementReferralExpiryDate:
-      queryData?.advancementReferralExpiryDate ?? "",
+      queryData?.advancementReferralExpiryDate ?? null,
     lateralMovementDecision: queryData?.lateralMovementDecision?.value ?? null,
     lateralMovementApprovedNotes: ifApproved(
       queryData?.lateralMovementDecision,
@@ -77,6 +80,15 @@ export function convertQueryDataToFormData(
       queryData?.lateralMovementDecision,
       queryData?.lateralMovementNotes,
     ),
+    lateralMovementClassificationSubstantive:
+      queryData.nominee?.classification?.id ?? null,
+    lateralMovementClassificationsAdditional: unpackMaybes(
+      queryData?.lateralMovementClassifications,
+    )
+      .map(({ id }) => id)
+      .filter((id) => id !== queryData.nominee?.classification?.id), // only want the additional classifications, the substantive is in the field above
+    lateralMovementReferralExpiryDate:
+      queryData?.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision:
       queryData?.developmentProgramsDecision?.value ?? null,
     developmentProgramsApprovedNotes: ifApproved(
@@ -101,22 +113,36 @@ export function convertFormValuesToMutationInput(
       formValues.advancementApprovedNotes,
       formValues.advancementRejectedNotes,
     ),
+    advancementClassifications: {
+      sync: formValues.advancementClassifications,
+    },
+    advancementReferralExpiryDate:
+      formValues.advancementReferralExpiryDate ?? null,
     lateralMovementDecision: formValues.lateralMovementDecision,
     lateralMovementNotes: chooseValue(
       formValues.lateralMovementDecision,
       formValues.lateralMovementApprovedNotes,
       formValues.lateralMovementRejectedNotes,
     ),
+    lateralMovementClassifications: {
+      sync: uniqueItems(
+        unpackMaybes([
+          // pack the substantive (if approved) and the additional classifications together
+          formValues.lateralMovementDecision ==
+          TalentNominationGroupDecision.Approved
+            ? formValues.lateralMovementClassificationSubstantive
+            : null,
+          ...(formValues.lateralMovementClassificationsAdditional ?? []),
+        ]),
+      ),
+    },
+    lateralMovementReferralExpiryDate:
+      formValues.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision: formValues.developmentProgramsDecision,
     developmentProgramsNotes: chooseValue(
       formValues.developmentProgramsDecision,
       formValues.developmentProgramsApprovedNotes,
       formValues.developmentProgramsRejectedNotes,
     ),
-    advancementClassifications: {
-      sync: formValues.advancementClassifications,
-    },
-    advancementReferralExpiryDate:
-      formValues.advancementReferralExpiryDate || null,
   };
 }

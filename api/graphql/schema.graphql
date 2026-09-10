@@ -1018,6 +1018,9 @@ type TalentNominationGroup {
   advancementClassifications: [Classification!] @belongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: [Classification!] @belongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1947,27 +1950,13 @@ input PoolsHasMany {
 """
 When creating a User, name is required.
 """
-input CreateUserInput {
+input CreateUserInput @validator {
   sub: String
-    @rules(
-      apply: ["sometimes", "unique:users,sub"]
-      messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
-    )
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
   lastName: String! @rename(attribute: "last_name")
   email: Email
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
   # emailVerifiedAt only used for e2e testing
   emailVerifiedAt: Date @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
@@ -1999,18 +1988,7 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email
-    @rename(attribute: "work_email")
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
+  workEmail: Email @rename(attribute: "work_email")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
@@ -2048,7 +2026,7 @@ input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
-  email: Email @lowerCase
+  email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -2080,7 +2058,7 @@ input UpdateUserAsAdminInput @validator {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
+  workEmail: Email @rename(attribute: "work_email")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -2742,6 +2720,9 @@ input UpdateTalentNominationGroupInput {
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {

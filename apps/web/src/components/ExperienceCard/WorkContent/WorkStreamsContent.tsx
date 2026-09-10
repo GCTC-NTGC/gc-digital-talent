@@ -21,14 +21,14 @@ interface WorkStreamCommunity {
   name?: LocalizedString | null;
 }
 
-interface WorkStreamsContentWorkStream {
+export interface ExperienceWorkStream {
   id: string;
   name?: LocalizedString | null;
   community?: WorkStreamCommunity | null;
 }
 
 interface WorkStreamsContentProps {
-  workStreams?: WorkStreamsContentWorkStream[] | null;
+  workStreams?: ExperienceWorkStream[] | null;
   headingLevel?: HeadingRank;
 }
 
