@@ -2,79 +2,48 @@
 
 namespace App\Generators\Field;
 
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Lang;
 
-final class Field
+abstract class Field
 {
+    /** @var ?\Closure(mixed): bool */
+    protected ?\Closure $condition = null;
+
+    /** Rendered in place of the value when the condition returns false */
+    public ?string $fallback = null;
+
     /**
      * @param  \Closure(mixed): mixed  $accessor  Reads the value out of the given context
-     * @param  array<string, mixed>  $options  Render options keyed by name
      */
-    private function __construct(
+    public function __construct(
         public readonly string $heading,
-        public readonly FieldType $type,
         public readonly \Closure $accessor,
-        public readonly array $options = []
-    ) {
-        // Ensure we have the required
-        foreach ($type->requiredOptions() as $key) {
-            if (! array_key_exists($key, $options)) {
-                throw new \LogicException($heading.' requires the '.$key.' option.');
-            }
+    ) {}
+
+    /**
+     * Render a non null value as a string for the document
+     *
+     * @param  string  $default  Rendered when the value cannot be rendered
+     */
+    abstract protected function render(mixed $value, ?string $lang, string $default): string;
+
+    /**
+     * Read a value out of the context and render it
+     *
+     * @param  mixed  $context  Passed to the visibility condition and the accessor
+     */
+    public function resolve(mixed $context, ?string $lang = 'en', ?string $default = ''): string
+    {
+        $default ??= '';
+
+        // Return the fallback if a visibility condition exists and returns false
+        if ($this->condition && ! ($this->condition)($context)) {
+            return $this->fallback ?? Lang::get('common.not_available', [], $lang);
         }
-    }
 
-    /**
-     * @param  \Closure(mixed): ?string  $accessor
-     */
-    public static function text(string $heading, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::TEXT, $accessor);
-    }
+        $value = ($this->accessor)($context);
 
-    /**
-     * @param  \Closure(mixed): ?string  $accessor
-     */
-    public static function html(string $heading, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::HTML, $accessor);
-    }
-
-    /**
-     * @param  \Closure(mixed): (int|float|string|null)  $accessor
-     */
-    public static function number(string $heading, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::NUMBER, $accessor);
-    }
-
-    /**
-     * @param  class-string<\UnitEnum>  $enum
-     * @param  \Closure(mixed): (string|list<string>|null)  $accessor
-     */
-    public static function enum(string $heading, string $enum, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::ENUM, $accessor, [
-            'enum' => $enum,
-        ]);
-    }
-
-    /**
-     * @param  \Closure(mixed): (string|Carbon|null)  $accessor
-     */
-    public static function date(string $heading, string $format, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::DATE, $accessor, [
-            'format' => $format,
-        ]);
-    }
-
-    /**
-     * @param  \Closure(mixed): ?bool  $accessor
-     */
-    public static function bool(string $heading, \Closure $accessor): self
-    {
-        return new self($heading, FieldType::BOOL, $accessor);
+        return is_null($value) ? $default : $this->render($value, $lang, $default);
     }
 
     /**
@@ -84,12 +53,12 @@ final class Field
      * @param  \Closure(mixed): bool  $condition
      * @param  ?string  $fallback  Rendered when $condition returns false
      */
-    public function visible(\Closure $condition, ?string $fallback = null): self
+    public function visibleIf(\Closure $condition, ?string $fallback = null): static
     {
-        return new self($this->heading, $this->type, $this->accessor, [
-            ...$this->options,
-            'visible' => $condition,
-            'fallback' => $fallback,
-        ]);
+        $field = clone $this;
+        $field->condition = $condition;
+        $field->fallback = $fallback;
+
+        return $field;
     }
 }

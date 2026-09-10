@@ -27,8 +27,13 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
+use App\Generators\Field\BoolField;
+use App\Generators\Field\DateField;
+use App\Generators\Field\EnumField;
 use App\Generators\Field\Field;
-use App\Generators\Field\RendersFields;
+use App\Generators\Field\HtmlField;
+use App\Generators\Field\NumberField;
+use App\Generators\Field\TextField;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
@@ -51,7 +56,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     use GeneratesCommunityInterestSheet;
     use GeneratesFile;
     use GeneratesSharedExcelData;
-    use RendersFields;
 
     protected array $generatedHeaders = [
         'general_questions' => [],
@@ -161,26 +165,26 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $consented = fn ($g) => (bool) $g->consentToShareProfile;
 
         return [
-            Field::text('nominee_user_id', fn ($g) => $g->nominee->id),
-            Field::text('nominee_first_name', fn ($g) => $g->nominee->first_name),
-            Field::text('nominee_last_name', fn ($g) => $g->nominee->last_name),
-            Field::enum('nomination_status', TalentNominationGroupStatus::class, fn ($g) => $g->status),
-            Field::text('nominators', fn ($g) => $this->getNominators($g)),
-            Field::text('nomination_options', fn ($g) => $this->getNominationOptions($g)),
-            Field::enum('advancement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->advancement_decision)
-                ->visible(fn ($g) => $this->isNominatedForAdvancement($g), ''),
-            Field::text('advancement_classifications', fn ($g) => $this->getAdvancementClassifications($g))
-                ->visible($consented),
-            Field::html('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null)
-                ->visible($consented),
-            Field::enum('lateral_movement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->lateral_movement_decision)
-                ->visible(fn ($g) => $this->isNominatedForLateralMovement($g), ''),
-            Field::html('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null)
-                ->visible($consented),
-            Field::enum('development_program_approval', TalentNominationGroupDecision::class, fn ($g) => $g->development_programs_decision)
-                ->visible(fn ($g) => $this->isNominatedForDevelopmentPrograms($g), ''),
-            Field::html('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null)
-                ->visible($consented),
+            new TextField('nominee_user_id', fn ($g) => $g->nominee->id),
+            new TextField('nominee_first_name', fn ($g) => $g->nominee->first_name),
+            new TextField('nominee_last_name', fn ($g) => $g->nominee->last_name),
+            new EnumField('nomination_status', TalentNominationGroupStatus::class, fn ($g) => $g->status),
+            new TextField('nominators', fn ($g) => $this->getNominators($g)),
+            new TextField('nomination_options', fn ($g) => $this->getNominationOptions($g)),
+            new EnumField('advancement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->advancement_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForAdvancement($g), ''),
+            new TextField('advancement_classifications', fn ($g) => $this->getAdvancementClassifications($g))
+                ->visibleIf($consented),
+            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null)
+                ->visibleIf($consented),
+            new EnumField('lateral_movement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->lateral_movement_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForLateralMovement($g), ''),
+            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null)
+                ->visibleIf($consented),
+            new EnumField('development_program_approval', TalentNominationGroupDecision::class, fn ($g) => $g->development_programs_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForDevelopmentPrograms($g), ''),
+            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null)
+                ->visibleIf($consented),
         ];
     }
 
@@ -244,83 +248,83 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function nomineeProfileFields(): array
     {
-        $consented = fn ($row) => $row->visible(fn ($g) => (bool) $g->consentToShareProfile);
+        $consented = fn ($row) => $row->visibleIf(fn ($g) => (bool) $g->consentToShareProfile);
 
         return [
-            Field::text('id', fn ($g) => $g->nominee->id),
-            Field::text('first_name', fn ($g) => $g->nominee->first_name),
-            Field::text('last_name', fn ($g) => $g->nominee->last_name),
+            new TextField('id', fn ($g) => $g->nominee->id),
+            new TextField('first_name', fn ($g) => $g->nominee->first_name),
+            new TextField('last_name', fn ($g) => $g->nominee->last_name),
             ...array_map($consented, [
-                Field::text('email', fn ($g) => $g->nominee->email),
-                Field::text('phone', fn ($g) => $g->nominee->telephone),
-                Field::enum('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
-                Field::enum('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
-                Field::text('current_city', fn ($g) => $g->nominee->current_city),
-                Field::enum('current_province', ProvinceOrTerritory::class, fn ($g) => $g->nominee->current_province),
-                Field::enum('preferred_communication_language', Language::class, fn ($g) => $g->nominee->preferred_lang),
-                Field::text('interested_in_languages', fn ($g) => $this->lookingForLanguages($g->nominee)),
-                Field::enum('first_official_language', Language::class, fn ($g) => $g->nominee->first_official_language),
-                Field::enum('estimated_language_ability', EstimatedLanguageAbility::class, fn ($g) => $g->nominee->estimated_language_ability),
-                Field::bool('second_language_exam_completed', fn ($g) => $g->nominee->second_language_exam_completed),
-                Field::bool('second_language_exam_validity', fn ($g) => $g->nominee->second_language_exam_validity),
-                Field::enum('comprehension_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->comprehension_level),
-                Field::enum('writing_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->written_level),
-                Field::enum('oral_interaction_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->verbal_level),
-                Field::bool('government_employee', fn ($g) => $g->nominee->computed_is_gov_employee),
-                Field::text('department', fn ($g) => $g->nominee->department()->first()?->name[$this->lang]),
-                Field::enum('employee_type', GovEmployeeType::class, fn ($g) => $g->nominee->computed_gov_employee_type),
-                Field::text('work_email', fn ($g) => $g->nominee->work_email),
-                Field::text('classification', fn ($g) => $g->nominee->getClassification()),
-                Field::bool('priority_entitlement', fn ($g) => $g->nominee->has_priority_entitlement),
-                Field::text('priority_number', fn ($g) => $g->nominee->priority_number),
-                Field::bool('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null),
-                Field::enum('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted']),
-                Field::enum('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee)),
-                Field::enum('flexible_work_locations', FlexibleWorkLocation::class, fn ($g) => $g->nominee->flexible_work_locations),
-                Field::text('location_exemptions', fn ($g) => $g->nominee->location_exemptions),
-                Field::bool('woman', fn ($g) => $g->nominee->is_woman),
-                Field::enum('indigenous', IndigenousCommunity::class, fn ($g) => $this->getIndigenousCommunities($g->nominee)),
-                Field::bool('visible_minority', fn ($g) => $g->nominee->is_visible_minority),
-                Field::bool('disability', fn ($g) => $g->nominee->has_disability),
-                Field::text('skills', fn ($g) => $this->getUserSkills($g->nominee)),
-                Field::bool('career_planning_lateral_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_interest),
-                Field::enum('career_planning_lateral_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_time_frame),
-                Field::enum('career_planning_lateral_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_organization_type),
-                Field::bool('career_planning_promotion_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_interest),
-                Field::enum('career_planning_promotion_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_time_frame),
-                Field::enum('career_planning_promotion_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_organization_type),
-                Field::enum('career_planning_learning_opportunities_interest', LearningOpportunitiesInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_opportunities_interest),
-                Field::date('eligible_retirement_year', 'Y', fn ($g) => $g->nominee->employeeProfile?->eligible_retirement_year),
-                Field::enum('career_planning_mentorship_status', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_status),
-                Field::enum('career_planning_mentorship_interest', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_interest),
-                Field::bool('career_planning_exec_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_interest),
-                Field::enum('career_planning_exec_coaching_status', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_status),
-                Field::enum('career_planning_exec_coaching_interest', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_interest),
-                Field::text('next_role_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->group),
-                Field::number('next_role_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->level),
-                Field::enum('next_role_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->next_role_target_role),
-                Field::bool('next_role_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->next_role_is_c_suite_role),
-                Field::enum('next_role_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->next_role_c_suite_role_title),
-                Field::text('next_role_job_title', fn ($g) => $g->nominee->employeeProfile?->next_role_job_title),
-                Field::text('next_role_functional_community', fn ($g) => $g->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang]),
-                Field::text('next_role_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleWorkStreams, ',')),
-                Field::text('next_role_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleDepartments)),
-                Field::text('next_role_additional_information', fn ($g) => $g->nominee->employeeProfile?->next_role_additional_information),
-                Field::text('career_objective_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->group),
-                Field::number('career_objective_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->level),
-                Field::enum('career_objective_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_target_role),
-                Field::bool('career_objective_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->career_objective_is_c_suite_role),
-                Field::enum('career_objective_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_c_suite_role_title),
-                Field::text('career_objective_job_title', fn ($g) => $g->nominee->employeeProfile?->career_objective_job_title),
-                Field::text('career_objective_functional_community', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang]),
-                Field::text('career_objective_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveWorkStreams)),
-                Field::text('career_objective_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveDepartments)),
-                Field::text('career_objective_additional_information', fn ($g) => $g->nominee->employeeProfile?->career_objective_additional_information),
-                Field::text('career_planning_about_you', fn ($g) => $g->nominee->employeeProfile?->career_planning_about_you),
-                Field::text('career_planning_learning_goals', fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_goals),
-                Field::text('career_planning_work_style', fn ($g) => $g->nominee->employeeProfile?->career_planning_work_style),
-                Field::text('digital_talent_processes', fn ($g) => $this->getAppliedPools($g->nominee)),
-                Field::text('off_platform_processes_not_verified', fn ($g) => $this->getOffPlatformProcesses($g->nominee)),
+                new TextField('email', fn ($g) => $g->nominee->email),
+                new TextField('phone', fn ($g) => $g->nominee->telephone),
+                new EnumField('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
+                new EnumField('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
+                new TextField('current_city', fn ($g) => $g->nominee->current_city),
+                new EnumField('current_province', ProvinceOrTerritory::class, fn ($g) => $g->nominee->current_province),
+                new EnumField('preferred_communication_language', Language::class, fn ($g) => $g->nominee->preferred_lang),
+                new TextField('interested_in_languages', fn ($g) => $this->lookingForLanguages($g->nominee)),
+                new EnumField('first_official_language', Language::class, fn ($g) => $g->nominee->first_official_language),
+                new EnumField('estimated_language_ability', EstimatedLanguageAbility::class, fn ($g) => $g->nominee->estimated_language_ability),
+                new BoolField('second_language_exam_completed', fn ($g) => $g->nominee->second_language_exam_completed),
+                new BoolField('second_language_exam_validity', fn ($g) => $g->nominee->second_language_exam_validity),
+                new EnumField('comprehension_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->comprehension_level),
+                new EnumField('writing_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->written_level),
+                new EnumField('oral_interaction_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->verbal_level),
+                new BoolField('government_employee', fn ($g) => $g->nominee->computed_is_gov_employee),
+                new TextField('department', fn ($g) => $g->nominee->department()->first()?->name[$this->lang]),
+                new EnumField('employee_type', GovEmployeeType::class, fn ($g) => $g->nominee->computed_gov_employee_type),
+                new TextField('work_email', fn ($g) => $g->nominee->work_email),
+                new TextField('classification', fn ($g) => $g->nominee->getClassification()),
+                new BoolField('priority_entitlement', fn ($g) => $g->nominee->has_priority_entitlement),
+                new TextField('priority_number', fn ($g) => $g->nominee->priority_number),
+                new BoolField('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null),
+                new EnumField('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted']),
+                new EnumField('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee)),
+                new EnumField('flexible_work_locations', FlexibleWorkLocation::class, fn ($g) => $g->nominee->flexible_work_locations),
+                new TextField('location_exemptions', fn ($g) => $g->nominee->location_exemptions),
+                new BoolField('woman', fn ($g) => $g->nominee->is_woman),
+                new EnumField('indigenous', IndigenousCommunity::class, fn ($g) => $this->getIndigenousCommunities($g->nominee)),
+                new BoolField('visible_minority', fn ($g) => $g->nominee->is_visible_minority),
+                new BoolField('disability', fn ($g) => $g->nominee->has_disability),
+                new TextField('skills', fn ($g) => $this->getUserSkills($g->nominee)),
+                new BoolField('career_planning_lateral_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_interest),
+                new EnumField('career_planning_lateral_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_time_frame),
+                new EnumField('career_planning_lateral_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_organization_type),
+                new BoolField('career_planning_promotion_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_interest),
+                new EnumField('career_planning_promotion_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_time_frame),
+                new EnumField('career_planning_promotion_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_organization_type),
+                new EnumField('career_planning_learning_opportunities_interest', LearningOpportunitiesInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_opportunities_interest),
+                new DateField('eligible_retirement_year', 'Y', fn ($g) => $g->nominee->employeeProfile?->eligible_retirement_year),
+                new EnumField('career_planning_mentorship_status', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_status),
+                new EnumField('career_planning_mentorship_interest', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_interest),
+                new BoolField('career_planning_exec_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_interest),
+                new EnumField('career_planning_exec_coaching_status', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_status),
+                new EnumField('career_planning_exec_coaching_interest', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_interest),
+                new TextField('next_role_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->group),
+                new NumberField('next_role_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->level),
+                new EnumField('next_role_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->next_role_target_role),
+                new BoolField('next_role_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->next_role_is_c_suite_role),
+                new EnumField('next_role_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->next_role_c_suite_role_title),
+                new TextField('next_role_job_title', fn ($g) => $g->nominee->employeeProfile?->next_role_job_title),
+                new TextField('next_role_functional_community', fn ($g) => $g->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang]),
+                new TextField('next_role_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleWorkStreams, ',')),
+                new TextField('next_role_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleDepartments)),
+                new TextField('next_role_additional_information', fn ($g) => $g->nominee->employeeProfile?->next_role_additional_information),
+                new TextField('career_objective_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->group),
+                new NumberField('career_objective_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->level),
+                new EnumField('career_objective_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_target_role),
+                new BoolField('career_objective_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->career_objective_is_c_suite_role),
+                new EnumField('career_objective_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_c_suite_role_title),
+                new TextField('career_objective_job_title', fn ($g) => $g->nominee->employeeProfile?->career_objective_job_title),
+                new TextField('career_objective_functional_community', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang]),
+                new TextField('career_objective_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveWorkStreams)),
+                new TextField('career_objective_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveDepartments)),
+                new TextField('career_objective_additional_information', fn ($g) => $g->nominee->employeeProfile?->career_objective_additional_information),
+                new TextField('career_planning_about_you', fn ($g) => $g->nominee->employeeProfile?->career_planning_about_you),
+                new TextField('career_planning_learning_goals', fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_goals),
+                new TextField('career_planning_work_style', fn ($g) => $g->nominee->employeeProfile?->career_planning_work_style),
+                new TextField('digital_talent_processes', fn ($g) => $this->getAppliedPools($g->nominee)),
+                new TextField('off_platform_processes_not_verified', fn ($g) => $this->getOffPlatformProcesses($g->nominee)),
             ]),
         ];
     }
@@ -434,32 +438,32 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function nominationDetailFields(): array
     {
         return [
-            Field::text('nominee_user_id', fn ($n) => $n->talentNominationGroup->nominee->id),
-            Field::text('nominee_first_name', fn ($n) => $n->talentNominationGroup->nominee->first_name),
-            Field::text('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
-            Field::date('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
-            Field::text('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
-            Field::text('nominator', fn ($n) => $n->nominator?->getFullName() ?? $n->nominator_fallback_name),
-            Field::enum('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
-            Field::text('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
-            Field::text('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
-            Field::text('nominator_department', fn ($n) => $n->nominator->department?->name[$this->lang]),
-            Field::text('submitters_name', fn ($n) => $n->submitter?->getFullName()),
-            Field::text('submitters_email', fn ($n) => $n->submitter->work_email ?? null),
-            Field::text('submitters_relationship_to_nominator', fn ($n) => $this->getSubmitterRelationship($n)),
-            Field::text('reference_name', fn ($n) => $this->getReferenceDetails($n)['name']),
-            Field::text('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
-            Field::text('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
-            Field::text('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
-            Field::enum('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
-            Field::enum('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
-            Field::text('lateral_experience_recommendations', fn ($n) => $this->getLateralMovementOptions($n)),
-            Field::text('other_lateral_experience', fn ($n) => $n->lateral_movement_options_other),
-            Field::text('development_program_recommendations', fn ($n) => $this->getDevelopmentPrograms($n)),
-            Field::text('other_development_program_experience', fn ($n) => $n->development_program_options_other),
-            Field::text('rationale', fn ($n) => $n->nomination_rationale),
-            Field::text('leadership_competencies', fn ($n) => $this->getLeadershipCompetencies($n)),
-            Field::text('additional_comments', fn ($n) => $n->additional_comments),
+            new TextField('nominee_user_id', fn ($n) => $n->talentNominationGroup->nominee->id),
+            new TextField('nominee_first_name', fn ($n) => $n->talentNominationGroup->nominee->first_name),
+            new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
+            new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
+            new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
+            new TextField('nominator', fn ($n) => $n->nominator?->getFullName() ?? $n->nominator_fallback_name),
+            new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
+            new TextField('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
+            new TextField('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
+            new TextField('nominator_department', fn ($n) => $n->nominator->department?->name[$this->lang]),
+            new TextField('submitters_name', fn ($n) => $n->submitter?->getFullName()),
+            new TextField('submitters_email', fn ($n) => $n->submitter->work_email ?? null),
+            new TextField('submitters_relationship_to_nominator', fn ($n) => $this->getSubmitterRelationship($n)),
+            new TextField('reference_name', fn ($n) => $this->getReferenceDetails($n)['name']),
+            new TextField('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
+            new TextField('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
+            new TextField('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
+            new EnumField('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
+            new EnumField('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
+            new TextField('lateral_experience_recommendations', fn ($n) => $this->getLateralMovementOptions($n)),
+            new TextField('other_lateral_experience', fn ($n) => $n->lateral_movement_options_other),
+            new TextField('development_program_recommendations', fn ($n) => $this->getDevelopmentPrograms($n)),
+            new TextField('other_development_program_experience', fn ($n) => $n->development_program_options_other),
+            new TextField('rationale', fn ($n) => $n->nomination_rationale),
+            new TextField('leadership_competencies', fn ($n) => $this->getLeadershipCompetencies($n)),
+            new TextField('additional_comments', fn ($n) => $n->additional_comments),
         ];
     }
 
