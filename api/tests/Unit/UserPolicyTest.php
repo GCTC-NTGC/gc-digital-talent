@@ -25,6 +25,8 @@ class UserPolicyTest extends TestCase
 
     protected $otherApplicant;
 
+    protected $employee;
+
     protected $platformAdmin;
 
     protected $processOperator;
@@ -75,6 +77,10 @@ class UserPolicyTest extends TestCase
                 'email' => 'other-applicant-user@test.com',
                 'sub' => 'other-applicant-user@test.com',
             ]);
+
+        $this->employee = User::factory()
+            ->withGovEmployeeProfile()
+            ->create();
 
         $this->pool = Pool::factory()->create();
         $this->community = Community::factory()->create();
@@ -165,7 +171,7 @@ class UserPolicyTest extends TestCase
             ]
         );
 
-        // can now view applicant as they have an application attached to $pool within $community, department cannot still
+        // can now view applicant as they have an application attached to $pool within $community and $department
         $this->assertTrue($this->processOperator->can('view', $this->applicant));
         $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
         $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
@@ -174,18 +180,18 @@ class UserPolicyTest extends TestCase
 
         PoolCandidate::truncate();
         CommunityInterest::factory()->create([
-            'user_id' => $this->applicant->id,
+            'user_id' => $this->employee->id,
             'community_id' => $this->community->id,
             'consent_to_share_profile' => true,
         ]);
 
-        // recruiter/coordinator/admin but not process operator can now view applicant as they are a community talent (CommunityInterest with interest)
-        $this->assertTrue($this->communityRecruiter->can('view', $this->applicant));
-        $this->assertTrue($this->communityTalentCoordinator->can('view', $this->applicant));
-        $this->assertTrue($this->communityAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->processOperator->can('view', $this->applicant));
-        $this->assertFalse($this->departmentAdmin->can('view', $this->applicant));
-        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->applicant));
+        // recruiter/coordinator/admin but not process operator can view employee as they are a community talent (CommunityInterest with consent, verified employee)
+        $this->assertTrue($this->communityRecruiter->can('view', $this->employee));
+        $this->assertTrue($this->communityTalentCoordinator->can('view', $this->employee));
+        $this->assertTrue($this->communityAdmin->can('view', $this->employee));
+        $this->assertFalse($this->processOperator->can('view', $this->employee));
+        $this->assertFalse($this->departmentAdmin->can('view', $this->employee));
+        $this->assertFalse($this->departmentHRAdvisor->can('view', $this->employee));
     }
 
     /**

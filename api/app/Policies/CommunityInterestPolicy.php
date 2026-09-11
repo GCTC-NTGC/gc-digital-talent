@@ -68,6 +68,8 @@ class CommunityInterestPolicy
         }
 
         return ! is_null($communityInterest->community->team)
-            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team);
+            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team)
+            && $communityInterest->consent_to_share_profile
+            && $communityInterest->user->isVerifiedGovEmployee;
     }
 }
