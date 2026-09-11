@@ -5,21 +5,27 @@ import { test, expect } from "~/fixtures";
 import EmployeeProfile from "~/fixtures/EmployeeProfile";
 import Registration from "~/fixtures/Registration";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("Applicant settings page", () => {
+test.describe("Applicant settings page", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let user: User = { id: "" };
+  let platformAdminCtx: GraphQLContext;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+  let applicantSub: string;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    const adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    applicantSub = process.env.PLAYWRIGHT_APPLICANT_SUB ?? sub;
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -34,12 +40,16 @@ test.describe("Applicant settings page", () => {
 
   test.afterEach(async () => {
     if (user.id) {
-      const adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("Registration and work email for New User", async ({ appPage }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      !!process.env.TESTING_ENDPOINT_SECRET,
+      "Registration flow is not supported against live UAT",
+    );
     // Register with new user and verify the email address
     const page = appPage.page;
     const registration = new Registration(page);
@@ -56,7 +66,7 @@ test.describe("Applicant settings page", () => {
     const profilePage = new EmployeeProfile(page);
     await profilePage.goToEmployeeVerification();
     expect(await profilePage.workEmailVerificationLabel()).toBe("Verified");
-    await registration.deleteNewUser();
+    await registration.deleteNewUser(platformAdminSub);
   });
 
   test("Unsubscribe link works (EN)", async ({ appPage }) => {
@@ -69,7 +79,7 @@ test.describe("Applicant settings page", () => {
   });
 
   test("Unsubscribe link works (FR)", async ({ appPage }) => {
-    await loginBySub(appPage.page, sub);
+    await loginBySub(appPage.page, applicantSub);
     await appPage.page.goto("/fr/applicant/settings");
 
     await expect(
@@ -80,6 +90,11 @@ test.describe("Applicant settings page", () => {
   });
 
   test("Unsubscribe link works after signing in (EN)", async ({ appPage }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      !!process.env.TESTING_ENDPOINT_SECRET,
+      "Not supported against UAT",
+    );
     const page = appPage.page;
     await page.goto("/en/applicant/settings");
 
@@ -108,6 +123,11 @@ test.describe("Applicant settings page", () => {
   });
 
   test("Unsubscribe link works after signing in (FR)", async ({ appPage }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      !!process.env.TESTING_ENDPOINT_SECRET,
+      "Not supported against UAT",
+    );
     const page = appPage.page;
     await page.goto("/fr/applicant/settings");
 

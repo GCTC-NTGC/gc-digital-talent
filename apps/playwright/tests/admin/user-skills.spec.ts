@@ -4,24 +4,28 @@ import type { Skill, User } from "@gc-digital-talent/graphql/schema-types";
 import { test, expect } from "~/fixtures";
 import AdminUser from "~/fixtures/AdminUser";
 import { loginBySub } from "~/utils/auth";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("User skills", () => {
+test.describe("User skills", { tag: "@uat" }, () => {
   let uniqueTestId = "";
   let user: User = { id: "" };
   let skill: Skill;
+  let platformAdminCtx: GraphQLContext;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
-    const adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
 
-    const skills = await getSkills(adminCtx, {});
+    const skills = await getSkills(platformAdminCtx, {});
     skill = skills[0];
 
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${uniqueTestId}@example.org`,
@@ -52,14 +56,13 @@ test.describe("User skills", () => {
 
   test.afterAll(async () => {
     if (user.id) {
-      const adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
     }
   });
 
   test("Skills are read-only", async ({ appPage }) => {
     const adminUser = new AdminUser(appPage.page);
-    await loginBySub(adminUser.page, "admin@test.com");
+    await loginBySub(adminUser.page, platformAdminSub);
 
     await adminUser.goToSkills(user.id);
 

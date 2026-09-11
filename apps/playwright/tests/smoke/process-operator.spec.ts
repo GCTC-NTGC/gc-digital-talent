@@ -2,9 +2,12 @@ import { test, expect } from "~/fixtures";
 import AUTH from "~/constants/auth";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("Process operator user", () => {
+test.describe("Process operator user", { tag: "@uat" }, () => {
+  const processOperatorSub =
+    process.env.PLAYWRIGHT_PROCESS_OPERATOR_SUB ?? "process@test.com";
+
   test("Can access allowed paths", async ({ appPage }) => {
-    await loginBySub(appPage.appPage, "process@test.com");
+    await loginBySub(appPage.appPage, processOperatorSub);
     await Promise.all(
       AUTH.ALLOWED_PATHS.PROCESS_OPERATOR.map(async (restrictedPath) => {
         const context = appPage.page.context();
@@ -21,7 +24,7 @@ test.describe("Process operator user", () => {
   });
 
   test("Cannot access restricted paths", async ({ appPage }) => {
-    await loginBySub(appPage.appPage, "process@test.com");
+    await loginBySub(appPage.appPage, processOperatorSub);
     await Promise.all(
       AUTH.RESTRICTED_PATHS.PROCESS_OPERATOR.map(async (restrictedPath) => {
         const context = appPage.page.context();

@@ -17,7 +17,6 @@ import {
   WorkRegion,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
 import PoolPage from "~/fixtures/PoolPage";
 import {
@@ -32,24 +31,30 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
-test.describe("Process activity log", () => {
+test.describe("Process activity log", { tag: "@uat" }, () => {
   let adminUser: User;
   let poolId: string;
   let adminCtx: GraphQLContext;
   let technicalSkill: Skill | undefined;
   let uniqueTestId: string;
   let sub: string;
+  let platformAdminCtx: GraphQLContext;
   let applicantUser: User;
   let applicant: User;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeAll(async () => {
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
     adminUser = await me(adminCtx, {});
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
@@ -73,7 +78,7 @@ test.describe("Process activity log", () => {
     sub = `playwright.sub.${uniqueTestId}`;
 
     // New user creation which turns into a candidate
-    const activityUser = await createUserWithRoles(adminCtx, {
+    const activityUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,
@@ -158,14 +163,19 @@ test.describe("Process activity log", () => {
 
   test.afterEach(async () => {
     if (applicantUser.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: applicantUser.id });
+      await deleteUser(platformAdminCtx, { id: applicantUser.id });
+    }
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 
   test("Pool Activity log - Shows activity events", async ({ appPage }) => {
     const poolPage = new PoolPage(appPage.page);
-    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(poolPage.page, adminSub);
     await poolPage.goToEdit(poolId);
 
     await poolPage.page
@@ -227,7 +237,7 @@ test.describe("Process activity log", () => {
     appPage,
   }) => {
     const poolPage = new PoolPage(appPage.page);
-    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(poolPage.page, adminSub);
     await poolPage.goToActivity(poolId);
     await expect(
       poolPage.page
@@ -258,7 +268,7 @@ test.describe("Process activity log", () => {
     appPage,
   }) => {
     const poolPage = new PoolPage(appPage.page);
-    await loginBySub(poolPage.page, testConfig.signInSubs.adminSignIn);
+    await loginBySub(poolPage.page, adminSub);
     await poolPage.goToActivity(poolId);
     await expect(
       poolPage.page

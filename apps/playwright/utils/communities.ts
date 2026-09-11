@@ -36,14 +36,71 @@ export const getCommunities: GraphQLRequestFunc<Community[]> = async (ctx) => {
     .then((res) => res.communities);
 };
 
-const uniqueTestId = generateUniqueTestId();
-export const defaultCommunity: Partial<CreateCommunityInput> = {
-  key: `playwright-test-community ${uniqueTestId}`,
-  name: {
-    en: `Playwright test community EN ${uniqueTestId}`,
-    fr: `Playwright test community FR ${uniqueTestId}`,
-  },
+const Test_MyCommunityQueryDocument = /* GraphQL */ `
+  query Test_MyCommunity {
+    me {
+      authInfo {
+        roleAssignments {
+          role {
+            isTeamBased
+          }
+          teamable {
+            ... on Community {
+              id
+              name {
+                en
+                fr
+              }
+              teamIdForRoleAssignment
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+interface MyRoleAssignment {
+  role?: { isTeamBased?: boolean | null } | null;
+  teamable?: Community | null;
+}
+
+/**
+ * Get the community the currently authenticated ctx is scoped to.
+ *
+ * Relies on role.isTeamBased rather than a hardcoded role-name list -- any
+ * team-based role assignment pointing at a community counts.
+ * this returns whichever one the API lists first.
+ */
+export const getMyCommunity: GraphQLRequestFunc<Community | undefined> = async (
+  ctx,
+) => {
+  const me = await ctx
+    .post<
+      GraphQLResponse<
+        "me",
+        { authInfo?: { roleAssignments?: MyRoleAssignment[] } }
+      >
+    >(Test_MyCommunityQueryDocument)
+    .then((res) => res.me);
+
+  return (
+    me?.authInfo?.roleAssignments?.find(
+      (ra) => !!ra.role?.isTeamBased && !!ra.teamable?.id,
+    )?.teamable ?? undefined
+  );
 };
+
+function defaultCommunity(): Partial<CreateCommunityInput> {
+  const uniqueTestId = generateUniqueTestId();
+  return {
+    key: `playwright-test-community ${uniqueTestId}`,
+    name: {
+      en: `Playwright test community EN ${uniqueTestId}`,
+      fr: `Playwright test community FR ${uniqueTestId}`,
+    },
+  };
+}
 
 const Test_CreateCommunityMutation = /* GraphQL */ `
   mutation Test_CreateCommunity($community: CreateCommunityInput!) {
@@ -73,7 +130,7 @@ export const createCommunity: GraphQLRequestFunc<
         isPrivileged: true,
         variables: {
           community: {
-            ...defaultCommunity,
+            ...defaultCommunity(),
             ...community,
           },
         },
@@ -234,6 +291,37 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
         userId,
         roleAssignmentsInput: {
           attach: [{ roleId: communityAdminRoleId, teamId }],
+        },
+      },
+    },
+  });
+};
+
+/**
+ * Revoke Community Admin Role
+ *
+ */
+export const revokeCommunityAdminRole: GraphQLRequestFunc<
+  void,
+  { userId: string; teamId: string }
+> = async (ctx, { userId, teamId }) => {
+  const roles = await ctx
+    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
+      Test_RolesQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) => res.roles);
+  const communityAdminRoleId = roles.find(
+    (r) => r.name === "community_admin",
+  )?.id;
+  if (!communityAdminRoleId) throw new Error("community_admin role not found");
+  await ctx.post(Test_UpdateUserRolesMutation, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          detach: [{ roleId: communityAdminRoleId, teamId }],
         },
       },
     },

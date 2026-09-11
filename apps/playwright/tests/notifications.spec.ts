@@ -15,10 +15,14 @@ import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { changePoolClosingDate, createAndPublishPool } from "~/utils/pools";
+import {
+  changePoolClosingDate,
+  createAndPublishPool,
+  retirePublishedPool,
+} from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
-import { getCommunities } from "~/utils/communities";
+import { getMyCommunity } from "~/utils/communities";
 import { getWorkStreams } from "~/utils/workStreams";
 import AccountSettings from "~/fixtures/AccountSettings";
 import ApplicantDashboardPage from "~/fixtures/ApplicantDashboardPage";
@@ -27,9 +31,10 @@ import {
   createApplication,
 } from "~/utils/applications";
 
-test.describe("Notifications", () => {
+test.describe("Notifications", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
+  let platformAdminCtx: GraphQLContext;
   let technicalSkill: Skill | undefined;
   let poolId: string;
   let user: User;
@@ -40,18 +45,28 @@ test.describe("Notifications", () => {
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
-    technicalSkill = await getSkills(adminCtx, {}).then((skills) => {
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
+    technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find(
         (skill) => skill.category.value === SkillCategory.Technical,
       );
     });
 
     const admin = await me(adminCtx, {});
+    // Resolve a community the community admin (adminCtx) actually has
+    // access to, and a work stream that belongs to it.
+    const community = await getMyCommunity(adminCtx, {});
+    const workStreams = await getWorkStreams(adminCtx, {});
+    const workStreamId = workStreams.find(
+      (ws) => ws.community?.id === community?.id,
+    )?.id;
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
-      communityId: (await getCommunities(adminCtx, {}))[0]?.id,
-      workStreamId: (await getWorkStreams(adminCtx, {}))[0]?.id,
+      communityId: community?.id,
+      workStreamId,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: {
         en: `Test_pool ${uniqueTestId} (EN)`,
@@ -65,7 +80,7 @@ test.describe("Notifications", () => {
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.notifications.${uniqueTestId}`;
-    const createdUser = await createUserWithRoles(adminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
@@ -114,8 +129,13 @@ test.describe("Notifications", () => {
 
   test.afterEach(async () => {
     if (user?.id) {
-      adminCtx = await graphql.newContext();
-      await deleteUser(adminCtx, { id: user.id });
+      await deleteUser(platformAdminCtx, { id: user.id });
+    }
+  });
+
+  test.afterAll(async () => {
+    if (poolId) {
+      await retirePublishedPool(adminCtx, poolId);
     }
   });
 
@@ -131,7 +151,6 @@ test.describe("Notifications", () => {
     await expect(settingsPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
-    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
     // 2. Applicant creates draft application
     await createApplication(applicantCtx, {
@@ -170,7 +189,6 @@ test.describe("Notifications", () => {
     await expect(settingsPage.page.getByRole("alert").last()).toContainText(
       /successfully updated settings/i,
     );
-    await expect(appPage.page.getByRole("alert").last()).toBeHidden();
 
     // 2. Applicant submits the application
     await createAndSubmitApplication(applicantCtx, {

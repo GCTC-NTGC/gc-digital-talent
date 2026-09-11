@@ -4,7 +4,7 @@ import type {
 } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getCommunities } from "./communities";
+import { getMyCommunity } from "./communities";
 import { getCommunityDevelopmentProgramsForCommunity } from "./developmentPrograms";
 
 const oldDate = new Date();
@@ -27,6 +27,10 @@ const Test_CreateTalentNominationEventMutation = /* GraphQL */ `
   ) {
     createTalentNominationEvent(talentNominationEvent: $talentNominationEvent) {
       id
+      name {
+        en
+        fr
+      }
       community {
         id
       }
@@ -41,10 +45,14 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   TalentNominationEvent | undefined,
   Partial<CreateTalentNominationEventInput>
 > = async (ctx, talentNominationEvent) => {
-  const communities = await getCommunities(ctx, {});
-  const firstCommunity = communities[0];
+  const myCommunity = await getMyCommunity(ctx, {});
   const communityId =
-    talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
+    talentNominationEvent.community?.connect ?? myCommunity?.id;
+  if (!communityId) {
+    throw new Error(
+      "No community found for the current user to create a talent nomination event for",
+    );
+  }
   const communityDevelopmentPrograms =
     await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId });
   const communityDevelopmentProgramsSync = communityDevelopmentPrograms[0]?.id

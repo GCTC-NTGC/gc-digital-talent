@@ -8,18 +8,18 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
 
-test.describe("Employee Profile", () => {
+test.describe("Employee Profile", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let employeeProfile: EmployeeProfile;
-  let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
 
   test.beforeAll(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
-    adminCtx = await graphql.newContext();
+    platformAdminCtx = await graphql.newContext();
 
-    await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -36,7 +36,7 @@ test.describe("Employee Profile", () => {
     const uniqueTestId2 = `${generateUniqueTestId()}2`;
     const sub2 = `playwright.sub.${uniqueTestId2}`;
 
-    await createUserWithRoles(adminCtx, {
+    await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub2}@example.org`,
         sub: sub2,

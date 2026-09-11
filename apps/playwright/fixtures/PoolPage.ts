@@ -63,9 +63,15 @@ class PoolPage extends AppPage {
       .getByRole("combobox", { name: /department/i })
       .selectOption({ label: "Treasury Board of Canada Secretariat" });
 
-    await this.page
-      .getByRole("combobox", { name: /community/i })
-      .selectOption({ label: community });
+    const communityCombo = this.page.getByRole("combobox", {
+      name: /community/i,
+    });
+    const communityValue = await communityCombo
+      .locator("option")
+      .filter({ hasText: new RegExp(community, "i") })
+      .first()
+      .getAttribute("value");
+    await communityCombo.selectOption(communityValue);
 
     await this.page.getByRole("button", { name: /create process/i }).click();
     await this.waitForGraphqlResponse("CreatePool");

@@ -2,11 +2,14 @@ import { test, expect } from "~/fixtures";
 import AUTH from "~/constants/auth";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("Department advisor user", () => {
+test.describe("Department admin user", { tag: "@uat" }, () => {
+  const departmentAdminSub =
+    process.env.PLAYWRIGHT_DEPARTMENT_ADMIN_SUB ?? "department-admin@test.com";
+
   test("Can access allowed paths", async ({ appPage }) => {
-    await loginBySub(appPage.appPage, "department-advisor@test.com");
+    await loginBySub(appPage.appPage, departmentAdminSub);
     await Promise.all(
-      AUTH.ALLOWED_PATHS.DEPARTMENT_ADVISOR.map(async (restrictedPath) => {
+      AUTH.ALLOWED_PATHS.DEPARTMENT_ADMIN.map(async (restrictedPath) => {
         const context = appPage.page.context();
         const page = await context.newPage();
         await page.goto(restrictedPath);
@@ -21,9 +24,9 @@ test.describe("Department advisor user", () => {
   });
 
   test("Cannot access restricted paths", async ({ appPage }) => {
-    await loginBySub(appPage.appPage, "department-advisor@test.com");
+    await loginBySub(appPage.appPage, departmentAdminSub);
     await Promise.all(
-      AUTH.RESTRICTED_PATHS.DEPARTMENT_ADVISOR.map(async (restrictedPath) => {
+      AUTH.RESTRICTED_PATHS.DEPARTMENT_ADMIN.map(async (restrictedPath) => {
         const context = appPage.page.context();
         const page = await context.newPage();
         await page.goto(restrictedPath);
