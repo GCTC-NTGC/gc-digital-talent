@@ -981,30 +981,47 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     // minus the view own ability as this is intended for admins not applicants
     private function andAuthorizedToViewRelatedUser(User $user, array $teamIdsByPermission): self
     {
+        // return with no filters if can view any user
         if ($user->isAbleTo('view-any-user')) {
             return $this;
         }
 
+        // return with team filters if can view team users
         if (
             $user->isAbleTo('view-team-applicantProfile') ||
             $user->isAbleTo('view-team-communityTalent')
         ) {
-            $teamIds = array_unique(array_merge(
-                $teamIdsByPermission['view-team-applicantProfile'] ?? [],
-                $teamIdsByPermission['view-team-communityTalent'] ?? []
-            ));
+            return $this->where(function (Builder $teamSubquery) use ($teamIdsByPermission) {
 
-            return $this->whereHas('pool', function ($poolQuery) use ($teamIds) {
-                $poolQuery->orWhere(function (Builder $query) use ($teamIds) {
-                    return $query->where(function (Builder $query) use ($teamIds) {
-                        $query->orWhereHas('team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
-                            return $query->whereIn('id', $teamIds);
-                        });
+                // can view users with pool candidates in team pools
+                $teamSubquery->whereHas('pool', function ($poolQuery) use ($teamIdsByPermission) {
+                    $teamIds = $teamIdsByPermission['view-team-applicantProfile'];
+
+                    return $poolQuery->where(function (Builder $poolSubquery) use ($teamIds) {
+                        $poolSubquery
+                            ->orWhereHas('team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            })->orWhereHas('community.team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            })->orWhereHas('department.team', function (Builder $query) use ($teamIds) {
+                                return $query->whereIn('id', $teamIds);
+                            });
                     });
+                });
+
+                // can view community talent users in communities
+                $teamSubquery->orWhereHas('user', function ($userQuery) use ($teamIdsByPermission) {
+                    $teamIds = $teamIdsByPermission['view-team-communityTalent'];
+
+                    return $userQuery
+                        ->whereIsVerifiedGovEmployee()
+                        ->whereHas('communityInterests', function (Builder $query) use ($teamIds) {
+                            return $query
+                                ->where('consent_to_share_profile', true)
+                                ->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                                    return $query->whereIn('id', $teamIds);
+                                });
+                        });
                 });
             });
 
