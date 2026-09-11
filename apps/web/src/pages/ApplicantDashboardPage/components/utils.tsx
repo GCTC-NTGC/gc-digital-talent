@@ -38,7 +38,7 @@ const candidateStatusDescMap = new Map<CandidateStatus, MessageDescriptor>([
     CandidateStatus.UnderAssessment,
     applicationStatusDescriptions.UNDER_ASSESSMENT,
   ],
-  [CandidateStatus.Qualified, applicationStatusDescriptions.UNDER_ASSESSMENT],
+  [CandidateStatus.Qualified, applicationStatusDescriptions.SUCCESSFUL],
   [CandidateStatus.Withdrew, applicationStatusDescriptions.WITHDREW],
   [CandidateStatus.NotResponsive, applicationStatusDescriptions.NOT_RESPONSIVE],
   [CandidateStatus.Ineligible, applicationStatusDescriptions.INELIGIBLE],
