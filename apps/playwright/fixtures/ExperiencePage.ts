@@ -73,13 +73,11 @@ class ExperiencePage extends AppPage {
       })
       .click();
 
-    let organization = this.page.getByRole("textbox", {
-      name: /organization/i,
-    });
-    if ((await organization.count()) === 0) {
-      organization = this.page.getByRole("combobox", { name: /organization/i });
-    }
-    await organization.fill(input.organization ?? "test org");
+    await this.page
+      .getByRole("textbox", { name: /organization/i })
+      .or(this.page.getByRole("combobox", { name: /organization/i }))
+      .first()
+      .fill(input.organization ?? "test org");
 
     await this.page
       .getByRole("textbox", { name: /team or division/i })
@@ -585,7 +583,13 @@ class ExperiencePage extends AppPage {
     await this.fillDate(input.startDate);
 
     await this.page
-      .getByRole("combobox", { name: /organization, platform, or theme/i })
+      .getByRole("textbox", { name: /organization, platform, or theme/i })
+      .or(
+        this.page.getByRole("combobox", {
+          name: /organization, platform, or theme/i,
+        }),
+      )
+      .first()
       .fill(input.organization ?? "test organization");
 
     await this.page

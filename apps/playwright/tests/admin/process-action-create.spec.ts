@@ -17,6 +17,7 @@ import {
   deletePool,
   getPoolSkills,
   publishPool,
+  retirePublishedPool,
   updatePool,
 } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
@@ -32,11 +33,13 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
   let behaviouralSkill: string;
   let communityName: string, workStreamName: string;
   let poolId: string;
+  let poolPublished: boolean;
   const adminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeEach(async ({ appPage }) => {
     testId = generateUniqueTestId();
+    poolPublished = false;
     platformAdminCtx = await graphql.newContext();
     adminCtx = await graphql.newContext(
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
@@ -55,7 +58,11 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
 
   test.afterEach(async () => {
     if (poolId) {
-      await deletePool(platformAdminCtx, { id: poolId });
+      if (poolPublished) {
+        await retirePublishedPool(adminCtx, poolId);
+      } else {
+        await deletePool(platformAdminCtx, { id: poolId });
+      }
     }
   });
 
@@ -72,6 +79,7 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
       "Digital Community",
       classification.groupAndLevel,
     );
+    poolId = fetchIdentificationNumber(poolPage.page.url(), "pools");
     await poolPage.editBasicInformation(PROCESS_TITLE, "Software Solutions");
     await poolPage.updateClosingDate();
     await poolPage.updateCoreRequirements();
@@ -146,5 +154,6 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
     await poolPage.page.goto(`/admin/pools/${poolId}`);
     // Publish the process with assessment step
     await publishPool(adminCtx, poolId);
+    poolPublished = true;
   });
 });

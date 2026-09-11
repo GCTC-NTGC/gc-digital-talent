@@ -142,9 +142,6 @@ test.describe("Placement and Referral", { tag: "@uat" }, () => {
     if (user?.id) {
       await deleteUser(platformAdminCtx, { id: user.id });
     }
-  });
-
-  test.afterAll(async () => {
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
     }
