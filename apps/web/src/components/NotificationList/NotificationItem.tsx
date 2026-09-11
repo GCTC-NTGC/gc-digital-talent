@@ -55,57 +55,12 @@ const notificationItem = tv({
 
 const NotificationItem_Fragment = graphql(/* GraphQL */ `
   fragment NotificationItem on Notification {
+    ...UseNotificationInfo
+
     id
     readAt
     createdAt
     updatedAt
-    ... on ApplicationDeadlineApproachingNotification {
-      closingDate
-      poolName {
-        en
-        fr
-      }
-      poolId
-      poolCandidateId
-    }
-    ... on ApplicationDeadlineExtendedNotification {
-      userName
-      closingDate
-      poolName {
-        en
-        fr
-      }
-      poolCandidateId
-    }
-    ... on ApplicationStatusChangedNotification {
-      poolName {
-        en
-        fr
-      }
-    }
-    ... on NewJobPostedNotification {
-      poolId
-      displayName {
-        en
-        fr
-      }
-    }
-    ... on SystemNotification {
-      message {
-        en
-        fr
-      }
-      href {
-        en
-        fr
-      }
-    }
-    ... on UserFileGeneratedNotification {
-      fileName
-    }
-    ... on UserFileGenerationErrorNotification {
-      fileName
-    }
   }
 `);
 

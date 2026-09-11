@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Generators\PoolCandidateExcelGenerator;
 use App\Jobs\GenerateUserFile;
+use App\Support\FilePath;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -29,7 +30,7 @@ final class DownloadPoolCandidatesExcel
 
         try {
             $generator = new PoolCandidateExcelGenerator(
-                fileName: sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.applications'), date('Y-m-d_His')),
+                fileName: FilePath::sanitize(sprintf('%s_%s', __($withROD ? 'filename.candidates_rod' : 'filename.applications'), date('Y-m-d_His'))),
                 dir: $user->id,
                 lang: App::getLocale(),
                 withROD: $withROD,
