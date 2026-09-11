@@ -79,7 +79,8 @@ class UserPolicyTest extends TestCase
             ]);
 
         $this->employee = User::factory()
-            ->withGovEmployeeProfile();
+            ->withGovEmployeeProfile()
+            ->create();
 
         $this->pool = Pool::factory()->create();
         $this->community = Community::factory()->create();
