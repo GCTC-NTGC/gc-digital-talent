@@ -15,9 +15,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
+import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
-import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
 
 const ACCORDION_ID = {
   RECRUITMENT_PROCESSES: "your_recruitment_processes",

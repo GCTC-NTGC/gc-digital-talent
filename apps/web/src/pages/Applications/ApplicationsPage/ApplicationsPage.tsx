@@ -22,7 +22,7 @@ import SEO from "~/components/SEO/SEO";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import Hero from "~/components/Hero";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
-import ReviewApplicationPreviewList from "~/pages/ApplicantDashboardPage/components/ReviewApplicationPreviewList";
+import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
 
 export const ApplicationsPage_Fragment = graphql(/* GraphQL */ `
   fragment ApplicationsPage on PoolCandidate {
