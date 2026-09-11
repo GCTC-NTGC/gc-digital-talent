@@ -113,11 +113,6 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
-  value: CommunityReferralStatus!
-  label: LocalizedString!
-}
-
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -651,7 +646,6 @@ type Mutation {
   updateCommunityInterest(communityInterest: UpdateCommunityInterestInput!): CommunityInterest @deprecated(reason: "replaced by updateCommunityInterestWithDevelopmentPrograms")
   updateCommunityInterestWithDevelopmentPrograms(communityInterestWithDevelopmentPrograms: UpdateCommunityInterestWithDevelopmentProgramsInput!): CommunityInterest
   deleteCommunityInterest(id: UUID!): CommunityInterest
-  updateCommunityInterestReferralStatus(communityInterestReferral: UpdateCommunityInterestReferralStatusInput!): CommunityInterest
   createOffPlatformRecruitmentProcess(process: CreateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   updateOffPlatformRecruitmentProcess(process: UpdateOffPlatformRecruitmentProcessInput!): OffPlatformRecruitmentProcess
   deleteOffPlatformRecruitmentProcess(id: UUID!): OffPlatformRecruitmentProcess
@@ -777,6 +771,7 @@ type Mutation {
   deleteCommunityDevelopmentProgram(id: UUID!): CommunityDevelopmentProgram
   downloadPoolCandidatesExcel(ids: [UUID!], where: PoolCandidateSearchInput, withROD: Boolean): Boolean!
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean!
+  downloadCommunityTalentExcel(ids: [UUID!], where: CommunityInterestFilterInput): Boolean!
   downloadTrackedUsersExcel(talentRequestId: UUID!, where: TalentRequestTrackedUserFilterInput): Boolean
   downloadNominationsExcel(ids: [UUID!], talentNominationEventId: UUID!): Boolean!
   downloadApplicationsZip(ids: [UUID!]!): Boolean!
@@ -915,14 +910,7 @@ type User {
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
-}
-
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-  followUpDate: Date
-  classification: Classification
-  notes: String
-  updatedAt: DateTime
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
 }
 
 type CommunityInterest {
@@ -941,7 +929,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean
   createdAt: DateTime
   procurementIsSDO: Boolean
-  referralStatus: CommunityReferralStatusData!
 }
 
 type OffPlatformRecruitmentProcess {
@@ -1276,13 +1263,10 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int
   screeningStage: LocalizedScreeningStage
   removalReason: LocalizedCandidateRemovalReason
   removalReasonOther: String
-  statusUpdatedAt: DateTime
   disqualificationReason: LocalizedDisqualificationReason
   placementType: LocalizedPlacementType
   placedAt: DateTime
@@ -1314,6 +1298,9 @@ type PoolCandidate {
   educationRequirementOption: LocalizedEducationRequirementOption
   educationRequirementExperiences: [Experience]
   educationRequirementExperienceIds: [UUID!]
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime
   applicationStatusData: PoolCandidateStatusData
   applicationAssessmentData: PoolCandidateAssessmentData
   assessmentResults: [AssessmentResult]
@@ -1541,9 +1528,11 @@ type TalentNominationGroup {
   consentToShareProfile: Boolean
   status: LocalizedTalentNominationGroupStatus
   comments: String
-  classificationAtTimeOfAdvancementApproval: Classification
+  classificationAtTimeOfLastApproval: Classification
   advancementClassifications: [Classification!]
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: [Classification!]
+  lateralMovementReferralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -2005,7 +1994,6 @@ input TalentRequestMatchFilterInput {
   priorityWeight: [PriorityWeight]
   employeeVerification: [EmployeeVerification]
   departments: [UUID!]
-  communityReferralStatuses: [CommunityReferralStatus!]
   excludeTrackedByRequestId: UUID
 }
 
@@ -2349,14 +2337,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
-}
-
-input UpdateCommunityInterestReferralStatusInput {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput {
@@ -2713,6 +2693,8 @@ input UpdateTalentNominationGroupInput {
   comments: String
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
@@ -3810,9 +3792,6 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
-  ViewAnyCommunityInterestReferralStatus
-  ViewTeamCommunityInterestReferralStatus
-  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -4043,13 +4022,6 @@ enum CommunityInterestAdditionalDuty {
   REAL_PROPERTY_MANAGEMENT
 }
 
-enum CommunityReferralStatus {
-  NEW
-  PENDING
-  AVAILABLE_FOR_REFERRAL
-  NOT_REFERRED
-}
-
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -4259,6 +4231,13 @@ enum ErrorCode {
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_DECISION_REQUIRED
+  LATERAL_MOVEMENT_DECISION_REQUIRED
+  DEVELOPMENT_PROGRAMS_DECISION_REQUIRED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED

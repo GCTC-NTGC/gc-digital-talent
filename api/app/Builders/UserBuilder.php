@@ -12,10 +12,12 @@ use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Support\Query\AdvancedOrder;
+use App\Utilities\PostgresLike;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -177,13 +179,6 @@ class UserBuilder extends Builder
         return $this->whereHas('department', function ($query) use ($departmentIds) {
             return $query->whereIn('id', $departmentIds);
         });
-    }
-
-    public function whereHasCommunityInterestWithReferralStatusIn(?array $referralStatuses): self
-    {
-        return $this->when($referralStatuses, fn (self $query, array $statuses) => $query
-            ->whereHas('communityInterests', fn (Builder $interests) => $interests
-                ->whereIn('referral_status', $statuses)));
     }
 
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
@@ -539,8 +534,9 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $value)
-                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $value);
+                $escaped = PostgresLike::escape($value);
+                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $escaped)
+                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $escaped);
             }
         });
     }
@@ -551,7 +547,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('telephone', 'ilike', "%{$telephone}%");
+        return $this->where('telephone', 'ilike', '%'.PostgresLike::escape($telephone).'%');
     }
 
     public function whereEmail(?string $email): self
@@ -560,7 +556,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     public function whereWorkEmail(?string $email): self
@@ -569,7 +565,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
@@ -682,6 +678,35 @@ class UserBuilder extends Builder
                     $communityQuery->whereIn('id', $communityIds);
                 });
         });
+    }
+
+    public function whereHasMatchingCommunityInterest(?array $filter): self
+    {
+        $filter ??= [];
+        $fields = Arr::only($filter, ['communities', 'workStreams', 'jobInterest', 'trainingInterest']);
+
+        return $this->when(array_filter($fields), fn (self $query) => $query
+            ->whereHas('communityInterests', function ($interests) use ($fields) {
+                /** @var CommunityInterestBuilder $interests */
+                $interests
+                    ->where('consent_to_share_profile', true)
+                    ->communities($fields['communities'] ?? null)
+                    ->workStreams($fields['workStreams'] ?? null)
+                    ->jobInterest($fields['jobInterest'] ?? null)
+                    ->trainingInterest($fields['trainingInterest'] ?? null);
+            }));
+    }
+
+    public function whereLateralMoveInterest(?bool $lateralMoveInterest): self
+    {
+        return $this->when($lateralMoveInterest, fn (self $query) => $query
+            ->where('career_planning_lateral_move_interest', true));
+    }
+
+    public function wherePromotionMoveInterest(?bool $promotionMoveInterest): self
+    {
+        return $this->when($promotionMoveInterest, fn (self $query) => $query
+            ->where('career_planning_promotion_move_interest', true));
     }
 
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
@@ -884,6 +909,10 @@ class UserBuilder extends Builder
                 ->addSelect(['users.*'])
                 ->from('users')
                 ->orderByDesc('search_rank');
+        } else {
+            // The term sanitized away to nothing, e.g. all whitespace.
+            // Match nothing rather than everything.
+            $this->whereRaw('1 = 0');
         }
 
         return $this;

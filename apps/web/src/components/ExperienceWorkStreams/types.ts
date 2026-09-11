@@ -1,8 +1,17 @@
-import type { Community, WorkStream } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-export type CommunityWithoutKey = Omit<Community, "key">;
-export type WorkStreamWithoutKey = Omit<WorkStream, "key" | "community">;
+export interface WorkStreamOption {
+  id: string;
+  name?: LocalizedString | null;
+}
+
+export interface CommunityOption {
+  id: string;
+  name?: LocalizedString | null;
+  workStreams?: WorkStreamOption[] | null;
+}
+
 export interface WorkStreamsWithCommunity {
-  workStreams: WorkStreamWithoutKey[];
-  community: CommunityWithoutKey;
+  workStreams: WorkStreamOption[];
+  community: CommunityOption;
 }

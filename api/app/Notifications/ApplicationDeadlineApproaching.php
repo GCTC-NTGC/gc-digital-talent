@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Contracts\LowPriorityJob;
 use App\Enums\Language;
 use App\Enums\NotificationFamily;
 use App\Models\User;
@@ -10,7 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
-class ApplicationDeadlineApproaching extends Notification implements CanBeSentViaGcNotifyEmail
+class ApplicationDeadlineApproaching extends Notification implements CanBeSentViaGcNotifyEmail, LowPriorityJob
 {
     use Queueable;
 

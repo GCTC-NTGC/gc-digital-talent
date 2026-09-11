@@ -29,7 +29,7 @@
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.11.0",
     "exceljs": "^4.4.0",
-    "mammoth": "^1.12.1",
+    "mammoth": "^1.12.2",
     "monocart-coverage-reports": "^2.12.12",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0"

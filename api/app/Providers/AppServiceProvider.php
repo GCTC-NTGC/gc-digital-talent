@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Reverb\ReverbLogger;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -38,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
         // https://github.com/PHPOffice/PHPWord/issues/2524#issuecomment-1847981808
         // https://phpoffice.github.io/PHPWord/usage/introduction.html#output-escaping
         Settings::setOutputEscapingEnabled(true);
+
+        // /refresh is an OAuth token endpoint - the refresh token itself proves legitimacy,
+        // same reasoning as exempting other OAuth token endpoints from CSRF checks.
+        PreventRequestForgery::except(['refresh', '*/refresh']);
 
         // enable below for database debugging
         // DB::listen(function ($query) {

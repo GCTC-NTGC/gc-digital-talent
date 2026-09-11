@@ -184,15 +184,10 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
-}
-
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-    @rename(attribute: "referral_status")
-  followUpDate: Date @rename(attribute: "referral_follow_up_date")
-  classification: Classification @belongsTo(relation: "referralClassification")
-  notes: String @rename(attribute: "referral_notes")
-  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
+    @hasMany(
+      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
+    )
 }
 
 type CommunityInterest {
@@ -218,9 +213,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
-  referralStatus: CommunityReferralStatusData!
-    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
-    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -641,14 +633,11 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int @rename(attribute: "status_weight")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
   removalReasonOther: String @rename(attribute: "removal_reason_other")
-  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
   # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
@@ -693,6 +682,12 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 
   applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
@@ -1019,10 +1014,13 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
-  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
+  classificationAtTimeOfLastApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: [Classification!] @belongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1575,8 +1573,6 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
-  communityReferralStatuses: [CommunityReferralStatus!]
-    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -1663,6 +1659,7 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
   classifications: [UUID!] @scope
 }
+
 input DateRangeOptional {
   from: DateTime
   to: DateTime @rules(apply: ["after_or_equal:from"])
@@ -1953,27 +1950,13 @@ input PoolsHasMany {
 """
 When creating a User, name is required.
 """
-input CreateUserInput {
+input CreateUserInput @validator {
   sub: String
-    @rules(
-      apply: ["sometimes", "unique:users,sub"]
-      messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
-    )
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
   lastName: String! @rename(attribute: "last_name")
   email: Email
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
   # emailVerifiedAt only used for e2e testing
   emailVerifiedAt: Date @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
@@ -2005,18 +1988,7 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email
-    @rename(attribute: "work_email")
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
+  workEmail: Email @rename(attribute: "work_email")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
@@ -2054,7 +2026,7 @@ input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
-  email: Email @lowerCase
+  email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -2086,7 +2058,7 @@ input UpdateUserAsAdminInput @validator {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
+  workEmail: Email @rename(attribute: "work_email")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -2308,14 +2280,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
-}
-
-input UpdateCommunityInterestReferralStatusInput @validator {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -2756,6 +2720,9 @@ input UpdateTalentNominationGroupInput {
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
@@ -3428,16 +3395,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateCommunityInterestReferralStatus(
-    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
-      @spread
-  ): CommunityInterest
-    @guard
-    @canFind(
-      ability: "updateReferralStatus"
-      find: "id"
-      model: "CommunityInterest"
-    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
@@ -4225,6 +4182,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityTalentExcel(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
   downloadTrackedUsersExcel(
     talentRequestId: UUID!
     where: TalentRequestTrackedUserFilterInput

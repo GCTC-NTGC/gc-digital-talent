@@ -304,6 +304,12 @@ class TalentNominationFactory extends Factory
 
                 if ($talentNominationGroup->advancement_decision == TalentNominationGroupDecision::APPROVED->name) {
                     $talentNominationGroup->advancement_referral_expiry_date = $this->faker->dateTimeBetween('+6 month', '+12 month');
+                    $talentNominationGroup->advancementClassifications()->sync(Classification::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get());
+                }
+
+                if ($talentNominationGroup->lateral_movement_decision == TalentNominationGroupDecision::APPROVED->name) {
+                    $talentNominationGroup->lateral_movement_referral_expiry_date = $this->faker->dateTimeBetween('+6 month', '+12 month');
+                    $talentNominationGroup->lateralMovementClassifications()->sync(Classification::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get());
                 }
 
                 $talentNominationGroup->save();

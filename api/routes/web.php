@@ -17,7 +17,9 @@ Route::prefix(config('app.app_dir'))->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'login']);
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    // GET kept temporarily for backward compatibility during rollout - see #17832 for its removal
     Route::get('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
 });
 
@@ -25,6 +27,8 @@ Route::prefix('')->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'login']);
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    // GET kept temporarily for backward compatibility during rollout - see #17832 for its removal
     Route::get('/refresh', [AuthController::class, 'refresh']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
 });

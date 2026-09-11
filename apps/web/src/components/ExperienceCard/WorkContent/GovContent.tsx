@@ -1,7 +1,11 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { WorkExperience } from "@gc-digital-talent/graphql";
+import type {
+  GovContractorRoleSeniority,
+  GovPositionType,
+} from "@gc-digital-talent/graphql";
 import { GovContractorType, GovEmployeeType } from "@gc-digital-talent/graphql";
 import {
   Separator,
@@ -13,6 +17,21 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
+
+interface GovContentClassification {
+  group: string;
+  level: number;
+}
+
+export interface GovContentExperience {
+  division?: string | null;
+  classification?: GovContentClassification | null;
+  govEmploymentType?: GenericLocalizedEnum<GovEmployeeType> | null;
+  govPositionType?: GenericLocalizedEnum<GovPositionType> | null;
+  govContractorRoleSeniority?: GenericLocalizedEnum<GovContractorRoleSeniority> | null;
+  govContractorType?: GenericLocalizedEnum<GovContractorType> | null;
+  contractorFirmAgencyName?: string | null;
+}
 
 interface ClassificationSectionProps {
   title: string;
@@ -43,7 +62,7 @@ const GovContent = ({
     contractorFirmAgencyName,
   },
   headingLevel,
-}: ContentProps<Omit<WorkExperience, "user">>) => {
+}: ContentProps<GovContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 

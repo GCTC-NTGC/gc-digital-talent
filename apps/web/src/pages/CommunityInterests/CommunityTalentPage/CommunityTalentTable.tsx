@@ -56,7 +56,6 @@ import {
   transformSortStateToOrderByClause,
   usernameCell,
   extractUserIdsFromSelectedRows,
-  transformToUserFilterInput,
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
@@ -249,8 +248,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadExcel,
-    downloadingExcel,
+    downloadCommunityTalentExcel,
+    downloadingCommunityTalentExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -275,9 +274,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       return;
     }
 
-    downloadExcel({
+    downloadCommunityTalentExcel({
       ids: userIds,
-      where: transformToUserFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -286,9 +285,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   };
 
   const handleExcelDownloadAll = () => {
-    downloadExcel({
+    downloadCommunityTalentExcel({
       ids: undefined,
-      where: transformToUserFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -652,12 +651,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         doc: {
           enable: true,

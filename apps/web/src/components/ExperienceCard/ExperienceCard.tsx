@@ -15,7 +15,7 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
   getFragment,
@@ -33,6 +33,7 @@ import {
   useExperienceInfo,
 } from "~/utils/experienceUtils";
 
+import type { SkillLink } from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import AwardContent from "./AwardContent";
 import ContentSection from "./ContentSection";
@@ -377,7 +378,9 @@ export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-type SimpleSkill = Pick<Skill, "id">;
+interface SimpleSkill {
+  id: string;
+}
 
 interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
@@ -394,7 +397,7 @@ interface ExperienceCardProps {
   // Allows passing in a link to view a specific experience
   view?: ReactNode;
   onSave?: () => void;
-  linkTo?: Skill;
+  linkTo?: SkillLink;
   editTrigger?: ReactNode;
   onOpenChange?: (isOpen: boolean) => void;
   isOpen?: boolean;
