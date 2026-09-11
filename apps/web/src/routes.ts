@@ -497,6 +497,12 @@ export default [
                 "./pages/AnnouncementsPage/AnnouncementsPage.tsx",
               ),
 
+              // Platform metrics
+              route(
+                "metrics",
+                "./pages/PlatformMetrics/PlatformMetricsPage.tsx",
+              ),
+
               // Admin - Classifications
               ...prefix("classifications", [
                 index("./pages/Classifications/IndexClassificationPage.tsx"),

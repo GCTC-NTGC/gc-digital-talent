@@ -109,6 +109,8 @@ return [
 
         'poolActivityLog' => 'poolActivityLog',
         'poolNotes' => 'poolNotes',
+
+        'platformMetrics' => 'platformMetrics',
     ],
 
     /*
@@ -769,6 +771,11 @@ return [
             'en' => 'Delete a Community Development Program record for a team',
             'fr' => 'Supprimer une fiche du programme de développement communautaire pour une équipe',
         ],
+
+        'view-any-platformMetrics' => [
+            'en' => 'View platform-wide success metrics',
+            'fr' => 'Consulter les mesures de réussite de l\'ensemble de la plateforme',
+        ],
     ],
 
     /*
@@ -1295,6 +1302,9 @@ return [
                 'any' => ['create', 'update', 'delete'],
             ],
             'talentRequest' => [
+                'any' => ['view'],
+            ],
+            'platformMetrics' => [
                 'any' => ['view'],
             ],
             'role' => [
