@@ -304,13 +304,7 @@ type EmployeeProfile {
     @rename(attribute: "career_objective_c_suite_role_title")
 
   communityInterests(id: UUID @eq): [CommunityInterest!]
-    @belongsToMany(
-      scopes: [
-        "withPolicyEagerLoads"
-        "whereAuthorizedToView"
-        "isVerifiedGovEmployee"
-      ]
-    )
+    @belongsToMany(scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"])
     @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
 
   userPublicProfile: UserPublicProfile
