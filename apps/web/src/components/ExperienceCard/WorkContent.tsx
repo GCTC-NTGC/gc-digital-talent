@@ -18,7 +18,7 @@ import GovContent from "./WorkContent/GovContent";
 import type { SupervisoryContentExperience } from "./WorkContent/SupervisoryContent";
 import SupervisoryContent from "./WorkContent/SupervisoryContent";
 
-interface WorkContentExperience
+export interface ExperienceWorkContent
   extends
     CafContentExperience,
     ExternalContentExperience,
@@ -31,7 +31,7 @@ interface WorkContentExperience
 const WorkContent = ({
   experience,
   headingLevel,
-}: ContentProps<WorkContentExperience>) => {
+}: ContentProps<ExperienceWorkContent>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const { division, employmentCategory } = experience;

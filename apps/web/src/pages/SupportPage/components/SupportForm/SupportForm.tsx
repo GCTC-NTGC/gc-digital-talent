@@ -19,8 +19,8 @@ import {
 } from "@gc-digital-talent/i18n";
 import { Heading, Pending, Button } from "@gc-digital-talent/ui";
 import { getLogger } from "@gc-digital-talent/logger";
-import type { User } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { appInsights } from "@gc-digital-talent/app-insights";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -29,11 +29,20 @@ import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
 import type { FormValues } from "./utils";
 import { submitTicket, SUPPORT_TICKET_ERROR } from "./utils";
 
+export const SupportForm_Fragment = graphql(/* GraphQL */ `
+  fragment SupportForm on User {
+    id
+    email
+    firstName
+    lastName
+  }
+`);
+
 interface SupportFormProps {
   showSupportForm: boolean;
   onFormToggle: (show: boolean) => void;
   handleCreateTicket: (data: FormValues) => Promise<number | null | void>;
-  currentUser?: Pick<User, "id" | "firstName" | "lastName" | "email"> | null;
+  query?: FragmentType<typeof SupportForm_Fragment> | null;
 }
 
 interface SupportFormSuccessProps {
@@ -106,9 +115,10 @@ const SupportForm = ({
   showSupportForm,
   onFormToggle,
   handleCreateTicket,
-  currentUser,
+  query,
 }: SupportFormProps) => {
   const intl = useIntl();
+  const currentUser = getFragment(SupportForm_Fragment, query);
   const location = useLocation() as Location<LocationState>;
   const [params] = useSearchParams();
   const previousUrl = location?.state?.referrer ?? document?.referrer ?? "";
@@ -248,10 +258,7 @@ const SupportForm = ({
 const SupportFormUser_Query = graphql(/* GraphQL */ `
   query SupportFormUser {
     me {
-      id
-      email
-      firstName
-      lastName
+      ...SupportForm
     }
   }
 `);
@@ -340,7 +347,7 @@ const SupportFormApi = () => {
       <SupportForm
         showSupportForm={showSupportForm}
         onFormToggle={setShowSupportForm}
-        currentUser={data?.me ?? null}
+        query={data?.me ?? null}
         handleCreateTicket={handleCreateTicket}
       />
     </Pending>
