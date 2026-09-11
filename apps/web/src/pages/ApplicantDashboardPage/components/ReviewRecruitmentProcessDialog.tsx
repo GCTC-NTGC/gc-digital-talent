@@ -32,9 +32,8 @@ import { candidateInterestColorMap } from "~/utils/poolCandidate";
 import useRoutes from "~/hooks/useRoutes";
 import { getSalaryRange } from "~/utils/classification";
 import { wrapAbbr } from "~/utils/nameUtils";
-
-import StatusSummary from "./StatusSummary";
-import { candidateInterestDesc } from "./utils";
+import StatusSummary from "~/components/ReviewApplicationPreviewList/StatusSummary";
+import { candidateInterestDesc } from "~/components/ReviewApplicationPreviewList/utils";
 
 interface FormValues {
   isSuspended: "true" | "false";

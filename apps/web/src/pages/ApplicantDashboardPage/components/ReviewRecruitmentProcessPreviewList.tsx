@@ -22,8 +22,8 @@ import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
+import { RecruitmentDate } from "~/components/ReviewApplicationPreviewList/MetadataDate";
 
-import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `

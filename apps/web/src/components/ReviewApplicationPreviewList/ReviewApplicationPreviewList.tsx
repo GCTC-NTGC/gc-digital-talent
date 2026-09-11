@@ -50,10 +50,12 @@ interface ReviewApplicationPreviewListProps {
   applicationsQuery: FragmentType<
     typeof ReviewApplicationPreviewList_Fragment
   >[];
+  doNotSort?: boolean;
 }
 
 const ReviewApplicationPreviewList = ({
   applicationsQuery,
+  doNotSort,
 }: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -63,15 +65,17 @@ const ReviewApplicationPreviewList = ({
     applicationsQuery,
   );
 
-  const sortedApplications = unpackMaybes(applications).sort(
-    (a, b) =>
-      ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        a?.candidateStatus?.value ?? null,
-      ) -
-      ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
-        b?.candidateStatus?.value ?? null,
-      ),
-  );
+  const sortedApplications = !doNotSort
+    ? unpackMaybes(applications).toSorted(
+        (a, b) =>
+          ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
+            a?.candidateStatus?.value ?? null,
+          ) -
+          ENUM_SORT_ORDER.CANDIDATE_STATUS.indexOf(
+            b?.candidateStatus?.value ?? null,
+          ),
+      )
+    : applications;
 
   return (
     <>
