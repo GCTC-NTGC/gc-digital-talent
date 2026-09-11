@@ -5288,6 +5288,10 @@
     "defaultMessage": "Ce poste requiert de pouvoir travailler en anglais. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
     "description": "English essential language requirement description"
   },
+  "ImKTX7": {
+    "defaultMessage": "Toutes les candidatures",
+    "description": "Text for all applications page"
+  },
   "ImTMRk": {
     "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
     "description": "Subtitle for the application profile  page"

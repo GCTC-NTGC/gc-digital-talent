@@ -71,6 +71,21 @@ const ApplicationsProcessesTaskCard = ({
       color: "primary",
       children: <>{intl.formatMessage(navigationMessages.browseJobs)}</>,
     },
+    {
+      key: "all-applications-key",
+      type: "link",
+      href: paths.applications(),
+      color: "primary",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "All applications",
+            id: "ImKTX7",
+            description: "Text for all applications page",
+          })}
+        </>
+      ),
+    },
   ];
 
   const recruitmentProcesses = unpackMaybes(
