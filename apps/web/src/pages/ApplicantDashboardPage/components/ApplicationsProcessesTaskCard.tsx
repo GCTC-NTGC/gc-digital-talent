@@ -100,11 +100,11 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.offPlatformRecruitmentProcesses,
   );
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     recruitmentProcessesAccordionValue === "" &&
     jobApplicationsAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setRecruitmentProcessesAccordionValue(ACCORDION_ID.RECRUITMENT_PROCESSES);
       setJobApplicationsAccordionValue(ACCORDION_ID.JOB_APPLICATIONS);
     } else {
@@ -126,7 +126,7 @@ const ApplicationsProcessesTaskCard = ({
           headingColor="secondary"
           headingAs="h2"
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> applications and processes sections</hidden>",
