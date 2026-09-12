@@ -1,4 +1,4 @@
-import Heading, { type HeadingProps } from "./Heading";
+import Heading, { type HeadingProps } from "./DeprecatedHeading";
 import type { HeadingLevel, HeadingRef } from "./types";
 
 export default Heading;
