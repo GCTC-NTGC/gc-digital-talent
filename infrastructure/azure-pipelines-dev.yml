@@ -15,20 +15,109 @@ parameters:
 variables:
   serviceConnectionName: "Talent Cloud Service Connection"
   npm_config_user_config: "$(System.DefaultWorkingDirectory)/.npmrc"
+  # Fixed worker count instead of a "%" (playwright.config.ts reads this).
+  # Hosted ubuntu-24.04 agents have 2 vCPUs; "25%" of that rounds down to a
+  # single worker, which serializes the whole suite. Tests are network/UI
+  # bound rather than CPU bound, so running more workers than cores is fine.
+  playwrightWorkers: "2"
   ${{ if eq(parameters.vertical, 'uat') }}:
     baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
-    playwrightArgs: "--project=uat-* --project=chromium --grep=@uat"
+    smokeArgs: "--project=uat-*"
+    integrationArgs: "--project=chromium --grep=@uat"
   ${{ else }}:
     baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
-    playwrightArgs: "--project=chromium"
+    integrationArgs: "--project=chromium"
 
 pool:
   vmImage: ubuntu-24.04
 
 jobs:
+  - ${{ if eq(parameters.vertical, 'uat') }}:
+    - job: run_playwright_smoke
+      displayName: Run Playwright smoke/regression tests (uat)
+      timeoutInMinutes: 15
+
+      steps:
+        - checkout: self
+          clean: true
+          fetchDepth: 1
+
+        - task: AzureCLI@2
+          displayName: "Update NPMRC Config"
+          inputs:
+            scriptType: bash
+            scriptLocation: inlineScript
+            azureSubscription: $(serviceConnectionName)
+            inlineScript: |
+              NPMRC_FILE="$(npm_config_user_config)"
+              echo "registry=https://pkgs.dev.azure.com/tbs-sct/53c8b022-82b7-4031-88aa-0d1266fc3bf5/_packaging/TalentCloud_Custom_NPM_Feed/npm/registry/" >> "$NPMRC_FILE"
+
+        - task: npmAuthenticate@0
+          displayName: "NPM Authenticate"
+          inputs:
+            workingFile: $(npm_config_user_config)
+
+        - script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)"
+          displayName: "Set Custom .npmrc Location"
+
+        - task: NodeTool@0
+          displayName: "Use Node.js 24"
+          inputs:
+            versionSpec: "24.x"
+
+        - script: |
+            corepack enable
+            corepack prepare pnpm@10.27.0 --activate
+          displayName: "Install pnpm"
+
+        - script: pnpm install --frozen-lockfile
+          displayName: "Install dependencies"
+
+        - script: pnpm run build
+          displayName: "Build application"
+
+        - script: npx playwright install --with-deps chromium
+          displayName: "Install Playwright browsers"
+          workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
+
+        - script: npx playwright test $(smokeArgs) --retries=1
+          displayName: "Run Playwright tests (uat smoke)"
+          workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
+          env:
+            CI: "true"
+            BASE_URL: $(baseUrl)
+            TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+            PLAYWRIGHT_WORKERS: $(playwrightWorkers)
+            PLAYWRIGHT_PLATFORM_ADMIN_SUB: $(PLAYWRIGHT_PLATFORM_ADMIN_SUB)
+            PLAYWRIGHT_COMMUNITY_ADMIN_SUB: $(PLAYWRIGHT_COMMUNITY_ADMIN_SUB)
+            PLAYWRIGHT_APPLICANT_SUB: $(PLAYWRIGHT_APPLICANT_SUB)
+
+        - task: PublishTestResults@2
+          displayName: "Publish test results"
+          condition: always()
+          inputs:
+            testResultsFormat: JUnit
+            testResultsFiles: apps/playwright/test-results/results.xml
+            testRunTitle: Playwright uat smoke - $(Build.BuildNumber)
+            mergeTestResults: true
+
+        - script: mkdir -p $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
+          displayName: "Ensure report directory exists"
+          condition: always()
+
+        - task: PublishPipelineArtifact@1
+          displayName: "Publish HTML report"
+          condition: always()
+          inputs:
+            targetPath: $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
+            artifact: playwright-uat-smoke-report
+            publishLocation: pipeline
+
   - job: run_playwright_tests
     displayName: Run Playwright tests (${{ parameters.vertical }})
     timeoutInMinutes: 30
+    strategy:
+      parallel: 2
 
     steps:
       - checkout: self
@@ -73,13 +162,14 @@ jobs:
         displayName: "Install Playwright browsers"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
-      - script: npx playwright test $(playwrightArgs) --retries=2
+      - script: npx playwright test $(integrationArgs) --retries=1 --shard=$(System.JobPositionInPhase)/$(System.TotalJobsInPhase)
         displayName: "Run Playwright tests (${{ parameters.vertical }})"
         workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
         env:
           CI: "true"
           BASE_URL: $(baseUrl)
           TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+          PLAYWRIGHT_WORKERS: $(playwrightWorkers)
           PLAYWRIGHT_PLATFORM_ADMIN_SUB: $(PLAYWRIGHT_PLATFORM_ADMIN_SUB)
           PLAYWRIGHT_COMMUNITY_ADMIN_SUB: $(PLAYWRIGHT_COMMUNITY_ADMIN_SUB)
           PLAYWRIGHT_APPLICANT_SUB: $(PLAYWRIGHT_APPLICANT_SUB)
@@ -90,15 +180,79 @@ jobs:
         inputs:
           testResultsFormat: JUnit
           testResultsFiles: apps/playwright/test-results/results.xml
-          testRunTitle: Playwright ${{ parameters.vertical }} - $(Build.BuildNumber)
+          testRunTitle: Playwright ${{ parameters.vertical }} - $(Build.BuildNumber) - shard $(System.JobPositionInPhase)
           mergeTestResults: true
 
-      - script: mkdir -p $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
-        displayName: "Ensure report directory exists"
+      # Published per shard; merge_playwright_reports below combines these into
+      # one HTML report, same as .github/workflows/playwright.yml does for the
+      # GitHub Actions suite.
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish blob report (shard $(System.JobPositionInPhase))"
         condition: always()
+        inputs:
+          targetPath: $(System.DefaultWorkingDirectory)/apps/playwright/blob-report
+          artifact: blob-report-$(System.JobPositionInPhase)
+          publishLocation: pipeline
+
+  - job: merge_playwright_reports
+    displayName: Merge Playwright reports (${{ parameters.vertical }})
+    dependsOn: run_playwright_tests
+    condition: always()
+    steps:
+      - checkout: self
+        clean: true
+        fetchDepth: 1
+
+      - task: AzureCLI@2
+        displayName: "Update NPMRC Config"
+        inputs:
+          scriptType: bash
+          scriptLocation: inlineScript
+          azureSubscription: $(serviceConnectionName)
+          inlineScript: |
+            NPMRC_FILE="$(npm_config_user_config)"
+            echo "registry=https://pkgs.dev.azure.com/tbs-sct/53c8b022-82b7-4031-88aa-0d1266fc3bf5/_packaging/TalentCloud_Custom_NPM_Feed/npm/registry/" >> "$NPMRC_FILE"
+
+      - task: npmAuthenticate@0
+        displayName: "NPM Authenticate"
+        inputs:
+          workingFile: $(npm_config_user_config)
+
+      - script: echo "##vso[task.setvariable variable=NPM_CONFIG_USERCONFIG]$(npm_config_user_config)"
+        displayName: "Set Custom .npmrc Location"
+
+      - task: NodeTool@0
+        displayName: "Use Node.js 24"
+        inputs:
+          versionSpec: "24.x"
+
+      - script: |
+          corepack enable
+          corepack prepare pnpm@10.27.0 --activate
+        displayName: "Install pnpm"
+
+      - script: pnpm install --frozen-lockfile
+        displayName: "Install dependencies"
+
+      - task: DownloadPipelineArtifact@2
+        displayName: "Download shard blob reports"
+        inputs:
+          buildType: current
+          itemPattern: "blob-report-*/**"
+          targetPath: $(Pipeline.Workspace)/blob-reports
+
+      - script: |
+          mkdir -p all-blob-reports
+          find $(Pipeline.Workspace)/blob-reports -type f -exec cp {} all-blob-reports/ \;
+        displayName: "Flatten shard blob reports"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
+
+      - script: npx playwright merge-reports --reporter html ./all-blob-reports
+        displayName: "Merge shard reports into HTML"
+        workingDirectory: $(System.DefaultWorkingDirectory)/apps/playwright
 
       - task: PublishPipelineArtifact@1
-        displayName: "Publish HTML report"
+        displayName: "Publish merged HTML report"
         condition: always()
         inputs:
           targetPath: $(System.DefaultWorkingDirectory)/apps/playwright/playwright-report
