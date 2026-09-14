@@ -116,8 +116,8 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
           >
             <span id="sortFilter">
               {intl.formatMessage({
-                defaultMessage: "Order",
-                id: "HdmGJ4",
+                defaultMessage: "Order by",
+                id: "idkbRt",
                 description: "Text to filter order",
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
