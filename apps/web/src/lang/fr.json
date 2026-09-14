@@ -11398,6 +11398,10 @@
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
   },
+  "h3gUKn": {
+    "defaultMessage": "Candidatures",
+    "description": "Job applications title"
+  },
   "h3mdZ3": {
     "defaultMessage": "URL de la demande",
     "description": "The application URL of the training opportunity"
