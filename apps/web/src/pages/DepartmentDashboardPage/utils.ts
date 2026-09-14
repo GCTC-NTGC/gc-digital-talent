@@ -1,24 +1,26 @@
 import type { IntlShape } from "react-intl";
 
-import type {
-  Community,
-  Department,
-  Pool,
-  Role,
-  Team,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import type { DepartmentWithRolesObject } from "./components/ResourcesDepartmentLink";
 
-type PoolTeamable = Pick<Pool, "__typename">;
+interface PoolTeamable {
+  __typename?: "Pool";
+}
 
-type CommunityTeamable = Pick<Community, "__typename">;
+interface CommunityTeamable {
+  __typename?: "Community";
+}
 
-type TeamTeamable = Pick<Team, "__typename">;
+interface TeamTeamable {
+  __typename?: "Team";
+}
 
-type DepartmentTeamable = Pick<Department, "__typename">;
+interface DepartmentTeamable {
+  __typename?: "Department";
+}
 
 type Teamable =
   PoolTeamable | CommunityTeamable | TeamTeamable | DepartmentTeamable;
@@ -41,8 +43,13 @@ export const isPoolTeamable = (
   return false;
 };
 
+interface RoleAssignmentRole {
+  name: string;
+  displayName?: LocalizedString | null;
+}
+
 export interface RoleAssignmentObject {
-  role?: Pick<Role, "name" | "displayName"> | null;
+  role?: RoleAssignmentRole | null;
   teamable?: {
     id?: string;
     name?: {

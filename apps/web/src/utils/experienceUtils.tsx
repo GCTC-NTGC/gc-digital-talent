@@ -13,7 +13,20 @@ import { isPast } from "date-fns/isPast";
 
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
-import type { CafForce, LocalizedString } from "@gc-digital-talent/graphql";
+import type {
+  AwardedScope,
+  AwardedTo,
+  CafEmploymentType,
+  CafForce,
+  CafRank,
+  CSuiteRoleTitle,
+  ExternalRoleSeniority,
+  ExternalSizeOfOrganization,
+  GovContractorRoleSeniority,
+  GovContractorType,
+  LocalizedString,
+  SkillCategory,
+} from "@gc-digital-talent/graphql";
 import {
   DegreeType,
   EducationStatus,
@@ -32,14 +45,12 @@ import {
   nodeToString,
   uniqueItems,
   unpackMaybes,
-  assertUnreachable,
   empty,
 } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import type {
   AllExperienceFormValues,
-  AnyExperience,
   ExperienceDetailsDefaultValues,
   ExperienceDetailsSubmissionData,
   ExperienceForDate,
@@ -670,33 +681,50 @@ export interface SimpleAnyExperience {
     | "WorkExperience";
 }
 
-type ExperienceOfType<N extends SimpleAnyExperience["__typename"]> = Extract<
-  AnyExperience,
-  { __typename?: N }
->;
+interface AwardExperienceTypename {
+  __typename: "AwardExperience";
+}
 
-export const isAwardExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"AwardExperience"> =>
-  e.__typename === "AwardExperience";
-export const isCommunityExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"CommunityExperience"> =>
+interface CommunityExperienceTypename {
+  __typename: "CommunityExperience";
+}
+
+interface EducationExperienceTypename {
+  __typename: "EducationExperience";
+}
+
+interface PersonalExperienceTypename {
+  __typename: "PersonalExperience";
+}
+
+interface WorkExperienceTypename {
+  __typename: "WorkExperience";
+}
+
+interface ExperienceEmploymentCategory extends SimpleAnyExperience {
+  employmentCategory?: LocalizedEnumValue<EmploymentCategory> | null;
+}
+
+export const isAwardExperience = <T extends SimpleAnyExperience>(
+  e: T,
+): e is T & AwardExperienceTypename => e.__typename === "AwardExperience";
+export const isCommunityExperience = <T extends SimpleAnyExperience>(
+  e: T,
+): e is T & CommunityExperienceTypename =>
   e.__typename === "CommunityExperience";
-export const isEducationExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"EducationExperience"> =>
+export const isEducationExperience = <T extends SimpleAnyExperience>(
+  e: T,
+): e is T & EducationExperienceTypename =>
   e.__typename === "EducationExperience";
-export const isPersonalExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"PersonalExperience"> =>
-  e.__typename === "PersonalExperience";
-export const isWorkExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"WorkExperience"> => e.__typename === "WorkExperience";
-export const isGovWorkExperience = (
-  e: SimpleAnyExperience,
-): e is ExperienceOfType<"WorkExperience"> =>
+export const isPersonalExperience = <T extends SimpleAnyExperience>(
+  e: T,
+): e is T & PersonalExperienceTypename => e.__typename === "PersonalExperience";
+export const isWorkExperience = <T extends SimpleAnyExperience>(
+  e: T,
+): e is T & WorkExperienceTypename => e.__typename === "WorkExperience";
+export const isGovWorkExperience = <T extends ExperienceEmploymentCategory>(
+  e: T,
+): e is T & WorkExperienceTypename =>
   isWorkExperience(e) &&
   e.employmentCategory?.value === EmploymentCategory.GovernmentOfCanada;
 
@@ -774,9 +802,24 @@ export const deriveExperienceType = (
  * @param experience
  * @returns
  */
-const getAwardExperienceDefaultValues = (
-  experience: ExperienceOfType<"AwardExperience">,
-) => {
+interface IdReference {
+  id: string;
+}
+
+interface RelatedExperience extends SimpleAnyExperience, IdReference {}
+
+interface AwardExperienceFields {
+  title?: string | null;
+  issuedBy?: string | null;
+  awardedDate?: string | null;
+  awardedTo?: LocalizedEnumValue<AwardedTo> | null;
+  awardedScope?: LocalizedEnumValue<AwardedScope> | null;
+  projectName?: string | null;
+  relatedExperience?: RelatedExperience | null;
+  details?: string | null;
+}
+
+const getAwardExperienceDefaultValues = (experience: AwardExperienceFields) => {
   const {
     title,
     issuedBy,
@@ -806,8 +849,17 @@ const getAwardExperienceDefaultValues = (
  * @param experience
  * @returns
  */
+interface CommunityDefaultValueFields {
+  title?: string | null;
+  organization?: string | null;
+  project?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  details?: string | null;
+}
+
 const getCommunityExperienceDefaultValues = (
-  experience: ExperienceOfType<"CommunityExperience">,
+  experience: CommunityDefaultValueFields,
 ) => {
   const { title, organization, project, startDate, endDate, details } =
     experience;
@@ -828,8 +880,27 @@ const getCommunityExperienceDefaultValues = (
  * @param experience
  * @returns
  */
+interface EducationExperienceFields {
+  educationType?: LocalizedEnumValue<EducationType> | null;
+  status?: LocalizedEnumValue<EducationStatus> | null;
+  areaOfStudy?: string | null;
+  institution?: string | null;
+  thesisTitle?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  details?: string | null;
+  otherEducationType?: string | null;
+  degreeType?: LocalizedEnumValue<DegreeType> | null;
+  licenseOrAccreditation?: string | null;
+  certification?: string | null;
+  courseName?: string | null;
+  fellowshipType?: LocalizedEnumValue<FellowshipType> | null;
+  otherFellowshipType?: string | null;
+  prospectiveEndDate?: string | null;
+}
+
 const getEducationExperienceDefaultValues = (
-  experience: ExperienceOfType<"EducationExperience">,
+  experience: EducationExperienceFields,
 ) => {
   const {
     educationType,
@@ -891,8 +962,16 @@ const getEducationExperienceDefaultValues = (
  * @param experience
  * @returns
  */
+interface PersonalExperienceFields {
+  title?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  learningDescription?: string | null;
+  organization?: string | null;
+}
+
 const getPersonalExperienceDefaultValues = (
-  experience: ExperienceOfType<"PersonalExperience">,
+  experience: PersonalExperienceFields,
 ) => {
   const { title, startDate, endDate, learningDescription, organization } =
     experience;
@@ -913,9 +992,42 @@ const getPersonalExperienceDefaultValues = (
  * @param experience
  * @returns
  */
-const getWorkExperienceDefaultValues = (
-  experience: ExperienceOfType<"WorkExperience">,
-) => {
+interface WorkClassification extends IdReference {
+  group: string;
+}
+
+interface WorkExperienceFields {
+  role?: string | null;
+  organization?: string | null;
+  division?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  employmentCategory?: LocalizedEnumValue<EmploymentCategory> | null;
+  extSizeOfOrganization?: LocalizedEnumValue<ExternalSizeOfOrganization> | null;
+  extRoleSeniority?: LocalizedEnumValue<ExternalRoleSeniority> | null;
+  department?: IdReference | null;
+  classification?: WorkClassification | null;
+  govEmploymentType?: LocalizedEnumValue<GovEmployeeType> | null;
+  govPositionType?: LocalizedEnumValue<GovPositionType> | null;
+  govContractorRoleSeniority?: LocalizedEnumValue<GovContractorRoleSeniority> | null;
+  govContractorType?: LocalizedEnumValue<GovContractorType> | null;
+  contractorFirmAgencyName?: string | null;
+  cafEmploymentType?: LocalizedEnumValue<CafEmploymentType> | null;
+  cafForce?: LocalizedEnumValue<CafForce> | null;
+  cafRank?: LocalizedEnumValue<CafRank> | null;
+  workStreams?: IdReference[] | null;
+  supervisoryPosition?: boolean | null;
+  supervisedEmployees?: boolean | null;
+  supervisedEmployeesNumber?: number | null;
+  budgetManagement?: boolean | null;
+  annualBudgetAllocation?: number | null;
+  seniorManagementStatus?: boolean | null;
+  cSuiteRoleTitle?: LocalizedEnumValue<CSuiteRoleTitle> | null;
+  otherCSuiteRoleTitle?: string | null;
+  details?: string | null;
+}
+
+const getWorkExperienceDefaultValues = (experience: WorkExperienceFields) => {
   const {
     role,
     organization,
@@ -1016,9 +1128,30 @@ const getWorkExperienceDefaultValues = (
  * @param experience
  * @returns
  */
+interface ExperienceSkillRecord {
+  details?: string | null;
+}
+
+interface ExperienceSkill extends IdReference {
+  name: LocalizedString;
+  experienceSkillRecord?: ExperienceSkillRecord | null;
+}
+
+export interface ExperienceFields
+  extends
+    SimpleAnyExperience,
+    IdReference,
+    AwardExperienceFields,
+    CommunityDefaultValueFields,
+    EducationExperienceFields,
+    PersonalExperienceFields,
+    WorkExperienceFields {
+  skills?: ExperienceSkill[] | null;
+}
+
 export const queryResultToDefaultValues = (
   experienceType: ExperienceType,
-  experience: AnyExperience,
+  experience: ExperienceFields,
 ): ExperienceDetailsDefaultValues & { experienceType: ExperienceType } => {
   let unsharedValues = {};
   if (isAwardExperience(experience)) {
@@ -1322,15 +1455,25 @@ export const getExperienceNameHtml = <T extends ExperienceName>(
   return intl.formatMessage(commonMessages.notProvided);
 };
 
+export interface ExperienceDate extends SimpleAnyExperience {
+  awardedDate?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  prospectiveEndDate?: string | null;
+  status?: LocalizedEnumValue<EducationStatus> | null;
+  govEmploymentType?: LocalizedEnumValue<GovEmployeeType> | null;
+  govPositionType?: LocalizedEnumValue<GovPositionType> | null;
+}
+
 /**
  * Get the formatted date of any experience type
  *
- * @param {AnyExperience} experience
+ * @param {ExperienceDate} experience
  * @param {IntlShape} intl
  * @return {string|ReactNode}
  */
 export const getExperienceDate = (
-  experience: AnyExperience,
+  experience: ExperienceDate,
   intl: IntlShape,
 ): undefined | ReactNode => {
   let dateString;
@@ -1411,7 +1554,10 @@ interface ExperienceInfo {
   date?: ReactNode;
 }
 
-type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
+export interface ExperienceForInfo
+  extends ExperienceName, ExperienceDate, IdReference {}
+
+type UseExperienceInfo = (experience: ExperienceForInfo) => ExperienceInfo;
 
 /**
  * Use experience info
@@ -1419,7 +1565,7 @@ type UseExperienceInfo = (experience: AnyExperience) => ExperienceInfo;
  * Returns information about an experience based
  * on the type
  *
- * @param AnyExperience experience
+ * @param ExperienceForInfo experience
  * @return
  */
 export const useExperienceInfo: UseExperienceInfo = (experience) => {
@@ -1461,14 +1607,20 @@ export const useExperienceInfo: UseExperienceInfo = (experience) => {
   };
 };
 
+export interface ExperienceOrganization extends SimpleAnyExperience {
+  issuedBy?: string | null;
+  organization?: string | null;
+  institution?: string | null;
+}
+
 /**
  * Returns a unique array of organization or similar names pulled from all experiences except personal
  *
- * @param experiences SimpleAnyExperience
+ * @param experiences ExperienceOrganization
  * @return string[]
  */
 export const organizationSuggestionsFromExperiences = (
-  experiences: SimpleAnyExperience[],
+  experiences: ExperienceOrganization[],
 ): string[] => {
   const organizationsForAutocomplete = experiences.map((exp) => {
     if (isAwardExperience(exp)) {
@@ -1495,7 +1647,9 @@ export const organizationSuggestionsFromExperiences = (
   return uniqueItems(organizationsForAutocompleteFiltered);
 };
 
-export const experienceDurationMonths = (experience: AnyExperience): number => {
+export const experienceDurationMonths = (
+  experience: ExperienceForDate,
+): number => {
   if (experience.__typename == null || experience.__typename == undefined) {
     return 0;
   }
@@ -1529,19 +1683,28 @@ export const experienceDurationMonths = (experience: AnyExperience): number => {
 
     return ceilingMonths;
   }
-  assertUnreachable(experience);
   return 0;
 };
 
 export const experiencesDurationMonths = (
-  experiences: AnyExperience[],
+  experiences: ExperienceForDate[],
 ): number =>
   experiences
     .map((experience) => experienceDurationMonths(experience))
     .reduce((acc, months) => acc + months, 0);
 
-export interface SnapshotExperience extends Omit<AnyExperience, "user"> {
-  __typename?: AnyExperience["__typename"];
+interface SnapshotSkill extends IdReference {
+  key: string;
+  name: LocalizedString;
+  category: GenericLocalizedEnum<SkillCategory>;
+  experienceSkillRecord?: ExperienceSkillRecord | null;
+}
+
+export interface SnapshotExperience extends SimpleAnyExperience, IdReference {
+  details?: string | null;
+  deletedDate?: string | null;
+  experienceSkillRecord?: ExperienceSkillRecord | null;
+  skills?: SnapshotSkill[] | null;
 }
 
 export const getGovernmentPositionTypeLabel = (

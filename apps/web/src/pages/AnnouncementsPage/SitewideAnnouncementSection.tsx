@@ -3,9 +3,11 @@ import { defineMessage, useIntl } from "react-intl";
 import MegaphoneSolidIcon from "@heroicons/react/24/solid/MegaphoneIcon";
 
 import type {
-  SitewideAnnouncement,
+  FragmentType,
+  LocalizedString,
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import type { IconType } from "@gc-digital-talent/ui";
 import { ToggleSection } from "@gc-digital-talent/ui";
 
@@ -15,8 +17,33 @@ import ToggleForm from "~/components/ToggleForm/ToggleForm";
 import SitewideAnnouncementForm from "./SitewideAnnouncementForm";
 import SitewideAnnouncementDisplay from "./SitewideAnnouncementDisplay";
 
+export const SitewideAnnouncementSection_Fragment = graphql(/* GraphQL */ `
+  fragment SitewideAnnouncementSection on SitewideAnnouncement {
+    publishDate
+    expiryDate
+    title {
+      en
+      fr
+    }
+    message {
+      en
+      fr
+    }
+
+    ...SitewideAnnouncementDisplay
+    ...SitewideAnnouncementForm
+  }
+`);
+
+interface AnnouncementSectionData {
+  publishDate?: string | null;
+  expiryDate?: string | null;
+  title: LocalizedString;
+  message: LocalizedString;
+}
+
 const hasEmptyRequiredFields = (
-  apiData: SitewideAnnouncement | null | undefined,
+  apiData: AnnouncementSectionData | null | undefined,
 ): boolean =>
   !apiData?.publishDate ||
   !apiData?.expiryDate ||
@@ -26,7 +53,7 @@ const hasEmptyRequiredFields = (
   !apiData?.message.fr;
 
 const hasAllEmptyFields = (
-  apiData: SitewideAnnouncement | null | undefined,
+  apiData: AnnouncementSectionData | null | undefined,
 ): boolean =>
   !apiData?.publishDate &&
   !apiData?.expiryDate &&
@@ -43,17 +70,21 @@ const sectionTitle: MessageDescriptor = defineMessage({
 const sectionSolidIcon: IconType = MegaphoneSolidIcon;
 
 interface SitewideAnnouncementSectionProps {
-  initialData: SitewideAnnouncement | null | undefined;
+  query:
+    | FragmentType<typeof SitewideAnnouncementSection_Fragment>
+    | null
+    | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   isSubmitting: boolean;
 }
 
 const SitewideAnnouncementSection = ({
-  initialData,
+  query,
   onUpdate,
   isSubmitting,
 }: SitewideAnnouncementSectionProps) => {
   const intl = useIntl();
+  const initialData = getFragment(SitewideAnnouncementSection_Fragment, query);
   const { isEditing, setIsEditing, icon } = useToggleSectionInfo({
     isNull: hasAllEmptyFields(initialData),
     emptyRequired: hasEmptyRequiredFields(initialData),
@@ -84,12 +115,12 @@ const SitewideAnnouncementSection = ({
           {hasAllEmptyFields(initialData) ? (
             <ToggleForm.NullDisplay />
           ) : (
-            <SitewideAnnouncementDisplay initialData={initialData} />
+            <SitewideAnnouncementDisplay query={initialData} />
           )}
         </ToggleSection.InitialContent>
         <ToggleSection.OpenContent>
           <SitewideAnnouncementForm
-            initialData={initialData}
+            query={initialData}
             onUpdate={onUpdate}
             onOpenChange={setIsEditing}
             isSubmitting={isSubmitting}
