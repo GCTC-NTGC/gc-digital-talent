@@ -7,7 +7,7 @@ import { me } from "~/utils/user";
 test("Delete pool", { tag: "@uat" }, async ({ appPage }) => {
   const platformAdminCtx = await graphql.newContext();
   const platformAdminSub =
-    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
 
   const user = await me(platformAdminCtx, {});
 
