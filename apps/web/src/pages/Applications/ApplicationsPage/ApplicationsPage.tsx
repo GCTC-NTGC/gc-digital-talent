@@ -64,8 +64,8 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
   );
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "All applications",
-    id: "9dEyux",
+    defaultMessage: "Applications",
+    id: "h3gUKn",
     description: "Job applications title",
   });
 
