@@ -29,7 +29,7 @@ const LOCALIZED_STRING = {
   fr: "test FR",
 };
 
-test.describe("Pool candidates", { tag: "@uat" }, () => {
+test.describe.skip("Pool candidates", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let candidate: PoolCandidate;

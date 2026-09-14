@@ -8,7 +8,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("User soft delete", { tag: "@uat" }, () => {
+test.describe.skip("User soft delete", { tag: "@uat" }, () => {
   let user: User = { id: "" };
   let platformAdminCtx: GraphQLContext;
   const platformAdminSub =

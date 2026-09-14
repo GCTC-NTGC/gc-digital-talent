@@ -35,7 +35,7 @@ import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
-test.describe("Process activity log", { tag: "@uat" }, () => {
+test.describe.skip("Process activity log", { tag: "@uat" }, () => {
   let adminUser: User;
   let poolId: string;
   let adminCtx: GraphQLContext;

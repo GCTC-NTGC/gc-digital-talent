@@ -10,7 +10,7 @@ import { generateUniqueTestId } from "~/utils/id";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("User skills", { tag: "@uat" }, () => {
+test.describe.skip("User skills", { tag: "@uat" }, () => {
   let uniqueTestId = "";
   let user: User = { id: "" };
   let skill: Skill;

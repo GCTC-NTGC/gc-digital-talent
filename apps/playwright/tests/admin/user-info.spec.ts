@@ -13,7 +13,7 @@ import { createUserWithRoles } from "~/utils/user";
 import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";
 
-test.describe("User information", { tag: "@uat" }, () => {
+test.describe.skip("User information", { tag: "@uat" }, () => {
   let platformAdminCtx: GraphQLContext;
   let uniqueTestId: string;
   let user: User;

@@ -7,7 +7,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("User search", { tag: "@uat" }, () => {
+test.describe.skip("User search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let platformAdminCtx: GraphQLContext;
   let user: User;

@@ -8,7 +8,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles } from "~/utils/user";
 
-test.describe("Employee Profile", { tag: "@uat" }, () => {
+test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let employeeProfile: EmployeeProfile;

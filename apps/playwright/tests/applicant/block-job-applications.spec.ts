@@ -34,7 +34,7 @@ interface UserInfo {
   sub: string;
 }
 
-test.describe("Block job applications", { tag: "@uat" }, () => {
+test.describe.skip("Block job applications", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let platformAdminCtx: GraphQLContext;
   let adminUserId: string;

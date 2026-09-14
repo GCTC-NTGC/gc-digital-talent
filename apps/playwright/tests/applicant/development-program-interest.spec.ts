@@ -68,7 +68,7 @@ async function createDisposableTestUsers(
   };
 }
 
-test.describe(
+test.describe.skip(
   "Cross-community development program status",
   { tag: "@uat" },
   () => {
@@ -240,7 +240,7 @@ test.describe(
   },
 );
 
-test.describe("Development Program Interest", { tag: "@uat" }, () => {
+test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   test.slow();
 

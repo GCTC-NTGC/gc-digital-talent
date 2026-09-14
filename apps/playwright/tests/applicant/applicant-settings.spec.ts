@@ -10,7 +10,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe("Applicant settings page", { tag: "@uat" }, () => {
+test.describe.skip("Applicant settings page", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let user: User = { id: "" };

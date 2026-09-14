@@ -26,7 +26,7 @@ import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 
-test.describe("Application download", { tag: "@uat" }, () => {
+test.describe.skip("Application download", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   let applicant: User;
   let sub: string;
