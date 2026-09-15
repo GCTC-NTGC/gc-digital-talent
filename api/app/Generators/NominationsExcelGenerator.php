@@ -162,6 +162,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function overviewFields(): array
     {
+
         return [
             new TextField('nominee_user_id', fn ($g) => $g->nominee->id),
             new TextField('nominee_first_name', fn ($g) => $g->nominee->first_name),
@@ -549,16 +550,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             'department' => '',
         ];
 
-        $reference = $nomination->advancementReference
-            ?? ($nomination->advancement_reference_id
-                ? User::with(['currentClassification', 'department'])->find($nomination->advancement_reference_id)
-                : null);
+        $reference = $nomination->advancementReference;
 
         if ($reference) {
             $details['name'] = $reference->getFullName();
-            $details['email'] = $reference->work_email ?? $reference->email ?? '';
+            $details['email'] = $reference->work_email ?? '';
             $details['classification'] = $reference->currentClassification->formattedGroupAndLevel ?? '';
             $details['department'] = $reference->department?->name[$this->lang] ?? '';
+        } elseif ($nomination->advancementReferenceUser) {
+            // If the reference is no longer a verified employee show their name only without any employment details (work email, classification, department)
+            $details['name'] = $nomination->advancementReferenceUser->getFullName();
         }
 
         return $details;
@@ -748,6 +749,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'submitter',
                     'advancementReference.department',
                     'advancementReference.currentClassification',
+                    'advancementReferenceUser',
                     'nominatorFallbackClassification',
                     'nominatorFallbackDepartment',
                     'advancementReferenceFallbackClassification',
