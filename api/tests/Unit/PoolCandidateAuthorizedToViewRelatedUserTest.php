@@ -136,4 +136,53 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
 
         assertEqualsCanonicalizing([$consentedCandidate->id], $visibleIds->toArray());
     }
+
+    // a user holding both view-team-applicantProfile and view-team-communityTalent on the same
+    // community team should see the union of both branches, not just one - guards against the two
+    // orWhereHas branches in andAuthorizedToViewRelatedUser being accidentally combined with AND
+    public function testUserWithBothCommunityPermissionsSeesUnionOfBothBranches(): void
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $otherDepartment = Department::factory()->create();
+
+        $communityPool = Pool::factory()->published()->create(['community_id' => $community->id]);
+        $unrelatedPool = Pool::factory()->published()->create([
+            'community_id' => $otherCommunity->id,
+            'department_id' => $otherDepartment->id,
+        ]);
+
+        // visible via the pool-based branch (applicant profile access to the community's pool)
+        $applicantInCommunityPool = PoolCandidate::factory()
+            ->for(User::factory()->asApplicant()->create())
+            ->for($communityPool)
+            ->create();
+
+        // visible via the user-based branch (consented, verified community talent)
+        $consentedGovUser = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $communityTalentCandidate = PoolCandidate::factory()->for($consentedGovUser)->for($unrelatedPool)->create();
+        CommunityInterest::factory()
+            ->for($consentedGovUser)
+            ->for($community)
+            ->consented()
+            ->create();
+
+        // visible via neither branch
+        PoolCandidate::factory()
+            ->for(User::factory()->asApplicant()->create())
+            ->for($unrelatedPool)
+            ->create();
+
+        $dualRoleUser = User::factory()
+            ->asCommunityRecruiter($community->id)
+            ->asCommunityTalentCoordinator($community->id)
+            ->create();
+
+        $visibleIds = $this->authorizedToViewRelatedUserIds($dualRoleUser);
+
+        assertEqualsCanonicalizing(
+            [$applicantInCommunityPool->id, $communityTalentCandidate->id],
+            $visibleIds->toArray()
+        );
+    }
 }
