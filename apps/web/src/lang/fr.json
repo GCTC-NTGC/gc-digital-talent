@@ -5264,10 +5264,6 @@
     "defaultMessage": "Cet utilisateur n’a pas sélectionné de compétences à améliorer.",
     "description": "Message displayed when a user has not added any skills for improvement"
   },
-  "Ifq2iQ": {
-    "defaultMessage": "Modifier un événement de nomination pour la gestion des talents",
-    "description": "Page title for the talent nomination event create page"
-  },
   "IgniT6": {
     "defaultMessage": "Justification",
     "description": "Link text for rationale step of a talent nomination"
