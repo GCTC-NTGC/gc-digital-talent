@@ -112,4 +112,12 @@ class CommunityInterestBuilder extends Builder implements TalentRequestMatchable
         // fall through - query will return nothing
         return $this->where('id', null);
     }
+
+    public function whereUserIsVerifiedGovEmployee(?array $args = null): self
+    {
+        return $this->whereHas('user', function (Builder $query) {
+            /** @var UserBuilder $query */
+            $query->whereIsVerifiedGovEmployee();
+        });
+    }
 }
