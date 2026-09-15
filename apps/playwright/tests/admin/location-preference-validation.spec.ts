@@ -36,8 +36,9 @@ import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
 import { defaultWorkExperience } from "~/utils/experiences";
-import { createCommunityInterest } from "~/utils/communities";
+import { createCommunityInterest, getCommunities } from "~/utils/communities";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
+import { getWorkStreams } from "~/utils/workStreams";
 
 test.describe("Location Preference Validation", () => {
   let adminCtx: GraphQLContext;
@@ -63,6 +64,14 @@ test.describe("Location Preference Validation", () => {
     const nonCPADept = departments.find(
       (dep) => !dep.isCorePublicAdministration,
     );
+    const communities = await getCommunities(adminCtx, {});
+    const testCommunityId = communities.find((c) => c.key === "digital")?.id;
+    if (!testCommunityId) throw new Error("Failed to find community ID");
+    const workStreams = await getWorkStreams(adminCtx, {});
+    const testWorkStreamId = workStreams.find(
+      (w) => w.key === "SOFTWARE_SOLUTIONS",
+    )?.id;
+    if (!testWorkStreamId) throw new Error("Failed to find work stream ID");
 
     const createdUser = await createUserWithRoles(adminCtx, {
       user: {
@@ -142,10 +151,10 @@ test.describe("Location Preference Validation", () => {
     await createCommunityInterest(applicantCtx, {
       userId: user?.id ?? "",
       communityInterest: {
-        communityId: "f2156218-953a-49dc-b12c-84fecae2309a",
+        communityId: testCommunityId,
         jobInterest: true,
         trainingInterest: true,
-        workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
+        workStreams: { sync: [testWorkStreamId] },
         consentToShareProfile: true,
       },
     });
