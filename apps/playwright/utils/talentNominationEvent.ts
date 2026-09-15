@@ -41,12 +41,35 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
   TalentNominationEvent | undefined,
   Partial<CreateTalentNominationEventInput>
 > = async (ctx, talentNominationEvent) => {
-  const communities = await getCommunities(ctx, {});
-  const firstCommunity = communities[0];
-  const communityId =
-    talentNominationEvent.community?.connect ?? firstCommunity.id ?? "";
-  const communityDevelopmentPrograms =
-    await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId });
+  // Pick a community that has a development program, not just the first one returned
+  // The list is unordered and other tests add communities with none, which quietly creates
+  // an event with no "development opportunities" option
+  const requestedCommunityId = talentNominationEvent.community?.connect;
+  let communityId = requestedCommunityId ?? "";
+  let communityDevelopmentPrograms = communityId
+    ? await getCommunityDevelopmentProgramsForCommunity(ctx, { communityId })
+    : [];
+
+  if (!requestedCommunityId) {
+    const communities = await getCommunities(ctx, {});
+    for (const community of communities) {
+      const programs = await getCommunityDevelopmentProgramsForCommunity(ctx, {
+        communityId: community.id,
+      });
+      if (programs[0]?.id) {
+        communityId = community.id;
+        communityDevelopmentPrograms = programs;
+        break;
+      }
+    }
+  }
+
+  if (!communityId) {
+    throw new Error(
+      "createTalentNominationEvent: no community with a development program was found",
+    );
+  }
+
   const communityDevelopmentProgramsSync = communityDevelopmentPrograms[0]?.id
     ? [
         {
