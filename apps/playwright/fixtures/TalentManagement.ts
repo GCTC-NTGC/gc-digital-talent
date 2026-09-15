@@ -38,6 +38,25 @@ class TalentManagement extends AppPage {
     await this.waitForGraphqlResponse("TalentNominationGroupDetails");
   }
 
+  // The dialog adds a third approval when the nominee was also nominated for development
+  // programs, which depends on seeded data, so only fill it when it is there
+  // Approving keeps the "reason for not supporting" boxes at two, which the steps below rely on
+  private async approveDevelopmentProgramsIfPresent() {
+    const developmentPrograms = this.page.getByRole("group", {
+      name: /development programs approval/i,
+    });
+
+    if ((await developmentPrograms.count()) === 0) {
+      return;
+    }
+
+    await developmentPrograms
+      .getByRole("radio", {
+        name: /this nomination for development programs is approved./i,
+      })
+      .click();
+  }
+
   async evaluateNomineeNotSupported() {
     await this.page
       .getByRole("button", {
@@ -73,6 +92,8 @@ class TalentManagement extends AppPage {
       })
       .last()
       .fill("Additional details");
+
+    await this.approveDevelopmentProgramsIfPresent();
 
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
@@ -120,6 +141,8 @@ class TalentManagement extends AppPage {
     await lateralReferralExpiryDate
       .getByRole("spinbutton", { name: /day/i })
       .fill("31");
+
+    await this.approveDevelopmentProgramsIfPresent();
 
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
@@ -191,6 +214,8 @@ class TalentManagement extends AppPage {
     await lateralReferralExpiryDate
       .getByRole("spinbutton", { name: /day/i })
       .fill("31");
+
+    await this.approveDevelopmentProgramsIfPresent();
 
     await this.page.getByRole("button", { name: /submit evaluation/i }).click();
   }
