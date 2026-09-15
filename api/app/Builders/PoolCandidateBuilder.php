@@ -1011,17 +1011,8 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 
                 // can view community talent users in communities
                 $teamSubquery->orWhereHas('user', function ($userQuery) use ($teamIdsByPermission) {
-                    $teamIds = $teamIdsByPermission['view-team-communityTalent'];
-
-                    return $userQuery
-                        ->whereIsVerifiedGovEmployee()
-                        ->whereHas('communityInterests', function (Builder $query) use ($teamIds) {
-                            return $query
-                                ->where('consent_to_share_profile', true)
-                                ->whereHas('community.team', function (Builder $query) use ($teamIds) {
-                                    return $query->whereIn('id', $teamIds);
-                                });
-                        });
+                    /** @var UserBuilder $userQuery */
+                    return $userQuery->whereIsCommunityTalentInTeams($teamIdsByPermission['view-team-communityTalent']);
                 });
             });
 

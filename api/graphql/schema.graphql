@@ -1931,7 +1931,7 @@ type Query {
       scopes: [
         "withPolicyEagerLoads"
         "whereAuthorizedToView"
-        "whereUserIsVerifiedGovEmployee"
+        "isVerifiedGovEmployee"
         "withSkillCount"
       ]
       model: "App\\Models\\CommunityInterest"
