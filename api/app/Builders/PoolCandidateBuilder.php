@@ -802,7 +802,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     public function withPaginatedEagerLoads(): self
     {
         return $this->with([
-            'user:id,first_name,last_name,email,preferred_lang,computed_department',
+            'user:id,first_name,last_name,email,preferred_lang,computed_department,computed_is_gov_employee,work_email,work_email_verified_at',
             'user.poolCandidates.pool.team',
             'user.poolCandidates.pool.community.team',
             'user.communityInterests.community.team',
