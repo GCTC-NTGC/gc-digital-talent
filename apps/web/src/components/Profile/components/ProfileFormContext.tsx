@@ -44,21 +44,19 @@ const ProfileFormProvider = ({ children }: ProfileFormProviderProps) => {
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const [dirtySections, setDirtySections] = useState<SectionKey[]>([]);
 
-  const toggleDirty = useCallback(
-    (section: SectionKey, isDirty: boolean) => {
-      let newDirty = dirtySections;
-      if (isDirty) {
-        if (!dirtySections.find((dirtySection) => section === dirtySection)) {
-          newDirty = [...newDirty, section];
-        }
-      } else {
-        newDirty = newDirty.filter((dirtySection) => section !== dirtySection);
+  // Does nothing when the flag is already correct, so this cannot set off an endless update loop with the effect in useDirtyFields.
+  const toggleDirty = useCallback((section: SectionKey, isDirty: boolean) => {
+    setDirtySections((prevDirty) => {
+      const alreadyDirty = prevDirty.includes(section);
+      if (isDirty === alreadyDirty) {
+        return prevDirty;
       }
 
-      setDirtySections(newDirty);
-    },
-    [dirtySections],
-  );
+      return isDirty
+        ? [...prevDirty, section]
+        : prevDirty.filter((dirtySection) => section !== dirtySection);
+    });
+  }, []);
 
   const toggleSubmitting = (newIsSubmitting: boolean) => {
     setSubmitting(newIsSubmitting);
