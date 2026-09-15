@@ -20,8 +20,8 @@ class CspReporter {
     await this.page.addInitScript(() => {
       window.cspViolations = [];
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const cspObserver = new ReportingObserver(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (reports, _) => {
           window.cspViolations = [...(window?.cspViolations ?? []), ...reports];
         },
