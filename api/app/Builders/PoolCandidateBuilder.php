@@ -32,6 +32,12 @@ use Illuminate\Support\Str;
 
 class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 {
+    /** @var array<string, array<int, string>> The pool IDs found for a set of teams */
+    private array $poolIdsForTeamsCache = [];
+
+    /** @var array<string, bool> The pool ID sets already filtered on */
+    private array $appliedPoolIdFilters = [];
+
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
      */
@@ -927,12 +933,22 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             return [];
         }
 
+        // The scopes below usually ask for the same teams, so only look them up once
+        sort($teamIds);
+        $key = implode(',', $teamIds);
+
+        if (isset($this->poolIdsForTeamsCache[$key])) {
+            return $this->poolIdsForTeamsCache[$key];
+        }
+
+        // without() as Team always loads teamable, which is not read here
         $owned = Team::query()->whereIn('id', $teamIds)
+            ->without('teamable')
             ->get(['teamable_type', 'teamable_id'])
             ->groupBy('teamable_type')
             ->map(fn ($teams) => $teams->pluck('teamable_id')->all());
 
-        return Pool::withTrashed()
+        return $this->poolIdsForTeamsCache[$key] = Pool::withTrashed()
             ->where(function (Builder $query) use ($owned) {
                 $query->whereIn('id', $owned->get(Pool::class, []))
                     ->orWhereIn('community_id', $owned->get(Community::class, []))
@@ -940,6 +956,22 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             })
             ->pluck('id')
             ->all();
+    }
+
+    // Filters to the pools a set of teams grants access to, skipping a filter already applied
+    // The same filter twice returns the same rows, but Postgres counts it as two and expects far fewer, picking a worse plan
+    private function wherePoolIdsForTeams(array $teamIds): self
+    {
+        $poolIds = $this->poolIdsForTeams($teamIds);
+        $key = implode(',', $poolIds);
+
+        if (isset($this->appliedPoolIdFilters[$key])) {
+            return $this;
+        }
+
+        $this->appliedPoolIdFilters[$key] = true;
+
+        return $this->whereIn('pool_id', $poolIds);
     }
 
     // represents the functionality of PoolCandidatePolicy::view()
@@ -955,7 +987,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             $teamIds = $teamIdsByPermission['view-team-submittedApplication'];
 
             return $this->whereNotNull('submitted_at')
-                ->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
+                ->wherePoolIdsForTeams($teamIds);
         }
 
         // fall through
@@ -1001,7 +1033,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
                 $teamIdsByPermission['view-team-communityTalent'] ?? []
             ));
 
-            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
+            return $this->wherePoolIdsForTeams($teamIds);
         }
 
         // fall through
@@ -1018,7 +1050,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-applicationAssessment')) {
             $teamIds = $teamIdsByPermission['view-team-applicationAssessment'];
 
-            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
+            return $this->wherePoolIdsForTeams($teamIds);
         }
 
         // fall through
@@ -1035,7 +1067,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         if ($user->isAbleTo('view-team-applicationStatus')) {
             $teamIds = $teamIdsByPermission['view-team-applicationStatus'];
 
-            return $this->whereIn('pool_id', $this->poolIdsForTeams($teamIds));
+            return $this->wherePoolIdsForTeams($teamIds);
         }
 
         // fall through
