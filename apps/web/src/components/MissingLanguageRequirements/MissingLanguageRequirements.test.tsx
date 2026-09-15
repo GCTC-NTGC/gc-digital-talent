@@ -9,7 +9,6 @@ import {
   fakePools,
   toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
-import type { Pool, User } from "@gc-digital-talent/graphql";
 import { PoolLanguage } from "@gc-digital-talent/graphql";
 
 import MissingLanguageRequirements, {
@@ -17,13 +16,13 @@ import MissingLanguageRequirements, {
 } from "./MissingLanguageRequirements";
 
 const fakeApplicant = fakeUsers(1)[0];
-const unilingualApplicant: User = {
+const unilingualApplicant = {
   ...fakeApplicant,
   lookingForEnglish: true,
   lookingForFrench: false,
   lookingForBilingual: false,
 };
-const bilingualApplicant: User = {
+const bilingualApplicant = {
   ...fakeApplicant,
   lookingForEnglish: true,
   lookingForFrench: true,
@@ -31,19 +30,19 @@ const bilingualApplicant: User = {
 };
 
 const fakePool = fakePools(1)[0];
-const unilingualPool: Pool = {
+const unilingualPool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.English),
 };
-const bilingualVariousPool: Pool = {
+const bilingualVariousPool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.VariousBilingual),
 };
-const bilingualIntermediatePool: Pool = {
+const bilingualIntermediatePool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.BilingualIntermediate),
 };
-const bilingualAdvancedPool: Pool = {
+const bilingualAdvancedPool = {
   ...fakePool,
   language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
 };

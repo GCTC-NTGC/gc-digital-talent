@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 import XMarkIcon from "@heroicons/react/20/solid/XMarkIcon";
 import PencilSquareIcon from "@heroicons/react/20/solid/PencilSquareIcon";
 
-import type { Classification } from "@gc-digital-talent/graphql";
 import {
   Chip,
   Chips,
@@ -16,6 +15,11 @@ import {
 } from "@gc-digital-talent/ui";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
+interface ClassificationRestriction {
+  id: string;
+  groupAndLevel: string;
+}
+
 interface DevelopmentProgramCardProps {
   id: string;
   title: string;
@@ -25,7 +29,7 @@ interface DevelopmentProgramCardProps {
   edit?: ReactNode;
   remove?: ReactNode;
   actions?: boolean;
-  classificationRestrictions?: Pick<Classification, "id" | "groupAndLevel">[];
+  classificationRestrictions?: ClassificationRestriction[];
   setEditOpen?: Dispatch<SetStateAction<string | null>>;
   setRemoveOpen?: Dispatch<SetStateAction<string | null>>;
 }

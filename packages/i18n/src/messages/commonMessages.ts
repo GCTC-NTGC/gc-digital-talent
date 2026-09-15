@@ -195,11 +195,6 @@ const commonMessages = defineMessages({
     id: "2wKf2U",
     description: "Text to trigger edit action",
   },
-  viewProfile: {
-    defaultMessage: "View profile",
-    id: "z4XcnS",
-    description: "Link text to view a user's profile",
-  },
   pendingSecondOpinion: {
     defaultMessage: "Pending second opinion",
     id: "Rp+NHA",
@@ -651,10 +646,15 @@ const commonMessages = defineMessages({
     id: "96yWSc",
     description: "Special application label",
   },
-  followUpDate: {
-    defaultMessage: "Follow-up date",
-    id: "kBUk+T",
-    description: "Label displayed before follow-up date",
+  noClassification: {
+    defaultMessage: "No classification",
+    id: "xuxKpE",
+    description: "Placeholder for when the classification can not be displayed",
+  },
+  noDepartment: {
+    defaultMessage: "No organization",
+    id: "wpNvbg",
+    description: "Placeholder for when the department can not be displayed",
   },
 });
 

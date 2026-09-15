@@ -26,10 +26,8 @@ const RecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
       id
       expiryDate
       suspendedAt
-      applicationStatusData {
-        candidateStatus {
-          value
-        }
+      candidateStatus {
+        value
       }
       pool {
         id
@@ -79,9 +77,8 @@ const RecruitmentProcessPreviewList = ({
   );
   let recruitmentProcessesFiltered = recruitmentProcesses
     ? recruitmentProcesses.filter(
-        ({ applicationStatusData }) =>
-          applicationStatusData?.candidateStatus?.value ===
-          CandidateStatus.Qualified,
+        ({ candidateStatus }) =>
+          candidateStatus?.value === CandidateStatus.Qualified,
       )
     : []; // filter for qualified recruitment processes
 

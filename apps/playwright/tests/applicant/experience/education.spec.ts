@@ -8,6 +8,7 @@ test("Can create education experience", async ({ appPage }) => {
 
   await experiencePage.addEducationExperience({
     startDate: "2001-01",
+    endDate: "2004-12",
   });
 
   await expect(experiencePage.page.getByRole("alert")).toContainText(

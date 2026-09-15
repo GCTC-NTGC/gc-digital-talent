@@ -62,7 +62,7 @@ class AssessmentResultFactory extends Factory
                     $justifications = $this->faker->randomElements(array_column(AssessmentResultJustification::educationJustificationsSuccess(), 'name'), null);
                 }
                 if ($assessmentDecision === AssessmentDecision::UNSUCCESSFUL->name) {
-                    $justifications = $this->faker->randomElement(array_column(AssessmentResultJustification::educationJustificationsFailure(), 'name'), null);
+                    $justifications = $this->faker->randomElements(array_column(AssessmentResultJustification::educationJustificationsFailure(), 'name'), null);
                 }
 
                 return [

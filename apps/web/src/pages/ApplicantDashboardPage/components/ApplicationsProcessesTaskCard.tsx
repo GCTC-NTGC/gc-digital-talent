@@ -32,10 +32,8 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
     }
     poolCandidates {
       ...ReviewApplicationPreviewList
-      applicationStatusData {
-        candidateStatus {
-          value
-        }
+      candidateStatus {
+        value
       }
     }
     ...ReviewRecruitmentProcessPreviewList
@@ -79,9 +77,8 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.poolCandidates,
   );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ applicationStatusData }) =>
-      applicationStatusData?.candidateStatus?.value ===
-      CandidateStatus.Qualified,
+    ({ candidateStatus }) =>
+      candidateStatus?.value === CandidateStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const offPlatformProcesses = unpackMaybes(

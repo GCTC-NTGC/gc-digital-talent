@@ -19,7 +19,6 @@ import {
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
@@ -184,7 +183,7 @@ const ApplicationEducation = ({
         (
           accumulator: EducationRequirementExperiences,
 
-          experience: SimpleAnyExperience,
+          experience: ApplicationEducationExperience,
         ) => {
           return {
             ...accumulator,
@@ -273,20 +272,23 @@ const ApplicationEducation = ({
         },
       })
         .then(async (res) => {
-          if (!res.error) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "Successfully updated your education requirement!",
-                id: "QYlwuE",
-                description:
-                  "Message displayed to users when saving education requirement is successful.",
-              }),
-            );
-            await navigate(
-              formValues.action === "continue" ? nextStep : cancelPath,
-            );
+          if (!res.data?.updateApplication?.id || res.error) {
+            throw new Error();
           }
+
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Successfully updated your education requirement!",
+              id: "QYlwuE",
+              description:
+                "Message displayed to users when saving education requirement is successful.",
+            }),
+          );
+
+          await navigate(
+            formValues.action === "continue" ? nextStep : cancelPath,
+          );
         })
         .catch(() => {
           toast.error(

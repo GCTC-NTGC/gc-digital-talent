@@ -130,6 +130,8 @@ query getProfile($userId: UUID!) {
       }
       maxSalary
       minSalary
+      groupAndLevel
+      displayName
     }
     isWoman
     hasDisability
@@ -196,7 +198,6 @@ query getProfile($userId: UUID!) {
       # profileExperience fragment
       id
       __typename
-      details
       skills {
         id
         key
@@ -224,6 +225,7 @@ query getProfile($userId: UUID!) {
         }
       }
       ... on AwardExperience {
+        details
         title
         issuedBy
         awardedDate
@@ -241,8 +243,89 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        projectName
+        relatedExperience {
+          ... on CommunityExperience {
+            __typename
+            id
+            title
+            organization
+            skills {
+              id
+            }
+            details
+            endDate
+            project
+            startDate
+          }
+          ... on EducationExperience {
+            __typename
+            id
+            educationType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            degreeType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            fellowshipType {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            otherFellowshipType
+            otherEducationType
+            areaOfStudy
+            institution
+            licenseOrAccreditation
+            certification
+          }
+          ... on PersonalExperience {
+            __typename
+            id
+            title
+          }
+          ... on WorkExperience {
+            __typename
+            id
+            role
+            organization
+            employmentCategory {
+              value
+              label {
+                en
+                fr
+              }
+            }
+            department {
+              id
+              name {
+                en
+                fr
+              }
+              departmentNumber
+            }
+            cafForce {
+              value
+              label {
+                en
+                fr
+              }
+            }
+          }
+        }
       }
       ... on CommunityExperience {
+        details
         title
         organization
         project
@@ -250,12 +333,13 @@ query getProfile($userId: UUID!) {
         endDate
       }
       ... on EducationExperience {
+        details
         institution
         areaOfStudy
         thesisTitle
         startDate
         endDate
-        type {
+        educationType {
           value
           label {
             en
@@ -269,19 +353,43 @@ query getProfile($userId: UUID!) {
             fr
           }
         }
+        otherEducationType
+        degreeType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        licenseOrAccreditation
+        certification
+        courseName
+        fellowshipType {
+          value
+          label {
+            en
+            fr
+          }
+        }
+        otherFellowshipType
+        prospectiveEndDate
       }
       ... on PersonalExperience {
         title
-        description
         startDate
         endDate
+        learningDescription
+        organization
       }
       ... on WorkExperience {
+        id
+        details
         role
         organization
         division
         startDate
         endDate
+        details
         employmentCategory {
           value
           label {
@@ -363,6 +471,8 @@ query getProfile($userId: UUID!) {
           level
           maxSalary
           minSalary
+          groupAndLevel
+          displayName
         }
         department {
           id
@@ -442,6 +552,8 @@ query getProfile($userId: UUID!) {
         }
         maxSalary
         minSalary
+        groupAndLevel
+        displayName
       }
     }
   }

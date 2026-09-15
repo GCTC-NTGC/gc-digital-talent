@@ -287,7 +287,8 @@ class AuthController extends Controller
             return app(TestTokenController::class)->issue($request);
         }
 
-        $refreshToken = $request->query('refresh_token');
+        // reads from the POST body first, falling back to the legacy GET query param during rollout - see #17682/#17832
+        $refreshToken = $request->input('refresh_token');
         $payload = [
             'grant_type' => 'refresh_token',
             'client_id' => config('oauth.client_id'),

@@ -3,13 +3,15 @@ import { useIntl } from "react-intl";
 import { useFormContext } from "react-hook-form";
 import { useCallback, useEffect } from "react";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  FragmentType,
+  TalentNominationUserReview,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationNomineeRelationshipToNominator,
   TalentNominationStep,
-  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import {
@@ -29,6 +31,7 @@ import UpdateForm from "./UpdateForm";
 import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 interface FormValues extends BaseFormValues {
   nominee: string;
@@ -105,11 +108,11 @@ const NomineeFields = ({ optionsQuery }: NomineeFieldsProps) => {
           description: "Label for review of nominee information",
         })}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
-        items={localizedEnumToOptions(options?.nomineeReviewOptions, intl, [
-          TalentNominationUserReview.Correct,
-          TalentNominationUserReview.Incorrect,
-          TalentNominationUserReview.OutOfDate,
-        ])}
+        items={localizedEnumToOptions(
+          options?.nomineeReviewOptions,
+          intl,
+          userReviewOptionsSortOrder,
+        )}
       />
       <RadioGroup
         idPrefix="nomineeRelationshipToNominator"

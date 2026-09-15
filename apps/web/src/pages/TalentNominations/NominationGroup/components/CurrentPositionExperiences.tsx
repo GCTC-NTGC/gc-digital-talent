@@ -1,6 +1,7 @@
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
+import type { ComponentProps } from "react";
 
 import type { FragmentType, GovPositionType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -20,6 +21,8 @@ import {
   getGovernmentPositionTypeLabel,
   isGovWorkExperience,
 } from "~/utils/experienceUtils";
+
+import ErrorNotice from "./ErrorNotice";
 
 const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
   fragment CurrentPositionExperiences on User {
@@ -57,13 +60,14 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 interface CurrentPositionExperiencesProps {
   query:
     FragmentType<typeof CurrentPositionExperiences_Fragment> | null | undefined;
-  shareProfile?: boolean;
+  contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
 }
 
 const CurrentPositionExperiences = ({
   query,
-  shareProfile,
+  contentHiddenReason,
 }: CurrentPositionExperiencesProps) => {
+  const contentIsVisible = !contentHiddenReason;
   const intl = useIntl();
   const data = getFragment(CurrentPositionExperiences_Fragment, query);
 
@@ -118,7 +122,7 @@ const CurrentPositionExperiences = ({
       </p>
       <Card.Separator className="my-9" />
 
-      {shareProfile && !empty(data) && (
+      {contentIsVisible && !empty(data) && (
         <div>
           <div className="flex flex-col gap-y-3">
             {Object.keys(currentWorkExperiencesByGovPositionType).length ===
@@ -207,30 +211,9 @@ const CurrentPositionExperiences = ({
           </div>
         </div>
       )}
-      {!shareProfile && (
-        <Notice.Root color="error">
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "This nominee has not agreed to share their information with your community",
-              id: "4ujr5X",
-              description: "Null message for nominee profile",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                id: "8plD42",
-                description: "Null secondary message for nominee profile",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      )}
-      {shareProfile && <Card.Separator className="my-9" />}
-      {shareProfile && (
+      {!contentIsVisible && <ErrorNotice reason={contentHiddenReason} />}
+      {contentIsVisible && <Card.Separator className="my-9" />}
+      {contentIsVisible && (
         <p className="text-gray-600 dark:text-gray-200">
           {intl.formatMessage(
             {

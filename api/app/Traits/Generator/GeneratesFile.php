@@ -2,22 +2,12 @@
 
 namespace App\Traits\Generator;
 
-use App\Traits\HasLocalization;
+use App\Utilities\LanguageHelpers;
 use Illuminate\Support\Facades\Lang;
 
 trait GeneratesFile
 {
     protected ?string $lang;
-
-    /**
-     * Convert enum to a more human readable format
-     *
-     * @param  string  $enum  The value of the enum
-     */
-    protected function sanitizeEnum(?string $enum): string
-    {
-        return ucwords(strtolower(str_replace('_', ' ', $enum)));
-    }
 
     /**
      *  Localize an enum value
@@ -30,24 +20,7 @@ trait GeneratesFile
      */
     protected function localizeEnum(?string $value, string $enum, ?string $subKey = null, mixed $default = ''): string
     {
-        // if null return default
-        if ($value === null) {
-            return $default;
-        }
-
-        // if enum class does not exist return default
-        if (! class_exists($enum)) {
-            return $default;
-        }
-
-        // check if value exists in enum cases, if it does not, just return the upper case value directly
-        $enumCases = array_column($enum::cases(), 'name');
-        $valueInCases = in_array(strtoupper($value), $enumCases);
-
-        /** @use HasLocalization<UnitEnum> $enum */
-        return $valueInCases ?
-        $enum::localizedString($value, $subKey)[$this->lang] ?? $default
-        : strtoupper($value);
+        return LanguageHelpers::localizeEnum($value, $enum, $this->lang, $subKey, $default);
     }
 
     /**

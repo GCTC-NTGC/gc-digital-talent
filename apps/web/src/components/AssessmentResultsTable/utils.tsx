@@ -7,10 +7,7 @@ import type { IntlShape } from "react-intl";
 import { tv } from "tailwind-variants";
 import type { ReactNode } from "react";
 
-import type {
-  AssessmentResultStatus,
-  AssessmentStep,
-} from "@gc-digital-talent/graphql";
+import type { OverallAssessmentStatus } from "@gc-digital-talent/graphql";
 import {
   AssessmentDecision,
   AssessmentStepType,
@@ -92,9 +89,19 @@ export const columnHeader = (
   );
 };
 
+interface AssessmentStepDecision {
+  step?: string | null;
+  decision?: AssessmentDecision | null;
+}
+
+interface AssessmentStatus {
+  overallAssessmentStatus?: OverallAssessmentStatus | null;
+  assessmentStepStatuses?: (AssessmentStepDecision | null)[] | null;
+}
+
 export const columnStatus = (
-  assessmentStep: Pick<AssessmentStep, "id">,
-  assessmentStatus?: AssessmentResultStatus | null,
+  assessmentStep: { id: string },
+  assessmentStatus?: AssessmentStatus | null,
 ): ColumnStatus => {
   const assessmentDecisionResult =
     assessmentStatus?.assessmentStepStatuses?.find(

@@ -1,7 +1,6 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import type { Pool } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import PoolCard, { PoolCard_Fragment } from "./PoolCard";
@@ -9,12 +8,12 @@ import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
-const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
-  __typename: "Pool",
+const nullPool = {
+  __typename: "Pool" as const,
   id: "uuid",
 };
 
-const poolWithoutWhoCanApply: Pool = {
+const poolWithoutWhoCanApply = {
   ...fakedPool,
   areaOfSelection: null,
   selectionLimitations: [],

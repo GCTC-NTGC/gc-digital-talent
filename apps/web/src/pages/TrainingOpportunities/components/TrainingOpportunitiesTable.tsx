@@ -10,14 +10,15 @@ import { useIntl } from "react-intl";
 import { useLocation } from "react-router";
 
 import type {
+  CourseLanguage,
   DeadlineStatus,
+  LocalizedString,
   OrderByClause,
   TrainingOpportunitiesFilterInput,
-  TrainingOpportunity,
 } from "@gc-digital-talent/graphql";
 import { graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
-import type { Locales } from "@gc-digital-talent/i18n";
+import type { GenericLocalizedEnum, Locales } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocale,
@@ -36,7 +37,18 @@ import accessors from "~/components/Table/accessors";
 
 import formLabels from "../formLabels";
 
-const columnHelper = createColumnHelper<TrainingOpportunity>();
+interface TrainingOpportunityRow {
+  id: string;
+  title?: LocalizedString | null;
+  courseLanguage?: GenericLocalizedEnum<CourseLanguage> | null;
+  registrationDeadline?: string | null;
+  registrationDeadlineStatus?: GenericLocalizedEnum<DeadlineStatus> | null;
+  trainingStart?: string | null;
+  trainingEnd?: string | null;
+  pinned?: boolean | null;
+}
+
+const columnHelper = createColumnHelper<TrainingOpportunityRow>();
 
 const INITIAL_STATE: InitialState = {
   hiddenColumnIds: [],
@@ -257,7 +269,7 @@ const TrainingOpportunitiesTable = ({
           intl.formatMessage(adminMessages.noneProvided),
       },
     ),
-  ] as ColumnDef<TrainingOpportunity>[];
+  ] as ColumnDef<TrainingOpportunityRow>[];
 
   const [{ data, fetching }] = useQuery({
     query: TrainingOpportunitiesPaginated_Query,
@@ -270,13 +282,13 @@ const TrainingOpportunitiesTable = ({
     },
   });
 
-  const filteredData: TrainingOpportunity[] = useMemo(() => {
+  const filteredData: TrainingOpportunityRow[] = useMemo(() => {
     const opportunities = data?.trainingOpportunitiesPaginated?.data ?? [];
     return opportunities.filter(notEmpty);
   }, [data?.trainingOpportunitiesPaginated?.data]);
 
   return (
-    <Table<TrainingOpportunity, TrainingOpportunitiesFilterInput>
+    <Table<TrainingOpportunityRow, TrainingOpportunitiesFilterInput>
       data={filteredData}
       caption={title}
       columns={columns}

@@ -64,7 +64,7 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
             ]);
 
         $this->talentNominationGroup = TalentNominationGroup::sole();
-        $this->assertNull($this->talentNominationGroup->classification_at_time_of_advancement_approval_id);
+        $this->assertNull($this->talentNominationGroup->classification_at_time_of_last_approval_id);
     }
 
     public function testClassificationIsRecordedWhenAdvancementIsApproved()
@@ -75,24 +75,20 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
 
         $this->assertEquals(
             $this->nomineeClassification->id,
-            $this->talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id
+            $this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id
         );
     }
 
-    public function testClassificationIsClearedWhenAdvancementIsRejected()
+    public function testRejectingLateralMovementOnlyUpdatesClassification()
     {
-        // first approve so a classification is recorded
         $this->talentNominationGroup->update([
-            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
-        ]);
-        $this->assertNotNull($this->talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id);
-
-        // then reject and confirm the classification is cleared
-        $this->talentNominationGroup->update([
-            'advancement_decision' => TalentNominationGroupDecision::REJECTED->name,
+            'lateral_movement_decision' => TalentNominationGroupDecision::REJECTED->name,
         ]);
 
-        $this->assertNull($this->talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id);
+        $this->assertEquals(
+            $this->nomineeClassification->id,
+            $this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id
+        );
     }
 
     public function testApprovingAdvancementWithNoNomineeClassificationLeavesFieldNull()
@@ -130,20 +126,46 @@ class TalentNominationGroupClassificationAtApprovalTest extends TestCase
             'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
 
-        $this->assertNull($talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id);
+        $this->assertNull($talentNominationGroup->fresh()->classification_at_time_of_last_approval_id);
     }
 
-    public function testUnrelatedDecisionChangesDoNotAffectClassification()
+    public function testUpdatingCommentsWithoutDecisionsDoesNotAffectClassification()
     {
+        // first approve so a classification is recorded
         $this->talentNominationGroup->update([
-            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $this->assertNull($this->talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id);
+        $this->assertEquals(
+            $this->nomineeClassification->id,
+            $this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id
+        );
 
+        // comments is not mass-assignable, so set and save the attribute directly
+        $this->talentNominationGroup->comments = 'A comment with no decision change';
+        $this->talentNominationGroup->save();
+
+        $this->assertEquals(
+            $this->nomineeClassification->id,
+            $this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id
+        );
+    }
+
+    public function testDecisionClearsClassificationWhenNomineeHasNoCurrentClassification()
+    {
+        // first approve so a classification is recorded
+        $this->talentNominationGroup->update([
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $this->assertNotNull($this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id);
+
+        // the nominee's classification is later removed
+        $this->talentNominationGroup->nominee->update(['computed_classification' => null]);
+
+        // any subsequent decision re-records the (now null) current classification
         $this->talentNominationGroup->update([
             'lateral_movement_decision' => TalentNominationGroupDecision::REJECTED->name,
-            'development_programs_decision' => TalentNominationGroupDecision::APPROVED->name,
         ]);
-        $this->assertNull($this->talentNominationGroup->fresh()->classification_at_time_of_advancement_approval_id);
+
+        $this->assertNull($this->talentNominationGroup->fresh()->classification_at_time_of_last_approval_id);
     }
 }

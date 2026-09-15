@@ -14,9 +14,9 @@ import pageTitles from "~/messages/pageTitles";
 import type { WorkFormValues } from "~/types/experience";
 
 import type {
-  CommunityWithoutKey,
+  CommunityOption,
+  WorkStreamOption,
   WorkStreamsWithCommunity,
-  WorkStreamWithoutKey,
 } from "./types";
 
 interface FormValues {
@@ -24,9 +24,9 @@ interface FormValues {
   workStreams: string[];
 }
 interface ExperienceWorkStreamsEditDialogProps {
-  communities: CommunityWithoutKey[];
-  community?: CommunityWithoutKey | null;
-  workStreams?: WorkStreamWithoutKey[];
+  communities: CommunityOption[];
+  community?: CommunityOption | null;
+  workStreams?: WorkStreamOption[];
   selectedCommunities?: Map<string, WorkStreamsWithCommunity>;
   trigger: ReactNode;
   defaultOpen?: boolean;

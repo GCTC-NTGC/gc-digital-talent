@@ -31,9 +31,9 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
         return $this
             ->whereRaw('talent_nomination_groups.nominee_id = any(?::uuid[])', [$nomineeIdArray])
             ->where('advancement_decision', TalentNominationGroupDecision::APPROVED->name)
-            // A past referral_expiry_date excludes the match ("current or past" in the source
+            // A past advancement_referral_expiry_date excludes the match ("current or past" in the source
             // ticket actually means "not yet expired" - confirmed with product).
-            ->whereDate('referral_expiry_date', '>=', now())
+            ->whereDate('advancement_referral_expiry_date', '>=', now())
             ->whereExists(function (QueryBuilder $query) {
                 $query->select('community_interests.id')
                     ->from('community_interests')

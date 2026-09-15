@@ -98,6 +98,30 @@ const Template: StoryFn<typeof Ul> = () => (
         </div>
       </div>
     </div>
+    <div>
+      <p className="mb-3 font-bold">Nested (mismatched space)</p>
+      <div className="grid gap-6 sm:grid-cols-3">
+        <div>
+          <Ul space="lg">
+            <li>
+              Parent one
+              <Ul space="sm">
+                <li>Child one</li>
+                <li>Child two</li>
+              </Ul>
+            </li>
+            <li>
+              Parent two
+              <Ul space="sm">
+                <li>Child one</li>
+                <li>Child two</li>
+              </Ul>
+            </li>
+          </Ul>
+          <Boundary />
+        </div>
+      </div>
+    </div>
   </div>
 );
 

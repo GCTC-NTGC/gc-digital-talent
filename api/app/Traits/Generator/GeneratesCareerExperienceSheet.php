@@ -7,6 +7,7 @@ use App\Enums\AwardedTo;
 use App\Enums\CafEmploymentType;
 use App\Enums\CafRank;
 use App\Enums\CSuiteRoleTitle;
+use App\Enums\DegreeType;
 use App\Enums\DepartmentSize;
 use App\Enums\EducationStatus;
 use App\Enums\EducationType;
@@ -14,6 +15,7 @@ use App\Enums\EmploymentCategory;
 use App\Enums\ExperienceType;
 use App\Enums\ExternalRoleSeniority;
 use App\Enums\ExternalSizeOfOrganization;
+use App\Enums\FellowshipType;
 use App\Enums\GovEmployeeType;
 use App\Enums\GovPositionType;
 use App\Models\AwardExperience;
@@ -47,9 +49,9 @@ trait GeneratesCareerExperienceSheet
         'gc_employment_type',
         'gov_position_type',
         'classification',
-        'gc_management_or_supervisory_status',
-        'gc_number_of_supervised_employees',
-        'gc_annual_budget_allocation',
+        'management_or_supervisory_status',
+        'number_of_supervised_employees',
+        'annual_budget_allocation',
         'c_suite_title',
         'other_c_suite_title',
         'caf_employment_type',
@@ -59,11 +61,17 @@ trait GeneratesCareerExperienceSheet
         'area_of_study',
         'education_status',
         'thesis_title',
+        'license_accreditation',
+        'certification',
+        'course_name',
         'community_project_or_product',
         'personal_learning_experience_description',
+        'personal_learning_organization_platform',
         'award_recipient',
         'issuing_org',
         'awarded_scope',
+        'project_name',
+        'related_experience',
         'date_awarded',
         'details_or_key_tasks',
         'featured_skills',
@@ -168,11 +176,11 @@ trait GeneratesCareerExperienceSheet
             $this->localizeEnum($exp->gov_employment_type, GovEmployeeType::class), // gc employment type
             $this->localizeEnum($exp->gov_position_type, GovPositionType::class), // gc position type
             $exp->classification?->group.($exp->classification?->level ? '-'.$exp->classification->level : ''), // Classification: group-level
-            $this->yesOrNo($exp->supervisory_position), // gc management or supervisory status: Yes, No, empty
-            $exp->supervised_employees_number ?? '', // GC number of supervised employees
-            $exp->annual_budget_allocation ?? '', // GC annual budget allocation
-            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // GC C-suite role
-            $exp->other_c_suite_title ?? '', // Other C-suite role title
+            $this->yesOrNo($exp->supervisory_position), // management or supervisory status: Yes, No, empty
+            $exp->supervised_employees_number ?? '', // number of supervised employees
+            $exp->annual_budget_allocation ?? '', // annual budget allocation
+            $this->localizeEnum($exp->c_suite_role_title, CSuiteRoleTitle::class), // C-suite role
+            $exp->other_c_suite_role_title ?? '', // Other C-suite role title
             $this->localizeEnum($exp->caf_employment_type, CafEmploymentType::class), // CAF employment type
             $this->localizeEnum($exp->caf_rank, CafRank::class), // CAF rank category
             $workStreams, // Work streams: work streams linked to the experience separated by commas
@@ -181,16 +189,22 @@ trait GeneratesCareerExperienceSheet
             '', // 26: area_study
             '', // 27: education_status
             '', // 28: thesis_title
+            '', // 29: license_accreditation,
+            '', // 30: certification,
+            '', // 31: course_name,
 
             // Community/Personal fields - empty for work
-            '', // 29: community_project_or_product
-            '', // 30: personal_learning_experience_description
+            '', // 32: community_project_or_product
+            '', // 33: personal learning experience description
+            '', // 34: personal learning organization, platform, or theme
 
             // Award fields - empty for work
-            '', // 31: award_recipient
-            '', // 32: issuing_org
-            '', // 33: awarded_scope
-            '', // 34: date_awarded
+            '', // 35: award_recipient
+            '', // 36: issuing_org
+            '', // 37: awarded_scope
+            '', // 38: project_name
+            '', // 39: related_experience
+            '', // 40: date_awarded
             $exp->details ?? '',
             $this->getFeaturedSkills($exp),
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -225,8 +239,36 @@ trait GeneratesCareerExperienceSheet
      */
     private function buildEducationExperienceRow(EducationExperience $exp): array
     {
-        $isCurrent = $this->yesOrNo(empty($exp->end_date));
-        $numberOfMonths = $exp->number_of_months ?? $this->calculateMonths($exp->start_date, $exp->end_date);
+        $isCurrent = $exp->status === EducationStatus::IN_PROGRESS->name;
+        $endDate = $isCurrent ?
+            $exp->prospective_end_date?->format('Y-m').' '.$this->localize('common.expected_end_date') :
+            $exp->end_date?->format('Y-m');
+
+        $numberOfMonths = '';
+        if ((bool) $exp->start_date) {
+            if ($isCurrent && (bool) $exp->prospective_end_date) {
+                $numberOfMonths = $this->calculateMonths($exp->start_date, $exp->prospective_end_date);
+            } elseif (! $isCurrent && (bool) $exp->end_date) {
+                $numberOfMonths = $this->calculateMonths($exp->start_date, $exp->end_date);
+            }
+        }
+
+        $educationType = '';
+        switch ($exp->education_type) {
+            case EducationType::DEGREE_DIPLOMA_CERTIFICATE->name:
+                $educationType = $this->localizeEnum($exp->degree_type, DegreeType::class);
+                break;
+            case EducationType::FELLOWSHIP->name:
+                $educationType = $exp->fellowship_type === FellowshipType::OTHER->name
+                    ? $exp->other_fellowship_type
+                    : $this->localizeEnum($exp->fellowship_type, FellowshipType::class);
+                break;
+            case EducationType::OTHER->name:
+                $educationType = $exp->other_education_type ?? $this->localize('headings.other_type_of_education');
+                break;
+            default:
+                $educationType = $this->localizeEnum($exp->education_type, EducationType::class);
+        }
 
         return [
             $exp->user->id,
@@ -234,8 +276,8 @@ trait GeneratesCareerExperienceSheet
             $exp->user->last_name,
             $this->getExperienceType($exp),  // experience type
             $exp->start_date?->format('Y-m') ?? '', // start date
-            $exp->end_date?->format('Y-m') ?? '', // end date
-            $isCurrent, // currently active
+            $endDate, // end date
+            $this->yesOrNo($isCurrent), // currently active
             $numberOfMonths, // number of months
             // Work-specific fields (8-24) - mostly empty for education
             '', // role_or_title
@@ -247,27 +289,34 @@ trait GeneratesCareerExperienceSheet
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
             '', // rank_category
             '', // work_streams
-            $this->localizeEnum($exp->type, EducationType::class),  // education type
+            $educationType,  // education type
             $exp->area_of_study ?? '', // area of study
             $this->localizeEnum($exp->status, EducationStatus::class), // education status
             $exp->thesis_title ?? '', // thesis title
+            $exp->license_or_accreditation ?? '', // license_accreditation,
+            $exp->certification ?? '', // certification
+            $exp->course_name ?? '', // course_name
+
             // Community/Personal fields - empty for education
             '', // community_project_or_product
-            '', // personal_learning_experience_description
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
 
             // Award fields - empty for education
-            '', // award_recipient
-            '', // issuing_org
-            '', // awarded_scope
-            '', // date_awarded
+            '', // 32: award_recipient
+            '', // 33: issuing_org
+            '', // 34: awarded_scope
+            '', // 35: project_name
+            '', // 36: related_experience
+            '', // 37: date_awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp), // featured skills
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -290,7 +339,7 @@ trait GeneratesCareerExperienceSheet
     private function addAwardExperiences(array $userIds): void
     {
         AwardExperience::whereIn('user_id', $userIds)
-            ->with(['user', 'userSkills.skill'])
+            ->with(['user', 'userSkills.skill', 'relatedExperience'])
             ->chunk(200, function ($experiences) {
                 foreach ($experiences as $exp) {
                     $this->writer->addRow($this->row($this->applyConsentToRow($this->buildAwardExperienceRow($exp), $exp->user->id)));
@@ -303,8 +352,7 @@ trait GeneratesCareerExperienceSheet
      */
     private function buildAwardExperienceRow(AwardExperience $exp): array
     {
-        // awarded_date show how many months ago the award was received, if awarded_date is null, show empty string
-        $numberOfMonths = $exp->awarded_date ? $this->calculateMonths($exp->awarded_date, now()) : '';
+        $numberOfMonths = 0;
 
         return [
             $exp->user->id,
@@ -316,7 +364,7 @@ trait GeneratesCareerExperienceSheet
             $this->yesOrNo(false),  // is current
             $numberOfMonths, // number of months
             $exp->title ?? '', // role or title
-            $exp->issued_by ?? '', // organization_department
+            '', // organization_department
             '', // employment_category
             '', // team_group
             '', // size_external_organization
@@ -324,9 +372,9 @@ trait GeneratesCareerExperienceSheet
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -338,15 +386,23 @@ trait GeneratesCareerExperienceSheet
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
 
             // Community/Personal fields - empty for awards
             '', // community_project_or_product
-            '', // personal_learning_experience_description
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
+
             $this->localizeEnum($exp->awarded_to, AwardedTo::class), // award_recipient
-            '', // issued by
-            $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award
-            $exp->awarded_date?->format('Y-m-d') ?? '', // date awarded
+            $exp->issued_by ?? '', // issued_by
+            $this->localizeEnum($exp->awarded_scope, AwardedScope::class), // award_scope
+            $exp->project_name ?? '', // project_name
+            $exp->relatedExperience?->getTitle($this->lang), // related_experience
+            $exp->awarded_date?->format('Y-m-d') ?? '', // awarded_date
             $exp->details ?? '', // additional details
+
             $this->getFeaturedSkills($exp), // featured skills
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
             $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership
@@ -402,9 +458,9 @@ trait GeneratesCareerExperienceSheet
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -415,13 +471,21 @@ trait GeneratesCareerExperienceSheet
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
+
             $exp->project ?? '', // community_project_or_product
-            '', // personal learning description
+            // Personal
+            '', // personal learning experience description
+            '', // personal learning organization, platform, or theme
             // Award fields - empty for community
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
+            '', // 32: award_recipient
+            '', // 33: issuing_org
+            '', // 34: awarded_scope
+            '', // 35: project_name
+            '', // 36: related_experience
+            '', // 37: date_awarded
             $exp->details ?? '', // additional details
             $this->getFeaturedSkills($exp),
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
@@ -478,9 +542,9 @@ trait GeneratesCareerExperienceSheet
             '', // gc_employment_type
             '', // gc_position_type
             '', // classification
-            '', // gc_management_or_supervisory_status
-            '', // gc_number_of_supervised_employees
-            '', // gc_annual_budget_allocation
+            '', // management_or_supervisory_status
+            '', // number_of_supervised_employees
+            '', // annual_budget_allocation
             '', // c_suite_title
             '', // other_c_suite_title
             '', // caf_employment_type
@@ -492,14 +556,20 @@ trait GeneratesCareerExperienceSheet
             '', // area_study
             '', // education_status
             '', // thesis_title
+            '', // license_accreditation
+            '', // certification
+            '', // course_name
             '', // Community project or product
-            $exp->description ?? '', // personal learning experience description
+            $exp->learning_description ?? '', // personal learning experience description
+            $exp->organization, // personal learning organization, platform, or theme
             // Award fields - empty for education
-            '', // award recipient
-            '', // issuing organization
-            '', // awarded_scope
-            '', // date awarded
-            $exp->details ?? '', // additional details
+            '', // 32: award_recipient
+            '', // 33: issuing_org
+            '', // 34: awarded_scope
+            '', // 35: project_name
+            '', // 36: related_experience
+            '', // 37: date_awarded
+            '', // details_or_key_tasks
             $this->getFeaturedSkills($exp), // featured skills
             $this->getFeaturedSkillJustification($exp, 'achieve_results'), // achieve_results
             $this->getFeaturedSkillJustification($exp, 'character_leadership'), // character_leadership

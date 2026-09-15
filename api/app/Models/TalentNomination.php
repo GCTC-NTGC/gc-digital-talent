@@ -259,4 +259,12 @@ class TalentNomination extends Model
     {
         return $query->with(['talentNominationEvent']);
     }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function advancementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_advancement')
+            ->withTimestamps();
+    }
 }

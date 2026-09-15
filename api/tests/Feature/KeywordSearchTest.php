@@ -46,6 +46,7 @@ class KeywordSearchTest extends TestCase
                 'telephone' => null,
                 'first_name' => null,
                 'last_name' => null,
+                'current_city' => 'zzcity',
             ]);
     }
 

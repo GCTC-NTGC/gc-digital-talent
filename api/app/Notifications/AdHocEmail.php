@@ -2,13 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Contracts\LowPriorityJob;
 use App\Enums\Language;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class AdHocEmail extends Notification implements CanBeSentViaGcNotifyEmail
+class AdHocEmail extends Notification implements CanBeSentViaGcNotifyEmail, LowPriorityJob
 {
     use Queueable;
 

@@ -7,7 +7,6 @@ import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
-  ApplicationStatus,
   getFragment,
   graphql,
   type FragmentType,
@@ -26,11 +25,7 @@ const DeleteApplication_Mutation = graphql(/** GraphQL */ `
 const DeleteApplicationDialog_Fragment = graphql(/** GraphQL */ `
   fragment DeleteApplicationDialog on PoolCandidate {
     id
-    applicationStatusData {
-      status {
-        value
-      }
-    }
+    submittedAt
   }
 `);
 
@@ -52,11 +47,9 @@ const DeleteApplicationDialog = ({ query }: DeleteApplicationDialogProps) => {
   });
 
   const handleDelete = () => {
-    // NOTE: Only drafts can be deleted
-    if (
-      application.applicationStatusData?.status?.value !==
-      ApplicationStatus.Draft
-    ) {
+    // NOTE: Only drafts can be deleted. An application is a draft until it has
+    // been submitted, mirroring `PoolCandidate::isDraft()` on the API.
+    if (application.submittedAt) {
       toast.error(
         intl.formatMessage({
           defaultMessage:

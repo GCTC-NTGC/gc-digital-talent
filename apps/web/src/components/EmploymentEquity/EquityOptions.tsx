@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 
 import { toast } from "@gc-digital-talent/toast";
 import { Notice, Heading, Accordion, Loading } from "@gc-digital-talent/ui";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getEmploymentEquityGroup,
@@ -10,7 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type {
-  LocalizedIndigenousCommunity,
+  IndigenousCommunity,
   UpdateUserAsUserInput,
 } from "@gc-digital-talent/graphql";
 
@@ -23,7 +24,7 @@ import IndigenousEquityOption from "./IndigenousEquityOption";
 interface EquityOptionsProps {
   hasDisability?: boolean | null;
   indigenousCommunities?:
-    (LocalizedIndigenousCommunity | null | undefined)[] | null;
+    (GenericLocalizedEnum<IndigenousCommunity> | null | undefined)[] | null;
   indigenousDeclarationSignature?: string | null;
   isVisibleMinority?: boolean | null;
   isWoman?: boolean | null;

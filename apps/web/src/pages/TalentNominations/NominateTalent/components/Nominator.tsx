@@ -6,13 +6,13 @@ import { useCallback, useEffect } from "react";
 import type {
   FragmentType,
   UpdateTalentNominationInput,
+  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
   TalentNominationStep,
   TalentNominationSubmitterRelationshipToNominator,
-  TalentNominationUserReview,
 } from "@gc-digital-talent/graphql";
 import {
   HiddenInput,
@@ -38,6 +38,7 @@ import SubHeading from "./SubHeading";
 import messages from "../messages";
 import EmployeeSearchWell from "./EmployeeSearchWell";
 import labels from "../labels";
+import { sortOrder as userReviewOptionsSortOrder } from "../userReview";
 
 type SubmitterRole = "nominator" | "on-behalf";
 
@@ -256,11 +257,11 @@ const NominatorFields = ({
               description: "Label for review of nominee information",
             })}
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            items={localizedEnumToOptions(options?.nomineeReviewOptions, intl, [
-              TalentNominationUserReview.Correct,
-              TalentNominationUserReview.Incorrect,
-              TalentNominationUserReview.OutOfDate,
-            ])}
+            items={localizedEnumToOptions(
+              options?.nomineeReviewOptions,
+              intl,
+              userReviewOptionsSortOrder,
+            )}
           />
         </>
       )}

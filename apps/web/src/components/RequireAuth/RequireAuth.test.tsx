@@ -4,7 +4,6 @@ import type * as ReactRouter from "react-router";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
 import { UnauthorizedError } from "@gc-digital-talent/helpers";
-import { type RoleAssignment } from "@gc-digital-talent/graphql";
 // eslint-disable-next-line import/no-duplicates
 import type { RoleName, RoleRequirement } from "@gc-digital-talent/auth";
 // eslint-disable-next-line import/no-duplicates
@@ -15,7 +14,7 @@ import RequireAuth from "./RequireAuth";
 const mocks = vi.hoisted(() => ({
   loggedIn: true,
   isLoaded: true,
-  roleAssignments: [] as (RoleAssignment | null | undefined)[],
+  roleAssignments: [] as (GcdtAuth.AuthRoleAssignment | null | undefined)[],
   navigate: vi.fn(),
   locationPathname: "/",
   searchParams: "",

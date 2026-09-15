@@ -4,6 +4,7 @@ namespace App\Builders;
 
 use App\Contracts\TalentRequestMatchable;
 use App\Enums\ApplicationStatus;
+use App\Enums\AssessmentDecision;
 use App\Enums\CandidateExpiryFilter;
 use App\Enums\CandidateReferralFilter;
 use App\Enums\CandidateSuspendedFilter;
@@ -762,6 +763,35 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         ];
 
         return $this->orderByRaw('array_position(ARRAY[?, ?, ?, ?]::varchar[], screening_stage) '.$args->direction, $enumOrder);
+    }
+
+    public function orderByScreeningResult(AdvancedOrder $args): self
+    {
+        $decisionOrder = [
+            AssessmentDecision::HOLD->name,
+            AssessmentDecision::SUCCESSFUL->name,
+            AssessmentDecision::UNSUCCESSFUL->name,
+        ];
+
+        $screeningResult = <<<'SQL'
+        (
+            SELECT assessment_status->>'decision'
+            FROM jsonb_array_elements(pool_candidates.computed_assessment_status->'assessmentStepStatuses') assessment_status
+            WHERE assessment_status->>'step' = (
+                SELECT assessment_steps.id::text
+                FROM assessment_steps
+                WHERE assessment_steps.pool_id = pool_candidates.pool_id
+                AND assessment_steps.type = 'APPLICATION_SCREENING'
+            )
+        )
+        SQL;
+
+        $nulls = $args->direction === 'ASC' ? 'FIRST' : 'LAST';
+
+        return $this->orderByRaw(
+            sprintf('array_position(ARRAY[?, ?, ?]::varchar[], %s) %s NULLS %s', $screeningResult, $args->direction, $nulls),
+            $decisionOrder
+        );
     }
 
     public function orderBySkillCount(AdvancedOrder $args): self

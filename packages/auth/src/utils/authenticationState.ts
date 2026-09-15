@@ -52,9 +52,12 @@ function getAuthenticationState({
         return;
       }
       logger.notice("Attempting to refresh the auth token set");
-      const response = await fetch(
-        `${tokenRefreshPath}?refresh_token=${storedRefreshToken}`,
-      );
+      const response = await fetch(tokenRefreshPath, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        // eslint-disable-next-line camelcase
+        body: JSON.stringify({ refresh_token: storedRefreshToken }),
+      });
       if (response.ok) {
         const responseBody: TokenRefreshResponseBody =
           (await response.json()) as TokenRefreshResponseBody;
@@ -81,14 +84,6 @@ function getAuthenticationState({
           logoutUri,
           postLogoutRedirectUri,
           logoutReason: "session-expired",
-          /**
-           * Failure prevents redirect when possible or,
-           * returns user to the page they were on to continue.
-           *
-           * Allows router to handle errors and either load page
-           * or restart auth flow if necessary.
-           */
-          preventRedirect: true,
           from: window.location.href,
         });
       }

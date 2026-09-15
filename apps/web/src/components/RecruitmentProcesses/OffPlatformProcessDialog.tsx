@@ -14,10 +14,8 @@ import {
   formMessages,
 } from "@gc-digital-talent/i18n";
 import type {
-  Classification,
   CreateOffPlatformRecruitmentProcessInput,
   FragmentType,
-  OffPlatformRecruitmentProcess,
   UpdateOffPlatformRecruitmentProcessInput,
 } from "@gc-digital-talent/graphql";
 import {
@@ -65,6 +63,29 @@ export const OffPlatformProcessDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+export const OffPlatformProcessDialogProcess_Fragment = graphql(/* GraphQL */ `
+  fragment OffPlatformProcessDialogProcess on OffPlatformRecruitmentProcess {
+    id
+    processNumber
+    department {
+      id
+      name {
+        localized
+      }
+    }
+    classification {
+      id
+      group
+      level
+      groupAndLevel
+    }
+    platform {
+      value
+    }
+    platformOther
+  }
+`);
+
 const CreateOffPlatformProcess_Mutation = graphql(/* GraphQL */ `
   mutation createOffPlatformRecruitmentProcess(
     $process: CreateOffPlatformRecruitmentProcessInput!
@@ -97,23 +118,27 @@ interface FormValues {
   processNumber: string;
   department: string;
   classification: string | null;
-  classificationGroup: Classification["group"] | null;
-  classificationLevel: Classification["level"] | null;
+  classificationGroup: string | null;
+  classificationLevel: number | null;
   platform: HiringPlatform;
   platformOther: string | null | undefined;
 }
 
 interface OffPlatformProcessDialogProps {
   query?: FragmentType<typeof OffPlatformProcessDialog_Fragment>;
-  process?: Omit<OffPlatformRecruitmentProcess, "user">;
+  processQuery?: FragmentType<typeof OffPlatformProcessDialogProcess_Fragment>;
 }
 
 const OffPlatformProcessDialog = ({
   query,
-  process,
+  processQuery,
 }: OffPlatformProcessDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState(false);
+  const process = getFragment(
+    OffPlatformProcessDialogProcess_Fragment,
+    processQuery,
+  );
   const methods = useForm<FormValues>({
     defaultValues: {
       processNumber: process?.processNumber,

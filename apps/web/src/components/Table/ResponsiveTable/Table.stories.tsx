@@ -11,7 +11,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 
 import { matchStringCaseDiacriticInsensitive as match } from "@gc-digital-talent/forms";
 import { fakeUsers } from "@gc-digital-talent/fake-data";
-import type { User } from "@gc-digital-talent/graphql";
 import { Language } from "@gc-digital-talent/graphql";
 import { allModes } from "@gc-digital-talent/storybook-helpers";
 import { Button, Dialog } from "@gc-digital-talent/ui";
@@ -22,8 +21,16 @@ import Table from "./ResponsiveTable";
 import Selection from "./RowSelection";
 import type { SearchState } from "./types";
 
+interface TableStoryUser {
+  id: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  preferredLang?: { value?: Language | null } | null;
+}
+
 const mockUsers = fakeUsers(100);
-const columnHelper = createColumnHelper<User>();
+const columnHelper = createColumnHelper<TableStoryUser>();
 const defaultSearchProps = {
   id: "search",
   label: "Search",
@@ -47,7 +54,7 @@ const defaultPaginationProps = {
   },
 };
 
-const rowSelectCell = ({ row }: CellContext<User, unknown>) => (
+const rowSelectCell = ({ row }: CellContext<TableStoryUser, unknown>) => (
   <Selection.Cell
     row={row}
     label={`Select ${row.original.firstName} ${row.original.lastName}`}
@@ -84,7 +91,7 @@ const columns = [
   columnHelper.accessor("email", {
     header: "Email",
   }),
-] as ColumnDef<User>[];
+] as ColumnDef<TableStoryUser>[];
 
 export default {
   component: Table,
@@ -96,9 +103,11 @@ export default {
     sort: defaultSortProps,
     pagination: defaultPaginationProps,
   },
-} as Meta<typeof Table<User>>;
+} as Meta<typeof Table<TableStoryUser>>;
 
-const Template: StoryFn<typeof Table<User>> = (args) => <Table {...args} />;
+const Template: StoryFn<typeof Table<TableStoryUser>> = (args) => (
+  <Table {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
@@ -145,7 +154,7 @@ RowSelection.args = {
  * caller tracks selection with `useSelectedRows` and renders a controlled
  * dialog *outside* the table — so it isn't unmounted when the menu closes.
  */
-const ActionsTemplate: StoryFn<typeof Table<User>> = (args) => {
+const ActionsTemplate: StoryFn<typeof Table<TableStoryUser>> = (args) => {
   const { selectedRows, setSelectedRows } = useSelectedRows<string>([]);
   const [isAssignOpen, setAssignOpen] = useState(false);
   const [poolId, setPoolId] = useState("");
@@ -258,13 +267,13 @@ InitialState.args = {
   },
 };
 
-const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
+const ServerSideTemplate: StoryFn<typeof Table<TableStoryUser>> = (args) => {
   const [isLoading, setLoading] = useState<boolean>(false);
   const [searchState, setSearchState] = useState<SearchState>({
     term: "",
     type: "",
   });
-  const [, setRowSelection] = useState<User[]>([]);
+  const [, setRowSelection] = useState<TableStoryUser[]>([]);
 
   const handleSearchChange = (newSearchState: SearchState) => {
     setLoading(true);
@@ -297,7 +306,7 @@ const ServerSideTemplate: StoryFn<typeof Table<User>> = (args) => {
       return mockUsers;
     }
 
-    const key = searchState.type as keyof User;
+    const key = searchState.type as keyof TableStoryUser;
     const { firstName, lastName, email } = user;
 
     if (searchState.type && user[key]) {

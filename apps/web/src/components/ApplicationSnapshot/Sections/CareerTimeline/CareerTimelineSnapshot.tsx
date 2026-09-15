@@ -7,6 +7,7 @@ import { Button, Heading, Notice } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
+import ExperienceCardV1 from "~/components/ExperienceCard/SnapshotV1/ExperienceCardV1";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
@@ -19,10 +20,12 @@ import type { SnapshotExperience } from "~/utils/experienceUtils";
 
 interface CareerTimelineSnapshotProps {
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
 }
 
 const CareerTimelineSnapshot = ({
   experiences,
+  snapshotVersion,
 }: CareerTimelineSnapshotProps) => {
   const intl = useIntl();
   const [sortAndFilterValues, setSortAndFilterValues] =
@@ -67,26 +70,37 @@ const CareerTimelineSnapshot = ({
       {hasExperiences ? (
         <div className="flex flex-col gap-y-3">
           {hasExperiencesByType ? (
-            experienceList.map((experience) => (
-              <ExperienceCard
-                key={experience.id}
-                /**
+            experienceList.map((experience) =>
+              !snapshotVersion || snapshotVersion === 1 ? (
+                <ExperienceCardV1
+                  key={experience.id}
+                  experience={experience}
+                  headingLevel="h3"
+                  showSkills={false}
+                  isOpen={isExpanded(experience.id)}
+                  onOpenChange={() => toggleExpandedItem(experience.id)}
+                />
+              ) : (
+                <ExperienceCard
+                  key={experience.id}
+                  /**
                     This comes from the snapshot so we cant fragmentize it so we are tricking typescript :(
                 */
-                experienceQuery={makeFragmentData(
-                  {
-                    ...experience,
-                    __typename: experience.__typename ?? "AwardExperience",
-                  },
-                  ExperienceCard_Fragment,
-                )}
-                headingLevel="h3"
-                showSkills={false}
-                showEdit={false}
-                isOpen={isExpanded(experience.id)}
-                onOpenChange={() => toggleExpandedItem(experience.id)}
-              />
-            ))
+                  experienceQuery={makeFragmentData(
+                    {
+                      ...experience,
+                      __typename: experience.__typename ?? "AwardExperience",
+                    },
+                    ExperienceCard_Fragment,
+                  )}
+                  headingLevel="h3"
+                  showSkills={false}
+                  showEdit={false}
+                  isOpen={isExpanded(experience.id)}
+                  onOpenChange={() => toggleExpandedItem(experience.id)}
+                />
+              ),
+            )
           ) : (
             <Notice.Root className="text-center">
               <Notice.Content>

@@ -3,16 +3,20 @@
 namespace App\Providers;
 
 use App\Events\AssessmentResultSaved;
+use App\Events\CommandProducedResults;
 use App\Events\TalentNominationSubmitted;
 use App\Events\UserFileGenerated;
 use App\Events\WorkExperienceSaved;
 use App\Listeners\BroadcastNotificationReceived;
 use App\Listeners\ComputeCandidateAssessmentStatus;
 use App\Listeners\ComputeGovEmployeeProfileData;
+use App\Listeners\LogArtisanCommand;
 use App\Listeners\LogTimedOutJob;
 use App\Listeners\SendFileGeneratedNotification;
 use App\Listeners\SendTalentNominationSubmittedNotifications;
 use BeyondCode\ServerTiming\Facades\ServerTiming;
+use Illuminate\Console\Events\CommandFinished;
+use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Notifications\Events\NotificationSent;
 use Illuminate\Queue\Events\JobTimedOut;
@@ -30,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * The event listener mappings for the application.
      *
-     * @var array<class-string, array<int, class-string>>
+     * @var array<class-string, array<int, string>>
      */
     protected $listen = [
         AssessmentResultSaved::class => [
@@ -50,6 +54,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         JobTimedOut::class => [
             LogTimedOutJob::class,
+        ],
+        CommandStarting::class => [
+            LogArtisanCommand::class.'@starting',
+        ],
+        CommandFinished::class => [
+            LogArtisanCommand::class.'@finished',
+        ],
+        CommandProducedResults::class => [
+            LogArtisanCommand::class.'@produced',
         ],
     ];
 

@@ -5,7 +5,8 @@ import { tv } from "tailwind-variants";
 
 import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
 import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
-import type { Pool } from "@gc-digital-talent/graphql";
+import type { PoolLanguage } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 import type { PartialUser } from "~/utils/languageUtils";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
@@ -61,9 +62,13 @@ const MissingLanguageRequirementsBlock = ({
   );
 };
 
+interface MissingLanguageRequirementsPool {
+  language?: LocalizedEnumValue<PoolLanguage> | null;
+}
+
 export interface MissingLanguageRequirementsProps {
   user?: PartialUser;
-  pool?: Pick<Pool, "language"> | null;
+  pool?: MissingLanguageRequirementsPool | null;
   headingLevel?: HeadingRank;
 }
 

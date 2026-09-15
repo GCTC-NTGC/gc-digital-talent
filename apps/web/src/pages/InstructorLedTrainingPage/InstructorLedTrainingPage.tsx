@@ -22,8 +22,13 @@ import {
   Notice,
   Ul,
 } from "@gc-digital-talent/ui";
-import type { TrainingOpportunity } from "@gc-digital-talent/graphql";
-import { CourseLanguage, graphql, SortOrder } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  CourseLanguage,
+  getFragment,
+  graphql,
+  SortOrder,
+} from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   DATE_FORMAT_LOCALIZED,
@@ -40,6 +45,21 @@ import PinnedIcon from "~/components/Svg/PinnedIcon";
 
 import CourseLanguageChip from "./CourseLanguageChip";
 
+const InstructorLedTrainingCard_Fragment = graphql(/* GraphQL */ `
+  fragment InstructorLedTrainingCard on TrainingOpportunity {
+    id
+    registrationDeadline
+    trainingStart
+    trainingEnd
+    courseFormat {
+      value
+      label {
+        localized
+      }
+    }
+  }
+`);
+
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunities(
     $first: Int
@@ -52,6 +72,8 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
       orderBy: $orderBy
     ) {
       data {
+        ...InstructorLedTrainingCard
+
         id
         title {
           en
@@ -68,16 +90,6 @@ const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
             fr
           }
         }
-        courseFormat {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        registrationDeadline
-        trainingStart
-        trainingEnd
         applicationUrl {
           en
           fr
@@ -107,8 +119,12 @@ const pageSubtitle = defineMessage({
 
 function getMetadata(
   intl: IntlShape,
-  trainingOpportunity: TrainingOpportunity,
+  query: FragmentType<typeof InstructorLedTrainingCard_Fragment>,
 ): MetadataItemProps[] {
+  const trainingOpportunity = getFragment(
+    InstructorLedTrainingCard_Fragment,
+    query,
+  );
   const metadata = [];
   if (trainingOpportunity.registrationDeadline) {
     metadata.push({
@@ -193,7 +209,10 @@ function getMetadata(
       key: `course-format-${trainingOpportunity.id}`,
       type: "text",
       children: (
-        <>{getLocalizedName(trainingOpportunity.courseFormat?.label, intl)}</>
+        <>
+          {trainingOpportunity.courseFormat?.label.localized ??
+            intl.formatMessage(commonMessages.notAvailable)}
+        </>
       ),
     } satisfies MetadataItemProps);
   }

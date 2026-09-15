@@ -20,7 +20,7 @@ php artisan lighthouse:print-schema --write
 
 # Start background workers
 echo "Starting background jobs..."
-php artisan queue:work &
+php artisan queue:work --queue=default,default-low &
 php artisan reverb:start &
 
 # Start the Laravel development server

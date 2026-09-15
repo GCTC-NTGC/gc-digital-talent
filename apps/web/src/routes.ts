@@ -216,6 +216,10 @@ export default [
                 "communities",
                 "./pages/EmployeeProfile/FunctionalCommunitiesPage.tsx",
               ),
+              route(
+                "nominations",
+                "./pages/EmployeeProfile/TalentNominationsPage.tsx",
+              ),
             ]),
           ]),
 

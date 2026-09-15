@@ -1,6 +1,6 @@
 import { randomBytes, randomInt } from "node:crypto";
 
-import { add, format } from "date-fns";
+import { format } from "date-fns";
 
 // Keep CodeQL happy and sanitize our env vars
 function sanitize(str: string) {
@@ -30,14 +30,30 @@ export function generateUniqueNumber() {
 }
 
 export function fetchIdentificationNumber(url: string, entity: string): string {
-  //  This function is primarily used to fetch the ID (UUID) from recently entity such as users, departments, etc.
+  // This function is primarily used to fetch the ID (UUID) from a recent entity, such as users, departments, etc.
   const currentURLParts = new URL(url).pathname.split("/");
-  const fetchID = currentURLParts[currentURLParts.indexOf(entity) + 1];
+  const entityIndex = currentURLParts.indexOf(entity);
+
+  if (entityIndex === -1) {
+    throw new Error(`Entity "${entity}" not found in URL path: ${url}`);
+  }
+
+  const idIndex = entityIndex + 1;
+  const fetchID = currentURLParts[idIndex];
+
+  if (!fetchID) {
+    throw new Error(
+      `Missing identification segment after entity "${entity}" in URL path: ${url}`,
+    );
+  }
+
   return fetchID;
 }
 
 export function getFutureDateByMonths(monthsToAdd: number): string {
-  return format(add(new Date(), { months: monthsToAdd }), "yyyy-MM-dd");
+  const futureDate = new Date();
+  futureDate.setMonth(futureDate.getMonth() + monthsToAdd);
+  return format(futureDate, "yyyy-MM-dd");
 }
 
 // copied from apps/web/src/hooks/useRequiredParams.ts
