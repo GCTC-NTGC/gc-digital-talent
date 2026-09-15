@@ -1,6 +1,6 @@
 import type { Page } from "@playwright/test";
 
-type CspReport = (string | Report);
+type CspReport = string | Report;
 
 declare global {
   interface Window {
@@ -8,7 +8,6 @@ declare global {
     cspTeardown?: () => void;
   }
 }
-
 
 class CspReporter {
   public readonly page: Page;
@@ -22,9 +21,12 @@ class CspReporter {
       window.cspViolations = [];
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const cspObserver = new ReportingObserver((reports, _) => {
-        window.cspViolations = [...(window?.cspViolations ?? []), ...reports];
-      }, { types: ["csp-violation"], buffered: true });
+      const cspObserver = new ReportingObserver(
+        (reports, _) => {
+          window.cspViolations = [...(window?.cspViolations ?? []), ...reports];
+        },
+        { types: ["csp-violation"], buffered: true },
+      );
 
       cspObserver.observe();
 
@@ -44,7 +46,7 @@ class CspReporter {
   }
 
   async getReports() {
-    return await this.page.evaluate(() => window.cspViolations) ?? [];
+    return (await this.page.evaluate(() => window.cspViolations)) ?? [];
   }
 }
 
