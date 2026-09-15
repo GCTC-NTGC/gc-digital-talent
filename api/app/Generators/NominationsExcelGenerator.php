@@ -190,12 +190,14 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function getNominators(TalentNominationGroup $group): string
     {
         return $group->nominations->map(function ($nomination) {
-            $name = $nomination->nominator_fallback_name;
             if ($nomination->nominator) {
-                $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+                return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+            }
+            if ($nomination->nominator_id) {
+                return $this->localize('common.not_found');
             }
 
-            return $name;
+            return $nomination->nominator_fallback_name;
         })->filter()->join(', ');
     }
 
@@ -447,7 +449,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
             new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
             new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
-            new TextField('nominator', fn ($n) => $n->nominator?->getFullName() ?? $n->nominator_fallback_name),
+            // nominators
+            new TextField('nominator', fn ($n) => $this->getNominators($n->talentNominationGroup)),
+            // new TextField('nominators', fn ($n) => $this->getNominators($n)),
             new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
             new TextField('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
             new TextField('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
