@@ -162,8 +162,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function overviewFields(): array
     {
-        $consented = fn ($g) => (bool) $g->consentToShareProfile;
-
         return [
             new TextField('nominee_user_id', fn ($g) => $g->nominee->id),
             new TextField('nominee_first_name', fn ($g) => $g->nominee->first_name),
@@ -173,18 +171,15 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nomination_options', fn ($g) => $this->getNominationOptions($g)),
             new EnumField('advancement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->advancement_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForAdvancement($g), ''),
-            new TextField('advancement_classifications', fn ($g) => $this->getAdvancementClassifications($g))
-                ->visibleIf($consented),
-            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null)
-                ->visibleIf($consented),
+            new TextField('recommended_classifications_for_advancement', fn ($g) => $this->getAdvancementClassifications($g)),
+            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null),
             new EnumField('lateral_movement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->lateral_movement_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForLateralMovement($g), ''),
-            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null)
-                ->visibleIf($consented),
+            new TextField('recommended_classifications_for_lateral_movement', fn ($g) => $this->getLateralMovementClassifications($g)),
+            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null),
             new EnumField('development_program_approval', TalentNominationGroupDecision::class, fn ($g) => $g->development_programs_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForDevelopmentPrograms($g), ''),
-            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null)
-                ->visibleIf($consented),
+            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null),
         ];
     }
 
@@ -209,6 +204,16 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     private function getAdvancementClassifications(TalentNominationGroup $group): string
     {
         return $group->advancementClassifications->map(function ($classification) {
+            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
+        })->join(', ');
+    }
+
+    /**
+     * Lateral movement classifications of a group, separated by commas
+     */
+    private function getLateralMovementClassifications(TalentNominationGroup $group): string
+    {
+        return $group->lateralMovementClassifications->map(function ($classification) {
             return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
         })->join(', ');
     }
@@ -453,8 +458,10 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
             new TextField('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
             new TextField('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
+            new TextField('recommended_classifications_for_advancement', fn ($n) => $this->getAdvancementClassifications($n->talentNominationGroup)),
             new EnumField('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
             new EnumField('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
+            new TextField('recommended_classifications_for_lateral_movement', fn ($n) => $this->getLateralMovementClassifications($n->talentNominationGroup)),
             new TextField('lateral_experience_recommendations', fn ($n) => $this->getLateralMovementOptions($n)),
             new TextField('other_lateral_experience', fn ($n) => $n->lateral_movement_options_other),
             new TextField('development_program_recommendations', fn ($n) => $this->getDevelopmentPrograms($n)),
@@ -707,6 +714,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         $query = TalentNominationGroup::with([
             'talentNominationEvent',
             'advancementClassifications',
+            'lateralMovementClassifications',
             'nominee' => function ($query) {
                 $query->with([
                     'department',
