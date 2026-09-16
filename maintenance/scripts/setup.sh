@@ -36,6 +36,7 @@ touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
 php artisan key:generate
+php artisan oauth:generate-client-jwk
 if [ "$GCDT_CI" = true ]; then
   php artisan migrate:fresh
   php artisan db:seed --class=CiSeeder

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Jose\Component\Core\JWK;
+use Jose\Component\Core\JWKSet;
 use Jose\Component\Core\Util\Base64UrlSafe;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
@@ -332,6 +334,26 @@ class AuthController extends Controller
         }
 
         return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
+            ->withHeaders([
+                'Content-Type' => 'application/json; charset=utf-8',
+            ]);
+    }
+
+    // publishes this app's public signing key(s), for OIDC clients that verify our signatures
+    public function jwks(Request $request)
+    {
+        $path = config('oauth.client_jwk_path');
+
+        if (! file_exists($path)) {
+            Log::warning('No signing key found at oauth.client_jwk_path when serving jwks.json');
+
+            return response('', 404);
+        }
+
+        $jwk = JWK::createFromJson(file_get_contents($path))->toPublic();
+        $jwkSet = new JWKSet([$jwk]);
+
+        return response(json_encode($jwkSet))
             ->withHeaders([
                 'Content-Type' => 'application/json; charset=utf-8',
             ]);

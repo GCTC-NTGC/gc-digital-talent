@@ -28,13 +28,14 @@ refresh_all: refresh_api refresh_web
 setup_api:
 	cp api/.env.example api/.env --preserve=all
 	cd api && composer install --prefer-dist
-	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "php artisan optimize:clear"
 	php api/artisan key:generate
+	php api/artisan oauth:generate-client-jwk
 	php api/artisan migrate:fresh --seed
 	php api/artisan lighthouse:print-schema --write
 	touch api/storage/logs/laravel.log
-	docker compose exec webserver sh -c "chown -R www-data:www-data /home/site/wwwroot/api/storage"
-	docker compose exec webserver sh -c "chmod -R a+r,a+w /home/site/wwwroot/api/storage /home/site/wwwroot/api/bootstrap/cache"
+	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "chown -R www-data:www-data storage"
+	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "chmod -R a+r,a+w storage bootstrap/cache"
+	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "php artisan optimize:clear"
 
 refresh_api:
 	cd api && composer install --prefer-dist

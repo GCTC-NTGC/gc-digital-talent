@@ -7,6 +7,7 @@ use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
+use Jose\Component\KeyManagement\JWKFactory;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertNotNull;
@@ -297,5 +298,40 @@ class AuthControllerTest extends TestCase
         $response = $this->postJson('/refresh', ['refresh_token' => 'not-a-real-token']);
 
         $response->assertStatus(400);
+    }
+
+    public function testJwksReturns404WhenNoKeyFileExists()
+    {
+        config(['oauth.client_jwk_path' => sys_get_temp_dir().'/nonexistent-jwk-'.uniqid().'.json']);
+
+        $response = $this->call('GET', '/.well-known/jwks.json');
+
+        $response->assertStatus(404);
+    }
+
+    public function testJwksReturnsPublicKeyWithoutPrivateMembers()
+    {
+        $path = sys_get_temp_dir().'/test-jwk-'.uniqid().'.json';
+        $jwk = JWKFactory::createRSAKey(2048, ['use' => 'sig', 'alg' => 'RS256', 'kid' => 'test-kid']);
+        file_put_contents($path, json_encode($jwk));
+        config(['oauth.client_jwk_path' => $path]);
+
+        $response = $this->call('GET', '/.well-known/jwks.json');
+
+        $response->assertStatus(200);
+        $response->assertHeader('Content-Type', 'application/json; charset=utf-8');
+
+        $keys = $response->json('keys');
+        $this->assertCount(1, $keys);
+        $publicJwk = $keys[0];
+        $this->assertSame('RSA', $publicJwk['kty']);
+        $this->assertSame('sig', $publicJwk['use']);
+        $this->assertSame('RS256', $publicJwk['alg']);
+        $this->assertSame('test-kid', $publicJwk['kid']);
+        foreach (['d', 'p', 'q', 'dp', 'dq', 'qi'] as $privateMember) {
+            $this->assertArrayNotHasKey($privateMember, $publicJwk);
+        }
+
+        unlink($path);
     }
 }

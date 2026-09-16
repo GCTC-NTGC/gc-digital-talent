@@ -80,6 +80,12 @@ return [
     'client_secret' => env('OAUTH_API_CLIENT_SECRET', ''),
 
     /**
+     * Path to this app's own RSA signing key (as a private JWK JSON file), used to publish
+     * the public half at /.well-known/jwks.json. Generate with `php artisan oauth:generate-client-jwk`.
+     */
+    'client_jwk_path' => env('OAUTH_CLIENT_JWK_PATH', storage_path('app/oauth-client-jwk.json')),
+
+    /**
      * Where is the user redirected to after login if it is not in the login request.
      */
     'post_login_redirect' => env('OAUTH_POST_LOGIN_REDIRECT'),
