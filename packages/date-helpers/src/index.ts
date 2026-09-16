@@ -256,7 +256,7 @@ function toSortableDate(original: RawDate): Date {
   return value;
 }
 
-export function compareDates(a: RawDate, b: RawDate, order: Order): number {
+function compareDates(a: RawDate, b: RawDate, order: Order): number {
   const aValue = toSortableDate(order === "desc" ? b : a);
   const bValue = toSortableDate(order === "desc" ? a : b);
 
