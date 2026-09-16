@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Contracts\ClientAuthenticationService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
@@ -23,6 +24,11 @@ class AuthPing extends Command
      */
     protected $description = 'Ping the auth server';
 
+    public function __construct(private readonly ClientAuthenticationService $clientAuth)
+    {
+        parent::__construct();
+    }
+
     /**
      * Execute the console command.
      *
@@ -35,7 +41,7 @@ class AuthPing extends Command
         $data = [
             'grant_type' => 'client_credentials',
             'client_id' => config('oauth.client_id'),
-            'client_secret' => config('oauth.client_secret'),
+            ...$this->clientAuth->paramsFor($url),
         ];
 
         $results = $this->pingTokenUri($url, $data);

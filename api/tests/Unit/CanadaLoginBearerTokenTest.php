@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Contracts\ClientAuthenticationService;
 use App\Services\CanadaLoginBearerTokenService;
 use DateTimeImmutable;
 use Illuminate\Support\Carbon;
@@ -95,7 +96,8 @@ class CanadaLoginBearerTokenTest extends TestCase
         $this->service_provider = new CanadaLoginBearerTokenService(
             self::fakeConfigUrl,
             $this->app->make(ClockInterface::class),
-            $this->allowableClockSkew
+            $this->allowableClockSkew,
+            $this->app->make(ClientAuthenticationService::class),
         );
     }
 

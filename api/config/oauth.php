@@ -86,6 +86,20 @@ return [
     'client_jwk_path' => env('OAUTH_CLIENT_JWK_PATH', storage_path('app/oauth-client-jwk.json')),
 
     /**
+     * How this app authenticates itself as an OAuth client to the CanadaLogin token,
+     * refresh, and introspection endpoints: 'client_secret_post' (default) or
+     * 'private_key_jwt' (requires client_jwk_path above, and that the public key has
+     * been published/registered with the OAuth server via /.well-known/jwks.json).
+     */
+    'client_auth_method' => env('OAUTH_CLIENT_AUTH_METHOD', 'client_secret_post'),
+
+    /**
+     * Lifetime, in seconds, of a private_key_jwt client assertion. Should be short —
+     * it's a bearer credential for the lifetime of the token.
+     */
+    'client_assertion_ttl' => env('OAUTH_CLIENT_ASSERTION_TTL', 60),
+
+    /**
      * Where is the user redirected to after login if it is not in the login request.
      */
     'post_login_redirect' => env('OAUTH_POST_LOGIN_REDIRECT'),

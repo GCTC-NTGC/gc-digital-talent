@@ -2,12 +2,15 @@
 
 namespace Tests\Unit;
 
+use App\Contracts\ClientAuthenticationService;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\OauthClientAuthenticationService;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Jose\Component\KeyManagement\JWKFactory;
+use Psr\Clock\ClockInterface;
 use Tests\TestCase;
 
 use function PHPUnit\Framework\assertNotNull;
@@ -298,6 +301,48 @@ class AuthControllerTest extends TestCase
         $response = $this->postJson('/refresh', ['refresh_token' => 'not-a-real-token']);
 
         $response->assertStatus(400);
+    }
+
+    public function testAuthCallbackSendsClientAssertionWhenConfiguredForPrivateKeyJwt()
+    {
+        $path = sys_get_temp_dir().'/test-jwk-'.uniqid().'.json';
+        file_put_contents($path, json_encode(JWKFactory::createRSAKey(2048, ['use' => 'sig', 'alg' => 'RS256', 'kid' => 'test-kid'])));
+
+        // AuthServiceProvider::boot() eagerly resolves the BearerTokenService -> ClientAuthenticationService
+        // chain at app boot (before this test body runs), so config(['oauth.client_auth_method' => ...])
+        // alone would be too late to affect the already-cached singleton. Rebind it directly instead.
+        $this->app->singleton(ClientAuthenticationService::class, fn () => new OauthClientAuthenticationService(
+            'private_key_jwt',
+            config('oauth.client_id'),
+            null,
+            $path,
+            $this->app->make(ClockInterface::class),
+            60,
+        ));
+
+        Http::fakeSequence()
+            ->push([
+                'id_token' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibm9uY2UiOiJhYmMiLCJzdGF0ZSI6ImFiYyIsImlhdCI6MTUxNjIzOTAyMn0.p4GMaQjmIcUAxjAZ7Y51C1q1mu5sVXJLdX1zybt4jFc',
+            ], 200)
+            ->whenEmpty(Http::response());
+
+        $this->withSession([
+            'state' => 'abc',
+            'nonce' => 'abc',
+            'code_verifier' => 'test-verifier',
+        ])->call('GET', '/auth-callback', [
+            'state' => 'abc',
+            'nonce' => 'abc',
+            'code' => 'code',
+        ]);
+
+        Http::assertSent(function ($request) {
+            return $request['client_assertion_type'] === 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer'
+                && ! empty($request['client_assertion'])
+                && ! isset($request['client_secret']);
+        });
+
+        unlink($path);
     }
 
     public function testJwksReturns404WhenNoKeyFileExists()

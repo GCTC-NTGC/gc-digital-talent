@@ -3,6 +3,7 @@
 use App\Facades\Notify;
 use App\Providers\AppServiceProvider;
 use App\Providers\BearerTokenServiceProvider;
+use App\Providers\ClientAuthenticationServiceProvider;
 use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\FakerServiceProvider;
@@ -302,6 +303,7 @@ return [
 
         GraphQLServiceProvider::class,
         BearerTokenServiceProvider::class,
+        ClientAuthenticationServiceProvider::class,
         NotifyServiceProvider::class,
         PostgresEngineServiceProvider::class,
         ScoutServiceProvider::class,
