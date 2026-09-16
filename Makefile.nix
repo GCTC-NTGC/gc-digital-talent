@@ -31,6 +31,7 @@ setup_api:
 	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "php artisan optimize:clear"
 	php api/artisan key:generate
 	php api/artisan migrate:fresh --seed
+  php api/artisan lighthouse:ide-helper
 	php api/artisan lighthouse:print-schema --write
 	touch api/storage/logs/laravel.log
 	docker compose exec webserver sh -c "chown -R www-data:www-data /home/site/wwwroot/api/storage"
@@ -40,6 +41,7 @@ refresh_api:
 	cd api && composer install --prefer-dist
 	docker compose exec -w "/home/site/wwwroot/api" webserver sh -c "php artisan optimize:clear"
 	php api/artisan migrate
+  php api/artisan lighthouse:ide-helper
 	php api/artisan lighthouse:print-schema --write
 	docker compose exec webserver sh -c "pkill -o -USR2 php-fpm"
 
