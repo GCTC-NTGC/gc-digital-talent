@@ -23,9 +23,10 @@ class ClientAuthenticationServiceProvider extends ServiceProvider
                     $this->app->make(ClockInterface::class),
                     config('oauth.client_assertion_ttl'),
                 ),
-                default => new ClientSecretPostAuthenticationService(
+                'client_secret_post' => new ClientSecretPostAuthenticationService(
                     config('oauth.client_secret'),
                 ),
+                default => throw new \Error('Unexpected method: '.config('oauth.client_auth_method'))
             };
         });
     }
