@@ -8,7 +8,7 @@
     "check-external-links": "./src/checkExternalLinks.ts"
   },
   "scripts": {
-    "check": "tsc --noEmit",
+    "check": "tsc",
     "lint": "eslint",
     "lint:fix": "eslint --fix"
   },

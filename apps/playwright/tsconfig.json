@@ -7,8 +7,11 @@
     "esModuleInterop": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
+    "noEmit": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ]
     }
   },
   "include": [
@@ -20,5 +23,8 @@
     "tests",
     "utils"
   ],
-  "exclude": ["**/node_modules", "**/.*/"]
+  "exclude": [
+    "**/node_modules",
+    "**/.*/"
+  ]
 }
