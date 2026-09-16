@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Contracts\ClientAuthenticationService;
 use App\Models\Role;
 use App\Models\User;
-use App\Services\OauthClientAuthenticationService;
+use App\Services\PrivateKeyJwtAuthenticationService;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -311,10 +311,8 @@ class AuthControllerTest extends TestCase
         // AuthServiceProvider::boot() eagerly resolves the BearerTokenService -> ClientAuthenticationService
         // chain at app boot (before this test body runs), so config(['oauth.client_auth_method' => ...])
         // alone would be too late to affect the already-cached singleton. Rebind it directly instead.
-        $this->app->singleton(ClientAuthenticationService::class, fn () => new OauthClientAuthenticationService(
-            'private_key_jwt',
+        $this->app->singleton(ClientAuthenticationService::class, fn () => new PrivateKeyJwtAuthenticationService(
             config('oauth.client_id'),
-            null,
             $path,
             $this->app->make(ClockInterface::class),
             60,

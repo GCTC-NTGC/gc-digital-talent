@@ -2,8 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Contracts\ClientAuthenticationService;
-use App\Services\OauthClientAuthenticationService;
+use App\Services\PrivateKeyJwtAuthenticationService;
 use Illuminate\Support\Carbon;
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
@@ -14,7 +13,7 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 use Psr\Clock\ClockInterface;
 use Tests\TestCase;
 
-class OauthClientAuthenticationServiceTest extends TestCase
+class PrivateKeyJwtAuthenticationServiceTest extends TestCase
 {
     private string $jwkPath;
 
@@ -39,30 +38,21 @@ class OauthClientAuthenticationServiceTest extends TestCase
         parent::tearDown();
     }
 
-    private function makeService(string $method): ClientAuthenticationService
+    private function makeService(?string $jwkPath = null): PrivateKeyJwtAuthenticationService
     {
-        return new OauthClientAuthenticationService(
-            $method,
+        return new PrivateKeyJwtAuthenticationService(
             'test-client-id',
-            'test-client-secret',
-            $this->jwkPath,
+            $jwkPath ?? $this->jwkPath,
             $this->app->make(ClockInterface::class),
             60,
         );
     }
 
-    public function testClientSecretPostReturnsSecretAndNothingElse()
-    {
-        $params = $this->makeService('client_secret_post')->paramsFor('https://example.com/token');
-
-        $this->assertSame(['client_secret' => 'test-client-secret'], $params);
-    }
-
-    public function testPrivateKeyJwtReturnsAssertionTypeAndValidSignedAssertion()
+    public function testReturnsAssertionTypeAndValidSignedAssertion()
     {
         Carbon::setTestNow('2020-01-01 00:00:00');
 
-        $params = $this->makeService('private_key_jwt')->paramsFor('https://example.com/token');
+        $params = $this->makeService()->paramsFor('https://example.com/token');
 
         $this->assertSame('urn:ietf:params:oauth:client-assertion-type:jwt-bearer', $params['client_assertion_type']);
         $this->assertArrayNotHasKey('client_secret', $params);
@@ -86,12 +76,12 @@ class OauthClientAuthenticationServiceTest extends TestCase
         $this->assertSame('RS256', $header['alg']);
     }
 
-    public function testPrivateKeyJwtThrowsWhenKeyFileMissing()
+    public function testThrowsWhenKeyFileMissing()
     {
         unlink($this->jwkPath);
 
         $this->expectException(\RuntimeException::class);
 
-        $this->makeService('private_key_jwt')->paramsFor('https://example.com/token');
+        $this->makeService()->paramsFor('https://example.com/token');
     }
 }

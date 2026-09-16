@@ -12,12 +12,10 @@ use Jose\Component\Signature\Serializer\CompactSerializer;
 use Psr\Clock\ClockInterface;
 use RuntimeException;
 
-class OauthClientAuthenticationService implements ClientAuthenticationService
+class PrivateKeyJwtAuthenticationService implements ClientAuthenticationService
 {
     public function __construct(
-        private readonly string $method,
         private readonly string $clientId,
-        private readonly ?string $clientSecret,
         private readonly ?string $jwkPath,
         private readonly ClockInterface $clock,
         private readonly int $assertionTtlSeconds,
@@ -25,15 +23,10 @@ class OauthClientAuthenticationService implements ClientAuthenticationService
 
     public function paramsFor(string $audience): array
     {
-        return match ($this->method) {
-            'private_key_jwt' => [
-                'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-                'client_assertion' => $this->buildAssertion($audience),
-            ],
-            default => [
-                'client_secret' => $this->clientSecret ?? '',
-            ],
-        };
+        return [
+            'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+            'client_assertion' => $this->buildAssertion($audience),
+        ];
     }
 
     // builds a signed private_key_jwt client assertion (RFC 7523) for the given audience
