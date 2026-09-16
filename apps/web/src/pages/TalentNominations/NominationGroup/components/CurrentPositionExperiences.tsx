@@ -11,6 +11,7 @@ import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
+  sortDateBy,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { Heading, Ul, Notice, Card } from "@gc-digital-talent/ui";
@@ -82,13 +83,9 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
     (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
-  const currentWorkExperiencesSorted = currentWorkExperiences.sort((a, b) => {
-    const aStart =
-      "startDate" in a && a.startDate ? new Date(a.startDate) : MAX_DATE;
-    const bStart =
-      "startDate" in b && b.startDate ? new Date(b.startDate) : MAX_DATE;
-    return bStart.getTime() - aStart.getTime(); // more recent start sorted higher
-  });
+  const currentWorkExperiencesSorted = currentWorkExperiences.sort(
+    sortDateBy((exp) => ("startDate" in exp ? exp.startDate : MAX_DATE)),
+  );
 
   const currentWorkExperiencesByGovPositionType = groupBy(
     currentWorkExperiencesSorted,
