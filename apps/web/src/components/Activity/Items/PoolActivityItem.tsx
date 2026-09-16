@@ -74,6 +74,14 @@ const keyMap = new Map<string, MessageDescriptor>([
   ],
   ["work_stream_id", processMessages.stream],
   ["contact_email", commonMessages.email],
+  [
+    "is_hidden",
+    defineMessage({
+      defaultMessage: "Hidden",
+      id: "PT/mOx",
+      description: "Label for when a process is hidden",
+    }),
+  ],
 ]);
 
 export interface PoolActivityItemProps extends CommonItemProps {

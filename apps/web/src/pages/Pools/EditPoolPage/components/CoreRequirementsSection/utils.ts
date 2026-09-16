@@ -25,6 +25,7 @@ export interface FormValues {
   locationOption: LocationOption;
   specificLocationEn?: LocalizedString["en"];
   specificLocationFr?: LocalizedString["fr"];
+  isHidden: boolean | null | undefined;
 }
 
 export const dataToFormValues = (
@@ -32,17 +33,24 @@ export const dataToFormValues = (
   securityClearance: SecurityStatus | null | undefined,
   isRemote: boolean | null | undefined,
   location: LocalizedString | null | undefined,
+  isHidden: boolean | null | undefined,
 ): FormValues => ({
   languageRequirement: language ?? undefined,
   securityRequirement: securityClearance ?? undefined,
   locationOption: getLocationOption(isRemote),
   specificLocationEn: location?.en,
   specificLocationFr: location?.fr,
+  isHidden,
 });
 
 export type CoreRequirementsSubmitData = Pick<
   UpdatePoolInput,
-  "language" | "location" | "securityClearance" | "isRemote" | "publishingGroup"
+  | "language"
+  | "location"
+  | "securityClearance"
+  | "isRemote"
+  | "publishingGroup"
+  | "isHidden"
 >;
 
 export const formValuesToSubmitData = (
@@ -61,7 +69,7 @@ export const formValuesToSubmitData = (
             fr: null,
           },
     isRemote: formValues.locationOption === LocationOption.RemoteOptional,
-
     securityClearance: formValues.securityRequirement ?? undefined, // can't be set to null, assume not updating if empty
+    isHidden: formValues.isHidden,
   };
 };

@@ -1181,6 +1181,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   applicantsCount: Int
+  isHidden: Boolean
   activities(
     where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
@@ -3000,6 +3001,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
   contactEmail: String
+  isHidden: Boolean
 }
 
 input UpdatePublishedPoolInput {

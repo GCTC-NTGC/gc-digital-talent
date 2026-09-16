@@ -551,6 +551,7 @@ type Pool implements HasRoleAssignments {
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 type GeneralQuestionResponse {
@@ -3060,6 +3061,7 @@ input UpdatePoolInput {
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 input UpdatePublishedPoolInput @validator {
