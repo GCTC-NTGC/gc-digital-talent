@@ -246,6 +246,9 @@ type Order = "asc" | "desc";
 
 type RawDate = string | Date | undefined | null;
 
+/**
+ * Parse a date into a safe value for sorting
+ */
 function toSortableDate(original: RawDate): Date {
   let value = original ?? MAX_DATE;
 
@@ -256,7 +259,16 @@ function toSortableDate(original: RawDate): Date {
   return value;
 }
 
-function compareDates(a: RawDate, b: RawDate, order: Order): number {
+/**
+ * Compares two dates for use in sort callback
+ *
+ * NOTE: Exported for unique situations where sortDateBy will not work
+ */
+export function sortSafeDates(
+  a: RawDate,
+  b: RawDate,
+  order: Order = "asc",
+): number {
   const aValue = toSortableDate(order === "desc" ? b : a);
   const bValue = toSortableDate(order === "desc" ? a : b);
 
@@ -267,5 +279,5 @@ export function sortDateBy<T extends object>(
   accessor: (value: T) => string | Date | undefined | null,
   order: Order = "asc",
 ): (a: T, b: T) => number {
-  return (a, b) => compareDates(accessor(a), accessor(b), order);
+  return (a, b) => sortSafeDates(accessor(a), accessor(b), order);
 }
