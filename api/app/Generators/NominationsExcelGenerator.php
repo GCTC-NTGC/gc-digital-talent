@@ -449,13 +449,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
             new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
             new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
-            // nominators
             new TextField('nominator', fn ($n) => $this->getNominators($n->talentNominationGroup)),
-            // new TextField('nominators', fn ($n) => $this->getNominators($n)),
             new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
-            new TextField('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
-            new TextField('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
-            new TextField('nominator_department', fn ($n) => $n->nominator->department?->name[$this->lang]),
+            new TextField('nominator_email', fn ($n) => $this->getNominatorDetails($n)['email']),
+            new TextField('nominator_classification', fn ($n) => $this->getNominatorDetails($n)['classification']),
+            new TextField('nominator_department', fn ($n) => $this->getNominatorDetails($n)['department']),
             new TextField('submitters_name', fn ($n) => $n->submitter?->getFullName()),
             new TextField('submitters_email', fn ($n) => $n->submitter->work_email ?? null),
             new TextField('submitters_relationship_to_nominator', fn ($n) => $this->getSubmitterRelationship($n)),
@@ -517,6 +515,28 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     }
 
     /**
+     * Helper to get nominator details
+     *
+     * If the nominator is no longer a verified employee show their details as not found
+     */
+    private function getNominatorDetails(TalentNomination $nomination): array
+    {
+        if (! $nomination->nominator && $nomination->nominator_id) {
+            return [
+                'email' => $this->localize('common.not_found'),
+                'classification' => $this->localize('common.not_found'),
+                'department' => $this->localize('common.not_found'),
+            ];
+        }
+
+        return [
+            'email' => $nomination->nominator->work_email ?? $nomination->nominator_fallback_work_email,
+            'classification' => $nomination->nominator->currentClassification->formattedGroupAndLevel ?? null,
+            'department' => $nomination->nominator->department?->name[$this->lang],
+        ];
+    }
+
+    /**
      * Helper to get reference details
      */
     private function getReferenceDetails(TalentNomination $nomination): array
@@ -564,6 +584,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         } elseif ($nomination->advancementReferenceUser) {
             // If the reference is no longer a verified employee show their name only without any employment details (work email, classification, department)
             $details['name'] = $nomination->advancementReferenceUser->getFullName();
+            $details['email'] = $this->localize('common.not_found');
+            $details['classification'] = $this->localize('common.not_found');
+            $details['department'] = $this->localize('common.not_found');
         }
 
         return $details;
