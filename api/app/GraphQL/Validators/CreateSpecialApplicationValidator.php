@@ -57,7 +57,7 @@ final class CreateSpecialApplicationValidator extends Validator
             'poolCandidate.specialApplicationClosingDate' => [
                 'required',
                 'after:today',
-                'after:'.$pool['closing_date'],
+                'after_or_equal:'.$pool['closing_date'],
             ],
         ];
     }
