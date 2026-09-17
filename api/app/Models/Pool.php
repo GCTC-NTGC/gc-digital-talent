@@ -36,7 +36,6 @@ use Spatie\Activitylog\Support\LogOptions;
  *
  * @property string $id
  * @property array $name
- * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
@@ -204,11 +203,6 @@ class Pool extends Model
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontLogEmptyChanges();
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function poolBookmarks(): BelongsToMany
