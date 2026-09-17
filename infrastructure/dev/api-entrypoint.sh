@@ -15,7 +15,8 @@ php artisan migrate --force
 
 # Generate the GraphQL schema for codegen
 # This allows the web container to run graphql-codegen
-echo "Generating lighthouse schema..."
+echo "Generating lighthouse schema and IDE helpers..."
+php artisan lighthouse:ide-helper
 php artisan lighthouse:print-schema --write
 
 # Start background workers
