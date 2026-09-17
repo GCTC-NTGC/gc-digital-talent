@@ -96,8 +96,59 @@ class UserAuthorizationScopeTest extends TestCase
             ->create();
         Auth::shouldReceive('user')->andReturn($actor);
 
-        $otherApplicant = User::factory()->asApplicant()->create();
-        $otherAdmin = User::factory()->asAdmin()->create();
+        $this->communityA = Community::factory()->create();
+        $this->communityB = Community::factory()->create();
+
+        $this->pool1 = Pool::factory()
+            ->published()
+            ->create([
+                'community_id' => $this->communityA->id,
+            ]);
+
+        $this->pool2 = Pool::factory()
+            ->published()
+            ->create([
+                'community_id' => $this->communityB->id,
+            ]);
+
+        $this->user1 = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $this->user2 = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $this->candidate1 = PoolCandidate::factory()
+            ->for($this->user1)
+            ->for($this->pool1)
+            ->create([
+                'submitted_at' => Carbon::now(),
+            ]);
+
+        $this->candidate2 = PoolCandidate::factory()
+            ->for($this->user2)
+            ->for($this->pool2)
+            ->create([
+                'submitted_at' => Carbon::now(),
+            ]);
+    }
+
+    // a guest should be able to view no users
+    public function testViewAsGuest(): void
+    {
+        Auth::shouldReceive('user')
+            ->andReturn(null);
+
+        $userIds = User::whereAuthorizedToView()->get()->pluck('id');
+        assertEqualsCanonicalizing([], $userIds->toArray());
+    }
+
+    // an applicant should be able to view just themselves
+    public function testViewAsApplicant(): void
+    {
+        Auth::shouldReceive('user')
+            ->andReturn($this->user1);
 
         $userIds = User::whereAuthorizedToView()->get()->pluck('id');
         assertEqualsCanonicalizing([
