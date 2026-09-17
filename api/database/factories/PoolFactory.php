@@ -87,7 +87,7 @@ class PoolFactory extends BaseFactory
                 'security_clearance' => $this->faker->enum(SecurityStatus::class),
                 'advertisement_language' => $this->faker->enum(PoolLanguage::class),
                 'is_remote' => $this->faker->boolean(),
-                'is_hidden' => $this->faker->boolean(),
+                'is_hidden' => false,
                 'advertisement_location' => function ($attributes) {
                     if ($attributes['is_remote']) {
                         return null;
