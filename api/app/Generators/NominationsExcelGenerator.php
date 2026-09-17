@@ -202,13 +202,28 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     }
 
     /**
-     * Advancement classifications of a group, separated by commas
+     * Format a collection of classifications, separated by commas
+     *
+     * @param  Collection<int, mixed>  $classifications
+     */
+    private function formatClassifications(Collection $classifications): string
+    {
+        return $classifications->map(function ($classification) {
+            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
+        })->join(', ');
+    }
+
+    /**
+     * Advancement classifications across all nominations in a group
      */
     private function getAdvancementClassifications(TalentNominationGroup $group): string
     {
-        return $group->advancementClassifications->map(function ($classification) {
-            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
-        })->join(', ');
+        return $this->formatClassifications(
+            $group->nominations
+                ->flatMap(fn (TalentNomination $nomination) => $nomination->advancementClassifications)
+                ->unique('id')
+                ->values()
+        );
     }
 
     /**
@@ -216,9 +231,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getLateralMovementClassifications(TalentNominationGroup $group): string
     {
-        return $group->lateralMovementClassifications->map(function ($classification) {
-            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
-        })->join(', ');
+        return $this->formatClassifications($group->lateralMovementClassifications);
     }
 
     /**
@@ -461,7 +474,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
             new TextField('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
             new TextField('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
-            new TextField('recommended_classifications_for_advancement', fn ($n) => $this->getAdvancementClassifications($n->talentNominationGroup)),
+            new TextField('recommended_classifications_for_advancement', fn ($n) => $this->formatClassifications($n->advancementClassifications)),
             new EnumField('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
             new EnumField('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
             new TextField('recommended_classifications_for_lateral_movement', fn ($n) => $this->getLateralMovementClassifications($n->talentNominationGroup)),
@@ -741,7 +754,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     {
         $query = TalentNominationGroup::with([
             'talentNominationEvent',
-            'advancementClassifications',
             'lateralMovementClassifications',
             'nominee' => function ($query) {
                 $query->with([
@@ -781,6 +793,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'nominatorFallbackDepartment',
                     'advancementReferenceFallbackClassification',
                     'advancementReferenceFallbackDepartment',
+                    'advancementClassifications',
                     'developmentProgramsThroughPivot',
                     'skills',
                 ]),
