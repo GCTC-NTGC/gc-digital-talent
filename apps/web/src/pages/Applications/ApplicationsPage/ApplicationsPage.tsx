@@ -126,6 +126,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
               onClick={() => setOrderBy("newest")}
               mode="inline"
               color={orderBy === "newest" ? "primary" : "black"}
+              aria-pressed={orderBy === "newest" ? "true" : "false"}
             >
               {intl.formatMessage({
                 defaultMessage: "Newest",
@@ -137,6 +138,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
               onClick={() => setOrderBy("oldest")}
               mode="inline"
               color={orderBy === "oldest" ? "primary" : "black"}
+              aria-pressed={orderBy === "newest" ? "false" : "true"}
             >
               {intl.formatMessage({
                 defaultMessage: "Oldest",
