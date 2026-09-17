@@ -48,14 +48,8 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
   const sortedApplications = useMemo(
     () =>
       unpackMaybes(applications).sort((a, b) => {
-        const aDate =
-          "submittedAt" in a && a?.submittedAt
-            ? new Date(a.submittedAt)
-            : MAX_DATE;
-        const bDate =
-          "submittedAt" in b && b?.submittedAt
-            ? new Date(b.submittedAt)
-            : MAX_DATE;
+        const aDate = a?.submittedAt ? new Date(a.submittedAt) : MAX_DATE;
+        const bDate = b?.submittedAt ? new Date(b.submittedAt) : MAX_DATE;
         return orderBy === "newest"
           ? bDate.getTime() - aDate.getTime()
           : aDate.getTime() - bDate.getTime();
