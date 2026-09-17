@@ -2,10 +2,12 @@ import { test, expect } from "~/fixtures";
 import ProfilePage from "~/fixtures/ProfilePage";
 import { loginBySub } from "~/utils/auth";
 
-test.describe("User Profile", () => {
+test.describe("User Profile", { tag: "@uat" }, () => {
   test("Edit profile", async ({ appPage }) => {
     const profilePage = new ProfilePage(appPage.page);
-    await loginBySub(appPage.page, "applicant@test.com");
+    const applicantSub =
+      process.env.PLAYWRIGHT_APPLICANT_SUB ?? "applicant@test.com";
+    await loginBySub(appPage.page, applicantSub);
     await profilePage.navigateToPersonalInformation();
 
     // Edit work preferences

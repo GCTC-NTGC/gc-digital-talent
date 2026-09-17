@@ -4,12 +4,11 @@ import {
   SkillLevel,
 } from "@gc-digital-talent/graphql/schema-types";
 
-import testConfig from "~/constants/config";
 import { expect, test } from "~/fixtures";
 import PoolPage from "~/fixtures/PoolPage";
 import { loginBySub } from "~/utils/auth";
 import { getClassifications } from "~/utils/classification";
-import { getCommunities } from "~/utils/communities";
+import { getMyCommunity } from "~/utils/communities";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { fetchIdentificationNumber, generateUniqueTestId } from "~/utils/id";
@@ -18,13 +17,15 @@ import {
   deletePool,
   getPoolSkills,
   publishPool,
+  retirePublishedPool,
   updatePool,
 } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { getWorkStreams } from "~/utils/workStreams";
 
-test.describe("Process candidate assessment", () => {
+test.describe("Process candidate assessment", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let testId: string;
   let poolPage: PoolPage;
   let processTitle: string;
@@ -32,32 +33,43 @@ test.describe("Process candidate assessment", () => {
   let behaviouralSkill: string;
   let communityName: string, workStreamName: string;
   let poolId: string;
+  let poolPublished: boolean;
+  const adminSub =
+    process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
   test.beforeEach(async ({ appPage }) => {
     testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
+    poolPublished = false;
+    platformAdminCtx = await graphql.newContext();
+    adminCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
+    );
     processTitle = `Playwright Test Process ${testId}`;
-    const skill = await getSkills(adminCtx, {}).then((skills) => {
+    const skill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Technical);
     });
     technicalSkill = skill?.name.en ?? "";
-    const bSkill = await getSkills(adminCtx, {}).then((skills) => {
+    const bSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.find((s) => s.category.value === SkillCategory.Behavioural);
     });
     behaviouralSkill = bSkill?.name.en ?? "";
-    await loginBySub(appPage.page, testConfig.signInSubs.adminSignIn, false);
+    await loginBySub(appPage.page, adminSub, false);
   });
 
   test.afterEach(async () => {
     if (poolId) {
-      await deletePool(adminCtx, { id: poolId });
+      if (poolPublished) {
+        await retirePublishedPool(adminCtx, poolId);
+      } else {
+        await deletePool(platformAdminCtx, { id: poolId });
+      }
     }
   });
 
   test("Create pool", async ({ appPage }) => {
     const PROCESS_TITLE = `Test process ${testId}`;
     poolPage = new PoolPage(appPage.page);
-    const classifications = await getClassifications(adminCtx, {});
+    const classifications = await getClassifications(platformAdminCtx, {});
     const classification = classifications[3];
 
     await poolPage.gotoIndex();
@@ -67,6 +79,7 @@ test.describe("Process candidate assessment", () => {
       "Digital Community",
       classification.groupAndLevel,
     );
+    poolId = fetchIdentificationNumber(poolPage.page.url(), "pools");
     await poolPage.editBasicInformation(PROCESS_TITLE, "Software Solutions");
     await poolPage.updateClosingDate();
     await poolPage.updateCoreRequirements();
@@ -80,12 +93,13 @@ test.describe("Process candidate assessment", () => {
     appPage,
   }) => {
     poolPage = new PoolPage(appPage.page);
-    communityName = await getCommunities(adminCtx, {}).then(
-      (communities) => communities[0]?.name?.en ?? "",
-    );
-    const workStreams = await getWorkStreams(adminCtx, {});
-    workStreamName = workStreams[0]?.name?.en ?? "";
-    const classifications = await getClassifications(adminCtx, {});
+    const community = await getMyCommunity(adminCtx, {});
+    communityName = community?.name?.en ?? "";
+    const workStreams = await getWorkStreams(platformAdminCtx, {});
+    workStreamName =
+      workStreams.find((ws) => ws.community?.id === community?.id)?.name?.en ??
+      "";
+    const classifications = await getClassifications(platformAdminCtx, {});
     const classification = classifications[0];
 
     await poolPage.gotoIndex();
@@ -140,5 +154,6 @@ test.describe("Process candidate assessment", () => {
     await poolPage.page.goto(`/admin/pools/${poolId}`);
     // Publish the process with assessment step
     await publishPool(adminCtx, poolId);
+    poolPublished = true;
   });
 });

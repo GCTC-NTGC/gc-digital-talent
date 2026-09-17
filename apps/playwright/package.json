@@ -15,14 +15,14 @@
     "lint:fix": "eslint ./ --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "tsc": "tsc --project tsconfig.json --noEmit"
+    "tsc": "tsc --project tsconfig.json"
   },
   "devDependencies": {
     "@gc-digital-talent/date-helpers": "workspace:*",
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.62.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^26.1.2",
     "axe-core": "^4.13.0",
     "dotenv": "^17.4.2",
