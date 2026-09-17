@@ -35,7 +35,7 @@ const flourish = tv({
 const ClosedJobsPage_Query = graphql(/* GraphQL */ `
   query ClosedJobsPage {
     poolsPaginated(
-      where: { statuses: [CLOSED] }
+      where: { statuses: [CLOSED], isHidden: false }
       first: 500
       orderBy: { column: "closing_date", order: DESC }
     ) {
