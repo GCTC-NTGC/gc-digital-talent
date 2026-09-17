@@ -38,7 +38,7 @@ import { defaultWorkExperience } from "~/utils/experiences";
 import { createCommunityInterest } from "~/utils/communities";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 
-test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
+test.describe("Location Preference Validation", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let applicantCtx: GraphQLContext;
   let platformAdminCtx: GraphQLContext;

@@ -42,7 +42,7 @@ import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixt
 import { getMyCommunity } from "~/utils/communities";
 import { getDepartments } from "~/utils/departments";
 
-test.describe.skip("Talent search", { tag: "@uat" }, () => {
+test.describe("Talent search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let platformAdminCtx: GraphQLContext;

@@ -14,7 +14,7 @@ interface UserInfo {
   sub: string;
 }
 
-test.describe.skip("Verified work email", { tag: "@uat" }, () => {
+test.describe("Verified work email", { tag: "@uat" }, () => {
   let verified: UserInfo = { sub: "", id: "" };
   let unverified: UserInfo = { sub: "", id: "" };
   let platformAdminCtx: GraphQLContext;
