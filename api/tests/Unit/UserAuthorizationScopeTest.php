@@ -51,14 +51,12 @@ class UserAuthorizationScopeTest extends TestCase
         $this->communityB = Community::factory()->create();
 
         $this->pool1 = Pool::factory()
-            ->for($this->platformAdmin)
             ->published()
             ->create([
                 'community_id' => $this->communityA->id,
             ]);
 
         $this->pool2 = Pool::factory()
-            ->for($this->platformAdmin)
             ->published()
             ->create([
                 'community_id' => $this->communityB->id,
