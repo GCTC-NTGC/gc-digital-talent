@@ -27,6 +27,13 @@ use App\Enums\TalentNominationSubmitterRelationshipToNominator;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
+use App\Generators\Field\BoolField;
+use App\Generators\Field\DateField;
+use App\Generators\Field\EnumField;
+use App\Generators\Field\Field;
+use App\Generators\Field\HtmlField;
+use App\Generators\Field\NumberField;
+use App\Generators\Field\TextField;
 use App\Models\DevelopmentProgram;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationGroup;
@@ -38,6 +45,7 @@ use App\Traits\Generator\GeneratesFile;
 use App\Traits\Generator\GeneratesSharedExcelData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
 use OpenSpout\Writer\XLSX\Writer;
 
@@ -53,127 +61,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         'general_questions' => [],
         'screening_questions' => [],
         'skill_details' => [],
-    ];
-
-    protected array $overviewLocaleKeys = [
-        'nominee_user_id',
-        'nominee_first_name',
-        'nominee_last_name',
-        'nomination_status',
-        'nominators',
-        'nomination_options',
-        'advancement_approval',
-        'advancement_classifications',
-        'advancement_approval_notes',
-        'lateral_movement_approval',
-        'lateral_movement_approval_notes',
-        'development_program_approval',
-        'development_program_approval_notes',
-    ];
-
-    protected array $userProfileHeaderKeys = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'armed_forces_status',
-        'citizenship',
-        'current_city',
-        'current_province',
-        'preferred_communication_language',
-        'interested_in_languages',
-        'first_official_language',
-        'estimated_language_ability',
-        'second_language_exam_completed',
-        'second_language_exam_validity',
-        'comprehension_level',
-        'writing_level',
-        'oral_interaction_level',
-        'government_employee',
-        'department',
-        'employee_type',
-        'work_email',
-        'classification',
-        'priority_entitlement',
-        'priority_number',
-        'accept_temporary',
-        'accepted_operational_requirements',
-        'location_preferences',
-        'flexible_work_locations',
-        'location_exemptions',
-        'woman',
-        'indigenous',
-        'visible_minority',
-        'disability',
-        'skills',
-        'career_planning_lateral_move_interest',
-        'career_planning_lateral_move_time_frame',
-        'career_planning_lateral_move_organization_type',
-        'career_planning_promotion_move_interest',
-        'career_planning_promotion_move_time_frame',
-        'career_planning_promotion_move_organization_type',
-        'career_planning_learning_opportunities_interest',
-        'eligible_retirement_year',
-        'career_planning_mentorship_status',
-        'career_planning_mentorship_interest',
-        'career_planning_exec_interest',
-        'career_planning_exec_coaching_status',
-        'career_planning_exec_coaching_interest',
-        'next_role_target_classification_group',
-        'next_role_target_classification_level',
-        'next_role_target_role',
-        'next_role_is_c_suite_role',
-        'next_role_c_suite_role_title',
-        'next_role_job_title',
-        'next_role_functional_community',
-        'next_role_work_streams',
-        'next_role_departments',
-        'next_role_additional_information',
-        'career_objective_target_classification_group',
-        'career_objective_target_classification_level',
-        'career_objective_target_role',
-        'career_objective_is_c_suite_role',
-        'career_objective_c_suite_role_title',
-        'career_objective_job_title',
-        'career_objective_functional_community',
-        'career_objective_work_streams',
-        'career_objective_departments',
-        'career_objective_additional_information',
-        'career_planning_about_you',
-        'career_planning_learning_goals',
-        'career_planning_work_style',
-        'digital_talent_processes',
-        'off_platform_processes_not_verified',
-    ];
-
-    protected array $nominationDetailsHeaderKeys = [
-        'nominee_user_id',
-        'nominee_first_name',
-        'nominee_last_name',
-        'nomination_date',
-        'nomination_options',
-        'nominator',
-        'relationship_to_nominee',
-        'nominator_email',
-        'nominator_classification',
-        'nominator_department',
-        'submitters_name',
-        'submitters_email',
-        'submitters_relationship_to_nominator',
-        'reference_name',
-        'reference_email',
-        'reference_classification',
-        'reference_department',
-        'nine_box_performance',
-        'nine_box_leadership_potential',
-        'lateral_experience_recommendations',
-        'other_lateral_experience',
-        'development_program_recommendations',
-        'other_development_program_experience',
-        'rationale',
-        'leadership_competencies',
-        'additional_comments',
     ];
 
     public function __construct(public string $fileName, protected string $talentNominationEventId, public ?string $dir, protected ?string $lang = 'en')
@@ -228,52 +115,102 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     }
 
     /**
+     * Write the localized heading of every field as one row
+     *
+     * @param  list<Field>  $fields
+     */
+    private function writeHeadingRow(array $fields): void
+    {
+        $this->writer->addRow($this->row(
+            array_map(fn (Field $field) => $this->localizeHeading($field->heading), $fields)
+        ));
+    }
+
+    /**
+     * Write the rendered value of every field as one row
+     *
+     * @param  list<Field>  $fields
+     */
+    private function writeDataRow(array $fields, mixed $context): void
+    {
+        $this->writer->addRow($this->row(
+            array_map(fn (Field $field) => $this->render($field, $context), $fields)
+        ));
+    }
+
+    /**
      * Generate the overview tab
      */
     private function generateOverviewTab(): void
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->overviewLocaleKeys);
+        $fields = $this->overviewFields();
 
-        $this->writer->addRow($this->row($localizedHeaders));
+        $this->writeHeadingRow($fields);
 
         $query = $this->buildQuery();
-        $query->chunk(200, function ($talentNominationGroups) {
+        $query->chunk(200, function ($talentNominationGroups) use ($fields) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
-                $consentToShare = $talentNominationGroup->consentToShareProfile;
-                $user = $talentNominationGroup->nominee;
-                $nominators = $talentNominationGroup->nominations->map(function ($nomination) {
-                    $name = $nomination->nominator_fallback_name;
-                    if ($nomination->nominator) {
-                        $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
-                    }
-
-                    return $name;
-                });
-                $optionsStr = $this->getNominationOptions($talentNominationGroup);
-
-                $values = [
-                    $user->id,
-                    $user->first_name,
-                    $user->last_name,
-                    $this->localizeEnum($talentNominationGroup->status, TalentNominationGroupStatus::class),
-                    $nominators->join(', '),
-                    $optionsStr,
-                    $this->localizeEnum($this->isNominatedForAdvancement($talentNominationGroup) ? $talentNominationGroup->advancement_decision : null, TalentNominationGroupDecision::class),
-                    $this->canShare($consentToShare, $talentNominationGroup->advancementClassifications->map(function ($classification) {
-                        return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
-                    })->join(', ')),
-                    $this->canShare($consentToShare, $this->isNominatedForAdvancement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->advancement_notes ?? '')) : ''),
-                    $this->localizeEnum($this->isNominatedForLateralMovement($talentNominationGroup) ? $talentNominationGroup->lateral_movement_decision : null, TalentNominationGroupDecision::class),
-                    $this->canShare($consentToShare, $this->isNominatedForLateralMovement($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->lateral_movement_notes ?? '')) : ''),
-                    $this->localizeEnum($this->isNominatedForDevelopmentPrograms($talentNominationGroup) ? $talentNominationGroup->development_programs_decision : null, TalentNominationGroupDecision::class),
-                    $this->canShare($consentToShare, $this->isNominatedForDevelopmentPrograms($talentNominationGroup) ? $this->sanitizeString(strip_tags($talentNominationGroup->development_programs_notes ?? '')) : ''),
-                ];
-
-                $this->writer->addRow($this->row($values));
+                $this->writeDataRow($fields, $talentNominationGroup);
             }
         });
+    }
+
+    /**
+     * Fields of the overview tab, in column order
+     *
+     * @return list<Field>
+     */
+    private function overviewFields(): array
+    {
+        $consented = fn ($g) => (bool) $g->consentToShareProfile;
+
+        return [
+            new TextField('nominee_user_id', fn ($g) => $g->nominee->id),
+            new TextField('nominee_first_name', fn ($g) => $g->nominee->first_name),
+            new TextField('nominee_last_name', fn ($g) => $g->nominee->last_name),
+            new EnumField('nomination_status', TalentNominationGroupStatus::class, fn ($g) => $g->status),
+            new TextField('nominators', fn ($g) => $this->getNominators($g)),
+            new TextField('nomination_options', fn ($g) => $this->getNominationOptions($g)),
+            new EnumField('advancement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->advancement_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForAdvancement($g), ''),
+            new TextField('advancement_classifications', fn ($g) => $this->getAdvancementClassifications($g))
+                ->visibleIf($consented),
+            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null)
+                ->visibleIf($consented),
+            new EnumField('lateral_movement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->lateral_movement_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForLateralMovement($g), ''),
+            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null)
+                ->visibleIf($consented),
+            new EnumField('development_program_approval', TalentNominationGroupDecision::class, fn ($g) => $g->development_programs_decision)
+                ->visibleIf(fn ($g) => $this->isNominatedForDevelopmentPrograms($g), ''),
+            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null)
+                ->visibleIf($consented),
+        ];
+    }
+
+    /**
+     * Names of every nominator in a group, separated by commas
+     */
+    private function getNominators(TalentNominationGroup $group): string
+    {
+        return $group->nominations->map(function ($nomination) {
+            $name = $nomination->nominator_fallback_name;
+            if ($nomination->nominator) {
+                $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+            }
+
+            return $name;
+        })->filter()->join(', ');
+    }
+
+    /**
+     * Advancement classifications of a group, separated by commas
+     */
+    private function getAdvancementClassifications(TalentNominationGroup $group): string
+    {
+        return $group->advancementClassifications->map(function ($classification) {
+            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
+        })->join(', ');
     }
 
     /**
@@ -281,15 +218,13 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function generateNomineeProfilesTab(): void
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->userProfileHeaderKeys);
+        $fields = $this->nomineeProfileFields();
 
-        $this->writer->addRow($this->row($localizedHeaders));
+        $this->writeHeadingRow($fields);
 
         $query = $this->buildQuery();
 
-        $query->chunk(200, function ($talentNominationGroups) {
+        $query->chunk(200, function ($talentNominationGroups) use ($fields) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
                 $user = $talentNominationGroup->nominee;
 
@@ -299,138 +234,179 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                 }
 
                 $this->userIds[] = $user->id;
-                $consentToShare = $talentNominationGroup->consentToShareProfile;
-                $this->consentToShareByUserId[$user->id] = $consentToShare;
+                $this->consentToShareByUserId[$user->id] = $talentNominationGroup->consentToShareProfile;
 
-                $department = $user->department()->first();
-                $preferences = $user->getOperationalRequirements();
-                $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
-                    return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
-                });
-                $userSkills = $user->userSkills->map(function ($userSkill) {
-                    return $userSkill->skill->name[$this->lang] ?? '';
-                });
-
-                $employeeProfile = $user->employeeProfile;
-                $nextRoleWorkStreams = $employeeProfile->nextRoleWorkStreams->map(function ($workStream) {
-                    return $workStream->name[$this->lang] ?? '';
-                });
-                $nextRoleDepartments = $employeeProfile->nextRoleDepartments->map(function ($department) {
-                    return $department->name[$this->lang] ?? '';
-                });
-                $careerObjectiveWorkStreams = $employeeProfile->careerObjectiveWorkStreams->map(function ($workStream) {
-                    return $workStream->name[$this->lang] ?? '';
-                });
-                $careerObjectiveDepartments = $employeeProfile->careerObjectiveDepartments->map(function ($department) {
-                    return $department->name[$this->lang] ?? '';
-                });
-
-                $appliedPools = $user->poolCandidates->map(function ($candidate) {
-                    return sprintf(
-                        '%s - %s - %s - %s',
-                        $candidate->pool->classification->formattedGroupAndLevel,
-                        $candidate->pool->name[$this->lang] ?? '',
-                        $candidate->pool->process_number,
-                        $candidate->suspended_at
-                            ? Lang::get('common.not_interested', [], $this->lang)
-                            : Lang::get('common.open_to_job_offers', [], $this->lang)
-                    );
-                });
-
-                $offPlatformProcesses = collect($user->offPlatformRecruitmentProcesses)->map(function ($process) {
-                    return $process->classification->formattedGroupAndLevel
-                        .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
-                        .' ('
-                        .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))
-                        .' - '
-                        .$process->process_number
-                        .')';
-                });
-
-                $values = [
-                    $user->id,
-                    $user->first_name,
-                    $user->last_name,
-                    $this->canShare($consentToShare, $user->email ?? ''),
-                    $this->canShare($consentToShare, $user->telephone ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->armed_forces_status, ArmedForcesStatus::class)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user?->citizenship, CitizenshipStatus::class)),
-                    $this->canShare($consentToShare, $user->current_city ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnum($user?->current_province, ProvinceOrTerritory::class)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user?->preferred_lang, Language::class)),
-                    $this->canShare($consentToShare, $this->lookingForLanguages($user)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->first_official_language, Language::class)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->estimated_language_ability, EstimatedLanguageAbility::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_completed)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->second_language_exam_validity)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->comprehension_level, EvaluatedLanguageAbility::class)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->written_level, EvaluatedLanguageAbility::class)),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->verbal_level, EvaluatedLanguageAbility::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->computed_is_gov_employee)),
-                    $this->canShare($consentToShare, $department?->name[$this->lang] ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnum($user->computed_gov_employee_type, GovEmployeeType::class)),
-                    $this->canShare($consentToShare, $user->work_email),
-                    $this->canShare($consentToShare, $user->getClassification()),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->has_priority_entitlement)),
-                    $this->canShare($consentToShare, $user->priority_number ?? ''),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->position_duration ? $user->wouldAcceptTemporary() : null)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($preferences['accepted'], OperationalRequirement::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray(
-                        array_filter($user->location_preferences ?? [], function ($location) {
-                            return $location !== WorkRegion::TELEWORK->name;
-                        }),
-                        WorkRegion::class
-                    )),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($user->flexible_work_locations, FlexibleWorkLocation::class)),
-                    $this->canShare($consentToShare, $user->location_exemptions),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->is_woman)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($indigenousCommunities, IndigenousCommunity::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->is_visible_minority)),
-                    $this->canShare($consentToShare, $this->yesOrNo($user->has_disability)),
-                    $this->canShare($consentToShare, $userSkills->join(', ')),
-                    $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_lateral_move_interest)),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_planning_lateral_move_time_frame, TimeFrame::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_lateral_move_organization_type, OrganizationTypeInterest::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_promotion_move_interest)),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_planning_promotion_move_time_frame, TimeFrame::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_promotion_move_organization_type, OrganizationTypeInterest::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_learning_opportunities_interest, LearningOpportunitiesInterest::class)),
-                    $this->canShare($consentToShare, $employeeProfile?->eligible_retirement_year?->format('Y') ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_status, Mentorship::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_mentorship_interest, Mentorship::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_planning_exec_interest)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_status, ExecCoaching::class)),
-                    $this->canShare($consentToShare, $this->localizeEnumArray($employeeProfile?->career_planning_exec_coaching_interest, ExecCoaching::class)),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleClassification->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleClassification->level ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_target_role, TargetRole::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->next_role_is_c_suite_role)),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->next_role_c_suite_role_title, CSuiteRoleTitle::class)),
-                    $this->canShare($consentToShare, $employeeProfile->next_role_job_title ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->nextRoleCommunity?->name[$this->lang] ?? ''),
-                    $this->canShare($consentToShare, $nextRoleWorkStreams->join(',')),
-                    $this->canShare($consentToShare, $nextRoleDepartments->join(', ')),
-                    $this->canShare($consentToShare, $employeeProfile->next_role_additional_information ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveClassification->group ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveClassification->level ?? ''),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_target_role, TargetRole::class)),
-                    $this->canShare($consentToShare, $this->yesOrNo($employeeProfile?->career_objective_is_c_suite_role)),
-                    $this->canShare($consentToShare, $this->localizeEnum($employeeProfile?->career_objective_c_suite_role_title, CSuiteRoleTitle::class)),
-                    $this->canShare($consentToShare, $employeeProfile->career_objective_job_title ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile?->careerObjectiveCommunity?->name[$this->lang] ?? ' '),
-                    $this->canShare($consentToShare, $careerObjectiveWorkStreams->join(', ')),
-                    $this->canShare($consentToShare, $careerObjectiveDepartments->join(', ')),
-                    $this->canShare($consentToShare, $employeeProfile->career_objective_additional_information ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->career_planning_about_you ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->career_planning_learning_goals ?? ''),
-                    $this->canShare($consentToShare, $employeeProfile->career_planning_work_style ?? ''),
-                    $this->canShare($consentToShare, $appliedPools->join(', ')),
-                    $this->canShare($consentToShare, $offPlatformProcesses->join(', ')),
-                ];
-
-                $this->writer->addRow($this->row($values));
+                $this->writeDataRow($fields, $talentNominationGroup);
             }
         });
+    }
+
+    /**
+     * Fields of the nominee profiles tab, in column order
+     *
+     * @return list<Field>
+     */
+    private function nomineeProfileFields(): array
+    {
+        $visibleIfConsentedToShare = fn ($field) => $field->visibleIf(fn ($g) => (bool) $g->consentToShareProfile);
+
+        return [
+            new TextField('id', fn ($g) => $g->nominee->id),
+            new TextField('first_name', fn ($g) => $g->nominee->first_name),
+            new TextField('last_name', fn ($g) => $g->nominee->last_name),
+            ...array_map($visibleIfConsentedToShare, [
+                new TextField('email', fn ($g) => $g->nominee->email),
+                new TextField('phone', fn ($g) => $g->nominee->telephone),
+                new EnumField('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
+                new EnumField('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
+                new TextField('current_city', fn ($g) => $g->nominee->current_city),
+                new EnumField('current_province', ProvinceOrTerritory::class, fn ($g) => $g->nominee->current_province),
+                new EnumField('preferred_communication_language', Language::class, fn ($g) => $g->nominee->preferred_lang),
+                new TextField('interested_in_languages', fn ($g) => $this->lookingForLanguages($g->nominee)),
+                new EnumField('first_official_language', Language::class, fn ($g) => $g->nominee->first_official_language),
+                new EnumField('estimated_language_ability', EstimatedLanguageAbility::class, fn ($g) => $g->nominee->estimated_language_ability),
+                new BoolField('second_language_exam_completed', fn ($g) => $g->nominee->second_language_exam_completed),
+                new BoolField('second_language_exam_validity', fn ($g) => $g->nominee->second_language_exam_validity),
+                new EnumField('comprehension_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->comprehension_level),
+                new EnumField('writing_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->written_level),
+                new EnumField('oral_interaction_level', EvaluatedLanguageAbility::class, fn ($g) => $g->nominee->verbal_level),
+                new BoolField('government_employee', fn ($g) => $g->nominee->computed_is_gov_employee),
+                new TextField('department', fn ($g) => $g->nominee->department()->first()?->name[$this->lang]),
+                new EnumField('employee_type', GovEmployeeType::class, fn ($g) => $g->nominee->computed_gov_employee_type),
+                new TextField('work_email', fn ($g) => $g->nominee->work_email),
+                new TextField('classification', fn ($g) => $g->nominee->getClassification()),
+                new BoolField('priority_entitlement', fn ($g) => $g->nominee->has_priority_entitlement),
+                new TextField('priority_number', fn ($g) => $g->nominee->priority_number),
+                new BoolField('accept_temporary', fn ($g) => $g->nominee->position_duration ? $g->nominee->wouldAcceptTemporary() : null),
+                new EnumField('accepted_operational_requirements', OperationalRequirement::class, fn ($g) => $g->nominee->getOperationalRequirements()['accepted']),
+                new EnumField('location_preferences', WorkRegion::class, fn ($g) => $this->getLocationPreferences($g->nominee)),
+                new EnumField('flexible_work_locations', FlexibleWorkLocation::class, fn ($g) => $g->nominee->flexible_work_locations),
+                new TextField('location_exemptions', fn ($g) => $g->nominee->location_exemptions),
+                new BoolField('woman', fn ($g) => $g->nominee->is_woman),
+                new EnumField('indigenous', IndigenousCommunity::class, fn ($g) => $this->getIndigenousCommunities($g->nominee)),
+                new BoolField('visible_minority', fn ($g) => $g->nominee->is_visible_minority),
+                new BoolField('disability', fn ($g) => $g->nominee->has_disability),
+                new TextField('skills', fn ($g) => $this->getUserSkills($g->nominee)),
+                new BoolField('career_planning_lateral_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_interest),
+                new EnumField('career_planning_lateral_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_time_frame),
+                new EnumField('career_planning_lateral_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_lateral_move_organization_type),
+                new BoolField('career_planning_promotion_move_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_interest),
+                new EnumField('career_planning_promotion_move_time_frame', TimeFrame::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_time_frame),
+                new EnumField('career_planning_promotion_move_organization_type', OrganizationTypeInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_promotion_move_organization_type),
+                new EnumField('career_planning_learning_opportunities_interest', LearningOpportunitiesInterest::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_opportunities_interest),
+                new DateField('eligible_retirement_year', 'Y', fn ($g) => $g->nominee->employeeProfile?->eligible_retirement_year),
+                new EnumField('career_planning_mentorship_status', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_status),
+                new EnumField('career_planning_mentorship_interest', Mentorship::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_mentorship_interest),
+                new BoolField('career_planning_exec_interest', fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_interest),
+                new EnumField('career_planning_exec_coaching_status', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_status),
+                new EnumField('career_planning_exec_coaching_interest', ExecCoaching::class, fn ($g) => $g->nominee->employeeProfile?->career_planning_exec_coaching_interest),
+                new TextField('next_role_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->group),
+                new NumberField('next_role_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->nextRoleClassification?->level),
+                new EnumField('next_role_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->next_role_target_role),
+                new BoolField('next_role_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->next_role_is_c_suite_role),
+                new EnumField('next_role_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->next_role_c_suite_role_title),
+                new TextField('next_role_job_title', fn ($g) => $g->nominee->employeeProfile?->next_role_job_title),
+                new TextField('next_role_functional_community', fn ($g) => $g->nominee->employeeProfile?->nextRoleCommunity?->name[$this->lang]),
+                new TextField('next_role_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleWorkStreams, ',')),
+                new TextField('next_role_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->nextRoleDepartments)),
+                new TextField('next_role_additional_information', fn ($g) => $g->nominee->employeeProfile?->next_role_additional_information),
+                new TextField('career_objective_target_classification_group', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->group),
+                new NumberField('career_objective_target_classification_level', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveClassification?->level),
+                new EnumField('career_objective_target_role', TargetRole::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_target_role),
+                new BoolField('career_objective_is_c_suite_role', fn ($g) => $g->nominee->employeeProfile?->career_objective_is_c_suite_role),
+                new EnumField('career_objective_c_suite_role_title', CSuiteRoleTitle::class, fn ($g) => $g->nominee->employeeProfile?->career_objective_c_suite_role_title),
+                new TextField('career_objective_job_title', fn ($g) => $g->nominee->employeeProfile?->career_objective_job_title),
+                new TextField('career_objective_functional_community', fn ($g) => $g->nominee->employeeProfile?->careerObjectiveCommunity?->name[$this->lang]),
+                new TextField('career_objective_work_streams', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveWorkStreams)),
+                new TextField('career_objective_departments', fn ($g) => $this->getLocalizedNames($g->nominee->employeeProfile?->careerObjectiveDepartments)),
+                new TextField('career_objective_additional_information', fn ($g) => $g->nominee->employeeProfile?->career_objective_additional_information),
+                new TextField('career_planning_about_you', fn ($g) => $g->nominee->employeeProfile?->career_planning_about_you),
+                new TextField('career_planning_learning_goals', fn ($g) => $g->nominee->employeeProfile?->career_planning_learning_goals),
+                new TextField('career_planning_work_style', fn ($g) => $g->nominee->employeeProfile?->career_planning_work_style),
+                new TextField('digital_talent_processes', fn ($g) => $this->getAppliedPools($g->nominee)),
+                new TextField('off_platform_processes_not_verified', fn ($g) => $this->getOffPlatformProcesses($g->nominee)),
+            ]),
+        ];
+    }
+
+    /**
+     * Location preferences of a user, without telework
+     *
+     * @return array<string>
+     */
+    private function getLocationPreferences(User $user): array
+    {
+        return array_filter($user->location_preferences ?? [], function ($location) {
+            return $location !== WorkRegion::TELEWORK->name;
+        });
+    }
+
+    /**
+     * Indigenous communities of a user, without the legacy case
+     *
+     * @return array<string>
+     */
+    private function getIndigenousCommunities(User $user): array
+    {
+        return Arr::where($user->indigenous_communities ?? [], function ($community) {
+            return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
+        });
+    }
+
+    /**
+     * Skill names of a user, separated by commas
+     */
+    private function getUserSkills(User $user): string
+    {
+        return $user->userSkills->map(function ($userSkill) {
+            return $userSkill->skill->name[$this->lang] ?? '';
+        })->join(', ');
+    }
+
+    /**
+     * Localized names of a collection of models, joined by $separator
+     *
+     * @param  ?Collection<int, mixed>  $models
+     */
+    private function getLocalizedNames(?Collection $models, string $separator = ', '): string
+    {
+        return $models
+            ? $models->map(fn ($model) => $model->name[$this->lang] ?? '')->join($separator)
+            : '';
+    }
+
+    /**
+     * Digital talent processes a user applied to, separated by commas
+     */
+    private function getAppliedPools(User $user): string
+    {
+        return $user->poolCandidates->map(function ($candidate) {
+            return sprintf(
+                '%s - %s - %s - %s',
+                $candidate->pool->classification->formattedGroupAndLevel,
+                $candidate->pool->name[$this->lang] ?? '',
+                $candidate->pool->process_number,
+                $candidate->suspended_at
+                    ? Lang::get('common.not_interested', [], $this->lang)
+                    : Lang::get('common.open_to_job_offers', [], $this->lang)
+            );
+        })->join(', ');
+    }
+
+    /**
+     * Off platform recruitment processes of a user, separated by commas
+     */
+    private function getOffPlatformProcesses(User $user): string
+    {
+        return collect($user->offPlatformRecruitmentProcesses)->map(function ($process) {
+            return $process->classification->formattedGroupAndLevel
+                .(is_null($process->department) ? '' : ' '.$this->localize('common.with').' '.($process->department->name[$this->lang] ?? ''))
+                .' ('
+                .($process->platform === HiringPlatform::OTHER->name ? $process->platform_other : $this->localizeEnum($process->platform, HiringPlatform::class))
+                .' - '
+                .$process->process_number
+                .')';
+        })->join(', ');
     }
 
     /**
@@ -438,61 +414,55 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function generateNominationDetailsTab(): void
     {
-        $localizedHeaders = array_map(function ($key) {
-            return $this->localizeHeading($key);
-        }, $this->nominationDetailsHeaderKeys);
+        $fields = $this->nominationDetailFields();
 
-        $this->writer->addRow($this->row($localizedHeaders));
+        $this->writeHeadingRow($fields);
 
         $query = $this->buildQuery();
-        $query->chunk(200, function ($talentNominationGroups) {
+        $query->chunk(200, function ($talentNominationGroups) use ($fields) {
             foreach ($talentNominationGroups as $talentNominationGroup) {
-                $user = $talentNominationGroup->nominee;
-
                 foreach ($talentNominationGroup->nominations as $nomination) {
-                    $nominator = $nomination->nominator;
-                    $submitter = $nomination->submitter;
-
-                    $optionsStr = $this->getNominationOptionsForNomination($nomination);
-                    $submitterRelationshipStr = $this->getSubmitterRelationship($nomination);
-                    $lateralMovementOptionsStr = $this->getLateralMovementOptions($nomination);
-                    $developmentProgramsStr = $this->getDevelopmentPrograms($nomination);
-                    $referenceDetails = $this->getReferenceDetails($nomination);
-                    $leadershipCompetenciesStr = $this->getLeadershipCompetencies($nomination);
-
-                    $values = [
-                        $user->id,
-                        $user->first_name, // nominee's first name
-                        $user->last_name, // nominee's last name
-                        $nomination->submitted_at ? $nomination->submitted_at->format('Y-m-d') : '', // Date received
-                        $optionsStr, // nomination options
-                        $nominator?->getFullName() ?? $nomination->nominator_fallback_name, // nominator
-                        $this->localizeEnum($nomination->nominee_relationship_to_nominator, TalentNominationNomineeRelationshipToNominator::class), // Nominee's relationship to nominator
-                        $nominator->work_email ?? $nomination->nominator_fallback_work_email,
-                        $nominator->currentClassification->formattedGroupAndLevel ?? '', // nominator classification
-                        $nominator->department?->name[$this->lang] ?? '', // nominator department
-                        $submitter?->getFullName() ?? '', // submitter's name
-                        $submitter->work_email ?? '', // submitter's work email
-                        $submitterRelationshipStr, // submitter's relationship to nominator
-                        $referenceDetails['name'], // reference name
-                        $referenceDetails['email'], // reference email
-                        $referenceDetails['classification'], // reference classification
-                        $referenceDetails['department'], // reference department
-                        $this->localizeEnum($nomination->nine_box_performance?->name, NineBoxRating::class), // nine box performance
-                        $this->localizeEnum($nomination->nine_box_leadership_potential?->name, NineBoxRating::class), // nine box leadership potential
-                        $lateralMovementOptionsStr,  // lateral experience recommendations
-                        $nomination->lateral_movement_options_other ?? '', // other lateral experience
-                        $developmentProgramsStr,   // development program recommendations
-                        $nomination->development_program_options_other ?? '', // other development program experience
-                        $nomination->nomination_rationale ?? '', // rationale
-                        $leadershipCompetenciesStr, // leadership competencies
-                        $nomination->additional_comments ?? '', // additional comments
-                    ];
-
-                    $this->writer->addRow($this->row($values));
+                    $this->writeDataRow($fields, $nomination);
                 }
             }
         });
+    }
+
+    /**
+     * Fields of the nomination details tab, in column order
+     *
+     * @return list<Field>
+     */
+    private function nominationDetailFields(): array
+    {
+        return [
+            new TextField('nominee_user_id', fn ($n) => $n->talentNominationGroup->nominee->id),
+            new TextField('nominee_first_name', fn ($n) => $n->talentNominationGroup->nominee->first_name),
+            new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
+            new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
+            new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
+            new TextField('nominator', fn ($n) => $n->nominator?->getFullName() ?? $n->nominator_fallback_name),
+            new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
+            new TextField('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
+            new TextField('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
+            new TextField('nominator_department', fn ($n) => $n->nominator->department?->name[$this->lang]),
+            new TextField('submitters_name', fn ($n) => $n->submitter?->getFullName()),
+            new TextField('submitters_email', fn ($n) => $n->submitter->work_email ?? null),
+            new TextField('submitters_relationship_to_nominator', fn ($n) => $this->getSubmitterRelationship($n)),
+            new TextField('reference_name', fn ($n) => $this->getReferenceDetails($n)['name']),
+            new TextField('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
+            new TextField('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
+            new TextField('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
+            new EnumField('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
+            new EnumField('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
+            new TextField('lateral_experience_recommendations', fn ($n) => $this->getLateralMovementOptions($n)),
+            new TextField('other_lateral_experience', fn ($n) => $n->lateral_movement_options_other),
+            new TextField('development_program_recommendations', fn ($n) => $this->getDevelopmentPrograms($n)),
+            new TextField('other_development_program_experience', fn ($n) => $n->development_program_options_other),
+            new TextField('rationale', fn ($n) => $n->nomination_rationale),
+            new TextField('leadership_competencies', fn ($n) => $this->getLeadershipCompetencies($n)),
+            new TextField('additional_comments', fn ($n) => $n->additional_comments),
+        ];
     }
 
     /**
@@ -762,19 +732,21 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'offPlatformRecruitmentProcesses.department',
                 ]);
             },
-            'nominations' => [
-                'nominator.department',
-                'nominator.currentClassification',
-                'submitter',
-                'advancementReference.department',
-                'advancementReference.currentClassification',
-                'nominatorFallbackClassification',
-                'nominatorFallbackDepartment',
-                'advancementReferenceFallbackClassification',
-                'advancementReferenceFallbackDepartment',
-                'developmentProgramsThroughPivot',
-                'skills',
-            ],
+            'nominations' => fn ($query) => $query
+                ->chaperone('talentNominationGroup')
+                ->with([
+                    'nominator.department',
+                    'nominator.currentClassification',
+                    'submitter',
+                    'advancementReference.department',
+                    'advancementReference.currentClassification',
+                    'nominatorFallbackClassification',
+                    'nominatorFallbackDepartment',
+                    'advancementReferenceFallbackClassification',
+                    'advancementReferenceFallbackDepartment',
+                    'developmentProgramsThroughPivot',
+                    'skills',
+                ]),
         ])->where('talent_nomination_event_id', $this->talentNominationEventId);
 
         $this->applyFilters($query, []);

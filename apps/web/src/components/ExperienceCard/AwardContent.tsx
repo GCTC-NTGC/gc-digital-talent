@@ -13,7 +13,7 @@ import {
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
-interface AwardContentExperience {
+export interface AwardContentExperience {
   __typename?: "AwardExperience";
   issuedBy?: string | null;
   awardedTo?: GenericLocalizedEnum<AwardedTo> | null;
