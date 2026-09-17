@@ -1459,6 +1459,7 @@ input PoolFilterInput {
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
+  isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
 input PoolWorkStreamNameOrderByInput {

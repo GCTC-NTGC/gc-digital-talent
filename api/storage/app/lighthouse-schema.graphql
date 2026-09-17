@@ -1897,6 +1897,7 @@ input PoolFilterInput {
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
+  isHidden: Boolean
 }
 
 input PoolWorkStreamNameOrderByInput {
