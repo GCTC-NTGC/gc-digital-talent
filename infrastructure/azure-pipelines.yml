@@ -43,6 +43,12 @@ jobs:
 
       - script: |
           cd $(System.DefaultWorkingDirectory)/api
+          if [ ! -f .env ]; then
+            echo "Copying .env file..."
+            cp .env.example .env
+          else
+            echo ".env file already exists, skipping the copy."
+          fi
           sudo composer selfupdate
           if [ ${{ parameters.buildMode }} = 'dev' ]; then
             echo "Building dev..."
