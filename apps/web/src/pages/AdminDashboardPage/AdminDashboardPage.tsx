@@ -191,6 +191,21 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
       roles: [ROLE_NAME.PlatformAdmin],
     },
     {
+      label: intl.formatMessage(pageTitles.platformMetrics),
+      href: adminRoutes.platformMetrics(),
+      roles: [ROLE_NAME.PlatformAdmin],
+    },
+    {
+      label: intl.formatMessage(adminMessages.rolesAndPermissions),
+      href: adminRoutes.rolesAndPermissions(),
+      roles: [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityTalentCoordinator,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+      ],
+    },
+    {
       label: intl.formatMessage(navigationMessages.skills),
       href: adminRoutes.skillTable(),
       roles: [ROLE_NAME.PlatformAdmin],

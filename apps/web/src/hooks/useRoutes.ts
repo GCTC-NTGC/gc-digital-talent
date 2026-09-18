@@ -216,6 +216,7 @@ const getRoutes = (lang: Locales) => {
 
     // Admin - Announcements
     announcements: () => [adminUrl, "settings", "announcements"].join("/"),
+    platformMetrics: () => [adminUrl, "settings", "metrics"].join("/"),
 
     // IAP
     iap: () => [baseUrl, "indigenous-it-apprentice"].join("/"),
