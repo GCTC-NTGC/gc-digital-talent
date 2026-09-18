@@ -273,7 +273,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   test("'Not Referred' candidates are not present in the Talent table", async ({
     appPage,
   }) => {
-    adminCtx = await graphql.newContext();
     talentSearch = new TalentSearch(appPage.page);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
     let requestId: string;
@@ -308,7 +307,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
       await loginBySub(appPage.page, adminSub, false);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
-      await appPage.waitForGraphqlResponse("TalentRequestMatchingUsers");
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
