@@ -308,6 +308,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       requestId = fetchIdentificationNumber(appPage.page.url(), "request");
       await loginBySub(appPage.page, adminSub, false);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
+      await appPage.waitForGraphqlResponse("TalentRequestMatchingUsers");
     });
 
     await test.step("Verify no candidates are displayed in the talent requests", async () => {
