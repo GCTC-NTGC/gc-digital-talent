@@ -1678,8 +1678,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1693,7 +1693,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $this->communityRecruiter->id,
                     'communityId' => $this->community->id,
                     'pool' => [
                         'classification' => [
@@ -1729,8 +1728,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1744,7 +1743,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $departmentAdmin->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1782,8 +1780,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1798,7 +1796,6 @@ class PoolTest extends TestCase
             }',
                 [
                     'communityId' => $otherCommunity->id,
-                    'userId' => $testUser->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
