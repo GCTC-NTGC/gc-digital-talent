@@ -55,9 +55,7 @@ class PoolCandidatePage extends AppPage {
 
     if (process.env.TESTING_ENDPOINT_SECRET) {
       await expect(
-        this.page
-          .getByRole("alert")
-          .filter({ hasText: /ready for download/i }),
+        this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
       ).toBeVisible({ timeout: 90_000 });
     }
 
