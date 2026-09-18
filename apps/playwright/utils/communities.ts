@@ -168,6 +168,29 @@ export const createCommunityInterest: GraphQLRequestFunc<
     .then((res) => res.createCommunityInterestWithDevelopmentPrograms);
 };
 
+const Test_DeleteCommunityInterestMutation = /* GraphQL */ `
+  mutation Test_DeleteCommunityInterest($id: UUID!) {
+    deleteCommunityInterest(id: $id) {
+      id
+    }
+  }
+`;
+
+export const deleteCommunityInterest: GraphQLRequestFunc<
+  CommunityInterest | undefined,
+  { id: string }
+> = async (ctx, { id }) => {
+  return await ctx
+    .post<GraphQLResponse<"deleteCommunityInterest", CommunityInterest>>(
+      Test_DeleteCommunityInterestMutation,
+      {
+        isPrivileged: false,
+        variables: { id },
+      },
+    )
+    .then((res) => res.deleteCommunityInterest);
+};
+
 const Test_CreateDevelopmentProgramMutation = /* GraphQL */ `
   mutation Test_CreateDevelopmentProgram(
     $developmentProgram: CreateDevelopmentProgramInput!

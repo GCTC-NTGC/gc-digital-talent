@@ -13,6 +13,7 @@ import graphql from "~/utils/graphql";
 import {
   createCommunity,
   createCommunityInterest,
+  deleteCommunityInterest,
   createCommunityDevelopmentProgram,
   createDevelopmentProgram,
   assignCommunityAdminRole,
@@ -77,6 +78,7 @@ test.describe(
     test.slow();
     let applicantEmployee: User | undefined;
     let communityAdminEmployee: User | undefined;
+    let communityInterestA: CommunityInterest | undefined;
     let communityInterestB: CommunityInterest | undefined;
     const uniqueTestId = generateUniqueTestId();
     const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
@@ -194,7 +196,7 @@ test.describe(
         }),
       ]);
 
-      await createCommunityInterest(applicantCtx, {
+      communityInterestA = await createCommunityInterest(applicantCtx, {
         userId: applicantUser.id,
         communityInterest: {
           communityId: communityA.id,
@@ -228,6 +230,16 @@ test.describe(
     });
 
     test.afterAll(async () => {
+      if (communityInterestA?.id) {
+        await deleteCommunityInterest(applicantCtx, {
+          id: communityInterestA.id,
+        });
+      }
+      if (communityInterestB?.id) {
+        await deleteCommunityInterest(applicantCtx, {
+          id: communityInterestB.id,
+        });
+      }
       if (applicantEmployee?.id) {
         await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
       }
@@ -375,6 +387,11 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
+    if (communityInterest?.id) {
+      await deleteCommunityInterest(applicantCtx, {
+        id: communityInterest.id,
+      });
+    }
     if (applicantEmployee?.id) {
       await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
     }
