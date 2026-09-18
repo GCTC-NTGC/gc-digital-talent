@@ -15,7 +15,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { MAX_DATE, sortDateBy } from "@gc-digital-talent/date-helpers";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
