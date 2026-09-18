@@ -10,6 +10,11 @@ dotenv.config({
   quiet: true,
 });
 
+// Playwright only accepts a string here if it's a "NN%" percentage, so a plain count (e.g. Azure's "2") needs to become a number.
+function parseWorkers(raw: string): number | string {
+  return raw.endsWith("%") ? raw : Number(raw);
+}
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -22,7 +27,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? Number(process.env.PLAYWRIGHT_RETRIES ?? 1) : 0,
   /* Keep CI parallelism configurable with a conservative default to avoid shard oversubscription. */
-  workers: process.env.CI ? (process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
+  workers: process.env.CI ? parseWorkers(process.env.PLAYWRIGHT_WORKERS ?? "25%") : "25%",
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
     ? [
