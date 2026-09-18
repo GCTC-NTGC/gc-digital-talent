@@ -48,7 +48,7 @@ fi
 # Generate APP_KEY if missing (e.g. freshly copied from .env.example)
 if ! grep -q "^APP_KEY=.\+" "${API_ENV}"; then
   echo "Generating APP_KEY..."
-  docker compose run --rm maintenance sh -c "cd /var/www/html/api && php artisan key:generate"
+  docker compose run --rm maintenance sh -c "cd /home/site/wwwroot/api && php artisan key:generate"
 fi
 
 sed -i "s|APP_URL=.*|APP_URL=\"${APP_URL}\"|" "${API_ENV}"
@@ -115,7 +115,7 @@ echo "Refreshing API..."
 docker compose run --rm maintenance bash refresh_api.sh
 
 echo "Seeding database..."
-docker compose run --rm maintenance sh -c "cd /var/www/html/api && php artisan migrate:fresh --seed"
+docker compose run --rm maintenance sh -c "cd /home/site/wwwroot/api && php artisan migrate:fresh --seed"
 
 echo "✓ API refreshed and database seeded"
 

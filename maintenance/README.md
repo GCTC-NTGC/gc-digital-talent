@@ -4,7 +4,7 @@ This project contains a collection of scripts to use a maintenance container to 
 
 ## Environment First-Time Setup
 
-To set up a local development environment, run these commands from anywhere in repo:
+To set up a local development environment, run these commands from the repo root:
 
 1. Build and run the containers: `docker compose up --detach --build`
 2. To setup the apps: `docker compose run --rm maintenance bash setup.sh`
@@ -49,5 +49,8 @@ In order to compile and render UI for development, you have two options:
 - Allow the first compile to happen
 - Make some changes, watch it recompile, and your Storybook page should automatically refresh
 
-> [!TIP]
-> Having trouble with Storybook `.cache` permissions? Try running `sudo chmod 777 -R node_modules/.cache` from the relevant workspace.
+> [!NOTE]
+> The containers run as whoever owns the checked-out project, so everything they
+> generate is yours to edit without `sudo`. They work this out for themselves by
+> looking at the mounted files -- there is nothing to configure, and nothing to
+> undo on macOS or Windows, where docker hands back host-owned files regardless.
