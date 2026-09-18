@@ -257,7 +257,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     });
 
     await test.step("Verify the placement and referral status", async () => {
-      adminCtx = await graphql.newContext();
       await tableValidation.verifyPlacementAndReferralStatus(
         poolId,
         adminCtx,
