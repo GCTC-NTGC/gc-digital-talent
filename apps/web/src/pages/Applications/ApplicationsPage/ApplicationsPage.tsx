@@ -15,7 +15,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers";
+import { MAX_DATE, sortDateBy } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -47,13 +47,12 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
 
   const sortedApplications = useMemo(
     () =>
-      unpackMaybes(applications).sort((a, b) => {
-        const aDate = a?.submittedAt ? new Date(a.submittedAt) : MAX_DATE;
-        const bDate = b?.submittedAt ? new Date(b.submittedAt) : MAX_DATE;
-        return orderBy === "newest"
-          ? bDate.getTime() - aDate.getTime()
-          : aDate.getTime() - bDate.getTime();
-      }),
+      unpackMaybes(applications).sort(
+        sortDateBy(
+          (application) => application.submittedAt,
+          orderBy === "newest" ? "desc" : "asc",
+        ),
+      ),
     [applications, orderBy],
   );
 
