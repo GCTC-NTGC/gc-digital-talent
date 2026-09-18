@@ -38,8 +38,8 @@ export const handle = {
   }),
 };
 
-export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
-  query CareerTimelineExperiences {
+export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
+  query CareerExperiencePage {
     me {
       id
       experiences {
@@ -61,17 +61,17 @@ const unselectedFilterStyle: Record<string, string> = {
   className: "font-normal text-gray-500",
 };
 
-interface CareerTimelineProps {
+interface CareerExperienceProps {
   userId: string;
   experiencesQuery: FragmentType<
     typeof CareerTimelineSectionExperience_Fragment
   >[];
 }
 
-export const CareerTimeline = ({
+export const CareerExperience = ({
   userId,
   experiencesQuery,
-}: CareerTimelineProps) => {
+}: CareerExperienceProps) => {
   const intl = useIntl();
 
   const [sortBy, setSortBy] = useState<SortValues>("type");
@@ -101,9 +101,9 @@ export const CareerTimeline = ({
             {intl.formatMessage({
               defaultMessage:
                 "This section of your profile acts as your resume, where you can describe your experience across work, school, and life. You'll be able to reuse this information on each application you submit, speeding up the process and ensuring that your information is always up-to-date.",
-              id: "2ORY+v",
+              id: "V4oTbX",
               description:
-                "Descriptive paragraph for the career timeline page.",
+                "Descriptive paragraph for the career experience page.",
             })}
           </p>
           <div
@@ -151,16 +151,16 @@ export const CareerTimeline = ({
   );
 };
 
-const CareerTimelinePage = () => {
+const CareerExperiencePage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
-    query: CareerTimelineExperiences_Query,
+    query: CareerExperiencePage_Query,
   });
 
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <CareerTimeline
+        <CareerExperience
           userId={data?.me.id}
           experiencesQuery={unpackMaybes(data?.me.experiences)}
         />
@@ -175,10 +175,10 @@ const CareerTimelinePage = () => {
 
 export const Component = () => (
   <RequireAuth roles={[ROLE_NAME.Applicant]}>
-    <CareerTimelinePage />
+    <CareerExperiencePage />
   </RequireAuth>
 );
 
-Component.displayName = "CareerTimelinePage";
+Component.displayName = "CareerExperiencePage";
 
 export default Component;
