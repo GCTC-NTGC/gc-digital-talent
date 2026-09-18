@@ -35,10 +35,10 @@ final class CreatePoolValidator extends Validator
         /**
          * @var array<Team> $teams
          */
-        $teams = $user->rolesTeams()->get();
+        $teams = $user?->rolesTeams()->get() ?? [];
         $teamIds = [];
         foreach ($teams as $team) {
-            if ($user->isAbleTo('create-team-draftPool', $team)) {
+            if ($user?->isAbleTo('create-team-draftPool', $team)) {
                 $teamIds[] = $team->id;
             }
         }
