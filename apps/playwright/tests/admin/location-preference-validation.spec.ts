@@ -35,7 +35,7 @@ import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
 import { defaultWorkExperience } from "~/utils/experiences";
-import { createCommunityInterest } from "~/utils/communities";
+import { createCommunity, createCommunityInterest } from "~/utils/communities";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 
 test.describe("Location Preference Validation", { tag: "@uat" }, () => {
@@ -145,14 +145,15 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
       user?.authInfo?.sub ?? "applicant@test.com",
     );
     const applicant = await me(applicantCtx, {});
+    const community = await createCommunity(platformAdminCtx, {});
+    if (!community) throw new Error("Community creation failed");
 
     await createCommunityInterest(applicantCtx, {
       userId: user?.id ?? "",
       communityInterest: {
-        communityId: "f2156218-953a-49dc-b12c-84fecae2309a",
+        communityId: community.id,
         jobInterest: true,
         trainingInterest: true,
-        workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
         consentToShareProfile: true,
       },
     });
