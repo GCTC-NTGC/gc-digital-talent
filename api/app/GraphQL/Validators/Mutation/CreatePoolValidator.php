@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\Team;
 use App\Models\User;
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Validation\Validator;
 
 final class CreatePoolValidator extends Validator
@@ -21,7 +22,9 @@ final class CreatePoolValidator extends Validator
     {
         // user must be able to a create a pool in the department OR community
         // this must be validated in the scenario of users with multiple roles allowing more options
-        $user = User::find($this->arg('userId'));
+
+        /** @var User | null */
+        $user = Auth::user();
         $community = ! is_null($this->arg('communityId')) ?
             Community::find($this->arg('communityId'))
             : null;

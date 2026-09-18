@@ -75,7 +75,7 @@ class TriggerNewJobPostedTest extends TestCase
 
         $this->travel(1)->minutes();
         Artisan::call('send-notifications:pool-published');
-        Notification::assertSentTimes(NewJobPosted::class, 2);
+        Notification::assertSentTimes(NewJobPosted::class, 1);
     }
 
     // no notification when the pool is published with the "other" group
