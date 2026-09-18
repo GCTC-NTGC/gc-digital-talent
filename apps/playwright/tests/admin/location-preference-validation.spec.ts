@@ -61,7 +61,6 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
 
   test.beforeAll(async () => {
     testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
     sub = `playwright.loc.pref.${testId}`;
     platformAdminCtx = await graphql.newContext();
     adminCtx = await graphql.newContext(
@@ -241,10 +240,12 @@ test.describe("Location Preference Validation", { tag: "@uat" }, () => {
     // 1. Validate location preference update in candidate details page
     candidatePage = new PoolCandidatePage(appPage.page);
     await candidatePage.toGoCandidate(application.id);
-    await appPage.page
-      .getByRole("button", { name: "Work preferences", exact: true })
-      .click();
-    await appPage.waitForGraphqlResponse("WorkPreferencesSnapshotOptions");
+    await Promise.all([
+      appPage.waitForGraphqlResponse("WorkPreferencesSnapshotOptions"),
+      appPage.page
+        .getByRole("button", { name: "Work preferences", exact: true })
+        .click(),
+    ]);
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
 
