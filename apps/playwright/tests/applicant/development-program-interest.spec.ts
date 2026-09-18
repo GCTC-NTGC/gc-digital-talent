@@ -16,6 +16,7 @@ import {
   createCommunityDevelopmentProgram,
   createDevelopmentProgram,
   assignCommunityAdminRole,
+  assignCommunityTalentCoordinatorRole,
 } from "~/utils/communities";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { createWorkStream } from "~/utils/workStreams";
@@ -125,6 +126,20 @@ test.describe(
 
       if (!communityA) throw new Error("Community A creation failed");
       if (!communityB) throw new Error("Community B creation failed");
+
+      // createTalentNominationEvent below needs the coordinator to hold the
+      // team-scoped role on these brand-new communities' teams first.
+      const coordinatorUser = await me(communityTalentCoordinatorCtx, {});
+      await Promise.all([
+        assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+          userId: coordinatorUser.id,
+          teamId: communityA.teamIdForRoleAssignment!,
+        }),
+        assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+          userId: coordinatorUser.id,
+          teamId: communityB.teamIdForRoleAssignment!,
+        }),
+      ]);
 
       const [devProgram, educationExperience] = await Promise.all([
         createDevelopmentProgram(platformAdminCtx, {
@@ -254,10 +269,17 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
   const communityAdminSub = `playwright.sub.${uniqueTestId}.communityAdmin`;
   let platformAdminCtx: GraphQLContext,
     communityAdminCtx: GraphQLContext,
+    communityTalentCoordinatorCtx: GraphQLContext,
     applicantCtx: GraphQLContext;
 
   test.beforeAll(async () => {
-    platformAdminCtx = await graphql.newContext();
+    [platformAdminCtx, communityTalentCoordinatorCtx] = await Promise.all([
+      graphql.newContext(),
+      graphql.newContext(
+        process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+          "talent-coordinator@test.com",
+      ),
+    ]);
 
     ({
       applicantEmployee,
@@ -277,6 +299,14 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
 
     if (!community) throw new Error("Community creation failed");
 
+    // createTalentNominationEvent below needs the coordinator to hold the
+    // team-scoped role on this brand-new community's team first.
+    const coordinatorUser = await me(communityTalentCoordinatorCtx, {});
+    await assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+      userId: coordinatorUser.id,
+      teamId: community.teamIdForRoleAssignment!,
+    });
+
     const [resolvedDevProgram] = await Promise.all([
       createDevelopmentProgram(platformAdminCtx, {
         name: {
@@ -292,7 +322,7 @@ test.describe("Development Program Interest", { tag: "@uat" }, () => {
         userId: communityAdminEmployee.id,
         teamId: community.teamIdForRoleAssignment!,
       }),
-      createTalentNominationEvent(platformAdminCtx, {
+      createTalentNominationEvent(communityTalentCoordinatorCtx, {
         community: { connect: community.id },
       }),
       createWorkStream(platformAdminCtx, {

@@ -297,6 +297,35 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
   });
 };
 
+export const assignCommunityTalentCoordinatorRole: GraphQLRequestFunc<
+  void,
+  { userId: string; teamId: string }
+> = async (ctx, { userId, teamId }) => {
+  const roles = await ctx
+    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
+      Test_RolesQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) => res.roles);
+  const communityTalentCoordinatorRoleId = roles.find(
+    (r) => r.name === "community_talent_coordinator",
+  )?.id;
+  if (!communityTalentCoordinatorRoleId) {
+    throw new Error("community_talent_coordinator role not found");
+  }
+  await ctx.post(Test_UpdateUserRolesMutation, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          attach: [{ roleId: communityTalentCoordinatorRoleId, teamId }],
+        },
+      },
+    },
+  });
+};
+
 /**
  * Revoke Community Admin Role
  *
