@@ -15,7 +15,7 @@ import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
-test.describe.skip("Talent nomination management", { tag: "@uat" }, () => {
+test.describe("Talent nomination management", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   let skillOptions: Skill[];
   let talentEvent: TalentNominationEvent | undefined;

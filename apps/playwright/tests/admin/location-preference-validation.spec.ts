@@ -35,14 +35,19 @@ import PoolCandidatePage from "~/fixtures/PoolCandidatePage";
 import { getClassifications } from "~/utils/classification";
 import { getDepartments } from "~/utils/departments";
 import { defaultWorkExperience } from "~/utils/experiences";
-import { createCommunityInterest } from "~/utils/communities";
+import {
+  createCommunity,
+  createCommunityInterest,
+  deleteCommunityInterest,
+} from "~/utils/communities";
 import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixture";
 
-test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
+test.describe("Location Preference Validation", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let applicantCtx: GraphQLContext;
   let platformAdminCtx: GraphQLContext;
   let user: User;
+  let communityInterestId: string | undefined;
   let userPage: UserPage;
   let locationPrefPage: LocationPreferenceUpdatePage;
   let candidatePage: PoolCandidatePage;
@@ -56,7 +61,6 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
 
   test.beforeAll(async () => {
     testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
     sub = `playwright.loc.pref.${testId}`;
     platformAdminCtx = await graphql.newContext();
     adminCtx = await graphql.newContext(
@@ -145,17 +149,19 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
       user?.authInfo?.sub ?? "applicant@test.com",
     );
     const applicant = await me(applicantCtx, {});
+    const community = await createCommunity(platformAdminCtx, {});
+    if (!community) throw new Error("Community creation failed");
 
-    await createCommunityInterest(applicantCtx, {
+    const communityInterest = await createCommunityInterest(applicantCtx, {
       userId: user?.id ?? "",
       communityInterest: {
-        communityId: "f2156218-953a-49dc-b12c-84fecae2309a",
+        communityId: community.id,
         jobInterest: true,
         trainingInterest: true,
-        workStreams: { sync: ["c6ce7eee-751c-4637-a9a2-d19fb20eaaeb"] },
         consentToShareProfile: true,
       },
     });
+    communityInterestId = communityInterest?.id;
 
     const candidate = await createAndSubmitApplication(applicantCtx, {
       poolId: id,
@@ -168,6 +174,9 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
+    if (communityInterestId) {
+      await deleteCommunityInterest(applicantCtx, { id: communityInterestId });
+    }
     if (user) {
       await deleteUser(platformAdminCtx, { id: user.id });
     }
@@ -231,10 +240,12 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
     // 1. Validate location preference update in candidate details page
     candidatePage = new PoolCandidatePage(appPage.page);
     await candidatePage.toGoCandidate(application.id);
-    await appPage.page
-      .getByRole("button", { name: "Work preferences", exact: true })
-      .click();
-    await appPage.waitForGraphqlResponse("WorkPreferencesSnapshotOptions");
+    await Promise.all([
+      appPage.waitForGraphqlResponse("WorkPreferencesSnapshotOptions"),
+      appPage.page
+        .getByRole("button", { name: "Work preferences", exact: true })
+        .click(),
+    ]);
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
     await locationPrefPage.validateSelectedFlexWorkLocOptions();
 

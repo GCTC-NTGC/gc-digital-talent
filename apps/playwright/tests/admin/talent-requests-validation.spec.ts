@@ -42,7 +42,7 @@ import GenericTableValidationFixture from "~/fixtures/GenericTableValidationFixt
 import { getMyCommunity } from "~/utils/communities";
 import { getDepartments } from "~/utils/departments";
 
-test.describe.skip("Talent search", { tag: "@uat" }, () => {
+test.describe("Talent search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let platformAdminCtx: GraphQLContext;
@@ -257,7 +257,6 @@ test.describe.skip("Talent search", { tag: "@uat" }, () => {
     });
 
     await test.step("Verify the placement and referral status", async () => {
-      adminCtx = await graphql.newContext();
       await tableValidation.verifyPlacementAndReferralStatus(
         poolId,
         adminCtx,
@@ -273,7 +272,6 @@ test.describe.skip("Talent search", { tag: "@uat" }, () => {
   test("'Not Referred' candidates are not present in the Talent table", async ({
     appPage,
   }) => {
-    adminCtx = await graphql.newContext();
     talentSearch = new TalentSearch(appPage.page);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
     let requestId: string;
