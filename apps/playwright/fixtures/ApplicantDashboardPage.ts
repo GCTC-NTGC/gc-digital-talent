@@ -57,6 +57,7 @@ class ApplicantDashboardPage extends AppPage {
   }
 
   async toggleJobApplications() {
+    await this.goToDashboard();
     await this.locators[FIELD.JOB_APPLICATIONS].click();
   }
 

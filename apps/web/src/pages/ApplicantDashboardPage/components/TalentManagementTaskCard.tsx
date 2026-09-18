@@ -134,11 +134,11 @@ const TalentManagementTaskCard = ({
     talentManagementTaskCardFragment.talentRequests,
   );
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     talentNominationsAccordionValue === "" &&
     talentRequestsAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setTalentNominationsAccordionValue(ACCORDION_ID.TALENT_NOMINATIONS);
       setTalentRequestsAccordionValue(ACCORDION_ID.TALENT_REQUESTS);
     } else {
@@ -160,7 +160,7 @@ const TalentManagementTaskCard = ({
           headingColor="success"
           headingAs="h2"
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> talent management sections</hidden>",
