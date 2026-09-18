@@ -52,6 +52,7 @@ class SendNotificationsPoolPublished extends Command
             ->where('published_at', '<', $endOfSpan)
             ->whereNotClosed() // don't notify of pools that have already been closed
             ->where('publishing_group', '<>', PublishingGroup::OTHER->name) // don't notify of testing pools
+            ->where('is_hidden', false)
             ->get();
 
         $this->info('Found '.$poolsPublishedRecently->count().' pools.');
