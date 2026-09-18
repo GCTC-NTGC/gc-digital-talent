@@ -201,6 +201,11 @@ const messages = defineMessages({
     id: "NMo1VF",
     description: "Experience date range when end date is missing",
   },
+  type: {
+    defaultMessage: "Type",
+    id: "trerKD",
+    description: "Button to filter experiences by type",
+  },
 });
 
 export default messages;

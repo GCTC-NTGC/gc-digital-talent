@@ -1,25 +1,41 @@
-import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import { useState } from "react";
 
-import { Heading, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
+import {
+  Button,
+  Heading,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
+import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
+import experienceMessages from "~/messages/experienceMessages";
 import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
+
+type SortValues = "type" | "timeline";
 
 const pageTitle = defineMessage({
-  defaultMessage: "Career timeline",
-  id: "TUfJUD",
-  description: "Name of Career timeline page",
+  defaultMessage: "Your career experience",
+  id: "kLl/xh",
+  description: "Name of career experience page",
 });
 
 export const handle = {
-  pageTitle,
+  pageTitle: defineMessage({
+    defaultMessage: "Career experience",
+    id: "iAMDPG",
+    description: "Breadcrumb for the career experience page",
+  }),
 };
 
 export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
@@ -32,6 +48,18 @@ export const CareerTimelineExperiences_Query = graphql(/* GraphQL */ `
     }
   }
 `);
+
+const selectedFilterStyle: Record<string, string> = {
+  mode: "inline",
+  color: "black",
+  className: "[&_*]:no-underline pointer-events-none",
+};
+
+const unselectedFilterStyle: Record<string, string> = {
+  mode: "inline",
+  color: "black",
+  className: "font-normal text-gray-500",
+};
 
 interface CareerTimelineProps {
   userId: string;
@@ -46,36 +74,80 @@ export const CareerTimeline = ({
 }: CareerTimelineProps) => {
   const intl = useIntl();
 
+  const [sortBy, setSortBy] = useState<SortValues>("type");
+
   return (
-    <>
-      <Heading
-        icon={BookmarkSquareIcon}
-        color="error"
-        size="h3"
-        className="mt-0 mb-6 font-normal"
-      >
-        {intl.formatMessage({
-          defaultMessage: "Manage your career timeline",
-          id: "eZYP/W",
-          description:
-            "Titles for a page section to manage your career timeline",
-        })}
-      </Heading>
-      <p className="mb-6">
-        {intl.formatMessage({
-          defaultMessage:
-            "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
-          id: "0m3FMH",
-          description: "Descriptive paragraph for the career timeline page.",
-        })}
-      </p>
-      <div className="mb-18">
-        <CareerTimelineSection
-          experiencesQuery={experiencesQuery}
-          userId={userId}
-        />
-      </div>
-    </>
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
+              {intl.formatMessage(pageTitle)}
+            </TableOfContents.AnchorLink>
+          </TableOfContents.ListItem>
+        </TableOfContents.List>
+      </TableOfContents.Navigation>
+      <TableOfContents.Content>
+        <TableOfContents.Section id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
+          <Heading
+            icon={NewspaperIcon}
+            color="primary"
+            size="h3"
+            className="mt-0 mb-6 font-normal"
+          >
+            {intl.formatMessage(pageTitle)}
+          </Heading>
+          <p className="mb-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "This section of your profile acts as your resume, where you can describe your experience across work, school, and life. You'll be able to reuse this information on each application you submit, speeding up the process and ensuring that your information is always up-to-date.",
+              id: "2ORY+v",
+              description:
+                "Descriptive paragraph for the career timeline page.",
+            })}
+          </p>
+          <div
+            role="group"
+            aria-labelledby="sortFilter"
+            className="mt-6 flex items-center gap-3"
+          >
+            <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
+              {intl.formatMessage(formMessages.sortBy)}
+              {intl.formatMessage(commonMessages.dividingColon)}
+            </span>
+            <Button
+              onClick={() => setSortBy("type")}
+              {...(sortBy === "type"
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage(experienceMessages.type)}
+            </Button>
+            <Button
+              onClick={() => setSortBy("timeline")}
+              {...(sortBy === "timeline"
+                ? selectedFilterStyle
+                : unselectedFilterStyle)}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Timeline",
+                id: "V+cJvn",
+                description: "Button to filter experiences by timeline",
+              })}
+            </Button>
+          </div>
+          {sortBy === "type" ? (
+            // experiences by type
+            <div>Experiences by type</div>
+          ) : (
+            <CareerTimelineSection
+              experiencesQuery={experiencesQuery}
+              userId={userId}
+            />
+          )}
+        </TableOfContents.Section>
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
 
