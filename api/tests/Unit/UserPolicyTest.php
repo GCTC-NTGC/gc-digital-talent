@@ -192,6 +192,17 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->processOperator->can('view', $this->employee));
         $this->assertFalse($this->departmentAdmin->can('view', $this->employee));
         $this->assertFalse($this->departmentHRAdvisor->can('view', $this->employee));
+
+        CommunityInterest::factory()->create([
+            'user_id' => $this->applicant->id,
+            'community_id' => $this->community->id,
+            'consent_to_share_profile' => true,
+        ]);
+
+        // recruiter/coordinator/admin cannot view applicant as a community talent because they are not a verified gov employee
+        $this->assertFalse($this->communityRecruiter->can('view', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('view', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('view', $this->applicant));
     }
 
     /**
