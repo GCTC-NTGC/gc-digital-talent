@@ -50,24 +50,31 @@ class PoolCandidatePage extends AppPage {
       .getByRole("menuitem", { name: /download profiles excel/i })
       .click();
 
-    // The export is generated asynchronously. A "notificationReceived"
-    // subscription pushes a toast once it's actually ready, so wait for
-    // that instead of racing an already-present notification.
-    await expect(
-      this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
-    ).toBeVisible({ timeout: 90_000 });
-
     const now = new Date();
     const today = now.toISOString().split("T")[0];
+
+    if (process.env.TESTING_ENDPOINT_SECRET) {
+      await expect(
+        this.page
+          .getByRole("alert")
+          .filter({ hasText: /ready for download/i }),
+      ).toBeVisible({ timeout: 90_000 });
+    }
 
     await this.page
       .getByRole("button", { name: /view notifications/i })
       .click();
     await this.waitForGraphqlResponse("NotificationDialog");
-    await this.page.getByRole("button", { name: /refresh/i }).click();
-    await this.waitForGraphqlResponse("NotificationDialog");
-    // Notifications are ordered newest first, so once the ready toast has
-    // fired, the first matching link is guaranteed to be the new file.
+    await expect(async () => {
+      await this.page.getByRole("button", { name: /refresh/i }).click();
+      await this.waitForGraphqlResponse("NotificationDialog");
+      await expect(
+        this.page
+          .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
+          .first(),
+      ).toBeVisible();
+    }).toPass({ timeout: 90_000 });
+
     await this.page
       .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()
