@@ -1,0 +1,562 @@
+name: Wiki Release Notes
+
+on:
+  push:
+    tags:
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to document (e.g. v2.72.2)'
+        required: true
+        type: string
+      prev_tag:
+        description: 'Override previous tag (e.g. v2.74.2 to combine skipped releases)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-wiki:
+    name: Update wiki for ${{ github.ref_name }}
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone wiki
+        run: |
+          git clone \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git \
+            /tmp/gc-wiki
+
+      - name: Generate wiki page
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+          REPO_URL: https://github.com/${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          PREV_TAG="${{ inputs.prev_tag }}"
+          if [ -z "$PREV_TAG" ]; then
+            PREV_TAG=$(git tag --sort=-version:refname | grep -A1 "^${TAG}$" | tail -1)
+          fi
+          WIKI_DIR=/tmp/gc-wiki
+          OUT="${WIKI_DIR}/${TAG}.md"
+
+          echo "Generating ${TAG} (since ${PREV_TAG})"
+
+          # ── helpers ────────────────────────────────────────────────────────
+
+          assess_migration() {
+            local file="$1"
+            local content
+            content=$(git show "${TAG}:${file}" 2>/dev/null || true)
+            if [ -z "$content" ] || ! echo "$content" | grep -q 'function down'; then
+              echo "⛔ No|||No \`down()\` method — cannot rollback"
+              return
+            fi
+            local down_line
+            down_line=$(echo "$content" | grep -n 'function down' | head -1 | cut -d: -f1)
+            local down up
+            down=$(echo "$content" | tail -n +"$down_line")
+            up=$(echo "$content"   | head -n  "$down_line")
+
+            local drops_soft drops_table drops_col up_seeds
+            drops_soft=$( echo "$down" | grep -c  'dropSoftDeletes'               || true)
+            drops_table=$(echo "$down" | grep -cE 'Schema::(drop|dropIfExists)|drop[(]' || true)
+            drops_col=$(  echo "$down" | grep -cE 'dropColumn|dropColumns'         || true)
+            up_seeds=$(   echo "$up"   | grep -cE 'DB::table.*insert'              || true)
+
+            if   [ "$drops_soft"  -gt 0 ]; then
+              echo "⚠️ Partial|||Drops \`deleted_at\` — soft-deleted records reappear as active after rollback"
+            elif [ "$drops_table" -gt 0 ] && [ "$up_seeds" -gt 0 ]; then
+              echo "⚠️ Partial|||Drops table that received seeded data — rows written post-deploy are permanently lost on rollback"
+            elif [ "$drops_col"   -gt 0 ] && [ "$up_seeds" -gt 0 ]; then
+              echo "⚠️ Partial|||Drops column(s) with seeded data — data written post-deploy is lost on rollback"
+            elif [ "$drops_col"   -gt 0 ]; then
+              echo "✅ Yes|||Drops nullable column(s) added by this migration — safe if rolled back before data is written"
+            elif [ "$drops_table" -gt 0 ]; then
+              echo "✅ Yes|||Drops newly created table — no pre-existing data affected"
+            else
+              echo "✅ Yes|||Reversal is non-destructive"
+            fi
+          }
+
+          # Converts "Title (#1234)" lines into "- Title ([#1234](url))" list items
+          format_list() {
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
+              if [ -n "$pr" ]; then
+                base=$(echo "$line" | sed "s| (#${pr})||g")
+                echo "- ${base} ([#${pr}](${REPO_URL}/pull/${pr}))"
+              else
+                echo "- ${line}"
+              fi
+            done
+          }
+
+          # Like format_list but adds "by @author" attribution via gh API
+          format_list_with_authors() {
+            while IFS= read -r line; do
+              [ -z "$line" ] && continue
+              pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
+              if [ -n "$pr" ]; then
+                base=$(echo "$line" | sed "s| (#${pr})||g")
+                author=$(gh pr view "$pr" --json author --jq '.author.login' 2>/dev/null || echo "")
+                if [ -n "$author" ]; then
+                  echo "- ${base} by @${author} ([#${pr}](${REPO_URL}/pull/${pr}))"
+                else
+                  echo "- ${base} ([#${pr}](${REPO_URL}/pull/${pr}))"
+                fi
+              else
+                echo "- ${line}"
+              fi
+            done
+          }
+
+          # ── data collection ────────────────────────────────────────────────
+
+          DATE=$(git log "$TAG" -1 --format='%ai' | cut -d' ' -f1)
+
+          ALL_COMMITS=$(git log "${PREV_TAG}..${TAG}" --format='%s' --no-merges)
+          NON_BUMP=$(echo "$ALL_COMMITS" | grep -vc '^Bump ' || true)
+
+          MIGRATIONS=$(git diff "${PREV_TAG}..${TAG}" --diff-filter=A --name-only \
+            | grep 'database/migrations' || true)
+          MIGRATION_COUNT=$(echo "$MIGRATIONS" | grep -c . || true)
+
+          PR_NUMS=$(echo "$ALL_COMMITS" | grep -oE '\(#[0-9]+\)' | tr -d '()#' | awk '!seen[$0]++' || true)
+
+          FEATURES=$( echo "$ALL_COMMITS" | grep -iE  '^\[(Feature|Feat)\]'                      || true)
+          REFACTORS=$(echo "$ALL_COMMITS" | grep -iE  '^\[(Refactor|Debt|Dep)\]'               || true)
+          BUGS=$(     echo "$ALL_COMMITS" | grep -iE  '^\[(Bug|Fix)\]|^[Ff]ix[[:space:]]'      || true)
+          COPY=$(     echo "$ALL_COMMITS" | grep -iE  '^\[Copy\]'                              || true)
+          DOCS=$(     echo "$ALL_COMMITS" | grep -iE  '^\[(Docs|Doc)\]|^docs:'                 || true)
+          DEPS=$(     echo "$ALL_COMMITS" | grep -iE  '^Bump '                                 || true)
+          OTHER=$(    echo "$ALL_COMMITS" | grep -viE '^\[(Feature|Feat|Refactor|Debt|Dep|Bug|Fix|Copy|Docs|Doc)\]|^[Ff]ix[[:space:]]|^Bump[[:space:]]|^docs:|^Playwright' || true)
+
+          HIGHLIGHTS=""
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            clean=$(echo "$line" | sed -E 's/^\[(Feature|Feat|feature)\][[:space:]]*//' | sed -E 's/[[:space:]]*\(#[0-9]+\)$//')
+            HIGHLIGHTS+="* ${clean}"$'\n'
+          done <<< "$(echo "$FEATURES" | head -5)"
+
+          # ── graphql breaking changes ────────────────────────────────────────
+
+          BREAKING_ROWS=""
+          GQL_DIFF=$(git diff "${PREV_TAG}..${TAG}" -- api/graphql/schema.graphql || true)
+          if [ -n "$GQL_DIFF" ]; then
+            while IFS= read -r raw_line; do
+              line="${raw_line#-}"
+              line="${line#"${line%%[![:space:]]*}"}"  # ltrim
+              # Skip blank / comment / brace-only lines
+              [[ -z "$line" || "$line" == \#* || "$line" == "{" || "$line" == "}" ]] && continue
+              # input type removal
+              re_input='^input[[:space:]]+([a-zA-Z_][a-zA-Z0-9_]*)'
+              re_field='^([a-zA-Z_][a-zA-Z0-9_]*)(\([^)]*\))?[[:space:]]*:[[:space:]]*[]![?A-Za-z[]'
+              if [[ "$line" =~ $re_input ]]; then
+                BREAKING_ROWS+="| \`${BASH_REMATCH[1]}\` (input type) | **Removed** |"$'\n'
+              # field definition removal: word optionally followed by (args) then ": Type"
+              elif [[ "$line" =~ $re_field ]]; then
+                BREAKING_ROWS+="| \`${BASH_REMATCH[1]}\` | **Removed** |"$'\n'
+              fi
+            done <<< "$(echo "$GQL_DIFF" | grep '^-' | grep -v '^---' || true)"
+          fi
+
+          HAS_BREAKING=false
+          [ -n "$BREAKING_ROWS" ] && HAS_BREAKING=true
+
+          # ── deployment steps ───────────────────────────────────────────────
+          # Primary signal: deployment label. Secondary net: body section on
+          # unlabeled PRs. Tertiary net: env.example diff for truly missed vars.
+
+          DEPLOY_STEPS=""
+          HAS_DEPLOY=false
+          LABELED_NO_SECTION=""
+          LABELED_PRS=""           # track which PRs have the deployment label
+          for pr in $PR_NUMS; do
+            # Fetch as JSON and parse fields separately — avoids delimiter
+            # collisions when PR bodies contain table rows with multiple pipes.
+            pr_json=$(gh pr view "$pr" --json title,body,labels 2>/dev/null || true)
+            [ -z "$pr_json" ] && continue
+            pr_title=$(echo "$pr_json" | jq -r '.title')
+            # Normalise \r\n → \n so awk ^ anchors match correctly
+            pr_body=$(echo "$pr_json" | jq -r '.body' | tr -d '\r')
+            pr_labels=$(echo "$pr_json" | jq -r '[.labels[].name] | join(",")')
+
+            has_deploy_label=false
+            echo "$pr_labels" | grep -qi 'deployment' && has_deploy_label=true
+
+            # Extract body section if present
+            has_body_section=false
+            section=""
+            if echo "$pr_body" | grep -qiE '^##[[:space:]]+(Deployment|Deploy)'; then
+              section=$(echo "$pr_body" | awk '
+                /^##[[:space:]]+(Deployment|Deploy)/{found=1; next}
+                found && /^##[[:space:]]/{found=0}
+                found{print}
+              ')
+              if ! echo "$section" | grep -qi 'Add any additional details\|Remove deployment section' \
+                && [ -n "$(echo "$section" | tr -d '[:space:]')" ]; then
+                has_body_section=true
+              fi
+            fi
+
+            # labeled + has section → documented deployment steps
+            if [ "$has_deploy_label" = "true" ] && [ "$has_body_section" = "true" ]; then
+              HAS_DEPLOY=true
+              LABELED_PRS+=" ${pr}"
+              DEPLOY_STEPS+="### PR #${pr} — ${pr_title}"$'\n'
+              DEPLOY_STEPS+="**Source:** [#${pr}](${REPO_URL}/pull/${pr})"$'\n\n'
+              DEPLOY_STEPS+="${section}"$'\n\n---\n\n'
+            # labeled + no section → flag as missing
+            elif [ "$has_deploy_label" = "true" ]; then
+              HAS_DEPLOY=true
+              LABELED_PRS+=" ${pr}"
+              LABELED_NO_SECTION+="| [#${pr}](${REPO_URL}/pull/${pr}) | ${pr_title} |"$'\n'
+            # unlabeled but has section → secondary net, still capture
+            elif [ "$has_body_section" = "true" ]; then
+              HAS_DEPLOY=true
+              DEPLOY_STEPS+="### PR #${pr} — ${pr_title}"$'\n'
+              DEPLOY_STEPS+="**Source:** [#${pr}](${REPO_URL}/pull/${pr})"$'\n\n'
+              DEPLOY_STEPS+="${section}"$'\n\n---\n\n'
+            fi
+          done
+
+          if [ -n "$LABELED_NO_SECTION" ]; then
+            DEPLOY_STEPS+="### ⚠️ PRs with \`deployment\` label but no deployment instructions written"$'\n\n'
+            DEPLOY_STEPS+="| PR | Title |"$'\n'
+            DEPLOY_STEPS+="|-----|-------|"$'\n'
+            DEPLOY_STEPS+="${LABELED_NO_SECTION}"$'\n\n---\n\n'
+          fi
+
+          # ── env.example scan (tertiary net — catches truly missed vars) ────────
+          # Skips vars whose introducing PR already has the deployment label
+          # (those are handled above). Only surfaces vars from unlabeled PRs
+          # that also lack a deployment body section.
+
+          ENV_DIFF=$(git diff "${PREV_TAG}..${TAG}" -- '*.env.example' || true)
+          if [ -n "$ENV_DIFF" ]; then
+            current_file=""
+            ENV_AUTO_ROWS=""
+            PR_BODY_CACHE_DIR=$(mktemp -d)
+            while IFS= read -r raw_line; do
+              if [[ "$raw_line" =~ ^\+\+\+[[:space:]]b/(.+)$ ]]; then
+                current_file="${BASH_REMATCH[1]}"; continue
+              fi
+              [[ "$raw_line" != +* || "$raw_line" == +++* ]] && continue
+              line="${raw_line#+}"
+              [[ -z "$line" || "$line" =~ ^[[:space:]]*# ]] && continue
+              var=$(echo "$line" | grep -oE '^[A-Z][A-Z0-9_]+=' | tr -d '=' || true)
+              [ -z "$var" ] && continue
+              val=$(echo "$line" | cut -d= -f2-)
+              introducing_pr=$(git log "${PREV_TAG}..${TAG}" -S "${var}=" --format="%s" --no-merges \
+                | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#' || true)
+              if [ -n "$introducing_pr" ]; then
+                # Skip if this PR already has the deployment label (handled above)
+                echo " ${LABELED_PRS} " | grep -q " ${introducing_pr} " && continue
+                # Cache PR body to a temp file to avoid redundant API calls
+                cache_file="${PR_BODY_CACHE_DIR}/${introducing_pr}.txt"
+                if [ ! -f "$cache_file" ]; then
+                  gh pr view "$introducing_pr" \
+                    --json body --jq '.body' 2>/dev/null | tr -d '\r' > "$cache_file" || true
+                fi
+                if grep -qiE '(🚚|:truck:)[[:space:]]*(Deployment|Deploy)' "$cache_file" 2>/dev/null; then
+                  continue
+                fi
+                pr_ref=" ([#${introducing_pr}](${REPO_URL}/pull/${introducing_pr}))"
+              else
+                pr_ref=""
+              fi
+              ENV_AUTO_ROWS+="| \`${var}\` | \`${current_file}\` | \`${val:-<empty>}\`${pr_ref} |"$'\n'
+            done <<< "$ENV_DIFF"
+            rm -rf "$PR_BODY_CACHE_DIR"
+
+            if [ -n "$ENV_AUTO_ROWS" ]; then
+              HAS_DEPLOY=true
+              DEPLOY_STEPS+="### Auto-detected: env.example changes with no deployment notes"$'\n\n'
+              DEPLOY_STEPS+="> ⚠️ These variables were added to \`*.env.example\` by PRs with no \`deployment\` label and no 🚚 Deployment section. Confirm whether each needs to be set in IaC before deploy."$'\n\n'
+              DEPLOY_STEPS+="| Variable | File | Default | PR |"$'\n'
+              DEPLOY_STEPS+="|----------|------|---------|-----|"$'\n'
+              DEPLOY_STEPS+="${ENV_AUTO_ROWS}"$'\n\n---\n\n'
+            fi
+          fi
+
+          # ── test plan variables ────────────────────────────────────────────
+
+          PRECHECK=""
+          if [ "$HAS_DEPLOY" = "true" ]; then
+            for pr in $PR_NUMS; do
+              body=$(gh pr view "$pr" --json body --jq '.body' 2>/dev/null || true)
+              for var in $(echo "$body" | grep -oE '[A-Z][A-Z0-9_]{2,}=' | tr -d '='); do
+                PRECHECK+="- [ ] \`${var}\` updated in IaC"$'\n'
+              done
+            done
+            # Also add auto-detected env vars to pre-deploy checklist
+            if [ -n "${ENV_AUTO_ROWS:-}" ]; then
+              while IFS= read -r row; do
+                [ -z "$row" ] && continue
+                var=$(echo "$row" | grep -oE '\`[A-Z][A-Z0-9_]+\`' | head -1 | tr -d '`' || true)
+                [ -n "$var" ] && PRECHECK+="- [ ] \`${var}\` — confirm value and set in IaC (auto-detected from env.example)"$'\n'
+              done <<< "$ENV_AUTO_ROWS"
+            fi
+          fi
+          [ -z "$PRECHECK" ] && PRECHECK="- [ ] No env var changes required"
+
+          MIGRATION_CHECKS="- [ ] \`php artisan migrate\` — ${MIGRATION_COUNT} migration(s) applied cleanly"$'\n'
+          while IFS= read -r mf; do
+            [ -z "$mf" ] && continue
+            MIGRATION_CHECKS+="- [ ] \`$(basename "$mf" .php)\` ran without errors"$'\n'
+          done <<< "$MIGRATIONS"
+
+          FEATURE_CHECKS=""
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            clean=$(echo "$line" | sed -E 's/^\[(Feature|Feat|feature)\][[:space:]]*//' | sed -E 's/[[:space:]]*\(#[0-9]+\)$//')
+            pr=$(echo "$line" | grep -oE '\(#[0-9]+\)' | head -1 | tr -d '()#')
+            [ -n "$pr" ] && ref=" ([#${pr}](${REPO_URL}/pull/${pr}))" || ref=""
+            FEATURE_CHECKS+="- [ ] ${clean}${ref}"$'\n'
+          done <<< "$FEATURES"
+
+          # ── migration rollback table ───────────────────────────────────────
+
+          MIGRATION_TABLE=""
+          while IFS= read -r mf; do
+            [ -z "$mf" ] && continue
+            result=$(assess_migration "$mf")
+            safety="${result%%|||*}"
+            note="${result#*|||}"
+            MIGRATION_TABLE+="| \`$(basename "$mf" .php)\` | ${safety} | ${note} |"$'\n'
+          done <<< "$MIGRATIONS"
+
+          # ── version type ───────────────────────────────────────────────────
+
+          VTYPE="Minor bump (biweekly)"
+          [ "$HAS_BREAKING" = "true" ] && VTYPE="${VTYPE} — contains BREAKING schema changes"
+
+          # ── write page ─────────────────────────────────────────────────────
+
+          {
+            echo "# Release ${TAG}"
+            echo ""
+            echo "**Date:** ${DATE}"
+            echo "**Tag:** [${TAG}](${REPO_URL}/releases/tag/${TAG})"
+            echo "**Commits since ${PREV_TAG}:** ${NON_BUMP}"
+            echo "**Version type:** ${VTYPE}"
+            echo ""
+            echo "---"
+            echo ""
+
+            if [ "$HAS_BREAKING" = "true" ]; then
+              echo "## ⚠️ GraphQL Breaking Changes"
+              echo ""
+              echo "Any client query using the fields or types below will error after deploy."
+              echo ""
+              echo "| Field / Type | Change |"
+              echo "|-------------|--------|"
+              printf "%s" "$BREAKING_ROWS"
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$MIGRATIONS" ]; then
+              echo "## Migration Rollback Safety"
+              echo ""
+              echo "> Referenced by the [Rollback Procedure](Runbooks/Rollback-Procedure) during incidents. Check this before running \`migrate:rollback\`."
+              echo ""
+              echo "| Migration | Safe to rollback? | Notes |"
+              echo "|-----------|------------------|-------|"
+              printf "%s" "$MIGRATION_TABLE"
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ "$HAS_DEPLOY" = "true" ]; then
+              echo "## 🚚 Deployment Steps"
+              echo ""
+              echo "### Deployment order"
+              echo ""
+              echo '```'
+              echo "1. Update IaC env vars  ← before deploy"
+              echo "2. Deploy artifact"
+              echo "3. php artisan migrate"
+              echo '```'
+              echo ""
+              printf "%s" "$DEPLOY_STEPS"
+            fi
+
+            echo "## 🧪 Test Plan"
+            echo ""
+            echo "### Pre-deploy checklist"
+            printf "%s" "$PRECHECK"
+            echo ""
+            echo "### Deployment verification"
+            printf "%s" "$MIGRATION_CHECKS"
+            if [ -n "$FEATURE_CHECKS" ]; then
+              echo ""
+              echo "### Features"
+              printf "%s" "$FEATURE_CHECKS"
+            fi
+            echo ""
+            echo "### Regression"
+            echo "- [ ] Application submission flow end-to-end"
+            echo "- [ ] Talent nomination form submits correctly"
+            echo "- [ ] Pool listings load correctly"
+            echo "- [ ] Search request table loads"
+            echo ""
+            echo "---"
+            echo ""
+
+            echo "## 📋 What's Changed"
+            echo ""
+            if [ -n "$FEATURES"  ]; then echo "### Features";       echo "$FEATURES"  | format_list; echo ""; fi
+            if [ -n "$REFACTORS" ]; then echo "### Refactor / Debt"; echo "$REFACTORS" | format_list; echo ""; fi
+            if [ -n "$BUGS"      ]; then echo "### Bug Fixes";       echo "$BUGS"      | format_list; echo ""; fi
+            if [ -n "$COPY"      ]; then echo "### Copy";            echo "$COPY"      | format_list; echo ""; fi
+            if [ -n "$DOCS"      ]; then echo "### Docs";            echo "$DOCS"      | format_list; echo ""; fi
+            if [ -n "$OTHER"     ]; then echo "### Other";           echo "$OTHER"     | format_list; echo ""; fi
+
+          } > "$OUT"
+
+          echo "Wrote $OUT"
+
+          # ── github release body ────────────────────────────────────────────
+
+          {
+            if [ -n "$HIGHLIGHTS" ]; then
+              echo "## 🌟 Highlights"
+              echo ""
+              printf "%s" "$HIGHLIGHTS"
+              echo ""
+            fi
+
+            if [ -n "$FEATURES" ]; then
+              echo "## ✨ **New Features & Enhancements**"
+              echo ""
+              echo "$FEATURES" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$BUGS" ]; then
+              echo "## 🛠️ **Bug Fixes & Improvements**"
+              echo ""
+              echo "$BUGS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$REFACTORS" ]; then
+              echo "## 🧹 **Refactoring & Technical Changes**"
+              echo ""
+              echo "$REFACTORS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$DOCS" ]; then
+              echo "## 📝 **Documentation**"
+              echo ""
+              echo "$DOCS" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$COPY" ]; then
+              echo "## 🗣️ **Accessibility, Content & Copy Updates**"
+              echo ""
+              echo "$COPY" | format_list_with_authors
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            if [ -n "$DEPS" ]; then
+              echo "## ⬆️ **Dependencies & DevOps**"
+              echo ""
+              echo "$DEPS" | format_list
+              echo ""
+              echo "---"
+              echo ""
+            fi
+
+            echo ""
+            echo "**Full Changelog**: ${REPO_URL}/compare/${PREV_TAG}...${TAG}"
+          } > /tmp/release_body.md
+
+          echo "Wrote /tmp/release_body.md"
+
+          # ── update Home.md ─────────────────────────────────────────────────
+
+          # Risky Rollback reflects migration safety only — not GraphQL breaking
+          # changes, which are already surfaced in the Type column.
+          HAS_RISKY_MIGRATION=false
+          echo "$MIGRATION_TABLE" | grep -qE '⚠️ Partial|⛔ No' && HAS_RISKY_MIGRATION=true
+
+          if   [ "$HAS_RISKY_MIGRATION" = "true" ]; then RISKY="⛔ Yes"
+          elif [ "$MIGRATION_COUNT"      -gt 0    ]; then RISKY="⚠️ Check"
+          else                                           RISKY="✅ No migrations"; fi
+
+          HTYPE="Minor"
+          [ "$HAS_BREAKING" = "true" ] && HTYPE="Minor (BREAKING schema)"
+          [ "$HAS_DEPLOY" = "true" ] && DCOL="✅ Yes" || DCOL="—"
+
+          NEW_ROW="| [${TAG}](${TAG}) | ${DATE} | ${HTYPE} | ${RISKY} | ${DCOL} |"
+
+          # Remove any existing row for this tag (makes re-runs idempotent)
+          sed -i "/\[${TAG}\]/d" "${WIKI_DIR}/Home.md"
+
+          # Insert new row immediately after the table header separator line
+          awk -v row="$NEW_ROW" '
+            BEGIN { done=0 }
+            /^\|[-| ]+\|/ && !done { print; print row; done=1; next }
+            { print }
+          ' "${WIKI_DIR}/Home.md" > /tmp/home_new.md && mv /tmp/home_new.md "${WIKI_DIR}/Home.md"
+
+          # Remove any stale Structure block entry for this tag, then re-add
+          sed -i "/^${TAG}[[:space:]]/d" "${WIKI_DIR}/Home.md"
+
+          # Prepend tag to the Structure code block (after the Home ← line)
+          awk -v tag="$TAG" '
+            /^Home[[:space:]]+←/ { print; print tag "                     ← full analysis per release"; next }
+            { print }
+          ' "${WIKI_DIR}/Home.md" > /tmp/home_new.md && mv /tmp/home_new.md "${WIKI_DIR}/Home.md"
+
+          echo "Updated Home.md"
+
+      - name: Push wiki
+        run: |
+          cd /tmp/gc-wiki
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet || git commit -m "Add ${{ inputs.tag || github.ref_name }} release notes"
+          git push
+
+      - name: Publish GitHub release
+        if: ${{ !env.ACT }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          if gh release view "$TAG" &>/dev/null; then
+            gh release edit "$TAG" --prerelease --notes-file /tmp/release_body.md
+            echo "Updated release $TAG"
+          else
+            gh release create "$TAG" --title "$TAG" --prerelease --notes-file /tmp/release_body.md
+            echo "Created release $TAG"
+          fi
