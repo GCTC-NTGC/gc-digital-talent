@@ -10,11 +10,7 @@ declare global {
 }
 
 class CspReporter {
-  public readonly page: Page;
-
-  constructor(public readonly p: Page) {
-    this.page = p;
-  }
+  constructor(public readonly page: Page) {}
 
   async setup() {
     await this.page.addInitScript(() => {
