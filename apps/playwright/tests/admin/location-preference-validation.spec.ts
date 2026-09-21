@@ -23,7 +23,7 @@ import {
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 import UserPage from "~/fixtures/UserPage";
 import { loginBySub } from "~/utils/auth";
 import { expect, test } from "~/fixtures";
@@ -128,13 +128,14 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
 
     const admin = await me(adminCtx, {});
     const createdPool = await createAndPublishPool(adminCtx, {
       userId: admin?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
+        __typename: "LocalizedString" as const,
         en: `App location preference ${testId} (EN)`,
         fr: `App location preference ${testId} (FR)`,
       },

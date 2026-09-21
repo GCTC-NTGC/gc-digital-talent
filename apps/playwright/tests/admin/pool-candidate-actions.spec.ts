@@ -25,6 +25,7 @@ import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
 
 const LOCALIZED_STRING = {
+  __typename: "LocalizedString" as const,
   en: "test EN",
   fr: "test FR",
 };

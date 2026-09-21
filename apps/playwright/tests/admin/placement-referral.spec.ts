@@ -40,6 +40,7 @@ import ReferralStatusPage from "~/fixtures/ReferralStatusPage";
 import { getDepartments } from "~/utils/departments";
 
 const LOCALIZED_STRING = {
+  __typename: "LocalizedString" as const,
   en: "test-placement-referral EN",
   fr: "test-placement-referral FR",
 };

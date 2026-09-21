@@ -143,6 +143,7 @@ test.describe.skip("Block job applications", { tag: "@uat" }, () => {
         },
       },
       name: {
+        __typename: "LocalizedString",
         en: "Block Job application unverified contact email [EN]",
         fr: "Block Job application unverified contact email [FR]",
       },
@@ -166,6 +167,7 @@ test.describe.skip("Block job applications", { tag: "@uat" }, () => {
         },
       },
       name: {
+        __typename: "LocalizedString",
         en: "Block Internal Job application unverified work email [EN]",
         fr: "Block Internal Job application unverified work email [FR]",
       },

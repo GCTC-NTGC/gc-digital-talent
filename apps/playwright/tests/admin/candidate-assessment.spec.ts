@@ -49,6 +49,7 @@ import AssessmentPage from "~/fixtures/AssessmentPage";
 import { getCandidateScreeningStage } from "~/utils/candidateAssessment";
 
 const LOCALIZED_STRING = {
+  __typename: "LocalizedString" as const,
   en: "test EN",
   fr: "test FR",
 };
