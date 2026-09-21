@@ -23,7 +23,6 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, me } from "~/utils/user";
 
 const LOCALIZED_STRING = {
-  __typename: "LocalizedString" as const,
   en: "test snapshot EN",
   fr: "test snapshot FR",
 };

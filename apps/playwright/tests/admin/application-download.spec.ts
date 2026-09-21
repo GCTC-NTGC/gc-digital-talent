@@ -96,7 +96,6 @@ test.describe.skip("Application download", { tag: "@uat" }, () => {
       userId: admin?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
-        __typename: "LocalizedString" as const,
         en: `App download ${testId} (EN)`,
         fr: `App download ${testId} (FR)`,
       },

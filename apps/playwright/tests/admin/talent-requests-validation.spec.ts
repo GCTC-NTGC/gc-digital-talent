@@ -93,7 +93,6 @@ test.describe.skip("Talent search", { tag: "@uat" }, () => {
         classificationId: classification.id,
         workStreamId: workStream.id,
         name: {
-          __typename: "LocalizedString" as const,
           en: poolName,
           fr: `${poolName} (FR)`,
         },
