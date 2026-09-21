@@ -156,7 +156,7 @@ class TalentNomination extends Model
      *
      * @return BelongsTo<User, $this>
      */
-    public function advancementReferenceUser(): BelongsTo
+    public function advancementReferenceUnguarded(): BelongsTo
     {
         return $this->belongsTo(User::class, 'advancement_reference_id');
     }

@@ -596,9 +596,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             $details['email'] = $reference->work_email ?? '';
             $details['classification'] = $reference->currentClassification->formattedGroupAndLevel ?? '';
             $details['department'] = $reference->department?->name[$this->lang] ?? '';
-        } elseif ($nomination->advancementReferenceUser) {
+        } elseif ($nomination->advancementReferenceUnguarded) {
             // If the reference is no longer a verified employee show their name only without any employment details (work email, classification, department)
-            $details['name'] = $nomination->advancementReferenceUser->getFullName();
+            $details['name'] = $nomination->advancementReferenceUnguarded->getFullName();
             $details['email'] = $this->localize('common.not_found');
             $details['classification'] = $this->localize('common.not_found');
             $details['department'] = $this->localize('common.not_found');
@@ -790,7 +790,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'submitter',
                     'advancementReference.department',
                     'advancementReference.currentClassification',
-                    'advancementReferenceUser',
+                    'advancementReferenceUnguarded',
                     'nominatorFallbackClassification',
                     'nominatorFallbackDepartment',
                     'advancementReferenceFallbackClassification',
