@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Community;
 use App\Models\CommunityInterest;
+use App\Models\Department;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -33,6 +34,8 @@ class CommunityInterestPolicyTest extends TestCase
 
     protected $community;
 
+    protected $department;
+
     protected $verifiedEmployee;
 
     protected $otherVerifiedEmployee;
@@ -44,6 +47,8 @@ class CommunityInterestPolicyTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->community = Community::factory()->create();
+
+        $this->department = Department::factory()->create();
 
         $this->guest = User::factory()
             ->asGuest()
@@ -92,7 +97,7 @@ class CommunityInterestPolicyTest extends TestCase
             ]);
 
         $this->departmentAdmin = User::factory()
-            ->asApplicant()
+            ->asDepartmentAdmin($this->department->id)
             ->create([
                 'email' => 'department-admin-user@test.com',
             ]);
