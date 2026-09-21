@@ -47,6 +47,7 @@ test.describe("Update published process", { tag: "@uat" }, () => {
       userId: user.id,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: {
+        __typename: "LocalizedString" as const,
         en: "Test published pool EN",
         fr: "Test published pool FR",
       },

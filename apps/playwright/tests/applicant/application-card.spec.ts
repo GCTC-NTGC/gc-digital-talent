@@ -77,6 +77,7 @@ test.describe.skip("Application card", { tag: "@uat" }, () => {
       userId: admin?.id ?? "",
       skillIds: skill ? [skill.id] : undefined,
       name: {
+        __typename: "LocalizedString",
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },

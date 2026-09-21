@@ -43,6 +43,7 @@ import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
 const LOCALIZED_STRING = {
+  __typename: "LocalizedString" as const,
   en: "test pool EN",
   fr: "test pool FR",
 };

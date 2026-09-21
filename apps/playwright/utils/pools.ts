@@ -2,7 +2,7 @@ import type {
   AssessmentStep,
   AssessmentStepInput,
   CreatePoolSkillInput,
-  LocalizedStringInput,
+  LocalizedString,
   Pool,
   PoolSkill,
   UpdatePoolInput,
@@ -309,7 +309,7 @@ interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
   communityId?: string;
-  name?: LocalizedStringInput;
+  name?: LocalizedString;
   classificationId?: string;
   departmentId?: string;
   workStreamId?: string;

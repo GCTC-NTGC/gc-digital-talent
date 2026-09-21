@@ -65,6 +65,7 @@ test.describe.skip("Process activity log", { tag: "@uat" }, () => {
       userId: adminUser?.id ?? "",
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: {
+        __typename: "LocalizedString" as const,
         en: "Process activity log test EN",
         fr: "Process activity log test FR",
       },
