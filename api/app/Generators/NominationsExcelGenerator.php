@@ -193,6 +193,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             if ($nomination->nominator) {
                 return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
             }
+            // If nominator is no longer a verified employee show "Not found"
             if ($nomination->nominator_id) {
                 return $this->localize('common.not_found');
             }
