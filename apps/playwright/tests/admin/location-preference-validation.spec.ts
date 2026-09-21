@@ -135,7 +135,6 @@ test.describe.skip("Location Preference Validation", { tag: "@uat" }, () => {
       userId: admin?.id ?? "",
       skillIds: skill ? [skill?.id] : undefined,
       name: {
-        __typename: "LocalizedString" as const,
         en: `App location preference ${testId} (EN)`,
         fr: `App location preference ${testId} (FR)`,
       },

@@ -94,7 +94,6 @@ test.describe("Application", () => {
     const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
       name: {
-        __typename: "LocalizedString",
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
@@ -271,7 +270,6 @@ test.describe("Application", () => {
       const admin = await me(adminCtx, {});
       const pool = await createAndPublishPool(adminCtx, {
         name: {
-          __typename: "LocalizedString",
           en: `${poolName} (EN)`,
           fr: `${poolName} (FR)`,
         },
@@ -478,7 +476,6 @@ test.describe("Application", () => {
     const admin = await me(adminCtx, {});
     const pool = await createAndPublishPool(adminCtx, {
       name: {
-        __typename: "LocalizedString",
         en: `${poolName} (EN)`,
         fr: `${poolName} (FR)`,
       },
