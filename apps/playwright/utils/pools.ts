@@ -317,7 +317,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
 > = async (
   ctx,
   {
-    userId,
     skillIds,
     name,
     teamId,
@@ -329,7 +328,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
   },
 ) => {
   return createPool(ctx, {
-    userId,
     teamId,
     communityId,
     classificationId,
