@@ -103,6 +103,7 @@ class CommunityInterestPolicyTest extends TestCase
             ]);
 
         $this->verifiedEmployee = User::factory()
+            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create([
                 'email' => 'verified-employee-user@test.com',
@@ -110,6 +111,7 @@ class CommunityInterestPolicyTest extends TestCase
             ]);
 
         $this->otherVerifiedEmployee = User::factory()
+            ->asApplicant()
             ->withGovEmployeeProfile()
             ->create([
                 'email' => 'other-verified-employee-user@test.com',
