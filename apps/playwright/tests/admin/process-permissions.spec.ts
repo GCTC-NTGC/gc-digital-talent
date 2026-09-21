@@ -4,7 +4,6 @@ import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { me } from "~/utils/user";
 import { createPool, updatePool } from "~/utils/pools";
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -21,11 +20,8 @@ test.describe("Process permissions", { tag: "@uat" }, () => {
     adminCtx = await graphql.newContext(
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
     );
-    const user = await me(adminCtx, {});
 
-    const createdPool = await createPool(adminCtx, {
-      userId: user.id,
-    });
+    const createdPool = await createPool(adminCtx, {});
 
     await updatePool(adminCtx, {
       poolId: createdPool.id,
