@@ -185,21 +185,30 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     }
 
     /**
+     * Name of a single nomination's nominator
+     */
+    private function getNominatorName(TalentNomination $nomination): ?string
+    {
+        if ($nomination->nominator) {
+            return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+        }
+        // If nominator is no longer a verified employee show "Not found"
+        if ($nomination->nominator_id) {
+            return $this->localize('common.not_found');
+        }
+
+        return $nomination->nominator_fallback_name;
+    }
+
+    /**
      * Names of every nominator in a group, separated by commas
      */
     private function getNominators(TalentNominationGroup $group): string
     {
-        return $group->nominations->map(function ($nomination) {
-            if ($nomination->nominator) {
-                return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
-            }
-            // If nominator is no longer a verified employee show "Not found"
-            if ($nomination->nominator_id) {
-                return $this->localize('common.not_found');
-            }
-
-            return $nomination->nominator_fallback_name;
-        })->filter()->join(', ');
+        return $group->nominations
+            ->map(fn ($nomination) => $this->getNominatorName($nomination))
+            ->filter()
+            ->join(', ');
     }
 
     /**
@@ -464,7 +473,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
             new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
             new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
-            new TextField('nominator', fn ($n) => $this->getNominators($n->talentNominationGroup)),
+            new TextField('nominator', fn ($n) => $this->getNominatorName($n)),
             new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
             new TextField('nominator_email', fn ($n) => $this->getNominatorDetails($n)['email']),
             new TextField('nominator_classification', fn ($n) => $this->getNominatorDetails($n)['classification']),
