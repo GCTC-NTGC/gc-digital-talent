@@ -278,6 +278,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             ...array_map($visibleIfConsentedToShare, [
                 new TextField('email', fn ($g) => $g->nominee->email),
                 new TextField('phone', fn ($g) => $g->nominee->telephone),
+                new DateField('updated_at', 'Y-m-d H:i:s', fn ($g) => $g->nominee->updated_at),
                 new EnumField('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
                 new EnumField('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
                 new TextField('current_city', fn ($g) => $g->nominee->current_city),
