@@ -711,7 +711,7 @@
     "description": "Label for process employment duration"
   },
   "0aC0CM": {
-    "defaultMessage": " Nous avons ajouté de nouvelles fonctionnalités à votre profil d’employé. N’hésitez pas à cliquer sur les onglets dans le haut de la page pour les découvrir. Comme toujours, vous pouvez communiquer avec notre équipe de soutien si vous avez des questions ou des commentaires.",
+    "defaultMessage": "Nous avons ajouté de nouvelles fonctionnalités à votre profil d’employé. N’hésitez pas à cliquer sur les onglets dans le haut de la page pour les découvrir. Comme toujours, vous pouvez communiquer avec notre équipe de soutien si vous avez des questions ou des commentaires.",
     "description": "Message for a new feature notice"
   },
   "0bf24C": {
@@ -5181,7 +5181,7 @@
     "description": "Heading for closing the accordion with information on employment equity"
   },
   "IKaWRI": {
-    "defaultMessage": " Préférences en matière de gestion des talents",
+    "defaultMessage": "Préférences en matière de gestion des talents",
     "description": "Title for talent management preferences section"
   },
   "ILThW5": {
@@ -8501,7 +8501,7 @@
     "description": "Null message for education requirement section"
   },
   "Vl0+/x": {
-    "defaultMessage": " Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
+    "defaultMessage": "Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
     "description": "Body for a message informing the user that they must wait before requesting another email."
   },
   "VlI6x0": {
@@ -10707,7 +10707,7 @@
     "description": "Label for view job advertisement link"
   },
   "ecHyZS": {
-    "defaultMessage": " Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
+    "defaultMessage": "Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
     "description": "Description of the employee profile page"
   },
   "ee4C6L": {
@@ -11439,7 +11439,7 @@
     "description": "Breadcrumb link text for a numbered application step introduction page"
   },
   "h8vBvw": {
-    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "defaultMessage": "Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
     "description": "introduction for advancement classifications"
   },
   "h9XSU5": {
@@ -11571,7 +11571,7 @@
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
   "hbbeY8": {
-    "defaultMessage": " Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
+    "defaultMessage": "Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
     "description": "Footer for create account page"
   },
   "hbcdJm": {
@@ -14678,7 +14678,7 @@
     "description": "Button text to add a new general question to a pool"
   },
   "uEzDbH": {
-    "defaultMessage": " Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
+    "defaultMessage": "Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
