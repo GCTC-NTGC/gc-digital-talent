@@ -187,7 +187,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     /**
      * Name of a single nomination's nominator
      */
-    private function getNominatorName(TalentNomination $nomination): ?string
+    private function getNominatorName(TalentNomination $nomination): string
     {
         if ($nomination->nominator) {
             return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
@@ -554,9 +554,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
         }
 
         return [
-            'email' => $nomination->nominator?->work_email ?? $nomination->nominator_fallback_work_email,
-            'classification' => $nomination->nominator?->currentClassification?->formattedGroupAndLevel ?? $nomination->nominatorFallbackClassification?->formattedGroupAndLevel,
-            'department' => $nomination->nominator?->department?->name[$this->lang] ?? $nomination->nominatorFallbackDepartment?->name[$this->lang],
+            'email' => $nomination->nominator->work_email ?? $nomination->nominator_fallback_work_email,
+            'classification' => $nomination->nominator->currentClassification->formattedGroupAndLevel ?? $nomination->nominatorFallbackClassification?->formattedGroupAndLevel,
+            'department' => $nomination->nominator->department?->name[$this->lang] ?? $nomination->nominatorFallbackDepartment?->name[$this->lang],
         ];
     }
 
