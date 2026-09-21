@@ -84,7 +84,10 @@ const CurrentPositionExperiences = ({
     (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
   const currentWorkExperiencesSorted = currentWorkExperiences.sort(
-    sortDateBy((exp) => ("startDate" in exp ? exp.startDate : MAX_DATE)),
+    sortDateBy(
+      (exp) => ("startDate" in exp ? exp.startDate : MAX_DATE),
+      "desc",
+    ),
   );
 
   const currentWorkExperiencesByGovPositionType = groupBy(

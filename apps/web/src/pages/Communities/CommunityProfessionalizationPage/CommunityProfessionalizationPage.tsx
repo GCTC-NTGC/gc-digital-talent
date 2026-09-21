@@ -107,7 +107,7 @@ export const CommunityProfessionalizationForm = ({
   } else {
     sortedCommunityDevelopmentPrograms =
       sortedCommunityDevelopmentPrograms.sort(
-        sortDateBy((cdp) => cdp.createdAt),
+        sortDateBy((cdp) => cdp.createdAt, "desc"),
       );
   }
 

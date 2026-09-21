@@ -128,7 +128,7 @@ const TalentManagementTaskCard = ({
     .sort(
       sortDateBy((nomination) => nomination.talentNominationEvent.closeDate),
     )
-    .sort(sortDateBy((nomination) => nomination.submittedAt));
+    .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
   const talentRequests = unpackMaybes(
     talentManagementTaskCardFragment.talentRequests,
