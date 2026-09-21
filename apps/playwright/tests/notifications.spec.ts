@@ -69,7 +69,6 @@ test.describe.skip("Notifications", { tag: "@uat" }, () => {
       workStreamId,
       skillIds: technicalSkill ? [technicalSkill?.id] : undefined,
       name: {
-        __typename: "LocalizedString",
         en: `Test_pool ${uniqueTestId} (EN)`,
         fr: `Test_pool ${uniqueTestId} (FR)`,
       },
