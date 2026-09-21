@@ -5296,6 +5296,10 @@
     "defaultMessage": "Ce poste requiert de pouvoir travailler en anglais. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
     "description": "English essential language requirement description"
   },
+  "ImKTX7": {
+    "defaultMessage": "Toutes les candidatures",
+    "description": "Text for all applications page"
+  },
   "ImTMRk": {
     "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
     "description": "Subtitle for the application profile  page"
@@ -7781,6 +7785,10 @@
     "defaultMessage": "Indiquez la raison du changement.",
     "description": "Help text for justifying updating published pool"
   },
+  "Sk4nXd": {
+    "defaultMessage": "Plus ancienne",
+    "description": "Order by oldest"
+  },
   "SkV4+/": {
     "defaultMessage": "Numéro de suivi",
     "description": "Alternate name for ID column header"
@@ -10068,6 +10076,10 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
+  "cFrdgi": {
+    "defaultMessage": "Consultez et gérez l'historique de vos candidatures.",
+    "description": "Job applications subtitle"
+  },
   "cGYqB+": {
     "defaultMessage": "l'accessibilité des outils de publication de contenu sur la plateforme;",
     "description": "List item two, sub item one things developers consider for accessibility"
@@ -11010,6 +11022,10 @@
     "defaultMessage": "Si vous prolongez la date de clôture, tous les utilisateurs qui ont une ébauche de demande en cours pour ce processus en seront avisés. Aucune notification ne sera envoyée si vous fermez le processus immédiatement.",
     "description": "Warning message for when admin extends closing date."
   },
+  "fZwNME": {
+    "defaultMessage": "Plus récente",
+    "description": "Order by newest"
+  },
   "fa+z9W": {
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
     "description": "Contact email title paragraph"
@@ -11417,6 +11433,10 @@
   "h30KEc": {
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
+  },
+  "h3gUKn": {
+    "defaultMessage": "Candidatures",
+    "description": "Job applications title"
   },
   "h3mdZ3": {
     "defaultMessage": "URL de la demande",
@@ -11844,6 +11864,10 @@
   "icYqDt": {
     "defaultMessage": "Bassin",
     "description": "Title of the 'Pool' column for the table on view-user page"
+  },
+  "idkbRt": {
+    "defaultMessage": "Triées par",
+    "description": "Text to filter order"
   },
   "idu0MU": {
     "defaultMessage": "Imprimer cette information",
@@ -12292,6 +12316,10 @@
   "kK1Z9U": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for the browse executive jobs section"
+  },
+  "kKAase": {
+    "defaultMessage": "Historique des candidatures",
+    "description": "Heading for all applications"
   },
   "kKSGje": {
     "defaultMessage": "Équipe",
@@ -15052,6 +15080,10 @@
   "veZI+j": {
     "defaultMessage": "<strong>{name}</strong> a soumis",
     "description": "Label for activity log item submitted action"
+  },
+  "vfEb+6": {
+    "defaultMessage": "Cette page fournit un aperçu complet de l'historique de vos candidatures.",
+    "description": "Description for all applications"
   },
   "vfXTEA": {
     "defaultMessage": "3. Bons pour examens de certification",
