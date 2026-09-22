@@ -20,32 +20,47 @@ interface MockPool {
 
 const publishedItJobsPool = {
   id: "publishedItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Published),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ItJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
 const expiredItJobsPool = {
   id: "expiredItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Closed),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ItJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
 };
 
 const archivedItJobsPool = {
   id: "archivedItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Archived),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ItJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Archived, "LocalizedPoolStatus"),
 };
 
 const publishedExecJobsPool = {
   id: "publishedExecJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ExecutiveJobs),
-  status: toLocalizedEnum(PoolStatus.Published),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ExecutiveJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
 const publishedIAPJobsPool = {
   id: "publishedIAPJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.Iap),
-  status: toLocalizedEnum(PoolStatus.Published),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.Iap,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
 describe("OpenJobsPage", () => {
