@@ -1033,8 +1033,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             return $this->where(function (Builder $teamSubquery) use ($teamIdsByPermission) {
 
                 // can view users with pool candidates in team pools
-                // poolIdsForTeams() rather than wherePoolIdsForTeams(), which skips a filter it has
-                // already applied - only safe when filters are ANDed, and this one sits in an OR
+                // Not wherePoolIdsForTeams(): it skips a repeat filter, which here would drop one side of the OR and change the results
                 $teamSubquery->whereIn('pool_id', $this->poolIdsForTeams($teamIdsByPermission['view-team-applicantProfile']));
 
                 // can view community talent users in communities
