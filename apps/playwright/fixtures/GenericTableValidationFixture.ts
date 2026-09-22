@@ -17,6 +17,10 @@ import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
 
+function escapeRegExp(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const FIELD = {
   GENERIC_TABLE_ROW: "genericTableRow",
   SHOW_HIDE_COLUMNS: "showHideColumns",
@@ -24,6 +28,7 @@ const FIELD = {
   CLOSE_WINDOW: "closeWindow",
   FILTERS: "filters",
   SHOW_RESULTS: "showResults",
+  RESET_FILTERS: "resetFilters",
   TELEWORK_OPTION: "teleworkOption",
   WORK_LOCATION_PREFERENCE: "workLocationPreference",
   TALENT_TABLE_ROW: "talentTableRow",
@@ -53,6 +58,9 @@ class GenericTableValidationFixture extends AppPage {
       [FIELD.CLOSE_WINDOW]: page.getByRole("button", { name: /Close dialog/i }),
       [FIELD.FILTERS]: page.getByRole("button", { name: /Filters/i }),
       [FIELD.SHOW_RESULTS]: page.getByRole("button", { name: /Show results/i }),
+      [FIELD.RESET_FILTERS]: page.getByRole("button", {
+        name: /Reset filters/i,
+      }),
       [FIELD.TELEWORK_OPTION]: page.getByRole("checkbox", {
         name: /Telework/i,
       }),
@@ -288,8 +296,68 @@ class GenericTableValidationFixture extends AppPage {
     ).toBe(isAvailableForReferral);
   }
 
-  async noCandidatesFound() {
-    await expect(this.locators.noCandidatesFound).toBeVisible();
+  async verifyDefaultApplicantFilters(defaults: {
+    talentSource: string;
+    classification: string;
+    workStream: string;
+    process: string;
+    skill: string;
+  }) {
+    const dialog = this.page.getByRole("dialog");
+    await expect(
+      dialog.getByRole("checkbox", { name: defaults.talentSource }),
+    ).toBeChecked();
+    await expect(
+      dialog.getByRole("button", {
+        name: new RegExp(`${escapeRegExp(defaults.classification)}$`),
+      }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.workStream }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.process }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.skill }),
+    ).toBeVisible();
+  }
+
+  async selectAllCheckboxesInGroup(groupName: string | RegExp) {
+    const checkboxes = this.page
+      .getByRole("group", { name: groupName })
+      .getByRole("checkbox");
+    const count = await checkboxes.count();
+    for (let i = 0; i < count; i++) {
+      await checkboxes.nth(i).check();
+    }
+  }
+
+  async removeFilterChip(chipLabel: string) {
+    await this.page.getByRole("button", { name: chipLabel }).click();
+  }
+
+  async getResultsTotalCount(): Promise<number> {
+    const resultsText =
+      (await this.page.getByText(/showing results/i).textContent()) ?? "";
+    const [, total] = /of\s+([\d,]+)/i.exec(resultsText) ?? [];
+    return total ? Number(total.replace(/,/g, "")) : 0;
+  }
+
+  async updateFindMatchingCandidateTableFilters(
+    poolName: string,
+    skill: string,
+  ) {
+    await this.selectAllCheckboxesInGroup(/source of talent/i);
+    await this.removeFilterChip(poolName);
+    await this.removeFilterChip(skill);
+    await this.locators.showResults.click();
+    await this.waitForGraphqlResponse("TalentRequestMatchingUsers");
+  }
+
+  async resetFilters() {
+    await this.locators[FIELD.FILTERS].click();
+    await this.locators[FIELD.RESET_FILTERS].click();
   }
 }
 export default GenericTableValidationFixture;
