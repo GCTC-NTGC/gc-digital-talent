@@ -288,9 +288,10 @@ return [
 
     'nomination_options' => 'Options de nomination',
     'advancement_approval' => 'Approbation de l’avancement',
-    'advancement_classifications' => 'Classifications possibles aux fins d’avancement',
+    'recommended_classifications_for_advancement' => 'Classifications recommandées pour promotion',
     'advancement_approval_notes' => 'Notes d’approbation de l’avancement',
     'lateral_movement_approval' => 'Approbation du transfert latéral',
+    'recommended_classifications_for_lateral_movement' => 'Classifications recommandées pour un transfert latéral',
     'lateral_movement_approval_notes' => 'Notes d’approbation du transfert latéral',
     'development_program_approval' => 'Approbation du programme de perfectionnement',
     'development_program_approval_notes' => 'Notes d’approbation du programme de perfectionnement',

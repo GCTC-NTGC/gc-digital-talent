@@ -600,6 +600,18 @@ class UserBuilder extends Builder
             ->whereNotNull('work_email_verified_at');
     }
 
+    // shared by UserBuilder::whereAuthorizedToView and PoolCandidateBuilder::andAuthorizedToViewRelatedUser
+    public function whereIsCommunityTalentInTeams(array $teamIds): self
+    {
+        return $this->whereIsVerifiedGovEmployee()
+            ->whereHas('communityInterests', function (Builder $query) use ($teamIds) {
+                $query->where('consent_to_share_profile', true)
+                    ->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                        $query->whereIn('id', $teamIds);
+                    });
+            });
+    }
+
     public function whereEmployeeVerificationIn(?array $employeeVerification): self
     {
         if (empty($employeeVerification)) {
@@ -763,18 +775,15 @@ class UserBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-team-communityTalent')) {
-                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
+                $communityTeamIds = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->get()
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team))
+                    ->pluck('id')
+                    ->toArray();
 
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
-
-                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
-
-                    $query->whereIn('community_id', $communityIds);
-                    $query->where('consent_to_share_profile', true);
+                $query->orWhere(function (Builder $communityTalentSubquery) use ($communityTeamIds) {
+                    $communityTalentSubquery->whereIsCommunityTalentInTeams($communityTeamIds);
                 });
             }
 

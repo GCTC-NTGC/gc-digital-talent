@@ -10,6 +10,7 @@ import {
   formatDate,
   parseDateTimeUtc,
   relativeClosingDate,
+  sortDateBy,
 } from "./index";
 
 describe("relativeClosingDate tests", () => {
@@ -187,5 +188,158 @@ describe("format date in different timezones", () => {
     });
 
     expect(actual).toBe("2021-12-31 16:00:00");
+  });
+});
+
+const OLDEST = {
+  date: "2000-01-01",
+};
+
+const MIDDLE = {
+  date: "2010-06-15",
+};
+
+const NEWEST = {
+  date: "2020-12-31",
+};
+
+const MISSING = {
+  date: null,
+};
+
+describe("Sorting an array of objects by date", () => {
+  it("sorts ascending", () => {
+    const newValues = [MIDDLE, NEWEST, OLDEST].sort(
+      sortDateBy((x) => x.date, "asc"),
+    );
+
+    expect(newValues).toEqual([OLDEST, MIDDLE, NEWEST]);
+  });
+
+  it("sorts descending", () => {
+    const newValues = [MIDDLE, NEWEST, OLDEST].sort(
+      sortDateBy((x) => x.date, "desc"),
+    );
+
+    expect(newValues).toEqual([NEWEST, MIDDLE, OLDEST]);
+  });
+
+  it("sorts ascending by default", () => {
+    const newValues = [MIDDLE, NEWEST, OLDEST].sort(sortDateBy((x) => x.date));
+
+    expect(newValues).toEqual([OLDEST, MIDDLE, NEWEST]);
+  });
+
+  it("sorts date objects", () => {
+    const first = { date: new Date("2000-01-01") };
+    const second = { date: new Date("2020-12-31") };
+    const newValues = [second, first].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([first, second]);
+  });
+
+  it("sorts a mix of strings and date objects", () => {
+    const first: { date: string | Date } = { date: new Date("2000-01-01") };
+    const second: { date: string | Date } = { date: "2020-12-31" };
+    const newValues = [second, first].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([first, second]);
+  });
+
+  it("sorts a null value last ascending", () => {
+    const newValues = [NEWEST, MISSING, OLDEST].sort(
+      sortDateBy((x) => x.date, "asc"),
+    );
+
+    expect(newValues).toEqual([OLDEST, NEWEST, MISSING]);
+  });
+
+  it("sorts a null value first descending", () => {
+    const newValues = [OLDEST, MISSING, NEWEST].sort(
+      sortDateBy((x) => x.date, "desc"),
+    );
+
+    expect(newValues).toEqual([MISSING, NEWEST, OLDEST]);
+  });
+
+  it("sorts an undefined value last ascending", () => {
+    const absent: { date?: string } = {};
+    const newValues = [absent, NEWEST, OLDEST].sort(
+      sortDateBy((x) => x.date, "asc"),
+    );
+
+    expect(newValues).toEqual([OLDEST, NEWEST, absent]);
+  });
+
+  it("does not sort two missing values", () => {
+    const first = { id: 1, date: null };
+    const second = { id: 2, date: undefined };
+    const newValues = [second, first].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([second, first]);
+  });
+});
+
+describe("Sorting dates that are close together", () => {
+  it("sorts two dates one millisecond apart ascending", () => {
+    const earlier = { date: "2020-06-15T12:00:00.001Z" };
+    const later = { date: "2020-06-15T12:00:00.002Z" };
+    const newValues = [later, earlier].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([earlier, later]);
+  });
+
+  it("sorts two dates one millisecond apart descending", () => {
+    const earlier = { date: "2020-06-15T12:00:00.001Z" };
+    const later = { date: "2020-06-15T12:00:00.002Z" };
+    const newValues = [earlier, later].sort(sortDateBy((x) => x.date, "desc"));
+
+    expect(newValues).toEqual([later, earlier]);
+  });
+
+  it("sorts a string and a date one millisecond apart", () => {
+    const earlier: { date: string | Date } = {
+      date: "2020-06-15T12:00:00.001Z",
+    };
+    const later: { date: string | Date } = {
+      date: new Date("2020-06-15T12:00:00.002Z"),
+    };
+    const newValues = [later, earlier].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([earlier, later]);
+  });
+
+  it("sorts the last second of one day before the first second of the next day", () => {
+    const earlier = { date: "2020-06-15T23:59:59Z" };
+    const later = { date: "2020-06-16T00:00:00Z" };
+    const newValues = [later, earlier].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([earlier, later]);
+  });
+
+  it("leaves two objects in their original order when both dates are the same time", () => {
+    const first = { id: 1, date: "2020-06-15T12:00:00.000Z" };
+    const second = { id: 2, date: "2020-06-15T12:00:00.000Z" };
+    const newValues = [second, first].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([second, first]);
+  });
+});
+
+describe("Sort dates written with a timezone offset", () => {
+  it("sorts two dates that show the same time of day with different timezone offsets", () => {
+    const earlier = { date: "2020-06-15T12:00:00+02:00" };
+    const later = { date: "2020-06-15T12:00:00-02:00" };
+    const newValues = [later, earlier].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([earlier, later]);
+  });
+
+  it("sorts two dates one minute apart where the earlier date has the larger timezone offset", () => {
+    const earlier = { date: "2022-11-06T01:30:00-04:00" };
+    const later = { date: "2022-11-06T01:31:00-05:00" };
+    const newValues = [later, earlier].sort(sortDateBy((x) => x.date, "asc"));
+
+    expect(newValues).toEqual([earlier, later]);
   });
 });

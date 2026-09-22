@@ -362,6 +362,6 @@ class CommunityInterest extends Model
 
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
-        return $query->with(['community.team']);
+        return $query->with(['community.team', 'user']);
     }
 }
