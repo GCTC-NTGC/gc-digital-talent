@@ -57,7 +57,10 @@ class UserPolicy
             fn ($team) => $user->isAbleTo('view-team-communityTalent', $team)
         )->pluck('id')->toArray();
 
-        if (! empty($teamsWithCommunityTalent) && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)) {
+        if (! empty($teamsWithCommunityTalent)
+            && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)
+            && $model->isVerifiedGovEmployee
+        ) {
             return true;
         }
 
