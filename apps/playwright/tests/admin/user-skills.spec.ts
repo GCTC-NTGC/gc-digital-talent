@@ -8,11 +8,11 @@ import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 
 test.describe("User skills", { tag: "@uat" }, () => {
   let uniqueTestId = "";
-  let user: User = { id: "" };
+  let user: User = NO_USER;
   let skill: Skill;
   let platformAdminCtx: GraphQLContext;
   const platformAdminSub =
@@ -51,7 +51,7 @@ test.describe("User skills", { tag: "@uat" }, () => {
       },
     });
 
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
   });
 
   test.afterAll(async () => {

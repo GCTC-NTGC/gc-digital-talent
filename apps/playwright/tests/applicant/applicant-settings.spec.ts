@@ -8,12 +8,12 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 
 test.describe("Applicant settings page", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
-  let user: User = { id: "" };
+  let user: User = NO_USER;
   let platformAdminCtx: GraphQLContext;
   const platformAdminSub =
     process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
@@ -35,7 +35,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
   });
 
   test.afterEach(async () => {

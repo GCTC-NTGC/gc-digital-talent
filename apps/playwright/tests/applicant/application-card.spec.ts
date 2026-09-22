@@ -25,7 +25,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 
 test.describe("Application card", { tag: "@uat" }, () => {
   let sub: string;
@@ -94,7 +94,7 @@ test.describe("Application card", { tag: "@uat" }, () => {
     });
 
     application = candidate ?? { id: "" };
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
   });
 
   test.afterAll(async () => {

@@ -9,7 +9,7 @@ import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, NO_USER } from "~/utils/user";
 import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -81,7 +81,7 @@ test.describe("User information", { tag: "@uat" }, () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
   });
 
   test("Applicant cannot access", async ({ appPage }) => {

@@ -33,7 +33,7 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 
 test.describe("Process activity log", { tag: "@uat" }, () => {
   let adminUser: User;
@@ -119,7 +119,7 @@ test.describe("Process activity log", { tag: "@uat" }, () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    applicantUser = activityUser ?? { id: "" };
+    applicantUser = activityUser ?? NO_USER;
     adminUser = await me(adminCtx, {});
 
     // User applied to the newly published pool
