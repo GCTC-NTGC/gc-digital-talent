@@ -14,6 +14,7 @@ import EmailVerification, {
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 
+import AlreadyHaveProfileDialog from "./AlreadyHaveProfileDialog";
 import labels from "../labels";
 
 const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `
@@ -159,7 +160,8 @@ const BottomHalfEmployeeNoEmail = ({
           <div className="-mx-6 sm:-mx-9">
             <Separator decorative orientation="horizontal" space="none" />
           </div>
-          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
+          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
+            <AlreadyHaveProfileDialog />
             <Link
               mode="inline"
               href={paths.registrationExperience({

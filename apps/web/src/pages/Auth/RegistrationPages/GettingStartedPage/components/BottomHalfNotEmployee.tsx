@@ -6,6 +6,8 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
+import AlreadyHaveProfileDialog from "./AlreadyHaveProfileDialog";
+
 const BottomHalfNotEmployee = () => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -27,7 +29,8 @@ const BottomHalfNotEmployee = () => {
       <div className="-mx-6 sm:-mx-9">
         <Separator decorative orientation="horizontal" space="none" />
       </div>
-      <div className="mt-6 flex flex-col items-center sm:flex-row sm:justify-end">
+      <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
+        <AlreadyHaveProfileDialog />
         <Link
           mode="solid"
           href={paths.registrationExperience({
