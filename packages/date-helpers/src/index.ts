@@ -241,3 +241,43 @@ export const isDateStringExpired = (expiryDate: string): boolean => {
   // PoolCandidateBuilder::whereExpiryStatus()
   return expiryDateParsed < nowParsed ? true : false;
 };
+
+type Order = "asc" | "desc";
+
+type RawDate = string | Date | undefined | null;
+
+/**
+ * Parse a date into a safe value for sorting
+ */
+function toSortableDate(original: RawDate): Date {
+  let value = original ?? MAX_DATE;
+
+  if (typeof value === "string") {
+    value = parseDateTimeUtc(value);
+  }
+
+  return value;
+}
+
+/**
+ * Compares two dates for use in sort callback
+ *
+ * NOTE: Exported for unique situations where sortDateBy will not work
+ */
+export function sortSafeDates(
+  a: RawDate,
+  b: RawDate,
+  order: Order = "asc",
+): number {
+  const aValue = toSortableDate(order === "desc" ? b : a);
+  const bValue = toSortableDate(order === "desc" ? a : b);
+
+  return aValue.getTime() - bValue.getTime();
+}
+
+export function sortDateBy<T extends object>(
+  accessor: (value: T) => string | Date | undefined | null,
+  order: Order = "asc",
+): (a: T, b: T) => number {
+  return (a, b) => sortSafeDates(accessor(a), accessor(b), order);
+}

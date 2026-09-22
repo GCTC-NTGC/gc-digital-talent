@@ -16,6 +16,8 @@ import {
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getRoles } from "./roles";
 
+export const NO_USER: User = { __typename: "User", id: "" };
+
 export const defaultUser: Partial<CreateUserInput> = {
   // required
   firstName: "Playwright",

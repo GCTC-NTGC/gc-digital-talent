@@ -95,11 +95,11 @@ const YourProcessesTaskCard = ({
     },
   ];
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     bookmarkedProcessesAccordionValue === "" &&
     sharedProcessesAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setBookmarkedProcessesAccordionValue(ACCORDION_ID.BOOKMARKED_PROCESSES);
       setSharedProcessesAccordionValue(ACCORDION_ID.SHARED_PROCESSES);
     } else {
@@ -121,7 +121,7 @@ const YourProcessesTaskCard = ({
           headingColor="primary"
           headingAs="h2"
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> your processes sections</hidden>",

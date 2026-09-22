@@ -1,6 +1,9 @@
 import { expect, test } from "~/fixtures";
 import Registration from "~/fixtures/Registration";
 
+const platformAdminSub =
+  process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+
 test.describe("Registration", () => {
   test("New user goes to registration then profile", async ({ appPage }) => {
     const register = new Registration(appPage.page);
@@ -10,7 +13,7 @@ test.describe("Registration", () => {
     await expect(
       appPage.page.getByRole("heading", { name: /welcome back/i, level: 1 }),
     ).toBeVisible();
-    await register.deleteNewUser();
+    await register.deleteNewUser(platformAdminSub);
   });
 
   test("New user skips to add recent work experience", async ({ appPage }) => {
@@ -24,6 +27,6 @@ test.describe("Registration", () => {
     await expect(
       appPage.page.getByRole("link", { name: /Applicant dashboard/i }),
     ).toBeVisible();
-    await register.deleteNewUser();
+    await register.deleteNewUser(platformAdminSub);
   });
 });

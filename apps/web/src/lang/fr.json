@@ -711,7 +711,7 @@
     "description": "Label for process employment duration"
   },
   "0aC0CM": {
-    "defaultMessage": " Nous avons ajouté de nouvelles fonctionnalités à votre profil d’employé. N’hésitez pas à cliquer sur les onglets dans le haut de la page pour les découvrir. Comme toujours, vous pouvez communiquer avec notre équipe de soutien si vous avez des questions ou des commentaires.",
+    "defaultMessage": "Nous avons ajouté de nouvelles fonctionnalités à votre profil d’employé. N’hésitez pas à cliquer sur les onglets dans le haut de la page pour les découvrir. Comme toujours, vous pouvez communiquer avec notre équipe de soutien si vous avez des questions ou des commentaires.",
     "description": "Message for a new feature notice"
   },
   "0bf24C": {
@@ -5181,7 +5181,7 @@
     "description": "Heading for closing the accordion with information on employment equity"
   },
   "IKaWRI": {
-    "defaultMessage": " Préférences en matière de gestion des talents",
+    "defaultMessage": "Préférences en matière de gestion des talents",
     "description": "Title for talent management preferences section"
   },
   "ILThW5": {
@@ -5291,6 +5291,10 @@
   "IlvS9l": {
     "defaultMessage": "Ce poste requiert de pouvoir travailler en anglais. Il incombe au gestionnaire de l’embauche de déterminer si vous répondez à cette exigence linguistique.",
     "description": "English essential language requirement description"
+  },
+  "ImKTX7": {
+    "defaultMessage": "Toutes les candidatures",
+    "description": "Text for all applications page"
   },
   "ImTMRk": {
     "defaultMessage": "Mettez à jour et passez en revue vos renseignements personnels, vos coordonnées et vos préférences.",
@@ -7765,6 +7769,10 @@
     "defaultMessage": "Indiquez la raison du changement.",
     "description": "Help text for justifying updating published pool"
   },
+  "Sk4nXd": {
+    "defaultMessage": "Plus ancienne",
+    "description": "Order by oldest"
+  },
   "SkV4+/": {
     "defaultMessage": "Numéro de suivi",
     "description": "Alternate name for ID column header"
@@ -8493,7 +8501,7 @@
     "description": "Null message for education requirement section"
   },
   "Vl0+/x": {
-    "defaultMessage": " Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
+    "defaultMessage": "Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
     "description": "Body for a message informing the user that they must wait before requesting another email."
   },
   "VlI6x0": {
@@ -10044,6 +10052,10 @@
     "defaultMessage": "Candidature",
     "description": "Label for the application link column"
   },
+  "cFrdgi": {
+    "defaultMessage": "Consultez et gérez l'historique de vos candidatures.",
+    "description": "Job applications subtitle"
+  },
   "cGYqB+": {
     "defaultMessage": "l'accessibilité des outils de publication de contenu sur la plateforme;",
     "description": "List item two, sub item one things developers consider for accessibility"
@@ -10695,7 +10707,7 @@
     "description": "Label for view job advertisement link"
   },
   "ecHyZS": {
-    "defaultMessage": " Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
+    "defaultMessage": "Gérez vos renseignements professionnels, y compris vos préférences en matière de perfectionnement et vos méthodes de travail",
     "description": "Description of the employee profile page"
   },
   "ee4C6L": {
@@ -10985,6 +10997,10 @@
   "fYGCsZ": {
     "defaultMessage": "Si vous prolongez la date de clôture, tous les utilisateurs qui ont une ébauche de demande en cours pour ce processus en seront avisés. Aucune notification ne sera envoyée si vous fermez le processus immédiatement.",
     "description": "Warning message for when admin extends closing date."
+  },
+  "fZwNME": {
+    "defaultMessage": "Plus récente",
+    "description": "Order by newest"
   },
   "fa+z9W": {
     "defaultMessage": "Vous recevrez à cette adresse courriel les offres d'emploi provenant des équipes du recrutement et des ressources humaines ainsi que les notifications liées à vos demandes et aux autres éléments de la plateforme.",
@@ -11394,6 +11410,10 @@
     "defaultMessage": "Il manque des données en ce qui concerne vos préférences en matière de travail",
     "description": "Error message displayed when a users work preferences is incomplete"
   },
+  "h3gUKn": {
+    "defaultMessage": "Candidatures",
+    "description": "Job applications title"
+  },
   "h3mdZ3": {
     "defaultMessage": "URL de la demande",
     "description": "The application URL of the training opportunity"
@@ -11419,7 +11439,7 @@
     "description": "Breadcrumb link text for a numbered application step introduction page"
   },
   "h8vBvw": {
-    "defaultMessage": " Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
+    "defaultMessage": "Veuillez indiquer les classifications pour lesquelles la personne nominée doit être recommandée. Les classifications recommandées par la nominatrice ou le nominateur sont présentées à titre indicatif.",
     "description": "introduction for advancement classifications"
   },
   "h9XSU5": {
@@ -11551,7 +11571,7 @@
     "description": "First paragraph for the closed early pool deadlines dialog"
   },
   "hbbeY8": {
-    "defaultMessage": " Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
+    "defaultMessage": "Ces renseignements sont-ils inexacts? Vous pouvez les mettre à jour en accédant à votre profil ConnexionCanada.",
     "description": "Footer for create account page"
   },
   "hbcdJm": {
@@ -11820,6 +11840,10 @@
   "icYqDt": {
     "defaultMessage": "Bassin",
     "description": "Title of the 'Pool' column for the table on view-user page"
+  },
+  "idkbRt": {
+    "defaultMessage": "Triées par",
+    "description": "Text to filter order"
   },
   "idu0MU": {
     "defaultMessage": "Imprimer cette information",
@@ -12268,6 +12292,10 @@
   "kK1Z9U": {
     "defaultMessage": "Gérez votre carrière",
     "description": "Heading for the browse executive jobs section"
+  },
+  "kKAase": {
+    "defaultMessage": "Historique des candidatures",
+    "description": "Heading for all applications"
   },
   "kKSGje": {
     "defaultMessage": "Équipe",
@@ -14650,7 +14678,7 @@
     "description": "Button text to add a new general question to a pool"
   },
   "uEzDbH": {
-    "defaultMessage": " Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
+    "defaultMessage": "Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
@@ -15020,6 +15048,10 @@
   "veZI+j": {
     "defaultMessage": "<strong>{name}</strong> a soumis",
     "description": "Label for activity log item submitted action"
+  },
+  "vfEb+6": {
+    "defaultMessage": "Cette page fournit un aperçu complet de l'historique de vos candidatures.",
+    "description": "Description for all applications"
   },
   "vfXTEA": {
     "defaultMessage": "3. Bons pour examens de certification",
