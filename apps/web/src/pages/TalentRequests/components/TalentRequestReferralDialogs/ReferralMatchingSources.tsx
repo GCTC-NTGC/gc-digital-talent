@@ -2,6 +2,8 @@ import { useIntl } from "react-intl";
 
 import {
   type FragmentType,
+  type ReferralMatchingAdvancementSourceFragment,
+  type ReferralMatchingLateralMovementSourceFragment,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
@@ -40,18 +42,72 @@ export const ReferralMatchingAdvancementSource_Fragment = graphql(
   `,
 );
 
+export const ReferralMatchingLateralMovementSource_Fragment = graphql(
+  /* GraphQL */ `
+    fragment ReferralMatchingLateralMovementSource on TalentNominationGroup {
+      id
+      talentNominationEvent {
+        id
+        name {
+          localized
+        }
+      }
+    }
+  `,
+);
+
+// Renders the matched TalentNominationGroups for one nomination type (advancement or lateral
+// movement) as a labelled list of links to their nomination event. Both fragments select the
+// same shape, so this list rendering is shared between the two nomination types.
+interface NominationEventListProps {
+  label: string;
+  groups:
+    | ReferralMatchingAdvancementSourceFragment[]
+    | ReferralMatchingLateralMovementSourceFragment[];
+}
+
+const NominationEventList = ({ label, groups }: NominationEventListProps) => {
+  const paths = useRoutes();
+
+  if (!groups.length) return null;
+
+  return (
+    <FieldDisplay className="mb-6" label={label}>
+      <Ul>
+        {groups.map((group) => (
+          <li key={group.id}>
+            <Link
+              href={paths.talentNominationGroup(
+                group.talentNominationEvent.id,
+                group.id,
+              )}
+              newTab
+            >
+              {group.talentNominationEvent.name.localized}
+            </Link>
+          </li>
+        ))}
+      </Ul>
+    </FieldDisplay>
+  );
+};
+
 interface ReferralMatchingSourcesProps {
   sourceLabels: string[];
   matchingPoolSources?:
     FragmentType<typeof ReferralMatchingPoolSource_Fragment>[] | null;
   matchingAdvancementSources?:
     FragmentType<typeof ReferralMatchingAdvancementSource_Fragment>[] | null;
+  matchingLateralMovementSources?:
+    | FragmentType<typeof ReferralMatchingLateralMovementSource_Fragment>[]
+    | null;
 }
 
 const ReferralMatchingSources = ({
   sourceLabels,
   matchingPoolSources,
   matchingAdvancementSources,
+  matchingLateralMovementSources,
 }: ReferralMatchingSourcesProps) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
@@ -65,8 +121,19 @@ const ReferralMatchingSources = ({
       matchingAdvancementSources,
     ),
   );
+  const lateralMovementGroups = unpackMaybes(
+    getFragment(
+      ReferralMatchingLateralMovementSource_Fragment,
+      matchingLateralMovementSources,
+    ),
+  );
 
-  if (!sourceLabels.length && !applications.length && !advancementGroups.length)
+  if (
+    !sourceLabels.length &&
+    !applications.length &&
+    !advancementGroups.length &&
+    !lateralMovementGroups.length
+  )
     return null;
 
   return (
@@ -115,33 +182,24 @@ const ReferralMatchingSources = ({
           </FieldDisplay>
         </>
       )}
-      {advancementGroups.length > 0 && (
-        <FieldDisplay
-          className="mb-6"
-          label={intl.formatMessage({
-            defaultMessage: "Talent management events",
-            id: "qutSCs",
-            description:
-              "Label for the list of advancement nominations a user has been approved for",
-          })}
-        >
-          <Ul>
-            {advancementGroups.map((group) => (
-              <li key={group.id}>
-                <Link
-                  href={paths.talentNominationGroup(
-                    group.talentNominationEvent.id,
-                    group.id,
-                  )}
-                  newTab
-                >
-                  {group.talentNominationEvent.name.localized}
-                </Link>
-              </li>
-            ))}
-          </Ul>
-        </FieldDisplay>
-      )}
+      <NominationEventList
+        label={intl.formatMessage({
+          defaultMessage: "Talent management events",
+          id: "qutSCs",
+          description:
+            "Label for the list of advancement nominations a user has been approved for",
+        })}
+        groups={advancementGroups}
+      />
+      <NominationEventList
+        label={intl.formatMessage({
+          defaultMessage: "Lateral movement events",
+          id: "IjlIde",
+          description:
+            "Label for the list of lateral movement nominations a user has been approved for",
+        })}
+        groups={lateralMovementGroups}
+      />
     </>
   );
 };
