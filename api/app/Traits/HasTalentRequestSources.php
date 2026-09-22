@@ -33,7 +33,19 @@ trait HasTalentRequestSources
     /** @return HasMany<TalentNominationGroup, $this> */
     public function matchingAdvancementSources(): HasMany
     {
-        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
+        return $this->matchingNominationGroupSources('advancement');
+    }
+
+    /** @return HasMany<TalentNominationGroup, $this> */
+    public function matchingLateralMovementSources(): HasMany
+    {
+        return $this->matchingNominationGroupSources('lateral_movement');
+    }
+
+    /** @return HasMany<TalentNominationGroup, $this> */
+    private function matchingNominationGroupSources(string $nominationType): HasMany
+    {
+        return $this->hasMany(TalentNominationGroup::class, 'nominee_id')->forNominationType($nominationType);
     }
 
     /**

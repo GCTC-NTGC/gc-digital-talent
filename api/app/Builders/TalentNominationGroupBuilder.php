@@ -8,6 +8,7 @@ use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Str;
 
 /**
  * @extends Builder<TalentNominationGroup>
@@ -16,24 +17,40 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
  */
 class TalentNominationGroupBuilder extends Builder implements TalentRequestMatchable
 {
+    // Which nomination type ('advancement' or 'lateral_movement') this query matches against;
+    // set via forNominationType() from each matching*Sources() relation on
+    // HasTalentRequestSources, since TalentNominationGroup holds columns/relations for both
+    // nomination types on the same row.
+    protected string $nominationType = 'advancement';
+
+    public function forNominationType(string $nominationType): self
+    {
+        $this->nominationType = $nominationType;
+
+        return $this;
+    }
+
     public function whereMatchesTalentRequest(?array $filters): self
     {
         $filters ??= [];
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
         $qualifiedInClassifications = $filters['qualifiedInClassifications'] ?? null;
+        // e.g. 'lateral_movement' -> 'lateralMovementClassifications', matching the naming on
+        // TalentNominationGroup's advancementClassifications()/lateralMovementClassifications().
+        $classificationsRelation = Str::camel($this->nominationType).'Classifications';
 
-        $nomineeIds = $this->advancementNomineeIds($filters);
+        $nomineeIds = $this->matchingNomineeIds($filters);
 
         // Match the ids as one Postgres array value, so the number of ids has no limit.
         $nomineeIdArray = '{'.$nomineeIds->implode(',').'}';
 
         return $this
             ->whereRaw('talent_nomination_groups.nominee_id = any(?::uuid[])', [$nomineeIdArray])
-            ->where('advancement_decision', TalentNominationGroupDecision::APPROVED->name)
-            // A past advancement_referral_expiry_date excludes the match ("current or past" in the source
+            ->where("{$this->nominationType}_decision", TalentNominationGroupDecision::APPROVED->name)
+            // A past referral_expiry_date excludes the match ("current or past" in the source
             // ticket actually means "not yet expired" - confirmed with product).
-            ->whereDate('advancement_referral_expiry_date', '>=', now())
+            ->whereDate("{$this->nominationType}_referral_expiry_date", '>=', now())
             ->whereExists(function (QueryBuilder $query) {
                 $query->select('community_interests.id')
                     ->from('community_interests')
@@ -45,8 +62,8 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
             ->when($communityId, function (Builder $query) use ($communityId) {
                 $query->whereHas('talentNominationEvent', fn ($eventQuery) => $eventQuery->where('community_id', $communityId));
             })
-            ->when($qualifiedInClassifications, function (Builder $query, array $classifications) {
-                $query->whereHas('advancementClassifications', function (Builder $classQuery) use ($classifications) {
+            ->when($qualifiedInClassifications, function (Builder $query, array $classifications) use ($classificationsRelation) {
+                $query->whereHas($classificationsRelation, function (Builder $classQuery) use ($classifications) {
                     $classQuery->where(function (Builder $q) use ($classifications) {
                         foreach ($classifications as $classification) {
                             $q->orWhere(function (Builder $q) use ($classification) {
@@ -59,11 +76,11 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
             });
     }
 
-    // Ids of users who satisfy the user-side half of "nominated for advancement": verified gov
-    // employees with a Community Interest in the requested community/work streams, who also
-    // pass the request's user-level filters. Group-level conditions (decision, expiry,
-    // classification) are applied separately in whereMatchesTalentRequest above.
-    private function advancementNomineeIds(array $filters)
+    // Ids of users who satisfy the user-side half of a nomination match: verified gov employees
+    // with a Community Interest in the requested community/work streams, who also pass the
+    // request's user-level filters. Group-level conditions (decision, expiry, classification)
+    // are applied separately in whereMatchesTalentRequest above, and depend on nomination type there.
+    private function matchingNomineeIds(array $filters)
     {
         $community = $filters['community'] ?? null;
         $communityId = is_array($community) ? ($community['id'] ?? null) : $community;

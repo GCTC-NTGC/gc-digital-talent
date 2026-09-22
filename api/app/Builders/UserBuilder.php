@@ -362,7 +362,20 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($sources, $filters) {
             foreach ($sources as $index => $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                $query->orWhereHas($source->matchRelation(), function ($r) use ($source, $filters) {
+                    // whereHas() rebuilds a fresh query from the related model, so
+                    // forNominationType() baked into the matching*Sources() relation itself is
+                    // lost here — it has to be re-applied to $r, the actual query this existence
+                    // check will run.
+                    if ($nominationType = $source->matchNominationType()) {
+                        // $r's relation is picked at runtime via $source->matchRelation(), so
+                        // phpstan can't narrow it to TalentNominationGroupBuilder to see
+                        // forNominationType().
+                        $r->forNominationType($nominationType); // @phpstan-ignore method.notFound
+                    }
+
+                    $r->whereMatchesTalentRequest($filters);
+                });
             }
         });
     }

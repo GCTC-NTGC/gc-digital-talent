@@ -4,6 +4,7 @@ namespace App\GraphQL\BatchLoaders;
 
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
+use App\Traits\AppliesNominationType;
 use GraphQL\Deferred;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class MatchingSourcesBatchLoader
 {
+    use AppliesNominationType;
+
     /** @var array<string, true> keyed by the tracked user's user_id */
     protected array $userIds = [];
 
@@ -25,10 +28,12 @@ final class MatchingSourcesBatchLoader
     /**
      * @param  string  $relation  the User relation holding this source's matches
      * @param  array<string, mixed>  $filters  match filters from the request's applicant filter
+     * @param  ?string  $nominationType  see TalentRequestSource::matchNominationType()
      */
     public function __construct(
         protected string $relation,
         protected array $filters,
+        protected ?string $nominationType = null,
     ) {}
 
     public function load(TalentRequestTrackedUser $trackedUser): Deferred
@@ -50,7 +55,7 @@ final class MatchingSourcesBatchLoader
         $relation = (new User())->{$this->relation}();
         $foreignKey = $relation->getForeignKeyName();
 
-        $matches = $relation->getRelated()->newQuery()
+        $matches = $this->freshNominationTypeQuery($relation, $this->nominationType)
             ->whereIn($foreignKey, array_keys($this->userIds))
             ->whereMatchesTalentRequest($this->filters)
             ->whereAuthorizedToView()
