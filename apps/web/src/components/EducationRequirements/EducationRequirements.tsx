@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import type { HTMLProps, ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Link, Heading, Card, Ul } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
 import { assertUnreachable } from "@gc-digital-talent/helpers";
@@ -62,7 +62,7 @@ const Or = ({ className, ...rest }: HTMLProps<HTMLDivElement>) => {
 
 interface EducationRequirementsProps {
   classificationGroup: ClassificationGroup;
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
 }
 
 const EducationRequirements = ({

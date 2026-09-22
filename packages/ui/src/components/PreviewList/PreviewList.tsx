@@ -13,7 +13,7 @@ import type { IconLinkProps as BaseLinkProps } from "../Link/IconLink";
 import BaseLink from "../Link/IconLink";
 import type { ChipProps } from "../Chip/Chip";
 import Chip from "../Chip/Chip";
-import type { HeadingLevel } from "../Heading";
+import type { HeadingRank } from "../Heading";
 import Heading from "../Heading";
 import type { BaseIconButtonLinkProps } from "../../utils/btnStyles";
 import { UNICODE_CHAR } from "../../utils/unicode";
@@ -147,7 +147,7 @@ const Link = ({ href, icon, label, mode = "default" }: LinkProps) => (
 interface ContentProps {
   title: React.ReactNode;
   metaData: MetaDataProps[];
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   children?: ReactNode;
   action?: ReactElement<ButtonProps> | ReactElement<LinkProps> | null;
   mode?: VariantProps<typeof heading>["mode"];

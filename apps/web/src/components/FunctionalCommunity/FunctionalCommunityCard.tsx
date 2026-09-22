@@ -6,7 +6,7 @@ import { useLocation } from "react-router";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   DropdownMenu,
   Heading,
@@ -40,7 +40,7 @@ const PreviewListItemFunctionalCommunity_Fragment = graphql(/* GraphQL */ `
 `);
 
 interface FunctionalCommunityListItemProps {
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   functionalCommunityListItemQuery: FragmentType<
     typeof PreviewListItemFunctionalCommunity_Fragment
   >;

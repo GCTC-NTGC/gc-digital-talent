@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Card, Heading, Link, Separator, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -22,7 +22,7 @@ interface SkillRankCardProps {
   title: ReactNode;
   description?: ReactNode;
   query: FragmentType<typeof SkillRankCard_Fragment>[];
-  titleAs?: HeadingLevel;
+  titleAs?: HeadingRank;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];
   type: "top" | "improve";

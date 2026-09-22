@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -51,7 +51,7 @@ export const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
 interface SkillTreeProps {
   skill: SkillTreeSkill;
   experiencesQuery: FragmentType<typeof SkillTreeExperience_Fragment>[];
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   hideConnectButton?: boolean;
   hideEdit?: boolean;
   showDisclaimer?: boolean;

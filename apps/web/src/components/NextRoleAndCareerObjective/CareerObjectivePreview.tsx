@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import type { HeadingLevel, PreviewMetaData } from "@gc-digital-talent/ui";
+import type { HeadingRank, PreviewMetaData } from "@gc-digital-talent/ui";
 import { PreviewList } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
@@ -51,7 +51,7 @@ interface CareerObjectivePreviewProps {
   careerObjectivePreviewQuery: FragmentType<
     typeof CareerObjectivePreview_Fragment
   >;
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   dialogSubtitle?: string;
 }
 

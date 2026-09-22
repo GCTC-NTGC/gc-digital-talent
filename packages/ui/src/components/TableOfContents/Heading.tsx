@@ -1,11 +1,11 @@
 import type { HTMLAttributes } from "react";
 
-import Heading, { type HeadingProps, type HeadingLevel } from "../Heading";
+import Heading, { type HeadingProps, type HeadingRank } from "../Heading";
 import type { IconType } from "../../types";
 
 export interface TocHeadingProps {
-  as?: HeadingLevel;
-  size?: HeadingLevel;
+  as?: HeadingRank;
+  size?: HeadingRank;
   icon?: IconType;
   color?: HeadingProps["color"];
 }

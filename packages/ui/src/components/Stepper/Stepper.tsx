@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import type { HeadingLevel } from "../Heading";
+import type { HeadingRank } from "../Heading";
 import Heading from "../Heading";
 import Step from "./Step";
 import type { StepType } from "./types";
@@ -37,7 +37,7 @@ const deriveStepState = (
 
 export interface StepperProps {
   currentIndex: number | undefined;
-  headingRank?: HeadingLevel;
+  headingRank?: HeadingRank;
   subTitle?: ReactNode;
   label: string;
   steps: StepType[] | null;

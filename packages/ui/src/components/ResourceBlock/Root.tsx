@@ -3,7 +3,7 @@ import { useId } from "react";
 import type { VariantProps } from "tailwind-variants";
 import { tv } from "tailwind-variants";
 
-import type { HeadingLevel } from "../Heading";
+import type { HeadingRank } from "../Heading";
 import Heading from "../Heading";
 import type { BaseItemProps } from "./BaseItem";
 
@@ -31,7 +31,7 @@ type MaybeElement = ReactElement<BaseItemProps> | null;
 
 export interface RootProps extends HeadingVariants {
   title: ReactNode;
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   children: MaybeElement | MaybeElement[]; // Restricts children to only expected items;
 }
 

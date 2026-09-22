@@ -11,7 +11,7 @@ import { tv } from "tailwind-variants";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Card,
   Heading,
@@ -175,7 +175,7 @@ const closeDate = tv({
 
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
-  headingRank?: HeadingLevel;
+  headingRank?: HeadingRank;
 }
 
 const JobCard = ({ poolQuery, headingRank = "h3" }: JobCardProps) => {

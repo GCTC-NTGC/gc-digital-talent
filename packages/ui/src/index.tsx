@@ -35,7 +35,7 @@ import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish/Flourish";
 import type {
   HeadingProps,
-  HeadingLevel,
+  HeadingRank,
   HeadingRef,
 } from "./components/Heading";
 import Heading from "./components/Heading";
@@ -122,7 +122,7 @@ export type {
   CTAButtonProps,
   CTALinkProps,
   HeadingProps,
-  HeadingLevel,
+  HeadingRank,
   HeadingRef,
   DownloadCsvProps,
   LinkProps,
