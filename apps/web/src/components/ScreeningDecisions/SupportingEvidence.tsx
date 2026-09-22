@@ -73,7 +73,7 @@ const SupportingEvidence = ({
             {!snapshotVersion || snapshotVersion === 1 ? (
               <ExperienceCardV1
                 experience={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 {...(skillId && {
                   showSkills: { id: skillId },
                 })}
@@ -84,7 +84,7 @@ const SupportingEvidence = ({
                   experience,
                   ExperienceCard_Fragment,
                 )}
-                headingLevel="h4"
+                headingRank="h4"
                 showEdit={false}
                 {...(skillId && {
                   showSkills: { id: skillId },

@@ -121,7 +121,7 @@ const SkillTree = ({
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 experienceQuery={filterExperienceSkills(experience, skill)}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
                 showEdit={!hideEdit}
                 showSkills={skill}
                 linkTo={skill}

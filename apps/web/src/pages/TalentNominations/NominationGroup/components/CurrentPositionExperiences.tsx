@@ -197,7 +197,7 @@ const CurrentPositionExperiences = ({
                         key={exp.id}
                         experienceQuery={exp}
                         showEdit={false}
-                        headingLevel="h4"
+                        headingRank="h4"
                       />
                     ))}
                     {i !==

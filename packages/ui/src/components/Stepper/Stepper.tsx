@@ -37,7 +37,7 @@ const deriveStepState = (
 
 export interface StepperProps {
   currentIndex: number | undefined;
-  headingLevel?: HeadingLevel;
+  headingRank?: HeadingLevel;
   subTitle?: ReactNode;
   label: string;
   steps: StepType[] | null;
@@ -46,7 +46,7 @@ export interface StepperProps {
 
 const Stepper = ({
   currentIndex,
-  headingLevel = "h2",
+  headingRank = "h2",
   subTitle,
   label,
   steps,
@@ -66,7 +66,7 @@ const Stepper = ({
   return (
     <nav aria-label={label}>
       {steps && index !== undefined ? (
-        <Heading level={headingLevel} size="h6" className="mt-0 mb-6 font-bold">
+        <Heading level={headingRank} size="h6" className="mt-0 mb-6 font-bold">
           {intl.formatMessage(uiMessages.stepTitle, {
             current: index + 1,
             total: steps.length,

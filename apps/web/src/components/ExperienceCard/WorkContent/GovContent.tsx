@@ -35,17 +35,17 @@ export interface GovContentExperience {
 
 interface ClassificationSectionProps {
   title: string;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
   content: string;
 }
 
 const ClassificationSection = ({
   title,
-  headingLevel,
+  headingRank,
   content,
 }: ClassificationSectionProps) => {
   return (
-    <ContentSection title={title} headingLevel={headingLevel}>
+    <ContentSection title={title} headingRank={headingRank}>
       {content}
     </ContentSection>
   );
@@ -61,7 +61,7 @@ const GovContent = ({
     govContractorType,
     contractorFirmAgencyName,
   },
-  headingLevel,
+  headingRank,
 }: ContentProps<GovContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -78,7 +78,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -86,7 +86,7 @@ const GovContent = ({
         <Separator space="sm" decorative />
         <ContentSection
           title={experienceFormLabels.govEmploymentType}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {getLocalizedName(govEmploymentType.label, intl)}
@@ -98,7 +98,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -107,14 +107,14 @@ const GovContent = ({
         <div className="grid gap-6 sm:grid-cols-2">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ClassificationSection
             title={experienceFormLabels.classification}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             content={groupAndLevel}
           />
         </div>
@@ -125,7 +125,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -134,21 +134,21 @@ const GovContent = ({
         <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.positionType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govPositionType?.label, intl)}
           </ContentSection>
           <ClassificationSection
             title={experienceFormLabels.classification}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             content={groupAndLevel}
           />
         </div>
@@ -159,7 +159,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -168,14 +168,14 @@ const GovContent = ({
         <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ClassificationSection
             title={experienceFormLabels.classification}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             content={groupAndLevel}
           />
         </div>
@@ -186,7 +186,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -195,21 +195,21 @@ const GovContent = ({
         <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorRoleSeniority}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govContractorRoleSeniority?.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.govContractorType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govContractorType?.label, intl)}
@@ -220,7 +220,7 @@ const GovContent = ({
             <Separator space="sm" decorative />
             <ContentSection
               title={experienceFormLabels.contractorFirmAgencyName}
-              headingLevel={headingLevel}
+              headingRank={headingRank}
               className="sm:border-r sm:border-gray-200 dark:border-gray-500"
             >
               {contractorFirmAgencyName ??
@@ -235,7 +235,7 @@ const GovContent = ({
       <>
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -244,14 +244,14 @@ const GovContent = ({
         <div className="grid gap-6 sm:grid-cols-2">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
             title={experienceFormLabels.classification}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           >
             {classification ? (
               <>

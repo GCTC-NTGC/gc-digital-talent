@@ -104,7 +104,7 @@ const languageProfileDescriptions = defineMessages({
 const LanguageRequirementDialog = () => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const headingLevel: HeadingProps["level"] = "h3";
+  const headingRank: HeadingProps["level"] = "h3";
 
   return (
     <Dialog.Root>
@@ -130,7 +130,7 @@ const LanguageRequirementDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Heading level={headingLevel} size="h6" className="mt-0">
+          <Heading level={headingRank} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Language requirements on GC Digital Talent",
               id: "h1UJ1Q",
@@ -183,7 +183,7 @@ const LanguageRequirementDialog = () => {
             </DescriptionList.Item>
           </DescriptionList.Root>
 
-          <Heading level={headingLevel} size="h6" className="mt-0">
+          <Heading level={headingRank} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Bilingual positions",
               id: "i9ovz7",
@@ -222,7 +222,7 @@ const LanguageRequirementDialog = () => {
               },
             )}
           </p>
-          <Heading level={headingLevel} size="h6" className="mt-0">
+          <Heading level={headingRank} size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Second language proficiency",
               id: "fSeYdG",

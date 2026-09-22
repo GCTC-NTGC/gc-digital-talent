@@ -67,7 +67,7 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experience={experience}
-            headingLevel="h5"
+            headingRank="h5"
             showSkills={skill}
             hideDetails
           />
@@ -82,7 +82,7 @@ const SkillExperiences = ({
               },
               ExperienceCard_Fragment,
             )}
-            headingLevel="h5"
+            headingRank="h5"
             showEdit={false}
             showSkills={skill}
             hideDetails

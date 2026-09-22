@@ -175,10 +175,10 @@ const closeDate = tv({
 
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
-  headingLevel?: HeadingLevel;
+  headingRank?: HeadingLevel;
 }
 
-const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
+const JobCard = ({ poolQuery, headingRank = "h3" }: JobCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -268,7 +268,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
       <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
-            level={headingLevel}
+            level={headingRank}
             size="h5"
             className="mt-0 mb-2 pl-0 font-bold dark:text-gray-100"
           >

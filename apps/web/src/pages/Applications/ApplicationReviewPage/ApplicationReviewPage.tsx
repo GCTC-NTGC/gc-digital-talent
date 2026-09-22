@@ -299,7 +299,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />
@@ -354,7 +354,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />

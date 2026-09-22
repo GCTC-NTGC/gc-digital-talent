@@ -16,7 +16,7 @@ interface PersonalContentExperience {
 
 const PersonalContent = ({
   experience: { learningDescription, organization },
-  headingLevel,
+  headingRank,
 }: ContentProps<PersonalContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -25,14 +25,14 @@ const PersonalContent = ({
     <div>
       <ContentSection
         title={experienceFormLabels.organizationOrPlatform}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {organization ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.learningDescription}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {learningDescription ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

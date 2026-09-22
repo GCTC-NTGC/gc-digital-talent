@@ -386,7 +386,7 @@ interface ExperienceCardProps {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
   experienceQuery: FragmentType<typeof ExperienceCard_Fragment>;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
   showSkills?: boolean | SimpleSkill | SimpleSkill[];
   showEdit?: boolean;
   hideDetails?: boolean;
@@ -416,7 +416,7 @@ const ExperienceCard = ({
   editTrigger,
   isOpen: isOpenProp,
   onOpenChange,
-  headingLevel = "h2",
+  headingRank = "h2",
   showSkills = true,
   showEdit = true,
 }: ExperienceCardProps) => {
@@ -430,7 +430,7 @@ const ExperienceCard = ({
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
-  const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const contentHeadingLevel = incrementHeadingRank(headingRank);
   const Icon = icon;
 
   const skills = Array.isArray(showSkills)
@@ -483,7 +483,7 @@ const ExperienceCard = ({
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-6 xs:flex-nowrap">
         <Heading
           icon={Icon}
-          level={headingLevel}
+          level={headingRank}
           size="h6"
           color="error"
           className="m-0 font-normal"
@@ -638,31 +638,31 @@ const ExperienceCard = ({
             {isAwardExperience(experience) && (
               <AwardContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
               />
             )}
             {isCommunityExperience(experience) && (
               <CommunityContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
               />
             )}
             {isEducationExperience(experience) && (
               <EducationContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
               />
             )}
             {isWorkExperience(experience) && (
               <WorkContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
               />
             )}
             {isPersonalExperience(experience) && (
               <PersonalContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingLevel}
               />
             )}
             {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
@@ -679,7 +679,7 @@ const ExperienceCard = ({
                       ? experienceLabels.keyTasksAndResponsibilities
                       : experienceLabels.details
                   }
-                  headingLevel={headingLevel}
+                  headingRank={headingRank}
                 >
                   {experience.details ??
                     intl.formatMessage(commonMessages.notAvailable)}
@@ -690,7 +690,7 @@ const ExperienceCard = ({
               <>
                 <Separator space="sm" />
                 <ContentSection
-                  headingLevel={headingLevel}
+                  headingRank={headingRank}
                   title={intl.formatMessage({
                     defaultMessage: "Featured skills",
                     id: "a8wd8c",
@@ -742,7 +742,7 @@ const ExperienceCard = ({
             {isWorkExperience(experience) && (
               <WorkStreamContent
                 workStreams={experience.workStreams}
-                headingLevel={headingLevel}
+                headingRank={headingRank}
               />
             )}
           </Collapsible.Content>

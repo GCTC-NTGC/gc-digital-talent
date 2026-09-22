@@ -178,7 +178,7 @@ const LanguageProfile = ({
       )}
       {missingLanguageRequirements.length > 0 && (
         <MissingLanguageRequirements
-          headingLevel="h3"
+          headingRank="h3"
           user={user}
           pool={application?.pool}
         />

@@ -168,10 +168,10 @@ const flag = tv({
 
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
 }
 
-const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
+const PoolCard = ({ poolQuery, headingRank = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -212,7 +212,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
       <div>
         <div className="gap-7.5 xs:flex">
           <Heading
-            level={headingLevel}
+            level={headingRank}
             size="h5"
             className="mt-0 mb-6 min-h-27 pl-27 font-bold hyphens-auto xs:mb-0 xs:min-h-auto xs:max-w-3/4 xs:pl-0"
           >
