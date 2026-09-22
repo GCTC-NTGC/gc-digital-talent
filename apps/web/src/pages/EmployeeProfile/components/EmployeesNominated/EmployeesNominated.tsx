@@ -8,9 +8,11 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { Link, PreviewList, ToggleGroup } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
+import {
+  parseDateTimeUtc,
+  sortSafeDates,
+} from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -61,20 +63,14 @@ const EmployeesNominated = ({
 
       // Submitted nominations most recent first
       if (a.submittedAt && b.submittedAt) {
-        return (
-          parseDateTimeUtc(b.submittedAt).getTime() -
-          parseDateTimeUtc(a.submittedAt).getTime()
-        );
+        return sortSafeDates(b.submittedAt, a.submittedAt);
       }
 
       // Drafts sort by close date, closest to closing first
-      const aCloseDate = a.talentNominationEvent?.closeDate
-        ? parseDateTimeUtc(a.talentNominationEvent.closeDate).getTime()
-        : MAX_DATE.getTime();
-      const bCloseDate = b.talentNominationEvent?.closeDate
-        ? parseDateTimeUtc(b.talentNominationEvent.closeDate).getTime()
-        : MAX_DATE.getTime();
-      return aCloseDate - bCloseDate;
+      return sortSafeDates(
+        a.talentNominationEvent.closeDate,
+        b.talentNominationEvent.closeDate,
+      );
     },
   );
 

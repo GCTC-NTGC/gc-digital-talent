@@ -26,7 +26,7 @@ const assessmentSteps = unpackMaybes(poolCandidate.pool.assessmentSteps);
 
 const makeTestPoolSkill = (type: PoolSkillType) => ({
   id: faker.string.uuid(),
-  type: toLocalizedEnum(type),
+  type: toLocalizedEnum(type, "LocalizedPoolSkillType"),
   requiredLevel: SkillLevel.Beginner,
   skill: {
     ...fakeSkills(1)[0],
@@ -47,7 +47,7 @@ const makeTestAssessmentStep = (
 ) => ({
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: toLocalizedEnum(type),
+  type: toLocalizedEnum(type, "LocalizedAssessmentStepType"),
   sortOrder,
   poolSkills,
 });
@@ -70,10 +70,13 @@ const getAssessmentResult = (
   poolSkill?: TestPoolSkill,
 ) => ({
   ...fakeAssessmentResults(1)[0],
-  assessmentDecision: decision ? toLocalizedEnum(decision) : undefined,
+  assessmentDecision: decision
+    ? toLocalizedEnum(decision, "LocalizedAssessmentDecision")
+    : undefined,
   assessmentResultType: type ?? AssessmentResultType.Skill,
   assessmentDecisionLevel: toLocalizedEnum(
     level ?? AssessmentDecisionLevel.AtRequired,
+    "LocalizedAssessmentDecisionLevel",
   ),
   poolSkill: poolSkill ?? essentialPoolSkills[0],
   assessmentStep,

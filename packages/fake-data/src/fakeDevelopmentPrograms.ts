@@ -6,6 +6,7 @@ import toLocalizedString from "./fakeLocalizedString";
 
 const generateDevelopmentProgram = (): DevelopmentProgram => {
   return {
+    __typename: "DevelopmentProgram",
     id: faker.string.uuid(),
     name: toLocalizedString(faker.company.name()),
     descriptionForProfile: toLocalizedString(faker.lorem.words(15)),
