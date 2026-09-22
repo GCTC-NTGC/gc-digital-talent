@@ -146,6 +146,10 @@ test.describe("Application download", { tag: "@uat" }, () => {
 
   test("Verify profile excel contents", async ({ appPage }) => {
     test.slow();
+    // The "ready for download" toast relies on the notificationReceived
+    // subscription, which is behind this flag off-UAT. Must be set before
+    // the first navigation so the client picks it up on initial page load.
+    await appPage.overrideFeatureFlags({ FEATURE_GRAPHQL_SUBSCRIPTIONS: true });
     const candidatePage = new PoolCandidatePage(appPage.page);
     await loginBySub(candidatePage.page, adminSub);
 
