@@ -3,18 +3,22 @@ import { useSearchParams } from "react-router";
 
 import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 
 import AlreadyHaveProfileDialog from "./AlreadyHaveProfileDialog";
 
-const BottomHalfNotEmployee = () => {
+interface BottomHalfNotEmployeeProps {
+  showButtonAlreadyHaveProfile: boolean;
+}
+
+const BottomHalfNotEmployee = ({
+  showButtonAlreadyHaveProfile,
+}: BottomHalfNotEmployeeProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
-  const featureFlags = useFeatureFlags();
   return (
     <>
       <div className="mb-9">
@@ -32,7 +36,7 @@ const BottomHalfNotEmployee = () => {
         <Separator decorative orientation="horizontal" space="none" />
       </div>
       <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
-        {featureFlags.authInAppMigration ? (
+        {showButtonAlreadyHaveProfile ? (
           <AlreadyHaveProfileDialog />
         ) : (
           <div>{/* this is intentionally empty to maintain layout */}</div>

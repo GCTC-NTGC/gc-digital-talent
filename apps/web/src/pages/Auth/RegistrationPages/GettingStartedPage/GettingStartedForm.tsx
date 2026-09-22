@@ -7,6 +7,7 @@ import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
 import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
@@ -37,6 +38,7 @@ interface BottomHalfProps {
   isEmployee: boolean;
   workEmail: string | null | undefined;
   isWorkEmailVerified: boolean | null | undefined;
+  showButtonAlreadyHaveProfile: boolean;
 }
 
 // dynamically swap out the bottom half of the form depending on state
@@ -44,28 +46,43 @@ const BottomHalf = ({
   isEmployee,
   workEmail,
   isWorkEmailVerified,
+  showButtonAlreadyHaveProfile,
 }: BottomHalfProps) => {
   // not an employee
-  if (!isEmployee) return <BottomHalfNotEmployee />;
+  if (!isEmployee)
+    return (
+      <BottomHalfNotEmployee
+        showButtonAlreadyHaveProfile={showButtonAlreadyHaveProfile}
+      />
+    );
 
   // employee with verified work email
   if (workEmail?.length && isWorkEmailVerified)
-    return <BottomHalfEmployeeWithEmail />;
+    return (
+      <BottomHalfEmployeeWithEmail
+        showButtonAlreadyHaveProfile={showButtonAlreadyHaveProfile}
+      />
+    );
 
   // employee, but no work email
   return (
     <EmailVerification.Provider>
-      <BottomHalfEmployeeNoEmail initialWorkEmail={workEmail} />
+      <BottomHalfEmployeeNoEmail
+        initialWorkEmail={workEmail}
+        showButtonAlreadyHaveProfile={showButtonAlreadyHaveProfile}
+      />
     </EmailVerification.Provider>
   );
 };
 
 export interface GettingStartedFormProps {
   initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
+  canMigrateMyAccount: boolean;
 }
 
 const GettingStartedForm = ({
   initialValuesQuery,
+  canMigrateMyAccount,
 }: GettingStartedFormProps) => {
   const intl = useIntl();
 
@@ -81,6 +98,10 @@ const GettingStartedForm = ({
   });
 
   const watchIsEmployee = formMethods.watch("isEmployee");
+
+  const featureFlags = useFeatureFlags();
+  const showButtonAlreadyHaveProfile =
+    featureFlags.authInAppMigration && !canMigrateMyAccount;
 
   return (
     <>
@@ -144,6 +165,7 @@ const GettingStartedForm = ({
         isEmployee={watchIsEmployee == "true"}
         workEmail={initialValues.workEmail}
         isWorkEmailVerified={initialValues.isWorkEmailVerified}
+        showButtonAlreadyHaveProfile={showButtonAlreadyHaveProfile}
       />
     </>
   );

@@ -25,6 +25,7 @@ const GettingStarted_Query = graphql(/** GraphQL */ `
       id
       ...GettingStartedInitialValues
     }
+    canMigrateMyAccount
   }
 `);
 
@@ -64,7 +65,10 @@ const GettingStartedPage = () => {
           <Card space="lg">
             <Pending fetching={fetching} error={error}>
               {data?.me ? (
-                <GettingStartedForm initialValuesQuery={data.me} />
+                <GettingStartedForm
+                  initialValuesQuery={data.me}
+                  canMigrateMyAccount={data.canMigrateMyAccount}
+                />
               ) : (
                 <ThrowNotFound
                   message={intl.formatMessage(profileMessages.userNotFound)}

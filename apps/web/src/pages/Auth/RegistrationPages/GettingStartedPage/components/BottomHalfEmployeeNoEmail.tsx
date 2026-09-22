@@ -7,7 +7,6 @@ import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 import { EmailType, graphql } from "@gc-digital-talent/graphql";
 import { Input, Submit } from "@gc-digital-talent/forms";
-import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import EmailVerification, {
@@ -31,17 +30,20 @@ export interface FormValues {
   verificationCode: string | null;
 }
 
+interface BottomHalfEmployeeNoEmailProps {
+  initialWorkEmail: string | null | undefined;
+  showButtonAlreadyHaveProfile: boolean;
+}
+
 const BottomHalfEmployeeNoEmail = ({
   initialWorkEmail,
-}: {
-  initialWorkEmail: string | null | undefined;
-}) => {
+  showButtonAlreadyHaveProfile,
+}: BottomHalfEmployeeNoEmailProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
   const from = searchParams.get("from");
   const navigate = useNavigate();
-  const featureFlags = useFeatureFlags();
 
   const {
     state: { emailAddressContacted },
@@ -163,7 +165,7 @@ const BottomHalfEmployeeNoEmail = ({
             <Separator decorative orientation="horizontal" space="none" />
           </div>
           <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
-            {featureFlags.authInAppMigration ? (
+            {showButtonAlreadyHaveProfile ? (
               <AlreadyHaveProfileDialog />
             ) : (
               <div>{/* this is intentionally empty to maintain layout */}</div>
