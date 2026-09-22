@@ -1172,6 +1172,9 @@ type TalentRequestTrackedUser {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
     @with(relation: "talentRequest.applicantFilter")
+  matchingLateralMovementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1586,6 +1589,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
