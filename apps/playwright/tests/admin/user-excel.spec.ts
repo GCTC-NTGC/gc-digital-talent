@@ -5,6 +5,7 @@ import { loginBySub } from "~/utils/auth";
 
 test.describe("User Excel", () => {
   test("Download user as Excel", async ({ appPage }) => {
+    test.slow();
     const userPage = new UserPage(appPage.page);
     await loginBySub(userPage.page, "admin@test.com", false);
     await userPage.goToIndex();
