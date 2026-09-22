@@ -35,9 +35,6 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     /** @var array<string, array<int, string>> The pool IDs found for a set of teams */
     private array $poolIdsForTeamsCache = [];
 
-    /** @var array<string, bool> The pool ID sets already filtered on */
-    private array $appliedPoolIdFilters = [];
-
     /**
      * Scopes the query to return PoolCandidates in a specified community via the relation chain candidate->pool->community
      */
@@ -958,18 +955,21 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ->all();
     }
 
-    // Filters to the pools a set of teams grants access to, skipping a filter already applied
+    // Filters to the pools a set of teams grants access to, skipping one the query already has
     // The same filter twice returns the same rows, but Postgres counts it as two and expects far fewer, picking a worse plan
     private function wherePoolIdsForTeams(array $teamIds): self
     {
         $poolIds = $this->poolIdsForTeams($teamIds);
-        $key = implode(',', $poolIds);
 
-        if (isset($this->appliedPoolIdFilters[$key])) {
-            return $this;
+        foreach ($this->getQuery()->wheres as $where) {
+            if ($where['type'] === 'In'
+                && $where['boolean'] === 'and'
+                && ($where['column'] ?? null) === 'pool_id'
+                && ($where['values'] ?? null) === $poolIds
+            ) {
+                return $this;
+            }
         }
-
-        $this->appliedPoolIdFilters[$key] = true;
 
         return $this->whereIn('pool_id', $poolIds);
     }
