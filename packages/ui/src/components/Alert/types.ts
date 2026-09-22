@@ -1,4 +1,4 @@
-import type { HeadingRank } from "../../types";
+import type { HeadingRank } from "../Heading";
 
 export type AlertType = "success" | "warning" | "info" | "error";
 

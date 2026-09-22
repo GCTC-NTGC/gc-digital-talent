@@ -49,7 +49,7 @@ const Root = ({
     >
       <div className={heading({ headingColor })}>
         <Heading
-          level={headingAs}
+          rank={headingAs}
           size="h4"
           className="my-0 text-center"
           id={headingId}

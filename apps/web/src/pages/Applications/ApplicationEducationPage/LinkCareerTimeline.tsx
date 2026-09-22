@@ -285,7 +285,7 @@ const LinkCareerTimeline = ({
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+      <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Link your career timeline",
           id: "K6Tzh1",

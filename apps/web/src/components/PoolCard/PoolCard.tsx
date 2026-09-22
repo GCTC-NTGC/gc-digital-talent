@@ -212,7 +212,7 @@ const PoolCard = ({ poolQuery, headingRank = "h3" }: PoolCardProps) => {
       <div>
         <div className="gap-7.5 xs:flex">
           <Heading
-            level={headingRank}
+            rank={headingRank}
             size="h5"
             className="mt-0 mb-6 min-h-27 pl-27 font-bold hyphens-auto xs:mb-0 xs:min-h-auto xs:max-w-3/4 xs:pl-0"
           >

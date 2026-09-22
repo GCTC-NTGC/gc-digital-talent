@@ -42,7 +42,7 @@ const MissingLanguageRequirementsBlock = ({
     <div className={reqBlock({ class: className })} {...rest}>
       {icon}
       <div>
-        <Heading level={headingRank} size="h6" className="mt-0 mb-3">
+        <Heading rank={headingRank} size="h6" className="mt-0 mb-3">
           {title}
         </Heading>
         {missingLanguageRequirements.length ? (

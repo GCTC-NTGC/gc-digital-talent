@@ -84,7 +84,7 @@ const Header = ({ experienceType }: HeaderProps) => {
           />
         </div>
       </div>
-      <Heading level="h3" size="h5" className="mt-0 font-bold">
+      <Heading rank="h3" size="h5" className="mt-0 font-bold">
         {experience[experienceType].title}
       </Heading>
       <p className="mb-4.5 text-gray-600 dark:text-gray-100">

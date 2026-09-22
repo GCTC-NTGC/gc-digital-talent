@@ -268,7 +268,7 @@ const JobCard = ({ poolQuery, headingRank = "h3" }: JobCardProps) => {
       <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
-            level={headingRank}
+            rank={headingRank}
             size="h5"
             className="mt-0 mb-2 pl-0 font-bold dark:text-gray-100"
           >

@@ -476,7 +476,7 @@ export const Component = () => {
                   description: "heading for indigenous talent portal section",
                 })}
               </Heading>
-              <Heading level="h3" size="h3" color="white">
+              <Heading rank="h3" size="h3" color="white">
                 {intl.formatMessage({
                   defaultMessage: "How it Will Work",
                   id: "U8bLT7",
@@ -579,7 +579,7 @@ export const Component = () => {
               </div>
             </div>
             <div className="my-18 text-center">
-              <Heading level="h3" size="h3" color="white">
+              <Heading rank="h3" size="h3" color="white">
                 {intl.formatMessage({
                   defaultMessage: "Strategy",
                   id: "DBczOG",

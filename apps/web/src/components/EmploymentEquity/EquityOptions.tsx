@@ -123,7 +123,7 @@ const EquityOptions = ({
     <>
       <Heading
         className="mt-12 mb-6"
-        level={inApplication ? "h4" : "h3"}
+        rank={inApplication ? "h4" : "h3"}
         size={inApplication ? "h6" : "h4"}
       >
         {intl.formatMessage({

@@ -104,7 +104,7 @@ const ExperienceSkills = ({
 
   return (
     <section>
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+      <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Link featured skills",
           id: "/I7wrY",

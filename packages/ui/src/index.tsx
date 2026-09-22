@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import type { Color, HeadingRank, IconType, IconProps } from "./types";
+import type { Color, IconType, IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -112,7 +112,6 @@ import TaskCard from "./components/TaskCard/TaskCard";
 
 export type {
   Color,
-  HeadingRank,
   AccordionMetaData,
   AlertProps,
   BreadcrumbsProps,

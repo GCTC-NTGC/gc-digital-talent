@@ -10,7 +10,7 @@ const NoResults = () => {
 
   return (
     <Card className="mt-2 rounded-l-none border-l-12 border-l-secondary">
-      <Heading level="h4" size="h6" className="mt-0">
+      <Heading rank="h4" size="h6" className="mt-0">
         {intl.formatMessage({
           defaultMessage: "We may be able to help!",
           id: "xAfVa9",

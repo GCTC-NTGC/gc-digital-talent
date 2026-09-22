@@ -134,7 +134,7 @@ const CommunityTalentFilterDialog = ({
       options={{ defaultValues: initialValues }}
       {...{ onSubmit, resetValues }}
     >
-      <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-0 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Community filters",
           id: "TYdl+S",
@@ -165,7 +165,7 @@ const CommunityTalentFilterDialog = ({
           }))}
         />
       </div>
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Employee profile filters",
           id: "AXJKYq",
@@ -247,7 +247,7 @@ const CommunityTalentFilterDialog = ({
           }),
         )}
       />
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
           id: "WqxVxb",

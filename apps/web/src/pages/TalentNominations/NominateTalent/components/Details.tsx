@@ -359,7 +359,7 @@ const DetailsFields = ({
           {advancement && (
             <div className="flex flex-col gap-6">
               <div>
-                <Heading level="h3" size="h6">
+                <Heading rank="h3" size="h6">
                   {intl.formatMessage({
                     defaultMessage: "Advancement options",
                     id: "e0v7Fl",
@@ -519,7 +519,7 @@ const DetailsFields = ({
           {lateralMovement && (
             <div className="flex flex-col gap-6">
               <div>
-                <Heading level="h3" size="h6">
+                <Heading rank="h3" size="h6">
                   {intl.formatMessage(labels.lateralMovementOptions)}
                 </Heading>
                 <p>
@@ -584,7 +584,7 @@ const DetailsFields = ({
           {developmentProgram && (
             <div className="flex flex-col gap-6">
               <div>
-                <Heading level="h3" size="h6">
+                <Heading rank="h3" size="h6">
                   {intl.formatMessage(adminMessages.developmentOpportunities)}
                 </Heading>
                 <p>

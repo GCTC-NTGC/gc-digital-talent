@@ -206,7 +206,7 @@ const AccountInformation = ({
         <ToggleSection.Header
           icon={UserCircleIcon}
           color="secondary"
-          level="h2"
+          rank="h2"
           size="h3"
           toggle={
             !isNull ? (

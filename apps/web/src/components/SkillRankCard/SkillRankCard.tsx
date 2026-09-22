@@ -43,7 +43,7 @@ const SkillRankCard = ({
   return (
     <Card className="w-full rounded-t-none border-t-12 border-primary">
       <div className="mb-7 flex flex-col items-center justify-between xs:flex-row">
-        <Heading level={titleAs} size="h6" className="mt-0">
+        <Heading rank={titleAs} size="h6" className="mt-0">
           {title}
         </Heading>
         {editable && editLink && (

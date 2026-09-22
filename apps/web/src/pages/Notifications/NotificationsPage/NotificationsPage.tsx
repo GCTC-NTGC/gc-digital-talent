@@ -41,7 +41,7 @@ const NotificationsPage = () => {
         <Sidebar.Wrapper>
           <Sidebar.Sidebar>
             <Card>
-              <Heading level="h2" size="h6" className="mt-0">
+              <Heading rank="h2" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Notification settings",
                   id: "5H61KV",
@@ -75,7 +75,7 @@ const NotificationsPage = () => {
           </Sidebar.Sidebar>
           <Sidebar.Content>
             <Heading
-              level="h2"
+              rank="h2"
               icon={BellAlertIcon}
               color="secondary"
               className="mt-0 font-normal"

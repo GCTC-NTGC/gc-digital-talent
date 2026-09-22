@@ -66,7 +66,7 @@ const Stepper = ({
   return (
     <nav aria-label={label}>
       {steps && index !== undefined ? (
-        <Heading level={headingRank} size="h6" className="mt-0 mb-6 font-bold">
+        <Heading rank={headingRank} size="h6" className="mt-0 mb-6 font-bold">
           {intl.formatMessage(uiMessages.stepTitle, {
             current: index + 1,
             total: steps.length,

@@ -12,10 +12,11 @@ import ExclamationTriangleIcon from "@heroicons/react/24/outline/ExclamationTria
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import type { HeadingRank, IconType } from "../../types";
+import type { IconType } from "../../types";
 import Separator from "../Separator";
 import type { IconButtonProps } from "../Button/IconButton";
 import IconButton from "../Button/IconButton";
+import type { HeadingRank } from "../Heading";
 
 type DivProps = ComponentPropsWithoutRef<"div">;
 

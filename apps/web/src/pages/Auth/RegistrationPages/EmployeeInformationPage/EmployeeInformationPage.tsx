@@ -64,7 +64,7 @@ export const EmployeeInformationForm = ({
   return (
     <>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         icon={BriefcaseIcon}
         color="secondary"

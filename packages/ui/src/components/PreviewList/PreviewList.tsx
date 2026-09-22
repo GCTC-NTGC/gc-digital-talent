@@ -165,7 +165,7 @@ const Content = ({
   return (
     <div className="relative flex items-start justify-between gap-3 xs:items-center">
       <div className="flex flex-col gap-1.5">
-        <Heading level={headingAs} className={heading({ mode })}>
+        <Heading rank={headingAs} className={heading({ mode })}>
           {title}
         </Heading>
         {children && <div>{children}</div>}

@@ -572,7 +572,7 @@ export const Component = () => {
                   description: "Paragraph describing social media section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mb-6 font-bold">
                 {intl.formatMessage({
                   id: "6f2bWo",
                   defaultMessage: "Content and frequency",
@@ -595,7 +595,7 @@ export const Component = () => {
                   description: "Paragraph for content and frequency section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mb-6 font-bold">
                 {intl.formatMessage({
                   id: "L7Pe9h",
                   defaultMessage: "Links to other websites and ads",
@@ -610,7 +610,7 @@ export const Component = () => {
                   description: "Paragraph for link to others section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mb-6 font-bold">
                 {intl.formatMessage({
                   id: "+lxGIT",
                   defaultMessage: "Following, “liking” and subscribing",
@@ -625,7 +625,7 @@ export const Component = () => {
                   description: "Paragraph for following section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="font-bold">
+              <Heading rank="h3" size="h4" className="font-bold">
                 {intl.formatMessage({
                   id: "lPuC3S",
                   defaultMessage: "Comments and interaction",
@@ -677,7 +677,7 @@ export const Component = () => {
                     "Paragraph of comments and interactions sections",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   id: "9CAhAX",
                   defaultMessage: "Accessibility of social media platforms",
@@ -692,7 +692,7 @@ export const Component = () => {
                   description: "Paragraph for comments and interaction section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   id: "FAEU2d",
                   defaultMessage: "Copyright",
@@ -714,7 +714,7 @@ export const Component = () => {
                   },
                 )}
               </p>
-              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   id: "V0jG33",
                   defaultMessage: "Privacy",
@@ -729,7 +729,7 @@ export const Component = () => {
                   description: "Paragraph for comments and interaction section",
                 })}
               </p>
-              <Heading level="h3" size="h4" className="mt-18 mb-3 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-3 font-bold">
                 {intl.formatMessage({
                   id: "diSBjl",
                   defaultMessage: "Official languages",

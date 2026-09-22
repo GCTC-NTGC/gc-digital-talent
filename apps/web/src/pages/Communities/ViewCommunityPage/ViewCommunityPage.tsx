@@ -74,7 +74,7 @@ export const ViewCommunityForm = ({ query }: ViewCommunityProps) => {
     <>
       <Card space="lg">
         <Heading
-          level="h2"
+          rank="h2"
           color="primary"
           icon={QueueListIcon}
           center

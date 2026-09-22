@@ -166,7 +166,7 @@ const SkillSnapshot = ({
       </p>
       {experiencesBySkill.map(({ skill, experiences: exps }) => (
         <Fragment key={skill.id}>
-          <Heading level="h4" size="h6" className="mt-12">
+          <Heading rank="h4" size="h6" className="mt-12">
             {skill.name?.localized ?? notAvailable}
           </Heading>
           {skill.description?.localized && (

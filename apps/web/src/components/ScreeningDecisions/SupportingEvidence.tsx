@@ -59,7 +59,7 @@ const SupportingEvidence = ({
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mb-3">
+      <Heading rank="h3" size="h6" className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",

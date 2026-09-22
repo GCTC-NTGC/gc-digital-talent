@@ -164,7 +164,7 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
  * Props that can be passed to an `<Alert.Title />`
  *
  * @interface AlertTitleProps
- * @member {AlertHeadingRank} as is the semantic heading level to render the title in
+ * @member {AlertHeadingRank} as is the semantic Heading rank to render the title in
  */
 interface AlertTitleProps extends HTMLProps<
   HTMLHeadingElement | HTMLParagraphElement

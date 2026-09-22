@@ -55,7 +55,7 @@ const ListItemNode: NodeRenderer = ({ children }) => {
 
 const HeadingNode: NodeRenderer = ({ children }) => {
   return (
-    <Heading level="h3" size="h4">
+    <Heading rank="h3" size="h4">
       {children}
     </Heading>
   );

@@ -107,7 +107,7 @@ const SkillTree = ({
     <TreeView.Root className="mt-6">
       <TreeView.Head>
         <Card>
-          <Heading level={headingAs} size="h6" className="mt-0">
+          <Heading rank={headingAs} size="h6" className="mt-0">
             {title}
           </Heading>
           {skill.description && (

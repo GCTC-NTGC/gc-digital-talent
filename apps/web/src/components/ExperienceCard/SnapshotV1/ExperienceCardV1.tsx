@@ -111,7 +111,7 @@ const ExperienceCardV1 = ({
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-6 xs:flex-nowrap">
         <Heading
           icon={Icon}
-          level={headingRank}
+          rank={headingRank}
           size="h6"
           color="error"
           className="m-0 font-normal"
@@ -178,7 +178,7 @@ const ExperienceCardV1 = ({
       {singleSkill?.experienceSkillRecord?.details && (
         <>
           <Heading
-            level={contentHeadingRank}
+            rank={contentHeadingRank}
             size="h6"
             className="mt-6 mb-3 text-base"
           >

@@ -89,7 +89,7 @@ const EducationRequirements = ({
       return (
         <Wrapper cols={3}>
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Professional designation",
                 id: "KqEyqD",
@@ -105,7 +105,7 @@ const EducationRequirements = ({
           </Card>
           <Or className="sm:left-1/3" />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -121,7 +121,7 @@ const EducationRequirements = ({
           </Card>
           <Or className="sm:left-2/3" />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Graduation with degree",
                 id: "ijg+sm",
@@ -150,7 +150,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -164,7 +164,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-6">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-6">
               {intl.formatMessage(applicationMessages.secondarySchoolHeading)}
             </Heading>
             <Text>
@@ -179,7 +179,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECJustEducationHeading,
               )}
@@ -192,7 +192,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage(
                 applicationMessages.educationRequirementECEducationPlusHeading,
               )}
@@ -209,7 +209,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -229,7 +229,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Two years of secondary school",
                 id: "23YiFr",
@@ -251,7 +251,7 @@ const EducationRequirements = ({
       return (
         <Wrapper>
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "Applied work experience",
                 id: "dwYJOo",
@@ -277,7 +277,7 @@ const EducationRequirements = ({
           </Card>
           <Or />
           <Card>
-            <Heading level={headingAs} size="h6" className="mt-0 mb-3">
+            <Heading rank={headingAs} size="h6" className="mt-0 mb-3">
               {intl.formatMessage({
                 defaultMessage: "2-year post-secondary",
                 id: "TiIkSF",

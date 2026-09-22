@@ -31,7 +31,7 @@ const Resources = () => {
         <div className="grid gap-6 xs:my-12 xs:grid-cols-2 sm:grid-cols-3">
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white">
-              <Heading level="h3" size="h6" className="my-0">
+              <Heading rank="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Digital initiative managers",
                   id: "Tvsi5A",
@@ -87,7 +87,7 @@ const Resources = () => {
           </Card>
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white">
-              <Heading level="h3" size="h6" className="my-0">
+              <Heading rank="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Human resources advisors",
                   id: "x+kUrO",
@@ -142,7 +142,7 @@ const Resources = () => {
           </Card>
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white">
-              <Heading level="h3" size="h6" className="my-0">
+              <Heading rank="h3" size="h6" className="my-0">
                 {intl.formatMessage({
                   defaultMessage: "Procurement officers",
                   id: "n92mcX",

@@ -85,7 +85,7 @@ export const Component = () => {
       <Container className="my-18">
         <Heading
           color="secondary"
-          level="h2"
+          rank="h2"
           icon={MagnifyingGlassCircleIcon}
           className="mt-0 font-normal"
         >
@@ -152,7 +152,7 @@ export const Component = () => {
           className: "object-right",
         }}
       >
-        <Heading level="h3" size="h6" className="mt-0 mb-0.5">
+        <Heading rank="h3" size="h6" className="mt-0 mb-0.5">
           {intl.formatMessage({
             defaultMessage: "Internal candidates",
             id: "1wRiVj",
@@ -168,7 +168,7 @@ export const Component = () => {
               "Description of how applications work for government employees.",
           })}
         </p>
-        <Heading level="h3" size="h6" className="mt-0 mb-0.5">
+        <Heading rank="h3" size="h6" className="mt-0 mb-0.5">
           {intl.formatMessage({
             defaultMessage: "External candidates",
             id: "A0KjaS",
@@ -191,7 +191,7 @@ export const Component = () => {
       <Container className="my-18">
         <Heading
           color="secondary"
-          level="h2"
+          rank="h2"
           icon={IdentificationIcon}
           className="font-normal"
         >
@@ -269,7 +269,7 @@ export const Component = () => {
             description: "Note about military IT being an asset",
           })}
         </Note>
-        <Heading level="h3" size="h5" className="mb-6 font-bold">
+        <Heading rank="h3" size="h5" className="mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "A glimpse into digital roles at DND",
             id: "FRPkzV",
@@ -279,7 +279,7 @@ export const Component = () => {
         <Card className="mb-12 overflow-hidden">
           <Card.Grid columns={3}>
             <Card.GridItem>
-              <Heading level="h4" size="h6" className="mt-0">
+              <Heading rank="h4" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Cyber Security Advisor",
                   id: "NIgwRv",
@@ -297,7 +297,7 @@ export const Component = () => {
               </p>
             </Card.GridItem>
             <Card.GridItem>
-              <Heading level="h4" size="h6" className="mt-0">
+              <Heading rank="h4" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Network Administrator",
                   id: "agbLpJ",
@@ -315,7 +315,7 @@ export const Component = () => {
               </p>
             </Card.GridItem>
             <Card.GridItem>
-              <Heading level="h4" size="h6" className="mt-0">
+              <Heading rank="h4" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Web Developer",
                   id: "ZaDwv6",
@@ -376,7 +376,7 @@ export const Component = () => {
             </Link>
           </div>
         </Card>
-        <Heading level="h3" size="h5" className="font-bold">
+        <Heading rank="h3" size="h5" className="font-bold">
           {intl.formatMessage({
             defaultMessage: "The Innovation Corps",
             id: "FclnNa",
@@ -399,7 +399,7 @@ export const Component = () => {
             description: "Note for innovation corps candidates about location",
           })}
         </Note>
-        <Heading level="h4" size="h6" className="mb-6">
+        <Heading rank="h4" size="h6" className="mb-6">
           {intl.formatMessage({
             defaultMessage: "Innovation Corps roles include",
             id: "3GAO9z",
@@ -409,7 +409,7 @@ export const Component = () => {
         <Card className="mb-18 overflow-hidden">
           <Card.Grid columns={2}>
             <Card.GridItem>
-              <Heading level="h4" size="h6" className="mt-0">
+              <Heading rank="h4" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Information Governance Specialist",
                   id: "nhWRUg",
@@ -429,7 +429,7 @@ export const Component = () => {
               </p>
             </Card.GridItem>
             <Card.GridItem>
-              <Heading level="h4" size="h6" className="mt-0">
+              <Heading rank="h4" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "Data Analyst",
                   id: "0VMNWQ",
@@ -472,7 +472,7 @@ export const Component = () => {
         </Card>
         <Heading
           color="secondary"
-          level="h2"
+          rank="h2"
           icon={ChatBubbleLeftRightIcon}
           className="font-normal"
         >
@@ -495,7 +495,7 @@ export const Component = () => {
           <div className="flex flex-col gap-3">
             {jobFairs.map((fair) => (
               <Card key={fair.title}>
-                <Heading level="h3" size="h5" className="mt-0 mb-3">
+                <Heading rank="h3" size="h5" className="mt-0 mb-3">
                   <Link
                     external
                     newTab

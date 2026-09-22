@@ -95,7 +95,7 @@ const FunctionalCommunityCard = ({
             })}
           >
             <Heading
-              level={headingAs}
+              rank={headingAs}
               size="h6"
               className="m-0 text-base font-bold"
             >

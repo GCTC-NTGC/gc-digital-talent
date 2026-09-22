@@ -17,7 +17,7 @@ const TOCHeading = ({
   size = "h3",
   ...rest
 }: TocHeadingProps & Omit<HTMLAttributes<HTMLHeadingElement>, "color">) => (
-  <Heading level={as} size={size} icon={icon} {...rest}>
+  <Heading rank={as} size={size} icon={icon} {...rest}>
     {children}
   </Heading>
 );

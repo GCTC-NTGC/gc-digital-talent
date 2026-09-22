@@ -55,7 +55,7 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
 
   return (
     <>
-      <Heading level="h3" size="h4" className="font-bold">
+      <Heading rank="h3" size="h4" className="font-bold">
         {pageTitle}
       </Heading>
       <Table<AuthRoleAssignment>

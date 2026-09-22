@@ -219,7 +219,7 @@ export const CareerPlanning = ({
           <div className="flex flex-col gap-y-18">
             <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
               <Heading
-                level="h2"
+                rank="h2"
                 icon={
                   user.isVerifiedGovEmployee
                     ? ChartBarSquareIcon

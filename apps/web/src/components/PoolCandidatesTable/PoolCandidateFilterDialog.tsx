@@ -264,7 +264,7 @@ const PoolCandidateFilterDialog = ({
     >
       {!hidePoolFilter ? (
         <>
-          <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
+          <Heading rank="h3" size="h5" className="mt-0 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Process filters",
               id: "+dlRCu",
@@ -330,7 +330,7 @@ const PoolCandidateFilterDialog = ({
       )}
 
       <Heading
-        level="h3"
+        rank="h3"
         size="h5"
         className={`${!hidePoolFilter ? "mt-12" : "mt-0"} mb-6 font-bold`}
       >
@@ -466,7 +466,7 @@ const PoolCandidateFilterDialog = ({
         }))}
       />
 
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
           id: "WqxVxb",

@@ -87,7 +87,7 @@ const ManagerHomePage = () => {
       />
       <SkewedContainer>
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           icon={SparklesIcon}
           color="secondary"
@@ -218,7 +218,7 @@ const ManagerHomePage = () => {
         className="-mt-20 bg-gray-100 pt-20 dark:bg-gray-700"
       >
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           className="mt-0 mb-3 font-normal"
           icon={CheckBadgeIcon}

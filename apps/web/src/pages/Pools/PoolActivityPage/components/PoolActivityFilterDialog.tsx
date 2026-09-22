@@ -98,7 +98,7 @@ const PoolActivityFilterDialog = ({
       })}
     >
       <AssessmentMembersFilterInput />
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Date range",
           id: "kTCdxh",
@@ -117,7 +117,7 @@ const PoolActivityFilterDialog = ({
         />
         <EndDateInput />
       </div>
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Candidate details",
           id: "sty2no",
@@ -125,7 +125,7 @@ const PoolActivityFilterDialog = ({
         })}
       </Heading>
       <CandidatesFilterInput />
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Process details",
           id: "XQCxDQ",

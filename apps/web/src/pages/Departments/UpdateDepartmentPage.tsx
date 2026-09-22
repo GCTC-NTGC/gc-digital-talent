@@ -163,7 +163,7 @@ export const UpdateDepartmentForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card>
           <Heading
-            level="h2"
+            rank="h2"
             color="secondary"
             icon={IdentificationIcon}
             center
