@@ -5,7 +5,6 @@ import {
 } from "@gc-digital-talent/date-helpers";
 import type {
   Classification,
-  PoolCandidate,
   Skill,
   User,
   WorkStream,
@@ -105,7 +104,6 @@ test.describe("Talent request referral authorization", () => {
   let communityId: string;
   let departmentId: string;
   let candidateName: string;
-  let candidate: PoolCandidate;
 
   test.beforeEach(async () => {
     test.slow();
@@ -185,8 +183,7 @@ test.describe("Talent request referral authorization", () => {
           personalExperiences: {
             create: [
               {
-                description: "Test Experience Description",
-                details: "A Playwright test personal experience",
+                learningDescription: "A Playwright test personal experience",
                 skills: {
                   sync: [
                     {
@@ -217,8 +214,6 @@ test.describe("Talent request referral authorization", () => {
         personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
         signature: `${applicant.firstName}`,
       });
-      candidate = application;
-
       const departments = await getDepartments(adminCtx, {});
       departmentId = departments[2].id;
       // Same team-scoped requirement as pool creation: platform_admin only has
@@ -260,7 +255,9 @@ test.describe("Talent request referral authorization", () => {
       await loginBySub(appPage.page, testConfig.signInSubs.platformAdminSignIn);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
       await appPage.page
-        .getByRole("button", { name: new RegExp(`select ${candidateName}`, "i") })
+        .getByRole("button", {
+          name: new RegExp(`select ${candidateName}`, "i"),
+        })
         .click();
       await appPage.page.getByRole("button", { name: /actions/i }).click();
       await appPage.page
@@ -269,9 +266,7 @@ test.describe("Talent request referral authorization", () => {
       await expect(
         appPage.page.getByRole("heading", { name: /mark as referred/i }),
       ).toBeVisible();
-      await appPage.page
-        .getByRole("button", { name: /save changes/i })
-        .click();
+      await appPage.page.getByRole("button", { name: /save changes/i }).click();
       await expect(
         appPage.page.getByText(/failed to update tracked users/i).first(),
       ).toBeVisible();
@@ -284,7 +279,9 @@ test.describe("Talent request referral authorization", () => {
       );
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
       await appPage.page
-        .getByRole("button", { name: new RegExp(`select ${candidateName}`, "i") })
+        .getByRole("button", {
+          name: new RegExp(`select ${candidateName}`, "i"),
+        })
         .click();
       await appPage.page.getByRole("button", { name: /actions/i }).click();
       await appPage.page
@@ -293,9 +290,7 @@ test.describe("Talent request referral authorization", () => {
       await expect(
         appPage.page.getByRole("heading", { name: /mark as referred/i }),
       ).toBeVisible();
-      await appPage.page
-        .getByRole("button", { name: /save changes/i })
-        .click();
+      await appPage.page.getByRole("button", { name: /save changes/i }).click();
       await expect(
         appPage.page.getByText(/tracked users updated successfully/i),
       ).toBeVisible();

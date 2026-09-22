@@ -130,7 +130,9 @@ test.describe("Community talent profile viewing and downloads", () => {
     await appPage.waitForGraphqlResponse("CommunityTalentTable");
 
     await expect(
-      appPage.page.getByRole("link", { name: new RegExp(talentFirstName, "i") }),
+      appPage.page.getByRole("link", {
+        name: new RegExp(talentFirstName, "i"),
+      }),
     ).toBeVisible();
 
     await appPage.page
@@ -170,13 +172,13 @@ test.describe("Community talent profile viewing and downloads", () => {
     await appPage.waitForGraphqlResponse("CommunityTalentTable");
 
     await appPage.page
-      .getByRole("button", { name: new RegExp(`select ${talentFirstName}`, "i") })
+      .getByRole("button", {
+        name: new RegExp(`select ${talentFirstName}`, "i"),
+      })
       .click();
 
     const downloadPromise = appPage.page.waitForEvent("download");
-    await appPage.page
-      .getByRole("button", { name: /download docx/i })
-      .click();
+    await appPage.page.getByRole("button", { name: /download docx/i }).click();
     await appPage.page
       .getByRole("menuitem", { name: /^download profile$/i })
       .click();
@@ -210,7 +212,9 @@ test.describe("Community talent profile viewing and downloads", () => {
     await appPage.waitForGraphqlResponse("CommunityTalentTable");
 
     await appPage.page
-      .getByRole("button", { name: new RegExp(`select ${talentFirstName}`, "i") })
+      .getByRole("button", {
+        name: new RegExp(`select ${talentFirstName}`, "i"),
+      })
       .click();
 
     await appPage.page.getByRole("button", { name: /download excel/i }).click();
