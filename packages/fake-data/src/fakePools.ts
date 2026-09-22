@@ -75,7 +75,10 @@ const generatePool = (
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: toLocalizedEnum(PoolSkillType.Essential, "LocalizedPoolSkillType"),
+        type: toLocalizedEnum(
+          PoolSkillType.Essential,
+          "LocalizedPoolSkillType",
+        ),
       };
     }),
     ...nonessentialSkills.map((skill) => {

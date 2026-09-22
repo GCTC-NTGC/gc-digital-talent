@@ -13,7 +13,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Public Service Commission",
+        en: "Public Service Commission",
         fr: "Commission de la fonction publique",
         localized: "Public Service Commission",
       },
@@ -24,7 +24,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Finance (Department of)",
+        en: "Finance (Department of)",
         fr: "Finances (Ministère des)",
         localized: "Finance (Department of)",
       },
@@ -35,7 +35,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Health (Department of)",
+        en: "Health (Department of)",
         fr: "Santé (Ministère de la)",
         localized: "Health (Department of)",
       },
@@ -46,7 +46,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Transport (Department of)",
+        en: "Transport (Department of)",
         fr: "Transports (Ministère des)",
         localized: "Transport (Department of)",
       },
@@ -57,7 +57,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Treasury Board Secretariat",
+        en: "Treasury Board Secretariat",
         fr: "Secrétariat du Conseil du Trésor",
         localized: "Treasury Board Secretariat",
       },
@@ -68,7 +68,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Canada School of Public Service",
+        en: "Canada School of Public Service",
         fr: "École de la fonction publique du Canada",
         localized: "Canada School of Public Service",
       },
@@ -79,7 +79,7 @@ export default (preventFakerReset = false): Department[] => {
       departmentNumber: +faker.string.numeric(3),
       name: {
         __typename: "LocalizedString",
-        en:"Environment (Department of the)",
+        en: "Environment (Department of the)",
         fr: "Environnement (Ministère de l')",
         localized: "Environment (Department of the)",
       },

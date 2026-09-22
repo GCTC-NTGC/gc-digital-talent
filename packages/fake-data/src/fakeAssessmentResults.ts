@@ -45,7 +45,10 @@ const generateAssessmentResult = (
         Object.values(AssessmentResultJustification),
       )
       .map((justification) =>
-        toLocalizedEnum(justification, "LocalizedAssessmentResultJustification"),
+        toLocalizedEnum(
+          justification,
+          "LocalizedAssessmentResultJustification",
+        ),
       ),
     poolSkill,
     skillDecisionNotes: "skillDecisionNotes",
