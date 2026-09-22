@@ -31,28 +31,20 @@ const optionsQuery = makeFragmentData(
   {
     referralDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserReferralDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserReferralDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserReferralDecision",
+    ),
     selectionDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserSelectionDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserSelectionDecision",
+    ),
     notReferredReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotReferredReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotReferredReason",
+    ),
     notSelectedReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotSelectedReason",
+    ),
   },
   TalentRequestReferralDialogOptions_Fragment,
 );
@@ -63,7 +55,12 @@ const mockTrackedUser = {
   selectionDecision: null,
   notReferredReason: null,
   notSelectedReason: null,
-  sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
+  sources: [
+    toLocalizedEnum(
+      TalentRequestSource.QualifiedInPool,
+      "LocalizedTalentRequestSource",
+    ),
+  ],
   matchingQualifiedInPoolSources: [
     makeFragmentData(
       {
@@ -136,6 +133,7 @@ export const Referred: Story = {
         ...mockTrackedUser,
         referralDecision: toLocalizedEnum(
           TalentRequestTrackedUserReferralDecision.Referred,
+          "LocalizedTalentRequestTrackedUserReferralDecision",
         ),
       },
       TalentRequestEditReferralDialog_Fragment,
@@ -150,9 +148,11 @@ export const Selected: Story = {
         ...mockTrackedUser,
         referralDecision: toLocalizedEnum(
           TalentRequestTrackedUserReferralDecision.Referred,
+          "LocalizedTalentRequestTrackedUserReferralDecision",
         ),
         selectionDecision: toLocalizedEnum(
           TalentRequestTrackedUserSelectionDecision.Selected,
+          "LocalizedTalentRequestTrackedUserSelectionDecision",
         ),
       },
       TalentRequestEditReferralDialog_Fragment,
@@ -167,12 +167,15 @@ export const NotSelected: Story = {
         ...mockTrackedUser,
         referralDecision: toLocalizedEnum(
           TalentRequestTrackedUserReferralDecision.Referred,
+          "LocalizedTalentRequestTrackedUserReferralDecision",
         ),
         selectionDecision: toLocalizedEnum(
           TalentRequestTrackedUserSelectionDecision.NotSelected,
+          "LocalizedTalentRequestTrackedUserSelectionDecision",
         ),
         notSelectedReason: toLocalizedEnum(
           TalentRequestTrackedUserNotSelectedReason.Other,
+          "LocalizedTalentRequestTrackedUserNotSelectedReason",
         ),
       },
       TalentRequestEditReferralDialog_Fragment,
@@ -187,9 +190,11 @@ export const NotReferred: Story = {
         ...mockTrackedUser,
         referralDecision: toLocalizedEnum(
           TalentRequestTrackedUserReferralDecision.NotReferred,
+          "LocalizedTalentRequestTrackedUserReferralDecision",
         ),
         notReferredReason: toLocalizedEnum(
           TalentRequestTrackedUserNotReferredReason.Other,
+          "LocalizedTalentRequestTrackedUserNotReferredReason",
         ),
       },
       TalentRequestEditReferralDialog_Fragment,

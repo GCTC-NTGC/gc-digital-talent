@@ -7,6 +7,7 @@ import { HomePage } from "./ExecutiveHomePage";
 
 const mockPools = fakePools(4);
 const classification = fakeClassifications("EX", {
+  __typename: "LocalizedString",
   en: "Executive group",
   fr: "Groupe de la direction",
   localized: "Executive Group",

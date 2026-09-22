@@ -31,32 +31,24 @@ const optionsQuery = makeFragmentData(
   {
     referralDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserReferralDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserReferralDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserReferralDecision",
+    ),
     selectionDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserSelectionDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserSelectionDecision",
+    ),
     notReferredReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotReferredReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotReferredReason",
+    ),
     notSelectedReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
-    talentRequestSources: fakeLocalizedEnum(TalentRequestSource).map((opt) => ({
-      __typename: "LocalizedTalentRequestSource" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotSelectedReason",
+    ),
+    talentRequestSources: fakeLocalizedEnum(
+      TalentRequestSource,
+      "LocalizedTalentRequestSource",
+    ),
   },
   TalentRequestReferralDialogOptions_Fragment,
 );
