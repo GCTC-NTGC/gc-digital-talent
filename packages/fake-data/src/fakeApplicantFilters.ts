@@ -30,6 +30,7 @@ const generateApplicantFilters = (
     id: faker.string.uuid(),
     pools: faker.helpers.arrayElements(pools),
     equity: {
+      __typename: "EquitySelections",
       isIndigenous: faker.datatype.boolean(),
       isVisibleMinority: faker.datatype.boolean(),
       isWoman: faker.datatype.boolean(),
@@ -40,17 +41,18 @@ const generateApplicantFilters = (
       faker.helpers.arrayElement<LanguageAbility>(
         Object.values(LanguageAbility),
       ),
+      "LocalizedLanguageAbility",
     ),
 
     locationPreferences: faker.helpers
       .arrayElements<WorkRegion>(Object.values(WorkRegion))
-      .map((req) => toLocalizedEnum(req)),
+      .map((req) => toLocalizedEnum(req, "LocalizedWorkRegion")),
     flexibleWorkLocations: faker.helpers
       .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
-      .map((req) => toLocalizedEnum(req)),
+      .map((req) => toLocalizedEnum(req, "LocalizedFlexibleWorkLocation")),
     operationalRequirements: faker.helpers
       .arrayElements<OperationalRequirement>(operationalRequirements)
-      .map((req) => toLocalizedEnum(req)),
+      .map((req) => toLocalizedEnum(req, "LocalizedOperationalRequirement")),
     positionDuration: faker.helpers.arrayElements<PositionDuration>(
       Object.values(PositionDuration),
     ),

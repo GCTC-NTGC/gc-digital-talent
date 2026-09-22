@@ -54,40 +54,49 @@ const poolSkillsArray = [
   {
     id: "poolSkill1",
     skill: technicalSkill1,
-    type: toLocalizedEnum(PoolSkillType.Essential),
+    type: toLocalizedEnum(PoolSkillType.Essential, "LocalizedPoolSkillType"),
     assessmentSteps: [
       {
         id: "assessmentStep1",
-        type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
+        type: toLocalizedEnum(
+          AssessmentStepType.ApplicationScreening,
+          "LocalizedAssessmentStepType",
+        ),
       },
     ],
   },
   {
     id: "poolSkill2",
     skill: technicalSkill2,
-    type: toLocalizedEnum(PoolSkillType.Essential),
+    type: toLocalizedEnum(PoolSkillType.Essential, "LocalizedPoolSkillType"),
     assessmentSteps: [
       {
         id: "assessmentStep1",
-        type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
+        type: toLocalizedEnum(
+          AssessmentStepType.ApplicationScreening,
+          "LocalizedAssessmentStepType",
+        ),
       },
     ],
   },
   {
     id: "poolSkill3",
     skill: behaviouralSkill3,
-    type: toLocalizedEnum(PoolSkillType.Nonessential),
+    type: toLocalizedEnum(PoolSkillType.Nonessential, "LocalizedPoolSkillType"),
     assessmentSteps: [
       {
         id: "assessmentStep2",
-        type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
+        type: toLocalizedEnum(
+          AssessmentStepType.ReferenceCheck,
+          "LocalizedAssessmentStepType",
+        ),
       },
     ],
   },
   {
     id: "orphanPoolSkill",
     skill: behaviouralSkill4,
-    type: toLocalizedEnum(PoolSkillType.Nonessential),
+    type: toLocalizedEnum(PoolSkillType.Nonessential, "LocalizedPoolSkillType"),
     assessmentSteps: [],
   },
 ];
@@ -99,11 +108,17 @@ const assessmentStepsArray = [
     poolSkills: [
       {
         id: "poolSkill1",
-        type: toLocalizedEnum(PoolSkillType.Essential),
+        type: toLocalizedEnum(
+          PoolSkillType.Essential,
+          "LocalizedPoolSkillType",
+        ),
       },
       {
         id: "poolSkill2",
-        type: toLocalizedEnum(PoolSkillType.Essential),
+        type: toLocalizedEnum(
+          PoolSkillType.Essential,
+          "LocalizedPoolSkillType",
+        ),
       },
     ],
     sortOrder: 1,
@@ -112,7 +127,10 @@ const assessmentStepsArray = [
       fr: "Application Screening FR",
       localized: "Application Screening LOCALIZED",
     },
-    type: toLocalizedEnum(AssessmentStepType.ApplicationScreening),
+    type: toLocalizedEnum(
+      AssessmentStepType.ApplicationScreening,
+      "LocalizedAssessmentStepType",
+    ),
   },
   {
     id: "assessmentStep2",
@@ -120,7 +138,10 @@ const assessmentStepsArray = [
     poolSkills: [
       {
         id: "poolSkill3",
-        type: toLocalizedEnum(PoolSkillType.Nonessential),
+        type: toLocalizedEnum(
+          PoolSkillType.Nonessential,
+          "LocalizedPoolSkillType",
+        ),
       },
     ],
     sortOrder: 2,
@@ -129,7 +150,10 @@ const assessmentStepsArray = [
       fr: "Reference FR",
       localized: "Reference LOCALIZED",
     },
-    type: toLocalizedEnum(AssessmentStepType.ReferenceCheck),
+    type: toLocalizedEnum(
+      AssessmentStepType.ReferenceCheck,
+      "LocalizedAssessmentStepType",
+    ),
   },
 ];
 
