@@ -49,6 +49,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     {
       id: 1,
       label: {
+        __typename: "LocalizedString" as const,
         en: "Things",
         fr: "Choses",
       },
@@ -57,6 +58,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     {
       id: 2,
       label: {
+        __typename: "LocalizedString" as const,
         en: "Departments",
         fr: "Ministères",
       },
@@ -68,6 +70,7 @@ const TemplateGroups: StoryFn<SelectProps> = (args) => {
     {
       id: 3,
       label: {
+        __typename: "LocalizedString" as const,
         en: "Processes",
         fr: "Processus",
       },
