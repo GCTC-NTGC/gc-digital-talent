@@ -86,7 +86,7 @@ const ExperienceCardV1 = ({
     intl.formatMessage(commonMessages.notProvided).toString();
   const titleHtml = getV1ExperienceName(experience, intl, true);
   const { icon, typeMessage, date } = useExperienceInfo(experience);
-  const contentHeadingLevel = incrementHeadingRank(headingRank);
+  const contentHeadingRank = incrementHeadingRank(headingRank);
   const Icon = icon;
 
   const skills = Array.isArray(showSkills)
@@ -178,7 +178,7 @@ const ExperienceCardV1 = ({
       {singleSkill?.experienceSkillRecord?.details && (
         <>
           <Heading
-            level={contentHeadingLevel}
+            level={contentHeadingRank}
             size="h6"
             className="mt-6 mb-3 text-base"
           >
@@ -260,31 +260,31 @@ const ExperienceCardV1 = ({
             {isAwardExperience(experience) && (
               <AwardContentV1
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isCommunityExperience(experience) && (
               <CommunityContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isEducationExperience(experience) && (
               <EducationContentV1
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isWorkExperience(experience) && (
               <WorkContentV1
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isPersonalExperience(experience) && (
               <PersonalContentV1
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             <Separator space="sm" />

@@ -68,7 +68,7 @@ const SkillTree = ({
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
-  const contentHeadingLevel = incrementHeadingRank(headingAs);
+  const contentHeadingRank = incrementHeadingRank(headingAs);
   const experiences = getFragment(
     SkillTreeExperience_Fragment,
     experiencesQuery,
@@ -121,7 +121,7 @@ const SkillTree = ({
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 experienceQuery={filterExperienceSkills(experience, skill)}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
                 showEdit={!hideEdit}
                 showSkills={skill}
                 linkTo={skill}

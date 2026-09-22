@@ -430,7 +430,7 @@ const ExperienceCard = ({
   const experience = getFragment(ExperienceCard_Fragment, experienceQuery);
   const { title, titleHtml, editPath, icon, typeMessage, date } =
     useExperienceInfo(experience);
-  const contentHeadingLevel = incrementHeadingRank(headingRank);
+  const contentHeadingRank = incrementHeadingRank(headingRank);
   const Icon = icon;
 
   const skills = Array.isArray(showSkills)
@@ -556,7 +556,7 @@ const ExperienceCard = ({
       {singleSkill?.experienceSkillRecord?.details && (
         <>
           <Heading
-            level={contentHeadingLevel}
+            level={contentHeadingRank}
             size="h6"
             className="mt-6 mb-3 text-base"
           >
@@ -638,31 +638,31 @@ const ExperienceCard = ({
             {isAwardExperience(experience) && (
               <AwardContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isCommunityExperience(experience) && (
               <CommunityContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isEducationExperience(experience) && (
               <EducationContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isWorkExperience(experience) && (
               <WorkContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isPersonalExperience(experience) && (
               <PersonalContent
                 experience={experience}
-                headingRank={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {/* attempting !isPersonalExperience(experience) didn't seem to work for TypeScript */}
