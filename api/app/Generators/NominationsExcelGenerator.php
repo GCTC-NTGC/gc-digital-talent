@@ -162,7 +162,6 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function overviewFields(): array
     {
-        $consented = fn ($g) => (bool) $g->consentToShareProfile;
 
         return [
             new TextField('nominee_user_id', fn ($g) => $g->nominee->id),
@@ -173,19 +172,32 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nomination_options', fn ($g) => $this->getNominationOptions($g)),
             new EnumField('advancement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->advancement_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForAdvancement($g), ''),
-            new TextField('advancement_classifications', fn ($g) => $this->getAdvancementClassifications($g))
-                ->visibleIf($consented),
-            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null)
-                ->visibleIf($consented),
+            new TextField('recommended_classifications_for_advancement', fn ($g) => $this->getAdvancementClassifications($g)),
+            new HtmlField('advancement_approval_notes', fn ($g) => $this->isNominatedForAdvancement($g) ? $g->advancement_notes : null),
             new EnumField('lateral_movement_approval', TalentNominationGroupDecision::class, fn ($g) => $g->lateral_movement_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForLateralMovement($g), ''),
-            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null)
-                ->visibleIf($consented),
+            new TextField('recommended_classifications_for_lateral_movement', fn ($g) => $this->getLateralMovementClassifications($g)),
+            new HtmlField('lateral_movement_approval_notes', fn ($g) => $this->isNominatedForLateralMovement($g) ? $g->lateral_movement_notes : null),
             new EnumField('development_program_approval', TalentNominationGroupDecision::class, fn ($g) => $g->development_programs_decision)
                 ->visibleIf(fn ($g) => $this->isNominatedForDevelopmentPrograms($g), ''),
-            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null)
-                ->visibleIf($consented),
+            new HtmlField('development_program_approval_notes', fn ($g) => $this->isNominatedForDevelopmentPrograms($g) ? $g->development_programs_notes : null),
         ];
+    }
+
+    /**
+     * Name of a single nomination's nominator
+     */
+    private function getNominatorName(TalentNomination $nomination): string
+    {
+        if ($nomination->nominator) {
+            return "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
+        }
+        // If nominator is no longer a verified employee show "Not found"
+        if ($nomination->nominator_id) {
+            return $this->localize('common.not_found');
+        }
+
+        return $nomination->nominator_fallback_name;
     }
 
     /**
@@ -193,24 +205,43 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getNominators(TalentNominationGroup $group): string
     {
-        return $group->nominations->map(function ($nomination) {
-            $name = $nomination->nominator_fallback_name;
-            if ($nomination->nominator) {
-                $name = "{$nomination->nominator->first_name} {$nomination->nominator->last_name}";
-            }
-
-            return $name;
-        })->filter()->join(', ');
+        return $group->nominations
+            ->map(fn ($nomination) => $this->getNominatorName($nomination))
+            ->filter()
+            ->join(', ');
     }
 
     /**
-     * Advancement classifications of a group, separated by commas
+     * Format a collection of classifications, separated by commas
+     *
+     * @param  Collection<int, mixed>  $classifications
+     */
+    private function formatClassifications(Collection $classifications): string
+    {
+        return $classifications->map(function ($classification) {
+            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
+        })->join(', ');
+    }
+
+    /**
+     * Advancement classifications across all nominations in a group
      */
     private function getAdvancementClassifications(TalentNominationGroup $group): string
     {
-        return $group->advancementClassifications->map(function ($classification) {
-            return $classification->formattedGroupAndLevel ?? ($classification->name[$this->lang] ?? $this->localize('common.not_found'));
-        })->join(', ');
+        return $this->formatClassifications(
+            $group->nominations
+                ->flatMap(fn (TalentNomination $nomination) => $nomination->advancementClassifications)
+                ->unique('id')
+                ->values()
+        );
+    }
+
+    /**
+     * Lateral movement classifications of a group, separated by commas
+     */
+    private function getLateralMovementClassifications(TalentNominationGroup $group): string
+    {
+        return $this->formatClassifications($group->lateralMovementClassifications);
     }
 
     /**
@@ -257,6 +288,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             ...array_map($visibleIfConsentedToShare, [
                 new TextField('email', fn ($g) => $g->nominee->email),
                 new TextField('phone', fn ($g) => $g->nominee->telephone),
+                new DateField('updated_at', 'Y-m-d H:i:s', fn ($g) => $g->nominee->updated_at),
                 new EnumField('armed_forces_status', ArmedForcesStatus::class, fn ($g) => $g->nominee->armed_forces_status),
                 new EnumField('citizenship', CitizenshipStatus::class, fn ($g) => $g->nominee->citizenship),
                 new TextField('current_city', fn ($g) => $g->nominee->current_city),
@@ -441,11 +473,11 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('nominee_last_name', fn ($n) => $n->talentNominationGroup->nominee->last_name),
             new DateField('nomination_date', 'Y-m-d', fn ($n) => $n->submitted_at),
             new TextField('nomination_options', fn ($n) => $this->getNominationOptionsForNomination($n)),
-            new TextField('nominator', fn ($n) => $n->nominator?->getFullName() ?? $n->nominator_fallback_name),
+            new TextField('nominator', fn ($n) => $this->getNominatorName($n)),
             new EnumField('relationship_to_nominee', TalentNominationNomineeRelationshipToNominator::class, fn ($n) => $n->nominee_relationship_to_nominator),
-            new TextField('nominator_email', fn ($n) => $n->nominator->work_email ?? $n->nominator_fallback_work_email),
-            new TextField('nominator_classification', fn ($n) => $n->nominator->currentClassification->formattedGroupAndLevel ?? null),
-            new TextField('nominator_department', fn ($n) => $n->nominator->department?->name[$this->lang]),
+            new TextField('nominator_email', fn ($n) => $this->getNominatorDetails($n)['email']),
+            new TextField('nominator_classification', fn ($n) => $this->getNominatorDetails($n)['classification']),
+            new TextField('nominator_department', fn ($n) => $this->getNominatorDetails($n)['department']),
             new TextField('submitters_name', fn ($n) => $n->submitter?->getFullName()),
             new TextField('submitters_email', fn ($n) => $n->submitter->work_email ?? null),
             new TextField('submitters_relationship_to_nominator', fn ($n) => $this->getSubmitterRelationship($n)),
@@ -453,8 +485,10 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             new TextField('reference_email', fn ($n) => $this->getReferenceDetails($n)['email']),
             new TextField('reference_classification', fn ($n) => $this->getReferenceDetails($n)['classification']),
             new TextField('reference_department', fn ($n) => $this->getReferenceDetails($n)['department']),
+            new TextField('recommended_classifications_for_advancement', fn ($n) => $this->formatClassifications($n->advancementClassifications)),
             new EnumField('nine_box_performance', NineBoxRating::class, fn ($n) => $n->nine_box_performance?->name),
             new EnumField('nine_box_leadership_potential', NineBoxRating::class, fn ($n) => $n->nine_box_leadership_potential?->name),
+            new TextField('recommended_classifications_for_lateral_movement', fn ($n) => $this->getLateralMovementClassifications($n->talentNominationGroup)),
             new TextField('lateral_experience_recommendations', fn ($n) => $this->getLateralMovementOptions($n)),
             new TextField('other_lateral_experience', fn ($n) => $n->lateral_movement_options_other),
             new TextField('development_program_recommendations', fn ($n) => $this->getDevelopmentPrograms($n)),
@@ -505,6 +539,28 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     }
 
     /**
+     * Helper to get nominator details
+     *
+     * If the nominator is no longer a verified employee show their details as not found
+     */
+    private function getNominatorDetails(TalentNomination $nomination): array
+    {
+        if (! $nomination->nominator && $nomination->nominator_id) {
+            return [
+                'email' => $this->localize('common.not_found'),
+                'classification' => $this->localize('common.not_found'),
+                'department' => $this->localize('common.not_found'),
+            ];
+        }
+
+        return [
+            'email' => $nomination->nominator->work_email ?? $nomination->nominator_fallback_work_email,
+            'classification' => $nomination->nominator->currentClassification->formattedGroupAndLevel ?? $nomination->nominatorFallbackClassification?->formattedGroupAndLevel,
+            'department' => $nomination->nominator->department?->name[$this->lang] ?? $nomination->nominatorFallbackDepartment?->name[$this->lang],
+        ];
+    }
+
+    /**
      * Helper to get reference details
      */
     private function getReferenceDetails(TalentNomination $nomination): array
@@ -542,16 +598,19 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
             'department' => '',
         ];
 
-        $reference = $nomination->advancementReference
-            ?? ($nomination->advancement_reference_id
-                ? User::with(['currentClassification', 'department'])->find($nomination->advancement_reference_id)
-                : null);
+        $reference = $nomination->advancementReference;
 
         if ($reference) {
             $details['name'] = $reference->getFullName();
-            $details['email'] = $reference->work_email ?? $reference->email ?? '';
+            $details['email'] = $reference->work_email ?? '';
             $details['classification'] = $reference->currentClassification->formattedGroupAndLevel ?? '';
             $details['department'] = $reference->department?->name[$this->lang] ?? '';
+        } elseif ($nomination->advancementReferenceUnguarded) {
+            // If the reference is no longer a verified employee show their name only without any employment details (work email, classification, department)
+            $details['name'] = $nomination->advancementReferenceUnguarded->getFullName();
+            $details['email'] = $this->localize('common.not_found');
+            $details['classification'] = $this->localize('common.not_found');
+            $details['department'] = $this->localize('common.not_found');
         }
 
         return $details;
@@ -706,7 +765,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
     {
         $query = TalentNominationGroup::with([
             'talentNominationEvent',
-            'advancementClassifications',
+            'lateralMovementClassifications',
             'nominee' => function ($query) {
                 $query->with([
                     'department',
@@ -740,10 +799,12 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     'submitter',
                     'advancementReference.department',
                     'advancementReference.currentClassification',
+                    'advancementReferenceUnguarded',
                     'nominatorFallbackClassification',
                     'nominatorFallbackDepartment',
                     'advancementReferenceFallbackClassification',
                     'advancementReferenceFallbackDepartment',
+                    'advancementClassifications',
                     'developmentProgramsThroughPivot',
                     'skills',
                 ]),

@@ -812,7 +812,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     public function withPaginatedEagerLoads(): self
     {
         return $this->with([
-            'user:id,first_name,last_name,email,preferred_lang,computed_department',
+            'user:id,first_name,last_name,email,preferred_lang,computed_department,computed_is_gov_employee,work_email,work_email_verified_at',
             'user.poolCandidates.pool.team',
             'user.poolCandidates.pool.community.team',
             'user.communityInterests.community.team',
@@ -1020,20 +1020,30 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     // minus the view own ability as this is intended for admins not applicants
     private function andAuthorizedToViewRelatedUser(User $user, array $teamIdsByPermission): self
     {
+        // return with no filters if can view any user
         if ($user->isAbleTo('view-any-user')) {
             return $this;
         }
 
+        // return with team filters if can view team users
         if (
             $user->isAbleTo('view-team-applicantProfile') ||
             $user->isAbleTo('view-team-communityTalent')
         ) {
-            $teamIds = array_unique(array_merge(
-                $teamIdsByPermission['view-team-applicantProfile'] ?? [],
-                $teamIdsByPermission['view-team-communityTalent'] ?? []
-            ));
+            return $this->where(function (Builder $teamSubquery) use ($teamIdsByPermission) {
 
-            return $this->wherePoolIdsForTeams($teamIds);
+                // can view users with pool candidates in team pools
+                // poolIdsForTeams() rather than wherePoolIdsForTeams(), which skips a filter it has
+                // already applied - only safe when filters are ANDed, and this one sits in an OR
+                $teamSubquery->whereIn('pool_id', $this->poolIdsForTeams($teamIdsByPermission['view-team-applicantProfile']));
+
+                // can view community talent users in communities
+                $teamSubquery->orWhereHas('user', function ($userQuery) use ($teamIdsByPermission) {
+                    /** @var UserBuilder $userQuery */
+                    return $userQuery->whereIsCommunityTalentInTeams($teamIdsByPermission['view-team-communityTalent']);
+                });
+            });
+
         }
 
         // fall through
