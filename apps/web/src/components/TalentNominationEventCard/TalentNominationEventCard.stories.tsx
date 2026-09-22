@@ -23,7 +23,10 @@ export default {
       {
         id: faker.string.uuid(),
         community: fakeCommunities(1)[0],
-        name: { __typename: "LocalizedString", localized: faker.lorem.words(3) },
+        name: {
+          __typename: "LocalizedString",
+          localized: faker.lorem.words(3),
+        },
         openDate: faker.date
           .between({ from: FAR_PAST_DATE, to: PAST_DATE })
           .toISOString(),

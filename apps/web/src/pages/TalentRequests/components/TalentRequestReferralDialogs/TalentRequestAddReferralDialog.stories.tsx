@@ -91,7 +91,10 @@ const meta = {
                 __typename: "Pool",
                 displayName: {
                   __typename: "DefinedString",
-                  display: { __typename: "LocalizedString", localized: "IT-02" },
+                  display: {
+                    __typename: "LocalizedString",
+                    localized: "IT-02",
+                  },
                 },
               },
             },
