@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  fakeLocalizedEnum,
-  fakeUsers,
-  toLocalizedEnum,
-} from "@gc-digital-talent/fake-data";
+import { fakeLocalizedEnum, fakeUsers } from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
   TalentRequestSource,
