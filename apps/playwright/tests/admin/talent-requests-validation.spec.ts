@@ -68,14 +68,14 @@ import { getDepartments } from "~/utils/departments";
 test.describe("Talent search", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   let uniqueTestId: string;
-  let sub: string;
   let platformAdminCtx: GraphQLContext;
   let poolName: string;
   let classification: Classification;
   let workStream: WorkStream;
   let community: Community | undefined;
   let skill: Skill | undefined;
-  let user: User | undefined;
+  let user: User;
+  let notReferredUser: User;
   let adminCtx: GraphQLContext;
   let poolId: string;
   let candidateName: string;
@@ -91,8 +91,75 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   const adminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com";
 
+  async function createAndQualifyCandidate(uniqueId: string) {
+    const candidateSub = `playwright.sub.${uniqueId}`;
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
+      user: {
+        firstName: `Playwright ${uniqueId}`,
+        email: `${candidateSub}@example.org`,
+        emailVerifiedAt: PAST_DATE,
+        sub: candidateSub,
+        preferredLang: Language.Fr,
+        isWoman: true,
+        lookingForFrench: true,
+        estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
+        acceptedOperationalRequirements: [
+          OperationalRequirement.OvertimeOccasional,
+        ],
+        locationPreferences: [WorkRegion.Ontario],
+        flexibleWorkLocations: [
+          FlexibleWorkLocation.Onsite,
+          FlexibleWorkLocation.Hybrid,
+        ],
+        personalExperiences: {
+          create: [
+            {
+              learningDescription: "Test Experience Description",
+              skills: {
+                sync: [
+                  {
+                    details: `Test Skill ${technicalSkill?.name.en}`,
+                    id: technicalSkill?.id ?? "",
+                  },
+                ],
+              },
+              startDate: FAR_PAST_DATE,
+              title: "Test Experience",
+            },
+          ],
+        },
+      },
+      roles: ["guest", "base_user", "applicant"],
+    });
+
+    const applicantCtx = await graphql.newContext(candidateSub);
+    const applicant = await me(applicantCtx, {});
+    const application = await createAndSubmitApplication(applicantCtx, {
+      poolId,
+      personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
+      signature: `${applicant.firstName}`,
+    });
+
+    const departments = await getDepartments(platformAdminCtx, {});
+    await QualifyAndPlaceCandidate(adminCtx, {
+      id: application.id,
+      input: {
+        expiryDate: FAR_FUTURE_DATE,
+        placementType: PlacementType.PlacedTerm,
+        department: { connect: departments[2].id },
+      },
+    });
+
+    return {
+      // createUserWithRoles only returns undefined when its `user` input is omitted, which
+      // never happens here — a concrete `user` payload is always passed above.
+      user: createdUser!,
+      candidateName: createdUser?.firstName ?? "",
+      candidate: application,
+    };
+  }
+
   test.beforeAll(async () => {
-    // test.setTimeout(100_000);
     uniqueTestId = generateUniqueTestId();
     poolName = `Search pool ${uniqueTestId}`;
     platformAdminCtx = await graphql.newContext();
@@ -128,73 +195,11 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       poolId = createdPool.id;
     });
 
-    await test.step("Create a test user", async () => {
-      sub = `playwright.sub.${uniqueTestId}`;
-      const createdUser = await createUserWithRoles(platformAdminCtx, {
-        user: {
-          // Unique per run so row lookups by candidateName don't match stale candidates left
-          // over from earlier local/UAT runs (the "Playwright User" default is shared repo-wide).
-          firstName: `Playwright ${uniqueTestId}`,
-          email: `${sub}@example.org`,
-          emailVerifiedAt: PAST_DATE,
-          sub,
-          preferredLang: Language.Fr,
-          isWoman: true,
-          lookingForFrench: true,
-          estimatedLanguageAbility: EstimatedLanguageAbility.Intermediate,
-          acceptedOperationalRequirements: [
-            OperationalRequirement.OvertimeOccasional,
-          ],
-          locationPreferences: [WorkRegion.Ontario],
-          flexibleWorkLocations: [
-            FlexibleWorkLocation.Onsite,
-            FlexibleWorkLocation.Hybrid,
-          ],
-          personalExperiences: {
-            create: [
-              {
-                learningDescription: "Test Experience Description",
-                skills: {
-                  sync: [
-                    {
-                      details: `Test Skill ${technicalSkill?.name.en}`,
-                      id: technicalSkill?.id ?? "",
-                    },
-                  ],
-                },
-                startDate: FAR_PAST_DATE,
-                title: "Test Experience",
-              },
-            ],
-          },
-        },
-        roles: ["guest", "base_user", "applicant"],
-      });
-
-      user = createdUser;
-      candidateName = user?.firstName ?? "";
-    });
-
-    await test.step("Submit the application in newly created pool, qualify and place the candidate", async () => {
-      const applicantCtx = await graphql.newContext(sub);
-      const applicant = await me(applicantCtx, {});
-
-      const application = await createAndSubmitApplication(applicantCtx, {
-        poolId: poolId,
-        personalExperienceId: applicant?.experiences?.[0]?.id ?? "",
-        signature: `${applicant.firstName}`,
-      });
-      candidate = application;
-
-      const departments = await getDepartments(platformAdminCtx, {});
-      await QualifyAndPlaceCandidate(adminCtx, {
-        id: application.id,
-        input: {
-          expiryDate: FAR_FUTURE_DATE,
-          placementType: PlacementType.PlacedTerm,
-          department: { connect: departments[2].id },
-        },
-      });
+    await test.step("Create and qualify the test candidate", async () => {
+      const referred = await createAndQualifyCandidate(uniqueTestId);
+      user = referred.user;
+      candidateName = referred.candidateName;
+      candidate = referred.candidate;
     });
   });
 
@@ -242,9 +247,8 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
-    if (user) {
-      await deleteUser(platformAdminCtx, { id: user.id });
-    }
+    await deleteUser(platformAdminCtx, { id: user.id });
+    await deleteUser(platformAdminCtx, { id: notReferredUser.id });
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
     }
@@ -467,6 +471,49 @@ test.describe("Talent search", { tag: "@uat" }, () => {
         const row = talentRequestPage.trackedCandidateRow(candidateName);
         await expect(row).toBeVisible();
         await expect(row.getByText("Referred", { exact: true })).toBeVisible();
+      });
+    });
+
+    test("Validate not referred candidate from Find Matching candidates table is moved to Candidate Tracking table", async ({
+      appPage,
+    }) => {
+      let notReferredCandidateName = "";
+
+      await test.step("Create and qualify a second matching candidate via the API", async () => {
+        const notReferred = await createAndQualifyCandidate(
+          generateUniqueTestId(),
+        );
+        notReferredUser = notReferred.user;
+        notReferredCandidateName = notReferred.candidateName;
+      });
+
+      await loginBySub(appPage.page, adminSub);
+      const talentRequestPage = new TalentRequest(appPage.page);
+      await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
+
+      await test.step("Mark the candidate as not referred from Find matching candidates table", async () => {
+        await expect(
+          talentRequestPage.matchingCandidateRow(notReferredCandidateName),
+        ).toBeVisible();
+        await talentRequestPage.updateMatchingCandidateStatus(
+          notReferredCandidateName,
+          TalentRequestTrackedUserStatus.NotReferred,
+          TalentRequestTrackedUserNotReferredReason.MismatchInQualifications,
+        );
+      });
+
+      await test.step("Verify candidate is moved to Candidate tracking under the 'Not referred' status filter", async () => {
+        await talentRequestPage.goToTracking(requestId);
+        await talentRequestPage.filterTrackingByStatus(
+          TalentRequestTrackedUserStatus.NotReferred,
+        );
+        const row = talentRequestPage.trackedCandidateRow(
+          notReferredCandidateName,
+        );
+        await expect(row).toBeVisible();
+        await expect(
+          row.getByText("Not referred", { exact: true }),
+        ).toBeVisible();
       });
     });
 
