@@ -7442,8 +7442,8 @@
     "defaultMessage": "La candidature de la personne n'a encore jamais été envoyée.",
     "description": "Message shown when a user has no referral history"
   },
-  "RE2oVS": {
-    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un potentiel manifeste en matière de leadership. Un soutien et un encadrement ciblés pourraient le préparer à assumer des responsabilités dans ce domaine. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+  "6uONjQ": {
+    "defaultMessage": "La personne nominée a un rendement inférieur aux attentes, mais un potentiel manifeste en matière de leadership. Un soutien et un encadrement ciblés pourraient la préparer à assumer des responsabilités dans ce domaine.",
     "description": "Nine-box recommendation description for low performance and moderate leadership potential"
   },
   "REF6ea": {
@@ -8459,6 +8459,10 @@
   "obt+QL": {
     "defaultMessage": "La personne nominée aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement et pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités.",
     "description": "Nine-box recommendation description for low performance and low leadership potential"
+  },
+  "yQwKDU": {
+    "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+    "description": "Nine-box recommendation title for development"
   },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",

@@ -32,14 +32,14 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this person participate in development opportunities",
-        id: "Z2/I99",
+          "Development is recommended for this person rather than a nomination for lateral movement or advancement.",
+        id: "yQwKDU",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee's performance is below expectations, but their leadership potential is evident. Targeted support and coaching could build readiness for leadership responsibilities. Development is recommended rather than a nomination for a lateral movement or advancement.",
-        id: "RE2oVS",
+          "This nominee's performance is below expectations, but their leadership potential is evident. Targeted support and coaching could build readiness for leadership responsibilities.",
+        id: "6uONjQ",
         description:
           "Nine-box recommendation description for low performance and moderate leadership potential",
       }),
