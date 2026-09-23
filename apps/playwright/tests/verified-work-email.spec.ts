@@ -7,7 +7,7 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 
 interface UserInfo {
   id: string;
@@ -56,6 +56,15 @@ test.describe("Verified work email", { tag: "@uat" }, () => {
       sub: unverifiedSub,
       id: unverifiedUser?.id ?? "",
     };
+  });
+
+  test.afterAll(async () => {
+    if (verified.id) {
+      await deleteUser(platformAdminCtx, { id: verified.id });
+    }
+    if (unverified.id) {
+      await deleteUser(platformAdminCtx, { id: unverified.id });
+    }
   });
 
   test("Verified user shows badge in admin", async ({ appPage }) => {

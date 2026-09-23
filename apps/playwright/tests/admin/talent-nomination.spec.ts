@@ -8,7 +8,7 @@ import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
@@ -19,6 +19,8 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   let skillOptions: Skill[];
   let talentEvent: TalentNominationEvent | undefined;
+  let nominatorId: string | undefined;
+  let nomineeId: string | undefined;
 
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
@@ -44,7 +46,7 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       );
     });
 
-    await createUserWithRoles(platformAdminCtx, {
+    const nominator = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${nominatorSub}@example.org`,
         sub: nominatorSub,
@@ -54,7 +56,9 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
-    await createUserWithRoles(platformAdminCtx, {
+    nominatorId = nominator?.id;
+
+    const nominee = await createUserWithRoles(platformAdminCtx, {
       user: {
         lastName: uniqueTestId.toString(),
         email: `${nomineeSub}@example.org`,
@@ -65,6 +69,7 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
+    nomineeId = nominee?.id;
 
     talentEvent = await createTalentNominationEvent(talentCoordinatorCtx, {
       name: {
@@ -75,6 +80,15 @@ test.describe("Talent nomination management", { tag: "@uat" }, () => {
     });
     if (!talentEvent)
       throw new Error("Talent nomination event creation failed");
+  });
+
+  test.afterAll(async () => {
+    if (nominatorId) {
+      await deleteUser(platformAdminCtx, { id: nominatorId });
+    }
+    if (nomineeId) {
+      await deleteUser(platformAdminCtx, { id: nomineeId });
+    }
   });
 
   test("Create a talent nomination", async ({ appPage }) => {

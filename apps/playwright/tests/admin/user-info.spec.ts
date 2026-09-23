@@ -9,7 +9,7 @@ import { loginBySub } from "~/utils/auth";
 import { getSkills } from "~/utils/skills";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles, NO_USER } from "~/utils/user";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 import type AppPage from "~/fixtures/AppPage";
 import { generateUniqueTestId } from "~/utils/id";
 
@@ -82,6 +82,12 @@ test.describe("User information", { tag: "@uat" }, () => {
     });
 
     user = createdUser ?? NO_USER;
+  });
+
+  test.afterAll(async () => {
+    if (user?.id) {
+      await deleteUser(platformAdminCtx, { id: user.id });
+    }
   });
 
   test("Applicant cannot access", async ({ appPage }) => {
