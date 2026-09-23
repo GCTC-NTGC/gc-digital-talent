@@ -1,4 +1,5 @@
 import type {
+  LocalizedTalentRequestSource,
   TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
   UpdateTalentRequestTrackedUserInput,
@@ -91,4 +92,30 @@ export const updateTalentRequestTrackedUser: GraphQLRequestFunc<
       },
     )
     .then((res) => res.updateTalentRequestTrackedUser);
+};
+
+const Test_TalentRequestSourcesQueryDocument = /* GraphQL */ `
+  query Test_TalentRequestSources {
+    localizedEnumOptions(enumName: "TalentRequestSource") {
+      ... on LocalizedTalentRequestSource {
+        value
+        label {
+          en
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * Get the talent request sources (e.g. Qualified in pool) and their labels using the graphql API
+ */
+export const getTalentRequestSources: GraphQLRequestFunc<
+  LocalizedTalentRequestSource[]
+> = async (ctx) => {
+  return ctx
+    .post<
+      GraphQLResponse<"localizedEnumOptions", LocalizedTalentRequestSource[]>
+    >(Test_TalentRequestSourcesQueryDocument)
+    .then((res) => res.localizedEnumOptions);
 };

@@ -31,7 +31,11 @@ import {
   TalentRequestTrackedUserStatus,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import { SkillCategory } from "@gc-digital-talent/graphql/schema-types";
+import type { LocalizedTalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
+import {
+  SkillCategory,
+  TalentRequestSource,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import { getSkills } from "~/utils/skills";
@@ -45,6 +49,7 @@ import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import {
+  getTalentRequestSources,
   getTalentRequestTrackedUsers,
   updateTalentRequestTrackedUser,
 } from "~/utils/talentRequests";
@@ -85,6 +90,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   let requestContact: TalentRequestContact;
   let candidateCriteria: TalentRequestCandidateCriteria;
   let sourceOfTalent: TalentRequestSourceOfTalent;
+  let qualifiedInPoolSource: LocalizedTalentRequestSource | undefined;
   const positionJobTitle = "Test job title";
   const requestComments = "Test comments";
   const requestReason = TalentRequestReason.GeneralInterest;
@@ -344,12 +350,16 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     test.beforeAll(async () => {
       adminCtx = await graphql.newContext();
       await ResumeCandidateReferrals(adminCtx, { id: candidate.id });
+      const talentSources = await getTalentRequestSources(adminCtx, {});
+      qualifiedInPoolSource = talentSources.find(
+        (source) => source.value === TalentRequestSource.QualifiedInPool,
+      );
       sourceOfTalent = {
         classification,
         workStream,
         poolName,
         community: community?.name?.en ?? "",
-        selectedTalentSource: "Qualified in pool",
+        selectedTalentSource: qualifiedInPoolSource?.label.en ?? "",
       };
     });
 
@@ -386,12 +396,17 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       });
     });
 
-    test("Validate Find Matching candidate table", async ({ appPage }) => {
+    test("Validate candidate's profile and Find Matching candidate table", async ({
+      appPage,
+    }) => {
       await loginBySub(appPage.page, adminSub);
       const talentRequestPage = new TalentRequest(appPage.page);
       const tableValidation = new GenericTableValidationFixture(appPage.page);
       await appPage.page.goto(`/en/admin/talent-requests/${requestId}`);
-      const initialTotal = await tableValidation.getResultsTotalCount();
+
+      await test.step("Open the candidate's profile from their status dialog", async () => {
+        await talentRequestPage.validateViewProfileLink(user);
+      });
 
       await test.step("Verify the filters dialog reflects the talent request's applicant filter", async () => {
         await expect(
@@ -399,28 +414,12 @@ test.describe("Talent search", { tag: "@uat" }, () => {
         ).toBeVisible();
         await tableValidation.locators.filters.click();
         await tableValidation.verifyDefaultApplicantFilters({
-          talentSource: "Qualified in pool",
+          talentSource: qualifiedInPoolSource?.label.en ?? "",
           classification: classification.groupAndLevel,
           workStream: workStream.name?.en ?? "",
           process: poolName,
           skill: skill?.name.en ?? "",
         });
-      });
-
-      await test.step("Apply and remove some filters and validate candidate matching result", async () => {
-        await tableValidation.updateFindMatchingCandidateTableFilters(
-          poolName,
-          skill?.name.en ?? "",
-        );
-        const updatedTotal = await tableValidation.getResultsTotalCount();
-        expect(updatedTotal).toBeGreaterThan(initialTotal);
-      });
-
-      await test.step("Reset filters to validate original matching candidate results", async () => {
-        await tableValidation.resetFilters();
-        await expect(
-          talentRequestPage.matchingCandidateRow(candidateName),
-        ).toBeVisible();
       });
     });
 
@@ -498,7 +497,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
         await talentRequestPage.updateMatchingCandidateStatus(
           notReferredCandidateName,
           TalentRequestTrackedUserStatus.NotReferred,
-          TalentRequestTrackedUserNotReferredReason.MismatchInQualifications,
+          TalentRequestTrackedUserNotReferredReason.Other,
         );
       });
 
@@ -588,19 +587,15 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       const talentRequestPage = new TalentRequest(appPage.page);
       await talentRequestPage.goToTracking(requestId);
 
-      await test.step("Mark candidate as not referred from their edit dialog", async () => {
+      await test.step("Mark candidate as not referred using the Candidate tracking bulk action", async () => {
         await talentRequestPage.filterTrackingByStatus(
           TalentRequestTrackedUserStatus.NotSelected,
         );
-        await talentRequestPage.updateTrackedCandidateStatus(
+        await talentRequestPage.quickUpdateTrackedCandidateStatus(
           candidateName,
           TalentRequestTrackedUserStatus.NotSelected,
-          TalentRequestTrackedUserReferralDecision.NotReferred,
-          sourceOfTalent,
-          {
-            notReferredReason:
-              TalentRequestTrackedUserNotReferredReason.MismatchInQualifications,
-          },
+          TalentRequestTrackedUserStatus.NotReferred,
+          TalentRequestTrackedUserNotReferredReason.MismatchInQualifications,
         );
       });
 

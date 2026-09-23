@@ -7,6 +7,7 @@ import type {
   TalentRequestInProgressDetail,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
+  User,
   WorkStream,
 } from "@gc-digital-talent/graphql";
 import {
@@ -53,6 +54,12 @@ const FIELD = {
   ALERT: "alert",
   ACTIONS_MENU: "actionsMenu",
   TRACKING_STATUS_FILTER: "trackingStatusFilter",
+  MARK_AS_REFERRED: "markAsReferred",
+  MARK_AS_NOT_REFERRED: "markAsNotReferred",
+  MARK_AS_NOT_SELECTED: "markAsNotSelected",
+  NOT_REFERRED_REASON: "notReferredReason",
+  NOT_SELECTED_REASON: "notSelectedReason",
+  VIEW_PROFILE: "viewProfile",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -109,6 +116,24 @@ class TalentRequest extends AppPage {
       [FIELD.TRACKING_STATUS_FILTER]: page.getByRole("combobox", {
         name: /view by status/i,
       }),
+      [FIELD.MARK_AS_REFERRED]: page.getByRole("button", {
+        name: "Mark as Referred",
+      }),
+      [FIELD.MARK_AS_NOT_REFERRED]: page.getByRole("button", {
+        name: "Mark as Not referred",
+      }),
+      [FIELD.MARK_AS_NOT_SELECTED]: page.getByRole("button", {
+        name: "Mark as Not selected",
+      }),
+      [FIELD.NOT_REFERRED_REASON]: page.getByRole("combobox", {
+        name: /not referred reason/i,
+      }),
+      [FIELD.NOT_SELECTED_REASON]: page.getByRole("combobox", {
+        name: /not selected reason/i,
+      }),
+      [FIELD.VIEW_PROFILE]: page
+        .getByRole("dialog")
+        .getByRole("link", { name: /view profile/i }),
     };
   }
 
@@ -378,6 +403,63 @@ class TalentRequest extends AppPage {
         level: 2,
       }),
     ).toBeVisible();
+  }
+
+  async quickUpdateTrackedCandidateStatus(
+    name: string,
+    currentStatus: TalentRequestTrackedUserStatus,
+    newStatus: TalentRequestTrackedUserStatus,
+    reason?:
+      | TalentRequestTrackedUserNotReferredReason
+      | TalentRequestTrackedUserNotSelectedReason,
+  ) {
+    await expect(this.trackedCandidateRow(name)).toContainText(
+      trackedUserStatusLabelMap.get(currentStatus) ?? currentStatus,
+    );
+    await this.selectMatchingCandidate(name);
+
+    switch (newStatus) {
+      case TalentRequestTrackedUserStatus.Referred:
+        await this.locators[FIELD.MARK_AS_REFERRED].click();
+        break;
+      case TalentRequestTrackedUserStatus.NotReferred:
+        await this.locators[FIELD.MARK_AS_NOT_REFERRED].click();
+        if (reason) {
+          await this.locators[FIELD.NOT_REFERRED_REASON].selectOption({
+            value: reason,
+          });
+        }
+        break;
+      case TalentRequestTrackedUserStatus.NotSelected:
+        await this.locators[FIELD.MARK_AS_NOT_SELECTED].click();
+        if (reason) {
+          await this.locators[FIELD.NOT_SELECTED_REASON].selectOption({
+            value: reason,
+          });
+        }
+        break;
+      default:
+        throw new Error(`Unsupported quick update status: ${newStatus}`);
+    }
+
+    await this.saveAndExpectAlert(/tracked users updated successfully/i);
+  }
+
+  async validateViewProfileLink(user: User) {
+    const fullName = `${user.firstName} ${user.lastName}`;
+    await this.page
+      .getByRole("button", { name: fullName, exact: true })
+      .click();
+    const [profilePage] = await Promise.all([
+      this.page.context().waitForEvent("page"),
+      this.locators[FIELD.VIEW_PROFILE].click(),
+    ]);
+    await expect(profilePage).toHaveURL(new RegExp(`/admin/users/${user.id}$`));
+    await expect(
+      profilePage.getByRole("heading", { name: fullName, level: 1 }),
+    ).toBeVisible();
+    await profilePage.close();
+    await this.closeTrackedCandidateEditDialog();
   }
 
   async updateTrackedCandidateStatus(
