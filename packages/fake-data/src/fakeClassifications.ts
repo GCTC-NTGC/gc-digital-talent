@@ -5,6 +5,7 @@ import type { Classification } from "@gc-digital-talent/graphql/schema-types";
 export default (
   group = "IT",
   name = {
+    __typename: "LocalizedString" as const,
     en: "Information Technology",
     fr: "Technologie de l'information",
     localized: "Information Technology",
@@ -13,6 +14,7 @@ export default (
   faker.seed(0); // repeatable results
   return [
     {
+      __typename: "Classification" as const,
       id: faker.string.uuid(),
       name,
       group,
@@ -24,6 +26,7 @@ export default (
       displayName: `${group}-01: ${name.localized}`,
     },
     {
+      __typename: "Classification" as const,
       id: faker.string.uuid(),
       name,
       group,
@@ -35,6 +38,7 @@ export default (
       displayName: `${group}-02: ${name.localized}`,
     },
     {
+      __typename: "Classification" as const,
       id: faker.string.uuid(),
       name,
       group,
@@ -46,6 +50,7 @@ export default (
       displayName: `${group}-03: ${name.localized}`,
     },
     {
+      __typename: "Classification" as const,
       id: faker.string.uuid(),
       name,
       group,

@@ -14,6 +14,7 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
   query Test_Communities {
     communities {
       id
+      key
       name {
         en
         fr
