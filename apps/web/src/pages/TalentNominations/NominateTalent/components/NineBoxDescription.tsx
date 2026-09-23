@@ -47,8 +47,8 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this person be nominated for lateral movement",
-        id: "QwoLNe",
+          "This person’s nomination is recommended for lateral movement",
+        id: "UOvfEq",
         description:
           "Nine-box recommendation title for development and lateral",
       }),

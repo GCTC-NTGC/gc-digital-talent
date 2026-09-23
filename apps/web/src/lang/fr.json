@@ -7362,8 +7362,8 @@
     "defaultMessage": "Non placé",
     "description": "Messaged displayed when a user is qualified but has yet to be placed"
   },
-  "QwoLNe": {
-    "defaultMessage": "Nous recommandons que cette personne soit nominée pour un transfert latéral",
+  "UOvfEq": {
+    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un transfert latéral.",
     "description": "Nine-box recommendation title for development and lateral"
   },
   "Qx8ezq": {
@@ -8681,7 +8681,7 @@
     "description": "Message when user is not a Senior Designated Official"
   },
   "WWTY2/": {
-    "defaultMessage": "Le nominé ou la nominée a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Un transfert latéral vers un poste correspondant mieux à ses forces, accompagné d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
+    "defaultMessage": "La personne nominée a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Un transfert latéral vers un poste correspondant mieux à ses forces, accompagné d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
     "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
   "WWrQYI": {
