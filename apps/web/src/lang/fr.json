@@ -2671,7 +2671,7 @@
     "description": "Text for date range values for Accepting nominations"
   },
   "8VO06T": {
-    "defaultMessage": "Le nominé ou la nominée est fiable et efficace dans son poste actuel et fait montre d’un potentiel de croissance modéré. Un transfert latéral vers un poste d’une complexité ou d’une portée supérieure, accompagnée d’un perfectionnement ciblé, pourrait lui faire prendre de l’expérience et renforcer ses capacités en matière de leadership.",
+    "defaultMessage": "La personne nominée est fiable et efficace dans son poste actuel et fait montre d’un potentiel de croissance modéré. Un transfert latéral vers un poste d’une complexité ou d’une portée supérieure, accompagnée d’un perfectionnement ciblé, pourrait lui faire prendre de l’expérience et renforcer ses capacités en matière de leadership.",
     "description": "Nine-box recommendation description for moderate performance and moderate leadership potential"
   },
   "8VQWN3": {
@@ -7363,7 +7363,7 @@
     "description": "Messaged displayed when a user is qualified but has yet to be placed"
   },
   "UOvfEq": {
-    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un transfert latéral.",
+    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un transfert latéral",
     "description": "Nine-box recommendation title for development and lateral"
   },
   "Qx8ezq": {
