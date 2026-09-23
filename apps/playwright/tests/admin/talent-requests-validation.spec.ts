@@ -320,7 +320,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   test("'Not Referred' candidates are not present in the Talent table", async ({
     appPage,
   }) => {
-    talentSearch = new TalentSearch(appPage.page);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
 
     await test.step("Pause the candidate to verify the referral status", async () => {
