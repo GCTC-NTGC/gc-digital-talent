@@ -4,6 +4,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Heading, Notice } from "@gc-digital-talent/ui";
+import type { ExperienceCardFragment } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -90,7 +91,7 @@ const CareerTimelineSnapshot = ({
                     {
                       ...experience,
                       __typename: experience.__typename ?? "AwardExperience",
-                    },
+                    } as ExperienceCardFragment,
                     ExperienceCard_Fragment,
                   )}
                   headingLevel="h3"

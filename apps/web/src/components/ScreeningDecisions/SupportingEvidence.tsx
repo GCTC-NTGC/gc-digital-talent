@@ -1,6 +1,9 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -81,7 +84,7 @@ const SupportingEvidence = ({
             ) : (
               <ExperienceCard
                 experienceQuery={makeFragmentData(
-                  experience,
+                  experience as ExperienceCardFragment,
                   ExperienceCard_Fragment,
                 )}
                 headingLevel="h4"
