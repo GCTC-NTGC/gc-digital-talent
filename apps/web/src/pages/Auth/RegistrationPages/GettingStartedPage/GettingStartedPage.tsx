@@ -5,6 +5,7 @@ import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { setInLocalStorage } from "@gc-digital-talent/storage";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -18,6 +19,7 @@ import messages from "../messages";
 import GettingStartedForm, {
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
+import MigrationPossibleNotice from "./components/MigrationPossibleNotice";
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted {
@@ -35,6 +37,7 @@ const GettingStartedPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: GettingStarted_Query,
   });
+  const featureFlags = useFeatureFlags();
 
   // someone on this page is probably a new user so enable the new user flags
   setInLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, true);
@@ -47,6 +50,9 @@ const GettingStartedPage = () => {
       },
     ],
   });
+
+  const showMigrationPossibleNotice =
+    featureFlags.authInAppMigration && data?.canMigrateMyAccount;
 
   return (
     <>
@@ -61,7 +67,9 @@ const GettingStartedPage = () => {
         overlap
         centered
       >
-        <section className="mb-18">
+        <section className="mb-18 flex flex-col gap-6">
+          {showMigrationPossibleNotice ? <MigrationPossibleNotice /> : null}
+
           <Card space="lg">
             <Pending fetching={fetching} error={error}>
               {data?.me ? (
