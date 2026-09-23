@@ -253,7 +253,6 @@ export const PoolAdvertisement_Fragment = graphql(/* GraphQL */ `
 
     ...AreaOfSelectionNote
     ...WhoCanApplyText
-    isHidden
   }
 `);
 
