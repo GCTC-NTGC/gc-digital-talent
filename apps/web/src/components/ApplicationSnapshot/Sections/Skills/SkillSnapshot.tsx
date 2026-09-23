@@ -79,6 +79,7 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experienceQuery={makeFragmentData(
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
               {
                 ...experience,
                 __typename: experience.__typename ?? "AwardExperience",

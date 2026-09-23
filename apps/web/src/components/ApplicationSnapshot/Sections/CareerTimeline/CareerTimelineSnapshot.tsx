@@ -88,6 +88,7 @@ const CareerTimelineSnapshot = ({
                     This comes from the snapshot so we cant fragmentize it so we are tricking typescript :(
                 */
                   experienceQuery={makeFragmentData(
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
                     {
                       ...experience,
                       __typename: experience.__typename ?? "AwardExperience",
