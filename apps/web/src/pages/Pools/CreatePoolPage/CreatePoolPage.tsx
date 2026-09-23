@@ -88,14 +88,12 @@ interface FormValues {
 }
 
 interface CreatePoolFormProps {
-  userId: string;
   classificationsQuery: FragmentType<
     typeof CreatePoolClassification_Fragment
   >[];
   departmentsQuery: FragmentType<typeof CreatePoolDepartment_Fragment>[];
   communitiesQuery: FragmentType<typeof CreatePoolCommunity_Fragment>[];
   handleCreatePool: (
-    userId: string,
     communityId: string,
     data: CreatePoolInput,
   ) => Promise<CreatePoolMutation["createPool"]>;
@@ -104,7 +102,6 @@ interface CreatePoolFormProps {
 }
 
 export const CreatePoolForm = ({
-  userId,
   classificationsQuery,
   departmentsQuery,
   communitiesQuery,
@@ -141,7 +138,7 @@ export const CreatePoolForm = ({
     },
   });
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleCreatePool(userId, data.community, formValuesToSubmitData(data))
+    await handleCreatePool(data.community, formValuesToSubmitData(data))
       .then(async (result) => {
         if (result) {
           await navigate(paths.poolUpdate(result.id));
@@ -371,8 +368,8 @@ const CreatePoolPage_Query = graphql(/* GraphQL */ `
 `);
 
 const CreatePoolPage_Mutation = graphql(/* GraphQL */ `
-  mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+  mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+    createPool(communityId: $communityId, pool: $pool) {
       id
       name {
         en
@@ -412,12 +409,8 @@ const CreatePoolPage = () => {
   });
 
   const [, executeMutation] = useMutation(CreatePoolPage_Mutation);
-  const handleCreatePool = (
-    userId: string,
-    communityId: string,
-    pool: CreatePoolInput,
-  ) =>
-    executeMutation({ userId, communityId, pool }).then((result) => {
+  const handleCreatePool = (communityId: string, pool: CreatePoolInput) =>
+    executeMutation({ communityId, pool }).then((result) => {
       if (result.data?.createPool) {
         return result.data?.createPool;
       }
@@ -541,7 +534,6 @@ const CreatePoolPage = () => {
         <div className="mx-20 mt-4">
           <Pending fetching={fetching} error={error}>
             <CreatePoolForm
-              userId={data?.me?.id ?? ""}
               classificationsQuery={unpackMaybes(data?.classifications)}
               departmentsQuery={departments}
               communitiesQuery={communities}

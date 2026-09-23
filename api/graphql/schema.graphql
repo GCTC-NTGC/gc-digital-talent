@@ -3881,7 +3881,6 @@ type Mutation {
 
   # Pool mutations
   createPool(
-    userId: ID! @rename(attribute: "user_id")
     communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool

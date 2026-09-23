@@ -293,14 +293,12 @@ class DepartmentTest extends TestCase
         // a draft pool shouldn't be visible to a regular user
         $draftPool = Pool::factory()
             ->draft()
-            ->for($this->adminUser)
             ->for($this->department)
             ->create();
 
         // a published pool should be visible to a regular user
         $publishedPool = Pool::factory()
             ->published()
-            ->for($this->adminUser)
             ->for($this->department)
             ->create();
 

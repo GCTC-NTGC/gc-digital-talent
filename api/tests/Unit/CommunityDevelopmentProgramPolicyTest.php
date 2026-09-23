@@ -83,7 +83,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             ]);
 
         $this->teamPool = Pool::factory()->create([
-            'user_id' => $this->adminUser->id,
             'community_id' => $this->community->id,
             'department_id' => $this->department->id,
         ]);
