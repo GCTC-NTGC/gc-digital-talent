@@ -17,8 +17,8 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "Development is recommended for this person rather than a nomination for a lateral movement or advancement.",
-        id: "o/21TK",
+          "Development is recommended for this person rather than a nomination for a lateral movement or advancement",
+        id: "FMTyaE",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
@@ -32,8 +32,8 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "Development is recommended for this person rather than a nomination for lateral movement or advancement.",
-        id: "yQwKDU",
+          "Development is recommended for this person rather than a nomination for lateral movement or advancement",
+        id: "Yh8UWM",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
@@ -65,8 +65,8 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "Development is recommended for this person rather than a nomination for lateral movement or advancement.",
-        id: "yQwKDU",
+          "Development is recommended for this person rather than a nomination for lateral movement or advancement",
+        id: "Yh8UWM",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
@@ -96,8 +96,8 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "This person’s nomination is recommended for lateral movement and advancement.",
-        id: "vkr4xG",
+          "This person’s nomination is recommended for lateral movement and advancement",
+        id: "fr45+4",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
@@ -130,8 +130,8 @@ const messages: Record<
     [NineBoxRating.Moderate]: {
       title: defineMessage({
         defaultMessage:
-          "This person’s nomination is recommended for lateral movement and advancement.",
-        id: "vkr4xG",
+          "This person’s nomination is recommended for lateral movement and advancement",
+        id: "fr45+4",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
@@ -146,8 +146,8 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "This person’s nomination is recommended for advancement and lateral movement.",
-        id: "RYoM8W",
+          "This person’s nomination is recommended for advancement and lateral movement",
+        id: "qqeAPs",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
