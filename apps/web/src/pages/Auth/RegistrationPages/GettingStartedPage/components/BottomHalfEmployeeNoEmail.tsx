@@ -13,8 +13,8 @@ import EmailVerification, {
   useEmailVerification,
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
 
-import AlreadyHaveProfileDialog from "../../components/AlreadyHaveProfileDialog";
 import labels from "../labels";
 
 const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `

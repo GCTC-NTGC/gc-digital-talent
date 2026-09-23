@@ -14,13 +14,13 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 
 import messages from "../messages";
 import GettingStartedForm, {
   GETTING_STARTED_FORM_ID,
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
-import MigrationPossibleNotice from "../components/MigrationPossibleNotice";
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted {

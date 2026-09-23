@@ -5,8 +5,7 @@ import { Caption, Link, Notice, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
-
-import AlreadyHaveProfileDialog from "../../components/AlreadyHaveProfileDialog";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
 
 interface BottomHalfEmployeeWithEmailProps {
   showButtonAlreadyHaveProfile: boolean;

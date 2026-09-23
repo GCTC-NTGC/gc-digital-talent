@@ -34,10 +34,10 @@ import type {
 } from "~/types/experience";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import profileMessages from "~/messages/profileMessages";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 
 import messages from "../messages";
-import AlreadyHaveProfileDialog from "../components/AlreadyHaveProfileDialog";
-import MigrationPossibleNotice from "../components/MigrationPossibleNotice";
 
 export const ADD_WORK_EXPERIENCE_FORM_ID = "add-work-experience-form";
 
