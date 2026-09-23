@@ -551,6 +551,7 @@ type Pool implements HasRoleAssignments {
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 type GeneralQuestionResponse {
@@ -1458,6 +1459,7 @@ input PoolFilterInput {
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
+  isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1754,6 +1756,7 @@ type Query {
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
     publishingGroup: PublishingGroup
       @where(key: "publishing_group", operator: "=")
+    isHidden: Boolean @scope(name: "whereIsHidden")
   ): [Pool!]!
     @all(scopes: ["wherePublished", "whereNotArchived"])
     @canModel(ability: "viewAnyPublished", model: "Pool")
@@ -3060,6 +3063,7 @@ input UpdatePoolInput {
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 input UpdatePublishedPoolInput @validator {

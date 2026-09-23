@@ -494,7 +494,7 @@ type Query {
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
+  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup, isHidden: Boolean): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
@@ -1181,6 +1181,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   applicantsCount: Int
+  isHidden: Boolean
   activities(
     where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
@@ -1896,6 +1897,7 @@ input PoolFilterInput {
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
+  isHidden: Boolean
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -3000,6 +3002,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
   contactEmail: String
+  isHidden: Boolean
 }
 
 input UpdatePublishedPoolInput {

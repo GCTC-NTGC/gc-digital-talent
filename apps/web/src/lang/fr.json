@@ -3042,6 +3042,10 @@
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
   },
+  "9tR2Dv": {
+    "defaultMessage": "Lorsque le processus d’emploi est réglé sur Masqué",
+    "description": "Hidden process description"
+  },
   "9ufudR": {
     "defaultMessage": "Ajouter un rôle individuel",
     "description": "Label for the button to add a role to a user"
@@ -5512,6 +5516,10 @@
     "defaultMessage": "Informations sur l'employé(e) du gouvernement",
     "description": "Title for the government employee information section"
   },
+  "JfpbJV": {
+    "defaultMessage": "les utilisateurs devront recevoir un lien menant directement à la page de l’offre d’emploi pour être en mesure d’y postuler",
+    "description": "Hidden process description list item 3"
+  },
   "JgdijS": {
     "defaultMessage": "Afficher {pageSize}",
     "description": "Button text to change the number of items that show up on each page"
@@ -6954,6 +6962,10 @@
     "defaultMessage": "Statut de direction ou de supervision",
     "description": "Label for supervisory position field"
   },
+  "PT/mOx": {
+    "defaultMessage": "Masqué",
+    "description": "Label for when a process is hidden"
+  },
   "PTfLmk": {
     "defaultMessage": "Retirer cette adresse courriel professionnelle?",
     "description": "Dialog header"
@@ -7505,6 +7517,10 @@
   "RRlKyW": {
     "defaultMessage": "{label} navigation de page",
     "description": "Label for the table pagination"
+  },
+  "RRuIK8": {
+    "defaultMessage": "il ne figurera pas sur la page Parcourir les offres d’emplois",
+    "description": "Hidden process description list item 1"
   },
   "RSUgO3": {
     "defaultMessage": "Ajouter une compétence",
@@ -8368,6 +8384,10 @@
     "defaultMessage": "Il n’est pas nécessaire d’évaluer chaque critère essentiel au moyen de chaque méthode d’évaluation. À titre d’exemple, un examen ou des questions d’entrevue techniques permettent mieux d’évaluer les allégations de compétences techniques faites par les candidats, alors que les entrevues ou les vérifications des références sont davantage adaptées pour vérifier les compétences comportementales.",
     "description": "Second paragraph of second answer of the Frequently Asked Questions for logging in"
   },
+  "VBRI29": {
+    "defaultMessage": "Processus d’emploi masqué",
+    "description": "Title for Hidden process"
+  },
   "VC9Tuf": {
     "defaultMessage": "Cette action supprimera le ministère des archives et le restaurera dans la plateforme. Tous ses renseignements précédents pourront à nouveau être consultés.",
     "description": "Descriptive text for department restoring"
@@ -8895,6 +8915,10 @@
   "XNzRga": {
     "defaultMessage": "Compétences techniques constituant un atout",
     "description": "Title for the nonessential technical skills"
+  },
+  "XOKWZb": {
+    "defaultMessage": "le processus et les candidats qui y participent ne figureront pas dans les demandes de talents",
+    "description": "Hidden process description list item 4"
   },
   "XPJs0+": {
     "defaultMessage": "Modifier une classification",
@@ -12941,6 +12965,10 @@
     "defaultMessage": "Aller à la première page",
     "description": "Label for first page button in pagination nav"
   },
+  "n27x+U": {
+    "defaultMessage": "Non masqué",
+    "description": "Label for when a process is not hidden"
+  },
   "n2bW9s": {
     "defaultMessage": "Fermer ce dialogue",
     "description": "Button text to close a dialog"
@@ -14116,6 +14144,10 @@
   "rnFFzE": {
     "defaultMessage": "La personne pourra être recommandée pour les classifications sélectionnées ci-dessus jusqu'à cette date (inclusivement).",
     "description": "Help text for referral expiry date field"
+  },
+  "roZTVA": {
+    "defaultMessage": "les utilisateurs ne recevront pas de notification lorsque le processus d’emploi sera publié",
+    "description": "Hidden process description list item 2"
   },
   "rpM/Sw": {
     "defaultMessage": "Gérer les modèles d’emploi",

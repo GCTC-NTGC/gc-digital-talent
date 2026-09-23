@@ -17,6 +17,7 @@ export interface FormValues {
   specificTitleFr?: LocalizedString["fr"];
   publishingGroup?: PublishingGroup | null;
   opportunityLength?: PoolOpportunityLength | null;
+  isHidden?: boolean;
 }
 
 export type PoolNameSubmitData = Pick<
@@ -28,6 +29,7 @@ export type PoolNameSubmitData = Pick<
   | "workStream"
   | "publishingGroup"
   | "opportunityLength"
+  | "isHidden"
 >;
 
 export const formValuesToSubmitData = (
@@ -47,4 +49,5 @@ export const formValuesToSubmitData = (
   },
   publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
   opportunityLength: formValues.opportunityLength ?? undefined, // can't be set to null, assume not updating if empty
+  isHidden: formValues.isHidden,
 });
