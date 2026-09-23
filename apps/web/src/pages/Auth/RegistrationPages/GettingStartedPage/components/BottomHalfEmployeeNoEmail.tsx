@@ -14,7 +14,7 @@ import EmailVerification, {
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
 
-import AlreadyHaveProfileDialog from "./AlreadyHaveProfileDialog";
+import AlreadyHaveProfileDialog from "../../components/AlreadyHaveProfileDialog";
 import labels from "../labels";
 
 const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `

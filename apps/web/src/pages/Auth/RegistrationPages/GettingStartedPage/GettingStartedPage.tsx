@@ -19,7 +19,7 @@ import messages from "../messages";
 import GettingStartedForm, {
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
-import MigrationPossibleNotice from "./components/MigrationPossibleNotice";
+import MigrationPossibleNotice from "../components/MigrationPossibleNotice";
 
 const GettingStarted_Query = graphql(/** GraphQL */ `
   query GettingStarted {

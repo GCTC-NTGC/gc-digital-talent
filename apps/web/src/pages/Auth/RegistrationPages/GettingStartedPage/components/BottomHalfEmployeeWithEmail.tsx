@@ -6,7 +6,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
 
-import AlreadyHaveProfileDialog from "./AlreadyHaveProfileDialog";
+import AlreadyHaveProfileDialog from "../../components/AlreadyHaveProfileDialog";
 
 interface BottomHalfEmployeeWithEmailProps {
   showButtonAlreadyHaveProfile: boolean;

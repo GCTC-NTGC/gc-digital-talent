@@ -5,7 +5,7 @@ import { toast } from "@gc-digital-talent/toast";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanDialog from "./WhatDoesThisMeanDialog";
-import { GETTING_STARTED_FORM_ID } from "../GettingStartedForm";
+import { GETTING_STARTED_FORM_ID } from "../GettingStartedPage/GettingStartedForm";
 
 const MigrationPossibleNotice = () => {
   const intl = useIntl();
