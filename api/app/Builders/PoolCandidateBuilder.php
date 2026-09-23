@@ -966,20 +966,30 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ->all();
     }
 
-    // Filters to the pools a set of teams grants access to, skipping one the query already has
-    // The same filter twice returns the same rows, but Postgres counts it as two and expects far fewer, picking a worse plan
-    private function wherePoolIdsForTeams(array $teamIds): self
+    // Has this exact list of pool ids already been added as a filter?
+    private function hasANDedPoolIdFilter(array $poolIds): bool
     {
-        $poolIds = $this->poolIdsForTeams($teamIds);
-
         foreach ($this->getQuery()->wheres as $where) {
             if ($where['type'] === 'In'
                 && $where['boolean'] === 'and'
                 && ($where['column'] ?? null) === 'pool_id'
                 && ($where['values'] ?? null) === $poolIds
             ) {
-                return $this;
+                return true;
             }
+        }
+
+        return false;
+    }
+
+    // Filters to the pools a set of teams grants access to, skipping one the query already has
+    // The same filter twice returns the same rows, but Postgres counts it as two and expects far fewer, picking a worse plan
+    private function wherePoolIdsForTeams(array $teamIds): self
+    {
+        $poolIds = $this->poolIdsForTeams($teamIds);
+
+        if ($this->hasANDedPoolIdFilter($poolIds)) {
+            return $this;
         }
 
         return $this->whereIn('pool_id', $poolIds);
@@ -1041,11 +1051,19 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             $user->isAbleTo('view-team-applicantProfile') ||
             $user->isAbleTo('view-team-communityTalent')
         ) {
-            return $this->where(function (Builder $teamSubquery) use ($teamIdsByPermission) {
+            $poolIds = $this->poolIdsForTeams($teamIdsByPermission['view-team-applicantProfile']);
+
+            // Skip the whole block when the query already filters to these same pools, as every row left passes the first branch anyway.
+            // Postgres plans the OR below very badly otherwise. Only fires if an earlier scope added that filter, so reordering them quietly loses the saving
+            if ($this->hasANDedPoolIdFilter($poolIds)) {
+                return $this;
+            }
+
+            return $this->where(function (Builder $teamSubquery) use ($poolIds, $teamIdsByPermission) {
 
                 // can view users with pool candidates in team pools
                 // Not wherePoolIdsForTeams(): it skips a repeat filter, which here would drop one side of the OR and change the results
-                $teamSubquery->whereIn('pool_id', $this->poolIdsForTeams($teamIdsByPermission['view-team-applicantProfile']));
+                $teamSubquery->whereIn('pool_id', $poolIds);
 
                 // can view community talent users in communities
                 $teamSubquery->orWhereHas('user', function ($userQuery) use ($teamIdsByPermission) {
