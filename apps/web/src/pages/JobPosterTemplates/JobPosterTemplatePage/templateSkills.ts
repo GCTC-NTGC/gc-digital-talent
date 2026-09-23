@@ -45,8 +45,9 @@ export function convertTemplateSkillToPoolSkillFragment(
 ): PoolSkillFragment {
   const poolSkillFragment = makeFragmentData(
     {
+      __typename: "PoolSkill",
       id: templateSkill.id,
-      requiredLevel: templateSkill.requiredLevel?.value,
+      requiredLevel: templateSkill.requiredLevel?.value ?? null,
       skill: templateSkill.skill,
     },
     PoolSkillAccordion_Fragment,
