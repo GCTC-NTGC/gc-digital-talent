@@ -8464,6 +8464,10 @@
     "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement.",
     "description": "Nine-box recommendation title for development"
   },
+  "FldiZV": {
+    "defaultMessage": "La personne nominée répond aux attentes en matière de rendement, mais n’a pas encore démontré de potentiel en matière de leadership. Son profil cadre bien avec les postes dans lesquels la fiabilité opérationnelle, l’expertise et la production de résultats sont importantes.",
+    "description": "Nine-box recommendation description for moderate performance and low leadership potential"
+  },
   "Vbt/G1": {
     "defaultMessage": "Il y a une exigence linguistique manquante",
     "description": "Title that appears when a user is missing a language requirement."
@@ -8684,6 +8688,7 @@
     "defaultMessage": "La personne nominée a un rendement inférieur aux attentes, mais un fort potentiel en matière de leadership. Un transfert latéral vers un poste correspondant mieux à ses forces, accompagné d’un encadrement et d’objectifs clairs, pourrait lui permettre de développer son potentiel.",
     "description": "Nine-box recommendation description for low performance and high leadership potential"
   },
+
   "WWrQYI": {
     "defaultMessage": "Erreur : la mise à jour de la possibilité de formation a échoué",
     "description": "Message displayed to user after training opportunity fails to get updated."
