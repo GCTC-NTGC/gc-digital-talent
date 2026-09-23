@@ -4993,6 +4993,10 @@
     "defaultMessage": "Veuillez sélectionner une compétence pour continuer.",
     "description": "Help text to tell users to select a skill before submitting"
   },
+  "RYoM8W": {
+    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un avancement et un transfert latéral.",
+    "description": "Nine-box recommendation title for development and lateral and advancement"
+  },
   "HspPlQ": {
     "defaultMessage": "Joignez-nous sur GCÉchange",
     "description": "External button link to GCXchange"
@@ -10121,8 +10125,8 @@
     "defaultMessage": "La plateforme recueille des données aux fins de planification de l’effectif : ces données font ressortir les compétences en demande, les lacunes dans les équipes et les emplois auxquels les gens postulent. Elles aident en outre les RH et la direction à faire en sorte que l’embauche, la formation et le perfectionnement correspondent aux futures priorités numériques.",
     "description": "Description of analytics and planning for HR professionals"
   },
-  "cU9OEC": {
-    "defaultMessage": "Le nominé ou la nominée excelle dans son poste actuel et fait montre d’un potentiel exceptionnel en matière de leadership, et doit être pris en considération prioritairement pour un avancement ainsi que dans la planification de la relève en lien avec son poste, y compris les possibilités d’assumer des responsabilités accrues à court terme et d’intégrer la relève à moyen et à long terme.",
+  "cljZaG": {
+    "defaultMessage": "La personne nominée excelle dans son poste actuel et démontre un fort potentiel de leadership. Elle devrait être prioritairement considérée pour un avancement, pour la planification de remplacement (à court terme) et la planification de la relève (à long terme) .",
     "description": "Nine-box recommendation description for high performance and high leadership potential"
   },
   "cXszfI": {
