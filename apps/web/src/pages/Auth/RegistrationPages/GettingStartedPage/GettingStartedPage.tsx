@@ -17,6 +17,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 
 import messages from "../messages";
 import GettingStartedForm, {
+  GETTING_STARTED_FORM_ID,
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
 import MigrationPossibleNotice from "../components/MigrationPossibleNotice";
@@ -68,7 +69,11 @@ const GettingStartedPage = () => {
         centered
       >
         <section className="mb-18 flex flex-col gap-6">
-          {showMigrationPossibleNotice ? <MigrationPossibleNotice /> : null}
+          {showMigrationPossibleNotice ? (
+            <MigrationPossibleNotice
+              scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
+            />
+          ) : null}
 
           <Card space="lg">
             <Pending fetching={fetching} error={error}>

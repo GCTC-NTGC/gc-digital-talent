@@ -5,9 +5,14 @@ import { toast } from "@gc-digital-talent/toast";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanDialog from "./WhatDoesThisMeanDialog";
-import { GETTING_STARTED_FORM_ID } from "../GettingStartedPage/GettingStartedForm";
 
-const MigrationPossibleNotice = () => {
+interface MigrationPossibleNoticeProps {
+  scrollToIdOnIgnore: string;
+}
+
+const MigrationPossibleNotice = ({
+  scrollToIdOnIgnore,
+}: MigrationPossibleNoticeProps) => {
   const intl = useIntl();
 
   const handleLinkProfile = () => {
@@ -39,7 +44,7 @@ const MigrationPossibleNotice = () => {
       <Notice.Actions>
         <LinkMyProfileDialog onLinkProfile={handleLinkProfile} />
         <WhatDoesThisMeanDialog onLinkProfile={handleLinkProfile} />
-        <ScrollToLink to={GETTING_STARTED_FORM_ID} mode="inline" color="black">
+        <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
           {intl.formatMessage({
             defaultMessage: "Ignore for now",
             id: "7Ra4fE",
