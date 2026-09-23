@@ -27,7 +27,7 @@ import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
 import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 
-test.describe.skip("Application card", { tag: "@uat" }, () => {
+test.describe("Application card", { tag: "@uat" }, () => {
   let sub: string;
   let user: User;
   let application: PoolCandidate;
