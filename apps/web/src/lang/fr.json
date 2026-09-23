@@ -670,8 +670,8 @@
     "defaultMessage": "Les notes ont été mises à jour avec succès.",
     "description": "Success message displayed after updating notes"
   },
-  "0SY3xR": {
-    "defaultMessage": "Nous recommandons que cette personne soit nominée pour un transfert latéral ou un avancement",
+  "vkr4xG": {
+    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un transfert latéral et d’un avancement.",
     "description": "Nine-box recommendation title for development and lateral and advancement"
   },
   "0T3NB0": {
@@ -6179,8 +6179,8 @@
     "defaultMessage": "Modifier<hidden> une compétence</hidden>",
     "description": "Breadcrumb title for the edit skill page link."
   },
-  "M4O7dx": {
-    "defaultMessage": "Le nominé ou la nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Un transfert latéral ou un avancement pourrait favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
+  "ndlHaN": {
+    "defaultMessage": "La personne nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Un transfert latéral et un avancement pourrait favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
     "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "M4sGS2": {

@@ -96,15 +96,15 @@ const messages: Record<
     [NineBoxRating.High]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this person be nominated for lateral movement or advancement",
-        id: "0SY3xR",
+          "This person’s nomination is recommended for lateral movement and advancement.",
+        id: "vkr4xG",
         description:
           "Nine-box recommendation title for development and lateral and advancement",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee is a strong performer with significant leadership potential. Lateral movement and advancement opportunities can provide strategic development, broaden leadership experience, and prepare them for medium- to long-term succession opportunities.",
-        id: "M4O7dx",
+          "This nominee is a strong performer with significant leadership potential. Lateral movement and advancement opportunities can provide strategic development, broaden leadership experience, and prepare them for medium-term to long-term succession opportunities.",
+        id: "ndlHaN",
         description:
           "Nine-box recommendation description for moderate performance and high leadership potential",
       }),
