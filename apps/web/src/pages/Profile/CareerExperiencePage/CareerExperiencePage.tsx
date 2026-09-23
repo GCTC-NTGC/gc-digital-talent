@@ -22,6 +22,8 @@ import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTime
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
 
+import ProfileExperienceCard from "./ProfileExperienceCard/ProfileExperienceCard";
+
 type SortValues = "type" | "timeline";
 
 const pageTitle = defineMessage({
@@ -109,7 +111,7 @@ export const CareerExperience = ({
           <div
             role="group"
             aria-labelledby="sortFilter"
-            className="mt-6 flex items-center gap-3"
+            className="mt-6 mb-1.5 flex items-center gap-3"
           >
             <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
               {intl.formatMessage(formMessages.sortBy)}
@@ -137,8 +139,14 @@ export const CareerExperience = ({
             </Button>
           </div>
           {sortBy === "type" ? (
-            // experiences by type
-            <div>Experiences by type</div>
+            <div className="grid gap-6">
+              <ProfileExperienceCard type={"work"} />
+              <ProfileExperienceCard type={"education"} />
+              <ProfileExperienceCard type={"community"} />
+              <ProfileExperienceCard type={"personal"} />
+              <ProfileExperienceCard type={"award"} />
+              <ProfileExperienceCard type={"timeline"} />
+            </div>
           ) : (
             <CareerTimelineSection
               experiencesQuery={experiencesQuery}

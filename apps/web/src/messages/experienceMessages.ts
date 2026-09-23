@@ -206,6 +206,23 @@ const messages = defineMessages({
     id: "trerKD",
     description: "Button to filter experiences by type",
   },
+  timeline: {
+    defaultMessage: "Experience timeline",
+    id: "WRhqCk",
+    description: "Title of experience timeline card",
+  },
+  timelineDescription: {
+    defaultMessage:
+      "A chronological view of all of your experience across all 5 types, grouped by organization.",
+    id: "PpivFz",
+    description: "Description of experience timeline card",
+  },
+  addExperience: {
+    defaultMessage: "Add an experience",
+    id: "RcoCL+",
+    description:
+      "Button to open modal to choose a type of experience to add to the profile",
+  },
 });
 
 export default messages;
