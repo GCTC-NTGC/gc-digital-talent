@@ -8456,8 +8456,8 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
-  "VaiX1a": {
-    "defaultMessage": "Le nominé ou la nominée aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement et pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités. Nous recommandons le perfectionnement plutôt qu’une nomination pour un transfert latéral ou un avancement.",
+  "obt+QL": {
+    "defaultMessage": "La personne nominée aurait besoin d’un soutien ciblé en matière de perfectionnement et de rendement et pourrait avoir besoin d’une gestion de son rendement ou d’une réaffectation à un poste qui correspondra mieux à ses forces et à ses capacités.",
     "description": "Nine-box recommendation description for low performance and low leadership potential"
   },
   "Vbt/G1": {
@@ -9324,8 +9324,8 @@
     "defaultMessage": "Profil ajouté au suivi.",
     "description": "Success message after adding a user to a talent request's tracking list"
   },
-  "Z2/I99": {
-    "defaultMessage": "Nous recommandons que cette personne participe à des possibilités de perfectionnement",
+  "o/21TK": {
+    "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement.",
     "description": "Nine-box recommendation title for development"
   },
   "Z2BMGx": {

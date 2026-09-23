@@ -17,14 +17,14 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "We recommend this person participate in development opportunities",
-        id: "Z2/I99",
+          "Development is recommended for this person rather than a nomination for a lateral movement or advancement.",
+        id: "o/21TK",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({
         defaultMessage:
-          "This nominee would benefit from focused development and performance support. They may require performance management or reassignment to a role better aligned with their strengths and capabilities. Development is recommended rather than a nomination for a lateral movement or advancement.",
-        id: "VaiX1a",
+          "This nominee would benefit from focused development and performance support. They may require performance management or reassignment to a role better aligned with their strengths and capabilities.",
+        id: "obt+QL",
         description:
           "Nine-box recommendation description for low performance and low leadership potential",
       }),
