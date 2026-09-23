@@ -355,6 +355,7 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "isHidden",
         header: intl.formatMessage(processMessages.hiddenProcess),
         enableColumnFilter: false,
+        enableSorting: false,
       },
     ),
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
