@@ -157,8 +157,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     });
 
     return {
-      // createUserWithRoles only returns undefined when its `user` input is omitted, which
-      // never happens here — a concrete `user` payload is always passed above.
       user: createdUser!,
       candidateName: createdUser?.firstName ?? "",
       candidate: application,
@@ -307,7 +305,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     });
 
     await test.step("Verify the placement and referral status", async () => {
-      adminCtx = await graphql.newContext();
       await tableValidation.verifyPlacementAndReferralStatus(
         poolId,
         adminCtx,
@@ -323,7 +320,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   test("'Not Referred' candidates are not present in the Talent table", async ({
     appPage,
   }) => {
-    adminCtx = await graphql.newContext();
+    talentSearch = new TalentSearch(appPage.page);
     const tableValidation = new GenericTableValidationFixture(appPage.page);
 
     await test.step("Pause the candidate to verify the referral status", async () => {

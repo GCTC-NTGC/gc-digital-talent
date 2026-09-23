@@ -64,10 +64,13 @@ const mockTrackedUser = {
   matchingQualifiedInPoolSources: [
     makeFragmentData(
       {
+        __typename: "PoolCandidate",
         id: "pool-candidate-1",
         pool: {
+          __typename: "Pool",
           displayName: {
-            display: { localized: "IT-02" },
+            __typename: "DefinedString",
+            display: { __typename: "LocalizedString", localized: "IT-02" },
           },
         },
       },
@@ -76,12 +79,15 @@ const mockTrackedUser = {
   ],
   referralSummary: makeFragmentData(
     {
+      __typename: "TalentRequestReferralSummary",
       referredCount: 3,
       notSelectedReasons: [
         {
+          __typename: "TalentRequestNotSelectedReasonCount",
           reason: {
+            __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason",
             value: TalentRequestTrackedUserNotSelectedReason.Other,
-            label: { localized: "Other" },
+            label: { __typename: "LocalizedString", localized: "Other" },
           },
           count: 2,
         },

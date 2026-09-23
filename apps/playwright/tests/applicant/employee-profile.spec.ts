@@ -6,11 +6,13 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 
-test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
+test.describe("Employee Profile", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
+  let userId: string | undefined;
+  let userId2: string | undefined;
   let employeeProfile: EmployeeProfile;
   let platformAdminCtx: GraphQLContext;
 
@@ -19,7 +21,7 @@ test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
     sub = `playwright.sub.${uniqueTestId}`;
     platformAdminCtx = await graphql.newContext();
 
-    await createUserWithRoles(platformAdminCtx, {
+    const createdUser = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub}@example.org`,
         sub,
@@ -29,6 +31,16 @@ test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
+    userId = createdUser?.id;
+  });
+
+  test.afterAll(async () => {
+    if (userId) {
+      await deleteUser(platformAdminCtx, { id: userId });
+    }
+    if (userId2) {
+      await deleteUser(platformAdminCtx, { id: userId2 });
+    }
   });
 
   test("Work email removal", async ({ appPage }) => {
@@ -36,7 +48,7 @@ test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
     const uniqueTestId2 = `${generateUniqueTestId()}2`;
     const sub2 = `playwright.sub.${uniqueTestId2}`;
 
-    await createUserWithRoles(platformAdminCtx, {
+    const createdUser2 = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${sub2}@example.org`,
         sub: sub2,
@@ -46,6 +58,7 @@ test.describe.skip("Employee Profile", { tag: "@uat" }, () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
+    userId2 = createdUser2?.id;
 
     const profilePage = new EmployeeProfile(appPage.page);
     await loginBySub(appPage.page, sub2);
