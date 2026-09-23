@@ -16,6 +16,8 @@ import BottomHalfNotEmployee from "./components/BottomHalfNotEmployee";
 import BottomHalfEmployeeWithEmail from "./components/BottomHalfEmployeeWithEmail";
 import BottomHalfEmployeeNoEmail from "./components/BottomHalfEmployeeNoEmail";
 
+export const GETTING_STARTED_FORM_ID = "getting-started-form";
+
 export const sectionTitle = defineMessage({
   defaultMessage: "Getting started",
   id: "QXiUo/",
@@ -106,6 +108,7 @@ const GettingStartedForm = ({
   return (
     <>
       <Heading
+        id={GETTING_STARTED_FORM_ID}
         level="h2"
         size="h3"
         icon={FlagIcon}
