@@ -125,7 +125,7 @@ describe("ClosedJobsPage", () => {
       name: /View job ad/i,
     });
 
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(closedItJobsPool.id),
