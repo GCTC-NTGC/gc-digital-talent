@@ -7082,10 +7082,6 @@
     "defaultMessage": "Veuillez sélectionner une ou plusieurs options de nomination pour continuer.",
     "description": "Null message displayed when no nomination options are selected on details step"
   },
-  "PymrxL": {
-    "defaultMessage": "Sélectionner une classification pour afficher les exigences en matière de formation.",
-    "description": "Null message for education requirement section"
-  },
   "Pz0Qmn": {
     "defaultMessage": "Apprenez-en davantage sur les divers rôles et les différentes autorisations des collectivités sur notre plateforme.",
     "description": "Description of the page outlining different roles and permissions of the application"
@@ -8515,10 +8511,6 @@
   "VhqbdZ": {
     "defaultMessage": "Vous êtes certain de vouloir continuer?",
     "description": "Question to continue in a confirmation dialog"
-  },
-  "VitOoU": {
-    "defaultMessage": "Ces renseignements sont automatiquement remplis pour vous en fonction de la classification sélectionnée pour l'occasion.",
-    "description": "Null message for education requirement section"
   },
   "Vl0+/x": {
     "defaultMessage": "Veuillez attendre {delay, plural, one { # seconde } other { # secondes } } avant de demander un autre courriel de confirmation.",
