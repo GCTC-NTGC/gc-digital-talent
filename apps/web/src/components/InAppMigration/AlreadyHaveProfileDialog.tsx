@@ -77,10 +77,19 @@ const AlreadyHaveProfileDialog = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If your email and phone number on CanadaLogin match those on your existing GC Digital Talent profile, linking your profile will connect your previous data to your new sign in method.",
-                  id: "tQwa1V",
+                    "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
+                  id: "t7Zpp9",
                   description:
                     "Paragraph explaining what linking a profile means",
+                })}
+              </p>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Any information currently in your new profile will be replaced with the data from your existing GC Digital Talent profile. Once your profile is linked, please check that your information is up to date.",
+                  id: "zAPa6H",
+                  description:
+                    "Paragraph explaining that linking a profile replaces the information in the new profile",
                 })}
               </p>
             </div>
@@ -97,8 +106,8 @@ const AlreadyHaveProfileDialog = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Visit CanadaLogin and ensure your email and contact phone number match your existing GC Digital Talent profile.",
-                  id: "1snUSt",
+                    "Visit CanadaLogin and make sure your email address and phone number match the contact information in your existing GC Digital Talent profile.",
+                  id: "YQ3j5R",
                   description:
                     "Instruction to update contact information on CanadaLogin",
                 })}
@@ -106,8 +115,8 @@ const AlreadyHaveProfileDialog = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "Once you have updated your contact information on CanadaLogin log out of the GC Digital Talent Platform and then log back in. If you're provided this message again no match has been found.",
-                  id: "o81J1F",
+                    "After updating your information in CanadaLogin, sign out of GC Digital Talent and sign back in. If you continue to receive this message, no matching profile could be found.",
+                  id: "pRgDng",
                   description:
                     "Instruction to log out and back in after updating contact information",
                 })}
@@ -115,8 +124,8 @@ const AlreadyHaveProfileDialog = () => {
               <p className="text-sm text-gray-600 dark:text-gray-100">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Please note that we will do our best to match your account, but if we can't find a profile with matching information we will not be able to link your account due to our privacy protection policies.",
-                  id: "cixpga",
+                    "Please note that we will do our best to match your account, but if we can't find a profile with matching information, we won't be able to link your account due to our privacy protection policies.",
+                  id: "jGQ2lZ",
                   description:
                     "Disclaimer about account matching and privacy protection",
                 })}

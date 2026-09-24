@@ -66,13 +66,22 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "If your email and phone number on CanadaLogin match those on your existing GC Digital Talent profile, linking your profile will connect your previous data to your new sign in method.",
-                  id: "20+bZk",
+                    "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
+                  id: "RwJJEM",
                   description:
                     "Paragraph explaining what happens when a user links their profile",
                 })}
               </p>
             </div>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Any information currently in your new profile will be replaced with the data from your existing GC Digital Talent profile. Once your profile is linked, please check that your information is up to date.",
+                id: "zAPa6H",
+                description:
+                  "Paragraph explaining that linking a profile replaces the information in the new profile",
+              })}
+            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:

@@ -35,8 +35,8 @@ const HowToLinkMyProfileDialog = () => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Visit CanadaLogin and ensure your email and contact phone number match your existing GC Digital Talent profile.",
-                id: "C/rcYE",
+                  "Visit CanadaLogin and make sure your email address and phone number match the contact information in your existing GC Digital Talent profile.",
+                id: "asfcyQ",
                 description:
                   "Paragraph instructing the user to update their contact information on CanadaLogin",
               })}
@@ -44,8 +44,8 @@ const HowToLinkMyProfileDialog = () => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Once you have updated your contact information on CanadaLogin log out of the GC Digital Talent Platform and then log back in. If you receive this message again no match has been found.",
-                id: "pEq3nZ",
+                  "After updating your information in CanadaLogin, sign out of GC Digital Talent and sign back in. If you continue to receive this message, no matching profile could be found.",
+                id: "72hduv",
                 description:
                   "Paragraph instructing the user to sign out and back in after updating their CanadaLogin information",
               })}
@@ -53,8 +53,8 @@ const HowToLinkMyProfileDialog = () => {
             <p className="text-gray-600 dark:text-gray-200">
               {intl.formatMessage({
                 defaultMessage:
-                  "Please note that we will do our best to match your account, but if we can't find a profile with matching information we will not be able to link your account due to our privacy protection policies.",
-                id: "OGxPQq",
+                  "Please note that we will do our best to match your account, but if we can't find a profile with matching information, we won't be able to link your account due to our privacy protection policies.",
+                id: "5Tf7Ev",
                 description:
                   "Note that a profile cannot be linked if no matching information is found",
               })}
