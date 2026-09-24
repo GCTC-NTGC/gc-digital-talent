@@ -7,7 +7,7 @@ import type {
   MigrationNoticeDismissProps,
   MigrationNoticeScrollProps,
 } from "./migrationNoticeProps";
-import WhatDoesThisMeanLongDialog from "./WhatDoesThisMeanLongDialog";
+import WhatDoesThisMeanMigrationNotPossibleDialog from "./WhatDoesThisMeanMigrationNotPossibleDialog";
 
 const MigrationNotPossibleNotice = ({
   ignoreAction,
@@ -39,7 +39,7 @@ const MigrationNotPossibleNotice = ({
       </Notice.Content>
       <Notice.Actions>
         <HowToLinkMyProfileDialog />
-        <WhatDoesThisMeanLongDialog />
+        <WhatDoesThisMeanMigrationNotPossibleDialog />
         {ignoreAction === "scroll" ? (
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({

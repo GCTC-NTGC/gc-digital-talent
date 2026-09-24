@@ -4,7 +4,7 @@ import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
-import WhatDoesThisMeanShortDialog from "./WhatDoesThisMeanShortDialog";
+import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
 import type {
   MigrationNoticeDismissProps,
   MigrationNoticeScrollProps,
@@ -49,7 +49,9 @@ const MigrationPossibleNotice = ({
       </Notice.Content>
       <Notice.Actions>
         <LinkMyProfileDialog onLinkProfile={handleLinkProfile} />
-        <WhatDoesThisMeanShortDialog onLinkProfile={handleLinkProfile} />
+        <WhatDoesThisMeanMigrationPossibleDialog
+          onLinkProfile={handleLinkProfile}
+        />
         {ignoreAction === "scroll" ? (
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
 
-const WhatDoesThisMeanLongDialog = () => {
+const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
   const manageAccountUri =
@@ -128,4 +128,4 @@ const WhatDoesThisMeanLongDialog = () => {
   );
 };
 
-export default WhatDoesThisMeanLongDialog;
+export default WhatDoesThisMeanMigrationNotPossibleDialog;

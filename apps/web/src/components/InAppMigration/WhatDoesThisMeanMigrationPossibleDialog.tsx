@@ -3,13 +3,13 @@ import { useState } from "react";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
-interface WhatDoesThisMeanShortDialogProps {
+interface WhatDoesThisMeanMigrationPossibleDialogProps {
   onLinkProfile: () => void;
 }
 
-const WhatDoesThisMeanShortDialog = ({
+const WhatDoesThisMeanMigrationPossibleDialog = ({
   onLinkProfile,
-}: WhatDoesThisMeanShortDialogProps) => {
+}: WhatDoesThisMeanMigrationPossibleDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -108,4 +108,4 @@ const WhatDoesThisMeanShortDialog = ({
   );
 };
 
-export default WhatDoesThisMeanShortDialog;
+export default WhatDoesThisMeanMigrationPossibleDialog;
