@@ -17,8 +17,8 @@ const messages: Record<
     [NineBoxRating.Low]: {
       title: defineMessage({
         defaultMessage:
-          "Development is recommended for this person rather than a nomination for a lateral movement or advancement",
-        id: "FMTyaE",
+          "Development is recommended for this person rather than a nomination for lateral movement or advancement",
+        id: "Yh8UWM",
         description: "Nine-box recommendation title for development",
       }),
       body: defineMessage({

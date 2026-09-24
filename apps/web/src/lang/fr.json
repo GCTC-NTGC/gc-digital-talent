@@ -4410,10 +4410,6 @@
     "defaultMessage": "Compétences essentielles",
     "description": "Label for 'essential skills' input on the assessment details dialog"
   },
-  "FMTyaE": {
-    "defaultMessage": "Le perfectionnement est recommandé pour cette personne plutôt qu’une nomination pour un transfert latéral ou un avancement",
-    "description": "Nine-box recommendation title for development"
-  },
   "FN037Z": {
     "defaultMessage": "Vous avez accepté un poste grâce à ce processus de recrutement. Vous ne recevrez plus d'offres d'emploi liées à ce processus.",
     "description": "Status description for a qualified application that has been hired"
