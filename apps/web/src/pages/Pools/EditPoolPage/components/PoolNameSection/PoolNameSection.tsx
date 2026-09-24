@@ -6,7 +6,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import { useQuery } from "urql";
 
-import { Button, ToggleSection } from "@gc-digital-talent/ui";
+import { Button, Notice, ToggleSection, Ul } from "@gc-digital-talent/ui";
 import {
   commonMessages,
   formMessages,
@@ -21,6 +21,7 @@ import {
   RadioGroup,
   Select,
   Submit,
+  SwitchInput,
   localizedEnumToOptions,
 } from "@gc-digital-talent/forms";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -116,6 +117,7 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
+    isHidden
   }
 `);
 
@@ -270,14 +272,16 @@ const PoolNameSection = ({
       specificTitleFr: pool.name?.fr ?? "",
       publishingGroup: pool.publishingGroup?.value,
       opportunityLength: pool.opportunityLength?.value,
+      isHidden: pool.isHidden ?? false,
     },
   });
   const { handleSubmit, watch, resetField } = methods;
 
   // hooks to watch, needed for conditional rendering
-  const [selectedAreaOfSelection, selectionLimitations] = watch([
+  const [selectedAreaOfSelection, selectionLimitations, isHidden] = watch([
     "areaOfSelection",
     "selectionLimitations",
+    "isHidden",
   ]);
 
   /**
@@ -506,7 +510,63 @@ const PoolNameSection = ({
                   disabled={formDisabled}
                 />
               </div>
-
+              <div className="mb-6 grid gap-6">
+                <SwitchInput
+                  id="isHidden"
+                  name="isHidden"
+                  label={intl.formatMessage(processMessages.hiddenProcess)}
+                  color="secondary"
+                />
+                {isHidden && (
+                  <Notice.Root>
+                    <Notice.Content>
+                      {intl.formatMessage({
+                        defaultMessage: "When the process is set to hidden",
+                        id: "9tR2Dv",
+                        description: "Hidden process description",
+                      })}
+                      <Ul>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "it will not show on the browse jobs page,",
+                            id: "RRuIK8",
+                            description:
+                              "Hidden process description list item 1",
+                          })}
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "users will not receive notifications when the process is published,",
+                            id: "roZTVA",
+                            description:
+                              "Hidden process description list item 2",
+                          })}
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "users must be provided a direct link to the job poster page in order to apply,",
+                            id: "JfpbJV",
+                            description:
+                              "Hidden process description list item 3",
+                          })}
+                        </li>
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "the process and its candidates will not appear in talent requests.",
+                            id: "XOKWZb",
+                            description:
+                              "Hidden process description list item 4",
+                          })}
+                        </li>
+                      </Ul>
+                    </Notice.Content>
+                  </Notice.Root>
+                )}
+              </div>
               <ActionWrapper>
                 {!formDisabled && (
                   <Submit

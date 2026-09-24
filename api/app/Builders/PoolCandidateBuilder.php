@@ -64,6 +64,16 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
     }
 
     /**
+     * Scopes the query to include PoolCandidates in a pool that is not hidden
+     */
+    public function wherePoolIsNotHidden(): self
+    {
+        return $this->whereHas('pool', function ($query) {
+            $query->where('is_hidden', false);
+        });
+    }
+
+    /**
      * Scopes the query to return PoolCandidates in a pool with one of the specified classifications.
      * If $classifications is empty, this scope will be ignored.
      *
@@ -159,6 +169,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         // so its id is pulled out first.
         return $this->whereAvailable()
             ->whereInTalentSearchablePublishingGroup()
+            ->wherePoolIsNotHidden()
             ->whereHasCommunity()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
             ->whereWorkStreamsIn(array_column($filters['qualifiedInWorkStreams'] ?? [], 'id'))
