@@ -3,7 +3,7 @@ import type { FieldErrors, FieldValues } from "react-hook-form";
 import { useFormState } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import type { ReactNode, ComponentRef } from "react";
-import { forwardRef } from "react";
+import { forwardRef, useLayoutEffect, useRef } from "react";
 
 import type { ScrollLinkClickFunc } from "@gc-digital-talent/ui";
 import { Notice, ScrollToLink, Link, Ul } from "@gc-digital-talent/ui";
@@ -107,6 +107,27 @@ const supportLink = (chunks: ReactNode, locale: string) => (
   </Link>
 );
 
+// False when something else scrolls this element, like a dialog. Scrolling the page would then move the wrong thing.
+const isInPageFlow = (el: HTMLElement): boolean => {
+  for (let n = el.parentElement; n; n = n.parentElement) {
+    const { overflow, position } = getComputedStyle(n);
+    if (position === "fixed" || /(auto|scroll)/.test(overflow)) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const measure = (el: HTMLElement | null) => ({
+  scrollY: window.scrollY,
+  outer: el
+    ? el.getBoundingClientRect().height +
+      parseFloat(getComputedStyle(el).marginBottom || "0")
+    : 0,
+  docTop: el ? el.getBoundingClientRect().top + window.scrollY : 0,
+  scrollsWithPage: el ? isInPageFlow(el) : false,
+});
+
 const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
   ({ labels: labelsProp, show }, forwardedRef) => {
     const intl = useIntl();
@@ -114,6 +135,25 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
     const { errors } = useFormState();
     const { labels: registeredLabels } = useFormLabels();
     const labels = { ...registeredLabels.current, ...labelsProp };
+    const noticeRef = useRef<HTMLDivElement | null>(null);
+    // Measure now, while the page still shows the old summary. Later is too late as
+    // the browser may have moved the scroll, or a resize may have changed the summary's height.
+    const before = useRef(measure(null));
+    before.current = measure(noticeRef.current);
+
+    // This summary sits above the fields, so when it gets shorter everything below jumps up. Scroll by the same amount to keep the page still.
+    useLayoutEffect(() => {
+      const { scrollY, outer, docTop, scrollsWithPage } = before.current;
+      // Only count the part scrolled out of sight. If the user can watch it shrink, moving the page would be the jarring thing.
+      const hiddenAbove = Math.min(
+        Math.max(scrollY - docTop, 0),
+        outer - measure(noticeRef.current).outer,
+      );
+      if (hiddenAbove > 0 && scrollsWithPage) {
+        // An exact position, not an offset, so a browser fix can't double up
+        window.scrollTo(0, scrollY - hiddenAbove);
+      }
+    });
 
     // Don't show if the form is valid
     if (!errors || !show || !labels) return null;
@@ -140,7 +180,11 @@ const ErrorSummary = forwardRef<ComponentRef<"div">, ErrorSummaryProps>(
         color="error"
         mode="card"
         role="alert"
-        ref={forwardedRef}
+        ref={(node: HTMLDivElement | null) => {
+          noticeRef.current = node;
+          if (typeof forwardedRef === "function") forwardedRef(node);
+          else if (forwardedRef) forwardedRef.current = node;
+        }}
         tabIndex={-1}
         className="mb-6"
       >
