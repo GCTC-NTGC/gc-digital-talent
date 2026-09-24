@@ -17,6 +17,7 @@ import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import SEO from "~/components/SEO/SEO";
@@ -34,6 +35,8 @@ import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
 
 import CareerDevelopmentTaskCard from "./components/CareerDevelopmentTaskCard";
 import ApplicationsProcessesTaskCard from "./components/ApplicationsProcessesTaskCard";
@@ -194,13 +197,16 @@ export const ApplicantDashboardPage_Fragment = graphql(/* GraphQL */ `
 
 interface DashboardPageProps {
   applicantDashboardQuery: ApplicantDashboardQuery;
+  canMigrateMyAccount: boolean;
 }
 
 export const DashboardPage = ({
   applicantDashboardQuery,
+  canMigrateMyAccount,
 }: DashboardPageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -311,6 +317,15 @@ export const DashboardPage = ({
       />
       <section className="my-18">
         <Container>
+          {featureFlags.authInAppMigration ? (
+            <div className="mb-6">
+              {canMigrateMyAccount ? (
+                <MigrationPossibleNotice scrollToIdOnIgnore={""} />
+              ) : (
+                <MigrationNotPossibleNotice scrollToIdOnIgnore={""} />
+              )}
+            </div>
+          ) : null}
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
               <ApplicationsProcessesTaskCard
@@ -536,6 +551,7 @@ const ApplicantDashboard_Query = graphql(/* GraphQL */ `
       ...ApplicantDashboardPage
     }
     ...CareerDevelopmentTaskCardOptions
+    canMigrateMyAccount
   }
 `);
 
@@ -577,7 +593,10 @@ export const ApplicantDashboardPageApi = () => {
             communityAccordionRef,
           }}
         >
-          <DashboardPage applicantDashboardQuery={data} />
+          <DashboardPage
+            applicantDashboardQuery={data}
+            canMigrateMyAccount={data.canMigrateMyAccount}
+          />
         </ApplicantDashboardProvider>
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
