@@ -6,11 +6,7 @@ import { isPast } from "date-fns/isPast";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  FragmentType,
-  LocalizedString,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,
@@ -77,13 +73,6 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
       }
     }
   }
@@ -95,7 +84,6 @@ interface PoolStatusRowPool {
   name?: LocalizedString | null;
   classification?: PoolTitleClassification | null;
   workStream?: PoolTitleWorkStream | null;
-  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
 }
 
 interface PoolStatusRowStatus {
@@ -158,15 +146,6 @@ const PoolStatusTable = ({
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor(
-      ({ pool: { publishingGroup } }) =>
-        getLocalizedName(publishingGroup?.label, intl),
-      {
-        id: "publishingGroup",
-        sortingFn: normalizedText,
-        header: intl.formatMessage(processMessages.publishingGroup),
-      },
-    ),
     columnHelper.accessor(
       (row) =>
         row.applicationStatusData?.status?.label?.localized ??

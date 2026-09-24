@@ -130,7 +130,7 @@ class TalentRequestReferralSummaryTest extends TestCase
 
     public function testTalentRequestResultResolvesUserWideSummary(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $user = User::factory()->create();
         PoolCandidate::factory()->availableInSearch()->for($user)->for($pool)->create();
 

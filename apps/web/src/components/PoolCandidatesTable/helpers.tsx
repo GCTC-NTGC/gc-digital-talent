@@ -384,7 +384,6 @@ export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
-    publishingGroups: unpackMaybes(input?.publishingGroups),
     classifications:
       input?.appliedClassifications
         ?.filter(notEmpty)
@@ -473,7 +472,6 @@ export function transformFormValuesToFilterState(
     referralStatuses: data.referralStatuses,
     employeeVerification: data.govEmployee,
     departments: data.departments,
-    publishingGroups: data.publishingGroups,
     appliedClassifications: data.classifications.map((classification) => {
       const splitString = classification.split("-");
       return { group: splitString[0], level: Number(splitString[1]) };
@@ -523,7 +521,6 @@ export const addSearchToPoolCandidateFilterInput = (
     suspendedStatus: fancyFilterState?.suspendedStatus,
     referralStatuses: fancyFilterState?.referralStatuses,
     employeeVerification: fancyFilterState?.employeeVerification,
-    publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,
     departments: fancyFilterState?.departments,

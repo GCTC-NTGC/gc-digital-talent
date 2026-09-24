@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
-use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Models\Classification;
@@ -1161,61 +1160,6 @@ class PoolTest extends TestCase
                     'id' => $pool2->id,
                     'workStream' => [
                         'id' => $stream2->id,
-                    ],
-                ],
-            ],
-        ]);
-
-        assertSame(2, count($res->json('data.poolsPaginated.data')));
-    }
-
-    #[Group('paginated')]
-    public function testPublishingGroupsScope(): void
-    {
-        $IT = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-        ]);
-
-        $IAP = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IAP->name,
-        ]);
-
-        Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
-        ]);
-
-        $res = $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ScopePoolName($where: PoolFilterInput) {
-                    poolsPaginated(where: $where) {
-                        data {
-                            id
-                            publishingGroup { value }
-                        }
-                    }
-                }
-            ',
-            [
-                'where' => [
-                    'publishingGroups' => [
-                        PublishingGroup::IT_JOBS->name,
-                        PublishingGroup::IAP->name,
-                    ],
-                ],
-            ]
-        )->assertJsonFragment([
-            'data' => [
-                [
-                    'id' => $IT->id,
-                    'publishingGroup' => [
-                        'value' => PublishingGroup::IT_JOBS->name,
-                    ],
-                ],
-                [
-                    'id' => $IAP->id,
-                    'publishingGroup' => [
-                        'value' => PublishingGroup::IAP->name,
                     ],
                 ],
             ],

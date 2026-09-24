@@ -1651,7 +1651,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1703,7 +1703,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1752,11 +1752,11 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $matchingClass->id,
         ]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $otherClass->id,
         ]);
@@ -1788,10 +1788,10 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
 
-        $poolA = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolA = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
-        $poolB = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolB = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
 
@@ -1834,7 +1834,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1924,7 +1924,7 @@ class TalentRequestTrackedUserTest extends TestCase
             ->for($filter)
             ->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)
             ->for($classification)
             ->create();
@@ -1985,7 +1985,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();
@@ -2134,7 +2134,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();

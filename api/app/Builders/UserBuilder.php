@@ -314,23 +314,6 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     */
-    public function wherePoolCandidatePublishingGroupsIn(?array $publishingGroups): self
-    {
-        // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            $query->wherePublishingGroupsIn($publishingGroups);
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {

@@ -39,9 +39,6 @@ export const ScreeningDecisionDialog_Fragment = graphql(/** GraphQL */ `
       classification {
         group
       }
-      publishingGroup {
-        value
-      }
       assessmentSteps {
         id
         ...ScreeningDialogHeaderStep

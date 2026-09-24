@@ -349,11 +349,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -1800,13 +1795,6 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
-}
-
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
 }
 
 enum ScreeningStage {

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolLanguage;
-use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -48,7 +47,6 @@ class PoolTestSeeder extends Seeder
                 'department_id' => $departmentId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
             ]);
         $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
@@ -59,23 +57,6 @@ class PoolTestSeeder extends Seeder
             $createdPool->addProcessOperators([$processOperatorUser->id]);
         }
         $createdPool->save();
-
-        // IAP
-        Pool::factory()
-            ->draft()
-            ->createOrGetExisting(
-                [
-                    'name' => [
-                        'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                        'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
-                    ],
-                    'community_id' => $digitalCommunityId,
-                    'published_at' => config('constants.past_date'),
-                    'closing_date' => config('constants.far_future_date'),
-                    'publishing_group' => PublishingGroup::IAP->name,
-                    'work_stream_id' => $businessAdvisoryStreamId,
-                ],
-            );
 
         // IT -01
         Pool::factory()
@@ -90,7 +71,6 @@ class PoolTestSeeder extends Seeder
                 'community_id' => $digitalCommunityId,
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
 
             ]);
@@ -111,7 +91,6 @@ class PoolTestSeeder extends Seeder
                     'community_id' => $digitalCommunityId,
                     'published_at' => null,
                     'closing_date' => config('constants.far_future_date'),
-                    'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'work_stream_id' => $businessAdvisoryStreamId,
 
                 ],
@@ -135,7 +114,6 @@ class PoolTestSeeder extends Seeder
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
 
             ]);
@@ -158,7 +136,6 @@ class PoolTestSeeder extends Seeder
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
             ]);
 
@@ -181,7 +158,6 @@ class PoolTestSeeder extends Seeder
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
-                    'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
@@ -206,7 +182,6 @@ class PoolTestSeeder extends Seeder
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
-                    'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
                 ],
             );
 
@@ -226,7 +201,6 @@ class PoolTestSeeder extends Seeder
                 'community_id' => $atipCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
-                'publishing_group' => PublishingGroup::OTHER->name,
             ]);
     }
 }

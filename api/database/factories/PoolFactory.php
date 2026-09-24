@@ -9,7 +9,6 @@ use App\Enums\PoolLanguage;
 use App\Enums\PoolOpportunityLength;
 use App\Enums\PoolSelectionLimitation;
 use App\Enums\PoolSkillType;
-use App\Enums\PublishingGroup;
 use App\Enums\SecurityStatus;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
@@ -67,7 +66,6 @@ class PoolFactory extends BaseFactory
                 'published_at' => null,
                 'process_number' => $this->faker->word(),
                 'contact_email' => $this->faker->email(),
-                'publishing_group' => $this->faker->enum(PublishingGroup::class),
                 'opportunity_length' => $this->faker->enum(PoolOpportunityLength::class),
                 'area_of_selection' => $this->faker->enum(PoolAreaOfSelection::class),
                 'operational_requirements' => $this->faker->enums(OperationalRequirement::class, 2),
@@ -174,20 +172,6 @@ class PoolFactory extends BaseFactory
             'published_at' => $this->faker->dateTimeBetween('-12 months', '-6 months'),
             'closing_date' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
             'archived_at' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
-        ]);
-    }
-
-    /**
-     * Pool Candidates for this pool will appear in search results
-     *
-     * Note: That means only non-IAP publishing groups
-     *
-     * @return void
-     */
-    public function candidatesAvailableInSearch()
-    {
-        return $this->published()->state([
-            'publishing_group' => $this->faker->randomElement(PublishingGroup::candidatesAvailableInSearch()),
         ]);
     }
 
