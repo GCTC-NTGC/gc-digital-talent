@@ -26,11 +26,6 @@ const messages = defineMessages({
     id: "2pY3lT",
     description: "Label for a process number",
   },
-  publishingGroup: {
-    defaultMessage: "Publishing group",
-    id: "ysKXVP",
-    description: "Label for a process' publishing group",
-  },
   closingDate: {
     defaultMessage: "Closing date",
     id: "CQxGrS",

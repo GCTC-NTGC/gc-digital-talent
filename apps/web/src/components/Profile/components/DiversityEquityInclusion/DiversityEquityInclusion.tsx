@@ -49,9 +49,7 @@ const DiversityEquityInclusion = ({
   const intl = useIntl();
   const title = getSectionTitle("dei");
   const user = getFragment(ProfileDiversityEquityInclusion_Fragment, query);
-  const isComplete = !hasEmptyRequiredFields(user, {
-    publishingGroup: pool?.publishingGroup,
-  }); // no empty required fields so false returns, means complete is true
+  const isComplete = !hasEmptyRequiredFields(); // no empty required fields so false returns, means complete is true
   const [accordionOpen, setAccordionOpen] = useState<AccordionItems>(""); // Start with accordion closed
 
   const handleUpdate = (data: UpdateUserAsUserInput) => {

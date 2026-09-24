@@ -66,11 +66,6 @@ const messages = defineMessages({
     id: "0Uvziq",
     description: "Title for pool candidates",
   },
-  publishingGroups: {
-    defaultMessage: "Publishing groups",
-    id: "g+lQO/",
-    description: "Title for publishing groups",
-  },
   skillFamilies: {
     defaultMessage: "Skill families",
     id: "0E9hiS",

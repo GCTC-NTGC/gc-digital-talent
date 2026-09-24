@@ -9068,10 +9068,6 @@
     "defaultMessage": "Informations sur le compte",
     "description": "Title for a users account information"
   },
-  "Y0WLp5": {
-    "defaultMessage": "Sélectionnez un groupe des publications",
-    "description": "Placeholder for publishing group field"
-  },
   "Y2ULHN": {
     "defaultMessage": "Associer une expérience",
     "description": "Button text to open the form allowing a user to link an experience to a skill"
@@ -11153,10 +11149,6 @@
   "g+JcDC": {
     "defaultMessage": "D'autres possibilités d'emploi seront bientôt affichées",
     "description": "Heading for message about upcoming opportunities"
-  },
-  "g+lQO/": {
-    "defaultMessage": "Groupes de publication",
-    "description": "Title for publishing groups"
   },
   "g+tCWe": {
     "defaultMessage": "Commencez par compléter l'information de base de votre compte.",
@@ -15869,10 +15861,6 @@
   "ypxaI2": {
     "defaultMessage": "Vous n’avez pas assez d’évaluations",
     "description": "Title for warning message when the user has few assessments to the assessment plan"
-  },
-  "ysKXVP": {
-    "defaultMessage": "Groupe de publication",
-    "description": "Label for a process' publishing group"
   },
   "yszH29": {
     "defaultMessage": "analytique des données",

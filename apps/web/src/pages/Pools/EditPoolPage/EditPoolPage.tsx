@@ -121,13 +121,6 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     processNumber
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     opportunityLength {
       value
       label {
@@ -298,7 +291,6 @@ export const EditPoolForm = ({
       department: pool.department,
       workStream: pool.workStream,
       name: pool.name,
-      publishingGroup: pool.publishingGroup,
       opportunityLength: pool.opportunityLength,
     }) ||
     closingDateError({ closingDate: pool.closingDate, status: pool.status });
@@ -336,7 +328,6 @@ export const EditPoolForm = ({
         department: pool.department,
         workStream: pool.workStream,
         name: pool.name,
-        publishingGroup: pool.publishingGroup,
         opportunityLength: pool.opportunityLength,
       }),
       title: intl.formatMessage({
@@ -396,7 +387,6 @@ export const EditPoolForm = ({
       hasError: educationRequirementIsNull({
         workStream: pool.workStream,
         name: pool.name,
-        publishingGroup: pool.publishingGroup,
       }),
       title: intl.formatMessage({
         defaultMessage: "Minimum education",

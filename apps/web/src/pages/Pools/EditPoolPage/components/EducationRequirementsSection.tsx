@@ -48,13 +48,6 @@ const EditPoolEducationRequirements_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     classification {
       id
       group

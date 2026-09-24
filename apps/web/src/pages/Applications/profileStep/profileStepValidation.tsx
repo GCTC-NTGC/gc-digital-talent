@@ -40,7 +40,7 @@ const stepHasError = (
       pool,
       _application?.isSpecialApplication,
     ) ||
-    diversityEquityInclusionSectionHasEmptyRequiredFields(user, pool) ||
+    diversityEquityInclusionSectionHasEmptyRequiredFields() ||
     priorityEntitlementsHasEmptyRequiredFields(user) ||
     languageInformationSectionHasEmptyRequiredFields(user) ||
     workPreferencesSectionHasEmptyRequiredFields(user) ||

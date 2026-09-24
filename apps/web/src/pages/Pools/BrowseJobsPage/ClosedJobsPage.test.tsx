@@ -6,7 +6,7 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
@@ -14,7 +14,6 @@ import ClosedJobs from "./ClosedJobsPage";
 
 interface MockPool {
   id: string;
-  publishingGroup: GenericLocalizedEnum<PublishingGroup>;
   status: GenericLocalizedEnum<PoolStatus>;
   publishedAt: string;
   closingDate: string;
@@ -23,10 +22,6 @@ interface MockPool {
 
 const closedItJobsPool = {
   id: "closedItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
@@ -35,10 +30,6 @@ const closedItJobsPool = {
 
 const openItJobsPool = {
   id: "openItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2999-01-02",
@@ -47,10 +38,6 @@ const openItJobsPool = {
 
 const archivedItJobsPool = {
   id: "archivedItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Archived, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
@@ -59,10 +46,6 @@ const archivedItJobsPool = {
 
 const closedExecJobsPool = {
   id: "closedExecJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ExecutiveJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
@@ -71,10 +54,6 @@ const closedExecJobsPool = {
 
 const closedIAPJobsPool = {
   id: "closedIAPJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.Iap,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",

@@ -503,8 +503,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus @rename(attribute: "status")
   workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
-  publishingGroup: LocalizedPublishingGroup
-    @rename(attribute: "publishing_group")
   opportunityLength: LocalizedPoolOpportunityLength
     @rename(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
@@ -1455,7 +1453,6 @@ input PoolFilterInput {
   workStreams: [UUID!] @scope(name: "whereWorkStreamsIn")
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
-  publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
@@ -1534,7 +1531,6 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   referralStatuses: [CandidateReferralFilter!]
     @scope(name: "whereReferralStatusIn")
-  publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
@@ -1754,8 +1750,6 @@ type Query {
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
   publishedPools(
     closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    publishingGroup: PublishingGroup
-      @where(key: "publishing_group", operator: "=")
     isHidden: Boolean @scope(name: "whereIsHidden")
   ): [Pool!]!
     @all(scopes: ["wherePublished", "whereNotArchived"])
@@ -3055,7 +3049,6 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany

@@ -42,7 +42,7 @@ export const dataToFormValues = (
 
 export type CoreRequirementsSubmitData = Pick<
   UpdatePoolInput,
-  "language" | "location" | "securityClearance" | "isRemote" | "publishingGroup"
+  "language" | "location" | "securityClearance" | "isRemote"
 >;
 
 export const formValuesToSubmitData = (

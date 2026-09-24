@@ -4,11 +4,7 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import {
-  PoolStatus,
-  PublishingGroup,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import { PoolStatus, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { ActiveRecruitmentSectionProps } from "./ActiveRecruitmentSection";
 import ActiveRecruitmentSection, {
@@ -18,7 +14,6 @@ import ActiveRecruitmentSection, {
 const publishedPool = makeFragmentData(
   {
     id: "publishedPool",
-    publishingGroup: PublishingGroup.ItJobs,
     status: PoolStatus.Published,
   },
   ActiveRecruitmentSectionPool_Fragment,

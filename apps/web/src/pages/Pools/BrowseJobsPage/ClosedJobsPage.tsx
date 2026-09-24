@@ -20,7 +20,6 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import ClosedJobOpportunitiesSection from "./components/ClosedJobOpportunitiesSection/ClosedJobOpportunitiesSection";
 import FooterCard from "./components/FooterCard/FooterCard";
-import { canShowOnBrowseJobs } from "./utils";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
 
 const flourish = tv({
@@ -41,13 +40,6 @@ const ClosedJobsPage_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
         status {
           value
           label {
@@ -90,9 +82,7 @@ export const Component = () => {
   });
 
   const closedPools = pools.filter(
-    (p) =>
-      p.status?.value === PoolStatus.Closed && // list jobs which have the PUBLISHED PoolStatus
-      canShowOnBrowseJobs(p.publishingGroup?.value),
+    (p) => p.status?.value === PoolStatus.Closed, // list jobs which have the PUBLISHED PoolStatus
   );
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used
   const areOpportunitiesShowing = !!closedPools.length;

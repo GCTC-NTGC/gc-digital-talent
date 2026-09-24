@@ -128,15 +128,6 @@ class PoolBuilder extends Builder
         });
     }
 
-    public function publishingGroups(?array $publishingGroups): self
-    {
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereIn('publishing_group', $publishingGroups);
-    }
-
     public function whereWorkStreamsIn(?array $streams): self
     {
 

@@ -32,7 +32,6 @@ const Display = ({
     department,
     workStream,
     name,
-    publishingGroup,
     opportunityLength,
     isHidden,
   } = pool;
@@ -166,12 +165,6 @@ const Display = ({
                 id: "n27x+U",
                 description: "Label for when a process is not hidden",
               })}
-        </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          hasError={!publishingGroup}
-          label={intl.formatMessage(processMessages.publishingGroup)}
-        >
-          {getLocalizedName(publishingGroup?.label, intl)}
         </ToggleForm.FieldDisplay>
       </div>
     </>

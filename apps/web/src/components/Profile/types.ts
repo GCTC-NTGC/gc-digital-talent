@@ -1,11 +1,9 @@
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import type {
   Application_PoolCandidateFragment,
-  PublishingGroup,
   UpdateUserAsUserInput,
   UpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export type SectionKey =
   | "personal"
@@ -18,7 +16,6 @@ export type SectionKey =
 
 export interface ProfileSectionPool {
   id: string;
-  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
 }
 
 export interface SectionProps<P = void> {

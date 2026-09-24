@@ -76,13 +76,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     processNumber
     status {
       value
@@ -315,14 +308,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
         id: "workStream",
         enableColumnFilter: false,
         header: intl.formatMessage(processMessages.stream),
-      },
-    ),
-    columnHelper.accessor(
-      ({ publishingGroup }) => getLocalizedName(publishingGroup?.label, intl),
-      {
-        id: "publishingGroup",
-        header: intl.formatMessage(processMessages.publishingGroup),
-        enableColumnFilter: false,
       },
     ),
     columnHelper.accessor(
