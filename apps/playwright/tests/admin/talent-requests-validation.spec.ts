@@ -251,8 +251,12 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
-    await deleteUser(platformAdminCtx, { id: user.id });
-    await deleteUser(platformAdminCtx, { id: notReferredUser.id });
+    if (user) {
+      await deleteUser(platformAdminCtx, { id: user.id });
+    }
+    if (notReferredUser) {
+      await deleteUser(platformAdminCtx, { id: notReferredUser.id });
+    }
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
     }
@@ -344,7 +348,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
 
   test.describe("End to end validation of talent request", () => {
     test.beforeAll(async () => {
-      adminCtx = await graphql.newContext();
       await ResumeCandidateReferrals(adminCtx, { id: candidate.id });
       const talentSources = await getTalentRequestSources(adminCtx, {});
       qualifiedInPoolSource = talentSources.find(
@@ -613,7 +616,6 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       let trackedUserId: string;
 
       await test.step("Referred and mark candidate as selected via API mutation", async () => {
-        adminCtx = await graphql.newContext();
         const [trackedCandidate] = await getTalentRequestTrackedUsers(
           adminCtx,
           {
