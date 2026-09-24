@@ -44,6 +44,16 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         return $method->invoke($builder, $user, $teamIdsByPermission)->get()->pluck('id');
     }
 
+    // Runs the whole scope. The helper above runs one method on its own, so it misses the pool filter the other scopes add
+    private function adminViewIds(User $user): Collection
+    {
+        // the scope reads Auth::user() on the default guard, so set both
+        $this->actingAs($user);
+        $this->actingAs($user, 'api');
+
+        return PoolCandidate::query()->whereAuthorizedToViewPoolCandidateAdminView()->get()->pluck('id');
+    }
+
     // process operators can see users who have a pool candidate in a pool they operate
     public function testProcessOperatorSeesUsersWithCandidateInTheirPool(): void
     {
@@ -183,6 +193,43 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         assertEqualsCanonicalizing(
             [$applicantInCommunityPool->id, $communityTalentCandidate->id],
             $visibleIds->toArray()
+        );
+    }
+
+    // Profile access in one place, community talent in another. The two always come together,
+    // so the query already filters to those pools and repeating that filter adds nothing
+    public function testApplicantProfileAndCommunityTalentInDifferentCommunities(): void
+    {
+        $operatedPool = Pool::factory()->published()->create();
+
+        $otherCommunity = Community::factory()->create();
+        $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
+
+        // in the pool they operate — visible
+        $candidateInOperatedPool = PoolCandidate::factory()
+            ->submitted()
+            ->for(User::factory()->asApplicant()->create())
+            ->for($operatedPool)
+            ->create();
+
+        // consented, verified community talent in the OTHER community, with a candidate elsewhere
+        $consentedGovUser = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        PoolCandidate::factory()->submitted()->for($consentedGovUser)->for($otherPool)->create();
+        CommunityInterest::factory()
+            ->for($consentedGovUser)
+            ->for($otherCommunity)
+            ->consented()
+            ->create();
+
+        // applicant profile on the pool, community talent on a different community
+        $splitPermissionUser = User::factory()
+            ->asProcessOperator($operatedPool->id)
+            ->asCommunityTalentCoordinator($otherCommunity->id)
+            ->create();
+
+        assertEqualsCanonicalizing(
+            [$candidateInOperatedPool->id],
+            $this->adminViewIds($splitPermissionUser)->toArray()
         );
     }
 }
