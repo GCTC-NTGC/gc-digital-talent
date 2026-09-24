@@ -36,7 +36,6 @@ use Spatie\Activitylog\Support\LogOptions;
  *
  * @property string $id
  * @property array $name
- * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
@@ -70,6 +69,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
  * @property array $display_name
+ * @property bool $is_hidden
  */
 class Pool extends Model
 {
@@ -100,6 +100,7 @@ class Pool extends Model
         'is_remote' => 'boolean',
         'archived_at' => 'datetime',
         'selection_limitations' => 'array',
+        'is_hidden' => 'boolean',
     ];
 
     /**
@@ -124,6 +125,7 @@ class Pool extends Model
         'closing_reason',
         'archived_at',
         'contact_email',
+        'is_hidden',
     ];
 
     protected $completenessRequirements = [
@@ -204,11 +206,6 @@ class Pool extends Model
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontLogEmptyChanges();
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function poolBookmarks(): BelongsToMany

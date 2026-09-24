@@ -48,7 +48,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
         $this->adminUser = User::factory()->asAdmin()->create();
 
         $this->pool = Pool::factory()->create([
-            'user_id' => $this->adminUser->id,
             'community_id' => $this->community->id,
             'department_id' => $this->department->id,
         ]);

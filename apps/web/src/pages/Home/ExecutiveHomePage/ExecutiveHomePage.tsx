@@ -430,8 +430,8 @@ export const HomePage = ({ pools }: HomePageProps) => {
 };
 
 const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
-  query ExecutiveHomePage($closingAfter: DateTime) {
-    publishedPools(closingAfter: $closingAfter) {
+  query ExecutiveHomePage($closingAfter: DateTime, $isHidden: Boolean) {
+    publishedPools(closingAfter: $closingAfter, isHidden: $isHidden) {
       id
       classification {
         group
@@ -446,7 +446,7 @@ const now = nowUTCDateTime();
 export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
-    variables: { closingAfter: now }, // pass current dateTime into query argument
+    variables: { closingAfter: now, isHidden: false }, // pass current dateTime, isHidden into query argument
   });
 
   const filteredPools =
