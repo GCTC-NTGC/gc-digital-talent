@@ -75,7 +75,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
-    "@formatjs/cli": "^6.16.26",
+    "@formatjs/cli": "^6.16.30",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/fake-data": "workspace:*",
     "@gc-digital-talent/helpers": "workspace:*",
