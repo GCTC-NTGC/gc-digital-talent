@@ -79,7 +79,7 @@ const BottomHalf = ({
 
 export interface GettingStartedFormProps {
   initialValuesQuery: FragmentType<typeof GettingStartedInitialValues_Query>;
-  canMigrateMyAccount: boolean;
+  canMigrateMyAccount?: boolean;
 }
 
 const GettingStartedForm = ({

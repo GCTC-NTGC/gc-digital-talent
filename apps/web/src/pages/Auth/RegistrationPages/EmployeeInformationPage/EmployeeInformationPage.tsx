@@ -59,7 +59,7 @@ const defaultEmploymentCategory = (
 export interface EmployeeInformationFormProps {
   navigationTarget: string;
   onSubmit: (formValues: WorkFormValues) => Promise<void>;
-  canMigrateMyAccount: boolean;
+  canMigrateMyAccount?: boolean;
 }
 
 export const EmployeeInformationForm = ({
