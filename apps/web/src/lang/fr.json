@@ -10181,7 +10181,7 @@
     "description": "Button to add an essential technical skill"
   },
   "cljZaG": {
-    "defaultMessage": "La personne nominée excelle dans son poste actuel et démontre un fort potentiel de leadership. Elle devrait être prioritairement considérée pour un avancement, pour la planification de remplacement (à court terme) et la planification de la relève (à long terme) .",
+    "defaultMessage": "La personne nominée excelle dans son poste actuel et démontre un fort potentiel de leadership. Elle devrait être prioritairement considérée pour un avancement, pour la planification de remplacement (à court terme) et la planification de la relève (à long terme).",
     "description": "Nine-box recommendation description for high performance and high leadership potential"
   },
   "clzYpT": {
@@ -11067,7 +11067,7 @@
     "description": "Dialog subtitle informing of purpose"
   },
   "fr45+4": {
-    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un transfert latéral et d’un avancement",
+    "defaultMessage": "La nomination de cette personne est recommandée et d'un transfert lateral et d’un avancement",
     "description": "Nine-box recommendation title for development and lateral and advancement"
   },
   "fr8v1+": {
@@ -13082,7 +13082,7 @@
     "description": "Message displayed when candidate is on hold at a specific assessment step"
   },
   "ndlHaN": {
-    "defaultMessage": "La personne nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Un transfert latéral et un avancement pourrait favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
+    "defaultMessage": "La personne nominée affiche un excellent rendement et possède un fort potentiel en matière de leadership. Des possibilités de transfert latéral et d’avancement pourraient favoriser son perfectionnement stratégique, obtenir de l’expérience en leadership et aider à se préparer aux possibilités d’assumer la relève à moyen et à long terme.",
     "description": "Nine-box recommendation description for moderate performance and high leadership potential"
   },
   "ngYP95": {
@@ -13870,7 +13870,7 @@
     "description": "Text displayed on the education experience form when a user has not selected the type of their degree/diploma/certificate."
   },
   "qqeAPs": {
-    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un avancement et un transfert latéral",
+    "defaultMessage": "La nomination de cette personne est recommandée en vue d’un avancement et d’un transfert latéral",
     "description": "Nine-box recommendation title for development and lateral and advancement"
   },
   "qrd+vb": {
