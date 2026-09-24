@@ -447,6 +447,7 @@ class ApplicantFilterTest extends TestCase
 
         $community = Community::where('key', 'digital')->first();
         $pool = Pool::factory()
+            ->published()
             ->create([
                 'name' => [
                     'en' => 'Test Pool EN',
