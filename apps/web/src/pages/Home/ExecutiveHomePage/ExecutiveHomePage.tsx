@@ -17,10 +17,13 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { ExecutiveHomePageQuery } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,13 +53,23 @@ const subTitle = defineMessage({
   description: "Subtitle for the executive homepage",
 });
 
+const ExecutiveHomePagePools_Fragment = graphql(/** GraphQL */ `
+  fragment ExecutiveHomePagePool on Pool {
+    id
+    ...PoolCard
+  }
+`);
+
 interface HomePageProps {
-  pools: ExecutiveHomePageQuery["publishedPools"];
+  query: FragmentType<typeof ExecutiveHomePagePools_Fragment>[];
 }
 
-export const HomePage = ({ pools }: HomePageProps) => {
+export const HomePage = ({ query }: HomePageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const pools = unpackMaybes(
+    getFragment(ExecutiveHomePagePools_Fragment, query),
+  );
 
   return (
     <>
@@ -430,27 +443,30 @@ export const HomePage = ({ pools }: HomePageProps) => {
 };
 
 const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
-  query ExecutiveHomePage($closingAfter: DateTime, $isHidden: Boolean) {
-    publishedPools(closingAfter: $closingAfter, isHidden: $isHidden) {
-      id
-      classification {
-        group
+  query ExecutiveHomePage {
+    poolsPaginated(
+      where: { statuses: [PUBLISHED], isHidden: false }
+      first: 500
+      orderBy: { column: "closing_date", order: ASC }
+    ) {
+      data {
+        id
+        classification {
+          group
+        }
+        ...ExecutiveHomePagePool
       }
-      ...PoolCard
     }
   }
 `);
 
-const now = nowUTCDateTime();
-
 export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
-    variables: { closingAfter: now, isHidden: false }, // pass current dateTime, isHidden into query argument
   });
 
   const filteredPools =
-    data?.publishedPools.filter(
+    data?.poolsPaginated.data.filter(
       (pool) =>
         typeof pool !== `undefined` &&
         !!pool &&
@@ -459,7 +475,7 @@ export const Component = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <HomePage pools={filteredPools} />
+      <HomePage query={filteredPools} />
     </Pending>
   );
 };
