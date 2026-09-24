@@ -15,6 +15,7 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import useRoutes from "~/hooks/useRoutes";
@@ -24,6 +25,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { Status } from "~/components/StatusItem/StatusItem";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import messages from "~/messages/profileMessages";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
+import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
 
 import NotificationSettings from "./NotificationSettings";
 import AccountAndContactInformation from "./AccountAndContactInformation";
@@ -60,13 +63,16 @@ const subTitle = defineMessage({
 
 interface AccountSettingsProps {
   personalInfoQuery: FragmentType<typeof PersonalInformation_Fragment>;
+  canMigrateMyAccount: boolean;
 }
 
 export const AccountSettings = ({
   personalInfoQuery,
+  canMigrateMyAccount,
 }: AccountSettingsProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const featureFlags = useFeatureFlags();
 
   const personalInfo = getFragment(
     PersonalInformation_Fragment,
@@ -160,6 +166,15 @@ export const AccountSettings = ({
             <TableOfContents.Section id={sections.accountAndContact.id}>
               <AccountAndContactInformation query={personalInfo} />
             </TableOfContents.Section>
+            {featureFlags.authInAppMigration ? (
+              <div className="mt-12 xs:mt-18">
+                {canMigrateMyAccount ? (
+                  <MigrationPossibleNotice />
+                ) : (
+                  <MigrationNotPossibleNotice />
+                )}
+              </div>
+            ) : null}
             <TableOfContents.Section
               id={sections.notificationSettings.id}
               className="mt-12 xs:mt-18"
@@ -198,6 +213,7 @@ const AccountSettings_Query = graphql(/* GraphQL */ `
     me {
       ...PersonalInformation
     }
+    canMigrateMyAccount
   }
 `);
 
@@ -210,7 +226,10 @@ const AccountSettingsPage = () => {
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <AccountSettings personalInfoQuery={data?.me} />
+        <AccountSettings
+          personalInfoQuery={data?.me}
+          canMigrateMyAccount={data.canMigrateMyAccount}
+        />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>{intl.formatMessage(messages.userNotFound)}</p>
