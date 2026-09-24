@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import TagIcon from "@heroicons/react/24/outline/TagIcon";
 import type { ReactNode, JSX } from "react";
 
-import { Heading, Link, ScrollToLink, Notice } from "@gc-digital-talent/ui";
+import { Heading, Link, ScrollToLink } from "@gc-digital-talent/ui";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -10,7 +10,6 @@ import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { getLogger } from "@gc-digital-talent/logger";
 
 import EducationRequirements from "~/components/EducationRequirements/EducationRequirements";
-import { isInNullState } from "~/validators/process/classification";
 import useToggleSectionInfo from "~/hooks/useToggleSectionInfo";
 import { wrapAbbr } from "~/utils/nameUtils";
 import {
@@ -74,10 +73,9 @@ const EducationRequirementsSection = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const pool = getFragment(EditPoolEducationRequirements_Fragment, poolQuery);
-  const isNull = isInNullState(pool);
   const { icon } = useToggleSectionInfo({
-    isNull,
-    emptyRequired: isNull, // Not a required field
+    isNull: false,
+    emptyRequired: false, // Not a required field
     fallbackIcon: TagIcon,
   });
 
@@ -124,30 +122,7 @@ const EducationRequirementsSection = ({
           },
         )}
       </p>
-      {isNull ? (
-        <Notice.Root className="my-6 text-center">
-          <Notice.Title as="h2">
-            {intl.formatMessage({
-              defaultMessage:
-                "Select a classification to view education requirements.",
-              id: "PymrxL",
-              description: "Null message for education requirement section",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "This information is automatically populated for you based on the classification selected for the opportunity.",
-                id: "VitOoU",
-                description: "Null message for education requirement section",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      ) : (
-        <EducationRequirements classificationGroup={classificationGroup} />
-      )}
+      <EducationRequirements classificationGroup={classificationGroup} />
     </div>
   );
 };
