@@ -1752,14 +1752,6 @@ type Query {
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPools(
-    closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    publishingGroup: PublishingGroup
-      @where(key: "publishing_group", operator: "=")
-    isHidden: Boolean @scope(name: "whereIsHidden")
-  ): [Pool!]!
-    @all(scopes: ["wherePublished", "whereNotArchived"])
-    @canModel(ability: "viewAnyPublished", model: "Pool")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
