@@ -4,16 +4,16 @@ import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
 import HowToLinkMyProfileDialog from "./HowToLinkMyProfileDialog";
-
-interface MigrationNotPossibleNoticeProps {
-  scrollToIdOnIgnore: string;
-  onDismiss?: () => void;
-}
+import type {
+  MigrationNoticeDismissProps,
+  MigrationNoticeScrollProps,
+} from "./migrationNoticeProps";
 
 const MigrationNotPossibleNotice = ({
+  ignoreAction,
   scrollToIdOnIgnore,
   onDismiss,
-}: MigrationNotPossibleNoticeProps) => {
+}: MigrationNoticeScrollProps | MigrationNoticeDismissProps) => {
   const intl = useIntl();
 
   // TODO: replace with dialogs
@@ -51,13 +51,24 @@ const MigrationNotPossibleNotice = ({
             description: "Button to learn more about the account migration",
           })}
         </Button>
-        <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
-          {intl.formatMessage({
-            defaultMessage: "Ignore for now",
-            id: "7Ra4fE",
-            description: "Button to dismiss the account migration notice",
-          })}
-        </ScrollToLink>
+        {ignoreAction === "scroll" ? (
+          <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
+            {intl.formatMessage({
+              defaultMessage: "Ignore for now",
+              id: "7Ra4fE",
+              description: "Button to dismiss the account migration notice",
+            })}
+          </ScrollToLink>
+        ) : null}
+        {ignoreAction === "dismiss" ? (
+          <Button mode="inline" color="black" onClick={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Ignore for now",
+              id: "7Ra4fE",
+              description: "Button to dismiss the account migration notice",
+            })}
+          </Button>
+        ) : null}
       </Notice.Actions>
     </Notice.Root>
   );

@@ -1,18 +1,20 @@
 import { useIntl } from "react-intl";
 
-import { Notice, ScrollToLink } from "@gc-digital-talent/ui";
+import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanDialog from "./WhatDoesThisMeanDialog";
-
-interface MigrationPossibleNoticeProps {
-  scrollToIdOnIgnore: string;
-}
+import type {
+  MigrationNoticeDismissProps,
+  MigrationNoticeScrollProps,
+} from "./migrationNoticeProps";
 
 const MigrationPossibleNotice = ({
+  ignoreAction,
   scrollToIdOnIgnore,
-}: MigrationPossibleNoticeProps) => {
+  onDismiss,
+}: MigrationNoticeScrollProps | MigrationNoticeDismissProps) => {
   const intl = useIntl();
 
   const handleLinkProfile = () => {
@@ -20,7 +22,11 @@ const MigrationPossibleNotice = ({
   };
 
   return (
-    <Notice.Root mode="card" small>
+    <Notice.Root
+      mode="card"
+      small
+      onDismiss={ignoreAction === "dismiss" ? onDismiss : undefined}
+    >
       <Notice.Title defaultIcon>
         {intl.formatMessage({
           defaultMessage:
@@ -44,13 +50,24 @@ const MigrationPossibleNotice = ({
       <Notice.Actions>
         <LinkMyProfileDialog onLinkProfile={handleLinkProfile} />
         <WhatDoesThisMeanDialog onLinkProfile={handleLinkProfile} />
-        <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
-          {intl.formatMessage({
-            defaultMessage: "Ignore for now",
-            id: "7Ra4fE",
-            description: "Button to dismiss the account migration notice",
-          })}
-        </ScrollToLink>
+        {ignoreAction === "scroll" ? (
+          <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
+            {intl.formatMessage({
+              defaultMessage: "Ignore for now",
+              id: "7Ra4fE",
+              description: "Button to dismiss the account migration notice",
+            })}
+          </ScrollToLink>
+        ) : null}
+        {ignoreAction === "dismiss" ? (
+          <Button mode="inline" color="black" onClick={onDismiss}>
+            {intl.formatMessage({
+              defaultMessage: "Ignore for now",
+              id: "7Ra4fE",
+              description: "Button to dismiss the account migration notice",
+            })}
+          </Button>
+        ) : null}
       </Notice.Actions>
     </Notice.Root>
   );

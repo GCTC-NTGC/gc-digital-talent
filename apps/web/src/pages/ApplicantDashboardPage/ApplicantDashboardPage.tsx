@@ -16,7 +16,10 @@ import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { NotFoundError } from "@gc-digital-talent/helpers";
-import { getFromLocalStorage } from "@gc-digital-talent/storage";
+import {
+  getFromLocalStorage,
+  useLocalStorage,
+} from "@gc-digital-talent/storage";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -33,7 +36,10 @@ import {
 import { hasEmptyRequiredFields as careerDevelopmentHasEmptyRequiredFields } from "~/validators/employeeProfile/careerDevelopment";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import StatusItem from "~/components/StatusItem/StatusItem";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import {
+  KEY_NEW_USER_LANGUAGE_PRESET,
+  KEY_NEW_USER_MIGRATION_NOTICE,
+} from "~/constants/storageKeys";
 import { PAGE_SECTION_ID } from "~/constants/sections/applicantDashboard";
 import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 import MigrationNotPossibleNotice from "~/components/InAppMigration/MigrationNotPossibleNotice";
@@ -222,6 +228,9 @@ export const DashboardPage = ({
     false,
   );
 
+  const [migrationNoticeIsVisible, setMigrationNoticeIsVisible] =
+    useLocalStorage<boolean>(KEY_NEW_USER_MIGRATION_NOTICE, false);
+
   const currentUser = getFragment(
     ApplicantDashboardPage_Fragment,
     applicantDashboardQuery.me,
@@ -317,12 +326,18 @@ export const DashboardPage = ({
       />
       <section className="my-18">
         <Container>
-          {featureFlags.authInAppMigration ? (
+          {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
             <div className="mb-6">
               {canMigrateMyAccount ? (
-                <MigrationPossibleNotice scrollToIdOnIgnore={""} />
+                <MigrationPossibleNotice
+                  ignoreAction="dismiss"
+                  onDismiss={() => setMigrationNoticeIsVisible(false)}
+                />
               ) : (
-                <MigrationNotPossibleNotice scrollToIdOnIgnore={""} />
+                <MigrationNotPossibleNotice
+                  ignoreAction="dismiss"
+                  onDismiss={() => setMigrationNoticeIsVisible(false)}
+                />
               )}
             </div>
           ) : null}

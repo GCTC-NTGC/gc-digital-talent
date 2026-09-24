@@ -12,7 +12,10 @@ import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import {
+  KEY_NEW_USER_LANGUAGE_PRESET,
+  KEY_NEW_USER_MIGRATION_NOTICE,
+} from "~/constants/storageKeys";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 
@@ -42,6 +45,7 @@ const GettingStartedPage = () => {
 
   // someone on this page is probably a new user so enable the new user flags
   setInLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, true);
+  setInLocalStorage<boolean>(KEY_NEW_USER_MIGRATION_NOTICE, true);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -71,6 +75,7 @@ const GettingStartedPage = () => {
         <section className="mb-18 flex flex-col gap-6">
           {showMigrationPossibleNotice ? (
             <MigrationPossibleNotice
+              ignoreAction="scroll"
               scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
             />
           ) : null}
