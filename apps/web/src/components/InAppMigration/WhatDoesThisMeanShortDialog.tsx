@@ -3,13 +3,13 @@ import { useState } from "react";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
 
-interface WhatDoesThisMeanDialogProps {
+interface WhatDoesThisMeanShortDialogProps {
   onLinkProfile: () => void;
 }
 
-const WhatDoesThisMeanDialog = ({
+const WhatDoesThisMeanShortDialog = ({
   onLinkProfile,
-}: WhatDoesThisMeanDialogProps) => {
+}: WhatDoesThisMeanShortDialogProps) => {
   const intl = useIntl();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -108,4 +108,4 @@ const WhatDoesThisMeanDialog = ({
   );
 };
 
-export default WhatDoesThisMeanDialog;
+export default WhatDoesThisMeanShortDialog;
