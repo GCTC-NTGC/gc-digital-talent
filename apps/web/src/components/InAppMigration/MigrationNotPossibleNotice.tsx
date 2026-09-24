@@ -1,13 +1,13 @@
 import { useIntl } from "react-intl";
 
 import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
-import { toast } from "@gc-digital-talent/toast";
 
 import HowToLinkMyProfileDialog from "./HowToLinkMyProfileDialog";
 import type {
   MigrationNoticeDismissProps,
   MigrationNoticeScrollProps,
 } from "./migrationNoticeProps";
+import WhatDoesThisMeanLongDialog from "./WhatDoesThisMeanLongDialog";
 
 const MigrationNotPossibleNotice = ({
   ignoreAction,
@@ -15,11 +15,6 @@ const MigrationNotPossibleNotice = ({
   onDismiss,
 }: MigrationNoticeScrollProps | MigrationNoticeDismissProps) => {
   const intl = useIntl();
-
-  // TODO: replace with dialogs
-  const handleNotImplemented = () => {
-    toast.error("Function not implemented.");
-  };
 
   return (
     <Notice.Root mode="card" small onDismiss={onDismiss}>
@@ -44,13 +39,7 @@ const MigrationNotPossibleNotice = ({
       </Notice.Content>
       <Notice.Actions>
         <HowToLinkMyProfileDialog />
-        <Button mode="inline" color="black" onClick={handleNotImplemented}>
-          {intl.formatMessage({
-            defaultMessage: "What does this mean",
-            id: "RYBnXq",
-            description: "Button to learn more about the account migration",
-          })}
-        </Button>
+        <WhatDoesThisMeanLongDialog />
         {ignoreAction === "scroll" ? (
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({
