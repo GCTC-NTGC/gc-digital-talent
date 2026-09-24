@@ -32,7 +32,7 @@
     "mammoth": "^1.12.2",
     "monocart-coverage-reports": "^2.12.12",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.66.0"
+    "typescript-eslint": "^8.70.0"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.13.0"
