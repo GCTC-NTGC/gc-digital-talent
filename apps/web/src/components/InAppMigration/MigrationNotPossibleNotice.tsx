@@ -3,17 +3,13 @@ import { useIntl } from "react-intl";
 import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 
 import HowToLinkMyProfileDialog from "./HowToLinkMyProfileDialog";
-import type {
-  MigrationNoticeDismissProps,
-  MigrationNoticeScrollProps,
-} from "./migrationNoticeProps";
 import WhatDoesThisMeanMigrationNotPossibleDialog from "./WhatDoesThisMeanMigrationNotPossibleDialog";
+import type { MigrationNoticeProps } from "./migrationNoticeProps";
 
 const MigrationNotPossibleNotice = ({
-  ignoreAction,
   scrollToIdOnIgnore,
   onDismiss,
-}: MigrationNoticeScrollProps | MigrationNoticeDismissProps) => {
+}: MigrationNoticeProps) => {
   const intl = useIntl();
 
   return (
@@ -40,7 +36,7 @@ const MigrationNotPossibleNotice = ({
       <Notice.Actions>
         <HowToLinkMyProfileDialog />
         <WhatDoesThisMeanMigrationNotPossibleDialog />
-        {ignoreAction === "scroll" ? (
+        {typeof scrollToIdOnIgnore === "string" ? (
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({
               defaultMessage: "Ignore for now",
@@ -49,7 +45,7 @@ const MigrationNotPossibleNotice = ({
             })}
           </ScrollToLink>
         ) : null}
-        {ignoreAction === "dismiss" ? (
+        {typeof onDismiss === "function" ? (
           <Button mode="inline" color="black" onClick={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Ignore for now",

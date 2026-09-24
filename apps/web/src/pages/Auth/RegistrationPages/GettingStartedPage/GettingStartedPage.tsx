@@ -75,7 +75,6 @@ const GettingStartedPage = () => {
         <section className="mb-18 flex flex-col gap-6">
           {showMigrationPossibleNotice ? (
             <MigrationPossibleNotice
-              ignoreAction="scroll"
               scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
             />
           ) : null}

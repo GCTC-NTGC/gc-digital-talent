@@ -330,12 +330,10 @@ export const DashboardPage = ({
             <div className="mb-6">
               {canMigrateMyAccount ? (
                 <MigrationPossibleNotice
-                  ignoreAction="dismiss"
                   onDismiss={() => setMigrationNoticeIsVisible(false)}
                 />
               ) : (
                 <MigrationNotPossibleNotice
-                  ignoreAction="dismiss"
                   onDismiss={() => setMigrationNoticeIsVisible(false)}
                 />
               )}

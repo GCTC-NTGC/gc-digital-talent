@@ -5,16 +5,12 @@ import { toast } from "@gc-digital-talent/toast";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
-import type {
-  MigrationNoticeDismissProps,
-  MigrationNoticeScrollProps,
-} from "./migrationNoticeProps";
+import type { MigrationNoticeProps } from "./migrationNoticeProps";
 
 const MigrationPossibleNotice = ({
-  ignoreAction,
   scrollToIdOnIgnore,
   onDismiss,
-}: MigrationNoticeScrollProps | MigrationNoticeDismissProps) => {
+}: MigrationNoticeProps) => {
   const intl = useIntl();
 
   const handleLinkProfile = () => {
@@ -25,7 +21,7 @@ const MigrationPossibleNotice = ({
     <Notice.Root
       mode="card"
       small
-      onDismiss={ignoreAction === "dismiss" ? onDismiss : undefined}
+      onDismiss={typeof onDismiss === "function" ? onDismiss : undefined}
     >
       <Notice.Title defaultIcon>
         {intl.formatMessage({
@@ -52,7 +48,7 @@ const MigrationPossibleNotice = ({
         <WhatDoesThisMeanMigrationPossibleDialog
           onLinkProfile={handleLinkProfile}
         />
-        {ignoreAction === "scroll" ? (
+        {typeof scrollToIdOnIgnore === "string" ? (
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({
               defaultMessage: "Ignore for now",
@@ -61,7 +57,7 @@ const MigrationPossibleNotice = ({
             })}
           </ScrollToLink>
         ) : null}
-        {ignoreAction === "dismiss" ? (
+        {typeof onDismiss === "function" ? (
           <Button mode="inline" color="black" onClick={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Ignore for now",
