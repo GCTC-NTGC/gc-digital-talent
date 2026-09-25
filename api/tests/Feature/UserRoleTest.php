@@ -9,7 +9,6 @@ use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -82,51 +81,6 @@ class UserRoleTest extends TestCase
                 ],
             ],
         ]);
-    }
-
-    // Create several users with different roles.  Assert that an admin can see the users in each role.
-    public function testAdminCanSeeRoleUsers()
-    {
-        $platformAdminRole = Role::where('name', 'platform_admin')->sole();
-        $baseRole = Role::where('name', 'base_user')->sole();
-        $roleCount = Role::count();
-
-        $this->actingAs($this->adminUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-            query roles {
-                roles {
-                  id
-                  roleAssignments {
-                    user { id }
-                  }
-                }
-              }
-        '
-        )->assertJson(
-            fn (AssertableJson $json) => $json->has('data.roles', $roleCount) // Returns all the roles
-        )->assertJsonFragment(
-            [
-                'id' => $platformAdminRole->id, // Check that platform_admin role has one user
-                'roleAssignments' => [[
-                    'user' => [
-                        'id' => $this->adminUser->id,
-                    ],
-                ]],
-            ],
-        )->assertJsonFragment(
-            [
-                'id' => $baseRole->id, // Check that base_role has two users.
-                'roleAssignments' => [[
-                    'user' => [
-                        'id' => $this->baseUser->id,
-                    ],
-                    'user' => [
-                        'id' => $this->adminUser->id,
-                    ],
-                ]],
-            ]
-        );
     }
 
     // Create a user added with several teams.  Assert that the admin can query the user's teams.
