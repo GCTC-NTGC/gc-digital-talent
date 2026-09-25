@@ -429,4 +429,43 @@ class WorkExperienceTest extends TestCase
             ]
         )->assertGraphQLValidationError('workExperience.cafRank', 'The work experience.caf rank field is prohibited.');
     }
+
+    // test that annualBudgetAllocation accepts values beyond the 32-bit Int range (issue #17844)
+    // now that the column swap has happened, this is the real fix: annual_budget_allocation
+    // is a native bigint column and the field uses the BigInt GraphQL scalar
+    public function testCreatingExperienceAcceptsLargeAnnualBudgetAllocation(): void
+    {
+        $largeBudget = 6200000000;
+
+        $response = $this->actingAs($this->admin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+        mutation createWorkExperience($userId: ID!, $workExperience: WorkExperienceInput!) {
+            createWorkExperience(userId: $userId, workExperience: $workExperience) {
+                id
+                annualBudgetAllocation
+            }
+        }
+        ',
+            [
+                'userId' => $this->admin->id,
+                'workExperience' => [
+                    'employmentCategory' => EmploymentCategory::EXTERNAL_ORGANIZATION->name,
+                    'extSizeOfOrganization' => ExternalSizeOfOrganization::ONE_HUNDRED_ONE_TO_ONE_THOUSAND->name,
+                    'extRoleSeniority' => ExternalRoleSeniority::INTERMEDIATE->name,
+                    'supervisoryPosition' => true,
+                    'budgetManagement' => true,
+                    'annualBudgetAllocation' => $largeBudget,
+                ],
+            ]
+        );
+
+        $response->assertJsonFragment(['annualBudgetAllocation' => $largeBudget]);
+
+        $createdExperienceId = $response->json('data.createWorkExperience.id');
+        $this->assertSame(
+            $largeBudget,
+            WorkExperience::find($createdExperienceId)->annual_budget_allocation
+        );
+    }
 }
