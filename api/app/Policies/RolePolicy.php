@@ -23,13 +23,14 @@ class RolePolicy
 
     /**
      * Determine whether the user can view the role assignments of the role.
-     * Likely to be updated later to allow the platform admin view the assignments regardless of team.
      *
      * @return Response|bool
      */
     public function viewAnyRoleAssignments(User $user)
     {
-        return $user->isAbleTo('view-any-role');
+        // no permission or good reason to do this right now
+        // can enumerate users for every role
+        return false;
     }
 
     /**
