@@ -210,16 +210,6 @@ const commonMessages = defineMessages({
     id: "4lV1Od",
     description: "Screened out",
   },
-  removed: {
-    defaultMessage: "Removed",
-    id: "tExKws",
-    description: "Removed",
-  },
-  finalAssessmentDecision: {
-    defaultMessage: "Final assessment decision",
-    id: "6/U6rm",
-    description: "Final assessment decision",
-  },
   return: {
     defaultMessage: "Return",
     id: "VV8TA5",
@@ -548,11 +538,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Skill requirements",
     id: "0AhbED",
     description: "Label for skill requirements",
-  },
-  currentStep: {
-    defaultMessage: "Current step",
-    id: "gqX6/n",
-    description: "Title displayed for a candidates current assessment step",
   },
   all: {
     defaultMessage: "All",

@@ -243,10 +243,6 @@
     "defaultMessage": "Titre",
     "description": "Label for toggling a heading in the rich text editor"
   },
-  "6/U6rm": {
-    "defaultMessage": "Décision finale relative à l’évaluation",
-    "description": "Final assessment decision"
-  },
   "64H+pl": {
     "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
     "description": "The work region of Canada described as Quebec."
@@ -1343,10 +1339,6 @@
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
   },
-  "gqX6/n": {
-    "defaultMessage": "Étape actuelle",
-    "description": "Title displayed for a candidates current assessment step"
-  },
   "gt0xAi": {
     "defaultMessage": "Processus",
     "description": "Name of Processes page"
@@ -1746,10 +1738,6 @@
   "tEUGpL": {
     "defaultMessage": "Liste",
     "description": "Label for toggling a bullet list in the rich text editor"
-  },
-  "tExKws": {
-    "defaultMessage": "Retiré",
-    "description": "Removed"
   },
   "tHeY7N": {
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
