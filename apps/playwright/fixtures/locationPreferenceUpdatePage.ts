@@ -25,6 +25,16 @@ const FIELD = {
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
 
+export const regionsMap = new Map<WorkRegion, string>([
+  [WorkRegion.Atlantic, "Atlantic (NB, NS, PE and NL)"],
+  [WorkRegion.Quebec, "Quebec (excluding Gatineau area)"],
+  [WorkRegion.Ontario, "Ontario (excluding Ottawa area)"],
+  [WorkRegion.Prairie, "Prairies (AB, SK, MB)"],
+  [WorkRegion.BritishColumbia, "British Columbia"],
+  [WorkRegion.NationalCapital, "National Capital Region (Ottawa/Gatineau)"],
+  [WorkRegion.North, "Northern (NU, NT, YT)"],
+]);
+
 class LocationPreferenceUpdatePage extends AppPage {
   readonly baseUrl: string = "/en/applicant/personal-information";
   readonly locators: Record<Field, Locator>;
@@ -33,15 +43,7 @@ class LocationPreferenceUpdatePage extends AppPage {
     [FlexibleWorkLocation.Onsite, "On-site work"],
     [FlexibleWorkLocation.Remote, "Remote work"],
   ]);
-  readonly regionsMap = new Map<WorkRegion, string>([
-    [WorkRegion.Atlantic, "Atlantic (NB, NS, PE and NL)"],
-    [WorkRegion.Quebec, "Quebec (excluding Gatineau area)"],
-    [WorkRegion.Ontario, "Ontario (excluding Ottawa area)"],
-    [WorkRegion.Prairie, "Prairies (AB, SK, MB)"],
-    [WorkRegion.BritishColumbia, "British Columbia"],
-    [WorkRegion.NationalCapital, "National Capital Region (Ottawa/Gatineau)"],
-    [WorkRegion.North, "Northern (NU, NT, YT)"],
-  ]);
+  readonly regionsMap = regionsMap;
   constructor(page: Page) {
     super(page);
     this.locators = {
