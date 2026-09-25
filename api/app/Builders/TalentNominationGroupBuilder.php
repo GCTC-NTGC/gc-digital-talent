@@ -17,10 +17,6 @@ use Illuminate\Support\Str;
  */
 class TalentNominationGroupBuilder extends Builder implements TalentRequestMatchable
 {
-    // Which nomination type ('advancement' or 'lateral_movement') this query matches against;
-    // set via forNominationType() from each matching*Sources() relation on
-    // HasTalentRequestSources, since TalentNominationGroup holds columns/relations for both
-    // nomination types on the same row.
     protected string $nominationType = 'advancement';
 
     public function forNominationType(string $nominationType): self
