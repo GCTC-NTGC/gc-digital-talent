@@ -73,9 +73,14 @@ export async function getTokenForSub(sub: string) {
         "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
       );
     }
-    const url = `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`;
+    const url = `${baseUrl}/refresh`;
     const res = await fetch(url, {
-      headers: { "X-Testing-Secret": secret },
+      method: "POST",
+      headers: {
+        "X-Testing-Secret": secret,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sub: uatSub }),
     });
     const body = await res.text();
     if (!res.ok || body.trimStart().startsWith("<")) {
