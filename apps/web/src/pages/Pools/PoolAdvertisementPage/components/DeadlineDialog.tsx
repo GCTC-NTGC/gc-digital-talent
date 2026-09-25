@@ -85,13 +85,13 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                       date: deadline,
                       formatString: "p zzzz",
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: "America/Vancouver",
                     }),
                     date: formatDate({
                       date: deadline,
                       formatString: "MMMM do",
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: "America/Vancouver",
                     }),
                   },
                 )}

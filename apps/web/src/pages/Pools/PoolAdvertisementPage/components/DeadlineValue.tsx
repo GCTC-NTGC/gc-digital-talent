@@ -32,7 +32,7 @@ const DeadlineValue = ({
           date: parseDateTimeUtc(closingDate),
           formatString: DATE_FORMAT_LOCALIZED,
           intl,
-          timeZone: "Canada/Pacific",
+          timeZone: "America/Vancouver",
         }),
       },
     );

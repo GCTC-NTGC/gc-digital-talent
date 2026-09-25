@@ -244,7 +244,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: "America/Vancouver",
                     }),
                   },
                 )

@@ -20,7 +20,7 @@ export const createSpecialApplicationDialogFormValuesToSubmitData = (
   const inputClosingDate = values.specialApplicationClosingDate;
   const inputClosingDateInUtc = convertDateTimeZone(
     `${inputClosingDate} 23:59:59`,
-    "Canada/Pacific",
+    "America/Vancouver",
     "UTC",
   );
 

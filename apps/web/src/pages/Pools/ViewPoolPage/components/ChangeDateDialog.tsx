@@ -70,7 +70,7 @@ const ChangeDateDialog = ({
         const closingDateInUtc = formValues.expiryEndDate
           ? convertDateTimeZone(
               `${formValues.expiryEndDate} 23:59:59`,
-              "Canada/Pacific",
+              "America/Vancouver",
               "UTC",
             )
           : "";

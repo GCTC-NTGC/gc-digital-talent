@@ -43,7 +43,7 @@ const PublishProcessDialog = ({
     closingStringPacific = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
-      timeZone: "Canada/Pacific",
+      timeZone: "America/Vancouver",
     });
   }
 

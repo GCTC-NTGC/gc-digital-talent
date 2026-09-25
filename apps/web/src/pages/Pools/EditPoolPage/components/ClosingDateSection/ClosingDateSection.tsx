@@ -77,7 +77,7 @@ const ClosingDateSection = ({
   ): FormValues => ({
     endDate: closingDate
       ? convertDateTimeToDate(
-          convertDateTimeZone(closingDate, "UTC", "Canada/Pacific"),
+          convertDateTimeZone(closingDate, "UTC", "America/Vancouver"),
         )
       : null,
   });
@@ -96,7 +96,7 @@ const ClosingDateSection = ({
     const closingDateInUtc = formValues.endDate
       ? convertDateTimeZone(
           `${formValues.endDate} 23:59:59`,
-          "Canada/Pacific",
+          "America/Vancouver",
           "UTC",
         )
       : null;

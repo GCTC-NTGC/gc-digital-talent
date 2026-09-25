@@ -91,7 +91,7 @@ export const ApplicationDate = ({
               date: applicationCutOffDate,
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
-              timeZone: "Canada/Pacific",
+              timeZone: "America/Vancouver",
             })
           : nullMessage}
       </span>

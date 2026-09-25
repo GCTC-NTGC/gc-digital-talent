@@ -97,7 +97,7 @@ const ActiveTalentEventForm = ({
         fr: learnMoreUrl?.fr,
       },
       closeDate: convertDateTimeToDate(
-        convertDateTimeZone(closeDate, "UTC", "Canada/Pacific"),
+        convertDateTimeZone(closeDate, "UTC", "America/Vancouver"),
       ),
       communityDevelopmentPrograms: communityDevelopmentPrograms?.map(
         (cdp) => ({
@@ -148,7 +148,7 @@ const ActiveTalentEventForm = ({
         learnMoreUrl: formValues.learnMoreUrl,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          "America/Vancouver",
           "UTC",
         ),
         communityDevelopmentPrograms: {
@@ -371,7 +371,7 @@ const ActiveTalentEventForm = ({
                     date: parseDateTimeUtc(openDate),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
-                    timeZone: "Canada/Pacific",
+                    timeZone: "America/Vancouver",
                   })
                 : intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>

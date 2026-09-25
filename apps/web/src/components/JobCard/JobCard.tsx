@@ -241,7 +241,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         date: deadlineUtc,
         formatString: DATE_FORMAT_LOCALIZED,
         intl,
-        timeZone: "Canada/Pacific",
+        timeZone: "America/Vancouver",
       })
     : notAvailable;
 

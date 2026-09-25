@@ -306,7 +306,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.openDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: "America/Vancouver",
                     })
                   : intl.formatMessage(commonMessages.notProvided),
                 closeDate: talentEvent.closeDate
@@ -314,7 +314,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.closeDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: "America/Vancouver",
                     })
                   : intl.formatMessage(commonMessages.notProvided),
               },

@@ -90,7 +90,7 @@ const CreateTalentEventPage = () => {
     } else {
       overrideOpenDate = convertDateTimeZone(
         `${formValues.openDate} 00:00:01`,
-        "Canada/Pacific",
+        "America/Vancouver",
         "UTC",
       );
     }
@@ -105,7 +105,7 @@ const CreateTalentEventPage = () => {
         openDate: overrideOpenDate,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          "America/Vancouver",
           "UTC",
         ),
         community: { connect: formValues.community },

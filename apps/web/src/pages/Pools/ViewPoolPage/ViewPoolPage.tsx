@@ -175,7 +175,7 @@ export const ViewPool = ({
       date: closingDateObject,
       formatString: DATE_FORMAT_STRING,
       intl,
-      timeZone: "Canada/Pacific",
+      timeZone: "America/Vancouver",
     });
   }
 

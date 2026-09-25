@@ -89,14 +89,14 @@ const UpdateTalentEventForm = ({
         convertDateTimeZone(
           talentNominationEvent.openDate,
           "UTC",
-          "Canada/Pacific",
+          "America/Vancouver",
         ),
       ),
       closeDate: convertDateTimeToDate(
         convertDateTimeZone(
           talentNominationEvent.closeDate,
           "UTC",
-          "Canada/Pacific",
+          "America/Vancouver",
         ),
       ),
       includeNineBox: talentNominationEvent.includeNineBox,
@@ -146,7 +146,7 @@ const UpdateTalentEventForm = ({
     } else {
       overrideOpenDate = convertDateTimeZone(
         `${formValues.openDate} 00:00:01`,
-        "Canada/Pacific",
+        "America/Vancouver",
         "UTC",
       );
     }
@@ -162,7 +162,7 @@ const UpdateTalentEventForm = ({
         openDate: overrideOpenDate,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          "America/Vancouver",
           "UTC",
         ),
         community: { connect: formValues.community },
