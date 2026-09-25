@@ -87,5 +87,99 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
             $group->lateral_movement_decision = $decision;
             $group->save();
         }
+
+        // Seed a few nominations with a mix of advancement, lateral movement, and development
+        // nominator being the same as the submitter, a separate nominator, and a fallback nominator.
+        $sharedNominee = User::whereIsVerifiedGovEmployee()
+            ->whereKeyNot($coordinator->id)
+            ->inRandomOrder()
+            ->first();
+        $separateNominator = User::whereIsVerifiedGovEmployee()
+            ->whereKeyNot($coordinator->id)
+            ->whereKeyNot($sharedNominee->id)
+            ->inRandomOrder()
+            ->first();
+
+        // Nominator same as the submitter
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'nominee_id' => $sharedNominee->id,
+                'submitter_id' => $coordinator->id,
+                'nominator_id' => $coordinator->id,
+                'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => true,
+                'nominate_for_development_programs' => true,
+            ]);
+
+        // Nominator is separate from submitter
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'nominee_id' => $sharedNominee->id,
+                'submitter_id' => $coordinator->id,
+                'nominator_id' => $separateNominator->id,
+                'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => true,
+            ]);
+
+        // Fallback nominator
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'nominee_id' => $sharedNominee->id,
+                'submitter_id' => $coordinator->id,
+                'nominator_id' => null,
+                'nominate_for_advancement' => false,
+                'nominate_for_lateral_movement' => true,
+                'nominate_for_development_programs' => true,
+            ]);
+
+        // Seed a nomination with unverified users for the nominee, nominator, and advancement reference
+        $unverifiedNominee = User::factory()
+            ->asApplicant()
+            ->withGovEmployeeProfile()
+            ->create(['work_email_verified_at' => null]);
+        $unverifiedNominator = User::factory()
+            ->asApplicant()
+            ->withGovEmployeeProfile()
+            ->create(['work_email_verified_at' => null]);
+        $unverifiedReference = User::factory()
+            ->asApplicant()
+            ->withGovEmployeeProfile()
+            ->create(['work_email_verified_at' => null]);
+
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'nominee_id' => $unverifiedNominee->id,
+                'submitter_id' => $coordinator->id,
+                'nominator_id' => $unverifiedNominator->id,
+                'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
+                'advancement_reference_id' => $unverifiedReference->id,
+            ]);
+
+        // A nomination with an advancement reference that is a verified user
+        $advancementReference = User::whereIsVerifiedGovEmployee()
+            ->whereKeyNot($coordinator->id)
+            ->inRandomOrder()
+            ->first();
+        TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'submitter_id' => $coordinator->id,
+                'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
+                'advancement_reference_id' => $advancementReference->id,
+            ]);
     }
 }
