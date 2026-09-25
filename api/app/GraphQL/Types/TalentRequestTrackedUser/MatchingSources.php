@@ -26,7 +26,7 @@ final class MatchingSources
         // Batch every row's lookup for this field into one query (issue #17468).
         $loader = BatchLoaderRegistry::instance(
             [...$info->path, $trackedUser->talent_request_id],
-            fn () => new MatchingSourcesBatchLoader($info->fieldName, $filters, $source->matchNominationType()),
+            fn () => new MatchingSourcesBatchLoader($info->fieldName, $filters, $source->matchMethod()),
         );
 
         return $loader->load($trackedUser);

@@ -5,13 +5,10 @@ namespace App\GraphQL\BatchLoaders;
 use App\Enums\TalentRequestSource;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
-use App\Traits\AppliesNominationType;
 use GraphQL\Deferred;
 
 final class SourcesBatchLoader
 {
-    use AppliesNominationType;
-
     /** @var array<string, true> keyed by the tracked user's user_id */
     protected array $userIds = [];
 
@@ -47,11 +44,11 @@ final class SourcesBatchLoader
         foreach ($selected as $source) {
             $relation = (new User())->{$source->matchRelation()}();
             $foreignKey = $relation->getForeignKeyName();
+            $method = $source->matchMethod();
 
-            $matchedUserIdsBySource[$source->name] = $this
-                ->freshNominationTypeQuery($relation, $source->matchNominationType())
+            $matchedUserIdsBySource[$source->name] = $relation->getRelated()->newQuery()
                 ->whereIn($foreignKey, array_keys($this->userIds))
-                ->whereMatchesTalentRequest($this->filters)
+                ->{$method}($this->filters)
                 ->whereAuthorizedToView()
                 ->pluck($foreignKey)
                 ->flip();

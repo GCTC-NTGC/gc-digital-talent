@@ -29,20 +29,16 @@ enum TalentRequestSource
         };
     }
 
-    /**
-     * The TalentNominationGroup nomination type (see
-     * TalentNominationGroupBuilder::forNominationType()) this source's matches are
-     * decided/expired/classified under, or null for sources not backed by TalentNominationGroup.
-     * Needed wherever a fresh query gets built from the related model (whereHas()'s existence
-     * subquery, batch loaders) instead of reusing the matching*Sources() relation's own query,
-     * since forNominationType() chained there doesn't survive that rebuild.
-     */
-    public function matchNominationType(): ?string
+    // the method this source's matches are queried with. QUALIFIED_IN_POOL/AT_LEVEL each have
+    // one unambiguous whereMatchesTalentRequest() (see TalentRequestMatchable). ADVANCEMENT/
+    // LATERAL_MOVEMENT both back onto TalentNominationGroup, decided independently per
+    // nomination type, so they route to its two named methods instead.
+    public function matchMethod(): string
     {
         return match ($this) {
-            self::ADVANCEMENT => 'advancement',
-            self::LATERAL_MOVEMENT => 'lateral_movement',
-            default => null,
+            self::ADVANCEMENT => 'whereMatchesTalentRequestForAdvancement',
+            self::LATERAL_MOVEMENT => 'whereMatchesTalentRequestForLateralMovement',
+            default => 'whereMatchesTalentRequest',
         };
     }
 

@@ -54,23 +54,24 @@ final class CountTalentRequestMatchesByCommunity
                 ->selectRaw("'interest' as source");
         }
 
-        // Both nomination-group-backed sources share the same query shape, just scoped to a
-        // different nomination type (see TalentNominationGroupBuilder::forNominationType()).
-        foreach ([TalentRequestSource::ADVANCEMENT, TalentRequestSource::LATERAL_MOVEMENT] as $source) {
-            if (! in_array($source, $selected, true)) {
-                continue;
-            }
-
-            $nominationType = $source->matchNominationType();
-
-            // whereMatchesTalentRequest already limits to users who fully match, so no second
-            // user check is needed here.
+        if (in_array(TalentRequestSource::ADVANCEMENT, $selected, true)) {
+            // whereMatchesTalentRequestForAdvancement already limits to users who fully match,
+            // so no second user check is needed here.
             $subQueries[] = TalentNominationGroup::query()
-                ->forNominationType($nominationType)
-                ->whereMatchesTalentRequest($applicantFilter)
+                ->whereMatchesTalentRequestForAdvancement($applicantFilter)
                 ->join('talent_nomination_events', 'talent_nomination_events.id', '=', 'talent_nomination_groups.talent_nomination_event_id')
                 ->select('talent_nomination_groups.nominee_id as user_id', 'talent_nomination_events.community_id')
-                ->selectRaw("'{$nominationType}' as source");
+                ->selectRaw("'advancement' as source");
+        }
+
+        if (in_array(TalentRequestSource::LATERAL_MOVEMENT, $selected, true)) {
+            // whereMatchesTalentRequestForLateralMovement already limits to users who fully
+            // match, so no second user check is needed here.
+            $subQueries[] = TalentNominationGroup::query()
+                ->whereMatchesTalentRequestForLateralMovement($applicantFilter)
+                ->join('talent_nomination_events', 'talent_nomination_events.id', '=', 'talent_nomination_groups.talent_nomination_event_id')
+                ->select('talent_nomination_groups.nominee_id as user_id', 'talent_nomination_events.community_id')
+                ->selectRaw("'lateral_movement' as source");
         }
 
         if (empty($subQueries)) {
