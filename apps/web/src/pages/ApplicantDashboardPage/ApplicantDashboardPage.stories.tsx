@@ -37,6 +37,7 @@ export const VerifiedGovernmentEmployee: Story = {
   args: {
     applicantDashboardQuery: {
       __typename: "Query" as const,
+      canMigrateMyAccount: false,
       me: {
         __typename: "User" as const,
         ...makeFragmentData(
@@ -89,6 +90,7 @@ export const NonEmployee: Story = {
   args: {
     applicantDashboardQuery: {
       __typename: "Query" as const,
+      canMigrateMyAccount: false,
       me: {
         __typename: "User" as const,
         ...makeFragmentData(

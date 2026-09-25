@@ -2,15 +2,24 @@ import { useNavigate, useSearchParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import BriefcaseIcon from "@heroicons/react/24/outline/BriefcaseIcon";
 import { FormProvider, useForm } from "react-hook-form";
+import { useQuery } from "urql";
 
-import { Link, Card, Heading } from "@gc-digital-talent/ui";
+import {
+  Link,
+  Card,
+  Heading,
+  Pending,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
 import { ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { Submit } from "@gc-digital-talent/forms";
 import {
   EmploymentCategory,
   GovPositionType,
+  graphql,
 } from "@gc-digital-talent/graphql";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
@@ -24,8 +33,13 @@ import type {
   WorkFormValues,
 } from "~/types/experience";
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
+import profileMessages from "~/messages/profileMessages";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 
 import messages from "../messages";
+
+export const ADD_WORK_EXPERIENCE_FORM_ID = "add-work-experience-form";
 
 const addWorkExperienceSectionTitle = defineMessage({
   defaultMessage: "Add your most recent work experience",
@@ -45,11 +59,13 @@ const defaultEmploymentCategory = (
 export interface EmployeeInformationFormProps {
   navigationTarget: string;
   onSubmit: (formValues: WorkFormValues) => Promise<void>;
+  canMigrateMyAccount?: boolean;
 }
 
 export const EmployeeInformationForm = ({
   navigationTarget,
   onSubmit,
+  canMigrateMyAccount,
 }: EmployeeInformationFormProps) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
@@ -60,10 +76,14 @@ export const EmployeeInformationForm = ({
       ),
     },
   });
+  const featureFlags = useFeatureFlags();
+  const showButtonAlreadyHaveProfile =
+    featureFlags.authInAppMigration && !canMigrateMyAccount;
   const labels = getExperienceFormLabels(intl, "work");
   return (
     <>
       <Heading
+        id={ADD_WORK_EXPERIENCE_FORM_ID}
         level="h2"
         size="h3"
         icon={BriefcaseIcon}
@@ -87,20 +107,29 @@ export const EmployeeInformationForm = ({
             <WorkFields labels={labels} organizationSuggestions={[]} />
           </div>
           <Card.Separator className="mb-6" />
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-end">
-            <Link mode="inline" href={navigationTarget}>
-              {intl.formatMessage({
-                defaultMessage: "Skip this step",
-                id: "aZESX1",
-                description: "label to skip this step",
-              })}
-            </Link>
-            <Submit
-              mode="solid"
-              color="primary"
-              text={intl.formatMessage(commonMessages.saveAndContinue)}
-              submittedText={intl.formatMessage(commonMessages.saveAndContinue)}
-            />
+          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
+            {showButtonAlreadyHaveProfile ? (
+              <AlreadyHaveProfileDialog />
+            ) : (
+              <div>{/* this is intentionally empty to maintain layout */}</div>
+            )}
+            <div className="flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
+              <Link mode="inline" href={navigationTarget}>
+                {intl.formatMessage({
+                  defaultMessage: "Skip this step",
+                  id: "aZESX1",
+                  description: "label to skip this step",
+                })}
+              </Link>
+              <Submit
+                mode="solid"
+                color="primary"
+                text={intl.formatMessage(commonMessages.saveAndContinue)}
+                submittedText={intl.formatMessage(
+                  commonMessages.saveAndContinue,
+                )}
+              />
+            </div>
           </div>
         </form>
       </FormProvider>
@@ -188,6 +217,12 @@ const formValuesToSubmitData = (
   return mappedData;
 };
 
+const EmployeeInformationPage_Query = graphql(/** GraphQL */ `
+  query EmployeeInformationPage {
+    canMigrateMyAccount
+  }
+`);
+
 const EmployeeInformationPage = () => {
   const intl = useIntl();
   const navigate = useNavigate();
@@ -199,6 +234,14 @@ const EmployeeInformationPage = () => {
     "create",
     "work",
   );
+
+  const [{ data, fetching, error }] = useQuery({
+    query: EmployeeInformationPage_Query,
+  });
+
+  const featureFlags = useFeatureFlags();
+  const showMigrationPossibleNotice =
+    featureFlags.authInAppMigration && data?.canMigrateMyAccount;
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -234,12 +277,29 @@ const EmployeeInformationPage = () => {
         overlap
         centered
       >
-        <section className="mb-18">
+        <section className="mb-18 flex flex-col gap-6">
+          {showMigrationPossibleNotice ? (
+            // this bit of extra top margin is to help the overlap with the hero look OK
+            <div className="mt-6">
+              <MigrationPossibleNotice
+                scrollToIdOnIgnore={ADD_WORK_EXPERIENCE_FORM_ID}
+              />
+            </div>
+          ) : null}
           <Card space="lg">
-            <EmployeeInformationForm
-              navigationTarget={navigationTarget}
-              onSubmit={handleSubmit}
-            />
+            <Pending fetching={fetching} error={error}>
+              {data ? (
+                <EmployeeInformationForm
+                  navigationTarget={navigationTarget}
+                  onSubmit={handleSubmit}
+                  canMigrateMyAccount={data.canMigrateMyAccount}
+                />
+              ) : (
+                <ThrowNotFound
+                  message={intl.formatMessage(profileMessages.userNotFound)}
+                />
+              )}
+            </Pending>
           </Card>
         </section>
       </Hero>

@@ -5,17 +5,23 @@ import { Card, Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql } from "@gc-digital-talent/graphql";
 import { setInLocalStorage } from "@gc-digital-talent/storage";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import Hero from "~/components/Hero";
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
 import useBreadcrumbs from "~/hooks/useBreadcrumbs";
 import profileMessages from "~/messages/profileMessages";
-import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
+import {
+  KEY_NEW_USER_LANGUAGE_PRESET,
+  KEY_NEW_USER_MIGRATION_NOTICE,
+} from "~/constants/storageKeys";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import MigrationPossibleNotice from "~/components/InAppMigration/MigrationPossibleNotice";
 
 import messages from "../messages";
 import GettingStartedForm, {
+  GETTING_STARTED_FORM_ID,
   sectionTitle as gettingStartedSectionTitle,
 } from "./GettingStartedForm";
 
@@ -25,6 +31,7 @@ const GettingStarted_Query = graphql(/** GraphQL */ `
       id
       ...GettingStartedInitialValues
     }
+    canMigrateMyAccount
   }
 `);
 
@@ -34,9 +41,11 @@ const GettingStartedPage = () => {
   const [{ data, fetching, error }] = useQuery({
     query: GettingStarted_Query,
   });
+  const featureFlags = useFeatureFlags();
 
   // someone on this page is probably a new user so enable the new user flags
   setInLocalStorage<boolean>(KEY_NEW_USER_LANGUAGE_PRESET, true);
+  setInLocalStorage<boolean>(KEY_NEW_USER_MIGRATION_NOTICE, true);
 
   const crumbs = useBreadcrumbs({
     crumbs: [
@@ -46,6 +55,9 @@ const GettingStartedPage = () => {
       },
     ],
   });
+
+  const showMigrationPossibleNotice =
+    featureFlags.authInAppMigration && data?.canMigrateMyAccount;
 
   return (
     <>
@@ -60,11 +72,22 @@ const GettingStartedPage = () => {
         overlap
         centered
       >
-        <section className="mb-18">
+        <section className="mb-18 flex flex-col gap-6">
+          {showMigrationPossibleNotice ? (
+            // this bit of extra top margin is to help the overlap with the hero look OK
+            <div className="mt-6">
+              <MigrationPossibleNotice
+                scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
+              />
+            </div>
+          ) : null}
           <Card space="lg">
             <Pending fetching={fetching} error={error}>
               {data?.me ? (
-                <GettingStartedForm initialValuesQuery={data.me} />
+                <GettingStartedForm
+                  initialValuesQuery={data.me}
+                  canMigrateMyAccount={data.canMigrateMyAccount}
+                />
               ) : (
                 <ThrowNotFound
                   message={intl.formatMessage(profileMessages.userNotFound)}

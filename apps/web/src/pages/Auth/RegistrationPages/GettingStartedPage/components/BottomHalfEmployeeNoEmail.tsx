@@ -13,6 +13,7 @@ import EmailVerification, {
   useEmailVerification,
 } from "~/components/EmailVerification/EmailVerification";
 import { API_CODE_VERIFICATION_FAILED } from "~/components/EmailVerification/constants";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
 
 import labels from "../labels";
 
@@ -29,11 +30,15 @@ export interface FormValues {
   verificationCode: string | null;
 }
 
+interface BottomHalfEmployeeNoEmailProps {
+  initialWorkEmail: string | null | undefined;
+  showButtonAlreadyHaveProfile: boolean;
+}
+
 const BottomHalfEmployeeNoEmail = ({
   initialWorkEmail,
-}: {
-  initialWorkEmail: string | null | undefined;
-}) => {
+  showButtonAlreadyHaveProfile,
+}: BottomHalfEmployeeNoEmailProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
@@ -159,21 +164,30 @@ const BottomHalfEmployeeNoEmail = ({
           <div className="-mx-6 sm:-mx-9">
             <Separator decorative orientation="horizontal" space="none" />
           </div>
-          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
-            <Link
-              mode="inline"
-              href={paths.registrationExperience({
-                from: from ?? undefined,
-                isEmployee: true,
-              })}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Verify later",
-                id: "JDjqIL",
-                description: "Button to skip the verification step",
-              })}
-            </Link>
-            <Submit text={intl.formatMessage(commonMessages.saveAndContinue)} />
+          <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
+            {showButtonAlreadyHaveProfile ? (
+              <AlreadyHaveProfileDialog />
+            ) : (
+              <div>{/* this is intentionally empty to maintain layout */}</div>
+            )}
+            <div className="flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-end">
+              <Link
+                mode="inline"
+                href={paths.registrationExperience({
+                  from: from ?? undefined,
+                  isEmployee: true,
+                })}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Verify later",
+                  id: "JDjqIL",
+                  description: "Button to skip the verification step",
+                })}
+              </Link>
+              <Submit
+                text={intl.formatMessage(commonMessages.saveAndContinue)}
+              />
+            </div>
           </div>
         </form>
       </FormProvider>
