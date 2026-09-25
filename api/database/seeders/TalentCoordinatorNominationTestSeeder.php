@@ -181,5 +181,38 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
                 'nominate_for_development_programs' => false,
                 'advancement_reference_id' => $advancementReference->id,
             ]);
+
+        // Draft nominations in various states
+        TalentNomination::factory()
+            ->count(1)
+            ->noSubmittedSteps()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'submitter_id' => $coordinator->id,
+            ]);
+
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedInstructions()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'submitter_id' => $coordinator->id,
+            ]);
+
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedNomineeInformation()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'submitter_id' => $coordinator->id,
+            ]);
+
+        TalentNomination::factory()
+            ->count(1)
+            ->submittedNominationDetails()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'submitter_id' => $coordinator->id,
+            ]);
     }
 }
