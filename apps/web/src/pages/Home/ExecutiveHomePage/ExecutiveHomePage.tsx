@@ -53,7 +53,7 @@ const subTitle = defineMessage({
   description: "Subtitle for the executive homepage",
 });
 
-const ExecutiveHomePagePools_Fragment = graphql(/** GraphQL */ `
+export const ExecutiveHomePagePools_Fragment = graphql(/** GraphQL */ `
   fragment ExecutiveHomePagePool on Pool {
     id
     ...PoolCard
