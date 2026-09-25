@@ -44,10 +44,11 @@ final class SourcesBatchLoader
         foreach ($selected as $source) {
             $relation = (new User())->{$source->matchRelation()}();
             $foreignKey = $relation->getForeignKeyName();
+            $method = $source->matchMethod();
 
             $matchedUserIdsBySource[$source->name] = $relation->getRelated()->newQuery()
                 ->whereIn($foreignKey, array_keys($this->userIds))
-                ->whereMatchesTalentRequest($this->filters)
+                ->{$method}($this->filters)
                 ->whereAuthorizedToView()
                 ->pluck($foreignKey)
                 ->flip();

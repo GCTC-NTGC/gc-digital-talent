@@ -95,7 +95,7 @@ class TalentNominationGroup extends Model
         });
     }
 
-    public function newEloquentBuilder($query): Builder
+    public function newEloquentBuilder($query): TalentNominationGroupBuilder
     {
         return new TalentNominationGroupBuilder($query);
     }

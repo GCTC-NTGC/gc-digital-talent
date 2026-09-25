@@ -362,7 +362,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($sources, $filters) {
             foreach ($sources as $index => $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                $method = $source->matchMethod();
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->{$method}($filters));
             }
         });
     }
@@ -388,8 +389,9 @@ class UserBuilder extends Builder
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
+            $method = $source->matchMethod();
             $this->with([$source->matchRelation() => fn ($r) => $r
-                ->whereMatchesTalentRequest($filters)
+                ->{$method}($filters)
                 ->whereAuthorizedToView()]);
         }
 

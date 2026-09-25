@@ -11,6 +11,7 @@ enum TalentRequestSource
     case QUALIFIED_IN_POOL;
     case AT_LEVEL;
     case ADVANCEMENT;
+    case LATERAL_MOVEMENT;
 
     public static function getLangFilename(): string
     {
@@ -24,6 +25,20 @@ enum TalentRequestSource
             self::QUALIFIED_IN_POOL => 'matchingQualifiedInPoolSources',
             self::AT_LEVEL => 'matchingAtLevelSources',
             self::ADVANCEMENT => 'matchingAdvancementSources',
+            self::LATERAL_MOVEMENT => 'matchingLateralMovementSources',
+        };
+    }
+
+    // the method this source's matches are queried with. QUALIFIED_IN_POOL/AT_LEVEL each have
+    // one unambiguous whereMatchesTalentRequest() (see TalentRequestMatchable). ADVANCEMENT/
+    // LATERAL_MOVEMENT both back onto TalentNominationGroup, decided independently per
+    // nomination type, so they route to its two named methods instead.
+    public function matchMethod(): string
+    {
+        return match ($this) {
+            self::ADVANCEMENT => 'whereMatchesTalentRequestForAdvancement',
+            self::LATERAL_MOVEMENT => 'whereMatchesTalentRequestForLateralMovement',
+            default => 'whereMatchesTalentRequest',
         };
     }
 
