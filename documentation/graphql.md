@@ -116,8 +116,10 @@ import { FragmentType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 export const PoolList_QueryFragment = graphql(/* GraphQL */ `
   fragment PoolList_QueryFragment on Query {
-    publishedPools {
-      ...PoolCard__PoolFragment /* No need to import, codegen is aware of the fragment! */
+    poolsPaginated {
+      data {
+        ...PoolCard__PoolFragment /* No need to import, codegen is aware of the fragment! */
+      }
     }
   }
 `)
