@@ -806,6 +806,9 @@ scalar JSON
 "128 bit universally unique identifier (UUID)"
 scalar UUID
 
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar."
+scalar BigInt
+
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -1736,7 +1739,7 @@ type WorkExperience implements Experience {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -2835,7 +2838,7 @@ input WorkExperienceInput {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String

@@ -20,6 +20,9 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 "128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar."
+scalar BigInt
+
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -1283,7 +1286,7 @@ type WorkExperience implements Experience {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
@@ -2878,7 +2881,7 @@ input WorkExperienceInput {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
