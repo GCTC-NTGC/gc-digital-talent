@@ -1,7 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -76,10 +79,11 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experienceQuery={makeFragmentData(
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
               {
                 ...experience,
                 __typename: experience.__typename ?? "AwardExperience",
-              },
+              } as ExperienceCardFragment,
               ExperienceCard_Fragment,
             )}
             headingLevel="h5"
