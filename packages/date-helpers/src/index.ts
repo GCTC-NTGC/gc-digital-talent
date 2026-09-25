@@ -23,6 +23,7 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
   MAX_DATE,
+  TZ_BRITISH_COLUMBIA,
 } from "./const";
 
 export {
@@ -35,6 +36,7 @@ export {
   FAR_PAST_DATE,
   PAST_DATE,
   MAX_DATE,
+  TZ_BRITISH_COLUMBIA,
 };
 
 export { format as rawFormat };
