@@ -22,6 +22,7 @@ import {
 import {
   DATE_FORMAT_LOCALIZED,
   DATE_FORMAT_STRING,
+  TZ_BRITISH_COLUMBIA,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -241,7 +242,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         date: deadlineUtc,
         formatString: DATE_FORMAT_LOCALIZED,
         intl,
-        timeZone: "America/Vancouver",
+        timeZone: TZ_BRITISH_COLUMBIA,
       })
     : notAvailable;
 

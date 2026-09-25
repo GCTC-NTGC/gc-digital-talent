@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
+  TZ_BRITISH_COLUMBIA,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -274,7 +275,7 @@ const ReviewApplicationDialog = ({
                       date: parseDateTimeUtc(pool?.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "America/Vancouver",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     })
                   : nullMessage}
               </FieldDisplay>

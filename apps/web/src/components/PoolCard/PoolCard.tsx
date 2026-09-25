@@ -23,7 +23,10 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
+import {
+  DATE_FORMAT_LOCALIZED,
+  TZ_BRITISH_COLUMBIA,
+} from "@gc-digital-talent/date-helpers/const";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -244,7 +247,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "America/Vancouver",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     }),
                   },
                 )

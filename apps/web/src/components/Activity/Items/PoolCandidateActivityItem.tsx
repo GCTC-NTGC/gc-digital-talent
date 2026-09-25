@@ -11,6 +11,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
+  TZ_BRITISH_COLUMBIA,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -73,7 +74,7 @@ function getDescriptionForSpecialApplicationCreated(
         date: closingDateObject,
         formatString: DATE_FORMAT_STRING,
         intl,
-        timeZone: "America/Vancouver",
+        timeZone: TZ_BRITISH_COLUMBIA,
       });
     }
 

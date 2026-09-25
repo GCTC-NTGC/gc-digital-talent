@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
+  TZ_BRITISH_COLUMBIA,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -29,7 +30,7 @@ const Display = ({ pool }: DisplayProps<EditPoolClosingDateFragment>) => {
               date: parseDateTimeUtc(closingDate),
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
-              timeZone: "America/Vancouver",
+              timeZone: TZ_BRITISH_COLUMBIA,
             })
           : notProvided}
       </ToggleForm.FieldDisplay>

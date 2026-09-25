@@ -4,7 +4,10 @@ import type { ReactNode } from "react";
 
 import type { LinkProps } from "@gc-digital-talent/ui";
 import { Button, Dialog, IconButton, Link } from "@gc-digital-talent/ui";
-import { formatDate } from "@gc-digital-talent/date-helpers";
+import {
+  formatDate,
+  TZ_BRITISH_COLUMBIA,
+} from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -85,13 +88,13 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
                       date: deadline,
                       formatString: "p zzzz",
                       intl,
-                      timeZone: "America/Vancouver",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     }),
                     date: formatDate({
                       date: deadline,
                       formatString: "MMMM do",
                       intl,
-                      timeZone: "America/Vancouver",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     }),
                   },
                 )}

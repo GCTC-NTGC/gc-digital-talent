@@ -6,6 +6,7 @@ import { Dialog, Button, Notice } from "@gc-digital-talent/ui";
 import {
   convertDateTimeZone,
   strToFormDate,
+  TZ_BRITISH_COLUMBIA,
 } from "@gc-digital-talent/date-helpers";
 import { DateInput, RadioGroup, TextArea } from "@gc-digital-talent/forms";
 import {
@@ -70,7 +71,7 @@ const ChangeDateDialog = ({
         const closingDateInUtc = formValues.expiryEndDate
           ? convertDateTimeZone(
               `${formValues.expiryEndDate} 23:59:59`,
-              "America/Vancouver",
+              TZ_BRITISH_COLUMBIA,
               "UTC",
             )
           : "";
