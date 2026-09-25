@@ -821,15 +821,15 @@ class UserPolicyTest extends TestCase
      */
     public function testUpdateAnyUser()
     {
-        $this->assertTrue($this->platformAdmin->can('updateAnyUser'));
+        $this->assertTrue($this->platformAdmin->can('updateAnyUser', $this->applicant));
 
-        $this->assertFalse($this->guest->can('updateAnyUser'));
-        $this->assertFalse($this->applicant->can('updateAnyUser'));
-        $this->assertFalse($this->processOperator->can('updateAnyUser'));
-        $this->assertFalse($this->communityRecruiter->can('updateAnyUser'));
-        $this->assertFalse($this->communityAdmin->can('updateAnyUser'));
-        $this->assertFalse($this->communityTalentCoordinator->can('updateAnyUser'));
-        $this->assertFalse($this->departmentAdmin->can('updateAnyUser'));
-        $this->assertFalse($this->departmentHRAdvisor->can('updateAnyUser'));
+        $this->assertFalse($this->guest->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->applicant->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->processOperator->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->communityRecruiter->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('updateAnyUser', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateAnyUser', $this->applicant));
     }
 }
