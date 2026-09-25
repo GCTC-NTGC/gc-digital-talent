@@ -29,12 +29,12 @@ export interface ExperienceWorkStream {
 
 interface WorkStreamsContentProps {
   workStreams?: ExperienceWorkStream[] | null;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
 }
 
 const WorkStreamContent = ({
   workStreams,
-  headingLevel = "h3",
+  headingRank = "h3",
 }: WorkStreamsContentProps) => {
   const intl = useIntl();
 
@@ -76,7 +76,7 @@ const WorkStreamContent = ({
     <>
       <Separator decorative space="sm" />
       <ContentSection
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         title={intl.formatMessage(pageTitles.workStreams)}
       >
         <Ul>

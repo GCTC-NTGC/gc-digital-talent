@@ -109,7 +109,7 @@ const Featured = () => {
   return (
     <FlourishContainer show={[]}>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         className="mt-0 mb-12 font-normal"
         color="primary"
@@ -127,7 +127,7 @@ const Featured = () => {
         ))}
       </div>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         icon={MegaphoneIcon}
         color="primary"

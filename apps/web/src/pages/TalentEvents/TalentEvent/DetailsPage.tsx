@@ -138,7 +138,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
       <Card className="grid gap-6 sm:grid-cols-2">
         <div className="col-span-2 flex items-center justify-between">
           <Heading
-            level="h2"
+            rank="h2"
             icon={QueueListIcon}
             color="primary"
             className="m-0"
@@ -264,12 +264,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
-        <Heading
-          level="h3"
-          color="primary"
-          className="col-span-2 m-0"
-          size="h6"
-        >
+        <Heading rank="h3" color="primary" className="col-span-2 m-0" size="h6">
           {intl.formatMessage({
             defaultMessage: "Nomination settings",
             id: "cM66Sh",

@@ -157,7 +157,7 @@ export const UserEmployeeInformation = ({
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
-              level="h2"
+              rank="h2"
               size="h3"
               icon={FlagIcon}
               color="secondary"
@@ -217,7 +217,7 @@ export const UserEmployeeInformation = ({
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
-              level="h2"
+              rank="h2"
               size="h3"
               icon={ChartBarSquareIcon}
               color="secondary"

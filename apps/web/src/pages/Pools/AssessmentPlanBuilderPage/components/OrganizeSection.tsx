@@ -208,7 +208,7 @@ const OrganizeSection = ({
   return (
     <>
       <Heading
-        level="h3"
+        rank="h3"
         id={PAGE_SECTION_ID.ORGANIZE_ASSESSMENT_APPROACH}
         className="mt-0"
       >

@@ -189,7 +189,7 @@ const CreateTalentEventPage = () => {
           <Pending fetching={fetching} error={error}>
             <Card>
               <Heading
-                level="h2"
+                rank="h2"
                 color="primary"
                 icon={QueueListIcon}
                 center

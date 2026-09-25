@@ -37,7 +37,7 @@ const SkillSummarySection = ({ poolQuery }: SkillSummarySectionProps) => {
   return (
     <>
       <Heading
-        level="h3"
+        rank="h3"
         id={PAGE_SECTION_ID.SKILL_SUMMARY}
         className="mt-18 mb-6"
       >

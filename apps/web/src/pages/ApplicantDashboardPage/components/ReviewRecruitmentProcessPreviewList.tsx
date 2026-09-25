@@ -187,7 +187,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       )}
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>
-        <Heading level="h3" size="h6" className="mb-0.75 font-bold">
+        <Heading rank="h3" size="h6" className="mb-0.75 font-bold">
           {intl.formatMessage(
             navigationMessages.offPlatformRecruitmentProcesses,
           )}

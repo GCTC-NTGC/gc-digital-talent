@@ -104,7 +104,7 @@ const ClaimRow = ({ result, title, expiry, children }: ClaimRowProps) => {
     <div className="flex flex-wrap items-center gap-6">
       <VerificationIcon result={result} />
       <div>
-        <Heading level="h3" size="h5" className="mt-0">
+        <Heading rank="h3" size="h5" className="mt-0">
           {title}
         </Heading>
         <VerificationMessage result={result} expiry={expiry} />

@@ -96,7 +96,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
     <BasicForm onSubmit={handleSubmit}>
       <Card space="lg">
         <Heading
-          level="h2"
+          rank="h2"
           color="primary"
           icon={QueueListIcon}
           center
@@ -231,7 +231,7 @@ const CreateCommunityForm = ({ onSubmit }: CreateCommunityFormProps) => {
           </div>
         </div>
         <CardSeparator />
-        <Heading level="h3" className="xs:justify-start xs:text-left">
+        <Heading rank="h3" className="xs:justify-start xs:text-left">
           {intl.formatMessage({
             defaultMessage: "Mandate authority",
             id: "83aYHF",

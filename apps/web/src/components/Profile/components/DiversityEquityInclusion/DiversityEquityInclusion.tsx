@@ -64,7 +64,7 @@ const DiversityEquityInclusion = ({
         className="mt-0 mb-6 font-normal"
         icon={UsersIcon}
         color="primary"
-        level={pool ? "h3" : "h2"}
+        rank={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}
       >
         {intl.formatMessage(title)}

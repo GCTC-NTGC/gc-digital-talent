@@ -87,7 +87,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
       <Hero title={pageTitle} subtitle={pageSubtitle} crumbs={crumbs} />
       <section className="mb-18">
         <Container>
-          <Heading level="h2" size="h3" color="primary" icon={CalendarIcon}>
+          <Heading rank="h2" size="h3" color="primary" icon={CalendarIcon}>
             {intl.formatMessage({
               defaultMessage: "Application history",
               id: "kKAase",

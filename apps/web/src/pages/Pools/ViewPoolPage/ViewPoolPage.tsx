@@ -203,7 +203,7 @@ export const ViewPool = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <Heading
-        level="h2"
+        rank="h2"
         icon={UserGroupIcon}
         color="secondary"
         className="mt-0"
@@ -222,7 +222,7 @@ export const ViewPool = ({
       <div className="grid gap-6 sm:grid-cols-2">
         <ProcessCard.Root>
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Advertisement information",
                 id: "yM04jy",
@@ -278,7 +278,7 @@ export const ViewPool = ({
         </ProcessCard.Root>
         <ProcessCard.Root>
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage(messages.assessmentPlan)}
             </Heading>
             {assessmentBadge.label && (
@@ -320,7 +320,7 @@ export const ViewPool = ({
         </ProcessCard.Root>
         <ProcessCard.Root className="sm:col-span-2">
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0 mb-6">
+            <Heading rank="h3" size="h6" className="mt-0 mb-6">
               {intl.formatMessage({
                 defaultMessage: "Process status",
                 id: "KJDxM1",

@@ -36,7 +36,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Heading level="h3" size="h6">
+          <Heading rank="h3" size="h6">
             {intl.formatMessage({
               defaultMessage:
                 "Who can apply to become an apprentice as part of the Government of Canada IT Apprenticeship Program for Indigenous Peoples?",
@@ -52,7 +52,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question on paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "How long is the program?",
               id: "Qt9Q8k",
@@ -75,7 +75,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question two paragraph two",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "What happens after a person completes the 24 month program?",
@@ -91,7 +91,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question three paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "Will apprentices be paid?",
               id: "jA4kuU",
@@ -106,7 +106,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question four paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "Will apprentices be entitled to any benefits?",
               id: "rz21yp",
@@ -121,7 +121,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question five paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "Do I have to move to Ottawa or to a specific location to participate in this program?",
@@ -137,7 +137,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question six paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "How do I know if this program is for me?",
               id: "KdXvmY",
@@ -152,7 +152,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question seven paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "What will apprentices have to do as part of the program?",
@@ -168,7 +168,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question eight paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "In which department or agency will apprentices work?",
@@ -184,7 +184,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question nine paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "Is there a cost to participate in the program?",
               id: "CZGta2",
@@ -199,7 +199,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question ten paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage: "How can a person apply to become an apprentice?",
               id: "QkZ7Oy",
@@ -214,7 +214,7 @@ const LearnDialog = ({ btnProps }: BasicDialogProps) => {
               description: "Learn more dialog question eleven paragraph one",
             })}
           </p>
-          <Heading level="h3" size="h6" className="mt-12 mb-3">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3">
             {intl.formatMessage({
               defaultMessage:
                 "What education requirements exist – can I apply if I don't have a college diploma or university degree?",

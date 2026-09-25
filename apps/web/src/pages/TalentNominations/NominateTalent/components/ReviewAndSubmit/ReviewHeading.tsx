@@ -22,7 +22,7 @@ const ReviewHeading = ({ children, link }: ReviewHeadingProps) => {
 
   return (
     <div className="mb-6 flex flex-col items-center justify-between gap-6 xs:flex-row">
-      <Heading level="h3" size="h4" className="mt-0">
+      <Heading rank="h3" size="h4" className="mt-0">
         {children}
       </Heading>
       <Link

@@ -84,7 +84,7 @@ const CardFlat = ({ color, links, title, children }: CardFlatProps) => {
 
   return (
     <div className={base()}>
-      <Heading level="h3" size="h6" className={heading()}>
+      <Heading rank="h3" size="h6" className={heading()}>
         {title}
       </Heading>
       {children && <div className={content()}>{children}</div>}

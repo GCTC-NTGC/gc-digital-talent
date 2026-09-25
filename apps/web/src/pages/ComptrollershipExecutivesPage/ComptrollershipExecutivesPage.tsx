@@ -112,7 +112,7 @@ export const Component = () => {
             description: "About to list employee types",
           })}
         </p>
-        <Heading level="h3">
+        <Heading rank="h3">
           {intl.formatMessage({
             defaultMessage: "Financial Management",
             id: "6VIiEh",
@@ -153,7 +153,7 @@ export const Component = () => {
             })}
           </li>
         </Ul>
-        <Heading level="h3">
+        <Heading rank="h3">
           {intl.formatMessage({
             defaultMessage: "Procurement",
             id: "qKk7Eh",
@@ -178,7 +178,7 @@ export const Component = () => {
             })}
           </li>
         </Ul>
-        <Heading level="h3">
+        <Heading rank="h3">
           {intl.formatMessage({
             defaultMessage: "Other Members of the Comptrollership Community",
             id: "Muhu3E",
@@ -332,7 +332,7 @@ export const Component = () => {
           <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "The team",
                     id: "tc3sSC",
@@ -381,7 +381,7 @@ export const Component = () => {
             </Card>
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "Newsletter",
                     id: "6B6xPa",
@@ -430,7 +430,7 @@ export const Component = () => {
             </Card>
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "Connect with your peers",
                     id: "Ari7FD",
@@ -509,7 +509,7 @@ export const Component = () => {
           <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "The team",
                     id: "tc3sSC",
@@ -558,7 +558,7 @@ export const Component = () => {
             </Card>
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "Newsletter",
                     id: "6B6xPa",
@@ -607,7 +607,7 @@ export const Component = () => {
             </Card>
             <Card className="flex flex-col overflow-hidden p-0">
               <div className="block p-6 [&>span]:block">
-                <Heading level="h3" size="h6" className="my-0">
+                <Heading rank="h3" size="h6" className="my-0">
                   {intl.formatMessage({
                     defaultMessage: "Connect with your peers",
                     id: "Ari7FD",

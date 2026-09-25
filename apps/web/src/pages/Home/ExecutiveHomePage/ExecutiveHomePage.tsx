@@ -89,7 +89,7 @@ export const HomePage = ({ query }: HomePageProps) => {
       />
       <SkewedContainer>
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           icon={RocketLaunchIcon}
           color="primary"
@@ -120,7 +120,7 @@ export const HomePage = ({ query }: HomePageProps) => {
           </Ul>
         ) : (
           <Card className="my-6">
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
                 id: "g+JcDC",
@@ -142,7 +142,7 @@ export const HomePage = ({ query }: HomePageProps) => {
       <div className="relative z-[3] -my-6 border-t border-t-gray-200 bg-gray-100 py-24 sm:-my-18 dark:border-t-gray-600 dark:bg-gray-700">
         <Container>
           <Heading
-            level="h2"
+            rank="h2"
             size="h3"
             icon={PuzzlePieceIcon}
             color="warning"
@@ -282,7 +282,7 @@ export const HomePage = ({ query }: HomePageProps) => {
         className="-mt-20 bg-gray-100 pt-20 dark:bg-gray-700"
       >
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           className="mt-0 mb-3 font-normal"
           icon={SparklesIcon}
@@ -295,7 +295,7 @@ export const HomePage = ({ query }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+        <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
@@ -318,7 +318,7 @@ export const HomePage = ({ query }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+        <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",

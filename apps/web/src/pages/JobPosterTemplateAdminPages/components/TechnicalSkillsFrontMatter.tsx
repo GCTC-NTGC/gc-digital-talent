@@ -10,7 +10,7 @@ const TechnicalSkillsFrontMatter = () => {
   return (
     <div>
       <Heading
-        level="h2"
+        rank="h2"
         icon={BoltIcon}
         color="error"
         className="mx-0 mt-0 mb-6 font-normal"

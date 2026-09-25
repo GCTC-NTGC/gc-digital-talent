@@ -66,7 +66,7 @@ export const ViewDepartmentForm = ({ query }: ViewDepartmentProps) => {
   return (
     <>
       <Heading
-        level="h2"
+        rank="h2"
         color="secondary"
         icon={IdentificationIcon}
         className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"

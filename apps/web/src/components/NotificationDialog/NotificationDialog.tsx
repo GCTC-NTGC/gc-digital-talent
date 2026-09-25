@@ -111,7 +111,7 @@ const DialogPortalWithPresence = ({
             <div className="mb-3 flex items-center justify-between gap-y-1.5">
               <DialogPrimitive.Title asChild>
                 <Heading
-                  level="h2"
+                  rank="h2"
                   size="h5"
                   color="primary"
                   icon={BellAlertIcon}

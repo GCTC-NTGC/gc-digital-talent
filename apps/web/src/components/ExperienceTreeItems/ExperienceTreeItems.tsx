@@ -31,7 +31,7 @@ const ExperienceTreeItems = ({
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h3"
+                headingRank="h3"
                 showSkills={false}
                 showEdit={false}
               />

@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -51,7 +51,7 @@ export const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
 interface SkillTreeProps {
   skill: SkillTreeSkill;
   experiencesQuery: FragmentType<typeof SkillTreeExperience_Fragment>[];
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   hideConnectButton?: boolean;
   hideEdit?: boolean;
   showDisclaimer?: boolean;
@@ -68,7 +68,7 @@ const SkillTree = ({
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
-  const contentHeadingLevel = incrementHeadingRank(headingAs);
+  const contentHeadingRank = incrementHeadingRank(headingAs);
   const experiences = getFragment(
     SkillTreeExperience_Fragment,
     experiencesQuery,
@@ -107,7 +107,7 @@ const SkillTree = ({
     <TreeView.Root className="mt-6">
       <TreeView.Head>
         <Card>
-          <Heading level={headingAs} size="h6" className="mt-0">
+          <Heading rank={headingAs} size="h6" className="mt-0">
             {title}
           </Heading>
           {skill.description && (
@@ -121,7 +121,7 @@ const SkillTree = ({
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 experienceQuery={filterExperienceSkills(experience, skill)}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
                 showEdit={!hideEdit}
                 showSkills={skill}
                 linkTo={skill}

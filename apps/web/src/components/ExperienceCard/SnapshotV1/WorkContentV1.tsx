@@ -16,7 +16,7 @@ import GovContentV1 from "./GovContentV1";
 
 const WorkContentV1 = ({
   experience,
-  headingLevel,
+  headingRank,
 }: ContentProps<ExperienceWorkContent>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -25,26 +25,26 @@ const WorkContentV1 = ({
   switch (employmentCategory?.value) {
     case EmploymentCategory.ExternalOrganization:
       return (
-        <ExternalContent experience={experience} headingLevel={headingLevel} />
+        <ExternalContent experience={experience} headingRank={headingRank} />
       );
     case EmploymentCategory.GovernmentOfCanada:
       return (
         <>
-          <GovContentV1 experience={experience} headingLevel={headingLevel} />
+          <GovContentV1 experience={experience} headingRank={headingRank} />
           <Separator space="sm" decorative />
           <SupervisoryContent
             experience={experience}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           />
         </>
       );
     case EmploymentCategory.CanadianArmedForces:
-      return <CafContent experience={experience} headingLevel={headingLevel} />;
+      return <CafContent experience={experience} headingRank={headingRank} />;
     default:
       return (
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}

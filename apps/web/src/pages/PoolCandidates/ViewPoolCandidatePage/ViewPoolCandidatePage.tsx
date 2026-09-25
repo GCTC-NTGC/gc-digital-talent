@@ -159,7 +159,7 @@ export const ViewPoolCandidate = ({
               icon={ExclamationTriangleIcon}
               color="warning"
               className="mt-0 mb-6 items-center"
-              level="h2"
+              rank="h2"
               size="h3"
             >
               {intl.formatMessage(screeningAndAssessmentTitle)}

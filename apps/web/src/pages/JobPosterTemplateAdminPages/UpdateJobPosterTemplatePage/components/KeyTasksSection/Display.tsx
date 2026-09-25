@@ -23,7 +23,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
   return (
     <div className="grid gap-6 sm:grid-cols-2">
       <div className="flex flex-col gap-6">
-        <Heading level="h3" size="h6" className="m-0">
+        <Heading rank="h3" size="h6" className="m-0">
           {appendLanguageName({
             label: intl.formatMessage(jobPosterTemplateMessages.keyTasks),
             lang: "en",
@@ -38,7 +38,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
         )}
       </div>
       <div className="flex flex-col gap-6">
-        <Heading level="h3" size="h6" className="m-0">
+        <Heading rank="h3" size="h6" className="m-0">
           {appendLanguageName({
             label: intl.formatMessage(jobPosterTemplateMessages.keyTasks),
             lang: "fr",

@@ -118,7 +118,7 @@ export const Component = () => {
                 { requestId },
               )}
             </p>
-            <Heading level="h3" size="h6" className="mt-6 mb-3 font-bold">
+            <Heading rank="h3" size="h6" className="mt-6 mb-3 font-bold">
               {intl.formatMessage({
                 defaultMessage: "What you can expect",
                 id: "N/Vcp3",

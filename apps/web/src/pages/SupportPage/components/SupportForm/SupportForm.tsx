@@ -68,7 +68,7 @@ const SupportFormSuccess = ({ onFormToggle }: SupportFormSuccessProps) => {
   const intl = useIntl();
   return (
     <section>
-      <Heading level="h2" size="h3" className="mt-0 mb-6 font-normal">
+      <Heading rank="h2" size="h3" className="mt-0 mb-6 font-normal">
         {intl.formatMessage({
           defaultMessage: "We've received your message.",
           id: "iiEGjW",
@@ -144,7 +144,7 @@ const SupportForm = ({
   };
   return showSupportForm ? (
     <section>
-      <Heading level="h2" size="h3" className="mt-0 mb-6 font-normal">
+      <Heading rank="h2" size="h3" className="mt-0 mb-6 font-normal">
         {intl.formatMessage({
           defaultMessage: "Reach out to us",
           id: "oXYnZN",
