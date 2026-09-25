@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\EmailType;
 use App\Enums\ErrorCode;
 use App\Facades\Notify;
+use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Models\User;
 use App\Notifications\VerifyEmails;
 use Database\Seeders\ClassificationSeeder;
@@ -13,6 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
@@ -28,6 +30,9 @@ class UserVerifyEmailsTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
     use UsesUnprotectedGraphqlEndpoint;
+
+    // should match the limit in App\GraphQL\Mutations\VerifyUserEmails
+    private const MAX_VERIFY_ATTEMPTS = 10;
 
     protected $regularUser;
 
@@ -75,6 +80,44 @@ class UserVerifyEmailsTest extends TestCase
         $this->adminUser = User::factory()
             ->asAdmin()
             ->create();
+    }
+
+    /**
+     * Store a verification token for the regular user, as if a code had been sent
+     */
+    private function putVerificationToken(string $code = '1234', string $emailAddress = 'regular.user.2@gc.ca'): void
+    {
+        Cache::put(
+            'email-verification-'.$this->regularUser->id,
+            [
+                'code' => $code,
+                'emailTypes' => [EmailType::WORK->name],
+                'emailAddress' => $emailAddress,
+            ],
+            now()->addHours(2)
+        );
+    }
+
+    /**
+     * Attempt to verify emails as the given user with the given code
+     */
+    private function attemptVerify(User $user, string $code): TestResponse
+    {
+        return $this->actingAs($user, 'api')->graphQL(
+            $this->verifyEmailsMutation,
+            ['code' => $code]
+        );
+    }
+
+    /**
+     * Use up every allowed attempt for the user with bad codes
+     */
+    private function exhaustVerifyAttempts(User $user): void
+    {
+        collect(range(1, self::MAX_VERIFY_ATTEMPTS))->each(
+            fn () => $this->attemptVerify($user, 'BAD-CODE')
+                ->assertGraphQLErrorMessage(ErrorCode::VERIFICATION_FAILED->name)
+        );
     }
 
     public function testUserCanGenerateNotification()
@@ -357,5 +400,75 @@ class UserVerifyEmailsTest extends TestCase
                 'code' => '5680',
             ]
         )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testVerifyIsRateLimitedAfterTooManyAttempts()
+    {
+        $this->putVerificationToken();
+        $this->exhaustVerifyAttempts($this->regularUser);
+
+        $this->attemptVerify($this->regularUser, 'BAD-CODE')
+            ->assertGraphQLErrorMessage(ErrorCode::RATE_LIMIT->name);
+    }
+
+    public function testRateLimitedAttemptWithCorrectCodeDoesNotVerify()
+    {
+        $this->putVerificationToken('1234');
+        $this->exhaustVerifyAttempts($this->regularUser);
+
+        $this->attemptVerify($this->regularUser, '1234')
+            ->assertGraphQLErrorMessage(ErrorCode::RATE_LIMIT->name);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $this->regularUser->id,
+            'work_email' => 'regular.user@gc.ca',
+            'work_email_verified_at' => null,
+        ]);
+    }
+
+    public function testRateLimitResponseIncludesRemainingSeconds()
+    {
+        $this->putVerificationToken();
+        $this->exhaustVerifyAttempts($this->regularUser);
+
+        $remainingSeconds = $this->attemptVerify($this->regularUser, 'BAD-CODE')
+            ->json('errors.0.extensions.'.ClientSafeTooManyRequestsException::KEY.'.remaining_seconds');
+
+        $this->assertIsInt($remainingSeconds);
+        $this->assertGreaterThan(0, $remainingSeconds);
+        $this->assertLessThanOrEqual(60, $remainingSeconds);
+    }
+
+    public function testRateLimitResetsAfterDecay()
+    {
+        $this->putVerificationToken('1234');
+        $this->exhaustVerifyAttempts($this->regularUser);
+        $this->attemptVerify($this->regularUser, '1234')
+            ->assertGraphQLErrorMessage(ErrorCode::RATE_LIMIT->name);
+
+        $this->travel(61)->seconds();
+
+        $this->attemptVerify($this->regularUser, '1234')
+            ->assertJsonMissingPath('errors')
+            ->assertJsonPath('data.verifyUserEmails.workEmail', 'regular.user.2@gc.ca');
+    }
+
+    public function testRateLimitIsPerUser()
+    {
+        $this->putVerificationToken();
+        $this->exhaustVerifyAttempts($this->regularUser);
+
+        // admin has no token, so fails verification rather than being throttled
+        $this->attemptVerify($this->adminUser, 'BAD-CODE')
+            ->assertGraphQLErrorMessage(ErrorCode::VERIFICATION_FAILED->name);
+    }
+
+    public function testMissingTokenAttemptsCountTowardLimit()
+    {
+        // no token put in the cache
+        $this->exhaustVerifyAttempts($this->regularUser);
+
+        $this->attemptVerify($this->regularUser, 'BAD-CODE')
+            ->assertGraphQLErrorMessage(ErrorCode::RATE_LIMIT->name);
     }
 }
