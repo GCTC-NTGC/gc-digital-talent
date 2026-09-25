@@ -1042,9 +1042,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
