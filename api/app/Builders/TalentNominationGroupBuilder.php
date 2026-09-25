@@ -2,6 +2,7 @@
 
 namespace App\Builders;
 
+use App\Contracts\TalentNominationGroupMatchable;
 use App\Contracts\TalentRequestViewable;
 use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
@@ -14,12 +15,12 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
  *
  * @mixin TalentNominationGroup
  */
-class TalentNominationGroupBuilder extends Builder implements TalentRequestViewable
+class TalentNominationGroupBuilder extends Builder implements TalentNominationGroupMatchable, TalentRequestViewable
 {
     // No whereMatchesTalentRequest()/TalentRequestMatchable here: a TalentNominationGroup row is
     // decided independently per nomination type, so there's no single "the" match — only the
-    // two named methods below. TalentRequestSource::matchMethod() routes ADVANCEMENT and
-    // LATERAL_MOVEMENT to them directly.
+    // two methods below, guaranteed by TalentNominationGroupMatchable instead.
+    // TalentRequestSource::matchMethod() routes ADVANCEMENT and LATERAL_MOVEMENT to them directly.
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self
     {
         $filters ??= [];
