@@ -74,11 +74,13 @@ const GettingStartedPage = () => {
       >
         <section className="mb-18 flex flex-col gap-6">
           {showMigrationPossibleNotice ? (
-            <MigrationPossibleNotice
-              scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
-            />
+            // this bit of extra top margin is to help the overlap with the hero look OK
+            <div className="mt-6">
+              <MigrationPossibleNotice
+                scrollToIdOnIgnore={GETTING_STARTED_FORM_ID}
+              />
+            </div>
           ) : null}
-
           <Card space="lg">
             <Pending fetching={fetching} error={error}>
               {data?.me ? (
