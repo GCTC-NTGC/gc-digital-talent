@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\TalentNominationGroupDecision;
 use App\Models\Community;
 use App\Models\TalentNomination;
 use App\Models\TalentNominationEvent;
@@ -57,6 +58,34 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
                     'nominate_for_lateral_movement' => $nominateForLateralMovement,
                     'nominate_for_development_programs' => $nominateForDevelopmentPrograms,
                 ]);
+        }
+
+        // Seed a few nominations with a mix of approved and rejected
+        $assessedNominees = User::whereIsVerifiedGovEmployee()
+            ->whereKeyNot($coordinator->id)
+            ->inRandomOrder()
+            ->take(4)
+            ->get();
+
+        foreach ($assessedNominees as $index => $nominee) {
+            $decision = $index % 2 === 0
+                ? TalentNominationGroupDecision::APPROVED->name
+                : TalentNominationGroupDecision::REJECTED->name;
+
+            $nomination = TalentNomination::factory()
+                ->submittedReviewAndSubmit()
+                ->create([
+                    'talent_nomination_event_id' => $event->id,
+                    'nominee_id' => $nominee->id,
+                    'nominate_for_advancement' => true,
+                    'nominate_for_lateral_movement' => true,
+                    'nominate_for_development_programs' => false,
+                ]);
+
+            $group = $nomination->talentNominationGroup;
+            $group->advancement_decision = $decision;
+            $group->lateral_movement_decision = $decision;
+            $group->save();
         }
     }
 }
