@@ -31,8 +31,9 @@ final class VerifyUserEmails
         // 10 attempts per minute deemed generous to real users while still hampering bots
         $rateLimiterKey = 'verify-user-email:'.$user->id;
         $attemptsPerMinute = 10;
-        if(RateLimiter::tooManyAttempts($rateLimiterKey, $attemptsPerMinute)) {
+        if (RateLimiter::tooManyAttempts($rateLimiterKey, $attemptsPerMinute)) {
             $seconds = RateLimiter::availableIn($rateLimiterKey);
+
             return new ClientSafeTooManyRequestsException(ErrorCode::RATE_LIMIT->name, $seconds);
         }
         RateLimiter::increment($rateLimiterKey);
