@@ -60,7 +60,7 @@ describe("relativeClosingDate tests", () => {
     expect(s).toBe("December 31st, 2021 12:59 AM");
   });
 
-  // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
+  // https://dateful.com/convert/vancouver-canada?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("today in a different time zone", () => {
     const s = f({
       closingDate: parseISO("2021-12-31 23:59:59", {
@@ -73,7 +73,7 @@ describe("relativeClosingDate tests", () => {
     expect(s).toBe("Closes today at 11:59 PM");
   });
 
-  // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
+  // https://dateful.com/convert/vancouver-canada?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("tomorrow in a different time zone", () => {
     const s = f({
       closingDate: parseISO("2021-12-31 23:59:59", {
@@ -86,7 +86,7 @@ describe("relativeClosingDate tests", () => {
     expect(s).toBe("Closes tomorrow at 11:59 PM");
   });
 
-  // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
+  // https://dateful.com/convert/vancouver-canada?t=1159pm&d=2021-12-31&tz2=Eastern-Time-ET
   test("future days in a different time zone", () => {
     const s = f({
       closingDate: parseISO("2021-12-31 23:59:59", {
@@ -103,25 +103,25 @@ describe("relativeClosingDate tests", () => {
 describe("convert zone for DateTime tests", () => {
   const f = convertDateTimeZone;
   test("it converts PDT to UTC", () => {
-    // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2022-10-31&tz2=UTC
+    // https://dateful.com/convert/vancouver-canada?t=1159pm&d=2022-10-31&tz2=UTC
     expect(f("2022-10-31 23:59:59", "America/Vancouver", "UTC")).toBe(
       "2022-11-01 06:59:59",
     );
   });
   test("it converts PST to UTC", () => {
-    // https://dateful.com/convert/pacific-time-pt?t=1159pm&d=2022-11-30&tz2=UTC
+    // https://dateful.com/convert/vancouver-canada?t=1159pm&d=2022-11-30&tz2=UTC
     expect(f("2022-11-30 23:59:59", "America/Vancouver", "UTC")).toBe(
       "2022-12-01 07:59:59",
     );
   });
   test("it converts UTC to PDT", () => {
-    // https://dateful.com/convert/utc?t=659am&d=2022-11-01&tz2=Pacific-Time-PT
+    // https://dateful.com/convert/utc?t=659am&d=2022-11-01&tz2=Vancouver-Canada
     expect(f("2022-11-01 06:59:59", "UTC", "America/Vancouver")).toBe(
       "2022-10-31 23:59:59",
     );
   });
   test("it converts to UTC to PST", () => {
-    // https://dateful.com/convert/utc?t=759am&d=2022-12-01&tz2=Pacific-Time-PT
+    // https://dateful.com/convert/utc?t=759am&d=2022-12-01&tz2=Vancouver-Canada
     expect(f("2022-12-01 07:59:59", "UTC", "America/Vancouver")).toBe(
       "2022-11-30 23:59:59",
     );
