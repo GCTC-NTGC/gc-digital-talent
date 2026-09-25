@@ -158,7 +158,7 @@ export default [
               ),
               route(
                 "career-timeline",
-                "./pages/Profile/CareerTimelinePage/CareerTimelinePage.tsx",
+                "./pages/Profile/CareerExperiencePage/CareerExperiencePage.tsx",
               ),
               route("skills", "./pages/Skills/SkillPortfolioPage.tsx"),
             ]),
