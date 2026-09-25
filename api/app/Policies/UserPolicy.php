@@ -104,7 +104,7 @@ class UserPolicy
      *
      * @return Response|bool
      */
-    public function updateAnyUser(User $user)
+    public function updateAsAdmin(User $user)
     {
         return $user->isAbleTo('update-any-user');
     }
