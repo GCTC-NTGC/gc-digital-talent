@@ -25,6 +25,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
+  TZ_BRITISH_COLUMBIA,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -306,7 +307,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.openDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     })
                   : intl.formatMessage(commonMessages.notProvided),
                 closeDate: talentEvent.closeDate
@@ -314,7 +315,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.closeDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_BRITISH_COLUMBIA,
                     })
                   : intl.formatMessage(commonMessages.notProvided),
               },

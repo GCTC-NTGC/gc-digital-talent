@@ -31,6 +31,7 @@ import {
   convertDateTimeZone,
   currentDate,
   nowUTCDateTime,
+  TZ_BRITISH_COLUMBIA,
 } from "@gc-digital-talent/date-helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 
@@ -89,14 +90,14 @@ const UpdateTalentEventForm = ({
         convertDateTimeZone(
           talentNominationEvent.openDate,
           "UTC",
-          "Canada/Pacific",
+          TZ_BRITISH_COLUMBIA,
         ),
       ),
       closeDate: convertDateTimeToDate(
         convertDateTimeZone(
           talentNominationEvent.closeDate,
           "UTC",
-          "Canada/Pacific",
+          TZ_BRITISH_COLUMBIA,
         ),
       ),
       includeNineBox: talentNominationEvent.includeNineBox,
@@ -146,7 +147,7 @@ const UpdateTalentEventForm = ({
     } else {
       overrideOpenDate = convertDateTimeZone(
         `${formValues.openDate} 00:00:01`,
-        "Canada/Pacific",
+        TZ_BRITISH_COLUMBIA,
         "UTC",
       );
     }
@@ -162,7 +163,7 @@ const UpdateTalentEventForm = ({
         openDate: overrideOpenDate,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          TZ_BRITISH_COLUMBIA,
           "UTC",
         ),
         community: { connect: formValues.community },

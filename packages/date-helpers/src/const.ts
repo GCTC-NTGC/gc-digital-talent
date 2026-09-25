@@ -16,3 +16,6 @@ export const PAST_DATE = "2020-01-01";
 
 // Maximum possible date for JS
 export const MAX_DATE = new Date(8640000000000000);
+
+// British Columbia timezone (furthest from GMT in Canada)
+export const TZ_BRITISH_COLUMBIA = "America/Vancouver";

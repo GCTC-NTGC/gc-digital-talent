@@ -1,4 +1,7 @@
-import { convertDateTimeZone } from "@gc-digital-talent/date-helpers";
+import {
+  convertDateTimeZone,
+  TZ_BRITISH_COLUMBIA,
+} from "@gc-digital-talent/date-helpers";
 import type {
   CreateSpecialApplicationInput,
   SpecialApplicationType,
@@ -20,7 +23,7 @@ export const createSpecialApplicationDialogFormValuesToSubmitData = (
   const inputClosingDate = values.specialApplicationClosingDate;
   const inputClosingDateInUtc = convertDateTimeZone(
     `${inputClosingDate} 23:59:59`,
-    "Canada/Pacific",
+    TZ_BRITISH_COLUMBIA,
     "UTC",
   );
 
