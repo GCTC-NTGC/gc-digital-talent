@@ -44,6 +44,16 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         return $method->invoke($builder, $user, $teamIdsByPermission)->get()->pluck('id');
     }
 
+    // Runs the whole scope. The helper above runs one method on its own, so it misses the pool filter the other scopes add
+    private function adminViewIds(User $user): Collection
+    {
+        // the scope reads Auth::user() on the default guard, so set both
+        $this->actingAs($user);
+        $this->actingAs($user, 'api');
+
+        return PoolCandidate::query()->whereAuthorizedToViewPoolCandidateAdminView()->get()->pluck('id');
+    }
+
     // process operators can see users who have a pool candidate in a pool they operate
     public function testProcessOperatorSeesUsersWithCandidateInTheirPool(): void
     {
@@ -183,6 +193,129 @@ class PoolCandidateAuthorizedToViewRelatedUserTest extends TestCase
         assertEqualsCanonicalizing(
             [$applicantInCommunityPool->id, $communityTalentCandidate->id],
             $visibleIds->toArray()
+        );
+    }
+
+    // The three community roles, each with and without a pool of their own.
+    // Seeing a candidate needs a pool role: community talent only says which users you may see, never which applications you reach.
+    // See config/rolepermission.php
+    public function testApplicantProfileAndCommunityTalentInDifferentCommunities(): void
+    {
+        $community = Community::factory()->create();
+        $operatedPool = Pool::factory()->published()->create(['community_id' => $community->id]);
+        $otherCommunity = Community::factory()->create();
+        $otherPool = Pool::factory()->published()->create(['community_id' => $otherCommunity->id]);
+
+        // a plain applicant in the operated pool
+        $candidateInOperatedPool = PoolCandidate::factory()
+            ->submitted()
+            ->for(User::factory()->asApplicant()->create())
+            ->for($operatedPool)
+            ->create();
+
+        // the next three are consented, verified gov employees, so they all count as community talent
+
+        // interest in the other community, candidate in the operated pool
+        $consentedGovUser1 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $communityCandidateOtherCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser1)->for($operatedPool)->create();
+        CommunityInterest::factory()
+            ->for($consentedGovUser1)
+            ->for($otherCommunity)
+            ->consented()
+            ->create();
+
+        // interest in the other community, candidate in that same community's pool
+        $consentedGovUser2 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $otherCommunityCandidateOtherCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser2)->for($otherPool)->create();
+        CommunityInterest::factory()
+            ->for($consentedGovUser2)
+            ->for($otherCommunity)
+            ->consented()
+            ->create();
+
+        // interest in the operated pool's community, candidate in the other community's pool
+        $consentedGovUser3 = User::factory()->asApplicant()->withGovEmployeeProfile()->create();
+        $otherCommunityCandidateCommunityInterest = PoolCandidate::factory()->submitted()->for($consentedGovUser3)->for($otherPool)->create();
+        CommunityInterest::factory()
+            ->for($consentedGovUser3)
+            ->for($community)
+            ->consented()
+            ->create();
+
+        // the same three community roles, first with a pool of their own
+        $operatedPoolOperatorOtherCommunityCoordinator = User::factory()
+            ->asProcessOperator($operatedPool->id)
+            ->asCommunityTalentCoordinator($otherCommunity->id)
+            ->create();
+        $operatedPoolOperatorOtherCommunityAdmin = User::factory()
+            ->asProcessOperator($operatedPool->id)
+            ->asCommunityAdmin($otherCommunity->id)
+            ->create();
+        $operatedPoolOperatorOtherCommunityRecruiter = User::factory()
+            ->asProcessOperator($operatedPool->id)
+            ->asCommunityRecruiter($otherCommunity->id)
+            ->create();
+
+        // then the same three with no pool of their own
+        $otherCommunityCoordinator = User::factory()
+            ->asCommunityTalentCoordinator($otherCommunity->id)
+            ->create();
+        $otherCommunityAdmin = User::factory()
+            ->asCommunityAdmin($otherCommunity->id)
+            ->create();
+        $otherCommunityRecruiter = User::factory()
+            ->asCommunityRecruiter($otherCommunity->id)
+            ->create();
+
+        // the coordinator role brings no pool, so only what the operated pool holds
+        assertEqualsCanonicalizing(
+            [
+                $candidateInOperatedPool->id,
+                $communityCandidateOtherCommunityInterest->id,
+            ],
+            $this->adminViewIds($operatedPoolOperatorOtherCommunityCoordinator)->toArray()
+        );
+
+        // admin and recruiter roles do bring the other community's pool, so both pools in full.
+        assertEqualsCanonicalizing(
+            [
+                $candidateInOperatedPool->id,
+                $communityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateCommunityInterest->id,
+            ],
+            $this->adminViewIds($operatedPoolOperatorOtherCommunityAdmin)->toArray()
+        );
+        assertEqualsCanonicalizing(
+            [
+                $candidateInOperatedPool->id,
+                $communityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateCommunityInterest->id,
+            ],
+            $this->adminViewIds($operatedPoolOperatorOtherCommunityRecruiter)->toArray()
+        );
+
+        // no pool at all, so nothing: a coordinator is not meant to see candidates
+        assertEqualsCanonicalizing(
+            [],
+            $this->adminViewIds($otherCommunityCoordinator)->toArray()
+        );
+
+        // just their own community's pool
+        assertEqualsCanonicalizing(
+            [
+                $otherCommunityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateCommunityInterest->id,
+            ],
+            $this->adminViewIds($otherCommunityAdmin)->toArray()
+        );
+        assertEqualsCanonicalizing(
+            [
+                $otherCommunityCandidateOtherCommunityInterest->id,
+                $otherCommunityCandidateCommunityInterest->id,
+            ],
+            $this->adminViewIds($otherCommunityRecruiter)->toArray()
         );
     }
 }
