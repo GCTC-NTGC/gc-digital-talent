@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Button, Dialog, Link } from "@gc-digital-talent/ui";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const HowToLinkMyProfileDialog = () => {
   const intl = useIntl();
@@ -26,8 +27,8 @@ const HowToLinkMyProfileDialog = () => {
         <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "How to link my profile",
-            id: "EL6z1P",
-            description: "Heading for the how to link my profile dialog",
+            id: "L7Noe0",
+            description: "Heading for the link my profile dialog",
           })}
         </Dialog.Header>
         <Dialog.Body>
@@ -36,18 +37,17 @@ const HowToLinkMyProfileDialog = () => {
               {intl.formatMessage({
                 defaultMessage:
                   "Visit CanadaLogin and make sure your email address and phone number match the contact information in your existing GC Digital Talent profile.",
-                id: "asfcyQ",
+                id: "YQ3j5R",
                 description:
-                  "Paragraph instructing the user to update their contact information on CanadaLogin",
+                  "Instruction to update contact information on CanadaLogin",
               })}
             </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
                   "After updating your information in CanadaLogin, sign out of GC Digital Talent and sign back in. If you continue to receive this message, no matching profile could be found.",
-                id: "72hduv",
-                description:
-                  "Paragraph instructing the user to sign out and back in after updating their CanadaLogin information",
+                id: "oDKiEi",
+                description: "Paragraph explaining the move to CanadaLogin",
               })}
             </p>
             <p className="text-gray-600 dark:text-gray-200">
@@ -70,19 +70,14 @@ const HowToLinkMyProfileDialog = () => {
             >
               {intl.formatMessage({
                 defaultMessage: "Update information on CanadaLogin",
-                id: "+SXebP",
+                id: "48XoeT",
                 description:
-                  "Link to update contact information on the CanadaLogin website",
+                  "Link to update contact information on CanadaLogin",
               })}
             </Link>
             <Dialog.Close>
               <Button type="button" mode="inline" color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "S91lA/",
-                  description:
-                    "Button to close the how to link my profile dialog",
-                })}
+                {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>

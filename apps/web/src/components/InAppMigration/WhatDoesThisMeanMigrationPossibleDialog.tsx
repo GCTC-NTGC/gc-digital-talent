@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useState } from "react";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface WhatDoesThisMeanMigrationPossibleDialogProps {
   onLinkProfile: () => void;
@@ -19,9 +20,8 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
         <Button mode="inline" color="black">
           {intl.formatMessage({
             defaultMessage: "What does this mean",
-            id: "KmnIsh",
-            description:
-              "Button to learn more about linking a previous profile",
+            id: "RYBnXq",
+            description: "Button to learn more about the account migration",
           })}
         </Button>
       </Dialog.Trigger>
@@ -48,9 +48,8 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
                 {intl.formatMessage({
                   defaultMessage:
                     "We've moved to CanadaLogin, a central sign in method that has replaced the previously used GCKey sign in method.",
-                  id: "U5CZbt",
-                  description:
-                    "Paragraph explaining the move from GCKey to CanadaLogin",
+                  id: "riPKUN",
+                  description: "Paragraph explaining the move to CanadaLogin",
                 })}
               </p>
             </div>
@@ -58,18 +57,18 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
               <Heading level="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
-                  id: "+1yIis",
+                  id: "a+UXof",
                   description:
-                    "Heading for the section explaining what linking a profile means",
+                    "Heading for the linking explanation section of a dialog",
                 })}
               </Heading>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
-                  id: "RwJJEM",
+                  id: "t7Zpp9",
                   description:
-                    "Paragraph explaining what happens when a user links their profile",
+                    "Paragraph explaining what linking a profile means",
                 })}
               </p>
             </div>
@@ -77,9 +76,9 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
               {intl.formatMessage({
                 defaultMessage:
                   "Any information currently in your new profile will be replaced with the data from your existing GC Digital Talent profile. Once your profile is linked, please check that your information is up to date.",
-                id: "zAPa6H",
+                id: "wgLkIU",
                 description:
-                  "Paragraph explaining that linking a profile replaces the information in the new profile",
+                  "Paragraph warning that new profile data will be replaced when linking a profile",
               })}
             </p>
             <p>
@@ -96,18 +95,14 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
             <Button type="button" color="primary" onClick={onLinkProfile}>
               {intl.formatMessage({
                 defaultMessage: "Link my profile",
-                id: "Hy2Utd",
+                id: "v7rPLM",
                 description:
-                  "Button to link a previous profile from the what does this mean dialog",
+                  "Button to link a previous profile to the new sign in method",
               })}
             </Button>
             <Dialog.Close>
               <Button type="button" mode="inline" color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "KmThxq",
-                  description: "Button to close the what does this mean dialog",
-                })}
+                {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>

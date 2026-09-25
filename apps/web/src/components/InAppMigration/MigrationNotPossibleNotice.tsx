@@ -40,8 +40,8 @@ const MigrationNotPossibleNotice = ({
           <ScrollToLink to={scrollToIdOnIgnore} mode="inline" color="black">
             {intl.formatMessage({
               defaultMessage: "Ignore for now",
-              id: "7Ra4fE",
-              description: "Button to dismiss the account migration notice",
+              id: "A+6X3l",
+              description: "Button to dismiss the message",
             })}
           </ScrollToLink>
         ) : null}
@@ -49,8 +49,8 @@ const MigrationNotPossibleNotice = ({
           <Button mode="inline" color="black" onClick={onDismiss}>
             {intl.formatMessage({
               defaultMessage: "Ignore for now",
-              id: "7Ra4fE",
-              description: "Button to dismiss the account migration notice",
+              id: "A+6X3l",
+              description: "Button to dismiss the message",
             })}
           </Button>
         ) : null}

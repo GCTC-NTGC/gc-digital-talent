@@ -33,9 +33,9 @@ const AlreadyHaveProfileDialog = () => {
               <Heading level="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
-                  id: "I2Rrlc",
+                  id: "Qjf3b1",
                   description:
-                    "Heading for the explanation section of the already have a profile dialog",
+                    "Heading for the section explaining the sign in method change",
                 })}
               </Heading>
               <p>
@@ -59,9 +59,9 @@ const AlreadyHaveProfileDialog = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "If this is your first time visiting, no action is required.",
-                  id: "2Cem3h",
+                  id: "3JjHhP",
                   description:
-                    "Paragraph reassuring first time visitors that no action is required",
+                    "Paragraph telling new users they do not need to link a profile",
                 })}
               </p>
             </div>
@@ -69,9 +69,9 @@ const AlreadyHaveProfileDialog = () => {
               <Heading level="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
-                  id: "o9iWX4",
+                  id: "a+UXof",
                   description:
-                    "Heading for the linking explanation section of the already have a profile dialog",
+                    "Heading for the linking explanation section of a dialog",
                 })}
               </Heading>
               <p>
@@ -87,9 +87,9 @@ const AlreadyHaveProfileDialog = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "Any information currently in your new profile will be replaced with the data from your existing GC Digital Talent profile. Once your profile is linked, please check that your information is up to date.",
-                  id: "zAPa6H",
+                  id: "wgLkIU",
                   description:
-                    "Paragraph explaining that linking a profile replaces the information in the new profile",
+                    "Paragraph warning that new profile data will be replaced when linking a profile",
                 })}
               </p>
             </div>
@@ -116,18 +116,17 @@ const AlreadyHaveProfileDialog = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "After updating your information in CanadaLogin, sign out of GC Digital Talent and sign back in. If you continue to receive this message, no matching profile could be found.",
-                  id: "pRgDng",
-                  description:
-                    "Instruction to log out and back in after updating contact information",
+                  id: "oDKiEi",
+                  description: "Paragraph explaining the move to CanadaLogin",
                 })}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-100">
                 {intl.formatMessage({
                   defaultMessage:
                     "Please note that we will do our best to match your account, but if we can't find a profile with matching information, we won't be able to link your account due to our privacy protection policies.",
-                  id: "jGQ2lZ",
+                  id: "5Tf7Ev",
                   description:
-                    "Disclaimer about account matching and privacy protection",
+                    "Note that a profile cannot be linked if no matching information is found",
                 })}
               </p>
             </div>
@@ -151,9 +150,8 @@ const AlreadyHaveProfileDialog = () => {
               <Button type="button" mode="inline" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Ignore for now",
-                  id: "va53vo",
-                  description:
-                    "Button text to dismiss the already have a profile dialog",
+                  id: "A+6X3l",
+                  description: "Button to dismiss the message",
                 })}
               </Button>
             </Dialog.Close>

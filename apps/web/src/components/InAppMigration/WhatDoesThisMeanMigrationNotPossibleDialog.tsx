@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { Button, Dialog, Heading, Link } from "@gc-digital-talent/ui";
 import { getRuntimeVariable } from "@gc-digital-talent/env";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
   const intl = useIntl();
@@ -44,9 +45,8 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                 {intl.formatMessage({
                   defaultMessage:
                     "We've moved to CanadaLogin, a central sign in method that has replaced the previously used GCKey sign in method.",
-                  id: "U5CZbt",
-                  description:
-                    "Paragraph explaining the move from GCKey to CanadaLogin",
+                  id: "riPKUN",
+                  description: "Paragraph explaining the move to CanadaLogin",
                 })}
               </p>
               <p>
@@ -72,18 +72,18 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
               <Heading level="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
-                  id: "+1yIis",
+                  id: "a+UXof",
                   description:
-                    "Heading for the section explaining what linking a profile means",
+                    "Heading for the linking explanation section of a dialog",
                 })}
               </Heading>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
                     "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
-                  id: "RwJJEM",
+                  id: "t7Zpp9",
                   description:
-                    "Paragraph explaining what happens when a user links their profile",
+                    "Paragraph explaining what linking a profile means",
                 })}
               </p>
               <p>
@@ -107,18 +107,14 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
             >
               {intl.formatMessage({
                 defaultMessage: "Update information on CanadaLogin",
-                id: "+SXebP",
+                id: "48XoeT",
                 description:
-                  "Link to update contact information on the CanadaLogin website",
+                  "Link to update contact information on CanadaLogin",
               })}
             </Link>
             <Dialog.Close>
               <Button type="button" mode="inline" color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "KmThxq",
-                  description: "Button to close the what does this mean dialog",
-                })}
+                {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>

@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 import { useState } from "react";
 
 import { Button, Dialog, Heading } from "@gc-digital-talent/ui";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 interface LinkMyProfileDialogProps {
   onLinkProfile: () => void;
@@ -55,18 +56,14 @@ const LinkMyProfileDialog = ({ onLinkProfile }: LinkMyProfileDialogProps) => {
             <Button type="button" color="primary" onClick={onLinkProfile}>
               {intl.formatMessage({
                 defaultMessage: "Link my profile",
-                id: "2MKRxi",
+                id: "v7rPLM",
                 description:
-                  "Button to confirm linking a previous profile to the new sign in method",
+                  "Button to link a previous profile to the new sign in method",
               })}
             </Button>
             <Dialog.Close>
               <Button type="button" mode="inline" color="primary">
-                {intl.formatMessage({
-                  defaultMessage: "Cancel",
-                  id: "1vAQix",
-                  description: "Button to cancel linking a previous profile",
-                })}
+                {intl.formatMessage(commonMessages.cancel)}
               </Button>
             </Dialog.Close>
           </Dialog.Footer>
