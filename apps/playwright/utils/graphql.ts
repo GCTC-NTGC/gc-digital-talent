@@ -11,6 +11,7 @@ interface GraphQLRequestOptions {
 
 interface PostResponse<R> {
   data?: R;
+  errors?: { message: string }[];
 }
 
 export interface GraphQLOperation {
@@ -79,6 +80,12 @@ export class GraphQLContext {
     });
 
     const json = (await res.json()) as PostResponse<R>;
+
+    if (json.errors?.length) {
+      throw new Error(
+        `GraphQL response contained errors: ${json.errors.map((e) => e.message).join("; ")}`,
+      );
+    }
 
     if (!json.data) {
       throw new Error("GraphQL response contained no data");

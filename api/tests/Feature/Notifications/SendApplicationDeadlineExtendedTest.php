@@ -29,8 +29,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
      */
     protected $signature = 'send-notifications:application-deadline-extended';
 
-    private User $adminUser;
-
     private User $draftUser;
 
     private User $draftExpiredUser;
@@ -58,15 +56,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         Community::factory()->create();
 
-        $this->adminUser = User::factory()
-            ->asApplicant()
-            ->asAdmin()
-            ->create([
-                'sub' => 'adminUser',
-                'enabled_email_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-                'enabled_in_app_notifications' => [NotificationFamily::APPLICATION_UPDATE->name],
-            ]);
-
         $this->draftUser = User::factory()
             ->asApplicant()
             ->create([
@@ -92,7 +81,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ]);
 
         $this->draftPool = Pool::factory()
-            ->for($this->adminUser)
             ->withPoolSkills(1, 0)
             ->draft()
             ->create([
@@ -100,7 +88,6 @@ class SendApplicationDeadlineExtendedTest extends TestCase
             ]);
 
         $this->publishedPool = Pool::factory()
-            ->for($this->adminUser)
             ->withPoolSkills(1, 0)
             ->published()
             ->create([

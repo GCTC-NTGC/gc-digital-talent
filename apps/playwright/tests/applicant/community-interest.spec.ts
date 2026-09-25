@@ -17,7 +17,7 @@ import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
-test.describe.skip("Community Interest", { tag: "@uat" }, () => {
+test.describe("Community Interest", { tag: "@uat" }, () => {
   let community: Community | undefined;
   let workStream: WorkStream | undefined;
   let applicant: User | undefined;

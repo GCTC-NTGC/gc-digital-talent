@@ -1057,7 +1057,6 @@ class PoolTest extends TestCase
     public function testCanDeleteDraftPool(): void
     {
         $pool = Pool::factory()
-            ->for($this->communityRecruiter)
             ->withAssessmentSteps()
             ->draft()
             ->create([
@@ -1514,7 +1513,6 @@ class PoolTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->for($this->communityRecruiter)
             ->withAssessmentSteps()
             ->published()
             ->create([
@@ -1648,7 +1646,6 @@ class PoolTest extends TestCase
         // a published pool should be visible to a regular user
         $publishedPool = Pool::factory()
             ->published()
-            ->for($this->adminUser)
             ->for($department)
             ->create();
 
@@ -1681,8 +1678,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1696,7 +1693,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $this->communityRecruiter->id,
                     'communityId' => $this->community->id,
                     'pool' => [
                         'classification' => [
@@ -1732,8 +1728,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1747,7 +1743,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $departmentAdmin->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1785,8 +1780,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1801,7 +1796,6 @@ class PoolTest extends TestCase
             }',
                 [
                     'communityId' => $otherCommunity->id,
-                    'userId' => $testUser->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1827,7 +1821,6 @@ class PoolTest extends TestCase
 
         $original = Pool::factory()
             ->draft()
-            ->for($this->communityRecruiter)
             ->withPoolSkills(3, 3)
             ->create();
 
@@ -1877,7 +1870,6 @@ class PoolTest extends TestCase
         $testEmail = 'test@email.com';
         $publishedPool = Pool::factory()
             ->published()
-            ->for($this->adminUser)
             ->create([
                 'contact_email' => 'test@email.com',
             ]);
@@ -1903,7 +1895,7 @@ class PoolTest extends TestCase
     public function testApplicantsCount()
     {
         // setup
-        $publishedPool = Pool::factory()->published()->for($this->adminUser)->create();
+        $publishedPool = Pool::factory()->published()->create();
         PoolCandidate::factory()->availableInSearch()->for($publishedPool)->create();
         PoolCandidate::factory()->for($publishedPool)->create();
 

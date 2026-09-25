@@ -34,6 +34,7 @@ const Display = ({
     name,
     publishingGroup,
     opportunityLength,
+    isHidden,
   } = pool;
 
   let selectionLimitationLabelMessage: MessageDescriptor =
@@ -150,6 +151,21 @@ const Display = ({
           label={intl.formatMessage(processMessages.employmentDuration)}
         >
           {getLocalizedName(opportunityLength?.label, intl)}
+        </ToggleForm.FieldDisplay>
+        <ToggleForm.FieldDisplay
+          label={intl.formatMessage(processMessages.hiddenProcess)}
+        >
+          {isHidden
+            ? intl.formatMessage({
+                defaultMessage: "Hidden",
+                id: "PT/mOx",
+                description: "Label for when a process is hidden",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Not hidden",
+                id: "n27x+U",
+                description: "Label for when a process is not hidden",
+              })}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
           hasError={!publishingGroup}

@@ -36,15 +36,17 @@ export const getWorkStreams: GraphQLRequestFunc<WorkStream[]> = async (ctx) => {
     .then((res) => res.workStreams);
 };
 
-const uniqueTestId = generateUniqueTestId();
-export const defaultWorkStream: Partial<CreateWorkStreamInput> = {
-  key: `playwright-test-work-stream-${uniqueTestId}`,
-  name: {
-    en: `Playwright test work stream EN ${uniqueTestId}`,
-    fr: `Playwright test work stream FR ${uniqueTestId}`,
-  },
-  talentSearchable: true,
-};
+function defaultWorkStream(): Partial<CreateWorkStreamInput> {
+  const uniqueTestId = generateUniqueTestId();
+  return {
+    key: `playwright-test-work-stream-${uniqueTestId}`,
+    name: {
+      en: `Playwright test work stream EN ${uniqueTestId}`,
+      fr: `Playwright test work stream FR ${uniqueTestId}`,
+    },
+    talentSearchable: true,
+  };
+}
 
 const Test_CreateWorkStreamMutation = /* GraphQL */ `
   mutation Test_CreateWorkStream($workStream: CreateWorkStreamInput!) {
@@ -76,7 +78,7 @@ export const createWorkStream: GraphQLRequestFunc<
         isPrivileged: true,
         variables: {
           workStream: {
-            ...defaultWorkStream,
+            ...defaultWorkStream(),
             ...workStream,
             community: {
               connect: communityId,

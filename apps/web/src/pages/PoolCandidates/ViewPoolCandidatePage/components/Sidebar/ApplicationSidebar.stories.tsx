@@ -146,6 +146,7 @@ export const ToAssess: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.ToAssess,
           "LocalizedApplicationStatus",
@@ -159,6 +160,7 @@ export const Disqualified: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Disqualified,
           "LocalizedApplicationStatus",
@@ -176,6 +178,7 @@ export const Removed: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Removed,
           "LocalizedApplicationStatus",
@@ -193,6 +196,7 @@ export const QualifiedUnpaused: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Qualified,
           "LocalizedApplicationStatus",
@@ -209,6 +213,7 @@ export const QualifiedPaused: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Qualified,
           "LocalizedApplicationStatus",
@@ -224,6 +229,7 @@ export const Placed: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Qualified,
           "LocalizedApplicationStatus",
@@ -242,6 +248,7 @@ export const PlacedIndeterminate: Story = {
   args: {
     query: makeApplication({
       applicationStatusData: {
+        __typename: "PoolCandidateStatusData",
         status: toLocalizedEnum(
           ApplicationStatus.Qualified,
           "LocalizedApplicationStatus",

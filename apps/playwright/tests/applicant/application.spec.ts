@@ -256,7 +256,7 @@ test.describe("Application", () => {
     await application.expectOnStep(application.page, 6);
   });
 
-  test.skip(
+  test(
     "Can submit application",
     { tag: "@uat" },
     async ({ appPage }, testInfo) => {
