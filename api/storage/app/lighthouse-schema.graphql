@@ -494,7 +494,6 @@ type Query {
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
@@ -714,7 +713,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, communityId: ID, pool: CreatePoolInput!): Pool
+  createPool(communityId: ID, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -1184,6 +1183,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   applicantsCount: Int
+  isHidden: Boolean
   activities(
     where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
@@ -1899,6 +1899,7 @@ input PoolFilterInput {
   publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
+  isHidden: Boolean
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -3003,6 +3004,7 @@ input UpdatePoolInput {
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
   contactEmail: String
+  isHidden: Boolean
 }
 
 input UpdatePublishedPoolInput {

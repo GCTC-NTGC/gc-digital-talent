@@ -23,7 +23,7 @@ const generateSkillFamily = (
   const desc = faker.lorem.sentences();
 
   return {
-    __typename: undefined,
+    __typename: "SkillFamily" as const,
     description: toLocalizedString(desc),
     id: uniqueId,
     key: faker.helpers.slugify(name),

@@ -6,6 +6,7 @@ import toLocalizedString from "./fakeLocalizedString";
 
 const generateWorkStream = (): WorkStream => {
   return {
+    __typename: "WorkStream",
     id: faker.string.uuid(),
     key: faker.helpers.slugify(faker.string.sample()),
     name: toLocalizedString(faker.company.catchPhrase()),

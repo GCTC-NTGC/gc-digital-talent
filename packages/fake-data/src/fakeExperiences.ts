@@ -52,12 +52,14 @@ faker.seed(0);
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: User = {
+  __typename: "User",
   email: faker.internet.email(),
   id: faker.string.uuid(),
 };
 
 // skills in detail comes from `skills.experienceSkillRecords.details`
 const theExperienceSkillRecord: ExperienceSkillRecord = {
+  __typename: "ExperienceSkillRecord",
   details: "The skill in detail",
 };
 
@@ -83,13 +85,16 @@ const generateAward = (): Omit<AwardExperience, "relatedExperience"> => {
     title: `experience title ${faker.lorem.word()}`,
     awardedTo: toLocalizedEnum(
       faker.helpers.arrayElement<AwardedTo>(Object.values(AwardedTo)),
+      "LocalizedAwardedTo",
     ),
     awardedScope: toLocalizedEnum(
       faker.helpers.arrayElement<AwardedScope>(Object.values(AwardedScope)),
+      "LocalizedAwardedScope",
     ),
     awardedDate: staticDates.start,
     issuedBy: faker.company.name(),
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord",
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
@@ -111,6 +116,7 @@ const generateCommunity = (): GeneratedCommunityExperience => {
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord",
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
   };
@@ -129,27 +135,32 @@ const generateEducation = (): GeneratedEducationExperience => {
     areaOfStudy: faker.music.genre(),
     educationType: toLocalizedEnum(
       faker.helpers.arrayElement<EducationType>(Object.values(EducationType)),
+      "LocalizedEducationType",
     ),
     institution: faker.person.lastName(),
     status: toLocalizedEnum(
       faker.helpers.arrayElement<EducationStatus>(
         Object.values(EducationStatus),
       ),
+      "LocalizedEducationStatus",
     ),
     startDate: staticDates.start,
     endDate: staticDates.end,
     thesisTitle: faker.lorem.words(),
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord",
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
     degreeType: toLocalizedEnum(
       faker.helpers.arrayElement<DegreeType>(Object.values(DegreeType)),
+      "LocalizedDegreeType",
     ),
     certification: faker.lorem.words(),
     courseName: faker.lorem.words(),
     licenseOrAccreditation: faker.lorem.words(),
     fellowshipType: toLocalizedEnum(
       faker.helpers.arrayElement<FellowshipType>(Object.values(FellowshipType)),
+      "LocalizedFellowshipType",
     ),
   };
 };
@@ -167,6 +178,7 @@ const generatePersonal = (): GeneratedPersonalExperience => {
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord",
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
     learningDescription: faker.lorem.paragraph(),
@@ -190,12 +202,22 @@ const generateWork = (): GeneratedWorkExperience => {
     startDate: staticDates.start,
     endDate: staticDates.end,
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord",
       details: `experience.experienceSkillRecord ${faker.lorem.words()}`,
     },
     department: fakeDepartments(true)[5],
-    employmentCategory: toLocalizedEnum(EmploymentCategory.GovernmentOfCanada),
-    govEmploymentType: toLocalizedEnum(GovEmployeeType.Contractor),
-    govContractorType: toLocalizedEnum(GovContractorType.SelfEmployed),
+    employmentCategory: toLocalizedEnum(
+      EmploymentCategory.GovernmentOfCanada,
+      "LocalizedEmploymentCategory",
+    ),
+    govEmploymentType: toLocalizedEnum(
+      GovEmployeeType.Contractor,
+      "LocalizedGovEmployeeType",
+    ),
+    govContractorType: toLocalizedEnum(
+      GovContractorType.SelfEmployed,
+      "LocalizedGovContractorType",
+    ),
     contractorFirmAgencyName: faker.company.name(),
     supervisoryPosition: true,
     supervisedEmployees: true,
@@ -203,7 +225,10 @@ const generateWork = (): GeneratedWorkExperience => {
     budgetManagement: true,
     annualBudgetAllocation: 100000000,
     seniorManagementStatus: true,
-    cSuiteRoleTitle: toLocalizedEnum(CSuiteRoleTitle.Other),
+    cSuiteRoleTitle: toLocalizedEnum(
+      CSuiteRoleTitle.Other,
+      "LocalizedCSuiteRoleTitle",
+    ),
     otherCSuiteRoleTitle: `${faker.person.jobDescriptor()} ${faker.person.jobType()} ${faker.person.jobTitle()} ${faker.person.jobArea()}`,
   };
 };

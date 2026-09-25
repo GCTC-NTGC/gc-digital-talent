@@ -12,7 +12,7 @@
     "lint:fix": "eslint --fix",
     "prettier": "prettier --check .",
     "prettier:fix": "prettier --write .",
-    "tsc": "tsc --project tsconfig.json --noEmit",
+    "tsc": "tsc --project tsconfig.json",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest"
@@ -37,10 +37,10 @@
     "@radix-ui/react-toggle-group": "^1.1.19",
     "chromatic": "^18.7.4",
     "lodash": "^4.18.1",
-    "motion": "^13.2.0",
+    "motion": "^13.4.0",
     "react-csv-downloader": "^3.3.0",
     "react-router": "^8.3.1",
-    "tailwind-merge": "^3.6.0",
+    "tailwind-merge": "^3.7.0",
     "tailwind-variants": "^3.3.1",
     "urql": "^5.0.4"
   },
@@ -58,7 +58,7 @@
     "jsdom": "^30.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "react-intl": "^10.1.24",
+    "react-intl": "^10.1.26",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
     "vitest": "^4.1.11"

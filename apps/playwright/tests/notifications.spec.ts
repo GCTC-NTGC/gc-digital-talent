@@ -12,7 +12,7 @@ import { FAR_PAST_DATE, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
-import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import {
@@ -31,7 +31,7 @@ import {
   createApplication,
 } from "~/utils/applications";
 
-test.describe.skip("Notifications", { tag: "@uat" }, () => {
+test.describe("Notifications", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let platformAdminCtx: GraphQLContext;
@@ -119,7 +119,7 @@ test.describe.skip("Notifications", { tag: "@uat" }, () => {
       },
     });
 
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
 
     applicantCtx = await graphql.newContext(
       user?.authInfo?.sub ?? "applicant@test.com",

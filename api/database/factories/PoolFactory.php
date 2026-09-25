@@ -40,12 +40,6 @@ class PoolFactory extends BaseFactory
      */
     public function definition()
     {
-
-        $adminUserId = User::whereHas('roles', fn ($q) => $q->where('name', 'platform_admin'))->value('id');
-        if (is_null($adminUserId)) {
-            $adminUserId = User::factory()->asAdmin()->create()->id;
-        }
-
         $classification = $this->firstOrCreate(Classification::class);
         $department = $this->firstOrCreate(Department::class);
         $community = $this->firstOrCreate(Community::class);
@@ -55,7 +49,6 @@ class PoolFactory extends BaseFactory
         // this is essentially the draft state
         return [
             'name' => $this->faker->localizedString($name),
-            'user_id' => $adminUserId,
             'classification_id' => $classification->id,
             'department_id' => $department->id,
             'community_id' => $community->id,
@@ -87,6 +80,7 @@ class PoolFactory extends BaseFactory
                 'security_clearance' => $this->faker->enum(SecurityStatus::class),
                 'advertisement_language' => $this->faker->enum(PoolLanguage::class),
                 'is_remote' => $this->faker->boolean(),
+                'is_hidden' => false,
                 'advertisement_location' => function ($attributes) {
                     if ($attributes['is_remote']) {
                         return null;

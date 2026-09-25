@@ -5,9 +5,9 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 
-test.describe.skip("User search", { tag: "@uat" }, () => {
+test.describe("User search", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let platformAdminCtx: GraphQLContext;
   let user: User;
@@ -29,7 +29,7 @@ test.describe.skip("User search", { tag: "@uat" }, () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
   });
 
   test.afterAll(async () => {

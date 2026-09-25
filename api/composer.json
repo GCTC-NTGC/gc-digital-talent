@@ -74,13 +74,5 @@
     }
   },
   "minimum-stability": "stable",
-  "prefer-stable": true,
-  "scripts": {
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-update-cmd": [
-      "php artisan lighthouse:ide-helper"
-    ]
-  }
+  "prefer-stable": true
 }

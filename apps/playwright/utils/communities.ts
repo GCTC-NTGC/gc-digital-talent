@@ -14,6 +14,7 @@ const Test_CommunitiesQueryDocument = /* GraphQL */ `
   query Test_Communities {
     communities {
       id
+      key
       name {
         en
         fr
@@ -168,6 +169,29 @@ export const createCommunityInterest: GraphQLRequestFunc<
     .then((res) => res.createCommunityInterestWithDevelopmentPrograms);
 };
 
+const Test_DeleteCommunityInterestMutation = /* GraphQL */ `
+  mutation Test_DeleteCommunityInterest($id: UUID!) {
+    deleteCommunityInterest(id: $id) {
+      id
+    }
+  }
+`;
+
+export const deleteCommunityInterest: GraphQLRequestFunc<
+  CommunityInterest | undefined,
+  { id: string }
+> = async (ctx, { id }) => {
+  return await ctx
+    .post<GraphQLResponse<"deleteCommunityInterest", CommunityInterest>>(
+      Test_DeleteCommunityInterestMutation,
+      {
+        isPrivileged: false,
+        variables: { id },
+      },
+    )
+    .then((res) => res.deleteCommunityInterest);
+};
+
 const Test_CreateDevelopmentProgramMutation = /* GraphQL */ `
   mutation Test_CreateDevelopmentProgram(
     $developmentProgram: CreateDevelopmentProgramInput!
@@ -291,6 +315,35 @@ export const assignCommunityAdminRole: GraphQLRequestFunc<
         userId,
         roleAssignmentsInput: {
           attach: [{ roleId: communityAdminRoleId, teamId }],
+        },
+      },
+    },
+  });
+};
+
+export const assignCommunityTalentCoordinatorRole: GraphQLRequestFunc<
+  void,
+  { userId: string; teamId: string }
+> = async (ctx, { userId, teamId }) => {
+  const roles = await ctx
+    .post<GraphQLResponse<"roles", { id: string; name: string }[]>>(
+      Test_RolesQueryDocument,
+      { isPrivileged: true },
+    )
+    .then((res) => res.roles);
+  const communityTalentCoordinatorRoleId = roles.find(
+    (r) => r.name === "community_talent_coordinator",
+  )?.id;
+  if (!communityTalentCoordinatorRoleId) {
+    throw new Error("community_talent_coordinator role not found");
+  }
+  await ctx.post(Test_UpdateUserRolesMutation, {
+    isPrivileged: true,
+    variables: {
+      updateUserRolesInput: {
+        userId,
+        roleAssignmentsInput: {
+          attach: [{ roleId: communityTalentCoordinatorRoleId, teamId }],
         },
       },
     },

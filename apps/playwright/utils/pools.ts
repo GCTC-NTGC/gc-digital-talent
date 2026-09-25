@@ -2,7 +2,7 @@ import type {
   AssessmentStep,
   AssessmentStepInput,
   CreatePoolSkillInput,
-  LocalizedString,
+  LocalizedStringInput,
   Pool,
   PoolSkill,
   UpdatePoolInput,
@@ -53,12 +53,8 @@ const defaultPool: Partial<UpdatePoolInput> = {
 };
 
 const Test_CreatePoolMutationDocument = /* GraphQL */ `
-  mutation Test_CreatePool(
-    $userId: ID!
-    $communityId: ID!
-    $pool: CreatePoolInput!
-  ) {
-    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+  mutation Test_CreatePool($communityId: ID!, $pool: CreatePoolInput!) {
+    createPool(communityId: $communityId, pool: $pool) {
       id
       name {
         en
@@ -72,7 +68,6 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
 `;
 
 interface CreatePoolArgs {
-  userId: string;
   teamId?: string;
   communityId?: string;
   classificationId?: string;
@@ -81,7 +76,7 @@ interface CreatePoolArgs {
 
 export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   ctx,
-  { userId, ...opts },
+  opts,
 ) => {
   const communities = await getCommunities(ctx, {});
   const firstCommunity =
@@ -108,7 +103,6 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
       {
         isPrivileged: true,
         variables: {
-          userId,
           teamId,
           communityId,
           pool: {
@@ -309,7 +303,7 @@ interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
   communityId?: string;
-  name?: LocalizedString;
+  name?: LocalizedStringInput;
   classificationId?: string;
   departmentId?: string;
   workStreamId?: string;
@@ -323,7 +317,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
 > = async (
   ctx,
   {
-    userId,
     skillIds,
     name,
     teamId,
@@ -335,7 +328,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
   },
 ) => {
   return createPool(ctx, {
-    userId,
     teamId,
     communityId,
     classificationId,

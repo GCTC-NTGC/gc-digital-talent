@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import {
-  fakeLocalizedEnum,
-  fakeUsers,
-  toLocalizedEnum,
-} from "@gc-digital-talent/fake-data";
+import { fakeLocalizedEnum, fakeUsers } from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
   TalentRequestSource,
@@ -31,32 +27,24 @@ const optionsQuery = makeFragmentData(
   {
     referralDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserReferralDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserReferralDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserReferralDecision",
+    ),
     selectionDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserSelectionDecision,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserSelectionDecision" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserSelectionDecision",
+    ),
     notReferredReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotReferredReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotReferredReason",
+    ),
     notSelectedReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason,
-    ).map((opt) => ({
-      __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
-    talentRequestSources: fakeLocalizedEnum(TalentRequestSource).map((opt) => ({
-      __typename: "LocalizedTalentRequestSource" as const,
-      ...toLocalizedEnum(opt.value),
-    })),
+      "LocalizedTalentRequestTrackedUserNotSelectedReason",
+    ),
+    talentRequestSources: fakeLocalizedEnum(
+      TalentRequestSource,
+      "LocalizedTalentRequestSource",
+    ),
   },
   TalentRequestReferralDialogOptions_Fragment,
 );
@@ -87,16 +75,26 @@ const meta = {
         },
         sources: [
           {
-            label: { localized: "Qualified in pool" },
+            __typename: "LocalizedTalentRequestSource",
+            label: {
+              __typename: "LocalizedString",
+              localized: "Qualified in pool",
+            },
           },
         ],
         matchingQualifiedInPoolSources: [
           makeFragmentData(
             {
+              __typename: "PoolCandidate",
               id: "pool-candidate-1",
               pool: {
+                __typename: "Pool",
                 displayName: {
-                  display: { localized: "IT-02" },
+                  __typename: "DefinedString",
+                  display: {
+                    __typename: "LocalizedString",
+                    localized: "IT-02",
+                  },
                 },
               },
             },
@@ -105,12 +103,16 @@ const meta = {
         ],
         referralSummary: makeFragmentData(
           {
+            __typename: "TalentRequestReferralSummary",
             referredCount: 3,
             notSelectedReasons: [
               {
+                __typename: "TalentRequestNotSelectedReasonCount",
                 reason: {
+                  __typename:
+                    "LocalizedTalentRequestTrackedUserNotSelectedReason",
                   value: TalentRequestTrackedUserNotSelectedReason.Other,
-                  label: { localized: "Other" },
+                  label: { __typename: "LocalizedString", localized: "Other" },
                 },
                 count: 2,
               },
