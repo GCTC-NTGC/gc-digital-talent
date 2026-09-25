@@ -100,6 +100,16 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can update any model.
+     *
+     * @return Response|bool
+     */
+    public function updateAsAdmin(User $user)
+    {
+        return $user->isAbleTo('update-any-user');
+    }
+
+    /**
      * Determine whether the user can update sub.
      *
      * @return Response|bool

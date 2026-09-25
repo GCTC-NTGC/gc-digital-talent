@@ -2398,4 +2398,22 @@ class UserTest extends TestCase
             ]
         )->assertGraphQLValidationError('user.email', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
+
+    public function testUpdateUserAsAdminRoleCheck(): void
+    {
+        $applicantUser = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $this->actingAs($applicantUser, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $applicantUser->id,
+                'user' => [
+                    'id' => $applicantUser->id,
+                    'email' => 'BAD.EMAIL@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
 }
