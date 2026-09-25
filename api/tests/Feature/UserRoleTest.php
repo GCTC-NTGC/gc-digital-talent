@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\Role;
-use App\Models\Team;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
