@@ -262,18 +262,27 @@ class AuthControllerTest extends TestCase
         });
     }
 
-    public function testRefreshStillAcceptsLegacyGetQueryParam()
+    public function testRefreshRejectsGetMethod()
     {
-        Http::fake([
-            '*' => Http::response(['access_token' => 'new-access-token', 'refresh_token' => 'new-refresh-token'], 200),
-        ]);
+        Http::fake();
 
         $response = $this->call('GET', '/refresh', ['refresh_token' => 'old-refresh-token']);
 
-        $response->assertStatus(200);
+        $response->assertStatus(405);
+        Http::assertNothingSent();
+    }
 
+    public function testRefreshIgnoresTokenPassedAsQueryParamOnPost()
+    {
+        Http::fake([
+            '*' => Http::response(['error' => 'invalid_grant'], 400),
+        ]);
+
+        $response = $this->post('/refresh?refresh_token=old-refresh-token');
+
+        $response->assertStatus(400);
         Http::assertSent(function ($request) {
-            return $request['refresh_token'] === 'old-refresh-token';
+            return $request['refresh_token'] === null;
         });
     }
 
@@ -297,5 +306,44 @@ class AuthControllerTest extends TestCase
         $response = $this->postJson('/refresh', ['refresh_token' => 'not-a-real-token']);
 
         $response->assertStatus(400);
+    }
+
+    public function testRefreshIssuesTestTokenViaPostBodySub()
+    {
+        config([
+            'testing.token_enabled' => true,
+            'testing.endpoint_secret' => 'test-secret',
+            'testing.jwt_secret' => base64_encode(random_bytes(32)),
+            'app.vertical' => 'local',
+        ]);
+
+        $this->seed(RolePermissionSeeder::class);
+        $user = User::factory()->create(['sub' => 'test-token-sub']);
+
+        $response = $this->postJson('/refresh', ['sub' => $user->sub], [
+            'X-Testing-Secret' => 'test-secret',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['access_token', 'refresh_token', 'id_token']);
+    }
+
+    public function testRefreshTestTokenIgnoresSubPassedAsQueryParam()
+    {
+        config([
+            'testing.token_enabled' => true,
+            'testing.endpoint_secret' => 'test-secret',
+            'testing.jwt_secret' => base64_encode(random_bytes(32)),
+            'app.vertical' => 'local',
+        ]);
+
+        $this->seed(RolePermissionSeeder::class);
+        $user = User::factory()->create(['sub' => 'test-token-sub-2']);
+
+        $response = $this->postJson('/refresh?sub='.$user->sub, [], [
+            'X-Testing-Secret' => 'test-secret',
+        ]);
+
+        $response->assertStatus(422);
     }
 }
