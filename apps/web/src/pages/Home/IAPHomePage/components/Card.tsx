@@ -11,7 +11,7 @@ interface CardProps {
 const Card = ({ title, Icon, children }: CardProps) => (
   <div className="text-center">
     {Icon && <Icon className="inline-block w-24" aria-hidden="true" />}
-    <Heading level="h4" size="h3" color="white" className="my-6">
+    <Heading rank="h4" size="h3" color="white" className="my-6">
       {title}
     </Heading>
     <div className="text-white">{children}</div>

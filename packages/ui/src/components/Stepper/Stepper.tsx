@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { uiMessages } from "@gc-digital-talent/i18n";
 
-import type { HeadingLevel } from "../Heading";
+import type { HeadingRank } from "../Heading";
 import Heading from "../Heading";
 import Step from "./Step";
 import type { StepType } from "./types";
@@ -37,7 +37,7 @@ const deriveStepState = (
 
 export interface StepperProps {
   currentIndex: number | undefined;
-  headingLevel?: HeadingLevel;
+  headingRank?: HeadingRank;
   subTitle?: ReactNode;
   label: string;
   steps: StepType[] | null;
@@ -46,7 +46,7 @@ export interface StepperProps {
 
 const Stepper = ({
   currentIndex,
-  headingLevel = "h2",
+  headingRank = "h2",
   subTitle,
   label,
   steps,
@@ -66,7 +66,7 @@ const Stepper = ({
   return (
     <nav aria-label={label}>
       {steps && index !== undefined ? (
-        <Heading level={headingLevel} size="h6" className="mt-0 mb-6 font-bold">
+        <Heading rank={headingRank} size="h6" className="mt-0 mb-6 font-bold">
           {intl.formatMessage(uiMessages.stepTitle, {
             current: index + 1,
             total: steps.length,

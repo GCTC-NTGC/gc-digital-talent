@@ -21,7 +21,7 @@ const ReviewSection = ({
   return (
     <section className="mt-18">
       <div className="flex items-center justify-between">
-        <Heading level="h3" size="h4" className="m-0 font-bold">
+        <Heading rank="h3" size="h4" className="m-0 font-bold">
           {title}
         </Heading>
         <Link mode="inline" href={path} aria-label={editLinkAriaLabel}>

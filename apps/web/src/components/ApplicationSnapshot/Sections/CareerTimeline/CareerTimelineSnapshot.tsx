@@ -47,7 +47,7 @@ const CareerTimelineSnapshot = ({
 
   return (
     <>
-      <Heading icon={UserCircleIcon} color="error" level="h2" size="h3">
+      <Heading icon={UserCircleIcon} color="error" rank="h2" size="h3">
         {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
       <div className="mb-3 flex flex-wrap gap-3">
@@ -75,7 +75,7 @@ const CareerTimelineSnapshot = ({
                 <ExperienceCardV1
                   key={experience.id}
                   experience={experience}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   isOpen={isExpanded(experience.id)}
                   onOpenChange={() => toggleExpandedItem(experience.id)}
@@ -93,7 +93,7 @@ const CareerTimelineSnapshot = ({
                     },
                     ExperienceCard_Fragment,
                   )}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   showEdit={false}
                   isOpen={isExpanded(experience.id)}

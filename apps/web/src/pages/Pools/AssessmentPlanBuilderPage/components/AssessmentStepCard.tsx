@@ -159,7 +159,7 @@ const AssessmentStepCard = ({
         />
       }
     >
-      <Heading level="h4" size="h6" className="mt-0">
+      <Heading rank="h4" size="h6" className="mt-0">
         {assessmentStepDisplayName(
           assessmentStep.title?.localized,
           assessmentStep.type?.label?.localized,
@@ -214,7 +214,7 @@ const AssessmentStepCard = ({
               {intl.formatMessage(processMessages.screeningQuestions)}
             </Accordion.Trigger>
             <Accordion.Content>
-              <Heading level="h6" className="mt-3">
+              <Heading rank="h6" className="mt-3">
                 {appendLanguageName({
                   label: intl.formatMessage(commonMessages.questions),
                   lang: "en",
@@ -229,7 +229,7 @@ const AssessmentStepCard = ({
                   </li>
                 ))}
               </ol>
-              <Heading level="h6">
+              <Heading rank="h6">
                 {appendLanguageName({
                   label: intl.formatMessage(commonMessages.questions),
                   lang: "fr",

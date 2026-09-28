@@ -80,7 +80,7 @@ const NominatorInformationSection = ({
 
   return (
     <div>
-      <Heading level="h3" size="h6" className="mt-0 mb-6">
+      <Heading rank="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Nominator information",
           id: "vJD6dl",

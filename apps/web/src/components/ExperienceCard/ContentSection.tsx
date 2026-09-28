@@ -5,16 +5,16 @@ import type { HeadingRank } from "@gc-digital-talent/ui";
 interface ContentSectionProps extends HTMLProps<HTMLDivElement> {
   title: string;
   children: ReactNode;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
 }
 
 const ContentSection = ({
   title,
   children,
-  headingLevel = "h3",
+  headingRank = "h3",
   ...rest
 }: ContentSectionProps) => {
-  const Heading = headingLevel;
+  const Heading = headingRank;
 
   return (
     <div {...rest}>

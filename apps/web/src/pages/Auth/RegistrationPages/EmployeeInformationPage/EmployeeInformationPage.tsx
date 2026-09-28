@@ -84,7 +84,7 @@ export const EmployeeInformationForm = ({
     <>
       <Heading
         id={ADD_WORK_EXPERIENCE_FORM_ID}
-        level="h2"
+        rank="h2"
         size="h3"
         icon={BriefcaseIcon}
         color="secondary"
