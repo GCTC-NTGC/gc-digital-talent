@@ -6,7 +6,10 @@ const names = [
   ["Health (Department of)", "Santé (Ministère de la)"],
   ["Transport (Department of)", "Transports (Ministère des)"],
   ["Treasury Board Secretariat", "Secrétariat du Conseil du Trésor"],
-  ["Canada School of Public Service", "École de la fonction publique du Canada"],
+  [
+    "Canada School of Public Service",
+    "École de la fonction publique du Canada",
+  ],
   ["Environment (Department of the)", "Environnement (Ministère de l')"],
 ];
 
