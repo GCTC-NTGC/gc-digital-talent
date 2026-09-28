@@ -224,7 +224,7 @@ export const Component = () => {
         <div className="grid gap-6 xs:grid-cols-2 sm:grid-cols-3">
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white [&>span]:block">
-              <Heading level="h3" size="h6" className="mt-0 mb-1.5">
+              <Heading rank="h3" size="h6" className="mt-0 mb-1.5">
                 {intl.formatMessage({
                   defaultMessage: "1. Online self-paced learning",
                   id: "mdIHDc",
@@ -295,7 +295,7 @@ export const Component = () => {
           </Card>
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white [&>span]:block">
-              <Heading level="h3" size="h6" className="mt-0 mb-1.5">
+              <Heading rank="h3" size="h6" className="mt-0 mb-1.5">
                 {intl.formatMessage({
                   defaultMessage: "2. Instructor-led classes and bootcamps",
                   id: "tj5pn8",
@@ -376,7 +376,7 @@ export const Component = () => {
           </Card>
           <Card className="flex flex-col overflow-hidden p-0">
             <div className="block bg-gray-700 p-6 text-white [&>span]:block">
-              <Heading level="h3" size="h6" className="mt-0 mb-1.5">
+              <Heading rank="h3" size="h6" className="mt-0 mb-1.5">
                 {intl.formatMessage({
                   defaultMessage: "3. Certification exam vouchers",
                   id: "vfXTEA",

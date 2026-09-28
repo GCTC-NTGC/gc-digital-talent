@@ -1042,9 +1042,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -3346,7 +3343,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @canFind(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id")
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
     @canModel(ability: "updateSub", model: "User")

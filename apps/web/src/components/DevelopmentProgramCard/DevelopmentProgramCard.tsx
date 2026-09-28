@@ -82,7 +82,7 @@ const DevelopmentProgramCard = ({
         <div className="flex flex-col items-start gap-3">
           <div>
             <Heading
-              level={headingAs}
+              rank={headingAs}
               size="h6"
               className="mt-0 text-base font-bold"
             >

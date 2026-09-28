@@ -149,7 +149,7 @@ const FindANewCommunity = ({
       {/* heading and description */}
       <div className="flex flex-col gap-6">
         <Heading
-          level="h2"
+          rank="h2"
           icon={UserGroupIcon}
           color="primary"
           className="mt-0 font-normal"

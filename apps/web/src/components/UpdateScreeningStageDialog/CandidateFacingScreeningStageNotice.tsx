@@ -61,7 +61,7 @@ const CandidateFacingScreeningStageNotice = () => {
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mt-6 mb-3">
+      <Heading rank="h3" size="h6" className="mt-6 mb-3">
         {intl.formatMessage({
           defaultMessage: "What the candidate sees",
           id: "oRk5nf",

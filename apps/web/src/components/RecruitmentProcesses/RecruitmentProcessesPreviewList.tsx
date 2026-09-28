@@ -161,7 +161,7 @@ const RecruitmentProcessPreviewList = ({
         </Notice.Root>
       )}
       <div className="mt-6 border-t border-t-gray-300 pt-6">
-        <Heading level="h3" className="mt-0 text-base font-bold lg:text-base">
+        <Heading rank="h3" className="mt-0 text-base font-bold lg:text-base">
           {intl.formatMessage(
             navigationMessages.offPlatformRecruitmentProcesses,
           )}

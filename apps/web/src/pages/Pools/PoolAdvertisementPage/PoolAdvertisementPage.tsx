@@ -877,7 +877,7 @@ export const PoolPoster = ({
               </TableOfContents.Heading>
               {pool.yourImpact && (
                 <>
-                  <Heading level="h3" size="h4" className="mb-6 font-bold">
+                  <Heading rank="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage(processMessages.yourImpact)}
                   </Heading>
                   <RichTextRenderer
@@ -889,7 +889,7 @@ export const PoolPoster = ({
               )}
               {pool.keyTasks && (
                 <>
-                  <Heading level="h3" size="h4" className="mb-6 font-bold">
+                  <Heading rank="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage(processMessages.keyTasks)}
                   </Heading>
                   <RichTextRenderer
@@ -901,7 +901,7 @@ export const PoolPoster = ({
               )}
               {showAboutUs && (
                 <>
-                  <Heading level="h3" size="h4" className="mb-6 font-bold">
+                  <Heading rank="h3" size="h4" className="mb-6 font-bold">
                     {intl.formatMessage({
                       defaultMessage: "About us",
                       id: "LTpCFL",

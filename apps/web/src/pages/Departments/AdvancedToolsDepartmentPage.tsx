@@ -44,7 +44,7 @@ export const AdvancedToolsDepartment = ({
     <>
       <div className="flex justify-center sm:justify-start">
         <Heading
-          level="h2"
+          rank="h2"
           color="secondary"
           icon={Cog8ToothIcon}
           className="mt-0 mb-7 font-normal"

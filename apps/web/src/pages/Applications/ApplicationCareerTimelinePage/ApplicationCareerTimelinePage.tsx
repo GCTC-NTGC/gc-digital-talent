@@ -351,7 +351,7 @@ export const ApplicationCareerTimeline = ({
               return (
                 <ExperienceCard
                   key={experience.id}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   editPath={paths.applicationCareerTimelineEdit(
                     application.id,
