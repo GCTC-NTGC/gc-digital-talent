@@ -4,11 +4,7 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import {
-  PoolStatus,
-  PublishingGroup,
-  makeFragmentData,
-} from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { ClosedJobOpportunitiesSectionProps } from "./ClosedJobOpportunitiesSection";
 import ClosedJobOpportunitiesSection, {
@@ -17,9 +13,10 @@ import ClosedJobOpportunitiesSection, {
 
 const closedPool = makeFragmentData(
   {
+    __typename: "Pool" as const,
     id: "closedPool",
-    publishingGroup: PublishingGroup.ItJobs,
-    status: PoolStatus.Closed,
+    publishedAt: "2000-01-01 00:00:00",
+    closingDate: "2000-02-01 00:00:00",
   },
   ClosedJobOpportunitiesSectionPool_Fragment,
 );
