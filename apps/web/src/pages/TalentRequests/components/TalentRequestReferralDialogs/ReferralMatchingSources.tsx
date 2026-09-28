@@ -184,8 +184,8 @@ const ReferralMatchingSources = ({
       )}
       <NominationEventList
         label={intl.formatMessage({
-          defaultMessage: "Talent management events",
-          id: "qutSCs",
+          defaultMessage: "Advancement events",
+          id: "M5QJhh",
           description:
             "Label for the list of advancement nominations a user has been approved for",
         })}
