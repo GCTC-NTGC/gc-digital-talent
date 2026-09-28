@@ -2,10 +2,8 @@
 
 namespace App\Contracts;
 
-// Guarantees TalentNominationGroupBuilder's two nomination-type-specific match methods exist —
-// the PHP-enforced version of what TalentRequestMatchable can't guarantee for this builder,
-// since it has no single, unambiguous whereMatchesTalentRequest(). Delete or rename either
-// method and the class fails to declare, instead of only failing at runtime.
+// TalentNominationGroup rows are decided independently per nomination type, so this has one
+// match method per type instead of TalentRequestMatchable's single method.
 interface TalentNominationGroupMatchable
 {
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self;

@@ -17,10 +17,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
  */
 class TalentNominationGroupBuilder extends Builder implements TalentNominationGroupMatchable, TalentRequestViewable
 {
-    // No whereMatchesTalentRequest()/TalentRequestMatchable here: a TalentNominationGroup row is
-    // decided independently per nomination type, so there's no single "the" match — only the
-    // two methods below, guaranteed by TalentNominationGroupMatchable instead.
-    // TalentRequestSource::matchMethod() routes ADVANCEMENT and LATERAL_MOVEMENT to them directly.
+    // TalentRequestSource::matchMethod() routes ADVANCEMENT/LATERAL_MOVEMENT to these two.
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self
     {
         $filters ??= [];

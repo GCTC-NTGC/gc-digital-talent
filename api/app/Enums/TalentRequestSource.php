@@ -29,10 +29,8 @@ enum TalentRequestSource
         };
     }
 
-    // the method this source's matches are queried with. QUALIFIED_IN_POOL/AT_LEVEL each have
-    // one unambiguous whereMatchesTalentRequest() (see TalentRequestMatchable). ADVANCEMENT/
-    // LATERAL_MOVEMENT both back onto TalentNominationGroup, decided independently per
-    // nomination type, so they route to its two named methods instead.
+    // the method this source's matches are queried with — see TalentNominationGroupMatchable
+    // for why ADVANCEMENT/LATERAL_MOVEMENT need their own instead of whereMatchesTalentRequest().
     public function matchMethod(): string
     {
         return match ($this) {
