@@ -61,12 +61,12 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
                 ]);
         }
 
-        // Seed a few nominations with a mix of approved and rejected
-        $assessedNominees = User::whereIsVerifiedGovEmployee()
-            ->whereKeyNot($coordinator->id)
-            ->inRandomOrder()
-            ->take(4)
-            ->get();
+        // Seed a few new user nominations with a mix of approved and rejected
+        $assessedNominees = User::factory()
+            ->count(5)
+            ->asApplicant()
+            ->withGovEmployeeProfile()
+            ->create();
 
         foreach ($assessedNominees as $index => $nominee) {
             $decision = $index % 2 === 0
