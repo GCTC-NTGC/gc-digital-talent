@@ -54,6 +54,7 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
                 ->create([
                     'talent_nomination_event_id' => $event->id,
                     'nominee_id' => $nominee->id,
+                    'submitter_id' => $coordinator->id,
                     'nominate_for_advancement' => $nominateForAdvancement,
                     'nominate_for_lateral_movement' => $nominateForLateralMovement,
                     'nominate_for_development_programs' => $nominateForDevelopmentPrograms,
@@ -77,6 +78,7 @@ class TalentCoordinatorNominationTestSeeder extends Seeder
                 ->create([
                     'talent_nomination_event_id' => $event->id,
                     'nominee_id' => $nominee->id,
+                    'submitter_id' => $coordinator->id,
                     'nominate_for_advancement' => true,
                     'nominate_for_lateral_movement' => true,
                     'nominate_for_development_programs' => false,
