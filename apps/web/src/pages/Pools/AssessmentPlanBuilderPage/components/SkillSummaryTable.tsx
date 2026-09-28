@@ -225,7 +225,7 @@ const SkillSummaryTable = ({
       }),
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(
-          plannedAssessmentCell({ id: poolSkill.id }, assessmentSteps, intl),
+          plannedAssessmentCell(poolSkill, assessmentSteps, intl),
         ),
       enableHiding: false,
     }),
@@ -275,15 +275,7 @@ const SkillSummaryTable = ({
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
         cells.jsx(
-          assessmentStepCell(
-            { id: poolSkill.id, skill: poolSkill.skill },
-            {
-              id: assessmentStep.id,
-              type: assessmentStep.type,
-              poolSkills: assessmentStep.poolSkills,
-            },
-            intl,
-          ),
+          assessmentStepCell(poolSkill, assessmentStep, intl),
         ),
       enableHiding: false,
     });
