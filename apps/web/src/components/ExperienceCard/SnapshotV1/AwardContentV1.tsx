@@ -10,7 +10,7 @@ import type { AwardContentExperience } from "../AwardContent";
 
 const AwardContentV1 = ({
   experience: { awardedTo, issuedBy, awardedScope },
-  headingLevel,
+  headingRank,
 }: ContentProps<AwardContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -20,7 +20,7 @@ const AwardContentV1 = ({
     <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.awardedTo}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {awardedTo?.label
@@ -29,14 +29,14 @@ const AwardContentV1 = ({
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.issuedBy}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.awardedScope}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {awardedScope?.label
           ? getLocalizedName(awardedScope.label, intl)

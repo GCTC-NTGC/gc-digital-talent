@@ -1554,7 +1554,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean
   permissions: [Permission!]
-  roleAssignments: [RoleAssignment!]
 }
 
 type RoleAssignment {

@@ -24,7 +24,7 @@ export interface AwardContentExperience {
 
 const AwardContent = ({
   experience,
-  headingLevel,
+  headingRank,
 }: ContentProps<AwardContentExperience>) => {
   const intl = useIntl();
   const { awardedTo, issuedBy, awardedScope, projectName, relatedExperience } =
@@ -36,14 +36,14 @@ const AwardContent = ({
     <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.issuedBy}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {issuedBy ?? notAvailable}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.relatedExperience}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {relatedExperience
@@ -52,7 +52,7 @@ const AwardContent = ({
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.awardedTo}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {awardedTo?.label
@@ -61,14 +61,14 @@ const AwardContent = ({
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.projectName}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {projectName ?? notAvailable}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.awardedScope}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {awardedScope?.label
           ? getLocalizedName(awardedScope.label, intl)

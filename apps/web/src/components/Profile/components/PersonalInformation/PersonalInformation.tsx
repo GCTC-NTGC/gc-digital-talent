@@ -122,7 +122,7 @@ const PersonalInformation = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level={pool ? "h3" : "h2"}
+        rank={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}
         toggle={
           !isNull ? (

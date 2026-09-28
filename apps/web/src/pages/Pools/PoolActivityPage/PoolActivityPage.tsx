@@ -165,7 +165,7 @@ const PoolActivityPage = () => {
   return (
     <Container className="my-18">
       <Heading
-        level="h2"
+        rank="h2"
         icon={RectangleStackIcon}
         className="mt-0 mb-6"
         color="secondary"

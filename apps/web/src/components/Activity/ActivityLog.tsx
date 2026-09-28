@@ -62,7 +62,7 @@ const List = ({ children, heading, headingAs = "h3" }: ListProps) => {
     <div>
       <Heading
         id={id}
-        level={headingAs}
+        rank={headingAs}
         size="h6"
         className="mt-0 mb-1.5 font-bold"
       >
