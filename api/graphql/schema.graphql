@@ -1855,6 +1855,7 @@ type Query {
     where: NotificationFilterInput
     excludeIds: [UUID!] @notIn(key: "id")
   ): [Notification!]
+    @guard
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
