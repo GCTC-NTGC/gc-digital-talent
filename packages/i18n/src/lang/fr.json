@@ -991,10 +991,6 @@
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
   },
-  "WZ17s5": {
-    "defaultMessage": "Compétences requises",
-    "description": "Title for required skills"
-  },
   "WZ8QTB": {
     "defaultMessage": "Profil d'employé(e) du GC",
     "description": "Short title for a user's GC employee profile"

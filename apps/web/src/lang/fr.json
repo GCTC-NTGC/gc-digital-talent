@@ -8708,6 +8708,10 @@
     "defaultMessage": "Les compétences en vedette vous permettent de démontrer comment vous avez utilisé ou perfectionné des ensembles de compétences particulièrement importants dans le cadre de votre expérience. Lorsque vous posez votre candidature sur la plateforme, vous êtes invité à lier des compétences essentielles requises pour l’emploi à vos expériences de la même manière, ce qui vous permet de dresser un portrait d’ensemble de vos compétences. Les compétences que vous liez lorsque vous posez votre candidature apparaîtront également ici et pourront être modifiées ultérieurement.",
     "description": "Description blurb for skills on Experience form"
   },
+  "WZ17s5": {
+    "defaultMessage": "Compétences requises",
+    "description": "Title for required skills"
+  },
   "WaDUHF": {
     "defaultMessage": "Effacer la recherche",
     "description": "Button text to clear employee search"

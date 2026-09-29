@@ -276,11 +276,6 @@ const commonMessages = defineMessages({
     id: "7O5SRa",
     description: "Title for security clearance",
   },
-  requiredSkills: {
-    id: "WZ17s5",
-    defaultMessage: "Required skills",
-    description: "Title for required skills",
-  },
   optionalSkills: {
     id: "Ojevvl",
     defaultMessage: "Optional skills",

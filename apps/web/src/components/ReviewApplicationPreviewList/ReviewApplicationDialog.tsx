@@ -342,7 +342,11 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="essential-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(commonMessages.requiredSkills)}
+                    {intl.formatMessage({
+                      id: "WZ17s5",
+                      defaultMessage: "Required skills",
+                      description: "Title for required skills",
+                    })}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
                     {wrapParens(essentialSkills.length ?? 0)}
