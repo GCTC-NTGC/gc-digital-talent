@@ -16,15 +16,9 @@ class LoggingErrorHandler implements ErrorHandler
             return $next(null);
         }
 
-        // Log the error, including any structured detail (e.g. which validation rule failed)
-        //
-        // Extensions from any ProvidesExtensions exception are logged as-is, so avoid
-        // putting raw user input into a validation message or it will end up in server logs too.
-        // Not to do: 'email' => 'The value :input is not a valid email.'
-        //   -> logs "The value jane.doe@personal-email.com is not a valid email."
-        // To do: 'email' => 'The :attribute must be a valid email address.'
-        //   -> logs "The email must be a valid email address." (or use a symbolic
-        //   code like INVALID_COMMUNITY_DEPARTMENT_COMBO)
+        // Extensions are logged as-is, so use ErrorCode values (ex. EMAIL_ADDRESS_IN_USE) for
+        // validation messages, not raw user input (ex. jane.doe@personal-email.com), to avoid
+        // leaking PII into server logs.
         $errorMessage = $error->getMessage();
         $extensions = $error->getExtensions();
         $context = $extensions ? ['extensions' => $extensions] : [];
