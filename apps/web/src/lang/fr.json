@@ -4022,6 +4022,10 @@
     "defaultMessage": "Demande réussie",
     "description": "Page title for the request confirmation page."
   },
+  "DdOEWx": {
+    "defaultMessage": "Erreur : nom pas chargé",
+    "description": "Message when name value not found"
+  },
   "DePuGA": {
     "defaultMessage": "Modifier les infos du nominé ou de la nominée",
     "description": "Link text to edit a nominations nominee information"

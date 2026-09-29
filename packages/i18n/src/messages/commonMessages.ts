@@ -59,11 +59,6 @@ const commonMessages = defineMessages({
     description:
       "Message for when specific item has missing optional information",
   },
-  nameNotLoaded: {
-    defaultMessage: "Error: name not loaded",
-    id: "DdOEWx",
-    description: "Message when name value not found",
-  },
   dividingColon: {
     // eslint-disable-next-line formatjs/prefer-full-sentence
     defaultMessage: ": ",

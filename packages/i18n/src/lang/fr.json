@@ -459,10 +459,6 @@
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Title for remote, hybrid or on-site"
   },
-  "DdOEWx": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Message when name value not found"
-  },
   "DyrwXU": {
     "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin",
     "description": "The operational requirement described as travel as required."
