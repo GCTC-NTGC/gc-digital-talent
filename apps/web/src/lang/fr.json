@@ -3206,6 +3206,10 @@
     "defaultMessage": "Modifier le stade de la présélection",
     "description": "Heading for form to update a candidates screening stage"
   },
+  "AQeWgK": {
+    "defaultMessage": "Intérêt pour la formation",
+    "description": "Training interest label"
+  },
   "AQiPuW": {
     "defaultMessage": "Intérêt pour",
     "description": "Label for user expressing interest in a specific work stream"

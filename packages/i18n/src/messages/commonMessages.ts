@@ -291,11 +291,6 @@ const commonMessages = defineMessages({
     id: "zN7MBv",
     description: "Title for a users career plan",
   },
-  trainingInterest: {
-    defaultMessage: "Training interest",
-    id: "AQeWgK",
-    description: "Training interest label",
-  },
   interested: {
     defaultMessage: "Interested",
     id: "rH9RNh",

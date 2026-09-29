@@ -464,7 +464,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         interestAccessor(intl, trainingInterest),
       {
         id: "trainingInterest",
-        header: intl.formatMessage(commonMessages.trainingInterest),
+        header: intl.formatMessage({
+          defaultMessage: "Training interest",
+          id: "AQeWgK",
+          description: "Training interest label",
+        }),
         enableColumnFilter: false,
       },
     ),

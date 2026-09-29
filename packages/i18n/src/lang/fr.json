@@ -363,10 +363,6 @@
     "defaultMessage": "Je ne souhaite pas bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
   },
-  "AQeWgK": {
-    "defaultMessage": "Intérêt pour la formation",
-    "description": "Training interest label"
-  },
   "AQxes2": {
     "defaultMessage": "Renseignements facultatifs manquants",
     "description": "Message for when specific item has missing optional information"
