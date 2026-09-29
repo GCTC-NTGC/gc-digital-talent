@@ -60,7 +60,7 @@ final class MigrateMyAccount
                 $actor->work_email_backup = $actor->work_email;
                 $actor->work_email = null;
                 $actor->save();
-                $actor->delete();
+                $actor->deleteOrFail();
 
                 // set our sub on the target account
                 $target->sub = $subToTransfer;
