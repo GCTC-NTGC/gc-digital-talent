@@ -236,11 +236,6 @@ const commonMessages = defineMessages({
     id: "pOL68A",
     description: "Title for work email address",
   },
-  language: {
-    defaultMessage: "Language",
-    id: "k3i6lU",
-    description: "Legend for a language input or title",
-  },
   description: {
     defaultMessage: "Description",
     id: "i+8teP",
