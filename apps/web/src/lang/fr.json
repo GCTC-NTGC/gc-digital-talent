@@ -10403,6 +10403,10 @@
     "defaultMessage": "Les exigences linguistiques des postes bilingues sont résumées au moyen de l’une des lettres pour chacune des compétences. La première lettre renvoie au niveau requis pour la <strong>Lecture</strong>, la deuxième pour <strong>l’écriture</strong> et la troisième pour  <strong>l’expression orale</strong>.",
     "description": "Description for second language proficiency on language requirement dialog"
   },
+  "dYhxhN": {
+    "defaultMessage": "Intérêt pour l'emploi",
+    "description": "Job interest label"
+  },
   "dYsXAU": {
     "defaultMessage": "Intérêt pour les possibilités d'emploi",
     "description": "Label for users interest in job opportunities for a community"

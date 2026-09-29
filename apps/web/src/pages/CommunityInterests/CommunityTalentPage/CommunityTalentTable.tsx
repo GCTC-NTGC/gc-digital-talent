@@ -451,7 +451,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         interestAccessor(intl, jobInterest),
       {
         id: "jobInterest",
-        header: intl.formatMessage(commonMessages.jobInterest),
+        header: intl.formatMessage({
+          defaultMessage: "Job interest",
+          id: "dYhxhN",
+          description: "Job interest label",
+        }),
         enableColumnFilter: false,
       },
     ),

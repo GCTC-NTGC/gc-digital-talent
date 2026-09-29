@@ -1175,10 +1175,6 @@
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
   },
-  "dYhxhN": {
-    "defaultMessage": "Intérêt pour l'emploi",
-    "description": "Job interest label"
-  },
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
