@@ -53,11 +53,6 @@ const commonMessages = defineMessages({
     id: "BXxvCZ",
     description: "Message for when no name value",
   },
-  missingInformation: {
-    defaultMessage: "Missing information",
-    id: "MuM7SN",
-    description: "Message for when specific item has missing information",
-  },
   missingOptionalInformation: {
     defaultMessage: "Missing optional information",
     id: "AQxes2",

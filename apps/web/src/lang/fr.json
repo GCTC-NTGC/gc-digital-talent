@@ -6367,6 +6367,10 @@
     "defaultMessage": "Charger davantage",
     "description": "Button text to load more notifications"
   },
+  "MuM7SN": {
+    "defaultMessage": "Renseignements manquants",
+    "description": "Message for when specific item has missing information"
+  },
   "MuWdei": {
     "defaultMessage": "Abréviation non trouvée.",
     "description": "Message shown to user when the abbreviation text is not found."
