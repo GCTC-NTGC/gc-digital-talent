@@ -1443,10 +1443,6 @@
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
   },
-  "l0aGCz": {
-    "defaultMessage": "Intégré à l'application",
-    "description": "Title for in app notifications"
-  },
   "l2XtbB": {
     "defaultMessage": "J'accepte de travailler par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7.",
     "description": "The operational requirement described as 24/7 on-call."

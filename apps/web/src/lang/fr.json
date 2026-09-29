@@ -12493,6 +12493,10 @@
     "defaultMessage": "Votre candidature a été soumise et est en attente d'examen. Vous ne pouvez plus modifier votre candidature.",
     "description": "Status description for a submitted (but not reviewed) application"
   },
+  "l0aGCz": {
+    "defaultMessage": "Intégré à l'application",
+    "description": "Title for in app notifications"
+  },
   "l2xs1C": {
     "defaultMessage": "En cours d'examen",
     "description": "Status label for an application under review"

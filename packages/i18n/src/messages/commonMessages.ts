@@ -110,11 +110,6 @@ const commonMessages = defineMessages({
     id: "1UX8RD",
     description: "Title for contact email address",
   },
-  inApp: {
-    defaultMessage: "In-app",
-    id: "l0aGCz",
-    description: "Title for in app notifications",
-  },
   department: {
     defaultMessage: "Department",
     id: "9aW0M6",
