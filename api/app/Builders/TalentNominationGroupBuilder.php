@@ -3,7 +3,6 @@
 namespace App\Builders;
 
 use App\Contracts\TalentNominationGroupMatchable;
-use App\Contracts\TalentRequestViewable;
 use App\Enums\TalentNominationGroupDecision;
 use App\Models\TalentNominationGroup;
 use App\Models\User;
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Cache;
  *
  * @mixin TalentNominationGroup
  */
-class TalentNominationGroupBuilder extends Builder implements TalentNominationGroupMatchable, TalentRequestViewable
+class TalentNominationGroupBuilder extends Builder implements TalentNominationGroupMatchable
 {
     // TalentRequestSource::matchMethod() routes ADVANCEMENT/LATERAL_MOVEMENT to these two.
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self

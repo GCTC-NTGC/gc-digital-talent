@@ -4,7 +4,7 @@ namespace App\Contracts;
 
 // TalentNominationGroup rows are decided independently per nomination type, so this has one
 // match method per type instead of TalentRequestMatchable's single method.
-interface TalentNominationGroupMatchable
+interface TalentNominationGroupMatchable extends TalentRequestViewable
 {
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self;
 
