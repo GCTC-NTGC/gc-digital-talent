@@ -24,7 +24,11 @@ export const NominationMetaDataDate = ({
   if (submittedAt) {
     return (
       <span>
-        {intl.formatMessage(commonMessages.submitted)}
+        {intl.formatMessage({
+          defaultMessage: "Submitted",
+          id: "Vnygk+",
+          description: "Item's state is submitted",
+        })}
         {intl.formatMessage(commonMessages.dividingColon)}
         {formatDate({
           date: parseDateTimeUtc(submittedAt),

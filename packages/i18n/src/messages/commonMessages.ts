@@ -246,11 +246,6 @@ const commonMessages = defineMessages({
     id: "SD8i+/",
     description: "Title for received",
   },
-  submitted: {
-    defaultMessage: "Submitted",
-    id: "Vnygk+",
-    description: "Item's state is submitted",
-  },
   deadlineToApply: {
     defaultMessage: "Deadline to apply",
     id: "ZoYqEo",

@@ -951,10 +951,6 @@
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the expiry date cannot be in the past."
   },
-  "Vnygk+": {
-    "defaultMessage": "Soumis",
-    "description": "Item's state is submitted"
-  },
   "VpjQL1": {
     "defaultMessage": "Confirmation des membres du personnel",
     "description": "Label for status of employee verification"

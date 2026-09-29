@@ -8536,6 +8536,10 @@
     "defaultMessage": "Je soumets la nomination au nom du nominateur ou de la nominatrice",
     "description": "Label for the option when the submitter is submitting a nomination on behalf of someone else"
   },
+  "Vnygk+": {
+    "defaultMessage": "Soumis",
+    "description": "Item's state is submitted"
+  },
   "VoaVjp": {
     "defaultMessage": "Demeurez au courant de nos annonces internes, de nos événements et d’autres nouvelles passionnantes en devenant membre de la page GCÉchange de la collectivité de la gestion des investissements.",
     "description": "Card description, to connect with peers, procurement"
