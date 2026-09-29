@@ -73,7 +73,9 @@ class AuthController extends Controller
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
             'lang' => $lang,
-            'skipmigration' => $request->input('skipmigration', null),
+            'skipmigration' => config('feature.disable_cl_migration') // remove this field entirely when the flag is removed
+                ? null
+                : $request->input('skipmigration', null),
             'code_challenge' => $codeChallenge,
             'code_challenge_method' => 'S256',
         ]);
