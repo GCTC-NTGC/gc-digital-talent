@@ -1,7 +1,6 @@
 import type {
   PoolOpportunityLength,
   LocalizedString,
-  PublishingGroup,
   UpdatePoolInput,
   PoolAreaOfSelection,
   PoolSelectionLimitation,
@@ -15,7 +14,6 @@ export interface FormValues {
   stream?: string;
   specificTitleEn?: LocalizedString["en"];
   specificTitleFr?: LocalizedString["fr"];
-  publishingGroup?: PublishingGroup | null;
   opportunityLength?: PoolOpportunityLength | null;
   isHidden?: boolean;
 }
@@ -27,7 +25,6 @@ export type PoolNameSubmitData = Pick<
   | "classification"
   | "name"
   | "workStream"
-  | "publishingGroup"
   | "opportunityLength"
   | "isHidden"
 >;
@@ -47,7 +44,6 @@ export const formValuesToSubmitData = (
     en: formValues.specificTitleEn,
     fr: formValues.specificTitleFr,
   },
-  publishingGroup: formValues.publishingGroup ?? undefined, // can't be set to null, assume not updating if empty
   opportunityLength: formValues.opportunityLength ?? undefined, // can't be set to null, assume not updating if empty
   isHidden: formValues.isHidden,
 });
