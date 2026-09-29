@@ -140,7 +140,7 @@ const StepNavigation = ({
           ),
         );
       }
-      const completeDEI = !hasEmptyDEIRequiredFields(user, application?.pool);
+      const completeDEI = !hasEmptyDEIRequiredFields();
       if (!completeDEI) {
         toast.error(
           intl.formatMessage(applicationMessages.reservedForIndigenous),

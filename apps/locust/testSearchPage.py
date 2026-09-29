@@ -43,15 +43,6 @@ fragment SearchResultCard_Pool on Pool {
     }
     __typename
   }
-  publishingGroup {
-    value
-    label {
-      en
-      fr
-      __typename
-    }
-    __typename
-  }
   classification {
     group
     level

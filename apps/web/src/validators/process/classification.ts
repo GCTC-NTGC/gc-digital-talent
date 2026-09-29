@@ -2,32 +2,20 @@ import type {
   LocalizedString,
   PoolAreaOfSelection,
   PoolOpportunityLength,
-  PublishingGroup,
 } from "@gc-digital-talent/graphql";
 import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 interface NullStateFields {
   workStream?: { id: string } | null;
   name?: LocalizedString | null;
-  publishingGroup?: LocalizedEnumValue<PublishingGroup> | null;
 }
 
 /*
   Checks null state for advertisement details section of edit pool page.
   Note: The pool.classification should not be null, therefore it doesn't need to checked
 */
-export function isInNullState({
-  workStream,
-  name,
-  publishingGroup,
-}: NullStateFields): boolean {
-  return !!(
-    !workStream &&
-    !name?.en &&
-    !name?.fr &&
-    !publishingGroup &&
-    !publishingGroup
-  );
+export function isInNullState({ workStream, name }: NullStateFields): boolean {
+  return !!(!workStream && !name?.en && !name?.fr);
 }
 
 interface ClassificationFields extends NullStateFields {
@@ -43,7 +31,6 @@ export function hasEmptyRequiredFields({
   department,
   workStream,
   name,
-  publishingGroup,
   opportunityLength,
 }: ClassificationFields): boolean {
   return !!(
@@ -53,7 +40,6 @@ export function hasEmptyRequiredFields({
     !workStream ||
     !name?.en ||
     !name?.fr ||
-    !publishingGroup ||
     !opportunityLength
   );
 }

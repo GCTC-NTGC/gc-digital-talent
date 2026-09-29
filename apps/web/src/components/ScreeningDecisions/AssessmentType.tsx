@@ -23,9 +23,6 @@ const ScreeningDialogAssessmentType_Fragment = graphql(/** GraphQL */ `
       classification {
         group
       }
-      publishingGroup {
-        value
-      }
     }
     educationRequirementOption {
       value
@@ -71,7 +68,6 @@ const AssessmentType = ({
 
   const educationRequirementOption = getEducationRequirementLabel({
     group: candidate?.pool.classification?.group as ClassificationGroup,
-    publishingGroup: candidate?.pool.publishingGroup?.value,
     educationRequirementOption: candidate?.educationRequirementOption?.value,
     intl,
   });
