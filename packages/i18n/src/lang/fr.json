@@ -203,10 +203,6 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7",
     "description": "The operational requirement described as 24/7 on-call."
   },
-  "4lV1Od": {
-    "defaultMessage": "Éliminé à la présélection",
-    "description": "Screened out"
-  },
   "5/C1lJ": {
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
