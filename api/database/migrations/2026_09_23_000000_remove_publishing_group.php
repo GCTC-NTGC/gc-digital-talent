@@ -17,7 +17,7 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->boolean('publishing_group');
+            $table->string('publishing_group')->nullable();
         });
     }
 };
