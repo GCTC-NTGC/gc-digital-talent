@@ -139,7 +139,7 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
             <TableOfContents.Section id={SECTION_ID.NOMINATIONS_RECEIVED}>
               <Heading
                 className="mt-0 font-normal sm:text-left"
-                level="h2"
+                rank="h2"
                 icon={isVerifiedGovEmployee ? TrophyIcon : LockClosedIcon}
                 size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}
@@ -172,7 +172,7 @@ export const TalentNominations = ({ userQuery }: TalentNominationsProps) => {
             <TableOfContents.Section id={SECTION_ID.EMPLOYEES_NOMINATED}>
               <Heading
                 className="mt-0 font-normal sm:text-left"
-                level="h2"
+                rank="h2"
                 icon={isVerifiedGovEmployee ? StarIcon : LockClosedIcon}
                 size="h4"
                 {...(isVerifiedGovEmployee && { color: "secondary" })}

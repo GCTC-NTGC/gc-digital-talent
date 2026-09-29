@@ -7,7 +7,7 @@ interface FilterBlockProps {
   title?: string | ReactNode;
   text: ReactNode;
   children?: ReactNode;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
 }
 
 const FilterBlock = ({
@@ -15,9 +15,9 @@ const FilterBlock = ({
   title,
   text,
   children,
-  headingLevel = "h3",
+  headingRank = "h3",
 }: FilterBlockProps) => {
-  const Heading = headingLevel;
+  const Heading = headingRank;
   return (
     <>
       {title && (

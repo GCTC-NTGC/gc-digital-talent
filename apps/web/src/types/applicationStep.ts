@@ -6,7 +6,6 @@ import type {
   PoolAreaOfSelection,
   PoolLanguage,
   PoolSkillType,
-  PublishingGroup,
   SkillCategory,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
@@ -45,7 +44,6 @@ interface ApplicationStepQuestion {
 export interface ApplicationStepPool {
   id: string;
   areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
-  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
   language?: GenericLocalizedEnum<PoolLanguage> | null;
   poolSkills?: (ApplicationStepPoolSkill | null)[] | null;
   generalQuestions?: (ApplicationStepQuestion | null)[] | null;

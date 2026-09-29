@@ -120,7 +120,7 @@ const ApplicationSnapshot = ({
           icon={UserCircleIcon}
           color="secondary"
           className="mb-0"
-          level="h2"
+          rank="h2"
           size="h3"
         >
           {intl.formatMessage({
@@ -318,7 +318,7 @@ const ApplicationSnapshot = ({
                 {intl.formatMessage(applicationMessages.confirmationTrue)}
               </li>
             </Ul>
-            <Heading level="h4" size="h6" className="text-base lg:text-base">
+            <Heading rank="h4" size="h6" className="text-base lg:text-base">
               {intl.formatMessage({
                 defaultMessage: "Signed",
                 id: "fEcEv3",

@@ -266,7 +266,7 @@ export const Component = () => {
                         "Title of the 'How the program works' section",
                     })}
                   </Heading>
-                  <Heading level="h3" size="h6">
+                  <Heading rank="h3" size="h6">
                     {intl.formatMessage({
                       defaultMessage: "Hired as a term employee",
                       id: "e5xrSy",
@@ -283,7 +283,7 @@ export const Component = () => {
                         "Paragraph 1 of the 'Hired as a term employee' subsection",
                     })}
                   </p>
-                  <Heading level="h3" size="h6">
+                  <Heading rank="h3" size="h6">
                     {intl.formatMessage({
                       defaultMessage:
                         "Work integrated learning and IT training",
@@ -301,7 +301,7 @@ export const Component = () => {
                         "Paragraph 1 of the 'Work integrated learning and IT training' subsection",
                     })}
                   </p>
-                  <Heading level="h3" size="h6">
+                  <Heading rank="h3" size="h6">
                     {intl.formatMessage({
                       defaultMessage: "Circle of Support",
                       id: "D5Hqhf",
@@ -327,7 +327,7 @@ export const Component = () => {
                         "Paragraph 2 of the 'Circle of Support' subsection",
                     })}
                   </p>
-                  <Heading level="h3" size="h6">
+                  <Heading rank="h3" size="h6">
                     {intl.formatMessage({
                       defaultMessage: "Digital certificate credential",
                       id: "+AnEvv",
@@ -409,7 +409,7 @@ export const Component = () => {
         }}
       >
         <div className="bg-secondary-500/90 py-24 text-white dark:bg-secondary-600/90">
-          <Heading level="h2" size="h4" className="mt-0 mb-12 text-center">
+          <Heading rank="h2" size="h4" className="mt-0 mb-12 text-center">
             {intl.formatMessage({
               defaultMessage: "What we're hearing",
               id: "okRYhl",
@@ -523,7 +523,7 @@ export const Component = () => {
               <div className="flex h-full flex-col justify-center">
                 <div className="relative bg-primary-500 p-12 text-white dark:bg-primary-300 dark:text-black">
                   <div className="absolute -top-18 -right-30 z-0 size-72 rounded-full bg-primary-500/10 dark:bg-primary-300/10" />
-                  <Heading level="h3" size="h6" className="mt-0">
+                  <Heading rank="h3" size="h6" className="mt-0">
                     {intl.formatMessage({
                       defaultMessage: "How to begin hiring an apprentice",
                       id: "UJPrY7",

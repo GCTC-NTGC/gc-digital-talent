@@ -100,7 +100,7 @@ const ExperienceWorkStreams = () => {
 
   return (
     <section>
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+      <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage(pageTitles.workStreams)}
       </Heading>
       <p className="mb-6">

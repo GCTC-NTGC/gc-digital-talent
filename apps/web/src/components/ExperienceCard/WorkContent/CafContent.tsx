@@ -17,7 +17,7 @@ export interface CafContentExperience {
 
 const CafContent = ({
   experience: { cafEmploymentType, cafRank },
-  headingLevel,
+  headingRank,
 }: ContentProps<CafContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -26,7 +26,7 @@ const CafContent = ({
     <>
       <ContentSection
         title={experienceFormLabels.cafEmploymentType}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafEmploymentType?.label, intl)}
@@ -34,7 +34,7 @@ const CafContent = ({
       <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.cafRank}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafRank?.label, intl)}

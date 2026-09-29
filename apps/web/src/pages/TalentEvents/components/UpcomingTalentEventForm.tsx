@@ -210,7 +210,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
       <CardSeparator />
       <div className="grid gap-6 xs:grid-cols-2">
         <div className="xs:col-span-2">
-          <Heading level="h3" size="h6" className="mt-0">
+          <Heading rank="h3" size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Nomination settings",
               id: "eWP5gJ",
@@ -336,7 +336,7 @@ const UpcomingTalentEventForm = ({ query }: UpcomingTalentEventFormProps) => {
           <CardSeparator />
           <div className="grid gap-6">
             <div>
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage(adminMessages.developmentOpportunities)}
               </Heading>
               <p>

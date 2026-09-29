@@ -44,7 +44,6 @@ const keyMap = new Map<string, MessageDescriptor>([
     }),
   ],
   ["process_number", processMessages.processNumber],
-  ["publishing_group", processMessages.publishingGroup],
   [
     "published_at",
     defineMessage({
