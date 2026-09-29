@@ -32,11 +32,6 @@ const commonMessages = defineMessages({
     id: "dyGR7U",
     description: "Message to display when a search is in progress.",
   },
-  loadingError: {
-    defaultMessage: "Oh no…",
-    id: "GtVkbt",
-    description: "Title displayed for a table error loading state.",
-  },
   notFound: {
     defaultMessage: "Not found",
     id: "ufSiRU",

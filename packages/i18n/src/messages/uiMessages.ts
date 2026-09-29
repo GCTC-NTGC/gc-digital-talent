@@ -136,6 +136,11 @@ const uiMessages = defineMessages({
     id: "o/6zAs",
     description: "Title displayed for a table initial loading state.",
   },
+  loadingError: {
+    defaultMessage: "Oh no…",
+    id: "GtVkbt",
+    description: "Title displayed for a table error loading state.",
+  },
 });
 
 export default uiMessages;
