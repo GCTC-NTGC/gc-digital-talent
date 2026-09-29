@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
