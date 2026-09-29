@@ -1794,6 +1794,10 @@
     "defaultMessage": "Vous êtes sur le point de modifier l’information publiée dans l’annonce suivante",
     "description": "Warning message when attempting to update a published process advertisement"
   },
+  "4lV1Od": {
+    "defaultMessage": "Éliminé à la présélection",
+    "description": "Screened out"
+  },
   "4liNMy": {
     "defaultMessage": "Il semble que vous n’ayez pas encore ajouté d’expériences à votre parcours professionnel.",
     "description": "Null state message for experiences section of the application review page."
