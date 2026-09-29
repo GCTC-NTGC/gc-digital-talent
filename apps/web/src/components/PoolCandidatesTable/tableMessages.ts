@@ -56,12 +56,6 @@ const messages = defineMessages({
     description:
       "Title displayed on the Pool Candidates table candidate-facing status column",
   },
-  jobPlacement: {
-    defaultMessage: "Job placement",
-    id: "fQkgnT",
-    description:
-      "Title displayed on the Pool Candidates table job placement column",
-  },
   placedDepartment: {
     defaultMessage: "Placed department",
     id: "kVavip",

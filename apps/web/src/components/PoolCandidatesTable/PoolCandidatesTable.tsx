@@ -973,7 +973,7 @@ const PoolCandidatesTable = ({
       ({ poolCandidate: { placementType } }) => placementType?.label?.localized,
       {
         id: "jobPlacement",
-        header: intl.formatMessage(tableMessages.jobPlacement),
+        header: intl.formatMessage(commonMessages.jobPlacement),
         enableSorting: false,
       },
     ),

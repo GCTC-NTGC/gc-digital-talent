@@ -10966,10 +10966,6 @@
     "defaultMessage": "Préférence ministérielle",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
   },
-  "fQkgnT": {
-    "defaultMessage": "Placement professionnel",
-    "description": "Title displayed on the Pool Candidates table job placement column"
-  },
   "fRoNIK": {
     "defaultMessage": "Alertes emploi",
     "description": "Title for job alerts checklist"
