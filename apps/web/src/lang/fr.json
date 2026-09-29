@@ -2786,6 +2786,10 @@
     "defaultMessage": "Niveau exigé",
     "description": "Required skill level column header for tables"
   },
+  "91hRYX": {
+    "defaultMessage": "OK",
+    "description": "Proceed with the current action"
+  },
   "93zCaS": {
     "defaultMessage": "Reflète la spécialisation nécessaire",
     "description": "Text for education accepted information context in screening decision dialog"
