@@ -81,7 +81,11 @@ export const Trigger = ({
 
   if (result) {
     label = !result?.assessmentDecision?.value
-      ? intl.formatMessage(commonMessages.pendingSecondOpinion)
+      ? intl.formatMessage({
+          defaultMessage: "Pending second opinion",
+          id: "Rp+NHA",
+          description: "Pending second opinion",
+        })
       : result?.assessmentDecision.label.localized;
     color =
       decisionColours.get(result.assessmentDecision?.value ?? null) ?? "black";

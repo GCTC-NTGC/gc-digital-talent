@@ -150,11 +150,6 @@ const commonMessages = defineMessages({
     id: "2wKf2U",
     description: "Text to trigger edit action",
   },
-  pendingSecondOpinion: {
-    defaultMessage: "Pending second opinion",
-    id: "Rp+NHA",
-    description: "Pending second opinion",
-  },
   anyLanguage: {
     defaultMessage: "Any language",
     id: "sotCgD",

@@ -847,10 +847,6 @@
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
   },
-  "Rp+NHA": {
-    "defaultMessage": "Second avis en attente",
-    "description": "Pending second opinion"
-  },
   "S0w3o5": {
     "defaultMessage": "Complet",
     "description": "Simple status label for a complete item"
