@@ -179,10 +179,6 @@
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
   },
-  "45ZCXX": {
-    "defaultMessage": "Options",
-    "description": "label or header for something referred to as an option, plural"
-  },
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"

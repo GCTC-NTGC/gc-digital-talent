@@ -312,12 +312,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  options: {
-    defaultMessage: "Options",
-    id: "45ZCXX",
-    description:
-      "label or header for something referred to as an option, plural",
-  },
   approved: {
     defaultMessage: "Approved",
     id: "oCFl63",
