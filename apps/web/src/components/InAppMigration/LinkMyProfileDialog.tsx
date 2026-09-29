@@ -34,7 +34,7 @@ const LinkMyProfileDialog = ({ onLinkProfile }: LinkMyProfileDialogProps) => {
         </Dialog.Header>
         <Dialog.Body>
           <div className="flex flex-col gap-3">
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "You will be automatically signed out",
                 id: "YLhr0P",

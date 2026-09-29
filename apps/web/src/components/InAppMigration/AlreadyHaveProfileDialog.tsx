@@ -30,7 +30,7 @@ const AlreadyHaveProfileDialog = () => {
         <Dialog.Body>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3">
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
                   id: "Qjf3b1",
@@ -66,7 +66,7 @@ const AlreadyHaveProfileDialog = () => {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
                   id: "a+UXof",
@@ -94,7 +94,7 @@ const AlreadyHaveProfileDialog = () => {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage:
                     "How to link your previous profile to your new sign in method",

@@ -33,7 +33,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
         <Dialog.Body>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-3">
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
                   id: "Qjf3b1",
@@ -69,7 +69,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <Heading level="h3" size="h6" className="mt-0">
+              <Heading rank="h3" size="h6" className="mt-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
                   id: "a+UXof",
