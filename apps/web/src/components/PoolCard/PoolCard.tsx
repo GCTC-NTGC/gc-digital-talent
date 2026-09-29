@@ -25,7 +25,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
   DATE_FORMAT_LOCALIZED,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers/const";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -247,7 +247,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: TZ_BRITISH_COLUMBIA,
+                      timeZone: TZ_VANCOUVER,
                     }),
                   },
                 )

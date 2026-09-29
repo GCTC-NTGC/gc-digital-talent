@@ -5,7 +5,7 @@ import { Dialog, Button, Ul } from "@gc-digital-talent/ui";
 import {
   parseDateTimeUtc,
   relativeClosingDate,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
@@ -44,7 +44,7 @@ const PublishProcessDialog = ({
     closingStringPacific = relativeClosingDate({
       closingDate: closingDateObject,
       intl,
-      timeZone: TZ_BRITISH_COLUMBIA,
+      timeZone: TZ_VANCOUVER,
     });
   }
 

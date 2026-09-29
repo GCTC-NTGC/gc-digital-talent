@@ -5,7 +5,7 @@ import {
   parseDateTimeUtc,
   formatDate,
   DATE_FORMAT_LOCALIZED,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -33,7 +33,7 @@ const DeadlineValue = ({
           date: parseDateTimeUtc(closingDate),
           formatString: DATE_FORMAT_LOCALIZED,
           intl,
-          timeZone: TZ_BRITISH_COLUMBIA,
+          timeZone: TZ_VANCOUVER,
         }),
       },
     );

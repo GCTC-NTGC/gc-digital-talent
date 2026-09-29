@@ -4,7 +4,7 @@ import { format } from "date-fns/format";
 import {
   DATE_FORMAT_LOCALIZED,
   DATETIME_FORMAT_STRING,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -92,7 +92,7 @@ export const ApplicationDate = ({
               date: applicationCutOffDate,
               formatString: DATE_FORMAT_LOCALIZED,
               intl,
-              timeZone: TZ_BRITISH_COLUMBIA,
+              timeZone: TZ_VANCOUVER,
             })
           : nullMessage}
       </span>

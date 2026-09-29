@@ -18,4 +18,4 @@ export const PAST_DATE = "2020-01-01";
 export const MAX_DATE = new Date(8640000000000000);
 
 // British Columbia timezone (furthest from GMT in Canada)
-export const TZ_BRITISH_COLUMBIA = "America/Vancouver";
+export const TZ_VANCOUVER = "America/Vancouver";

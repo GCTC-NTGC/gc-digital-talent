@@ -13,7 +13,7 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -176,7 +176,7 @@ export const ViewPool = ({
       date: closingDateObject,
       formatString: DATE_FORMAT_STRING,
       intl,
-      timeZone: TZ_BRITISH_COLUMBIA,
+      timeZone: TZ_VANCOUVER,
     });
   }
 

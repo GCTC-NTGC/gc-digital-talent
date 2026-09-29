@@ -7,7 +7,7 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   DATE_FORMAT_STRING,
-  TZ_BRITISH_COLUMBIA,
+  TZ_VANCOUVER,
   convertDateTimeToDate,
   convertDateTimeZone,
   formatDate,
@@ -78,7 +78,7 @@ const ClosingDateSection = ({
   ): FormValues => ({
     endDate: closingDate
       ? convertDateTimeToDate(
-          convertDateTimeZone(closingDate, "UTC", TZ_BRITISH_COLUMBIA),
+          convertDateTimeZone(closingDate, "UTC", TZ_VANCOUVER),
         )
       : null,
   });
@@ -97,7 +97,7 @@ const ClosingDateSection = ({
     const closingDateInUtc = formValues.endDate
       ? convertDateTimeZone(
           `${formValues.endDate} 23:59:59`,
-          TZ_BRITISH_COLUMBIA,
+          TZ_VANCOUVER,
           "UTC",
         )
       : null;
