@@ -6,7 +6,7 @@ import LockClosedIcon from "@heroicons/react/24/outline/LockClosedIcon";
 import type { IconType } from "../../types";
 import type { LinkProps } from "../Link";
 import Link from "../Link";
-import type { HeadingLevel } from "../Heading";
+import type { HeadingRank } from "../Heading";
 import type { ButtonProps } from "../Button";
 import type { BaseButtonLinkProps } from "../../utils/btnStyles";
 import Button from "../Button";
@@ -37,7 +37,7 @@ const heading = tv({
 
 interface TaskCardHeadingProps {
   icon?: IconType;
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   children?: ReactNode;
   locked?: boolean;
 }
@@ -150,7 +150,7 @@ export interface RootProps extends RootVariants {
   icon?: IconType;
   title: ReactNode;
   action?: RootAction;
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   children?: ReactElement<ItemProps> | ReactElement<ItemProps>[]; // Restricts children to only expected items;
 }
 

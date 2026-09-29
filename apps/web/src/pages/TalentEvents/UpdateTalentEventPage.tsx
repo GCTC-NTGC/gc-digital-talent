@@ -312,7 +312,7 @@ const UpdateTalentEventPage = () => {
             {data?.talentNominationEvent && data?.me ? (
               <Card>
                 <Heading
-                  level="h2"
+                  rank="h2"
                   color="primary"
                   icon={QueueListIcon}
                   center

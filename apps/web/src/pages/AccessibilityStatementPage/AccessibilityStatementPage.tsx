@@ -307,7 +307,7 @@ export const Component = () => {
                   { wcagLink },
                 )}
               </p>
-              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   defaultMessage:
                     "Making our products accessible and usable for everyone",
@@ -466,7 +466,7 @@ export const Component = () => {
                   </Ul>
                 </li>
               </Ul>
-              <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
                 {intl.formatMessage({
                   defaultMessage: "Testing with real users",
                   id: "7+GPYf",

@@ -25,7 +25,7 @@ export interface SectionProps<P = void> {
   onUpdate: (
     id: string,
     user: UpdateUserAsUserInput,
-  ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+  ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"] | undefined>;
 }
 
 export interface FormFieldProps<TOptions = object> {

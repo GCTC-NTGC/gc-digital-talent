@@ -14,7 +14,7 @@ interface CommunityContentExperience {
 
 const CommunityContent = ({
   experience: { project },
-  headingLevel,
+  headingRank,
 }: ContentProps<CommunityContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -22,7 +22,7 @@ const CommunityContent = ({
   return (
     <ContentSection
       title={experienceFormLabels.project}
-      headingLevel={headingLevel}
+      headingRank={headingRank}
     >
       {project ?? intl.formatMessage(commonMessages.notAvailable)}
     </ContentSection>

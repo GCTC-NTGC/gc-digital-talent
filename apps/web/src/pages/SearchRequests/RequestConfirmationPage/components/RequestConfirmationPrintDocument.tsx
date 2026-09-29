@@ -25,7 +25,7 @@ const RequestConfirmationPrintDocument = forwardRef<
       <div ref={ref}>
         <div className="border-b-2 border-dashed border-b-black pb-4 font-sans">
           <PageSection>
-            <Heading level="h2" className="font-bold">
+            <Heading rank="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "We have received your request",
                 id: "7DYnwq",
@@ -47,7 +47,7 @@ const RequestConfirmationPrintDocument = forwardRef<
             </p>
           </PageSection>
           <PageSection>
-            <Heading level="h2" className="font-bold">
+            <Heading rank="h2" className="font-bold">
               {intl.formatMessage({
                 defaultMessage: "What you can expect",
                 id: "N/Vcp3",

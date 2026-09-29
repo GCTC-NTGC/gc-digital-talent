@@ -14,7 +14,7 @@ interface PersonalExperienceV1 {
 
 const PersonalContentV1 = ({
   experience: { description },
-  headingLevel,
+  headingRank,
 }: ContentProps<PersonalExperienceV1>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -23,7 +23,7 @@ const PersonalContentV1 = ({
     <div className="grid gap-6">
       <ContentSection
         title={experienceFormLabels.experienceDescription}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {description ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

@@ -550,7 +550,7 @@ export const EditPoolForm = ({
                 <div className="flex flex-col gap-y-18">
                   <div>
                     <Heading
-                      level="h2"
+                      rank="h2"
                       size="h3"
                       icon={sectionMetadata.basicInfo.icon}
                       color={sectionMetadata.basicInfo.color}
@@ -609,7 +609,7 @@ export const EditPoolForm = ({
                 <div className="flex flex-col gap-y-18">
                   <div>
                     <Heading
-                      level="h2"
+                      rank="h2"
                       size="h3"
                       icon={sectionMetadata.skillRequirements.icon}
                       color={sectionMetadata.skillRequirements.color}
@@ -638,7 +638,7 @@ export const EditPoolForm = ({
                   <div className="flex flex-col gap-y-18">
                     <div>
                       <Heading
-                        level="h2"
+                        rank="h2"
                         size="h3"
                         icon={sectionMetadata.aboutRole.icon}
                         color={sectionMetadata.aboutRole.color}
@@ -682,7 +682,7 @@ export const EditPoolForm = ({
                   <div className="flex flex-col gap-y-18">
                     <div>
                       <Heading
-                        level="h2"
+                        rank="h2"
                         size="h3"
                         icon={sectionMetadata.commonQuestions.icon}
                         color={sectionMetadata.commonQuestions.color}

@@ -1040,9 +1040,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -1748,12 +1745,6 @@ type Query {
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPools(
-    closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    isHidden: Boolean @scope(name: "whereIsHidden")
-  ): [Pool!]!
-    @all(scopes: ["wherePublished", "whereNotArchived"])
-    @canModel(ability: "viewAnyPublished", model: "Pool")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -3343,7 +3334,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @canFind(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id")
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
     @canModel(ability: "updateSub", model: "User")
