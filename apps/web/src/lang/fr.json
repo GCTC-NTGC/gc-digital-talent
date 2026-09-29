@@ -1330,10 +1330,6 @@
     "defaultMessage": "Je souhaite recevoir des offres de promotion et d'avancement.",
     "description": "The promotion move interest described as interested."
   },
-  "2voWST": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Label displayed on an Experience form for expiry date input"
-  },
   "2wbcfE": {
     "defaultMessage": "Revoir une nomination",
     "description": "Title for the review talent nomination dialog"
@@ -7713,10 +7709,6 @@
     "defaultMessage": "Code de confirmation du courriel",
     "description": "label for verification code input"
   },
-  "STDYoR": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Title of the 'Expiry date' column for the table on view-user page"
-  },
   "SUVTfy": {
     "defaultMessage": "Cette candidature spéciale a été créée pour le motif suivant",
     "description": "Special application type section"
@@ -7924,10 +7916,6 @@
   "TFDGG/": {
     "defaultMessage": "Si vous faites actuellement partie du personnel du gouvernement du Canada, vérifiez votre courriel au travail et assurez-vous que votre expérience de travail est à jour pour pouvoir utiliser les outils destinés au personnel. Les nominations liées à des postes précédents au gouvernement du Canada continueront de s’afficher ici.",
     "description": "Notice description on sections for employee profile page when not a verified employee."
-  },
-  "THBjEx": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Label for the expiry date input"
   },
   "THsT/q": {
     "defaultMessage": "Période de nomination",
@@ -8639,10 +8627,6 @@
   "W9HNlU": {
     "defaultMessage": "Coordonnées du nominé ou de la nominée",
     "description": "Expandable to see nominee information"
-  },
-  "WAO4vD": {
-    "defaultMessage": "Date d'expiration",
-    "description": "Label displayed on the date field of the change candidate expiry date dialog"
   },
   "WAcWqh": {
     "defaultMessage": "{title} évaluation - {skillName}",
@@ -15993,10 +15977,6 @@
   "zDIBle": {
     "defaultMessage": "Nom de famille",
     "description": "Label for last name input"
-  },
-  "zDO6tt": {
-    "defaultMessage": "Date d'expiration",
-    "description": "title for change expiry date dialog on view-user page"
   },
   "zDYHRr": {
     "defaultMessage": "Titre du poste",

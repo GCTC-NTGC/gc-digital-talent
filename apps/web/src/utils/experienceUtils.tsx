@@ -194,12 +194,7 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on an Experience form for prospective end date input",
     }),
-    expiryDate: intl.formatMessage({
-      defaultMessage: "Expiry date",
-      id: "2voWST",
-      description:
-        "Label displayed on an Experience form for expiry date input",
-    }),
+    expiryDate: intl.formatMessage(commonMessages.expiryDate),
     prospectiveExpiryDate: intl.formatMessage({
       defaultMessage: "Prospective expiry date",
       id: "2UKk4c",
