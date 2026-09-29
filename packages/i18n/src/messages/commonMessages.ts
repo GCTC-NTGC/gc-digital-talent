@@ -246,11 +246,6 @@ const commonMessages = defineMessages({
     id: "SD8i+/",
     description: "Title for received",
   },
-  draft: {
-    defaultMessage: "Draft",
-    id: "fRyPvR",
-    description: "Item's state is draft",
-  },
   submitted: {
     defaultMessage: "Submitted",
     id: "Vnygk+",

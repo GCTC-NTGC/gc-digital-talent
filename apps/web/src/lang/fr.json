@@ -7174,10 +7174,6 @@
     "defaultMessage": "Femme autochtone qui échange virtuellement avec un apprentis par l'entremise d'un portable.",
     "description": "Description of a decorative image of a woman and a laptop"
   },
-  "QDjfw4": {
-    "defaultMessage": "Ébauche",
-    "description": "Status label for a draft application"
-  },
   "QEwqmf": {
     "defaultMessage": "Abréviation",
     "description": "Label displayed for abbreviation field"
@@ -10977,6 +10973,10 @@
   "fRwqM9": {
     "defaultMessage": "Reliez une expérience de parcours professionnel <hidden> à {skillName}</hidden>",
     "description": "Button text to open form to connect an experience to a skill"
+  },
+  "fRyPvR": {
+    "defaultMessage": "Ébauche",
+    "description": "Item's state is draft"
   },
   "fSMBX0": {
     "defaultMessage": "Possibilités d’emploi actuelles",
