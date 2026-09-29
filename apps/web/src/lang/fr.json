@@ -8456,6 +8456,10 @@
     "defaultMessage": "Modifier les infos du nominateur ou de la nominatrice",
     "description": "Link text to edit a nominations nominator information"
   },
+  "VV8TA5": {
+    "defaultMessage": "Retour",
+    "description": "An action to go back to a previous location"
+  },
   "VWEwki": {
     "defaultMessage": "Salaire minimal",
     "description": "Label for classification minimum salary display"

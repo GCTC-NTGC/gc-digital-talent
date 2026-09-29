@@ -155,11 +155,6 @@ const commonMessages = defineMessages({
     id: "sotCgD",
     description: "Any language",
   },
-  return: {
-    defaultMessage: "Return",
-    id: "VV8TA5",
-    description: "An action to go back to a previous location",
-  },
   important: {
     defaultMessage: "Important",
     id: "IKGhHj",

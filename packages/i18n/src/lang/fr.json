@@ -955,10 +955,6 @@
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the expiry date cannot be in the past."
   },
-  "VV8TA5": {
-    "defaultMessage": "Retour",
-    "description": "An action to go back to a previous location"
-  },
   "Vnygk+": {
     "defaultMessage": "Soumis",
     "description": "Item's state is submitted"
