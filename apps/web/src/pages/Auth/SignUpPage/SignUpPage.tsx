@@ -101,7 +101,7 @@ export const Component = () => {
             </p>
             <div className="flex flex-col items-start gap-4 pt-6 pl-2 xs:flex-row xs:items-center">
               <Link
-                href={`${loginPath}&skipmigration=true`}
+                href={loginPath}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
