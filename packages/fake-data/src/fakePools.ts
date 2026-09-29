@@ -12,7 +12,6 @@ import type {
 import {
   PoolStatus,
   PoolLanguage,
-  PublishingGroup,
   SecurityStatus,
   AssessmentStepType,
   PoolSkillType,
@@ -111,13 +110,6 @@ const generatePool = (
     community: faker.helpers.arrayElement(fakeCommunities(1)),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
     processNumber: faker.helpers.maybe(() => faker.lorem.word()) ?? null,
-    publishingGroup:
-      faker.helpers.maybe(() =>
-        toLocalizedEnum(
-          faker.helpers.arrayElement(Object.values(PublishingGroup)),
-          "LocalizedPublishingGroup",
-        ),
-      ) ?? null,
     language: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(PoolLanguage)),
       "LocalizedPoolLanguage",
