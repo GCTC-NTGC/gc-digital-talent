@@ -120,11 +120,6 @@ const commonMessages = defineMessages({
     id: "imR1U4",
     description: "Title displayed telephone",
   },
-  personalPhone: {
-    defaultMessage: "Phone number",
-    id: "zE9jPr",
-    description: "Title displayed phone number",
-  },
   preferredCommunicationLanguage: {
     defaultMessage: "Preferred communication language",
     id: "XiECLl",

@@ -58,7 +58,13 @@ const PersonalContactInfo = ({ personalContactQuery }: DisplayProps) => {
       <FieldDisplay label={intl.formatMessage(commonMessages.email)}>
         {email ?? notProvided}
       </FieldDisplay>
-      <FieldDisplay label={intl.formatMessage(commonMessages.personalPhone)}>
+      <FieldDisplay
+        label={intl.formatMessage({
+          defaultMessage: "Phone number",
+          id: "zE9jPr",
+          description: "Title displayed phone number",
+        })}
+      >
         {telephone ?? notProvided}
       </FieldDisplay>
       <FieldDisplay

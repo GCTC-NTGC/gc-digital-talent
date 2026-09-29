@@ -1911,10 +1911,6 @@
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
   },
-  "zE9jPr": {
-    "defaultMessage": "Numéro de téléphone",
-    "description": "Title displayed phone number"
-  },
   "zM99Vm": {
     "defaultMessage": "J'ai actuellement un mentor.",
     "description": "The mentorship status described as mentee."
