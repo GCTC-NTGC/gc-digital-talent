@@ -508,8 +508,11 @@ export const Component = () => {
                 </Heading>
                 <div className="flex flex-col flex-wrap gap-3 text-sm text-gray-600 sm:flex-row dark:text-gray-200">
                   <span>
-                    {intl.formatMessage(commonMessages.date) +
-                      intl.formatMessage(commonMessages.dividingColon)}
+                    {intl.formatMessage({
+                      defaultMessage: "Date",
+                      id: "09LIbL",
+                      description: "Label to identify a date element",
+                    }) + intl.formatMessage(commonMessages.dividingColon)}
                     <span className="font-bold">{fair.date}</span>
                   </span>
                   <span className="hidden text-center text-gray/50 sm:block">

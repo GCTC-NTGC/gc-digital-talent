@@ -551,6 +551,10 @@
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'view a skill' form"
   },
+  "09LIbL": {
+    "defaultMessage": "Date",
+    "description": "Label to identify a date element"
+  },
   "09ijOa": {
     "defaultMessage": "<strong>Non</strong>, je n'ai pas de droit de priorité.",
     "description": "Label displayed for does not have priority entitlement option"

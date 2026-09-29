@@ -231,11 +231,6 @@ const commonMessages = defineMessages({
     id: "m0iNdp",
     description: "Null selection for community select input.",
   },
-  date: {
-    defaultMessage: "Date",
-    id: "09LIbL",
-    description: "Label to identify a date element",
-  },
   workEmail: {
     defaultMessage: "Work email address",
     id: "pOL68A",

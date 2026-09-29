@@ -59,10 +59,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
-  "09LIbL": {
-    "defaultMessage": "Date",
-    "description": "Label to identify a date element"
-  },
   "0AhbED": {
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Label for skill requirements"
