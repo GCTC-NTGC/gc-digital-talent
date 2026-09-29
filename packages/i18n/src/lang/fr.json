@@ -1291,10 +1291,6 @@
     "defaultMessage": "Fermer",
     "description": "Title for close"
   },
-  "g1qgjG": {
-    "defaultMessage": "Options de lieu de travail flexible",
-    "description": "Title for flexible work locations options"
-  },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
     "description": "Text for the button to close a modal dialog."

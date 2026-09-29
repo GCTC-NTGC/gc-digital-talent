@@ -892,7 +892,7 @@ const PoolCandidatesTable = ({
 
         return (
           // NOTE: We do want to pass on empty strings
-          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+
           (assessmentStep?.title?.localized ||
             assessmentStep?.type?.label?.localized) ??
           ""
@@ -1101,7 +1101,11 @@ const PoolCandidatesTable = ({
           .join(", ") ?? null,
       {
         id: "flexibleWorkLocations",
-        header: intl.formatMessage(commonMessages.flexibleWorkLocations),
+        header: intl.formatMessage({
+          defaultMessage: "Flexible work location options",
+          id: "g1qgjG",
+          description: "Title for flexible work locations options",
+        }),
         enableSorting: false,
       },
     ),
