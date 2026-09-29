@@ -34,9 +34,9 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <div className="flex flex-col gap-3">
-            <div>
-              <Heading rank="h3" size="h6" className="mt-0">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-3">
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
                   id: "Qjf3b1",
@@ -53,8 +53,8 @@ const WhatDoesThisMeanMigrationPossibleDialog = ({
                 })}
               </p>
             </div>
-            <div>
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div className="flex flex-col gap-3">
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
                   id: "a+UXof",

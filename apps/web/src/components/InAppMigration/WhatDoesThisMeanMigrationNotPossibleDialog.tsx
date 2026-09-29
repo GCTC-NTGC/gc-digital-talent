@@ -32,8 +32,8 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
         </Dialog.Header>
         <Dialog.Body>
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3">
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div>
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
                   id: "Qjf3b1",
@@ -41,7 +41,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                     "Heading for the section explaining the sign in method change",
                 })}
               </Heading>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "We've moved to CanadaLogin, a central sign in method that has replaced the previously used GCKey sign in method.",
@@ -49,7 +49,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                   description: "Paragraph explaining the move to CanadaLogin",
                 })}
               </p>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Existing GC Digital Talent users can learn more about what linking your profile means below.",
@@ -68,8 +68,8 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                 })}
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div>
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
                   id: "a+UXof",
@@ -77,7 +77,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                     "Heading for the linking explanation section of a dialog",
                 })}
               </Heading>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
@@ -86,7 +86,7 @@ const WhatDoesThisMeanMigrationNotPossibleDialog = () => {
                     "Paragraph explaining what linking a profile means",
                 })}
               </p>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Any information currently in your new profile will be replaced with the data from your existing GC Digital Talent profile. Once your profile is linked, please check that your information is up to date.",

@@ -29,8 +29,8 @@ const AlreadyHaveProfileDialog = () => {
         </Dialog.Header>
         <Dialog.Body>
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-3">
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div>
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What's happening",
                   id: "Qjf3b1",
@@ -38,7 +38,7 @@ const AlreadyHaveProfileDialog = () => {
                     "Heading for the section explaining the sign in method change",
                 })}
               </Heading>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "We've moved to CanadaLogin, a central sign in method that has replaced the previously used GCKey sign in method.",
@@ -46,7 +46,7 @@ const AlreadyHaveProfileDialog = () => {
                   description: "Paragraph explaining the move to CanadaLogin",
                 })}
               </p>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Existing GC Digital Talent users can learn more about how to link their profiles below.",
@@ -65,8 +65,8 @@ const AlreadyHaveProfileDialog = () => {
                 })}
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div>
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage: "What linking your profile means",
                   id: "a+UXof",
@@ -74,7 +74,7 @@ const AlreadyHaveProfileDialog = () => {
                     "Heading for the linking explanation section of a dialog",
                 })}
               </Heading>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "If your email address and phone number in CanadaLogin match the information in your existing GC Digital Talent profile, linking your profile will connect your existing data to your new sign in method.",
@@ -93,8 +93,8 @@ const AlreadyHaveProfileDialog = () => {
                 })}
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              <Heading rank="h3" size="h6" className="mt-0">
+            <div>
+              <Heading rank="h3" size="h6" className="m-0">
                 {intl.formatMessage({
                   defaultMessage:
                     "How to link your previous profile to your new sign in method",
@@ -103,7 +103,7 @@ const AlreadyHaveProfileDialog = () => {
                     "Heading for the instructions section of the already have a profile dialog",
                 })}
               </Heading>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "Visit CanadaLogin and make sure your email address and phone number match the contact information in your existing GC Digital Talent profile.",
@@ -112,7 +112,7 @@ const AlreadyHaveProfileDialog = () => {
                     "Instruction to update contact information on CanadaLogin",
                 })}
               </p>
-              <p>
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
                     "After updating your information in CanadaLogin, sign out of GC Digital Talent and sign back in. If you continue to receive this message, no matching profile could be found.",
