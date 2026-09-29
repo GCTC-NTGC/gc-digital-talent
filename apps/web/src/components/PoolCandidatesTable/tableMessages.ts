@@ -78,11 +78,6 @@ const messages = defineMessages({
     id: "Fwapx7",
     description: "Title displayed on the Pool Candidates table flag column",
   },
-  referralStatus: {
-    defaultMessage: "Referral status",
-    id: "tZN+WQ",
-    description: "Label for a candidates referral status",
-  },
 });
 
 export default messages;

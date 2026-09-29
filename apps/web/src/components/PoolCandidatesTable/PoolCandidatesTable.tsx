@@ -997,7 +997,7 @@ const PoolCandidatesTable = ({
       },
       {
         id: "referralStatus",
-        header: intl.formatMessage(tableMessages.referralStatus),
+        header: intl.formatMessage(commonMessages.referralStatus),
         enableSorting: false,
         enableColumnFilter: false,
       },
