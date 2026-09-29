@@ -11,11 +11,6 @@ const commonMessages = defineMessages({
     id: "0OSmXn",
     description: "Title of IT Apprenticeship Program for Indigenous Peoples",
   },
-  loadingTitle: {
-    defaultMessage: "Loading",
-    id: "o/6zAs",
-    description: "Title displayed for a table initial loading state.",
-  },
   loading: {
     defaultMessage: "Loading…",
     id: "6sIidC",

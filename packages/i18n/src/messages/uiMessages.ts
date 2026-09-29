@@ -131,6 +131,11 @@ const uiMessages = defineMessages({
     id: "nqYfCF",
     description: "Label for count and total",
   },
+  loadingTitle: {
+    defaultMessage: "Loading",
+    id: "o/6zAs",
+    description: "Title displayed for a table initial loading state.",
+  },
 });
 
 export default uiMessages;
