@@ -38,7 +38,11 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
       id: "role",
       enableHiding: false,
       sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.role),
+      header: intl.formatMessage({
+        defaultMessage: "Role",
+        id: "uBmoxQ",
+        description: "Title displayed for the role table display name column",
+      }),
       cell: ({ getValue }) => roleCell(getValue()),
     }),
   ] as ColumnDef<AuthRoleAssignment>[];

@@ -231,11 +231,6 @@ const commonMessages = defineMessages({
     id: "m0iNdp",
     description: "Null selection for community select input.",
   },
-  role: {
-    defaultMessage: "Role",
-    id: "uBmoxQ",
-    description: "Title displayed for the role table display name column",
-  },
   date: {
     defaultMessage: "Date",
     id: "09LIbL",
