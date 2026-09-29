@@ -6790,6 +6790,10 @@
     "defaultMessage": "Présenter une demande",
     "description": "Label on link to apply to a job"
   },
+  "Ojevvl": {
+    "defaultMessage": "Compétences optionnelles",
+    "description": "Title for optional skills"
+  },
   "Ok+Ojl": {
     "defaultMessage": "{skill} est défini comme :",
     "description": "Heading for a specific skills definition"

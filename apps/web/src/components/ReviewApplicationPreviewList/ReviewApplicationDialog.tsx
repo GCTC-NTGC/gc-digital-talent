@@ -367,7 +367,11 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="optional-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(commonMessages.optionalSkills)}
+                    {intl.formatMessage({
+                      id: "Ojevvl",
+                      defaultMessage: "Optional skills",
+                      description: "Title for optional skills",
+                    })}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
                     {wrapParens(nonessentialSkills.length ?? 0)}
