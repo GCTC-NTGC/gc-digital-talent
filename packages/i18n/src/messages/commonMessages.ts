@@ -176,8 +176,8 @@ const commonMessages = defineMessages({
     description: "Label for the referral status field display",
   },
   warning: {
-    defaultMessage: "Warning!",
-    id: "YtV1mE",
+    defaultMessage: "Warning",
+    id: "PH9YJt",
     description: "A potentially dangerous action alert",
   },
   noExperiencesOfType: {

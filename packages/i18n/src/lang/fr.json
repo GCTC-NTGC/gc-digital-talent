@@ -763,6 +763,10 @@
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
   },
+  "PH9YJt": {
+    "defaultMessage": "Avertissement",
+    "description": "A potentially dangerous action alert"
+  },
   "PKkPSW": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
     "description": "The operational requirement described as occasional overtime."
@@ -1074,10 +1078,6 @@
   "YmboX1": {
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
-  },
-  "YtV1mE": {
-    "defaultMessage": "Avertissement!",
-    "description": "A potentially dangerous action alert"
   },
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",

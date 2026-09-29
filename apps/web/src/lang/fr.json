@@ -9268,10 +9268,6 @@
     "defaultMessage": "arrive à échéance le {expiryDate}",
     "description": "Message part for expiry date"
   },
-  "Yn2mVD": {
-    "defaultMessage": "Avertissement",
-    "description": "Accessible label for a warning icon"
-  },
   "Ynxi7g": {
     "defaultMessage": "Note spéciale relative aux compétences techniques constituant un atout",
     "description": "The nonessential technical skills special note for a job poster template"
