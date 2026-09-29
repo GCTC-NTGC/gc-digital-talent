@@ -263,7 +263,11 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
             {application?.candidateStatus?.value === CandidateStatus.Expired ? (
               <FieldDisplay
-                label={intl.formatMessage(commonMessages.deadlineToApply)}
+                label={intl.formatMessage({
+                  defaultMessage: "Deadline to apply",
+                  id: "ZoYqEo",
+                  description: "Title for deadline to apply",
+                })}
                 className="xs:col-span-2"
                 hasError={deadlineToApply(
                   pool.closingDate,

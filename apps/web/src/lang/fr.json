@@ -9508,6 +9508,10 @@
     "defaultMessage": "Félicitations pour votre nomination aux fins de {eventName}.",
     "description": "Title for important update notice"
   },
+  "ZoYqEo": {
+    "defaultMessage": "Date limite",
+    "description": "Title for deadline to apply"
+  },
   "ZoZNDf": {
     "defaultMessage": "Trouvez une nouvelle compétence et ajoutez-la à votre portfolio",
     "description": "Title for the find a skill dialog within the skill portfolio"

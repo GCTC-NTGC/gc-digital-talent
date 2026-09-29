@@ -1079,10 +1079,6 @@
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
   },
-  "ZoYqEo": {
-    "defaultMessage": "Date limite",
-    "description": "Title for deadline to apply"
-  },
   "ZpTNbt": {
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
     "description": "declare self to be a CAF veteran"
