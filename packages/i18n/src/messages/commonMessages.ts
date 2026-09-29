@@ -130,11 +130,6 @@ const commonMessages = defineMessages({
     id: "5hkdf2",
     description: "Title displayed working language ability",
   },
-  unspecified: {
-    defaultMessage: "Unspecified",
-    id: "zhqK/P",
-    description: "Unspecified, has not been set or defined",
-  },
   notApplicable: {
     defaultMessage: "Not applicable",
     id: "C/mdCs",
