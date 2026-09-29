@@ -551,6 +551,7 @@ type Pool implements HasRoleAssignments {
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 type GeneralQuestionResponse {
@@ -1041,9 +1042,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -1458,6 +1456,7 @@ input PoolFilterInput {
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
+  isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1750,13 +1749,6 @@ type Query {
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPools(
-    closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    publishingGroup: PublishingGroup
-      @where(key: "publishing_group", operator: "=")
-  ): [Pool!]!
-    @all(scopes: ["wherePublished", "whereNotArchived"])
-    @canModel(ability: "viewAnyPublished", model: "Pool")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1863,6 +1855,7 @@ type Query {
     where: NotificationFilterInput
     excludeIds: [UUID!] @notIn(key: "id")
   ): [Notification!]
+    @guard
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
@@ -3060,6 +3053,7 @@ input UpdatePoolInput {
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -3346,7 +3340,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @canFind(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id")
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
     @canModel(ability: "updateSub", model: "User")
@@ -3877,7 +3871,6 @@ type Mutation {
 
   # Pool mutations
   createPool(
-    userId: ID! @rename(attribute: "user_id")
     communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool

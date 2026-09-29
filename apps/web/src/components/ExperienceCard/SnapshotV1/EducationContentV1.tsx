@@ -10,7 +10,7 @@ import type { EducationContentExperience } from "../EducationContent";
 
 const EducationContentV1 = ({
   experience: { areaOfStudy, status, thesisTitle },
-  headingLevel,
+  headingRank,
 }: ContentProps<EducationContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -19,14 +19,14 @@ const EducationContentV1 = ({
     <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.areaOfStudy}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {areaOfStudy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.educationStatus}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {status?.label
@@ -35,7 +35,7 @@ const EducationContentV1 = ({
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.thesisTitle}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {thesisTitle ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

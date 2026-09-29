@@ -90,11 +90,23 @@ export default {
       },
       RequestOptions: {
         data: {
-          requestReasons: fakeLocalizedEnum(TalentRequestReason),
-          languageAbilities: fakeLocalizedEnum(LanguageAbility),
-          workRegions: fakeLocalizedEnum(WorkRegion),
-          flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),
-          operationalRequirements: fakeLocalizedEnum(OperationalRequirements),
+          requestReasons: fakeLocalizedEnum(
+            TalentRequestReason,
+            "LocalizedTalentRequestReason",
+          ),
+          languageAbilities: fakeLocalizedEnum(
+            LanguageAbility,
+            "LocalizedLanguageAbility",
+          ),
+          workRegions: fakeLocalizedEnum(WorkRegion, "LocalizedWorkRegion"),
+          flexibleWorkLocations: fakeLocalizedEnum(
+            FlexibleWorkLocation,
+            "LocalizedFlexibleWorkLocation",
+          ),
+          operationalRequirements: fakeLocalizedEnum(
+            OperationalRequirements,
+            "LocalizedOperationalRequirement",
+          ),
           workStreams: fakeWorkStreams(),
         },
       },

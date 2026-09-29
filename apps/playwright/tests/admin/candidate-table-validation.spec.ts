@@ -47,7 +47,7 @@ const LOCALIZED_STRING = {
   fr: "test pool FR",
 };
 
-test.describe.skip("Candidate Table Validation", { tag: "@uat" }, () => {
+test.describe("Candidate Table Validation", { tag: "@uat" }, () => {
   let adminCtx: GraphQLContext;
   let users: (User | undefined)[] = [];
   let sub: string;

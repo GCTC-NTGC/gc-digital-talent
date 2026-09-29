@@ -812,4 +812,24 @@ class UserPolicyTest extends TestCase
         $this->assertTrue($this->departmentAdmin->can('viewAnyUserWorkEmail', $this->applicant));
         $this->assertTrue($this->departmentHRAdvisor->can('viewAnyUserWorkEmail', $this->applicant));
     }
+
+    /**
+     * Able to updateAsAdmin
+     * Only Platform Admins can do this
+     *
+     * @return void
+     */
+    public function testUpdateAsAdmin()
+    {
+        $this->assertTrue($this->platformAdmin->can('updateAsAdmin', $this->applicant));
+
+        $this->assertFalse($this->guest->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->applicant->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->processOperator->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->communityRecruiter->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->communityAdmin->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->communityTalentCoordinator->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->departmentAdmin->can('updateAsAdmin', $this->applicant));
+        $this->assertFalse($this->departmentHRAdvisor->can('updateAsAdmin', $this->applicant));
+    }
 }

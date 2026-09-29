@@ -59,7 +59,7 @@ const YourFunctionalCommunities = ({
   return (
     <Card space="lg">
       <Heading
-        level="h2"
+        rank="h2"
         icon={isVerifiedGovEmployee ? UserGroupIcon : LockClosedIcon}
         {...(isVerifiedGovEmployee && { color: "primary" })}
         className="mt-0 font-normal sm:text-left"

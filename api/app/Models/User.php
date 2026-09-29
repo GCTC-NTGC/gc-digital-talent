@@ -287,12 +287,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         return strtolower($this->preferred_lang ?? 'en');
     }
 
-    /** @return HasMany<Pool, $this> */
-    public function pools(): HasMany
-    {
-        return $this->hasMany(Pool::class);
-    }
-
     /** @return BelongsToMany<Pool, $this> */
     public function poolBookmarks(): BelongsToMany
     {
@@ -544,7 +538,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected function isVerifiedGovEmployee(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
+            get: fn (mixed $value, array $_) => $this->computed_is_gov_employee && ! is_null($this->work_email) && ! is_null($this->work_email_verified_at),
         );
     }
 

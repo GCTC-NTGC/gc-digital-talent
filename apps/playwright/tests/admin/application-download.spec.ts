@@ -24,9 +24,9 @@ import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import { getSkills } from "~/utils/skills";
-import { createUserWithRoles, me } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 
-test.describe.skip("Application download", { tag: "@uat" }, () => {
+test.describe("Application download", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   let applicant: User;
   let sub: string;
@@ -115,6 +115,9 @@ test.describe.skip("Application download", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
+    if (applicant?.id) {
+      await deleteUser(platformAdminCtx, { id: applicant.id });
+    }
     if (poolId) {
       await retirePublishedPool(adminCtx, poolId);
     }

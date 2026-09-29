@@ -478,7 +478,7 @@ export const Component = () => {
                               ? PinnedIcon
                               : CalendarIcon
                           }
-                          level="h4"
+                          rank="h4"
                           size="h5"
                           className="m-0 text-center font-bold sm:text-left"
                         >

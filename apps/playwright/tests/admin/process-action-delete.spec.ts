@@ -3,19 +3,15 @@ import { loginBySub } from "~/utils/auth";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
 import { createPool, updatePool } from "~/utils/pools";
-import { me } from "~/utils/user";
 
 test("Delete pool", { tag: "@uat" }, async ({ appPage }) => {
   const communityAdminSub =
     process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com";
   const communityAdminCtx = await graphql.newContext(communityAdminSub);
-  const user = await me(communityAdminCtx, {});
   const uniqueTestId = generateUniqueTestId();
   const poolName = `pool auth test ${uniqueTestId}`;
 
-  const createdPool = await createPool(communityAdminCtx, {
-    userId: user.id,
-  });
+  const createdPool = await createPool(communityAdminCtx, {});
 
   await updatePool(communityAdminCtx, {
     poolId: createdPool.id,

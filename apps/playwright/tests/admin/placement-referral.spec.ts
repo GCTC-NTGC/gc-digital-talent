@@ -44,7 +44,7 @@ const LOCALIZED_STRING = {
   fr: "test-placement-referral FR",
 };
 
-test.describe.skip("Placement and Referral", { tag: "@uat" }, () => {
+test.describe("Placement and Referral", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let platformAdminCtx: GraphQLContext;
   let sub: string;

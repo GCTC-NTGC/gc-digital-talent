@@ -49,7 +49,10 @@ TechnicalSkill.args = {
   skillQuery: makeFragmentData(
     {
       ...mockSkill,
-      category: toLocalizedEnum(SkillCategory.Technical),
+      category: toLocalizedEnum(
+        SkillCategory.Technical,
+        "LocalizedSkillCategory",
+      ),
     },
     UpdateUserSkillSkill_Fragment,
   ),
@@ -60,7 +63,10 @@ BehaviouralSkill.args = {
   skillQuery: makeFragmentData(
     {
       ...mockSkill,
-      category: toLocalizedEnum(SkillCategory.Behavioural),
+      category: toLocalizedEnum(
+        SkillCategory.Behavioural,
+        "LocalizedSkillCategory",
+      ),
     },
     UpdateUserSkillSkill_Fragment,
   ),

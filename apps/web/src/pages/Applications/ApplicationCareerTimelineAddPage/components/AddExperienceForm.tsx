@@ -122,7 +122,7 @@ const AddExperienceForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <ErrorSummary experienceType={type} />
-        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
           {experienceFormLabels.selectType}
         </Heading>
         <Select

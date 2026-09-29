@@ -11,8 +11,11 @@ import OpenJobs from "./OpenJobsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Published),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ItJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 }));
 
 export default {

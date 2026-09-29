@@ -3,7 +3,10 @@ import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import { invertSkillSkillFamilyTree, parseKeywords } from "./skillUtils";
 
-const localizedBehavioural = toLocalizedEnum(SkillCategory.Behavioural);
+const localizedBehavioural = toLocalizedEnum(
+  SkillCategory.Behavioural,
+  "LocalizedSkillCategory",
+);
 
 describe("skill util tests", () => {
   test("inverts a skill tree with a single skill in a single family", () => {

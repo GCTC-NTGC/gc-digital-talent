@@ -363,7 +363,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
@@ -566,7 +566,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)

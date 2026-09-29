@@ -3,7 +3,6 @@ import { loginBySub } from "~/utils/auth";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { createPool } from "~/utils/pools";
-import { me } from "~/utils/user";
 
 const UPDATE_MUTATION = "UpdatePool";
 
@@ -16,10 +15,7 @@ test.describe("Update pool", { tag: "@uat" }, () => {
     adminCtx = await graphql.newContext(
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "community@test.com",
     );
-    const user = await me(adminCtx, {});
-    const createdPool = await createPool(adminCtx, {
-      userId: user.id,
-    });
+    const createdPool = await createPool(adminCtx, {});
     await loginBySub(appPage.page, adminSub);
     await appPage.page.goto(`/en/admin/pools/${createdPool.id}`);
     await appPage.waitForGraphqlResponse("ViewPoolPage");

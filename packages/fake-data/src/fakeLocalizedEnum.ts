@@ -42,12 +42,14 @@ type EnumCase = "pascal" | "screaming_snake";
  * @param [enumCase="screaming_snake"] - Case of the enum value
  * @returns - Localized version of the enum
  */
-function toLocalizedEnum<T extends string>(
+function toLocalizedEnum<T extends string, N extends string>(
   value: T,
+  typename: N,
   delimiter?: string | RegExp,
   enumCase: EnumCase = "screaming_snake",
-): GenericLocalizedEnum<T> {
+): GenericLocalizedEnum<T> & { __typename: N } {
   return {
+    __typename: typename,
     value: enumCase === "pascal" ? pascalToScreamingSnake(value) : value,
     label: toLocalizedString(enumToString(value, delimiter)),
   };
@@ -61,14 +63,15 @@ type EnumType = Record<number, string>;
  * @param enumerable - The enum to be cast
  * @returns Array of the enum as localized enums
  */
-export function fakeLocalizedEnum<T extends EnumType>(
+export function fakeLocalizedEnum<T extends EnumType, N extends string>(
   enumerable: T,
-): GenericLocalizedEnum<T[keyof T]>[] {
+  typename: N,
+): (GenericLocalizedEnum<T[keyof T]> & { __typename: N })[] {
   return Object.keys(enumerable)
     .filter((k) => isNaN(Number(k)))
     .map((key) =>
-      toLocalizedEnum(key, pascalSplitRegex, "pascal"),
-    ) as GenericLocalizedEnum<T[keyof T]>[];
+      toLocalizedEnum(key, typename, pascalSplitRegex, "pascal"),
+    ) as (GenericLocalizedEnum<T[keyof T]> & { __typename: N })[];
 }
 
 export default toLocalizedEnum;

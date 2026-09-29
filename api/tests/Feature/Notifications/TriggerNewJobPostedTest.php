@@ -21,8 +21,6 @@ class TriggerNewJobPostedTest extends TestCase
     use RefreshDatabase;
     use RefreshesSchemaCache;
 
-    private User $adminUser;
-
     private User $regularUser;
 
     protected function setUp(): void
@@ -34,14 +32,6 @@ class TriggerNewJobPostedTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
         Community::factory()->create();
 
-        $this->adminUser = User::factory()
-            ->asApplicant()
-            ->asAdmin()
-            ->create([
-                'sub' => 'adminUser',
-                'enabled_email_notifications' => [NotificationFamily::JOB_ALERT->name],
-                'enabled_in_app_notifications' => [NotificationFamily::JOB_ALERT->name],
-            ]);
         $this->regularUser = User::factory()
             ->asApplicant()
             ->create([
@@ -56,7 +46,6 @@ class TriggerNewJobPostedTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->for($this->adminUser)
             ->draft()
             ->create();
 
@@ -75,7 +64,6 @@ class TriggerNewJobPostedTest extends TestCase
     public function testNotifyWhenPublished(): void
     {
         $pool = Pool::factory()
-            ->for($this->adminUser)
             ->draft()
             ->create([
                 'publishing_group' => PublishingGroup::IT_JOBS->name,
@@ -87,14 +75,13 @@ class TriggerNewJobPostedTest extends TestCase
 
         $this->travel(1)->minutes();
         Artisan::call('send-notifications:pool-published');
-        Notification::assertSentTimes(NewJobPosted::class, 2);
+        Notification::assertSentTimes(NewJobPosted::class, 1);
     }
 
     // no notification when the pool is published with the "other" group
     public function testNothingSentForOtherGroup(): void
     {
         $pool = Pool::factory()
-            ->for($this->adminUser)
             ->draft()
             ->create([
                 'publishing_group' => PublishingGroup::OTHER->name,
@@ -113,7 +100,6 @@ class TriggerNewJobPostedTest extends TestCase
     public function testNothingSentForClosedPool(): void
     {
         $pool = Pool::factory()
-            ->for($this->adminUser)
             ->published()
             ->create();
 

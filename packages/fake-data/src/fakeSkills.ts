@@ -24,6 +24,7 @@ const generateSkill = (
     return faker.string.uuid();
   });
   return {
+    __typename: "Skill" as const,
     id: uniqueId,
     key: faker.helpers.slugify(name),
     name: toLocalizedString(name),
@@ -31,18 +32,21 @@ const generateSkill = (
       `skill description ${faker.lorem.sentences()}`,
     ),
     keywords: {
+      __typename: "SkillKeywords" as const,
       en: keywordsEN,
       fr: keywordsFR,
     },
     category: toLocalizedEnum(
       overrideCategory ??
         faker.helpers.arrayElement<SkillCategory>(Object.values(SkillCategory)),
+      "LocalizedSkillCategory",
     ),
     families: skillFamilies.length
       ? faker.helpers.arrayElements<SkillFamily>(skillFamilies)
       : ([] as SkillFamily[]),
     experienceSkills: [],
     experienceSkillRecord: {
+      __typename: "ExperienceSkillRecord" as const,
       details: `experienceSkillDetails ${faker.lorem.words()}`,
     },
     experiences: [],

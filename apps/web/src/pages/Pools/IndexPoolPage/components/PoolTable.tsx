@@ -104,6 +104,7 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
       level
       groupAndLevel
     }
+    isHidden
   }
 `);
 
@@ -337,6 +338,26 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
+    columnHelper.accessor(
+      ({ isHidden }) =>
+        isHidden
+          ? intl.formatMessage({
+              defaultMessage: "Hidden",
+              id: "PT/mOx",
+              description: "Label for when a process is hidden",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Not hidden",
+              id: "n27x+U",
+              description: "Label for when a process is not hidden",
+            }),
+      {
+        id: "isHidden",
+        header: intl.formatMessage(processMessages.hiddenProcess),
+        enableColumnFilter: false,
+        enableSorting: false,
+      },
+    ),
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
       enableColumnFilter: false,

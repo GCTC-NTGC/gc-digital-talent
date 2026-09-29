@@ -19,11 +19,9 @@ class UserAuthorizationScopeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected static function createPool(Community|Department $teamable, User $owner)
+    protected static function createPool(Community|Department $teamable)
     {
-        $builder = Pool::factory()
-            ->for($owner)
-            ->published();
+        $builder = Pool::factory()->published();
 
         return match (true) {
             $teamable instanceof Community => $builder->create([
@@ -112,10 +110,9 @@ class UserAuthorizationScopeTest extends TestCase
     public function testProcessOperatorSeesApplicantsToTheirPool(): void
     {
         $community = Community::factory()->create();
-        $admin = User::factory()->asAdmin()->create();
 
-        $actorsPool = self::createPool($community, $admin);
-        $otherPool = self::createPool($community, $admin);
+        $actorsPool = self::createPool($community);
+        $otherPool = self::createPool($community);
 
         $actor = User::factory()
             ->asApplicant()
@@ -144,11 +141,9 @@ class UserAuthorizationScopeTest extends TestCase
         $actorsCommunity = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
 
-        $admin = User::factory()->asAdmin()->create();
-
-        $actorsPool1 = self::createPool($actorsCommunity, $admin);
-        $actorsPool2 = self::createPool($actorsCommunity, $admin);
-        $otherPool = self::createPool($otherCommunity, $admin);
+        $actorsPool1 = self::createPool($actorsCommunity);
+        $actorsPool2 = self::createPool($actorsCommunity);
+        $otherPool = self::createPool($otherCommunity);
 
         $actor = User::factory()
             ->asApplicant()
@@ -261,11 +256,9 @@ class UserAuthorizationScopeTest extends TestCase
         $actorsCommunity = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
 
-        $admin = User::factory()->asAdmin()->create();
-
-        $actorsPool1 = self::createPool($actorsCommunity, $admin);
-        $actorsPool2 = self::createPool($actorsCommunity, $admin);
-        $otherPool = self::createPool($otherCommunity, $admin);
+        $actorsPool1 = self::createPool($actorsCommunity);
+        $actorsPool2 = self::createPool($actorsCommunity);
+        $otherPool = self::createPool($otherCommunity);
 
         $actor = User::factory()
             ->asApplicant()
@@ -325,11 +318,9 @@ class UserAuthorizationScopeTest extends TestCase
         $actorsDepartment = Department::factory()->create();
         $otherDepartment = Department::factory()->create();
 
-        $admin = User::factory()->asAdmin()->create();
-
-        $actorsPool1 = self::createPool($actorsDepartment, $admin);
-        $actorsPool2 = self::createPool($actorsDepartment, $admin);
-        $otherPool = self::createPool($otherDepartment, $admin);
+        $actorsPool1 = self::createPool($actorsDepartment);
+        $actorsPool2 = self::createPool($actorsDepartment);
+        $otherPool = self::createPool($otherDepartment);
 
         $actor = User::factory()
             ->asApplicant()
@@ -362,11 +353,9 @@ class UserAuthorizationScopeTest extends TestCase
         $actorsDepartment = Department::factory()->create();
         $otherDepartment = Department::factory()->create();
 
-        $admin = User::factory()->asAdmin()->create();
-
-        $actorsPool1 = self::createPool($actorsDepartment, $admin);
-        $actorsPool2 = self::createPool($actorsDepartment, $admin);
-        $otherPool = self::createPool($otherDepartment, $admin);
+        $actorsPool1 = self::createPool($actorsDepartment);
+        $actorsPool2 = self::createPool($actorsDepartment);
+        $otherPool = self::createPool($otherDepartment);
 
         $actor = User::factory()
             ->asApplicant()

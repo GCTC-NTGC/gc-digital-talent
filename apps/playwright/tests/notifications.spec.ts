@@ -31,7 +31,7 @@ import {
   createApplication,
 } from "~/utils/applications";
 
-test.describe.skip("Notifications", { tag: "@uat" }, () => {
+test.describe("Notifications", { tag: "@uat" }, () => {
   let uniqueTestId: string;
   let sub: string;
   let platformAdminCtx: GraphQLContext;

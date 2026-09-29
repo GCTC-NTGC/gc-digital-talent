@@ -106,12 +106,8 @@ class UserTest extends TestCase
         $user = User::All()->first();
 
         // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
-        $pool2 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
+        $pool1 = Pool::factory()->create();
+        $pool2 = Pool::factory()->create();
 
         PoolCandidate::factory()->count(5)->qualified()->for($pool1)->create();
         PoolCandidate::factory()->count(4)->expired()->for($pool1)->create();
@@ -2401,5 +2397,23 @@ class UserTest extends TestCase
                 ],
             ]
         )->assertGraphQLValidationError('user.email', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testUpdateUserAsAdminRoleCheck(): void
+    {
+        $applicantUser = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $this->actingAs($applicantUser, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $applicantUser->id,
+                'user' => [
+                    'id' => $applicantUser->id,
+                    'email' => 'BAD.EMAIL@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

@@ -11,8 +11,11 @@ import ClosedJobs from "./ClosedJobsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Closed),
+  publishingGroup: toLocalizedEnum(
+    PublishingGroup.ItJobs,
+    "LocalizedPublishingGroup",
+  ),
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2001-01-01",
   archivedAt: null,

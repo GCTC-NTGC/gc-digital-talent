@@ -164,6 +164,11 @@ const messages = defineMessages({
     id: "LvYEdh",
     description: "Title for Minimum experience or equivalent education",
   },
+  hiddenProcess: {
+    defaultMessage: "Hidden process",
+    id: "VBRI29",
+    description: "Title for Hidden process",
+  },
 });
 
 export default messages;

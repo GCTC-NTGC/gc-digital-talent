@@ -49,7 +49,12 @@ const rows = mockUsers.map((user) => ({
   __typename: "TalentRequestResult",
   id: user.id,
   user,
-  sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
+  sources: [
+    toLocalizedEnum(
+      TalentRequestSource.QualifiedInPool,
+      "LocalizedTalentRequestSource",
+    ),
+  ],
   skillCount: user.userSkills?.length ?? 0,
 }));
 
@@ -78,29 +83,21 @@ const meta = {
           departments: fakeDepartments(),
           workStreams: fakeWorkStreams(),
           flexibleWorkLocations: Object.values(FlexibleWorkLocation).map(
-            (value) => ({
-              __typename: "LocalizedFlexibleWorkLocation" as const,
-              ...toLocalizedEnum(value),
-            }),
+            (value) => toLocalizedEnum(value, "LocalizedFlexibleWorkLocation"),
           ),
-          languageAbilities: Object.values(LanguageAbility).map((value) => ({
-            __typename: "LocalizedLanguageAbility" as const,
-            ...toLocalizedEnum(value),
-          })),
+          languageAbilities: Object.values(LanguageAbility).map((value) =>
+            toLocalizedEnum(value, "LocalizedLanguageAbility"),
+          ),
           operationalRequirements: Object.values(OperationalRequirement).map(
-            (value) => ({
-              __typename: "LocalizedOperationalRequirement" as const,
-              ...toLocalizedEnum(value),
-            }),
+            (value) =>
+              toLocalizedEnum(value, "LocalizedOperationalRequirement"),
           ),
-          priorityWeights: Object.values(PriorityWeight).map((value) => ({
-            __typename: "LocalizedPriorityWeight" as const,
-            ...toLocalizedEnum(value),
-          })),
-          workRegions: Object.values(WorkRegion).map((value) => ({
-            __typename: "LocalizedWorkRegion" as const,
-            ...toLocalizedEnum(value),
-          })),
+          priorityWeights: Object.values(PriorityWeight).map((value) =>
+            toLocalizedEnum(value, "LocalizedPriorityWeight"),
+          ),
+          workRegions: Object.values(WorkRegion).map((value) =>
+            toLocalizedEnum(value, "LocalizedWorkRegion"),
+          ),
         },
       },
     },

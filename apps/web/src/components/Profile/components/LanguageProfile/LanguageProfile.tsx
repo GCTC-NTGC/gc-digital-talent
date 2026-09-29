@@ -143,7 +143,7 @@ const LanguageProfile = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level={pool ? "h3" : "h2"}
+        rank={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}
         toggle={
           !isNull ? (
@@ -178,7 +178,7 @@ const LanguageProfile = ({
       )}
       {missingLanguageRequirements.length > 0 && (
         <MissingLanguageRequirements
-          headingLevel="h3"
+          headingRank="h3"
           user={user}
           pool={application?.pool}
         />

@@ -13,9 +13,11 @@ import graphql from "~/utils/graphql";
 import {
   createCommunity,
   createCommunityInterest,
+  deleteCommunityInterest,
   createCommunityDevelopmentProgram,
   createDevelopmentProgram,
   assignCommunityAdminRole,
+  assignCommunityTalentCoordinatorRole,
 } from "~/utils/communities";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { createWorkStream } from "~/utils/workStreams";
@@ -68,7 +70,7 @@ async function createDisposableTestUsers(
   };
 }
 
-test.describe.skip(
+test.describe(
   "Cross-community development program status",
   { tag: "@uat" },
   () => {
@@ -76,6 +78,7 @@ test.describe.skip(
     test.slow();
     let applicantEmployee: User | undefined;
     let communityAdminEmployee: User | undefined;
+    let communityInterestA: CommunityInterest | undefined;
     let communityInterestB: CommunityInterest | undefined;
     const uniqueTestId = generateUniqueTestId();
     const applicantSub = `playwright.sub.${uniqueTestId}.applicantEmployee`;
@@ -125,6 +128,20 @@ test.describe.skip(
 
       if (!communityA) throw new Error("Community A creation failed");
       if (!communityB) throw new Error("Community B creation failed");
+
+      // createTalentNominationEvent below needs the coordinator to hold the
+      // team-scoped role on these brand-new communities' teams first.
+      const coordinatorUser = await me(communityTalentCoordinatorCtx, {});
+      await Promise.all([
+        assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+          userId: coordinatorUser.id,
+          teamId: communityA.teamIdForRoleAssignment!,
+        }),
+        assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+          userId: coordinatorUser.id,
+          teamId: communityB.teamIdForRoleAssignment!,
+        }),
+      ]);
 
       const [devProgram, educationExperience] = await Promise.all([
         createDevelopmentProgram(platformAdminCtx, {
@@ -179,7 +196,7 @@ test.describe.skip(
         }),
       ]);
 
-      await createCommunityInterest(applicantCtx, {
+      communityInterestA = await createCommunityInterest(applicantCtx, {
         userId: applicantUser.id,
         communityInterest: {
           communityId: communityA.id,
@@ -213,6 +230,16 @@ test.describe.skip(
     });
 
     test.afterAll(async () => {
+      if (communityInterestA?.id) {
+        await deleteCommunityInterest(applicantCtx, {
+          id: communityInterestA.id,
+        });
+      }
+      if (communityInterestB?.id) {
+        await deleteCommunityInterest(applicantCtx, {
+          id: communityInterestB.id,
+        });
+      }
       if (applicantEmployee?.id) {
         await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
       }
@@ -240,7 +267,7 @@ test.describe.skip(
   },
 );
 
-test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
+test.describe("Development Program Interest", { tag: "@uat" }, () => {
   test.describe.configure({ mode: "serial" });
   test.slow();
 
@@ -254,10 +281,17 @@ test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
   const communityAdminSub = `playwright.sub.${uniqueTestId}.communityAdmin`;
   let platformAdminCtx: GraphQLContext,
     communityAdminCtx: GraphQLContext,
+    communityTalentCoordinatorCtx: GraphQLContext,
     applicantCtx: GraphQLContext;
 
   test.beforeAll(async () => {
-    platformAdminCtx = await graphql.newContext();
+    [platformAdminCtx, communityTalentCoordinatorCtx] = await Promise.all([
+      graphql.newContext(),
+      graphql.newContext(
+        process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+          "talent-coordinator@test.com",
+      ),
+    ]);
 
     ({
       applicantEmployee,
@@ -277,6 +311,14 @@ test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
 
     if (!community) throw new Error("Community creation failed");
 
+    // createTalentNominationEvent below needs the coordinator to hold the
+    // team-scoped role on this brand-new community's team first.
+    const coordinatorUser = await me(communityTalentCoordinatorCtx, {});
+    await assignCommunityTalentCoordinatorRole(platformAdminCtx, {
+      userId: coordinatorUser.id,
+      teamId: community.teamIdForRoleAssignment!,
+    });
+
     const [resolvedDevProgram] = await Promise.all([
       createDevelopmentProgram(platformAdminCtx, {
         name: {
@@ -292,7 +334,7 @@ test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
         userId: communityAdminEmployee.id,
         teamId: community.teamIdForRoleAssignment!,
       }),
-      createTalentNominationEvent(platformAdminCtx, {
+      createTalentNominationEvent(communityTalentCoordinatorCtx, {
         community: { connect: community.id },
       }),
       createWorkStream(platformAdminCtx, {
@@ -345,6 +387,11 @@ test.describe.skip("Development Program Interest", { tag: "@uat" }, () => {
   });
 
   test.afterAll(async () => {
+    if (communityInterest?.id) {
+      await deleteCommunityInterest(applicantCtx, {
+        id: communityInterest.id,
+      });
+    }
     if (applicantEmployee?.id) {
       await deleteUser(platformAdminCtx, { id: applicantEmployee.id });
     }

@@ -49,6 +49,7 @@ const open = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Public,
       },
       selectionLimitations: [],
@@ -62,10 +63,12 @@ const citizen = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Public,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.CanadianCitizens,
         },
       ],
@@ -79,6 +82,7 @@ const employee = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
     },
@@ -91,10 +95,12 @@ const atLevel = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
       ],
@@ -108,10 +114,14 @@ const departmental = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
-        { value: PoolSelectionLimitation.DepartmentalPreference },
+        {
+          __typename: "LocalizedPoolSelectionLimitation",
+          value: PoolSelectionLimitation.DepartmentalPreference,
+        },
       ],
     },
     JobCard_Fragment,
@@ -123,13 +133,16 @@ const all = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -143,13 +156,16 @@ const deadlineApproaching = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -166,13 +182,16 @@ const closed = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -192,9 +211,9 @@ const longTitle = {
     {
       ...fakedPool,
       name: {
+        __typename: "LocalizedString",
         en: `${longTitleStr} EN`,
         fr: `${longTitleStr} FR`,
-        localized: `${longTitleStr} LOCALIZED`,
       },
     },
     JobCard_Fragment,

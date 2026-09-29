@@ -15,6 +15,7 @@ const generateCommunity = (
   workStreams: WorkStream[],
 ): Community => {
   return {
+    __typename: "Community",
     id: faker.string.uuid(),
     key: faker.helpers.slugify(faker.lorem.word()),
     name: toLocalizedString(faker.company.name()),

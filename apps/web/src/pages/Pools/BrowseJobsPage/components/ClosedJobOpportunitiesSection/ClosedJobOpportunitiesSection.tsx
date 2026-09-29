@@ -40,7 +40,7 @@ const ClosedJobOpportunitiesSection = ({
   return (
     <>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         icon={RocketLaunchIcon}
         color="secondary"

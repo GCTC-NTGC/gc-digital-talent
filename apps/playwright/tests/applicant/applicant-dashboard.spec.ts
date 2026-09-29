@@ -27,7 +27,7 @@ interface UserInfo {
   isGovEmployee?: boolean;
 }
 
-test.describe.skip("Applicant dashboard update", { tag: "@uat" }, () => {
+test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
   let testId: string;
   let platformAdminCtx: GraphQLContext;
   let govUser: UserInfo = { sub: "", id: "", isGovEmployee: true };

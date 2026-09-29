@@ -11,9 +11,11 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 
 const generatePoolSkill = (): PoolSkill => {
   return {
+    __typename: "PoolSkill",
     id: faker.string.uuid(),
     type: toLocalizedEnum(
       faker.helpers.arrayElement<PoolSkillType>(Object.values(PoolSkillType)),
+      "LocalizedPoolSkillType",
     ),
     requiredLevel: faker.helpers.arrayElement<SkillLevel>(
       Object.values(SkillLevel),
