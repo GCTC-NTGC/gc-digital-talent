@@ -9,6 +9,7 @@ use App\Models\TalentNominationGroup;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * @extends Builder<TalentNominationGroup>
@@ -107,29 +108,30 @@ class TalentNominationGroupBuilder extends Builder implements TalentNominationGr
             });
     }
 
-    // Ids of users satisfying the user-side half of a match: verified gov employees with a
-    // Community Interest in the requested community/work streams, plus the request's
-    // user-level filters. Group-level conditions (decision, expiry, classification) are per
-    // nomination type, applied separately in the two methods above.
+    // Same for every nomination type, so safe to memoize per request.
     private function matchingNomineeIds(array $filters)
     {
-        $community = $filters['community'] ?? null;
-        $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
-        $workStreamIds = array_column($filters['qualifiedInWorkStreams'] ?? [], 'id');
+        $cacheKey = 'matchingNomineeIds:'.md5(serialize($filters));
 
-        return User::query()
-            ->whereIsVerifiedGovEmployee()
-            ->whereUserAttributesMatchTalentRequest($filters)
-            ->whereHas('communityInterests', function (Builder $query) use ($communityId, $workStreamIds) {
-                /** @var CommunityInterestBuilder $query */
-                $query->communities($communityId ? [$communityId] : null)
-                    ->workStreams($workStreamIds)
-                    // The interest row establishing eligibility must itself be consenting —
-                    // it's the evidence for the match, so another interest's consent doesn't
-                    // cover it.
-                    ->where('consent_to_share_profile', true);
-            })
-            ->pluck('id');
+        return Cache::memo('array')->remember($cacheKey, null, function () use ($filters) {
+            $community = $filters['community'] ?? null;
+            $communityId = is_array($community) ? ($community['id'] ?? null) : $community;
+            $workStreamIds = array_column($filters['qualifiedInWorkStreams'] ?? [], 'id');
+
+            return User::query()
+                ->whereIsVerifiedGovEmployee()
+                ->whereUserAttributesMatchTalentRequest($filters)
+                ->whereHas('communityInterests', function (Builder $query) use ($communityId, $workStreamIds) {
+                    /** @var CommunityInterestBuilder $query */
+                    $query->communities($communityId ? [$communityId] : null)
+                        ->workStreams($workStreamIds)
+                        // The interest row establishing eligibility must itself be consenting —
+                        // it's the evidence for the match, so another interest's consent doesn't
+                        // cover it.
+                        ->where('consent_to_share_profile', true);
+                })
+                ->pluck('id');
+        });
     }
 
     // scope the query to TalentNominationGroups the current user can view
