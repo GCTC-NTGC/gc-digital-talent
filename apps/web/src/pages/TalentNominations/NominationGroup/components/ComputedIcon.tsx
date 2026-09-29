@@ -43,7 +43,11 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <CheckCircleIcon
         className={iconStyles({ color: "success" })}
         aria-hidden="false"
-        aria-label={intl.formatMessage(commonMessages.approved)}
+        aria-label={intl.formatMessage({
+          defaultMessage: "Approved",
+          id: "oCFl63",
+          description: "Approved status",
+        })}
       />
     );
   }

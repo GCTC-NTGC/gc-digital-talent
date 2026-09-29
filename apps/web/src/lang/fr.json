@@ -13281,6 +13281,10 @@
     "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
     "description": "Message when user is a Senior Designated Official"
   },
+  "oCFl63": {
+    "defaultMessage": "Approuvée",
+    "description": "Approved status"
+  },
   "oCFoWU": {
     "defaultMessage": "Informations sur la compétence",
     "description": "Heading for the 'create a skill' form"

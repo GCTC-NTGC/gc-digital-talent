@@ -183,7 +183,11 @@ const NominationHistoryListItem = ({
   const getStatusInfo = () => {
     if (computedStatus === TalentNominationGroupStatus.Approved) {
       return {
-        text: intl.formatMessage(commonMessages.approved),
+        text: intl.formatMessage({
+          defaultMessage: "Approved",
+          id: "oCFl63",
+          description: "Approved status",
+        }),
         icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
       };
     } else if (computedStatus === TalentNominationGroupStatus.Rejected) {

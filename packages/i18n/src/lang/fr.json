@@ -1495,10 +1495,6 @@
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
   },
-  "oCFl63": {
-    "defaultMessage": "Approuvée",
-    "description": "Approved status"
-  },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
     "description": "Error message that the pool closing date is required."
