@@ -12,7 +12,7 @@ return new class() extends Migration
     public function up(): void
     {
         Schema::table('work_experiences', function (Blueprint $table) {
-            $table->unsignedBigInteger('annual_budget_allocation_big_int')->nullable(); // Must be nullable
+            $table->bigInteger('annual_budget_allocation_big_int')->nullable(); // Must be nullable
         });
     }
 
