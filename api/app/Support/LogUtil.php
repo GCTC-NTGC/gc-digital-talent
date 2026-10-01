@@ -30,7 +30,7 @@ class LogUtil
     // Take an array and prepare it for logging by masking sensitive fields and turning it into a string
     public static function cleanArray(array $array): string
     {
-        $unsafeKeys = ['client_secret', 'password', 'refresh_token'];
+        $unsafeKeys = ['client_secret', 'password', 'refresh_token', 'token'];
 
         foreach ($unsafeKeys as $key) {
             if (isset($array[$key]) && is_string($array[$key])) {

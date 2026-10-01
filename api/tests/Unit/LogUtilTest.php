@@ -57,6 +57,19 @@ class LogUtilTest extends TestCase
         $this->assertStringNotContainsString('real-refresh-token', $result);
     }
 
+    public function testCleanArrayMasksIntrospectionToken()
+    {
+        $result = LogUtil::cleanArray([
+            'client_id' => 'client',
+            'token' => 'real-access-token',
+        ]);
+
+        $decoded = json_decode($result, true);
+        $this->assertSame('client', $decoded['client_id']);
+        $this->assertSame('*****************', $decoded['token']);
+        $this->assertStringNotContainsString('real-access-token', $result);
+    }
+
     public function testCleanArrayHandlesNullSensitiveValues()
     {
         $result = LogUtil::cleanArray(['refresh_token' => null]);
