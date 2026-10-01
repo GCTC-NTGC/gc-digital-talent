@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
