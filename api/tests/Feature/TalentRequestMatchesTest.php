@@ -2089,7 +2089,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesLateralMovementOnlyExcludesOtherSourceUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $community = Community::factory()->create();
 
         // QUALIFIED_IN_POOL only — no lateral movement nomination
@@ -2118,7 +2118,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesAllSourcesReturnsAllFourSourceUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $atLevelCommunity = Community::factory()->create();
         $advancementCommunity = Community::factory()->create();
         $lateralMovementCommunity = Community::factory()->create();
