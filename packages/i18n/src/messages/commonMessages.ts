@@ -312,11 +312,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  inProgress: {
-    defaultMessage: "In progress",
-    id: "xVBxp3",
-    description: "In progress status",
-  },
   communityInterest: {
     defaultMessage: "Community interest",
     id: "1uBif7",

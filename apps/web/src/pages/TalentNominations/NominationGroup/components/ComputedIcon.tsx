@@ -70,7 +70,11 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
     <QuestionMarkCircleIcon
       className={iconStyles({ color: "secondary" })}
       aria-hidden="false"
-      aria-label={intl.formatMessage(commonMessages.inProgress)}
+      aria-label={intl.formatMessage({
+        defaultMessage: "In progress",
+        id: "xVBxp3",
+        description: "In progress status",
+      })}
     />
   );
 };

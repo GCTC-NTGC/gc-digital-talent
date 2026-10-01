@@ -208,7 +208,11 @@ const NominationHistoryListItem = ({
       };
     } else {
       return {
-        text: intl.formatMessage(commonMessages.inProgress),
+        text: intl.formatMessage({
+          defaultMessage: "In progress",
+          id: "xVBxp3",
+          description: "In progress status",
+        }),
         icon: (
           <QuestionMarkCircleIcon className="mr-1 h-5 w-5 font-normal text-primary" />
         ),

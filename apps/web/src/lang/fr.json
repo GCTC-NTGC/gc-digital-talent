@@ -15536,6 +15536,10 @@
     "defaultMessage": "Télécharger le guide de mise en œuvre pour les conseillers en RH",
     "description": "Aria label for download guidance for human resources plain text link."
   },
+  "xVBxp3": {
+    "defaultMessage": "En cours",
+    "description": "In progress status"
+  },
   "xXwUGs": {
     "defaultMessage": "Directive sur les talents numériques",
     "description": "Title for the digital talent directive page"
