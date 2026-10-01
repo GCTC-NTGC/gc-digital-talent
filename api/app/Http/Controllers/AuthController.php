@@ -190,8 +190,8 @@ class AuthController extends Controller
                 try {
                     $existingUser = User::where('id', '!=', $userMatch->id)
                         ->where(fn ($subquery) => $subquery
-                            ->where('email', 'ilike', $incomingEmailAddress)
-                            ->orWhere('work_email', 'ilike', $incomingEmailAddress))
+                            ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
+                            ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)]))
                         ->withTrashed()
                         ->first();
                     if ($existingUser) {
@@ -218,8 +218,8 @@ class AuthController extends Controller
             // email should be clear now so save if possible
             if (User::where('sub', '!=', $sub)
                 ->where(fn ($subquery) => $subquery
-                    ->where('email', 'ilike', $incomingEmailAddress)
-                    ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                    ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
+                    ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)])
                 )->count() == 0
             ) {
                 $userMatch->setVerifiedContactEmail($incomingEmailAddress);
