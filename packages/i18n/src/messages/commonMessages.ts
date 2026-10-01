@@ -383,11 +383,6 @@ const commonMessages = defineMessages({
     id: "CzK1qY",
     description: "Label for the trashed field",
   },
-  selectOrTypeAnswer: {
-    defaultMessage: "Select or type an answer",
-    id: "se/c4O",
-    description: "Placeholder text for an input with options list",
-  },
   quotes: {
     defaultMessage: '"{text}"',
     id: "vNVMlM",

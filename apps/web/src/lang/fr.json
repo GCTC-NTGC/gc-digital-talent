@@ -14401,6 +14401,10 @@
     "defaultMessage": "Bienvenue",
     "description": "Link text for the application welcome page"
   },
+  "se/c4O": {
+    "defaultMessage": "Sélectionner ou saisir une réponse",
+    "description": "Placeholder text for an input with options list"
+  },
   "sfyaOe": {
     "defaultMessage": "De nouvelles possibilités d’emploi sont publiées tout au long de l’année. En créant votre profil dès maintenant, vous serez mieux préparé pour présenter une candidature solide le moment venu.",
     "description": "Message displayed when there are no executive opportunities available"

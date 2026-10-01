@@ -54,7 +54,11 @@ const ExternalFields = ({
           <Input
             id="organization"
             label={labels.organization}
-            placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Select or type an answer",
+              id: "se/c4O",
+              description: "Placeholder text for an input with options list",
+            })}
             name="organization"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
