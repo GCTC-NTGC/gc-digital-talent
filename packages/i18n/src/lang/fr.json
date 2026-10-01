@@ -507,10 +507,6 @@
     "defaultMessage": "{count, plural, =0 {0 option sélectionnée} one {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
-  "IBc2sp": {
-    "defaultMessage": "Nom complet",
-    "description": "Label for full name"
-  },
   "IKGhHj": {
     "defaultMessage": "Important",
     "description": "Important note or caption"

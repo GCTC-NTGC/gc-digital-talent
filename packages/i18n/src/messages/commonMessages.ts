@@ -318,11 +318,6 @@ const commonMessages = defineMessages({
     description:
       "Message for when a specific item shows up as an option when searching talent",
   },
-  fullName: {
-    defaultMessage: "Full name",
-    id: "IBc2sp",
-    description: "Label for full name",
-  },
   group: {
     defaultMessage: "Group",
     id: "gH2uDM",

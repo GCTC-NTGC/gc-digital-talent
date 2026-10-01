@@ -518,7 +518,11 @@ export const RequestForm = ({
               id="fullName"
               type="text"
               name="fullName"
-              label={intl.formatMessage(commonMessages.fullName)}
+              label={intl.formatMessage({
+                defaultMessage: "Full name",
+                id: "IBc2sp",
+                description: "Label for full name",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
