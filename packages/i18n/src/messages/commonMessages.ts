@@ -318,11 +318,6 @@ const commonMessages = defineMessages({
     description:
       "Message for when a specific item shows up as an option when searching talent",
   },
-  asterisk: {
-    defaultMessage: "*",
-    id: "nSENOg",
-    description: "Asterisk symbol",
-  },
   fullName: {
     defaultMessage: "Full name",
     id: "IBc2sp",

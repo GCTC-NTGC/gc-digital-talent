@@ -6,7 +6,7 @@ import type {
   FragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { Separator, Ul } from "@gc-digital-talent/ui";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
 
@@ -119,9 +119,7 @@ const CommunityInterest = ({
   );
 
   const asterisk =
-    context === "applicant"
-      ? intl.formatMessage(commonMessages.asterisk)
-      : null;
+    context === "applicant" ? intl.formatMessage(uiMessages.asterisk) : null;
   return (
     <>
       <p className="mb-1.5 font-bold">

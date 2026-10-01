@@ -141,6 +141,11 @@ const uiMessages = defineMessages({
     id: "GtVkbt",
     description: "Title displayed for a table error loading state.",
   },
+  asterisk: {
+    defaultMessage: "*",
+    id: "nSENOg",
+    description: "Asterisk symbol",
+  },
 });
 
 export default uiMessages;
