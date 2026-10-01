@@ -63,13 +63,6 @@ const EditPoolName_Fragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     opportunityLength {
       value
       label {
@@ -130,13 +123,6 @@ export const PoolClassification_Fragment = graphql(/* GraphQL */ `
 
 const PoolNameOptions_Query = graphql(/* GraphQL */ `
   query PoolNameOptions {
-    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
-      value
-      label {
-        en
-        fr
-      }
-    }
     workStreams {
       id
       name {
@@ -270,7 +256,6 @@ const PoolNameSection = ({
       stream: pool.workStream?.id ?? undefined,
       specificTitleEn: pool.name?.en ?? "",
       specificTitleFr: pool.name?.fr ?? "",
-      publishingGroup: pool.publishingGroup?.value,
       opportunityLength: pool.opportunityLength?.value,
       isHidden: pool.isHidden ?? false,
     },
@@ -496,18 +481,6 @@ const PoolNameSection = ({
                   )}
                   disabled={formDisabled}
                   doNotSort
-                />
-                <Select
-                  id="publishingGroup"
-                  label={intl.formatMessage(processMessages.publishingGroup)}
-                  name="publishingGroup"
-                  nullSelection={intl.formatMessage({
-                    defaultMessage: "Select a publishing group",
-                    id: "Y0WLp5",
-                    description: "Placeholder for publishing group field",
-                  })}
-                  options={localizedEnumToOptions(data?.publishingGroups, intl)}
-                  disabled={formDisabled}
                 />
               </div>
               <div className="mb-6 grid gap-6">

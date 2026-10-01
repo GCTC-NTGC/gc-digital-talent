@@ -5,16 +5,12 @@ import {
   MockGraphqlDecorator,
 } from "@gc-digital-talent/storybook-helpers";
 import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import OpenJobs from "./OpenJobsPage";
 
 const mockPools = fakePools(3).map((advert) => ({
   ...advert,
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 }));
 

@@ -12,7 +12,6 @@ use App\Enums\CitizenshipStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\PlacementType;
 use App\Enums\PriorityWeight;
-use App\Enums\PublishingGroup;
 use App\Enums\ScreeningStage;
 use App\Models\Community;
 use App\Models\Department;
@@ -107,54 +106,6 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             ->whereAppliedClassificationsIn($classifications);
     }
 
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     */
-    public function wherePublishingGroupsIn(?array $publishingGroups): self
-    {
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereHas('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var PoolBuilder $query */
-            $query->publishingGroups($publishingGroups);
-        });
-    }
-
-    /**
-     * Filter Publishing Groups
-     *
-     * Restrict a query by excluding specific publishing groups
-     */
-    public function wherePublishingGroupsNotIn(?array $publishingGroups): self
-    {
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereDoesntHave('pool', function (Builder $query) use ($publishingGroups) {
-            /** @var PoolBuilder $query */
-            $query->publishingGroups($publishingGroups);
-        });
-    }
-
-    /**
-     * Scope is not IAP Publishing Group
-     *
-     * Restrict a query by pool candidates that are for pools not
-     * containing IAP publishing group
-     */
-    public function whereInTalentSearchablePublishingGroup(): self
-    {
-        return $this->wherePublishingGroupsNotIn([
-            PublishingGroup::IAP->name,
-        ]);
-
-    }
-
     // A candidacy that satisfies a talent request: available, talent-searchable, and matching
     // the request's pool-level constraints. Shared by the User membership check and the
     // constrained eager-load so they cannot drift.
@@ -168,7 +119,6 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         // on the user. pools and community arrive as plain ids; workStreams arrives as objects,
         // so its id is pulled out first.
         return $this->whereAvailable()
-            ->whereInTalentSearchablePublishingGroup()
             ->wherePoolIsNotHidden()
             ->whereHasCommunity()
             ->whereAppliedClassificationsIn($filters['qualifiedInClassifications'] ?? null)
