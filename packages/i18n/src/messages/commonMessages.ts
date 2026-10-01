@@ -312,11 +312,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  communityInterest: {
-    defaultMessage: "Community interest",
-    id: "1uBif7",
-    description: "Community interest label",
-  },
   onFindTalent: {
     defaultMessage: 'Appears on "Find talent" page',
     id: "hC74Bo",

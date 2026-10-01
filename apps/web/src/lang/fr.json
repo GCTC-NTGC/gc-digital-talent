@@ -1058,6 +1058,10 @@
     "defaultMessage": "Intérêt pour l'emploi",
     "description": "Label for interested in jobs checkbox for mobility interest checklist"
   },
+  "1uBif7": {
+    "defaultMessage": "Intérêt pour les collectivités",
+    "description": "Community interest label"
+  },
   "1vpJU6": {
     "defaultMessage": "Veuillez sélectionner les volets de travail que vous envisageriez pour un emploi ou une formation.",
     "description": "Introduction for a work stream referral preferences input"
