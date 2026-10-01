@@ -2036,14 +2036,11 @@ class TalentRequestTrackedUserTest extends TestCase
         );
     }
 
-    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    private function seedReferredNominationGroupUsers(TalentRequest $request, string $nominationType, int $count): void
     {
-        $filter = ApplicantFilter::factory()->for($this->community)->create();
-        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
-
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $user = User::factory()->create([
-                'work_email' => "advancement.batch.{$i}@gc.ca",
+                'work_email' => str_replace('_', '.', $nominationType).".batch.{$i}@gc.ca",
                 'work_email_verified_at' => now(),
                 'computed_is_gov_employee' => true,
             ]);
@@ -2052,12 +2049,20 @@ class TalentRequestTrackedUserTest extends TestCase
             $group = TalentNominationGroup::create([
                 'nominee_id' => $user->id,
                 'talent_nomination_event_id' => $event->id,
-                'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+                "{$nominationType}_decision" => TalentNominationGroupDecision::APPROVED->name,
             ]);
-            $group->advancement_referral_expiry_date = now()->addMonths(6);
+            $group->{"{$nominationType}_referral_expiry_date"} = now()->addMonths(6);
             $group->save();
             TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
         }
+    }
+
+    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $this->seedReferredNominationGroupUsers($request, 'advancement', 25);
 
         $listQuery = <<<'GRAPHQL'
             query ($talentRequestId: UUID!) {
@@ -2093,23 +2098,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter = ApplicantFilter::factory()->for($this->community)->create();
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        for ($i = 0; $i < 25; $i++) {
-            $user = User::factory()->create([
-                'work_email' => "lateral.movement.batch.{$i}@gc.ca",
-                'work_email_verified_at' => now(),
-                'computed_is_gov_employee' => true,
-            ]);
-            CommunityInterest::factory()->for($user)->for($this->community)->consented()->create();
-            $event = TalentNominationEvent::factory()->create(['community_id' => $this->community->id]);
-            $group = TalentNominationGroup::create([
-                'nominee_id' => $user->id,
-                'talent_nomination_event_id' => $event->id,
-                'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
-            ]);
-            $group->lateral_movement_referral_expiry_date = now()->addMonths(6);
-            $group->save();
-            TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
-        }
+        $this->seedReferredNominationGroupUsers($request, 'lateral_movement', 25);
 
         $listQuery = <<<'GRAPHQL'
             query ($talentRequestId: UUID!) {
