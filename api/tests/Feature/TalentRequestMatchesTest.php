@@ -16,7 +16,6 @@ use App\Enums\OperationalRequirement;
 use App\Enums\PlacementType;
 use App\Enums\PositionDuration;
 use App\Enums\PriorityWeight;
-use App\Enums\PublishingGroup;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentRequestSource;
 use App\Enums\WorkRegion;
@@ -205,7 +204,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testReturnsOnlyUsersWithAMatchingCandidacy(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $match = $this->matchingUser($pool);
 
@@ -239,9 +238,9 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testExcludesCandidacyInANonTalentSearchablePool(): void
     {
-        $searchablePool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $searchablePool = Pool::factory()->create();
         $nonSearchablePool = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IAP->name,
+            'is_hidden' => true,
         ]);
 
         $included = $this->matchingUser($searchablePool);
@@ -260,7 +259,7 @@ class TalentRequestMatchesTest extends TestCase
     // The attribute filters narrow results, AND attributes alone don't match without a candidacy.
     public function testAttributeFilterNarrowsAndStillRequiresACandidacy(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $englishMatch = $this->matchingUser($pool, [
             'looking_for_english' => true,
@@ -285,7 +284,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersOnFlexibleWorkLocation(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $remote = $this->matchingUser($pool, [
             'flexible_work_locations' => [FlexibleWorkLocation::REMOTE->name],
@@ -306,10 +305,10 @@ class TalentRequestMatchesTest extends TestCase
         $matchingClass = Classification::factory()->create();
         $otherClass = Classification::factory()->create();
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'classification_id' => $matchingClass->id,
         ]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'classification_id' => $otherClass->id,
         ]);
 
@@ -348,8 +347,8 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testUserQualifiedInTwoMatchingPoolsIsOneRowWithBothSources(): void
     {
-        $poolA = Pool::factory()->candidatesAvailableInSearch()->create();
-        $poolB = Pool::factory()->candidatesAvailableInSearch()->create();
+        $poolA = Pool::factory()->create();
+        $poolB = Pool::factory()->create();
 
         $user = User::factory()->create();
         PoolCandidate::factory()->availableInSearch()->create([
@@ -375,7 +374,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testSkillCountCountsTheUsersMatchingSkills(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $user = $this->matchingUser($pool);
 
         $matchingSkill = Skill::factory()->create();
@@ -394,7 +393,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testExcludeTrackedByRequestIdFiltersOutUsersTrackedByThatRequest(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $included = $this->matchingUser($pool);
         $tracked = $this->matchingUser($pool);
 
@@ -418,7 +417,7 @@ class TalentRequestMatchesTest extends TestCase
     public function testFiltersByDepartments(): void
     {
         $department = Department::factory()->create();
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $inDepartment = $this->matchingUser($pool, [], true);
         $this->matchingUser($pool, [], false);
 
@@ -429,7 +428,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersByEmployeeVerification(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         // withGovEmployeeProfile creates a user with a verified work email
         $govEmployee = $this->matchingUser($pool, [], true);
@@ -442,7 +441,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersByPriorityWeight(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         // priority_weight is generated on users: VETERAN armed forces → weight 20
         $veteran = $this->matchingUser($pool, [
@@ -464,7 +463,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersByGeneralSearch(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $jane = $this->matchingUser($pool, [
             'first_name' => 'Jane',
@@ -484,7 +483,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersByName(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $jane = $this->matchingUser($pool, ['first_name' => 'Jane', 'last_name' => 'Doe']);
         $this->matchingUser($pool, ['first_name' => 'Bob', 'last_name' => 'Smith']);
@@ -496,7 +495,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testFiltersByEmail(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $jane = $this->matchingUser($pool, ['email' => 'jane.doe@example.com']);
         $this->matchingUser($pool, ['email' => 'bob.smith@example.com']);
@@ -508,7 +507,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testOrdersBySkillCount(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $oneSkill = $this->matchingUser($pool);
         $twoSkills = $this->matchingUser($pool);
@@ -534,7 +533,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testOrdersByDepartmentName(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $depA = Department::factory()->create(['name' => ['en' => 'Apricot Agency', 'fr' => 'Agence abricot']]);
         $depB = Department::factory()->create(['name' => ['en' => 'Banana Bureau', 'fr' => 'Bureau banane']]);
@@ -574,7 +573,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testMatchesAreFilteredByViewAuthorization(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $this->matchingUser($pool);
 
         // a viewer with no permission to see other users gets no error, but the
@@ -589,14 +588,14 @@ class TalentRequestMatchesTest extends TestCase
     public function testTeamScopedRecruiterSeesOnlyMatchesInTheirCommunity(): void
     {
         $community = Community::factory()->create();
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $community->id,
         ]);
         $visible = $this->matchingUser($pool);
 
         // an equally-valid match in another community the recruiter has no access to
         // (explicit community: PoolFactory firstOrCreates one, so it would otherwise reuse $community)
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'community_id' => Community::factory()->create()->id,
         ]);
         $this->matchingUser($otherPool);
@@ -616,7 +615,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testCountTotalsMatchingUsersAndIsPublic(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $this->matchingUser($pool);
         $this->matchingUser($pool);
 
@@ -638,10 +637,10 @@ class TalentRequestMatchesTest extends TestCase
         $matchingClass = Classification::factory()->create();
         $otherClass = Classification::factory()->create();
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'classification_id' => $matchingClass->id,
         ]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'classification_id' => $otherClass->id,
         ]);
 
@@ -669,14 +668,14 @@ class TalentRequestMatchesTest extends TestCase
         $classification = Classification::factory()->create();
         $community = Community::factory()->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'classification_id' => $classification->id,
             'community_id' => $community->id,
         ]);
         $this->matchingUser($pool);
 
         // matches every other filter, but its pool has no community attached
-        $communitylessPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $communitylessPool = Pool::factory()->create([
             'classification_id' => $classification->id,
         ]);
         $communitylessPool->forceFill(['community_id' => null])->save();
@@ -712,7 +711,7 @@ class TalentRequestMatchesTest extends TestCase
         $classification = Classification::factory()->create();
         $community = Community::factory()->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'classification_id' => $classification->id,
             'community_id' => $community->id,
         ]);
@@ -761,7 +760,7 @@ class TalentRequestMatchesTest extends TestCase
         $poolCommunity = Community::factory()->create();
         $atLevelCommunity = Community::factory()->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'classification_id' => $classification->id,
             'community_id' => $poolCommunity->id,
         ]);
@@ -801,14 +800,14 @@ class TalentRequestMatchesTest extends TestCase
         $matchingCommunity = Community::factory()->create();
         $otherCommunity = Community::factory()->create();
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'classification_id' => $matchingClassification->id,
             'community_id' => $matchingCommunity->id,
         ]);
         $this->matchingUser($matchingPool);
 
         // otherCommunity has real matches, but not for the filtered classification
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'classification_id' => $otherClassification->id,
             'community_id' => $otherCommunity->id,
         ]);
@@ -825,7 +824,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testCountAgreesWithTheListTotal(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $this->matchingUser($pool);
         $this->matchingUser($pool);
         $this->matchingUser($pool);
@@ -840,7 +839,7 @@ class TalentRequestMatchesTest extends TestCase
     public function testCountByCommunityAppliesUserAttributeFilters(): void
     {
         $community = Community::factory()->create();
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $community->id,
         ]);
         $this->matchingUser($pool, ['looking_for_english' => true, 'looking_for_french' => false]);
@@ -865,7 +864,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testHasDiplomaFilter(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $withDiploma = $this->matchingUser($pool, ['has_diploma' => true]);
         $this->matchingUser($pool, ['has_diploma' => false]);
@@ -881,7 +880,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testEquityFilterMatchesAnySelectedFlag(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $woman = $this->matchingUser($pool, [
             'is_woman' => true,
@@ -918,7 +917,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testEquityFilterMatchesIndigenousCommunities(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $indigenous = $this->matchingUser($pool, [
             'indigenous_communities' => [IndigenousCommunity::OTHER->name],
@@ -932,7 +931,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testOperationalRequirementsFilterRequiresAllSelectedRequirements(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $matching = $this->matchingUser($pool, [
             'accepted_operational_requirements' => [
@@ -957,7 +956,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testPositionDurationFilter(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $temporary = $this->matchingUser($pool, [
             'position_duration' => [PositionDuration::TEMPORARY->name],
@@ -975,7 +974,7 @@ class TalentRequestMatchesTest extends TestCase
     // which hits the plain whereLocationPreferencesIn branch instead of the flexible/region combination.
     public function testLocationPreferencesFilterWithoutFlexibleWorkLocations(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $atlantic = $this->matchingUser($pool, [
             'location_preferences' => [WorkRegion::ATLANTIC->name],
@@ -991,7 +990,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testSkillsIntersectionalFilterRequiresAllSkills(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         // Users are created before the skills below, since matchingUser() (via the underlying
         // User factory's afterCreating hook) auto-attaches random EXISTING skills to a generated
@@ -1018,7 +1017,7 @@ class TalentRequestMatchesTest extends TestCase
     // excludes non-matching users, rather than just checking the skillCount field's value.
     public function testSkillsFilterExcludesUsersWithoutTheSkill(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         // See testSkillsIntersectionalFilterRequiresAllSkills for why users are created first.
         $withSkill = $this->matchingUser($pool);
@@ -1037,8 +1036,8 @@ class TalentRequestMatchesTest extends TestCase
         $targetStream = WorkStream::factory()->create();
         $otherStream = WorkStream::factory()->create();
 
-        $targetPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $targetStream->id]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create(['work_stream_id' => $otherStream->id]);
+        $targetPool = Pool::factory()->create(['work_stream_id' => $targetStream->id]);
+        $otherPool = Pool::factory()->create(['work_stream_id' => $otherStream->id]);
 
         $user = User::factory()->create();
         PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $targetPool->id]);
@@ -1067,14 +1066,14 @@ class TalentRequestMatchesTest extends TestCase
         $targetStream = WorkStream::factory()->create();
         $otherStream = WorkStream::factory()->create();
 
-        $bothMatchPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $bothMatchPool = Pool::factory()->create([
             'classification_id' => $targetClassification->id,
             'work_stream_id' => $targetStream->id,
         ]);
         // Explicitly pinned to a different work stream — the default factory work_stream_id is a
         // random pick that could otherwise coincidentally equal $targetStream and make this pool
         // incorrectly satisfy the combined filter too.
-        $classificationOnlyPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $classificationOnlyPool = Pool::factory()->create([
             'classification_id' => $targetClassification->id,
             'work_stream_id' => $otherStream->id,
         ]);
@@ -1110,8 +1109,8 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testPoolsFilterRestrictsMatchingPools(): void
     {
-        $poolA = Pool::factory()->candidatesAvailableInSearch()->create();
-        $poolB = Pool::factory()->candidatesAvailableInSearch()->create();
+        $poolA = Pool::factory()->create();
+        $poolB = Pool::factory()->create();
 
         $user = User::factory()->create();
         PoolCandidate::factory()->availableInSearch()->create(['user_id' => $user->id, 'pool_id' => $poolA->id]);
@@ -1135,7 +1134,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testNonQualifiedApplicationStatusesDoNotMatch(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $qualified = $this->matchingUser($pool);
 
         foreach (ApplicationStatus::cases() as $status) {
@@ -1156,7 +1155,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testExpiredCandidacyDoesNotMatch(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $matching = $this->matchingUser($pool);
 
         $expiredUser = User::factory()->create();
@@ -1172,7 +1171,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testAlreadyPlacedIndeterminateCandidacyDoesNotMatch(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $matching = $this->matchingUser($pool);
 
         $hiredUser = User::factory()->create();
@@ -1184,30 +1183,6 @@ class TalentRequestMatchesTest extends TestCase
         $this->runMatches()
             ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
-    }
-
-    // testExcludesCandidacyInANonTalentSearchablePool only proves IAP is excluded against one
-    // other (default) pool; this proves EXECUTIVE_JOBS/OTHER specifically still count.
-    public function testAllNonIapPublishingGroupsAreIncluded(): void
-    {
-        $itUser = $this->matchingUser(Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-        ]));
-        $executiveUser = $this->matchingUser(Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
-        ]));
-        $otherUser = $this->matchingUser(Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::OTHER->name,
-        ]));
-        $this->matchingUser(Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IAP->name,
-        ]));
-
-        $userIds = $this->runMatches()
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
-            ->json('data.talentRequestMatches.data.*.user.id');
-
-        $this->assertEqualsCanonicalizing([$itUser->id, $executiveUser->id, $otherUser->id], $userIds);
     }
 
     protected string $atLevelQuery = <<<'GRAPHQL'
@@ -1304,7 +1279,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesQualifiedInPoolOnlyExcludesAtLevelUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $community = Community::factory()->create();
 
         $poolUser = $this->matchingUser($pool);
@@ -1326,7 +1301,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesAtLevelOnlyExcludesPoolOnlyUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $community = Community::factory()->create();
 
         // QUALIFIED_IN_POOL only — no community interest
@@ -1437,7 +1412,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesAllSourcesReturnsBothPoolAndAtLevelUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $community = Community::factory()->create();
 
         $poolUser = $this->matchingUser($pool);
@@ -1746,7 +1721,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesAdvancementOnlyExcludesOtherSourceUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $community = Community::factory()->create();
 
         // QUALIFIED_IN_POOL only — no advancement nomination
@@ -1765,7 +1740,7 @@ class TalentRequestMatchesTest extends TestCase
 
     public function testTalentSourcesAllSourcesReturnsAllThreeSourceUsers(): void
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
         $atLevelCommunity = Community::factory()->create();
         $advancementCommunity = Community::factory()->create();
 

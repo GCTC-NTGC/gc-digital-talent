@@ -4,6 +4,7 @@
   "globalDependencies": ["package.json", "**/.env", "pnpm-workspace.yaml"],
   "tasks": {
     "build": {
+      "env": ["VITE_*"],
       "dependsOn": ["^intl-compile", "intl-compile", "^codegen", "typegen"],
       "inputs": ["src/**", "index.html", "package.json"],
       "outputs": ["dist/**"],

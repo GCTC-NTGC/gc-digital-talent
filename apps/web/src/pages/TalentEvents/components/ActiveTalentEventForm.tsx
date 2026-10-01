@@ -29,6 +29,7 @@ import {
   formatDate,
   parseDateTimeUtc,
   strToFormDate,
+  TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -97,7 +98,7 @@ const ActiveTalentEventForm = ({
         fr: learnMoreUrl?.fr,
       },
       closeDate: convertDateTimeToDate(
-        convertDateTimeZone(closeDate, "UTC", "Canada/Pacific"),
+        convertDateTimeZone(closeDate, "UTC", TZ_VANCOUVER),
       ),
       communityDevelopmentPrograms: communityDevelopmentPrograms?.map(
         (cdp) => ({
@@ -148,7 +149,7 @@ const ActiveTalentEventForm = ({
         learnMoreUrl: formValues.learnMoreUrl,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          TZ_VANCOUVER,
           "UTC",
         ),
         communityDevelopmentPrograms: {
@@ -371,7 +372,7 @@ const ActiveTalentEventForm = ({
                     date: parseDateTimeUtc(openDate),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
-                    timeZone: "Canada/Pacific",
+                    timeZone: TZ_VANCOUVER,
                   })
                 : intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>

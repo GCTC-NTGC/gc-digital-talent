@@ -338,11 +338,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -1161,7 +1156,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus
   workStream: WorkStream
   processNumber: String
-  publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
@@ -1895,7 +1889,6 @@ input PoolFilterInput {
   workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
-  publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
   isHidden: Boolean
@@ -1964,7 +1957,6 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   referralStatuses: [CandidateReferralFilter!]
-  publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
@@ -2997,7 +2989,6 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus
   location: LocalizedStringInput
   isRemote: Boolean
-  publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
@@ -4547,13 +4538,6 @@ enum ProvinceOrTerritory {
   YUKON
   NORTHWEST_TERRITORIES
   NUNAVUT
-}
-
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
 }
 
 enum ScreeningStage {

@@ -3,7 +3,6 @@
 namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
-use App\Enums\PublishingGroup;
 use App\Models\Community;
 use App\Models\Pool;
 use App\Models\User;
@@ -66,7 +65,6 @@ class TriggerNewJobPostedTest extends TestCase
         $pool = Pool::factory()
             ->draft()
             ->create([
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'published_at' => null,
             ]);
 
@@ -78,13 +76,13 @@ class TriggerNewJobPostedTest extends TestCase
         Notification::assertSentTimes(NewJobPosted::class, 1);
     }
 
-    // no notification when the pool is published with the "other" group
+    // no notification when the pool is hidden
     public function testNothingSentForOtherGroup(): void
     {
         $pool = Pool::factory()
             ->draft()
             ->create([
-                'publishing_group' => PublishingGroup::OTHER->name,
+                'is_hidden' => true,
                 'published_at' => null,
             ]);
 

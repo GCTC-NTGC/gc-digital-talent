@@ -29,11 +29,7 @@ import type {
   FragmentType,
   CandidatesTableCandidatesPaginated_QueryQuery,
 } from "@gc-digital-talent/graphql";
-import {
-  getFragment,
-  graphql,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { useApiRoutes } from "@gc-digital-talent/auth";
 
 import type {
@@ -408,7 +404,6 @@ const defaultState = {
       flexibleWorkLocations: [],
     },
     priorityWeight: [],
-    publishingGroups: [PublishingGroup.ItJobs],
     departments: [],
     assessmentSteps: [],
     statuses: [],
