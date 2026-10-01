@@ -45,7 +45,12 @@ export const appendShortenedLanguageName = ({
   intl: IntlShape;
 }): string => {
   const labels = {
-    en: intl.formatMessage(commonMessages.englishLabelShort),
+    en: intl.formatMessage({
+      defaultMessage: "(EN)",
+      id: "Q6GYga",
+      description:
+        "Name of English language formatted for appending, shortened",
+    }),
     fr: intl.formatMessage(commonMessages.frenchLabelShort),
   };
 
