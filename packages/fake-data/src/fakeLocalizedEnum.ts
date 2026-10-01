@@ -47,7 +47,7 @@ function toLocalizedEnum<T extends string, N extends string>(
   typename: N,
   delimiter?: string | RegExp,
   enumCase: EnumCase = "screaming_snake",
-): GenericLocalizedEnum<T> & { __typename: N } {
+) {
   return {
     __typename: typename,
     value: enumCase === "pascal" ? pascalToScreamingSnake(value) : value,

@@ -15,7 +15,7 @@ import JobCard, { JobCard_Fragment } from "./JobCard";
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
-const staticDate = new Date(parseISO(fakedPool.publishedAt!));
+const staticDate = new Date(parseISO(fakedPool.publishedAt));
 Date.now = () => Number(staticDate); // set now to be static
 
 const nullPool = {
