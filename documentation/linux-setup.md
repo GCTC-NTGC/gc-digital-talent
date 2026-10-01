@@ -66,6 +66,9 @@ Double-check:
 groups
 ```
 
+> [!IMPORTANT]
+> Restart your computer at this point to complete the Docker setup.  Otherwise, you will likely get Unix socket permission errors when trying to use the tool.
+
 ## Hosts file
 
 We need to ensure that scripts running locally can find the services running in Docker.
