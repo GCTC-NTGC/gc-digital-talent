@@ -367,6 +367,7 @@ const PoolCandidateFilterDialog = ({
               label:
                 // NOTE: we do want to pass on empty strings
 
+                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
                 (step.title?.localized || step.type?.label.localized) ??
                 notAvailable,
             }))}

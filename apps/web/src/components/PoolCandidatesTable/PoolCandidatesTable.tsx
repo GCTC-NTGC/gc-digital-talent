@@ -893,6 +893,7 @@ const PoolCandidatesTable = ({
         return (
           // NOTE: We do want to pass on empty strings
 
+          // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           (assessmentStep?.title?.localized ||
             assessmentStep?.type?.label?.localized) ??
           ""
