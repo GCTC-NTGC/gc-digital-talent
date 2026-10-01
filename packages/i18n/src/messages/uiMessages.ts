@@ -146,6 +146,11 @@ const uiMessages = defineMessages({
     id: "nSENOg",
     description: "Asterisk symbol",
   },
+  dismiss: {
+    defaultMessage: "Dismiss",
+    id: "FO4QJP",
+    description: "Label for action to dismiss something",
+  },
 });
 
 export default uiMessages;

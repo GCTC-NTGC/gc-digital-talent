@@ -363,11 +363,6 @@ const commonMessages = defineMessages({
     id: "bOA3EH",
     description: "Label for the government employee field",
   },
-  dismiss: {
-    defaultMessage: "Dismiss",
-    id: "FO4QJP",
-    description: "Label for action to dismiss something",
-  },
   saveAndContinue: {
     defaultMessage: "Save and continue",
     id: "MQB4IA",
