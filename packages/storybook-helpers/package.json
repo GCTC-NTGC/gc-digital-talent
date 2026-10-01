@@ -30,7 +30,7 @@
     "@storybook/addon-themes": "^10.5.10",
     "@storybook/react-vite": "^10.5.10",
     "eslint": "^9.20.1",
-    "react": "^19.2.8",
+    "react": "^19.3.0",
     "storybook": "^10.5.10",
     "tsconfig": "workspace:*"
   }
