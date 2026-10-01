@@ -11,7 +11,7 @@ interface GraphQLRequestOptions {
 
 interface PostResponse<R> {
   data?: R;
-  errors?: { message: string }[];
+  errors?: { message: string; extensions?: Record<string, unknown> }[];
 }
 
 export interface GraphQLOperation {
@@ -83,7 +83,7 @@ export class GraphQLContext {
 
     if (json.errors?.length) {
       throw new Error(
-        `GraphQL response contained errors: ${json.errors.map((e) => e.message).join("; ")}`,
+        `GraphQL request failed: ${JSON.stringify(json.errors, null, 2)}`,
       );
     }
 
