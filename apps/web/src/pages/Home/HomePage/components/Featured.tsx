@@ -10,7 +10,6 @@ import FlourishContainer from "~/components/FlourishContainer/FlourishContainer"
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
 import platformResourcesImg from "~/assets/img/platform-resources-hero-card.webp";
-import dndImg from "~/assets/img/dnd-hero-card.webp";
 import pageTitles from "~/messages/pageTitles";
 
 const Featured = () => {
@@ -18,31 +17,6 @@ const Featured = () => {
   const paths = useRoutes();
 
   const featured = [
-    {
-      key: "dnd",
-      title: intl.formatMessage(pageTitles.dnd),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Explore digital career opportunities with Canada's National Defence (DND) and contribute your expertise to projects that support national security and help strengthen the digital foundations of DND and the Canadian Armed Forces.",
-        id: "DOZYQ5",
-        description: "Summary for career opportunities with DND",
-      }),
-      img: {
-        path: dndImg,
-        position: "center",
-        width: 400,
-        height: 300,
-      },
-      link: {
-        path: paths.dndDigitalCareers(),
-        label: intl.formatMessage({
-          defaultMessage:
-            "Learn more<hidden> about digital careers at National Defence</hidden>",
-          id: "iERL9L",
-          description: "Link text for the digital careers at DND page",
-        }),
-      },
-    },
     {
       key: "platform-resources",
       title: intl.formatMessage(pageTitles.hrResources),

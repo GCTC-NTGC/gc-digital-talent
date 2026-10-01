@@ -3882,10 +3882,6 @@
     "defaultMessage": "Pour confirmer, veuillez écrire le nom de l'utilisateur au complet",
     "description": "Lead in text for the delete user form."
   },
-  "DOZYQ5": {
-    "defaultMessage": "Découvrez les débouchés du numérique dans la Défense nationale du Canada (MDN) et mettez votre expertise au service de projets qui contribuent à la sécurité nationale et renforcent les assises numériques du MDN et des Forces armées canadiennes.",
-    "description": "Summary for career opportunities with DND"
-  },
   "DOmsNQ": {
     "defaultMessage": "Non démontrée suffisamment dans le cadre de la présente méthode d’évaluation – faire passer à de plus amples mises à l’essai. (Ne s’applique qu’aux occasions où les points sont cumulatifs à l’échelle des méthodes d’évaluation. Ne s’applique pas dans les cas où les candidats doivent répondre à certains critères essentiels à chaque étape).",
     "description": "Note for when an assessment was unsuccessful but put on hold"
@@ -4509,10 +4505,6 @@
   "FxB6Km": {
     "defaultMessage": "Obtention de votre cote ou de votre autorisation de sécurité",
     "description": "Heading for the obtaining security clearance section"
-  },
-  "FxOKfM": {
-    "defaultMessage": "Ottawa, Ontario",
-    "description": "Location name of Ottawa, Ontario"
   },
   "Fxs+ab": {
     "defaultMessage": "{poolCandidateName} possède {skillsCount} des {filteredSkillsTotal} compétences.",
@@ -5867,10 +5859,6 @@
   "LC1Rsg": {
     "defaultMessage": "<hidden>Candidature pour </hidden>{poolName}",
     "description": "Text before application pool name in application preview list."
-  },
-  "LCLNos": {
-    "defaultMessage": "Salon de recrutement professionnel — Collège Algonquin (site en anglais)",
-    "description": "Heading for Algonquin career fair"
   },
   "LCVNJq": {
     "defaultMessage": "Mise à jour réussie des renseignements sur la diversité, l’équité et l’inclusion!",
@@ -7512,10 +7500,6 @@
   "Rnry4P": {
     "defaultMessage": "Voir l’information sur la nomination pour {eventName}",
     "description": "Label for the received nomination details dialog trigger"
-  },
-  "RojSQE": {
-    "defaultMessage": "Montréal, Quebec",
-    "description": "Location name of Montreal, Quebec"
   },
   "Rped43": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
@@ -9200,10 +9184,6 @@
     "defaultMessage": "Aidez-nous à vous proposer les meilleures personnes candidates en précisant les compétences que vous recherchez. Vous trouverez la définition de chaque compétence dans notre <link>bibliothèque de compétences</link>.",
     "description": "Describing the purpose of the skill filters on Search page."
   },
-  "YtI+mg": {
-    "defaultMessage": "Carrières dans le numérique à la Défense nationale",
-    "description": "Title for the DND digital careers page"
-  },
   "YvFsW9": {
     "defaultMessage": "Examinez les renseignements relatifs au nominateur ou à la nominatrice et, le cas échéant, ceux de la personne qui a présenté la proposition en son nom.",
     "description": "Nominator information view subtitle for dialog"
@@ -9307,10 +9287,6 @@
   "ZJpfIZ": {
     "defaultMessage": "Cette personne perdra tous les rôles suivants liés au ministère :",
     "description": "Text notifying user which department roles will be removed from the user"
-  },
-  "ZJsUbj": {
-    "defaultMessage": "Salon de l’emploi et du réseautage (hiver) — Université Carleton (site en anglais)",
-    "description": "Heading for winter career fair"
   },
   "ZKss5S": {
     "defaultMessage": "Afin que nous puissions mieux vous appuyer au fil de votre parcours d'embauche d'un apprentis en TI, veuillez nous laisser savoir si vous avez",
@@ -11633,10 +11609,6 @@
     "defaultMessage": "Mes rôles",
     "description": "Label displayed for the table column header My roles"
   },
-  "iERL9L": {
-    "defaultMessage": "En savoir plus<hidden> sur les carrières dans la numérique à la Défense nationale</hidden>",
-    "description": "Link text for the digital careers at DND page"
-  },
   "iFyi4k": {
     "defaultMessage": "La mise à jour du sujet a échoué.",
     "description": "Error message when updating subject failed"
@@ -12388,10 +12360,6 @@
   "lAuZsE": {
     "defaultMessage": "Courriel du gouvernement du Canada",
     "description": "Label for gov of canada email field"
-  },
-  "lBX7NE": {
-    "defaultMessage": "Salon de l’emploi et du réseautage pour femmes en STIM — Université Carleton (site en anglais)",
-    "description": "Heading for Women in STEM career fair"
   },
   "lDZ4wQ": {
     "defaultMessage": "Demander tous les candidats correspondants",
@@ -13788,10 +13756,6 @@
   "qy4Ohw": {
     "defaultMessage": "Source de talent",
     "description": "Heading for the source of the matching user."
-  },
-  "qytMp/": {
-    "defaultMessage": "Salon de l’emploi de la Semaine de la carrière — Université d’Ottawa",
-    "description": "Heading for career week job fair"
   },
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
