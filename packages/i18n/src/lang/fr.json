@@ -747,10 +747,6 @@
     "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
     "description": "The work region of Canada described as Prairie."
   },
-  "Phlp8j": {
-    "defaultMessage": "Organisation",
-    "description": "Label displayed for organization input"
-  },
   "Q6GYga": {
     "defaultMessage": "(EN)",
     "description": "Name of English language formatted for appending, shortened"

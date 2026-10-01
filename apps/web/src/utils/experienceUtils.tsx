@@ -75,7 +75,11 @@ export const getExperienceFormLabels = (
   intl: IntlShape,
   experienceType?: ExperienceType,
 ) => {
-  let organization = intl.formatMessage(commonMessages.organization);
+  let organization = intl.formatMessage({
+    defaultMessage: "Organization",
+    id: "Phlp8j",
+    description: "Label displayed for organization input",
+  });
 
   if (experienceType === "community") {
     organization = intl.formatMessage({

@@ -7082,6 +7082,10 @@
     "defaultMessage": "Programme de perfectionnement mis à jour avec succès.",
     "description": "Message displayed to user after development program is updated successfully."
   },
+  "Phlp8j": {
+    "defaultMessage": "Organisation",
+    "description": "Label displayed for organization input"
+  },
   "Pi5icf": {
     "defaultMessage": "Gérer un critère de compétences",
     "description": "Title for the find a skill dialog within a pool"

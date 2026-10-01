@@ -363,11 +363,6 @@ const commonMessages = defineMessages({
     id: "bOA3EH",
     description: "Label for the government employee field",
   },
-  organization: {
-    defaultMessage: "Organization",
-    id: "Phlp8j",
-    description: "Label displayed for organization input",
-  },
   dismiss: {
     defaultMessage: "Dismiss",
     id: "FO4QJP",
