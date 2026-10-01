@@ -2834,6 +2834,10 @@
     "defaultMessage": "Le rôle suivant que l'employé·e entend jouer et son principal objectif de carrière, notamment la classification, les domaines de travail et les ministères.",
     "description": "Subtitle for next role and career objective section"
   },
+  "96yWSc": {
+    "defaultMessage": "Candidature spéciale",
+    "description": "Special application label"
+  },
   "97UAb8": {
     "defaultMessage": "Titre abrégé de cette expérience",
     "description": "Label displayed on Personal Experience form for experience title input"

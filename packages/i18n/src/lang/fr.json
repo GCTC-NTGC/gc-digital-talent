@@ -307,10 +307,6 @@
     "defaultMessage": "Je consens à travailler à distance.",
     "description": "The work region of Canada described as Telework."
   },
-  "96yWSc": {
-    "defaultMessage": "Candidature spéciale",
-    "description": "Special application label"
-  },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"

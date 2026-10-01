@@ -400,11 +400,6 @@ const commonMessages = defineMessages({
     id: "2H5KbR",
     description: "Message shown when something is due on the current date",
   },
-  specialApplication: {
-    defaultMessage: "Special application",
-    id: "96yWSc",
-    description: "Special application label",
-  },
   noClassification: {
     defaultMessage: "No classification",
     id: "xuxKpE",
