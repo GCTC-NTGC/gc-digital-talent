@@ -1994,6 +1994,10 @@
     "defaultMessage": "Tâches principales",
     "description": "The key tasks of a job poster template"
   },
+  "5RMS25": {
+    "defaultMessage": "Non retenue",
+    "description": "Not supported status"
+  },
   "5SKmte": {
     "defaultMessage": "Modifier<hidden> le groupe de compétences</hidden>",
     "description": "Breadcrumb title for the edit skill family page link."

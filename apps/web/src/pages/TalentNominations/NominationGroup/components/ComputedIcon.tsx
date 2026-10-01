@@ -57,7 +57,11 @@ const ComputedIcon = ({ count, decision }: ComputedIconProps) => {
       <XCircleIcon
         className={iconStyles({ color: "error" })}
         aria-hidden="false"
-        aria-label={intl.formatMessage(commonMessages.notSupported)}
+        aria-label={intl.formatMessage({
+          defaultMessage: "Not supported",
+          id: "5RMS25",
+          description: "Not supported status",
+        })}
       />
     );
   }

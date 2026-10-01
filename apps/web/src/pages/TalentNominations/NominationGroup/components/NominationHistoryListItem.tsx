@@ -192,7 +192,11 @@ const NominationHistoryListItem = ({
       };
     } else if (computedStatus === TalentNominationGroupStatus.Rejected) {
       return {
-        text: intl.formatMessage(commonMessages.notSupported),
+        text: intl.formatMessage({
+          defaultMessage: "Not supported",
+          id: "5RMS25",
+          description: "Not supported status",
+        }),
         icon: <XMarkIcon className="mr-1 h-5 w-5 font-normal text-error" />,
       };
     } else if (

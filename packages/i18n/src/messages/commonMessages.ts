@@ -312,11 +312,6 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  notSupported: {
-    defaultMessage: "Not supported",
-    id: "5RMS25",
-    description: "Not supported status",
-  },
   inProgress: {
     defaultMessage: "In progress",
     id: "xVBxp3",
