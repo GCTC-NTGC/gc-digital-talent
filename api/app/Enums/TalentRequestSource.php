@@ -29,8 +29,6 @@ enum TalentRequestSource
         };
     }
 
-    // the method this source's matches are queried with — see TalentNominationGroupMatchable
-    // for why ADVANCEMENT/LATERAL_MOVEMENT need their own instead of whereMatchesTalentRequest().
     public function matchMethod(): string
     {
         return match ($this) {

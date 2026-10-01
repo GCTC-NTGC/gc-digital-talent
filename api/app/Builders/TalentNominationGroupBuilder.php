@@ -18,7 +18,6 @@ use Illuminate\Support\Str;
  */
 class TalentNominationGroupBuilder extends Builder implements TalentNominationGroupMatchable
 {
-    // TalentRequestSource::matchMethod() routes ADVANCEMENT/LATERAL_MOVEMENT to these two.
     public function whereMatchesTalentRequestForAdvancement(?array $filters): self
     {
         return $this->whereMatchesTalentRequestForNominationType($filters, 'advancement');
@@ -29,9 +28,6 @@ class TalentNominationGroupBuilder extends Builder implements TalentNominationGr
         return $this->whereMatchesTalentRequestForNominationType($filters, 'lateral_movement');
     }
 
-    // Shared query for both methods above — a TalentNominationGroup row holds decision, expiry,
-    // and classifications for both nomination types on the same table, differing only by column
-    // prefix and classifications relation name.
     private function whereMatchesTalentRequestForNominationType(?array $filters, string $nominationType): self
     {
         $filters ??= [];
@@ -48,8 +44,6 @@ class TalentNominationGroupBuilder extends Builder implements TalentNominationGr
         return $this
             ->whereRaw('talent_nomination_groups.nominee_id = any(?::uuid[])', [$nomineeIdArray])
             ->where("{$nominationType}_decision", TalentNominationGroupDecision::APPROVED->name)
-            // A past referral_expiry_date excludes the match — "current or past" in the source
-            // ticket actually meant "not yet expired" (confirmed with product).
             ->whereDate("{$nominationType}_referral_expiry_date", '>=', now())
             ->whereExists(function (QueryBuilder $query) {
                 $query->select('community_interests.id')
@@ -76,7 +70,6 @@ class TalentNominationGroupBuilder extends Builder implements TalentNominationGr
             });
     }
 
-    // Same for every nomination type, so safe to memoize per request.
     private function matchingNomineeIds(array $filters)
     {
         $cacheKey = 'matchingNomineeIds:'.md5(serialize($filters));
@@ -93,9 +86,6 @@ class TalentNominationGroupBuilder extends Builder implements TalentNominationGr
                     /** @var CommunityInterestBuilder $query */
                     $query->communities($communityId ? [$communityId] : null)
                         ->workStreams($workStreamIds)
-                        // The interest row establishing eligibility must itself be consenting —
-                        // it's the evidence for the match, so another interest's consent doesn't
-                        // cover it.
                         ->where('consent_to_share_profile', true);
                 })
                 ->pluck('id');

@@ -12,9 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * A user's "sources" for a talent request: the records (per source kind) that satisfy the
- * request's applicant filter. Adding a source means a new match relation here, an entry in
- * TalentRequestSource::matchRelation(), and — only if its builder has more than one match
- * method, like TalentNominationGroupBuilder — an entry in matchMethod() too.
+ * request's applicant filter. Adding a source means a new match relation here plus an entry
+ * in TalentRequestSource::matchRelation().
  */
 trait HasTalentRequestSources
 {
