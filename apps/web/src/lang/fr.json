@@ -10196,6 +10196,10 @@
     "defaultMessage": "À la prochaine fois!",
     "description": "Title for the page users land on after successful logout."
   },
+  "cavxJ8": {
+    "defaultMessage": "Tous",
+    "description": "All as in all items or things"
+  },
   "cbwWa0": {
     "defaultMessage": "Note spéciale pour ce processus",
     "description": "Heading for a special note in pool advertisement."

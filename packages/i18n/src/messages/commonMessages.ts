@@ -358,11 +358,6 @@ const commonMessages = defineMessages({
     id: "0AhbED",
     description: "Label for skill requirements",
   },
-  all: {
-    defaultMessage: "All",
-    id: "cavxJ8",
-    description: "All as in all items or things",
-  },
   governmentEmployee: {
     defaultMessage: "Government employee",
     id: "bOA3EH",

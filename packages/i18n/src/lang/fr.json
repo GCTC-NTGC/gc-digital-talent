@@ -1107,10 +1107,6 @@
     "defaultMessage": "La date doit être égale ou supérieure au {date}.",
     "description": "Error message when a date was entered that is less than the minimum required"
   },
-  "cavxJ8": {
-    "defaultMessage": "Tous",
-    "description": "All as in all items or things"
-  },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
