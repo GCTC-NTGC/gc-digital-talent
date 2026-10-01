@@ -1,40 +1,28 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-const names = [
-  ["Public Service Commission", "Commission de la fonction publique"],
-  ["Finance (Department of)", "Finances (Ministère des)"],
-  ["Health (Department of)", "Santé (Ministère de la)"],
-  ["Transport (Department of)", "Transports (Ministère des)"],
-  ["Treasury Board Secretariat", "Secrétariat du Conseil du Trésor"],
-  [
-    "Canada School of Public Service",
-    "École de la fonction publique du Canada",
-  ],
-  ["Environment (Department of the)", "Environnement (Ministère de l')"],
-];
+import type { Department } from "@gc-digital-talent/graphql/schema-types";
 
-const generateDepartment = (en: string, fr: string) => ({
-  __typename: "Department" as const,
-  id: faker.string.uuid(),
-  departmentNumber: +faker.string.numeric(3),
-  name: {
-    __typename: "LocalizedString" as const,
-    en,
-    fr,
-    localized: en,
-  },
-  orgIdentifier: null,
-  isCorePublicAdministration: faker.datatype.boolean(),
-  isCentralAgency: faker.datatype.boolean(),
-  isScience: faker.datatype.boolean(),
-  isRegulatory: faker.datatype.boolean(),
-  archivedAt: null,
-  size: null,
-});
+import toLocalizedEnum from "./fakeLocalizedEnum";
+import staticDepartments from "./departments.json" with { type: "json" };
 
-export default (preventFakerReset = false) => {
+const staticData = staticDepartments.data.departments as Department[];
+
+export default (preventFakerReset = false): Department[] => {
   if (!preventFakerReset) {
     faker.seed(0); // repeatable results
   }
-  return names.map(([en, fr]) => generateDepartment(en, fr));
+  return staticData.map((department) => ({
+    ...department,
+    __typename: "Department" as const,
+    id: faker.string.uuid(),
+    name: {
+      __typename: "LocalizedString" as const,
+      ...department.name,
+      localized: department.name.en,
+    },
+    archivedAt: null,
+    size: department.size
+      ? toLocalizedEnum(department.size.value, "LocalizedDepartmentSize")
+      : null,
+  }));
 };
