@@ -6729,7 +6729,7 @@
   },
   "OG/Fbe": {
     "defaultMessage": "L’utilisation d’une adresse courriel personnelle vous permettra de conserver l’accès à votre compte si vous changez d’emploi.",
-    "description": "Text for first registrion step personal email usage explanation"
+    "description": "Text for first registration -> create step."
   },
   "OH0wqV": {
     "defaultMessage": "Collectivités fonctionnelles",
