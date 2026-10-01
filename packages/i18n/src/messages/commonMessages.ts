@@ -353,11 +353,6 @@ const commonMessages = defineMessages({
     id: "E+zFTA",
     description: "Name of French language formatted for appending",
   },
-  questions: {
-    defaultMessage: "Questions",
-    id: "x/BiQS",
-    description: "Label for questions",
-  },
   skillRequirements: {
     defaultMessage: "Skill requirements",
     id: "0AhbED",

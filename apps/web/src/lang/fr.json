@@ -15464,6 +15464,10 @@
     "defaultMessage": "Conseillers en ressources humaines",
     "description": "Title for group-specific resource card"
   },
+  "x/BiQS": {
+    "defaultMessage": "Questions",
+    "description": "Label for questions"
+  },
   "x1oBLr": {
     "defaultMessage": "Dans le cadre d'une nomination pour des programmes de perfectionnement, le nominateur ou la nominatrice doit sélectionner, parmi les programmes de formation et de perfectionnement proposés par la collectivité fonctionnelle, ceux qui bénéficieraient au nominé ou à la nominée.",
     "description": "Trigger subtitle for development programs"
