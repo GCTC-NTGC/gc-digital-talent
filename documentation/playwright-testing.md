@@ -49,7 +49,7 @@ All commands run from `apps/playwright/`:
 
 ## How Authentication Works
 
-Tests call `/refresh?sub=<uuid>` on the UAT app with an `X-Testing-Secret` header. The app returns JWT tokens which are injected into `localStorage`. No Canada Login browser flow is required.
+Tests send `POST /refresh` with a JSON body of `{ "sub": "<uuid>" }` and an `X-Testing-Secret` header to the UAT app. The app returns JWT tokens which are injected into `localStorage`. No Canada Login browser flow is required.
 
 If tests fail with a 400 or HTML response from the token endpoint:
 
