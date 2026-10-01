@@ -30,7 +30,7 @@ const Featured = () => {
           })}
         </p>
       ),
-      img: { path: platformResourcesImg, width: 400, height: 300 },
+      img: { path: platformResourcesImg, width: 600, height: 450 },
       link: {
         path: paths.professionalHRResources(),
         label: intl.formatMessage({
@@ -60,12 +60,11 @@ const Featured = () => {
           })}
         </p>
       ),
-
       img: {
         path: glassesOnBooks,
         position: "bottom right",
-        width: 400,
-        height: 300,
+        width: 600,
+        height: 450,
       },
       link: {
         path: paths.comptrollershipExecutivesPage(),
@@ -95,7 +94,7 @@ const Featured = () => {
           description: "Heading for featured items on the homepage",
         })}
       </Heading>
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2">
         {featured.map((item) => (
           <FeatureBlock key={item.key} content={item} />
         ))}
