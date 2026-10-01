@@ -274,27 +274,32 @@ class AuthControllerTest extends TestCase
 
     public function testRefreshIgnoresTokenPassedAsQueryParamOnPost()
     {
-        Http::fake([
-            '*' => Http::response(['error' => 'invalid_grant'], 400),
-        ]);
+        Http::fake();
 
         $response = $this->post('/refresh?refresh_token=old-refresh-token');
 
         $response->assertStatus(400);
-        Http::assertSent(function ($request) {
-            return $request['refresh_token'] === null;
-        });
+        Http::assertNothingSent();
     }
 
     public function testRefreshFailsWhenTokenIsMissing()
     {
-        Http::fake([
-            '*' => Http::response(['error' => 'invalid_grant'], 400),
-        ]);
+        Http::fake();
 
         $response = $this->postJson('/refresh', []);
 
         $response->assertStatus(400);
+        Http::assertNothingSent();
+    }
+
+    public function testRefreshFailsWhenTokenIsEmptyString()
+    {
+        Http::fake();
+
+        $response = $this->postJson('/refresh', ['refresh_token' => '']);
+
+        $response->assertStatus(400);
+        Http::assertNothingSent();
     }
 
     public function testRefreshFailsWhenUpstreamRejectsInvalidToken()
