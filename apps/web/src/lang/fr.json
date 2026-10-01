@@ -10838,6 +10838,10 @@
     "defaultMessage": "Selon les rôles associés à votre compte, vous pouvez créer un processus dans les conditions suivantes :",
     "description": "Before displaying a list of process creation requirements"
   },
+  "eozWFc": {
+    "defaultMessage": "Filtres avancés",
+    "description": "Title for the additional filters"
+  },
   "epqtpM": {
     "defaultMessage": "Le cas échéant, cette compétence <strong>sera supprimée de toutes vos présentations de compétences.</strong>",
     "description": "Notice that deleting a skill removes it from a users skill showcase"

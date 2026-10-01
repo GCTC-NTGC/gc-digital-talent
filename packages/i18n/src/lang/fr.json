@@ -1163,10 +1163,6 @@
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
   },
-  "eozWFc": {
-    "defaultMessage": "Filtres avancés",
-    "description": "Title for the additional filters"
-  },
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
