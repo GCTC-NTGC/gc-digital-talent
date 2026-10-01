@@ -6251,6 +6251,10 @@
     "defaultMessage": "Le retrait de ce perfectionnement professionnel de la collectivité entraînera les changements suivants pour l’ensemble des utilisateurs et utilisatrices :",
     "description": "Unordered list heading warning user before removing a professionalization"
   },
+  "M9Q1zH": {
+    "defaultMessage": "Partiellement approuvée",
+    "description": "Status text for partially approved nominations"
+  },
   "MB3J/o": {
     "defaultMessage": "Consulter par",
     "description": "Label for the nominations view toggle"

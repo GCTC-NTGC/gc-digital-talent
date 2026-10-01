@@ -400,11 +400,6 @@ const commonMessages = defineMessages({
     id: "2H5KbR",
     description: "Message shown when something is due on the current date",
   },
-  partiallyApproved: {
-    defaultMessage: "Partially approved",
-    id: "M9Q1zH",
-    description: "Status text for partially approved nominations",
-  },
   specialApplication: {
     defaultMessage: "Special application",
     id: "96yWSc",

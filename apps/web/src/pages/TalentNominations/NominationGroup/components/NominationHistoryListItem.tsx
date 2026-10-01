@@ -203,7 +203,11 @@ const NominationHistoryListItem = ({
       computedStatus === TalentNominationGroupStatus.PartiallyApproved
     ) {
       return {
-        text: intl.formatMessage(commonMessages.partiallyApproved),
+        text: intl.formatMessage({
+          defaultMessage: "Partially approved",
+          id: "M9Q1zH",
+          description: "Status text for partially approved nominations",
+        }),
         icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
       };
     } else {
