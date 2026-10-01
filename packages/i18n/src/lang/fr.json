@@ -1675,10 +1675,6 @@
     "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral vers un autre domaine politique.",
     "description": "The talent nomination lateral movement option description for policy experience"
   },
-  "vNVMlM": {
-    "defaultMessage": "« {text} »",
-    "description": "Text within double quotes"
-  },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
     "description": "Simple status label for an incomplete item"

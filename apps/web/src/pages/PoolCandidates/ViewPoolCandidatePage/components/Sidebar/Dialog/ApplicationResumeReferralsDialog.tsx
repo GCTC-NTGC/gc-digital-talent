@@ -200,10 +200,17 @@ const ApplicationResumeReferralsDialog = ({
                 >
                   <Ul space="sm">
                     <li>
-                      {intl.formatMessage(commonMessages.quotes, {
-                        text: application.applicationStatusData
-                          ?.pauseReferralsReason,
-                      })}
+                      {intl.formatMessage(
+                        {
+                          defaultMessage: '"{text}"',
+                          id: "vNVMlM",
+                          description: "Text within double quotes",
+                        },
+                        {
+                          text: application.applicationStatusData
+                            ?.pauseReferralsReason,
+                        },
+                      )}
                     </li>
                   </Ul>
                 </FieldDisplay>

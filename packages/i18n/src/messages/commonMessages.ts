@@ -383,11 +383,6 @@ const commonMessages = defineMessages({
     id: "CzK1qY",
     description: "Label for the trashed field",
   },
-  quotes: {
-    defaultMessage: '"{text}"',
-    id: "vNVMlM",
-    description: "Text within double quotes",
-  },
   employeeVerification: {
     defaultMessage: "Employee verification",
     id: "VpjQL1",
