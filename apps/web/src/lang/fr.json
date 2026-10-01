@@ -5472,6 +5472,10 @@
     "defaultMessage": "Confirmation du besoin d’une note spéciale",
     "description": "Label for input confirmation of need for special note on edit pool."
   },
+  "JCA/2+": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed before end date"
+  },
   "JCX6jN": {
     "defaultMessage": "Employé(e)s (de même niveau)",
     "description": "Combined eligibility string for 'employees only' and 'at-level only'"

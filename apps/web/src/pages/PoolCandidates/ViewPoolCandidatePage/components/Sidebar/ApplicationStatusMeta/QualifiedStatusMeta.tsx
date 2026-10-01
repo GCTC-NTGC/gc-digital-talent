@@ -108,7 +108,11 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               )}
               {endDate && (
                 <li>
-                  {intl.formatMessage(commonMessages.endDate)}
+                  {intl.formatMessage({
+                    defaultMessage: "End date",
+                    id: "JCA/2+",
+                    description: "Label displayed before end date",
+                  })}
                   {intl.formatMessage(commonMessages.dividingColon)}
                   {endDate}
                 </li>

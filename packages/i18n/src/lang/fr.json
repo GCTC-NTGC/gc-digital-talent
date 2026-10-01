@@ -531,10 +531,6 @@
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
   },
-  "JCA/2+": {
-    "defaultMessage": "Date de fin",
-    "description": "Label displayed before end date"
-  },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"

@@ -400,11 +400,6 @@ const commonMessages = defineMessages({
     id: "2H5KbR",
     description: "Message shown when something is due on the current date",
   },
-  endDate: {
-    defaultMessage: "End date",
-    id: "JCA/2+",
-    description: "Label displayed before end date",
-  },
   partiallyApproved: {
     defaultMessage: "Partially approved",
     id: "M9Q1zH",
