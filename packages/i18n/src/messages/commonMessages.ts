@@ -338,11 +338,6 @@ const commonMessages = defineMessages({
     id: "pnoSK6",
     description: "Label when an item is not selected",
   },
-  archived: {
-    defaultMessage: "Archived",
-    id: "MiyFrV",
-    description: "Status is archived",
-  },
   published: {
     defaultMessage: "Published",
     id: "BcEpFb",

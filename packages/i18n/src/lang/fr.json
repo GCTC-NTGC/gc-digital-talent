@@ -635,10 +635,6 @@
     "defaultMessage": "Supprimer le lien",
     "description": "Label for removing a link in the rich text editor"
   },
-  "MiyFrV": {
-    "defaultMessage": "Archivé",
-    "description": "Status is archived"
-  },
   "Mm+Me1": {
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"

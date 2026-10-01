@@ -6335,6 +6335,10 @@
     "defaultMessage": "Demander des personnes candidates<hidden> de bassin {poolName}</hidden>",
     "description": "Button link message on search page that takes user to the request form."
   },
+  "MiyFrV": {
+    "defaultMessage": "Archivé",
+    "description": "Status is archived"
+  },
   "MkA+x0": {
     "defaultMessage": "La mise à jour du stade de l'évaluation a échoué",
     "description": "Error message for updating a candidates assessment stage"
