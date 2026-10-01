@@ -14,7 +14,6 @@ import {
   getEmploymentDuration,
   EmploymentDuration,
   getOperationalRequirement,
-  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";

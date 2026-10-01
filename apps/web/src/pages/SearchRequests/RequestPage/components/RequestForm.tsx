@@ -22,7 +22,6 @@ import {
   enumInputToLocalizedEnum,
   narrowEnumType,
   sortTalentRequestReason,
-  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
