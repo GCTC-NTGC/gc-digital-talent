@@ -3062,6 +3062,10 @@
     "defaultMessage": "Nombre d’évaluations",
     "description": "Title for a column that displays the number of assessments planned for a skill."
   },
+  "9tH7k0": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed before start date"
+  },
   "9tR2Dv": {
     "defaultMessage": "Lorsque le processus d’emploi est réglé sur Masqué",
     "description": "Hidden process description"
