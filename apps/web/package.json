@@ -35,7 +35,7 @@
     "**/*.css"
   ],
   "dependencies": {
-    "@dr.pogodin/react-helmet": "^3.2.3",
+    "@dr.pogodin/react-helmet": "^3.3.2",
     "@gc-digital-talent/app-insights": "workspace:*",
     "@gc-digital-talent/auth": "workspace:*",
     "@gc-digital-talent/client": "workspace:*",
