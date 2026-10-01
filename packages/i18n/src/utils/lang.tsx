@@ -51,7 +51,11 @@ export const appendShortenedLanguageName = ({
       description:
         "Name of English language formatted for appending, shortened",
     }),
-    fr: intl.formatMessage(commonMessages.frenchLabelShort),
+    fr: intl.formatMessage({
+      defaultMessage: "(FR)",
+      id: "tfgjgQ",
+      description: "Name of French language formatted for appending, shortened",
+    }),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
