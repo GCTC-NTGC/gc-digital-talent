@@ -8660,6 +8660,10 @@
     "defaultMessage": "Coordonnées du nominé ou de la nominée",
     "description": "Expandable to see nominee information"
   },
+  "W9zlhl": {
+    "defaultMessage": "Sélectionnée",
+    "description": "Label when an item is selected"
+  },
   "WAcWqh": {
     "defaultMessage": "{title} évaluation - {skillName}",
     "description": "Header for application screening decision dialog."

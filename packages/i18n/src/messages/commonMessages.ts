@@ -333,11 +333,6 @@ const commonMessages = defineMessages({
     id: "UZ6zTY",
     description: "Label for a candidate that is not referred",
   },
-  selected: {
-    defaultMessage: "Selected",
-    id: "W9zlhl",
-    description: "Label when an item is selected",
-  },
   notSelected: {
     defaultMessage: "Not selected",
     id: "pnoSK6",

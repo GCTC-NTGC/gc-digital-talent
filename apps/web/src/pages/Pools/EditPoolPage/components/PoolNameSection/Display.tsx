@@ -80,7 +80,11 @@ const Display = ({
                       <CheckCircleIcon
                         className="h-4.5 text-success dark:text-success-200"
                         aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.selected)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Selected",
+                          id: "W9zlhl",
+                          description: "Label when an item is selected",
+                        })}
                       />
                     ) : (
                       <XCircleIcon

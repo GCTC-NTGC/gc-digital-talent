@@ -955,10 +955,6 @@
     "defaultMessage": "Trier par",
     "description": "Label for the links to change how the list is sorted"
   },
-  "W9zlhl": {
-    "defaultMessage": "Sélectionnée",
-    "description": "Label when an item is selected"
-  },
   "WGoaKQ": {
     "defaultMessage": "Enregistrer les modifications",
     "description": "Text for submit button on edit forms"
