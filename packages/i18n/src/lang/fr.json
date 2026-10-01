@@ -375,10 +375,6 @@
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
   },
-  "BcEpFb": {
-    "defaultMessage": "Publié",
-    "description": "Status is published"
-  },
   "C/2HT9": {
     "defaultMessage": "Cette clé de collectivité est déjà utilisé",
     "description": "Error message that the given community key is already in use"

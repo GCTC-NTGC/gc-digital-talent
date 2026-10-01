@@ -3550,6 +3550,10 @@
     "defaultMessage": "L'ajout du membre a échoué",
     "description": "Alert displayed to user when a community member was not added to a community"
   },
+  "BcEpFb": {
+    "defaultMessage": "Publié",
+    "description": "Status is published"
+  },
   "BdpXAF": {
     "defaultMessage": "Catégorie d'emploi",
     "description": "Label for the employment category radio group"

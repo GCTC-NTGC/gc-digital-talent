@@ -55,7 +55,11 @@ export function departmentStatusAccessor(
         id: "MiyFrV",
         description: "Status is archived",
       })
-    : intl.formatMessage(commonMessages.published);
+    : intl.formatMessage({
+        defaultMessage: "Published",
+        id: "BcEpFb",
+        description: "Status is published",
+      });
 }
 
 export interface MyRoleDepartment {

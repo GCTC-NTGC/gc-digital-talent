@@ -338,11 +338,6 @@ const commonMessages = defineMessages({
     id: "pnoSK6",
     description: "Label when an item is not selected",
   },
-  published: {
-    defaultMessage: "Published",
-    id: "BcEpFb",
-    description: "Status is published",
-  },
   title: {
     defaultMessage: "Title",
     id: "+RHG0o",
