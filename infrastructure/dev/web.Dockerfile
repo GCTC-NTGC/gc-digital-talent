@@ -13,17 +13,21 @@ RUN apt-get update \
 RUN npm install -g pnpm@10.27.0
 
 # Set working directory to the monorepo root
-WORKDIR /var/www/html
-RUN chmod 777 /var/www/html
+WORKDIR /home/site/wwwroot
 
-# Mark git directory as safe
-RUN git config --global --add safe.directory /var/www/html
+# Mark git directory as safe. --system rather than --global: an arbitrary
+# runtime uid does not share root's $HOME, so a --global config written at build
+# time would not apply to it.
+RUN git config --system --add safe.directory /home/site/wwwroot
 
 COPY infrastructure/dev/web-entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY infrastructure/bin/entrypoint-uid.sh /usr/local/bin/entrypoint-uid.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/entrypoint-uid.sh
 
 # Expose Vite dev server port
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# entrypoint-uid.sh runs first: it adopts the ids of whoever owns the mounted
+# project, takes ownership of the workspace root and node_modules, then drops.
+ENTRYPOINT ["/usr/local/bin/entrypoint-uid.sh", "/usr/local/bin/entrypoint.sh"]
 CMD ["pnpm", "run", "watch"]
