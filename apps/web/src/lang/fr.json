@@ -15456,6 +15456,10 @@
     "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
     "description": "Contact email card description on account settings page"
   },
+  "wpNvbg": {
+    "defaultMessage": "Aucune organisation",
+    "description": "Placeholder for when the department can not be displayed"
+  },
   "wqcWdN": {
     "defaultMessage": "Votre candidature a été retirée de ce processus. Si vous avez des questions, veuillez contacter le service ou l’équipe de recrutement responsable de la publication de l’offre d’emploi.",
     "description": "Status description for an application that was removed from a pool"

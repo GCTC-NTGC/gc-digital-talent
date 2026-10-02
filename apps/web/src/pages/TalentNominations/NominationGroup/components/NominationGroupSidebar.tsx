@@ -148,7 +148,12 @@ const NominationGroupSidebar = ({
           <MaskedDisplay
             value={talentNominationGroup.nominee?.department?.name?.localized}
             canShow={talentNominationGroup.nominee?.isVerifiedGovEmployee}
-            maskedMessage={commonMessages.noDepartment}
+            maskedMessage={defineMessage({
+              defaultMessage: "No organization",
+              id: "wpNvbg",
+              description:
+                "Placeholder for when the department can not be displayed",
+            })}
             defaultMessage={commonMessages.notProvided}
           />
         </p>

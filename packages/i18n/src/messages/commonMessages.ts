@@ -395,11 +395,6 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
-  noDepartment: {
-    defaultMessage: "No organization",
-    id: "wpNvbg",
-    description: "Placeholder for when the department can not be displayed",
-  },
 });
 
 export default commonMessages;
