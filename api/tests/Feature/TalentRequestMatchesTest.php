@@ -1535,7 +1535,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
@@ -1574,7 +1574,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesUnapprovedDecision(): void
@@ -1587,7 +1587,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     // "advancementReferralExpiryDate is current or past" in the source ticket actually means "not yet
@@ -1602,7 +1602,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesUnverifiedGovEmployee(): void
@@ -1616,7 +1616,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementWorkStreamFilterMatchesUserWithoutCandidacy(): void
@@ -1697,7 +1697,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
 
         // filtering by the group's advancementClassifications should match
         $this->actingAs($this->admin, 'api')
@@ -1808,7 +1808,7 @@ class TalentRequestMatchesTest extends TestCase
 
         $userIds = $this->actingAs($this->admin, 'api')
             ->graphQL($this->advancementQuery, ['where' => []])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
+            ->assertJsonFragment(['total' => 3])
             ->json('data.talentRequestMatches.data.*.user.id');
 
         $this->assertContains($poolUser->id, $userIds);
@@ -1865,7 +1865,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->lateralMovementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testLateralMovementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
@@ -1904,7 +1904,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testLateralMovementExcludesUnapprovedDecision(): void
@@ -1917,7 +1917,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->lateralMovementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     // "referralExpiryDate is current or past" in the source ticket actually means "not yet
@@ -1932,7 +1932,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->lateralMovementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testLateralMovementExcludesUnverifiedGovEmployee(): void
@@ -1946,7 +1946,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->lateralMovementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testLateralMovementWorkStreamFilterMatchesUserWithoutCandidacy(): void
@@ -2027,7 +2027,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
 
         // filtering by the group's lateralMovementClassifications should match
         $this->actingAs($this->admin, 'api')
@@ -2140,7 +2140,7 @@ class TalentRequestMatchesTest extends TestCase
 
         $userIds = $this->actingAs($this->admin, 'api')
             ->graphQL($this->advancementQuery, ['where' => []])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 4)
+            ->assertJsonFragment(['total' => 4])
             ->json('data.talentRequestMatches.data.*.user.id');
 
         $this->assertContains($poolUser->id, $userIds);
