@@ -3769,7 +3769,6 @@ type Mutation {
       model: "TalentRequest"
       injectArgs: true
     )
-    @update
     @validator
 
   # SkillFamily mutations
