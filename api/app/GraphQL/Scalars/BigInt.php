@@ -23,7 +23,7 @@ final class BigInt extends ScalarType
      */
     public function serialize($value): int
     {
-        return $this->isValidBigInt($value, InvariantViolation::class);
+        return $this->assertValidBigInt($value, InvariantViolation::class);
     }
 
     /**
@@ -33,7 +33,7 @@ final class BigInt extends ScalarType
      */
     public function parseValue($value): int
     {
-        return $this->isValidBigInt($value, InvariantViolation::class);
+        return $this->assertValidBigInt($value, InvariantViolation::class);
     }
 
     /**
@@ -53,7 +53,7 @@ final class BigInt extends ScalarType
             );
         }
 
-        return $this->isValidBigInt($valueNode->value, Error::class);
+        return $this->assertValidBigInt($valueNode->value, Error::class);
     }
 
     /**
@@ -63,7 +63,7 @@ final class BigInt extends ScalarType
      *
      * @throws InvariantViolation|Error
      */
-    private function isValidBigInt($value, string $exceptionClass): int
+    private function assertValidBigInt($value, string $exceptionClass): int
     {
         if (! is_int($value) && ! (is_string($value) && preg_match('/^-?\d+$/', $value) === 1)) {
             throw new $exceptionClass(
