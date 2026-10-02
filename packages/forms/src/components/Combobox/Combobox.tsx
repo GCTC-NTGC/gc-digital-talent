@@ -97,6 +97,7 @@ const Combobox = ({
   };
 
   const sharedProps: BaseProps = {
+    id,
     options,
     label,
     isRequired,

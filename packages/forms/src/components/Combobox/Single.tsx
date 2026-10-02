@@ -16,6 +16,7 @@ interface SingleProps extends BaseProps {
 }
 
 const Single = ({
+  id,
   options,
   label,
   clearLabel,
@@ -55,6 +56,8 @@ const Single = ({
     inputValue,
     selectedItem,
   } = useCombobox({
+    inputId: id,
+    labelId: `${id}-label`,
     items,
     initialSelectedItem: value,
     itemToString,
