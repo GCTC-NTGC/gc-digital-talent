@@ -7573,6 +7573,10 @@
     "defaultMessage": "Voir l’information sur la nomination pour {eventName}",
     "description": "Label for the received nomination details dialog trigger"
   },
+  "Rp+NHA": {
+    "defaultMessage": "Second avis en attente",
+    "description": "Pending second opinion"
+  },
   "Rped43": {
     "defaultMessage": "Nous avons bien reçu votre candidature",
     "description": "Page title for the application success page"
@@ -15997,6 +16001,10 @@
   "zgLR8q": {
     "defaultMessage": "Les dates de début et de fin de la période de nomination, les types de nominations pouvant être soumises et la question de savoir si les compétences de leadership sont requises lors de la soumission.",
     "description": "Description before nomination settings"
+  },
+  "zhqK/P": {
+    "defaultMessage": "Non précisé",
+    "description": "Unspecified, has not been set or defined"
   },
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
