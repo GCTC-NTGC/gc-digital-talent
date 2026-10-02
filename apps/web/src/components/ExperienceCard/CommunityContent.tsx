@@ -7,7 +7,7 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
-interface CommunityContentExperience {
+export interface CommunityContentExperience {
   __typename?: "CommunityExperience";
   project?: string | null;
 }
