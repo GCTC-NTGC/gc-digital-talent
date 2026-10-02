@@ -261,7 +261,11 @@ const FormFields = ({
       >
         <RadioGroup
           idPrefix="languageAbility"
-          legend={intl.formatMessage(commonMessages.language)}
+          legend={intl.formatMessage({
+            defaultMessage: "Language",
+            id: "k3i6lU",
+            description: "Legend for a language input or title",
+          })}
           name="languageAbility"
           items={[
             {

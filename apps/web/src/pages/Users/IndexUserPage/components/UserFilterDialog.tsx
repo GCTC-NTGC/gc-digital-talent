@@ -268,7 +268,11 @@ const UserFilterDialog = ({
       </div>
 
       <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
-        {intl.formatMessage(commonMessages.advancedFilters)}
+        {intl.formatMessage({
+          defaultMessage: "Advanced filters",
+          id: "eozWFc",
+          description: "Title for the additional filters",
+        })}
       </Heading>
 
       <div className="grid items-start gap-6 xs:grid-cols-2">

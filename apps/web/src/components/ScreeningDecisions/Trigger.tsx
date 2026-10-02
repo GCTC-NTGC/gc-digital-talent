@@ -11,7 +11,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import { Button, Dialog } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -81,7 +80,11 @@ export const Trigger = ({
 
   if (result) {
     label = !result?.assessmentDecision?.value
-      ? intl.formatMessage(commonMessages.pendingSecondOpinion)
+      ? intl.formatMessage({
+          defaultMessage: "Pending second opinion",
+          id: "Rp+NHA",
+          description: "Pending second opinion",
+        })
       : result?.assessmentDecision.label.localized;
     color =
       decisionColours.get(result.assessmentDecision?.value ?? null) ?? "black";
