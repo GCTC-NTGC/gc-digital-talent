@@ -1170,6 +1170,10 @@
     "defaultMessage": "Bon retour<hidden> sur votre tableau de bord de la collectivité</hidden>, {name}",
     "description": "Title for community dashboard on the talent cloud admin portal."
   },
+  "2H5KbR": {
+    "defaultMessage": "Date limite : aujourd’hui",
+    "description": "Message shown when something is due on the current date"
+  },
   "2I1HYQ": {
     "defaultMessage": "Organisation, plateforme ou thème",
     "description": "Label displayed on Personal Experience form for organization or overarching theme input"
