@@ -34,7 +34,7 @@ const generateSkillFamily = (
   };
 };
 
-export default (numToGenerate = 15, skills: Skill[] = []): SkillFamily[] => {
+export default (numToGenerate = 15, skills: Skill[] = []) => {
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
