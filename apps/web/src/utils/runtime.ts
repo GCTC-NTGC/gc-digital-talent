@@ -13,6 +13,7 @@ const RUNTIME_VARS = [
   "NOTIFICATION_POLLING_INTERVAL",
   "FEATURE_ACTIVITY_TIMER",
   "FEATURE_AUTH_IN_APP_MIGRATION",
+  "FEATURE_DISABLE_CL_MIGRATION",
 ] as const;
 
 export const getRuntimeConfig = () => {

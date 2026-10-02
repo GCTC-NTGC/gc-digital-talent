@@ -52,8 +52,11 @@ export default [
             "./pages/ComptrollershipExecutivesPage/ComptrollershipExecutivesPage.tsx",
           ),
           route("skills", "./pages/Skills/SkillPage.tsx"),
-          route("register-info", "./pages/Auth/SignUpPage/SignUpPage.tsx"),
-          route("login-info", "./pages/Auth/SignInPage/SignInPage.tsx"),
+          route(
+            "register-info",
+            "./pages/Auth/SignUpPage/SignUpPageWrapper.tsx",
+          ),
+          route("login-info", "./pages/Auth/SignInPage/SignInPageWrapper.tsx"),
           route("logged-out", "./pages/Auth/SignedOutPage/SignedOutPage.tsx"),
 
           // Registration

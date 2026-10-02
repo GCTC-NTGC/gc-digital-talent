@@ -13,4 +13,5 @@ return [
     */
 
     'auth_in_app_migration' => (bool) env('FEATURE_AUTH_IN_APP_MIGRATION', false),
+    'disable_cl_migration' => (bool) env('FEATURE_DISABLE_CL_MIGRATION', false),
 ];
