@@ -87,6 +87,53 @@ export const CareerExperience = ({
               {intl.formatMessage(pageTitle)}
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
+          <TableOfContents.List>
+            {sortBy === "type" ? (
+              <>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink
+                    id={PAGE_SECTION_ID.WORK_EXPERIENCE}
+                  >
+                    {intl.formatMessage(experienceMessages.work)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink
+                    id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
+                  >
+                    {intl.formatMessage(experienceMessages.education)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink
+                    id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
+                  >
+                    {intl.formatMessage(experienceMessages.community)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink
+                    id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}
+                  >
+                    {intl.formatMessage(experienceMessages.personal)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink
+                    id={PAGE_SECTION_ID.AWARD_EXPERIENCE}
+                  >
+                    {intl.formatMessage(experienceMessages.award)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              </>
+            ) : (
+              <TableOfContents.ListItem>
+                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.TIMELINE}>
+                  {intl.formatMessage(experienceMessages.timeline)}
+                </TableOfContents.AnchorLink>
+              </TableOfContents.ListItem>
+            )}
+          </TableOfContents.List>
         </TableOfContents.List>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
@@ -140,18 +187,35 @@ export const CareerExperience = ({
           </div>
           {sortBy === "type" ? (
             <div className="grid gap-6">
-              <ProfileExperienceCard type={"work"} />
-              <ProfileExperienceCard type={"education"} />
-              <ProfileExperienceCard type={"community"} />
-              <ProfileExperienceCard type={"personal"} />
-              <ProfileExperienceCard type={"award"} />
+              <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>
+                <ProfileExperienceCard type={"work"} />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
+              >
+                <ProfileExperienceCard type={"education"} />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
+              >
+                <ProfileExperienceCard type={"community"} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}>
+                <ProfileExperienceCard type={"personal"} />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.AWARD_EXPERIENCE}>
+                <ProfileExperienceCard type={"award"} />
+              </TableOfContents.Section>
+
               <ProfileExperienceCard type={"timeline"} />
             </div>
           ) : (
-            <CareerTimelineSection
-              experiencesQuery={experiencesQuery}
-              userId={userId}
-            />
+            <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
+              <CareerTimelineSection
+                experiencesQuery={experiencesQuery}
+                userId={userId}
+              />
+            </TableOfContents.Section>
           )}
         </TableOfContents.Section>
       </TableOfContents.Content>
