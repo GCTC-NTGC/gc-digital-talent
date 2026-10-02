@@ -1644,6 +1644,7 @@ type TalentRequestTrackedUser {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!
 }
 
@@ -1996,6 +1997,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int
   referralSummary: TalentRequestReferralSummary!
 }
@@ -4669,6 +4671,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

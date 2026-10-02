@@ -14,10 +14,10 @@ final class MatchingSources
     // each matching*Sources field name is the User relation name for that source
     public function __invoke(TalentRequestTrackedUser $trackedUser, array $args, $context, ResolveInfo $info): Deferred|iterable
     {
-        $isImplemented = collect(TalentRequestSource::cases())
-            ->contains(fn (TalentRequestSource $source) => $source->matchRelation() === $info->fieldName);
+        $source = collect(TalentRequestSource::cases())
+            ->first(fn (TalentRequestSource $source) => $source->matchRelation() === $info->fieldName);
 
-        if (! $isImplemented) {
+        if (! $source) {
             return [];
         }
 
@@ -26,7 +26,7 @@ final class MatchingSources
         // Batch every row's lookup for this field into one query (issue #17468).
         $loader = BatchLoaderRegistry::instance(
             [...$info->path, $trackedUser->talent_request_id],
-            fn () => new MatchingSourcesBatchLoader($info->fieldName, $filters),
+            fn () => new MatchingSourcesBatchLoader($info->fieldName, $filters, $source->matchMethod()),
         );
 
         return $loader->load($trackedUser);

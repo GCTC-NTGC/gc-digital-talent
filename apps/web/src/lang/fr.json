@@ -5264,6 +5264,10 @@
     "defaultMessage": "Êtes-vous certain de vouloir supprimer cette expérience de votre profil? Cette action ne peut être annulée.",
     "description": "Question displayed when a user attempts to delete an experience from their profile"
   },
+  "IjlIde": {
+    "defaultMessage": "Processus de mutation latérale",
+    "description": "Label for the list of lateral movement nominations a user has been approved for"
+  },
   "Ijz5oe": {
     "defaultMessage": "Le fait de ne pas fournir de renseignements personnels vous rendra inadmissible aux postes d'emploi associées à cet outil.",
     "description": "Paragraph for privacy policy page"
@@ -6166,6 +6170,10 @@
   "M4sGS2": {
     "defaultMessage": "Types d'organisations envisagées pour une promotion ou un avancement",
     "description": "Label for an employee profile career development preference field"
+  },
+  "M5QJhh": {
+    "defaultMessage": "Processus de promotion",
+    "description": "Label for the list of advancement nominations a user has been approved for"
   },
   "M64e1L": {
     "defaultMessage": "Choisir une collectivité",
@@ -13832,10 +13840,6 @@
   "qtCt+G": {
     "defaultMessage": "Aller à la dernière page",
     "description": "Label for last page button in pagination nav"
-  },
-  "qutSCs": {
-    "defaultMessage": "Événements axés sur la gestion des talents",
-    "description": "Label for the list of advancement nominations a user has been approved for"
   },
   "quxa4Q": {
     "defaultMessage": "Cadre de conformité et d’application de la loi proactives",
