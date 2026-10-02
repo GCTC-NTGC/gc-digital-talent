@@ -395,11 +395,6 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
-  noClassification: {
-    defaultMessage: "No classification",
-    id: "xuxKpE",
-    description: "Placeholder for when the classification can not be displayed",
-  },
   noDepartment: {
     defaultMessage: "No organization",
     id: "wpNvbg",

@@ -4833,6 +4833,10 @@
     "defaultMessage": "Quelle est la Directive sur les talents numériques?",
     "description": "Heading for section describing the directive"
   },
+  "GewD8q": {
+    "defaultMessage": "Aucune classification",
+    "description": "Placeholder for when the classification cannot be displayed"
+  },
   "Gh1CF5": {
     "defaultMessage": "Notre équipe de développement prête une attention particulière aux éléments suivants :",
     "description": "Intro to list of items developers consider for accessibility"

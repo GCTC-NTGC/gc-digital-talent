@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useIntl, type MessageDescriptor } from "react-intl";
+import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 
 import { Accordion, Card, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -122,7 +122,12 @@ const NominationGroupSidebar = ({
                 talentNominationGroup.nominee?.classification?.groupAndLevel
               }
               canShow={talentNominationGroup.nominee?.isVerifiedGovEmployee}
-              maskedMessage={commonMessages.noClassification}
+              maskedMessage={defineMessage({
+                defaultMessage: "No classification",
+                id: "GewD8q",
+                description:
+                  "Placeholder for when the classification cannot be displayed",
+              })}
               defaultMessage={commonMessages.notProvided}
             />
           </p>
