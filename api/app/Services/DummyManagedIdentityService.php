@@ -7,7 +7,7 @@ use App\Contracts\ManagedIdentityService;
 /* Fake managed identity service for testing */
 class DummyManagedIdentityService implements ManagedIdentityService
 {
-    public function getAccessToken(): string
+    public function getAccessToken(string $_): string
     {
         return 'X';
     }

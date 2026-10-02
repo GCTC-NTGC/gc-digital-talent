@@ -28,7 +28,7 @@ class AzureKeyVaultService implements KeyService
     public function getKeys(): ?string
     {
         // GET {vaultBaseUrl}/keys?api-version=2025-07-01
-        $response = Http::withToken($this->identityService->getAccessToken())
+        $response = Http::withToken($this->identityService->getAccessToken('https://vault.azure.net'))
             ->withQueryParameters(['api-version' => '2025-07-01'])
             ->get($this->vaultBaseUrl.'/keys');
         // ->throwUnlessStatus(204);
