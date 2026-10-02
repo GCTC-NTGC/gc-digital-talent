@@ -232,11 +232,7 @@ const FullCareerExperiences = ({
               aria-pressed={selectedView === "type"}
               aria-describedby={showExperienceByLabelId}
             >
-              {intl.formatMessage({
-                defaultMessage: "Type",
-                id: "trerKD",
-                description: "Button to filter experiences by type",
-              })}
+              {intl.formatMessage(experienceMessages.type)}
             </Button>
             <Button
               type="button"

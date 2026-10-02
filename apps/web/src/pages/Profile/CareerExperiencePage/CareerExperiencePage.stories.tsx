@@ -6,12 +6,12 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 
-import { CareerTimeline } from "./CareerTimelinePage";
+import { CareerExperience } from "./CareerExperiencePage";
 
 const mockExperiences = fakeExperiences(10);
 
 const meta = {
-  component: CareerTimeline,
+  component: CareerExperience,
   decorators: [
     (Comp) => (
       <Container className="mt-18">
@@ -23,11 +23,11 @@ const meta = {
     userId: "test",
     experiencesQuery: [],
   },
-} satisfies Meta<typeof CareerTimeline>;
+} satisfies Meta<typeof CareerExperience>;
 
 export default meta;
 
-type Story = StoryObj<typeof CareerTimeline>;
+type Story = StoryObj<typeof CareerExperience>;
 
 export const WithExperiences: Story = {
   args: {
