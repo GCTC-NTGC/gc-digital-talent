@@ -801,7 +801,7 @@ scalar JSON
 "128 bit universally unique identifier (UUID)"
 scalar UUID
 
-"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar."
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
 scalar BigInt
 
 type LocalizedEnumString {
