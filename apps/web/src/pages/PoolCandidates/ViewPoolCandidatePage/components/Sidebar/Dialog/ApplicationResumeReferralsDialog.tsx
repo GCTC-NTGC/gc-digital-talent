@@ -6,10 +6,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "@gc-digital-talent/toast";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { Button, Dialog, Ul } from "@gc-digital-talent/ui";
+import { Button, Dialog, Ul, wrapQuotes } from "@gc-digital-talent/ui";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { HiddenInput } from "@gc-digital-talent/forms";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getFullNameLabel } from "~/utils/nameUtils";
@@ -52,6 +52,7 @@ const ApplicationResumeReferralsDialog = ({
   query,
 }: ApplicationResumeReferralsDialogProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const application = getFragment(
@@ -200,16 +201,9 @@ const ApplicationResumeReferralsDialog = ({
                 >
                   <Ul space="sm">
                     <li>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage: '"{text}"',
-                          id: "vNVMlM",
-                          description: "Text within double quotes",
-                        },
-                        {
-                          text: application.applicationStatusData
-                            ?.pauseReferralsReason,
-                        },
+                      {wrapQuotes(
+                        application.applicationStatusData?.pauseReferralsReason,
+                        locale,
                       )}
                     </li>
                   </Ul>

@@ -15097,10 +15097,6 @@
     "defaultMessage": "Votre demande à un processus sera examinée par notre équipe et, si nous trouvons une concordance quelconque, on vous invitera à une évaluation. Une fois accepté(e), les gestionnaires pourront alors communiquer avec vous avec des offres d’emploi.",
     "description": "Description of how the application process works, paragraph two"
   },
-  "vNVMlM": {
-    "defaultMessage": "« {text} »",
-    "description": "Text within double quotes"
-  },
   "vOseaw": {
     "defaultMessage": "Acceptez de partager les informations de votre profil avec les recruteurs et le personnel chargé de la gestion des talents afin que vous puissiez être orienté vers des possibilités d'emploi ou de formation.",
     "description": "Subtitle explaining functional communities expandable within career development card"
