@@ -60,7 +60,7 @@ export default (
   numToGenerate = 10,
   skillFamilies: SkillFamily[] = [],
   overrideCategory = SkillCategory.Technical,
-): Skill[] => {
+) => {
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
