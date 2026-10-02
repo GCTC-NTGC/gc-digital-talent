@@ -151,6 +151,16 @@ class TalentNomination extends Model
         return $this->belongsTo(User::class, 'advancement_reference_id')->whereIsVerifiedGovEmployee();
     }
 
+    /**
+     * The advancement reference user without the verified-employee scope.
+     *
+     * @return BelongsTo<User, $this>
+     */
+    public function advancementReferenceUnguarded(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'advancement_reference_id');
+    }
+
     /** @return BelongsTo<Classification, $this> */
     public function advancementReferenceFallbackClassification(): BelongsTo
     {
@@ -258,5 +268,13 @@ class TalentNomination extends Model
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
     {
         return $query->with(['talentNominationEvent']);
+    }
+
+    /** @return BelongsToMany<Classification, $this> */
+    public function advancementClassifications(): BelongsToMany
+    {
+        return $this
+            ->belongsToMany(Classification::class, 'classification_talent_nomination_advancement')
+            ->withTimestamps();
     }
 }

@@ -17,10 +17,14 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import type { RoleName } from "@gc-digital-talent/auth";
+import type {
+  AuthRole,
+  AuthRoleAssignment,
+  RoleName,
+} from "@gc-digital-talent/auth";
 import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
-import type { Role, RoleAssignment, User } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
   getLocalizedName,
@@ -47,14 +51,14 @@ const subTitle = defineMessage({
 });
 
 interface RoleChipsProps {
-  roles: Role[];
+  roles: AuthRole[];
   intl: IntlShape;
 }
 
 // short-circuit hasRole if no roles were required so an empty array
 const hasRolesHandleNoRolesRequired = (
   checkRole: RoleName | RoleName[],
-  userRoles: (RoleAssignment | null | undefined)[] | null | undefined,
+  userRoles: (AuthRoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;
@@ -76,14 +80,22 @@ const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   return roleChips ? <Chips>{roleChips}</Chips> : null;
 };
 
+export const AdminDashboardPage_Fragment = graphql(/* GraphQL */ `
+  fragment AdminDashboardPage on User {
+    firstName
+    lastName
+  }
+`);
+
 export interface DashboardPageProps {
-  currentUser?: User | null;
+  query?: FragmentType<typeof AdminDashboardPage_Fragment> | null;
 }
 
-export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
+export const DashboardPage = ({ query }: DashboardPageProps) => {
   const intl = useIntl();
   const adminRoutes = useRoutes();
   const { roleAssignments } = useAuthorization();
+  const currentUser = getFragment(AdminDashboardPage_Fragment, query);
 
   interface CardLinkInfo {
     label: string;
@@ -138,6 +150,16 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       href: adminRoutes.jobPosterTemplates(),
       roles: [],
     },
+    {
+      label: intl.formatMessage(adminMessages.rolesAndPermissions),
+      href: adminRoutes.rolesAndPermissions(),
+      roles: [
+        ROLE_NAME.PlatformAdmin,
+        ROLE_NAME.CommunityTalentCoordinator,
+        ROLE_NAME.CommunityRecruiter,
+        ROLE_NAME.CommunityAdmin,
+      ],
+    },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
     hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
@@ -167,16 +189,6 @@ export const DashboardPage = ({ currentUser }: DashboardPageProps) => {
       label: intl.formatMessage(adminMessages.developmentPrograms),
       href: adminRoutes.developmentProgramTable(),
       roles: [ROLE_NAME.PlatformAdmin],
-    },
-    {
-      label: intl.formatMessage(adminMessages.rolesAndPermissions),
-      href: adminRoutes.rolesAndPermissions(),
-      roles: [
-        ROLE_NAME.PlatformAdmin,
-        ROLE_NAME.CommunityTalentCoordinator,
-        ROLE_NAME.CommunityRecruiter,
-        ROLE_NAME.CommunityAdmin,
-      ],
     },
     {
       label: intl.formatMessage(navigationMessages.skills),
@@ -365,8 +377,7 @@ const AdminDashboard_Query = graphql(/* GraphQL */ `
   query AdminDashboard_Query {
     me {
       id
-      firstName
-      lastName
+      ...AdminDashboardPage
     }
   }
 `);
@@ -378,7 +389,7 @@ export const AdminDashboardPageApi = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <DashboardPage currentUser={data?.me} />
+      <DashboardPage query={data?.me} />
     </Pending>
   );
 };

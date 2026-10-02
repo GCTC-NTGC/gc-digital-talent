@@ -15,11 +15,13 @@ import { makeFragmentData } from "@gc-digital-talent/graphql";
 import richTextElements from "@gc-digital-talent/rich-text-elements";
 import { setInSessionStorage } from "@gc-digital-talent/storage";
 
-import { TALENT_REQUEST_STATE_KEY } from "../../SearchPage/hooks";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
+
 import {
   RequestForm,
   RequestFormClassification_Fragment,
   RequestFormDepartment_Fragment,
+  RequestFormSkill_Fragment,
 } from "./RequestForm";
 
 const mockClient = {
@@ -34,6 +36,9 @@ const departmentsQuery = fakeDepartments().map((department) =>
 const classificationsQuery = fakeClassifications().map((classification) =>
   makeFragmentData(classification, RequestFormClassification_Fragment),
 );
+const skillsQuery = fakeSkills().map((skill) =>
+  makeFragmentData(skill, RequestFormSkill_Fragment),
+);
 
 const renderRequestForm = () => {
   const router = createMemoryRouter(
@@ -45,7 +50,7 @@ const renderRequestForm = () => {
             departmentsQuery={departmentsQuery}
             classificationsQuery={classificationsQuery}
             communitiesQuery={[]}
-            skills={fakeSkills()}
+            skills={skillsQuery}
             handleCreateTalentRequest={vi.fn()}
           />
         ),

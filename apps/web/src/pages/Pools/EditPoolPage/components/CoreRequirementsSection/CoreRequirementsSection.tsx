@@ -160,7 +160,7 @@ const CoreRequirementsSection = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level="h2"
+        rank="h2"
         size="h3"
         toggle={
           <ToggleForm.LabelledTrigger

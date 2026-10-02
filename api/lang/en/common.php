@@ -21,7 +21,7 @@ return [
     'with' => 'with',
     'not_provided' => 'Not provided',
     'pending_second_opinion' => 'Pending second opinion',
-    'expected_end_date' => '(Expected end date)',
+    'expected_end_date' => '(Prospective end date)',
     'not_found' => 'Not found',
     'step' => 'Step',
     'open_to_job_offers' => 'Open to job offers',
@@ -52,6 +52,8 @@ return [
     'completed_in' => 'Completed in ',
     'successfully_completed' => 'Successfully completed',
     'successfully_placed' => 'Candidate has been successfully placed',
+    'not_completed' => 'Not completed',
+    'missing_end_date' => 'Missing end date',
 
     // user and pool candidate terms
     'veteran' => 'Veteran',

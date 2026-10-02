@@ -12,8 +12,19 @@ return [
     | syntax for every one. Here you may define a default connection.
     |
     */
-
     'default' => env('QUEUE_CONNECTION', 'sync'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Queue Name
+    |--------------------------------------------------------------------------
+    |
+    | Queue name used to differentiate between separate codebases (deployment slots)
+    | that happen to share a queue connection. This prevents different codebases
+    | from picking up jobs not assigned to it from the connection.
+    |
+    */
+    'name' => env('DEPLOYMENT_SLOT_NAME', 'default'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +50,7 @@ return [
             'table' => 'jobs',
             // Slot-private queue: each App Service slot dispatches to and works only
             // its own queue, so an idle slot's worker can't steal jobs
-            'queue' => env('QUEUE_NAME', env('DEPLOYMENT_SLOT_NAME', 'default')),
+            'queue' => env('DEPLOYMENT_SLOT_NAME', 'default'),
             'retry_after' => env('QUEUE_RETRY_AFTER', 400),
             'after_commit' => false,
         ],

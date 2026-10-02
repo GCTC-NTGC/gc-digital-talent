@@ -232,11 +232,14 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                 $this->workExperiences->pluck('details'),
                 $this->educationExperiences->pluck('thesis_title'),
                 $this->educationExperiences->pluck('institution'),
+                $this->educationExperiences->pluck('license_or_accreditation'),
+                $this->educationExperiences->pluck('certification'),
+                $this->educationExperiences->pluck('course_name'),
                 $this->educationExperiences->pluck('details'),
                 $this->educationExperiences->pluck('area_of_study'),
                 $this->personalExperiences->pluck('title'),
-                $this->personalExperiences->pluck('description'),
-                $this->personalExperiences->pluck('details'),
+                $this->personalExperiences->pluck('learning_description'),
+                $this->personalExperiences->pluck('organization'),
                 $this->communityExperiences->pluck('title'),
                 $this->communityExperiences->pluck('organization'),
                 $this->communityExperiences->pluck('project'),
@@ -282,12 +285,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function preferredLocale(): string
     {
         return strtolower($this->preferred_lang ?? 'en');
-    }
-
-    /** @return HasMany<Pool, $this> */
-    public function pools(): HasMany
-    {
-        return $this->hasMany(Pool::class);
     }
 
     /** @return BelongsToMany<Pool, $this> */
@@ -541,7 +538,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected function isVerifiedGovEmployee(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
+            get: fn (mixed $value, array $_) => $this->computed_is_gov_employee && ! is_null($this->work_email) && ! is_null($this->work_email_verified_at),
         );
     }
 
@@ -568,6 +565,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
                     GovEmployeeType::STUDENT->name,
                     GovEmployeeType::CASUAL->name,
                     GovEmployeeType::CONTRACTOR->name,
+                    GovEmployeeType::INTERCHANGE->name,
                 ])
                 ->where(function (Builder $query) {
                     $query->whereNull('end_date')
@@ -924,6 +922,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function talentNominationsAsSubmitter(): HasMany
     {
         return $this->hasMany(TalentNomination::class, 'submitter_id');
+    }
+
+    /** @return HasMany<TalentNominationGroup, $this> */
+    public function talentNominationGroupsAsNominee(): HasMany
+    {
+        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
     }
 
     public static function hydrateSnapshot(mixed $snapshot): User|array

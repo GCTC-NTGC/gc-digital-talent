@@ -56,7 +56,6 @@ import {
   transformSortStateToOrderByClause,
   usernameCell,
   extractUserIdsFromSelectedRows,
-  transformToUserFilterInput,
 } from "./utils";
 
 const CommunityTalentTable_CommunityInterestFragment = graphql(/* GraphQL */ `
@@ -196,7 +195,7 @@ const defaultState = {
     jobInterest: undefined,
     trainingInterest: undefined,
     lateralMoveInterest: undefined,
-    promotionalMoveInterest: undefined,
+    promotionMoveInterest: undefined,
     languageAbility: undefined,
     positionDuration: [],
     flexibleWorkLocations: [],
@@ -249,8 +248,8 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
     downloadingDoc,
     downloadZip,
     downloadingZip,
-    downloadExcel,
-    downloadingExcel,
+    downloadCommunityTalentExcel,
+    downloadingCommunityTalentExcel,
   } = useUserDownloads();
 
   const handleDocDownload = (anonymous: boolean) => {
@@ -275,9 +274,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
       return;
     }
 
-    downloadExcel({
+    downloadCommunityTalentExcel({
       ids: userIds,
-      where: transformToUserFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -286,9 +285,9 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
   };
 
   const handleExcelDownloadAll = () => {
-    downloadExcel({
+    downloadCommunityTalentExcel({
       ids: undefined,
-      where: transformToUserFilterInput(
+      where: transformCommunityTalentInput(
         filterState,
         searchState?.term,
         searchState?.type,
@@ -452,7 +451,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         interestAccessor(intl, jobInterest),
       {
         id: "jobInterest",
-        header: intl.formatMessage(commonMessages.jobInterest),
+        header: intl.formatMessage({
+          defaultMessage: "Job interest",
+          id: "dYhxhN",
+          description: "Job interest label",
+        }),
         enableColumnFilter: false,
       },
     ),
@@ -461,7 +464,11 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         interestAccessor(intl, trainingInterest),
       {
         id: "trainingInterest",
-        header: intl.formatMessage(commonMessages.trainingInterest),
+        header: intl.formatMessage({
+          defaultMessage: "Training interest",
+          id: "AQeWgK",
+          description: "Training interest label",
+        }),
         enableColumnFilter: false,
       },
     ),
@@ -652,12 +659,12 @@ const CommunityTalentTable = ({ title }: CommunityTalentTableProps) => {
         all: {
           enable: true,
           onClick: handleExcelDownloadAll,
-          downloading: downloadingExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         spreadsheet: {
           enable: true,
           onClick: handleExcelDownload,
-          downloading: downloadingExcel,
+          downloading: downloadingCommunityTalentExcel,
         },
         doc: {
           enable: true,

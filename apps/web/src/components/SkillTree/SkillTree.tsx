@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Button,
   Card,
@@ -11,7 +11,7 @@ import {
   incrementHeadingRank,
 } from "@gc-digital-talent/ui";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { FragmentType, Skill } from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { ExperienceWithSkills } from "~/utils/skillUtils";
@@ -19,9 +19,15 @@ import { getExperienceSkills } from "~/utils/skillUtils";
 import ExperienceCard from "~/components/ExperienceCard/ExperienceCard";
 import ExperienceSkillFormDialog from "~/components/ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 
+export interface SkillTreeSkill {
+  id: string;
+  name?: LocalizedString | null;
+  description?: LocalizedString | null;
+}
+
 const filterExperienceSkills = <T extends ExperienceWithSkills>(
   experience: T,
-  skill: Skill,
+  skill: SkillTreeSkill,
 ) => {
   return {
     ...experience,
@@ -43,9 +49,9 @@ export const SkillTreeExperience_Fragment = graphql(/** GraphQL */ `
 `);
 
 interface SkillTreeProps {
-  skill: Skill;
+  skill: SkillTreeSkill;
   experiencesQuery: FragmentType<typeof SkillTreeExperience_Fragment>[];
-  headingAs?: HeadingLevel;
+  headingAs?: HeadingRank;
   hideConnectButton?: boolean;
   hideEdit?: boolean;
   showDisclaimer?: boolean;
@@ -62,7 +68,7 @@ const SkillTree = ({
   showDisclaimer = false,
 }: SkillTreeProps) => {
   const intl = useIntl();
-  const contentHeadingLevel = incrementHeadingRank(headingAs);
+  const contentHeadingRank = incrementHeadingRank(headingAs);
   const experiences = getFragment(
     SkillTreeExperience_Fragment,
     experiencesQuery,
@@ -101,7 +107,7 @@ const SkillTree = ({
     <TreeView.Root className="mt-6">
       <TreeView.Head>
         <Card>
-          <Heading level={headingAs} size="h6" className="mt-0">
+          <Heading rank={headingAs} size="h6" className="mt-0">
             {title}
           </Heading>
           {skill.description && (
@@ -115,7 +121,7 @@ const SkillTree = ({
             <TreeView.Item key={experience.id}>
               <ExperienceCard
                 experienceQuery={filterExperienceSkills(experience, skill)}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
                 showEdit={!hideEdit}
                 showSkills={skill}
                 linkTo={skill}

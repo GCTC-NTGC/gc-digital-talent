@@ -1,6 +1,7 @@
 import FlagIcon from "@heroicons/react/24/outline/FlagIcon";
 import { useIntl } from "react-intl";
 import { Fragment } from "react/jsx-runtime";
+import type { ComponentProps } from "react";
 
 import type { FragmentType, GovPositionType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -10,6 +11,7 @@ import {
   DATE_FORMAT_LOCALIZED,
   formatDate,
   parseDateTimeUtc,
+  sortDateBy,
 } from "@gc-digital-talent/date-helpers";
 import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { Heading, Ul, Notice, Card } from "@gc-digital-talent/ui";
@@ -20,6 +22,8 @@ import {
   getGovernmentPositionTypeLabel,
   isGovWorkExperience,
 } from "~/utils/experienceUtils";
+
+import ErrorNotice from "./ErrorNotice";
 
 const CurrentPositionExperiences_Fragment = graphql(/* GraphQL */ `
   fragment CurrentPositionExperiences on User {
@@ -57,13 +61,14 @@ const isCurrentExperience = (endDate?: string | null): boolean => {
 interface CurrentPositionExperiencesProps {
   query:
     FragmentType<typeof CurrentPositionExperiences_Fragment> | null | undefined;
-  shareProfile?: boolean;
+  contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
 }
 
 const CurrentPositionExperiences = ({
   query,
-  shareProfile,
+  contentHiddenReason,
 }: CurrentPositionExperiencesProps) => {
+  const contentIsVisible = !contentHiddenReason;
   const intl = useIntl();
   const data = getFragment(CurrentPositionExperiences_Fragment, query);
 
@@ -78,13 +83,12 @@ const CurrentPositionExperiences = ({
   const currentWorkExperiences = unpackMaybes(data?.experiences).filter(
     (exp) => isGovWorkExperience(exp) && isCurrentExperience(exp?.endDate),
   );
-  const currentWorkExperiencesSorted = currentWorkExperiences.sort((a, b) => {
-    const aStart =
-      "startDate" in a && a.startDate ? new Date(a.startDate) : MAX_DATE;
-    const bStart =
-      "startDate" in b && b.startDate ? new Date(b.startDate) : MAX_DATE;
-    return bStart.getTime() - aStart.getTime(); // more recent start sorted higher
-  });
+  const currentWorkExperiencesSorted = currentWorkExperiences.sort(
+    sortDateBy(
+      (exp) => ("startDate" in exp ? exp.startDate : MAX_DATE),
+      "desc",
+    ),
+  );
 
   const currentWorkExperiencesByGovPositionType = groupBy(
     currentWorkExperiencesSorted,
@@ -97,7 +101,7 @@ const CurrentPositionExperiences = ({
     <>
       <Heading
         icon={FlagIcon}
-        level="h2"
+        rank="h2"
         size="h4"
         color="secondary"
         className="mt-0 font-normal"
@@ -118,7 +122,7 @@ const CurrentPositionExperiences = ({
       </p>
       <Card.Separator className="my-9" />
 
-      {shareProfile && !empty(data) && (
+      {contentIsVisible && !empty(data) && (
         <div>
           <div className="flex flex-col gap-y-3">
             {Object.keys(currentWorkExperiencesByGovPositionType).length ===
@@ -179,7 +183,7 @@ const CurrentPositionExperiences = ({
                 (key, i) => (
                   <Fragment key={key}>
                     <Heading
-                      level="h3"
+                      rank="h3"
                       size="h5"
                       className="mt-0 mb-3 font-normal"
                     >
@@ -193,7 +197,7 @@ const CurrentPositionExperiences = ({
                         key={exp.id}
                         experienceQuery={exp}
                         showEdit={false}
-                        headingLevel="h4"
+                        headingRank="h4"
                       />
                     ))}
                     {i !==
@@ -207,30 +211,9 @@ const CurrentPositionExperiences = ({
           </div>
         </div>
       )}
-      {!shareProfile && (
-        <Notice.Root color="error">
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "This nominee has not agreed to share their information with your community",
-              id: "4ujr5X",
-              description: "Null message for nominee profile",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Nominees can agree to provide access to their profile using the “Functional communities” tool on their dashboard.",
-                id: "8plD42",
-                description: "Null secondary message for nominee profile",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      )}
-      {shareProfile && <Card.Separator className="my-9" />}
-      {shareProfile && (
+      {!contentIsVisible && <ErrorNotice reason={contentHiddenReason} />}
+      {contentIsVisible && <Card.Separator className="my-9" />}
+      {contentIsVisible && (
         <p className="text-gray-600 dark:text-gray-200">
           {intl.formatMessage(
             {

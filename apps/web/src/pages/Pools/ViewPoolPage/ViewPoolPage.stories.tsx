@@ -62,7 +62,7 @@ DraftCompleteProcess.args = {
     {
       ...pool,
       publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
+      status: toLocalizedEnum(PoolStatus.Draft, "LocalizedPoolStatus"),
       isComplete: true,
     },
     ViewPool_Fragment,
@@ -75,7 +75,7 @@ DraftIncompleteProcess.args = {
     {
       ...pool,
       publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
+      status: toLocalizedEnum(PoolStatus.Draft, "LocalizedPoolStatus"),
       isComplete: false,
     },
     ViewPool_Fragment,
@@ -88,7 +88,7 @@ PublishedProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Published),
+      status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
       closingDate: FAR_FUTURE_DATE,
     },
     ViewPool_Fragment,
@@ -101,7 +101,7 @@ ExpiredProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Closed),
+      status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
       closingDate: FAR_PAST_DATE,
     },
     ViewPool_Fragment,
@@ -114,7 +114,7 @@ ArchivedProcess.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Archived),
+      status: toLocalizedEnum(PoolStatus.Archived, "LocalizedPoolStatus"),
       closingDate: FAR_PAST_DATE,
     },
     ViewPool_Fragment,

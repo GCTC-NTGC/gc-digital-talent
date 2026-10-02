@@ -16,7 +16,7 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Experience } from "@gc-digital-talent/graphql";
+import type { ExperienceCardFragment } from "@gc-digital-talent/graphql";
 import { ApplicationStep, makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
@@ -223,17 +223,20 @@ export const ApplicationCareerTimeline = ({
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated your career timeline!",
-              id: "dfkNm9",
-              description:
-                "Message displayed to users when saving career timeline is successful.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data?.updateApplication?.id || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your career timeline!",
+            id: "dfkNm9",
+            description:
+              "Message displayed to users when saving career timeline is successful.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         toast.error(
@@ -349,7 +352,7 @@ export const ApplicationCareerTimeline = ({
               return (
                 <ExperienceCard
                   key={experience.id}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   editPath={paths.applicationCareerTimelineEdit(
                     application.id,
@@ -357,7 +360,7 @@ export const ApplicationCareerTimeline = ({
                   )}
                   showEdit={!applicationWasSubmitted}
                   experienceQuery={makeFragmentData(
-                    experience,
+                    experience as ExperienceCardFragment,
                     ExperienceCard_Fragment,
                   )}
                 />
@@ -435,9 +438,7 @@ export const ApplicationCareerTimeline = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
+  const experiences = unpackMaybes(application.user.experiences);
 
   return application ? (
     <ApplicationCareerTimeline

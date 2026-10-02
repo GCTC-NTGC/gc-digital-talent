@@ -5,7 +5,8 @@ import { tv } from "tailwind-variants";
 
 import type { ChipProps, HeadingRank } from "@gc-digital-talent/ui";
 import { Chip, Chips, Heading } from "@gc-digital-talent/ui";
-import type { Pool } from "@gc-digital-talent/graphql";
+import type { PoolLanguage } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
 import type { PartialUser } from "~/utils/languageUtils";
 import { getMissingLanguageRequirements } from "~/utils/languageUtils";
@@ -24,7 +25,7 @@ interface MissingLanguageRequirementsBlockProps {
   /** Language requirements missing from the application */
   missingLanguageRequirements: string[];
   /** heading rank to display the title as */
-  headingLevel: HeadingRank;
+  headingRank: HeadingRank;
 }
 
 const MissingLanguageRequirementsBlock = ({
@@ -33,7 +34,7 @@ const MissingLanguageRequirementsBlock = ({
   languageRequirementsBlurb,
   icon,
   missingLanguageRequirements,
-  headingLevel = "h2",
+  headingRank = "h2",
   className,
   ...rest
 }: MissingLanguageRequirementsBlockProps) => {
@@ -41,7 +42,7 @@ const MissingLanguageRequirementsBlock = ({
     <div className={reqBlock({ class: className })} {...rest}>
       {icon}
       <div>
-        <Heading level={headingLevel} size="h6" className="mt-0 mb-3">
+        <Heading rank={headingRank} size="h6" className="mt-0 mb-3">
           {title}
         </Heading>
         {missingLanguageRequirements.length ? (
@@ -61,16 +62,20 @@ const MissingLanguageRequirementsBlock = ({
   );
 };
 
+interface MissingLanguageRequirementsPool {
+  language?: LocalizedEnumValue<PoolLanguage> | null;
+}
+
 export interface MissingLanguageRequirementsProps {
   user?: PartialUser;
-  pool?: Pick<Pool, "language"> | null;
-  headingLevel?: HeadingRank;
+  pool?: MissingLanguageRequirementsPool | null;
+  headingRank?: HeadingRank;
 }
 
 const MissingLanguageRequirements = ({
   user,
   pool,
-  headingLevel = "h2",
+  headingRank = "h2",
 }: MissingLanguageRequirementsProps) => {
   const intl = useIntl();
 
@@ -82,7 +87,7 @@ const MissingLanguageRequirements = ({
     <MissingLanguageRequirementsBlock
       className="mb-3 bg-white shadow-md dark:bg-gray-600"
       chipType={{ color: "error" }}
-      headingLevel={headingLevel}
+      headingRank={headingRank}
       title={intl.formatMessage({
         defaultMessage: "There is a missing language requirement",
         id: "Vbt/G1",

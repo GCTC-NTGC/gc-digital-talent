@@ -1,26 +1,58 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { AwardExperience } from "@gc-digital-talent/graphql";
+import type { AwardedScope, AwardedTo } from "@gc-digital-talent/graphql";
 
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import type { ExperienceName } from "~/utils/experienceUtils";
+import {
+  getExperienceFormLabels,
+  getExperienceName,
+} from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
+export interface AwardContentExperience {
+  __typename?: "AwardExperience";
+  issuedBy?: string | null;
+  awardedTo?: GenericLocalizedEnum<AwardedTo> | null;
+  awardedScope?: GenericLocalizedEnum<AwardedScope> | null;
+  projectName?: string | null;
+  relatedExperience?: ExperienceName | null;
+}
+
 const AwardContent = ({
-  experience: { awardedTo, issuedBy, awardedScope },
-  headingLevel,
-}: ContentProps<Omit<AwardExperience, "user">>) => {
+  experience,
+  headingRank,
+}: ContentProps<AwardContentExperience>) => {
   const intl = useIntl();
+  const { awardedTo, issuedBy, awardedScope, projectName, relatedExperience } =
+    experience;
   const experienceFormLabels = getExperienceFormLabels(intl);
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
     <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
+        title={experienceFormLabels.issuedBy}
+        headingRank={headingRank}
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
+      >
+        {issuedBy ?? notAvailable}
+      </ContentSection>
+      <ContentSection
+        title={experienceFormLabels.relatedExperience}
+        headingRank={headingRank}
+        className="sm:border-r sm:border-gray-200 dark:border-gray-500"
+      >
+        {relatedExperience
+          ? getExperienceName(relatedExperience, intl)
+          : notAvailable}
+      </ContentSection>
+      <ContentSection
         title={experienceFormLabels.awardedTo}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {awardedTo?.label
@@ -28,15 +60,15 @@ const AwardContent = ({
           : notAvailable}
       </ContentSection>
       <ContentSection
-        title={experienceFormLabels.issuedBy}
-        headingLevel={headingLevel}
+        title={experienceFormLabels.projectName}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
-        {issuedBy ?? intl.formatMessage(commonMessages.notAvailable)}
+        {projectName ?? notAvailable}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.awardedScope}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {awardedScope?.label
           ? getLocalizedName(awardedScope.label, intl)

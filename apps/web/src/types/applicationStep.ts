@@ -2,9 +2,14 @@ import type { IntlShape } from "react-intl";
 
 import type {
   ApplicationStep,
-  Pool,
+  LocalizedString,
+  PoolAreaOfSelection,
+  PoolLanguage,
+  PoolSkillType,
+  SkillCategory,
   Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import type useRoutes from "~/hooks/useRoutes";
 
@@ -16,6 +21,33 @@ interface GetApplicationStepInfoArgs {
   resourceId?: string;
   intl: IntlShape;
   stepOrdinal?: number;
+}
+
+interface ApplicationStepSkill {
+  id: string;
+  key: string;
+  name: LocalizedString;
+  category: GenericLocalizedEnum<SkillCategory>;
+  description?: LocalizedString | null;
+}
+
+interface ApplicationStepPoolSkill {
+  id: string;
+  type?: GenericLocalizedEnum<PoolSkillType> | null;
+  skill?: ApplicationStepSkill | null;
+}
+
+interface ApplicationStepQuestion {
+  id: string;
+}
+
+export interface ApplicationStepPool {
+  id: string;
+  areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
+  language?: GenericLocalizedEnum<PoolLanguage> | null;
+  poolSkills?: (ApplicationStepPoolSkill | null)[] | null;
+  generalQuestions?: (ApplicationStepQuestion | null)[] | null;
+  screeningQuestions?: (ApplicationStepQuestion | null)[] | null;
 }
 
 export interface ApplicationBrowserState {
@@ -38,7 +70,7 @@ export interface ApplicationStepInfo {
   // Is the applicant valid as far as this step is concerned?
   hasError?: (
     user: ApplicationPoolCandidateFragmentType["user"],
-    pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
+    pool: ApplicationStepPool,
     application: ApplicationPoolCandidateFragmentType,
     browserState: ApplicationBrowserState | undefined,
   ) => boolean;

@@ -23,7 +23,10 @@ import {
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { DATE_FORMAT_LOCALIZED } from "@gc-digital-talent/date-helpers/const";
+import {
+  DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
+} from "@gc-digital-talent/date-helpers/const";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -39,13 +42,6 @@ export const PoolCard_Fragment = graphql(/* GraphQL */ `
     workStream {
       id
       name {
-        en
-        fr
-      }
-    }
-    publishingGroup {
-      value
-      label {
         en
         fr
       }
@@ -175,10 +171,10 @@ const flag = tv({
 
 export interface PoolCardProps {
   poolQuery: FragmentType<typeof PoolCard_Fragment>;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
 }
 
-const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
+const PoolCard = ({ poolQuery, headingRank = "h3" }: PoolCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -219,14 +215,13 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
       <div>
         <div className="gap-7.5 xs:flex">
           <Heading
-            level={headingLevel}
+            rank={headingRank}
             size="h5"
             className="mt-0 mb-6 min-h-27 pl-27 font-bold hyphens-auto xs:mb-0 xs:min-h-auto xs:max-w-3/4 xs:pl-0"
           >
             {getShortPoolTitleHtml(intl, {
               workStream: pool.workStream,
               name: pool.name,
-              publishingGroup: pool.publishingGroup,
               classification: pool.classification,
             })}
           </Heading>
@@ -252,7 +247,7 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
                       date: parseDateTimeUtc(pool.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_VANCOUVER,
                     }),
                   },
                 )
@@ -296,8 +291,11 @@ const PoolCard = ({ poolQuery, headingLevel = "h3" }: PoolCardProps) => {
             <IconLabel
               icon={BoltIcon}
               label={
-                intl.formatMessage(commonMessages.requiredSkills) +
-                intl.formatMessage(commonMessages.dividingColon)
+                intl.formatMessage({
+                  id: "WZ17s5",
+                  defaultMessage: "Required skills",
+                  description: "Title for required skills",
+                }) + intl.formatMessage(commonMessages.dividingColon)
               }
             />
           </div>

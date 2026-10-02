@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'me' => 'Me',
-    'my_team' => 'My team',
-    'my_project' => 'My project',
-    'my_organization' => 'My organization',
+    'me' => 'Awarded to you',
+    'my_team' => 'Awarded to your team',
+    'my_project' => 'Awarded to a project you contributed to',
+    'my_organization' => 'Awarded to the organization',
 ];

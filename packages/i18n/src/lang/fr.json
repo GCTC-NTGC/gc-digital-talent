@@ -59,10 +59,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Group for when someone indicates they are a visible minority"
   },
-  "09LIbL": {
-    "defaultMessage": "Date",
-    "description": "Label to identify a date element"
-  },
   "0AhbED": {
     "defaultMessage": "Exigences en matière de compétences",
     "description": "Label for skill requirements"
@@ -127,10 +123,6 @@
     "defaultMessage": "Talents numériques du GC",
     "description": "Title of GC Digital Talent"
   },
-  "1uBif7": {
-    "defaultMessage": "Intérêt pour les collectivités",
-    "description": "Community interest label"
-  },
   "2/YsnJ": {
     "defaultMessage": "Supprimer",
     "description": "Delete action"
@@ -138,10 +130,6 @@
   "2G+fJt": {
     "defaultMessage": "L’article {index} a été supprimé.",
     "description": "Message announced to assistive technology when a repeatable field has been removed"
-  },
-  "2H5KbR": {
-    "defaultMessage": "Date limite : aujourd’hui",
-    "description": "Message shown when something is due on the current date"
   },
   "2Tm9BE": {
     "defaultMessage": "J'accepte de faire des heures supplémentaires à l'occasion.",
@@ -183,10 +171,6 @@
     "defaultMessage": "Le lieu doit être indiqué ou l’option « À distance » doit être sélectionnée",
     "description": "Error message that the pool advertisement must have location filled."
   },
-  "45ZCXX": {
-    "defaultMessage": "Options",
-    "description": "label or header for something referred to as an option, plural"
-  },
   "4MKYKl": {
     "defaultMessage": "aaaa",
     "description": "Placeholder for a year input"
@@ -203,10 +187,6 @@
     "defaultMessage": "Être disponible, disposé(e) et apte à travailler sur appel 24/7",
     "description": "The operational requirement described as 24/7 on-call."
   },
-  "4lV1Od": {
-    "defaultMessage": "Éliminé à la présélection",
-    "description": "Screened out"
-  },
   "5/C1lJ": {
     "defaultMessage": "Avancé",
     "description": "The technical skill level for expert"
@@ -214,10 +194,6 @@
   "556RGm": {
     "defaultMessage": "Une erreur s’est produite au moment d’annuler la décision finale. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message that reverting the final decision for a candidate failed"
-  },
-  "5RMS25": {
-    "defaultMessage": "Non retenue",
-    "description": "Not supported status"
   },
   "5RTQe6": {
     "defaultMessage": "Préparation de votre fichier pour le téléchargement. Vous recevrez une notification lorsqu’il sera prêt.",
@@ -242,10 +218,6 @@
   "5xaEhL": {
     "defaultMessage": "Titre",
     "description": "Label for toggling a heading in the rich text editor"
-  },
-  "6/U6rm": {
-    "defaultMessage": "Décision finale relative à l’évaluation",
-    "description": "Final assessment decision"
   },
   "64H+pl": {
     "defaultMessage": "Je consens à travailler dans la région de Québec (excluant Gatineau).",
@@ -331,14 +303,6 @@
     "defaultMessage": "Je consens à travailler à distance.",
     "description": "The work region of Canada described as Telework."
   },
-  "91hRYX": {
-    "defaultMessage": "OK",
-    "description": "Proceed with the current action"
-  },
-  "96yWSc": {
-    "defaultMessage": "Candidature spéciale",
-    "description": "Special application label"
-  },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"
@@ -355,10 +319,6 @@
     "defaultMessage": "Vous avez des modifications non sauvegardées",
     "description": "Title for unsaved changes warning on profile forms"
   },
-  "9tH7k0": {
-    "defaultMessage": "Date de début",
-    "description": "Label displayed before start date"
-  },
   "9wqUyU": {
     "defaultMessage": "Un champ obligatoire est vide : Courriel de correspondance",
     "description": "Error message that contact email for this process must be filled"
@@ -371,10 +331,6 @@
     "defaultMessage": "Date d'expiration",
     "description": "Label for expiry Date"
   },
-  "AFPD79": {
-    "defaultMessage": "Bilingue",
-    "description": "Label for bilingual"
-  },
   "AOJjMk": {
     "defaultMessage": "Niveau d’entrée",
     "description": "The technical skill level for beginner"
@@ -382,10 +338,6 @@
   "APggfy": {
     "defaultMessage": "Je ne souhaite pas bénéficier du coaching des cadres.",
     "description": "The executive coaching interest status described as learning."
-  },
-  "AQeWgK": {
-    "defaultMessage": "Intérêt pour la formation",
-    "description": "Training interest label"
   },
   "AQxes2": {
     "defaultMessage": "Renseignements facultatifs manquants",
@@ -410,10 +362,6 @@
   "BXxvCZ": {
     "defaultMessage": "Aucun nom n'a été fourni",
     "description": "Message for when no name value"
-  },
-  "BcEpFb": {
-    "defaultMessage": "Publié",
-    "description": "Status is published"
   },
   "C/2HT9": {
     "defaultMessage": "Cette clé de collectivité est déjà utilisé",
@@ -462,10 +410,6 @@
   "DUjO/t": {
     "defaultMessage": "À distance, hybride ou sur site",
     "description": "Title for remote, hybrid or on-site"
-  },
-  "DdOEWx": {
-    "defaultMessage": "Erreur : nom pas chargé",
-    "description": "Message when name value not found"
   },
   "DyrwXU": {
     "defaultMessage": "Être disponible, disposé(e) et apte à voyager au besoin",
@@ -547,10 +491,6 @@
     "defaultMessage": "{count, plural, =0 {0 option sélectionnée} one {1 option sélectionnée} other {# options sélectionnées}}",
     "description": "Message displayed telling user how many items they have selected in a multi-select combobox"
   },
-  "IBc2sp": {
-    "defaultMessage": "Nom complet",
-    "description": "Label for full name"
-  },
   "IKGhHj": {
     "defaultMessage": "Important",
     "description": "Important note or caption"
@@ -582,10 +522,6 @@
   "J30FT0": {
     "defaultMessage": "La signature représente un champ obligatoire",
     "description": "Message displayed when user attempts to apply to a pool without a signature"
-  },
-  "JCA/2+": {
-    "defaultMessage": "Date de fin",
-    "description": "Label displayed before end date"
   },
   "JD0G28": {
     "defaultMessage": "Je m'identifie comme une personne en situation de handicap.",
@@ -643,10 +579,6 @@
     "defaultMessage": "Erreur : la suppression de la candidature a échoué",
     "description": "Message displayed to user after application fails to get deleted."
   },
-  "M9Q1zH": {
-    "defaultMessage": "Partiellement approuvée",
-    "description": "Status text for partially approved nominations"
-  },
   "MAeNit": {
     "defaultMessage": "J'accepte d'avoir un emploi où je dois transporter, soulever et déposer de l'équipement pesant jusqu'à 20 kg.",
     "description": "The operational requirement described as transport equipment up to 20kg."
@@ -679,17 +611,9 @@
     "defaultMessage": "Supprimer le lien",
     "description": "Label for removing a link in the rich text editor"
   },
-  "MiyFrV": {
-    "defaultMessage": "Archivé",
-    "description": "Status is archived"
-  },
   "Mm+Me1": {
     "defaultMessage": "Impossible d’appliquer à un bassin fermé",
     "description": "Message displayed when user attempts to apply to a closed pool"
-  },
-  "MuM7SN": {
-    "defaultMessage": "Renseignements manquants",
-    "description": "Message for when specific item has missing information"
   },
   "NAKad/": {
     "defaultMessage": "Supprimer",
@@ -759,10 +683,6 @@
     "defaultMessage": "Trouver des talents",
     "description": "Name of Find talent (search) page"
   },
-  "Ojevvl": {
-    "defaultMessage": "Compétences optionnelles",
-    "description": "Title for optional skills"
-  },
   "Ork8sR": {
     "defaultMessage": "La nouvelle date de clôture doit être ultérieure à la date de clôture actuelle.",
     "description": "Error message that the pool closing date isn't after the existing one"
@@ -783,6 +703,10 @@
     "defaultMessage": "L’article a été déplacé de {from} à {to}.",
     "description": "Message announced to assistive technology when a repeatable field has moved position"
   },
+  "PH9YJt": {
+    "defaultMessage": "Avertissement",
+    "description": "A potentially dangerous action alert"
+  },
   "PKkPSW": {
     "defaultMessage": "J'accepte de faire des <strong>heures supplémentaires à l'occasion</strong>.",
     "description": "The operational requirement described as occasional overtime."
@@ -802,10 +726,6 @@
   "PPSXML": {
     "defaultMessage": "Je consens à travailler dans la région des Prairies (Manitoba, Saskatchewan, Alberta).",
     "description": "The work region of Canada described as Prairie."
-  },
-  "Phlp8j": {
-    "defaultMessage": "Organisation",
-    "description": "Label displayed for organization input"
   },
   "Q6GYga": {
     "defaultMessage": "(EN)",
@@ -862,10 +782,6 @@
   "Ro+gP0": {
     "defaultMessage": "Accueil",
     "description": "Name of Home page"
-  },
-  "Rp+NHA": {
-    "defaultMessage": "Second avis en attente",
-    "description": "Pending second opinion"
   },
   "S0w3o5": {
     "defaultMessage": "Complet",
@@ -979,14 +895,6 @@
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the expiry date cannot be in the past."
   },
-  "VV8TA5": {
-    "defaultMessage": "Retour",
-    "description": "An action to go back to a previous location"
-  },
-  "Vnygk+": {
-    "defaultMessage": "Soumis",
-    "description": "Item's state is submitted"
-  },
   "VpjQL1": {
     "defaultMessage": "Confirmation des membres du personnel",
     "description": "Label for status of employee verification"
@@ -1015,10 +923,6 @@
     "defaultMessage": "Trier par",
     "description": "Label for the links to change how the list is sorted"
   },
-  "W9zlhl": {
-    "defaultMessage": "Sélectionnée",
-    "description": "Label when an item is selected"
-  },
   "WGoaKQ": {
     "defaultMessage": "Enregistrer les modifications",
     "description": "Text for submit button on edit forms"
@@ -1026,10 +930,6 @@
   "WL3bq/": {
     "defaultMessage": "Étape {current} de {total}",
     "description": "Title for a list of steps indicating the current step of the total number of step"
-  },
-  "WZ17s5": {
-    "defaultMessage": "Compétences requises",
-    "description": "Title for required skills"
   },
   "WZ8QTB": {
     "defaultMessage": "Profil d'employé(e) du GC",
@@ -1103,10 +1003,6 @@
     "defaultMessage": "{wordCount} / {wordLimit} mots",
     "description": "Message for words remaining before hitting the limit"
   },
-  "YtV1mE": {
-    "defaultMessage": "Avertissement!",
-    "description": "A potentially dangerous action alert"
-  },
   "Z0bYQD": {
     "defaultMessage": "Ajouter le lien",
     "description": "Button text for adding a link in the rich text editor"
@@ -1118,10 +1014,6 @@
   "ZhQEUx": {
     "defaultMessage": "Ce champ requiert des dates ultérieures seulement.",
     "description": "Error message that the provided date must be in the future."
-  },
-  "ZoYqEo": {
-    "defaultMessage": "Date limite",
-    "description": "Title for deadline to apply"
   },
   "ZpTNbt": {
     "defaultMessage": "Je suis un <strong>ancien combattant</strong> des Forces armées canadiennes.",
@@ -1191,10 +1083,6 @@
     "defaultMessage": "La date doit être égale ou supérieure au {date}.",
     "description": "Error message when a date was entered that is less than the minimum required"
   },
-  "cavxJ8": {
-    "defaultMessage": "Tous",
-    "description": "All as in all items or things"
-  },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
@@ -1227,10 +1115,6 @@
     "defaultMessage": "Capacité démontrée à accomplir de façon constante des tâches de faible complexité sous une supervision minimale et des tâches de complexité modérée sous une forte supervision ou un mentorat direct. Généralement associée à des postes juniors ou de niveau d’entrée.",
     "description": "The technical skill level definition for beginner"
   },
-  "dYhxhN": {
-    "defaultMessage": "Intérêt pour l'emploi",
-    "description": "Job interest label"
-  },
   "dh6K/x": {
     "defaultMessage": "Veuillez entrer une adresse URL valide",
     "description": "Error message for an invalid link in the rich text editor"
@@ -1259,10 +1143,6 @@
     "defaultMessage": "Nous sommes désolés, mais nous avons relevé une erreur.",
     "description": "Title for the unexpected error page."
   },
-  "eozWFc": {
-    "defaultMessage": "Filtres avancés",
-    "description": "Title for the additional filters"
-  },
   "exPBiQ": {
     "defaultMessage": "Il semble y avoir une erreur dans cette liste.",
     "description": "Error message title for repeater component."
@@ -1283,10 +1163,6 @@
     "defaultMessage": "Vous devez supprimer un élément si vous voulez en ajouter un autre",
     "description": "Message displayed when max items have been reached on repeater component."
   },
-  "fRyPvR": {
-    "defaultMessage": "Ébauche",
-    "description": "Item's state is draft"
-  },
   "fUAej4": {
     "defaultMessage": "Pas d'intérêt",
     "description": "Expressed lack of interest"
@@ -1306,10 +1182,6 @@
   "fhpH9E": {
     "defaultMessage": "Fermer",
     "description": "Title for close"
-  },
-  "g1qgjG": {
-    "defaultMessage": "Options de lieu de travail flexible",
-    "description": "Title for flexible work locations options"
   },
   "g2X8Fx": {
     "defaultMessage": "Fermer la fenêtre de dialogue",
@@ -1342,10 +1214,6 @@
   "ghhKNZ": {
     "defaultMessage": "Identité autochtone",
     "description": "Group for when someone indicates they are indigenous"
-  },
-  "gqX6/n": {
-    "defaultMessage": "Étape actuelle",
-    "description": "Title displayed for a candidates current assessment step"
   },
   "gt0xAi": {
     "defaultMessage": "Processus",
@@ -1439,10 +1307,6 @@
     "defaultMessage": "Termine aujourd’hui, à {time}",
     "description": "Text displayed when relative date is today."
   },
-  "k3i6lU": {
-    "defaultMessage": "Langue",
-    "description": "Legend for a language input or title"
-  },
   "k8IB9g": {
     "defaultMessage": "La date d’expiration doit être postérieure à aujourd’hui. Veuillez saisir une date valide.",
     "description": "Error message that an expiry date must be in the future"
@@ -1466,10 +1330,6 @@
   "l+x5JF": {
     "defaultMessage": "L'une ou les deux étapes données ne peuvent être interchangées.",
     "description": "Error message that one of the assessment steps cannot have its sort order changed."
-  },
-  "l0aGCz": {
-    "defaultMessage": "Intégré à l'application",
-    "description": "Title for in app notifications"
   },
   "l2XtbB": {
     "defaultMessage": "J'accepte de travailler par quarts et d'être sur appel 24 heures sur 24, 7 jours sur 7.",
@@ -1547,10 +1407,6 @@
     "defaultMessage": "Vous n’avez ajouté aucune expérience de ce type.",
     "description": "Message to user when no experiences of that type exist."
   },
-  "nPKPFa": {
-    "defaultMessage": "Un champ obligatoire est vide : Groupe des publications",
-    "description": "Error message that the pool advertisement must have publishing group filled."
-  },
   "nSENOg": {
     "defaultMessage": "*",
     "description": "Asterisk symbol"
@@ -1568,7 +1424,7 @@
     "description": "Label for count and total"
   },
   "nuFcSO": {
-    "defaultMessage": "La date limite pour cet événement axé sur la gestion des talents est passée. Il n'est plus possible de présenter une mise en candidature.",
+    "defaultMessage": "La date limite pour cet événement axé sur la gestion des talents est passée. Il n'est plus possible de présenter une nomination.",
     "description": "Error alerting the user it is to late to create/update a nomination"
   },
   "nwBZ4v": {
@@ -1582,10 +1438,6 @@
   "o9qR1R": {
     "defaultMessage": "Services administratifs",
     "description": "Full name of abbreviation for AS classification"
-  },
-  "oCFl63": {
-    "defaultMessage": "Approuvée",
-    "description": "Approved status"
   },
   "oCrAvX": {
     "defaultMessage": "Un champ obligatoire est vide : Date de clôture",
@@ -1614,6 +1466,10 @@
   "pOL68A": {
     "defaultMessage": "Adresse courriel professionnelle",
     "description": "Title for work email address"
+  },
+  "pdT/ln": {
+    "defaultMessage": "La date de délivrance ne peut pas être dans le futur. Entrez une date antérieure.",
+    "description": "Error message that the end date cannot be in the future."
   },
   "pnoSK6": {
     "defaultMessage": "Non sélectionnée",
@@ -1692,7 +1548,7 @@
     "description": "The technical skill level for intermediate"
   },
   "s3u05D": {
-    "defaultMessage": "Nouvelle mise en candidature",
+    "defaultMessage": "Nouvelle nomination",
     "description": "Link text to create a new nomination"
   },
   "s7lyFN": {
@@ -1719,10 +1575,6 @@
     "defaultMessage": "Selon la définition fournie, je m'identifie en tant que :",
     "description": "Prompt text for a user selecting an employment equity group for their profile"
   },
-  "se/c4O": {
-    "defaultMessage": "Sélectionner ou saisir une réponse",
-    "description": "Placeholder text for an input with options list"
-  },
   "skfKnv": {
     "defaultMessage": "Veuillez sélectionner les Premières Nations qui détiennent le statut ou les Premières Nations qui ne détiennent pas le statut.",
     "description": "Error message that the user has selected both status and non-status first nations."
@@ -1742,10 +1594,6 @@
   "tEUGpL": {
     "defaultMessage": "Liste",
     "description": "Label for toggling a bullet list in the rich text editor"
-  },
-  "tExKws": {
-    "defaultMessage": "Retiré",
-    "description": "Removed"
   },
   "tHeY7N": {
     "defaultMessage": "Je souhaite bénéficier du coaching des cadres.",
@@ -1774,10 +1622,6 @@
   "u/+Nrd": {
     "defaultMessage": "Placement professionnel",
     "description": "Label for job placement"
-  },
-  "uBmoxQ": {
-    "defaultMessage": "Rôle",
-    "description": "Title displayed for the role table display name column"
   },
   "uNArwM": {
     "defaultMessage": "+123243234",
@@ -1810,10 +1654,6 @@
   "vMc12L": {
     "defaultMessage": "Le nominé ou la nominée bénéficierait d'un transfert latéral vers un autre domaine politique.",
     "description": "The talent nomination lateral movement option description for policy experience"
-  },
-  "vNVMlM": {
-    "defaultMessage": "« {text} »",
-    "description": "Text within double quotes"
   },
   "vOCLQA": {
     "defaultMessage": "Incomplet",
@@ -1859,10 +1699,6 @@
     "defaultMessage": "Tableau de bord du (de la) candidat(e)",
     "description": "Name of applicant dashboard page"
   },
-  "x/BiQS": {
-    "defaultMessage": "Questions",
-    "description": "Label for questions"
-  },
   "x61BXA": {
     "defaultMessage": "Mars",
     "description": "Name of the third month"
@@ -1899,10 +1735,6 @@
     "defaultMessage": "Il semble que cette adresse courriel ne soit pas une adresse courriel valide du gouvernement du Canada. Veuillez la vérifier à nouveau ou nous contacter si vous pensez qu'il s'agit d'une erreur.",
     "description": "Description for rule pattern on work email field"
   },
-  "xVBxp3": {
-    "defaultMessage": "En cours",
-    "description": "In progress status"
-  },
   "xmzq/b": {
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
@@ -1935,10 +1767,6 @@
     "defaultMessage": "Ce champ doit contenir moins de {value} mots.",
     "description": "Error Message displayed on word counter when user passes the limit."
   },
-  "zE9jPr": {
-    "defaultMessage": "Numéro de téléphone",
-    "description": "Title displayed phone number"
-  },
   "zM99Vm": {
     "defaultMessage": "J'ai actuellement un mentor.",
     "description": "The mentorship status described as mentee."
@@ -1954,9 +1782,5 @@
   "zdxy8s": {
     "defaultMessage": "Fortement développée",
     "description": "The behavioural skill level for expert"
-  },
-  "zhqK/P": {
-    "defaultMessage": "Non précisé",
-    "description": "Unspecified, has not been set or defined"
   }
 }

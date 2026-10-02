@@ -1,8 +1,6 @@
-import type {
-  EmployeeProfile,
-  UpdateEmployeeProfileInput,
-} from "@gc-digital-talent/graphql";
+import type { UpdateEmployeeProfileInput } from "@gc-digital-talent/graphql";
 import { ExecCoaching, graphql, Mentorship } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 import { ExecCoachingStatus, MentorshipStatus } from "@gc-digital-talent/i18n";
 
 import type { FormValues } from "./CareerDevelopmentSection";
@@ -123,7 +121,7 @@ export const EmployeeProfileCareerDevelopment_Fragment = graphql(/* GraphQL */ `
 `);
 
 export const mentorshipStatusToFormValues = (
-  mentorshipStatus: EmployeeProfile["mentorshipStatus"],
+  mentorshipStatus?: LocalizedEnumValue<Mentorship>[] | null,
 ) => {
   if (!mentorshipStatus) return null;
 
@@ -169,7 +167,7 @@ export const mentorshipStatusToData = (
 };
 
 export const execCoachingStatusToFormValues = (
-  execCoachingStatus: EmployeeProfile["execCoachingStatus"],
+  execCoachingStatus?: LocalizedEnumValue<ExecCoaching>[] | null,
 ) => {
   if (!execCoachingStatus) return null;
 

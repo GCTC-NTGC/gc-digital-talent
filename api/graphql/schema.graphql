@@ -20,6 +20,9 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 "128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
+scalar BigInt
+
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -184,15 +187,10 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
-}
-
-type CommunityReferralStatusData {
-  status: LocalizedCommunityReferralStatus!
-    @rename(attribute: "referral_status")
-  followUpDate: Date @rename(attribute: "referral_follow_up_date")
-  classification: Classification @belongsTo(relation: "referralClassification")
-  notes: String @rename(attribute: "referral_notes")
-  updatedAt: DateTime @rename(attribute: "referral_status_data_updated_at")
+  talentNominationGroupsAsNominee: [TalentNominationGroup!]
+    @hasMany(
+      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
+    )
 }
 
 type CommunityInterest {
@@ -218,9 +216,6 @@ type CommunityInterest {
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   createdAt: DateTime @rename(attribute: "created_at")
   procurementIsSDO: Boolean @rename(attribute: "procurement_is_sdo")
-  referralStatus: CommunityReferralStatusData!
-    @canRoot(ability: "viewReferralStatus", scopes: ["withPolicyEagerLoads"])
-    @self
 }
 
 type OffPlatformRecruitmentProcess {
@@ -422,6 +417,7 @@ type BasicGovEmployeeProfile @model(class: "\\App\\Models\\User") {
   role: String @rename(attribute: "computed_gov_role")
   department: Department @belongsTo
   classification: Classification @belongsTo(relation: "currentClassification")
+  isVerifiedGovEmployee: Boolean
 }
 
 # Mini type to support search by work email
@@ -510,8 +506,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus @rename(attribute: "status")
   workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
-  publishingGroup: LocalizedPublishingGroup
-    @rename(attribute: "publishing_group")
   opportunityLength: LocalizedPoolOpportunityLength
     @rename(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
@@ -558,6 +552,7 @@ type Pool implements HasRoleAssignments {
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 type GeneralQuestionResponse {
@@ -640,14 +635,11 @@ type PoolCandidateAssessmentData {
 
 type PoolCandidateStatusData {
   status: LocalizedApplicationStatus @rename(attribute: "application_status")
-  candidateStatus: LocalizedCandidateStatus
-  candidateInterest: LocalizedCandidateInterest
   statusWeight: Int @rename(attribute: "status_weight")
   screeningStage: LocalizedScreeningStage @rename(attribute: "screening_stage")
   removalReason: LocalizedCandidateRemovalReason
     @rename(attribute: "removal_reason")
   removalReasonOther: String @rename(attribute: "removal_reason_other")
-  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
   disqualificationReason: LocalizedDisqualificationReason
     @rename(attribute: "disqualification_reason")
   # Placement fields are considered subfields of the QUALIFIED status: placementType is null (not NOT_PLACED) when the candidate is not qualified.
@@ -692,6 +684,12 @@ type PoolCandidate {
   # Array of IDs needed to resolve experiences in the snapshot if they happen to be deleted
   educationRequirementExperienceIds: [UUID!]
     @rename(attribute: "education_requirement_experience_ids")
+
+  # Candidate-facing summaries of the internal status
+  # These intentionally sit with no permission guard and are safe for anyone who can view the PoolCandidate
+  candidateStatus: LocalizedCandidateStatus
+  candidateInterest: LocalizedCandidateInterest
+  statusUpdatedAt: DateTime @rename(attribute: "status_updated_at")
 
   applicationStatusData: PoolCandidateStatusData
     @canRoot(ability: "viewApplicationStatus")
@@ -959,6 +957,7 @@ type TalentNomination {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: Classification @belongsTo
   advancementReferenceFallbackDepartment: Department @belongsTo
+  advancementClassifications: [Classification!] @belongsToMany
 
   lateralMovementOptions: [LocalizedTalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -1017,9 +1016,13 @@ type TalentNominationGroup {
   status: LocalizedTalentNominationGroupStatus
   consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
-  classificationAtTimeOfAdvancementApproval: Classification @belongsTo
+  classificationAtTimeOfLastApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  advancementReferralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: [Classification!] @belongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1040,9 +1043,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -1171,6 +1171,9 @@ type TalentRequestTrackedUser {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
     @with(relation: "talentRequest.applicantFilter")
+  matchingLateralMovementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1232,7 +1235,6 @@ type SkillKeywords {
 
 interface Experience {
   id: ID!
-  details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
@@ -1282,25 +1284,27 @@ type WorkExperience implements Experience {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type PersonalExperience implements Experience {
   id: ID!
   user: User! @belongsTo(relation: "user") @canResolved(ability: "view")
   title: String
-  description: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  learningDescription: String @rename(attribute: "learning_description")
+  organization: String
+  awardExperiences: [AwardExperience] @morphMany
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -1316,6 +1320,7 @@ type CommunityExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -1325,14 +1330,23 @@ type EducationExperience implements Experience {
   thesisTitle: String @rename(attribute: "thesis_title")
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  type: LocalizedEducationType
+  educationType: LocalizedEducationType @rename(attribute: "education_type")
   status: LocalizedEducationStatus
+  otherEducationType: String @rename(attribute: "other_education_type")
+  degreeType: LocalizedDegreeType @rename(attribute: "degree_type")
+  licenseOrAccreditation: String @rename(attribute: "license_or_accreditation")
+  certification: String
+  courseName: String @rename(attribute: "course_name")
+  fellowshipType: LocalizedFellowshipType @rename(attribute: "fellowship_type")
+  otherFellowshipType: String @rename(attribute: "other_fellowship_type")
+  prospectiveEndDate: Date @rename(attribute: "prospective_end_date")
   details: String
   skills: [Skill!] @morphToMany
   # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  awardExperiences: [AwardExperience] @morphMany
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -1348,7 +1362,15 @@ type AwardExperience implements Experience {
   experienceSkillRecord: ExperienceSkillRecord
     @rename(attribute: "experience_skill")
   deletedDate: DateTime @rename(attribute: "deleted_at")
+  projectName: String @rename(attribute: "project_name")
+  relatedExperience: RelatedExperience @morphTo
 }
+
+union RelatedExperience =
+  | WorkExperience
+  | PersonalExperience
+  | CommunityExperience
+  | EducationExperience
 
 type ExperienceSkillRecord {
   details: String
@@ -1434,10 +1456,10 @@ input PoolFilterInput {
   workStreams: [UUID!] @scope(name: "whereWorkStreamsIn")
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
-  publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
+  isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1512,7 +1534,6 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   referralStatuses: [CandidateReferralFilter!]
     @scope(name: "whereReferralStatusIn")
-  publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
@@ -1553,8 +1574,6 @@ input TalentRequestMatchFilterInput {
   employeeVerification: [EmployeeVerification]
     @scope(name: "whereEmployeeVerificationIn")
   departments: [UUID!] @scope(name: "whereDepartmentsIn")
-  communityReferralStatuses: [CommunityReferralStatus!]
-    @scope(name: "whereHasCommunityInterestWithReferralStatusIn")
   # NOT the filter source (filters come from applicantFilter); names the request whose tracked
   # users to exclude. Has no effect yet.
   excludeTrackedByRequestId: UUID
@@ -1568,6 +1587,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
@@ -1641,6 +1661,7 @@ input CommunityInterestFilterInput {
   skills: [UUID] @scope
   classifications: [UUID!] @scope
 }
+
 input DateRangeOptional {
   from: DateTime
   to: DateTime @rules(apply: ["after_or_equal:from"])
@@ -1731,13 +1752,6 @@ type Query {
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPools(
-    closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    publishingGroup: PublishingGroup
-      @where(key: "publishing_group", operator: "=")
-  ): [Pool!]!
-    @all(scopes: ["wherePublished", "whereNotArchived"])
-    @canModel(ability: "viewAnyPublished", model: "Pool")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1844,6 +1858,7 @@ type Query {
     where: NotificationFilterInput
     excludeIds: [UUID!] @notIn(key: "id")
   ): [Notification!]
+    @guard
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
@@ -1931,27 +1946,13 @@ input PoolsHasMany {
 """
 When creating a User, name is required.
 """
-input CreateUserInput {
+input CreateUserInput @validator {
   sub: String
-    @rules(
-      apply: ["sometimes", "unique:users,sub"]
-      messages: [{ rule: "unique", message: "CreateUserSubInUse" }]
-    )
 
   # Personal info
   firstName: String! @rename(attribute: "first_name")
   lastName: String! @rename(attribute: "last_name")
   email: Email
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
   # emailVerifiedAt only used for e2e testing
   emailVerifiedAt: Date @rename(attribute: "email_verified_at")
   telephone: PhoneNumber
@@ -1983,18 +1984,7 @@ input CreateUserInput {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email
-    @rename(attribute: "work_email")
-    @lowerCase
-    @rules(
-      apply: [
-        "sometimes"
-        "nullable"
-        "unique:users,email"
-        "unique:users,work_email"
-      ]
-      messages: [{ rule: "unique", message: "CreateUserEmailInUse" }]
-    )
+  workEmail: Email @rename(attribute: "work_email")
   workEmailVerifiedAt: DateTime @rename(attribute: "work_email_verified_at")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
@@ -2032,7 +2022,7 @@ input UpdateUserAsAdminInput @validator {
   id: ID
 
   # Personal info
-  email: Email @lowerCase
+  email: Email
   firstName: String @rename(attribute: "first_name")
   lastName: String @rename(attribute: "last_name")
   telephone: PhoneNumber
@@ -2064,7 +2054,7 @@ input UpdateUserAsAdminInput @validator {
 
   # Gov info
   isGovEmployee: Boolean @rename(attribute: "computed_is_gov_employee")
-  workEmail: Email @rename(attribute: "work_email") @lowerCase
+  workEmail: Email @rename(attribute: "work_email")
   hasPriorityEntitlement: Boolean @rename(attribute: "has_priority_entitlement")
   priorityNumber: String @rename(attribute: "priority_number")
 
@@ -2286,14 +2276,6 @@ input UpdateCommunityInterestWithDevelopmentProgramsInput @validator {
   id: UUID!
   communityInterest: UpdateCommunityInterestInput!
   developmentPrograms: [UpsertDevelopmentProgramUserInput]
-}
-
-input UpdateCommunityInterestReferralStatusInput @validator {
-  id: UUID!
-  status: CommunityReferralStatus!
-  followUpDate: Date
-  classification: ClassificationBelongsTo
-  notes: String
 }
 
 input CreateOffPlatformRecruitmentProcessInput @validator {
@@ -2641,6 +2623,7 @@ input CreateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2697,6 +2680,7 @@ input UpdateTalentNominationInput @validator {
     @rename(attribute: "advancement_reference_fallback_name")
   advancementReferenceFallbackClassification: ClassificationBelongsTo
   advancementReferenceFallbackDepartment: DepartmentBelongsTo
+  advancementClassifications: ClassificationBelongsToMany
 
   lateralMovementOptions: [TalentNominationLateralMovementOption!]
     @rename(attribute: "lateral_movement_options")
@@ -2730,7 +2714,11 @@ input UpdateTalentNominationGroupInput {
     @rename(attribute: "development_programs_notes")
   comments: String
   advancementClassifications: ClassificationBelongsToMany
-  referralExpiryDate: Date @rename(attribute: "referral_expiry_date")
+  advancementReferralExpiryDate: Date
+    @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
@@ -2891,18 +2879,18 @@ input WorkExperienceInput {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
 }
 input PersonalExperienceInput {
   title: String
-  description: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  details: String
   skills: UpdateExperienceSkills @spread
+  learningDescription: String @rename(attribute: "learning_description")
+  organization: String
 }
 input CommunityExperienceInput {
   title: String
@@ -2913,18 +2901,26 @@ input CommunityExperienceInput {
   details: String
   skills: UpdateExperienceSkills @spread
 }
-input EducationExperienceInput {
+input EducationExperienceInput @validator {
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
-  type: EducationType
+  educationType: EducationType @rename(attribute: "education_type")
   status: EducationStatus
+  otherEducationType: String @rename(attribute: "other_education_type")
+  degreeType: DegreeType @rename(attribute: "degree_type")
+  licenseOrAccreditation: String @rename(attribute: "license_or_accreditation")
+  certification: String
+  courseName: String @rename(attribute: "course_name")
+  fellowshipType: FellowshipType @rename(attribute: "fellowship_type")
+  otherFellowshipType: String @rename(attribute: "other_fellowship_type")
+  prospectiveEndDate: Date @rename(attribute: "prospective_end_date")
   details: String
   skills: UpdateExperienceSkills @spread
 }
-input AwardExperienceInput {
+input AwardExperienceInput @validator {
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -2932,6 +2928,9 @@ input AwardExperienceInput {
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
   skills: UpdateExperienceSkills @spread
+  projectName: String @rename(attribute: "project_name")
+  relatedExperienceId: UUID @rename(attribute: "related_experience_id")
+  relatedExperienceType: String @rename(attribute: "related_experience_type")
 }
 
 input UpdateExperienceSkills {
@@ -3049,7 +3048,6 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
@@ -3057,6 +3055,7 @@ input UpdatePoolInput {
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -3343,7 +3342,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @canFind(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id")
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
     @canModel(ability: "updateSub", model: "User")
@@ -3392,16 +3391,6 @@ type Mutation {
     @delete
     @guard
     @canFind(ability: "delete", find: "id")
-  updateCommunityInterestReferralStatus(
-    communityInterestReferral: UpdateCommunityInterestReferralStatusInput!
-      @spread
-  ): CommunityInterest
-    @guard
-    @canFind(
-      ability: "updateReferralStatus"
-      find: "id"
-      model: "CommunityInterest"
-    )
   createOffPlatformRecruitmentProcess(
     process: CreateOffPlatformRecruitmentProcessInput! @spread
   ): OffPlatformRecruitmentProcess
@@ -3884,7 +3873,6 @@ type Mutation {
 
   # Pool mutations
   createPool(
-    userId: ID! @rename(attribute: "user_id")
     communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool
@@ -4189,6 +4177,10 @@ type Mutation {
     withROD: Boolean
   ): Boolean! @guard
   downloadUsersExcel(ids: [UUID!], where: UserFilterInput): Boolean! @guard
+  downloadCommunityTalentExcel(
+    ids: [UUID!]
+    where: CommunityInterestFilterInput
+  ): Boolean! @guard
   downloadTrackedUsersExcel(
     talentRequestId: UUID!
     where: TalentRequestTrackedUserFilterInput

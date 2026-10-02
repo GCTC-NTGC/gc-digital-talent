@@ -2,13 +2,12 @@ import { useIntl } from "react-intl";
 import StarIcon from "@heroicons/react/20/solid/StarIcon";
 
 import { Heading, ThrowNotFound } from "@gc-digital-talent/ui";
-import type { Experience } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
-import type { AnyExperience } from "~/types/experience";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import type { ExperienceFields } from "~/utils/experienceUtils";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -69,7 +68,7 @@ interface RouteParams extends Record<string, string> {
 }
 
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
-  experience: AnyExperience;
+  experience: ExperienceFields;
 }
 
 const ApplicationCareerTimelineEdit = ({
@@ -122,9 +121,7 @@ export const Component = () => {
     true,
   );
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user?.experiences,
-  );
+  const experiences = unpackMaybes(application.user?.experiences);
   const experience = experiences?.find((exp) => exp?.id === experienceId);
 
   return application && experience ? (

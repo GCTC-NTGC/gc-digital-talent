@@ -10,8 +10,6 @@ import {
   AwardedTo,
   CandidateRemovalReason,
   CandidateStatus,
-  EducationStatus,
-  EducationType,
   EvaluatedLanguageAbility,
   FlexibleWorkLocation,
   PlacementType,
@@ -37,6 +35,8 @@ export interface GenericLocalizedEnum<T> {
   value: T;
   label: LocalizedString;
 }
+
+export type LocalizedEnumValue<T> = Pick<GenericLocalizedEnum<T>, "value">;
 
 /**
  * Retrieve the full localized enum from an array
@@ -148,7 +148,7 @@ export function localizedEnumToInput<T>(
  */
 export function localizedEnumArrayToInput<T>(
   localizedEnumArray?: (GenericLocalizedEnum<T> | null | undefined)[] | null,
-): (T | null | undefined)[] | undefined {
+): T[] {
   return unpackMaybes(
     localizedEnumArray?.map((localizedEnum) =>
       localizedEnumToInput(localizedEnum),
@@ -276,13 +276,13 @@ export function sortAwardedTo(awardTo?: MaybeLocalizedEnums) {
 export function sortAwardedScope(awardedScopes?: MaybeLocalizedEnums) {
   return sortLocalizedEnums(
     [
-      AwardedScope.International,
-      AwardedScope.National,
-      AwardedScope.Provincial,
       AwardedScope.Local,
       AwardedScope.Community,
-      AwardedScope.Organizational,
       AwardedScope.SubOrganizational,
+      AwardedScope.Organizational,
+      AwardedScope.Provincial,
+      AwardedScope.National,
+      AwardedScope.International,
     ],
     awardedScopes,
   );
@@ -299,35 +299,6 @@ export function sortCandidateRemovalReason(
       CandidateRemovalReason.Other,
     ],
     removalReasons,
-  );
-}
-
-export function sortEducationType(educationTypes?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationType.Diploma,
-      EducationType.BachelorsDegree,
-      EducationType.MastersDegree,
-      EducationType.Phd,
-      EducationType.PostDoctoralFellowship,
-      EducationType.OnlineCourse,
-      EducationType.Certification,
-      EducationType.Other,
-    ],
-    educationTypes,
-  );
-}
-
-export function sortEducationStatus(educationStatuses?: MaybeLocalizedEnums) {
-  return sortLocalizedEnums(
-    [
-      EducationStatus.SuccessCredential,
-      EducationStatus.SuccessNoCredential,
-      EducationStatus.InProgress,
-      EducationStatus.Audited,
-      EducationStatus.DidNotComplete,
-    ],
-    educationStatuses,
   );
 }
 

@@ -46,6 +46,12 @@ class PoolBuilder extends Builder
         });
     }
 
+    public function whereIsHidden(?bool $isHidden): self
+    {
+        return $this->when(isset($isHidden), fn (self $query) => $query
+            ->where('is_hidden', $isHidden));
+    }
+
     public function name(?string $name): self
     {
 
@@ -120,15 +126,6 @@ class PoolBuilder extends Builder
                     $query->processNumber($term);
                 });
         });
-    }
-
-    public function publishingGroups(?array $publishingGroups): self
-    {
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereIn('publishing_group', $publishingGroups);
     }
 
     public function whereWorkStreamsIn(?array $streams): self

@@ -74,7 +74,6 @@ const ApplicationWelcome = ({ application }: ApplicationPageProps) => {
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: application.pool.workStream,
     name: application.pool.name,
-    publishingGroup: application.pool.publishingGroup,
     classification: application.pool.classification,
   });
   const [{ fetching }, executeMutation] = useUpdateApplicationMutation();

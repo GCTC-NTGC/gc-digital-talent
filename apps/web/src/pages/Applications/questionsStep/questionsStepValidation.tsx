@@ -1,8 +1,6 @@
-import type {
-  Pool,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 
+import type { ApplicationStepPool } from "~/types/applicationStep";
 import {
   generalQuestionsSectionHasMissingResponses,
   screeningQuestionsSectionHasMissingResponses,
@@ -10,7 +8,7 @@ import {
 
 const stepHasError = (
   _user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
+  pool: ApplicationStepPool,
   application: ApplicationPoolCandidateFragmentType,
 ) => {
   return (

@@ -1,4 +1,5 @@
 import { useQuery } from "urql";
+import type { ComponentProps } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -11,6 +12,7 @@ import permissionConstants from "~/constants/permissionConstants";
 import type { RouteParams } from "./types";
 import CurrentPositionExperiences from "./components/CurrentPositionExperiences";
 import FullCareerExperiences from "./components/FullCareerExperiences";
+import type ErrorNotice from "./components/ErrorNotice";
 
 const TalentNominationGroupCareerExperience_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationGroupCareerExperience on TalentNominationGroup {
@@ -30,7 +32,7 @@ const NomineeExperiences_Query = graphql(/* GraphQL */ `
 
 interface TalentNominationGroupCareerExperienceProps {
   nomineeId: string;
-  shareProfile?: boolean;
+  contentHiddenReason?: null | ComponentProps<typeof ErrorNotice>["reason"];
   talentNominationGroupQuery: FragmentType<
     typeof TalentNominationGroupCareerExperience_Fragment
   >;
@@ -38,13 +40,14 @@ interface TalentNominationGroupCareerExperienceProps {
 
 const TalentNominationGroupCareerExperience = ({
   nomineeId,
-  shareProfile,
+  contentHiddenReason,
   talentNominationGroupQuery,
 }: TalentNominationGroupCareerExperienceProps) => {
+  const contentIsVisible = !contentHiddenReason;
   const [{ data: nomineeData, fetching, error }] = useQuery({
     query: NomineeExperiences_Query,
     variables: { nomineeId },
-    pause: !shareProfile,
+    pause: !contentIsVisible,
   });
 
   const talentNominationGroup = getFragment(
@@ -57,14 +60,14 @@ const TalentNominationGroupCareerExperience = ({
       <Card space="lg" className="mb-6">
         <CurrentPositionExperiences
           query={nomineeData?.user}
-          shareProfile={shareProfile}
+          contentHiddenReason={contentHiddenReason}
         />
       </Card>
       <Card space="lg">
         <FullCareerExperiences
           userQuery={nomineeData?.user}
           talentNominationGroupQuery={talentNominationGroup}
-          shareProfile={shareProfile}
+          contentHiddenReason={contentHiddenReason}
         />
       </Card>
     </Pending>
@@ -78,6 +81,7 @@ const TalentNominationGroupCareerExperience_Query = graphql(/* GraphQL */ `
       consentToShareProfile
       nominee {
         id
+        isVerifiedGovEmployee
       }
     }
   }
@@ -93,14 +97,23 @@ const TalentNominationGroupCareerExperiencePage = () => {
   });
 
   const nomineeId = data?.talentNominationGroup?.nominee?.id;
-  const shareProfile = data?.talentNominationGroup?.consentToShareProfile;
+
+  let contentHiddenReason: ComponentProps<
+    typeof TalentNominationGroupCareerExperience
+  >["contentHiddenReason"] = null;
+  if (!data?.talentNominationGroup?.consentToShareProfile) {
+    contentHiddenReason = "not-shared-with-community";
+  }
+  if (!data?.talentNominationGroup?.nominee?.isVerifiedGovEmployee) {
+    contentHiddenReason = "not-verified-gov-employee";
+  }
 
   return (
     <Pending fetching={fetching} error={error}>
-      {data?.talentNominationGroup && nomineeId && shareProfile !== null ? (
+      {data?.talentNominationGroup && nomineeId ? (
         <TalentNominationGroupCareerExperience
           nomineeId={nomineeId}
-          shareProfile={shareProfile}
+          contentHiddenReason={contentHiddenReason}
           talentNominationGroupQuery={data.talentNominationGroup}
         />
       ) : (

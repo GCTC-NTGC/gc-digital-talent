@@ -1,27 +1,14 @@
-import type {
-  User,
-  Pool,
-  LocalizedIndigenousCommunity,
-} from "@gc-digital-talent/graphql";
-import { PublishingGroup } from "@gc-digital-talent/graphql";
+import type { IndigenousCommunity } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
-export interface PartialUser extends Pick<
-  User,
-  "isWoman" | "hasDisability" | "isVisibleMinority"
-> {
+export interface PartialUser {
+  isWoman?: boolean | null;
+  hasDisability?: boolean | null;
+  isVisibleMinority?: boolean | null;
   indigenousCommunities?:
-    (Pick<LocalizedIndigenousCommunity, "value"> | null | undefined)[] | null;
+    (LocalizedEnumValue<IndigenousCommunity> | null | undefined)[] | null;
 }
 
-export function hasEmptyRequiredFields(
-  applicant: PartialUser,
-  pool?: Pick<Pool, "publishingGroup"> | null,
-): boolean {
-  if (!(pool?.publishingGroup?.value === PublishingGroup.Iap)) {
-    return false;
-  }
-  return !(
-    applicant.indigenousCommunities &&
-    applicant.indigenousCommunities.length > 0
-  );
+export function hasEmptyRequiredFields(): boolean {
+  return false;
 }

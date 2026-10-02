@@ -7,6 +7,7 @@ import { Button, ToggleSection } from "@gc-digital-talent/ui";
 import { DateInput, Submit } from "@gc-digital-talent/forms";
 import {
   DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
   convertDateTimeToDate,
   convertDateTimeZone,
   formatDate,
@@ -77,7 +78,7 @@ const ClosingDateSection = ({
   ): FormValues => ({
     endDate: closingDate
       ? convertDateTimeToDate(
-          convertDateTimeZone(closingDate, "UTC", "Canada/Pacific"),
+          convertDateTimeZone(closingDate, "UTC", TZ_VANCOUVER),
         )
       : null,
   });
@@ -96,7 +97,7 @@ const ClosingDateSection = ({
     const closingDateInUtc = formValues.endDate
       ? convertDateTimeZone(
           `${formValues.endDate} 23:59:59`,
-          "Canada/Pacific",
+          TZ_VANCOUVER,
           "UTC",
         )
       : null;
@@ -137,7 +138,7 @@ const ClosingDateSection = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level="h3"
+        rank="h3"
         size="h4"
         toggle={
           <ToggleForm.LabelledTrigger

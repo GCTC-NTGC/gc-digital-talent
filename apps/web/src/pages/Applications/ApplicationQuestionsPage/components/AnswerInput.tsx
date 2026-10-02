@@ -7,26 +7,23 @@ import {
   getLocale,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  GeneralQuestion,
-  ScreeningQuestion,
-} from "@gc-digital-talent/graphql";
 
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+
+import type { AnswerPrefix, ApplicationQuestion } from "../types";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 500;
 
 interface AnswerInputProps {
   index: number;
-  question: ScreeningQuestion | GeneralQuestion;
+  question: ApplicationQuestion;
+  answerPrefix: AnswerPrefix;
 }
 
-const AnswerInput = ({ index, question }: AnswerInputProps) => {
+const AnswerInput = ({ index, question, answerPrefix }: AnswerInputProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const isScreening = question.__typename === "ScreeningQuestion";
-  const answerPrefix = isScreening ? "screeningAnswers" : "generalAnswers";
   const questionId = `${answerPrefix}.${index}.question`;
 
   const wordCountLimits: Record<Locales, number> = {

@@ -124,31 +124,35 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       signature: formValues.signature,
     })
       .then(async (res) => {
-        if (!res.error) {
-          // Log the submission of the application with app insights
-          if (appInsights) {
-            const aiUserId = appInsights?.context?.user?.id || "unknown";
-            appInsights.trackEvent?.(
-              { name: "Job application submitted" },
-              {
-                aiUserId,
-                pageUrl: window.location.href,
-                timestamp: new Date().toISOString(),
-                referrer: document.referrer || "none",
-                source: "ApplicationReviewPage",
-              },
-            );
-          }
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "We've successfully received your application",
-              id: "2SSm+L",
-              description:
-                "Success message after submission for the application review page.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data?.submitApplication?.id || res.error) {
+          throw new Error();
         }
+
+        // Log the submission of the application with app insights
+        if (appInsights) {
+          const aiUserId = appInsights?.context?.user?.id || "unknown";
+          appInsights.trackEvent?.(
+            { name: "Job application submitted" },
+            {
+              aiUserId,
+              pageUrl: window.location.href,
+              timestamp: new Date().toISOString(),
+              referrer: document.referrer || "none",
+              source: "ApplicationReviewPage",
+            },
+          );
+        }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "We've successfully received your application",
+            id: "2SSm+L",
+            description:
+              "Success message after submission for the application review page.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         if (appInsights) {
@@ -295,7 +299,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />
@@ -350,7 +354,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />
@@ -410,7 +414,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               "Instructional text under the Skill Requirements section",
           })}
         </p>
-        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Required technical skills",
             id: "OCrKtT",
@@ -429,7 +433,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             />
           ),
         )}
-        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Optional technical skills",
             id: "mm1X02",
@@ -554,7 +558,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       )}
 
       <section className="mt-18">
-        <Heading level="h3" size="h4" className="mt-0 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-0 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
             id: "fhgZRX",

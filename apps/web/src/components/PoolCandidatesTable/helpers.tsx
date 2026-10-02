@@ -297,6 +297,7 @@ const SCOPE_SORTS: Record<string, string> = {
   priority: "orderByClaimVerification",
   department: "orderByEmployeeDepartment",
   screeningStage: "orderByScreeningStage",
+  screeningResult: "orderByScreeningResult",
 };
 
 const BOOKMARK_SORT: AdvancedOrderByInput = { scope: "orderByBookmark" };
@@ -383,7 +384,6 @@ export function transformPoolCandidateSearchInputToFormValues(
   input: PoolCandidateSearchInput | undefined,
 ): FormValues {
   return {
-    publishingGroups: unpackMaybes(input?.publishingGroups),
     classifications:
       input?.appliedClassifications
         ?.filter(notEmpty)
@@ -472,7 +472,6 @@ export function transformFormValuesToFilterState(
     referralStatuses: data.referralStatuses,
     employeeVerification: data.govEmployee,
     departments: data.departments,
-    publishingGroups: data.publishingGroups,
     appliedClassifications: data.classifications.map((classification) => {
       const splitString = classification.split("-");
       return { group: splitString[0], level: Number(splitString[1]) };
@@ -522,7 +521,6 @@ export const addSearchToPoolCandidateFilterInput = (
     suspendedStatus: fancyFilterState?.suspendedStatus,
     referralStatuses: fancyFilterState?.referralStatuses,
     employeeVerification: fancyFilterState?.employeeVerification,
-    publishingGroups: fancyFilterState?.publishingGroups,
     appliedClassifications: fancyFilterState?.appliedClassifications,
     workStreams: fancyFilterState?.workStreams,
     departments: fancyFilterState?.departments,
@@ -556,7 +554,11 @@ export const candidateSuspendedFilterToCustomOptions = (
     if (enumObject.value === CandidateSuspendedFilter.All) {
       return {
         value: enumObject.value,
-        label: intl.formatMessage(commonMessages.all),
+        label: intl.formatMessage({
+          defaultMessage: "All",
+          id: "cavxJ8",
+          description: "All as in all items or things",
+        }),
       };
     }
 

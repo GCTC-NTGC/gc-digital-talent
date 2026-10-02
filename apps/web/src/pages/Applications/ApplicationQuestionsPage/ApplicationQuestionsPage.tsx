@@ -79,21 +79,24 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated question responses!",
-              id: "Bs/9PZ",
-              description:
-                "Message displayed to users when saving question responses is successful.",
-            }),
-          );
-          await navigate(
-            formValues.action === "continue"
-              ? paths.applicationReview(application.id)
-              : cancelPath,
-          );
+        if (!res.data?.updateApplication?.id || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated question responses!",
+            id: "Bs/9PZ",
+            description:
+              "Message displayed to users when saving question responses is successful.",
+          }),
+        );
+
+        await navigate(
+          formValues.action === "continue"
+            ? paths.applicationReview(application.id)
+            : cancelPath,
+        );
       })
       .catch(() => {
         toast.error(
@@ -158,7 +161,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {screeningQuestions.map((question, index) => (
             <Fragment key={question.id}>
-              <Heading level="h3" size="h4" className="mt-12 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-12 mb-6 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",
@@ -173,7 +176,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 type="hidden"
                 name={`screeningAnswers.${index}.questionId`}
               />
-              <AnswerInput index={index} question={question} />
+              <AnswerInput
+                index={index}
+                question={question}
+                answerPrefix="screeningAnswers"
+              />
             </Fragment>
           ))}
         </div>
@@ -209,7 +216,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {generalQuestions.map((question, index) => (
             <Fragment key={question.id}>
-              <Heading level="h3" size="h4" className="mt-12 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-12 mb-6 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",
@@ -224,7 +231,11 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
                 type="hidden"
                 name={`generalAnswers.${index}.questionId`}
               />
-              <AnswerInput index={index} question={question} />
+              <AnswerInput
+                index={index}
+                question={question}
+                answerPrefix="generalAnswers"
+              />
             </Fragment>
           ))}
         </>

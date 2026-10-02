@@ -13,7 +13,7 @@ import {
   strToFormDate,
 } from "@gc-digital-talent/date-helpers";
 import { DateInput } from "@gc-digital-talent/forms";
-import { errorMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
 
 import Footer from "./Footer";
 
@@ -156,11 +156,7 @@ const ApplicationExpiryDateDialog = ({
                     ),
                   },
                 }}
-                legend={intl.formatMessage({
-                  defaultMessage: "Expiry date",
-                  id: "THBjEx",
-                  description: "Label for the expiry date input",
-                })}
+                legend={intl.formatMessage(commonMessages.expiryDate)}
                 context={intl.formatMessage({
                   defaultMessage:
                     "This is the amount of time this candidate will be considered for placement based on the results of this process. The usual amount of time is 2 years.",

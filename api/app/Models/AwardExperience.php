@@ -20,6 +20,8 @@ use Illuminate\Support\Carbon;
  * @property string $details
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
+ * @property string $project_name
+ * @property ?Experience $relatedExperience
  */
 class AwardExperience extends Experience
 {
@@ -42,9 +44,15 @@ class AwardExperience extends Experience
         'awarded_date' => 'awardedDate',
         'awarded_to' => 'awardedTo',
         'awarded_scope' => 'awardedScope',
+        'project_name' => 'projectName',
     ];
 
-    public function getTitle(): string
+    public function relatedExperience()
+    {
+        return $this->morphTo();
+    }
+
+    public function getTitle(?string $lang = 'en'): string
     {
         return $this->title;
     }

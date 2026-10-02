@@ -5,16 +5,16 @@ import {
   emptyToNull,
 } from "@gc-digital-talent/helpers";
 import { EmploymentDuration } from "@gc-digital-talent/i18n";
-import type {
-  ApplicantFilterInput,
-  Classification,
-} from "@gc-digital-talent/graphql";
+import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   FlexibleWorkLocation,
 } from "@gc-digital-talent/graphql";
 
-import type { FormValues } from "~/types/talentRequestForm";
+import type {
+  FormValues,
+  TalentRequestClassification,
+} from "~/types/talentRequestForm";
 import { NullSelection } from "~/types/talentRequestForm";
 import { formatClassificationAriaString } from "~/utils/poolUtils";
 import { positionDurationToEmploymentDuration } from "~/utils/talentRequestUtils";
@@ -23,7 +23,7 @@ export const getClassificationAriaLabel = ({
   group,
   level,
   name: genericName,
-}: Pick<Classification, "group" | "level" | "name">) => {
+}: TalentRequestClassification) => {
   const groupAndLevel = formatClassificationAriaString({ group, level });
   const separator = " ";
   const name = emptyToNull(genericName?.localized);
@@ -103,7 +103,7 @@ export const applicantFilterToQueryArgs = (
  */
 export const dataToFormValues = (
   data: ApplicantFilterInput,
-  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
+  classifications: TalentRequestClassification[],
 ): FormValues => {
   const stream = data?.qualifiedInWorkStreams?.find(notEmpty);
   const selected = data?.qualifiedInClassifications?.find(notEmpty);
@@ -147,7 +147,7 @@ export const dataToFormValues = (
  */
 export const formValuesToData = (
   values: FormValues,
-  classifications: Pick<Classification, "group" | "level" | "groupAndLevel">[],
+  classifications: TalentRequestClassification[],
 ): ApplicantFilterInput => {
   const selectedClassification = classifications.find(({ groupAndLevel }) => {
     return groupAndLevel === values.classification;

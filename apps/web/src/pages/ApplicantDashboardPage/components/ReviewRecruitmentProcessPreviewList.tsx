@@ -22,8 +22,8 @@ import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
+import { RecruitmentDate } from "~/components/ReviewApplicationPreviewList/MetadataDate";
 
-import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
@@ -35,17 +35,15 @@ const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
     poolCandidates {
       ...ReviewRecruitmentProcessDialog
       id
-      applicationStatusData {
-        statusUpdatedAt
-        candidateInterest {
-          value
-          label {
-            localized
-          }
+      statusUpdatedAt
+      candidateInterest {
+        value
+        label {
+          localized
         }
-        candidateStatus {
-          value
-        }
+      }
+      candidateStatus {
+        value
       }
       pool {
         id
@@ -84,9 +82,8 @@ const ReviewRecruitmentProcessPreviewList = ({
 
   const recruitmentProcesses = unpackMaybes(user?.poolCandidates);
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
-    ({ applicationStatusData }) =>
-      applicationStatusData?.candidateStatus?.value ===
-      CandidateStatus.Qualified,
+    ({ candidateStatus }) =>
+      candidateStatus?.value === CandidateStatus.Qualified,
   ); // filter for qualified recruitment processes
 
   const [{ data: offPlatformProcessData, fetching, error }] = useQuery({
@@ -98,9 +95,8 @@ const ReviewRecruitmentProcessPreviewList = ({
       {recruitmentProcessesFiltered.length ? (
         <PreviewList.Root>
           {recruitmentProcessesFiltered.map((recruitmentProcess) => {
-            const { id, pool, applicationStatusData } = recruitmentProcess;
-            const statusUpdatedAt = applicationStatusData?.statusUpdatedAt;
-            const candidateInterest = applicationStatusData?.candidateInterest;
+            const { id, pool, statusUpdatedAt, candidateInterest } =
+              recruitmentProcess;
             const interestChip = candidateInterestChip(candidateInterest);
 
             let applicationMetadata: PreviewMetaData[] = [];
@@ -191,7 +187,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       )}
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>
-        <Heading level="h3" size="h6" className="mb-0.75 font-bold">
+        <Heading rank="h3" size="h6" className="mb-0.75 font-bold">
           {intl.formatMessage(
             navigationMessages.offPlatformRecruitmentProcesses,
           )}

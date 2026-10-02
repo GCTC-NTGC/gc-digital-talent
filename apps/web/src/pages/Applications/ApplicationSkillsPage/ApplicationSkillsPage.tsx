@@ -157,17 +157,20 @@ export const ApplicationSkills = ({
       },
     })
       .then(async (res) => {
-        if (!res.error) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Successfully updated your skills!",
-              id: "j7nWu/",
-              description:
-                "Message displayed to users when saving skills is successful.",
-            }),
-          );
-          await navigate(nextStep);
+        if (!res.data?.updateApplication?.id || res.error) {
+          throw new Error();
         }
+
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Successfully updated your skills!",
+            id: "j7nWu/",
+            description:
+              "Message displayed to users when saving skills is successful.",
+          }),
+        );
+
+        await navigate(nextStep);
       })
       .catch(() => {
         toast.error(
@@ -225,7 +228,7 @@ export const ApplicationSkills = ({
       </p>
       {categorizedEssentialSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Required technical skills",
               id: "OCrKtT",
@@ -256,7 +259,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Technical]?.length ? (
         <>
-          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Optional technical skills",
               id: "mm1X02",
@@ -279,7 +282,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedEssentialSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Required behavioural skills",
               id: "zv4Vyd",
@@ -301,7 +304,7 @@ export const ApplicationSkills = ({
       ) : null}
       {categorizedOptionalSkills[SkillCategory.Behavioural]?.length ? (
         <>
-          <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+          <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Optional behavioural skills",
               id: "BqeIyx",

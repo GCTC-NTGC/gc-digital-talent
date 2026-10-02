@@ -36,10 +36,6 @@ export default [
             "./pages/InclusivityEquityPage/InclusivityEquityPage.tsx",
           ),
           route(
-            "dnd",
-            "./pages/DNDDigitalCareersPage/DNDDigitalCareersPage.tsx",
-          ),
-          route(
             "directive-on-digital-talent",
             "./pages/DirectivePage/DirectivePage.tsx",
           ),
@@ -146,6 +142,10 @@ export default [
               "notifications",
               "./pages/Notifications/NotificationsPage/NotificationsPage.tsx",
             ),
+            route(
+              "applications",
+              "./pages/Applications/ApplicationsPage/ApplicationsPage.tsx",
+            ),
 
             layout("./pages/Profile/ProfileLayout.tsx", [
               route(
@@ -215,6 +215,10 @@ export default [
               route(
                 "communities",
                 "./pages/EmployeeProfile/FunctionalCommunitiesPage.tsx",
+              ),
+              route(
+                "nominations",
+                "./pages/EmployeeProfile/TalentNominationsPage.tsx",
               ),
             ]),
           ]),

@@ -131,12 +131,12 @@ class HydrationTest extends TestCase
             [
                 {
                     "id": "00000000-0000-0000-0000-000000000000",
-                    "type": {
+                    "educationType": {
                         "label": {
-                        "en": "Bachelor's Degree",
-                        "fr": "Baccalauréat"
+                        "en": "Degree, diploma, or certificate",
+                        "fr": "Diplôme, grade ou certificat"
                         },
-                        "value": "BACHELORS_DEGREE"
+                        "value": "DEGREE_DIPLOMA_CERTIFICATE"
                     },
                     "skills": [],
                     "status": {
@@ -159,7 +159,7 @@ class HydrationTest extends TestCase
         $json = json_decode($string, true);
 
         $experiences = collect(Experience::hydrateSnapshot($json));
-        assertEquals($experiences->sole()->type, 'BACHELORS_DEGREE');
+        assertEquals($experiences->sole()->education_type, 'DEGREE_DIPLOMA_CERTIFICATE');
         assertEquals($experiences->sole()->status, 'AUDITED');
     }
 

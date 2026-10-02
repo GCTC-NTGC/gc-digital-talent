@@ -16,6 +16,8 @@ import OffPlatformProcessDialog from "./OffPlatformProcessDialog";
 
 const OffPlatformRecruitmentProcessList_Fragment = graphql(/* GraphQL */ `
   fragment OffPlatformRecruitmentProcessList on OffPlatformRecruitmentProcess {
+    ...OffPlatformProcessDialogProcess
+
     id
     processNumber
     department {
@@ -77,7 +79,7 @@ const OffPlatformRecruitmentProcessList = ({
           >
             <div className="ml-6 flex flex-col">
               <Heading
-                level="h4"
+                rank="h4"
                 className="mt-3 mb-3 inline-block text-base group-has-[a:focus-visible,button:focus-visible]/item:bg-focus group-has-[a:focus-visible,button:focus-visible]/item:text-black group-has-[a:hover,button:hover]/item:text-primary-600 xs:mb-0 lg:text-base dark:group-has-[a:hover,button:hover]/item:text-primary-200"
               >
                 <span>
@@ -130,7 +132,7 @@ const OffPlatformRecruitmentProcessList = ({
             {editDialogQuery && (
               <OffPlatformProcessDialog
                 query={editDialogQuery}
-                process={process}
+                processQuery={process}
               />
             )}
           </li>

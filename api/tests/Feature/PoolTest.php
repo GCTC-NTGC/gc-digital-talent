@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Enums\ErrorCode;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
-use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\Enums\SkillLevel;
 use App\Models\Classification;
@@ -275,198 +274,6 @@ class PoolTest extends TestCase
                 ],
             ],
         ]);
-    }
-
-    // The publishedPools query should only return pools that have been published, not draft
-    public function testPublishedPoolQueryDoesNotReturnDraft(): void
-    {
-        // this pool has been published so it should be returned in the publishedPool query
-        $publishedPool = Pool::factory()->published()->create();
-        // this pool is still a draft so it should not be returned in the publishedPool query
-        Pool::factory()->draft()->create();
-
-        // Assert query will return only the published pool
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            publishedPools {
-              id
-            }
-          }
-    '
-        )->assertJson([
-            'data' => [
-                'publishedPools' => [
-                    [
-                        'id' => $publishedPool->id,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
-    // The publishedPools query should only return pools that have been published, not archived
-    public function testPublishedPoolQueryDoesNotReturnArchived(): void
-    {
-        // this pool has been published so it should be returned in the publishedPool query
-        $publishedPool = Pool::factory()->published()->create();
-        // this pool is archived so it should not be returned in the publishedPool query
-        Pool::factory()->archived()->create();
-
-        // Assert query will return only the published pool
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-           query browsePools {
-               publishedPools {
-                 id
-               }
-             }
-       '
-        )->assertJson([
-            'data' => [
-                'publishedPools' => [
-                    [
-                        'id' => $publishedPool->id,
-                    ],
-                ],
-            ],
-        ]);
-    }
-
-    public function testListPoolsDoesNotReturnDraftAsAnon(): void
-    {
-        $publishedPool = Pool::factory()->published()->create();
-
-        Pool::factory()->draft()->create();
-
-        // Assert query will return only the published pool as anonymous user
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            publishedPools {
-                id
-            }
-        }
-        '
-        )
-            ->assertJsonCount(1, 'data.publishedPools')
-            ->assertJsonFragment(['id' => $publishedPool->id]);
-    }
-
-    public function testListPoolsDoesNotReturnArchivedAsAnon(): void
-    {
-        $publishedPool = Pool::factory()->published()->create();
-
-        Pool::factory()->archived()->create();
-
-        // Assert query will return only the published pool as anonymous user
-        $this->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            publishedPools {
-                id
-            }
-        }
-        '
-        )
-            ->assertJsonCount(1, 'data.publishedPools')
-            ->assertJsonFragment(['id' => $publishedPool->id]);
-    }
-
-    public function testListPoolsReturnsOnlyPublishedAsBaseRoleUser(): void
-    {
-        $publishedPool = Pool::factory()
-            ->published()
-            ->create();
-
-        Pool::factory()->draft()->create();
-
-        // Assert query will return only the published pool as base role user
-        $this->actingAs($this->baseUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            publishedPools {
-                id
-            }
-        }
-        '
-        )
-            ->assertJsonCount(1, 'data.publishedPools')
-            ->assertJsonFragment(['id' => $publishedPool->id]);
-    }
-
-    public function testListPoolsReturnsOnlyPublishedAsGuestRoleUser(): void
-    {
-        $publishedPool = Pool::factory()->published()->create();
-
-        Pool::factory()->draft()->create();
-
-        // Assert query will return only the published pool as guest role user
-        $this->actingAs($this->guestUser, 'api')->graphQL(
-            /** @lang GraphQL */
-            '
-        query browsePools {
-            publishedPools {
-                id
-            }
-        }
-        '
-        )
-            ->assertJsonCount(1, 'data.publishedPools')
-            ->assertJsonFragment(['id' => $publishedPool->id]);
-    }
-
-    // test filtering closing_date on publishedPools
-    public function testPoolQueryClosingDate(): void
-    {
-        Pool::factory()->draft()->create();
-        Pool::factory()->count(2)->create([
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.far_future_date'),
-        ]);
-        Pool::factory()->count(3)->create([
-            'published_at' => config('constants.past_date'),
-            'closing_date' => config('constants.past_date'),
-        ]);
-        $timeNow = Carbon::now()->toDateTimeString();
-
-        // assert no argument passed in for closingDate returns 5 published pools
-        $response = $this->actingAs($this->adminUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
-        query browsePools  {
-            publishedPools {
-                id
-            }
-        }
-        ',
-                []
-            );
-        $responseCount = count($response->json('data.publishedPools'));
-        assertSame(5, $responseCount);
-
-        // assert time argument passed in filters out unpublished and closed pools
-        $response2 = $this->actingAs($this->adminUser, 'api')
-            ->graphQL(
-                /** @lang GraphQL */
-                '
-        query browsePools ($date: DateTime) {
-            publishedPools(closingAfter: $date) {
-                id
-            }
-        }
-        ',
-                ['date' => $timeNow]
-            );
-
-        $response2Count = count($response2->json('data.publishedPools'));
-        assertSame(2, $response2Count);
     }
 
     public function testCanArchiveClosed(): void
@@ -1057,7 +864,6 @@ class PoolTest extends TestCase
     public function testCanDeleteDraftPool(): void
     {
         $pool = Pool::factory()
-            ->for($this->communityRecruiter)
             ->withAssessmentSteps()
             ->draft()
             ->create([
@@ -1162,61 +968,6 @@ class PoolTest extends TestCase
                     'id' => $pool2->id,
                     'workStream' => [
                         'id' => $stream2->id,
-                    ],
-                ],
-            ],
-        ]);
-
-        assertSame(2, count($res->json('data.poolsPaginated.data')));
-    }
-
-    #[Group('paginated')]
-    public function testPublishingGroupsScope(): void
-    {
-        $IT = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IT_JOBS->name,
-        ]);
-
-        $IAP = Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::IAP->name,
-        ]);
-
-        Pool::factory()->published()->create([
-            'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
-        ]);
-
-        $res = $this->graphQL(
-            /** @lang GraphQL */
-            '
-                query ScopePoolName($where: PoolFilterInput) {
-                    poolsPaginated(where: $where) {
-                        data {
-                            id
-                            publishingGroup { value }
-                        }
-                    }
-                }
-            ',
-            [
-                'where' => [
-                    'publishingGroups' => [
-                        PublishingGroup::IT_JOBS->name,
-                        PublishingGroup::IAP->name,
-                    ],
-                ],
-            ]
-        )->assertJsonFragment([
-            'data' => [
-                [
-                    'id' => $IT->id,
-                    'publishingGroup' => [
-                        'value' => PublishingGroup::IT_JOBS->name,
-                    ],
-                ],
-                [
-                    'id' => $IAP->id,
-                    'publishingGroup' => [
-                        'value' => PublishingGroup::IAP->name,
                     ],
                 ],
             ],
@@ -1514,7 +1265,6 @@ class PoolTest extends TestCase
     {
 
         $pool = Pool::factory()
-            ->for($this->communityRecruiter)
             ->withAssessmentSteps()
             ->published()
             ->create([
@@ -1648,7 +1398,6 @@ class PoolTest extends TestCase
         // a published pool should be visible to a regular user
         $publishedPool = Pool::factory()
             ->published()
-            ->for($this->adminUser)
             ->for($department)
             ->create();
 
@@ -1681,8 +1430,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1696,7 +1445,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $this->communityRecruiter->id,
                     'communityId' => $this->community->id,
                     'pool' => [
                         'classification' => [
@@ -1732,8 +1480,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1747,7 +1495,6 @@ class PoolTest extends TestCase
                 }
             }',
                 [
-                    'userId' => $departmentAdmin->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1785,8 +1532,8 @@ class PoolTest extends TestCase
             ->graphQL(
                 /** @lang GraphQL */
                 '
-            mutation CreatePool($userId: ID!, $communityId: ID, $pool: CreatePoolInput!) {
-                createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+            mutation CreatePool($communityId: ID, $pool: CreatePoolInput!) {
+                createPool(communityId: $communityId, pool: $pool) {
                     id
                     community {
                         id
@@ -1801,7 +1548,6 @@ class PoolTest extends TestCase
             }',
                 [
                     'communityId' => $otherCommunity->id,
-                    'userId' => $testUser->id,
                     'pool' => [
                         'classification' => [
                             'connect' => $classification->id,
@@ -1827,7 +1573,6 @@ class PoolTest extends TestCase
 
         $original = Pool::factory()
             ->draft()
-            ->for($this->communityRecruiter)
             ->withPoolSkills(3, 3)
             ->create();
 
@@ -1877,7 +1622,6 @@ class PoolTest extends TestCase
         $testEmail = 'test@email.com';
         $publishedPool = Pool::factory()
             ->published()
-            ->for($this->adminUser)
             ->create([
                 'contact_email' => 'test@email.com',
             ]);
@@ -1903,7 +1647,7 @@ class PoolTest extends TestCase
     public function testApplicantsCount()
     {
         // setup
-        $publishedPool = Pool::factory()->published()->for($this->adminUser)->create();
+        $publishedPool = Pool::factory()->published()->create();
         PoolCandidate::factory()->availableInSearch()->for($publishedPool)->create();
         PoolCandidate::factory()->for($publishedPool)->create();
 

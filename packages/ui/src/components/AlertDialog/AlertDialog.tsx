@@ -4,6 +4,7 @@
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 import type { ComponentRef, ComponentPropsWithoutRef, ReactNode } from "react";
 import { forwardRef } from "react";
+import { tv } from "tailwind-variants";
 
 import Separator from "../Separator";
 
@@ -69,14 +70,16 @@ const Title = forwardRef<
   />
 ));
 
+const description = tv({ base: "text-base" });
+
 const Description = forwardRef<
   ComponentRef<typeof AlertDialogPrimitive.Description>,
   ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
->((props, forwardedRef) => (
+>(({ className, ...rest }, forwardedRef) => (
   <AlertDialogPrimitive.Description
-    className="text-base"
+    className={description({ class: className })}
     ref={forwardedRef}
-    {...props}
+    {...rest}
   />
 ));
 

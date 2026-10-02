@@ -29,6 +29,7 @@ import {
   formatDate,
   parseDateTimeUtc,
   strToFormDate,
+  TZ_VANCOUVER,
 } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
@@ -97,7 +98,7 @@ const ActiveTalentEventForm = ({
         fr: learnMoreUrl?.fr,
       },
       closeDate: convertDateTimeToDate(
-        convertDateTimeZone(closeDate, "UTC", "Canada/Pacific"),
+        convertDateTimeZone(closeDate, "UTC", TZ_VANCOUVER),
       ),
       communityDevelopmentPrograms: communityDevelopmentPrograms?.map(
         (cdp) => ({
@@ -110,8 +111,8 @@ const ActiveTalentEventForm = ({
       ),
       contactEmail: contactEmail,
       customInstructions: {
-        en: customInstructions?.en,
-        fr: customInstructions?.fr,
+        en: customInstructions?.en ?? "",
+        fr: customInstructions?.fr ?? "",
       },
     },
   });
@@ -148,7 +149,7 @@ const ActiveTalentEventForm = ({
         learnMoreUrl: formValues.learnMoreUrl,
         closeDate: convertDateTimeZone(
           `${formValues.closeDate} 23:59:59`,
-          "Canada/Pacific",
+          TZ_VANCOUVER,
           "UTC",
         ),
         communityDevelopmentPrograms: {
@@ -340,7 +341,7 @@ const ActiveTalentEventForm = ({
           <CardSeparator />
           <div className="grid grid-cols-1 gap-6 xs:grid-cols-2">
             <div className="col-span-2">
-              <Heading level="h3" size="h6">
+              <Heading rank="h3" size="h6">
                 {intl.formatMessage({
                   defaultMessage: "Nomination settings",
                   id: "eWP5gJ",
@@ -371,7 +372,7 @@ const ActiveTalentEventForm = ({
                     date: parseDateTimeUtc(openDate),
                     formatString: DATE_FORMAT_LOCALIZED,
                     intl,
-                    timeZone: "Canada/Pacific",
+                    timeZone: TZ_VANCOUVER,
                   })
                 : intl.formatMessage(commonMessages.notProvided)}
             </FieldDisplay>
@@ -482,7 +483,7 @@ const ActiveTalentEventForm = ({
               <CardSeparator />
               <div className="grid gap-6">
                 <div>
-                  <Heading level="h3" size="h6" className="mt-0">
+                  <Heading rank="h3" size="h6" className="mt-0">
                     {intl.formatMessage(adminMessages.developmentOpportunities)}
                   </Heading>
                   <p>

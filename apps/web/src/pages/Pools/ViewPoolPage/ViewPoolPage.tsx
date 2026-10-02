@@ -13,6 +13,7 @@ import {
 import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -53,13 +54,6 @@ export const ViewPool_Fragment = graphql(/* GraphQL */ `
   fragment ViewPool on Pool {
     ...AssessmentPlanStatus
     id
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     publishedAt
     isComplete
     status {
@@ -122,7 +116,6 @@ export const ViewPool = ({
   const poolName = getShortPoolTitleHtml(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
   const advertisementStatus = getAdvertisementStatus({
@@ -183,7 +176,7 @@ export const ViewPool = ({
       date: closingDateObject,
       formatString: DATE_FORMAT_STRING,
       intl,
-      timeZone: "Canada/Pacific",
+      timeZone: TZ_VANCOUVER,
     });
   }
 
@@ -211,7 +204,7 @@ export const ViewPool = ({
     <>
       <SEO title={pageTitle} description={pageSubtitle} />
       <Heading
-        level="h2"
+        rank="h2"
         icon={UserGroupIcon}
         color="secondary"
         className="mt-0"
@@ -230,7 +223,7 @@ export const ViewPool = ({
       <div className="grid gap-6 sm:grid-cols-2">
         <ProcessCard.Root>
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Advertisement information",
                 id: "yM04jy",
@@ -286,7 +279,7 @@ export const ViewPool = ({
         </ProcessCard.Root>
         <ProcessCard.Root>
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage(messages.assessmentPlan)}
             </Heading>
             {assessmentBadge.label && (
@@ -328,7 +321,7 @@ export const ViewPool = ({
         </ProcessCard.Root>
         <ProcessCard.Root className="sm:col-span-2">
           <ProcessCard.Header>
-            <Heading level="h3" size="h6" className="mt-0 mb-6">
+            <Heading rank="h3" size="h6" className="mt-0 mb-6">
               {intl.formatMessage({
                 defaultMessage: "Process status",
                 id: "KJDxM1",

@@ -94,7 +94,7 @@ export const ViewWorkStream = ({ query }: ViewWorkStreamProps) => {
 
       <Container className="my-18">
         <Heading
-          level="h2"
+          rank="h2"
           color="primary"
           icon={IdentificationIcon}
           center

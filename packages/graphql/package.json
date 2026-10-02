@@ -20,6 +20,6 @@
     "graphql": "^17.0.1",
     "tsconfig": "workspace:*",
     "typescript": "^6.0.3",
-    "urql": "^5.0.3"
+    "urql": "^5.0.4"
   }
 }

@@ -1,32 +1,52 @@
 import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
-import type { Skill } from "@gc-digital-talent/graphql/schema-types";
+import type {
+  Skill,
+  TalentNominationEvent,
+} from "@gc-digital-talent/graphql/schema-types";
 
 import { test, expect } from "~/fixtures";
 import TalentManagement from "~/fixtures/TalentManagement";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles } from "~/utils/user";
+import { createUserWithRoles, deleteUser } from "~/utils/user";
 import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
 
 import { loginBySub } from "../../utils/auth";
 
-test.describe("Talent nomination management", () => {
+test.describe("Talent nomination management", { tag: "@uat" }, () => {
+  test.describe.configure({ mode: "serial" });
   let skillOptions: Skill[];
+  let talentEvent: TalentNominationEvent | undefined;
+  let nominatorId: string | undefined;
+  let nomineeId: string | undefined;
+
   const uniqueTestId = generateUniqueTestId();
   const nominatorSub = `playwright.sub.${uniqueTestId}.nominator`;
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
+  let talentCoordinatorCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
+  const platformAdminSub =
+    process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
+  const talentCoordinatorSub =
+    process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+    "talent-coordinator@test.com";
 
   test.beforeAll(async () => {
+    platformAdminCtx = await graphql.newContext();
+    talentCoordinatorCtx = await graphql.newContext(
+      process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
+        "talent-coordinator@test.com",
+    );
     // Prepare the test environment
-    const adminCtx = await graphql.newContext();
-    skillOptions = await getSkills(adminCtx, {}).then((skills) => {
+    skillOptions = await getSkills(platformAdminCtx, {}).then((skills) => {
       return skills.filter((s) =>
         s.families?.some((family) => family.key === "klc"),
       );
     });
 
-    await createUserWithRoles(adminCtx, {
+    const nominator = await createUserWithRoles(platformAdminCtx, {
       user: {
         email: `${nominatorSub}@example.org`,
         sub: nominatorSub,
@@ -36,7 +56,9 @@ test.describe("Talent nomination management", () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
-    await createUserWithRoles(adminCtx, {
+    nominatorId = nominator?.id;
+
+    const nominee = await createUserWithRoles(platformAdminCtx, {
       user: {
         lastName: uniqueTestId.toString(),
         email: `${nomineeSub}@example.org`,
@@ -47,20 +69,32 @@ test.describe("Talent nomination management", () => {
       },
       roles: ["guest", "base_user", "applicant"],
     });
+    nomineeId = nominee?.id;
 
-    await createTalentNominationEvent(adminCtx, {
+    talentEvent = await createTalentNominationEvent(talentCoordinatorCtx, {
       name: {
         en: `Playwright Event ${uniqueTestId} EN`,
         fr: `Playwright Event ${uniqueTestId} FR`,
       },
       includeLeadershipCompetencies: true,
     });
+    if (!talentEvent)
+      throw new Error("Talent nomination event creation failed");
+  });
+
+  test.afterAll(async () => {
+    if (nominatorId) {
+      await deleteUser(platformAdminCtx, { id: nominatorId });
+    }
+    if (nomineeId) {
+      await deleteUser(platformAdminCtx, { id: nomineeId });
+    }
   });
 
   test("Create a talent nomination", async ({ appPage }) => {
     test.setTimeout(70_000);
-    // Navigate from the homepage to start a nomination
-    await loginBySub(appPage.page, "admin@test.com");
+    // Navigate from the homepage to start a nomination [Verified goc employee can only nominate]
+    await loginBySub(appPage.page, platformAdminSub);
     await appPage.page.goto("/en");
 
     await appPage.page
@@ -76,7 +110,7 @@ test.describe("Talent nomination management", () => {
     await appPage.waitForGraphqlResponse("TalentManagementEventsPage");
     await appPage.page
       .getByRole("link", {
-        name: `Start a nomination for Playwright Event ${uniqueTestId} EN`,
+        name: `Start a nomination for ${talentEvent?.name?.en}`,
       })
       .click();
     await appPage.waitForGraphqlResponse("NominateTalent");
@@ -196,6 +230,10 @@ test.describe("Talent nomination management", () => {
     await appPage.page
       .getByRole("textbox", { name: /nomination rationale/i })
       .fill("They are the nominators best friend.");
+    expect(
+      skillOptions.length,
+      "Expected at least 3 KLC skills for 'Top 3 key leadership competencies'.",
+    ).toBeGreaterThanOrEqual(3);
     const skillCombobox = appPage.page.getByRole("combobox", {
       name: /top 3 key leadership competencies/i,
     });
@@ -216,6 +254,7 @@ test.describe("Talent nomination management", () => {
       .click();
     await appPage.waitForGraphqlResponse("NominateTalentSubmit");
     await appPage.waitForGraphqlResponse("NominateTalent");
+
     await expect(
       appPage.page.getByRole("heading", {
         name: /We’ve received your nomination/i,
@@ -239,7 +278,7 @@ test.describe("Talent nomination management", () => {
   });
 
   test("Evaluate a nominee", async ({ appPage }) => {
-    await loginBySub(appPage.page, "talent-coordinator@test.com");
+    await loginBySub(appPage.page, talentCoordinatorSub);
     await appPage.page.goto("/en/community");
     await appPage.waitForGraphqlResponse("CommunityDashboard_Query");
 
@@ -252,10 +291,12 @@ test.describe("Talent nomination management", () => {
       }),
     ).toBeVisible();
 
-    await talentManagement.viewActiveTalentNominationEvent();
+    await talentManagement.viewActiveTalentNominationEvent(
+      talentEvent?.name?.en ?? "",
+    );
     await expect(
       talentManagement.page.getByRole("heading", {
-        name: /test talent nomination event active en 0/i,
+        name: talentEvent?.name?.en ?? "",
         level: 1,
       }),
     ).toBeVisible();
@@ -268,7 +309,7 @@ test.describe("Talent nomination management", () => {
       }),
     ).toBeVisible();
 
-    await talentManagement.viewNominee();
+    await talentManagement.viewNominee(uniqueTestId.toString());
 
     await talentManagement.evaluateNomineeNotSupported();
     await expect(appPage.page.getByRole("alert").last()).toContainText(

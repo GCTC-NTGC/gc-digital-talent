@@ -4,11 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import uniqueId from "lodash/uniqueId";
 
 import { getLocale, getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  AssessmentStep,
-  FragmentType,
-  AssessmentResultsTableFragment as AssessmentResultsTableFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   AssessmentResultType,
   getFragment,
@@ -25,10 +21,7 @@ import processMessages from "~/messages/processMessages";
 
 import cells from "../Table/cells";
 import { buildColumn, columnHeader, columnStatus } from "./utils";
-import type {
-  AssessmentResultsTableFragmentStepType,
-  AssessmentTableRow,
-} from "./types";
+import type { AssessmentTableRow } from "./types";
 
 const columnHelper = createColumnHelper<AssessmentTableRow>();
 
@@ -139,13 +132,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
     }
     pool {
       id
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       name {
         en
         fr
@@ -213,9 +199,7 @@ const AssessmentResultsTable = ({
   );
 
   // Get assessment steps from pool
-  const assessmentSteps: AssessmentStep[] = unpackMaybes(
-    poolCandidate?.pool?.assessmentSteps,
-  );
+  const assessmentSteps = unpackMaybes(poolCandidate?.pool?.assessmentSteps);
 
   if (!assessmentSteps.length) {
     return (
@@ -231,8 +215,9 @@ const AssessmentResultsTable = ({
   const poolSkills = unpackMaybes(poolCandidate?.pool?.poolSkills);
 
   // Get assessment results from pool candidate
-  const assessmentResultsMaybes: AssessmentResultsTableFragmentType["assessmentResults"] =
-    unpackMaybes(poolCandidate?.assessmentResults);
+  const assessmentResultsMaybes = unpackMaybes(
+    poolCandidate?.assessmentResults,
+  );
   const assessmentResults = assessmentResultsMaybes.filter(notEmpty);
 
   // Create data for table containing pool skill with matching results and sort pool skills
@@ -279,13 +264,9 @@ const AssessmentResultsTable = ({
   };
 
   // Sort the pools assessment steps then build columns for the poolCandidates assessment results
-  const sortedAssessmentSteps: AssessmentResultsTableFragmentStepType[] =
-    getOrderedSteps(assessmentSteps);
+  const sortedAssessmentSteps = getOrderedSteps(assessmentSteps);
   const assessmentStepColumns = sortedAssessmentSteps.reduce(
-    (
-      accumulator: ColumnDef<AssessmentTableRow>[],
-      assessmentStep: AssessmentResultsTableFragmentStepType,
-    ) => {
+    (accumulator: ColumnDef<AssessmentTableRow>[], assessmentStep) => {
       const type = assessmentStep.type?.value ?? null;
       const id = uniqueId("results-table-column");
       const status = columnStatus(

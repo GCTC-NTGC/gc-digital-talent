@@ -26,13 +26,6 @@ const PoolFilter_Query = graphql(/* GraphQL */ `
     ) {
       data {
         id
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
         workStream {
           id
           name {
@@ -87,7 +80,6 @@ const usePoolFilterOptions = (
         label: getShortPoolTitleLabel(intl, {
           workStream: pool.workStream,
           name: pool.name,
-          publishingGroup: pool.publishingGroup,
           classification: pool.classification,
         }),
       })),

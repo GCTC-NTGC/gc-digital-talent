@@ -23,15 +23,21 @@ export default {
       {
         id: faker.string.uuid(),
         community: fakeCommunities(1)[0],
-        name: { localized: faker.lorem.words(3) },
+        name: {
+          __typename: "LocalizedString",
+          localized: faker.lorem.words(3),
+        },
         openDate: faker.date
           .between({ from: FAR_PAST_DATE, to: PAST_DATE })
           .toISOString(),
         closeDate: faker.date
           .between({ from: PAST_DATE, to: FAR_FUTURE_DATE })
           .toISOString(),
-        description: { localized: faker.lorem.paragraphs(1) },
-        learnMoreUrl: { localized: "#" },
+        description: {
+          __typename: "LocalizedString",
+          localized: faker.lorem.paragraphs(1),
+        },
+        learnMoreUrl: { __typename: "LocalizedString", localized: "#" },
       },
       TalentNominationEventCard_Fragment,
     ),

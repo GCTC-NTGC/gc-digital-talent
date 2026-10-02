@@ -7,12 +7,13 @@ import RocketLaunchIcon from "@heroicons/react/20/solid/RocketLaunchIcon";
 import LockClosedIcon from "@heroicons/react/20/solid/LockClosedIcon";
 import type { ReactNode } from "react";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   getLocalizedName,
   navigationMessages,
 } from "@gc-digital-talent/i18n";
-import type { RoleName } from "@gc-digital-talent/auth";
+import type { AuthRoleAssignment, RoleName } from "@gc-digital-talent/auth";
 import {
   PROCESS_ACTIVITY_LOG_ROLES,
   ROLE_NAME,
@@ -25,13 +26,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import type { ChipProps, IconType } from "@gc-digital-talent/ui";
 import { Link, UNICODE_CHAR } from "@gc-digital-talent/ui";
-import type {
-  RoleAssignment,
-  Classification,
-  Pool,
-  LocalizedPoolStatus,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 import { PoolStatus } from "@gc-digital-talent/graphql";
 
 import type { PageNavInfo } from "~/types/pages";
@@ -52,7 +47,7 @@ import { checkRole } from "./teamUtils";
  * @returns boolean
  */
 export const isAdvertisementVisible = (
-  roleAssignments: (RoleAssignment | null)[],
+  roleAssignments: (AuthRoleAssignment | null)[],
   status?: PoolStatus | null,
 ) => {
   if (status !== PoolStatus.Draft) {
@@ -92,10 +87,18 @@ export const formatClassificationAriaString = ({
   const tokens = [...Array.from(group), level.toString()];
   return tokens.join(" ");
 };
+export interface PoolTitleClassification {
+  groupAndLevel?: string | null;
+}
+
+export interface PoolTitleWorkStream {
+  name?: LocalizedString | null;
+}
+
 interface formattedPoolPosterTitleProps {
   title: string | null | undefined;
-  classification: Pick<Classification, "groupAndLevel"> | null | undefined;
-  workStream?: WorkStream | null;
+  classification: PoolTitleClassification | null | undefined;
+  workStream?: PoolTitleWorkStream | null;
   short?: boolean;
   intl: IntlShape;
 }
@@ -150,9 +153,12 @@ interface PoolTitleOptions {
   short?: boolean;
 }
 
-type PartialPool = Pick<Pool, "name" | "publishingGroup" | "workStream">;
+interface PartialPool {
+  name?: LocalizedString | null;
+  workStream?: PoolTitleWorkStream | null;
+}
 interface PartialPoolWithClassification extends PartialPool {
-  classification?: Pick<Classification, "groupAndLevel"> | null;
+  classification?: PoolTitleClassification | null;
 }
 
 type PoolTitle = PartialPoolWithClassification | null;
@@ -219,16 +225,19 @@ export const getShortPoolTitleLabel = (
     short: true,
   }).label;
 
+interface AdminPoolPagesPool extends PartialPoolWithClassification {
+  id: string;
+}
+
 export const useAdminPoolPages = (
   intl: IntlShape,
-  pool: Pick<Pool, "id"> & PoolTitle,
+  pool: AdminPoolPagesPool,
 ) => {
   const paths = useRoutes();
   const { userAuthInfo } = useAuthorization();
   const poolName = getFullPoolTitleLabel(intl, {
     workStream: pool.workStream,
     name: pool.name,
-    publishingGroup: pool.publishingGroup,
     classification: pool.classification,
   });
 
@@ -380,8 +389,13 @@ export const useAdminPoolPages = (
   return pages;
 };
 
+interface PoolAdvertisementStatus {
+  publishedAt?: string | null;
+  isComplete?: boolean | null;
+}
+
 export const getAdvertisementStatus = (
-  pool?: Pick<Pool, "publishedAt" | "isComplete">,
+  pool?: PoolAdvertisementStatus,
 ): PoolCompleteness => {
   if (!pool) return "incomplete";
 
@@ -426,7 +440,7 @@ export const getPoolCompletenessBadge = (completeness: PoolCompleteness) => {
 };
 
 export const getProcessStatusBadge = (
-  status: LocalizedPoolStatus | null | undefined,
+  status: GenericLocalizedEnum<PoolStatus> | null | undefined,
   intl: IntlShape,
 ): StatusBadge => {
   const statusBadge: StatusBadge = {

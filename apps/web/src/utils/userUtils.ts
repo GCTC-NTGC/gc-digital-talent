@@ -2,12 +2,15 @@ import type { IntlShape } from "react-intl";
 import type { ReactNode } from "react";
 
 import type {
-  LocalizedEvaluatedLanguageAbility,
-  LocalizedProvinceOrTerritory,
+  EvaluatedLanguageAbility,
+  LocalizedString,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { PositionDuration } from "@gc-digital-talent/graphql";
-import type { TEmploymentDuration } from "@gc-digital-talent/i18n";
+import type {
+  GenericLocalizedEnum,
+  TEmploymentDuration,
+} from "@gc-digital-talent/i18n";
 import {
   commonMessages,
   EmploymentDuration,
@@ -40,9 +43,12 @@ export function positionDurationToEmploymentDuration(
 
 export const getEvaluatedLanguageLevels = (
   intl: IntlShape,
-  comprehensionLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
-  writtenLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
-  verbalLevel: LocalizedEvaluatedLanguageAbility | null | undefined,
+  comprehensionLevel:
+    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+  writtenLevel:
+    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
+  verbalLevel:
+    GenericLocalizedEnum<EvaluatedLanguageAbility> | null | undefined,
 ): ReactNode => {
   return [
     comprehensionLevel?.label
@@ -53,9 +59,13 @@ export const getEvaluatedLanguageLevels = (
   ].join(", ");
 };
 
+interface LocationRegion {
+  label: LocalizedString;
+}
+
 interface FormatLocationArgs {
   city?: string | null;
-  region?: Omit<LocalizedProvinceOrTerritory, "value"> | null;
+  region?: LocationRegion | null;
   intl: IntlShape;
 }
 

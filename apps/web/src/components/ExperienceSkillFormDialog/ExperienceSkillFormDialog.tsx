@@ -5,11 +5,7 @@ import { useState } from "react";
 
 import { Button, Dialog } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type {
-  Skill,
-  Experience,
-  FragmentType,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
 import ExperienceSkillForm from "./ExperienceSkillForm";
@@ -28,9 +24,28 @@ interface FormValues {
   details?: string;
 }
 
+export interface SkillLink {
+  id: string;
+  name?: LocalizedString | null;
+}
+
+interface LinkedSkillRecord {
+  details?: string | null;
+}
+
+interface LinkedSkill {
+  id: string;
+  experienceSkillRecord?: LinkedSkillRecord | null;
+}
+
+export interface SkillLinkableExperience {
+  id: string;
+  skills?: LinkedSkill[] | null;
+}
+
 const deriveDefaultValues = (
-  skill?: Skill,
-  experience?: Omit<Experience, "user">,
+  skill?: SkillLink,
+  experience?: SkillLinkableExperience,
 ): FormValues => {
   const details = experience?.skills?.find(
     (experienceSkill) => experienceSkill.id === skill?.id,
@@ -44,8 +59,8 @@ const deriveDefaultValues = (
 
 interface ExperienceSkillFormDialogProps {
   onSave?: () => void;
-  skill?: Skill;
-  experience?: Omit<Experience, "user">;
+  skill?: SkillLink;
+  experience?: SkillLinkableExperience;
   availableExperiencesQuery?: FragmentType<
     typeof ExperienceSkillFormDialogExperience_Fragment
   >[];

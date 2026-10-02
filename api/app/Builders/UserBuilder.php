@@ -12,10 +12,12 @@ use App\Enums\PriorityWeight;
 use App\Enums\TalentRequestSource;
 use App\Models\User;
 use App\Support\Query\AdvancedOrder;
+use App\Utilities\PostgresLike;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -179,13 +181,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function whereHasCommunityInterestWithReferralStatusIn(?array $referralStatuses): self
-    {
-        return $this->when($referralStatuses, fn (self $query, array $statuses) => $query
-            ->whereHas('communityInterests', fn (Builder $interests) => $interests
-                ->whereIn('referral_status', $statuses)));
-    }
-
     public function whereOperationalRequirementsIn(?array $operationalRequirements): self
     {
         // if no filters provided then return query unchanged
@@ -319,36 +314,13 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     */
-    public function wherePoolCandidatePublishingGroupsIn(?array $publishingGroups): self
-    {
-        // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            $query->wherePublishingGroupsIn($publishingGroups);
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
         $filters = $args ? ($args['applicantFilter'] ?? $args) : [];
         $skillIds = $filters['skills'] ?? []; // already plain ids via ApplicantFilterInput @pluck
 
-        $this->where(function ($query) use ($filters) {
-            $query->whereRaw('1 = 0'); // false starting point for the orWhereHas chain
-            foreach (TalentRequestSource::selected($filters['talentSources'] ?? null) as $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
-            }
-        });
-
+        $this->whereMatchesAnyTalentSource($filters['talentSources'] ?? null, $filters);
         $this->whereUserAttributesMatchTalentRequest($filters);
         $this->addSkillCountSelect($skillIds);
         $this->withTalentRequestMatches($filters);
@@ -360,6 +332,23 @@ class UserBuilder extends Builder
         }
 
         return $this;
+    }
+
+    // Users matching at least one of the request's talent sources.
+    public function whereMatchesAnyTalentSource(?array $talentSources, array $filters): self
+    {
+        $sources = TalentRequestSource::selected($talentSources);
+
+        if (empty($sources)) {
+            return $this->whereRaw('1 = 0');
+        }
+
+        return $this->where(function ($query) use ($sources, $filters) {
+            foreach ($sources as $index => $source) {
+                $method = $source->matchMethod();
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->{$method}($filters));
+            }
+        });
     }
 
     // Only the request's user-level attribute and location filters.
@@ -383,8 +372,9 @@ class UserBuilder extends Builder
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
+            $method = $source->matchMethod();
             $this->with([$source->matchRelation() => fn ($r) => $r
-                ->whereMatchesTalentRequest($filters)
+                ->{$method}($filters)
                 ->whereAuthorizedToView()]);
         }
 
@@ -529,8 +519,9 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($splitName) {
             foreach ($splitName as $value) {
-                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $value)
-                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $value);
+                $escaped = PostgresLike::escape($value);
+                $query->whereRaw("f_unaccent(first_name) ilike ('%' || f_unaccent(?) || '%')", $escaped)
+                    ->orWhereRaw("f_unaccent(last_name) ilike ('%' || f_unaccent(?) || '%')", $escaped);
             }
         });
     }
@@ -541,7 +532,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->where('telephone', 'ilike', "%{$telephone}%");
+        return $this->where('telephone', 'ilike', '%'.PostgresLike::escape($telephone).'%');
     }
 
     public function whereEmail(?string $email): self
@@ -550,7 +541,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     public function whereWorkEmail(?string $email): self
@@ -559,7 +550,7 @@ class UserBuilder extends Builder
             return $this;
         }
 
-        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", $email);
+        return $this->whereRaw("f_unaccent(work_email) ilike ('%' || f_unaccent(?) || '%')", PostgresLike::escape($email));
     }
 
     // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
@@ -592,6 +583,18 @@ class UserBuilder extends Builder
         return $this->where('computed_is_gov_employee', true)
             ->whereNotNull('work_email')
             ->whereNotNull('work_email_verified_at');
+    }
+
+    // shared by UserBuilder::whereAuthorizedToView and PoolCandidateBuilder::andAuthorizedToViewRelatedUser
+    public function whereIsCommunityTalentInTeams(array $teamIds): self
+    {
+        return $this->whereIsVerifiedGovEmployee()
+            ->whereHas('communityInterests', function (Builder $query) use ($teamIds) {
+                $query->where('consent_to_share_profile', true)
+                    ->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                        $query->whereIn('id', $teamIds);
+                    });
+            });
     }
 
     public function whereEmployeeVerificationIn(?array $employeeVerification): self
@@ -674,6 +677,35 @@ class UserBuilder extends Builder
         });
     }
 
+    public function whereHasMatchingCommunityInterest(?array $filter): self
+    {
+        $filter ??= [];
+        $fields = Arr::only($filter, ['communities', 'workStreams', 'jobInterest', 'trainingInterest']);
+
+        return $this->when(array_filter($fields), fn (self $query) => $query
+            ->whereHas('communityInterests', function ($interests) use ($fields) {
+                /** @var CommunityInterestBuilder $interests */
+                $interests
+                    ->where('consent_to_share_profile', true)
+                    ->communities($fields['communities'] ?? null)
+                    ->workStreams($fields['workStreams'] ?? null)
+                    ->jobInterest($fields['jobInterest'] ?? null)
+                    ->trainingInterest($fields['trainingInterest'] ?? null);
+            }));
+    }
+
+    public function whereLateralMoveInterest(?bool $lateralMoveInterest): self
+    {
+        return $this->when($lateralMoveInterest, fn (self $query) => $query
+            ->where('career_planning_lateral_move_interest', true));
+    }
+
+    public function wherePromotionMoveInterest(?bool $promotionMoveInterest): self
+    {
+        return $this->when($promotionMoveInterest, fn (self $query) => $query
+            ->where('career_planning_promotion_move_interest', true));
+    }
+
     public function whereHasPriorityEntitlement(?bool $hasPriority): self
     {
         if (! isset($hasPriority)) {
@@ -728,18 +760,15 @@ class UserBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-team-communityTalent')) {
-                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
+                $communityTeamIds = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->get()
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team))
+                    ->pluck('id')
+                    ->toArray();
 
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
-
-                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
-
-                    $query->whereIn('community_id', $communityIds);
-                    $query->where('consent_to_share_profile', true);
+                $query->orWhere(function (Builder $communityTalentSubquery) use ($communityTeamIds) {
+                    $communityTalentSubquery->whereIsCommunityTalentInTeams($communityTeamIds);
                 });
             }
 
@@ -874,6 +903,10 @@ class UserBuilder extends Builder
                 ->addSelect(['users.*'])
                 ->from('users')
                 ->orderByDesc('search_rank');
+        } else {
+            // The term sanitized away to nothing, e.g. all whitespace.
+            // Match nothing rather than everything.
+            $this->whereRaw('1 = 0');
         }
 
         return $this;

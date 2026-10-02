@@ -26,11 +26,6 @@ const messages = defineMessages({
     id: "2pY3lT",
     description: "Label for a process number",
   },
-  publishingGroup: {
-    defaultMessage: "Publishing group",
-    id: "ysKXVP",
-    description: "Label for a process' publishing group",
-  },
   closingDate: {
     defaultMessage: "Closing date",
     id: "CQxGrS",
@@ -163,6 +158,11 @@ const messages = defineMessages({
     defaultMessage: "Minimum experience or equivalent education",
     id: "LvYEdh",
     description: "Title for Minimum experience or equivalent education",
+  },
+  hiddenProcess: {
+    defaultMessage: "Hidden process",
+    id: "VBRI29",
+    description: "Title for Hidden process",
   },
 });
 

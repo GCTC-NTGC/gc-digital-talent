@@ -18,11 +18,7 @@ import {
 } from "@gc-digital-talent/helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import {
-  ApplicationStatus,
-  getFragment,
-  graphql,
-} from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { getFromLocalStorage } from "@gc-digital-talent/storage";
 
@@ -127,10 +123,9 @@ const ApplicationPageWrapper = ({ query }: ApplicationPageWrapperProps) => {
     application.submittedSteps,
   );
 
-  const isSubmitted =
-    !!application.submittedAt ||
-    application.applicationStatusData?.status?.value !==
-      ApplicationStatus.Draft;
+  // An application is a draft until it has been submitted, mirroring
+  // `PoolCandidate::isDraft()` on the API.
+  const isSubmitted = !!application.submittedAt;
 
   // If we cannot find the current page, redirect to the first step
   // that has not been submitted yet, or the last step

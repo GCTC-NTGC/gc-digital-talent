@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Jose\Component\Core\Util\Base64UrlSafe;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
@@ -35,6 +36,12 @@ class AuthController extends Controller
         $nonce = Str::random(40);
         $request->session()->put('state', $state);
         $request->session()->put('nonce', $nonce);
+
+        // PKCE (RFC 7636): pair a one-time verifier with a hashed challenge so that
+        // whoever exchanges the auth code later must prove they're who initiated login.
+        $codeVerifier = Base64UrlSafe::encodeUnpadded(random_bytes(64));
+        $codeChallenge = Base64UrlSafe::encodeUnpadded(hash('sha256', $codeVerifier, binary: true));
+        $request->session()->put('code_verifier', $codeVerifier);
 
         $request->session()->put(
             'from',
@@ -67,6 +74,8 @@ class AuthController extends Controller
             'acr_values' => config('oauth.acr_values'),
             'lang' => $lang,
             'skipmigration' => $request->input('skipmigration', null),
+            'code_challenge' => $codeChallenge,
+            'code_challenge_method' => 'S256',
         ]);
 
         return redirect(config('oauth.authorize_uri').'?'.$query);
@@ -77,6 +86,7 @@ class AuthController extends Controller
         // pull the original nonce and state from  beginning to compare with returned values
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
+        $codeVerifier = $request->session()->pull('code_verifier');
 
         // Session state does not match or is empty, do not login.
         if (! (strlen($state) > 0 && $state === $request->state)) {
@@ -90,6 +100,7 @@ class AuthController extends Controller
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
+            'code_verifier' => $codeVerifier,
         ];
         $tokenResponse = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
             return $exception instanceof ConnectionException;
@@ -179,8 +190,8 @@ class AuthController extends Controller
                 try {
                     $existingUser = User::where('id', '!=', $userMatch->id)
                         ->where(fn ($subquery) => $subquery
-                            ->where('email', 'ilike', $incomingEmailAddress)
-                            ->orWhere('work_email', 'ilike', $incomingEmailAddress))
+                            ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
+                            ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)]))
                         ->withTrashed()
                         ->first();
                     if ($existingUser) {
@@ -207,8 +218,8 @@ class AuthController extends Controller
             // email should be clear now so save if possible
             if (User::where('sub', '!=', $sub)
                 ->where(fn ($subquery) => $subquery
-                    ->where('email', 'ilike', $incomingEmailAddress)
-                    ->orWhere('work_email', 'ilike', $incomingEmailAddress)
+                    ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
+                    ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)])
                 )->count() == 0
             ) {
                 $userMatch->setVerifiedContactEmail($incomingEmailAddress);
@@ -276,7 +287,8 @@ class AuthController extends Controller
             return app(TestTokenController::class)->issue($request);
         }
 
-        $refreshToken = $request->query('refresh_token');
+        // reads from the POST body first, falling back to the legacy GET query param during rollout - see #17682/#17832
+        $refreshToken = $request->input('refresh_token');
         $payload = [
             'grant_type' => 'refresh_token',
             'client_id' => config('oauth.client_id'),

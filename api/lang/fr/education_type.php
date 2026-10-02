@@ -3,12 +3,10 @@
 use Illuminate\Support\Facades\Lang;
 
 return [
-    'diploma' => 'Diplôme',
-    'bachelors_degree' => 'Baccalauréat',
-    'masters_degree' => 'Maîtrise',
-    'phd' => 'Ph. D.',
-    'post_doctoral_fellowship' => 'Bourse postdoctorale',
-    'online_course' => 'Cours en ligne',
-    'certification' => 'Certification',
+    'degree_diploma_certificate' => 'Diplôme, grade ou certificat',
+    'license_accreditation' => 'Permis ou accréditation',
+    'professional_certification' => 'Certification professionnelle',
+    'individual_course' => 'Cours individuel',
+    'fellowship' => 'Programme de recherche',
     'other' => Lang::get('common.other', [], 'fr'),
 ];

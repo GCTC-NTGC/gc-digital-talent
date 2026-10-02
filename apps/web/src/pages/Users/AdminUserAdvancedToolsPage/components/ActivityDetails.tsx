@@ -37,7 +37,7 @@ const ActivityDetails = ({ query }: ActivityDetailsProps) => {
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
 
   return (
-    <TableOfContents.Section id={ACTIVITY_DETAILS_ID}>
+    <TableOfContents.Section id={ACTIVITY_DETAILS_ID} className="mb-18">
       <TableOfContents.Heading
         icon={CalendarDaysIcon}
         color="secondary"

@@ -36,7 +36,10 @@ Default.args = {
   myRolesAndTeams: [
     {
       departmentId: mockDepartments[0].id,
-      roleName: { en: ROLE_NAME.DepartmentAdmin },
+      roleName: {
+        __typename: "LocalizedString",
+        en: ROLE_NAME.DepartmentAdmin,
+      },
     },
   ],
 };

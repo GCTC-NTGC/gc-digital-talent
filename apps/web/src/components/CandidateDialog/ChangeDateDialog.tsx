@@ -15,10 +15,8 @@ import {
 import { currentDate } from "@gc-digital-talent/date-helpers";
 import { emptyToNull } from "@gc-digital-talent/helpers";
 import type {
-  PoolCandidate,
   UpdatePoolCandidateStatusInput,
   FragmentType,
-  User,
 } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
@@ -28,7 +26,12 @@ import { getFullNameHtml } from "~/utils/nameUtils";
 import UpdatePoolCandidateStatus_Mutation from "./mutation";
 
 interface FormValues {
-  expiryDate: PoolCandidate["expiryDate"];
+  expiryDate?: string | null;
+}
+
+export interface CandidateName {
+  firstName?: string | null;
+  lastName?: string | null;
 }
 
 export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
@@ -48,13 +51,6 @@ export const ChangeDateDialog_PoolCandidateFragment = graphql(/* GraphQL */ `
         en
         fr
       }
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       classification {
         id
         groupAndLevel
@@ -67,7 +63,7 @@ interface ChangeDateDialogProps {
   selectedCandidateQuery: FragmentType<
     typeof ChangeDateDialog_PoolCandidateFragment
   >;
-  user: Pick<User, "firstName" | "lastName">;
+  user: CandidateName;
 }
 
 const ChangeDateDialog = ({
@@ -142,12 +138,7 @@ const ChangeDateDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage({
-            defaultMessage: "Expiry Date",
-            id: "zDO6tt",
-            description:
-              "title for change expiry date dialog on view-user page",
-          })}
+          {intl.formatMessage(commonMessages.expiryDate)}
         </Dialog.Header>
         <Dialog.Body>
           <p>
@@ -174,7 +165,6 @@ const ChangeDateDialog = ({
             {getShortPoolTitleHtml(intl, {
               workStream: selectedCandidate.pool.workStream,
               name: selectedCandidate.pool.name,
-              publishingGroup: selectedCandidate.pool.publishingGroup,
               classification: selectedCandidate.pool.classification,
             })}
           </p>
@@ -192,12 +182,7 @@ const ChangeDateDialog = ({
               <div className="mt-3 mb-0.75">
                 <DateInput
                   id="changeDateDialog-expiryDate"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Expiry date",
-                    id: "WAO4vD",
-                    description:
-                      "Label displayed on the date field of the change candidate expiry date dialog",
-                  })}
+                  legend={intl.formatMessage(commonMessages.expiryDate)}
                   name="expiryDate"
                   rules={{
                     min: {

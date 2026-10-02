@@ -1,9 +1,13 @@
-import type { Pool } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({ aboutUs }: Pick<Pool, "aboutUs">): boolean {
+interface AboutUsFields {
+  aboutUs?: LocalizedString | null;
+}
+
+export function hasAllEmptyFields({ aboutUs }: AboutUsFields): boolean {
   return !!(!aboutUs?.en && !aboutUs?.fr);
 }
 
-export function hasOneEmptyField({ aboutUs }: Pick<Pool, "aboutUs">): boolean {
+export function hasOneEmptyField({ aboutUs }: AboutUsFields): boolean {
   return !!(aboutUs?.en && !aboutUs?.fr) || !!(aboutUs?.fr && !aboutUs.en);
 }

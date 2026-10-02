@@ -1,17 +1,16 @@
 import { empty } from "@gc-digital-talent/helpers";
 import type {
-  LocalizedArmedForcesStatus,
-  LocalizedCitizenshipStatus,
-  User,
+  ArmedForcesStatus,
+  CitizenshipStatus,
 } from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
 
-export type PartialUser = Pick<
-  User,
-  "hasPriorityEntitlement" | "priorityNumber"
-> & {
-  citizenship?: Pick<LocalizedCitizenshipStatus, "value"> | null;
-  armedForcesStatus?: Pick<LocalizedArmedForcesStatus, "value"> | null;
-};
+export interface PartialUser {
+  hasPriorityEntitlement?: boolean | null;
+  priorityNumber?: string | null;
+  citizenship?: LocalizedEnumValue<CitizenshipStatus> | null;
+  armedForcesStatus?: LocalizedEnumValue<ArmedForcesStatus> | null;
+}
 
 export function hasAllEmptyFields({
   hasPriorityEntitlement,

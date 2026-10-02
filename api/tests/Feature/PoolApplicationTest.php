@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AssessmentStepType;
+use App\Enums\CandidateStatus;
 use App\Enums\ClaimVerificationResult;
 use App\Enums\EducationRequirementOption;
 use App\Enums\ErrorCode;
@@ -69,9 +70,7 @@ class PoolApplicationTest extends TestCase
         '
         query poolCandidate($id: UUID!) {
             poolCandidate(id: $id) {
-                applicationStatusData {
-                    status { value }
-                }
+                candidateStatus { value }
             }
         }
     ';
@@ -87,9 +86,7 @@ class PoolApplicationTest extends TestCase
                 pool {
                     id
                 }
-                applicationStatusData {
-                    status { value }
-                }
+                candidateStatus { value }
             }
         }
     ';
@@ -119,9 +116,7 @@ class PoolApplicationTest extends TestCase
             submitApplication(id: $id, signature: $sig) {
                 submittedAt
                 signature
-                applicationStatusData {
-                    status { value }
-                }
+                candidateStatus { value }
             }
         }
     GRAPHQL;
@@ -197,10 +192,8 @@ class PoolApplicationTest extends TestCase
                     'pool' => [
                         'id' => $pool->id,
                     ],
-                    'applicationStatusData' => [
-                        'status' => [
-                            'value' => ApplicationStatus::DRAFT->name,
-                        ],
+                    'candidateStatus' => [
+                        'value' => CandidateStatus::DRAFT->name,
                     ],
                 ],
             ],
@@ -352,7 +345,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -426,7 +419,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('submittedAt')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('signature')
                             ->whereType('submittedAt', 'string')
                     )
@@ -518,7 +511,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -542,6 +535,7 @@ class PoolApplicationTest extends TestCase
             ->create();
 
         // assert status updated upon submission, and doesn't return DRAFT or EXPIRED
+        // a submitted application awaiting screening is RECEIVED
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL(
                 $this->submitMutationDocument,
@@ -550,8 +544,8 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => [
-                    'value' => ApplicationStatus::TO_ASSESS->name,
+                'candidateStatus' => [
+                    'value' => CandidateStatus::RECEIVED->name,
                 ],
             ]);
     }
@@ -603,7 +597,7 @@ class PoolApplicationTest extends TestCase
                         'submitApplication',
                         fn ($json) => $json
                             ->has('signature')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -667,7 +661,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -725,7 +719,7 @@ class PoolApplicationTest extends TestCase
                     fn ($json) => $json->has(
                         'submitApplication',
                         fn ($json) => $json->has('signature')
-                            ->has('applicationStatusData')
+                            ->has('candidateStatus')
                             ->has('submittedAt')
                             ->whereType('submittedAt', 'string')
                     )
@@ -757,10 +751,8 @@ class PoolApplicationTest extends TestCase
             ->assertJson([
                 'data' => [
                     'poolCandidate' => [
-                        'applicationStatusData' => [
-                            'status' => [
-                                'value' => ApplicationStatus::DRAFT->name,
-                            ],
+                        'candidateStatus' => [
+                            'value' => CandidateStatus::DRAFT->name,
                         ],
                     ],
                 ],
@@ -855,8 +847,8 @@ class PoolApplicationTest extends TestCase
                     'sig' => 'sign',
                 ]
             )->assertJsonFragment([
-                'status' => [
-                    'value' => ApplicationStatus::TO_ASSESS->name,
+                'candidateStatus' => [
+                    'value' => CandidateStatus::RECEIVED->name,
                 ],
             ]);
 

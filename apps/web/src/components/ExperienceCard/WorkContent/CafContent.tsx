@@ -1,7 +1,8 @@
 import { useIntl } from "react-intl";
 
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { getLocalizedName } from "@gc-digital-talent/i18n";
-import type { WorkExperience } from "@gc-digital-talent/graphql";
+import type { CafEmploymentType, CafRank } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
@@ -9,10 +10,15 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
 
+export interface CafContentExperience {
+  cafEmploymentType?: GenericLocalizedEnum<CafEmploymentType> | null;
+  cafRank?: GenericLocalizedEnum<CafRank> | null;
+}
+
 const CafContent = ({
   experience: { cafEmploymentType, cafRank },
-  headingLevel,
-}: ContentProps<Omit<WorkExperience, "user">>) => {
+  headingRank,
+}: ContentProps<CafContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
@@ -20,7 +26,7 @@ const CafContent = ({
     <>
       <ContentSection
         title={experienceFormLabels.cafEmploymentType}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafEmploymentType?.label, intl)}
@@ -28,7 +34,7 @@ const CafContent = ({
       <Separator space="sm" decorative />
       <ContentSection
         title={experienceFormLabels.cafRank}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(cafRank?.label, intl)}

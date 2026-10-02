@@ -41,6 +41,12 @@ const errorMessages = defineMessages({
     id: "uQq6qZ",
     description: "Error message that the end date cannot be in the future.",
   },
+  mustNotBeFutureIssueDate: {
+    defaultMessage:
+      "The issue date can't be in the future. Enter a date in the past.",
+    id: "pdT/ln",
+    description: "Error message that the end date cannot be in the future.",
+  },
   mustNotBePastExpiryDate: {
     defaultMessage:
       "The expiry date can’t be in the past. Enter a date in the future.",

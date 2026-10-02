@@ -6,7 +6,7 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
@@ -14,7 +14,6 @@ import ClosedJobs from "./ClosedJobsPage";
 
 interface MockPool {
   id: string;
-  publishingGroup: GenericLocalizedEnum<PublishingGroup>;
   status: GenericLocalizedEnum<PoolStatus>;
   publishedAt: string;
   closingDate: string;
@@ -23,8 +22,7 @@ interface MockPool {
 
 const closedItJobsPool = {
   id: "closedItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Closed),
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
   archivedAt: null,
@@ -32,8 +30,7 @@ const closedItJobsPool = {
 
 const openItJobsPool = {
   id: "openItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Published),
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2999-01-02",
   archivedAt: null,
@@ -41,8 +38,7 @@ const openItJobsPool = {
 
 const archivedItJobsPool = {
   id: "archivedItJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ItJobs),
-  status: toLocalizedEnum(PoolStatus.Archived),
+  status: toLocalizedEnum(PoolStatus.Archived, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
   archivedAt: "2000-01-03",
@@ -50,8 +46,7 @@ const archivedItJobsPool = {
 
 const closedExecJobsPool = {
   id: "closedExecJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.ExecutiveJobs),
-  status: toLocalizedEnum(PoolStatus.Closed),
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
   archivedAt: null,
@@ -59,8 +54,7 @@ const closedExecJobsPool = {
 
 const closedIAPJobsPool = {
   id: "closedIAPJobsPool",
-  publishingGroup: toLocalizedEnum(PublishingGroup.Iap),
-  status: toLocalizedEnum(PoolStatus.Closed),
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: "2000-01-01",
   closingDate: "2000-01-02",
   archivedAt: null,
@@ -131,7 +125,7 @@ describe("ClosedJobsPage", () => {
       name: /View job ad/i,
     });
 
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(closedItJobsPool.id),

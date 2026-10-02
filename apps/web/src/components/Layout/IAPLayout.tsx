@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, Outlet } from "react-router";
-import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 import { AnimatePresence } from "motion/react";
 
 import type { Messages } from "@gc-digital-talent/i18n";
@@ -10,7 +9,6 @@ import {
   commonMessages,
   getLocale,
 } from "@gc-digital-talent/i18n";
-import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import SEO, { Favicon } from "~/components/SEO/SEO";
 import Header from "~/components/Header/Header";
@@ -55,20 +53,6 @@ export const Component = () => {
   const locale = getLocale(intl);
   const location = useLocation();
   useLayoutTheme("iap");
-
-  const aiConnectionString = getRuntimeVariable(
-    "APPLICATIONINSIGHTS_CONNECTION_STRING",
-  );
-
-  if (aiConnectionString) {
-    const appInsights = new ApplicationInsights({
-      config: {
-        connectionString: aiConnectionString,
-      },
-    });
-    appInsights.loadAppInsights();
-    appInsights.trackPageView();
-  }
 
   return (
     <NestedLanguageProvider messages={messages}>

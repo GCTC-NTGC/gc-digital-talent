@@ -4,6 +4,7 @@ import type { Team } from "@gc-digital-talent/graphql/schema-types";
 
 const generateTeam = (): Team => {
   return {
+    __typename: "Team",
     id: faker.string.uuid(),
     name: faker.string.sample(),
   };

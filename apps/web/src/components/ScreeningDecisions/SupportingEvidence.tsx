@@ -1,6 +1,9 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -12,6 +15,7 @@ import { Heading } from "@gc-digital-talent/ui";
 
 import type { SnapshotExperience } from "~/utils/experienceUtils";
 
+import ExperienceCardV1 from "../ExperienceCard/SnapshotV1/ExperienceCardV1";
 import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "../ExperienceCard/ExperienceCard";
@@ -27,6 +31,7 @@ const ScreeningDialogSupportingEvidence_Fragment = graphql(/** GraphQL */ `
 interface SupportingEvidenceProps {
   query: FragmentType<typeof ScreeningDialogSupportingEvidence_Fragment>;
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
   skillId?: string;
   dialogType: DialogType;
 }
@@ -34,6 +39,7 @@ interface SupportingEvidenceProps {
 const SupportingEvidence = ({
   query,
   experiences,
+  snapshotVersion,
   skillId,
   dialogType,
 }: SupportingEvidenceProps) => {
@@ -56,7 +62,7 @@ const SupportingEvidence = ({
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mb-3">
+      <Heading rank="h3" size="h6" className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
@@ -67,17 +73,27 @@ const SupportingEvidence = ({
       {experiencesFiltered.length > 0 ? (
         experiencesFiltered.map((experience) => (
           <div className="mb-3" key={experience.id}>
-            <ExperienceCard
-              experienceQuery={makeFragmentData(
-                experience,
-                ExperienceCard_Fragment,
-              )}
-              headingLevel="h4"
-              showEdit={false}
-              {...(skillId && {
-                showSkills: { id: skillId },
-              })}
-            />
+            {!snapshotVersion || snapshotVersion === 1 ? (
+              <ExperienceCardV1
+                experience={experience}
+                headingRank="h4"
+                {...(skillId && {
+                  showSkills: { id: skillId },
+                })}
+              />
+            ) : (
+              <ExperienceCard
+                experienceQuery={makeFragmentData(
+                  experience as ExperienceCardFragment,
+                  ExperienceCard_Fragment,
+                )}
+                headingRank="h4"
+                showEdit={false}
+                {...(skillId && {
+                  showSkills: { id: skillId },
+                })}
+              />
+            )}
           </div>
         ))
       ) : (

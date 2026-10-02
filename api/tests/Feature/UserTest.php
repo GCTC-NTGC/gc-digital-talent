@@ -48,6 +48,29 @@ class UserTest extends TestCase
 
     protected $platformAdmin;
 
+    private $updateUserAsAdminMutation =
+        /** @lang GraphQL */
+        'mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
+            updateUserAsAdmin(id: $id, user: $user) {
+                id
+                email
+                isEmailVerified
+                workEmail
+                isWorkEmailVerified
+                telephone
+            }
+        }';
+
+    private $createUserMutation =
+        /** @lang GraphQL */
+        'mutation CreateUser($user: CreateUserInput!) {
+            createUser(user: $user) {
+                id
+                email
+                workEmail
+            }
+        }';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -83,12 +106,8 @@ class UserTest extends TestCase
         $user = User::All()->first();
 
         // Create new pools and attach to new pool candidates.
-        $pool1 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
-        $pool2 = Pool::factory()->create([
-            'user_id' => $user['id'],
-        ]);
+        $pool1 = Pool::factory()->create();
+        $pool2 = Pool::factory()->create();
 
         PoolCandidate::factory()->count(5)->qualified()->for($pool1)->create();
         PoolCandidate::factory()->count(4)->expired()->for($pool1)->create();
@@ -2250,5 +2269,151 @@ class UserTest extends TestCase
         $this->assertNull($user->work_email);
         $this->assertEquals('used@example.com', $user->email_backup);
         $this->assertEquals('usedwork@gc.ca', $user->work_email_backup);
+    }
+
+    public function testUpdateUserAsAdminUnrelatedFieldChangeDoesNotResetVerifiedEmail(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'Verified.User@Example.com',
+            'email_verified_at' => '2023-01-01',
+            'work_email' => 'Verified.User@Canada.ca',
+            'work_email_verified_at' => '2023-01-01',
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $user->id,
+                'user' => [
+                    'id' => $user->id,
+                    'telephone' => '+15555555555',
+                    'email' => 'Verified.User@Example.com',
+                    'workEmail' => 'Verified.User@Canada.ca',
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'updateUserAsAdmin' => [
+                    'isEmailVerified' => true,
+                    'isWorkEmailVerified' => true,
+                ],
+            ],
+        ]);
+
+        $user->refresh();
+        $this->assertNotNull($user->email_verified_at);
+        $this->assertNotNull($user->work_email_verified_at);
+    }
+
+    public function testUpdateUserAsAdminChangingEmailStillResetsVerifiedStatus(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'verified.user@example.com',
+            'email_verified_at' => '2023-01-01',
+            'work_email' => 'verified.user@canada.ca',
+            'work_email_verified_at' => '2023-01-01',
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $user->id,
+                'user' => [
+                    'id' => $user->id,
+                    'email' => 'new.address@example.com',
+                    'workEmail' => 'new.address@canada.ca',
+                ],
+            ]
+        )->assertJson([
+            'data' => [
+                'updateUserAsAdmin' => [
+                    'isEmailVerified' => false,
+                    'isWorkEmailVerified' => false,
+                ],
+            ],
+        ]);
+
+        $user->refresh();
+        $this->assertNull($user->email_verified_at);
+        $this->assertNull($user->work_email_verified_at);
+    }
+
+    public function testUpdateUserAsAdminRejectsCaseVariantDuplicateEmails(): void
+    {
+        User::factory()->create([
+            'email' => 'duplicate.contact@example.com',
+            'work_email' => 'duplicate.work@canada.ca',
+        ]);
+        $user = User::factory()->create();
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $user->id,
+                'user' => [
+                    'id' => $user->id,
+                    'workEmail' => 'DUPLICATE.WORK@CANADA.CA',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.workEmail', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $user->id,
+                'user' => [
+                    'id' => $user->id,
+                    'email' => 'DUPLICATE.CONTACT@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.email', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testCreateUserRejectsCaseVariantDuplicateEmails(): void
+    {
+        User::factory()->create([
+            'email' => 'duplicate.contact@example.com',
+            'work_email' => 'duplicate.work@canada.ca',
+        ]);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->createUserMutation,
+            [
+                'user' => [
+                    'firstName' => 'Test',
+                    'lastName' => 'User',
+                    'workEmail' => 'DUPLICATE.WORK@CANADA.CA',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.workEmail', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+
+        $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            $this->createUserMutation,
+            [
+                'user' => [
+                    'firstName' => 'Test',
+                    'lastName' => 'User',
+                    'email' => 'DUPLICATE.CONTACT@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLValidationError('user.email', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+    }
+
+    public function testUpdateUserAsAdminRoleCheck(): void
+    {
+        $applicantUser = User::factory()
+            ->asApplicant()
+            ->create();
+
+        $this->actingAs($applicantUser, 'api')->graphQL(
+            $this->updateUserAsAdminMutation,
+            [
+                'id' => $applicantUser->id,
+                'user' => [
+                    'id' => $applicantUser->id,
+                    'email' => 'BAD.EMAIL@EXAMPLE.COM',
+                ],
+            ]
+        )->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

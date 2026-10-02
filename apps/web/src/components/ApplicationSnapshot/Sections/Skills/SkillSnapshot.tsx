@@ -1,7 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -22,6 +25,7 @@ import ExperienceCard, {
   ExperienceCard_Fragment,
 } from "~/components/ExperienceCard/ExperienceCard";
 import { groupExperiencesBySkill } from "~/utils/skillUtils";
+import ExperienceCardV1 from "~/components/ExperienceCard/SnapshotV1/ExperienceCardV1";
 
 interface SnapshotSkill {
   id: string;
@@ -30,9 +34,14 @@ interface SnapshotSkill {
 interface SkillExperiencesProps {
   skill: SnapshotSkill;
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
 }
 
-const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
+const SkillExperiences = ({
+  skill,
+  experiences,
+  snapshotVersion,
+}: SkillExperiencesProps) => {
   const intl = useIntl();
 
   if (experiences.length <= 0) {
@@ -55,51 +64,63 @@ const SkillExperiences = ({ skill, experiences }: SkillExperiencesProps) => {
 
   return (
     <div className="flex flex-col gap-y-3">
-      {experiences.map((experience) => (
-        <ExperienceCard
-          id={`skill-${skill.id}-experience-${experience.id}`}
-          key={experience.id}
-          experienceQuery={makeFragmentData(
-            {
-              ...experience,
-              __typename: experience.__typename ?? "AwardExperience",
-            },
-            ExperienceCard_Fragment,
-          )}
-          headingLevel="h5"
-          showEdit={false}
-          showSkills={skill}
-          hideDetails
-          view={
-            <ScrollToLink
-              to={`experience-${experience.id}`}
-              mode="inline"
-              color="error"
-              aria-label={String(
-                intl.formatMessage(
-                  {
-                    defaultMessage: "View experience for {experienceName}",
-                    id: "MsLKAj",
-                    description:
-                      "Assistive technology link text to view a specific experience",
-                  },
-                  {
-                    experienceName: nodeToString(
-                      getExperienceName(experience, intl),
-                    ),
-                  },
-                ),
-              )}
-            >
-              {intl.formatMessage({
-                defaultMessage: "View experience",
-                id: "hKofhr",
-                description: "Link text to view a specific experience",
-              })}
-            </ScrollToLink>
-          }
-        />
-      ))}
+      {experiences.map((experience) =>
+        !snapshotVersion || snapshotVersion === 1 ? (
+          <ExperienceCardV1
+            id={`skill-${skill.id}-experience-${experience.id}`}
+            key={experience.id}
+            experience={experience}
+            headingRank="h5"
+            showSkills={skill}
+            hideDetails
+          />
+        ) : (
+          <ExperienceCard
+            id={`skill-${skill.id}-experience-${experience.id}`}
+            key={experience.id}
+            experienceQuery={makeFragmentData(
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+              {
+                ...experience,
+                __typename: experience.__typename ?? "AwardExperience",
+              } as ExperienceCardFragment,
+              ExperienceCard_Fragment,
+            )}
+            headingRank="h5"
+            showEdit={false}
+            showSkills={skill}
+            hideDetails
+            view={
+              <ScrollToLink
+                to={`experience-${experience.id}`}
+                mode="inline"
+                color="error"
+                aria-label={String(
+                  intl.formatMessage(
+                    {
+                      defaultMessage: "View experience for {experienceName}",
+                      id: "MsLKAj",
+                      description:
+                        "Assistive technology link text to view a specific experience",
+                    },
+                    {
+                      experienceName: nodeToString(
+                        getExperienceName(experience, intl),
+                      ),
+                    },
+                  ),
+                )}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "View experience",
+                  id: "hKofhr",
+                  description: "Link text to view a specific experience",
+                })}
+              </ScrollToLink>
+            }
+          />
+        ),
+      )}
     </div>
   );
 };
@@ -119,9 +140,14 @@ const SkillSnapshot_Fragment = graphql(/** GraphQL */ `
 interface SkillSnapshotProps {
   query: FragmentType<typeof SkillSnapshot_Fragment>[];
   experiences: SnapshotExperience[];
+  snapshotVersion: number | undefined;
 }
 
-const SkillSnapshot = ({ query, experiences }: SkillSnapshotProps) => {
+const SkillSnapshot = ({
+  query,
+  experiences,
+  snapshotVersion,
+}: SkillSnapshotProps) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
   const skills = getFragment(SkillSnapshot_Fragment, query);
@@ -144,7 +170,7 @@ const SkillSnapshot = ({ query, experiences }: SkillSnapshotProps) => {
       </p>
       {experiencesBySkill.map(({ skill, experiences: exps }) => (
         <Fragment key={skill.id}>
-          <Heading level="h4" size="h6" className="mt-12">
+          <Heading rank="h4" size="h6" className="mt-12">
             {skill.name?.localized ?? notAvailable}
           </Heading>
           {skill.description?.localized && (
@@ -153,7 +179,11 @@ const SkillSnapshot = ({ query, experiences }: SkillSnapshotProps) => {
 
           <Separator className="bg-error" space="sm" />
 
-          <SkillExperiences skill={skill} experiences={exps} />
+          <SkillExperiences
+            skill={skill}
+            experiences={exps}
+            snapshotVersion={snapshotVersion}
+          />
         </Fragment>
       ))}
     </>

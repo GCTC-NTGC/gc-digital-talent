@@ -1,6 +1,8 @@
-import type { Experience } from "@gc-digital-talent/graphql";
+interface Experience {
+  id: string;
+}
 
-type Experiences = Pick<Experience, "id">[] | undefined | null;
+type Experiences = Experience[] | undefined | null;
 
 export function isIncomplete(experiences: Experiences): boolean {
   return !experiences?.length;

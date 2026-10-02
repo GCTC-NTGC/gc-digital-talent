@@ -1,11 +1,24 @@
 import { notEmpty } from "@gc-digital-talent/helpers";
-import type { Pool, PoolCandidate } from "@gc-digital-talent/graphql";
 
-type PartialPoolCandidate = Pick<PoolCandidate, "generalQuestionResponses">;
+interface GeneralQuestion {
+  id: string;
+}
+
+interface GeneralQuestionResponse {
+  generalQuestion?: GeneralQuestion | null;
+}
+
+interface PartialPoolCandidate {
+  generalQuestionResponses?: (GeneralQuestionResponse | null)[] | null;
+}
+
+interface GeneralQuestionsPool {
+  generalQuestions?: (GeneralQuestion | null)[] | null;
+}
 
 export function hasMissingResponses(
   poolCandidate: PartialPoolCandidate,
-  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> | null,
+  pool: GeneralQuestionsPool | null,
 ): boolean {
   const poolQuestionIds =
     pool?.generalQuestions

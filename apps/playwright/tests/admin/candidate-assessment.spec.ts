@@ -38,7 +38,11 @@ import {
   removeCandidate,
   revertFinalDecision,
 } from "~/utils/applications";
-import { createAndPublishPool, getPoolSkills } from "~/utils/pools";
+import {
+  createAndPublishPool,
+  getPoolSkills,
+  retirePublishedPool,
+} from "~/utils/pools";
 import { loginBySub } from "~/utils/auth";
 import { generateUniqueTestId } from "~/utils/id";
 import AssessmentPage from "~/fixtures/AssessmentPage";
@@ -101,8 +105,8 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
         personalExperiences: {
           create: [
             {
-              description: "Test Experience Description",
-              details: "A Playwright test personal experience",
+              organization: "Test Organization or platform",
+              learningDescription: "Test Experience Learning Description",
               skills: {
                 sync: [
                   {
@@ -150,6 +154,7 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
 
   test.afterEach(async () => {
     if (user?.id) await deleteUser(platformAdminCtx, { id: user.id });
+    if (poolId) await retirePublishedPool(adminCtx, poolId);
   });
 
   test("Validate Application can be screened in with applied work", async ({

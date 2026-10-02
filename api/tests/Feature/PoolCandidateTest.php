@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\CandidateStatus;
 use App\Facades\Notify;
 use App\Models\Community;
 use App\Models\Department;
@@ -277,7 +278,9 @@ class PoolCandidateTest extends TestCase
     }
 
     /**
-     * Status access permissions are similar to notes, except a candidate can see their own status
+     * Status access permissions are similar to notes - a candidate cannot see
+     * the internal status of their own application, only the candidate-facing
+     * summary. See testCandidateFacingStatusAccess.
      */
     public function testStatusAccess(): void
     {
@@ -338,20 +341,10 @@ class PoolCandidateTest extends TestCase
                 ],
             ]);
 
-        // Assert applicant can access status
+        // Assert applicant cannot access the internal status of their own application
         $this->actingAs($this->applicantUser, 'api')
             ->graphQL($statusQuery, ['id' => $this->candidate->id])
-            ->assertJson([
-                'data' => [
-                    'poolCandidate' => [
-                        'applicationStatusData' => [
-                            'status' => [
-                                'value' => $this->candidate->application_status,
-                            ],
-                        ],
-                    ],
-                ],
-            ]);
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
 
         // Assert an unassociated process operator cannot query candidate status
         $this->actingAs($this->unAssociatedCommunityUser, 'api')
@@ -376,6 +369,38 @@ class PoolCandidateTest extends TestCase
             ->graphQL($statusQuery, ['id' => $this->candidate->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
 
+    }
+
+    /**
+     * The candidate-facing summaries sit on the root PoolCandidate type with no
+     * permission guard, so anyone who can view the candidate can read them
+     */
+    public function testCandidateFacingStatusAccess(): void
+    {
+        $summaryQuery = /** @lang GraphQL */
+        '
+            query poolCandidate($id: UUID!) {
+                poolCandidate(id: $id) {
+                    candidateStatus { value }
+                    candidateInterest { value }
+                    statusUpdatedAt
+                }
+            }
+         ';
+
+        // Assert applicant can view the summary of their own application
+        // The candidate is submitted and awaiting screening, so RECEIVED
+        $this->actingAs($this->applicantUser, 'api')
+            ->graphQL($summaryQuery, ['id' => $this->candidate->id])
+            ->assertJson([
+                'data' => [
+                    'poolCandidate' => [
+                        'candidateStatus' => [
+                            'value' => CandidateStatus::RECEIVED->name,
+                        ],
+                    ],
+                ],
+            ]);
     }
 
     public function testAccessingDeletedEducationExperienceIds()

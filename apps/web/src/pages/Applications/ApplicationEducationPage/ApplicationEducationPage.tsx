@@ -12,7 +12,6 @@ import { toast } from "@gc-digital-talent/toast";
 import { RadioGroup } from "@gc-digital-talent/forms";
 import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { Experience } from "@gc-digital-talent/graphql";
 import {
   ApplicationStep,
   EducationRequirementOption,
@@ -20,7 +19,6 @@ import {
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
@@ -185,7 +183,7 @@ const ApplicationEducation = ({
         (
           accumulator: EducationRequirementExperiences,
 
-          experience: SimpleAnyExperience,
+          experience: ApplicationEducationExperience,
         ) => {
           return {
             ...accumulator,
@@ -274,20 +272,23 @@ const ApplicationEducation = ({
         },
       })
         .then(async (res) => {
-          if (!res.error) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "Successfully updated your education requirement!",
-                id: "QYlwuE",
-                description:
-                  "Message displayed to users when saving education requirement is successful.",
-              }),
-            );
-            await navigate(
-              formValues.action === "continue" ? nextStep : cancelPath,
-            );
+          if (!res.data?.updateApplication?.id || res.error) {
+            throw new Error();
           }
+
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "Successfully updated your education requirement!",
+              id: "QYlwuE",
+              description:
+                "Message displayed to users when saving education requirement is successful.",
+            }),
+          );
+
+          await navigate(
+            formValues.action === "continue" ? nextStep : cancelPath,
+          );
         })
         .catch(() => {
           toast.error(
@@ -328,7 +329,7 @@ const ApplicationEducation = ({
       </Heading>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage: "Select which criteria you meet",
               id: "yJnGeT",
@@ -406,9 +407,7 @@ const ApplicationEducation = ({
 export const Component = () => {
   const { application } = useApplication();
 
-  const experiences: Omit<Experience, "user">[] = unpackMaybes(
-    application.user.experiences,
-  );
+  const experiences = unpackMaybes(application.user.experiences);
 
   return application?.pool ? (
     <ApplicationEducation application={application} experiences={experiences} />

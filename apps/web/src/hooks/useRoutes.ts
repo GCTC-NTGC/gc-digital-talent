@@ -69,6 +69,7 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return applicantUrl + fragment;
     },
+    applications: () => [applicantUrl, "applications"].join("/"),
 
     // Admin
     adminDashboard: () => adminUrl,
@@ -319,7 +320,7 @@ const getRoutes = (lang: Locales) => {
     careerPlanning: () => `${baseUrl}/employee/career-planning`,
     employeeProfileFunctionalCommunities: () =>
       `${baseUrl}/employee/communities`,
-    talentNominations: () => `${baseUrl}/employee`, // update in #17294
+    talentNominations: () => `${baseUrl}/employee/nominations`,
 
     skillPortfolio: () => [applicantUrl, "skills"].join("/"),
     skillShowcase: () => [showcase].join("/"),
@@ -447,9 +448,6 @@ const getRoutes = (lang: Locales) => {
     // Comptrollership
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
-
-    // DND
-    dndDigitalCareers: () => `${baseUrl}/dnd`,
 
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,

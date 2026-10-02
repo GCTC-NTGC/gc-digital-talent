@@ -22,7 +22,6 @@ import {
   enumInputToLocalizedEnum,
   narrowEnumType,
   sortTalentRequestReason,
-  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -35,14 +34,6 @@ import {
 } from "@gc-digital-talent/graphql";
 import type {
   TalentRequestReason,
-  EquitySelections,
-  DepartmentBelongsTo,
-  Classification,
-  OperationalRequirement,
-  Pool,
-  Skill,
-  ApplicantFilter,
-  ApplicantFilterInput,
   FragmentType,
   CreateTalentRequestMutation,
   CreateTalentRequestInput,
@@ -57,11 +48,9 @@ import type {
 } from "~/types/talentRequestForm";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import { getBasicFullNameLabel } from "~/utils/nameUtils";
+import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 
-import {
-  TALENT_REQUEST_STATE_KEY,
-  useTalentRequestState,
-} from "../../SearchPage/hooks";
+import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
   <Link href={href} newTab>
@@ -78,26 +67,7 @@ interface FormValues {
   reason: TalentRequestReason;
   additionalComments?: string;
   hrAdvisorEmail?: string;
-  applicantFilter?: {
-    qualifiedInClassifications?: {
-      sync?: (Classification["id"] | null)[];
-    };
-    qualifiedInworkStreams?: ApplicantFilterInput["qualifiedInWorkStreams"];
-    skills?: {
-      sync?: (Skill["id"] | null)[];
-    };
-    hasDiploma?: ApplicantFilterInput["hasDiploma"];
-    positionDuration?: ApplicantFilterInput["positionDuration"];
-    equity?: EquitySelections;
-    languageAbility?: ApplicantFilter["languageAbility"];
-    operationalRequirements?: (OperationalRequirement | null)[];
-    pools?: {
-      sync?: (Pool["id"] | null)[];
-    };
-    locationPreferences?: ApplicantFilterInput["locationPreferences"];
-    flexibleWorkLocations?: ApplicantFilterInput["flexibleWorkLocations"];
-  };
-  department?: DepartmentBelongsTo["connect"];
+  department?: string;
 }
 
 export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
@@ -107,6 +77,15 @@ export const RequestFormClassification_Fragment = graphql(/* GraphQL */ `
     level
     groupAndLevel
     displayName
+  }
+`);
+
+export const RequestFormSkill_Fragment = graphql(/* GraphQL */ `
+  fragment RequestFormSkill on Skill {
+    id
+    name {
+      localized
+    }
   }
 `);
 
@@ -239,7 +218,7 @@ const RequestOptions_Query = graphql(/* GraphQL */ `
 
 export interface RequestFormProps {
   departmentsQuery: FragmentType<typeof RequestFormDepartment_Fragment>[];
-  skills: Skill[];
+  skills: FragmentType<typeof RequestFormSkill_Fragment>[];
   classificationsQuery: FragmentType<
     typeof RequestFormClassification_Fragment
   >[];
@@ -253,7 +232,7 @@ export interface RequestFormProps {
 
 export const RequestForm = ({
   departmentsQuery,
-  skills,
+  skills: skillsQuery,
   classificationsQuery,
   communitiesQuery,
   defaultUserQuery,
@@ -272,6 +251,7 @@ export const RequestForm = ({
       includeIds: unpackMaybes(applicantFilter?.pools).map(({ id }) => id),
     },
   });
+  const skills = getFragment(RequestFormSkill_Fragment, skillsQuery);
   const classifications = getFragment(
     RequestFormClassification_Fragment,
     classificationsQuery,
@@ -514,7 +494,7 @@ export const RequestForm = ({
 
   return (
     <section>
-      <Heading level="h2" size="h6" className="mt-0 mb-3 font-bold">
+      <Heading rank="h2" size="h6" className="mt-0 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Your contact information",
           id: "T8J2Lp",
@@ -537,7 +517,11 @@ export const RequestForm = ({
               id="fullName"
               type="text"
               name="fullName"
-              label={intl.formatMessage(commonMessages.fullName)}
+              label={intl.formatMessage({
+                defaultMessage: "Full name",
+                id: "IBc2sp",
+                description: "Label for full name",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -590,7 +574,7 @@ export const RequestForm = ({
               label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Reason for the talent request",
               id: "8EbhWx",
@@ -629,7 +613,7 @@ export const RequestForm = ({
               },
             )}
           </p>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Details about the job opportunity",
               id: "FNgThS",
@@ -693,7 +677,7 @@ export const RequestForm = ({
             label={intl.formatMessage(talentRequestMessages.additionalComments)}
             rows={8}
           />
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",
@@ -766,19 +750,7 @@ const RequestForm_SearchRequestDataQuery = graphql(/* GraphQL */ `
       ...RequestFormDepartment
     }
     skills {
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
+      ...RequestFormSkill
     }
     classifications {
       ...RequestFormClassification
@@ -797,8 +769,6 @@ const RequestFormApi = () => {
   const [{ data: lookupData, fetching, error }] = useQuery({
     query: RequestForm_SearchRequestDataQuery,
   });
-
-  const skills: Skill[] = unpackMaybes(lookupData?.skills);
 
   const [, executeTalentRequestMutation] = useMutation(
     CreateTalentRequest_Mutation,
@@ -826,7 +796,7 @@ const RequestFormApi = () => {
           classificationsQuery={unpackMaybes(lookupData?.classifications)}
           departmentsQuery={unpackMaybes(lookupData?.departments)}
           communitiesQuery={unpackMaybes(lookupData?.communities)}
-          skills={skills}
+          skills={unpackMaybes(lookupData?.skills)}
           handleCreateTalentRequest={handleCreateTalentRequest}
           defaultUserQuery={lookupData?.me ?? {}}
         />

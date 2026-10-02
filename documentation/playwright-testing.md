@@ -22,6 +22,7 @@ TESTING_ENDPOINT_SECRET=<ask a team member with Azure access>
 PLAYWRIGHT_PLATFORM_ADMIN_SUB=<sub of any UAT account with the Platform Admin role>
 PLAYWRIGHT_COMMUNITY_ADMIN_SUB=<sub of any UAT account with the Community Admin role>
 PLAYWRIGHT_APPLICANT_SUB=<sub of any UAT account with the Applicant role only>
+PLAYWRIGHT_NO_ROLES_SUB=<sub of any UAT account having no roles at all>
 ```
 
 All values must be filled in. `TESTING_ENDPOINT_SECRET` is stored in Azure Key Vault. The `_SUB` values are the `sub` UUID of existing UAT users with the respective roles — use Laravel tinker on the App Service Kudu console to look them up.
@@ -36,15 +37,15 @@ App\Models\User::whereNotNull('sub')->whereNull('deleted_at')->whereHas('roles',
 
 All commands run from `apps/playwright/`:
 
-| Goal | Command |
-|---|---|
-| All UAT tests | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test` |
-| UAT projects only (auth, smoke, regression) | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --project=uat-*` |
-| Integration tests only | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --project=chromium --grep @uat` |
-| Re-run last failures | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --last-failed` |
-| Run by name | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --grep "test title"` |
-| UI mode (interactive, watch/debug) | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --ui` |
-| Open HTML report | `pnpm exec playwright show-report` |
+| Goal                                        | Command                                                                                 |
+| ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| All UAT tests                               | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test`                                |
+| UAT projects only (auth, smoke, regression) | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --project=uat-*`                |
+| Integration tests only                      | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --project=chromium --grep @uat` |
+| Re-run last failures                        | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --last-failed`                  |
+| Run by name                                 | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --grep "test title"`            |
+| UI mode (interactive, watch/debug)          | `PLAYWRIGHT_ENV_FILE=.env.uat pnpm exec playwright test --ui`                           |
+| Open HTML report                            | `pnpm exec playwright show-report`                                                      |
 
 ## How Authentication Works
 
@@ -61,6 +62,7 @@ If tests fail with a 400 or HTML response from the token endpoint:
 ## `uat-persistent` — read-only, existing UAT users
 
 Use this pattern when:
+
 - The test only **asserts** — it never creates, updates, or deletes records
 - It logs in as a **real, pre-seeded UAT user** via one of the `PLAYWRIGHT_*_SUB` env vars
 - Failure means something that previously worked has broken in the live environment
@@ -69,6 +71,7 @@ Use this pattern when:
 **Runs in:** UAT pipeline only (matched by `--project=uat-*`)
 
 Examples:
+
 - Applicant dashboard renders key sections
 - Admin can reach the admin dashboard
 - Existing talent requests display correctly after a refactor
@@ -76,6 +79,7 @@ Examples:
 ## Integration (dynamic data) — `chromium @uat`
 
 Use this pattern when:
+
 - The test **creates, modifies, or deletes** records
 - It needs a **fresh, isolated user** with a specific role/state
 - It must be safe to run in any environment (local, CI, UAT)
@@ -85,6 +89,7 @@ Use this pattern when:
 **Runs in:** all environments
 
 Examples:
+
 - Submitting a full application end-to-end
 - Assessing a candidate and recording a decision
 - Completing a talent request (create via API → act via UI → delete in teardown)

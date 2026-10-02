@@ -99,6 +99,7 @@ class TalentRequestTrackedUserTest extends TestCase
                     matchingQualifiedInPoolSources { pool { id } }
                     matchingAtLevelSources { id }
                     matchingAdvancementSources { id }
+                    matchingLateralMovementSources { id }
                 }
             }
         }
@@ -363,7 +364,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
@@ -566,7 +567,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
@@ -1651,7 +1652,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1703,7 +1704,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1752,11 +1753,11 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $matchingClass->id,
         ]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $otherClass->id,
         ]);
@@ -1788,10 +1789,10 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
 
-        $poolA = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolA = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
-        $poolB = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolB = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
 
@@ -1834,7 +1835,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1924,7 +1925,7 @@ class TalentRequestTrackedUserTest extends TestCase
             ->for($filter)
             ->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)
             ->for($classification)
             ->create();
@@ -1985,7 +1986,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();
@@ -2035,14 +2036,11 @@ class TalentRequestTrackedUserTest extends TestCase
         );
     }
 
-    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    private function seedReferredNominationGroupUsers(TalentRequest $request, string $nominationType, int $count): void
     {
-        $filter = ApplicantFilter::factory()->for($this->community)->create();
-        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
-
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $user = User::factory()->create([
-                'work_email' => "advancement.batch.{$i}@gc.ca",
+                'work_email' => str_replace('_', '.', $nominationType).".batch.{$i}@gc.ca",
                 'work_email_verified_at' => now(),
                 'computed_is_gov_employee' => true,
             ]);
@@ -2051,12 +2049,20 @@ class TalentRequestTrackedUserTest extends TestCase
             $group = TalentNominationGroup::create([
                 'nominee_id' => $user->id,
                 'talent_nomination_event_id' => $event->id,
-                'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+                "{$nominationType}_decision" => TalentNominationGroupDecision::APPROVED->name,
             ]);
-            $group->referral_expiry_date = now()->addMonths(6);
+            $group->{"{$nominationType}_referral_expiry_date"} = now()->addMonths(6);
             $group->save();
             TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
         }
+    }
+
+    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $this->seedReferredNominationGroupUsers($request, 'advancement', 25);
 
         $listQuery = <<<'GRAPHQL'
             query ($talentRequestId: UUID!) {
@@ -2084,6 +2090,42 @@ class TalentRequestTrackedUserTest extends TestCase
             1,
             $batchedLookups,
             'Matching advancement sources must load in one batched query, not one per row.',
+        );
+    }
+
+    public function testTrackedUsersListBatchesMatchingLateralMovementSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $this->seedReferredNominationGroupUsers($request, 'lateral_movement', 25);
+
+        $listQuery = <<<'GRAPHQL'
+            query ($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: 50) {
+                    data {
+                        matchingLateralMovementSources { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($listQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(25, 'data.talentRequestTrackedUsers.data');
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "talent_nomination_groups"')
+                && str_contains($entry['query'], '"nominee_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Matching lateral movement sources must load in one batched query, not one per row.',
         );
     }
 
@@ -2134,7 +2176,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();

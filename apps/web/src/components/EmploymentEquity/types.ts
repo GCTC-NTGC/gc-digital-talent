@@ -2,9 +2,9 @@ import type { ReactNode } from "react";
 
 import type {
   IndigenousCommunity,
-  LocalizedIndigenousCommunity,
   UpdateUserAsUserMutation,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 export type EquityKeys =
   "isWoman" | "indigenousCommunities" | "isVisibleMinority" | "hasDisability";
@@ -26,7 +26,7 @@ export interface IndigenousUpdateProps {
 }
 
 export interface IndigenousDialogProps {
-  indigenousCommunities: LocalizedIndigenousCommunity[];
+  indigenousCommunities: GenericLocalizedEnum<IndigenousCommunity>[];
   signature: string | undefined;
   onSave: (data: IndigenousUpdateProps) => Promise<void>;
   children: ReactNode;

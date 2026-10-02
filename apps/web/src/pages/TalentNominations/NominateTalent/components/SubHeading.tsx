@@ -18,7 +18,7 @@ const SubHeading = ({ preventAutoFocus, ...rest }: SubHeadingProps) => {
   return (
     <Heading
       ref={headingRef}
-      level="h2"
+      rank="h2"
       color="primary"
       className="mt-0 font-normal"
       {...rest}

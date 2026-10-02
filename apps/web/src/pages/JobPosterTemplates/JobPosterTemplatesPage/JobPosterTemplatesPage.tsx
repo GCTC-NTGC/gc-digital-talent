@@ -21,9 +21,8 @@ import {
   type PreviewMetaData,
 } from "@gc-digital-talent/ui";
 import type {
-  Classification,
+  LocalizedString,
   SupervisoryStatus,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import {
@@ -127,10 +126,20 @@ function assertIncludes(haystack: string[], needle?: string | null): boolean {
   return false;
 }
 
+interface PreviewClassification {
+  id: string;
+  groupAndLevel: string;
+}
+
+interface PreviewWorkStream {
+  id: string;
+  name?: LocalizedString | null;
+}
+
 function previewMetaData(
   intl: IntlShape,
-  classification?: Classification | null,
-  workStream?: WorkStream | null,
+  classification?: PreviewClassification | null,
+  workStream?: PreviewWorkStream | null,
 ): PreviewMetaData[] {
   const metaData = [];
   if (classification) {
@@ -310,7 +319,7 @@ const JobPosterTemplatesPage = () => {
       />
       <Container>
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           color="secondary"
           icon={RectangleStackIcon}

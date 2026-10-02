@@ -4,11 +4,13 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\EmailType;
 use App\Enums\ErrorCode;
+use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Models\User;
 use App\Rules\CaseInsensitiveUnique;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -24,6 +26,17 @@ final class VerifyUserEmails
         $user = Auth::user();
         $providedCode = $args['code'];
         $normalizedCode = trim(strtoupper($providedCode));
+
+        // Apply throttling to prevent brute-force attack
+        // 10 attempts per minute deemed generous to real users while still hampering bots
+        $rateLimiterKey = 'verify-user-email:'.$user->id;
+        $attemptsPerMinute = 10;
+        if (RateLimiter::tooManyAttempts($rateLimiterKey, $attemptsPerMinute)) {
+            $seconds = RateLimiter::availableIn($rateLimiterKey);
+
+            return new ClientSafeTooManyRequestsException(ErrorCode::RATE_LIMIT->name, $seconds);
+        }
+        RateLimiter::increment($rateLimiterKey);
 
         $key = 'email-verification-'.$user->id;
         $token = Cache::get($key); // refer to VerifyEmails->createVerificationCode

@@ -1,31 +1,26 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type {
-  Community,
-  DevelopmentProgram,
-  WorkStream,
-} from "@gc-digital-talent/graphql/schema-types";
-
 import toLocalizedString from "./fakeLocalizedString";
 import fakeWorkStreams from "./fakeWorkStreams";
 import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 
 const generateCommunity = (
-  developmentPrograms: DevelopmentProgram[],
-  workStreams: WorkStream[],
-): Community => {
+  developmentPrograms: ReturnType<typeof fakeDevelopmentPrograms>,
+  workStreams: ReturnType<typeof fakeWorkStreams>,
+) => {
   return {
+    __typename: "Community" as const,
     id: faker.string.uuid(),
     key: faker.helpers.slugify(faker.lorem.word()),
     name: toLocalizedString(faker.company.name()),
     description: toLocalizedString(faker.lorem.paragraph()),
     associatedDevelopmentPrograms:
-      faker.helpers.arrayElements<DevelopmentProgram>(developmentPrograms),
-    workStreams: faker.helpers.arrayElements<WorkStream>(workStreams),
+      faker.helpers.arrayElements(developmentPrograms),
+    workStreams: faker.helpers.arrayElements(workStreams),
   };
 };
 
-export default (numToGenerate = 10): Community[] => {
+export default (numToGenerate = 10) => {
   faker.seed(0); // repeatable results
   const developmentPrograms = fakeDevelopmentPrograms();
   const workStreams = fakeWorkStreams();

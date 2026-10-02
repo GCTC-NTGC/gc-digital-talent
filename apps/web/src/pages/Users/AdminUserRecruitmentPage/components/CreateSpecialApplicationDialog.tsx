@@ -52,13 +52,6 @@ const CreateSpecialApplicationDialogOptions_Query = graphql(/* GraphQL */ `
     poolsPaginated(where: $where, excludeIds: $excludeIds, first: 1000) {
       data {
         id
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
         workStream {
           id
           name {
@@ -135,7 +128,6 @@ const CreateSpecialApplicationDialog = ({
     label: getShortPoolTitleLabel(intl, {
       workStream: pool.workStream,
       name: pool.name,
-      publishingGroup: pool.publishingGroup,
       classification: pool.classification,
     }),
   }));

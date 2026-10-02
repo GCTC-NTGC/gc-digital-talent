@@ -1,20 +1,20 @@
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import type { ActivityProperties } from "@gc-digital-talent/graphql";
 import { getFragment } from "@gc-digital-talent/graphql";
 import type { Locales } from "@gc-digital-talent/i18n";
 import { getLocale } from "@gc-digital-talent/i18n";
 
 import type { CommonItemProps } from "./BaseActivityItem";
 import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
+import type { ActivityItemProperties } from "./utils";
 import { getDeepAttribute, getEventInfo, parseAttributes } from "./utils";
 
 type PoolSkillActivityItemProps = CommonItemProps;
 
 function getDescription(
   locale: Locales,
-  propsObj?: ActivityProperties | null,
+  propsObj?: ActivityItemProperties | null,
 ): ReactNode {
   let desc: ReactNode;
   if (propsObj) {

@@ -34,6 +34,7 @@ export const StatusChangeNotice = () => {
 
 const ApplicationStatusDialogContent_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationStatusDialogContent on PoolCandidate {
+    statusUpdatedAt
     applicationStatusData {
       status {
         value
@@ -41,7 +42,6 @@ const ApplicationStatusDialogContent_Fragment = graphql(/** GraphQL */ `
           localized
         }
       }
-      statusUpdatedAt
     }
   }
 `);
@@ -81,11 +81,9 @@ export const Content = ({ query, reason, submitProps }: ContentProps) => {
             status:
               application.applicationStatusData?.status.label.localized ??
               notAvailable,
-            date: application.applicationStatusData?.statusUpdatedAt
+            date: application.statusUpdatedAt
               ? formatDate({
-                  date: parseDateTimeUtc(
-                    application.applicationStatusData.statusUpdatedAt,
-                  ),
+                  date: parseDateTimeUtc(application.statusUpdatedAt),
                   formatString: DATE_FORMAT_STRING,
                   intl,
                 })

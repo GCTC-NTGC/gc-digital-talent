@@ -1,11 +1,10 @@
-import type {
-  Pool,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
+
+import type { ApplicationStepPool } from "~/types/applicationStep";
 
 const stepHasError = (
   _user: ApplicationPoolCandidateFragmentType["user"],
-  _pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
+  _pool: ApplicationStepPool,
   application: ApplicationPoolCandidateFragmentType,
 ) => {
   return !application.signature;

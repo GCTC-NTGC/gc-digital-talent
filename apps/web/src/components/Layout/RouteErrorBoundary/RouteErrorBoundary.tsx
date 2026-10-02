@@ -35,7 +35,7 @@ const RouteErrorBoundary = () => {
       <Flourish className="hidden sm:block" />
       <div className="bg-gray-100 py-18 text-black dark:bg-gray-700 dark:text-white">
         <Container size="lg" center className="text-center">
-          <Heading level="h1" size="h4" className="mt-0 font-bold">
+          <Heading rank="h1" size="h4" className="mt-0 font-bold">
             {error.messages.title}
           </Heading>
           <img

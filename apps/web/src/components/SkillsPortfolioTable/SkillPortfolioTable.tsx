@@ -266,9 +266,16 @@ const SkillPortfolioTable = ({
                   context="library"
                   query={unclaimedSkills}
                   onSave={async (value) => {
+                    const userId = userAuthInfo?.id;
+                    const skillId = value?.skill;
+
+                    if (!userId || !skillId) {
+                      return;
+                    }
+
                     await executeCreateMutation({
-                      userId: userAuthInfo?.id ?? "",
-                      skillId: value?.skill ?? "",
+                      userId,
+                      skillId,
                       userSkill: {
                         skillLevel: value.skillLevel,
                         whenSkillUsed: value.whenSkillUsed,
@@ -317,9 +324,8 @@ const SkillPortfolioTable = ({
           description: "Title for when no skills match a users filters.",
         }),
         description: intl.formatMessage({
-          defaultMessage:
-            'Try using a different term or searching for the skill using the "Add a new skill" button provided.',
-          id: "TN9ndX",
+          defaultMessage: "Try using a different term.",
+          id: "LOYLe7",
           description: "Message displayed when no skills match a users filters",
         }),
       }}

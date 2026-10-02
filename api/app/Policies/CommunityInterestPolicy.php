@@ -68,20 +68,8 @@ class CommunityInterestPolicy
         }
 
         return ! is_null($communityInterest->community->team)
-            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team);
-    }
-
-    public function viewReferralStatus(User $user, CommunityInterest $communityInterest): bool
-    {
-        if ($user->isAbleTo('view-any-communityInterestReferralStatus')) {
-            return true;
-        }
-
-        return ! is_null($communityInterest->community->team) && $user->isAbleTo('view-team-communityInterestReferralStatus', $communityInterest->community->team);
-    }
-
-    public function updateReferralStatus(User $user, CommunityInterest $communityInterest): bool
-    {
-        return ! is_null($communityInterest->community->team) && $user->isAbleTo('update-team-communityInterestReferralStatus', $communityInterest->community->team);
+            && $user->isAbleTo('view-team-communityTalent', $communityInterest->community->team)
+            && $communityInterest->consent_to_share_profile
+            && $communityInterest->user->isVerifiedGovEmployee;
     }
 }

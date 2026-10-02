@@ -1,21 +1,28 @@
-import type { Pool } from "@gc-digital-talent/graphql";
+import type {
+  LocalizedString,
+  PoolAreaOfSelection,
+  PoolOpportunityLength,
+} from "@gc-digital-talent/graphql";
+import type { LocalizedEnumValue } from "@gc-digital-talent/i18n";
+
+interface NullStateFields {
+  workStream?: { id: string } | null;
+  name?: LocalizedString | null;
+}
 
 /*
   Checks null state for advertisement details section of edit pool page.
   Note: The pool.classification should not be null, therefore it doesn't need to checked
 */
-export function isInNullState({
-  workStream,
-  name,
-  publishingGroup,
-}: Pick<Pool, "workStream" | "name" | "publishingGroup">): boolean {
-  return !!(
-    !workStream &&
-    !name?.en &&
-    !name?.fr &&
-    !publishingGroup &&
-    !publishingGroup
-  );
+export function isInNullState({ workStream, name }: NullStateFields): boolean {
+  return !!(!workStream && !name?.en && !name?.fr);
+}
+
+interface ClassificationFields extends NullStateFields {
+  areaOfSelection?: LocalizedEnumValue<PoolAreaOfSelection> | null;
+  classification?: { id: string } | null;
+  department?: { id: string } | null;
+  opportunityLength?: LocalizedEnumValue<PoolOpportunityLength> | null;
 }
 
 export function hasEmptyRequiredFields({
@@ -24,18 +31,8 @@ export function hasEmptyRequiredFields({
   department,
   workStream,
   name,
-  publishingGroup,
   opportunityLength,
-}: Pick<
-  Pool,
-  | "areaOfSelection"
-  | "classification"
-  | "department"
-  | "workStream"
-  | "name"
-  | "publishingGroup"
-  | "opportunityLength"
->): boolean {
+}: ClassificationFields): boolean {
   return !!(
     !areaOfSelection?.value ||
     !classification ||
@@ -43,7 +40,6 @@ export function hasEmptyRequiredFields({
     !workStream ||
     !name?.en ||
     !name?.fr ||
-    !publishingGroup ||
     !opportunityLength
   );
 }

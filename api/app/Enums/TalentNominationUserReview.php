@@ -10,12 +10,12 @@ enum TalentNominationUserReview
 {
     use HasLocalization;
 
-    #[Description(description: 'The user information looks correct.')]
+    #[Description(description: 'The information provided is correct')]
     case CORRECT;
-    #[Description(description: 'The user information looks incorrect or refers to the wrong person.')]
-    case INCORRECT;
-    #[Description(description: 'The user information is out of date.')]
-    case OUT_OF_DATE;
+    #[Description(description: 'The information provided is incorrect or out of date')]
+    case INCORRECT_OUT_OF_DATE;
+    #[Description(description: 'The information refers to the wrong person')]
+    case WRONG_PERSON;
 
     public static function getLangFilename(): string
     {

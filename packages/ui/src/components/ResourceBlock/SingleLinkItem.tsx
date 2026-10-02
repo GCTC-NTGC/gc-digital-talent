@@ -8,7 +8,7 @@ import type { LinkProps } from "../Link";
 import Link from "../Link";
 import type { BaseItemProps } from "./BaseItem";
 import BaseItem from "./BaseItem";
-import type { HeadingRank } from "../../types";
+import type { HeadingRank } from "../Heading";
 
 interface WrapperProps {
   as?: HeadingRank;

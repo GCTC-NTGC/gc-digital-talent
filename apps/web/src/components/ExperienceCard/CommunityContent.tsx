@@ -1,24 +1,28 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { CommunityExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
+interface CommunityContentExperience {
+  __typename?: "CommunityExperience";
+  project?: string | null;
+}
+
 const CommunityContent = ({
   experience: { project },
-  headingLevel,
-}: ContentProps<Omit<CommunityExperience, "user">>) => {
+  headingRank,
+}: ContentProps<CommunityContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
     <ContentSection
       title={experienceFormLabels.project}
-      headingLevel={headingLevel}
+      headingRank={headingRank}
     >
       {project ?? intl.formatMessage(commonMessages.notAvailable)}
     </ContentSection>

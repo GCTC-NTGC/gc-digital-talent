@@ -9,11 +9,7 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -124,7 +120,11 @@ const CommunityFields = ({
         label={labels.organization}
         name="organization"
         type="text"
-        placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+        placeholder={intl.formatMessage({
+          defaultMessage: "Select or type an answer",
+          id: "se/c4O",
+          description: "Placeholder text for an input with options list",
+        })}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         list={
           organizationSuggestions.length ? "organizationSuggestions" : undefined
@@ -144,15 +144,7 @@ const CommunityFields = ({
         type="text"
         rules={{ required: intl.formatMessage(errorMessages.required) }}
       />
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            "The following section should be a high-level overview focusing on what you did in the role. Try to keep this field clear and concise as you'll be able to provide more detailed information when linking skills to this experience.",
-          id: "NEycpM",
-          description:
-            "Help text for the experience key tasks and responsibilities field",
-        })}
-      </p>
+      <p>{experienceLabels.keyTasksDescription}</p>
       <TextArea
         id={"details"}
         name={"details"}

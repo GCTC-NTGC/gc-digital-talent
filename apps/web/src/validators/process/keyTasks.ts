@@ -1,13 +1,13 @@
-import type { Pool } from "@gc-digital-talent/graphql";
+import type { LocalizedString } from "@gc-digital-talent/graphql";
 
-export function hasAllEmptyFields({
-  keyTasks,
-}: Pick<Pool, "keyTasks">): boolean {
+interface KeyTasksFields {
+  keyTasks?: LocalizedString | null;
+}
+
+export function hasAllEmptyFields({ keyTasks }: KeyTasksFields): boolean {
   return !!(!keyTasks?.en && !keyTasks?.fr);
 }
 
-export function hasEmptyRequiredFields({
-  keyTasks,
-}: Pick<Pool, "keyTasks">): boolean {
+export function hasEmptyRequiredFields({ keyTasks }: KeyTasksFields): boolean {
   return !!(!keyTasks?.en || !keyTasks?.fr);
 }

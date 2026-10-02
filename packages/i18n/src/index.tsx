@@ -62,14 +62,13 @@ import {
 import {
   type MaybeLocalizedEnums,
   type GenericLocalizedEnum,
+  type LocalizedEnumValue,
   enumInputToLocalizedEnum,
   getLocalizedEnumByValue,
   getLocalizedEnumStringByValue,
   sortAwardedScope,
   sortAwardedTo,
   sortCandidateRemovalReason,
-  sortEducationStatus,
-  sortEducationType,
   sortWorkRegion,
   sortFlexibleWorkLocations,
   sortEvaluatedLanguageAbility,
@@ -123,8 +122,6 @@ export {
   sortAwardedScope,
   sortAwardedTo,
   sortCandidateRemovalReason,
-  sortEducationStatus,
-  sortEducationType,
   sortWorkRegion,
   sortFlexibleWorkLocations,
   sortEvaluatedLanguageAbility,
@@ -174,6 +171,7 @@ export type {
   Messages,
   MaybeLocalizedEnums,
   GenericLocalizedEnum,
+  LocalizedEnumValue,
   TEmploymentDuration,
 };
 export { fr };

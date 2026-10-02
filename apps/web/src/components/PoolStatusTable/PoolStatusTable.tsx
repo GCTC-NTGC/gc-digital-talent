@@ -6,20 +6,22 @@ import { isPast } from "date-fns/isPast";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import { parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import type {
-  FragmentType,
-  PoolCandidate,
-  PoolStatusTableFragment,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import {
   ApplicationStatus,
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
 import cells from "~/components/Table/cells";
 import { normalizedText } from "~/components/Table/sortingFns";
+import type { ChangeDateDialog_PoolCandidateFragment } from "~/components/CandidateDialog/ChangeDateDialog";
+import type {
+  PoolTitleClassification,
+  PoolTitleWorkStream,
+} from "~/utils/poolUtils";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
 import processMessages from "~/messages/processMessages";
@@ -28,7 +30,7 @@ import accessors from "../Table/accessors";
 import { expiryCell } from "./cells";
 import sortStatus from "./sortStatus";
 
-const isSuspended = (suspendedAt: PoolCandidate["suspendedAt"]): boolean => {
+const isSuspended = (suspendedAt?: string | null): boolean => {
   if (!suspendedAt) return false;
 
   const suspendedAtDate = parseDateTimeUtc(suspendedAt);
@@ -71,23 +73,34 @@ const PoolStatusTable_Fragment = graphql(/* GraphQL */ `
             fr
           }
         }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
       }
     }
   }
 `);
 
-type RowDef = NonNullable<
-  NonNullable<PoolStatusTableFragment["poolCandidates"]>[number]
->;
+interface PoolStatusRowPool {
+  id: string;
+  processNumber?: string | null;
+  name?: LocalizedString | null;
+  classification?: PoolTitleClassification | null;
+  workStream?: PoolTitleWorkStream | null;
+}
 
-const columnHelper = createColumnHelper<RowDef>();
+interface PoolStatusRowStatus {
+  status?: GenericLocalizedEnum<ApplicationStatus> | null;
+}
+
+type PoolStatusRow = FragmentType<
+  typeof ChangeDateDialog_PoolCandidateFragment
+> & {
+  id: string;
+  expiryDate?: string | null;
+  suspendedAt?: string | null;
+  applicationStatusData?: PoolStatusRowStatus | null;
+  pool: PoolStatusRowPool;
+};
+
+const columnHelper = createColumnHelper<PoolStatusRow>();
 
 interface PoolStatusTableProps {
   currentPoolId?: string;
@@ -110,7 +123,6 @@ const PoolStatusTable = ({
         getShortPoolTitleLabel(intl, {
           workStream: row.pool.workStream,
           name: row.pool.name,
-          publishingGroup: row.pool.publishingGroup,
           classification: row.pool.classification,
         }),
       {
@@ -134,15 +146,6 @@ const PoolStatusTable = ({
       id: "processNumber",
       header: intl.formatMessage(processMessages.processNumber),
     }),
-    columnHelper.accessor(
-      ({ pool: { publishingGroup } }) =>
-        getLocalizedName(publishingGroup?.label, intl),
-      {
-        id: "publishingGroup",
-        sortingFn: normalizedText,
-        header: intl.formatMessage(processMessages.publishingGroup),
-      },
-    ),
     columnHelper.accessor(
       (row) =>
         row.applicationStatusData?.status?.label?.localized ??
@@ -218,14 +221,9 @@ const PoolStatusTable = ({
           firstName: user.firstName,
           lastName: user.lastName,
         }),
-      header: intl.formatMessage({
-        defaultMessage: "Expiry date",
-        id: "STDYoR",
-        description:
-          "Title of the 'Expiry date' column for the table on view-user page",
-      }),
+      header: intl.formatMessage(commonMessages.expiryDate),
     }),
-  ] as ColumnDef<RowDef>[];
+  ] as ColumnDef<PoolStatusRow>[];
 
   let data = unpackMaybes(user.poolCandidates);
   if (currentPoolId) {
@@ -241,7 +239,7 @@ const PoolStatusTable = ({
   }
 
   return (
-    <Table<RowDef>
+    <Table<PoolStatusRow>
       caption={intl.formatMessage({
         defaultMessage: "Pool information",
         id: "ptOxLJ",

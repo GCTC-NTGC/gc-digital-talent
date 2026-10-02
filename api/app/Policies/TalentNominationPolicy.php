@@ -27,6 +27,11 @@ class TalentNominationPolicy
             return true;
         }
 
+        // can view if you are the nominee of a submitted nomination
+        if (! $isDraft && $actor->id === $talentNomination->nominee_id) {
+            return true;
+        }
+
         // can view if the nomination is submitted and is for an event in their community
         $communityTeam = Team::with(['teamable.team'])
             ->where('teamable_type', 'App\Models\Community')

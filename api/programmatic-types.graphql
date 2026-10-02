@@ -124,11 +124,6 @@ type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedCommunityReferralStatus implements LocalizedEnumOption {
-  value: CommunityReferralStatus!
-  label: LocalizedString!
-}
-
 type LocalizedCourseFormat implements LocalizedEnumOption {
   value: CourseFormat!
   label: LocalizedString!
@@ -141,6 +136,11 @@ type LocalizedCourseLanguage implements LocalizedEnumOption {
 
 type LocalizedDeadlineStatus implements LocalizedEnumOption {
   value: DeadlineStatus!
+  label: LocalizedString!
+}
+
+type LocalizedDegreeType implements LocalizedEnumOption {
+  value: DegreeType!
   label: LocalizedString!
 }
 
@@ -209,6 +209,11 @@ type LocalizedExternalSizeOfOrganization implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedFellowshipType implements LocalizedEnumOption {
+  value: FellowshipType!
+  label: LocalizedString!
+}
+
 type LocalizedFinanceChiefRole implements LocalizedEnumOption {
   value: FinanceChiefRole!
   label: LocalizedString!
@@ -274,6 +279,11 @@ type LocalizedNineBoxRating implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedOldEducationType implements LocalizedEnumOption {
+  value: OldEducationType!
+  label: LocalizedString!
+}
+
 type LocalizedOperationalRequirement implements LocalizedEnumOption {
   value: OperationalRequirement!
   label: LocalizedString!
@@ -336,11 +346,6 @@ type LocalizedPriorityWeight implements LocalizedEnumOption {
 
 type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   value: ProvinceOrTerritory!
-  label: LocalizedString!
-}
-
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
   label: LocalizedString!
 }
 
@@ -1039,9 +1044,6 @@ enum Permission {
   ViewTeamCommunityInterest
   ViewTeamCommunityTalent
   DeleteOwnCommunityInterest
-  ViewAnyCommunityInterestReferralStatus
-  ViewTeamCommunityInterestReferralStatus
-  UpdateTeamCommunityInterestReferralStatus
   CreateOwnTalentNomination
   CreateOwnPastTalentNomination
   UpdateOwnTalentNomination
@@ -1272,13 +1274,6 @@ enum CommunityInterestAdditionalDuty {
   REAL_PROPERTY_MANAGEMENT
 }
 
-enum CommunityReferralStatus {
-  NEW
-  PENDING
-  AVAILABLE_FOR_REFERRAL
-  NOT_REFERRED
-}
-
 enum CourseFormat {
   ON_SITE
   VIRTUAL
@@ -1293,6 +1288,14 @@ enum CourseLanguage {
 enum DeadlineStatus {
   PUBLISHED
   EXPIRED
+}
+
+enum DegreeType {
+  HIGH_SCHOOL
+  COLLEGE_DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
 }
 
 enum DepartmentSize {
@@ -1326,16 +1329,15 @@ enum EducationStatus {
   IN_PROGRESS
   AUDITED
   DID_NOT_COMPLETE
+  SUCCESS
 }
 
 enum EducationType {
-  DIPLOMA
-  BACHELORS_DEGREE
-  MASTERS_DEGREE
-  PHD
-  POST_DOCTORAL_FELLOWSHIP
-  ONLINE_COURSE
-  CERTIFICATION
+  DEGREE_DIPLOMA_CERTIFICATE
+  LICENSE_ACCREDITATION
+  PROFESSIONAL_CERTIFICATION
+  INDIVIDUAL_COURSE
+  FELLOWSHIP
   OTHER
 }
 
@@ -1479,8 +1481,15 @@ enum ErrorCode {
   NINE_BOX_RATINGS_PROHIBITED_FOR_EVENT
   ADVANCEMENT_CLASSIFICATIONS_REQUIRED
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
-  REFERRAL_EXPIRY_DATE_REQUIRED
-  REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_DECISION_REQUIRED
+  LATERAL_MOVEMENT_DECISION_REQUIRED
+  DEVELOPMENT_PROGRAMS_DECISION_REQUIRED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -1547,6 +1556,12 @@ enum ExternalSizeOfOrganization {
   ONE_THOUSAND_PLUS
 }
 
+enum FellowshipType {
+  POST_DOCTORAL
+  INDUSTRY
+  OTHER
+}
+
 enum FinanceChiefRole {
   CHIEF_SECURITY_OFFICER
   CHIEF_INFORMATION_OFFICER
@@ -1592,6 +1607,7 @@ enum GovEmployeeType {
   TERM
   INDETERMINATE
   CONTRACTOR
+  INTERCHANGE
 }
 
 enum GovPositionType {
@@ -1653,6 +1669,17 @@ enum NotificationFamily {
 enum NullsOption {
   ORDER_FIRST
   ORDER_LAST
+}
+
+enum OldEducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 enum OperationalRequirement {
@@ -1770,13 +1797,6 @@ enum ProvinceOrTerritory {
   NUNAVUT
 }
 
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
-}
-
 enum ScreeningStage {
   NEW_APPLICATION
   APPLICATION_REVIEW
@@ -1871,8 +1891,8 @@ enum TalentNominationSubmitterRelationshipToNominator {
 
 enum TalentNominationUserReview {
   CORRECT
-  INCORRECT
-  OUT_OF_DATE
+  INCORRECT_OUT_OF_DATE
+  WRONG_PERSON
 }
 
 enum TalentRequestCompletionDetail {
@@ -1909,6 +1929,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

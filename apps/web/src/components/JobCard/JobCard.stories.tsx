@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 import { parseISO } from "date-fns/parseISO";
 
 import { fakePools } from "@gc-digital-talent/fake-data";
-import type { Pool } from "@gc-digital-talent/graphql";
 import {
   makeFragmentData,
   PoolAreaOfSelection,
@@ -16,11 +15,11 @@ import JobCard, { JobCard_Fragment } from "./JobCard";
 const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
-const staticDate = new Date(parseISO(fakedPool.publishedAt!));
+const staticDate = new Date(parseISO(fakedPool.publishedAt));
 Date.now = () => Number(staticDate); // set now to be static
 
-const nullPool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly"> = {
-  __typename: "Pool",
+const nullPool = {
+  __typename: "Pool" as const,
   id: "uuid",
 };
 
@@ -50,6 +49,7 @@ const open = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Public,
       },
       selectionLimitations: [],
@@ -63,10 +63,12 @@ const citizen = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Public,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.CanadianCitizens,
         },
       ],
@@ -80,6 +82,7 @@ const employee = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
     },
@@ -92,10 +95,12 @@ const atLevel = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
       ],
@@ -109,10 +114,14 @@ const departmental = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
-        { value: PoolSelectionLimitation.DepartmentalPreference },
+        {
+          __typename: "LocalizedPoolSelectionLimitation",
+          value: PoolSelectionLimitation.DepartmentalPreference,
+        },
       ],
     },
     JobCard_Fragment,
@@ -124,13 +133,16 @@ const all = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -144,13 +156,16 @@ const deadlineApproaching = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -167,13 +182,16 @@ const closed = {
     {
       ...fakedPool,
       areaOfSelection: {
+        __typename: "LocalizedPoolAreaOfSelection",
         value: PoolAreaOfSelection.Employees,
       },
       selectionLimitations: [
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.AtLevelOnly,
         },
         {
+          __typename: "LocalizedPoolSelectionLimitation",
           value: PoolSelectionLimitation.DepartmentalPreference,
         },
       ],
@@ -193,9 +211,9 @@ const longTitle = {
     {
       ...fakedPool,
       name: {
+        __typename: "LocalizedString",
         en: `${longTitleStr} EN`,
         fr: `${longTitleStr} FR`,
-        localized: `${longTitleStr} LOCALIZED`,
       },
     },
     JobCard_Fragment,

@@ -11,7 +11,7 @@ import type {
 
 import AwardFields from "./AwardFields";
 import CommunityFields from "./CommunityFields";
-import EducationFields from "./EducationFields";
+import EducationFields from "./EducationFields/EducationFields";
 import PersonalFields from "./PersonalFields";
 import WorkFields from "./WorkFields/WorkFields";
 import NullExperienceType from "./NullExperienceType";
@@ -34,7 +34,7 @@ const ExperienceDetails = ({
 
   return (
     <>
-      <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+      <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Provide a few details",
           id: "jIMP76",
@@ -70,7 +70,12 @@ const ExperienceDetails = ({
                 organizationSuggestions={organizationSuggestions}
               />
             )}
-            {derivedType === "personal" && <PersonalFields labels={labels} />}
+            {derivedType === "personal" && (
+              <PersonalFields
+                labels={labels}
+                organizationSuggestions={organizationSuggestions}
+              />
+            )}
             {derivedType === "work" && (
               <WorkFields
                 labels={labels}

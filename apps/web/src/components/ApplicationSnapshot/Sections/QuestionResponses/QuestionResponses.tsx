@@ -40,7 +40,7 @@ const QuestionResponses = ({ responses }: QuestionResponsesProps) => {
   return answeredResponses.map((response, index) => (
     <Fragment key={response.id}>
       <Heading
-        level="h4"
+        rank="h4"
         size="h6"
         className={questionHeading({ first: index === 0 })}
       >

@@ -85,7 +85,7 @@ export const ViewSkillForm = ({ query }: ViewSkillProps) => {
   return (
     <>
       <Heading
-        level="h2"
+        rank="h2"
         color="secondary"
         icon={IdentificationIcon}
         center

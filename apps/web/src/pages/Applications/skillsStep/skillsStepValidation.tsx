@@ -1,18 +1,14 @@
-import type {
-  Pool,
-  Experience,
-  Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType,
-} from "@gc-digital-talent/graphql";
+import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
 
+import type { ApplicationStepPool } from "~/types/applicationStep";
 import { skillRequirementsIsIncomplete } from "~/validators/profile";
 
 const stepHasError = (
   user: ApplicationPoolCandidateFragmentType["user"],
-  pool: Omit<Pool, "activities" | "teamId" | "wasClosedEarly">,
+  pool: ApplicationStepPool,
 ) => {
-  const applicantExperiences: Omit<Experience, "user">[] | undefined =
-    user?.experiences?.filter(notEmpty);
+  const applicantExperiences = user?.experiences?.filter(notEmpty);
   return skillRequirementsIsIncomplete(applicantExperiences, pool);
 };
 

@@ -70,6 +70,7 @@ if
         /var/site/storage/framework/views \
         /var/site/storage/logs \
         /var/site/bootstrap/cache && \
+    touch /var/site/storage/logs/laravel.log && \
     chown -R www-data:www-data /var/site && \
     chmod -R 775 /var/site && \
     php artisan lighthouse:print-schema --write ;

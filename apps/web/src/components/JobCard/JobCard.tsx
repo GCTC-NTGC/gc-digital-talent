@@ -11,7 +11,7 @@ import { tv } from "tailwind-variants";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql, PoolLanguage } from "@gc-digital-talent/graphql";
 import { commonMessages, getLocale } from "@gc-digital-talent/i18n";
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import {
   Card,
   Heading,
@@ -22,6 +22,7 @@ import {
 import {
   DATE_FORMAT_LOCALIZED,
   DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -52,13 +53,6 @@ export const JobCard_Fragment = graphql(/* GraphQL */ `
     workStream {
       id
       name {
-        en
-        fr
-      }
-    }
-    publishingGroup {
-      value
-      label {
         en
         fr
       }
@@ -182,10 +176,10 @@ const closeDate = tv({
 
 interface JobCardProps {
   poolQuery: FragmentType<typeof JobCard_Fragment>;
-  headingLevel?: HeadingLevel;
+  headingRank?: HeadingRank;
 }
 
-const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
+const JobCard = ({ poolQuery, headingRank = "h3" }: JobCardProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
@@ -200,7 +194,11 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
   const languageRequirement = pool.language?.value;
   const localizedLanguageLabel = pool.language?.label.localized;
 
-  const bilingual = intl.formatMessage(commonMessages.bilingual);
+  const bilingual = intl.formatMessage({
+    defaultMessage: "Bilingual",
+    id: "AFPD79",
+    description: "Label for bilingual",
+  });
 
   const languageLabel = new Map<PoolLanguage | undefined, ReactNode>([
     [
@@ -248,7 +246,7 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
         date: deadlineUtc,
         formatString: DATE_FORMAT_LOCALIZED,
         intl,
-        timeZone: "Canada/Pacific",
+        timeZone: TZ_VANCOUVER,
       })
     : notAvailable;
 
@@ -275,14 +273,13 @@ const JobCard = ({ poolQuery, headingLevel = "h3" }: JobCardProps) => {
       <div className="relative mx-4 flex flex-col items-start justify-between gap-4 xs:flex-row xs:items-center">
         <div className="flex flex-col gap-3">
           <Heading
-            level={headingLevel}
+            rank={headingRank}
             size="h5"
             className="mt-0 mb-2 pl-0 font-bold dark:text-gray-100"
           >
             {getShortPoolTitleHtml(intl, {
               workStream: pool.workStream,
               name: pool.name,
-              publishingGroup: pool.publishingGroup,
               classification: pool.classification,
             })}
           </Heading>

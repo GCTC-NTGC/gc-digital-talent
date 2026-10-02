@@ -9,14 +9,10 @@ import { Chip, Chips, Ul } from "@gc-digital-talent/ui";
 import {
   getEmploymentDuration,
   getOperationalRequirement,
-  getLocale,
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type {
-  LocalizedEnumString,
-  LocalizedTalentRequestSource,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
 import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
@@ -41,7 +37,6 @@ const ApplicantFilters = ({
   flexibleWorkLocationOptions: LocalizedEnumString[];
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
   const classifications = applicantFilter?.qualifiedInClassifications ?? [];
   const classificationsFromApplicantFilter = classifications
@@ -50,7 +45,7 @@ const ApplicantFilters = ({
 
   const skills: string[] | undefined = applicantFilter?.skills?.map((skill) => {
     return (
-      skill?.name[locale] ??
+      skill?.name?.localized ??
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         id: "0T3NB0",
@@ -61,7 +56,8 @@ const ApplicantFilters = ({
   });
 
   const employmentDuration: string | undefined =
-    applicantFilter?.positionDuration
+    applicantFilter?.positionDuration &&
+    applicantFilter.positionDuration.length > 0
       ? intl.formatMessage(
           getEmploymentDuration(
             positionDurationToEmploymentDuration(
@@ -144,7 +140,6 @@ const ApplicantFilters = ({
                     getShortPoolTitleHtml(intl, {
                       workStream: pool.workStream,
                       name: pool.name,
-                      publishingGroup: pool.publishingGroup,
                       classification: pool.classification,
                     }),
                   )
@@ -265,7 +260,6 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions?: LocalizedTalentRequestSource[];
 }
 
 const SearchRequestFilters = ({

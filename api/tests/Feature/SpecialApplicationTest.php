@@ -210,8 +210,36 @@ class SpecialApplicationTest extends TestCase
             )
             ->assertGraphQLValidationError(
                 'poolCandidate.specialApplicationClosingDate',
-                'The pool candidate.special application closing date field must be a date after '.$this->pool->closing_date.'.'
+                'The pool candidate.special application closing date field must be a date after or equal to '.$this->pool->closing_date.'.'
             );
+    }
+
+    // a special closing date equal to the pool's closing date is accepted, no extension granted
+    public function testSpecialClosingDateCanEqualPoolClose(): void
+    {
+        $poolClosingDate = $this->pool->closing_date->format('Y-m-d H:i:s');
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->createMutation, [
+                'poolCandidate' => [
+                    'pool' => ['connect' => $this->pool->id],
+                    'user' => ['connect' => $this->applicant->id],
+                    'specialApplicationType' => SpecialApplicationType::PRIORITY->name,
+                    'specialApplicationJustification' => 'reasons',
+                    'specialApplicationClosingDate' => $poolClosingDate,
+                ],
+            ])
+            ->assertJson([
+                'data' => [
+                    'createSpecialApplication' => [
+                        'pool' => ['id' => $this->pool->id],
+                        'user' => ['id' => $this->applicant->id],
+                        'specialApplicationType' => ['value' => SpecialApplicationType::PRIORITY->name],
+                        'specialApplicationJustification' => 'reasons',
+                        'specialApplicationClosingDate' => $poolClosingDate,
+                    ],
+                ],
+            ]);
     }
 
     // test accessor PoolCandidate::isSpecialApplication()

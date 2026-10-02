@@ -428,8 +428,8 @@ const CareerObjectiveSection = ({
 
   const subtitle = intl.formatMessage({
     defaultMessage:
-      "Describe your ultimate career objective. Your input can help staff working on talent management identify the right next step for you, whether it's a lateral move, a development opportunity, or an advancement.",
-    id: "FYCNAa",
+      "Describe your ultimate career objective. Your input can help staff working on talent management identify the right next step for you.",
+    id: "6vwp1u",
     description: "Describes the career objective section of employee profile",
   });
 
@@ -497,7 +497,7 @@ const CareerObjectiveSection = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level="h3"
+        rank="h3"
         size="h4"
         toggle={
           isVerifiedGovEmployee ? (

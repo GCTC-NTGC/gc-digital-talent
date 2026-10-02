@@ -18,7 +18,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { sortAlphaBy, unpackMaybes } from "@gc-digital-talent/helpers";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRequiredParams from "~/hooks/useRequiredParams";
@@ -106,11 +106,9 @@ export const CommunityProfessionalizationForm = ({
       );
   } else {
     sortedCommunityDevelopmentPrograms =
-      sortedCommunityDevelopmentPrograms.sort((cdp1, cdp2) => {
-        const a = cdp1?.createdAt ? new Date(cdp1.createdAt) : MAX_DATE;
-        const b = cdp2?.createdAt ? new Date(cdp2.createdAt) : MAX_DATE;
-        return b.getTime() - a.getTime();
-      });
+      sortedCommunityDevelopmentPrograms.sort(
+        sortDateBy((cdp) => cdp.createdAt, "desc"),
+      );
   }
 
   const pageTitle = intl.formatMessage(adminMessages.professionalization);

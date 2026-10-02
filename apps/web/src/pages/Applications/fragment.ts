@@ -4,11 +4,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
   fragment Application_PoolCandidate on PoolCandidate {
     id
     submittedAt
-    applicationStatusData {
-      status {
-        value
-      }
-    }
 
     ...ApplicationSnapshot
     ...DeleteApplicationDialog
@@ -196,13 +191,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         }
       }
       closingDate
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       language {
         value
         label {

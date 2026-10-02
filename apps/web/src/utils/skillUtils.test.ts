@@ -1,49 +1,45 @@
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
-import type {
-  Experience,
-  Skill,
-  SkillFamily,
-} from "@gc-digital-talent/graphql";
 import { SkillCategory } from "@gc-digital-talent/graphql";
 
-import {
-  invertSkillExperienceTree,
-  invertSkillSkillFamilyTree,
-  parseKeywords,
-} from "./skillUtils";
+import { invertSkillSkillFamilyTree, parseKeywords } from "./skillUtils";
 
-const localizedBehavioural = toLocalizedEnum(SkillCategory.Behavioural);
+const localizedBehavioural = toLocalizedEnum(
+  SkillCategory.Behavioural,
+  "LocalizedSkillCategory",
+);
+
+const localizedString = { __typename: "LocalizedString" as const };
 
 describe("skill util tests", () => {
   test("inverts a skill tree with a single skill in a single family", () => {
-    const skills: Skill[] = [
+    const skills = [
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
       },
     ];
-    const expected: SkillFamily[] = [
+    const expected = [
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -54,18 +50,18 @@ describe("skill util tests", () => {
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with three skills in a single family", () => {
-    const skills: Skill[] = [
+    const skills = [
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -73,14 +69,14 @@ describe("skill util tests", () => {
       {
         id: "2",
         key: "skill_two",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -88,44 +84,44 @@ describe("skill util tests", () => {
       {
         id: "3",
         key: "skill_three",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
       },
     ];
-    const expected: SkillFamily[] = [
+    const expected = [
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
           {
             id: "2",
             key: "skill_two",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
           {
             id: "3",
             key: "skill_three",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -136,51 +132,51 @@ describe("skill util tests", () => {
     expect(actual).toEqual(expected);
   });
   test("inverts a skill tree with a single skill in three families", () => {
-    const skills: Skill[] = [
+    const skills = [
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
           {
             id: "2",
             key: "family_two",
-            name: {},
+            name: localizedString,
 
-            description: {},
+            description: localizedString,
             skills: [],
           },
           {
             id: "3",
             key: "family_three",
-            name: {},
+            name: localizedString,
 
-            description: {},
+            description: localizedString,
             skills: [],
           },
         ],
       },
     ];
-    const expected: SkillFamily[] = [
+    const expected = [
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
             category: localizedBehavioural,
-            name: {},
+            name: localizedString,
             families: [],
           },
         ],
@@ -188,13 +184,13 @@ describe("skill util tests", () => {
       {
         id: "2",
         key: "family_two",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -203,13 +199,13 @@ describe("skill util tests", () => {
       {
         id: "3",
         key: "family_three",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -217,250 +213,6 @@ describe("skill util tests", () => {
       },
     ];
     const actual = invertSkillSkillFamilyTree(skills);
-    expect(actual).toEqual(expected);
-  });
-  test("inverts an experience tree with a single experience in a single skill", () => {
-    const experiences: Omit<Experience, "user">[] = [
-      {
-        id: "1",
-        skills: [
-          {
-            id: "1",
-            key: "skill_one",
-            name: {},
-            category: localizedBehavioural,
-          },
-        ],
-      },
-    ];
-    const expected = [
-      {
-        id: "1",
-        key: "skill_one",
-        name: {},
-        category: localizedBehavioural,
-        experiences: [
-          {
-            id: "1",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-        ],
-      },
-    ];
-    const actual = invertSkillExperienceTree(experiences);
-    expect(actual).toEqual(expected);
-  });
-  test("inverts an experience tree with three experiences in a single skill", () => {
-    const experiences: Omit<Experience, "user">[] = [
-      {
-        id: "1",
-        skills: [
-          {
-            id: "1",
-            key: "skill_one",
-            name: {},
-            category: localizedBehavioural,
-          },
-        ],
-      },
-      {
-        id: "2",
-        skills: [
-          {
-            id: "1",
-            key: "skill_one",
-            name: {},
-            category: localizedBehavioural,
-          },
-        ],
-      },
-      {
-        id: "3",
-        skills: [
-          {
-            id: "1",
-            key: "skill_one",
-            name: {},
-            category: localizedBehavioural,
-          },
-        ],
-      },
-    ];
-    const expected = [
-      {
-        id: "1",
-        key: "skill_one",
-        name: {},
-        category: localizedBehavioural,
-        experiences: [
-          {
-            id: "1",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-          {
-            id: "2",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-          {
-            id: "3",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-        ],
-      },
-    ];
-    const actual = invertSkillExperienceTree(experiences);
-    expect(actual).toEqual(expected);
-  });
-  test("inverts an experience tree with a single experience in three skills", () => {
-    const experiences: Omit<Experience, "user">[] = [
-      {
-        id: "1",
-        skills: [
-          {
-            id: "1",
-            key: "skill_one",
-            name: {},
-            category: localizedBehavioural,
-          },
-          {
-            id: "2",
-            key: "skill_two",
-            name: {},
-            category: localizedBehavioural,
-          },
-          {
-            id: "3",
-            key: "skill_three",
-            name: {},
-            category: localizedBehavioural,
-          },
-        ],
-      },
-    ];
-    const expected = [
-      {
-        id: "1",
-        key: "skill_one",
-        name: {},
-        category: localizedBehavioural,
-        experiences: [
-          {
-            id: "1",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "2",
-                key: "skill_two",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "3",
-                key: "skill_three",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "2",
-        key: "skill_two",
-        name: {},
-        category: localizedBehavioural,
-        experiences: [
-          {
-            id: "1",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "2",
-                key: "skill_two",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "3",
-                key: "skill_three",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: "3",
-        key: "skill_three",
-        name: {},
-        category: localizedBehavioural,
-        experiences: [
-          {
-            id: "1",
-            skills: [
-              {
-                id: "1",
-                key: "skill_one",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "2",
-                key: "skill_two",
-                name: {},
-                category: localizedBehavioural,
-              },
-              {
-                id: "3",
-                key: "skill_three",
-                name: {},
-                category: localizedBehavioural,
-              },
-            ],
-          },
-        ],
-      },
-    ];
-    const actual = invertSkillExperienceTree(experiences);
     expect(actual).toEqual(expected);
   });
   describe("parseKeywords", () => {

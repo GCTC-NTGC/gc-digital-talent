@@ -78,7 +78,7 @@ const TalentNominationDetailsDialogNominationDetailsNomination_Fragment =
 const TalentNominationDetailsDialogNominationDetailsNominationGroup_Fragment =
   graphql(/* GraphQL */ `
     fragment TalentNominationDetailsDialogNominationDetailsNominationGroup on TalentNominationGroup {
-      classificationAtTimeOfAdvancementApproval {
+      classificationAtTimeOfLastApproval {
         groupAndLevel
       }
     }
@@ -196,7 +196,7 @@ const NominationDetailsSection = ({
 
   return (
     <div>
-      <Heading level="h3" size="h6" className="mt-0 mb-6">
+      <Heading rank="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Nomination details",
           id: "gD98oQ",
@@ -243,7 +243,7 @@ const NominationDetailsSection = ({
               className="xs:col-span-2"
             >
               {/* this mismatch, time of nomination vs time of approval, is intentional */}
-              {nominationGroup.classificationAtTimeOfAdvancementApproval
+              {nominationGroup.classificationAtTimeOfLastApproval
                 ?.groupAndLevel ?? nullMessage}
             </FieldDisplay>
             <FieldDisplay

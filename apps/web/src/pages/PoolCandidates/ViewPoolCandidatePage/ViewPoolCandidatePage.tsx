@@ -92,13 +92,6 @@ const PoolCandidate_SnapshotQuery = graphql(/* GraphQL */ `
             fr
           }
         }
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
       }
     }
     departments {
@@ -138,7 +131,6 @@ export const ViewPoolCandidate = ({
         label: getFullPoolTitleLabel(intl, {
           workStream: poolCandidate.pool.workStream,
           name: poolCandidate.pool.name,
-          publishingGroup: poolCandidate.pool.publishingGroup,
           classification: poolCandidate.pool.classification,
         }),
         url: paths.poolView(poolCandidate.pool.id),
@@ -167,7 +159,7 @@ export const ViewPoolCandidate = ({
               icon={ExclamationTriangleIcon}
               color="warning"
               className="mt-0 mb-6 items-center"
-              level="h2"
+              rank="h2"
               size="h3"
             >
               {intl.formatMessage(screeningAndAssessmentTitle)}
