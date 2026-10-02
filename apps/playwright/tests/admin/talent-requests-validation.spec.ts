@@ -533,6 +533,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
       });
 
       await test.step("Not selected without a reason is rejected", async () => {
+        await talentRequestPage.goToTracking(requestId);
         await talentRequestPage.updateTrackedCandidateStatus(
           candidateName,
           TalentRequestTrackedUserStatus.Referred,

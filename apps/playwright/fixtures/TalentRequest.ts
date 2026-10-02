@@ -84,7 +84,6 @@ const trackedUserStatusLabelMap = new Map<
 ]);
 
 class TalentRequest extends AppPage {
-  readonly reasonMap = reasonMap;
   readonly locators: Record<Field, Locator>;
 
   constructor(page: Page) {
@@ -166,12 +165,8 @@ class TalentRequest extends AppPage {
     return this.page.getByRole("row").filter({ hasText: name });
   }
 
-  private selectRowButton(name: string): Locator {
-    return this.page.getByRole("button", { name: `Select ${name}` });
-  }
-
   async selectMatchingCandidate(name: string) {
-    await this.selectRowButton(name).click();
+    await this.page.getByRole("button", { name: `Select ${name}` }).click();
   }
 
   trackedCandidateRow(name: string) {
@@ -184,21 +179,20 @@ class TalentRequest extends AppPage {
     });
   }
 
-  async saveReferralDialogExpectingRequiredError() {
-    await this.locators[FIELD.SAVE_CHANGES].click();
-    await expect(this.page.getByRole("alert")).toContainText(
-      /this field is required/i,
-    );
-  }
-
   async closeTrackedCandidateEditDialog() {
     await this.page
       .getByRole("button", { name: /cancel and go back/i })
       .click();
+    await expect(this.page.getByRole("dialog")).toBeHidden();
   }
 
-  private async saveReferralDialog() {
-    await this.saveAndExpectAlert(/referral decision updated/i);
+  private async expectTextsVisible<T>(
+    values: readonly T[],
+    map: Map<T, string>,
+  ) {
+    for (const value of values) {
+      await expect(this.page.getByText(map.get(value) ?? "")).toBeVisible();
+    }
   }
 
   async validateSidebar(requestContact: TalentRequestContact): Promise<void> {
@@ -224,8 +218,6 @@ class TalentRequest extends AppPage {
     await expect(
       this.page.getByRole("heading", { name: /request details/i }),
     ).toBeVisible();
-    // The position job title also renders as the page's H1/breadcrumb/sidebar text, so scope to
-    // the "Position job title" field specifically to avoid a strict-mode multi-match.
     const positionJobTitleField = this.page
       .getByText(/position job title/i, { exact: true })
       .locator("xpath=..");
@@ -237,7 +229,7 @@ class TalentRequest extends AppPage {
     await expect(this.page.getByText(requestDetails.comments)).toBeVisible();
     await expect(
       this.page.getByText(
-        this.reasonMap.get(
+        reasonMap.get(
           requestDetails.reason ?? TalentRequestReason.GeneralInterest,
         ) ?? "",
       ),
@@ -250,21 +242,16 @@ class TalentRequest extends AppPage {
     await expect(
       this.page.getByRole("heading", { name: /source of talent/i }),
     ).toBeVisible();
+    const list = this.page.getByRole("list");
     await expect(
-      this.page
-        .getByRole("list")
-        .getByText(sourceOfTalent.classification.groupAndLevel, {
-          exact: true,
-        }),
+      list.getByText(sourceOfTalent.classification.groupAndLevel, {
+        exact: true,
+      }),
     ).toBeVisible();
     await expect(
-      this.page
-        .getByRole("list")
-        .getByText(sourceOfTalent.workStream.name?.en ?? ""),
+      list.getByText(sourceOfTalent.workStream.name?.en ?? ""),
     ).toBeVisible();
-    await expect(
-      this.page.getByRole("list").getByText(sourceOfTalent.poolName),
-    ).toBeVisible();
+    await expect(list.getByText(sourceOfTalent.poolName)).toBeVisible();
     await expect(this.page.getByText(sourceOfTalent.community)).toBeVisible();
     await expect(
       this.page
@@ -274,50 +261,34 @@ class TalentRequest extends AppPage {
     ).toBeVisible();
   }
 
-  private async expectMappedTextsVisible<T>(
-    values: readonly T[],
-    map: Map<T, string>,
-  ) {
-    for (const value of values) {
-      await expect(this.page.getByText(map.get(value) ?? "")).toBeVisible();
-    }
-  }
-
   async validateCandidateCriteriaCard(
     criteria: TalentRequestCandidateCriteria,
   ): Promise<void> {
     await expect(
       this.page.getByRole("heading", { name: /candidate criteria/i }),
     ).toBeVisible();
-    await expect(
-      this.page.getByText(
-        employmentDurationMap.get(criteria.employmentDuration) ?? "",
-      ),
-    ).toBeVisible();
-    await expect(
-      this.page.getByText(
-        languageAbilityMap.get(criteria.languageAbility) ?? "",
-      ),
-    ).toBeVisible();
-    await expect(
-      this.page.getByText(
-        educationRequirementMap.get(criteria.hasDiploma) ?? "",
-      ),
-    ).toBeVisible();
-
-    await this.expectMappedTextsVisible(
+    await this.expectTextsVisible(
+      [criteria.employmentDuration],
+      employmentDurationMap,
+    );
+    await this.expectTextsVisible(
+      [criteria.languageAbility],
+      languageAbilityMap,
+    );
+    await this.expectTextsVisible(
+      [criteria.hasDiploma],
+      educationRequirementMap,
+    );
+    await this.expectTextsVisible(
       criteria.conditionsOfEmployment,
       operationalRequirementShortMap,
     );
-    await this.expectMappedTextsVisible(
+    await this.expectTextsVisible(
       criteria.employmentEquity,
       employmentEquityGroupMap,
     );
-    await this.expectMappedTextsVisible(
-      criteria.flexibleWorkLocations,
-      optionsMap,
-    );
-    await this.expectMappedTextsVisible(criteria.onSiteLocations, regionsMap);
+    await this.expectTextsVisible(criteria.flexibleWorkLocations, optionsMap);
+    await this.expectTextsVisible(criteria.onSiteLocations, regionsMap);
 
     await expect(
       this.page.getByText(
@@ -389,11 +360,13 @@ class TalentRequest extends AppPage {
           .getByRole("menuitem", { name: "Mark as Not referred" })
           .click();
         if (reason) {
-          await this.page
-            .getByRole("combobox", { name: /not referred reason/i })
-            .selectOption({ value: reason });
+          await this.locators[FIELD.NOT_REFERRED_REASON].selectOption({
+            value: reason,
+          });
         }
         break;
+      default:
+        throw new Error(`Unsupported matching candidate action: ${action}`);
     }
 
     await this.saveAndExpectAlert(/tracked users updated successfully/i);
@@ -483,8 +456,6 @@ class TalentRequest extends AppPage {
 
     const currentStatusLabel =
       trackedUserStatusLabelMap.get(currentStatus) ?? currentStatus;
-
-    await expect(this.trackedCandidateRow(name)).toBeVisible();
     await expect(this.trackedCandidateRow(name)).toContainText(
       currentStatusLabel,
     );
@@ -501,13 +472,17 @@ class TalentRequest extends AppPage {
         .getByRole("listitem")
         .filter({ hasText: sourceOfTalent.selectedTalentSource }),
     ).toBeVisible();
-    await expect(
-      this.page.getByRole("combobox").filter({ hasText: currentStatusLabel }),
-    ).toBeVisible();
 
-    await this.page
-      .getByRole("combobox", { name: /tracking status/i })
-      .selectOption({ value: referralDecision });
+    // "Tracking status" holds the referral decision; selected and not selected candidates are both referred.
+    const trackingStatus = this.page.getByRole("combobox", {
+      name: /tracking status/i,
+    });
+    await expect(trackingStatus).toHaveValue(
+      currentStatus === TalentRequestTrackedUserStatus.NotReferred
+        ? TalentRequestTrackedUserReferralDecision.NotReferred
+        : TalentRequestTrackedUserReferralDecision.Referred,
+    );
+    await trackingStatus.selectOption({ value: referralDecision });
 
     switch (referralDecision) {
       case TalentRequestTrackedUserReferralDecision.NotReferred:
@@ -522,27 +497,28 @@ class TalentRequest extends AppPage {
           await this.page
             .getByRole("combobox", { name: /selection choice/i })
             .selectOption({ value: selectionDecision });
-
-          switch (selectionDecision) {
-            case TalentRequestTrackedUserSelectionDecision.NotSelected:
-              if (notSelectedReason) {
-                await this.page
-                  .getByRole("combobox", { name: /not selected details/i })
-                  .selectOption({ value: notSelectedReason });
-              }
-              break;
-            case TalentRequestTrackedUserSelectionDecision.Selected:
-              break;
+          if (
+            selectionDecision ===
+              TalentRequestTrackedUserSelectionDecision.NotSelected &&
+            notSelectedReason
+          ) {
+            await this.page
+              .getByRole("combobox", { name: /not selected details/i })
+              .selectOption({ value: notSelectedReason });
           }
         }
         break;
     }
 
     if (expectRequiredError) {
-      await this.saveReferralDialogExpectingRequiredError();
+      await this.saveAndExpectAlert(/this field is required/i);
       await this.closeTrackedCandidateEditDialog();
+      // Cancel and go back doesn't save, so the candidate keeps their current status.
+      await expect(this.trackedCandidateRow(name)).toContainText(
+        currentStatusLabel,
+      );
     } else {
-      await this.saveReferralDialog();
+      await this.saveAndExpectAlert(/referral decision updated/i);
     }
   }
 }
