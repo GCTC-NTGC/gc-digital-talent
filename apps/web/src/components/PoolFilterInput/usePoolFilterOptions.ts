@@ -12,7 +12,7 @@ import { getShortPoolTitleLabel } from "~/utils/poolUtils";
 const PoolFilter_Query = graphql(/* GraphQL */ `
   query PoolFilter(
     $where: PoolFilterInput
-    $first: Int
+    $first: Int!
     $includeIds: [UUID!]
     $excludeIds: [UUID!]
     $page: Int
