@@ -1,12 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { WorkStream } from "@gc-digital-talent/graphql/schema-types";
-
 import toLocalizedString from "./fakeLocalizedString";
 
-const generateWorkStream = (): WorkStream => {
+const generateWorkStream = () => {
   return {
-    __typename: "WorkStream",
+    __typename: "WorkStream" as const,
     id: faker.string.uuid(),
     key: faker.helpers.slugify(faker.string.sample()),
     name: toLocalizedString(faker.company.catchPhrase()),
@@ -15,7 +13,7 @@ const generateWorkStream = (): WorkStream => {
   };
 };
 
-export default (numToGenerate = 10): WorkStream[] => {
+export default (numToGenerate = 10) => {
   faker.seed(0); // repeatable results
 
   return Array.from({ length: numToGenerate }, () => generateWorkStream());
