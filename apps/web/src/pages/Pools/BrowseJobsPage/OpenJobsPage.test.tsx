@@ -6,7 +6,7 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { PoolStatus, PublishingGroup } from "@gc-digital-talent/graphql";
+import { PoolStatus } from "@gc-digital-talent/graphql";
 import { toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 
@@ -14,52 +14,31 @@ import OpenJobs from "./OpenJobsPage";
 
 interface MockPool {
   id: string;
-  publishingGroup: GenericLocalizedEnum<PublishingGroup>;
   status: GenericLocalizedEnum<PoolStatus>;
 }
 
 const publishedItJobsPool = {
   id: "publishedItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
 const expiredItJobsPool = {
   id: "expiredItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
 };
 
 const archivedItJobsPool = {
   id: "archivedItJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ItJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Archived, "LocalizedPoolStatus"),
 };
 
 const publishedExecJobsPool = {
   id: "publishedExecJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.ExecutiveJobs,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
 const publishedIAPJobsPool = {
   id: "publishedIAPJobsPool",
-  publishingGroup: toLocalizedEnum(
-    PublishingGroup.Iap,
-    "LocalizedPublishingGroup",
-  ),
   status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
 };
 
@@ -128,7 +107,7 @@ describe("OpenJobsPage", () => {
       name: /Apply to/i,
     });
 
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links[0]).toHaveAttribute(
       "href",
       expect.stringContaining(publishedItJobsPool.id),

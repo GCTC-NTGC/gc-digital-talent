@@ -319,7 +319,7 @@ const JobPosterTemplatesPage = () => {
       />
       <Container>
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           color="secondary"
           icon={RectangleStackIcon}

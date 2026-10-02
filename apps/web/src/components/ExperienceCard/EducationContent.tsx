@@ -31,7 +31,7 @@ const EducationContent = ({
     certification,
     courseName,
   },
-  headingLevel,
+  headingRank,
 }: ContentProps<EducationContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -40,28 +40,28 @@ const EducationContent = ({
     <div className="grid gap-6 sm:grid-cols-3">
       <ContentSection
         title={experienceFormLabels.areaOfStudy}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {areaOfStudy ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.educationStatus}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {getLocalizedName(status?.label, intl)}
       </ContentSection>
       <ContentSection
         title={experienceFormLabels.thesisTitle}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {thesisTitle ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
       {educationType?.value === EducationType.LicenseAccreditation && (
         <ContentSection
           title={experienceFormLabels.licenseOrAccreditation}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
         >
           {licenseOrAccreditation ??
             intl.formatMessage(commonMessages.notAvailable)}
@@ -70,7 +70,7 @@ const EducationContent = ({
       {educationType?.value === EducationType.ProfessionalCertification && (
         <ContentSection
           title={experienceFormLabels.certification}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
         >
           {certification ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
@@ -78,7 +78,7 @@ const EducationContent = ({
       {educationType?.value === EducationType.IndividualCourse && (
         <ContentSection
           title={experienceFormLabels.courseName}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
         >
           {courseName ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>

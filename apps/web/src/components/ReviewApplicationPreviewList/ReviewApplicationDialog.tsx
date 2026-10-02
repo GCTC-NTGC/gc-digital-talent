@@ -22,6 +22,7 @@ import {
 } from "@gc-digital-talent/ui";
 import {
   DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -262,7 +263,11 @@ const ReviewApplicationDialog = ({
             </FieldDisplay>
             {application?.candidateStatus?.value === CandidateStatus.Expired ? (
               <FieldDisplay
-                label={intl.formatMessage(commonMessages.deadlineToApply)}
+                label={intl.formatMessage({
+                  defaultMessage: "Deadline to apply",
+                  id: "ZoYqEo",
+                  description: "Title for deadline to apply",
+                })}
                 className="xs:col-span-2"
                 hasError={deadlineToApply(
                   pool.closingDate,
@@ -274,7 +279,7 @@ const ReviewApplicationDialog = ({
                       date: parseDateTimeUtc(pool?.closingDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_VANCOUVER,
                     })
                   : nullMessage}
               </FieldDisplay>
@@ -337,7 +342,11 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="essential-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(commonMessages.requiredSkills)}
+                    {intl.formatMessage({
+                      id: "WZ17s5",
+                      defaultMessage: "Required skills",
+                      description: "Title for required skills",
+                    })}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
                     {wrapParens(essentialSkills.length ?? 0)}
@@ -358,7 +367,11 @@ const ReviewApplicationDialog = ({
               <Accordion.Item value="optional-skills">
                 <Accordion.Trigger>
                   <span>
-                    {intl.formatMessage(commonMessages.optionalSkills)}
+                    {intl.formatMessage({
+                      id: "Ojevvl",
+                      defaultMessage: "Optional skills",
+                      description: "Title for optional skills",
+                    })}
                   </span>
                   <span className="ml-1 font-normal text-gray-500 dark:text-gray-200">
                     {wrapParens(nonessentialSkills.length ?? 0)}

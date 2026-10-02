@@ -338,11 +338,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -494,7 +489,6 @@ type Query {
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup, isHidden: Boolean): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
@@ -806,6 +800,9 @@ scalar JSON
 
 "128 bit universally unique identifier (UUID)"
 scalar UUID
+
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
+scalar BigInt
 
 type LocalizedEnumString {
   value: String!
@@ -1159,7 +1156,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus
   workStream: WorkStream
   processNumber: String
-  publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
@@ -1552,7 +1548,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean
   permissions: [Permission!]
-  roleAssignments: [RoleAssignment!]
 }
 
 type RoleAssignment {
@@ -1652,6 +1647,7 @@ type TalentRequestTrackedUser {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!
 }
 
@@ -1737,7 +1733,7 @@ type WorkExperience implements Experience {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -1894,7 +1890,6 @@ input PoolFilterInput {
   workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
-  publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
   isHidden: Boolean
@@ -1963,7 +1958,6 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   referralStatuses: [CandidateReferralFilter!]
-  publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
@@ -2006,6 +2000,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int
   referralSummary: TalentRequestReferralSummary!
 }
@@ -2836,7 +2831,7 @@ input WorkExperienceInput {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -2996,7 +2991,6 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus
   location: LocalizedStringInput
   isRemote: Boolean
-  publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
@@ -4548,13 +4542,6 @@ enum ProvinceOrTerritory {
   NUNAVUT
 }
 
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
-}
-
 enum ScreeningStage {
   NEW_APPLICATION
   APPLICATION_REVIEW
@@ -4687,6 +4674,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

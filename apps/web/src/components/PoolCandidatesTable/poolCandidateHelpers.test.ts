@@ -8,7 +8,6 @@ import { transformFormValuesToFilterState } from "./helpers";
 import type { FormValues } from "./types";
 
 const defaultFormValues: FormValues = {
-  publishingGroups: [],
   classifications: [],
   stream: [],
   departments: [],

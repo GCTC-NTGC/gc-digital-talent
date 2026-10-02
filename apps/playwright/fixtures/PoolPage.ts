@@ -107,10 +107,6 @@ class PoolPage extends AppPage {
       .selectOption({ label: "Various" });
 
     await this.page
-      .getByRole("combobox", { name: /publishing group/i })
-      .selectOption({ label: "Other" });
-
-    await this.page
       .getByRole("button", { name: /save advertisement details/i })
       .click();
     await this.verifyAlertUponSave(/process updated successfully/i);

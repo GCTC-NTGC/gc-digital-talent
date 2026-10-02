@@ -1,13 +1,12 @@
 import type { IntlShape } from "react-intl";
 
 import {
+  type CafForce,
   EducationType,
   EmploymentCategory,
-  type LocalizedCafForce,
-  type LocalizedEducationType,
-  type LocalizedEmploymentCategory,
   type LocalizedString,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import {
@@ -23,15 +22,15 @@ import experienceMessages from "~/messages/experienceMessages";
 export interface ExperienceName extends SimpleAnyExperience {
   title?: string | null;
   organization?: string | null;
-  type?: Partial<LocalizedEducationType> | string | null;
+  type?: Partial<GenericLocalizedEnum<EducationType>> | string | null;
   areaOfStudy?: string | null;
   institution?: string | null;
   role?: string | null;
-  employmentCategory?: Partial<LocalizedEmploymentCategory> | null;
+  employmentCategory?: Partial<GenericLocalizedEnum<EmploymentCategory>> | null;
   department?: {
-    name?: Partial<LocalizedString> | null | undefined;
+    name?: LocalizedString | null | undefined;
   } | null;
-  cafForce?: Partial<LocalizedCafForce> | null;
+  cafForce?: Partial<GenericLocalizedEnum<CafForce>> | null;
 }
 
 /**

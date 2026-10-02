@@ -101,7 +101,7 @@ const CurrentPositionExperiences = ({
     <>
       <Heading
         icon={FlagIcon}
-        level="h2"
+        rank="h2"
         size="h4"
         color="secondary"
         className="mt-0 font-normal"
@@ -183,7 +183,7 @@ const CurrentPositionExperiences = ({
                 (key, i) => (
                   <Fragment key={key}>
                     <Heading
-                      level="h3"
+                      rank="h3"
                       size="h5"
                       className="mt-0 mb-3 font-normal"
                     >
@@ -197,7 +197,7 @@ const CurrentPositionExperiences = ({
                         key={exp.id}
                         experienceQuery={exp}
                         showEdit={false}
-                        headingLevel="h4"
+                        headingRank="h4"
                       />
                     ))}
                     {i !==
