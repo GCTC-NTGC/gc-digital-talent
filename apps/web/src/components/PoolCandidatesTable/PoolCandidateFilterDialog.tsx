@@ -366,6 +366,7 @@ const PoolCandidateFilterDialog = ({
               value: String(step.sortOrder ?? 0),
               label:
                 // NOTE: we do want to pass on empty strings
+
                 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
                 (step.title?.localized || step.type?.label.localized) ??
                 notAvailable,
@@ -436,7 +437,7 @@ const PoolCandidateFilterDialog = ({
         name="referralStatuses"
         isMulti
         doNotSort
-        label={intl.formatMessage(tableMessages.referralStatus)}
+        label={intl.formatMessage(commonMessages.referralStatus)}
         options={narrowEnumType(
           unpackMaybes(data?.referralFilters),
           "CandidateReferralFilter",

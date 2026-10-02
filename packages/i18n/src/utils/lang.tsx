@@ -45,8 +45,17 @@ export const appendShortenedLanguageName = ({
   intl: IntlShape;
 }): string => {
   const labels = {
-    en: intl.formatMessage(commonMessages.englishLabelShort),
-    fr: intl.formatMessage(commonMessages.frenchLabelShort),
+    en: intl.formatMessage({
+      defaultMessage: "(EN)",
+      id: "Q6GYga",
+      description:
+        "Name of English language formatted for appending, shortened",
+    }),
+    fr: intl.formatMessage({
+      defaultMessage: "(FR)",
+      id: "tfgjgQ",
+      description: "Name of French language formatted for appending, shortened",
+    }),
   };
 
   // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions

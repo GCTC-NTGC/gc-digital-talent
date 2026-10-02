@@ -449,9 +449,6 @@ const getRoutes = (lang: Locales) => {
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
 
-    // DND
-    dndDigitalCareers: () => `${baseUrl}/dnd`,
-
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,
   };

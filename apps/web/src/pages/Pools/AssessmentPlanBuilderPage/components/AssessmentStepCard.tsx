@@ -216,7 +216,11 @@ const AssessmentStepCard = ({
             <Accordion.Content>
               <Heading rank="h6" className="mt-3">
                 {appendLanguageName({
-                  label: intl.formatMessage(commonMessages.questions),
+                  label: intl.formatMessage({
+                    defaultMessage: "Questions",
+                    id: "x/BiQS",
+                    description: "Label for questions",
+                  }),
                   lang: "en",
                   intl,
                   formatted: true,
@@ -231,7 +235,11 @@ const AssessmentStepCard = ({
               </ol>
               <Heading rank="h6">
                 {appendLanguageName({
-                  label: intl.formatMessage(commonMessages.questions),
+                  label: intl.formatMessage({
+                    defaultMessage: "Questions",
+                    id: "x/BiQS",
+                    description: "Label for questions",
+                  }),
                   lang: "fr",
                   intl,
                   formatted: true,

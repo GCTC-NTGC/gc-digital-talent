@@ -88,7 +88,11 @@ const ClaimVerification = ({ verificationQuery }: ClaimVerificationProps) => {
       {claimVerification.isSpecialApplication ? (
         <Notice.Root color="warning" className="mb-6">
           <Notice.Title defaultIcon as="h3">
-            {intl.formatMessage(commonMessages.specialApplication)}
+            {intl.formatMessage({
+              defaultMessage: "Special application",
+              id: "96yWSc",
+              description: "Special application label",
+            })}
           </Notice.Title>
           <Notice.Content>
             <p>

@@ -138,12 +138,7 @@ const ChangeDateDialog = ({
       </Dialog.Trigger>
       <Dialog.Content>
         <Dialog.Header>
-          {intl.formatMessage({
-            defaultMessage: "Expiry Date",
-            id: "zDO6tt",
-            description:
-              "title for change expiry date dialog on view-user page",
-          })}
+          {intl.formatMessage(commonMessages.expiryDate)}
         </Dialog.Header>
         <Dialog.Body>
           <p>
@@ -187,12 +182,7 @@ const ChangeDateDialog = ({
               <div className="mt-3 mb-0.75">
                 <DateInput
                   id="changeDateDialog-expiryDate"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Expiry date",
-                    id: "WAO4vD",
-                    description:
-                      "Label displayed on the date field of the change candidate expiry date dialog",
-                  })}
+                  legend={intl.formatMessage(commonMessages.expiryDate)}
                   name="expiryDate"
                   rules={{
                     min: {
