@@ -25,7 +25,10 @@ const departments = fakeDepartments();
 const departmentsMapped = departments.map((department) => {
   return {
     ...department,
-    departmentName: { localized: department.name?.localized ?? "" },
+    departmentName: {
+      __typename: "LocalizedString" as const,
+      localized: department.name.localized,
+    },
   };
 });
 const communities = fakeCommunities();

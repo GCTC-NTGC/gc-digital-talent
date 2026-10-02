@@ -52,6 +52,7 @@ const behaviouralSkill4 = fakeSkills(
 )[3];
 const poolSkillsArray = [
   {
+    __typename: "PoolSkill" as const,
     id: "poolSkill1",
     skill: technicalSkill1,
     type: toLocalizedEnum(PoolSkillType.Essential, "LocalizedPoolSkillType"),
@@ -66,6 +67,7 @@ const poolSkillsArray = [
     ],
   },
   {
+    __typename: "PoolSkill" as const,
     id: "poolSkill2",
     skill: technicalSkill2,
     type: toLocalizedEnum(PoolSkillType.Essential, "LocalizedPoolSkillType"),
@@ -80,6 +82,7 @@ const poolSkillsArray = [
     ],
   },
   {
+    __typename: "PoolSkill" as const,
     id: "poolSkill3",
     skill: behaviouralSkill3,
     type: toLocalizedEnum(PoolSkillType.Nonessential, "LocalizedPoolSkillType"),
@@ -94,6 +97,7 @@ const poolSkillsArray = [
     ],
   },
   {
+    __typename: "PoolSkill" as const,
     id: "orphanPoolSkill",
     skill: behaviouralSkill4,
     type: toLocalizedEnum(PoolSkillType.Nonessential, "LocalizedPoolSkillType"),
@@ -103,10 +107,12 @@ const poolSkillsArray = [
 
 const assessmentStepsArray = [
   {
+    __typename: "AssessmentStep" as const,
     id: "assessmentStep1",
     pool: fakePool,
     poolSkills: [
       {
+        __typename: "PoolSkill" as const,
         id: "poolSkill1",
         type: toLocalizedEnum(
           PoolSkillType.Essential,
@@ -114,6 +120,7 @@ const assessmentStepsArray = [
         ),
       },
       {
+        __typename: "PoolSkill" as const,
         id: "poolSkill2",
         type: toLocalizedEnum(
           PoolSkillType.Essential,
@@ -123,6 +130,7 @@ const assessmentStepsArray = [
     ],
     sortOrder: 1,
     title: {
+      __typename: "LocalizedString" as const,
       en: "Application Screening EN",
       fr: "Application Screening FR",
       localized: "Application Screening LOCALIZED",
@@ -133,10 +141,12 @@ const assessmentStepsArray = [
     ),
   },
   {
+    __typename: "AssessmentStep" as const,
     id: "assessmentStep2",
     pool: fakePool,
     poolSkills: [
       {
+        __typename: "PoolSkill" as const,
         id: "poolSkill3",
         type: toLocalizedEnum(
           PoolSkillType.Nonessential,
@@ -146,6 +156,7 @@ const assessmentStepsArray = [
     ],
     sortOrder: 2,
     title: {
+      __typename: "LocalizedString" as const,
       en: "Reference EN",
       fr: "Reference FR",
       localized: "Reference LOCALIZED",
