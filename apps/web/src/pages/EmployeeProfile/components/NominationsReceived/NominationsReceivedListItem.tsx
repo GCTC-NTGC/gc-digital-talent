@@ -14,14 +14,13 @@ import {
 
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
-import { getFullNameLabel } from "~/utils/nameUtils";
 
 import NominationsReceivedDialog from "./NominationsReceivedDialog";
 
 export const NominationsReceivedListItem_Fragment = graphql(/* GraphQL */ `
-  fragment NominationsReceivedListItem on TalentNominationGroup {
+  fragment NominationsReceivedListItem on TalentNominationGroupAsNominee {
     id
-    createdAt
+    updatedAt
     talentNominationEvent {
       id
       name {
@@ -33,16 +32,10 @@ export const NominationsReceivedListItem_Fragment = graphql(/* GraphQL */ `
         }
       }
     }
-    advancementNominationCount
-    lateralMovementNominationCount
-    developmentProgramsNominationCount
-    nominations {
-      id
-      nominator {
-        firstName
-        lastName
-      }
-    }
+    approvedForAdvancement
+    approvedForLateralMovement
+    approvedForDevelopmentPrograms
+    nominatorNames
     ...NominationsReceivedDialog
   }
 `);
@@ -64,26 +57,16 @@ const NominationsReceivedListItem = ({
     nominationGroupQuery,
   );
 
-  const nominatedBy = intl.formatList(
-    (nominationGroup.nominations ?? [])
-      .filter(notEmpty)
-      .map((nomination) =>
-        getFullNameLabel(
-          nomination.nominator?.firstName,
-          nomination.nominator?.lastName,
-          intl,
-        ),
-      ),
-  );
+  const nominatedBy = intl.formatList(nominationGroup.nominatorNames);
 
   const nominationOptions = [
-    (nominationGroup.advancementNominationCount ?? 0) > 0
+    nominationGroup.approvedForAdvancement
       ? talentNominationMessages.nominateForAdvancement
       : null,
-    (nominationGroup.lateralMovementNominationCount ?? 0) > 0
+    nominationGroup.approvedForLateralMovement
       ? talentNominationMessages.nominateForLateralMovement
       : null,
-    (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
+    nominationGroup.approvedForDevelopmentPrograms
       ? adminMessages.developmentOpportunities
       : null,
   ]
@@ -113,9 +96,9 @@ const NominationsReceivedListItem = ({
     </span>
   );
 
-  const receivedDate = nominationGroup.createdAt
+  const receivedDate = nominationGroup.updatedAt
     ? formatDate({
-        date: parseDateTimeUtc(nominationGroup.createdAt),
+        date: parseDateTimeUtc(nominationGroup.updatedAt),
         formatString: DATE_FORMAT_LOCALIZED,
         intl,
       })

@@ -308,4 +308,13 @@ class UserPolicy
     {
         return $user->isAbleTo('view-any-userWorkEmail');
     }
+
+    /**
+     * Determine whether the user can view the nominee's view of a user's talent nomination groups.
+     * Only the nominee themself can view it.
+     */
+    public function viewTalentNominationGroupsAsNominee(User $user, User $model): bool
+    {
+        return $user->id === $model->id && $user->isAbleTo('view-own-talentNominationGroupAsNominee');
+    }
 }

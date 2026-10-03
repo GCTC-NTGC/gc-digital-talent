@@ -184,10 +184,9 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
-  talentNominationGroupsAsNominee: [TalentNominationGroup!]
-    @hasMany(
-      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
-    )
+  talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
+    @hasMany(scopes: ["withApprovedOption"])
+    @canRoot(ability: "viewTalentNominationGroupsAsNominee")
 }
 
 type CommunityInterest {
@@ -1020,6 +1019,26 @@ type TalentNominationGroup {
   lateralMovementClassifications: [Classification!] @belongsToMany
   lateralMovementReferralExpiryDate: Date
     @rename(attribute: "lateral_movement_referral_expiry_date")
+}
+
+# The nominee's view of their own nomination group, limited to the options they were approved for
+type TalentNominationGroupAsNominee
+  @model(class: "\\App\\Models\\TalentNominationGroup") {
+  id: UUID!
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  approvedForAdvancement: Boolean!
+    @rename(attribute: "approved_for_advancement")
+    @with(relation: "nominations")
+  approvedForLateralMovement: Boolean!
+    @rename(attribute: "approved_for_lateral_movement")
+    @with(relation: "nominations")
+  approvedForDevelopmentPrograms: Boolean!
+    @rename(attribute: "approved_for_development_programs")
+    @with(relation: "nominations")
+  nominatorNames: [String!]!
+    @rename(attribute: "approved_nominator_names")
+    @with(relation: "nominations.nominator")
+  updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
 type Team implements HasRoleAssignments {
