@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
@@ -52,6 +53,30 @@ class TalentNominationGroupAsNomineeTest extends TestCase
         query UserNominationsReceived($id: UUID!) {
             user(id: $id) {
                 talentNominationGroupsAsNominee { id }
+            }
+        }
+    GRAPHQL;
+
+    protected $queryTalentNominationGroup = <<<'GRAPHQL'
+        query TalentNominationGroup($id: UUID!) {
+            talentNominationGroup(id: $id) {
+                id
+                nominations { id }
+            }
+        }
+    GRAPHQL;
+
+    protected $queryTalentNomination = <<<'GRAPHQL'
+        query TalentNomination($id: UUID!) {
+            talentNomination(id: $id) { id }
+        }
+    GRAPHQL;
+
+    protected $queryEventNominationGroups = <<<'GRAPHQL'
+        query EventNominationGroups($id: UUID!) {
+            talentNominationEvent(id: $id) {
+                talentNominationGroups { id }
+                countTalentNominationGroups
             }
         }
     GRAPHQL;
@@ -238,5 +263,88 @@ class TalentNominationGroupAsNomineeTest extends TestCase
         $this->actingAs($admin, 'api')
             ->graphQL($this->queryUserNominationsReceived, ['id' => $this->nominee->id])
             ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public static function decisionsProvider(): array
+    {
+        return [
+            'approved' => [[
+                'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+                'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            ]],
+            'partially approved' => [[
+                'advancement_decision' => TalentNominationGroupDecision::REJECTED->name,
+                'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            ]],
+            'rejected' => [[
+                'advancement_decision' => TalentNominationGroupDecision::REJECTED->name,
+                'lateral_movement_decision' => TalentNominationGroupDecision::REJECTED->name,
+            ]],
+            'in progress' => [[]],
+        ];
+    }
+
+    #[DataProvider('decisionsProvider')]
+    public function testNomineeCannotViewNominationGroupOrNominations(array $decisions)
+    {
+        $group = $this->createAdvancementAndLateralMovementGroup();
+        $this->decide($group, $decisions);
+
+        $this->actingAs($this->nominee, 'api')
+            ->graphQL($this->queryTalentNominationGroup, ['id' => $group->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $group->nominations->each(fn (TalentNomination $nomination) => $this->actingAs($this->nominee, 'api')
+            ->graphQL($this->queryTalentNomination, ['id' => $nomination->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.'));
+
+        $this->actingAs($this->nominee, 'api')
+            ->graphQL($this->queryEventNominationGroups, ['id' => $this->talentNominationEvent->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.talentNominationEvent.talentNominationGroups', [])
+            ->assertJsonPath('data.talentNominationEvent.countTalentNominationGroups', 0);
+    }
+
+    public function testAdminCanViewNominationGroupAndNominations()
+    {
+        $group = $this->createAdvancementAndLateralMovementGroup();
+        $this->decide($group, [
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $admin = User::factory()->asAdmin()->create();
+
+        $this->actingAs($admin, 'api')
+            ->graphQL($this->queryTalentNominationGroup, ['id' => $group->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.talentNominationGroup.nominations');
+    }
+
+    public function testCommunityCoordinatorCanViewNominationGroupAndNominations()
+    {
+        $group = $this->createAdvancementAndLateralMovementGroup();
+        $coordinator = User::factory()
+            ->asCommunityTalentCoordinator($this->talentNominationEvent->community_id)
+            ->create();
+
+        $this->actingAs($coordinator, 'api')
+            ->graphQL($this->queryTalentNominationGroup, ['id' => $group->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonCount(2, 'data.talentNominationGroup.nominations');
+
+        $this->actingAs($coordinator, 'api')
+            ->graphQL($this->queryEventNominationGroups, ['id' => $this->talentNominationEvent->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.talentNominationEvent.countTalentNominationGroups', 1);
+    }
+
+    public function testSubmitterCanStillViewOwnNomination()
+    {
+        $nomination = $this->createNomination($this->advancementNominator, ['nominate_for_advancement' => true]);
+
+        $this->actingAs($this->advancementNominator, 'api')
+            ->graphQL($this->queryTalentNomination, ['id' => $nomination->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.talentNomination.id', $nomination->id);
     }
 }
