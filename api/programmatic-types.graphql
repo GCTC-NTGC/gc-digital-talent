@@ -1053,6 +1053,7 @@ enum Permission {
   UpdateTeamTalentNominationGroup
   ViewTeamTalentNominationGroup
   ViewAnyTalentNominationGroup
+  ViewOwnTalentNominationGroupAsNominee
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
