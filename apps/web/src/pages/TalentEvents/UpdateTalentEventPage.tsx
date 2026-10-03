@@ -207,7 +207,7 @@ const UpdateTalentEventForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {user ? (
+        {user != null ? (
           <UpcomingTalentEventForm query={userQuery} />
         ) : (
           <NotFound
@@ -261,8 +261,8 @@ const UpdateTalentEventPage = () => {
 
   const pageTitle = intl.formatMessage({
     defaultMessage: "Edit a talent nomination event",
-    id: "Ifq2iQ",
-    description: "Page title for the talent nomination event create page",
+    id: "33I+qy",
+    description: "Page title for the talent nomination event edit page",
   });
 
   const crumbs = useBreadcrumbs({
