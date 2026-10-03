@@ -907,7 +907,7 @@ type User {
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
-  talentNominationGroupsAsNominee: [TalentNominationGroup!]
+  talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
 }
 
 type CommunityInterest {
@@ -1530,6 +1530,16 @@ type TalentNominationGroup {
   advancementReferralExpiryDate: Date
   lateralMovementClassifications: [Classification!]
   lateralMovementReferralExpiryDate: Date
+}
+
+type TalentNominationGroupAsNominee {
+  id: UUID!
+  talentNominationEvent: TalentNominationEvent!
+  approvedForAdvancement: Boolean!
+  approvedForLateralMovement: Boolean!
+  approvedForDevelopmentPrograms: Boolean!
+  nominatorNames: [String!]!
+  updatedAt: DateTime
 }
 
 type Team implements HasRoleAssignments {
@@ -3798,6 +3808,7 @@ enum Permission {
   UpdateTeamTalentNominationGroup
   ViewTeamTalentNominationGroup
   ViewAnyTalentNominationGroup
+  ViewOwnTalentNominationGroupAsNominee
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog

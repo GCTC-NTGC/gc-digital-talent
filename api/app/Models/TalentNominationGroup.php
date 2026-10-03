@@ -40,6 +40,10 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property bool $consentToShareProfile
  * @property ?Carbon $advancement_referral_expiry_date
  * @property ?Carbon $lateral_movement_referral_expiry_date
+ * @property-read bool $approved_for_advancement
+ * @property-read bool $approved_for_lateral_movement
+ * @property-read bool $approved_for_development_programs
+ * @property-read string[] $approved_nominator_names
  *
  * @method Builder|static authorizedToView()
  * @method static Builder|static query()
@@ -171,6 +175,60 @@ class TalentNominationGroup extends Model
     }
 
     /**
+     * Whether the nominee was both nominated for and approved for advancement.
+     */
+    protected function approvedForAdvancement(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->isApprovedOption($this->advancement_decision, $this->advancement_nomination_count)
+        );
+    }
+
+    /**
+     * Whether the nominee was both nominated for and approved for lateral movement.
+     */
+    protected function approvedForLateralMovement(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->isApprovedOption($this->lateral_movement_decision, $this->lateral_movement_nomination_count)
+        );
+    }
+
+    /**
+     * Whether the nominee was both nominated for and approved for development programs.
+     */
+    protected function approvedForDevelopmentPrograms(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->isApprovedOption($this->development_programs_decision, $this->development_programs_nomination_count)
+        );
+    }
+
+    /**
+     * Distinct names of the nominators whose nominations include at least one approved option.
+     * Uses the nominator's name when they have a verified account, otherwise the fallback name.
+     */
+    protected function approvedNominatorNames(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->nominations
+                ->filter(fn (TalentNomination $nomination) => ($nomination->nominate_for_advancement && $this->approved_for_advancement)
+                    || ($nomination->nominate_for_lateral_movement && $this->approved_for_lateral_movement)
+                    || ($nomination->nominate_for_development_programs && $this->approved_for_development_programs))
+                ->map(fn (TalentNomination $nomination) => $nomination->nominator?->getFullName() ?? $nomination->nominator_fallback_name)
+                ->filter()
+                ->unique()
+                ->values()
+                ->all()
+        );
+    }
+
+    private function isApprovedOption(?string $decision, int $nominationCount): bool
+    {
+        return $decision === TalentNominationGroupDecision::APPROVED->name && $nominationCount > 0;
+    }
+
+    /**
      * Recompute and save the status of the nomination group based on the current decisions.
      * Should only be called by a model observer automatically after another field is updated.
      */
@@ -241,13 +299,6 @@ class TalentNominationGroup extends Model
             return;
         }
 
-        // a nominee can view their own nomination groups
-        if ($user) {
-            $query->where('nominee_id', $user->id);
-
-            return;
-        }
-
         // fall through, return nothing
         $query->where('id', null);
     }
@@ -284,10 +335,14 @@ class TalentNominationGroup extends Model
         return $query->with(['talentNominationEvent']);
     }
 
-    public static function scopeApproved(Builder $query): Builder
+    /**
+     * Groups where at least one option has been approved.
+     */
+    public static function scopeWithApprovedOption(Builder $query): Builder
     {
         $query->whereIn('computed_status', [
             TalentNominationGroupStatus::APPROVED->name,
+            TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
         ]);
 
         return $query;
