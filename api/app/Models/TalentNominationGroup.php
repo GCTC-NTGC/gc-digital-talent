@@ -175,38 +175,41 @@ class TalentNominationGroup extends Model
     }
 
     /**
-     * Whether the nominee was both nominated for and approved for advancement.
+     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
      */
     protected function approvedForAdvancement(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->isApprovedOption($this->advancement_decision, $this->advancement_nomination_count)
+            get: fn () => $this->advancement_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->advancement_nomination_count > 0
         );
     }
 
     /**
-     * Whether the nominee was both nominated for and approved for lateral movement.
+     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
      */
     protected function approvedForLateralMovement(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->isApprovedOption($this->lateral_movement_decision, $this->lateral_movement_nomination_count)
+            get: fn () => $this->lateral_movement_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->lateral_movement_nomination_count > 0
         );
     }
 
     /**
-     * Whether the nominee was both nominated for and approved for development programs.
+     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
      */
     protected function approvedForDevelopmentPrograms(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->isApprovedOption($this->development_programs_decision, $this->development_programs_nomination_count)
+            get: fn () => $this->development_programs_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->development_programs_nomination_count > 0
         );
     }
 
     /**
-     * Distinct names of the nominators whose nominations include at least one approved option.
-     * Uses the nominator's name when they have a verified account, otherwise the fallback name.
+     * Computed here so the nominee never has access to the nominations themselves, and only
+     * learns of nominators who nominated them for an option they were approved for.
      */
     protected function approvedNominatorNames(): Attribute
     {
@@ -221,11 +224,6 @@ class TalentNominationGroup extends Model
                 ->values()
                 ->all()
         );
-    }
-
-    private function isApprovedOption(?string $decision, int $nominationCount): bool
-    {
-        return $decision === TalentNominationGroupDecision::APPROVED->name && $nominationCount > 0;
     }
 
     /**
