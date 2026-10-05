@@ -337,9 +337,6 @@ const getRoutes = (lang: Locales) => {
     // Notifications
     notifications: () => [applicantUrl, "notifications"].join("/"),
 
-    // Directive on digital talent
-    directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
-
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
