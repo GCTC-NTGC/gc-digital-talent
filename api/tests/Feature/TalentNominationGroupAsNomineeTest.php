@@ -268,6 +268,25 @@ class TalentNominationGroupAsNomineeTest extends TestCase
             ->assertJsonPath('data.user.talentNominationGroupsAsNominee', []);
     }
 
+    public function testNominatorCannotViewNomineesNominationsReceived()
+    {
+        $group = $this->createAdvancementAndLateralMovementGroup();
+        $this->decide($group, [
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+
+        $this->actingAs($this->advancementNominator, 'api')
+            ->graphQL($this->queryNominationsReceived)
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.me.talentNominationGroupsAsNominee', []);
+
+        $this->actingAs($this->advancementNominator, 'api')
+            ->graphQL($this->queryUserNominationsReceived, ['id' => $this->nominee->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.')
+            ->assertJsonMissing(['id' => $group->id]);
+    }
+
     public function testOnlyNomineeWithPermissionCanViewAsNominee()
     {
         $group = $this->createAdvancementAndLateralMovementGroup();
