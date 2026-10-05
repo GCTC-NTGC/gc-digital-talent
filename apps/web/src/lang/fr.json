@@ -4873,7 +4873,7 @@
     "defaultMessage": "Date d’expiration du statut prioritaire",
     "description": "Label for a priority status claim expiration date"
   },
-  "H+mm8d": {
+  "Pq0Jyv": {
     "defaultMessage": "Vous vous apprêtez à lier votre identifiant ConnexionCanada à votre profil Talents numériques du GC antérieur. Ce faisant, vous supprimerez votre profil actuel et vous le remplacerez par vos renseignements actuels. Lorsque vous serez connecté, vous serez déconnecté, puis vous pourrez vous connecter à nouveau au moyen de votre identifiant ConnexionCanada. Vous pourrez ainsi consulter les renseignements de votre profil antérieur, notamment les emplois auxquels vous avez postulé et votre expérience professionnelle.",
     "description": "Paragraph explaining what happens when a user links their profile"
   },

@@ -45,8 +45,8 @@ const LinkMyProfileDialog = ({ onLinkProfile }: LinkMyProfileDialogProps) => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "You're about to link your CanadaLogin with your existing GC Digital Talent profile. Doing so will delete this profile and replace it with your existing information. Once connected, you'll be signed out and can sign back in using your CanadaLogin. You will then see your existing profile information, including your applications and career experiences.",
-                id: "H+mm8d",
+                  "You're about to link your CanadaLogin with your previous GC Digital Talent profile. Doing so will delete the current profile and replace it with your existing information. Once connected, you'll be signed out and can sign back in using your CanadaLogin. You will then see your previous profile information, including your applications and career experiences.",
+                id: "Pq0Jyv",
                 description:
                   "Paragraph explaining what happens when a user links their profile",
               })}
