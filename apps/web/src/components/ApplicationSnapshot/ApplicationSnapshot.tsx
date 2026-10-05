@@ -93,9 +93,10 @@ const ApplicationSnapshot = ({
   };
   const application = getFragment(ApplicationSnapshot_Fragment, query);
 
-  const snapshot = application?.profileSnapshot
-    ? (JSON.parse(String(application.profileSnapshot)) as ParsedSnapshot)
-    : undefined;
+  const snapshot =
+    typeof application?.profileSnapshot === "string"
+      ? (JSON.parse(application.profileSnapshot) as ParsedSnapshot)
+      : undefined;
 
   const experiences = unpackMaybes(snapshot?.experiences);
 
