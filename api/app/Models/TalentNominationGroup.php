@@ -46,6 +46,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property-read string[] $approved_nominator_names
  *
  * @method Builder|static authorizedToView()
+ * @method Builder|static authorizedToViewAsNominee()
  * @method static Builder|static query()
  */
 class TalentNominationGroup extends Model
@@ -298,6 +299,24 @@ class TalentNominationGroup extends Model
         }
 
         // fall through, return nothing
+        $query->where('id', null);
+    }
+
+    /**
+     * Kept separate from authorizedToView, which gates the full model, so that the nominee
+     * can only ever reach the limited TalentNominationGroupAsNominee version.
+     */
+    public function scopeAuthorizedToViewAsNominee(Builder $query): void
+    {
+        /** @var User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-own-talentNominationGroupAsNominee')) {
+            $query->where('nominee_id', $user->id);
+
+            return;
+        }
+
         $query->where('id', null);
     }
 

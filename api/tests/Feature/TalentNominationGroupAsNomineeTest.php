@@ -239,7 +239,7 @@ class TalentNominationGroupAsNomineeTest extends TestCase
         $this->assertEqualsCanonicalizing(['Ada Vance', 'Fallback Nominator'], $groups[0]['nominatorNames']);
     }
 
-    public function testNomineeWithoutPermissionIsRefused()
+    public function testNomineeWithoutPermissionSeesNothing()
     {
         $group = $this->createAdvancementAndLateralMovementGroup();
         $this->decide($group, [
@@ -248,7 +248,9 @@ class TalentNominationGroupAsNomineeTest extends TestCase
         ]);
         $this->nominee->removeRole('applicant');
 
-        $this->queryAsNominee()->assertGraphQLErrorMessage('This action is unauthorized.');
+        $this->queryAsNominee()
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.me.talentNominationGroupsAsNominee', []);
     }
 
     public function testAdminCannotViewAnotherUsersNominationsReceived()
@@ -262,7 +264,21 @@ class TalentNominationGroupAsNomineeTest extends TestCase
 
         $this->actingAs($admin, 'api')
             ->graphQL($this->queryUserNominationsReceived, ['id' => $this->nominee->id])
-            ->assertGraphQLErrorMessage('This action is unauthorized.');
+            ->assertGraphQLErrorFree()
+            ->assertJsonPath('data.user.talentNominationGroupsAsNominee', []);
+    }
+
+    public function testOnlyNomineeWithPermissionCanViewAsNominee()
+    {
+        $group = $this->createAdvancementAndLateralMovementGroup();
+        $admin = User::factory()->asAdmin()->create();
+
+        $this->assertTrue($this->nominee->can('viewAsNominee', $group));
+        $this->assertFalse($admin->can('viewAsNominee', $group));
+        $this->assertFalse($this->advancementNominator->can('viewAsNominee', $group));
+
+        $this->nominee->removeRole('applicant');
+        $this->assertFalse($this->nominee->fresh()->can('viewAsNominee', $group));
     }
 
     public static function decisionsProvider(): array

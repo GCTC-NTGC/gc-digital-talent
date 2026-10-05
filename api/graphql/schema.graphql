@@ -185,8 +185,7 @@ type User {
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
   talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
-    @hasMany(scopes: ["withApprovedOption"])
-    @canRoot(ability: "viewTalentNominationGroupsAsNominee")
+    @hasMany(scopes: ["withApprovedOption", "whereAuthorizedToViewAsNominee"])
 }
 
 type CommunityInterest {

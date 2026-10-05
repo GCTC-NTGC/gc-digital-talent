@@ -91,4 +91,12 @@ class TalentNominationGroupBuilder extends Builder implements TalentRequestMatch
 
         return $this;
     }
+
+    // scope the query to TalentNominationGroups the current user can view as the nominee
+    public function whereAuthorizedToViewAsNominee(): self
+    {
+        $this->authorizedToViewAsNominee();
+
+        return $this;
+    }
 }
