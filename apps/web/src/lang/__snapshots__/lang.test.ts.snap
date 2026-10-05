@@ -31,13 +31,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     ]
   },
   {
-    "en": "What to expect",
-    "fr": [
-      "À quoi s’attendre",
-      "Prochaines étapes"
-    ]
-  },
-  {
     "en": "Nominate talent",
     "fr": [
       "Nominez un talent",
@@ -140,8 +133,7 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "en": "Apply now",
     "fr": [
       "Postulez dès maintenant",
-      "Présenter une demande",
-      "Faire une demande"
+      "Présenter une demande"
     ]
   },
   {
@@ -219,13 +211,6 @@ exports[`message files > should have no changes to duplicate strings 1`] = `
     "fr": [
       "Ajouter des volets de travail",
       "Ajouter les volets de travail"
-    ]
-  },
-  {
-    "en": "Request a voucher",
-    "fr": [
-      "Demander un bon",
-      "Demandez un bon"
     ]
   },
   {
