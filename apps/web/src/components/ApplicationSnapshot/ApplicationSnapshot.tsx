@@ -26,7 +26,7 @@ import { ALL_SECTIONS, SECTION_KEY } from "./types";
 import PersonalInformationSnapshot from "./Sections/PersonalInformation/PersonalInformationSnapshot";
 import ScreeningQuestionResponsesSnapshot from "./Sections/QuestionResponses/ScreeningQuestionResponsesSnapshot";
 import GeneralQuestionResponsesSnapshot from "./Sections/QuestionResponses/GeneralQuestionResponsesSnapshot";
-import EducationRequirementSnapshot from "./Sections/EducationRequirment/EducationRequirementSnapshot";
+import EducationRequirementSnapshot from "./Sections/EducationRequirement/EducationRequirementSnapshot";
 import TechnicalAssetSkillsSnapshot from "./Sections/Skills/TechnicalAssetSkillsSnapshot";
 import TechnicalEssentialSkillsSnapshot from "./Sections/Skills/TechnicalEssentialSkillsSnapshot";
 import LanguageProfileSnapshot from "./Sections/LanguageProfile/LanguageProfileSnapshot";
@@ -42,7 +42,7 @@ import type { WorkPreferencesSnapshotV1 } from "./Sections/WorkPreferences/WorkP
 import type { GovernmentInformationSnapshotV1 } from "./Sections/GovernmentInformation/GovernmentInformationV1";
 import type { DiversityEquityInclusionSnapshotV1 } from "./Sections/DiversityEquityInclusion/DiversityEquityInclusionV1";
 import type { CitizenVeteranPrioritySnapshotV1 } from "./Sections/CitizenVeteranPriority/CitizenVeteranPriorityV1";
-import type { EducationRequirementSnapshotV1 } from "./Sections/EducationRequirment/EducationRequirementV1";
+import type { EducationRequirementSnapshotV1 } from "./Sections/EducationRequirement/EducationRequirementV1";
 
 export const ApplicationSnapshot_Fragment = graphql(/** GraphQL */ `
   fragment ApplicationSnapshot on PoolCandidate {
