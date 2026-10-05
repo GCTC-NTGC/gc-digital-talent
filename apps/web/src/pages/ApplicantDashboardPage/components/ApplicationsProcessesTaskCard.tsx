@@ -174,9 +174,9 @@ const ApplicationsProcessesTaskCard = ({
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />
                 <Accordion.Content>
                   <div className="pt-6">
-                  <ReviewApplicationPreviewList
-                    applicationsQuery={unpackMaybes(recruitmentProcesses)}
-                  />
+                    <ReviewApplicationPreviewList
+                      applicationsQuery={unpackMaybes(recruitmentProcesses)}
+                    />
                   </div>
                 </Accordion.Content>
               </Accordion.Item>
