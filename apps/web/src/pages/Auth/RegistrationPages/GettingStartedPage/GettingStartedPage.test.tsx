@@ -7,9 +7,11 @@ import {
   expectNoAccessibilityErrors,
   renderWithProviders,
 } from "@gc-digital-talent/vitest-helpers";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { fakeUsers, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
 
 import EmailVerification from "~/components/EmailVerification/EmailVerification";
+import { PersonalInfoBox_Fragment } from "~/components/PersonalInfoBox/PersonalInfoBox";
 
 import type { GettingStartedFormProps } from "./GettingStartedForm";
 import GettingStartedForm, {
@@ -30,36 +32,37 @@ const mockClient = {
   ),
 };
 
+const [user] = fakeUsers(1);
+
+const mockPersonalInfo = makeFragmentData(
+  {
+    __typename: "User",
+    id: user.id,
+    firstName: user.firstName ?? null,
+    lastName: user.lastName ?? null,
+    telephone: user.telephone ?? null,
+    email: "example@example.org",
+    preferredLang: toLocalizedEnum(Language.En, "LocalizedLanguage"),
+  },
+  PersonalInfoBox_Fragment,
+);
+
 const mockDataNoWorkEmail = makeFragmentData(
   {
-    firstName: "First",
-    lastName: "Last",
-    preferredLang: {
-      label: {
-        localized: "Language",
-      },
-    },
-    email: "example@example.org",
+    __typename: "User",
     workEmail: null,
     isWorkEmailVerified: null,
-    telephone: "1234567890",
+    ...mockPersonalInfo,
   },
   GettingStartedInitialValues_Query,
 );
 
 const mockDataWithWorkEmail = makeFragmentData(
   {
-    firstName: "First",
-    lastName: "Last",
-    preferredLang: {
-      label: {
-        localized: "Language",
-      },
-    },
-    email: "example@example.org",
+    __typename: "User",
     workEmail: "example@gc.ca",
     isWorkEmailVerified: true,
-    telephone: "1234567890",
+    ...mockPersonalInfo,
   },
   GettingStartedInitialValues_Query,
 );

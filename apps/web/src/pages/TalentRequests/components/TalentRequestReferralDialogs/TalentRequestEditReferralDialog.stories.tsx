@@ -84,6 +84,7 @@ const mockTrackedUser = {
     },
   ],
   matchingAdvancementSources: [],
+  matchingLateralMovementSources: [],
   referralSummary: {
     __typename: "TalentRequestReferralSummary" as const,
     ...makeFragmentData(
