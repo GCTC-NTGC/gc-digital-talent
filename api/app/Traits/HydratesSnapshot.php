@@ -5,7 +5,6 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * Helpers for hydrating models from a snapshot
@@ -26,28 +25,41 @@ trait HydratesSnapshot
             return false;
         }
 
-        // validator for a single localized enum
-        $singleEnumValidator = Validator::make($snapshot, [
-            $snapshotField.'.value' => 'required|string',
-            $snapshotField.'.label.en' => 'nullable|string',
-            $snapshotField.'.label.fr' => 'nullable|string',
-        ]);
-        if ($singleEnumValidator->passes()) {
+        $value = $snapshot[$snapshotField];
+
+        // a single localized enum
+        if (self::isLocalizedEnumValue($value)) {
             return true;
         }
 
-        // validator for an array of localized enums
-        $arrayEnumValidator = Validator::make($snapshot, [
-            $snapshotField => 'array',
-            $snapshotField.'.*.value' => 'required|string',
-            $snapshotField.'.*.label.en' => 'nullable|string',
-            $snapshotField.'.*.label.fr' => 'nullable|string',
-        ]);
-        if ($arrayEnumValidator->passes()) {
-            return true;
+        // an array of localized enums
+        if (! is_array($value)) {
+            return false;
+        }
+        foreach ($value as $item) {
+            if (! self::isLocalizedEnumValue($item)) {
+                return false;
+            }
         }
 
-        return false;
+        return true;
+    }
+
+    // Plain checks, not a Validator: this runs for every field of every snapshot
+    private static function isLocalizedEnumValue(mixed $item): bool
+    {
+        if (! is_array($item) || ! is_string($item['value'] ?? null) || trim($item['value']) === '') {
+            return false;
+        }
+
+        foreach (['en', 'fr'] as $locale) {
+            $label = data_get($item, 'label.'.$locale);
+            if (! is_null($label) && ! is_string($label)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
