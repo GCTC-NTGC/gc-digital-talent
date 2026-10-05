@@ -23,6 +23,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
+use App\Models\Department;
 use App\Models\Experience;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
@@ -149,7 +150,9 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 ...$this->generatedHeaders['ROD_details'] ?? [],
             ]));
 
-            $this->buildQuery()->chunkById(200, function ($candidates) {
+            $departments = Department::get(['id', 'name', 'department_number'])->keyBy('id');
+
+            $this->buildQuery()->chunkById(200, function ($candidates) use ($departments) {
                 foreach ($candidates as $candidate) {
 
                     // pull data from application snapshot
@@ -160,7 +163,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
                     $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
 
-                    $department = $userHydrated->department()->first();
+                    $department = $departments->get($userHydrated->computed_department);
                     $preferences = $userHydrated->getOperationalRequirements();
                     $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
                         return $experience->getTitle($this->lang);

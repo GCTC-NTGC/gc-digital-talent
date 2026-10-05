@@ -192,7 +192,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildUserRowData(User $user): array
     {
-        $department = $user->department()->first();
+        $department = $user->department;
         $preferences = $user->getOperationalRequirements();
         $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
             return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
