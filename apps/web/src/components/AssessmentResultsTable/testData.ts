@@ -32,6 +32,7 @@ const makeTestPoolSkill = (type: PoolSkillType) => ({
     ...fakeSkills(1)[0],
     id: faker.string.uuid(),
     name: {
+      __typename: "LocalizedString" as const,
       en: `EN ${faker.lorem.word()}`,
       fr: `FR ${faker.lorem.word()}`,
     },

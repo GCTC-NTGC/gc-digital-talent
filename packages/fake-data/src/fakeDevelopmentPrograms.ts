@@ -1,12 +1,10 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { DevelopmentProgram } from "@gc-digital-talent/graphql/schema-types";
-
 import toLocalizedString from "./fakeLocalizedString";
 
-const generateDevelopmentProgram = (): DevelopmentProgram => {
+const generateDevelopmentProgram = () => {
   return {
-    __typename: "DevelopmentProgram",
+    __typename: "DevelopmentProgram" as const,
     id: faker.string.uuid(),
     name: toLocalizedString(faker.company.name()),
     descriptionForProfile: toLocalizedString(faker.lorem.words(15)),
@@ -15,7 +13,7 @@ const generateDevelopmentProgram = (): DevelopmentProgram => {
   };
 };
 
-export default (numToGenerate = 10): DevelopmentProgram[] => {
+export default (numToGenerate = 10) => {
   faker.seed(0); // repeatable results
   return Array.from({ length: numToGenerate }, () =>
     generateDevelopmentProgram(),

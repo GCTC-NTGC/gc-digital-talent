@@ -554,7 +554,11 @@ export const candidateSuspendedFilterToCustomOptions = (
     if (enumObject.value === CandidateSuspendedFilter.All) {
       return {
         value: enumObject.value,
-        label: intl.formatMessage(commonMessages.all),
+        label: intl.formatMessage({
+          defaultMessage: "All",
+          id: "cavxJ8",
+          description: "All as in all items or things",
+        }),
       };
     }
 

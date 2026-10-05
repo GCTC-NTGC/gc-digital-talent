@@ -4,6 +4,7 @@ import { defineMessage, useIntl, type MessageDescriptor } from "react-intl";
 
 import { Button, Dialog, IconLabel, Image } from "@gc-digital-talent/ui";
 import { useTheme } from "@gc-digital-talent/theme";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import authMessages from "~/messages/authMessages";
 import pugDarkLg from "~/assets/img/inactive-pug-dark-lg.webp";
@@ -77,11 +78,7 @@ const InactivityDialog = ({
             <ExclamationTriangleIcon
               className="mt-2 size-5 shrink-0 text-warning lg:size-6"
               aria-hidden="false"
-              aria-label={intl.formatMessage({
-                defaultMessage: "Warning",
-                id: "Yn2mVD",
-                description: "Accessible label for a warning icon",
-              })}
+              aria-label={intl.formatMessage(commonMessages.warning)}
             />
             <span>
               {intl.formatMessage({

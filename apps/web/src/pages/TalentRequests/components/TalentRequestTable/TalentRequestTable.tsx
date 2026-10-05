@@ -197,10 +197,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
         isRowTitle: true,
       },
       cell: ({ row: { original: searchRequest } }) =>
-        jobTitleCell(
-          { id: searchRequest.id, jobTitle: searchRequest.jobTitle },
-          paths,
-        ),
+        jobTitleCell(searchRequest, paths),
     }),
     columnHelper.accessor(
       ({ talentRequestStatus }) => talentRequestStatus?.label.localized ?? null,

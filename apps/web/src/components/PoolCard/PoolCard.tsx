@@ -291,8 +291,11 @@ const PoolCard = ({ poolQuery, headingRank = "h3" }: PoolCardProps) => {
             <IconLabel
               icon={BoltIcon}
               label={
-                intl.formatMessage(commonMessages.requiredSkills) +
-                intl.formatMessage(commonMessages.dividingColon)
+                intl.formatMessage({
+                  id: "WZ17s5",
+                  defaultMessage: "Required skills",
+                  description: "Title for required skills",
+                }) + intl.formatMessage(commonMessages.dividingColon)
               }
             />
           </div>
