@@ -56,6 +56,9 @@ export const TalentRequestAddReferralDialog_Fragment = graphql(/* GraphQL */ `
     matchingAdvancementSources {
       ...ReferralMatchingAdvancementSource
     }
+    matchingLateralMovementSources {
+      ...ReferralMatchingLateralMovementSource
+    }
     referralSummary {
       ...ReferralHistory
     }
@@ -159,6 +162,9 @@ const TalentRequestAddReferralDialog = ({
             sourceLabels={sourceLabels}
             matchingPoolSources={result.matchingQualifiedInPoolSources}
             matchingAdvancementSources={result.matchingAdvancementSources}
+            matchingLateralMovementSources={
+              result.matchingLateralMovementSources
+            }
           />
           <ReferralHistory query={result.referralSummary} />
           <FormProvider {...methods}>

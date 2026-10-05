@@ -100,7 +100,11 @@ const NotificationActions = ({
               description: "Link text to show all notifications",
             })}
           >
-            {intl.formatMessage(commonMessages.all)}
+            {intl.formatMessage({
+              defaultMessage: "All",
+              id: "cavxJ8",
+              description: "All as in all items or things",
+            })}
           </Link>
           <Link
             color="black"

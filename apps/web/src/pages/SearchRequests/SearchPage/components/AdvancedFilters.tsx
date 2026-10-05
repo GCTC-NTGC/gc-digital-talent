@@ -14,7 +14,6 @@ import {
   getEmploymentDuration,
   EmploymentDuration,
   getOperationalRequirement,
-  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -157,7 +156,11 @@ const AdvancedFilters = () => {
     <>
       <div className="mt-12 mb-3 flex flex-wrap items-center justify-between gap-x-3">
         <Heading rank="h3" size="h6" className="m-0 font-bold">
-          {intl.formatMessage(commonMessages.advancedFilters)}
+          {intl.formatMessage({
+            defaultMessage: "Advanced filters",
+            id: "eozWFc",
+            description: "Title for the additional filters",
+          })}
         </Heading>
         <Button
           mode="inline"

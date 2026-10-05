@@ -183,24 +183,40 @@ const NominationHistoryListItem = ({
   const getStatusInfo = () => {
     if (computedStatus === TalentNominationGroupStatus.Approved) {
       return {
-        text: intl.formatMessage(commonMessages.approved),
+        text: intl.formatMessage({
+          defaultMessage: "Approved",
+          id: "oCFl63",
+          description: "Approved status",
+        }),
         icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
       };
     } else if (computedStatus === TalentNominationGroupStatus.Rejected) {
       return {
-        text: intl.formatMessage(commonMessages.notSupported),
+        text: intl.formatMessage({
+          defaultMessage: "Not supported",
+          id: "5RMS25",
+          description: "Not supported status",
+        }),
         icon: <XMarkIcon className="mr-1 h-5 w-5 font-normal text-error" />,
       };
     } else if (
       computedStatus === TalentNominationGroupStatus.PartiallyApproved
     ) {
       return {
-        text: intl.formatMessage(commonMessages.partiallyApproved),
+        text: intl.formatMessage({
+          defaultMessage: "Partially approved",
+          id: "M9Q1zH",
+          description: "Status text for partially approved nominations",
+        }),
         icon: <CheckIcon className="mr-1 h-5 w-5 font-normal text-success" />,
       };
     } else {
       return {
-        text: intl.formatMessage(commonMessages.inProgress),
+        text: intl.formatMessage({
+          defaultMessage: "In progress",
+          id: "xVBxp3",
+          description: "In progress status",
+        }),
         icon: (
           <QuestionMarkCircleIcon className="mr-1 h-5 w-5 font-normal text-primary" />
         ),

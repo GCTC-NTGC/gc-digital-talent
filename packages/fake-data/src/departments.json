@@ -1,0 +1,1808 @@
+{
+  "data": {
+    "departments": [
+      {
+        "departmentNumber": 1,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Agriculture and Agri-Food Canada",
+          "fr": "Agriculture et Agroalimentaire Canada"
+        },
+        "orgIdentifier": 1,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 2,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Auditor General of Canada",
+          "fr": "Bureau du vérificateur général du Canada"
+        },
+        "orgIdentifier": 238,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 4,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Public Service Commission of Canada",
+          "fr": "Commission de la fonction publique du Canada"
+        },
+        "orgIdentifier": 282,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 5,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Global Affairs Canada",
+          "fr": "Affaires mondiales Canada"
+        },
+        "orgIdentifier": 126,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 6,
+        "isCentralAgency": true,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Department of Finance Canada",
+          "fr": "Ministère des Finances Canada"
+        },
+        "orgIdentifier": 124,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 7,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Environment and Climate Change Canada",
+          "fr": "Environnement et Changement climatique Canada"
+        },
+        "orgIdentifier": 137,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 8,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Secretary to the Governor General",
+          "fr": "Bureau du secrétaire du gouverneur général"
+        },
+        "orgIdentifier": 249,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 9,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Senate",
+          "fr": "Sénat"
+        },
+        "orgIdentifier": 303,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 11,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Superintendent of Financial Institutions Canada",
+          "fr": "Bureau du surintendant des institutions financières Canada"
+        },
+        "orgIdentifier": 253,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 12,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada Economic Development for Quebec Regions",
+          "fr": "Développement économique Canada pour les régions du Québec"
+        },
+        "orgIdentifier": 141,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 13,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Department of Justice Canada",
+          "fr": "Ministère de la Justice Canada"
+        },
+        "orgIdentifier": 132,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 14,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Employment and Social Development Canada",
+          "fr": "Emploi et Développement social Canada"
+        },
+        "orgIdentifier": 128,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 15,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Elections Canada",
+          "fr": "Bureau du directeur général des élections"
+        },
+        "orgIdentifier": 239,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 16,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Radio-television and Telecommunications Commission",
+          "fr": "Conseil de la radiodiffusion et des télécommunications canadiennes"
+        },
+        "orgIdentifier": 93,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 17,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Library of Parliament",
+          "fr": "Bibliothèque du Parlement"
+        },
+        "orgIdentifier": 200,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 18,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "National Defence",
+          "fr": "Défense nationale"
+        },
+        "orgIdentifier": 133,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 19,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Public Prosecution Service of Canada",
+          "fr": "Service des poursuites pénales du Canada"
+        },
+        "orgIdentifier": 248,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 21,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Veterans Affairs Canada",
+          "fr": "Anciens Combattants Canada"
+        },
+        "orgIdentifier": 139,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 22,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Health Canada",
+          "fr": "Santé Canada"
+        },
+        "orgIdentifier": 127,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 23,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Atlantic Canada Opportunities Agency",
+          "fr": "Agence de promotion économique du Canada atlantique"
+        },
+        "orgIdentifier": 12,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 24,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "International Joint Commission (Canadian Section)",
+          "fr": "Commission mixte internationale (section canadienne)"
+        },
+        "orgIdentifier": 189,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 25,
+        "isCentralAgency": true,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Privy Council Office",
+          "fr": "Bureau du Conseil privé"
+        },
+        "orgIdentifier": 278,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 27,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Natural Sciences and Engineering Research Council of Canada",
+          "fr": "Conseil de recherches en sciences naturelles et en génie du Canada"
+        },
+        "orgIdentifier": 230,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 30,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Royal Canadian Mounted Police",
+          "fr": "Gendarmerie royale du Canada"
+        },
+        "orgIdentifier": 295,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 32,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Immigration and Refugee Board of Canada",
+          "fr": "Commission de l'immigration et du statut de réfugié du Canada"
+        },
+        "orgIdentifier": 174,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 33,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Innovation, Science and Economic Development Canada",
+          "fr": "Innovation, Sciences et Développement économique Canada"
+        },
+        "orgIdentifier": 130,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 34,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Transport Canada",
+          "fr": "Transports Canada"
+        },
+        "orgIdentifier": 138,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 35,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "National Research Council Canada",
+          "fr": "Conseil national de recherches Canada"
+        },
+        "orgIdentifier": 228,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 37,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Telefilm Canada",
+          "fr": "Téléfilm Canada"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 39,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "National Film Board",
+          "fr": "Office national du film"
+        },
+        "orgIdentifier": 223,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 40,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Transportation Agency",
+          "fr": "Office des transports du Canada"
+        },
+        "orgIdentifier": 99,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 41,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Natural Resources Canada",
+          "fr": "Ressources naturelles Canada"
+        },
+        "orgIdentifier": 134,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 42,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Crown-Indigenous Relations and Northern Affairs Canada",
+          "fr": "Relations Couronne-Autochtones et Affaires du Nord Canada"
+        },
+        "orgIdentifier": 129,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 43,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Intergovernmental Conference Secretariat",
+          "fr": "Secrétariat des conférences intergouvernementales canadiennes"
+        },
+        "orgIdentifier": 76,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 46,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Public Sector Integrity Commissioner of Canada",
+          "fr": "Commissariat à l'intégrité du secteur public du Canada"
+        },
+        "orgIdentifier": 250,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 47,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Nuclear Safety Commission",
+          "fr": "Commission canadienne de sûreté nucléaire"
+        },
+        "orgIdentifier": 87,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 50,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Immigration, Refugees and Citizenship Canada",
+          "fr": "Immigration, Réfugiés et Citoyenneté Canada"
+        },
+        "orgIdentifier": 123,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 51,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Commissioner for Federal Judicial Affairs Canada",
+          "fr": "Commissariat à la magistrature fédérale Canada"
+        },
+        "orgIdentifier": 240,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 52,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada School of Public Service",
+          "fr": "École de la fonction publique du Canada"
+        },
+        "orgIdentifier": 47,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 53,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Correctional Service Canada",
+          "fr": "Service correctionnel Canada"
+        },
+        "orgIdentifier": 117,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 54,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Statistics Canada",
+          "fr": "Statistique Canada"
+        },
+        "orgIdentifier": 313,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 56,
+        "isCentralAgency": true,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Treasury Board of Canada Secretariat",
+          "fr": "Secrétariat du Conseil du Trésor du Canada"
+        },
+        "orgIdentifier": 326,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 57,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Parole Board of Canada",
+          "fr": "Commission des libérations conditionnelles du Canada"
+        },
+        "orgIdentifier": 227,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 61,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Canadian Institutes of Health Research",
+          "fr": "Instituts de recherche en santé du Canada"
+        },
+        "orgIdentifier": 74,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 62,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Federal Economic Development Agency for Southern Ontario",
+          "fr": "Agence fédérale de développement économique pour le Sud de l'Ontario"
+        },
+        "orgIdentifier": 150,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 63,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Social Sciences and Humanities Research Council of Canada",
+          "fr": "Conseil de recherches en sciences humaines du Canada"
+        },
+        "orgIdentifier": 306,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 66,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Northern Pipeline Agency Canada",
+          "fr": "Administration du pipe-line du Nord Canada"
+        },
+        "orgIdentifier": 235,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 67,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "House of Commons",
+          "fr": "Chambre des communes"
+        },
+        "orgIdentifier": 2,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 75,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Human Rights Commission",
+          "fr": "Commission canadienne des droits de la personne"
+        },
+        "orgIdentifier": 71,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 76,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Commissioner of Official Languages",
+          "fr": "Commissariat aux langues officielles"
+        },
+        "orgIdentifier": 242,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 78,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Northern Economic Development Agency",
+          "fr": "Agence canadienne de développement économique du Nord"
+        },
+        "orgIdentifier": 86,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 79,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Payroll System General Ledger",
+          "fr": "Grand livre général du système de la paye"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 80,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Registrar of the Supreme Court of Canada",
+          "fr": "Registraire de la Cour suprême du Canada"
+        },
+        "orgIdentifier": 288,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 85,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canada Border Services Agency",
+          "fr": "Agence des services frontaliers du Canada"
+        },
+        "orgIdentifier": 26,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 86,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Fisheries and Oceans Canada",
+          "fr": "Pêches et Océans Canada"
+        },
+        "orgIdentifier": 125,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 87,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Public Service Superannuation",
+          "fr": "Pension de retraite de la fonction publique"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 88,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Public Safety Canada",
+          "fr": "Sécurité publique Canada"
+        },
+        "orgIdentifier": 135,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 91,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada Mortgage and Housing Corporation (Crown Corporation)",
+          "fr": "Société canadienne d'hypothèques et de logement (Société d'État)"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 95,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Security Intelligence Service",
+          "fr": "Service canadien du renseignement de sécurité"
+        },
+        "orgIdentifier": 94,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 96,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Offices of the Information and Privacy Commissioners of Canada",
+          "fr": "Commissariats à l’information et à la protection de la vie privée du Canada"
+        },
+        "orgIdentifier": 256,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 97,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Receiver General",
+          "fr": "Receveur général"
+        },
+        "orgIdentifier": null,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 100,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Centre for Occupational Health and Safety",
+          "fr": "Centre canadien d’hygiène et de sécurité au travail"
+        },
+        "orgIdentifier": 55,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 101,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Transportation Safety Board of Canada",
+          "fr": "Bureau de la sécurité des transports du Canada"
+        },
+        "orgIdentifier": 98,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 102,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "The National Battlefields Commission",
+          "fr": "Commission des champs de bataille nationaux"
+        },
+        "orgIdentifier": 218,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 109,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Patented Medicine Prices Review Board Canada",
+          "fr": "Conseil d'examen du prix des médicaments brevetés Canada"
+        },
+        "orgIdentifier": 266,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 116,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Copyright Board Canada",
+          "fr": "Commission du droit d'auteur Canada"
+        },
+        "orgIdentifier": 114,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 119,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": true,
+        "name": {
+          "en": "Canadian Space Agency",
+          "fr": "Agence spatiale canadienne"
+        },
+        "orgIdentifier": 95,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 123,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Export Development Canada (Crown Corporation)",
+          "fr": "Exportation et développement Canada (Société d'État)"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 124,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Parks Canada",
+          "fr": "Parcs Canada"
+        },
+        "orgIdentifier": 263,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 127,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Public Services and Procurement Canada",
+          "fr": "Services publics et Approvisionnement Canada"
+        },
+        "orgIdentifier": 136,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 130,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canada Revenue Agency",
+          "fr": "Agence du revenu du Canada"
+        },
+        "orgIdentifier": 46,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 133,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Grain Commission",
+          "fr": "Commission canadienne des grains"
+        },
+        "orgIdentifier": 69,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 134,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Dairy Commission",
+          "fr": "Commission canadienne du lait"
+        },
+        "orgIdentifier": 61,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 135,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Heritage",
+          "fr": "Patrimoine canadien"
+        },
+        "orgIdentifier": 122,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 136,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Food Inspection Agency",
+          "fr": "Agence canadienne d'inspection des aliments"
+        },
+        "orgIdentifier": 65,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 137,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Military Police Complaints Commission of Canada",
+          "fr": "Commission d'examen des plaintes concernant la police militaire du Canada"
+        },
+        "orgIdentifier": 210,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 138,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Military Grievances External Review Committee",
+          "fr": "Comité externe d'examen des griefs militaires"
+        },
+        "orgIdentifier": 209,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 139,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Financial Transactions and Reports Analysis Centre of Canada",
+          "fr": "Centre d'analyse des opérations et déclarations financières du Canada"
+        },
+        "orgIdentifier": 152,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 141,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Financial Consumer Agency of Canada",
+          "fr": "Agence de la consommation en matière financière du Canada"
+        },
+        "orgIdentifier": 151,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 144,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Courts Administration Service",
+          "fr": "Service administratif des tribunaux judiciaires"
+        },
+        "orgIdentifier": 118,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 145,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Library and Archives Canada",
+          "fr": "Bibliothèque et Archives Canada"
+        },
+        "orgIdentifier": 199,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 147,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Conflict of Interest and Ethics Commissioner",
+          "fr": "Commissariat aux conflits d'intérêts et à l'éthique"
+        },
+        "orgIdentifier": 245,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 148,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": true,
+        "name": {
+          "en": "Public Health Agency of Canada",
+          "fr": "Agence de la santé publique du Canada"
+        },
+        "orgIdentifier": 280,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 151,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Senate Ethics Officer",
+          "fr": "Bureau du conseiller sénatorial en éthique"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 154,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Commissioner of Lobbying of Canada",
+          "fr": "Commissariat au lobbying du Canada"
+        },
+        "orgIdentifier": 241,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 163,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Shared Services Canada",
+          "fr": "Services partagés Canada"
+        },
+        "orgIdentifier": 305,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 165,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Communications Security Establishment Canada",
+          "fr": "Centre de la sécurité des télécommunications Canada"
+        },
+        "orgIdentifier": 110,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 170,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Administrative Tribunals Support Service of Canada",
+          "fr": "Service canadien d'appui aux tribunaux administratifs"
+        },
+        "orgIdentifier": 539,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 171,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Polar Knowledge Canada",
+          "fr": "Savoir polaire Canada"
+        },
+        "orgIdentifier": 552,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 176,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Parliamentary Protective Service",
+          "fr": "Service de protection parlementaire"
+        },
+        "orgIdentifier": 554,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 180,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Invest in Canada Hub",
+          "fr": "Investir au Canada"
+        },
+        "orgIdentifier": 347,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 183,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Parliamentary Budget Officer",
+          "fr": "Bureau du directeur parlementaire du budget"
+        },
+        "orgIdentifier": 346,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 190,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Women and Gender Equality Canada",
+          "fr": "Femmes et Égalité des genres Canada"
+        },
+        "orgIdentifier": 246,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 191,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Indigenous Services Canada",
+          "fr": "Ministère des Services aux Autochtones"
+        },
+        "orgIdentifier": 348,
+        "size": {
+          "value": "LARGE"
+        }
+      },
+      {
+        "departmentNumber": 192,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Secretariat of the National Security and Intelligence Committee of Parliamentarians",
+          "fr": "Secrétariat du Comité des parlementaires sur la sécurité nationale et le renseignement"
+        },
+        "orgIdentifier": 345,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 193,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Leaders’ Debates Commission",
+          "fr": "Commission des débats des chefs"
+        },
+        "orgIdentifier": 350,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 195,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Canada Energy Regulator",
+          "fr": "Régie de l'énergie du Canada"
+        },
+        "orgIdentifier": 221,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 196,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "National Security and Intelligence Review Agency Secretariat",
+          "fr": "Secrétariat de l’Office de surveillance des activités en matière de sécurité nationale et de renseignement"
+        },
+        "orgIdentifier": 302,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 197,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Intelligence Commissioner",
+          "fr": "Bureau du commissaire au renseignement"
+        },
+        "orgIdentifier": 244,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 201,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Housing, Infrastructure and Communities Canada",
+          "fr": "Logement, Infrastructure et Collectivités Canada"
+        },
+        "orgIdentifier": 237,
+        "size": {
+          "value": "MEDIUM"
+        }
+      },
+      {
+        "departmentNumber": 202,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": true,
+        "isScience": false,
+        "name": {
+          "en": "Impact Assessment Agency of Canada",
+          "fr": "Agence d'évaluation d'impact du Canada"
+        },
+        "orgIdentifier": 63,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 203,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "National Capital Commission (Crown Corporation)",
+          "fr": "Commission de la capital nationale (Société d'État)"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 204,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada Water Agency",
+          "fr": "Agence canadienne de l’eau"
+        },
+        "orgIdentifier": 563,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 205,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Farm Products Council of Canada",
+          "fr": "Conseil des produits agricoles du Canada"
+        },
+        "orgIdentifier": 222,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 206,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Federal Economic Development Agency for Northern Ontario",
+          "fr": "Agence fédérale de développement économique pour le Nord de l’Ontario"
+        },
+        "orgIdentifier": 561,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 208,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Law Commission of Canada",
+          "fr": "Commission du droit du Canada"
+        },
+        "orgIdentifier": 198,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 209,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Chief Military Judge",
+          "fr": "Le cabinet du juge militaire en chef"
+        },
+        "orgIdentifier": null,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 210,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Prairies Economic Development Canada",
+          "fr": "Développement économique Canada pour les Prairies"
+        },
+        "orgIdentifier": 140,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 213,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "RCMP External Review Committee",
+          "fr": "Comité externe d'examen de la GRC"
+        },
+        "orgIdentifier": 296,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 215,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Governor General of Canada",
+          "fr": "Gouverneur général du Canada"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 216,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Office of the Information Commissioner of Canada",
+          "fr": "Commissariat à l'information au Canada"
+        },
+        "orgIdentifier": 256,
+        "size": {
+          "value": "SMALL"
+        }
+      },
+      {
+        "departmentNumber": 217,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Veterans Review and Appeal Board",
+          "fr": "Tribunal des anciens combattants (révision et appel)"
+        },
+        "orgIdentifier": 333,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 218,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Civilian Review and Complaints Commission for the RCMP",
+          "fr": "Commission civile d’examen et de traitement des plaintes relatives à la GRC"
+        },
+        "orgIdentifier": 297,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 219,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Pacific Economic Development Agency of Canada",
+          "fr": "Agence de développement économique du Pacifique Canada"
+        },
+        "orgIdentifier": 560,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 900,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "The Correctional Investigator Canada",
+          "fr": "L'Enquêteur correctionnel Canada"
+        },
+        "orgIdentifier": 247,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 901,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada Development Investment Corporation",
+          "fr": "La Corporation de développement des investissements du Canada"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 902,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Museum for Human Rights",
+          "fr": "Museé Canadien pour les droits de la personne"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 903,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": true,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Accessibility Standards Canada",
+          "fr": "Normes d'accessibilité Canada"
+        },
+        "orgIdentifier": 558,
+        "size": {
+          "value": "MICRO"
+        }
+      },
+      {
+        "departmentNumber": 904,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canadian Air Transport Security Authority",
+          "fr": "Administration canadienne de la sûreté du transport aérien"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 905,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Defence Construction Canada",
+          "fr": "Construction de Défense Canada"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 906,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Canada Post (Crown Corporation)",
+          "fr": "Société canadienne des postes"
+        },
+        "orgIdentifier": null,
+        "size": null
+      },
+      {
+        "departmentNumber": 999,
+        "isCentralAgency": false,
+        "isCorePublicAdministration": false,
+        "isRegulatory": false,
+        "isScience": false,
+        "name": {
+          "en": "Shared Services Canada (SSC), including Royal Canadian Mounted Police civilian members who are working at SSC",
+          "fr": "Services partagés Canada (SPC), y compris les membres civils de la Gendarmerie royale du Canada qui travaillent à SPC"
+        },
+        "orgIdentifier": null,
+        "size": null
+      }
+    ]
+  }
+}

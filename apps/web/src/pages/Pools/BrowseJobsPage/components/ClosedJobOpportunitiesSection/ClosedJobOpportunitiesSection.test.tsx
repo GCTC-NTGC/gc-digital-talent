@@ -13,7 +13,10 @@ import ClosedJobOpportunitiesSection, {
 
 const closedPool = makeFragmentData(
   {
+    __typename: "Pool" as const,
     id: "closedPool",
+    publishedAt: "2000-01-01 00:00:00",
+    closingDate: "2000-02-01 00:00:00",
     status: PoolStatus.Closed,
   },
   ClosedJobOpportunitiesSectionPool_Fragment,

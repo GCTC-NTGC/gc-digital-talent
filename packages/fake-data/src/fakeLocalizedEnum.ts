@@ -1,7 +1,5 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-
 import toLocalizedString from "./fakeLocalizedString";
 
 faker.seed();
@@ -47,7 +45,7 @@ function toLocalizedEnum<T extends string, N extends string>(
   typename: N,
   delimiter?: string | RegExp,
   enumCase: EnumCase = "screaming_snake",
-): GenericLocalizedEnum<T> & { __typename: N } {
+) {
   return {
     __typename: typename,
     value: enumCase === "pascal" ? pascalToScreamingSnake(value) : value,
@@ -55,23 +53,19 @@ function toLocalizedEnum<T extends string, N extends string>(
   };
 }
 
-type EnumType = Record<number, string>;
-
 /**
  * Converts an enum to a localized version
  *
  * @param enumerable - The enum to be cast
  * @returns Array of the enum as localized enums
  */
-export function fakeLocalizedEnum<T extends EnumType, N extends string>(
-  enumerable: T,
+export function fakeLocalizedEnum<V extends string, N extends string>(
+  enumerable: Record<string, V> | readonly V[],
   typename: N,
-): (GenericLocalizedEnum<T[keyof T]> & { __typename: N })[] {
-  return Object.keys(enumerable)
-    .filter((k) => isNaN(Number(k)))
-    .map((key) =>
-      toLocalizedEnum(key, typename, pascalSplitRegex, "pascal"),
-    ) as (GenericLocalizedEnum<T[keyof T]> & { __typename: N })[];
+) {
+  return Object.values(enumerable).map((value) =>
+    toLocalizedEnum(value, typename),
+  );
 }
 
 export default toLocalizedEnum;

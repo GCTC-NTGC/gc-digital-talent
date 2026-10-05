@@ -225,7 +225,14 @@ export function getDeepAttribute(
 const commonKeyMap = new Map<string, MessageDescriptor>([
   ["id", adminMessages.id],
   ["created_at", commonMessages.created],
-  ["archived_at", commonMessages.archived],
+  [
+    "archived_at",
+    {
+      defaultMessage: "Archived",
+      id: "MiyFrV",
+      description: "Status is archived",
+    },
+  ],
   ["updated_at", commonMessages.updated],
   ["deleted_at", commonMessages.deleted],
 ]);

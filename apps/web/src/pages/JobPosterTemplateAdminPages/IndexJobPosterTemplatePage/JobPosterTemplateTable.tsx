@@ -104,7 +104,11 @@ const JobPosterTemplateTable = ({
     columnHelper.accessor((row) => row.supervisoryStatus?.label.localized, {
       id: "role",
       sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.role),
+      header: intl.formatMessage({
+        defaultMessage: "Role",
+        id: "uBmoxQ",
+        description: "Title displayed for the role table display name column",
+      }),
     }),
     columnHelper.accessor((row) => row.jobPosterTemplateSkills?.length ?? 0, {
       id: "skillCount",
