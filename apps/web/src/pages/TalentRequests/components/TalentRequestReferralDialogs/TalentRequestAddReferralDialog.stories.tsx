@@ -103,6 +103,7 @@ const meta = {
           },
         ],
         matchingAdvancementSources: [],
+        matchingLateralMovementSources: [],
         referralSummary: {
           __typename: "TalentRequestReferralSummary",
           ...makeFragmentData(

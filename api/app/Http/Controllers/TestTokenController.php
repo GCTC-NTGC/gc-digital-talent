@@ -15,7 +15,7 @@ use Lcobucci\JWT\Signer\Key\InMemory;
  * Only active when TESTING_TOKEN_ENABLED=true.
  *
  * Reachable via the proxied /refresh endpoint:
- *   GET /refresh?sub=<user-sub>  (X-Testing-Secret: <TESTING_ENDPOINT_SECRET>)
+ *   POST /refresh  { "sub": "<user-sub>" }  (X-Testing-Secret: <TESTING_ENDPOINT_SECRET>)
  */
 class TestTokenController extends Controller
 {
@@ -27,9 +27,9 @@ class TestTokenController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $sub = $request->query('sub');
+        $sub = $request->post('sub');
         if (! $sub) {
-            return response()->json(['error' => 'Missing required ?sub= parameter.'], 422);
+            return response()->json(['error' => 'Missing required "sub" field in request body.'], 422);
         }
 
         $user = User::where('sub', $sub)->first();
