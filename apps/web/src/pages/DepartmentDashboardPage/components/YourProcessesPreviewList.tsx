@@ -66,7 +66,7 @@ const YourProcessesPreviewList = ({
   );
 
   return (
-    <>
+    <div className="pt-6">
       {sortedProcesses.length ? (
         <PreviewList.Root>
           {sortedProcesses.map((process) => {
@@ -165,7 +165,7 @@ const YourProcessesPreviewList = ({
           </Notice.Title>
         </Notice.Root>
       )}
-    </>
+    </div>
   );
 };
 

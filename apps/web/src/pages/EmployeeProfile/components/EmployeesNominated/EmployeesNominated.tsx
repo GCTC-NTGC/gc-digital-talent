@@ -115,7 +115,7 @@ const EmployeesNominated = ({
         <>
           {showViewToggle && (
             <ToggleGroup.Root
-              className="inline-flex items-center gap-x-1.5 border-none p-1.5"
+              className="inline-flex items-center gap-x-1.5 border-none"
               type="single"
               color="secondary"
               value={view}
@@ -153,12 +153,14 @@ const EmployeesNominated = ({
             </ToggleGroup.Root>
           )}
           <PreviewList.Root>
-            {visibleNominations.map((nomination) => (
-              <EmployeesNominatedListItem
-                key={nomination.id}
-                talentNominationListItemQuery={nomination}
-              />
-            ))}
+            <div className="border-t border-t-gray-100 pt-6">
+              {visibleNominations.map((nomination) => (
+                <EmployeesNominatedListItem
+                  key={nomination.id}
+                  talentNominationListItemQuery={nomination}
+                />
+              ))}
+            </div>
           </PreviewList.Root>
         </>
       )}

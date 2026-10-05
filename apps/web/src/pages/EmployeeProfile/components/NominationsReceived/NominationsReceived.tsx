@@ -40,12 +40,14 @@ const NominationsReceived = ({
 
   return nominationGroups.length > 0 ? (
     <PreviewList.Root>
-      {nominationGroups.map((nominationGroup) => (
-        <NominationsReceivedListItem
-          key={nominationGroup.id}
-          nominationGroupQuery={nominationGroup}
-        />
-      ))}
+      <div className="border-t border-t-gray-100 pt-6">
+        {nominationGroups.map((nominationGroup) => (
+          <NominationsReceivedListItem
+            key={nominationGroup.id}
+            nominationGroupQuery={nominationGroup}
+          />
+        ))}
+      </div>
     </PreviewList.Root>
   ) : (
     isVerifiedGovEmployee && (

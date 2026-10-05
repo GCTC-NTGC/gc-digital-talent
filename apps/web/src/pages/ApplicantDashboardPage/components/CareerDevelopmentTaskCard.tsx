@@ -261,7 +261,7 @@ const CareerDevelopmentTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={careerPlanningMetaData} />
                 <Accordion.Content>
-                  <div className="mt-3 flex flex-col gap-6">
+                  <div className="mt-3 flex flex-col gap-6 pt-6">
                     <FieldDisplay
                       label={careerDevelopmentMessages.lateralMoveInterest}
                     >
@@ -448,7 +448,7 @@ const CareerDevelopmentTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={functionalCommunitiesMetaData} />
                 <Accordion.Content>
-                  <div className="mt-3 flex flex-col gap-6">
+                  <div className="mt-3 flex flex-col gap-6 pt-6">
                     {communityInterests?.length ? (
                       <PreviewList.Root>
                         {communityInterests.map(
