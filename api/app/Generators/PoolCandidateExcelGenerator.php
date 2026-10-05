@@ -154,7 +154,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 ...$this->generatedHeaders['ROD_details'] ?? [],
             ]));
 
-            $this->buildQuery()->chunk(200, function ($candidates) {
+            $this->buildQuery()->chunkById(200, function ($candidates) {
                 foreach ($candidates as $candidate) {
 
                     // pull data from application snapshot
@@ -345,7 +345,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
                     $this->writer->addRow($this->row($values));
                 }
-            });
+            }, 'pool_candidates.id', 'id');
         } finally {
             $this->writer->close();
         }

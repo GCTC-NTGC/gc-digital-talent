@@ -179,12 +179,12 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
-        $query->chunk(200, function ($users) {
+        $query->reorder()->chunkById(200, function ($users) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
                 $this->writer->addRow($this->row($this->buildUserRowData($user)));
             }
-        });
+        }, 'users.id', 'id');
     }
 
     /**
