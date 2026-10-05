@@ -130,8 +130,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         try {
             // Pre-pass: collect all pool IDs so we can build headers before streaming rows
             // (OpenSpout streams rows sequentially — headers must be written first)
-            // NB: each pass needs its own builder — chunk() leaves offset/limit state on
-            // the builder, so reusing it for the second pass silently under-reads rows.
+            // In id order, so the pool columns keep their first-appearance order
             $this->poolIds = $this->buildQuery()->toBase()->orderBy('pool_candidates.id')
                 ->pluck('pool_candidates.pool_id')->unique()->values()->all();
 

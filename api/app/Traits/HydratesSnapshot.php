@@ -33,16 +33,7 @@ trait HydratesSnapshot
         }
 
         // an array of localized enums
-        if (! is_array($value)) {
-            return false;
-        }
-        foreach ($value as $item) {
-            if (! self::isLocalizedEnumValue($item)) {
-                return false;
-            }
-        }
-
-        return true;
+        return is_array($value) && array_all($value, fn ($item) => self::isLocalizedEnumValue($item));
     }
 
     // Plain checks, not a Validator: this runs for every field of every snapshot

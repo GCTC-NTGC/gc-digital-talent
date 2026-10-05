@@ -179,6 +179,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
+        // General search joins user_search_indices and sorts by rank: reorder and qualify the id to page by it
         $query->reorder()->chunkById(200, function ($users) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
