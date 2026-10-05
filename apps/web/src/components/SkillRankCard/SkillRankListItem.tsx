@@ -84,7 +84,11 @@ const SkillRankListItem = ({
           </span>
         ) : (
           <span className={suffix()}>
-            {intl.formatMessage(commonMessages.unspecified)}
+            {intl.formatMessage({
+              defaultMessage: "Unspecified",
+              id: "zhqK/P",
+              description: "Unspecified, has not been set or defined",
+            })}
           </span>
         )}
       </span>

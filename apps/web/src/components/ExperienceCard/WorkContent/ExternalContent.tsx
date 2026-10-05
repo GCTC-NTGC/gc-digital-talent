@@ -21,7 +21,7 @@ export interface ExternalContentExperience {
 
 const ExternalContent = ({
   experience: { division, extSizeOfOrganization, extRoleSeniority },
-  headingLevel,
+  headingRank,
 }: ContentProps<ExternalContentExperience>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -30,7 +30,7 @@ const ExternalContent = ({
     <>
       <ContentSection
         title={experienceFormLabels.team}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         className="sm:border-r sm:border-gray-200 dark:border-gray-500"
       >
         {division ?? intl.formatMessage(commonMessages.notAvailable)}
@@ -39,14 +39,14 @@ const ExternalContent = ({
       <div className="grid gap-6 sm:grid-cols-2">
         <ContentSection
           title={experienceFormLabels.extSizeOfOrganization}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {getLocalizedName(extSizeOfOrganization?.label, intl)}
         </ContentSection>
         <ContentSection
           title={experienceFormLabels.extRoleSeniority}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
         >
           {getLocalizedName(extRoleSeniority?.label, intl)}
         </ContentSection>

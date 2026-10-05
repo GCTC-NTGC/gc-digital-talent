@@ -76,13 +76,6 @@ const PoolTable_PoolFragment = graphql(/* GraphQL */ `
         fr
       }
     }
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     processNumber
     status {
       value
@@ -318,14 +311,6 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
       },
     ),
     columnHelper.accessor(
-      ({ publishingGroup }) => getLocalizedName(publishingGroup?.label, intl),
-      {
-        id: "publishingGroup",
-        header: intl.formatMessage(processMessages.publishingGroup),
-        enableColumnFilter: false,
-      },
-    ),
-    columnHelper.accessor(
       ({ status }) => getLocalizedName(status?.label, intl),
       {
         id: "status",
@@ -361,7 +346,11 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
       enableColumnFilter: false,
-      header: intl.formatMessage(commonMessages.published),
+      header: intl.formatMessage({
+        defaultMessage: "Published",
+        id: "BcEpFb",
+        description: "Status is published",
+      }),
       cell: ({
         row: {
           original: { publishedAt },

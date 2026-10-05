@@ -349,11 +349,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -1802,13 +1797,6 @@ enum ProvinceOrTerritory {
   NUNAVUT
 }
 
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
-}
-
 enum ScreeningStage {
   NEW_APPLICATION
   APPLICATION_REVIEW
@@ -1941,6 +1929,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

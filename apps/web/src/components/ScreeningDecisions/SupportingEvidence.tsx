@@ -1,6 +1,9 @@
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -59,7 +62,7 @@ const SupportingEvidence = ({
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mb-3">
+      <Heading rank="h3" size="h6" className="mb-3">
         {intl.formatMessage({
           defaultMessage: "Supporting evidence:",
           id: "w59dPh",
@@ -73,7 +76,7 @@ const SupportingEvidence = ({
             {!snapshotVersion || snapshotVersion === 1 ? (
               <ExperienceCardV1
                 experience={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 {...(skillId && {
                   showSkills: { id: skillId },
                 })}
@@ -81,10 +84,10 @@ const SupportingEvidence = ({
             ) : (
               <ExperienceCard
                 experienceQuery={makeFragmentData(
-                  experience,
+                  experience as ExperienceCardFragment,
                   ExperienceCard_Fragment,
                 )}
-                headingLevel="h4"
+                headingRank="h4"
                 showEdit={false}
                 {...(skillId && {
                   showSkills: { id: skillId },

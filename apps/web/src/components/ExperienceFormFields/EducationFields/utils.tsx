@@ -40,7 +40,7 @@ export const EducationOptions_Query = graphql(/* GraphQL */ `
 `);
 
 export const getEducationTypeOptions = (
-  educationTypes: EducationOptionsQuery["educationTypes"],
+  educationTypes: EducationOptionsQuery["educationTypes"] | undefined,
   intl: IntlShape,
 ) => {
   return localizedEnumToOptions(educationTypes, intl, [
@@ -54,7 +54,7 @@ export const getEducationTypeOptions = (
 };
 
 export const getDegreeTypeOptions = (
-  degreeTypes: EducationOptionsQuery["degreeTypes"],
+  degreeTypes: EducationOptionsQuery["degreeTypes"] | undefined,
   intl: IntlShape,
 ) => {
   return localizedEnumToOptions(degreeTypes, intl, [
@@ -67,7 +67,7 @@ export const getDegreeTypeOptions = (
 };
 
 export const getFellowshipTypeOptions = (
-  fellowshipTypes: EducationOptionsQuery["fellowshipTypes"],
+  fellowshipTypes: EducationOptionsQuery["fellowshipTypes"] | undefined,
   intl: IntlShape,
 ) => {
   return localizedEnumToOptions(fellowshipTypes, intl, [
@@ -78,7 +78,7 @@ export const getFellowshipTypeOptions = (
 };
 
 export const getEducationStatusOptions = (
-  educationStatuses: EducationOptionsQuery["educationStatuses"],
+  educationStatuses: EducationOptionsQuery["educationStatuses"] | undefined,
   intl: IntlShape,
   licenseOrCertification: boolean,
 ) => {

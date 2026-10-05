@@ -17,6 +17,7 @@ use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithExceptionHandling;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -430,12 +431,13 @@ class WorkExperienceTest extends TestCase
         )->assertGraphQLValidationError('workExperience.cafRank', 'The work experience.caf rank field is prohibited.');
     }
 
-    // test that annualBudgetAllocation accepts values beyond the 32-bit Int range (issue #17844)
-    // now that the column swap has happened, this is the real fix: annual_budget_allocation
-    // is a native bigint column and the field uses the BigInt GraphQL scalar
-    public function testCreatingExperienceAcceptsLargeAnnualBudgetAllocation(): void
+    // test that the shadow-column trigger keeps annual_budget_allocation_big_int in sync
+    // (part of the zero-downtime bigint migration for issue #17844 — the column swap,
+    // and the regression test proving values beyond the 32-bit Int range work end-to-end,
+    // lands in a later PR once this has been backfilled and verified in production)
+    public function testAnnualBudgetAllocationSyncsToShadowBigintColumn(): void
     {
-        $largeBudget = 6200000000;
+        $budget = 100000;
 
         $response = $this->actingAs($this->admin, 'api')->graphQL(
             /** @lang GraphQL */
@@ -443,7 +445,6 @@ class WorkExperienceTest extends TestCase
         mutation createWorkExperience($userId: ID!, $workExperience: WorkExperienceInput!) {
             createWorkExperience(userId: $userId, workExperience: $workExperience) {
                 id
-                annualBudgetAllocation
             }
         }
         ',
@@ -455,17 +456,39 @@ class WorkExperienceTest extends TestCase
                     'extRoleSeniority' => ExternalRoleSeniority::INTERMEDIATE->name,
                     'supervisoryPosition' => true,
                     'budgetManagement' => true,
-                    'annualBudgetAllocation' => $largeBudget,
+                    'annualBudgetAllocation' => $budget,
                 ],
             ]
         );
 
-        $response->assertJsonFragment(['annualBudgetAllocation' => $largeBudget]);
-
         $createdExperienceId = $response->json('data.createWorkExperience.id');
+
         $this->assertSame(
-            $largeBudget,
-            WorkExperience::find($createdExperienceId)->annual_budget_allocation
+            $budget,
+            DB::table('work_experiences')->where('id', $createdExperienceId)->value('annual_budget_allocation_big_int')
+        );
+
+        // update should keep the shadow column in sync too
+        $this->actingAs($this->admin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+        mutation updateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
+            updateWorkExperience(id: $id, workExperience: $workExperience) {
+                id
+            }
+        }
+        ',
+            [
+                'id' => $createdExperienceId,
+                'workExperience' => [
+                    'annualBudgetAllocation' => $budget + 1,
+                ],
+            ]
+        );
+
+        $this->assertSame(
+            $budget + 1,
+            DB::table('work_experiences')->where('id', $createdExperienceId)->value('annual_budget_allocation_big_int')
         );
     }
 }

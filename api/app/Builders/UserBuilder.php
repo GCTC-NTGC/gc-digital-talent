@@ -314,23 +314,6 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     */
-    public function wherePoolCandidatePublishingGroupsIn(?array $publishingGroups): self
-    {
-        // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            $query->wherePublishingGroupsIn($publishingGroups);
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
@@ -362,7 +345,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($sources, $filters) {
             foreach ($sources as $index => $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                $method = $source->matchMethod();
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->{$method}($filters));
             }
         });
     }
@@ -388,8 +372,9 @@ class UserBuilder extends Builder
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
+            $method = $source->matchMethod();
             $this->with([$source->matchRelation() => fn ($r) => $r
-                ->whereMatchesTalentRequest($filters)
+                ->{$method}($filters)
                 ->whereAuthorizedToView()]);
         }
 

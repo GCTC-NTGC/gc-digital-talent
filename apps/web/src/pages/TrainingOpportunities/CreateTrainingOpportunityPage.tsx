@@ -88,7 +88,7 @@ const CreateTrainingOpportunityForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="mb-18">
           <Heading
-            level="h2"
+            rank="h2"
             color="secondary"
             icon={IdentificationIcon}
             className="mt-0 mb-9 font-normal xs:justify-start xs:text-left"

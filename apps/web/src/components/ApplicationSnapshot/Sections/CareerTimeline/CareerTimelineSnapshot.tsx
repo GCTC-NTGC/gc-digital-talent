@@ -4,6 +4,7 @@ import UserCircleIcon from "@heroicons/react/24/outline/UserCircleIcon";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Button, Heading, Notice } from "@gc-digital-talent/ui";
+import type { ExperienceCardFragment } from "@gc-digital-talent/graphql";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 
@@ -47,7 +48,7 @@ const CareerTimelineSnapshot = ({
 
   return (
     <>
-      <Heading icon={UserCircleIcon} color="error" level="h2" size="h3">
+      <Heading icon={UserCircleIcon} color="error" rank="h2" size="h3">
         {intl.formatMessage(navigationMessages.careerTimeline)}
       </Heading>
       <div className="mb-3 flex flex-wrap gap-3">
@@ -75,7 +76,7 @@ const CareerTimelineSnapshot = ({
                 <ExperienceCardV1
                   key={experience.id}
                   experience={experience}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   isOpen={isExpanded(experience.id)}
                   onOpenChange={() => toggleExpandedItem(experience.id)}
@@ -87,13 +88,14 @@ const CareerTimelineSnapshot = ({
                     This comes from the snapshot so we cant fragmentize it so we are tricking typescript :(
                 */
                   experienceQuery={makeFragmentData(
+                    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
                     {
                       ...experience,
                       __typename: experience.__typename ?? "AwardExperience",
-                    },
+                    } as ExperienceCardFragment,
                     ExperienceCard_Fragment,
                   )}
-                  headingLevel="h3"
+                  headingRank="h3"
                   showSkills={false}
                   showEdit={false}
                   isOpen={isExpanded(experience.id)}

@@ -57,7 +57,7 @@ const SkillShowcase = ({ query }: SkillShowcaseProps) => {
         })}
       </p>
       <TableOfContents.Section id={TOP_SKILLS_ID}>
-        <Heading level="h3" size="h4" className="font-bold">
+        <Heading rank="h3" size="h4" className="font-bold">
           {intl.formatMessage(navigationMessages.topSkills)}
         </Heading>
         <p className="my-6">
@@ -82,7 +82,7 @@ const SkillShowcase = ({ query }: SkillShowcaseProps) => {
         </div>
       </TableOfContents.Section>
       <TableOfContents.Section id={SKILLS_TO_IMPROVE_ID}>
-        <Heading level="h3" size="h4" className="font-bold">
+        <Heading rank="h3" size="h4" className="font-bold">
           {intl.formatMessage(navigationMessages.skillsToImprove)}
         </Heading>
         <p className="my-6">

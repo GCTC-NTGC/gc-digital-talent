@@ -17,10 +17,7 @@ import {
   AssessmentResultJustification,
   graphql,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocalizedEnumStringByValue,
-} from "@gc-digital-talent/i18n";
+import { getLocalizedEnumStringByValue } from "@gc-digital-talent/i18n";
 
 import { NO_DECISION } from "~/utils/assessmentResults";
 
@@ -79,7 +76,11 @@ const useOptions = (
 
   const assessmentDecisionItems: CardOption[] = [
     {
-      label: intl.formatMessage(commonMessages.pendingSecondOpinion),
+      label: intl.formatMessage({
+        defaultMessage: "Pending second opinion",
+        id: "Rp+NHA",
+        description: "Pending second opinion",
+      }),
       selectedIcon: SolidExclamationTriangleIcon,
       selectedIconColor: "warning",
       unselectedIcon: OutlineExclamationTriangleIcon,

@@ -22,7 +22,6 @@ import {
   enumInputToLocalizedEnum,
   narrowEnumType,
   sortTalentRequestReason,
-  commonMessages,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -495,7 +494,7 @@ export const RequestForm = ({
 
   return (
     <section>
-      <Heading level="h2" size="h6" className="mt-0 mb-3 font-bold">
+      <Heading rank="h2" size="h6" className="mt-0 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Your contact information",
           id: "T8J2Lp",
@@ -518,7 +517,11 @@ export const RequestForm = ({
               id="fullName"
               type="text"
               name="fullName"
-              label={intl.formatMessage(commonMessages.fullName)}
+              label={intl.formatMessage({
+                defaultMessage: "Full name",
+                id: "IBc2sp",
+                description: "Label for full name",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -571,7 +574,7 @@ export const RequestForm = ({
               label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Reason for the talent request",
               id: "8EbhWx",
@@ -610,7 +613,7 @@ export const RequestForm = ({
               },
             )}
           </p>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Details about the job opportunity",
               id: "FNgThS",
@@ -674,7 +677,7 @@ export const RequestForm = ({
             label={intl.formatMessage(talentRequestMessages.additionalComments)}
             rows={8}
           />
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",

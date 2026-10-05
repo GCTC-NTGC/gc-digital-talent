@@ -32,7 +32,6 @@ const Display = ({
     department,
     workStream,
     name,
-    publishingGroup,
     opportunityLength,
     isHidden,
   } = pool;
@@ -81,7 +80,11 @@ const Display = ({
                       <CheckCircleIcon
                         className="h-4.5 text-success dark:text-success-200"
                         aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.selected)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Selected",
+                          id: "W9zlhl",
+                          description: "Label when an item is selected",
+                        })}
                       />
                     ) : (
                       <XCircleIcon
@@ -166,12 +169,6 @@ const Display = ({
                 id: "n27x+U",
                 description: "Label for when a process is not hidden",
               })}
-        </ToggleForm.FieldDisplay>
-        <ToggleForm.FieldDisplay
-          hasError={!publishingGroup}
-          label={intl.formatMessage(processMessages.publishingGroup)}
-        >
-          {getLocalizedName(publishingGroup?.label, intl)}
         </ToggleForm.FieldDisplay>
       </div>
     </>
