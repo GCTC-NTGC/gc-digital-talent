@@ -22,15 +22,22 @@ const MigrationPossibleNotice = ({
   onDismiss,
 }: MigrationNoticeProps) => {
   const intl = useIntl();
-  const [, executeMigrateMyAccount] = useMutation(MigrateMyAccount_Mutation);
+  const [{ fetching }, executeMigrateMyAccount] = useMutation(
+    MigrateMyAccount_Mutation,
+  );
   const { logout } = useAuthentication();
 
   const handleLinkProfile = async () => {
+    if (fetching) {
+      return;
+    }
+
     const result = await executeMigrateMyAccount({});
     // check for errors
     if (result.data?.migrateMyAccount) {
       // success!
       logout();
+      return;
     }
 
     // something went wrong
