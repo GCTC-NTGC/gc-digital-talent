@@ -1,9 +1,11 @@
 import { useIntl } from "react-intl";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 const TrainingFundNotice = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   return (
     <Notice.Root mode="card" color="gray">
@@ -24,8 +26,18 @@ const TrainingFundNotice = () => {
           })}
         </p>
       </Notice.Content>
+
       <Notice.Actions>
-        <Link mode="inline" color="black" href="#">
+        <Link
+          mode="inline"
+          color="black"
+          href={
+            locale === "en"
+              ? "https://gcxgce.sharepoint.com/teams/10001173/SitePages/IT-Community-Training-and-Development-Fund.aspx"
+              : "https://gcxgce.sharepoint.com/teams/10001173/SitePages/fr/IT-Community-Training-and-Development-Fund.aspx"
+          }
+          external
+        >
           {intl.formatMessage({
             defaultMessage: "Go to GCXchange",
             id: "X91dLK",
