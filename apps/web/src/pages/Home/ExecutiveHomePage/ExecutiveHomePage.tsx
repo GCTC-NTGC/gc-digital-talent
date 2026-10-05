@@ -30,7 +30,6 @@ import useRoutes from "~/hooks/useRoutes";
 import SkewedContainer from "~/components/SkewedContainer/SkewedContainer";
 import SkewedImageContainer from "~/components/SkewedContainer/SkewedImageContainer";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
-import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 import PoolCard from "~/components/PoolCard/PoolCard";
 import { isExecPool } from "~/utils/poolUtils";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
@@ -415,7 +414,7 @@ export const HomePage = ({ query }: HomePageProps) => {
             </Accordion.Content>
           </Accordion.Item>
         </Accordion.Root>
-        <p className="mb-18">
+        <p>
           <Link
             external
             mode="solid"
@@ -435,7 +434,6 @@ export const HomePage = ({ query }: HomePageProps) => {
             })}
           </Link>
         </p>
-        <DirectiveBlock />
       </FlourishContainer>
       <Flourish className="relative z-40" />
     </>

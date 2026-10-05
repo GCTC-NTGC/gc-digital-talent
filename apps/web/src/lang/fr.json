@@ -171,10 +171,6 @@
     "defaultMessage": "Les personnes qui se voient offrir des postes avec la possibilité de travailler à domicile doivent avoir un accès Internet adéquat pour le travail à distance.",
     "description": "IAP Requirement list item six"
   },
-  "+cqG9n": {
-    "defaultMessage": "En apprendre davantage<hidden> sur la Directive</hidden>",
-    "description": "Link text to the directive on digital talent page"
-  },
   "+d/NdU": {
     "defaultMessage": "Ministères",
     "description": "Title for departments"
@@ -10849,10 +10845,6 @@
   "fWNqcM": {
     "defaultMessage": "Lien externe vers de l'information",
     "description": "Label displayed on the community form information URL field"
-  },
-  "fXl3Cm": {
-    "defaultMessage": "Talents numériques du GC offre plusieurs ressources utiles pour faciliter l’exécution de vos responsabilités en vertu de la Directive sur les talents numériques. Il s’agit notamment d’un formulaire en ligne, de conseils de mise en œuvre et de liens vers la Directive.",
-    "description": "Summary of the directive on digital talent"
   },
   "fY0W2V": {
     "defaultMessage": "Vous avez déjà une demande dans ce bassin.",

@@ -22,7 +22,6 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 
 import HomeHero from "../components/HomeHero";
 
@@ -347,7 +346,6 @@ const ManagerHomePage = () => {
             }}
           />
         </div>
-        <DirectiveBlock />
       </FlourishContainer>
       <Flourish className="relative z-40" />
     </>
