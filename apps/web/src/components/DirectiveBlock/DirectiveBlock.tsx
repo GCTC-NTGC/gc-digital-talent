@@ -2,13 +2,11 @@ import { useIntl } from "react-intl";
 import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGlassCircleIcon";
 
 import { Heading, Link } from "@gc-digital-talent/ui";
-
-import useRoutes from "~/hooks/useRoutes";
+import { getLocale } from "@gc-digital-talent/i18n";
 
 const DirectiveBlock = () => {
   const intl = useIntl();
-  const paths = useRoutes();
-
+  const locale = getLocale(intl);
   return (
     <>
       <Heading
@@ -31,7 +29,16 @@ const DirectiveBlock = () => {
           description: "Summary of the directive on digital talent",
         })}
       </p>
-      <Link href={paths.directive()} color="error" mode="solid">
+      <Link
+        href={
+          locale === "en"
+            ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+            : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749"
+        }
+        color="error"
+        mode="solid"
+        external
+      >
         {intl.formatMessage({
           defaultMessage: "Learn more<hidden> about the directive</hidden>",
           id: "+cqG9n",

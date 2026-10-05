@@ -6,7 +6,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, CTALink } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -40,6 +40,7 @@ const pageSubtitle = defineMessage({
 
 const ManagerHomePage = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const commonFeatureImgProps = {
     height: 300,
@@ -74,7 +75,11 @@ const ManagerHomePage = () => {
             <CTALink
               color="primary"
               icon={BookmarkSquareIcon}
-              href={paths.directive()}
+              href={
+                locale === "en"
+                  ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                  : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749"
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Directive responsibilities",
