@@ -5,6 +5,7 @@ import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
 import { graphql } from "@gc-digital-talent/graphql";
 import { errorMessages } from "@gc-digital-talent/i18n";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
@@ -22,13 +23,18 @@ const MigrationPossibleNotice = ({
 }: MigrationNoticeProps) => {
   const intl = useIntl();
   const [, executeMigrateMyAccount] = useMutation(MigrateMyAccount_Mutation);
+  const { logout } = useAuthentication();
 
   const handleLinkProfile = async () => {
     const result = await executeMigrateMyAccount({});
-    if (result.error || !result.data?.migrateMyAccount) {
-      toast.error(intl.formatMessage(errorMessages.error));
+    // check for errors
+    if (result.data?.migrateMyAccount) {
+      // success!
+      logout();
     }
-    // todo: reboot
+
+    // something went wrong
+    toast.error(intl.formatMessage(errorMessages.error));
   };
 
   return (
