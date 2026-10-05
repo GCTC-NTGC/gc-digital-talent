@@ -19,6 +19,7 @@ Route::prefix(config('app.app_dir'))->group(function () {
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
+    Route::get('/.well-known/jwks.json', [AuthController::class, 'jwks']);
 });
 
 Route::prefix('')->group(function () {
@@ -27,4 +28,5 @@ Route::prefix('')->group(function () {
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
+    Route::get('/.well-known/jwks.json', [AuthController::class, 'jwks']);
 });

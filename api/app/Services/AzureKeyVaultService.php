@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Contracts\KeyService;
 use App\Contracts\ManagedIdentityService;
+use Exception;
 use Illuminate\Support\Facades\Http;
+use Jose\Component\Core\JWK;
 
 /* Interact with an Azure key vault. */
 class AzureKeyVaultService implements KeyService
@@ -34,5 +36,15 @@ class AzureKeyVaultService implements KeyService
         // ->throwUnlessStatus(204);
 
         return $response->dump();
+    }
+
+    public function getEncryptionKeyPublicJwk(): ?JWK
+    {
+        throw new Exception('Not implemented');
+    }
+
+    public function getSigningKeyPublicJwk(): ?JWK
+    {
+        throw new Exception('Not implemented');
     }
 }

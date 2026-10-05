@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\BearerTokenService;
+use App\Contracts\KeyService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
@@ -10,11 +11,13 @@ use App\Support\LogUtil;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Jose\Component\Core\JWKSet;
 use Jose\Component\Core\Util\Base64UrlSafe;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
@@ -338,6 +341,20 @@ class AuthController extends Controller
         }
 
         return response(json_encode($callbackUrls, JSON_UNESCAPED_SLASHES))
+            ->withHeaders([
+                'Content-Type' => 'application/json; charset=utf-8',
+            ]);
+    }
+
+    // publishes this app's public signing key(s), for OIDC clients that verify our signatures
+    public function jwks(KeyService $keyService)
+    {
+        $jwkSet = new JWKSet(array_values(Arr::whereNotNull([
+            $keyService->getEncryptionKeyPublicJwk(),
+            $keyService->getSigningKeyPublicJwk(),
+        ])));
+
+        return response(json_encode($jwkSet))
             ->withHeaders([
                 'Content-Type' => 'application/json; charset=utf-8',
             ]);

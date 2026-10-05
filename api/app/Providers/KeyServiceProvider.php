@@ -17,7 +17,7 @@ class KeyServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         $this->app->bind(KeyService::class, function () {
 
-            return match (config('keys.default')) {
+            return match (config('keys.provider')) {
                 'local' => $this->app->make(LocalKeyService::class),
                 'azure' => $this->app->make(AzureKeyVaultService::class),
                 default => throw new \Error('Unexpected key service: '.config('keys.default'))
