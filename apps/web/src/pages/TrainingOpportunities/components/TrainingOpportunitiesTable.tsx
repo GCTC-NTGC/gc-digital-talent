@@ -215,7 +215,11 @@ const TrainingOpportunitiesTable = ({
         getLocalizedName(opportunity.courseLanguage?.label, intl),
       {
         id: "language",
-        header: intl.formatMessage(commonMessages.language),
+        header: intl.formatMessage({
+          defaultMessage: "Language",
+          id: "k3i6lU",
+          description: "Legend for a language input or title",
+        }),
         cell: ({ row: { original: opportunity } }) =>
           getLocalizedName(opportunity.courseLanguage?.label, intl),
       },

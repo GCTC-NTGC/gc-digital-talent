@@ -96,7 +96,7 @@ export const links: Route.LinksFunction = () => [
   {
     rel: "mask-icon",
     href: "/images/digital-talent/safari-pinned-tab.svg",
-    color: "#9747FF",
+    color: "#4CC9CD",
   },
 
   // PWA
@@ -135,8 +135,8 @@ export function Layout({ children }: LayoutProps) {
         <script nonce={nonce} dangerouslySetInnerHTML={{ __html: initTheme }} />
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="msapplication-TileColor" content="#9747FF" />
-        <meta name="theme-color" content="#9747FF" />
+        <meta name="msapplication-TileColor" content="#4CC9CD" />
+        <meta name="theme-color" content="#4CC9CD" />
         <meta property="og:url" content="$APP_URL" />
         <meta name="twitter:url" content="$APP_URL" />
         <meta

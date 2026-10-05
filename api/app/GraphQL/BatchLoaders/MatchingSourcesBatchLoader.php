@@ -25,10 +25,12 @@ final class MatchingSourcesBatchLoader
     /**
      * @param  string  $relation  the User relation holding this source's matches
      * @param  array<string, mixed>  $filters  match filters from the request's applicant filter
+     * @param  string  $matchMethod  see TalentRequestSource::matchMethod()
      */
     public function __construct(
         protected string $relation,
         protected array $filters,
+        protected string $matchMethod = 'whereMatchesTalentRequest',
     ) {}
 
     public function load(TalentRequestTrackedUser $trackedUser): Deferred
@@ -49,10 +51,11 @@ final class MatchingSourcesBatchLoader
     {
         $relation = (new User())->{$this->relation}();
         $foreignKey = $relation->getForeignKeyName();
+        $method = $this->matchMethod;
 
         $matches = $relation->getRelated()->newQuery()
             ->whereIn($foreignKey, array_keys($this->userIds))
-            ->whereMatchesTalentRequest($this->filters)
+            ->{$method}($this->filters)
             ->whereAuthorizedToView()
             ->get()
             ->groupBy($foreignKey);

@@ -116,7 +116,11 @@ const TalentRequestSourcesCard = ({
               <li key={source.value}>
                 <BoolCheckIcon
                   value={selectedTalentSources.includes(source.value)}
-                  trueLabel={intl.formatMessage(commonMessages.selected)}
+                  trueLabel={intl.formatMessage({
+                    defaultMessage: "Selected",
+                    id: "W9zlhl",
+                    description: "Label when an item is selected",
+                  })}
                   falseLabel={intl.formatMessage(commonMessages.notSelected)}
                 >
                   {source.label.localized ??

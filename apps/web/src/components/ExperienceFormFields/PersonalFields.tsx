@@ -11,11 +11,7 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -132,7 +128,11 @@ const PersonalFields = ({
           label={labels.organizationOrPlatform}
           name="organization"
           type="text"
-          placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+          placeholder={intl.formatMessage({
+            defaultMessage: "Select or type an answer",
+            id: "se/c4O",
+            description: "Placeholder text for an input with options list",
+          })}
           context={intl.formatMessage({
             defaultMessage:
               "Unsure how to complete this field? Try to describe the overarching theme this experience falls into. Remember that this field is used to group similar items in your personal learning.",

@@ -13,7 +13,10 @@ import ActiveRecruitmentSection, {
 
 const publishedPool = makeFragmentData(
   {
+    __typename: "Pool" as const,
     id: "publishedPool",
+    publishedAt: "2000-01-01 00:00:00",
+    closingDate: "2999-01-01 00:00:00",
     status: PoolStatus.Published,
   },
   ActiveRecruitmentSectionPool_Fragment,

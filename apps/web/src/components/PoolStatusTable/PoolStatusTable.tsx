@@ -221,12 +221,7 @@ const PoolStatusTable = ({
           firstName: user.firstName,
           lastName: user.lastName,
         }),
-      header: intl.formatMessage({
-        defaultMessage: "Expiry date",
-        id: "STDYoR",
-        description:
-          "Title of the 'Expiry date' column for the table on view-user page",
-      }),
+      header: intl.formatMessage(commonMessages.expiryDate),
     }),
   ] as ColumnDef<PoolStatusRow>[];
 

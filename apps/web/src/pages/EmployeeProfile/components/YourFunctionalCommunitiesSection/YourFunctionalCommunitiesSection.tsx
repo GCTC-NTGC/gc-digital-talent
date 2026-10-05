@@ -127,7 +127,12 @@ const YourFunctionalCommunities = ({
                 key={communityInterest.id}
                 functionalCommunityListItemQuery={communityInterest}
                 headingAs="h4"
-                iconLabel={`${intl.formatMessage(commonMessages.options)} ${communityInterest.community.name?.localized}`}
+                iconLabel={`${intl.formatMessage({
+                  defaultMessage: "Options",
+                  id: "45ZCXX",
+                  description:
+                    "label or header for something referred to as an option, plural",
+                })} ${communityInterest.community.name?.localized}`}
                 edit={
                   isVerifiedGovEmployee ? (
                     <Link

@@ -346,7 +346,11 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
     columnHelper.accessor(({ publishedAt }) => accessors.date(publishedAt), {
       id: "publishedAt",
       enableColumnFilter: false,
-      header: intl.formatMessage(commonMessages.published),
+      header: intl.formatMessage({
+        defaultMessage: "Published",
+        id: "BcEpFb",
+        description: "Status is published",
+      }),
       cell: ({
         row: {
           original: { publishedAt },

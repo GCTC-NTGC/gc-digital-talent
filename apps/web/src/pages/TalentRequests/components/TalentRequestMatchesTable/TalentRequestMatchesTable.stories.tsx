@@ -27,21 +27,28 @@ const mockUsers = fakeUsers(10);
 
 const talentRequestFragment = makeFragmentData(
   {
+    __typename: "TalentRequest",
     id: "talent-request-id",
-    applicantFilter: makeFragmentData(
-      {
-        languageAbility: null,
-        locationPreferences: [],
-        operationalRequirements: [],
-        flexibleWorkLocations: [],
-        equity: null,
-        qualifiedInClassifications: [],
-        qualifiedInWorkStreams: [],
-        pools: [],
-        skills: [],
-      },
-      TalentRequestMatchesApplicantFilter_Fragment,
-    ),
+    applicantFilter: {
+      __typename: "ApplicantFilter",
+      ...makeFragmentData(
+        {
+          __typename: "ApplicantFilter",
+          languageAbility: null,
+          locationPreferences: [],
+          operationalRequirements: [],
+          flexibleWorkLocations: [],
+          equity: null,
+          qualifiedInClassifications: [],
+          qualifiedInWorkStreams: [],
+          pools: [],
+          skills: [],
+          positionDuration: null,
+          talentSources: [],
+        },
+        TalentRequestMatchesApplicantFilter_Fragment,
+      ),
+    },
   },
   TalentRequestMatchesTable_TalentRequestFragment,
 );

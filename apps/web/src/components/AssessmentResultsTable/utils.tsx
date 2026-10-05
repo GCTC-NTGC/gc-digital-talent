@@ -52,7 +52,11 @@ export const columnHeader = (
       ariaLabel =
         type === AssessmentStepType.ApplicationScreening ||
         type === AssessmentStepType.ScreeningQuestionsAtApplication
-          ? intl.formatMessage(commonMessages.screenedOut)
+          ? intl.formatMessage({
+              defaultMessage: "Screened out",
+              id: "4lV1Od",
+              description: "Screened out",
+            })
           : intl.formatMessage(poolCandidateMessages.unsuccessful);
       break;
     case "hold":
