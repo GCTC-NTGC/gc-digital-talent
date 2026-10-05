@@ -131,13 +131,8 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             // (OpenSpout streams rows sequentially — headers must be written first)
             // NB: each pass needs its own builder — chunk() leaves offset/limit state on
             // the builder, so reusing it for the second pass silently under-reads rows.
-            $this->buildQuery()->chunk(200, function ($candidates) {
-                foreach ($candidates as $candidate) {
-                    if (! in_array($candidate->pool_id, $this->poolIds)) {
-                        $this->poolIds[] = $candidate->pool_id;
-                    }
-                }
-            });
+            $this->poolIds = $this->buildQuery()->toBase()->orderBy('pool_candidates.id')
+                ->pluck('pool_candidates.pool_id')->unique()->values()->all();
 
             $localizedHeaders = array_map(function ($key) {
                 return $this->localizeHeading($key);
