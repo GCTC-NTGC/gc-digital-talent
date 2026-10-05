@@ -89,6 +89,43 @@ class HydrationTest extends TestCase
                     'x',
                 ],
             ],
+            // the edge cases below match what the original Validator-based check returned
+            'empty array' => [
+                true,
+                [['x' => []], 'x'],
+            ],
+            'label as a string' => [
+                true,
+                [['x' => ['value' => 'EN', 'label' => 'English']], 'x'],
+            ],
+            'extra keys beside value' => [
+                true,
+                [['x' => ['value' => 'EN', 'other' => 5]], 'x'],
+            ],
+            'value of zero as a string' => [
+                true,
+                [['x' => ['value' => '0']], 'x'],
+            ],
+            'whitespace value' => [
+                false,
+                [['x' => ['value' => '  ']], 'x'],
+            ],
+            'numeric value' => [
+                false,
+                [['x' => ['value' => 1]], 'x'],
+            ],
+            'numeric label' => [
+                false,
+                [['x' => ['value' => 'EN', 'label' => ['en' => 1]]], 'x'],
+            ],
+            'array with a non-enum item' => [
+                false,
+                [['x' => [['value' => 'EN'], 'FR']], 'x'],
+            ],
+            'array of strings' => [
+                false,
+                [['x' => ['EN', 'FR']], 'x'],
+            ],
         ];
     }
 
