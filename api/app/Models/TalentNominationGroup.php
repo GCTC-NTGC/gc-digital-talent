@@ -176,7 +176,7 @@ class TalentNominationGroup extends Model
     }
 
     /**
-     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
+     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
      */
     protected function approvedForAdvancement(): Attribute
     {
@@ -187,7 +187,7 @@ class TalentNominationGroup extends Model
     }
 
     /**
-     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
+     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
      */
     protected function approvedForLateralMovement(): Attribute
     {
@@ -198,7 +198,7 @@ class TalentNominationGroup extends Model
     }
 
     /**
-     * Exposed to the nominee instead of the decision, so they can't tell a rejected option from one with no decision.
+     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
      */
     protected function approvedForDevelopmentPrograms(): Attribute
     {
