@@ -43,10 +43,6 @@
     "defaultMessage": "Note spéciale",
     "description": "Sub title for the special note section"
   },
-  "+76ObM": {
-    "defaultMessage": "La Directive n’introduit pas d’étapes procédurales supplémentaires pour les responsables de l’approvisionnement, mais elle contient des exigences de rapport liées à l’approvisionnement qui incombent aux propriétaires fonctionnels. Cette ressource est conçue pour aider les responsables de l’approvisionnement à soutenir leurs clients lorsqu’ils acquièrent des services numériques (p. ex., des talents numériques, des services liés aux TI ou à la GI, etc.).",
-    "description": "Body message for digital initiative procurement section."
-  },
   "+7v9Dq": {
     "defaultMessage": "Sauvegarder et ajouter un autre",
     "description": "Text for save button and add another button on experience form."
@@ -338,10 +334,6 @@
   "/ANsjm": {
     "defaultMessage": "Gestion du Fonds",
     "description": "Heading for the fund management card"
-  },
-  "/BWol9": {
-    "defaultMessage": "La Directive sur les talents numériques précise que les ministères sont censés utiliser les marges de manœuvre et les meilleures pratiques qui existent dans divers instruments politiques pour garantir une base de talents stable et durable, en mettant notamment l’accent sur l’embauche.",
-    "description": "The directives digital enabling conditions component"
   },
   "/Bih8t": {
     "defaultMessage": "Tâches principales - Exemples",
@@ -654,10 +646,6 @@
     "defaultMessage": "Trouvez une compétence dans notre bibliothèque en utilisant les filtres et la recherche par mot-clé.",
     "description": "Subtitle for the find a skill dialog"
   },
-  "0QM++s": {
-    "defaultMessage": "En vertu de cette directive, les ministères sont tenus de fournir des informations au Bureau du dirigeant principal de l’information du Canada. Ces données sont ensuite utilisées pour créer des renseignements opérationnels et des processus de recrutement accélérés au service des ministères et des organismes du gouvernement fédéral. L’objectif est de veiller à ce que la collectivité du numérique du GC ait accès aux talents dont elle a besoin pour fournir des services numériques modernes et efficaces aux Canadiens.",
-    "description": "Second paragraph describing the directive on digital talent"
-  },
   "0QqkWJ": {
     "defaultMessage": "Apprenez-en davantage sur les événements axés sur les possibilités d’avancement, de transfert lateral ou de perfectionnement.",
     "description": "Subtitle for talent management events page"
@@ -770,10 +758,6 @@
     "defaultMessage": "Modifier les détails de la nomination",
     "description": "Link text to edit a nominations details information"
   },
-  "0tNrAw": {
-    "defaultMessage": "Cette enquête permet de recueillir des données sur les besoins actuels et prévus des ministères relativement aux talents numériques afin de guider les décisions clés concernant la collectivité numérique.",
-    "description": "Description for annual digital talent survey card, paragraph 1"
-  },
   "0vNb2/": {
     "defaultMessage": "Nombre d'employées et employés",
     "description": "Label for number of employees field"
@@ -841,10 +825,6 @@
   "1EGyaU": {
     "defaultMessage": "Nous avons préparé <linkToRegisterGuidance>un guide expliquant comment créer un identifiant ConnexionCanada et configurer la vérification en deux étapes </linkToRegisterGuidance>. Des <linkToSignInGuidance>instructions pour vous connecter avec ConnexionCanada</linkToSignInGuidance> sont également disponibles. Si le problème persiste, communiquez avec <linkToCanadaLoginTeam>l'équipe de ConnexionCanada</linkToCanadaLoginTeam>.",
     "description": "Button label for the form to add a community interest to a user"
-  },
-  "1FGsSn": {
-    "defaultMessage": "Vous trouverez les résultats agrégés et de plus amples renseignements dans GCÉchange (à consulter exclusivement sur le réseau du gouvernement du Canada).",
-    "description": "Description for annual digital talent survey card, paragraph 2"
   },
   "1FwczA": {
     "defaultMessage": "Marquer comme lue",
@@ -1269,10 +1249,6 @@
   "2hc9V9": {
     "defaultMessage": "Expression orale (ou compétence orale))",
     "description": "Proficiency level related skill on language requirements dialog"
-  },
-  "2hwu5E": {
-    "defaultMessage": "Enquête annuelle sur les talents numériques",
-    "description": "Heading for annual digital talent survey card"
   },
   "2iCpAL": {
     "defaultMessage": "Énoncé sur l’accessibilité",
@@ -1817,10 +1793,6 @@
   "4rkX89": {
     "defaultMessage": "La nomination doit inclure les trois principales compétences de leadership de la personne nominée.",
     "description": "Label for the include leadership competencies"
-  },
-  "4t/ETT": {
-    "defaultMessage": "D’autres exigences s’appliquent pour l’approvisionnement en services professionnels. Consultez les Procédures obligatoires pour les propriétaires fonctionnels lors de l’approvisionnement en services professionnels menées par le Bureau du contrôleur général du Canada.",
-    "description": "Description for the related policies card"
   },
   "4t9lEL": {
     "defaultMessage": "Pour en savoir plus et présenter une demande <hidden>pour {trainingOpportunityTitle}</hidden>",
@@ -2386,10 +2358,6 @@
     "defaultMessage": "Gestionnaire",
     "description": "Title displayed on the search request table manager column."
   },
-  "7JQCZ0": {
-    "defaultMessage": "Télécharger le guide de mise en œuvre pour les responsables de l’approvisionnement",
-    "description": "Aria label for download guidance for procurement officers plain text link."
-  },
   "7Je/3u": {
     "defaultMessage": "a un accès complet aux outils de gestion de la collectivité;",
     "description": "Description of the permission to manage communities"
@@ -2754,10 +2722,6 @@
     "defaultMessage": "La formation ne m'intéresse pas",
     "description": "Phrase marking lack of interest in community training opportunities"
   },
-  "8yB2Bm": {
-    "defaultMessage": "Conditions favorables",
-    "description": "Heading for the directives digital enabling conditions component"
-  },
   "8zdTVe": {
     "defaultMessage": "Modifier le niveau",
     "description": "Label to edit the skill with level"
@@ -2953,10 +2917,6 @@
   "9fEw/Y": {
     "defaultMessage": "Notes explicatives sur la décision",
     "description": "Label for demonstrated notes text area in the screening decision dialog."
-  },
-  "9ffYBC": {
-    "defaultMessage": "La Directive sur les talents numériques clarifie les exigences de la Politique sur les services et le numérique en ce qui concerne les nominations des dirigeantes principales et dirigeants principals de l'information et la gestion des talents. L’objectif est de continuer à soutenir les parcours professionnels des cadres, en mettant l’accent sur la prestation de services publics numériques modernes.",
-    "description": "The directives digital executive roles and structures component"
   },
   "9g0IoZ": {
     "defaultMessage": "Commencer<hidden> à fournir les renseignements sur votre citoyenneté, votre statut d’ancien combattant et vos droits de priorité</hidden>",
@@ -3585,10 +3545,6 @@
   "C+FsJw": {
     "defaultMessage": "Apprenez-en davantage sur le <link>filtrage de sécurité</link> ou consultez la <securityScreenLink>Directive sur le filtrage de sécurité.</securityScreenLink>",
     "description": "First paragraph for the obtaining security clearance section"
-  },
-  "C03OK7": {
-    "defaultMessage": "Établissement d’un bassin de talents numériques",
-    "description": "Heading for the directives digital talent and sourcing component"
   },
   "C0M2h9": {
     "defaultMessage": "En savoir plus<hidden> sur l'équipe du Développement de la collectivité de la gestion financière</hidden>",
@@ -4749,10 +4705,6 @@
     "defaultMessage": "Si vous ne trouvez pas une compétence donnée, c’est peut-être parce qu’elle n’a pas encore été ajoutée dans notre bibliothèque. Nous y inscrivons régulièrement de nouvelles compétences et vos suggestions à cet égard sont les bienvenues. <link>Écrivez-nous</link> pour nous faire part de vos suggestions.",
     "description": "Paragraph two, describing the skills on the platform"
   },
-  "GdOQeo": {
-    "defaultMessage": "Quelle est la Directive sur les talents numériques?",
-    "description": "Heading for section describing the directive"
-  },
   "GewD8q": {
     "defaultMessage": "Aucune classification",
     "description": "Placeholder for when the classification cannot be displayed"
@@ -5808,10 +5760,6 @@
     "defaultMessage": "L'intérêt pour la collectivité a été mis à jour avec succès",
     "description": "Toast for successful community interest update"
   },
-  "Kwfc/6": {
-    "defaultMessage": "Ressources",
-    "description": "Heading for section for the group-specific resources section."
-  },
   "KwzVtv": {
     "defaultMessage": "Droits de priorité",
     "description": "Label for the Priority Entitlement Status"
@@ -5851,10 +5799,6 @@
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
-  },
-  "L6Cx1M": {
-    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
-    "description": "The directives digital talent and sourcing component"
   },
   "L6MgeM": {
     "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
@@ -6335,10 +6279,6 @@
     "defaultMessage": "Détails de la nomination",
     "description": "Link text for details about a nomination"
   },
-  "Msshus": {
-    "defaultMessage": "Les conseillers en ressources humaines (RH) sont chargés de veiller à ce que les clients à la recherche de talents numériques soient conscients de leurs obligations dans le cadre de la <cite>Directive sur les talents numériques</cite> et d'aider les clients à tirer parti des marges de manœuvre disponibles à l'échelle des politiques RH pour embaucher des talents numériques. Ce guide de mise en œuvre est conçu pour aider les conseillers en RH à assumer ces responsabilités.",
-    "description": "Body message for digital initiative human resources section."
-  },
   "Mst3hH": {
     "defaultMessage": "L’évaluation du candidat n’est pas encore terminée",
     "description": "Description of the 'to assess' application status"
@@ -6574,10 +6514,6 @@
   "NxIPbD": {
     "defaultMessage": "Gérer les collectivités",
     "description": "Link to manage the users community interests"
-  },
-  "Ny56Y7": {
-    "defaultMessage": "Les gestionnaires sont tenus de remplir ce questionnaire lorsqu’ils lancent un processus d’approvisionnement pour des services numériques dépassant 40 000 $.",
-    "description": "Description for the digital Services contracting form, paragraph 1"
   },
   "NzUwa2": {
     "defaultMessage": "parfaitement bilingue.",
@@ -6898,10 +6834,6 @@
     "defaultMessage": "Cet utilisateur n'a aucun processus de recrutement actif pour I'instant.",
     "description": "Notice when there are no recruitment processes"
   },
-  "PN3PMn": {
-    "defaultMessage": "La Directive sur les talents numériques introduit des mesures visant à améliorer la coordination interministérielle sur le développement des talents et le perfectionnement, ainsi que des mesures visant à améliorer la promotion de l’équité. L’intention de la Directive est d’aborder la main-d’œuvre numérique du GC comme une communauté homogène et évolutive.",
-    "description": "The directives digital talent and development component"
-  },
   "PNTlS7": {
     "defaultMessage": "Volets de travail sans expérience",
     "description": "a description for a list of work streams with no experiences"
@@ -6925,10 +6857,6 @@
   "POj+1M": {
     "defaultMessage": "Normes de qualification en matière de langues officielles",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
-  },
-  "POvUB0": {
-    "defaultMessage": "En plus du soutien prévu dans la directive elle-même, consultez les orientations sur la mise en place d’un soutien en ressources humaines pour les talents numériques.",
-    "description": "Lead-in text for the directive guidance document"
   },
   "PQXvrU": {
     "defaultMessage": "Créer<hidden> un groupe de compétences</hidden>",
@@ -7422,10 +7350,6 @@
     "defaultMessage": "{applicantsCount} candidatures",
     "description": "Text displaying number of applications for a job"
   },
-  "RDAVsP": {
-    "defaultMessage": "Lire la Directive",
-    "description": "Link text to read the entire directive."
-  },
   "RDFAWE": {
     "defaultMessage": "Renseignements de base",
     "description": "Title for basic information"
@@ -7769,10 +7693,6 @@
     "defaultMessage": "Numéro de suivi",
     "description": "Alternate name for ID column header"
   },
-  "SlBNsw": {
-    "defaultMessage": "La Directive sur les talents numériques impose aux ministères d’informer le Bureau du dirigeant principal de l’information de leurs besoins actuels et prévus en matière de talents numériques. Cette collecte de données est agrégée et croisée avec d’autres sources de données. Ces données sont ensuite utilisées pour fournir des renseignements opérationnels à l’échelle du gouvernement et des ministères, et pour améliorer le recrutement et la formation ciblés.",
-    "description": "The directives planning and reporting component"
-  },
   "SlSHQo": {
     "defaultMessage": "Ces renseignements seront utilisés pour établir une correspondance entre votre profil et des emplois qui donnent la préférence aux personnes candidates issues des groupes visés par l'équité en matière d'emploi.",
     "description": "Explanation on how employment equity information will be used, item two"
@@ -8028,10 +7948,6 @@
   "TvUVa0": {
     "defaultMessage": "Vous êtes sur le point d'ajouter des rôles à cet utilisateur ou cette utilisatrice : <strong>{userName}</strong>",
     "description": "Lead in text for the add role to user form."
-  },
-  "Tvsi5A": {
-    "defaultMessage": "Gestionnaires de l'initiative numérique",
-    "description": "Title for group-specific resource card"
   },
   "TwR8/e": {
     "defaultMessage": "Créer<hidden> un volet de travail</hidden>",
@@ -8807,10 +8723,6 @@
   "X3PC+9": {
     "defaultMessage": "Ce poste exige le bilinguisme et une évaluation en langue seconde. On approfondit ces sujets dans la section suivante sur les postes bilingues.",
     "description": "Bilingual advanced language requirement description"
-  },
-  "X3bPom": {
-    "defaultMessage": "Octroi de contrat pour des services numériques",
-    "description": "Short name for Digital Services Contracting Form"
   },
   "X3pHUD": {
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe ",
@@ -9960,10 +9872,6 @@
     "defaultMessage": "Lorsque vous soumettez une demande de talents à l'aide de la fonctionnalité « <findTalentLink>Trouver des talents</findTalentLink> » , elle apparaîtra dans cette liste tant qu'elle sera active.",
     "description": "Subtitle explaining your talent requests expandable within Talent management card"
   },
-  "c/u1K+": {
-    "defaultMessage": "Découvrez comment le gouvernement du Canada consolide la base de talents de la collectivité du numérique du GC.",
-    "description": "Subtitle for the digital talent directive page"
-  },
   "c060kv": {
     "defaultMessage": "Processus de désarchivage",
     "description": "Title to un-archive a process"
@@ -10068,10 +9976,6 @@
     "defaultMessage": "Veuillez choisir une option pour continuer.",
     "description": "Alert message informing user to select an option first in application education page."
   },
-  "cTSaxx": {
-    "defaultMessage": "Télécharger le questionnaire<hidden> : {formName}</hidden>",
-    "description": "Link text for form download"
-  },
   "cU+2HB": {
     "defaultMessage": "La plateforme recueille des données aux fins de planification de l’effectif : ces données font ressortir les compétences en demande, les lacunes dans les équipes et les emplois auxquels les gens postulent. Elles aident en outre les RH et la direction à faire en sorte que l’embauche, la formation et le perfectionnement correspondent aux futures priorités numériques.",
     "description": "Description of analytics and planning for HR professionals"
@@ -10108,10 +10012,6 @@
     "defaultMessage": "Note spéciale pour ce processus",
     "description": "Heading for a special note in pool advertisement."
   },
-  "ccwY2r": {
-    "defaultMessage": "Si vous lancez un processus d’approvisionnement en <strong>raison d’une pénurie de talents</strong>, vous devez en outre vérifier qu’aucun talent n’est disponible sur <link>Talents numériques du GC</link>.",
-    "description": "Description for the digital Services contracting form, paragraph 2"
-  },
   "ce3IeQ": {
     "defaultMessage": "Votre parcours professionnel comprend actuellement :",
     "description": "Title for list of experiences"
@@ -10139,10 +10039,6 @@
   "cik7wX": {
     "defaultMessage": "Ajouter un processus hors plateforme",
     "description": "Button to open dialog to create off-platform process"
-  },
-  "cktAfD": {
-    "defaultMessage": "Planification et établissement de rapports",
-    "description": "Heading for the directives planning and reporting component"
   },
   "cl4Ix6": {
     "defaultMessage": "En supprimant cette collectivité fonctionnelle, vos renseignements ne seront plus transmis aux gestionnaires de talents, au personnel des RH et aux gestionnaires d'embauche. Vous pouvez rajouter cette collectivité à votre profil en tout temps.",
@@ -10490,10 +10386,6 @@
   "e+6lnP": {
     "defaultMessage": "La création de l'intérêt pour la collectivité a échoué",
     "description": "Toast for error during community interest creation"
-  },
-  "e/nr9L": {
-    "defaultMessage": "Rôles et structures numériques des cadres",
-    "description": "Heading for the directives digital executive roles and structures component"
   },
   "e0M7vj": {
     "defaultMessage": "Si le nominé ou la nominée est toujours membre du personnel du gouvernement du Canada, elle devra mettre à jour son expérience professionnelle sur la plateforme.",
@@ -11149,10 +11041,6 @@
   "g6coYl": {
     "defaultMessage": "Employé(e)s (préférences ministérielles)",
     "description": "Combined eligibility string for 'employees only' and 'departmental preference'"
-  },
-  "g7W+56": {
-    "defaultMessage": "Rapports obligatoires",
-    "description": "Heading for section for the downloadable forms section"
   },
   "g82nk3": {
     "defaultMessage": "Soumettre l'évaluation",
@@ -12129,10 +12017,6 @@
     "defaultMessage": "Modifier la planification de carrière",
     "description": "Link to a page to edit your career planning information"
   },
-  "joXPYW": {
-    "defaultMessage": "Composantes clés",
-    "description": "Heading for section describing the different components"
-  },
   "jokoVA": {
     "defaultMessage": "Justification de la nomination",
     "description": "Label for a nomination's rationale"
@@ -12204,10 +12088,6 @@
   "k3i6lU": {
     "defaultMessage": "Langue",
     "description": "Legend for a language input or title"
-  },
-  "k4Rl18": {
-    "defaultMessage": "La Directive sur les talents numériques a été mise en place le 1er avril 2023, en vertu des pouvoirs conférés par la <policyLink>Politique sur les services et le numérique</policyLink>. La Directive met l’accent sur la collecte de données, la planification et la coordination interministérielle dans le but d’améliorer les résultats en matière de recherche et de gestion des talents au sein de la collectivité du numérique du GC.",
-    "description": "First paragraph describing the directive on digital talent"
   },
   "k4xm25": {
     "defaultMessage": "Téléchargement a échoué : Aucune rangée n’a été sélectionnée",
@@ -12845,10 +12725,6 @@
     "defaultMessage": "Vous pouvez ajouter une note spéciale si vous voulez ajouter une compétence générique avec des instructions supplémentaires pour guider les utilisateurs du modèle.",
     "description": "Lead-in text for job poster template technical skills section, paragraph 2"
   },
-  "mpa5Fd": {
-    "defaultMessage": "Développement des talents numériques",
-    "description": "Heading for the directives digital talent and development component"
-  },
   "mpcA6q": {
     "defaultMessage": "Nous avons tous des réalisations et des expériences diverses qui façonnent nos carrières et nos compétences. Ne communiquez que ce que vous seriez prêt à partager avec un collègue de travail. Sur cette plateforme, vous pouvez ajouter les éléments suivants à votre parcours professionnel :",
     "description": "Lead-in text for the list of experience type definitions"
@@ -12920,10 +12796,6 @@
   "n8Mc9q": {
     "defaultMessage": "Profil",
     "description": "Link text for the profile of a nominee"
-  },
-  "n92mcX": {
-    "defaultMessage": "Responsables de l’approvisionnement",
-    "description": "Title for procurement officer resource card"
   },
   "nBBKe/": {
     "defaultMessage": "Une combinaison acceptable d’études, de formation et d’expérience, ou une note satisfaisante à l’examen de la Commission de la fonction publique qui est approuvé comme équivalence d’un diplôme d’études secondaires.",
@@ -13285,10 +13157,6 @@
     "defaultMessage": "Ajouter ou modifier les renseignements sur les processus hors plateforme",
     "description": "Dialog header informing of purpose"
   },
-  "oiTphL": {
-    "defaultMessage": "Questionnaire d’octroi de contrats sur les services numériques",
-    "description": "Heading for the digital Services contracting form"
-  },
   "okKbgd": {
     "defaultMessage": "Préférences en matière de développement de carrière",
     "description": "Title for a users career development preferences"
@@ -13340,10 +13208,6 @@
   "ow4z7W": {
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
-  },
-  "ox2by6": {
-    "defaultMessage": "En savoir plus<hidden> : {topic}</hidden>",
-    "description": "Link text to a page to learn more about something"
   },
   "ozb92E": {
     "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
@@ -14961,10 +14825,6 @@
     "defaultMessage": "Ajouter une compétence ({numOfSkills}/{maxSkills})",
     "description": "Label for skill dialog trigger on skills showcase section."
   },
-  "vYi5/y": {
-    "defaultMessage": "Ce guide de mise en œuvre est conçu pour aider les gestionnaires et les responsables de l’initiative numérique à assumer leurs responsabilités au titre de la <cite>Directive sur les talents numériques</cite>. Il explique pourquoi la Directive est nécessaire et ce qu’elle exige.",
-    "description": "Body message for digital initiative managers section."
-  },
   "vZ7n91": {
     "defaultMessage": "Enregistrer des compétences techniques essentielles",
     "description": "Text on a button to save the essential technical skills form"
@@ -14976,10 +14836,6 @@
   "vbYcIR": {
     "defaultMessage": "Le statut de placement a été mis à jour avec succès.",
     "description": "Success message displayed after updating placement status"
-  },
-  "vbiWgW": {
-    "defaultMessage": "Politiques connexes",
-    "description": "Heading for the related policies card"
   },
   "vc9lfk": {
     "defaultMessage": "Raison d’être de la bibliothèque de compétences",
@@ -15312,10 +15168,6 @@
     "defaultMessage": "Vous avez récemment accédé à votre compte et créé un identifiant ConnexionCanada à l’aide de votre adresse courriel.",
     "description": "Message shown under CanadaLogin option on sign in page"
   },
-  "x+kUrO": {
-    "defaultMessage": "Conseillers en ressources humaines",
-    "description": "Title for group-specific resource card"
-  },
   "x/BiQS": {
     "defaultMessage": "Questions",
     "description": "Label for questions"
@@ -15407,10 +15259,6 @@
   "xU771u": {
     "defaultMessage": "Prochaine étape",
     "description": "Button text to submit the current step of a process"
-  },
-  "xV43au": {
-    "defaultMessage": "Télécharger le guide de mise en œuvre pour les conseillers en RH",
-    "description": "Aria label for download guidance for human resources plain text link."
   },
   "xVBxp3": {
     "defaultMessage": "En cours",
@@ -15682,10 +15530,6 @@
     "defaultMessage": "Lorsque vous rédigez des exemples de tâches, tenez compte des questions suivantes :",
     "description": "Lead-in text for job poster template key tasks section, paragraph 2"
   },
-  "yNPkM8": {
-    "defaultMessage": "Télécharger le guide de mise en œuvre pour les gestionnaires",
-    "description": "Aria label for download guidance for managers plain text link."
-  },
   "yO+tlM": {
     "defaultMessage": "Aidez le personnel chargé du recrutement à mieux comprendre vos qualifications en ajoutant des renseignements sur les autres processus de recrutement du gouvernement du Canada pour lesquels vous avez été qualifié(e). Ces renseignements seront vérifiés.",
     "description": "Explanation of dialog"
@@ -15701,10 +15545,6 @@
   "yTu6Ih": {
     "defaultMessage": "La gestion des fonctions de la plateforme est assurée par différentes personnes assumant certains rôles et possédant certaines autorisations, avec un accès limité aux données personnelles en fonction des besoins.",
     "description": "Paragraph two, describing managing platform functionalities"
-  },
-  "yVOpEI": {
-    "defaultMessage": "Télécharger le guide",
-    "description": "Link text for guidance resource download"
   },
   "yVf0d/": {
     "defaultMessage": "Présenter une nomination",
