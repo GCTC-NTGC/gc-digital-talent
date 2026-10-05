@@ -4,6 +4,7 @@ import {
   fakeLocalizedEnum,
   fakeUsers,
   toLocalizedEnum,
+  toLocalizedString,
 } from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
@@ -29,6 +30,7 @@ const [user] = fakeUsers(1);
 
 const optionsQuery = makeFragmentData(
   {
+    __typename: "Query",
     referralDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserReferralDecision,
       "LocalizedTalentRequestTrackedUserReferralDecision",
@@ -50,6 +52,7 @@ const optionsQuery = makeFragmentData(
 );
 
 const mockTrackedUser = {
+  __typename: "TalentRequestTrackedUser" as const,
   id: "tracked-user-1",
   referralDecision: null,
   selectionDecision: null,
@@ -62,43 +65,51 @@ const mockTrackedUser = {
     ),
   ],
   matchingQualifiedInPoolSources: [
-    makeFragmentData(
-      {
-        __typename: "PoolCandidate",
-        id: "pool-candidate-1",
-        pool: {
-          __typename: "Pool",
-          displayName: {
-            __typename: "DefinedString",
-            display: { __typename: "LocalizedString", localized: "IT-02" },
-          },
-        },
-      },
-      ReferralMatchingPoolSource_Fragment,
-    ),
-  ],
-  referralSummary: makeFragmentData(
     {
-      __typename: "TalentRequestReferralSummary",
-      referredCount: 3,
-      notSelectedReasons: [
+      __typename: "PoolCandidate" as const,
+      ...makeFragmentData(
         {
-          __typename: "TalentRequestNotSelectedReasonCount",
-          reason: {
-            __typename: "LocalizedTalentRequestTrackedUserNotSelectedReason",
-            value: TalentRequestTrackedUserNotSelectedReason.Other,
-            label: { __typename: "LocalizedString", localized: "Other" },
+          __typename: "PoolCandidate",
+          id: "pool-candidate-1",
+          pool: {
+            __typename: "Pool",
+            displayName: {
+              __typename: "DefinedString",
+              display: toLocalizedString("IT-02"),
+            },
           },
-          count: 2,
         },
-      ],
+        ReferralMatchingPoolSource_Fragment,
+      ),
     },
-    ReferralHistory_Fragment,
-  ),
+  ],
+  matchingAdvancementSources: [],
+  matchingLateralMovementSources: [],
+  referralSummary: {
+    __typename: "TalentRequestReferralSummary" as const,
+    ...makeFragmentData(
+      {
+        __typename: "TalentRequestReferralSummary",
+        referredCount: 3,
+        notSelectedReasons: [
+          {
+            __typename: "TalentRequestNotSelectedReasonCount",
+            reason: toLocalizedEnum(
+              TalentRequestTrackedUserNotSelectedReason.Other,
+              "LocalizedTalentRequestTrackedUserNotSelectedReason",
+            ),
+            count: 2,
+          },
+        ],
+      },
+      ReferralHistory_Fragment,
+    ),
+  },
   user: {
+    __typename: "User" as const,
     id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: user.firstName ?? null,
+    lastName: user.lastName ?? null,
   },
 };
 

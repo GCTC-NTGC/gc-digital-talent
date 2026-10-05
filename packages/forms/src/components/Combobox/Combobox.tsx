@@ -69,7 +69,7 @@ const Combobox = ({
     watch,
     control,
     setValue,
-    formState: { errors, defaultValues },
+    formState: { errors, defaultValues, isSubmitted },
   } = useFormContext<Record<string, ComboboxValue>>();
   useRegisterFormLabel(name, label);
   const fieldState = useFieldState(name || "", !trackUnsaved);
@@ -163,7 +163,7 @@ const Combobox = ({
                 setValue(
                   name,
                   items?.map((item) => String(item.value)),
-                  { shouldDirty: true },
+                  { shouldDirty: true, shouldValidate: isSubmitted },
                 );
               }}
               value={getMultiDefaultValue(
@@ -179,6 +179,7 @@ const Combobox = ({
               onSelectedChange={(item) =>
                 setValue(name, item?.value ? String(item.value) : undefined, {
                   shouldDirty: true,
+                  shouldValidate: isSubmitted,
                 })
               }
               value={getSingleDefaultValue(

@@ -4213,6 +4213,7 @@ type Mutation {
   downloadNominationDoc(id: UUID!): String
     @guard
     @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
+  migrateMyAccount: Boolean! @guard
 }
 
 type UserNotification {
