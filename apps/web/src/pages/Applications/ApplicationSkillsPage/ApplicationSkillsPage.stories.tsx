@@ -4,6 +4,7 @@ import { faker } from "@faker-js/faker/locale/en";
 import {
   fakePoolCandidates,
   fakeExperiences,
+  fakePoolSkills,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
@@ -28,6 +29,7 @@ const experienceSkills = mockExperiences
   .map((experience) => experience.skills)
   .filter(notEmpty)
   .flatMap((skill) => skill);
+const mockPoolSkills = fakePoolSkills(experienceSkills.length);
 
 const noSkills: ApplicationSkillsProps = {
   application: {
@@ -51,11 +53,8 @@ const hasExperiencesProps: ApplicationSkillsProps = {
     },
     pool: {
       ...fakePoolCandidate.pool,
-      poolSkills: experienceSkills.map((skill) => ({
-        id: faker.string.uuid(),
-        ...faker.helpers.arrayElement(
-          fakePoolCandidate?.pool?.poolSkills ?? [],
-        ),
+      poolSkills: experienceSkills.map((skill, index) => ({
+        ...mockPoolSkills[index],
         skill,
       })),
     },
