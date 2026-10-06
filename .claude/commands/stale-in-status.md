@@ -27,9 +27,9 @@ Map the user's wording (case-insensitive, emoji optional) onto one of these labe
 
 ## Method
 
-**1. Fetch the column and its status history in one query.**
+**1. Fetch the column and when each item entered it, in one query.**
 
-Don't pull the whole board with `gh project item-list` — it takes ~30 s and can trip the GraphQL rate limit. Instead pass the board's filter syntax to the project's `items(query:)` connection so GitHub filters server-side, and fetch each item's status-change timeline in the same request:
+Don't pull the whole board with `gh project item-list` — it takes ~30 s and can trip the GraphQL rate limit. Instead pass the board's filter syntax to the project's `items(query:)` connection so GitHub filters server-side, and read each item's Status field value, whose `updatedAt` is when the Status was last set:
 
 ```
 gh api graphql -f q='status:"👀 In review"' -f query='
@@ -40,27 +40,12 @@ query($q: String!) {
         totalCount
         pageInfo { hasNextPage endCursor }
         nodes {
+          status: fieldValueByName(name: "Status") {
+            ... on ProjectV2ItemFieldSingleSelectValue { name updatedAt }
+          }
           content {
-            ... on Issue {
-              __typename number title url
-              timelineItems(last: 30, itemTypes: [PROJECT_V2_ITEM_STATUS_CHANGED_EVENT, ADDED_TO_PROJECT_V2_EVENT]) {
-                nodes {
-                  __typename
-                  ... on ProjectV2ItemStatusChangedEvent { createdAt status project { number } }
-                  ... on AddedToProjectV2Event { createdAt project { number } }
-                }
-              }
-            }
-            ... on PullRequest {
-              __typename number title url
-              timelineItems(last: 30, itemTypes: [PROJECT_V2_ITEM_STATUS_CHANGED_EVENT, ADDED_TO_PROJECT_V2_EVENT]) {
-                nodes {
-                  __typename
-                  ... on ProjectV2ItemStatusChangedEvent { createdAt status project { number } }
-                  ... on AddedToProjectV2Event { createdAt project { number } }
-                }
-              }
-            }
+            ... on Issue { __typename number title url }
+            ... on PullRequest { __typename number title url }
           }
         }
       }
@@ -69,15 +54,11 @@ query($q: String!) {
 }'
 ```
 
-(`IssueTimelineItemsConnection` and `PullRequestTimelineItemsConnection` are distinct types, so the timeline selection has to be repeated in both branches.)
-
 The `query` argument accepts the same filter syntax as the board's filter bar, so other qualifiers (e.g. `is:open`) can be combined with `status:`. Each page returns at most 100 items; if `hasNextPage` is true, repeat with `after: "<endCursor>"`.
 
 **2. Determine how long each item has been in that status.**
 
-Ignore timeline events whose `project.number` isn't 8 (items can be on other boards). For each item, take the **last** `ProjectV2ItemStatusChangedEvent` whose `status` matches the target label — its `createdAt` is when the current stay in that status began. (An item can cycle through a status more than once; only the most recent entry counts.)
-
-Fallback: if no matching status event exists (the item was added to the project already sitting in that status, before any automation fired), use the last `AddedToProjectV2Event` timestamp, or note the age as unknown rather than guessing.
+Use `status.updatedAt` as the moment the item entered the status. Don't use the issue/PR timeline's `ProjectV2ItemStatusChangedEvent`s or `AddedToProjectV2Event`: most items have no status-change event for their move into the column, and the date an item was added to the board says nothing about when it reached its current status (it can be years off).
 
 **3. Compute age, filter, sort, present.**
 
@@ -92,4 +73,4 @@ Fallback: if no matching status event exists (the item was added to the project 
 
 - Briefly list the remaining in-status items that fell under the threshold (number/title/age only, no links needed), so the reader can see the full column at a glance.
 - Note PRs distinctly from issues if the column contains both.
-- Add a one-line footnote reminding that age is measured from the most recent transition *into* the status (via `ProjectV2ItemStatusChangedEvent`), not from creation or last-updated.
+- Add a one-line footnote reminding that age is measured from when the Status field was last set (its `updatedAt`), not from creation or the issue's last update.
