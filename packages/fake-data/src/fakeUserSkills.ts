@@ -1,11 +1,7 @@
 import { faker } from "@faker-js/faker/locale/en";
 import { UniqueEnforcer } from "enforce-unique";
 
-import type {
-  Skill,
-  User,
-  UserSkill,
-} from "@gc-digital-talent/graphql/schema-types";
+import type { Skill, User } from "@gc-digital-talent/graphql/schema-types";
 import {
   SkillLevel,
   WhenSkillUsed,
@@ -16,7 +12,7 @@ import { getStaticSkills } from "./fakeSkills";
 import type { AnyGeneratedExperience } from "./fakeExperiences";
 
 const staticSkills = getStaticSkills();
-const randomSkill = faker.helpers.arrayElement<Skill>(staticSkills);
+const randomSkill = faker.helpers.arrayElement(staticSkills);
 const mockUser = fakeUsers(1)[0];
 
 const generateUserSkill = (
@@ -32,25 +28,27 @@ const generateUserSkill = (
     return faker.string.uuid();
   });
   return {
-    __typename: "UserSkill" as UserSkill["__typename"],
+    __typename: "UserSkill" as const,
     id: uniqueId,
     skill,
     user,
-    skillLevel: faker.helpers.arrayElement<SkillLevel | undefined>([
+    topSkillsRank: null,
+    improveSkillsRank: null,
+    skillLevel: faker.helpers.arrayElement<SkillLevel | null>([
       SkillLevel.Beginner,
       SkillLevel.Advanced,
       SkillLevel.Intermediate,
       SkillLevel.Lead,
-      undefined,
+      null,
     ]),
-    whenSkillUsed: faker.helpers.arrayElement<WhenSkillUsed | undefined>([
+    whenSkillUsed: faker.helpers.arrayElement<WhenSkillUsed | null>([
       WhenSkillUsed.Current,
       WhenSkillUsed.Past,
-      undefined,
+      null,
     ]),
     experiences: experiences.length
       ? faker.helpers.arrayElements<AnyGeneratedExperience>(experiences)
-      : undefined,
+      : null,
   };
 };
 
@@ -59,7 +57,7 @@ export default (
   skill: Skill = randomSkill,
   user = mockUser,
   experiences: AnyGeneratedExperience[] = [],
-): UserSkill[] => {
+) => {
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 
   return Array.from({ length: numToGenerate }, (_x, index) =>
