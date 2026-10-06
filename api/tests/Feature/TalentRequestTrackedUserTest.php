@@ -1611,6 +1611,14 @@ class TalentRequestTrackedUserTest extends TestCase
                 'input.notSelectedReason',
                 $prohibitedNotSelectedReason,
             ],
+            'referred with a not selected reason but no selection decision' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.notSelectedReason',
+                $prohibitedNotSelectedReason,
+            ],
         ];
     }
 
