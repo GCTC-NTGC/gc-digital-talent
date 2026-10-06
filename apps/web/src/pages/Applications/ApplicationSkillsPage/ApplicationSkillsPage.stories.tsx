@@ -5,10 +5,11 @@ import {
   fakePoolCandidates,
   fakeExperiences,
   fakePoolSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import type { ApplicationSkillsProps } from "./ApplicationSkillsPage";
 import {
@@ -55,6 +56,10 @@ const hasExperiencesProps: ApplicationSkillsProps = {
       ...fakePoolCandidate.pool,
       poolSkills: experienceSkills.map((skill, index) => ({
         ...mockPoolSkills[index],
+        type: toLocalizedEnum(
+          index % 2 === 0 ? PoolSkillType.Essential : PoolSkillType.Nonessential,
+          "LocalizedPoolSkillType",
+        ),
         skill,
       })),
     },
