@@ -2332,15 +2332,6 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input CreatePoolCandidateAsAdminInput {
-  pool: PoolBelongsTo!
-  user: UserBelongsTo!
-  expiryDate: Date @rename(attribute: "expiry_date")
-  status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
-  notes: String
-  isFlagged: Boolean
-}
-
 input CreateSpecialApplicationInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -3427,13 +3418,6 @@ type Mutation {
     @canFind(ability: "removeWorkEmailInformation")
 
   # poolCandidate mutations
-  createPoolCandidateAsAdmin(
-    poolCandidate: CreatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate
-    @create
-    @guard
-    @canModel(ability: "create")
-    @injectNow(name: "submitted_at")
   createSpecialApplication(
     poolCandidate: CreateSpecialApplicationInput! @spread
   ): PoolCandidate

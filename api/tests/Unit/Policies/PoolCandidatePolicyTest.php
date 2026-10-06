@@ -53,12 +53,6 @@ class PoolCandidatePolicyTest extends PolicyTestCase
         $this->assertTrue($this->ensureBool($this->policy->createDraft($applicant)));
     }
 
-    public function testPlatformAdminCanCreateApplicationDirectly(): void
-    {
-        $admin = User::factory()->asAdmin()->create();
-        $this->assertTrue($this->ensureBool($this->policy->create($admin)));
-    }
-
     // --- Own-resource methods ---
 
     public function testOwnerCanViewTheirOwnApplication(): void
