@@ -847,6 +847,7 @@ trait GeneratesUserDoc
         $this->governmentInfo($section, $user, $headingRank + 2);
         $this->workPreferences($section, $user, $headingRank + 2);
         $this->dei($section, $user, $headingRank + 2);
+        $this->experiences($section, $user->experiences, true, $headingRank + 1);
         $this->talentManagementNominations($section, $user, $headingRank + 1);
         $this->skillShowcase($section, $user, $headingRank + 1);
         $this->recruitmentProcesses($section, $user, $headingRank + 1);
