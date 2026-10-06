@@ -3,8 +3,12 @@
 namespace App\Services;
 
 use App\Contracts\KeyService;
-use Illuminate\Support\Facades\Log;
+use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
+use Jose\Component\Signature\Algorithm\RS256;
+use Jose\Component\Signature\JWSBuilder;
+use Jose\Component\Signature\Serializer\CompactSerializer;
+use RuntimeException;
 
 /* Interact with an Azure key vault. */
 class LocalKeyService implements KeyService
@@ -15,27 +19,40 @@ class LocalKeyService implements KeyService
         return 'hello world';
     }
 
-    private static function getKeyPublicJwk(string $configLocation): ?JWK
+    protected static function makeJwkForConfigKey(string $configKey): JWK
     {
-        $path = config($configLocation);
+        $path = config($configKey, '');
+        throw_unless(file_exists($path), RuntimeException::class, "No key file found for {$configKey}");
 
-        if (! file_exists($path)) {
-            Log::warning('No key found when serving jwks.json', ['location' => $configLocation]);
-
-            return null;
-        }
-
-        return JWK::createFromJson(file_get_contents($path))->toPublic();
+        return JWK::createFromJson(file_get_contents($path));
     }
 
-    public function getEncryptionKeyPublicJwk(): ?JWK
+    public function getEncryptionKeyPublicJwk(): JWK
     {
-        return self::getKeyPublicJwk('keys.local.encryption_key_path');
+        return self::makeJwkForConfigKey('keys.local.encryption_key_path')->toPublic();
 
     }
 
-    public function getSigningKeyPublicJwk(): ?JWK
+    public function getSigningKeyPublicJwk(): JWK
     {
-        return self::getKeyPublicJwk('keys.local.signing_key_path');
+        return self::makeJwkForConfigKey('keys.local.signing_key_path')->toPublic();
+    }
+
+    public function createSignature(array $values): string
+    {
+        $algorithmManager = new AlgorithmManager([new RS256()]);
+        $jwsBuilder = new JWSBuilder($algorithmManager);
+        $jwk = self::makeJwkForConfigKey('keys.local.signing_key_path');
+
+        $jws = $jwsBuilder->create()
+            ->withPayload(json_encode($values))
+            ->addSignature($jwk, [
+                'alg' => 'RS256',
+                'typ' => 'JWT',
+                'kid' => $jwk->get('kid'),
+            ])
+            ->build();
+
+        return (new CompactSerializer())->serialize($jws, 0);
     }
 }
