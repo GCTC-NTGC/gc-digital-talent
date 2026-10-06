@@ -9,11 +9,7 @@ import {
   TextArea,
 } from "@gc-digital-talent/forms";
 import type { Locales } from "@gc-digital-talent/i18n";
-import {
-  commonMessages,
-  errorMessages,
-  getLocale,
-} from "@gc-digital-talent/i18n";
+import { errorMessages, getLocale } from "@gc-digital-talent/i18n";
 import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
@@ -124,7 +120,11 @@ const CommunityFields = ({
         label={labels.organization}
         name="organization"
         type="text"
-        placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+        placeholder={intl.formatMessage({
+          defaultMessage: "Select or type an answer",
+          id: "se/c4O",
+          description: "Placeholder text for an input with options list",
+        })}
         rules={{ required: intl.formatMessage(errorMessages.required) }}
         list={
           organizationSuggestions.length ? "organizationSuggestions" : undefined

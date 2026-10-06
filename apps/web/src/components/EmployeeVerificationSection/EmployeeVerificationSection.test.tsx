@@ -10,9 +10,12 @@ import EmployeeVerificationSection, {
 } from "./EmployeeVerificationSection";
 
 const defaultUser = {
+  __typename: "User" as const,
   isVerifiedGovEmployee: true,
   workEmail: "fake@domain.com",
   isWorkEmailVerified: true,
+  latestCurrentGovernmentWorkExperience: null,
+  employeeProfile: null,
 };
 
 const userQuery = makeFragmentData(

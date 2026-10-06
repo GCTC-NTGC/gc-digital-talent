@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\AssessmentStepType;
 use App\Enums\PoolLanguage;
-use App\Enums\PublishingGroup;
 use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
@@ -44,12 +43,10 @@ class PoolTestSeeder extends Seeder
                     'en' => 'CMO Digital Careers',
                     'fr' => 'CMO Carrières Numériques',
                 ],
-                'user_id' => $adminUserId,
                 'community_id' => $digitalCommunityId,
                 'department_id' => $departmentId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
             ]);
         $classificationIT01Id = Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id;
@@ -61,24 +58,6 @@ class PoolTestSeeder extends Seeder
         }
         $createdPool->save();
 
-        // IAP
-        Pool::factory()
-            ->draft()
-            ->createOrGetExisting(
-                [
-                    'name' => [
-                        'en' => 'IT Apprenticeship Program for Indigenous Peoples',
-                        'fr' => 'Programme d’apprentissage en TI pour les personnes autochtones',
-                    ],
-                    'user_id' => $adminUserId,
-                    'community_id' => $digitalCommunityId,
-                    'published_at' => config('constants.past_date'),
-                    'closing_date' => config('constants.far_future_date'),
-                    'publishing_group' => PublishingGroup::IAP->name,
-                    'work_stream_id' => $businessAdvisoryStreamId,
-                ],
-            );
-
         // IT -01
         Pool::factory()
             ->withBookmark($adminUserId)
@@ -89,11 +68,9 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Ébauche de travail',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 1)->sole()->id,
-                'user_id' => $adminUserId,
                 'community_id' => $digitalCommunityId,
                 'published_at' => null,
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
 
             ]);
@@ -111,11 +88,9 @@ class PoolTestSeeder extends Seeder
                         'fr' => 'Prêt à publier - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 2)->sole()->id,
-                    'user_id' => $adminUserId,
                     'community_id' => $digitalCommunityId,
                     'published_at' => null,
                     'closing_date' => config('constants.far_future_date'),
-                    'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'work_stream_id' => $businessAdvisoryStreamId,
 
                 ],
@@ -136,11 +111,9 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Publié – Complexe',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 3)->sole()->id,
-                'user_id' => $adminUserId,
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => config('constants.far_future_date'),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
 
             ]);
@@ -160,11 +133,9 @@ class PoolTestSeeder extends Seeder
                     'fr' => 'Publié - Simple',
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 4)->sole()->id,
-                'user_id' => $adminUserId,
                 'community_id' => $digitalCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
-                'publishing_group' => PublishingGroup::IT_JOBS->name,
                 'work_stream_id' => $businessAdvisoryStreamId,
             ]);
 
@@ -184,11 +155,9 @@ class PoolTestSeeder extends Seeder
                         'fr' => 'Fermé - Simple',
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'IT')->where('level', 5)->sole()->id,
-                    'user_id' => $adminUserId,
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
-                    'publishing_group' => PublishingGroup::IT_JOBS->name,
                     'work_stream_id' => $businessAdvisoryStreamId,
                 ],
             );
@@ -210,11 +179,9 @@ class PoolTestSeeder extends Seeder
                     ],
                     'classification_id' => Classification::select('id')->where('group', 'ilike', 'EX')->where('level', 3)->sole()->id,
                     'work_stream_id' => WorkStream::where('key', 'EXECUTIVE_GROUP')->sole()->id,
-                    'user_id' => $adminUserId,
                     'community_id' => $digitalCommunityId,
                     'published_at' => config('constants.past_date'),
                     'closing_date' => config('constants.past_date'),
-                    'publishing_group' => PublishingGroup::EXECUTIVE_JOBS->name,
                 ],
             );
 
@@ -231,11 +198,9 @@ class PoolTestSeeder extends Seeder
                 ],
                 'classification_id' => Classification::select('id')->where('group', 'ilike', 'PM')->where('level', 1)->sole()->id,
                 'work_stream_id' => WorkStream::where('key', 'ACCESS_INFORMATION_PRIVACY')->sole()->id,
-                'user_id' => $adminUserId,
                 'community_id' => $atipCommunityId,
                 'published_at' => config('constants.past_date'),
                 'closing_date' => now()->addMonths(6),
-                'publishing_group' => PublishingGroup::OTHER->name,
             ]);
     }
 }

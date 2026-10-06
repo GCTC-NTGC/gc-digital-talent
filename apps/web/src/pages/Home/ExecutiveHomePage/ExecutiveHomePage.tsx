@@ -17,10 +17,13 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import { nowUTCDateTime } from "@gc-digital-talent/date-helpers";
 import { navigationMessages } from "@gc-digital-talent/i18n";
-import type { ExecutiveHomePageQuery } from "@gc-digital-talent/graphql";
-import { graphql } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -50,13 +53,23 @@ const subTitle = defineMessage({
   description: "Subtitle for the executive homepage",
 });
 
+export const ExecutiveHomePagePools_Fragment = graphql(/** GraphQL */ `
+  fragment ExecutiveHomePagePool on Pool {
+    id
+    ...PoolCard
+  }
+`);
+
 interface HomePageProps {
-  pools: ExecutiveHomePageQuery["publishedPools"];
+  query: FragmentType<typeof ExecutiveHomePagePools_Fragment>[];
 }
 
-export const HomePage = ({ pools }: HomePageProps) => {
+export const HomePage = ({ query }: HomePageProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const pools = unpackMaybes(
+    getFragment(ExecutiveHomePagePools_Fragment, query),
+  );
 
   return (
     <>
@@ -76,7 +89,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
       />
       <SkewedContainer>
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           icon={RocketLaunchIcon}
           color="primary"
@@ -107,7 +120,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
           </Ul>
         ) : (
           <Card className="my-6">
-            <Heading level="h3" size="h6" className="mt-0">
+            <Heading rank="h3" size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More opportunities are coming soon!",
                 id: "g+JcDC",
@@ -129,7 +142,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
       <div className="relative z-[3] -my-6 border-t border-t-gray-200 bg-gray-100 py-24 sm:-my-18 dark:border-t-gray-600 dark:bg-gray-700">
         <Container>
           <Heading
-            level="h2"
+            rank="h2"
             size="h3"
             icon={PuzzlePieceIcon}
             color="warning"
@@ -269,7 +282,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
         className="-mt-20 bg-gray-100 pt-20 dark:bg-gray-700"
       >
         <Heading
-          level="h2"
+          rank="h2"
           size="h3"
           className="mt-0 mb-3 font-normal"
           icon={SparklesIcon}
@@ -282,7 +295,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
               "Heading for exposition section on the executive homepage",
           })}
         </Heading>
-        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+        <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage: "Who is EXposition for?",
             id: "XoGKAf",
@@ -305,7 +318,7 @@ export const HomePage = ({ pools }: HomePageProps) => {
             id: "80WTKY",
           })}
         </p>
-        <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+        <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
           {intl.formatMessage({
             defaultMessage:
               "Learn more about our four services and discover how we can help you achieve your goals!",
@@ -430,27 +443,30 @@ export const HomePage = ({ pools }: HomePageProps) => {
 };
 
 const ExecutiveHomePage_Query = graphql(/* GraphQL */ `
-  query ExecutiveHomePage($closingAfter: DateTime) {
-    publishedPools(closingAfter: $closingAfter) {
-      id
-      classification {
-        group
+  query ExecutiveHomePage {
+    poolsPaginated(
+      where: { statuses: [PUBLISHED], isHidden: false }
+      first: 500
+      orderBy: { column: "closing_date", order: ASC }
+    ) {
+      data {
+        id
+        classification {
+          group
+        }
+        ...ExecutiveHomePagePool
       }
-      ...PoolCard
     }
   }
 `);
 
-const now = nowUTCDateTime();
-
 export const Component = () => {
   const [{ data, fetching, error }] = useQuery({
     query: ExecutiveHomePage_Query,
-    variables: { closingAfter: now }, // pass current dateTime into query argument
   });
 
   const filteredPools =
-    data?.publishedPools.filter(
+    data?.poolsPaginated.data.filter(
       (pool) =>
         typeof pool !== `undefined` &&
         !!pool &&
@@ -459,7 +475,7 @@ export const Component = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <HomePage pools={filteredPools} />
+      <HomePage query={filteredPools} />
     </Pending>
   );
 };

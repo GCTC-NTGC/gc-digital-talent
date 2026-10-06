@@ -28,23 +28,13 @@ const ErrorSummary = ({ experienceType }: ErrorSummaryProps) => {
   const {
     formState: { errors, submitCount },
   } = useFormContext();
-  const flatErrors = flattenErrors(errors);
-  const isSubmitted = submitCount > 0;
-  const hasErrors = !!flatErrors;
-  const shouldShow = isSubmitted && hasErrors;
+  const shouldShow = submitCount > 0 && flattenErrors(errors).length > 0;
 
+  // Focus the summary once per submit attempt
+  // In line with error rendering in `packages/forms/src/components/ErrorSummary.tsx`
   useEffect(() => {
-    // After during submit, if there are errors, focus the summary
-    if (submitCount > 0 && flatErrors) {
-      errorSummaryRef.current?.focus();
-    }
-  }, [flatErrors, submitCount]);
-
-  useEffect(() => {
-    if (shouldShow && errorSummaryRef.current) {
-      errorSummaryRef.current.focus();
-    }
-  }, [shouldShow, submitCount]);
+    errorSummaryRef.current?.focus();
+  }, [submitCount]);
 
   return (
     <ErrorSummaryAlert

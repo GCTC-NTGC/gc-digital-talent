@@ -19,7 +19,6 @@ import {
 import { getLogger } from "@gc-digital-talent/logger";
 
 import applicationMessages from "~/messages/applicationMessages";
-import type { SimpleAnyExperience } from "~/utils/experienceUtils";
 import {
   isEducationExperience,
   isAwardExperience,
@@ -184,7 +183,7 @@ const ApplicationEducation = ({
         (
           accumulator: EducationRequirementExperiences,
 
-          experience: SimpleAnyExperience,
+          experience: ApplicationEducationExperience,
         ) => {
           return {
             ...accumulator,
@@ -330,7 +329,7 @@ const ApplicationEducation = ({
       </Heading>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
-          <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+          <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
             {intl.formatMessage({
               defaultMessage: "Select which criteria you meet",
               id: "yJnGeT",

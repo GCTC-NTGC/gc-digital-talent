@@ -12,9 +12,9 @@ import {
   TaskCard,
   Notice,
 } from "@gc-digital-talent/ui";
-import { MAX_DATE } from "@gc-digital-talent/date-helpers/const";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { sortDateBy } from "@gc-digital-talent/date-helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 
@@ -124,31 +124,21 @@ const TalentManagementTaskCard = ({
   const sortedNominations = unpackMaybes(
     talentManagementTaskCardFragment.talentNominationsAsSubmitter,
   )
-    .sort((a, b) => {
-      const aUpdated = a?.updatedAt ? new Date(a.updatedAt) : MAX_DATE;
-      const bUpdated = b?.updatedAt ? new Date(b.updatedAt) : MAX_DATE;
-      return aUpdated.getTime() - bUpdated.getTime();
-    })
-    .sort((a, b) => {
-      const aDeadline = a?.talentNominationEvent.closeDate
-        ? new Date(a.talentNominationEvent.closeDate)
-        : MAX_DATE;
-      const bDeadline = b?.talentNominationEvent.closeDate
-        ? new Date(b.talentNominationEvent.closeDate)
-        : MAX_DATE;
-      return aDeadline.getTime() - bDeadline.getTime();
-    })
+    .sort(sortDateBy((nomination) => nomination.updatedAt))
+    .sort(
+      sortDateBy((nomination) => nomination.talentNominationEvent.closeDate),
+    )
     .sort((a, b) => (a?.submittedAt ? 1 : 0) - (b?.submittedAt ? 1 : 0));
 
   const talentRequests = unpackMaybes(
     talentManagementTaskCardFragment.talentRequests,
   );
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     talentNominationsAccordionValue === "" &&
     talentRequestsAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setTalentNominationsAccordionValue(ACCORDION_ID.TALENT_NOMINATIONS);
       setTalentRequestsAccordionValue(ACCORDION_ID.TALENT_REQUESTS);
     } else {
@@ -170,7 +160,7 @@ const TalentManagementTaskCard = ({
           headingColor="success"
           headingAs="h2"
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> talent management sections</hidden>",

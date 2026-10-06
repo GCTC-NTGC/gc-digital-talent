@@ -6,19 +6,12 @@ import {
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
 import type {
-  Classification,
-  Pool,
-  Skill,
   GeneralQuestion,
   ScreeningQuestion,
-  PoolSkill,
-  Department,
-  WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
 import {
   PoolStatus,
   PoolLanguage,
-  PublishingGroup,
   SecurityStatus,
   AssessmentStepType,
   PoolSkillType,
@@ -32,6 +25,7 @@ import fakePaginatorInfo, { fakePaginateData } from "./fakePaginatorInfo";
 import fakeScreeningQuestions from "./fakeScreeningQuestions";
 import fakeGeneralQuestions from "./fakeGeneralQuestions";
 import fakeClassifications from "./fakeClassifications";
+import fakeCommunities from "./fakeCommunities";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
 import toLocalizedString from "./fakeLocalizedString";
@@ -41,15 +35,15 @@ import toLocalizedEnum from "./fakeLocalizedEnum";
 import fakeWorkStreams from "./fakeWorkStreams";
 
 const generatePool = (
-  skills: Skill[],
-  classifications: Classification[],
-  departments: Department[],
-  workStreams: WorkStream[],
+  skills: ReturnType<typeof fakeSkills>,
+  classifications: ReturnType<typeof fakeClassifications>,
+  departments: ReturnType<typeof fakeDepartments>,
+  workStreams: ReturnType<typeof fakeWorkStreams>,
   englishName = "",
   frenchName = "",
   essentialSkillCount = -1,
   index: number,
-): Pool => {
+) => {
   faker.seed(index); // repeatable results
 
   const essentialSkills = faker.helpers.arrayElements(
@@ -66,55 +60,64 @@ const generatePool = (
       max: 10,
     }),
   );
-  const poolSkills: PoolSkill[] = [
+  const poolSkills = [
     ...essentialSkills.map((skill) => {
       return {
+        __typename: "PoolSkill" as const,
         id: faker.string.uuid(),
         skill,
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: toLocalizedEnum(PoolSkillType.Essential),
+        type: toLocalizedEnum(
+          PoolSkillType.Essential,
+          "LocalizedPoolSkillType",
+        ),
       };
     }),
     ...nonessentialSkills.map((skill) => {
       return {
+        __typename: "PoolSkill" as const,
         id: faker.string.uuid(),
         skill,
         requiredLevel: faker.helpers.arrayElement<SkillLevel>(
           Object.values(SkillLevel),
         ),
-        type: toLocalizedEnum(PoolSkillType.Nonessential),
+        type: toLocalizedEnum(
+          PoolSkillType.Nonessential,
+          "LocalizedPoolSkillType",
+        ),
       };
     }),
   ];
   const areaOfSelection = toLocalizedEnum(
     faker.helpers.arrayElement(Object.values(PoolAreaOfSelection)),
+    "LocalizedPoolAreaOfSelection",
   );
   return {
+    __typename: "Pool" as const,
     id: faker.string.uuid(),
     name: {
+      __typename: "LocalizedString" as const,
       en: englishName || `${faker.company.catchPhrase()} EN`,
       fr: frenchName || `${faker.company.catchPhrase()} FR`,
       localized: englishName || `${faker.company.catchPhrase()} LOCALIZED`,
     },
     teamId: faker.string.uuid(),
-    classification: faker.helpers.arrayElement<Classification>(classifications),
-    department: faker.helpers.arrayElement<Department>(departments),
-    workStream: faker.helpers.arrayElement<WorkStream>(workStreams),
+    classification: faker.helpers.arrayElement(classifications),
+    department: faker.helpers.arrayElement(departments),
+    workStream: faker.helpers.arrayElement(workStreams),
+    community: faker.helpers.arrayElement(fakeCommunities(1)),
     keyTasks: toLocalizedString(faker.lorem.paragraphs()),
-    processNumber: faker.helpers.maybe(() => faker.lorem.word()),
-    publishingGroup: faker.helpers.maybe(() =>
-      toLocalizedEnum(
-        faker.helpers.arrayElement(Object.values(PublishingGroup)),
-      ),
-    ),
+    processNumber: faker.helpers.maybe(() => faker.lorem.word()) ?? null,
     language: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(PoolLanguage)),
+      "LocalizedPoolLanguage",
     ),
     location: toLocalizedString(faker.location.city()),
     status: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(PoolStatus)),
+      "LocalizedPoolStatus",
     ),
     closingDate: faker.date
       .between({ from: FAR_PAST_DATE, to: FAR_FUTURE_DATE })
@@ -125,9 +128,11 @@ const generatePool = (
     poolSkills,
     securityClearance: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(SecurityStatus)),
+      "LocalizedSecurityStatus",
     ),
     opportunityLength: toLocalizedEnum(
       faker.helpers.arrayElement(Object.values(PoolOpportunityLength)),
+      "LocalizedPoolOpportunityLength",
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
     generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
@@ -149,16 +154,26 @@ const generatePool = (
       areaOfSelection.value == PoolAreaOfSelection.Employees
         ? faker.helpers.arrayElements(
             Object.values(PoolSelectionLimitation).map((l) =>
-              toLocalizedEnum(l),
+              toLocalizedEnum(l, "LocalizedPoolSelectionLimitation"),
             ),
           )
         : [],
     activities: {
+      __typename: "ActivityPaginator" as const,
       paginatorInfo: fakePaginatorInfo(0),
       data: fakePaginateData([], fakePaginatorInfo(0)),
     },
     applicantsCount: faker.number.int({ max: 99999 }),
+    poolCandidatesCount: faker.number.int({ max: 99999 }),
     wasClosedEarly: false,
+    isRemote: faker.datatype.boolean(),
+    isComplete: faker.datatype.boolean(),
+    closingReason: faker.lorem.sentence(),
+    contactEmail: faker.internet.email(),
+    aboutUs: toLocalizedString(faker.lorem.paragraphs()),
+    specialNote: toLocalizedString(faker.lorem.paragraphs()),
+    whatToExpect: toLocalizedString(faker.lorem.paragraphs()),
+    whatToExpectAdmission: toLocalizedString(faker.lorem.paragraphs()),
   };
 };
 
@@ -169,7 +184,7 @@ export default (
   departments = fakeDepartments(),
   workStreams = fakeWorkStreams(),
   essentialSkillCount = -1,
-): Pool[] => {
+) => {
   return Array.from({ length: numToGenerate }, (_, index) => {
     switch (index) {
       case 0:

@@ -40,7 +40,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
 
   return (
     <div className="grid gap-6 sm:grid-cols-2">
-      <Heading level="h3" size="h6" className="order-1 m-0 sm:order-1">
+      <Heading rank="h3" size="h6" className="order-1 m-0 sm:order-1">
         {appendLanguageName({
           label: intl.formatMessage(jobPosterTemplateMessages.jobDetails),
           lang: "en",
@@ -76,7 +76,7 @@ const Display = ({ initialDataQuery }: DisplayProps) => {
           </Chips>
         ) : null}
       </div>
-      <Heading level="h3" size="h6" className="order-6 m-0 sm:order-2">
+      <Heading rank="h3" size="h6" className="order-6 m-0 sm:order-2">
         {appendLanguageName({
           label: intl.formatMessage(jobPosterTemplateMessages.jobDetails),
           lang: "fr",

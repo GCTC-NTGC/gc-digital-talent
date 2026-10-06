@@ -1,20 +1,20 @@
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type { PersonalExperience } from "@gc-digital-talent/graphql";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
 import ContentSection from "../ContentSection";
 import type { ContentProps } from "../types";
 
-interface PersonalExperienceV1 extends Omit<PersonalExperience, "user"> {
+interface PersonalExperienceV1 {
+  __typename?: "PersonalExperience";
   description?: string | null;
 }
 
 const PersonalContentV1 = ({
   experience: { description },
-  headingLevel,
+  headingRank,
 }: ContentProps<PersonalExperienceV1>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
@@ -23,7 +23,7 @@ const PersonalContentV1 = ({
     <div className="grid gap-6">
       <ContentSection
         title={experienceFormLabels.experienceDescription}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {description ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>

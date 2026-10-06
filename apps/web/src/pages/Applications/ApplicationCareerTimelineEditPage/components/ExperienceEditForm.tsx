@@ -13,6 +13,7 @@ import {
   useDeleteExperienceMutation,
   useExperienceMutations,
 } from "~/hooks/useExperienceMutations";
+import type { ExperienceFields } from "~/utils/experienceUtils";
 import {
   deriveExperienceType,
   formValuesToSubmitData,
@@ -22,7 +23,6 @@ import type {
   ExperienceFormValues,
   AllExperienceFormValues,
   ExperienceType,
-  AnyExperience,
 } from "~/types/experience";
 import ExperienceDetails from "~/components/ExperienceFormFields/ExperienceDetails";
 import ErrorSummary from "~/components/ExperienceFormFields/ErrorSummary";
@@ -35,7 +35,7 @@ type ExperienceExperienceFormValues =
   };
 interface EditExperienceFormProps {
   applicationId: string;
-  experience: AnyExperience;
+  experience: ExperienceFields;
   organizationSuggestions: string[];
 }
 

@@ -52,7 +52,7 @@ export const IndexJobPosterTemplatePage = () => {
             <Heading
               icon={Cog8ToothIcon}
               color="secondary"
-              level="h2"
+              rank="h2"
               className="m-0 font-normal"
             >
               {intl.formatMessage({

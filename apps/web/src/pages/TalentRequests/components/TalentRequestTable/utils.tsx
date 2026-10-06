@@ -229,7 +229,12 @@ export const followUpDateCell = (
     <Chip color="error">
       {isOverdue
         ? intl.formatMessage(commonMessages.overdueDate, { daysOverdue })
-        : intl.formatMessage(commonMessages.dueToday)}
+        : intl.formatMessage({
+            defaultMessage: "Due today",
+            id: "2H5KbR",
+            description:
+              "Message shown when something is due on the current date",
+          })}
     </Chip>
   ) : (
     cells.date(followUpDate, intl, DATE_FORMAT_LOCALIZED)

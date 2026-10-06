@@ -23,6 +23,7 @@ const generateCommunityInterest = (
     community?.associatedDevelopmentPrograms ?? [],
   );
   return {
+    __typename: "CommunityInterest",
     id: faker.string.uuid(),
     community,
     workStreams,
@@ -32,8 +33,10 @@ const generateCommunityInterest = (
     additionalInformation: faker.lorem.paragraph(),
     interestInDevelopmentPrograms: developmentPrograms.map(
       (developmentProgram) => ({
+        __typename: "DevelopmentProgramInterest" as const,
         id: faker.string.uuid(),
         communityDevelopmentProgram: {
+          __typename: "CommunityDevelopmentProgram" as const,
           id: faker.string.uuid(),
           community: community,
           developmentProgram: developmentProgram,

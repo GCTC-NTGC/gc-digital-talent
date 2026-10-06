@@ -6,7 +6,7 @@ import {
   localizedEnumToOptions,
   RadioGroup,
 } from "@gc-digital-talent/forms";
-import { errorMessages, commonMessages } from "@gc-digital-talent/i18n";
+import { errorMessages } from "@gc-digital-talent/i18n";
 import type { ExternalWorkFieldOptionsQuery } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { Loading } from "@gc-digital-talent/ui";
@@ -54,7 +54,11 @@ const ExternalFields = ({
           <Input
             id="organization"
             label={labels.organization}
-            placeholder={intl.formatMessage(commonMessages.selectOrTypeAnswer)}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Select or type an answer",
+              id: "se/c4O",
+              description: "Placeholder text for an input with options list",
+            })}
             name="organization"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}

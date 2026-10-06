@@ -217,7 +217,12 @@ const TalentEventNominationsTable = ({
         ),
       {
         id: "options",
-        header: intl.formatMessage(commonMessages.options),
+        header: intl.formatMessage({
+          defaultMessage: "Options",
+          id: "45ZCXX",
+          description:
+            "label or header for something referred to as an option, plural",
+        }),
       },
     ),
   ] as ColumnDef<TalentEventNominationsTableFragmentType>[];

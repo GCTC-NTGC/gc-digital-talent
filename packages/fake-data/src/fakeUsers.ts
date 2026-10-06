@@ -73,28 +73,34 @@ const generateUser = (
     telephone: faker.helpers.replaceSymbols("+###########"),
     preferredLang: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     preferredLanguageForInterview: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     preferredLanguageForExam: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     currentProvince: toLocalizedEnum(
       faker.helpers.arrayElement<ProvinceOrTerritory>(
         Object.values(ProvinceOrTerritory),
       ),
+      "LocalizedProvinceOrTerritory",
     ),
     currentCity: faker.location.city(),
     citizenship: toLocalizedEnum(
       faker.helpers.arrayElement<CitizenshipStatus>(
         Object.values(CitizenshipStatus),
       ),
+      "LocalizedCitizenshipStatus",
     ),
     armedForcesStatus: toLocalizedEnum(
       faker.helpers.arrayElement<ArmedForcesStatus>(
         Object.values(ArmedForcesStatus),
       ),
+      "LocalizedArmedForcesStatus",
     ),
 
     // Language
@@ -105,21 +111,25 @@ const generateUser = (
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     writtenLevel: toLocalizedEnum(
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     verbalLevel: toLocalizedEnum(
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     estimatedLanguageAbility: toLocalizedEnum(
       faker.helpers.arrayElement<EstimatedLanguageAbility>(
         Object.values(EstimatedLanguageAbility),
       ),
+      "LocalizedEstimatedLanguageAbility",
     ),
 
     // Gov info
@@ -129,6 +139,7 @@ const generateUser = (
       faker.helpers.arrayElement<GovEmployeeType>(
         Object.values(GovEmployeeType),
       ),
+      "LocalizedGovEmployeeType",
     ),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
@@ -141,22 +152,24 @@ const generateUser = (
     isVisibleMinority: faker.datatype.boolean(),
     indigenousCommunities: faker.helpers
       .arrayElements<IndigenousCommunity>(Object.values(IndigenousCommunity))
-      .map((community) => toLocalizedEnum(community)),
+      .map((community) =>
+        toLocalizedEnum(community, "LocalizedIndigenousCommunity"),
+      ),
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
     locationPreferences: faker.helpers
       .arrayElements<WorkRegion>(Object.values(WorkRegion))
-      .map((pref) => toLocalizedEnum(pref)),
+      .map((pref) => toLocalizedEnum(pref, "LocalizedWorkRegion")),
     flexibleWorkLocations: faker.helpers
       .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
-      .map((pref) => toLocalizedEnum(pref)),
+      .map((pref) => toLocalizedEnum(pref, "LocalizedFlexibleWorkLocation")),
     locationExemptions: faker.location.city(),
     acceptedOperationalRequirements: faker.helpers
       .arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       )
-      .map((req) => toLocalizedEnum(req)),
+      .map((req) => toLocalizedEnum(req, "LocalizedOperationalRequirement")),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
@@ -224,28 +237,34 @@ export const fakeUser = (): User => {
     telephone: faker.helpers.replaceSymbols("+###########"),
     preferredLang: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     preferredLanguageForInterview: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     preferredLanguageForExam: toLocalizedEnum(
       faker.helpers.arrayElement<Language>(Object.values(Language)),
+      "LocalizedLanguage",
     ),
     currentProvince: toLocalizedEnum(
       faker.helpers.arrayElement<ProvinceOrTerritory>(
         Object.values(ProvinceOrTerritory),
       ),
+      "LocalizedProvinceOrTerritory",
     ),
     currentCity: faker.location.city(),
     citizenship: toLocalizedEnum(
       faker.helpers.arrayElement<CitizenshipStatus>(
         Object.values(CitizenshipStatus),
       ),
+      "LocalizedCitizenshipStatus",
     ),
     armedForcesStatus: toLocalizedEnum(
       faker.helpers.arrayElement<ArmedForcesStatus>(
         Object.values(ArmedForcesStatus),
       ),
+      "LocalizedArmedForcesStatus",
     ),
 
     // Language
@@ -256,21 +275,25 @@ export const fakeUser = (): User => {
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     writtenLevel: toLocalizedEnum(
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     verbalLevel: toLocalizedEnum(
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
       ),
+      "LocalizedEvaluatedLanguageAbility",
     ),
     estimatedLanguageAbility: toLocalizedEnum(
       faker.helpers.arrayElement<EstimatedLanguageAbility>(
         Object.values(EstimatedLanguageAbility),
       ),
+      "LocalizedEstimatedLanguageAbility",
     ),
 
     // Gov info
@@ -280,6 +303,7 @@ export const fakeUser = (): User => {
       faker.helpers.arrayElement<GovEmployeeType>(
         Object.values(GovEmployeeType),
       ),
+      "LocalizedGovEmployeeType",
     ),
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
@@ -292,22 +316,24 @@ export const fakeUser = (): User => {
     isVisibleMinority: faker.datatype.boolean(),
     indigenousCommunities: faker.helpers
       .arrayElements<IndigenousCommunity>(Object.values(IndigenousCommunity))
-      .map((community) => toLocalizedEnum(community)),
+      .map((community) =>
+        toLocalizedEnum(community, "LocalizedIndigenousCommunity"),
+      ),
 
     // Applicant info
     hasDiploma: faker.datatype.boolean(),
     locationPreferences: faker.helpers
       .arrayElements<WorkRegion>(Object.values(WorkRegion))
-      .map((pref) => toLocalizedEnum(pref)),
+      .map((pref) => toLocalizedEnum(pref, "LocalizedWorkRegion")),
     flexibleWorkLocations: faker.helpers
       .arrayElements<FlexibleWorkLocation>(Object.values(FlexibleWorkLocation))
-      .map((pref) => toLocalizedEnum(pref)),
+      .map((pref) => toLocalizedEnum(pref, "LocalizedFlexibleWorkLocation")),
     locationExemptions: faker.location.city(),
     acceptedOperationalRequirements: faker.helpers
       .arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       )
-      .map((req) => toLocalizedEnum(req)),
+      .map((req) => toLocalizedEnum(req, "LocalizedOperationalRequirement")),
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],

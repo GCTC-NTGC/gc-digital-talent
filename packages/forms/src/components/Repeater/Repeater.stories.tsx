@@ -25,6 +25,13 @@ export default {
   component: Repeater.Fieldset,
 };
 
+const questions = Array.from({ length: 5 }).flatMap((_, i) => ({
+  __typename: "LocalizedString" as const,
+  en: `Question ${i + 1} (EN)`,
+  fr: `Question ${i + 1} (FR)`,
+  localized: `Question ${i + 1} (LOCALIZED)`,
+}));
+
 const defaultArgs = {
   label: "Screening questions",
   name: "questions",
@@ -129,40 +136,14 @@ WithoutLegend.args = {
 export const WithDefaultValues = Template.bind({});
 WithDefaultValues.args = {
   ...defaultArgs,
-  defaultValues: [
-    {
-      en: "Question 1 (EN)",
-      fr: "Question 1 (FR)",
-    },
-  ],
+  defaultValues: [questions[0]],
 };
 
 export const WithLockedItems = Template.bind({});
 WithLockedItems.args = {
   ...defaultArgs,
   moveDisabledIndexes: [1],
-  defaultValues: [
-    {
-      en: "Question 1 (EN)",
-      fr: "Question 1 (FR)",
-    },
-    {
-      en: "Question 2 (EN)",
-      fr: "Question 2 (FR)",
-    },
-    {
-      en: "Question 3 (EN)",
-      fr: "Question 3 (FR)",
-    },
-    {
-      en: "Question 4 (EN)",
-      fr: "Question 4 (FR)",
-    },
-    {
-      en: "Question 5 (EN)",
-      fr: "Question 5 (FR)",
-    },
-  ],
+  defaultValues: questions,
 };
 WithLockedItems.parameters = {
   chromatic: {

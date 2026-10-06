@@ -1,11 +1,7 @@
 import { useIntl } from "react-intl";
 
 import { Combobox, localizedEnumToOptions } from "@gc-digital-talent/forms";
-import type {
-  FragmentType,
-  PoolStatus,
-  PublishingGroup,
-} from "@gc-digital-talent/graphql";
+import type { FragmentType, PoolStatus } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -15,7 +11,6 @@ import FilterDialog from "~/components/FilterDialog/FilterDialog";
 import adminMessages from "~/messages/adminMessages";
 
 export interface FormValues {
-  publishingGroups: PublishingGroup[];
   statuses: PoolStatus[];
   classifications: string[];
   workStreams: string[];
@@ -27,13 +22,6 @@ const PoolFilterDialogOptions_Fragment = graphql(/* GraphQL */ `
       group
       level
       groupAndLevel
-    }
-    publishingGroups: localizedEnumStrings(enumName: "PublishingGroup") {
-      value
-      label {
-        en
-        fr
-      }
     }
     statuses: localizedEnumStrings(enumName: "PoolStatus") {
       value
@@ -70,13 +58,6 @@ const PoolFilterDialog = ({
       {...{ resetValues, onSubmit }}
     >
       <div className="grid gap-6 xs:grid-cols-2">
-        <Combobox
-          id="publishingGroups"
-          name="publishingGroups"
-          isMulti
-          label={intl.formatMessage(adminMessages.publishingGroups)}
-          options={localizedEnumToOptions(data?.publishingGroups, intl)}
-        />
         <Combobox
           id="statuses"
           name="statuses"

@@ -97,14 +97,22 @@ const QualifiedStatusMeta = ({ query }: QualifiedStatusMetaProps) => {
               </li>
               {startDate && (
                 <li>
-                  {intl.formatMessage(commonMessages.startDate)}
+                  {intl.formatMessage({
+                    defaultMessage: "Start date",
+                    id: "9tH7k0",
+                    description: "Label displayed before start date",
+                  })}
                   {intl.formatMessage(commonMessages.dividingColon)}
                   {startDate}
                 </li>
               )}
               {endDate && (
                 <li>
-                  {intl.formatMessage(commonMessages.endDate)}
+                  {intl.formatMessage({
+                    defaultMessage: "End date",
+                    id: "JCA/2+",
+                    description: "Label displayed before end date",
+                  })}
                   {intl.formatMessage(commonMessages.dividingColon)}
                   {endDate}
                 </li>

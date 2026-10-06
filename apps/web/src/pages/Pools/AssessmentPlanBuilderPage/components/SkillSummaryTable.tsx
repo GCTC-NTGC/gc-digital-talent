@@ -224,9 +224,7 @@ const SkillSummaryTable = ({
           "Title for a column that displays the number of assessments planned for a skill.",
       }),
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(
-          plannedAssessmentCell({ id: poolSkill.id }, assessmentSteps, intl),
-        ),
+        cells.jsx(plannedAssessmentCell(poolSkill, assessmentSteps, intl)),
       enableHiding: false,
     }),
     columnHelper.display({
@@ -274,17 +272,7 @@ const SkillSummaryTable = ({
       id: assessmentStep.type?.value ?? assessmentStep.id,
       header: headerName,
       cell: ({ row: { original: poolSkill } }) =>
-        cells.jsx(
-          assessmentStepCell(
-            { id: poolSkill.id, skill: poolSkill.skill },
-            {
-              id: assessmentStep.id,
-              type: assessmentStep.type,
-              poolSkills: assessmentStep.poolSkills,
-            },
-            intl,
-          ),
-        ),
+        cells.jsx(assessmentStepCell(poolSkill, assessmentStep, intl)),
       enableHiding: false,
     });
     columns = [...columns, newColumn];

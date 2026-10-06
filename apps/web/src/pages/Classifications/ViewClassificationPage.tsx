@@ -84,7 +84,7 @@ const ViewClassification = ({ query }: ViewClassificationProps) => {
       <Container className="my-18">
         <Heading
           icon={IdentificationIcon}
-          level="h2"
+          rank="h2"
           color="secondary"
           className="mt-0 xs:justify-start xs:text-left"
           center

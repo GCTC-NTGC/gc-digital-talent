@@ -19,7 +19,7 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
     <TreeView.Root>
       <TreeView.Head>
         <Card>
-          <Heading level="h2" className="mt-0">
+          <Heading rank="h2" className="mt-0">
             Heading
           </Heading>
           <p>Subtitle</p>
@@ -44,7 +44,7 @@ const Template: StoryFn<typeof TreeView.Root> = () => {
       </TreeView.Item>
       <TreeView.Item>
         <Card>
-          <Heading level="h3" className="mt-0">
+          <Heading rank="h3" className="mt-0">
             Card title
           </Heading>
           <p>{faker.lorem.sentences(4)}</p>

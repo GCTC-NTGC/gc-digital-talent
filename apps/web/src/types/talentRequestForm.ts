@@ -5,7 +5,6 @@ import type {
   LocalizedString,
   OperationalRequirement,
   PositionDuration,
-  PublishingGroup,
   TalentRequestSource,
   UserPoolFilterInput,
   WorkRegion,
@@ -56,7 +55,6 @@ interface PartialApplicantFilterSkill {
 interface PartialApplicantFilterPool {
   id: string;
   name?: LocalizedString | null;
-  publishingGroup?: GenericLocalizedEnum<PublishingGroup> | null;
   workStream?: TalentRequestWorkStream | null;
   classification?: { groupAndLevel: string } | null;
 }

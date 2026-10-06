@@ -151,6 +151,16 @@ class TalentNomination extends Model
         return $this->belongsTo(User::class, 'advancement_reference_id')->whereIsVerifiedGovEmployee();
     }
 
+    /**
+     * The advancement reference user without the verified-employee scope.
+     *
+     * @return BelongsTo<User, $this>
+     */
+    public function advancementReferenceUnguarded(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'advancement_reference_id');
+    }
+
     /** @return BelongsTo<Classification, $this> */
     public function advancementReferenceFallbackClassification(): BelongsTo
     {

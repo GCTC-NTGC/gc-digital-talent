@@ -19,6 +19,7 @@ const mockRolesAndTeams: MyRoleTeam[] = [
   {
     communityId: mockCommunities[0].id,
     roleName: {
+      __typename: "LocalizedString",
       en: "Role 1 EN",
       fr: "Role 1 FR",
     },
@@ -26,6 +27,7 @@ const mockRolesAndTeams: MyRoleTeam[] = [
   {
     communityId: mockCommunities[0].id,
     roleName: {
+      __typename: "LocalizedString",
       en: "Role 2 EN",
       fr: "Role 2 FR",
     },

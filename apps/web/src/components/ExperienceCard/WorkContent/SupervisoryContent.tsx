@@ -37,7 +37,7 @@ const SupervisoryContent = ({
     cSuiteRoleTitle,
     otherCSuiteRoleTitle,
   },
-  headingLevel,
+  headingRank,
 }: ContentProps<SupervisoryContentExperience>) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -47,7 +47,7 @@ const SupervisoryContent = ({
     <>
       <ContentSection
         title={experienceFormLabels.supervisoryPosition}
-        headingLevel={headingLevel}
+        headingRank={headingRank}
       >
         {supervisoryPosition
           ? intl.formatMessage({
@@ -68,7 +68,7 @@ const SupervisoryContent = ({
           <Separator space="sm" decorative />
           <ContentSection
             title={experienceFormLabels.supervisedEmployees}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           >
             {supervisedEmployees
               ? intl.formatMessage({
@@ -87,7 +87,7 @@ const SupervisoryContent = ({
             <>
               <ContentSection
                 title={experienceFormLabels.supervisedEmployeesNumber}
-                headingLevel={headingLevel}
+                headingRank={headingRank}
               >
                 {supervisedEmployeesNumber ??
                   intl.formatMessage(commonMessages.notApplicable)}
@@ -97,7 +97,7 @@ const SupervisoryContent = ({
           )}
           <ContentSection
             title={experienceFormLabels.budgetManagement}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           >
             {budgetManagement
               ? intl.formatMessage({
@@ -118,7 +118,7 @@ const SupervisoryContent = ({
             <>
               <ContentSection
                 title={experienceFormLabels.annualBudgetAllocation}
-                headingLevel={headingLevel}
+                headingRank={headingRank}
               >
                 {annualBudgetAllocation
                   ? localizeCurrency(annualBudgetAllocation, locale)
@@ -129,7 +129,7 @@ const SupervisoryContent = ({
           )}
           <ContentSection
             title={experienceFormLabels.seniorManagementStatus}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           >
             {seniorManagementStatus
               ? intl.formatMessage({
@@ -150,7 +150,7 @@ const SupervisoryContent = ({
               <Separator space="sm" decorative />
               <ContentSection
                 title={experienceFormLabels.cSuiteRoleTitle}
-                headingLevel={headingLevel}
+                headingRank={headingRank}
               >
                 {cSuiteRoleTitle
                   ? getLocalizedName(cSuiteRoleTitle?.label, intl)
@@ -161,7 +161,7 @@ const SupervisoryContent = ({
                   <Separator space="sm" decorative />
                   <ContentSection
                     title={experienceFormLabels.otherCSuiteRoleTitle}
-                    headingLevel={headingLevel}
+                    headingRank={headingRank}
                   >
                     {otherCSuiteRoleTitle ??
                       intl.formatMessage(commonMessages.notApplicable)}

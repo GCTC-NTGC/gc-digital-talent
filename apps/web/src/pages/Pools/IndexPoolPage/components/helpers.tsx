@@ -89,7 +89,6 @@ export function getOrderByClause(
   const columnMap = new Map<string, string>([
     ["id", "id"],
     ["name", "name"],
-    ["publishingGroup", "publishing_group"],
     ["processNumber", "process_number"],
     // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
     ["createdDate", "created_at"],
@@ -194,7 +193,6 @@ export function transformFormValuesToFilterInput(
   data: FormValues,
 ): PoolFilterInput {
   return {
-    publishingGroups: data.publishingGroups,
     statuses: data.statuses,
     workStreams: data.workStreams,
     classifications: data.classifications.map((classification) => {
@@ -208,7 +206,6 @@ export function transformPoolFilterInputToFormValues(
   input: PoolFilterInput | undefined,
 ): FormValues {
   return {
-    publishingGroups: unpackMaybes(input?.publishingGroups),
     statuses: unpackMaybes(input?.statuses),
     workStreams: unpackMaybes(input?.workStreams),
     classifications: unpackMaybes(input?.classifications).map(

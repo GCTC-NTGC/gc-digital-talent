@@ -28,5 +28,11 @@ export const poolSkillToOption = (
   intl: IntlShape,
 ) => ({
   value: id,
-  label: skillName ?? intl.formatMessage(commonMessages.nameNotLoaded),
+  label:
+    skillName ??
+    intl.formatMessage({
+      defaultMessage: "Error: name not loaded",
+      id: "DdOEWx",
+      description: "Message when name value not found",
+    }),
 });

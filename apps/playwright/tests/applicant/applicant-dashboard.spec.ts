@@ -27,25 +27,25 @@ interface UserInfo {
   isGovEmployee?: boolean;
 }
 
-test.describe("Applicant dashboard update", () => {
+test.describe("Applicant dashboard update", { tag: "@uat" }, () => {
   let testId: string;
-  let adminCtx: GraphQLContext;
+  let platformAdminCtx: GraphQLContext;
   let govUser: UserInfo = { sub: "", id: "", isGovEmployee: true };
   let nonGovUser: UserInfo = { sub: "", id: "", isGovEmployee: false };
   let dashboardPage: ApplicantDashboardPage;
 
   test.beforeAll(async () => {
     testId = generateUniqueTestId();
-    adminCtx = await graphql.newContext();
-    const classifications = await getClassifications(adminCtx, {});
-    const departments = await getDepartments(adminCtx, {});
+    platformAdminCtx = await graphql.newContext();
+    const classifications = await getClassifications(platformAdminCtx, {});
+    const departments = await getDepartments(platformAdminCtx, {});
     const nonCPADept = departments.find(
       (dep) => !dep.isCorePublicAdministration,
     );
     const govSub = `playwright.dashboardUpdate_Gov.${testId}@gc.ca`;
     const nonGovSub = `playwright.dashboardUpdate_NonGov.${testId}@example.org`;
 
-    const userWithGovExp = await createUserWithRoles(adminCtx, {
+    const userWithGovExp = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         firstName: `${testId}`,
@@ -88,7 +88,7 @@ test.describe("Applicant dashboard update", () => {
       isGovEmployee: userWithGovExp?.isGovEmployee ?? true,
     };
 
-    const nonGovCreatedUser = await createUserWithRoles(adminCtx, {
+    const nonGovCreatedUser = await createUserWithRoles(platformAdminCtx, {
       roles: ["guest", "base_user", "applicant"],
       user: {
         firstName: `NonGov ${testId}`,
@@ -108,9 +108,8 @@ test.describe("Applicant dashboard update", () => {
   });
 
   test.afterAll(async () => {
-    adminCtx = await graphql.newContext();
-    await deleteUser(adminCtx, { id: govUser.id });
-    await deleteUser(adminCtx, { id: nonGovUser.id });
+    await deleteUser(platformAdminCtx, { id: govUser.id });
+    await deleteUser(platformAdminCtx, { id: nonGovUser.id });
   });
 
   test("validate applicant dashboard update for government employee", async ({

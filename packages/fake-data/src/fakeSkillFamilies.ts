@@ -23,7 +23,7 @@ const generateSkillFamily = (
   const desc = faker.lorem.sentences();
 
   return {
-    __typename: undefined,
+    __typename: "SkillFamily" as const,
     description: toLocalizedString(desc),
     id: uniqueId,
     key: faker.helpers.slugify(name),
@@ -34,7 +34,7 @@ const generateSkillFamily = (
   };
 };
 
-export default (numToGenerate = 15, skills: Skill[] = []): SkillFamily[] => {
+export default (numToGenerate = 15, skills: Skill[] = []) => {
   faker.seed(0); // repeatable results
   const uniqueEnforcerId = new UniqueEnforcer(); // Ensure unique IDs
 

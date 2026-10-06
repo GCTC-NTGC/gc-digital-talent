@@ -23,20 +23,23 @@ const communityInterestQuery = makeFragmentData(
     jobInterest: false,
     trainingInterest: true,
     user: {
+      __typename: "User",
       developmentProgramUserRecords:
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
           (interest, index) => {
             return {
+              __typename: "DevelopmentProgramUser" as const,
               id: index.toString(),
               developmentProgram: {
+                __typename: "DevelopmentProgram" as const,
                 id: interest.developmentProgram.id,
               },
               participationStatus: interest.participationStatus,
               completionDate: interest.completionDate,
             };
           },
-        ),
+        ) ?? [],
     },
   },
   CommunityInterest_Fragment,
@@ -44,13 +47,30 @@ const communityInterestQuery = makeFragmentData(
 
 const communityInterestOptionsQuery = makeFragmentData(
   {
+    __typename: "Query",
     communityInterestAdditionalDuties: [
-      { value: "1", label: { localized: "Duty 1" } },
-      { value: "2", label: { localized: "Duty 2" } },
+      {
+        __typename: "LocalizedEnumString",
+        value: "1",
+        label: { __typename: "LocalizedString", localized: "Duty 1" },
+      },
+      {
+        __typename: "LocalizedEnumString",
+        value: "2",
+        label: { __typename: "LocalizedString", localized: "Duty 2" },
+      },
     ],
     financeChiefRoles: [
-      { value: "1", label: { localized: "Role 1" } },
-      { value: "2", label: { localized: "Role 2" } },
+      {
+        __typename: "LocalizedEnumString",
+        value: "1",
+        label: { __typename: "LocalizedString", localized: "Role 1" },
+      },
+      {
+        __typename: "LocalizedEnumString",
+        value: "2",
+        label: { __typename: "LocalizedString", localized: "Role 2" },
+      },
     ],
   },
   CommunityInterestOptions_Fragment,

@@ -36,11 +36,11 @@ export const Default: StoryObj = {
   },
   render: () => (
     <div className="text-foreground mx-auto max-w-7xl p-4">
-      <Heading level="h2" size="h4">
+      <Heading rank="h2" size="h4">
         Colours
       </Heading>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Primary
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -53,7 +53,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-primary-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Secondary
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -66,7 +66,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-secondary-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Success
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -79,7 +79,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-success-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Warning
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -92,7 +92,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-warning-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Error
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -105,7 +105,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-error-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Focus
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -118,7 +118,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-focus-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Gray
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -131,7 +131,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-gray-700" />
       </Grid>
 
-      <Heading level="h3" size="h6">
+      <Heading rank="h3" size="h6">
         Black/White
       </Heading>
       <Grid className="md:max-width-md grid-cols-7">
@@ -139,7 +139,7 @@ export const Default: StoryObj = {
         <Swatch className="bg-white" />
       </Grid>
 
-      <Heading level="h2" size="h4">
+      <Heading rank="h2" size="h4">
         Shadows
       </Heading>
       <Grid className="md:max-width-md grid-cols-6">
@@ -151,7 +151,7 @@ export const Default: StoryObj = {
         <Swatch className="shadow-2xl" />
       </Grid>
 
-      <Heading level="h2" size="h4">
+      <Heading rank="h2" size="h4">
         Breakpoints
       </Heading>
 
@@ -174,13 +174,13 @@ export const Default: StoryObj = {
         <Swatch className="bg-gray" />
       </Grid>
 
-      <Heading level="h2" size="h4">
+      <Heading rank="h2" size="h4">
         Hover, focus, etc.
       </Heading>
 
       <Button>Focus me</Button>
 
-      <Heading level="h2" size="h4">
+      <Heading rank="h2" size="h4">
         Child selectors
       </Heading>
 

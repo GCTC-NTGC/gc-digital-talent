@@ -36,64 +36,110 @@ const trackedUsers = [
     ...sharedTrackedUserFields,
     id: "tracked-user-1",
     skillCount: matchedSkillCount,
-    status: toLocalizedEnum(TalentRequestTrackedUserStatus.Referred),
+    status: toLocalizedEnum(
+      TalentRequestTrackedUserStatus.Referred,
+      "LocalizedTalentRequestTrackedUserStatus",
+    ),
     referralDecision: null,
     selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: null,
-    sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
+    sources: [
+      toLocalizedEnum(
+        TalentRequestSource.QualifiedInPool,
+        "LocalizedTalentRequestSource",
+      ),
+    ],
     user: {
       ...users[0],
-      priority: toLocalizedEnum(PriorityWeight.Veteran),
+      priority: toLocalizedEnum(
+        PriorityWeight.Veteran,
+        "LocalizedPriorityWeight",
+      ),
     },
   },
   {
     ...sharedTrackedUserFields,
     id: "tracked-user-2",
     skillCount: matchedSkillCount,
-    status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotReferred),
+    status: toLocalizedEnum(
+      TalentRequestTrackedUserStatus.NotReferred,
+      "LocalizedTalentRequestTrackedUserStatus",
+    ),
     referralDecision: null,
     selectionDecision: null,
     notReferredReason: toLocalizedEnum(
       TalentRequestTrackedUserNotReferredReason.Other,
+      "LocalizedTalentRequestTrackedUserNotReferredReason",
     ),
     notSelectedReason: null,
-    sources: [toLocalizedEnum(TalentRequestSource.AtLevel)],
+    sources: [
+      toLocalizedEnum(
+        TalentRequestSource.AtLevel,
+        "LocalizedTalentRequestSource",
+      ),
+    ],
     user: {
       ...users[1],
-      priority: toLocalizedEnum(PriorityWeight.CitizenOrPermanentResident),
+      priority: toLocalizedEnum(
+        PriorityWeight.CitizenOrPermanentResident,
+        "LocalizedPriorityWeight",
+      ),
     },
   },
   {
     ...sharedTrackedUserFields,
     id: "tracked-user-3",
     skillCount: matchedSkillCount,
-    status: toLocalizedEnum(TalentRequestTrackedUserStatus.Selected),
+    status: toLocalizedEnum(
+      TalentRequestTrackedUserStatus.Selected,
+      "LocalizedTalentRequestTrackedUserStatus",
+    ),
     referralDecision: null,
     selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: null,
-    sources: [toLocalizedEnum(TalentRequestSource.Advancement)],
+    sources: [
+      toLocalizedEnum(
+        TalentRequestSource.Advancement,
+        "LocalizedTalentRequestSource",
+      ),
+    ],
     user: {
       ...users[2],
-      priority: toLocalizedEnum(PriorityWeight.PriorityEntitlement),
+      priority: toLocalizedEnum(
+        PriorityWeight.PriorityEntitlement,
+        "LocalizedPriorityWeight",
+      ),
     },
   },
   {
     ...sharedTrackedUserFields,
     id: "tracked-user-4",
     skillCount: matchedSkillCount,
-    status: toLocalizedEnum(TalentRequestTrackedUserStatus.NotSelected),
+    status: toLocalizedEnum(
+      TalentRequestTrackedUserStatus.NotSelected,
+      "LocalizedTalentRequestTrackedUserStatus",
+    ),
     referralDecision: null,
     selectionDecision: null,
     notReferredReason: null,
     notSelectedReason: toLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason.Other,
+      "LocalizedTalentRequestTrackedUserNotSelectedReason",
     ),
-    sources: [toLocalizedEnum(TalentRequestSource.QualifiedInPool)],
+    sources: [
+      toLocalizedEnum(
+        TalentRequestSource.QualifiedInPool,
+        "LocalizedTalentRequestSource",
+      ),
+    ],
     user: {
       ...users[3],
-      priority: toLocalizedEnum(PriorityWeight.Other),
+      priority: toLocalizedEnum(
+        PriorityWeight.Other,
+        "LocalizedPriorityWeight",
+      ),
     },
   },
 ];
@@ -104,10 +150,7 @@ const mockPaginatorInfo = {
 };
 
 const localizedStatuses = Object.values(TalentRequestTrackedUserStatus).map(
-  (value) => ({
-    __typename: "LocalizedTalentRequestTrackedUserStatus" as const,
-    ...toLocalizedEnum(value),
-  }),
+  (value) => toLocalizedEnum(value, "LocalizedTalentRequestTrackedUserStatus"),
 );
 
 export default {
@@ -126,14 +169,22 @@ export default {
       InboxNotReferReasons: {
         data: {
           reasons: Object.values(TalentRequestTrackedUserNotReferredReason).map(
-            (value) => toLocalizedEnum(value),
+            (value) =>
+              toLocalizedEnum(
+                value,
+                "LocalizedTalentRequestTrackedUserNotReferredReason",
+              ),
           ),
         },
       },
       InboxNotSelectReasons: {
         data: {
           reasons: Object.values(TalentRequestTrackedUserNotSelectedReason).map(
-            (value) => toLocalizedEnum(value),
+            (value) =>
+              toLocalizedEnum(
+                value,
+                "LocalizedTalentRequestTrackedUserNotSelectedReason",
+              ),
           ),
         },
       },

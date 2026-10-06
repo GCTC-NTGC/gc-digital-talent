@@ -132,13 +132,6 @@ export const AssessmentResultsTable_Fragment = graphql(/* GraphQL */ `
     }
     pool {
       id
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       name {
         en
         fr

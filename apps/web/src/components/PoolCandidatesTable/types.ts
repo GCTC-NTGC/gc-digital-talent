@@ -10,7 +10,6 @@ import type {
   OperationalRequirement,
   PlacementType,
   PriorityWeight,
-  PublishingGroup,
   ScreeningStage,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
@@ -33,7 +32,6 @@ export interface FormValues {
   placementTypes: PlacementType[];
   pools: string[];
   priorityWeight: PriorityWeight[];
-  publishingGroups: PublishingGroup[];
   removalReasons: CandidateRemovalReason[];
   screeningStages: ScreeningStage[];
   skills: string[];

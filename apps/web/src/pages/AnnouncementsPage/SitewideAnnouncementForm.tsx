@@ -7,9 +7,11 @@ import {
   nowUTCDateTime,
 } from "@gc-digital-talent/date-helpers";
 import type {
-  SitewideAnnouncement,
+  FragmentType,
+  LocalizedString,
   SitewideAnnouncementInput,
 } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
   Input,
   RichTextInput,
@@ -43,8 +45,34 @@ interface FormValues {
   messageFr: string;
 }
 
+export const SitewideAnnouncementForm_Fragment = graphql(/* GraphQL */ `
+  fragment SitewideAnnouncementForm on SitewideAnnouncement {
+    isEnabled
+    isDismissible
+    publishDate
+    expiryDate
+    title {
+      en
+      fr
+    }
+    message {
+      en
+      fr
+    }
+  }
+`);
+
+interface AnnouncementFormData {
+  isEnabled?: boolean | null;
+  isDismissible?: boolean | null;
+  publishDate?: string | null;
+  expiryDate?: string | null;
+  title: LocalizedString;
+  message: LocalizedString;
+}
+
 const apiDataToFormValues = (
-  apiData: SitewideAnnouncement | null | undefined,
+  apiData: AnnouncementFormData | null | undefined,
 ): FormValues => ({
   isEnabled: !!apiData?.isEnabled,
   isDismissible: !!apiData?.isDismissible,
@@ -74,19 +102,21 @@ const formValuesToApiData = (
 });
 
 interface SitewideAnnouncementFormProps {
-  initialData: SitewideAnnouncement | null | undefined;
+  query:
+    FragmentType<typeof SitewideAnnouncementForm_Fragment> | null | undefined;
   onUpdate: (data: SitewideAnnouncementInput) => Promise<void>;
   onOpenChange: (isOpen: boolean) => void;
   isSubmitting: boolean;
 }
 
 const SitewideAnnouncementForm = ({
-  initialData,
+  query,
   onUpdate,
   onOpenChange,
   isSubmitting,
 }: SitewideAnnouncementFormProps) => {
   const intl = useIntl();
+  const initialData = getFragment(SitewideAnnouncementForm_Fragment, query);
   const methods = useForm<FormValues>({
     defaultValues: apiDataToFormValues(initialData),
   });

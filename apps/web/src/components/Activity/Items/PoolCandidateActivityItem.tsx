@@ -3,7 +3,6 @@ import UserMinusIcon from "@heroicons/react/16/solid/UserMinusIcon";
 import UserPlusIcon from "@heroicons/react/16/solid/UserPlusIcon";
 import { useIntl, type IntlShape } from "react-intl";
 
-import type { ActivityProperties } from "@gc-digital-talent/graphql";
 import { ActivityEvent, getFragment } from "@gc-digital-talent/graphql";
 import {
   commonMessages,
@@ -12,17 +11,19 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_STRING,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 
 import type { CommonItemProps } from "./BaseActivityItem";
 import BaseItem, { BaseItem_Fragment } from "./BaseActivityItem";
+import type { ActivityItemProperties } from "./utils";
 import { getEventInfo, parseAttributes } from "./utils";
 
 type PoolCandidateActivityItemProps = CommonItemProps;
 
-function getDescription(propsObj?: ActivityProperties | null): ReactNode {
+function getDescription(propsObj?: ActivityItemProperties | null): ReactNode {
   if (propsObj && "attributes" in propsObj) {
     const atts = parseAttributes(propsObj.attributes);
     if ("user_name" in atts && typeof atts.user_name === "string") {
@@ -36,7 +37,7 @@ function getDescription(propsObj?: ActivityProperties | null): ReactNode {
 function getDescriptionForSpecialApplicationCreated(
   intl: IntlShape,
   locale: Locales,
-  propsObj?: ActivityProperties | null,
+  propsObj?: ActivityItemProperties | null,
 ): string | null {
   if (propsObj && "attributes" in propsObj) {
     const atts = parseAttributes(propsObj.attributes);
@@ -73,7 +74,7 @@ function getDescriptionForSpecialApplicationCreated(
         date: closingDateObject,
         formatString: DATE_FORMAT_STRING,
         intl,
-        timeZone: "Canada/Pacific",
+        timeZone: TZ_VANCOUVER,
       });
     }
 
@@ -98,7 +99,7 @@ function getDescriptionForSpecialApplicationCreated(
 function getDescriptionForSpecialApplicationSubmitted(
   intl: IntlShape,
   locale: Locales,
-  propsObj?: ActivityProperties | null,
+  propsObj?: ActivityItemProperties | null,
 ): string | null {
   if (propsObj && "attributes" in propsObj) {
     const atts = parseAttributes(propsObj.attributes);

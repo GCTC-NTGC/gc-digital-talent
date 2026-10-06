@@ -104,7 +104,11 @@ export const UserEmployeeInformation = ({
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
             <TableOfContents.AnchorLink id={SECTION_ID.COMMUNITY_INTEREST}>
-              {intl.formatMessage(commonMessages.communityInterest)}
+              {intl.formatMessage({
+                defaultMessage: "Community interest",
+                id: "1uBif7",
+                description: "Community interest label",
+              })}
             </TableOfContents.AnchorLink>
           </TableOfContents.ListItem>
           <TableOfContents.ListItem>
@@ -157,13 +161,17 @@ export const UserEmployeeInformation = ({
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.COMMUNITY_INTEREST}>
             <Heading
-              level="h2"
+              rank="h2"
               size="h3"
               icon={FlagIcon}
               color="secondary"
               className="font-normal sm:justify-start sm:text-left"
             >
-              {intl.formatMessage(commonMessages.communityInterest)}
+              {intl.formatMessage({
+                defaultMessage: "Community interest",
+                id: "1uBif7",
+                description: "Community interest label",
+              })}
             </Heading>
             <p>
               {intl.formatMessage({
@@ -217,7 +225,7 @@ export const UserEmployeeInformation = ({
           </TableOfContents.Section>
           <TableOfContents.Section id={SECTION_ID.CAREER_PLANNING}>
             <Heading
-              level="h2"
+              rank="h2"
               size="h3"
               icon={ChartBarSquareIcon}
               color="secondary"

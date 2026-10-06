@@ -34,6 +34,7 @@ interface MultiProps extends BaseProps {
 }
 
 const Multi = ({
+  id,
   options,
   label,
   clearLabel,
@@ -183,6 +184,8 @@ const Multi = ({
     highlightedIndex,
     getItemProps,
   } = useCombobox({
+    inputId: id,
+    labelId: `${id}-label`,
     items,
     itemToString,
     selectedItem: null,

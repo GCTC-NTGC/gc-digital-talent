@@ -78,7 +78,7 @@ export const Component = () => {
         <div className="mt-0 rounded-md bg-white px-6 py-12 shadow-sm sm:mt-10 dark:bg-gray-600">
           <div className="px-2">
             <Heading
-              level="h2"
+              rank="h2"
               color="primary"
               icon={SparklesIcon}
               className="mt-0 font-normal"
@@ -139,7 +139,7 @@ export const Component = () => {
       <Container className="my-12">
         <div id="registrationInstructions" className="scroll-mt-20">
           <Heading
-            level="h3"
+            rank="h3"
             size="h4"
             className="mt-6 mb-4 text-center font-normal xs:text-left"
           >
@@ -249,7 +249,7 @@ export const Component = () => {
           </InstructionsCardGrid>
         </div>
         <Heading
-          level="h3"
+          rank="h3"
           size="h4"
           className="mt-20 mb-3.5 text-center font-normal xs:text-left"
         >
@@ -348,7 +348,7 @@ export const Component = () => {
           </InstructionsStepCard>
         </InstructionsCardGrid>
         <Heading
-          level="h3"
+          rank="h3"
           size="h4"
           className="mt-20 mb-3.5 text-center font-normal xs:text-left"
         >
@@ -438,7 +438,7 @@ export const Component = () => {
         <Heading
           icon={InformationCircleIcon}
           color="primary"
-          level="h3"
+          rank="h3"
           size="h4"
           className="mt-12 mb-5 justify-center font-normal xs:justify-start"
         >

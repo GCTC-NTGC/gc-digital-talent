@@ -7,6 +7,7 @@ const scalars = {
   PhoneNumber: "string",
   KeyString: "string",
   UUID: "string",
+  BigInt: "number",
 };
 
 const config: CodegenConfig = {

@@ -33,6 +33,34 @@ const Form = ({ defaultValues, comboboxProps }: FormProps) => {
   );
 };
 
+/** Mirrors a submittable form so validation errors can be raised and cleared */
+const SubmitForm = ({ comboboxProps }: Pick<FormProps, "comboboxProps">) => {
+  const methods = useForm({ mode: "onSubmit" });
+
+  return (
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(() => undefined)}>
+        <Combobox {...comboboxProps} />
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
+  );
+};
+
+const renderSubmitForm = (overrideProps: Partial<ComboboxProps> = {}) =>
+  renderWithProviders(
+    <SubmitForm
+      comboboxProps={{
+        id: "streams",
+        name: "streams",
+        label: "Work streams",
+        options,
+        rules: { required: "This field is required" },
+        ...overrideProps,
+      }}
+    />,
+  );
+
 const renderCombobox = (
   defaultValues: FieldValues,
   overrideProps: Partial<ComboboxProps> = {},
@@ -111,5 +139,44 @@ describe("Combobox", () => {
     expect(await screen.findByRole("combobox")).not.toHaveAttribute(
       "aria-describedby",
     );
+  });
+
+  it.each([false, true])(
+    "clears the required error once an option is selected after submit (isMulti: %s)",
+    async (isMulti) => {
+      const user = userEvent.setup();
+      renderSubmitForm({ isMulti });
+
+      await user.click(screen.getByRole("button", { name: /submit/i }));
+      expect(
+        await screen.findByText(/this field is required/i),
+      ).toBeInTheDocument();
+
+      await user.click(screen.getByRole("combobox"));
+      await user.click(
+        await screen.findByRole("option", { name: /software solutions/i }),
+      );
+
+      expect(
+        screen.queryByText(/this field is required/i),
+      ).not.toBeInTheDocument();
+    },
+  );
+
+  it("does not validate on change before the form is submitted", async () => {
+    const user = userEvent.setup();
+    renderSubmitForm({ isMulti: true });
+
+    await user.click(screen.getByRole("combobox"));
+    const option = await screen.findByRole("option", {
+      name: /software solutions/i,
+    });
+    // select then deselect, leaving the required field empty again
+    await user.click(option);
+    await user.click(option);
+
+    expect(
+      screen.queryByText(/this field is required/i),
+    ).not.toBeInTheDocument();
   });
 });

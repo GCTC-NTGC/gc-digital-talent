@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 import type { ReactNode } from "react";
 
-import type { HeadingLevel } from "@gc-digital-talent/ui";
+import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Card, Heading, Link, Separator, Ul } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -22,7 +22,7 @@ interface SkillRankCardProps {
   title: ReactNode;
   description?: ReactNode;
   query: FragmentType<typeof SkillRankCard_Fragment>[];
-  titleAs?: HeadingLevel;
+  titleAs?: HeadingRank;
   editable?: boolean;
   editLink?: NullMessageProps["editLink"];
   type: "top" | "improve";
@@ -43,7 +43,7 @@ const SkillRankCard = ({
   return (
     <Card className="w-full rounded-t-none border-t-12 border-primary">
       <div className="mb-7 flex flex-col items-center justify-between xs:flex-row">
-        <Heading level={titleAs} size="h6" className="mt-0">
+        <Heading rank={titleAs} size="h6" className="mt-0">
           {title}
         </Heading>
         {editable && editLink && (

@@ -45,7 +45,11 @@ const NotificationChecklist = ({
       value: "inApp",
       label: (
         <span className="xs:sr-only">
-          {intl.formatMessage(commonMessages.inApp)}
+          {intl.formatMessage({
+            defaultMessage: "In-app",
+            id: "l0aGCz",
+            description: "Title for in app notifications",
+          })}
         </span>
       ),
     },
@@ -246,7 +250,13 @@ const NotificationSettings = ({
             <div className="hidden gap-3 xs:grid xs:grid-cols-2">
               <div className="col-start-2 grid grid-cols-2 text-center">
                 <p aria-hidden>{intl.formatMessage(commonMessages.email)}</p>
-                <p aria-hidden>{intl.formatMessage(commonMessages.inApp)}</p>
+                <p aria-hidden>
+                  {intl.formatMessage({
+                    defaultMessage: "In-app",
+                    id: "l0aGCz",
+                    description: "Title for in app notifications",
+                  })}
+                </p>
               </div>
             </div>
             {formFields.map((props) => (

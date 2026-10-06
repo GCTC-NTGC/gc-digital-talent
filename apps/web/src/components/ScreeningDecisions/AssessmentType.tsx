@@ -23,9 +23,6 @@ const ScreeningDialogAssessmentType_Fragment = graphql(/** GraphQL */ `
       classification {
         group
       }
-      publishingGroup {
-        value
-      }
     }
     educationRequirementOption {
       value
@@ -71,7 +68,6 @@ const AssessmentType = ({
 
   const educationRequirementOption = getEducationRequirementLabel({
     group: candidate?.pool.classification?.group as ClassificationGroup,
-    publishingGroup: candidate?.pool.publishingGroup?.value,
     educationRequirementOption: candidate?.educationRequirementOption?.value,
     intl,
   });
@@ -79,7 +75,7 @@ const AssessmentType = ({
   if (dialogType === DIALOG_TYPE.Education) {
     return (
       <>
-        <Heading level="h3" size="h6" className="mt-0 mb-3">
+        <Heading rank="h3" size="h6" className="mt-0 mb-3">
           {intl.formatMessage({
             defaultMessage: "Selected requirement option:",
             id: "FS4Dg5",

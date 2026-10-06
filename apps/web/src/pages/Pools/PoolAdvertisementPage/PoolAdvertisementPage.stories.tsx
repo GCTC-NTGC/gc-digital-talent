@@ -1,6 +1,6 @@
 import type { StoryFn, Meta } from "@storybook/react-vite";
 
-import { fakePools } from "@gc-digital-talent/fake-data";
+import { fakePools, toLocalizedEnum } from "@gc-digital-talent/fake-data";
 import { makeFragmentData, PoolStatus } from "@gc-digital-talent/graphql";
 import {
   FAR_FUTURE_DATE,
@@ -15,27 +15,49 @@ import {
 const fakePool = fakePools(1)[0];
 const openPool = {
   ...fakePool,
-  status: { value: PoolStatus.Published, label: {} },
+  status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
   publishedAt: FAR_PAST_DATE,
   closingReason: null,
   closingDate: FAR_FUTURE_DATE,
 };
 const closedPool = {
   ...fakePool,
-  status: { value: PoolStatus.Closed, label: {} },
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: FAR_PAST_DATE,
   closingReason: null,
   closingDate: FAR_PAST_DATE,
 };
 const nullPool = {
+  __typename: "Pool" as const,
   id: "uuid",
   wasClosedEarly: false,
+  name: null,
+  workStream: null,
+  closingDate: null,
+  status: null,
+  language: null,
+  securityClearance: null,
+  department: null,
+  opportunityLength: null,
+  classification: null,
+  yourImpact: null,
+  keyTasks: null,
+  whatToExpect: null,
+  specialNote: null,
+  whatToExpectAdmission: null,
+  aboutUs: null,
+  poolSkills: null,
+  isRemote: null,
+  location: null,
+  processNumber: null,
+  community: null,
+  contactEmail: null,
 };
 nullPool.id = fakePool.id; // pool will never have a null id
 
 const closedEarlyPool = {
   ...fakePool,
-  status: { value: PoolStatus.Closed, label: {} },
+  status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
   publishedAt: FAR_PAST_DATE,
   wasClosedEarly: true,
   closingDate: FAR_PAST_DATE,

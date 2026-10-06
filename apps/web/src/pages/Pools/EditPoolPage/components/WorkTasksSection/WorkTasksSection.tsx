@@ -139,7 +139,7 @@ const WorkTasksSection = ({
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level="h3"
+        rank="h3"
         size="h4"
         toggle={
           <ToggleForm.LabelledTrigger

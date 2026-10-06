@@ -41,9 +41,15 @@ export default {
 
 const SearchRequestOptions = {
   data: {
-    languageAbilities: fakeLocalizedEnum(LanguageAbility),
-    workRegions: fakeLocalizedEnum(WorkRegion),
-    flexibleWorkLocations: fakeLocalizedEnum(FlexibleWorkLocation),
+    languageAbilities: fakeLocalizedEnum(
+      LanguageAbility,
+      "LocalizedLanguageAbility",
+    ),
+    workRegions: fakeLocalizedEnum(WorkRegion, "LocalizedWorkRegion"),
+    flexibleWorkLocations: fakeLocalizedEnum(
+      FlexibleWorkLocation,
+      "LocalizedFlexibleWorkLocation",
+    ),
   },
 };
 

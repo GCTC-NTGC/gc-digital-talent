@@ -314,23 +314,6 @@ class UserBuilder extends Builder
         });
     }
 
-    /**
-     * Scope Publishing Groups
-     *
-     * Restrict a query by specific publishing groups
-     */
-    public function wherePoolCandidatePublishingGroupsIn(?array $publishingGroups): self
-    {
-        // Early return if no publishing groups were supplied
-        if (empty($publishingGroups)) {
-            return $this;
-        }
-
-        return $this->whereHas('poolCandidates', function ($query) use ($publishingGroups) {
-            $query->wherePublishingGroupsIn($publishingGroups);
-        });
-    }
-
     // $args may be the wrapper ({applicantFilter, ...}) or a bare ApplicantFilterInput.
     public function whereMatchesTalentRequest(?array $args): self
     {
@@ -362,7 +345,8 @@ class UserBuilder extends Builder
 
         return $this->where(function ($query) use ($sources, $filters) {
             foreach ($sources as $index => $source) {
-                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->whereMatchesTalentRequest($filters));
+                $method = $source->matchMethod();
+                $query->orWhereHas($source->matchRelation(), fn ($r) => $r->{$method}($filters));
             }
         });
     }
@@ -388,8 +372,9 @@ class UserBuilder extends Builder
     public function withTalentRequestMatches(array $filters): self
     {
         foreach (TalentRequestSource::cases() as $source) {
+            $method = $source->matchMethod();
             $this->with([$source->matchRelation() => fn ($r) => $r
-                ->whereMatchesTalentRequest($filters)
+                ->{$method}($filters)
                 ->whereAuthorizedToView()]);
         }
 
@@ -600,6 +585,18 @@ class UserBuilder extends Builder
             ->whereNotNull('work_email_verified_at');
     }
 
+    // shared by UserBuilder::whereAuthorizedToView and PoolCandidateBuilder::andAuthorizedToViewRelatedUser
+    public function whereIsCommunityTalentInTeams(array $teamIds): self
+    {
+        return $this->whereIsVerifiedGovEmployee()
+            ->whereHas('communityInterests', function (Builder $query) use ($teamIds) {
+                $query->where('consent_to_share_profile', true)
+                    ->whereHas('community.team', function (Builder $query) use ($teamIds) {
+                        $query->whereIn('id', $teamIds);
+                    });
+            });
+    }
+
     public function whereEmployeeVerificationIn(?array $employeeVerification): self
     {
         if (empty($employeeVerification)) {
@@ -763,18 +760,15 @@ class UserBuilder extends Builder
             }
 
             if ($user?->isAbleTo('view-team-communityTalent')) {
-                $query->orWhereHas('communityInterests', function (Builder $query) use ($user) {
-                    $allCommunityTeams = $user->rolesTeams()
-                        ->where('teamable_type', "App\Models\Community")
-                        ->get();
+                $communityTeamIds = $user->rolesTeams()
+                    ->where('teamable_type', "App\Models\Community")
+                    ->get()
+                    ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team))
+                    ->pluck('id')
+                    ->toArray();
 
-                    $viewPermissionCommunityTeams = $allCommunityTeams
-                        ->filter(fn ($team) => $user->isAbleTo('view-team-communityTalent', $team));
-
-                    $communityIds = $viewPermissionCommunityTeams->pluck('teamable_id')->toArray();
-
-                    $query->whereIn('community_id', $communityIds);
-                    $query->where('consent_to_share_profile', true);
+                $query->orWhere(function (Builder $communityTalentSubquery) use ($communityTeamIds) {
+                    $communityTalentSubquery->whereIsCommunityTalentInTeams($communityTeamIds);
                 });
             }
 

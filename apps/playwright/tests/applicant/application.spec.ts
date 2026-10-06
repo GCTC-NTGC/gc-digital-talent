@@ -13,8 +13,9 @@ import { PAST_DATE } from "@gc-digital-talent/date-helpers";
 import { test, expect } from "~/fixtures";
 import { loginBySub } from "~/utils/auth";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
+import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createAndPublishPool } from "~/utils/pools";
+import { createAndPublishPool, retirePublishedPool } from "~/utils/pools";
 import ApplicationPage from "~/fixtures/ApplicationPage";
 import { getSkills } from "~/utils/skills";
 import { generateUniqueTestId } from "~/utils/id";
@@ -27,10 +28,14 @@ test.describe("Application", () => {
   let user: User | undefined;
   let classificationId: string | undefined;
   let userId: string | undefined;
+  let poolId: string | undefined;
+  let poolAdminCtx: GraphQLContext | undefined;
 
   test.beforeEach(async () => {
     uniqueTestId = generateUniqueTestId();
     sub = `playwright.sub.${uniqueTestId}`;
+    poolId = undefined;
+    poolAdminCtx = undefined;
     const adminCtx = await graphql.newContext();
 
     user = await createUserWithRoles(adminCtx, {
@@ -75,6 +80,9 @@ test.describe("Application", () => {
       const adminCtx = await graphql.newContext();
       await deleteUser(adminCtx, { id: userId });
     }
+    if (poolId && poolAdminCtx) {
+      await retirePublishedPool(poolAdminCtx, poolId);
+    }
   });
 
   test("Can link same experience to different skills in application", async ({
@@ -105,8 +113,9 @@ test.describe("Application", () => {
         ? [technicalSkills[0].id, technicalSkills[1].id]
         : undefined,
     });
+    poolId = pool.id;
+    poolAdminCtx = adminCtx;
     const [skillOne, skillTwo] = technicalSkills;
-    const poolId = pool.id;
     const application = new ApplicationPage(appPage.page, poolId);
     await loginBySub(application.page, sub, false);
 
@@ -278,6 +287,8 @@ test.describe("Application", () => {
         },
         skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
       });
+      poolId = pool.id;
+      poolAdminCtx = adminCtx;
 
       const application = new ApplicationPage(appPage.page, pool.id);
       await loginBySub(application.page, sub, false);
@@ -482,6 +493,8 @@ test.describe("Application", () => {
       },
       skillIds: technicalSkills ? [technicalSkills[0].id] : undefined,
     });
+    poolId = pool.id;
+    poolAdminCtx = adminCtx;
 
     const application = new ApplicationPage(appPage.page, pool.id);
     await loginBySub(application.page, sub, false);

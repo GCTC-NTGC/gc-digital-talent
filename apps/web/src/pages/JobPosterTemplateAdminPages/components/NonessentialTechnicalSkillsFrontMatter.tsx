@@ -7,7 +7,7 @@ const NonessentialTechnicalSkillsFrontMatter = () => {
 
   return (
     <div className="flex flex-col gap-1">
-      <Heading level="h3" size="h6" className="m-0">
+      <Heading rank="h3" size="h6" className="m-0">
         {intl.formatMessage({
           defaultMessage: "Asset technical skills",
           id: "XNzRga",

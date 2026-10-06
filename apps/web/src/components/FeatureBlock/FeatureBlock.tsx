@@ -24,7 +24,7 @@ const FeatureBlock = ({ content }: FeatureBlockProps) => {
   return (
     <div className="flex flex-col overflow-hidden rounded-md bg-white shadow-lg dark:bg-gray-600">
       <div className="flex min-h-auto w-full flex-col justify-center bg-black p-6 text-white">
-        <Heading level="h3" size="h6" className="my-0 mb-1.5">
+        <Heading rank="h3" size="h6" className="my-0 mb-1.5">
           {content.title}
         </Heading>
       </div>

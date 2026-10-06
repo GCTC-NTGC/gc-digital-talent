@@ -3,7 +3,6 @@
 namespace Tests\Feature\Notifications;
 
 use App\Enums\NotificationFamily;
-use App\Enums\PublishingGroup;
 use App\Models\Notification;
 use App\Models\Pool;
 use App\Models\User;
@@ -169,8 +168,8 @@ class NewJobPostedTest extends TestCase
         );
     }
 
-    // does not send when publishing group is 'other'
-    public function testDoesNotSendForOtherPublishingGroup(): void
+    // does not send when is hidden is true
+    public function testDoesNotSendForHiddenPool(): void
     {
         User::factory()
             ->create([
@@ -179,7 +178,7 @@ class NewJobPostedTest extends TestCase
             ]);
 
         $pool = Pool::factory()->draft()->create([
-            'publishing_group' => PublishingGroup::OTHER->name,
+            'is_hidden' => true,
         ]);
         $pool->update(['published_at' => now()]);
 

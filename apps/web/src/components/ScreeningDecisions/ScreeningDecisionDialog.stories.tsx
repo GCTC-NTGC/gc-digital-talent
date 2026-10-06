@@ -91,9 +91,18 @@ const meta = {
     apiResponses: {
       ScreeningOptions: {
         data: {
-          justifications: fakeLocalizedEnum(AssessmentResultJustification),
-          decisions: fakeLocalizedEnum(AssessmentDecision),
-          decisionLevels: fakeLocalizedEnum(AssessmentDecisionLevel),
+          justifications: fakeLocalizedEnum(
+            AssessmentResultJustification,
+            "LocalizedAssessmentResultJustification",
+          ),
+          decisions: fakeLocalizedEnum(
+            AssessmentDecision,
+            "LocalizedAssessmentDecision",
+          ),
+          decisionLevels: fakeLocalizedEnum(
+            AssessmentDecisionLevel,
+            "LocalizedAssessmentDecisionLevel",
+          ),
         },
       },
     },
@@ -130,10 +139,14 @@ export const Generic: Story = {
 
 const result = {
   ...fakeAssessmentResults(1, applicationScreeningStep, poolSkill)[0],
-  assessmentDecision: toLocalizedEnum(AssessmentDecision.Successful),
+  assessmentDecision: toLocalizedEnum(
+    AssessmentDecision.Successful,
+    "LocalizedAssessmentDecision",
+  ),
   justifications: [],
   assessmentDecisionLevel: toLocalizedEnum(
     AssessmentDecisionLevel.AboveAndBeyondRequired,
+    "LocalizedAssessmentDecisionLevel",
   ),
   skillDecisionNotes: faker.lorem.paragraph(),
 };

@@ -1,10 +1,24 @@
 /**
- * Checks if the provided URL matches the current app's host name
+ * Resolves a redirect target against the app's origin
  *
- * @param {string} url - The URL to test
- * @returns {boolean} True if the URL matches the current host name
+ * @param {string} target - The redirect target to resolve
+ * @param {string} appOrigin - The origin of the running app
+ * @returns {string | null} The path, search and hash to redirect to, or null if the target resolves to another origin
  */
-export function urlMatchesAppHostName(url: string): boolean {
-  const pattern = new URLPattern({ hostname: window.location.hostname });
-  return pattern.test(url);
+export function getSafeRedirectPath(
+  target: string,
+  appOrigin: string,
+): string | null {
+  let resolved: URL;
+  try {
+    resolved = new URL(target, appOrigin);
+  } catch {
+    return null;
+  }
+
+  if (resolved.origin !== appOrigin) {
+    return null;
+  }
+
+  return `${resolved.pathname}${resolved.search}${resolved.hash}`;
 }

@@ -55,6 +55,6 @@ class Notification extends DatabaseNotification
             return;
         }
 
-        $query->where('notifiable_id', null);
+        $query->whereRaw('1 = 0');
     }
 }

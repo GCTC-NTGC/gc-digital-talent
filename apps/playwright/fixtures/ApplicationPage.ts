@@ -30,10 +30,7 @@ class ApplicationPage extends AppPage {
 
   /** Start application */
   async create() {
-    await this.page.goto("/en/jobs");
-    await this.waitForGraphqlResponse("OpenJobsPage");
-
-    await this.page.locator(`a[href*="${this.poolId}"]`).click();
+    await this.page.goto(`/en/jobs/${this.poolId}`);
     await this.waitForGraphqlResponse("PoolAdvertisementPage");
 
     // Local/CI: full OAuth redirect resolves auth before page load → <Button>.

@@ -12,12 +12,23 @@ import type { FormValues } from "~/types/talentRequestForm";
 import CommunityResultCard from "./CommunityResultCard";
 import SearchResultCard from "./SearchResultCard";
 
-const community = { id: "privacy-community", name: { localized: "Privacy" } };
+const community = {
+  __typename: "Community" as const,
+  id: "privacy-community",
+  name: { __typename: "LocalizedString" as const, localized: "Privacy" },
+};
 
 const pool: SearchResultCard_PoolFragment = {
+  __typename: "Pool",
   id: "privacy-pool",
-  name: { en: "Privacy analyst", fr: "Analyste de la confidentialité" },
+  name: {
+    __typename: "LocalizedString",
+    en: "Privacy analyst",
+    fr: "Analyste de la confidentialité",
+  },
   community,
+  workStream: null,
+  classification: null,
   poolSkills: [],
 };
 

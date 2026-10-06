@@ -17,8 +17,10 @@ describe("poolUtils tests", () => {
       title: "Web Developer",
       classification: fakeClassifications()[0],
       workStream: {
+        __typename: "WorkStream" as const,
         id: "uuid",
         name: {
+          __typename: "LocalizedString" as const,
           en: "Software solutions EN",
           fr: "Software solutions FR",
         },

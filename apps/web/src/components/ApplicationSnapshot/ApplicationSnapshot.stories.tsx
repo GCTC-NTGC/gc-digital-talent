@@ -63,7 +63,10 @@ export default {
     apiResponses: {
       WorkPreferencesSnapshotOptions: {
         data: {
-          justifications: fakeLocalizedEnum(FlexibleWorkLocation),
+          justifications: fakeLocalizedEnum(
+            FlexibleWorkLocation,
+            "LocalizedFlexibleWorkLocation",
+          ),
         },
       },
     },

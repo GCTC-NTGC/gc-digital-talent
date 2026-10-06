@@ -72,19 +72,19 @@ export interface HeadingProps
   extends
     Omit<HeadingVariants, "hasIcon">,
     Omit<HTMLAttributes<HTMLHeadingElement>, "color" | "icon"> {
-  level?: HeadingVariants["size"];
+  rank?: HeadingVariants["size"];
   icon?: IconType;
 }
 
 const Heading = forwardRef<HeadingRef, HeadingProps>(
   (
-    { level = "h2", size, icon, color, center, children, className, ...rest },
+    { rank = "h2", size, icon, color, center, children, className, ...rest },
     forwardedRef,
   ) => {
-    const El = level;
+    const El = rank;
     const Icon = icon;
     const { base, icon: iconStyles } = heading({
-      size: size ?? level,
+      size: size ?? rank,
       hasIcon: !!icon,
       color,
       center,

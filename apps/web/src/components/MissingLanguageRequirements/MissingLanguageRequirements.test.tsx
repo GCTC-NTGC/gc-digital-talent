@@ -32,19 +32,28 @@ const bilingualApplicant = {
 const fakePool = fakePools(1)[0];
 const unilingualPool = {
   ...fakePool,
-  language: toLocalizedEnum(PoolLanguage.English),
+  language: toLocalizedEnum(PoolLanguage.English, "LocalizedPoolLanguage"),
 };
 const bilingualVariousPool = {
   ...fakePool,
-  language: toLocalizedEnum(PoolLanguage.VariousBilingual),
+  language: toLocalizedEnum(
+    PoolLanguage.VariousBilingual,
+    "LocalizedPoolLanguage",
+  ),
 };
 const bilingualIntermediatePool = {
   ...fakePool,
-  language: toLocalizedEnum(PoolLanguage.BilingualIntermediate),
+  language: toLocalizedEnum(
+    PoolLanguage.BilingualIntermediate,
+    "LocalizedPoolLanguage",
+  ),
 };
 const bilingualAdvancedPool = {
   ...fakePool,
-  language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
+  language: toLocalizedEnum(
+    PoolLanguage.BilingualAdvanced,
+    "LocalizedPoolLanguage",
+  ),
 };
 
 const errorMessage = /there is a missing language requirement/i;

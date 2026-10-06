@@ -3,7 +3,7 @@ import type { CombinedError } from "urql";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, uiMessages } from "@gc-digital-talent/i18n";
 import { isUuidError, NotFoundError } from "@gc-digital-talent/helpers";
 
 import type { LoadingProps } from "../Loading";
@@ -29,7 +29,7 @@ const Pending = ({
   if (fetching) {
     return (
       <Loading inline={inline} live={live} pause={pause}>
-        {intl.formatMessage(commonMessages.loadingTitle)}
+        {intl.formatMessage(uiMessages.loadingTitle)}
       </Loading>
     );
   }
@@ -46,7 +46,7 @@ const Pending = ({
     <Suspense
       fallback={
         <Loading inline={inline} live={live} pause={pause}>
-          {intl.formatMessage(commonMessages.loadingTitle)}
+          {intl.formatMessage(uiMessages.loadingTitle)}
         </Loading>
       }
     >

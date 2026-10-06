@@ -10,7 +10,6 @@ use App\Enums\AssessmentStepType;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
-use App\Enums\PublishingGroup;
 use App\Enums\SkillCategory;
 use App\GraphQL\Validators\AssessmentPlanIsCompleteValidator;
 use App\Observers\PoolObserver;
@@ -36,7 +35,6 @@ use Spatie\Activitylog\Support\LogOptions;
  *
  * @property string $id
  * @property array $name
- * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $your_impact
@@ -49,7 +47,6 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $advertisement_language
  * @property ?string $stream
  * @property ?string $process_number
- * @property ?string $publishing_group
  * @property ?string $opportunity_length
  * @property ?string $closing_reason
  * @property ?string $change_justification
@@ -70,6 +67,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
  * @property array $display_name
+ * @property bool $is_hidden
  */
 class Pool extends Model
 {
@@ -100,6 +98,7 @@ class Pool extends Model
         'is_remote' => 'boolean',
         'archived_at' => 'datetime',
         'selection_limitations' => 'array',
+        'is_hidden' => 'boolean',
     ];
 
     /**
@@ -118,12 +117,12 @@ class Pool extends Model
         'advertisement_location',
         'special_note',
         'about_us',
-        'publishing_group',
         'process_number',
         'operational_requirements',
         'closing_reason',
         'archived_at',
         'contact_email',
+        'is_hidden',
     ];
 
     protected $completenessRequirements = [
@@ -133,7 +132,6 @@ class Pool extends Model
             'closing_date',
             'advertisement_language',
             'security_clearance',
-            'publishing_group',
             'area_of_selection',
             'contact_email',
             'key_tasks',
@@ -204,11 +202,6 @@ class Pool extends Model
             ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontLogEmptyChanges();
-    }
-
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function poolBookmarks(): BelongsToMany
@@ -509,11 +502,6 @@ class Pool extends Model
     protected function formatDisplayName(array $attributes, $locale, bool $full = false): string
     {
         $name = $this->name[$locale] ?? '';
-        $publishingGroup = $attributes['publishing_group'] ?? null;
-
-        if ($publishingGroup === PublishingGroup::IAP->name) {
-            return $name;
-        }
 
         $classification = $this->classification->formattedGroupAndLevel ?? '';
 

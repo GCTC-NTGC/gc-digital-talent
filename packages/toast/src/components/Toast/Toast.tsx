@@ -11,7 +11,7 @@ import { tv } from "tailwind-variants";
 import "react-toastify/ReactToastify.css";
 import "./toast.css";
 
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { uiMessages } from "@gc-digital-talent/i18n";
 
 const closeBtn = tv({
   base: "absolute top-2 right-2 z-9 flex cursor-pointer items-center rounded-full bg-transparent text-gray-600 transition-colors ease-in outline-none focus-visible:bg-focus dark:text-gray-200",
@@ -39,7 +39,7 @@ const CloseButton = ({ type, closeToast, ariaLabel }: CloseButtonProps) => {
     <button
       type="button"
       className={closeBtn({ type })}
-      aria-label={ariaLabel ?? intl.formatMessage(commonMessages.dismiss)}
+      aria-label={ariaLabel ?? intl.formatMessage(uiMessages.dismiss)}
       onClick={closeToast}
     >
       <XCircleIcon className="size-4.5" />

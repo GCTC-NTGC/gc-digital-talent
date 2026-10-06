@@ -94,6 +94,27 @@
       max-width: clamp(calc(100% - 1rem), 60vw, 40rem);
       margin: 0 auto;
     }
+
+    .link-button {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      color: rgba(var(--black), 1);
+      font-size: 0.8rem;
+      font-weight: 400;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .link-button:hover {
+      background: none;
+      text-decoration: none;
+    }
+
+    .link-button:focus-visible {
+      outline: 2px solid rgba(var(--focus), 1);
+      outline-offset: 2px;
+    }
   </style>
 </head>
 
@@ -112,10 +133,32 @@
 {
   &quot;acr&quot;: &quot;reference&quot;
 }"></textarea>
+        <button type="button" class="link-button" id="standard-claims">
+          Standard CanadaLogin claims
+        </button>
       </div>
       <button type="submit">Sign in</button>
     </form>
   </div>
+  <script nonce="**CSP_NONCE**">
+    document
+      .getElementById("standard-claims")
+      .addEventListener("click", function () {
+        var claims = document.getElementById("claims");
+        claims.value = JSON.stringify(
+          {
+            given_name: "Test",
+            family_name: "User",
+            email: "test.user@example.org",
+            phone_number: "+12345678910",
+            locale: "en",
+          },
+          null,
+          2,
+        );
+        claims.focus();
+      });
+  </script>
 </body>
 
 </html>

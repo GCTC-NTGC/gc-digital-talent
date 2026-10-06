@@ -27,8 +27,7 @@ import {
   TALENT_REQUEST_STATUS_COLOUR_MAP,
 } from "~/utils/talentRequestUtils";
 import talentRequestMessages from "~/messages/talentRequestMessages";
-
-import { deriveSingleString } from "./utils";
+import { deriveSingleString } from "~/components/ReviewApplicationPreviewList/utils";
 
 const ReviewTalentRequestDialog_Query = graphql(/* GraphQL */ `
   query ReviewTalentRequestDialog($id: UUID!) {

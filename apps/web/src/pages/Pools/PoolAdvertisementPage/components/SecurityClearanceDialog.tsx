@@ -55,7 +55,7 @@ const securityScreenLink = (locale: Locales, chunks: ReactNode) => (
 
 const SecurityClearanceDialog = () => {
   const intl = useIntl();
-  const headingLevel: HeadingProps["level"] = "h3";
+  const headingRank: HeadingProps["rank"] = "h3";
   const locale = getLocale(intl);
 
   return (
@@ -100,7 +100,7 @@ const SecurityClearanceDialog = () => {
                   "Second paragraph for the security clearance dialog",
               })}
             </p>
-            <Heading level={headingLevel} size="h6" className="mt-0">
+            <Heading rank={headingRank} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Levels of security screening",
                 id: "ZZLwb5",
@@ -142,7 +142,7 @@ const SecurityClearanceDialog = () => {
                 })}
               </li>
             </Ul>
-            <Heading level={headingLevel} size="h6" className="mt-0">
+            <Heading rank={headingRank} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "Obtaining your security status or clearance",
                 id: "FxB6Km",
@@ -183,7 +183,7 @@ const SecurityClearanceDialog = () => {
                   "Third paragraph for the obtaining security clearance section",
               })}
             </p>
-            <Heading level={headingLevel} size="h6" className="mt-0">
+            <Heading rank={headingRank} size="h6" className="mt-0">
               {intl.formatMessage({
                 defaultMessage: "More information",
                 id: "dCmN+g",

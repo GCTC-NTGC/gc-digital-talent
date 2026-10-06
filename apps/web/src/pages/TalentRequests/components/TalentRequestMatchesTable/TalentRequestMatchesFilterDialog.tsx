@@ -208,7 +208,7 @@ const TalentRequestMatchesFilterDialog = ({
           label: talentSource.label?.localized ?? notAvailable,
         }))}
       />
-      <Heading level="h3" size="h5" className="my-6 font-bold">
+      <Heading rank="h3" size="h5" className="my-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Process filters",
           id: "+dlRCu",
@@ -242,7 +242,7 @@ const TalentRequestMatchesFilterDialog = ({
       </div>
       <PoolFilterInput includeIds={initialValues?.pools} />
 
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
           id: "WqxVxb",

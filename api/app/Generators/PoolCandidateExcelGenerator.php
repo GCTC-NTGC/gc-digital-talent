@@ -491,7 +491,6 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'priorityWeight' => 'whereCandidateCategoryIn',
             'expiryStatus' => 'whereExpiryStatus',
             'suspendedStatus' => 'whereSuspendedStatus',
-            'publishingGroups' => 'wherePublishingGroupsIn',
             'appliedClassifications' => 'whereAppliedClassificationsIn',
             'workStreams' => 'whereWorkStreamsIn',
             'processNumber' => 'whereProcessNumber',

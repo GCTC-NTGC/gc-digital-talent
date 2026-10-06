@@ -60,6 +60,7 @@ export const WithData = Template.bind({});
 WithData.args = {
   query: makeFragmentData(
     {
+      __typename: "User",
       topBehaviouralSkillsRanking,
       topTechnicalSkillsRanking,
       improveBehaviouralSkillsRanking,
@@ -71,5 +72,14 @@ WithData.args = {
 
 export const NoData = Template.bind({});
 NoData.args = {
-  query: makeFragmentData({}, SkillShowcase_Fragment),
+  query: makeFragmentData(
+    {
+      __typename: "User",
+      topBehaviouralSkillsRanking: null,
+      topTechnicalSkillsRanking: null,
+      improveBehaviouralSkillsRanking: null,
+      improveTechnicalSkillsRanking: null,
+    },
+    SkillShowcase_Fragment,
+  ),
 };

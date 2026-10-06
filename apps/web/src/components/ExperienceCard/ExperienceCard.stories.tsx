@@ -80,6 +80,7 @@ SingleSkillExperienceCard.args = {
         {
           ...experienceSkill,
           experienceSkillRecord: {
+            __typename: "ExperienceSkillRecord" as const,
             details: faker.lorem.paragraph(),
           },
         },

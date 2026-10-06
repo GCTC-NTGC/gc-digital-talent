@@ -90,7 +90,7 @@ const TalentNominationGroupProfile = ({
         <div className="flex flex-col items-center justify-between gap-y-6 sm:flex-row sm:gap-x-3 sm:gap-y-0">
           <Heading
             icon={UserCircleIcon}
-            level="h2"
+            rank="h2"
             size="h4"
             color="secondary"
             className="mt-0 font-normal"

@@ -42,7 +42,7 @@ export const dataToFormValues = (
 
 export type CoreRequirementsSubmitData = Pick<
   UpdatePoolInput,
-  "language" | "location" | "securityClearance" | "isRemote" | "publishingGroup"
+  "language" | "location" | "securityClearance" | "isRemote"
 >;
 
 export const formValuesToSubmitData = (
@@ -61,7 +61,6 @@ export const formValuesToSubmitData = (
             fr: null,
           },
     isRemote: formValues.locationOption === LocationOption.RemoteOptional,
-
     securityClearance: formValues.securityRequirement ?? undefined, // can't be set to null, assume not updating if empty
   };
 };

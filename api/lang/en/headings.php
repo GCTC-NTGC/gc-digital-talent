@@ -287,9 +287,10 @@ return [
 
     'nomination_options' => 'Nomination options',
     'advancement_approval' => 'Advancement approval',
-    'advancement_classifications' => 'Advancement classifications',
+    'recommended_classifications_for_advancement' => 'Recommended classifications for advancement',
     'advancement_approval_notes' => 'Advancement approval notes',
     'lateral_movement_approval' => 'Lateral movement approval',
+    'recommended_classifications_for_lateral_movement' => 'Recommended classifications for lateral movement',
     'lateral_movement_approval_notes' => 'Lateral movement approval notes',
     'development_program_approval' => 'Development program approval',
     'development_program_approval_notes' => 'Development program approval notes',

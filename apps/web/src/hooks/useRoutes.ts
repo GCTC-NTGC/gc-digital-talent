@@ -69,6 +69,7 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return applicantUrl + fragment;
     },
+    applications: () => [applicantUrl, "applications"].join("/"),
 
     // Admin
     adminDashboard: () => adminUrl,
@@ -447,9 +448,6 @@ const getRoutes = (lang: Locales) => {
     // Comptrollership
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
-
-    // DND
-    dndDigitalCareers: () => `${baseUrl}/dnd`,
 
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,

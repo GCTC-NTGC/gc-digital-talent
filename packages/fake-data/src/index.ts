@@ -7,6 +7,7 @@ import fakeDepartments from "./fakeDepartments";
 import fakeDevelopmentPrograms from "./fakeDevelopmentPrograms";
 import fakeExperiences, { experienceGenerators } from "./fakeExperiences";
 import toLocalizedEnum, { fakeLocalizedEnum } from "./fakeLocalizedEnum";
+import toLocalizedString from "./fakeLocalizedString";
 import fakeApplicantFilters from "./fakeApplicantFilters";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePools from "./fakePools";
@@ -46,6 +47,7 @@ export {
   fakeWorkStreams,
   fakeLocalizedEnum,
   toLocalizedEnum,
+  toLocalizedString,
 };
 
 // Static Data

@@ -104,7 +104,7 @@ export const ViewSkillFamily = ({ query }: ViewSkillFamilyProps) => {
         <div className="flex justify-center xs:justify-start">
           <Heading
             icon={IdentificationIcon}
-            level="h2"
+            rank="h2"
             color="secondary"
             className="mt-0"
           >

@@ -266,7 +266,7 @@ const TrainingAndDevelopmentOpportunities = ({
       {/* heading and description */}
       <div className="flex flex-col gap-6">
         <Heading
-          level="h2"
+          rank="h2"
           icon={RectangleGroupIcon}
           color="primary"
           className="mt-0 mb-0 font-normal"
@@ -297,7 +297,7 @@ const TrainingAndDevelopmentOpportunities = ({
           >
             {/* titles */}
             <div className="mb-6">
-              <Heading level="h3" size="h6" className="m-0 mb-3 font-bold">
+              <Heading rank="h3" size="h6" className="m-0 mb-3 font-bold">
                 {developmentProgram.name?.localized ??
                   intl.formatMessage(commonMessages.notProvided)}
               </Heading>

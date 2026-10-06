@@ -52,7 +52,7 @@ DraftPool.args = {
       ...pool,
       closingDate: FAR_FUTURE_DATE,
       publishedAt: null,
-      status: toLocalizedEnum(PoolStatus.Draft),
+      status: toLocalizedEnum(PoolStatus.Draft, "LocalizedPoolStatus"),
     },
     EditPool_Fragment,
   ),
@@ -64,7 +64,7 @@ PublishedPool.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Published),
+      status: toLocalizedEnum(PoolStatus.Published, "LocalizedPoolStatus"),
       closingDate: FAR_FUTURE_DATE,
     },
     EditPool_Fragment,
@@ -77,7 +77,7 @@ ExpiredPool.args = {
     {
       ...pool,
       publishedAt: FAR_PAST_DATE,
-      status: toLocalizedEnum(PoolStatus.Closed),
+      status: toLocalizedEnum(PoolStatus.Closed, "LocalizedPoolStatus"),
       closingDate: FAR_PAST_DATE,
     },
     EditPool_Fragment,

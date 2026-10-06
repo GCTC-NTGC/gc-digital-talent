@@ -60,7 +60,7 @@ const ReviewAndSubmit = ({
     <div>
       {/* heading and description */}
       <Heading
-        level="h2"
+        rank="h2"
         icon={DocumentMagnifyingGlassIcon}
         color="primary"
         className="mt-0 mb-6 font-normal"
@@ -77,7 +77,7 @@ const ReviewAndSubmit = ({
       </p>
       {/* consent form */}
       <Heading
-        level="h3"
+        rank="h3"
         size="h6"
         color="primary"
         className="bm-0 mt-0 font-bold"

@@ -14,7 +14,10 @@ import {
 import SkillProficiencyList, { Options_Fragment } from "./SkillProficiencyList";
 
 const allSkills = getStaticSkills();
-const optionsQuery = makeFragmentData({ skills: allSkills }, Options_Fragment);
+const optionsQuery = makeFragmentData(
+  { __typename: "Query" as const, skills: allSkills },
+  Options_Fragment,
+);
 
 const items = allSkills.slice(0, 5).map((skill, index) => ({
   id: index.toString(),

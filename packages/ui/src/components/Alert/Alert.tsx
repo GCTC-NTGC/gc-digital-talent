@@ -20,7 +20,7 @@ import { uiMessages } from "@gc-digital-talent/i18n";
 
 import Separator from "../Separator";
 import { iconMap, getAlertLevelTitle } from "./utils";
-import type { AlertHeadingLevel, AlertType } from "./types";
+import type { AlertHeadingRank, AlertType } from "./types";
 
 interface AlertContextValue {
   type: AlertType;
@@ -164,13 +164,13 @@ const Alert = forwardRef<ComponentRef<"div">, AlertProps>(
  * Props that can be passed to an `<Alert.Title />`
  *
  * @interface AlertTitleProps
- * @member {AlertHeadingLevel} as is the semantic heading level to render the title in
+ * @member {AlertHeadingRank} as is the semantic Heading rank to render the title in
  */
 interface AlertTitleProps extends HTMLProps<
   HTMLHeadingElement | HTMLParagraphElement
 > {
   children: ReactNode;
-  as?: AlertHeadingLevel;
+  as?: AlertHeadingRank;
 }
 
 const Title = ({ as = "h2", children, ...rest }: AlertTitleProps) => {

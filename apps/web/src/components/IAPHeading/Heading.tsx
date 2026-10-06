@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { tv } from "tailwind-variants";
 
 interface HeadingProps {
-  level?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  rank?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   color?: "pink" | "white";
   thin?: boolean;
@@ -42,7 +42,7 @@ const heading = tv({
 });
 
 const Heading = ({
-  level = "h2",
+  rank = "h2",
   size = "h2",
   color = "pink",
   thin = false,
@@ -50,13 +50,13 @@ const Heading = ({
   children,
   ...rest
 }: HeadingProps) => {
-  const El = level;
+  const El = rank;
 
   return (
     <El
       className={heading({
         thin,
-        size: size ?? level,
+        size: size ?? rank,
         color,
         class: className,
       })}

@@ -5,8 +5,15 @@ import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import useRoutes from "~/hooks/useRoutes";
+import AlreadyHaveProfileDialog from "~/components/InAppMigration/AlreadyHaveProfileDialog";
 
-const BottomHalfNotEmployee = () => {
+interface BottomHalfNotEmployeeProps {
+  showButtonAlreadyHaveProfile: boolean;
+}
+
+const BottomHalfNotEmployee = ({
+  showButtonAlreadyHaveProfile,
+}: BottomHalfNotEmployeeProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const [searchParams] = useSearchParams();
@@ -27,7 +34,12 @@ const BottomHalfNotEmployee = () => {
       <div className="-mx-6 sm:-mx-9">
         <Separator decorative orientation="horizontal" space="none" />
       </div>
-      <div className="mt-6 flex flex-col items-center sm:flex-row sm:justify-end">
+      <div className="mt-6 flex flex-col items-center gap-x-6 gap-y-1.5 sm:flex-row sm:justify-between">
+        {showButtonAlreadyHaveProfile ? (
+          <AlreadyHaveProfileDialog />
+        ) : (
+          <div>{/* this is intentionally empty to maintain layout */}</div>
+        )}
         <Link
           mode="solid"
           href={paths.registrationExperience({

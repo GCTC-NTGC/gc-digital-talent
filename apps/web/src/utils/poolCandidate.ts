@@ -87,8 +87,8 @@ export const applicationStatusLabels = defineMessages({
   },
   DRAFT: {
     defaultMessage: "Draft",
-    id: "QDjfw4",
-    description: "Status label for a draft application",
+    id: "fRyPvR",
+    description: "Item's state is draft",
   },
   RECEIVED: {
     defaultMessage: "Received",

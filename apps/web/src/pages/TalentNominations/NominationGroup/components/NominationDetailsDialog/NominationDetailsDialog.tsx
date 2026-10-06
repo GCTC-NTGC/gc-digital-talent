@@ -175,7 +175,11 @@ const NominationDetailsDialog = ({
           <RationaleAndAdditionalCommentsSection query={nomination} />
           <Dialog.Footer className="flex-col gap-x-6 gap-y-6 xs:flex-row">
             <Button onClick={() => setIsOpen(false)}>
-              {intl.formatMessage(commonMessages.okay)}
+              {intl.formatMessage({
+                defaultMessage: "Okay",
+                id: "91hRYX",
+                description: "Proceed with the current action",
+              })}
             </Button>
             <Button
               mode="inline"

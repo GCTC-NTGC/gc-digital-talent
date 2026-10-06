@@ -7,14 +7,17 @@ import toLocalizedString from "./fakeLocalizedString";
 export default (): GeneralQuestion[] => {
   return [
     {
+      __typename: "GeneralQuestion",
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },
     {
+      __typename: "GeneralQuestion",
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },
     {
+      __typename: "GeneralQuestion",
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },

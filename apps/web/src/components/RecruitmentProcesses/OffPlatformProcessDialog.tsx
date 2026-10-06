@@ -377,7 +377,11 @@ const OffPlatformProcessDialog = ({
                 <Combobox
                   id="department"
                   name="department"
-                  label={intl.formatMessage(commonMessages.organization)}
+                  label={intl.formatMessage({
+                    defaultMessage: "Organization",
+                    id: "Phlp8j",
+                    description: "Label displayed for organization input",
+                  })}
                   options={objectsToSortedOptions(departments, intl)}
                   doNotSort
                 />

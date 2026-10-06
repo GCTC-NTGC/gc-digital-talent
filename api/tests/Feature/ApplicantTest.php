@@ -177,7 +177,7 @@ class ApplicantTest extends TestCase
     public function testStatusWeight(): void
     {
         // test generated property that exists on type PoolCandidate from model PoolCandidate.php
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create();
+        $pool = Pool::factory()->create();
 
         $candidate = PoolCandidate::factory()->create([
             'pool_id' => $pool->id,
@@ -301,9 +301,7 @@ class ApplicantTest extends TestCase
     public function testSortingStatusThenPriority(): void
     {
         $user = User::All()->first();
-        $pool1 = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $user['id'],
-        ]);
+        $pool1 = Pool::factory()->create();
 
         // DRAFT, NOT PRESENT
         $candidateOne = PoolCandidate::factory()->create([
@@ -432,9 +430,7 @@ class ApplicantTest extends TestCase
     public function testNullFilterEqualsUndefinedPoolCandidate()
     {
         // setup
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $this->adminUser->id,
-        ]);
+        $pool = Pool::factory()->create();
         User::factory()
             ->count(60)
             ->afterCreating(function (User $user) use ($pool) {
@@ -520,9 +516,7 @@ class ApplicantTest extends TestCase
 
     public function testEmploymentEquity(): void
     {
-        $itPool = Pool::factory()->candidatesAvailableInSearch()->create([
-            'user_id' => $this->adminUser->id,
-        ]);
+        $itPool = Pool::factory()->create();
 
         $disabledUser = User::factory()->create([
             'has_disability' => true,

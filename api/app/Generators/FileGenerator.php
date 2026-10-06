@@ -2,9 +2,11 @@
 
 namespace App\Generators;
 
+use App\Generators\Field\Field;
 use App\Support\FilePath;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class FileGenerator
@@ -17,7 +19,33 @@ class FileGenerator
 
     protected string $diskName = FilePath::GUARDED_DISK;
 
+    /** @var array<string, true> */
+    protected array $loggedFields = [];
+
     public function __construct(protected string $fileName, protected ?string $dir) {}
+
+    /**
+     * Render a field, reporting the first failure of each heading
+     *
+     * @param  mixed  $context  Passed to the visibility condition and the accessor
+     */
+    public function render(Field $field, mixed $context, ?string $default = ''): string
+    {
+        try {
+            return $field->resolve($context, $this->lang, $default);
+        } catch (\Throwable $e) {
+            if (! isset($this->loggedFields[$field->heading])) {
+                $this->loggedFields[$field->heading] = true;
+                Log::channel('jobs')->error('Field rendering failed', [
+                    'field' => $field->heading,
+                    'message' => $e->getMessage(),
+                    'file' => $this->getFileNameWithExtension(),
+                ]);
+            }
+
+            return $default ?? '';
+        }
+    }
 
     public function getFileName(): string
     {

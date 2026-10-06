@@ -16,12 +16,14 @@ const generateAssessmentStep = (
   poolSkills?: (PoolSkill | null)[],
 ): AssessmentStep => {
   return {
+    __typename: "AssessmentStep",
     id: faker.string.uuid(),
     type: toLocalizedEnum(
       type ??
         faker.helpers.arrayElement<AssessmentStepType>(
           Object.values(AssessmentStepType),
         ),
+      "LocalizedAssessmentStepType",
     ),
     sortOrder:
       sortOrder ??

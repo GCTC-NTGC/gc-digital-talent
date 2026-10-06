@@ -1,4 +1,4 @@
-import type { Download } from "@playwright/test";
+import { expect, type Download } from "@playwright/test";
 
 import AppPage from "./AppPage";
 
@@ -50,19 +50,29 @@ class PoolCandidatePage extends AppPage {
       .getByRole("menuitem", { name: /download profiles excel/i })
       .click();
 
-    // Give server time to generate file
-    // eslint-disable-next-line playwright/no-wait-for-timeout
-    await this.page.waitForTimeout(1500);
-
     const now = new Date();
     const today = now.toISOString().split("T")[0];
+
+    if (process.env.TESTING_ENDPOINT_SECRET) {
+      await expect(
+        this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
+      ).toBeVisible({ timeout: 90_000 });
+    }
 
     await this.page
       .getByRole("button", { name: /view notifications/i })
       .click();
     await this.waitForGraphqlResponse("NotificationDialog");
-    await this.page.getByRole("button", { name: /refresh/i }).click();
-    await this.waitForGraphqlResponse("NotificationDialog");
+    await expect(async () => {
+      await this.page.getByRole("button", { name: /refresh/i }).click();
+      await this.waitForGraphqlResponse("NotificationDialog");
+      await expect(
+        this.page
+          .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
+          .first(),
+      ).toBeVisible();
+    }).toPass({ timeout: 90_000 });
+
     await this.page
       .getByRole("link", { name: new RegExp(`profiles_${today}`, "i") })
       .first()

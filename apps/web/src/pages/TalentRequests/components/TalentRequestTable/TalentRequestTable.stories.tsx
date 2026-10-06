@@ -40,10 +40,9 @@ export default {
           classifications: fakeClassifications(),
           departments: fakeDepartments(),
           workStreams: fakeWorkStreams(),
-          statuses: Object.values(TalentRequestStatus).map((status) => ({
-            __typename: "LocalizedTalentRequestStatus" as const,
-            ...toLocalizedEnum(status),
-          })),
+          statuses: Object.values(TalentRequestStatus).map((status) =>
+            toLocalizedEnum(status, "LocalizedTalentRequestStatus"),
+          ),
         },
       },
     },

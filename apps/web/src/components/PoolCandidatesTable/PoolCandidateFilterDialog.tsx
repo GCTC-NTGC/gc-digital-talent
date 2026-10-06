@@ -131,14 +131,6 @@ const PoolCandidateFilterDialog_Query = graphql(/* GraphQL */ `
         }
       }
     }
-    publishingGroups: localizedEnumOptions(enumName: "PublishingGroup") {
-      ... on LocalizedPublishingGroup {
-        value
-        label {
-          localized
-        }
-      }
-    }
     referralFilters: localizedEnumOptions(enumName: "CandidateReferralFilter") {
       ... on LocalizedCandidateReferralFilter {
         value
@@ -264,7 +256,7 @@ const PoolCandidateFilterDialog = ({
     >
       {!hidePoolFilter ? (
         <>
-          <Heading level="h3" size="h5" className="mt-0 mb-6 font-bold">
+          <Heading rank="h3" size="h5" className="mt-0 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Process filters",
               id: "+dlRCu",
@@ -273,18 +265,6 @@ const PoolCandidateFilterDialog = ({
             })}
           </Heading>
           <div className="mb-6 grid gap-6 xs:grid-cols-2">
-            <Checklist
-              idPrefix="publishingGroups"
-              name="publishingGroups"
-              legend={intl.formatMessage(adminMessages.publishingGroups)}
-              items={narrowEnumType(
-                unpackMaybes(data?.publishingGroups),
-                "PublishingGroup",
-              ).map((publishingGroup) => ({
-                value: publishingGroup.value,
-                label: publishingGroup.label?.localized ?? notAvailable,
-              }))}
-            />
             <Select
               id="community"
               name="community"
@@ -330,7 +310,7 @@ const PoolCandidateFilterDialog = ({
       )}
 
       <Heading
-        level="h3"
+        rank="h3"
         size="h5"
         className={`${!hidePoolFilter ? "mt-12" : "mt-0"} mb-6 font-bold`}
       >
@@ -386,6 +366,7 @@ const PoolCandidateFilterDialog = ({
               value: String(step.sortOrder ?? 0),
               label:
                 // NOTE: we do want to pass on empty strings
+
                 // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
                 (step.title?.localized || step.type?.label.localized) ??
                 notAvailable,
@@ -456,7 +437,7 @@ const PoolCandidateFilterDialog = ({
         name="referralStatuses"
         isMulti
         doNotSort
-        label={intl.formatMessage(tableMessages.referralStatus)}
+        label={intl.formatMessage(commonMessages.referralStatus)}
         options={narrowEnumType(
           unpackMaybes(data?.referralFilters),
           "CandidateReferralFilter",
@@ -466,7 +447,7 @@ const PoolCandidateFilterDialog = ({
         }))}
       />
 
-      <Heading level="h3" size="h5" className="mt-12 mb-6 font-bold">
+      <Heading rank="h3" size="h5" className="mt-12 mb-6 font-bold">
         {intl.formatMessage({
           defaultMessage: "Profile filters",
           id: "WqxVxb",

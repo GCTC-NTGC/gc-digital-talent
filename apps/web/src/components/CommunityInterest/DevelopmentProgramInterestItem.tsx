@@ -12,7 +12,6 @@ import {
   getFragment,
   graphql,
 } from "@gc-digital-talent/graphql";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { IconType } from "@gc-digital-talent/ui";
 import { formatDate, parseDateTimeUtc } from "@gc-digital-talent/date-helpers";
 
@@ -29,7 +28,11 @@ const useStatusInfo = (
 
   const defaultStatusInfo = {
     Icon: ExclamationCircleIcon,
-    message: intl.formatMessage(commonMessages.missingInformation),
+    message: intl.formatMessage({
+      defaultMessage: "Missing information",
+      id: "MuM7SN",
+      description: "Message for when specific item has missing information",
+    }),
   };
 
   if (!status) {

@@ -44,6 +44,40 @@ class LogUtilTest extends TestCase
         $this->assertStringNotContainsString('letmein', $result);
     }
 
+    public function testCleanArrayMasksRefreshToken()
+    {
+        $result = LogUtil::cleanArray([
+            'grant_type' => 'refresh_token',
+            'refresh_token' => 'real-refresh-token',
+        ]);
+
+        $decoded = json_decode($result, true);
+        $this->assertSame('refresh_token', $decoded['grant_type']);
+        $this->assertSame('******************', $decoded['refresh_token']);
+        $this->assertStringNotContainsString('real-refresh-token', $result);
+    }
+
+    public function testCleanArrayMasksIntrospectionToken()
+    {
+        $result = LogUtil::cleanArray([
+            'client_id' => 'client',
+            'token' => 'real-access-token',
+        ]);
+
+        $decoded = json_decode($result, true);
+        $this->assertSame('client', $decoded['client_id']);
+        $this->assertSame('*****************', $decoded['token']);
+        $this->assertStringNotContainsString('real-access-token', $result);
+    }
+
+    public function testCleanArrayHandlesNullSensitiveValues()
+    {
+        $result = LogUtil::cleanArray(['refresh_token' => null]);
+
+        $decoded = json_decode($result, true);
+        $this->assertNull($decoded['refresh_token']);
+    }
+
     public function testCleanArrayLeavesOtherKeysUntouched()
     {
         $result = LogUtil::cleanArray(['code' => 'abc123', 'redirect_uri' => 'https://example.com']);

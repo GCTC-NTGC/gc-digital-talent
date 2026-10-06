@@ -21,20 +21,20 @@ interface WorkStreamCommunity {
   name?: LocalizedString | null;
 }
 
-interface WorkStreamsContentWorkStream {
+export interface ExperienceWorkStream {
   id: string;
   name?: LocalizedString | null;
   community?: WorkStreamCommunity | null;
 }
 
 interface WorkStreamsContentProps {
-  workStreams?: WorkStreamsContentWorkStream[] | null;
-  headingLevel?: HeadingRank;
+  workStreams?: ExperienceWorkStream[] | null;
+  headingRank?: HeadingRank;
 }
 
 const WorkStreamContent = ({
   workStreams,
-  headingLevel = "h3",
+  headingRank = "h3",
 }: WorkStreamsContentProps) => {
   const intl = useIntl();
 
@@ -76,7 +76,7 @@ const WorkStreamContent = ({
     <>
       <Separator decorative space="sm" />
       <ContentSection
-        headingLevel={headingLevel}
+        headingRank={headingRank}
         title={intl.formatMessage(pageTitles.workStreams)}
       >
         <Ul>

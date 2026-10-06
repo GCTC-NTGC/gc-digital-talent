@@ -32,8 +32,8 @@ const Display = ({
     department,
     workStream,
     name,
-    publishingGroup,
     opportunityLength,
+    isHidden,
   } = pool;
 
   let selectionLimitationLabelMessage: MessageDescriptor =
@@ -80,7 +80,11 @@ const Display = ({
                       <CheckCircleIcon
                         className="h-4.5 text-success dark:text-success-200"
                         aria-hidden="false"
-                        aria-label={intl.formatMessage(commonMessages.selected)}
+                        aria-label={intl.formatMessage({
+                          defaultMessage: "Selected",
+                          id: "W9zlhl",
+                          description: "Label when an item is selected",
+                        })}
                       />
                     ) : (
                       <XCircleIcon
@@ -152,10 +156,19 @@ const Display = ({
           {getLocalizedName(opportunityLength?.label, intl)}
         </ToggleForm.FieldDisplay>
         <ToggleForm.FieldDisplay
-          hasError={!publishingGroup}
-          label={intl.formatMessage(processMessages.publishingGroup)}
+          label={intl.formatMessage(processMessages.hiddenProcess)}
         >
-          {getLocalizedName(publishingGroup?.label, intl)}
+          {isHidden
+            ? intl.formatMessage({
+                defaultMessage: "Hidden",
+                id: "PT/mOx",
+                description: "Label for when a process is hidden",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Not hidden",
+                id: "n27x+U",
+                description: "Label for when a process is not hidden",
+              })}
         </ToggleForm.FieldDisplay>
       </div>
     </>

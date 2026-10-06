@@ -4,7 +4,7 @@ Sometimes it may be preferable to perform local environment maintenance directly
 
 ## Operating system
 
-This guide is written for [Ubuntu 24.04](https://releases.ubuntu.com/noble/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work when using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
+This guide is written for [Ubuntu 26.04](https://releases.ubuntu.com/resolute/). Since that is the operating system used in the maintenance container, Github runners, and Azure runners it is a good choice of OS for this. This guide will also work when using [Ubuntu in WSL](https://canonical-ubuntu-wsl.readthedocs-hosted.com/en/latest/guides/install-ubuntu-wsl2/). Other Ubuntu variants or Linux distributions may work as well but are not documented here.
 
 Double check:
 
@@ -12,9 +12,19 @@ Double check:
 lsb_release -a
 ```
 
+## Git
+
+[Git](https://git-scm.com/) can be installed with `sudo apt install git`. 
+
+Double-check:
+
+```
+git -v
+```
+
 ## Clone the repository
 
-[Git](https://git-scm.com/) should have been installed with your operating system automatically. Clone the repository from GitHub and change into the directory.
+Clone the repository from GitHub and change into the directory.
 
 ```
 git clone https://github.com/GCTC-NTGC/gc-digital-talent.git
@@ -34,7 +44,7 @@ You should see the same list of files visible in [the github repository online](
 [Docker Compose](https://docs.docker.com/compose/) is used to run the services for this app. You may have to install Compose version 2 manually.
 
 ```
-sudo apt-get install docker-compose-v2
+sudo apt install docker-compose-v2
 ```
 
 Double-check:
@@ -55,6 +65,9 @@ Double-check:
 ```
 groups
 ```
+
+> [!IMPORTANT]
+> Restart your computer at this point to complete the Docker setup.  Otherwise, you will likely get Unix socket permission errors when trying to use the tool.
 
 ## Hosts file
 
@@ -97,7 +110,7 @@ Further reading: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#networ
 We'll need the [PostgreSQL](https://www.postgresql.org/) client to build the database schema. Install it from the regular Ubuntu repository.
 
 ```
-sudo apt-get install postgresql-client
+sudo apt install postgresql-client
 ```
 
 Double check:
@@ -110,11 +123,16 @@ The version should be greater or equal to the version of `services.postgres.imag
 
 ## PHP
 
-We use [PHP](https://www.php.net/) version 8.4 to run the backend app. Ubuntu 24.04 comes with PHP 8.3 so we'll use the Ondrej PPA to install the version we need. We also require some additional extensions to be installed.
+We use [PHP](https://www.php.net/) version 8.4 to run the backend app. Ubuntu 26.04 comes with PHP 8.5 so we'll use the Ondrej PPA to install the version we need. We also require some additional extensions to be installed.  (Instructions based on https://packages.sury.org/php/README.txt)
 
 ```
-sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-sudo apt-get install php8.4 php8.4-cli php8.4-mbstring php8.4-xml php8.4-pgsql php8.4-zip php8.4-curl php8.4-bcmath php8.4-gd php8.4-dom php8.4-intl
+sudo apt-get -y install lsb-release ca-certificates curl
+sudo curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb
+sudo dpkg -i /tmp/debsuryorg-archive-keyring.deb
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+sudo apt-get update
+
+sudo apt install php8.4 php8.4-cli php8.4-mbstring php8.4-xml php8.4-pgsql php8.4-zip php8.4-curl php8.4-bcmath php8.4-gd php8.4-dom php8.4-intl php8.4-xdebug
 ```
 
 Double check:
@@ -131,7 +149,7 @@ The PHP version should match the value of `require.php` in [api/composer.json](h
 We use [Composer](https://getcomposer.org/) to manage our PHP project.
 
 ```
-sudo apt-get install composer
+sudo apt install composer
 ```
 
 Double check:
@@ -197,7 +215,7 @@ pnpm --version
 A separate `make` file named [Makefile.nix](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/Makefile.nix) is provided for convenience and reference when running on Linux. Install it from the repository.
 
 ```
-sudo apt-get install make
+sudo apt install make
 ```
 
 Double check:

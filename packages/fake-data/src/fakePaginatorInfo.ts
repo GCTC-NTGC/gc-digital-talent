@@ -8,6 +8,7 @@ export default function (
   const lastPage = Math.ceil(total / perPage);
 
   return {
+    __typename: "PaginatorInfo",
     count: perPage,
     currentPage,
     perPage,

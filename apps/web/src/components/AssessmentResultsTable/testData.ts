@@ -26,12 +26,13 @@ const assessmentSteps = unpackMaybes(poolCandidate.pool.assessmentSteps);
 
 const makeTestPoolSkill = (type: PoolSkillType) => ({
   id: faker.string.uuid(),
-  type: toLocalizedEnum(type),
+  type: toLocalizedEnum(type, "LocalizedPoolSkillType"),
   requiredLevel: SkillLevel.Beginner,
   skill: {
     ...fakeSkills(1)[0],
     id: faker.string.uuid(),
     name: {
+      __typename: "LocalizedString" as const,
       en: `EN ${faker.lorem.word()}`,
       fr: `FR ${faker.lorem.word()}`,
     },
@@ -47,7 +48,7 @@ const makeTestAssessmentStep = (
 ) => ({
   ...assessmentSteps[0],
   id: faker.string.uuid(),
-  type: toLocalizedEnum(type),
+  type: toLocalizedEnum(type, "LocalizedAssessmentStepType"),
   sortOrder,
   poolSkills,
 });
@@ -70,10 +71,13 @@ const getAssessmentResult = (
   poolSkill?: TestPoolSkill,
 ) => ({
   ...fakeAssessmentResults(1)[0],
-  assessmentDecision: decision ? toLocalizedEnum(decision) : undefined,
+  assessmentDecision: decision
+    ? toLocalizedEnum(decision, "LocalizedAssessmentDecision")
+    : undefined,
   assessmentResultType: type ?? AssessmentResultType.Skill,
   assessmentDecisionLevel: toLocalizedEnum(
     level ?? AssessmentDecisionLevel.AtRequired,
+    "LocalizedAssessmentDecisionLevel",
   ),
   poolSkill: poolSkill ?? essentialPoolSkills[0],
   assessmentStep,
@@ -98,10 +102,10 @@ const applicationScreeningResults = [
 ];
 
 const experience = fakeExperiences(1)[0];
-const experiencePoolSkill = fakePoolSkills(1)[0];
-if (experiencePoolSkill.skill) {
-  experience.skills?.push(experiencePoolSkill?.skill);
-}
+const experiencePoolSkill = {
+  ...fakePoolSkills(1)[0],
+  skill: experience.skills[0],
+};
 
 /* Screening questions step (Unsuccessful status) */
 export const screeningQuestionsStep = makeTestAssessmentStep(
@@ -168,7 +172,7 @@ export const testPoolCandidate = {
       fakeUserSkills(1, essentialPoolSkills[1].skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[0].skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[1].skill)[0],
-      fakeUserSkills(1, experiencePoolSkill.skill!)[0],
+      fakeUserSkills(1, experiencePoolSkill.skill)[0],
     ],
     experiences: [experience],
   },

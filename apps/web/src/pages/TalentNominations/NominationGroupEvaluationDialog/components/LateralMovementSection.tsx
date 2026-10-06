@@ -167,7 +167,7 @@ const LateralMovementSection = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <Heading level="h3" size="h6" className="m-0 font-normal">
+      <Heading rank="h3" size="h6" className="m-0 font-normal">
         {intl.formatMessage({
           defaultMessage: "Nomination for lateral movement",
           id: "rPUWP5",

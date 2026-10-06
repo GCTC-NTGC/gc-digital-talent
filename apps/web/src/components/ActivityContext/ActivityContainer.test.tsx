@@ -10,7 +10,6 @@ import ActivityContainer from "./ActivityContainer";
 const mocks = vi.hoisted(() => ({
   logout: vi.fn(),
   loggedIn: true,
-  activityTimer: true,
   // A stable object identity, distinct from any real timers implementation,
   // so the test can prove this exact value was the one passed through.
   workerTimersSentinel: { __mock: "workerTimers" },
@@ -40,7 +39,6 @@ vi.mock("@gc-digital-talent/env", async (importOriginal) => {
   const actual = await importOriginal<typeof GcdtEnv>();
   return {
     ...actual,
-    useFeatureFlags: () => ({ activityTimer: mocks.activityTimer }),
   };
 });
 
@@ -55,16 +53,7 @@ describe("ActivityContainer", () => {
   beforeEach(() => {
     mocks.logout.mockReset();
     mocks.loggedIn = true;
-    mocks.activityTimer = true;
     mocks.idleTimerOptions = undefined;
-  });
-
-  it("does not wire up the idle timer when the feature flag is off", () => {
-    mocks.activityTimer = false;
-
-    renderActivityContainer();
-
-    expect(mocks.idleTimerOptions).toBeUndefined();
   });
 
   it("configures react-idle-timer with worker timers, not the main-thread default", () => {

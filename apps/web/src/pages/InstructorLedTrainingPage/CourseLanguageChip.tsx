@@ -14,7 +14,11 @@ const CourseLanguageChip = ({
     case CourseLanguage.Bilingual:
       return (
         <Chip color="error">
-          {intl.formatMessage(commonMessages.bilingual)}
+          {intl.formatMessage({
+            defaultMessage: "Bilingual",
+            id: "AFPD79",
+            description: "Label for bilingual",
+          })}
         </Chip>
       );
     case CourseLanguage.English:

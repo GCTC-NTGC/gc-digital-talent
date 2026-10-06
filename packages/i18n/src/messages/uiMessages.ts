@@ -131,6 +131,26 @@ const uiMessages = defineMessages({
     id: "nqYfCF",
     description: "Label for count and total",
   },
+  loadingTitle: {
+    defaultMessage: "Loading",
+    id: "o/6zAs",
+    description: "Title displayed for a table initial loading state.",
+  },
+  loadingError: {
+    defaultMessage: "Oh no…",
+    id: "GtVkbt",
+    description: "Title displayed for a table error loading state.",
+  },
+  asterisk: {
+    defaultMessage: "*",
+    id: "nSENOg",
+    description: "Asterisk symbol",
+  },
+  dismiss: {
+    defaultMessage: "Dismiss",
+    id: "FO4QJP",
+    description: "Label for action to dismiss something",
+  },
 });
 
 export default uiMessages;

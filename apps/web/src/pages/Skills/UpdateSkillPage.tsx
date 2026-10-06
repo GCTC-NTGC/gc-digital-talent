@@ -203,7 +203,7 @@ export const UpdateSkillForm = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="mb-18">
           <Heading
-            level="h2"
+            rank="h2"
             color="secondary"
             icon={IdentificationIcon}
             center

@@ -93,6 +93,9 @@ jobs:
       - name: Start queue for downloads
         run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work --queue=default,default-low" &
 
+      - name: Start reverb
+        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start" &
+
       - name: Run Tests
         run: pnpm run e2e:playwright --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 

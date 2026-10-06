@@ -28,14 +28,14 @@ interface CareerTimelineSectionProps {
   >[];
   editParam?: string;
   showEdit?: boolean;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
   userId?: string;
 }
 
 const CareerTimelineSection = ({
   experiencesQuery,
   editParam,
-  headingLevel = "h3",
+  headingRank = "h3",
   showEdit = true,
   userId,
 }: CareerTimelineSectionProps) => {
@@ -88,7 +88,7 @@ const CareerTimelineSection = ({
           {hasExperiencesByType ? (
             experienceList.map((experience) => (
               <ExperienceCard
-                headingLevel={headingLevel}
+                headingRank={headingRank}
                 key={experience.id}
                 experienceQuery={experience}
                 editParam={editParam}

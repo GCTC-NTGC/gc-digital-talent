@@ -106,7 +106,6 @@ interface StatusItemProps {
   onScrollTo?: ComponentProps<typeof ScrollToLink>["onScrollTo"];
   hiddenContextPrefix?: string;
   asListItem?: boolean;
-  itemCount?: number;
   layout?: Layout;
 }
 
@@ -121,7 +120,6 @@ const StatusItem = ({
   onScrollTo,
   hiddenContextPrefix,
   asListItem = true,
-  itemCount,
   layout = "compact",
 }: StatusItemProps) => {
   let Icon: IconType | null | undefined;
@@ -184,7 +182,6 @@ const StatusItem = ({
     <Wrapper className={base()}>
       <span className="flex gap-3">
         {Icon && <Icon className={iconStyles()} />}
-
         <StatusItemTitle
           href={href}
           scrollTo={scrollTo}
@@ -195,8 +192,6 @@ const StatusItem = ({
           {combinedTitle}
         </StatusItemTitle>
       </span>
-
-      {itemCount && <span>{itemCount}</span>}
     </Wrapper>
   );
 };

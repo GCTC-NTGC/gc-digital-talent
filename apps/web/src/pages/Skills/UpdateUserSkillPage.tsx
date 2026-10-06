@@ -609,7 +609,7 @@ export const UpdateUserSkillForm = ({
                     <ExperienceCard
                       key={experience.id}
                       experienceQuery={experience}
-                      headingLevel="h3"
+                      headingRank="h3"
                       editMode="dialog"
                       showSkills={skill}
                       linkTo={skill}

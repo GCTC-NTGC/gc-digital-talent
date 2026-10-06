@@ -25,6 +25,7 @@ import {
 } from "@gc-digital-talent/i18n";
 import {
   DATE_FORMAT_LOCALIZED,
+  TZ_VANCOUVER,
   formatDate,
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
@@ -138,7 +139,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
       <Card className="grid gap-6 sm:grid-cols-2">
         <div className="col-span-2 flex items-center justify-between">
           <Heading
-            level="h2"
+            rank="h2"
             icon={QueueListIcon}
             color="primary"
             className="m-0"
@@ -264,12 +265,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
         <div className="sm:col-span-2">
           <CardSeparator space="none" decorative />
         </div>
-        <Heading
-          level="h3"
-          color="primary"
-          className="col-span-2 m-0"
-          size="h6"
-        >
+        <Heading rank="h3" color="primary" className="col-span-2 m-0" size="h6">
           {intl.formatMessage({
             defaultMessage: "Nomination settings",
             id: "cM66Sh",
@@ -306,7 +302,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.openDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_VANCOUVER,
                     })
                   : intl.formatMessage(commonMessages.notProvided),
                 closeDate: talentEvent.closeDate
@@ -314,7 +310,7 @@ const TalentEventDetails = ({ query }: TalentEventDetailsProps) => {
                       date: parseDateTimeUtc(talentEvent.closeDate),
                       formatString: DATE_FORMAT_LOCALIZED,
                       intl,
-                      timeZone: "Canada/Pacific",
+                      timeZone: TZ_VANCOUVER,
                     })
                   : intl.formatMessage(commonMessages.notProvided),
               },

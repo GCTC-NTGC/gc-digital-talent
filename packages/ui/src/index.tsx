@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 
-import type { Color, HeadingRank, IconType, IconProps } from "./types";
+import type { Color, IconType, IconProps } from "./types";
 import Accordion, {
   type AccordionMetaData,
 } from "./components/Accordion/Accordion";
@@ -35,7 +35,7 @@ import DropdownMenu from "./components/DropdownMenu/DropdownMenu";
 import Flourish from "./components/Flourish/Flourish";
 import type {
   HeadingProps,
-  HeadingLevel,
+  HeadingRank,
   HeadingRef,
 } from "./components/Heading";
 import Heading from "./components/Heading";
@@ -112,7 +112,6 @@ import TaskCard from "./components/TaskCard/TaskCard";
 
 export type {
   Color,
-  HeadingRank,
   AccordionMetaData,
   AlertProps,
   BreadcrumbsProps,
@@ -122,7 +121,7 @@ export type {
   CTAButtonProps,
   CTALinkProps,
   HeadingProps,
-  HeadingLevel,
+  HeadingRank,
   HeadingRef,
   DownloadCsvProps,
   LinkProps,

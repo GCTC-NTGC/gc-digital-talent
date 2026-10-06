@@ -5,6 +5,7 @@
     "module": "ESNext",
     "lib": [
       "ES2022",
+      "ES2023",
       "DOM",
       "DOM.Iterable"
     ],
@@ -19,6 +20,7 @@
     "skipLibCheck": true,
     "verbatimModuleSyntax": true,
     "allowImportingTsExtensions": true,
+    "noEmit": true,
     "types": [
       "node",
       "vitest/globals",

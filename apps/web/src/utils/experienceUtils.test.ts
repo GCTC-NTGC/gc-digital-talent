@@ -19,27 +19,33 @@ describe("experience utils test", () => {
     );
 
     // test undefined and nulls do not throw errors, but return a falsy value
-    fakeAward.awardedDate = undefined;
-    expect(getExperienceDate(fakeAward, intl)).toBe(undefined);
+    expect(
+      getExperienceDate({ ...fakeAward, awardedDate: undefined }, intl),
+    ).toBe(undefined);
 
-    fakeAward.awardedDate = null;
-    expect(getExperienceDate(fakeAward, intl)).toBe(undefined);
+    expect(getExperienceDate({ ...fakeAward, awardedDate: null }, intl)).toBe(
+      undefined,
+    );
 
-    fakeWork.startDate = undefined;
-    fakeWork.endDate = undefined;
-    expect(getExperienceDate(fakeWork, intl)).toBe("");
+    expect(
+      getExperienceDate(
+        { ...fakeWork, startDate: undefined, endDate: undefined },
+        intl,
+      ),
+    ).toBe("");
 
-    fakeWork.startDate = null;
-    fakeWork.endDate = null;
-    expect(getExperienceDate(fakeWork, intl)).toBe("");
+    expect(
+      getExperienceDate({ ...fakeWork, startDate: null, endDate: null }, intl),
+    ).toBe("");
 
     // empty string case
-    fakeAward.awardedDate = "";
-    expect(getExperienceDate(fakeAward, intl)).toBe(undefined);
+    expect(getExperienceDate({ ...fakeAward, awardedDate: "" }, intl)).toBe(
+      undefined,
+    );
 
-    fakeWork.startDate = "";
-    fakeWork.endDate = "";
-    expect(getExperienceDate(fakeWork, intl)).toBe("");
+    expect(
+      getExperienceDate({ ...fakeWork, startDate: "", endDate: "" }, intl),
+    ).toBe("");
   });
 
   describe("experience duration", () => {
@@ -57,12 +63,11 @@ describe("experience utils test", () => {
     const fakeCommunityExperience = (
       startDate: string,
       endDate: string | null,
-    ) => {
-      const e = experienceGenerators.communityExperiences(1)[0];
-      e.startDate = startDate;
-      e.endDate = endDate;
-      return e;
-    };
+    ) => ({
+      ...experienceGenerators.communityExperiences(1)[0],
+      startDate,
+      endDate,
+    });
 
     test("award experience", () => {
       const experience = fakeAwardExperience("1970-01-01");

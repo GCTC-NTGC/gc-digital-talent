@@ -47,7 +47,7 @@ const RationaleAndAdditionalCommentsSection = ({
 
   return (
     <div>
-      <Heading level="h3" size="h6" className="mt-0 mb-6">
+      <Heading rank="h3" size="h6" className="mt-0 mb-6">
         {intl.formatMessage({
           defaultMessage: "Rationale and additional comments",
           id: "LA0AM1",

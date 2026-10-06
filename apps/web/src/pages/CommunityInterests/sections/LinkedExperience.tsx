@@ -61,7 +61,7 @@ const LinkedExperience = ({
       </DropdownMenu.Root>
       <div className="flex flex-col items-start gap-3">
         <Heading
-          level={headingAs}
+          rank={headingAs}
           size="h6"
           className="mt-0 mb-0 text-base font-bold"
         >

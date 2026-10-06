@@ -20,7 +20,6 @@ import flourishBottomDark from "~/assets/img/browse_bottom_dark.webp";
 
 import ActiveRecruitmentSection from "./components/ActiveRecruitmentSection/ActiveRecruitmentSection";
 import FooterCard from "./components/FooterCard/FooterCard";
-import { canShowOnBrowseJobs } from "./utils";
 import ConversionFeatures from "./components/ConversionFeatures/ConversionFeatures";
 
 const flourish = tv({
@@ -36,19 +35,12 @@ const flourish = tv({
 const OpenJobsPage_Query = graphql(/* GraphQL */ `
   query OpenJobsPage {
     poolsPaginated(
-      where: { statuses: [PUBLISHED] }
+      where: { statuses: [PUBLISHED], isHidden: false }
       first: 500
       orderBy: { column: "closing_date", order: ASC }
     ) {
       data {
         id
-        publishingGroup {
-          value
-          label {
-            en
-            fr
-          }
-        }
         status {
           value
           label {
@@ -91,9 +83,7 @@ export const Component = () => {
   });
 
   const activeRecruitmentPools = pools.filter(
-    (p) =>
-      p.status?.value === PoolStatus.Published && // list jobs which have the PUBLISHED PoolStatus
-      canShowOnBrowseJobs(p.publishingGroup?.value),
+    (p) => p.status?.value === PoolStatus.Published, // list jobs which have the PUBLISHED PoolStatus
   );
 
   // a different footer message is displayed if there are opportunities showing, otherwise a null state message is used

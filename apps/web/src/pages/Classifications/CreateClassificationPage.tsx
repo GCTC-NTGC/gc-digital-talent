@@ -112,7 +112,7 @@ export const CreateClassification = () => {
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <Card className="mb-18">
           <Heading
-            level="h2"
+            rank="h2"
             color="secondary"
             icon={CloudIcon}
             className="mt-0 xs:justify-start xs:text-left"

@@ -191,13 +191,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
         }
       }
       closingDate
-      publishingGroup {
-        value
-        label {
-          en
-          fr
-        }
-      }
       language {
         value
         label {

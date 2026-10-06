@@ -210,6 +210,67 @@ class AuthControllerTest extends TestCase
         $this->assertSame('duplicate@gc.ca', $newUser->work_email);
     }
 
+    public function testExistingUserEmailIsTakenCaseInsensitively()
+    {
+        $this->seed(RolePermissionSeeder::class);
+
+        $existingUser = User::factory()->create([
+            'sub' => 'oldsub',
+            'email' => 'Duplicate@GC.ca',
+            'work_email' => 'DUPLICATE@gc.ca',
+        ]);
+
+        $this->loginWithIdTokenClaims([
+            'sub' => 'newsub',
+            'nonce' => 'dup',
+            'state' => 'dup',
+            'email' => 'duplicate@gc.ca',
+        ]);
+
+        // The existing user's email should be backed up with its original casing
+        $existingUser->refresh();
+        $this->assertNull($existingUser->email);
+        $this->assertNull($existingUser->work_email);
+        $this->assertSame('Duplicate@GC.ca', $existingUser->email_backup);
+        $this->assertSame('DUPLICATE@gc.ca', $existingUser->work_email_backup);
+
+        // The new user should have the incoming email
+        $newUser = User::where('sub', 'newsub')->sole();
+        $this->assertSame('duplicate@gc.ca', $newUser->email);
+        $this->assertSame('duplicate@gc.ca', $newUser->work_email);
+    }
+
+    public function testEmailWithLikeWildcardsDoesNotTakeSimilarEmail()
+    {
+        $this->seed(RolePermissionSeeder::class);
+
+        // "_" would match any single character in a LIKE pattern
+        $existingUser = User::factory()->create([
+            'sub' => 'oldsub',
+            'email' => 'axb@gc.ca',
+            'work_email' => 'axb@gc.ca',
+        ]);
+
+        $this->loginWithIdTokenClaims([
+            'sub' => 'newsub',
+            'nonce' => 'dup',
+            'state' => 'dup',
+            'email' => 'a_b@gc.ca',
+        ]);
+
+        // The existing user's email should be untouched
+        $existingUser->refresh();
+        $this->assertSame('axb@gc.ca', $existingUser->email);
+        $this->assertSame('axb@gc.ca', $existingUser->work_email);
+        $this->assertNull($existingUser->email_backup);
+        $this->assertNull($existingUser->work_email_backup);
+
+        // The new user should still get the incoming email
+        $newUser = User::where('sub', 'newsub')->sole();
+        $this->assertSame('a_b@gc.ca', $newUser->email);
+        $this->assertSame('a_b@gc.ca', $newUser->work_email);
+    }
+
     public function testMismatchedSessionStateRedirectsToLoggedOutWithoutError()
     {
         Http::fake();
@@ -262,30 +323,44 @@ class AuthControllerTest extends TestCase
         });
     }
 
-    public function testRefreshStillAcceptsLegacyGetQueryParam()
+    public function testRefreshRejectsGetMethod()
     {
-        Http::fake([
-            '*' => Http::response(['access_token' => 'new-access-token', 'refresh_token' => 'new-refresh-token'], 200),
-        ]);
+        Http::fake();
 
         $response = $this->call('GET', '/refresh', ['refresh_token' => 'old-refresh-token']);
 
-        $response->assertStatus(200);
+        $response->assertStatus(405);
+        Http::assertNothingSent();
+    }
 
-        Http::assertSent(function ($request) {
-            return $request['refresh_token'] === 'old-refresh-token';
-        });
+    public function testRefreshIgnoresTokenPassedAsQueryParamOnPost()
+    {
+        Http::fake();
+
+        $response = $this->post('/refresh?refresh_token=old-refresh-token');
+
+        $response->assertStatus(400);
+        Http::assertNothingSent();
     }
 
     public function testRefreshFailsWhenTokenIsMissing()
     {
-        Http::fake([
-            '*' => Http::response(['error' => 'invalid_grant'], 400),
-        ]);
+        Http::fake();
 
         $response = $this->postJson('/refresh', []);
 
         $response->assertStatus(400);
+        Http::assertNothingSent();
+    }
+
+    public function testRefreshFailsWhenTokenIsEmptyString()
+    {
+        Http::fake();
+
+        $response = $this->postJson('/refresh', ['refresh_token' => '']);
+
+        $response->assertStatus(400);
+        Http::assertNothingSent();
     }
 
     public function testRefreshFailsWhenUpstreamRejectsInvalidToken()
@@ -297,5 +372,67 @@ class AuthControllerTest extends TestCase
         $response = $this->postJson('/refresh', ['refresh_token' => 'not-a-real-token']);
 
         $response->assertStatus(400);
+    }
+
+    public function testRefreshIssuesTestTokenViaPostBodySub()
+    {
+        config([
+            'testing.token_enabled' => true,
+            'testing.endpoint_secret' => 'test-secret',
+            'testing.jwt_secret' => base64_encode(random_bytes(32)),
+            'app.vertical' => 'local',
+        ]);
+
+        $this->seed(RolePermissionSeeder::class);
+        $user = User::factory()->create(['sub' => 'test-token-sub']);
+
+        $response = $this->postJson('/refresh', ['sub' => $user->sub], [
+            'X-Testing-Secret' => 'test-secret',
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['access_token', 'refresh_token', 'id_token']);
+    }
+
+    public function testRefreshTestTokenIgnoresSubPassedAsQueryParam()
+    {
+        config([
+            'testing.token_enabled' => true,
+            'testing.endpoint_secret' => 'test-secret',
+            'testing.jwt_secret' => base64_encode(random_bytes(32)),
+            'app.vertical' => 'local',
+        ]);
+
+        $this->seed(RolePermissionSeeder::class);
+        $user = User::factory()->create(['sub' => 'test-token-sub-2']);
+
+        $response = $this->postJson('/refresh?sub='.$user->sub, [], [
+            'X-Testing-Secret' => 'test-secret',
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    /**
+     * Run the auth callback with an unsigned id_token built from the given claims.
+     * The callback does not verify the token signature.
+     */
+    private function loginWithIdTokenClaims(array $claims)
+    {
+        $encode = fn (array $data) => rtrim(strtr(base64_encode(json_encode($data)), '+/', '-_'), '=');
+        $idToken = $encode(['alg' => 'HS256', 'typ' => 'JWT']).'.'.$encode($claims).'.'.base64_encode('signature');
+
+        Http::fakeSequence()
+            ->push(['id_token' => $idToken], 200)
+            ->whenEmpty(Http::response());
+
+        return $this->withSession([
+            'state' => $claims['state'],
+            'nonce' => $claims['nonce'],
+        ])->call('GET', '/auth-callback', [
+            'state' => $claims['state'],
+            'nonce' => $claims['nonce'],
+            'code' => 'code',
+        ]);
     }
 }

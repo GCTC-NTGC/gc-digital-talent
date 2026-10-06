@@ -103,7 +103,7 @@ const TalentNominationGroupDetails = ({
       {/* heading section */}
       <div className="flex items-center justify-between">
         <Heading
-          level="h2"
+          rank="h2"
           size="h4"
           icon={ClipboardDocumentListIcon}
           color="secondary"

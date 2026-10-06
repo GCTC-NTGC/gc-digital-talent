@@ -9,13 +9,9 @@ const useDirtyFields = (section: SectionKey): void => {
   const { isDirty } = useFormState();
 
   useEffect(() => {
+    // Reports dirty state upwards so all sections can be validated at once.
+    // Safe to depend on toggleDirty: ProfileFormContext keeps its identity stable.
     toggleDirty(section, isDirty);
-    /**
-     * Note: toggleDirty is updated after toggling causing and infinite
-     * state update loop
-     *
-     * This is necessary to facilitate validating all of the forms at once
-     */
   }, [isDirty, section, toggleDirty]);
 };
 

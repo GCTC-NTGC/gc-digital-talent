@@ -19,5 +19,12 @@ export const useMetaDataTalentNominationChip = ({
 
   return submittedAt
     ? { label: intl.formatMessage(commonMessages.received), color: "secondary" }
-    : { label: intl.formatMessage(commonMessages.draft), color: "primary" };
+    : {
+        label: intl.formatMessage({
+          defaultMessage: "Draft",
+          id: "fRyPvR",
+          description: "Item's state is draft",
+        }),
+        color: "primary",
+      };
 };

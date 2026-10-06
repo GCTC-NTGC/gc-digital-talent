@@ -19,7 +19,10 @@ const unilingualUser = {
 };
 const bilingualPool = {
   ...fakePools(1)[0],
-  language: toLocalizedEnum(PoolLanguage.BilingualAdvanced),
+  language: toLocalizedEnum(
+    PoolLanguage.BilingualAdvanced,
+    "LocalizedPoolLanguage",
+  ),
 };
 
 export default {

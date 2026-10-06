@@ -78,16 +78,6 @@ class PoolCandidatePolicy
     }
 
     /**
-     * Determine whether the user can create models.
-     *
-     * @return Response|bool
-     */
-    public function create(User $user)
-    {
-        return $user->isAbleTo('create-any-application');
-    }
-
-    /**
      * Determine whether a user can update the model.
      *
      * @return Response|bool

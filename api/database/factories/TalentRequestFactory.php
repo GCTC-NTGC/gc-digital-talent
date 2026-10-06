@@ -155,7 +155,7 @@ class TalentRequestFactory extends BaseFactory
      */
     private function newMatchingPool(ApplicantFilter $filter): Pool
     {
-        $pool = Pool::factory()->candidatesAvailableInSearch()->for($filter->community);
+        $pool = Pool::factory()->for($filter->community);
 
         if ($classification = $filter->qualifiedInClassifications->shuffle()->first()) {
             $pool = $pool->for($classification);

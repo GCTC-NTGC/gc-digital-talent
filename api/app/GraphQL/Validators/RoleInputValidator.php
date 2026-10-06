@@ -17,6 +17,9 @@ final class RoleInputValidator extends Validator
     public function rules(): array
     {
         return [
+            // Ensure at least one of these is present and non-empty
+            'attach' => ['required_without:detach', 'array'],
+            'detach' => ['required_without:attach', 'array'],
             'attach.*.roleId' => [
                 'distinct',
                 'required',

@@ -41,7 +41,7 @@ const SkillLevelDialog = () => {
           })}
         </Dialog.Header>
         <Dialog.Body>
-          <Heading level="h3" size="h6" className="mt-0">
+          <Heading rank="h3" size="h6" className="mt-0">
             {intl.formatMessage({
               defaultMessage: "Behavioural skill levels",
               id: "yKQGy8",
@@ -75,7 +75,7 @@ const SkillLevelDialog = () => {
               </li>
             ))}
           </Ul>
-          <Heading level="h3" size="h6">
+          <Heading rank="h3" size="h6">
             {intl.formatMessage({
               defaultMessage: "Technical skill levels",
               id: "k8lEf0",

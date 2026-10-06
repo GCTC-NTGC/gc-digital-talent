@@ -51,7 +51,7 @@ use Staudenmeir\EloquentHasManyDeep\HasRelationships;
  * @property string $id
  * @property ?string $email
  * @property ?Carbon $email_verified_at
- * @property string $sub
+ * @property ?string $sub
  * @property ?string $first_name
  * @property ?string $last_name
  * @property ?string $telephone
@@ -285,12 +285,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function preferredLocale(): string
     {
         return strtolower($this->preferred_lang ?? 'en');
-    }
-
-    /** @return HasMany<Pool, $this> */
-    public function pools(): HasMany
-    {
-        return $this->hasMany(Pool::class);
     }
 
     /** @return BelongsToMany<Pool, $this> */
@@ -544,7 +538,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     protected function isVerifiedGovEmployee(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $attributes['computed_is_gov_employee'] && ! is_null($attributes['work_email']) && ! is_null($attributes['work_email_verified_at']),
+            get: fn (mixed $value, array $_) => $this->computed_is_gov_employee && ! is_null($this->work_email) && ! is_null($this->work_email_verified_at),
         );
     }
 

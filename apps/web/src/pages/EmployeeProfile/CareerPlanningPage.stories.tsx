@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { experienceGenerators, fakeUsers } from "@gc-digital-talent/fake-data";
+import { fakeUsers } from "@gc-digital-talent/fake-data";
 import { Container } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import { CareerPlanning, CareerPlanning_Fragment } from "./CareerPlanningPage";
 
 const mockUser = fakeUsers(1)[0];
-const fakeWorkExperience = experienceGenerators.workExperiences()[0];
 
 const meta = {
   component: CareerPlanning,
@@ -30,9 +29,7 @@ export const VerifiedEmployee: Story = {
       {
         ...mockUser,
         isVerifiedGovEmployee: true,
-        isWorkEmailVerified: true,
-        latestCurrentGovernmentWorkExperience: fakeWorkExperience,
-        employeeProfile: {},
+        employeeProfile: { __typename: "EmployeeProfile" },
       },
       CareerPlanning_Fragment,
     ),
@@ -46,8 +43,7 @@ export const UnverifiedUser: Story = {
       {
         ...mockUser,
         isVerifiedGovEmployee: false,
-        isWorkEmailVerified: false,
-        employeeProfile: {},
+        employeeProfile: { __typename: "EmployeeProfile" },
       },
       CareerPlanning_Fragment,
     ),

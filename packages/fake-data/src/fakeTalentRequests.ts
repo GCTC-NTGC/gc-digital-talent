@@ -23,6 +23,7 @@ const generateTalentRequest = (
     faker.helpers.arrayElement<TalentRequestStatus>(
       Object.values(TalentRequestStatus),
     ),
+    "LocalizedTalentRequestStatus",
   );
   let details = null;
   if (status.value === TalentRequestStatus.InProgress) {
@@ -30,6 +31,7 @@ const generateTalentRequest = (
       faker.helpers.arrayElement<TalentRequestInProgressDetail>(
         Object.values(TalentRequestInProgressDetail),
       ),
+      "LocalizedTalentRequestInProgressDetail",
     ).label;
   }
   if (status.value === TalentRequestStatus.Completed) {
@@ -37,10 +39,12 @@ const generateTalentRequest = (
       faker.helpers.arrayElement<TalentRequestCompletionDetail>(
         Object.values(TalentRequestCompletionDetail),
       ),
+      "LocalizedTalentRequestCompletionDetail",
     ).label;
   }
 
   return {
+    __typename: "TalentRequest",
     id: faker.string.uuid(),
     fullName: `${faker.person.firstName()} ${faker.person.lastName()}`,
     email: faker.internet.email(),
@@ -51,11 +55,13 @@ const generateTalentRequest = (
       faker.helpers.arrayElement<TalentRequestPositionType>(
         Object.values(TalentRequestPositionType),
       ),
+      "LocalizedTalentRequestPositionType",
     ),
     reason: toLocalizedEnum(
       faker.helpers.arrayElement<TalentRequestReason>(
         Object.values(TalentRequestReason),
       ),
+      "LocalizedTalentRequestReason",
     ),
     additionalComments: faker.lorem.sentences(5),
     hrAdvisorEmail: faker.internet.email(),

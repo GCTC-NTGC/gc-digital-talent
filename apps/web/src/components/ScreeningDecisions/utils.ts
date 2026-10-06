@@ -6,7 +6,6 @@ import type {
   CreateAssessmentResultInput,
   EducationRequirementOption,
   FragmentType,
-  PublishingGroup,
   SkillCategory,
   SkillLevel,
   UpdateAssessmentResultInput,
@@ -300,7 +299,6 @@ interface GetEducationRequirementLabelArgs {
   intl: IntlShape;
   educationRequirementOption?: EducationRequirementOption | null;
   group?: ClassificationGroup | null;
-  publishingGroup?: PublishingGroup | null;
 }
 
 export const getEducationRequirementLabel = ({

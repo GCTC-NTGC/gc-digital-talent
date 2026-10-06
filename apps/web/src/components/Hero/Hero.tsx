@@ -152,7 +152,7 @@ const Hero = (
             <Heading
               ref={headingRef}
               tabIndex={-1}
-              level="h1"
+              rank="h1"
               size="h2"
               className="mt-12 outline-none xs:m-0"
             >

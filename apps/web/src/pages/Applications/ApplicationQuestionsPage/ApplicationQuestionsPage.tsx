@@ -161,7 +161,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {screeningQuestions.map((question, index) => (
             <Fragment key={question.id}>
-              <Heading level="h3" size="h4" className="mt-12 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-12 mb-6 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",
@@ -216,7 +216,7 @@ const ApplicationQuestions = ({ application }: ApplicationPageProps) => {
           </p>
           {generalQuestions.map((question, index) => (
             <Fragment key={question.id}>
-              <Heading level="h3" size="h4" className="mt-12 mb-6 font-bold">
+              <Heading rank="h3" size="h4" className="mt-12 mb-6 font-bold">
                 {intl.formatMessage(
                   {
                     defaultMessage: "Question {number}",

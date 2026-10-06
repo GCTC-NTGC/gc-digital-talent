@@ -349,11 +349,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -1488,6 +1483,13 @@ enum ErrorCode {
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_DECISION_REQUIRED
+  LATERAL_MOVEMENT_DECISION_REQUIRED
+  DEVELOPMENT_PROGRAMS_DECISION_REQUIRED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -1795,13 +1797,6 @@ enum ProvinceOrTerritory {
   NUNAVUT
 }
 
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
-}
-
 enum ScreeningStage {
   NEW_APPLICATION
   APPLICATION_REVIEW
@@ -1934,6 +1929,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

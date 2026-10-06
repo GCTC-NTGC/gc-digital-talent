@@ -9,7 +9,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import { Heading, Link, Ul, Notice } from "@gc-digital-talent/ui";
 import { EducationRequirementOption } from "@gc-digital-talent/graphql";
 
-import type { SimpleAnyExperience } from "~/utils/experienceUtils";
+import type { ExperienceName } from "~/utils/experienceUtils";
 import {
   getExperienceName,
   isAwardExperience,
@@ -206,8 +206,12 @@ const CheckListSection = ({
   }
 };
 
+interface CareerTimelineExperience extends ExperienceName {
+  id: string;
+}
+
 interface LinkCareerTimelineProps {
-  experiences: SimpleAnyExperience[];
+  experiences: CareerTimelineExperience[];
   previousStepPath: string;
   classificationGroup?: string;
 }
@@ -221,7 +225,7 @@ const LinkCareerTimeline = ({
   const experienceItems = experiences.reduce(
     (
       checklistItems: ExperienceItems,
-      experience: SimpleAnyExperience,
+      experience: CareerTimelineExperience,
     ): ExperienceItems => {
       if (isEducationExperience(experience)) {
         const educationExperience = {
@@ -281,7 +285,7 @@ const LinkCareerTimeline = ({
 
   return (
     <>
-      <Heading level="h3" size="h6" className="mt-12 mb-3 font-bold">
+      <Heading rank="h3" size="h6" className="mt-12 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Link your career timeline",
           id: "K6Tzh1",
