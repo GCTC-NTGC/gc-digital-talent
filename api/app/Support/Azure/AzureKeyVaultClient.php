@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
 /**
- * Azure Key Vault API
+ * Azure Key Vault Client
  *
  * Client for interacting with the Azure Key Vault API
  */
-class AzureKeyVaultApi
+class AzureKeyVaultClient
 {
     // error-checked way to get the API endpoint
     protected static function getVaultBaseUrl(): string

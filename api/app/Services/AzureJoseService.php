@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Contracts\KeyService;
-use App\Support\Azure\AzureKeyVaultApi;
+use App\Contracts\JoseService;
+use App\Support\Azure\AzureKeyVaultClient;
 use AzureKeyVaultRS256;
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
@@ -11,21 +11,21 @@ use Jose\Component\Signature\JWSBuilder;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 use RuntimeException;
 
-/* Interact with an Azure key vault. */
-class AzureKeyVaultService implements KeyService
+/* Use Azure key vault to provide JOSE operations. */
+class AzureJoseService implements JoseService
 {
     /**
-     * @param  AzureKeyVaultApi  $api  The service that can provide access token based on the managed identity.
+     * @param  AzureKeyVaultClient  $azureClient  The API client for the Azure key vault
      */
     public function __construct(
-        protected AzureKeyVaultApi $api,
+        protected AzureKeyVaultClient $azureClient,
     ) {}
 
     protected function makeJwkForConfigKey(string $configKey): JWK
     {
         $keyName = config($configKey, '');
         throw_unless(strlen($keyName) > 0, RuntimeException::class, ("Missing Azure key name for {$configKey}"));
-        $key = $this->api->getKey($keyName)['key'];
+        $key = $this->azureClient->getKey($keyName)['key'];
         $jwk = new JWK($key);
 
         return $jwk->toPublic();
@@ -49,10 +49,10 @@ class AzureKeyVaultService implements KeyService
     {
         $keyName = config('keys.azure.signing_key_name', '');
         throw_unless(strlen($keyName) > 0, new RuntimeException('Missing Azure signing key name'));
-        $publicKey = $this->api->getKey($keyName)['key'];
+        $publicKey = $this->azureClient->getKey($keyName)['key'];
         $publicJwk = new JWK($publicKey);
 
-        $jws = (new JWSBuilder(new AlgorithmManager([new AzureKeyVaultRS256($this->api)])))
+        $jws = (new JWSBuilder(new AlgorithmManager([new AzureKeyVaultRS256($this->azureClient)])))
             ->create()
             ->withPayload(json_encode($values))
             ->addSignature($publicJwk, ['alg' => 'RS256', 'typ' => 'JWT', 'kid' => $publicJwk->get('kid')])

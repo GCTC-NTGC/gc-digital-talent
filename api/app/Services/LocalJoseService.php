@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Contracts\KeyService;
+use App\Contracts\JoseService;
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
 use Jose\Component\Signature\Algorithm\RS256;
@@ -10,8 +10,8 @@ use Jose\Component\Signature\JWSBuilder;
 use Jose\Component\Signature\Serializer\CompactSerializer;
 use RuntimeException;
 
-/* Interact with an Azure key vault. */
-class LocalKeyService implements KeyService
+/* Use local key files to provide JOSE operations. */
+class LocalJoseService implements JoseService
 {
     /* Get a list of keys */
     public function getKeys(): ?string

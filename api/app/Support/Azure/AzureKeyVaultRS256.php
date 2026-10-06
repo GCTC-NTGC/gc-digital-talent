@@ -1,6 +1,6 @@
 <?php
 
-use App\Support\Azure\AzureKeyVaultApi;
+use App\Support\Azure\AzureKeyVaultClient;
 use Jose\Component\Core\JWK;
 use Jose\Component\Core\Util\Base64UrlSafe;
 use Jose\Component\Signature\Algorithm\RS256;
@@ -9,7 +9,10 @@ use Jose\Component\Signature\Algorithm\SignatureAlgorithm;
 // An implementation of Jose signing algorithm using Azure key vault
 final class AzureKeyVaultRS256 implements SignatureAlgorithm
 {
-    public function __construct(protected AzureKeyVaultApi $api) {}
+    /**
+     * @param  AzureKeyVaultClient  $azureClient  The API client for the Azure key vault
+     */
+    public function __construct(protected AzureKeyVaultClient $azureClient) {}
 
     /**
      * Splits a key identifier into its parts.
@@ -54,7 +57,7 @@ final class AzureKeyVaultRS256 implements SignatureAlgorithm
     {
         $keyParts = self::parseKid($key->get('kid'));
         $digest = Base64UrlSafe::encodeUnpadded(hash('sha256', $input, true));
-        $result = $this->api->sign($keyParts['keyId'], $keyParts['keyVersion'], $this->name(), $digest)['value']; // returns base64url
+        $result = $this->azureClient->sign($keyParts['keyId'], $keyParts['keyVersion'], $this->name(), $digest)['value']; // returns base64url
 
         return Base64UrlSafe::decodeNoPadding($result);                        // builder wants raw bytes
     }
