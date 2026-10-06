@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentRequestTrackedUserReferralDecision;
 use App\Enums\TalentRequestTrackedUserSelectionDecision;
 use App\Models\TalentRequestTrackedUser;
+use Exception;
 
 final class UpdateTalentRequestTrackedUser
 {
@@ -23,7 +25,7 @@ final class UpdateTalentRequestTrackedUser
             $selectionDecision === TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name => $trackedUser->notSelected($notSelectedReason),
             $selectionDecision === TalentRequestTrackedUserSelectionDecision::SELECTED->name => $trackedUser->selected(),
             $referralDecision === TalentRequestTrackedUserReferralDecision::REFERRED->name => $trackedUser->referred(),
-            default => null,
+            default => throw new Exception(ErrorCode::TRACKED_USER_DECISION_COMBINATION_INVALID->name),
         };
 
         return $trackedUser;
