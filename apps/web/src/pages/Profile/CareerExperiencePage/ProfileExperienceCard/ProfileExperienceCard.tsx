@@ -7,7 +7,14 @@ import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
 
-import { Card, Heading, Link, type IconType } from "@gc-digital-talent/ui";
+import {
+  Card,
+  CardSeparator,
+  Heading,
+  Link,
+  Notice,
+  type IconType,
+} from "@gc-digital-talent/ui";
 
 import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
@@ -21,6 +28,7 @@ interface TypeDetails {
   href: string;
   linkText: string;
   Icon: IconType;
+  nullText: string;
 }
 
 interface ProfileExperienceCardProps {
@@ -38,6 +46,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addAward),
       Icon: StarIcon,
+      nullText: intl.formatMessage(experienceMessages.nullAward),
     },
     ["community"]: {
       title: intl.formatMessage(experienceMessages.community),
@@ -45,6 +54,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addCommunity),
       Icon: UserGroupIcon,
+      nullText: intl.formatMessage(experienceMessages.nullCommunity),
     },
     ["education"]: {
       title: intl.formatMessage(experienceMessages.education),
@@ -52,6 +62,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addEducation),
       Icon: BookmarkSquareIcon,
+      nullText: intl.formatMessage(experienceMessages.nullEducation),
     },
     ["personal"]: {
       title: intl.formatMessage(experienceMessages.personal),
@@ -59,6 +70,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addPersonal),
       Icon: LightBulbIcon,
+      nullText: intl.formatMessage(experienceMessages.nullPersonal),
     },
     ["work"]: {
       title: intl.formatMessage(experienceMessages.work),
@@ -66,6 +78,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addWork),
       Icon: BriefcaseIcon,
+      nullText: intl.formatMessage(experienceMessages.nullWork),
     },
     ["timeline"]: {
       title: intl.formatMessage(experienceMessages.timeline),
@@ -73,6 +86,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       href: paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addExperience),
       Icon: MapIcon,
+      nullText: intl.formatMessage(experienceMessages.nullTimeline),
     },
   };
 
@@ -106,6 +120,12 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       >
         {typeData[type].linkText}
       </Link>
+      <CardSeparator space="sm" />
+      <Notice.Root>
+        <Notice.Content>
+          <p className="text-center">{typeData[type].nullText}</p>
+        </Notice.Content>
+      </Notice.Root>
     </Card>
   );
 };
