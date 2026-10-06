@@ -17,6 +17,8 @@ export type HTMLSpanProps = Omit<
 >;
 
 export interface BaseProps {
+  /** HTML id for the input, also used to derive the label id */
+  id: string;
   /** All available options */
   options: Option[];
   /** If this input is required or not */
