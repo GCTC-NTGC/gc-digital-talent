@@ -57,7 +57,9 @@ const hasExperiencesProps: ApplicationSkillsProps = {
       poolSkills: experienceSkills.map((skill, index) => ({
         ...mockPoolSkills[index],
         type: toLocalizedEnum(
-          index % 2 === 0 ? PoolSkillType.Essential : PoolSkillType.Nonessential,
+          index % 2 === 0
+            ? PoolSkillType.Essential
+            : PoolSkillType.Nonessential,
           "LocalizedPoolSkillType",
         ),
         skill,
