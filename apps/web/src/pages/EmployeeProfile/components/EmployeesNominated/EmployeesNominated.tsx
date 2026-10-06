@@ -152,16 +152,16 @@ const EmployeesNominated = ({
               </ToggleGroup.Item>
             </ToggleGroup.Root>
           )}
-          <PreviewList.Root>
-            <div className="border-t border-t-gray-100 pt-6">
+          <div className="border-t border-t-gray-100 pt-6">
+            <PreviewList.Root>
               {visibleNominations.map((nomination) => (
                 <EmployeesNominatedListItem
                   key={nomination.id}
                   talentNominationListItemQuery={nomination}
                 />
               ))}
-            </div>
-          </PreviewList.Root>
+            </PreviewList.Root>
+          </div>
         </>
       )}
     </div>
