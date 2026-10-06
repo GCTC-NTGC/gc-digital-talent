@@ -1,8 +1,8 @@
 import { useIntl } from "react-intl";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
-import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
 const TrainingFundNotice = () => {
   const intl = useIntl();
@@ -21,8 +21,8 @@ const TrainingFundNotice = () => {
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "The IT training fund has to moved to GCXchange. Please note that accessing GCXchange requires a Government of Canada network connection.",
-            id: "/0xanG",
+              "The IT training fund has moved to GCXchange. Please note that accessing GCXchange requires a Government of Canada network connection.",
+            id: "1olsza",
             description: "Description for moved to GCXchange",
           })}
         </p>
