@@ -6,3 +6,7 @@ allowBuilds:
   "@tailwindcss/oxide": true
   esbuild: true
   unrs-resolver: true
+autoInstallPeers: true
+legacyPeerDeps: true
+nodeLinker: hoisted
+ignoreWorkspaceRootCheck: true
