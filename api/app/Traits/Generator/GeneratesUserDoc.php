@@ -726,6 +726,54 @@ trait GeneratesUserDoc
     }
 
     /**
+     * Generates a user's talent management nominations
+     *
+     * @param  Section  $section  The section to add info to
+     * @param  User  $user  The user being generated
+     */
+    protected function talentManagementNominations(Section $section, User $user, $headingRank = 3)
+    {
+        if ($this->anonymous) {
+            return;
+        }
+
+        $groups = $user->talentNominationGroupsAsNominee;
+
+        if ($groups->isEmpty()) {
+            return;
+        }
+
+        $section->addTitle($this->localizeHeading('talent_management_nominations'), $headingRank);
+        $groups
+            ->sortBy(fn ($group) => $group->talentNominationEvent->name[$this->lang] ?? '')
+            ->each(function ($group) use ($section, $headingRank) {
+                $event = $group->talentNominationEvent;
+
+                // Talent event
+                $section->addTitle($event->name[$this->lang] ?? '', $headingRank + 1);
+
+                // Functional community
+                $communityRun = $section->addTextRun();
+                $communityRun->addText($this->localizeHeading('functional_community'), $this->strong);
+                $communityRun->addText($this->colon().($event->community?->name[$this->lang] ?? ''));
+
+                // Nominated for
+                $nominatedFor = [];
+                if ($group->advancement_nomination_count > 0) {
+                    $nominatedFor[] = "{$this->localizeHeading('advancement')} ({$group->advancement_nomination_count})";
+                }
+                if ($group->lateral_movement_nomination_count > 0) {
+                    $nominatedFor[] = "{$this->localizeHeading('lateral_movement')} ({$group->lateral_movement_nomination_count})";
+                }
+                if ($group->development_programs_nomination_count > 0) {
+                    $nominatedFor[] = "{$this->localizeHeading('development_programs')} ({$group->development_programs_nomination_count})";
+                }
+
+                $this->addLabelText($section, $this->localizeHeading('nominated_for'), implode(', ', $nominatedFor));
+            });
+    }
+
+    /**
      * Generate a user's skill showcase
      *
      * @param  Section  $section  The section to add info to
@@ -783,6 +831,10 @@ trait GeneratesUserDoc
             'offPlatformRecruitmentProcesses',
             'offPlatformRecruitmentProcesses.department',
             'offPlatformRecruitmentProcesses.classification',
+            'talentNominationGroupsAsNominee',
+            'talentNominationGroupsAsNominee.talentNominationEvent',
+            'talentNominationGroupsAsNominee.talentNominationEvent.community',
+            'talentNominationGroupsAsNominee.nominations',
         ]);
 
         $this->name($section, $user, $headingRank);
@@ -795,8 +847,7 @@ trait GeneratesUserDoc
         $this->governmentInfo($section, $user, $headingRank + 2);
         $this->workPreferences($section, $user, $headingRank + 2);
         $this->dei($section, $user, $headingRank + 2);
-
-        $this->experiences($section, $user->experiences, true, $headingRank + 1);
+        $this->talentManagementNominations($section, $user, $headingRank + 1);
         $this->skillShowcase($section, $user, $headingRank + 1);
         $this->recruitmentProcesses($section, $user, $headingRank + 1);
         $this->gcEmployeeProfile($section, $user, $headingRank + 1);
