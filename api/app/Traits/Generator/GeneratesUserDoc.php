@@ -3,6 +3,7 @@
 namespace App\Traits\Generator;
 
 use App\Builders\PoolCandidateBuilder;
+use App\Builders\TalentNominationGroupBuilder;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\AwardedScope;
 use App\Enums\AwardedTo;
@@ -831,7 +832,10 @@ trait GeneratesUserDoc
             'offPlatformRecruitmentProcesses',
             'offPlatformRecruitmentProcesses.department',
             'offPlatformRecruitmentProcesses.classification',
-            'talentNominationGroupsAsNominee',
+            'talentNominationGroupsAsNominee' => function ($query) {
+                /** @var TalentNominationGroupBuilder $query */
+                $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId]);
+            },
             'talentNominationGroupsAsNominee.talentNominationEvent',
             'talentNominationGroupsAsNominee.talentNominationEvent.community',
             'talentNominationGroupsAsNominee.nominations',
