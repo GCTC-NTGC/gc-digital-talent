@@ -2,6 +2,7 @@ import { useIntl } from "react-intl";
 
 import { Link, Notice } from "@gc-digital-talent/ui";
 import { getLocale } from "@gc-digital-talent/i18n";
+import InformationCircleIcon from "@heroicons/react/24/outline/InformationCircleIcon";
 
 const TrainingFundNotice = () => {
   const intl = useIntl();
@@ -9,7 +10,7 @@ const TrainingFundNotice = () => {
 
   return (
     <Notice.Root mode="card" color="gray">
-      <Notice.Title defaultIcon as="h2">
+      <Notice.Title icon={InformationCircleIcon} as="h2">
         {intl.formatMessage({
           defaultMessage: "This page has moved",
           id: "Luf+Nm",
