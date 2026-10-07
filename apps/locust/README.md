@@ -51,10 +51,20 @@ Open http://localhost:8089 for the web UI, or add `--headless -u 5 -r 1 -t 1m` t
 
 ## Running in Azure Load Testing
 
-Create the test from the portal (upload the script plus `common.py`, `queries.py` and `locust.conf`), or with the CLI:
+`bundle.py` builds one self-contained file per page (with `common.py` and `queries.py` inlined) in `azure/`, so a test is a single upload. The host defaults to Dev.
+
+1. Run the Azure DevOps pipeline from `infrastructure/azure-pipelines-locust.yml` on the branch you want
+2. Download the `locust-scripts` artifact from the run
+3. In Azure Load Testing, create a test with **Upload a script**, pick **Locust** and upload the page's file
+4. Set users, spawn rate and duration on the **Load** tab
+
+To update a test, rerun the pipeline and re-upload the file on the test's **Edit** page.
+
+With CLI access to the Load Testing resource you can skip the uploads and use the yaml configs instead:
 
 ```sh
-az load test create --load-test-resource <resource> --resource-group <group> --load-test-config-file search-page.yaml
+az load test create --load-test-resource <resource> --resource-group <group> \
+  --test-id search-page --load-test-config-file search-page.yaml
 ```
 
 ## Keeping the queries in sync

@@ -109,6 +109,8 @@ class PublicPageUser(HttpUser):
     """Anonymous visitor. Subclasses add @task methods that call load_page()."""
 
     abstract = True
+    # Used when no host is given on the command line, in locust.conf or in the Azure Load tab
+    host = "https://dev-talentcloud.tbs-sct.gc.ca"
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
 
     def on_start(self):
