@@ -16,7 +16,7 @@ import useRoutes from "~/hooks/useRoutes";
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import useSectionInfo from "../../hooks/useSectionInfo";
 import AccountInformationCard from "./AccountInformationCard";
-import WorkEmailCard from "./WorkEmailCard";
+import GovernmentInformationCard from "./GovernmentInformationCard";
 
 const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment ProfilePersonalInformation on User {
@@ -44,7 +44,7 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     }
     ...PersonalInformationDisplay
     ...AccountInformationCard
-    ...WorkEmailCard
+    ...GovernmentInformationCard
   }
 `);
 
@@ -178,7 +178,7 @@ const PersonalInformation = ({
         )
       }
       <AccountInformationCard query={user} />
-      <WorkEmailCard query={user} />
+      <GovernmentInformationCard query={user} />
     </div>
   );
 };
