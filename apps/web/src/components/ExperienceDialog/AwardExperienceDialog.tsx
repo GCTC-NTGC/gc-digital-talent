@@ -2,15 +2,15 @@ import { useIntl } from "react-intl";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
 
-import type { AwardContentExperience } from "../ExperienceCard/AwardContent";
-import AwardContent from "../ExperienceCard/AwardContent";
+import type { AwardDialogContentExperience } from "./AwardDialogContent";
+import AwardDialogContent from "./AwardDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
 import DetailsSection from "./DetailsSection";
 import type { DialogExperience, ExperienceDetails } from "./types";
 
 export type AwardDialogExperience = DialogExperience<
-  AwardContentExperience & ExperienceDetails
+  AwardDialogContentExperience & ExperienceDetails
 >;
 
 interface AwardExperienceDialogProps extends ExperienceDialogBaseProps {
@@ -26,7 +26,7 @@ const AwardExperienceDialog = ({
 
   return (
     <ExperienceDialog experience={experience} {...rest}>
-      <AwardContent experience={experience} headingRank="h3" />
+      <AwardDialogContent experience={experience} headingRank="h3" />
       <DetailsSection
         title={experienceFormLabels.details}
         details={experience.details}
