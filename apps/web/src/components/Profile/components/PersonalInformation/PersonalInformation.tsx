@@ -12,11 +12,11 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import useRoutes from "~/hooks/useRoutes";
-import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import useSectionInfo from "../../hooks/useSectionInfo";
+import AccountInformationCard from "./AccountInformationCard";
+import WorkEmailCard from "./WorkEmailCard";
 
 const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment ProfilePersonalInformation on User {
@@ -43,7 +43,7 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
       value
     }
     ...PersonalInformationDisplay
-    ...ContactEmailCard
+    ...AccountInformationCard
     ...WorkEmailCard
   }
 `);
@@ -177,7 +177,7 @@ const PersonalInformation = ({
           </>
         )
       }
-      <ContactEmailCard query={user} />
+      <AccountInformationCard query={user} />
       <WorkEmailCard query={user} />
     </div>
   );

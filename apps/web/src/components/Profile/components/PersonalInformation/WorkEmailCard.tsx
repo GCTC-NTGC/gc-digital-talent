@@ -6,8 +6,8 @@ import { Button, Card } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import EmailVerificationDialog from "../EmailVerificationDialog/EmailVerificationDialog";
-import RemoveWorkEmailDialog from "./RemoveWorkEmailDialog";
+import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
+import RemoveWorkEmailDialog from "~/components/WorkEmailCard/RemoveWorkEmailDialog";
 
 const WorkEmailCard_Fragment = graphql(/** GraphQL */ `
   fragment WorkEmailCard on User {
