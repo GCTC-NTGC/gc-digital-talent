@@ -39,12 +39,6 @@ interface LinkedSkill {
 }
 
 export interface SkillLinkableExperience {
-  __typename:
-    | "AwardExperience"
-    | "CommunityExperience"
-    | "EducationExperience"
-    | "PersonalExperience"
-    | "WorkExperience";
   id: string;
   skills?: LinkedSkill[] | null;
 }
