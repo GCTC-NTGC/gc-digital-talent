@@ -231,4 +231,40 @@ class CanMigrateMyAccountTest extends TestCase
         $result = (new CanMigrateMyAccount())();
         $this->assertTrue($result, 'Telephone matching should ignore leading 0');
     }
+
+    public function testEmailMatchingDoesNotTreatPercentAsWildcard()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => '%@example.com', // % is a wildcard in LIKE patterns
+            'telephone' => '5551234567',
+        ]);
+        // Create a user that would only match if % were treated as a wildcard
+        User::factory()->create([
+            'email_backup' => 'test@example.com',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertFalse($result, 'Email matching should not treat % as a wildcard');
+    }
+
+    public function testEmailMatchingDoesNotTreatUnderscoreAsWildcard()
+    {
+        Config::set('feature.auth_in_app_migration', true);
+        $user = User::factory()->create([
+            'email' => 'first_last@example.com', // _ is a single-character wildcard in LIKE patterns
+            'telephone' => '5551234567',
+        ]);
+        // Create a user that would only match if _ were treated as a wildcard
+        User::factory()->create([
+            'email_backup' => 'first.last@example.com',
+            'telephone' => '5551234567',
+            'last_sign_in_iss' => null,
+        ]);
+        Auth::login($user);
+        $result = (new CanMigrateMyAccount())();
+        $this->assertFalse($result, 'Email matching should not treat _ as a wildcard');
+    }
 }

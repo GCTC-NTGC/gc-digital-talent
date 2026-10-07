@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 final class MigrateMyAccount
 {
@@ -29,9 +28,9 @@ final class MigrateMyAccount
             throw new Error('Feature is not enabled.');
         }
 
-        // if no actor defined, then can't migrate
-        if (is_null($actor)) {
-            throw new AuthorizationException();
+        // if actor is missing email, or telephone, then can't migrate
+        if (is_null($actor) || is_null($actor->email) || is_null($actor->telephone)) {
+            return false;
         }
 
         /**
