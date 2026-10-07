@@ -1,11 +1,11 @@
-import type { PersonalContentExperience } from "../ExperienceCard/PersonalContent";
-import PersonalContent from "../ExperienceCard/PersonalContent";
+import type { PersonalDialogContentExperience } from "./PersonalDialogContent";
+import PersonalDialogContent from "./PersonalDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
 import type { DialogExperience } from "./types";
 
 export type PersonalDialogExperience =
-  DialogExperience<PersonalContentExperience>;
+  DialogExperience<PersonalDialogContentExperience>;
 
 interface PersonalExperienceDialogProps extends ExperienceDialogBaseProps {
   experience: PersonalDialogExperience;
@@ -17,7 +17,7 @@ const PersonalExperienceDialog = ({
   ...rest
 }: PersonalExperienceDialogProps) => (
   <ExperienceDialog experience={experience} {...rest}>
-    <PersonalContent experience={experience} headingRank="h3" />
+    <PersonalDialogContent experience={experience} headingRank="h3" />
   </ExperienceDialog>
 );
 
