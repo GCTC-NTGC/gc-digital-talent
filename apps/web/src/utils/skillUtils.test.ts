@@ -3,7 +3,12 @@ import { SkillCategory } from "@gc-digital-talent/graphql";
 
 import { invertSkillSkillFamilyTree, parseKeywords } from "./skillUtils";
 
-const localizedBehavioural = toLocalizedEnum(SkillCategory.Behavioural);
+const localizedBehavioural = toLocalizedEnum(
+  SkillCategory.Behavioural,
+  "LocalizedSkillCategory",
+);
+
+const localizedString = { __typename: "LocalizedString" as const };
 
 describe("skill util tests", () => {
   test("inverts a skill tree with a single skill in a single family", () => {
@@ -11,14 +16,14 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -28,13 +33,13 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -49,14 +54,14 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -64,14 +69,14 @@ describe("skill util tests", () => {
       {
         id: "2",
         key: "skill_two",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -79,14 +84,14 @@ describe("skill util tests", () => {
       {
         id: "3",
         key: "skill_three",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
         ],
@@ -96,27 +101,27 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
           {
             id: "2",
             key: "skill_two",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
           {
             id: "3",
             key: "skill_three",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -131,30 +136,30 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "skill_one",
-        name: {},
+        name: localizedString,
         category: localizedBehavioural,
         families: [
           {
             id: "1",
             key: "family_one",
-            name: {},
-            description: {},
+            name: localizedString,
+            description: localizedString,
             skills: [],
           },
           {
             id: "2",
             key: "family_two",
-            name: {},
+            name: localizedString,
 
-            description: {},
+            description: localizedString,
             skills: [],
           },
           {
             id: "3",
             key: "family_three",
-            name: {},
+            name: localizedString,
 
-            description: {},
+            description: localizedString,
             skills: [],
           },
         ],
@@ -164,14 +169,14 @@ describe("skill util tests", () => {
       {
         id: "1",
         key: "family_one",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
             category: localizedBehavioural,
-            name: {},
+            name: localizedString,
             families: [],
           },
         ],
@@ -179,13 +184,13 @@ describe("skill util tests", () => {
       {
         id: "2",
         key: "family_two",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },
@@ -194,13 +199,13 @@ describe("skill util tests", () => {
       {
         id: "3",
         key: "family_three",
-        name: {},
-        description: {},
+        name: localizedString,
+        description: localizedString,
         skills: [
           {
             id: "1",
             key: "skill_one",
-            name: {},
+            name: localizedString,
             category: localizedBehavioural,
             families: [],
           },

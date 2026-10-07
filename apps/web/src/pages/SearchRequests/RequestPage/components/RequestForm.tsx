@@ -22,7 +22,7 @@ import {
   enumInputToLocalizedEnum,
   narrowEnumType,
   sortTalentRequestReason,
-  commonMessages,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -54,7 +54,7 @@ import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
-  <Link href={href} newTab>
+  <Link href={href} newTab external>
     {chunks}
   </Link>
 );
@@ -240,6 +240,7 @@ export const RequestForm = ({
   handleCreateTalentRequest,
 }: RequestFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
   const [{ applicantFilter, candidateCount }] = useTalentRequestState();
@@ -495,7 +496,7 @@ export const RequestForm = ({
 
   return (
     <section>
-      <Heading level="h2" size="h6" className="mt-0 mb-3 font-bold">
+      <Heading rank="h2" size="h6" className="mt-0 mb-3 font-bold">
         {intl.formatMessage({
           defaultMessage: "Your contact information",
           id: "T8J2Lp",
@@ -518,7 +519,11 @@ export const RequestForm = ({
               id="fullName"
               type="text"
               name="fullName"
-              label={intl.formatMessage(commonMessages.fullName)}
+              label={intl.formatMessage({
+                defaultMessage: "Full name",
+                id: "IBc2sp",
+                description: "Label for full name",
+              })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -571,7 +576,7 @@ export const RequestForm = ({
               label={intl.formatMessage(talentRequestMessages.hrAdvisorEmail)}
             />
           </div>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Reason for the talent request",
               id: "8EbhWx",
@@ -606,11 +611,16 @@ export const RequestForm = ({
               },
               {
                 directiveLink: (chunks: ReactNode) =>
-                  directiveLink(chunks, paths.directive()),
+                  directiveLink(
+                    chunks,
+                    locale === "en"
+                      ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                      : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749",
+                  ),
               },
             )}
           </p>
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Details about the job opportunity",
               id: "FNgThS",
@@ -674,7 +684,7 @@ export const RequestForm = ({
             label={intl.formatMessage(talentRequestMessages.additionalComments)}
             rows={8}
           />
-          <Heading level="h2" size="h6" className="mt-12 mb-6 font-bold">
+          <Heading rank="h2" size="h6" className="mt-12 mb-6 font-bold">
             {intl.formatMessage({
               defaultMessage: "Summary of filters",
               id: "emx1cK",

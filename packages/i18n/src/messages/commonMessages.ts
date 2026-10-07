@@ -11,11 +11,6 @@ const commonMessages = defineMessages({
     id: "0OSmXn",
     description: "Title of IT Apprenticeship Program for Indigenous Peoples",
   },
-  loadingTitle: {
-    defaultMessage: "Loading",
-    id: "o/6zAs",
-    description: "Title displayed for a table initial loading state.",
-  },
   loading: {
     defaultMessage: "Loading…",
     id: "6sIidC",
@@ -36,11 +31,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Searching…",
     id: "dyGR7U",
     description: "Message to display when a search is in progress.",
-  },
-  loadingError: {
-    defaultMessage: "Oh no…",
-    id: "GtVkbt",
-    description: "Title displayed for a table error loading state.",
   },
   notFound: {
     defaultMessage: "Not found",
@@ -63,21 +53,11 @@ const commonMessages = defineMessages({
     id: "BXxvCZ",
     description: "Message for when no name value",
   },
-  missingInformation: {
-    defaultMessage: "Missing information",
-    id: "MuM7SN",
-    description: "Message for when specific item has missing information",
-  },
   missingOptionalInformation: {
     defaultMessage: "Missing optional information",
     id: "AQxes2",
     description:
       "Message for when specific item has missing optional information",
-  },
-  nameNotLoaded: {
-    defaultMessage: "Error: name not loaded",
-    id: "DdOEWx",
-    description: "Message when name value not found",
   },
   dividingColon: {
     // eslint-disable-next-line formatjs/prefer-full-sentence
@@ -105,11 +85,6 @@ const commonMessages = defineMessages({
     id: "QtzRCh",
     description: "Title for status",
   },
-  okay: {
-    defaultMessage: "Okay",
-    id: "91hRYX",
-    description: "Proceed with the current action",
-  },
   cancel: {
     defaultMessage: "Cancel",
     id: "atqjXB",
@@ -135,16 +110,6 @@ const commonMessages = defineMessages({
     id: "1UX8RD",
     description: "Title for contact email address",
   },
-  flexibleWorkLocations: {
-    defaultMessage: "Flexible work location options",
-    id: "g1qgjG",
-    description: "Title for flexible work locations options",
-  },
-  inApp: {
-    defaultMessage: "In-app",
-    id: "l0aGCz",
-    description: "Title for in app notifications",
-  },
   department: {
     defaultMessage: "Department",
     id: "9aW0M6",
@@ -155,11 +120,6 @@ const commonMessages = defineMessages({
     id: "imR1U4",
     description: "Title displayed telephone",
   },
-  personalPhone: {
-    defaultMessage: "Phone number",
-    id: "zE9jPr",
-    description: "Title displayed phone number",
-  },
   preferredCommunicationLanguage: {
     defaultMessage: "Preferred communication language",
     id: "XiECLl",
@@ -169,11 +129,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Working language",
     id: "5hkdf2",
     description: "Title displayed working language ability",
-  },
-  unspecified: {
-    defaultMessage: "Unspecified",
-    id: "zhqK/P",
-    description: "Unspecified, has not been set or defined",
   },
   notApplicable: {
     defaultMessage: "Not applicable",
@@ -195,35 +150,10 @@ const commonMessages = defineMessages({
     id: "2wKf2U",
     description: "Text to trigger edit action",
   },
-  pendingSecondOpinion: {
-    defaultMessage: "Pending second opinion",
-    id: "Rp+NHA",
-    description: "Pending second opinion",
-  },
   anyLanguage: {
     defaultMessage: "Any language",
     id: "sotCgD",
     description: "Any language",
-  },
-  screenedOut: {
-    defaultMessage: "Screened out",
-    id: "4lV1Od",
-    description: "Screened out",
-  },
-  removed: {
-    defaultMessage: "Removed",
-    id: "tExKws",
-    description: "Removed",
-  },
-  finalAssessmentDecision: {
-    defaultMessage: "Final assessment decision",
-    id: "6/U6rm",
-    description: "Final assessment decision",
-  },
-  return: {
-    defaultMessage: "Return",
-    id: "VV8TA5",
-    description: "An action to go back to a previous location",
   },
   important: {
     defaultMessage: "Important",
@@ -246,8 +176,8 @@ const commonMessages = defineMessages({
     description: "Label for the referral status field display",
   },
   warning: {
-    defaultMessage: "Warning!",
-    id: "YtV1mE",
+    defaultMessage: "Warning",
+    id: "PH9YJt",
     description: "A potentially dangerous action alert",
   },
   noExperiencesOfType: {
@@ -264,11 +194,6 @@ const commonMessages = defineMessages({
     defaultMessage: "French",
     id: "JYpEeW",
     description: "Name of French language",
-  },
-  bilingual: {
-    defaultMessage: "Bilingual",
-    id: "AFPD79",
-    description: "Label for bilingual",
   },
   bilingualEnglishFrench: {
     defaultMessage: "Bilingual (English and French)",
@@ -306,25 +231,10 @@ const commonMessages = defineMessages({
     id: "m0iNdp",
     description: "Null selection for community select input.",
   },
-  role: {
-    defaultMessage: "Role",
-    id: "uBmoxQ",
-    description: "Title displayed for the role table display name column",
-  },
-  date: {
-    defaultMessage: "Date",
-    id: "09LIbL",
-    description: "Label to identify a date element",
-  },
   workEmail: {
     defaultMessage: "Work email address",
     id: "pOL68A",
     description: "Title for work email address",
-  },
-  language: {
-    defaultMessage: "Language",
-    id: "k3i6lU",
-    description: "Legend for a language input or title",
   },
   description: {
     defaultMessage: "Description",
@@ -335,21 +245,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Received",
     id: "SD8i+/",
     description: "Title for received",
-  },
-  draft: {
-    defaultMessage: "Draft",
-    id: "fRyPvR",
-    description: "Item's state is draft",
-  },
-  submitted: {
-    defaultMessage: "Submitted",
-    id: "Vnygk+",
-    description: "Item's state is submitted",
-  },
-  deadlineToApply: {
-    defaultMessage: "Deadline to apply",
-    id: "ZoYqEo",
-    description: "Title for deadline to apply",
   },
   qualified: {
     defaultMessage: "Qualified",
@@ -381,16 +276,6 @@ const commonMessages = defineMessages({
     id: "7O5SRa",
     description: "Title for security clearance",
   },
-  requiredSkills: {
-    id: "WZ17s5",
-    defaultMessage: "Required skills",
-    description: "Title for required skills",
-  },
-  optionalSkills: {
-    id: "Ojevvl",
-    defaultMessage: "Optional skills",
-    description: "Title for optional skills",
-  },
   deadline: {
     id: "1FNzD4",
     defaultMessage: "Deadline",
@@ -405,16 +290,6 @@ const commonMessages = defineMessages({
     defaultMessage: "Career planning",
     id: "zN7MBv",
     description: "Title for a users career plan",
-  },
-  jobInterest: {
-    defaultMessage: "Job interest",
-    id: "dYhxhN",
-    description: "Job interest label",
-  },
-  trainingInterest: {
-    defaultMessage: "Training interest",
-    id: "AQeWgK",
-    description: "Training interest label",
   },
   interested: {
     defaultMessage: "Interested",
@@ -437,47 +312,11 @@ const commonMessages = defineMessages({
     id: "cO535E",
     description: "Message displayed to user if account fails to get updated.",
   },
-  options: {
-    defaultMessage: "Options",
-    id: "45ZCXX",
-    description:
-      "label or header for something referred to as an option, plural",
-  },
-  approved: {
-    defaultMessage: "Approved",
-    id: "oCFl63",
-    description: "Approved status",
-  },
-  notSupported: {
-    defaultMessage: "Not supported",
-    id: "5RMS25",
-    description: "Not supported status",
-  },
-  inProgress: {
-    defaultMessage: "In progress",
-    id: "xVBxp3",
-    description: "In progress status",
-  },
-  communityInterest: {
-    defaultMessage: "Community interest",
-    id: "1uBif7",
-    description: "Community interest label",
-  },
   onFindTalent: {
     defaultMessage: 'Appears on "Find talent" page',
     id: "hC74Bo",
     description:
       "Message for when a specific item shows up as an option when searching talent",
-  },
-  asterisk: {
-    defaultMessage: "*",
-    id: "nSENOg",
-    description: "Asterisk symbol",
-  },
-  fullName: {
-    defaultMessage: "Full name",
-    id: "IBc2sp",
-    description: "Label for full name",
   },
   group: {
     defaultMessage: "Group",
@@ -494,25 +333,10 @@ const commonMessages = defineMessages({
     id: "UZ6zTY",
     description: "Label for a candidate that is not referred",
   },
-  selected: {
-    defaultMessage: "Selected",
-    id: "W9zlhl",
-    description: "Label when an item is selected",
-  },
   notSelected: {
     defaultMessage: "Not selected",
     id: "pnoSK6",
     description: "Label when an item is not selected",
-  },
-  archived: {
-    defaultMessage: "Archived",
-    id: "MiyFrV",
-    description: "Status is archived",
-  },
-  published: {
-    defaultMessage: "Published",
-    id: "BcEpFb",
-    description: "Status is published",
   },
   title: {
     defaultMessage: "Title",
@@ -524,55 +348,20 @@ const commonMessages = defineMessages({
     id: "tyc8W0",
     description: "Name of English language formatted for appending",
   },
-  englishLabelShort: {
-    defaultMessage: "(EN)",
-    id: "Q6GYga",
-    description: "Name of English language formatted for appending, shortened",
-  },
   frenchLabel: {
     defaultMessage: "(French)",
     id: "E+zFTA",
     description: "Name of French language formatted for appending",
-  },
-  frenchLabelShort: {
-    defaultMessage: "(FR)",
-    id: "tfgjgQ",
-    description: "Name of French language formatted for appending, shortened",
-  },
-  questions: {
-    defaultMessage: "Questions",
-    id: "x/BiQS",
-    description: "Label for questions",
   },
   skillRequirements: {
     defaultMessage: "Skill requirements",
     id: "0AhbED",
     description: "Label for skill requirements",
   },
-  currentStep: {
-    defaultMessage: "Current step",
-    id: "gqX6/n",
-    description: "Title displayed for a candidates current assessment step",
-  },
-  all: {
-    defaultMessage: "All",
-    id: "cavxJ8",
-    description: "All as in all items or things",
-  },
   governmentEmployee: {
     defaultMessage: "Government employee",
     id: "bOA3EH",
     description: "Label for the government employee field",
-  },
-  organization: {
-    defaultMessage: "Organization",
-    id: "Phlp8j",
-    description: "Label displayed for organization input",
-  },
-  dismiss: {
-    defaultMessage: "Dismiss",
-    id: "FO4QJP",
-    description: "Label for action to dismiss something",
   },
   saveAndContinue: {
     defaultMessage: "Save and continue",
@@ -594,21 +383,6 @@ const commonMessages = defineMessages({
     id: "CzK1qY",
     description: "Label for the trashed field",
   },
-  advancedFilters: {
-    defaultMessage: "Advanced filters",
-    id: "eozWFc",
-    description: "Title for the additional filters",
-  },
-  selectOrTypeAnswer: {
-    defaultMessage: "Select or type an answer",
-    id: "se/c4O",
-    description: "Placeholder text for an input with options list",
-  },
-  quotes: {
-    defaultMessage: '"{text}"',
-    id: "vNVMlM",
-    description: "Text within double quotes",
-  },
   employeeVerification: {
     defaultMessage: "Employee verification",
     id: "VpjQL1",
@@ -620,41 +394,6 @@ const commonMessages = defineMessages({
     id: "Q77DlA",
     description:
       "Message showing the number of days by which something is overdue",
-  },
-  dueToday: {
-    defaultMessage: "Due today",
-    id: "2H5KbR",
-    description: "Message shown when something is due on the current date",
-  },
-  startDate: {
-    defaultMessage: "Start date",
-    id: "9tH7k0",
-    description: "Label displayed before start date",
-  },
-  endDate: {
-    defaultMessage: "End date",
-    id: "JCA/2+",
-    description: "Label displayed before end date",
-  },
-  partiallyApproved: {
-    defaultMessage: "Partially approved",
-    id: "M9Q1zH",
-    description: "Status text for partially approved nominations",
-  },
-  specialApplication: {
-    defaultMessage: "Special application",
-    id: "96yWSc",
-    description: "Special application label",
-  },
-  noClassification: {
-    defaultMessage: "No classification",
-    id: "xuxKpE",
-    description: "Placeholder for when the classification can not be displayed",
-  },
-  noDepartment: {
-    defaultMessage: "No organization",
-    id: "wpNvbg",
-    description: "Placeholder for when the department can not be displayed",
   },
 });
 

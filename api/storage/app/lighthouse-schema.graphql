@@ -338,11 +338,6 @@ type LocalizedProvinceOrTerritory implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
-type LocalizedPublishingGroup implements LocalizedEnumOption {
-  value: PublishingGroup!
-  label: LocalizedString!
-}
-
 type LocalizedScreeningStage implements LocalizedEnumOption {
   value: ScreeningStage!
   label: LocalizedString!
@@ -494,7 +489,6 @@ type Query {
   countTalentRequestMatchesByPool(where: TalentRequestMatchFilterInput): [TalentRequestMatchPoolCount!]!
   countTalentRequestMatchesByCommunity(where: TalentRequestMatchFilterInput): [TalentRequestMatchCommunityCount!]!
   pool(id: UUID!): Pool
-  publishedPools(closingAfter: DateTime, publishingGroup: PublishingGroup): [Pool!]!
   poolCandidate(id: UUID!): PoolCandidate
   classification(id: UUID!): Classification
   classifications(availableInSearch: Boolean): [Classification]!
@@ -654,7 +648,6 @@ type Mutation {
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
@@ -714,7 +707,7 @@ type Mutation {
   deleteCommunityExperience(id: ID!): CommunityExperience
   deleteEducationExperience(id: ID!): EducationExperience
   deleteAwardExperience(id: ID!): AwardExperience
-  createPool(userId: ID!, communityId: ID, pool: CreatePoolInput!): Pool
+  createPool(communityId: ID, pool: CreatePoolInput!): Pool
   duplicatePool(id: ID!, pool: DuplicatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   updatePublishedPool(id: ID!, pool: UpdatePublishedPoolInput!): Pool
@@ -780,6 +773,7 @@ type Mutation {
   downloadApplicationDoc(id: UUID!): String
   downloadJobPosterTemplateDoc(id: UUID!): String
   downloadNominationDoc(id: UUID!): String
+  migrateMyAccount: Boolean!
 }
 
 type Subscription {
@@ -806,6 +800,9 @@ scalar JSON
 
 "128 bit universally unique identifier (UUID)"
 scalar UUID
+
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
+scalar BigInt
 
 type LocalizedEnumString {
   value: String!
@@ -1159,7 +1156,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus
   workStream: WorkStream
   processNumber: String
-  publishingGroup: LocalizedPublishingGroup
   opportunityLength: LocalizedPoolOpportunityLength
   createdDate: DateTime
   updatedDate: DateTime
@@ -1181,6 +1177,7 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
   applicantsCount: Int
+  isHidden: Boolean
   activities(
     where: ProcessActivityFilterInput
     orderBy: [OrderByClause!]
@@ -1531,6 +1528,8 @@ type TalentNominationGroup {
   classificationAtTimeOfLastApproval: Classification
   advancementClassifications: [Classification!]
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: [Classification!]
+  lateralMovementReferralExpiryDate: Date
 }
 
 type Team implements HasRoleAssignments {
@@ -1549,7 +1548,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean
   permissions: [Permission!]
-  roleAssignments: [RoleAssignment!]
 }
 
 type RoleAssignment {
@@ -1649,6 +1647,7 @@ type TalentRequestTrackedUser {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!
 }
 
@@ -1734,7 +1733,7 @@ type WorkExperience implements Experience {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -1891,9 +1890,9 @@ input PoolFilterInput {
   workStreams: [UUID!]
   statuses: [PoolStatus!] = []
   processNumber: String
-  publishingGroups: [PublishingGroup!]
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
+  isHidden: Boolean
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1959,7 +1958,6 @@ input PoolCandidateSearchInput {
   expiryStatus: CandidateExpiryFilter
   suspendedStatus: CandidateSuspendedFilter
   referralStatuses: [CandidateReferralFilter!]
-  publishingGroups: [PublishingGroup]
   appliedClassifications: [ClassificationFilterInput]
   workStreams: [IdInput]
   processNumber: String
@@ -2002,6 +2000,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int
   referralSummary: TalentRequestReferralSummary!
 }
@@ -2386,15 +2385,6 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input CreatePoolCandidateAsAdminInput {
-  pool: PoolBelongsTo!
-  user: UserBelongsTo!
-  expiryDate: Date
-  status: ApplicationStatus = TO_ASSESS
-  notes: String
-  isFlagged: Boolean
-}
-
 input CreateSpecialApplicationInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -2691,6 +2681,8 @@ input UpdateTalentNominationGroupInput {
   comments: String
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
 }
 
 input CreateApplicantFilterInput {
@@ -2830,7 +2822,7 @@ input WorkExperienceInput {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -2990,12 +2982,12 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus
   location: LocalizedStringInput
   isRemote: Boolean
-  publishingGroup: PublishingGroup
   opportunityLength: PoolOpportunityLength
   generalQuestions: UpdateGeneralQuestionsHasMany
   areaOfSelection: PoolAreaOfSelection
   selectionLimitations: [PoolSelectionLimitation!]
   contactEmail: String
+  isHidden: Boolean
 }
 
 input UpdatePublishedPoolInput {
@@ -4204,6 +4196,10 @@ enum ErrorCode {
   TALENT_REQUEST_INVALID_STATUS
   TALENT_REQUEST_IN_PROGRESS_DETAILS_REQUIRED
   TALENT_REQUEST_COMPLETION_DETAILS_REQUIRED
+  TRACKED_USER_NOT_REFERRED_REASON_PROHIBITED
+  TRACKED_USER_SELECTION_DECISION_PROHIBITED
+  TRACKED_USER_NOT_SELECTED_REASON_PROHIBITED
+  TRACKED_USER_DECISION_COMBINATION_INVALID
   TALENT_EVENT_IS_CLOSED
   TALENT_EVENT_CANNOT_CHANGE_COMMUNITY
   TALENT_EVENT_CANNOT_CHANGE_NAME
@@ -4227,6 +4223,13 @@ enum ErrorCode {
   ADVANCEMENT_CLASSIFICATIONS_PROHIBITED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
   ADVANCEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED
+  LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_REQUIRED
+  LATERAL_MOVEMENT_REFERRAL_EXPIRY_DATE_PROHIBITED
+  ADVANCEMENT_DECISION_REQUIRED
+  LATERAL_MOVEMENT_DECISION_REQUIRED
+  DEVELOPMENT_PROGRAMS_DECISION_REQUIRED
   BOTH_STATUS_NON_STATUS
   SKILL_USED_ACTIVE_POSTER
   FAILED_DUE_SKILL_DELETED
@@ -4534,13 +4537,6 @@ enum ProvinceOrTerritory {
   NUNAVUT
 }
 
-enum PublishingGroup {
-  IAP
-  IT_JOBS
-  EXECUTIVE_JOBS
-  OTHER
-}
-
 enum ScreeningStage {
   NEW_APPLICATION
   APPLICATION_REVIEW
@@ -4673,6 +4669,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

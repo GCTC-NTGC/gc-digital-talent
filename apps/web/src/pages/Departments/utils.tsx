@@ -50,8 +50,16 @@ export function departmentStatusAccessor(
   intl: IntlShape,
 ) {
   return archivedAt
-    ? intl.formatMessage(commonMessages.archived)
-    : intl.formatMessage(commonMessages.published);
+    ? intl.formatMessage({
+        defaultMessage: "Archived",
+        id: "MiyFrV",
+        description: "Status is archived",
+      })
+    : intl.formatMessage({
+        defaultMessage: "Published",
+        id: "BcEpFb",
+        description: "Status is published",
+      });
 }
 
 export interface MyRoleDepartment {

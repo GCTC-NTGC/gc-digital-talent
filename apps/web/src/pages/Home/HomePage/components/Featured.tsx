@@ -3,46 +3,21 @@ import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGla
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
 import useRoutes from "~/hooks/useRoutes";
 import glassesOnBooks from "~/assets/img/glasses-on-books.webp";
 import platformResourcesImg from "~/assets/img/platform-resources-hero-card.webp";
-import dndImg from "~/assets/img/dnd-hero-card.webp";
 import pageTitles from "~/messages/pageTitles";
 
 const Featured = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const featured = [
-    {
-      key: "dnd",
-      title: intl.formatMessage(pageTitles.dnd),
-      summary: intl.formatMessage({
-        defaultMessage:
-          "Explore digital career opportunities with Canada's National Defence (DND) and contribute your expertise to projects that support national security and help strengthen the digital foundations of DND and the Canadian Armed Forces.",
-        id: "DOZYQ5",
-        description: "Summary for career opportunities with DND",
-      }),
-      img: {
-        path: dndImg,
-        position: "center",
-        width: 400,
-        height: 300,
-      },
-      link: {
-        path: paths.dndDigitalCareers(),
-        label: intl.formatMessage({
-          defaultMessage:
-            "Learn more<hidden> about digital careers at National Defence</hidden>",
-          id: "iERL9L",
-          description: "Link text for the digital careers at DND page",
-        }),
-      },
-    },
     {
       key: "platform-resources",
       title: intl.formatMessage(pageTitles.hrResources),
@@ -56,7 +31,7 @@ const Featured = () => {
           })}
         </p>
       ),
-      img: { path: platformResourcesImg, width: 400, height: 300 },
+      img: { path: platformResourcesImg, width: 600, height: 450 },
       link: {
         path: paths.professionalHRResources(),
         label: intl.formatMessage({
@@ -86,12 +61,11 @@ const Featured = () => {
           })}
         </p>
       ),
-
       img: {
         path: glassesOnBooks,
         position: "bottom right",
-        width: 400,
-        height: 300,
+        width: 600,
+        height: 450,
       },
       link: {
         path: paths.comptrollershipExecutivesPage(),
@@ -109,7 +83,7 @@ const Featured = () => {
   return (
     <FlourishContainer show={[]}>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         className="mt-0 mb-12 font-normal"
         color="primary"
@@ -121,13 +95,13 @@ const Featured = () => {
           description: "Heading for featured items on the homepage",
         })}
       </Heading>
-      <div className="grid gap-6 sm:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2">
         {featured.map((item) => (
           <FeatureBlock key={item.key} content={item} />
         ))}
       </div>
       <Heading
-        level="h2"
+        rank="h2"
         size="h3"
         icon={MegaphoneIcon}
         color="primary"
@@ -151,7 +125,10 @@ const Featured = () => {
             {
               external: true,
               mode: "solid",
-              href: paths.directive(),
+              href:
+                locale === "en"
+                  ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                  : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749",
               label: intl.formatMessage({
                 defaultMessage: "Check out the Directive",
                 id: "sGPKUt",

@@ -12,7 +12,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { getFullNameLabel } from "~/utils/nameUtils";
 
-const PersonalInfoBox_Fragment = graphql(/** GraphQL */ `
+export const PersonalInfoBox_Fragment = graphql(/** GraphQL */ `
   fragment PersonalInfoBox on User {
     id
     firstName

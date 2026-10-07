@@ -33,10 +33,7 @@ import type { EditPoolSectionMetadata } from "~/types/pool";
 import SEO from "~/components/SEO/SEO";
 import StatusItem from "~/components/StatusItem/StatusItem";
 import useRequiredParams from "~/hooks/useRequiredParams";
-import {
-  hasEmptyRequiredFields as poolNameError,
-  isInNullState as educationRequirementIsNull,
-} from "~/validators/process/classification";
+import { hasEmptyRequiredFields as poolNameError } from "~/validators/process/classification";
 import { hasInvalidRequiredFields as closingDateError } from "~/validators/process/closingDate";
 import { hasEmptyRequiredFields as yourImpactError } from "~/validators/process/yourImpact";
 import { hasEmptyRequiredFields as keyTasksError } from "~/validators/process/keyTasks";
@@ -121,13 +118,6 @@ export const EditPool_Fragment = graphql(/* GraphQL */ `
       }
     }
     processNumber
-    publishingGroup {
-      value
-      label {
-        en
-        fr
-      }
-    }
     opportunityLength {
       value
       label {
@@ -298,7 +288,6 @@ export const EditPoolForm = ({
       department: pool.department,
       workStream: pool.workStream,
       name: pool.name,
-      publishingGroup: pool.publishingGroup,
       opportunityLength: pool.opportunityLength,
     }) ||
     closingDateError({ closingDate: pool.closingDate, status: pool.status });
@@ -336,7 +325,6 @@ export const EditPoolForm = ({
         department: pool.department,
         workStream: pool.workStream,
         name: pool.name,
-        publishingGroup: pool.publishingGroup,
         opportunityLength: pool.opportunityLength,
       }),
       title: intl.formatMessage({
@@ -393,11 +381,7 @@ export const EditPoolForm = ({
     },
     educationRequirements: {
       id: "education-requirements",
-      hasError: educationRequirementIsNull({
-        workStream: pool.workStream,
-        name: pool.name,
-        publishingGroup: pool.publishingGroup,
-      }),
+      hasError: false,
       title: intl.formatMessage({
         defaultMessage: "Minimum education",
         id: "Quwegl",
@@ -566,7 +550,7 @@ export const EditPoolForm = ({
                 <div className="flex flex-col gap-y-18">
                   <div>
                     <Heading
-                      level="h2"
+                      rank="h2"
                       size="h3"
                       icon={sectionMetadata.basicInfo.icon}
                       color={sectionMetadata.basicInfo.color}
@@ -625,7 +609,7 @@ export const EditPoolForm = ({
                 <div className="flex flex-col gap-y-18">
                   <div>
                     <Heading
-                      level="h2"
+                      rank="h2"
                       size="h3"
                       icon={sectionMetadata.skillRequirements.icon}
                       color={sectionMetadata.skillRequirements.color}
@@ -654,7 +638,7 @@ export const EditPoolForm = ({
                   <div className="flex flex-col gap-y-18">
                     <div>
                       <Heading
-                        level="h2"
+                        rank="h2"
                         size="h3"
                         icon={sectionMetadata.aboutRole.icon}
                         color={sectionMetadata.aboutRole.color}
@@ -698,7 +682,7 @@ export const EditPoolForm = ({
                   <div className="flex flex-col gap-y-18">
                     <div>
                       <Heading
-                        level="h2"
+                        rank="h2"
                         size="h3"
                         icon={sectionMetadata.commonQuestions.icon}
                         color={sectionMetadata.commonQuestions.color}

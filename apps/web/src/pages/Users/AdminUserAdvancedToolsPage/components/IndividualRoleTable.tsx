@@ -4,7 +4,6 @@ import { useIntl } from "react-intl";
 
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { Heading } from "@gc-digital-talent/ui";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import type { AuthRoleAssignment } from "@gc-digital-talent/auth";
 
 import Table from "~/components/Table/ResponsiveTable/ResponsiveTable";
@@ -38,7 +37,11 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
       id: "role",
       enableHiding: false,
       sortingFn: normalizedText,
-      header: intl.formatMessage(commonMessages.role),
+      header: intl.formatMessage({
+        defaultMessage: "Role",
+        id: "uBmoxQ",
+        description: "Title displayed for the role table display name column",
+      }),
       cell: ({ getValue }) => roleCell(getValue()),
     }),
   ] as ColumnDef<AuthRoleAssignment>[];
@@ -55,7 +58,7 @@ const IndividualRoleTable = ({ query, optionsQuery }: RoleTableProps) => {
 
   return (
     <>
-      <Heading level="h3" size="h4" className="font-bold">
+      <Heading rank="h3" size="h4" className="font-bold">
         {pageTitle}
       </Heading>
       <Table<AuthRoleAssignment>

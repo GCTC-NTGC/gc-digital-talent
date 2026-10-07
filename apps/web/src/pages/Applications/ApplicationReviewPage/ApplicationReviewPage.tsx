@@ -299,7 +299,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />
@@ -354,7 +354,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               <ExperienceCard
                 key={experience.id}
                 experienceQuery={experience}
-                headingLevel="h4"
+                headingRank="h4"
                 showSkills={allSkills}
                 showEdit={false}
               />
@@ -414,7 +414,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
               "Instructional text under the Skill Requirements section",
           })}
         </p>
-        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Required technical skills",
             id: "OCrKtT",
@@ -433,7 +433,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
             />
           ),
         )}
-        <Heading level="h3" size="h4" className="mt-18 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-18 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Optional technical skills",
             id: "mm1X02",
@@ -558,7 +558,7 @@ const ApplicationReview = ({ application }: ApplicationPageProps) => {
       )}
 
       <section className="mt-18">
-        <Heading level="h3" size="h4" className="mt-0 mb-6 font-bold">
+        <Heading rank="h3" size="h4" className="mt-0 mb-6 font-bold">
           {intl.formatMessage({
             defaultMessage: "Sign and submit",
             id: "fhgZRX",

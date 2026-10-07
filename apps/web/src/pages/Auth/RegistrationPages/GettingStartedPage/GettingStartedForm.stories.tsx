@@ -1,10 +1,29 @@
 import type { Meta, StoryFn } from "@storybook/react-vite";
 
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { fakeUsers, toLocalizedEnum } from "@gc-digital-talent/fake-data";
+import { Language, makeFragmentData } from "@gc-digital-talent/graphql";
+
+import { PersonalInfoBox_Fragment } from "~/components/PersonalInfoBox/PersonalInfoBox";
 
 import GettingStartedForm, {
   GettingStartedInitialValues_Query,
 } from "./GettingStartedForm";
+
+const [user] = fakeUsers(1);
+
+const mockPersonalInfo = (email: string) =>
+  makeFragmentData(
+    {
+      __typename: "User",
+      id: user.id,
+      firstName: user.firstName ?? null,
+      lastName: user.lastName ?? null,
+      telephone: user.telephone ?? null,
+      email,
+      preferredLang: toLocalizedEnum(Language.En, "LocalizedLanguage"),
+    },
+    PersonalInfoBox_Fragment,
+  );
 
 export default {
   component: GettingStartedForm,
@@ -24,17 +43,10 @@ export default {
 const NonEmployeeTemplate: StoryFn<typeof GettingStartedForm> = () => {
   const mockData = makeFragmentData(
     {
-      firstName: "First",
-      lastName: "Last",
-      preferredLang: {
-        label: {
-          localized: "Language",
-        },
-      },
-      email: "example@example.org",
+      __typename: "User",
       workEmail: null,
       isWorkEmailVerified: null,
-      telephone: "1234567890",
+      ...mockPersonalInfo("example@example.org"),
     },
     GettingStartedInitialValues_Query,
   );
@@ -47,17 +59,10 @@ export const NonEmployee = NonEmployeeTemplate.bind({});
 const EmployeeTemplate: StoryFn<typeof GettingStartedForm> = () => {
   const mockData = makeFragmentData(
     {
-      firstName: "First",
-      lastName: "Last",
-      preferredLang: {
-        label: {
-          localized: "Language",
-        },
-      },
-      email: "example@gc.ca",
+      __typename: "User",
       workEmail: "example@gc.ca",
       isWorkEmailVerified: true,
-      telephone: "1234567890",
+      ...mockPersonalInfo("example@gc.ca"),
     },
     GettingStartedInitialValues_Query,
   );

@@ -19,18 +19,7 @@ import SitewideAnnouncementSection from "./SitewideAnnouncementSection";
 const AnnouncementPage_Query = graphql(/* GraphQL */ `
   query AnnouncementPage {
     sitewideAnnouncement {
-      isEnabled
-      isDismissible
-      publishDate
-      expiryDate
-      title {
-        en
-        fr
-      }
-      message {
-        en
-        fr
-      }
+      ...SitewideAnnouncementSection
       updatedAt
     }
   }
@@ -113,7 +102,7 @@ const AnnouncementsPage = () => {
       <Container className="my-18">
         <Pending fetching={queryFetching} error={queryError}>
           <SitewideAnnouncementSection
-            initialData={initialData?.sitewideAnnouncement}
+            query={initialData?.sitewideAnnouncement}
             onUpdate={handleSave}
             isSubmitting={isSubmitting}
           />

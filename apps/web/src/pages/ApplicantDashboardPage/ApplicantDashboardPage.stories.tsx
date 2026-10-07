@@ -36,7 +36,10 @@ type Story = StoryObj<typeof ApplicantDashboardPage>;
 export const VerifiedGovernmentEmployee: Story = {
   args: {
     applicantDashboardQuery: {
+      __typename: "Query" as const,
+      canMigrateMyAccount: false,
       me: {
+        __typename: "User" as const,
         ...makeFragmentData(
           {
             ...mockUser,
@@ -51,9 +54,12 @@ export const VerifiedGovernmentEmployee: Story = {
       },
       ...makeFragmentData(
         {
+          __typename: "Query",
           organizationTypeInterest: [
             {
+              __typename: "LocalizedEnumString",
               label: {
+                __typename: "LocalizedString",
                 en: "Current organization",
                 fr: "Current organization fr",
                 localized: "Current organization",
@@ -63,7 +69,9 @@ export const VerifiedGovernmentEmployee: Story = {
           ],
           timeFrame: [
             {
+              __typename: "LocalizedEnumString",
               label: {
+                __typename: "LocalizedString",
                 en: "This year",
                 fr: "This year fr",
                 localized: "This year",
@@ -81,7 +89,10 @@ export const VerifiedGovernmentEmployee: Story = {
 export const NonEmployee: Story = {
   args: {
     applicantDashboardQuery: {
+      __typename: "Query" as const,
+      canMigrateMyAccount: false,
       me: {
+        __typename: "User" as const,
         ...makeFragmentData(
           {
             ...{
@@ -98,9 +109,12 @@ export const NonEmployee: Story = {
       },
       ...makeFragmentData(
         {
+          __typename: "Query",
           organizationTypeInterest: [
             {
+              __typename: "LocalizedEnumString",
               label: {
+                __typename: "LocalizedString",
                 en: "Current organization",
                 fr: "Current organization fr",
                 localized: "Current organization",
@@ -110,7 +124,9 @@ export const NonEmployee: Story = {
           ],
           timeFrame: [
             {
+              __typename: "LocalizedEnumString",
               label: {
+                __typename: "LocalizedString",
                 en: "This year",
                 fr: "This year fr",
                 localized: "This year",

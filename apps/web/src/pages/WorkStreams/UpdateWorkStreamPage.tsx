@@ -191,7 +191,7 @@ export const UpdateWorkStreamForm = ({
       <Hero title={pageTitle} crumbs={navigationCrumbs} overlap centered>
         <Card className="mb-18">
           <Heading
-            level="h2"
+            rank="h2"
             color="secondary"
             icon={IdentificationIcon}
             center

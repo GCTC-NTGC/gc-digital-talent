@@ -10,7 +10,7 @@ import LocationPreferenceUpdatePage from "~/fixtures/locationPreferenceUpdatePag
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
 import { generateUniqueTestId } from "~/utils/id";
-import { createUserWithRoles, deleteUser } from "~/utils/user";
+import { createUserWithRoles, deleteUser, NO_USER } from "~/utils/user";
 import testConfig from "~/constants/config";
 
 test.describe("Location Preference Update", () => {
@@ -60,7 +60,7 @@ test.describe("Location Preference Update", () => {
       roles: ["guest", "base_user", "applicant"],
     });
 
-    user = createdUser ?? { id: "" };
+    user = createdUser ?? NO_USER;
 
     locationPrefPage = new LocationPreferenceUpdatePage(appPage.page);
     await locationPrefPage.goToPersonalInformationPage(sub);

@@ -15,9 +15,9 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import { recruitmentProcessesTitle } from "~/components/RecruitmentProcesses/utils";
+import ReviewApplicationPreviewList from "~/components/ReviewApplicationPreviewList/ReviewApplicationPreviewList";
 
 import ReviewRecruitmentProcessPreviewList from "./ReviewRecruitmentProcessPreviewList";
-import ReviewApplicationPreviewList from "./ReviewApplicationPreviewList";
 
 const ACCORDION_ID = {
   RECRUITMENT_PROCESSES: "your_recruitment_processes",
@@ -71,6 +71,21 @@ const ApplicationsProcessesTaskCard = ({
       color: "primary",
       children: <>{intl.formatMessage(navigationMessages.browseJobs)}</>,
     },
+    {
+      key: "all-applications-key",
+      type: "link",
+      href: paths.applications(),
+      color: "primary",
+      children: (
+        <>
+          {intl.formatMessage({
+            defaultMessage: "All applications",
+            id: "ImKTX7",
+            description: "Text for all applications page",
+          })}
+        </>
+      ),
+    },
   ];
 
   const recruitmentProcesses = unpackMaybes(
@@ -85,11 +100,11 @@ const ApplicationsProcessesTaskCard = ({
     applicationsProcessesTaskCardFragment?.offPlatformRecruitmentProcesses,
   );
 
-  const isAcccordionOpen =
+  const isAccordionOpen =
     recruitmentProcessesAccordionValue === "" &&
     jobApplicationsAccordionValue === "";
   const handleToggleAccordions = () => {
-    if (isAcccordionOpen) {
+    if (isAccordionOpen) {
       setRecruitmentProcessesAccordionValue(ACCORDION_ID.RECRUITMENT_PROCESSES);
       setJobApplicationsAccordionValue(ACCORDION_ID.JOB_APPLICATIONS);
     } else {
@@ -111,7 +126,7 @@ const ApplicationsProcessesTaskCard = ({
           headingColor="secondary"
           headingAs="h2"
           action={{
-            label: isAcccordionOpen
+            label: isAccordionOpen
               ? intl.formatMessage({
                   defaultMessage:
                     "Expand all<hidden> applications and processes sections</hidden>",

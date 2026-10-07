@@ -89,7 +89,7 @@ const EmployeeVerificationSection = ({
   return (
     <>
       <Heading
-        level="h2"
+        rank="h2"
         size={context === "admin" ? "h3" : "h2"}
         icon={IdentificationIcon}
         color={context === "admin" ? "secondary" : "primary"}

@@ -16,7 +16,6 @@ import {
   Container,
 } from "@gc-digital-talent/ui";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
 import { toast } from "@gc-digital-talent/toast";
 import type {
   UpdateUserSkillRankingsInput,
@@ -384,7 +383,11 @@ const UpdateSkillShowcase = ({
                 </div>
                 <Separator />
                 <Link mode="solid" color="primary" href={pageInfo.returnPath}>
-                  {intl.formatMessage(commonMessages.return)}
+                  {intl.formatMessage({
+                    defaultMessage: "Return",
+                    id: "VV8TA5",
+                    description: "An action to go back to a previous location",
+                  })}
                 </Link>
               </div>
             </TableOfContents.Section>

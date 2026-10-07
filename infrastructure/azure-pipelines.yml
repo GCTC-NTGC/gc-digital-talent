@@ -43,6 +43,12 @@ jobs:
 
       - script: |
           cd $(System.DefaultWorkingDirectory)/api
+          if [ ! -f .env ]; then
+            echo "Copying .env file..."
+            cp .env.example .env
+          else
+            echo ".env file already exists, skipping the copy."
+          fi
           sudo composer selfupdate
           if [ ${{ parameters.buildMode }} = 'dev' ]; then
             echo "Building dev..."
@@ -62,7 +68,7 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
           source ~/.bash_profile
           nvm install v24.15.0
-          npm install -g pnpm@10.27.0
+          npm install -g pnpm@12.9.1
           cd $(System.DefaultWorkingDirectory)
           pnpm install --frozen-lockfile
           pnpm run build

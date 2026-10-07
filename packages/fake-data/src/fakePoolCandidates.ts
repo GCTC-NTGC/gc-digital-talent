@@ -32,12 +32,14 @@ const generatePoolCandidate = (
   const user = faker.helpers.arrayElement<User>(users);
   const generalQuestionResponses =
     pool.generalQuestions?.map((generalQuestion) => ({
+      __typename: "GeneralQuestionResponse" as const,
       id: faker.string.uuid(),
       answer: faker.lorem.sentence(),
       generalQuestion,
     })) ?? [];
   const screeningQuestionResponses =
     pool.screeningQuestions?.map((screeningQuestion) => ({
+      __typename: "ScreeningQuestionResponse" as const,
       id: faker.string.uuid(),
       answer: faker.lorem.sentence(),
       screeningQuestion,
@@ -50,6 +52,7 @@ const generatePoolCandidate = (
     .substring(0, 10);
 
   return {
+    __typename: "PoolCandidate",
     id: faker.string.uuid(),
     pool,
     user,
@@ -61,18 +64,22 @@ const generatePoolCandidate = (
       faker.helpers.arrayElement<EducationRequirementOption>(
         Object.values(EducationRequirementOption),
       ),
+      "LocalizedEducationRequirementOption",
     ),
     expiryDate,
     applicationStatusData: {
+      __typename: "PoolCandidateStatusData",
       status: toLocalizedEnum(
         faker.helpers.arrayElement<ApplicationStatus>(
           Object.values(ApplicationStatus),
         ),
+        "LocalizedApplicationStatus",
       ),
       screeningStage: toLocalizedEnum(
         faker.helpers.arrayElement<ScreeningStage>(
           Object.values(ScreeningStage),
         ),
+        "LocalizedScreeningStage",
       ),
       pauseReferralsAt: faker.date.past().toISOString(),
       resumeReferralsAt: expiryDate,
@@ -88,12 +95,14 @@ const generatePoolCandidate = (
     submittedAt: FAR_PAST_DATE,
     suspendedAt: faker.helpers.arrayElement([null, new Date().toISOString()]),
     applicationAssessmentData: {
+      __typename: "PoolCandidateAssessmentData",
       isFlagged: faker.datatype.boolean(0.2),
     },
     generalQuestionResponses,
     screeningQuestionResponses,
     assessmentStep: pool.assessmentSteps?.[0] ?? null,
     assessmentStatus: {
+      __typename: "AssessmentResultStatus",
       assessmentStepStatuses: [],
       overallAssessmentStatus: OverallAssessmentStatus.ToAssess,
     },

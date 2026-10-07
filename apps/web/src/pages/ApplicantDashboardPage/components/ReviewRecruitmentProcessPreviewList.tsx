@@ -22,8 +22,8 @@ import { candidateInterestChip } from "~/utils/poolCandidate";
 import { wrapAbbr } from "~/utils/nameUtils";
 import OffPlatformRecruitmentProcessList from "~/components/RecruitmentProcesses/OffPlatformRecruitmentProcessList";
 import OffPlatformProcessDialog from "~/components/RecruitmentProcesses/OffPlatformProcessDialog";
+import { RecruitmentDate } from "~/components/ReviewApplicationPreviewList/MetadataDate";
 
-import { RecruitmentDate } from "./MetadataDate";
 import ReviewRecruitmentProcessDialog from "./ReviewRecruitmentProcessDialog";
 
 const ReviewRecruitmentProcessPreviewList_Fragment = graphql(/* GraphQL */ `
@@ -187,7 +187,7 @@ const ReviewRecruitmentProcessPreviewList = ({
       )}
       <Separator space="sm" />
       <Pending fetching={fetching} error={error} inline>
-        <Heading level="h3" size="h6" className="mb-0.75 font-bold">
+        <Heading rank="h3" size="h6" className="mb-0.75 font-bold">
           {intl.formatMessage(
             navigationMessages.offPlatformRecruitmentProcesses,
           )}

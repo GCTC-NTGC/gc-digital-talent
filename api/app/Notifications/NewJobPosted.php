@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Contracts\LowPriorityJob;
 use App\Enums\Language;
 use App\Enums\NotificationFamily;
 use App\Models\User;
@@ -9,7 +10,7 @@ use App\Notifications\Messages\GcNotifyEmailMessage;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
-class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail
+class NewJobPosted extends Notification implements CanBeSentViaGcNotifyEmail, LowPriorityJob
 {
     use Queueable;
 

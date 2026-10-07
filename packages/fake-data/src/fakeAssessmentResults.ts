@@ -22,17 +22,20 @@ const generateAssessmentResult = (
   faker.seed(index); // repeatable results
 
   return {
+    __typename: "AssessmentResult",
     id: faker.string.uuid(),
     assessmentStep,
     assessmentDecision: toLocalizedEnum(
       faker.helpers.arrayElement<AssessmentDecision>(
         Object.values(AssessmentDecision),
       ),
+      "LocalizedAssessmentDecision",
     ),
     assessmentDecisionLevel: toLocalizedEnum(
       faker.helpers.arrayElement<AssessmentDecisionLevel>(
         Object.values(AssessmentDecisionLevel),
       ),
+      "LocalizedAssessmentDecisionLevel",
     ),
     assessmentResultType: faker.helpers.arrayElement<AssessmentResultType>(
       Object.values(AssessmentResultType),
@@ -41,7 +44,12 @@ const generateAssessmentResult = (
       .arrayElements<AssessmentResultJustification>(
         Object.values(AssessmentResultJustification),
       )
-      .map((justification) => toLocalizedEnum(justification)),
+      .map((justification) =>
+        toLocalizedEnum(
+          justification,
+          "LocalizedAssessmentResultJustification",
+        ),
+      ),
     poolSkill,
     skillDecisionNotes: "skillDecisionNotes",
   };

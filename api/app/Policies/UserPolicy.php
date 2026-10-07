@@ -57,7 +57,10 @@ class UserPolicy
             fn ($team) => $user->isAbleTo('view-team-communityTalent', $team)
         )->pluck('id')->toArray();
 
-        if (! empty($teamsWithCommunityTalent) && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)) {
+        if (! empty($teamsWithCommunityTalent)
+            && $this->teamsUserHasSharedProfileWith($model, $teamsWithCommunityTalent)
+            && $model->isVerifiedGovEmployee
+        ) {
             return true;
         }
 
@@ -94,6 +97,16 @@ class UserPolicy
     {
         return $user->isAbleTo('update-any-user') ||
             ($user->isAbleTo('update-own-user') && $user->id === $model->id);
+    }
+
+    /**
+     * Determine whether the user can update any model.
+     *
+     * @return Response|bool
+     */
+    public function updateAsAdmin(User $user)
+    {
+        return $user->isAbleTo('update-any-user');
     }
 
     /**

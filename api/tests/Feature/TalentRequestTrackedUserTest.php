@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ErrorCode;
 use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestTrackedUserNotReferredReason;
@@ -99,6 +100,7 @@ class TalentRequestTrackedUserTest extends TestCase
                     matchingQualifiedInPoolSources { pool { id } }
                     matchingAtLevelSources { id }
                     matchingAdvancementSources { id }
+                    matchingLateralMovementSources { id }
                 }
             }
         }
@@ -363,7 +365,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
@@ -566,7 +568,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $request = $this->createRequest();
 
         // viewable: applicant with a submitted candidate in a published pool of the community
-        $pool = Pool::factory()->for($this->admin)->published()
+        $pool = Pool::factory()->published()
             ->create(['community_id' => $this->community->id]);
         $viewableUser = User::factory()->asApplicant()->create();
         PoolCandidate::factory()->for($viewableUser)->for($pool)
@@ -1544,6 +1546,104 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @return array<string, array{0: array<string, string>, 1: string, 2: string}>
+     */
+    public static function illegalDecisionFieldsProvider(): array
+    {
+        $prohibitedNotReferredReason = ErrorCode::TRACKED_USER_NOT_REFERRED_REASON_PROHIBITED->name;
+        $prohibitedSelectionDecision = ErrorCode::TRACKED_USER_SELECTION_DECISION_PROHIBITED->name;
+        $prohibitedNotSelectedReason = ErrorCode::TRACKED_USER_NOT_SELECTED_REASON_PROHIBITED->name;
+
+        return [
+            'selected with both reasons' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.notReferredReason',
+                $prohibitedNotReferredReason,
+            ],
+            'not selected with a not referred reason' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.notReferredReason',
+                $prohibitedNotReferredReason,
+            ],
+            'referred with a not referred reason' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                ],
+                'input.notReferredReason',
+                $prohibitedNotReferredReason,
+            ],
+            'not referred with a selection decision' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+                ],
+                'input.selectionDecision',
+                $prohibitedSelectionDecision,
+            ],
+            'not referred with a not selected decision' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                    'selectionDecision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.selectionDecision',
+                $prohibitedSelectionDecision,
+            ],
+            'not referred with a not selected reason' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                    'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.notSelectedReason',
+                $prohibitedNotSelectedReason,
+            ],
+            'referred with a not selected reason but no selection decision' => [
+                [
+                    'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                    'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+                ],
+                'input.notSelectedReason',
+                $prohibitedNotSelectedReason,
+            ],
+        ];
+    }
+
+    /**
+     * @param  array<string, string>  $input
+     */
+    #[DataProvider('illegalDecisionFieldsProvider')]
+    public function testUpdateSingleTrackedUserIllegalDecisionFieldsFailValidation(array $input, string $key, string $message): void
+    {
+        $request = $this->createRequest();
+        $trackedUser = TalentRequestTrackedUser::factory()
+            ->referred()
+            ->for($request)
+            ->for(User::factory())
+            ->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => $input,
+            ])
+            ->assertGraphQLValidationError($key, $message);
+    }
+
     public function testUpdateSingleTrackedUserNotReferredWithoutReasonFailsValidation(): void
     {
         $request = $this->createRequest();
@@ -1616,6 +1716,115 @@ class TalentRequestTrackedUserTest extends TestCase
         ]);
     }
 
+    /**
+     * @return array<string, array{0: string, 1: array<string, string>, 2: array<string, mixed>}>
+     */
+    public static function updateTrackedUserDecisionFieldsProvider(): array
+    {
+        $toReferred = [
+            [
+                'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+            ],
+            [
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ],
+        ];
+        $toNotReferred = [
+            [
+                'referralDecision' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name,
+                'notReferredReason' => TalentRequestTrackedUserNotReferredReason::OTHER->name,
+            ],
+            [
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::NOT_REFERRED->name],
+                'notReferredReason' => ['value' => TalentRequestTrackedUserNotReferredReason::OTHER->name],
+                'selectionDecision' => null,
+                'notSelectedReason' => null,
+            ],
+        ];
+        $toSelected = [
+            [
+                'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                'selectionDecision' => TalentRequestTrackedUserSelectionDecision::SELECTED->name,
+            ],
+            [
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::SELECTED->name],
+                'notSelectedReason' => null,
+            ],
+        ];
+        $toNotSelected = [
+            [
+                'referralDecision' => TalentRequestTrackedUserReferralDecision::REFERRED->name,
+                'selectionDecision' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name,
+                'notSelectedReason' => TalentRequestTrackedUserNotSelectedReason::OTHER->name,
+            ],
+            [
+                'referralDecision' => ['value' => TalentRequestTrackedUserReferralDecision::REFERRED->name],
+                'notReferredReason' => null,
+                'selectionDecision' => ['value' => TalentRequestTrackedUserSelectionDecision::NOT_SELECTED->name],
+                'notSelectedReason' => ['value' => TalentRequestTrackedUserNotSelectedReason::OTHER->name],
+            ],
+        ];
+
+        return [
+            'no decision to referred' => ['default', ...$toReferred],
+            'no decision to not referred' => ['default', ...$toNotReferred],
+            'no decision to selected' => ['default', ...$toSelected],
+            'no decision to not selected' => ['default', ...$toNotSelected],
+            'referred to referred' => ['referred', ...$toReferred],
+            'referred to not referred' => ['referred', ...$toNotReferred],
+            'referred to selected' => ['referred', ...$toSelected],
+            'referred to not selected' => ['referred', ...$toNotSelected],
+            'not referred to referred' => ['notReferred', ...$toReferred],
+            'not referred to not referred' => ['notReferred', ...$toNotReferred],
+            'not referred to selected' => ['notReferred', ...$toSelected],
+            'not referred to not selected' => ['notReferred', ...$toNotSelected],
+            'selected to referred' => ['selected', ...$toReferred],
+            'selected to not referred' => ['selected', ...$toNotReferred],
+            'selected to selected' => ['selected', ...$toSelected],
+            'selected to not selected' => ['selected', ...$toNotSelected],
+            'not selected to referred' => ['notSelected', ...$toReferred],
+            'not selected to not referred' => ['notSelected', ...$toNotReferred],
+            'not selected to selected' => ['notSelected', ...$toSelected],
+            'not selected to not selected' => ['notSelected', ...$toNotSelected],
+        ];
+    }
+
+    /**
+     * @param  array<string, string>  $input
+     * @param  array<string, mixed>  $expected
+     */
+    #[DataProvider('updateTrackedUserDecisionFieldsProvider')]
+    public function testUpdateTrackedUserReferralAndSelection(string $startState, array $input, array $expected): void
+    {
+        $factory = match ($startState) {
+            'default' => TalentRequestTrackedUser::factory(),
+            'referred' => TalentRequestTrackedUser::factory()->referred(),
+            'notReferred' => TalentRequestTrackedUser::factory()->notReferred(TalentRequestTrackedUserNotReferredReason::OTHER),
+            'selected' => TalentRequestTrackedUser::factory()->selected(),
+            'notSelected' => TalentRequestTrackedUser::factory()->notSelected(TalentRequestTrackedUserNotSelectedReason::OTHER),
+        };
+        $trackedUser = $factory
+            ->for($this->createRequest())
+            ->for(User::factory())
+            ->create();
+
+        $this->actingAs($this->recruiter, 'api')
+            ->graphQL($this->updateSingleMutation, [
+                'id' => $trackedUser->id,
+                'input' => $input,
+            ])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment([
+                'id' => $trackedUser->id,
+                ...$expected,
+            ]);
+    }
+
     public function testFilterByStatusNotReferredDoesNotIncludeRowsWithSelectionDecision(): void
     {
         $request = $this->createRequest();
@@ -1651,7 +1860,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1703,7 +1912,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1752,11 +1961,11 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $matchingPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $matchingPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $matchingClass->id,
         ]);
-        $otherPool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $otherPool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $otherClass->id,
         ]);
@@ -1788,10 +1997,10 @@ class TalentRequestTrackedUserTest extends TestCase
     {
         $request = $this->createRequest();
 
-        $poolA = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolA = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
-        $poolB = Pool::factory()->candidatesAvailableInSearch()->create([
+        $poolB = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
 
@@ -1834,7 +2043,7 @@ class TalentRequestTrackedUserTest extends TestCase
             'applicant_filter_id' => $filter->id,
         ]);
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()->create([
+        $pool = Pool::factory()->create([
             'community_id' => $this->community->id,
             'classification_id' => $classification->id,
         ]);
@@ -1924,7 +2133,7 @@ class TalentRequestTrackedUserTest extends TestCase
             ->for($filter)
             ->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)
             ->for($classification)
             ->create();
@@ -1985,7 +2194,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();
@@ -2035,14 +2244,11 @@ class TalentRequestTrackedUserTest extends TestCase
         );
     }
 
-    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    private function seedReferredNominationGroupUsers(TalentRequest $request, string $nominationType, int $count): void
     {
-        $filter = ApplicantFilter::factory()->for($this->community)->create();
-        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
-
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < $count; $i++) {
             $user = User::factory()->create([
-                'work_email' => "advancement.batch.{$i}@gc.ca",
+                'work_email' => str_replace('_', '.', $nominationType).".batch.{$i}@gc.ca",
                 'work_email_verified_at' => now(),
                 'computed_is_gov_employee' => true,
             ]);
@@ -2051,12 +2257,20 @@ class TalentRequestTrackedUserTest extends TestCase
             $group = TalentNominationGroup::create([
                 'nominee_id' => $user->id,
                 'talent_nomination_event_id' => $event->id,
-                'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+                "{$nominationType}_decision" => TalentNominationGroupDecision::APPROVED->name,
             ]);
-            $group->advancement_referral_expiry_date = now()->addMonths(6);
+            $group->{"{$nominationType}_referral_expiry_date"} = now()->addMonths(6);
             $group->save();
             TalentRequestTrackedUser::factory()->referred()->for($request)->for($user)->create();
         }
+    }
+
+    public function testTrackedUsersListBatchesMatchingAdvancementSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $this->seedReferredNominationGroupUsers($request, 'advancement', 25);
 
         $listQuery = <<<'GRAPHQL'
             query ($talentRequestId: UUID!) {
@@ -2084,6 +2298,42 @@ class TalentRequestTrackedUserTest extends TestCase
             1,
             $batchedLookups,
             'Matching advancement sources must load in one batched query, not one per row.',
+        );
+    }
+
+    public function testTrackedUsersListBatchesMatchingLateralMovementSources(): void
+    {
+        $filter = ApplicantFilter::factory()->for($this->community)->create();
+        $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
+
+        $this->seedReferredNominationGroupUsers($request, 'lateral_movement', 25);
+
+        $listQuery = <<<'GRAPHQL'
+            query ($talentRequestId: UUID!) {
+                talentRequestTrackedUsers(talentRequestId: $talentRequestId, first: 50) {
+                    data {
+                        matchingLateralMovementSources { id }
+                    }
+                }
+            }
+            GRAPHQL;
+
+        DB::enableQueryLog();
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($listQuery, ['talentRequestId' => $request->id])
+            ->assertJsonCount(25, 'data.talentRequestTrackedUsers.data');
+        $log = DB::getQueryLog();
+        DB::disableQueryLog();
+
+        $batchedLookups = collect($log)
+            ->filter(fn (array $entry) => str_contains($entry['query'], 'from "talent_nomination_groups"')
+                && str_contains($entry['query'], '"nominee_id" in ('))
+            ->count();
+
+        $this->assertSame(
+            1,
+            $batchedLookups,
+            'Matching lateral movement sources must load in one batched query, not one per row.',
         );
     }
 
@@ -2134,7 +2384,7 @@ class TalentRequestTrackedUserTest extends TestCase
         $filter->qualifiedInClassifications()->sync([$classification->id]);
         $request = TalentRequest::factory()->for($this->community)->for($filter)->create();
 
-        $pool = Pool::factory()->candidatesAvailableInSearch()
+        $pool = Pool::factory()
             ->for($this->community)->for($classification)->create();
 
         $user = User::factory()->create();

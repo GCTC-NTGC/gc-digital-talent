@@ -18,8 +18,6 @@ class UserBuilderTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $platformAdmin;
-
     protected $communityA;
 
     protected $pool;
@@ -30,19 +28,9 @@ class UserBuilderTest extends TestCase
 
         $this->seed(RolePermissionSeeder::class);
 
-        $this->platformAdmin = User::factory()
-            ->asAdmin()
-            ->create([
-                'flexible_work_locations' => [],
-                'location_preferences' => [],
-                'computed_is_gov_employee' => false,
-                'work_email' => null,
-            ]);
-
         $this->communityA = Community::factory()->create();
 
         $this->pool = Pool::factory()
-            ->for($this->platformAdmin)
             ->published()
             ->create([
                 'community_id' => $this->communityA->id,
@@ -112,7 +100,6 @@ class UserBuilderTest extends TestCase
             $onsiteUserInAtl->id,
             $hybridOnsiteUserInNcr->id,
             $allUserInQc->id,
-            $this->platformAdmin->id, // platform admin pops up for this case
         ], $userIds);
 
         // remote, empty regions
@@ -234,7 +221,6 @@ class UserBuilderTest extends TestCase
         // Empty array — skip filter, return all users
         $ids = User::whereEmployeeVerificationIn([])->pluck('id')->toArray();
         assertEqualsCanonicalizing([
-            $this->platformAdmin->id,
             $nonGovUser->id,
             $govNoEmail->id,
             $govUnverifiedEmail->id,
@@ -244,7 +230,6 @@ class UserBuilderTest extends TestCase
         // Null — same as empty, skip filter
         $ids = User::whereEmployeeVerificationIn(null)->pluck('id')->toArray();
         assertEqualsCanonicalizing([
-            $this->platformAdmin->id,
             $nonGovUser->id,
             $govNoEmail->id,
             $govUnverifiedEmail->id,

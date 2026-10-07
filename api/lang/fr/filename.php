@@ -2,7 +2,7 @@
 
 return [
     'candidates' => 'candidats',
-    'candidates_rod' => 'évaluation_des_candidat(e)s',
+    'candidates_rod' => 'évaluation_des_candidats',
     'candidate' => 'candidat',
     'user' => 'utilisateur',
     'users' => 'utilisateurs',

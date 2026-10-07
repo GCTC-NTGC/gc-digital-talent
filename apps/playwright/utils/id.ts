@@ -30,9 +30,23 @@ export function generateUniqueNumber() {
 }
 
 export function fetchIdentificationNumber(url: string, entity: string): string {
-  //  This function is primarily used to fetch the ID (UUID) from recently entity such as users, departments, etc.
+  // This function is primarily used to fetch the ID (UUID) from a recent entity, such as users, departments, etc.
   const currentURLParts = new URL(url).pathname.split("/");
-  const fetchID = currentURLParts[currentURLParts.indexOf(entity) + 1];
+  const entityIndex = currentURLParts.indexOf(entity);
+
+  if (entityIndex === -1) {
+    throw new Error(`Entity "${entity}" not found in URL path: ${url}`);
+  }
+
+  const idIndex = entityIndex + 1;
+  const fetchID = currentURLParts[idIndex];
+
+  if (!fetchID) {
+    throw new Error(
+      `Missing identification segment after entity "${entity}" in URL path: ${url}`,
+    );
+  }
+
   return fetchID;
 }
 

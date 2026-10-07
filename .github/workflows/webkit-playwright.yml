@@ -25,7 +25,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
-      PNPM_VERSION: "10.27.0"
+      PNPM_VERSION: "12.9.1"
       PLAYWRIGHT_WORKERS: "25%"
       PLAYWRIGHT_RETRIES: "1"
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
@@ -80,7 +80,7 @@ jobs:
         run: npx playwright install chromium webkit
 
       - name: Start queue for downloads
-        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work" &
+        run: docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work --queue=default,default-low" &
 
       - name: Run Tests
         run: pnpm run e2e:playwright --project=${{ matrix.project }} --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
@@ -97,7 +97,7 @@ jobs:
     needs: [playwright]
     runs-on: ubuntu-24.04
     env:
-      PNPM_VERSION: "10.27.0"
+      PNPM_VERSION: "12.9.1"
     steps:
       - uses: pnpm/action-setup@v5
         with:

@@ -20,6 +20,9 @@ scalar JSON @scalar(class: "MLL\\GraphQLScalars\\JSON")
 "128 bit universally unique identifier (UUID)"
 scalar UUID @scalar(class: "UUID")
 
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
+scalar BigInt
+
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -503,8 +506,6 @@ type Pool implements HasRoleAssignments {
   status: LocalizedPoolStatus @rename(attribute: "status")
   workStream: WorkStream @belongsTo
   processNumber: String @rename(attribute: "process_number")
-  publishingGroup: LocalizedPublishingGroup
-    @rename(attribute: "publishing_group")
   opportunityLength: LocalizedPoolOpportunityLength
     @rename(attribute: "opportunity_length")
   createdDate: DateTime @rename(attribute: "created_at")
@@ -551,6 +552,7 @@ type Pool implements HasRoleAssignments {
     )
   applicantsCount: Int
     @count(relation: "poolCandidates", scopes: ["whereNotDraft"])
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 type GeneralQuestionResponse {
@@ -1018,6 +1020,9 @@ type TalentNominationGroup {
   advancementClassifications: [Classification!] @belongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: [Classification!] @belongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 type Team implements HasRoleAssignments {
@@ -1038,9 +1043,6 @@ type Role {
   description: LocalizedString
   isTeamBased: Boolean @rename(attribute: "is_team_based")
   permissions: [Permission!] @method(name: "configPermissions")
-  roleAssignments: [RoleAssignment!]
-    @hasMany
-    @canModel(ability: "viewAnyRoleAssignments", model: "Role")
 }
 
 # This model represents the polymorphic role_user table and allows querying the team relationship
@@ -1169,6 +1171,9 @@ type TalentRequestTrackedUser {
   matchingAdvancementSources: [TalentNominationGroup!]
     @field(resolver: "MatchingSources")
     @with(relation: "talentRequest.applicantFilter")
+  matchingLateralMovementSources: [TalentNominationGroup!]
+    @field(resolver: "MatchingSources")
+    @with(relation: "talentRequest.applicantFilter")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate across all talent requests
     @with(relation: "user.talentRequestTrackedUsers")
 }
@@ -1279,7 +1284,7 @@ type WorkExperience implements Experience {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
     @rename(attribute: "c_suite_role_title")
@@ -1451,10 +1456,10 @@ input PoolFilterInput {
   workStreams: [UUID!] @scope(name: "whereWorkStreamsIn")
   statuses: [PoolStatus!] = [] @scope
   processNumber: String @scope
-  publishingGroups: [PublishingGroup!] @scope
   classifications: [ClassificationFilterInput!]
     @scope(name: "whereClassifications")
   canAdmin: Boolean @scope
+  isHidden: Boolean @scope(name: "whereIsHidden")
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -1529,7 +1534,6 @@ input PoolCandidateSearchInput {
   suspendedStatus: CandidateSuspendedFilter @scope(name: "whereSuspendedStatus")
   referralStatuses: [CandidateReferralFilter!]
     @scope(name: "whereReferralStatusIn")
-  publishingGroups: [PublishingGroup] @scope(name: "wherePublishingGroupsIn") # Filters applicants based on the publishing group of the pool
   # Filters applicants based on the classification of all pools they are currently in.
   # There is also a classification field as part of ApplicantFilterInput however it includes scoping for availability.
   appliedClassifications: [ClassificationFilterInput]
@@ -1583,6 +1587,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int @rename(attribute: "skill_count")
   referralSummary: TalentRequestReferralSummary!  # user-wide aggregate; root is the User model
     @with(relation: "talentRequestTrackedUsers")
@@ -1747,13 +1752,6 @@ type Query {
   pool(id: UUID! @eq): Pool
     @find
     @canQuery(ability: "view", scopes: ["withPolicyEagerLoads"])
-  publishedPools(
-    closingAfter: DateTime @where(key: "closing_date", operator: ">")
-    publishingGroup: PublishingGroup
-      @where(key: "publishing_group", operator: "=")
-  ): [Pool!]!
-    @all(scopes: ["wherePublished", "whereNotArchived"])
-    @canModel(ability: "viewAnyPublished", model: "Pool")
   poolsPaginated(
     includeIds: [UUID!] @in(key: "id")
     excludeIds: [UUID!] @notIn(key: "id")
@@ -1788,11 +1786,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: [
-        "whereSkillCount"
-        "whereAuthorizedToViewPoolCandidateAdminView"
-        "withPaginatedEagerLoads"
-      ]
+      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
@@ -1860,6 +1854,7 @@ type Query {
     where: NotificationFilterInput
     excludeIds: [UUID!] @notIn(key: "id")
   ): [Notification!]
+    @guard
     @orderBy(column: "created_at", direction: DESC)
     @paginate(defaultCount: 10, scopes: ["authorizedToView"])
 
@@ -2333,15 +2328,6 @@ input ClassificationBelongsToMany {
   sync: [ID!]
 }
 
-input CreatePoolCandidateAsAdminInput {
-  pool: PoolBelongsTo!
-  user: UserBelongsTo!
-  expiryDate: Date @rename(attribute: "expiry_date")
-  status: ApplicationStatus = TO_ASSESS @rename(attribute: "application_status")
-  notes: String
-  isFlagged: Boolean
-}
-
 input CreateSpecialApplicationInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -2717,6 +2703,9 @@ input UpdateTalentNominationGroupInput {
   advancementClassifications: ClassificationBelongsToMany
   advancementReferralExpiryDate: Date
     @rename(attribute: "advancement_referral_expiry_date")
+  lateralMovementClassifications: ClassificationBelongsToMany
+  lateralMovementReferralExpiryDate: Date
+    @rename(attribute: "lateral_movement_referral_expiry_date")
 }
 
 input CreateApplicantFilterInput {
@@ -2877,7 +2866,7 @@ input WorkExperienceInput {
   supervisedEmployeesNumber: Int
     @rename(attribute: "supervised_employees_number")
   budgetManagement: Boolean @rename(attribute: "budget_management")
-  annualBudgetAllocation: Int @rename(attribute: "annual_budget_allocation")
+  annualBudgetAllocation: BigInt @rename(attribute: "annual_budget_allocation")
   seniorManagementStatus: Boolean @rename(attribute: "senior_management_status")
   cSuiteRoleTitle: CSuiteRoleTitle @rename(attribute: "c_suite_role_title")
   otherCSuiteRoleTitle: String @rename(attribute: "other_c_suite_role_title")
@@ -3046,7 +3035,6 @@ input UpdatePoolInput {
   securityClearance: SecurityStatus @rename(attribute: "security_clearance")
   location: LocalizedStringInput @rename(attribute: "advertisement_location")
   isRemote: Boolean @rename(attribute: "is_remote")
-  publishingGroup: PublishingGroup @rename(attribute: "publishing_group")
   opportunityLength: PoolOpportunityLength
     @rename(attribute: "opportunity_length")
   generalQuestions: UpdateGeneralQuestionsHasMany
@@ -3054,6 +3042,7 @@ input UpdatePoolInput {
   selectionLimitations: [PoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  isHidden: Boolean @rename(attribute: "is_hidden")
 }
 
 input UpdatePublishedPoolInput @validator {
@@ -3340,7 +3329,7 @@ type Mutation {
   updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User
     @update
     @guard
-    @canFind(ability: "update", find: "id", injectArgs: true)
+    @canFind(ability: "updateAsAdmin", find: "id")
   updateUserSub(updateUserSubInput: UpdateUserSubInput! @spread): UserAuthInfo
     @update(model: "User")
     @canModel(ability: "updateSub", model: "User")
@@ -3425,13 +3414,6 @@ type Mutation {
     @canFind(ability: "removeWorkEmailInformation")
 
   # poolCandidate mutations
-  createPoolCandidateAsAdmin(
-    poolCandidate: CreatePoolCandidateAsAdminInput! @spread
-  ): PoolCandidate
-    @create
-    @guard
-    @canModel(ability: "create")
-    @injectNow(name: "submitted_at")
   createSpecialApplication(
     poolCandidate: CreateSpecialApplicationInput! @spread
   ): PoolCandidate
@@ -3770,7 +3752,6 @@ type Mutation {
       model: "TalentRequest"
       injectArgs: true
     )
-    @update
     @validator
 
   # SkillFamily mutations
@@ -3871,7 +3852,6 @@ type Mutation {
 
   # Pool mutations
   createPool(
-    userId: ID! @rename(attribute: "user_id")
     communityId: ID @rename(attribute: "community_id")
     pool: CreatePoolInput! @spread
   ): Pool
@@ -4212,6 +4192,7 @@ type Mutation {
   downloadNominationDoc(id: UUID!): String
     @guard
     @canFind(ability: "view", find: "id", model: "TalentNominationGroup")
+  migrateMyAccount: Boolean! @guard
 }
 
 type UserNotification {

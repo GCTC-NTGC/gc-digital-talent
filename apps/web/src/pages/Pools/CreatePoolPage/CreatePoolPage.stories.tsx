@@ -25,7 +25,10 @@ const departments = fakeDepartments();
 const departmentsMapped = departments.map((department) => {
   return {
     ...department,
-    departmentName: { localized: department.name?.localized ?? "" },
+    departmentName: {
+      __typename: "LocalizedString" as const,
+      localized: department.name.localized,
+    },
   };
 });
 const communities = fakeCommunities();
@@ -38,17 +41,12 @@ const Template: StoryFn<typeof CreatePoolForm> = (args) => {
   return <CreatePoolForm {...args} />;
 };
 
-const handleCreatePool = (
-  userId: string,
-  communityId: string,
-  pool: CreatePoolInput,
-) => {
+const handleCreatePool = (communityId: string, pool: CreatePoolInput) => {
   return Promise.reject(new Error());
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  userId: "",
   classificationsQuery: classifications.map((classification) =>
     makeFragmentData(classification, CreatePoolClassification_Fragment),
   ),

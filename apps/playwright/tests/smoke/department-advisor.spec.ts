@@ -1,0 +1,43 @@
+import { test, expect } from "~/fixtures";
+import AUTH from "~/constants/auth";
+import { loginBySub } from "~/utils/auth";
+
+test.describe("Department advisor user", { tag: "@uat" }, () => {
+  const departmentAdvisorSub =
+    process.env.PLAYWRIGHT_DEPARTMENT_ADVISOR_SUB ??
+    "department-advisor@test.com";
+
+  test("Can access allowed paths", async ({ appPage }) => {
+    await loginBySub(appPage.appPage, departmentAdvisorSub);
+    await Promise.all(
+      AUTH.ALLOWED_PATHS.DEPARTMENT_ADVISOR.map(async (restrictedPath) => {
+        const context = appPage.page.context();
+        const page = await context.newPage();
+        await page.goto(restrictedPath);
+        await page.waitForURL(restrictedPath);
+        await expect(
+          page.getByRole("heading", {
+            name: "Sorry, you are not authorized to view this page.",
+          }),
+        ).toBeHidden();
+      }),
+    );
+  });
+
+  test("Cannot access restricted paths", async ({ appPage }) => {
+    await loginBySub(appPage.appPage, departmentAdvisorSub);
+    await Promise.all(
+      AUTH.RESTRICTED_PATHS.DEPARTMENT_ADVISOR.map(async (restrictedPath) => {
+        const context = appPage.page.context();
+        const page = await context.newPage();
+        await page.goto(restrictedPath);
+        await page.waitForURL(restrictedPath);
+        await expect(
+          page.getByRole("heading", {
+            name: "Sorry, you are not authorized to view this page.",
+          }),
+        ).toBeVisible();
+      }),
+    );
+  });
+});

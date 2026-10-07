@@ -23,6 +23,14 @@ const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "community@test.com": process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB,
+  "applicant@test.com": process.env.PLAYWRIGHT_APPLICANT_SUB,
+  "noroles@test.com": process.env.PLAYWRIGHT_NO_ROLES_SUB,
+  "talent-coordinator@test.com":
+    process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB,
+  "recruiter@test.com": process.env.PLAYWRIGHT_COMMUNITY_RECRUITER_SUB,
+  "department-admin@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADMIN_SUB,
+  "department-advisor@test.com": process.env.PLAYWRIGHT_DEPARTMENT_ADVISOR_SUB,
+  "process@test.com": process.env.PLAYWRIGHT_PROCESS_OPERATOR_SUB,
 };
 
 /**
@@ -65,9 +73,14 @@ export async function getTokenForSub(sub: string) {
         "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
       );
     }
-    const url = `${baseUrl}/refresh?sub=${encodeURIComponent(uatSub)}`;
+    const url = `${baseUrl}/refresh`;
     const res = await fetch(url, {
-      headers: { "X-Testing-Secret": secret },
+      method: "POST",
+      headers: {
+        "X-Testing-Secret": secret,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sub: uatSub }),
     });
     const body = await res.text();
     if (!res.ok || body.trimStart().startsWith("<")) {

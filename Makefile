@@ -72,7 +72,7 @@ phpstan:
 	$(DOCKER_API) "vendor/bin/phpstan analyse -c phpstan.neon"
 
 queue-work:
-	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work"
+	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan queue:work --queue=default,default-low"
 
 reverb-start:
 	docker compose exec webserver sh -c "runuser -u www-data -- php /home/site/wwwroot/api/artisan reverb:start"

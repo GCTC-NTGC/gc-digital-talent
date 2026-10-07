@@ -18,7 +18,7 @@ import GovContent from "./WorkContent/GovContent";
 import type { SupervisoryContentExperience } from "./WorkContent/SupervisoryContent";
 import SupervisoryContent from "./WorkContent/SupervisoryContent";
 
-interface WorkContentExperience
+export interface ExperienceWorkContent
   extends
     CafContentExperience,
     ExternalContentExperience,
@@ -30,8 +30,8 @@ interface WorkContentExperience
 
 const WorkContent = ({
   experience,
-  headingLevel,
-}: ContentProps<WorkContentExperience>) => {
+  headingRank,
+}: ContentProps<ExperienceWorkContent>) => {
   const intl = useIntl();
   const experienceFormLabels = getExperienceFormLabels(intl);
   const { division, employmentCategory } = experience;
@@ -40,35 +40,32 @@ const WorkContent = ({
     case EmploymentCategory.ExternalOrganization:
       return (
         <>
-          <ExternalContent
-            experience={experience}
-            headingLevel={headingLevel}
-          />
+          <ExternalContent experience={experience} headingRank={headingRank} />
           <Separator space="sm" decorative />
           <SupervisoryContent
             experience={experience}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           />
         </>
       );
     case EmploymentCategory.GovernmentOfCanada:
       return (
         <>
-          <GovContent experience={experience} headingLevel={headingLevel} />
+          <GovContent experience={experience} headingRank={headingRank} />
           <Separator space="sm" decorative />
           <SupervisoryContent
             experience={experience}
-            headingLevel={headingLevel}
+            headingRank={headingRank}
           />
         </>
       );
     case EmploymentCategory.CanadianArmedForces:
-      return <CafContent experience={experience} headingLevel={headingLevel} />;
+      return <CafContent experience={experience} headingRank={headingRank} />;
     default:
       return (
         <ContentSection
           title={experienceFormLabels.team}
-          headingLevel={headingLevel}
+          headingRank={headingRank}
           className="sm:border-r sm:border-gray-200 dark:border-gray-500"
         >
           {division ?? intl.formatMessage(commonMessages.notAvailable)}

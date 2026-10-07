@@ -2,7 +2,7 @@ import type {
   AssessmentStep,
   AssessmentStepInput,
   CreatePoolSkillInput,
-  LocalizedString,
+  LocalizedStringInput,
   Pool,
   PoolSkill,
   UpdatePoolInput,
@@ -13,14 +13,17 @@ import {
   PoolLanguage,
   PoolOpportunityLength,
   PoolSkillType,
-  PublishingGroup,
   SecurityStatus,
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql/schema-types";
 import { FAR_FUTURE_DATE } from "@gc-digital-talent/date-helpers";
 
-import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
+import type {
+  GraphQLContext,
+  GraphQLRequestFunc,
+  GraphQLResponse,
+} from "./graphql";
 import { getCommunities } from "./communities";
 import { getClassifications } from "./classification";
 import { getDepartments } from "./departments";
@@ -42,19 +45,14 @@ const defaultPool: Partial<UpdatePoolInput> = {
     fr: "test location FR",
   },
   isRemote: true,
-  publishingGroup: PublishingGroup.ItJobs,
   areaOfSelection: PoolAreaOfSelection.Public,
   selectionLimitations: [],
   contactEmail: "test@email.com",
 };
 
 const Test_CreatePoolMutationDocument = /* GraphQL */ `
-  mutation Test_CreatePool(
-    $userId: ID!
-    $communityId: ID!
-    $pool: CreatePoolInput!
-  ) {
-    createPool(userId: $userId, communityId: $communityId, pool: $pool) {
+  mutation Test_CreatePool($communityId: ID!, $pool: CreatePoolInput!) {
+    createPool(communityId: $communityId, pool: $pool) {
       id
       name {
         en
@@ -68,7 +66,6 @@ const Test_CreatePoolMutationDocument = /* GraphQL */ `
 `;
 
 interface CreatePoolArgs {
-  userId: string;
   teamId?: string;
   communityId?: string;
   classificationId?: string;
@@ -77,7 +74,7 @@ interface CreatePoolArgs {
 
 export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
   ctx,
-  { userId, ...opts },
+  opts,
 ) => {
   const communities = await getCommunities(ctx, {});
   const firstCommunity =
@@ -104,7 +101,6 @@ export const createPool: GraphQLRequestFunc<Pool, CreatePoolArgs> = async (
       {
         isPrivileged: true,
         variables: {
-          userId,
           teamId,
           communityId,
           pool: {
@@ -305,7 +301,7 @@ interface CreateAndPublishPoolArgs {
   userId: string;
   teamId?: string;
   communityId?: string;
-  name?: LocalizedString;
+  name?: LocalizedStringInput;
   classificationId?: string;
   departmentId?: string;
   workStreamId?: string;
@@ -319,7 +315,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
 > = async (
   ctx,
   {
-    userId,
     skillIds,
     name,
     teamId,
@@ -331,7 +326,6 @@ export const createAndPublishPool: GraphQLRequestFunc<
   },
 ) => {
   return createPool(ctx, {
-    userId,
     teamId,
     communityId,
     classificationId,
@@ -478,4 +472,65 @@ export const changePoolClosingDate: GraphQLRequestFunc<
       },
     )
     .then((res) => res.changePoolClosingDate);
+};
+
+const Test_ClosePoolMutationDocument = /* GraphQL */ `
+  mutation Test_ClosePool($id: ID!, $reason: String!) {
+    closePool(id: $id, reason: $reason) {
+      id
+    }
+  }
+`;
+
+interface ClosePoolArgs {
+  id: string;
+}
+
+export const closePool: GraphQLRequestFunc<Pool, ClosePoolArgs> = async (
+  ctx,
+  { id },
+) => {
+  return await ctx
+    .post<GraphQLResponse<"closePool", Pool>>(Test_ClosePoolMutationDocument, {
+      isPrivileged: true,
+      variables: { id, reason: "Playwright test cleanup" },
+    })
+    .then((res) => res.closePool);
+};
+
+const Test_ArchivePoolMutationDocument = /* GraphQL */ `
+  mutation Test_ArchivePool($id: ID!) {
+    archivePool(id: $id) {
+      id
+    }
+  }
+`;
+
+interface ArchivePoolArgs {
+  id: string;
+}
+
+/**
+ * Close and archive a published pool so it drops out of the
+ * PUBLISHED-status listing (e.g. /en/jobs) that future test runs query.
+ * Published pools can't be deleted outright (deletePool only allows drafts).
+ */
+export const archivePool: GraphQLRequestFunc<Pool, ArchivePoolArgs> = async (
+  ctx,
+  { id },
+) => {
+  return await ctx
+    .post<GraphQLResponse<"archivePool", Pool>>(
+      Test_ArchivePoolMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id },
+      },
+    )
+    .then((res) => res.archivePool);
+};
+
+export const retirePublishedPool = async (ctx: GraphQLContext, id: string) => {
+  await closePool(ctx, { id });
+  await archivePool(ctx, { id });
 };

@@ -1,7 +1,10 @@
 import { Fragment } from "react/jsx-runtime";
 import { useIntl } from "react-intl";
 
-import type { FragmentType } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  FragmentType,
+} from "@gc-digital-talent/graphql";
 import {
   getFragment,
   graphql,
@@ -67,7 +70,7 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experience={experience}
-            headingLevel="h5"
+            headingRank="h5"
             showSkills={skill}
             hideDetails
           />
@@ -76,13 +79,14 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experienceQuery={makeFragmentData(
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
               {
                 ...experience,
                 __typename: experience.__typename ?? "AwardExperience",
-              },
+              } as ExperienceCardFragment,
               ExperienceCard_Fragment,
             )}
-            headingLevel="h5"
+            headingRank="h5"
             showEdit={false}
             showSkills={skill}
             hideDetails
@@ -166,7 +170,7 @@ const SkillSnapshot = ({
       </p>
       {experiencesBySkill.map(({ skill, experiences: exps }) => (
         <Fragment key={skill.id}>
-          <Heading level="h4" size="h6" className="mt-12">
+          <Heading rank="h4" size="h6" className="mt-12">
             {skill.name?.localized ?? notAvailable}
           </Heading>
           {skill.description?.localized && (

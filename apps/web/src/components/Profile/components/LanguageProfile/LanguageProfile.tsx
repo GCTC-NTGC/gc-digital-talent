@@ -106,6 +106,14 @@ const LanguageProfile = ({
     language: application?.pool?.language,
   });
 
+  const handleOpenChange = (newIsEditing: boolean) => {
+    setIsEditing(newIsEditing);
+    if (newIsEditing) {
+      // once they open the form we can remove the helper message
+      setLanguagePresetNoticeIsVisible(false);
+    }
+  };
+
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     return onUpdate(user.id, formValuesToSubmitData(formValues))
       .then((response) => {
@@ -130,12 +138,12 @@ const LanguageProfile = ({
     <ToggleSection.Root
       id="lang-section"
       open={isEditing}
-      onOpenChange={setIsEditing}
+      onOpenChange={handleOpenChange}
     >
       <ToggleSection.Header
         icon={icon.icon}
         color={icon.color}
-        level={pool ? "h3" : "h2"}
+        rank={pool ? "h3" : "h2"}
         size={pool ? "h4" : "h3"}
         toggle={
           !isNull ? (
@@ -170,7 +178,7 @@ const LanguageProfile = ({
       )}
       {missingLanguageRequirements.length > 0 && (
         <MissingLanguageRequirements
-          headingLevel="h3"
+          headingRank="h3"
           user={user}
           pool={application?.pool}
         />
@@ -194,13 +202,7 @@ const LanguageProfile = ({
                 defaultValues: dataToFormValues(user),
               }}
             >
-              <FormFields
-                labels={labels}
-                optionsQuery={data}
-                setLanguagePresetNoticeIsVisible={
-                  setLanguagePresetNoticeIsVisible
-                }
-              />
+              <FormFields labels={labels} optionsQuery={data} />
               <FormActions isUpdating={isUpdating} />
             </BasicForm>
           )}

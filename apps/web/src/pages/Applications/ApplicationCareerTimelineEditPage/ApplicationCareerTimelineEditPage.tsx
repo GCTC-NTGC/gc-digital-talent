@@ -6,8 +6,8 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
-import type { AnyExperience } from "~/types/experience";
 import useRequiredParams from "~/hooks/useRequiredParams";
+import type { ExperienceFields } from "~/utils/experienceUtils";
 import { organizationSuggestionsFromExperiences } from "~/utils/experienceUtils";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
 
@@ -68,7 +68,7 @@ interface RouteParams extends Record<string, string> {
 }
 
 interface ApplicationCareerTimelineEditProps extends ApplicationPageProps {
-  experience: AnyExperience;
+  experience: ExperienceFields;
 }
 
 const ApplicationCareerTimelineEdit = ({

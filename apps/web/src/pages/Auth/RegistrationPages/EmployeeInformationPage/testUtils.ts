@@ -4,11 +4,9 @@ import { EmploymentCategory } from "@gc-digital-talent/graphql";
 export const getFakeWorkFieldOptionsResponse = () => ({
   WorkFieldOptions: {
     data: {
-      employmentCategoryTypes: fakeLocalizedEnum(EmploymentCategory).map(
-        (c) => ({
-          __typename: "LocalizedEmploymentCategory",
-          ...c,
-        }),
+      employmentCategoryTypes: fakeLocalizedEnum(
+        EmploymentCategory,
+        "LocalizedEmploymentCategory",
       ),
     },
   },

@@ -69,6 +69,7 @@ const getRoutes = (lang: Locales) => {
       const fragment = section ? `#${section}` : "";
       return applicantUrl + fragment;
     },
+    applications: () => [applicantUrl, "applications"].join("/"),
 
     // Admin
     adminDashboard: () => adminUrl,
@@ -336,9 +337,6 @@ const getRoutes = (lang: Locales) => {
     // Notifications
     notifications: () => [applicantUrl, "notifications"].join("/"),
 
-    // Directive on digital talent
-    directive: () => [baseUrl, "directive-on-digital-talent"].join("/"),
-
     // Account Settings
     accountSettings: () => [applicantUrl, "settings"].join("/"),
 
@@ -447,9 +445,6 @@ const getRoutes = (lang: Locales) => {
     // Comptrollership
     comptrollershipExecutivesPage: () =>
       [baseUrl, "comptrollership-executives"].join("/"),
-
-    // DND
-    dndDigitalCareers: () => `${baseUrl}/dnd`,
 
     // TC Report mini-site
     tcReport: () => `/static/tc-report/${lang}/talent-cloud/report`,

@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { defineMessage, useIntl } from "react-intl";
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
-import type { OperationContext } from "urql";
+import type { CombinedError, OperationContext } from "urql";
 import { useQuery } from "urql";
 
 import { toast } from "@gc-digital-talent/toast";
@@ -39,7 +39,6 @@ import type {
   AllExperienceFormValues,
   ExperienceFormValues,
   ExperienceDetailsSubmissionData,
-  ExperienceMutationResponse,
 } from "~/types/experience";
 import SEO from "~/components/SEO/SEO";
 import Hero from "~/components/Hero";
@@ -481,7 +480,7 @@ export const ExperienceForm = ({
     );
   };
 
-  const handleMutationResponse = async (res: ExperienceMutationResponse) => {
+  const handleMutationResponse = async (res: { error?: CombinedError }) => {
     if (res.error) {
       handleError();
     } else {
@@ -498,8 +497,7 @@ export const ExperienceForm = ({
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     const args = getMutationArgs(experienceId ?? userId ?? "", values);
     if (executeMutation) {
-      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      return res
+      return executeMutation(args)
         .then(async (mutationResponse) => {
           await handleMutationResponse(mutationResponse);
         })

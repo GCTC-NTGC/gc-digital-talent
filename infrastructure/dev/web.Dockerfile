@@ -10,7 +10,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install pnpm globally
-RUN npm install -g pnpm@10.27.0
+RUN npm install -g pnpm@12.9.1
 
 # Set working directory to the monorepo root
 WORKDIR /var/www/html

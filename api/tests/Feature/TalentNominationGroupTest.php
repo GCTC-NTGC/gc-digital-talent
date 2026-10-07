@@ -75,6 +75,33 @@ class TalentNominationGroupTest extends TestCase
                 'nominator_id' => $nominator->id,
                 'nominee_id' => $nominee->id,
                 'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
+            ]);
+
+        return [$nomination, $coordinator];
+    }
+
+    protected function createLateralMovementNomination(Community $community)
+    {
+        $talentNominationEvent = TalentNominationEvent::factory()
+            ->for($community)
+            ->create(['close_date' => config('constants.far_future_datetime')]);
+
+        $nominator = $this->makeEmployee('nominator');
+        $nominee = $this->makeEmployee('nominee');
+        $coordinator = $this->makeCommunityTalentCoordinator('coordinator', $community->id);
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $talentNominationEvent->id,
+                'submitter_id' => $nominator->id,
+                'nominator_id' => $nominator->id,
+                'nominee_id' => $nominee->id,
+                'nominate_for_advancement' => false,
+                'nominate_for_lateral_movement' => true,
+                'nominate_for_development_programs' => false,
             ]);
 
         return [$nomination, $coordinator];
@@ -104,6 +131,9 @@ class TalentNominationGroupTest extends TestCase
             updateTalentNominationGroup(id: $id, talentNominationGroup: $talentNominationGroup) {
                 id
                 advancementClassifications {
+                    id
+                }
+                lateralMovementClassifications {
                     id
                 }
             }
@@ -586,6 +616,8 @@ class TalentNominationGroupTest extends TestCase
                 'nominator_id' => $nominator->id,
                 'nominee_id' => $nominee->id,
                 'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
             ]);
 
         $classifications = Classification::factory()->count(2)->create();
@@ -599,6 +631,14 @@ class TalentNominationGroupTest extends TestCase
                         'sync' => $classifications->pluck('id')->toArray(),
                     ],
                     'advancementReferralExpiryDate' => config('constants.far_future_date'),
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'lateralMovementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'lateralMovementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'lateralMovementReferralExpiryDate' => null,
                 ],
             ]);
         $response->assertGraphQLErrorFree();
@@ -634,6 +674,8 @@ class TalentNominationGroupTest extends TestCase
                 'nominator_id' => $nominator->id,
                 'nominee_id' => $nominee->id,
                 'nominate_for_advancement' => true,
+                'nominate_for_lateral_movement' => false,
+                'nominate_for_development_programs' => false,
             ]);
 
         $classification = Classification::factory()->create();
@@ -671,6 +713,14 @@ class TalentNominationGroupTest extends TestCase
                         'sync' => [],
                     ],
                     'advancementReferralExpiryDate' => config('constants.far_future_date'),
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'lateralMovementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'lateralMovementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'lateralMovementReferralExpiryDate' => null,
                 ],
             ]);
 
@@ -698,6 +748,14 @@ class TalentNominationGroupTest extends TestCase
                         'sync' => [$classification->id],
                     ],
                     'advancementReferralExpiryDate' => null,
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'lateralMovementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'lateralMovementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'lateralMovementReferralExpiryDate' => null,
                 ],
             ]);
 
@@ -725,6 +783,14 @@ class TalentNominationGroupTest extends TestCase
                         'sync' => [$invalidClassificationId],
                     ],
                     'advancementReferralExpiryDate' => config('constants.far_future_date'),
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'lateralMovementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'lateralMovementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'lateralMovementReferralExpiryDate' => null,
                 ],
             ]);
 
@@ -734,5 +800,113 @@ class TalentNominationGroupTest extends TestCase
         );
 
         $this->assertDatabaseEmpty('classification_talent_nomination_group_advancement');
+    }
+
+    public function testCoordinatorCanAddLateralMovementClassificationsWhenApproved()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createLateralMovementNomination($community);
+
+        $classifications = Classification::factory()->count(2)->create();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'lateralMovementDecision' => TalentNominationGroupDecision::APPROVED->name,
+                    'lateralMovementClassifications' => [
+                        'sync' => $classifications->pluck('id')->toArray(),
+                    ],
+                    'lateralMovementReferralExpiryDate' => config('constants.far_future_date'),
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'advancementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'advancementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'advancementReferralExpiryDate' => null,
+                ],
+            ]);
+        $response->assertGraphQLErrorFree();
+        $response->assertJsonFragment([
+            'lateralMovementClassifications' => [
+                ['id' => $classifications[0]->id],
+                ['id' => $classifications[1]->id],
+            ],
+        ]);
+
+        $this->assertEqualsCanonicalizing(
+            $classifications->pluck('id')->toArray(),
+            $nomination->talentNominationGroup->fresh()->lateralMovementClassifications->pluck('id')->toArray(),
+        );
+    }
+
+    public function testApprovedLateralMovementRequiresAtLeastOneClassification()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createLateralMovementNomination($community);
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'lateralMovementDecision' => TalentNominationGroupDecision::APPROVED->name,
+                    'lateralMovementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'lateralMovementReferralExpiryDate' => config('constants.far_future_date'),
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'advancementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'advancementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'advancementReferralExpiryDate' => null,
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.lateralMovementClassifications.sync',
+            ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_REQUIRED->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_lateral_movement');
+    }
+
+    public function testLateralMovementClassificationsProhibitedWhenDecisionIsRejected()
+    {
+        $community = Community::factory()->create();
+        [$nomination, $coordinator] = $this->createLateralMovementNomination($community);
+
+        $classification = Classification::factory()->create();
+
+        $response = $this->actingAs($coordinator, 'api')
+            ->graphQL($this->updateTalentNominationGroup, [
+                'id' => $nomination->talentNominationGroup->id,
+                'talentNominationGroup' => [
+                    'lateralMovementDecision' => TalentNominationGroupDecision::REJECTED->name,
+                    'lateralMovementClassifications' => [
+                        'sync' => [$classification->id],
+                    ],
+                    'lateralMovementReferralExpiryDate' => null,
+                    // the real form always submits all three decisions and every track's
+                    // classifications/referral date together, even when null
+                    'advancementDecision' => null,
+                    'developmentProgramsDecision' => null,
+                    'advancementClassifications' => [
+                        'sync' => [],
+                    ],
+                    'advancementReferralExpiryDate' => null,
+                ],
+            ]);
+
+        $response->assertGraphQLValidationError(
+            'talentNominationGroup.lateralMovementClassifications.sync',
+            ErrorCode::LATERAL_MOVEMENT_CLASSIFICATIONS_PROHIBITED->name
+        );
+
+        $this->assertDatabaseEmpty('classification_talent_nomination_group_lateral_movement');
     }
 }

@@ -14,11 +14,11 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { Skill } from "@gc-digital-talent/graphql";
 import {
   EmploymentCategory,
   GovEmployeeType,
 } from "@gc-digital-talent/graphql";
+import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
 import { nodeToString } from "@gc-digital-talent/helpers";
 
 import {
@@ -34,6 +34,7 @@ import {
 
 import ContentSection from "../ContentSection";
 import CommunityContent from "../CommunityContent";
+import type { ExperienceWorkStream } from "../WorkContent/WorkStreamsContent";
 import WorkStreamContent from "../WorkContent/WorkStreamsContent";
 import { getV1ExperienceName } from "./utils";
 import PersonalContentV1 from "./PersonalContentV1";
@@ -44,15 +45,20 @@ import EducationContentV1 from "./EducationContentV1";
 interface FlexibleSnapshotExperience extends SnapshotExperience {
   details?: string | null;
   description?: string | null;
+  employmentCategory?: GenericLocalizedEnum<EmploymentCategory> | null;
+  govEmploymentType?: GenericLocalizedEnum<GovEmployeeType> | null;
+  workStreams?: ExperienceWorkStream[] | null;
 }
 
-type SimpleSkill = Pick<Skill, "id">;
+interface SimpleSkill {
+  id: string;
+}
 
 interface ExperienceCardV1Props {
   // Override ID if more than one card is used, for uniqueness
   id?: string;
   experience: FlexibleSnapshotExperience;
-  headingLevel?: HeadingRank;
+  headingRank?: HeadingRank;
   showSkills?: boolean | SimpleSkill | SimpleSkill[];
   hideDetails?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
@@ -65,7 +71,7 @@ const ExperienceCardV1 = ({
   hideDetails = false,
   isOpen: isOpenProp,
   onOpenChange,
-  headingLevel = "h2",
+  headingRank = "h2",
   showSkills = true,
 }: ExperienceCardV1Props) => {
   const intl = useIntl();
@@ -80,7 +86,7 @@ const ExperienceCardV1 = ({
     intl.formatMessage(commonMessages.notProvided).toString();
   const titleHtml = getV1ExperienceName(experience, intl, true);
   const { icon, typeMessage, date } = useExperienceInfo(experience);
-  const contentHeadingLevel = incrementHeadingRank(headingLevel);
+  const contentHeadingRank = incrementHeadingRank(headingRank);
   const Icon = icon;
 
   const skills = Array.isArray(showSkills)
@@ -105,7 +111,7 @@ const ExperienceCardV1 = ({
       <div className="mb-3 flex flex-wrap items-center justify-between gap-x-6 xs:flex-nowrap">
         <Heading
           icon={Icon}
-          level={headingLevel}
+          rank={headingRank}
           size="h6"
           color="error"
           className="m-0 font-normal"
@@ -172,7 +178,7 @@ const ExperienceCardV1 = ({
       {singleSkill?.experienceSkillRecord?.details && (
         <>
           <Heading
-            level={contentHeadingLevel}
+            rank={contentHeadingRank}
             size="h6"
             className="mt-6 mb-3 text-base"
           >
@@ -254,37 +260,37 @@ const ExperienceCardV1 = ({
             {isAwardExperience(experience) && (
               <AwardContentV1
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isCommunityExperience(experience) && (
               <CommunityContent
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isEducationExperience(experience) && (
               <EducationContentV1
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isWorkExperience(experience) && (
               <WorkContentV1
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             {isPersonalExperience(experience) && (
               <PersonalContentV1
                 experience={experience}
-                headingLevel={contentHeadingLevel}
+                headingRank={contentHeadingRank}
               />
             )}
             <Separator space="sm" />
             <ContentSection
               title={experienceLabels.details}
-              headingLevel={headingLevel}
+              headingRank={headingRank}
             >
               {experience.details ??
                 intl.formatMessage(commonMessages.notAvailable)}
@@ -293,7 +299,7 @@ const ExperienceCardV1 = ({
               <>
                 <Separator space="sm" />
                 <ContentSection
-                  headingLevel={headingLevel}
+                  headingRank={headingRank}
                   title={intl.formatMessage({
                     defaultMessage: "Featured skills",
                     id: "a8wd8c",
@@ -345,7 +351,7 @@ const ExperienceCardV1 = ({
             {isWorkExperience(experience) && (
               <WorkStreamContent
                 workStreams={experience.workStreams}
-                headingLevel={headingLevel}
+                headingRank={headingRank}
               />
             )}
           </Collapsible.Content>

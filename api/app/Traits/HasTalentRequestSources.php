@@ -36,21 +36,31 @@ trait HasTalentRequestSources
         return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
     }
 
+    /** @return HasMany<TalentNominationGroup, $this> */
+    public function matchingLateralMovementSources(): HasMany
+    {
+        return $this->hasMany(TalentNominationGroup::class, 'nominee_id');
+    }
+
     /**
-     * Records this user matched for one source's relation. Returns the records the
-     * talent-request query already eager-loaded; otherwise runs the filtered query directly
-     * (the talentRequest.trackedUsers path has no eager-load scope to lean on).
+     * Records this user matched for one source. Returns the records the talent-request query
+     * already eager-loaded; otherwise runs the filtered query directly (the
+     * talentRequest.trackedUsers path has no eager-load scope to lean on).
      *
      * @return Collection<int, Model>
      */
-    public function talentRequestSourceMatches(string $relation, array $filters): Collection
+    public function talentRequestSourceMatches(TalentRequestSource $source, array $filters): Collection
     {
+        $relation = $source->matchRelation();
+
         if ($this->relationLoaded($relation)) {
             return $this->getRelation($relation);
         }
 
+        $method = $source->matchMethod();
+
         return $this->{$relation}()
-            ->whereMatchesTalentRequest($filters)
+            ->{$method}($filters)
             ->whereAuthorizedToView()
             ->get();
     }
@@ -61,7 +71,7 @@ trait HasTalentRequestSources
         $sources = [];
 
         foreach (TalentRequestSource::cases() as $source) {
-            if ($this->talentRequestSourceMatches($source->matchRelation(), $filters)->isNotEmpty()) {
+            if ($this->talentRequestSourceMatches($source, $filters)->isNotEmpty()) {
                 $sources[] = $source->name;
             }
         }

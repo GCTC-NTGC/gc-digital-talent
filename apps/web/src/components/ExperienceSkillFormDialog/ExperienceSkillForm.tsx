@@ -212,7 +212,7 @@ const ExperienceSkillForm = ({
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <input type="hidden" {...methods.register("skill")} />
-        <Heading level="h2" size="h6" className="mt-0 mb-6">
+        <Heading rank="h2" size="h6" className="mt-0 mb-6">
           {intl.formatMessage({
             defaultMessage: "Choose the experience you'd like to add",
             id: "dkYHTv",
@@ -239,7 +239,7 @@ const ExperienceSkillForm = ({
             label: getExperienceName(experienceOption, intl),
           }))}
         />
-        <Heading level="h2" size="h6" className="mt-12 mb-3">
+        <Heading rank="h2" size="h6" className="mt-12 mb-3">
           {intl.formatMessage({
             defaultMessage:
               "Describe how this skill applied to this experience",
@@ -255,7 +255,7 @@ const ExperienceSkillForm = ({
             description: "Instructions on how to describe a skill",
           })}
         </p>
-        <Heading level="h3" size="h6" className="mt-3 text-base">
+        <Heading rank="h3" size="h6" className="mt-3 text-base">
           {intl.formatMessage({
             defaultMessage: "How to best describe a skill experience",
             id: "1/Q9jX",

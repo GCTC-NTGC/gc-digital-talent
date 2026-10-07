@@ -8,7 +8,6 @@ import type { UseQueryExecute } from "urql";
 import { useQuery, useSubscription } from "urql";
 
 import { unpackMaybes, useIsSmallScreen } from "@gc-digital-talent/helpers";
-import type { UserNotification } from "@gc-digital-talent/graphql";
 import { graphql, NotificationType } from "@gc-digital-talent/graphql";
 import type { ButtonProps } from "@gc-digital-talent/ui";
 import {
@@ -112,7 +111,7 @@ const DialogPortalWithPresence = ({
             <div className="mb-3 flex items-center justify-between gap-y-1.5">
               <DialogPrimitive.Title asChild>
                 <Heading
-                  level="h2"
+                  rank="h2"
                   size="h5"
                   color="primary"
                   icon={BellAlertIcon}
@@ -165,6 +164,12 @@ const DialogPortalWithPresence = ({
     </Dialog.Portal>
   ) : null;
 };
+
+interface ReceivedNotification {
+  __typename?: "UserNotification";
+  id?: string | null;
+  type?: NotificationType | null;
+}
 
 const Notification_Subscription = graphql(/** GraphQL */ `
   subscription Notification {
@@ -250,7 +255,7 @@ const NotificationDialog = ({
 
   useSubscription(
     { query: Notification_Subscription },
-    (prev, result): UserNotification[] => {
+    (prev, result): ReceivedNotification[] => {
       const notification = result.notificationReceived;
 
       if (!notification) return prev ?? [];
