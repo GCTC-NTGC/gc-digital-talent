@@ -36,7 +36,7 @@ trait HydratesSnapshot
         return is_array($value) && array_all($value, fn ($item) => self::isLocalizedEnumValue($item));
     }
 
-    // Plain checks, not a Validator: this runs for every field of every snapshot
+    // Kept to plain checks for speed: this runs for every field of every snapshot
     private static function isLocalizedEnumValue(mixed $item): bool
     {
         if (! is_array($item) || ! is_string($item['value'] ?? null) || trim($item['value']) === '') {
