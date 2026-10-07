@@ -17,11 +17,10 @@ import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
 
 import profileMessages from "~/messages/profileMessages";
 import experienceMessages from "~/messages/experienceMessages";
-import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
-import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
 
+import type { ProfileExperienceCard_Fragment } from "./ProfileExperienceCard/ProfileExperienceCard";
 import ProfileExperienceCard from "./ProfileExperienceCard/ProfileExperienceCard";
 
 type SortValues = "type" | "timeline";
@@ -45,7 +44,7 @@ export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
     me {
       id
       experiences {
-        ...CareerTimelineSectionExperience
+        ...ProfileExperienceCard
       }
     }
   }
@@ -64,14 +63,10 @@ const unselectedFilterStyle: Record<string, string> = {
 };
 
 interface CareerExperienceProps {
-  userId: string;
-  experiencesQuery: FragmentType<
-    typeof CareerTimelineSectionExperience_Fragment
-  >[];
+  experiencesQuery: FragmentType<typeof ProfileExperienceCard_Fragment>[];
 }
 
 export const CareerExperience = ({
-  userId,
   experiencesQuery,
 }: CareerExperienceProps) => {
   const intl = useIntl();
@@ -188,32 +183,50 @@ export const CareerExperience = ({
           {sortBy === "type" ? (
             <div className="grid gap-6">
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>
-                <ProfileExperienceCard type={"work"} />
+                <ProfileExperienceCard
+                  type={"work"}
+                  experiencesQuery={experiencesQuery}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section
                 id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
               >
-                <ProfileExperienceCard type={"education"} />
+                <ProfileExperienceCard
+                  type={"education"}
+                  experiencesQuery={experiencesQuery}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section
                 id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
               >
-                <ProfileExperienceCard type={"community"} />
+                <ProfileExperienceCard
+                  type={"community"}
+                  experiencesQuery={experiencesQuery}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}>
-                <ProfileExperienceCard type={"personal"} />
+                <ProfileExperienceCard
+                  type={"personal"}
+                  experiencesQuery={experiencesQuery}
+                />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.AWARD_EXPERIENCE}>
-                <ProfileExperienceCard type={"award"} />
+                <ProfileExperienceCard
+                  type={"award"}
+                  experiencesQuery={experiencesQuery}
+                />
               </TableOfContents.Section>
 
-              <ProfileExperienceCard type={"timeline"} />
+              <ProfileExperienceCard
+                type={"timeline"}
+                experiencesQuery={experiencesQuery}
+              />
             </div>
           ) : (
             <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
-              <CareerTimelineSection
+              <ProfileExperienceCard
+                type={"timeline"}
                 experiencesQuery={experiencesQuery}
-                userId={userId}
               />
             </TableOfContents.Section>
           )}
@@ -233,7 +246,6 @@ const CareerExperiencePage = () => {
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
         <CareerExperience
-          userId={data?.me.id}
           experiencesQuery={unpackMaybes(data?.me.experiences)}
         />
       ) : (

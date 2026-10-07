@@ -6,6 +6,7 @@ import LightBulbIcon from "@heroicons/react/24/outline/LightBulbIcon";
 import StarIcon from "@heroicons/react/24/outline/StarIcon";
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
 import MapIcon from "@heroicons/react/24/outline/MapIcon";
+import { Fragment } from "react/jsx-runtime";
 
 import {
   Card,
@@ -13,12 +14,150 @@ import {
   Heading,
   Link,
   Notice,
+  PreviewList,
   type IconType,
 } from "@gc-digital-talent/ui";
+import {
+  getFragment,
+  graphql,
+  type FragmentType,
+} from "@gc-digital-talent/graphql";
+import { groupBy } from "@gc-digital-talent/helpers";
+import { commonMessages } from "@gc-digital-talent/i18n";
 
 import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
 import useRoutes from "~/hooks/useRoutes";
+import {
+  getExperienceName,
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+  type SimpleAnyExperience,
+} from "~/utils/experienceUtils";
+
+export const ProfileExperienceCard_Fragment = graphql(/* GraphQL */ `
+  fragment ProfileExperienceCard on Experience {
+    id
+    ... on AwardExperience {
+      title
+      issuedBy
+      relatedExperience {
+        ... on PersonalExperience {
+          title
+        }
+        ... on CommunityExperience {
+          title
+          organization
+        }
+        ... on EducationExperience {
+          educationType {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          areaOfStudy
+          institution
+          otherEducationType
+          degreeType {
+            label {
+              en
+              fr
+            }
+          }
+          fellowshipType {
+            value
+            label {
+              en
+              fr
+            }
+          }
+          otherFellowshipType
+          licenseOrAccreditation
+          certification
+        }
+        ... on WorkExperience {
+          role
+          organization
+          employmentCategory {
+            value
+          }
+          department {
+            name {
+              en
+              fr
+            }
+          }
+          cafForce {
+            label {
+              en
+              fr
+            }
+          }
+        }
+      }
+    }
+    ... on PersonalExperience {
+      title
+      organization
+    }
+    ... on CommunityExperience {
+      title
+      organization
+    }
+    ... on EducationExperience {
+      educationType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      areaOfStudy
+      institution
+      otherEducationType
+      degreeType {
+        label {
+          en
+          fr
+        }
+      }
+      fellowshipType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      otherFellowshipType
+      licenseOrAccreditation
+      certification
+    }
+    ... on WorkExperience {
+      role
+      organization
+      employmentCategory {
+        value
+      }
+      department {
+        name {
+          en
+          fr
+        }
+      }
+      cafForce {
+        label {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 type ExperienceTypeOrTimeline = ExperienceType | "timeline";
 
@@ -29,15 +168,24 @@ interface TypeDetails {
   linkText: string;
   Icon: IconType;
   nullText: string;
+  filterFunction: (e: SimpleAnyExperience) => boolean;
 }
 
 interface ProfileExperienceCardProps {
   type: ExperienceTypeOrTimeline;
+  experiencesQuery?: FragmentType<typeof ProfileExperienceCard_Fragment>[];
 }
 
-const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
+const ProfileExperienceCard = ({
+  type,
+  experiencesQuery,
+}: ProfileExperienceCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+  const experiences = getFragment(
+    ProfileExperienceCard_Fragment,
+    experiencesQuery,
+  );
 
   const typeData: Record<ExperienceTypeOrTimeline, TypeDetails> = {
     ["award"]: {
@@ -47,6 +195,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addAward),
       Icon: StarIcon,
       nullText: intl.formatMessage(experienceMessages.nullAward),
+      filterFunction: isAwardExperience,
     },
     ["community"]: {
       title: intl.formatMessage(experienceMessages.community),
@@ -55,6 +204,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addCommunity),
       Icon: UserGroupIcon,
       nullText: intl.formatMessage(experienceMessages.nullCommunity),
+      filterFunction: isCommunityExperience,
     },
     ["education"]: {
       title: intl.formatMessage(experienceMessages.education),
@@ -63,6 +213,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addEducation),
       Icon: BookmarkSquareIcon,
       nullText: intl.formatMessage(experienceMessages.nullEducation),
+      filterFunction: isEducationExperience,
     },
     ["personal"]: {
       title: intl.formatMessage(experienceMessages.personal),
@@ -71,6 +222,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addPersonal),
       Icon: LightBulbIcon,
       nullText: intl.formatMessage(experienceMessages.nullPersonal),
+      filterFunction: isPersonalExperience,
     },
     ["work"]: {
       title: intl.formatMessage(experienceMessages.work),
@@ -79,6 +231,7 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addWork),
       Icon: BriefcaseIcon,
       nullText: intl.formatMessage(experienceMessages.nullWork),
+      filterFunction: isWorkExperience,
     },
     ["timeline"]: {
       title: intl.formatMessage(experienceMessages.timeline),
@@ -87,10 +240,39 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
       linkText: intl.formatMessage(experienceMessages.addExperience),
       Icon: MapIcon,
       nullText: intl.formatMessage(experienceMessages.nullTimeline),
+      filterFunction: () => true,
     },
   };
+  const { title, description, href, linkText, Icon, nullText, filterFunction } =
+    typeData[type];
 
-  const Icon = typeData[type].Icon;
+  const filteredExperiences = experiences?.filter(filterFunction) ?? [];
+  const groupedExperiences = groupBy(filteredExperiences, (exp) => {
+    if (isAwardExperience(exp)) {
+      return exp.issuedBy ?? intl.formatMessage(commonMessages.notAvailable);
+    }
+    if (isCommunityExperience(exp)) {
+      return (
+        exp.organization ?? intl.formatMessage(commonMessages.notAvailable)
+      );
+    }
+    if (isEducationExperience(exp)) {
+      return exp.institution ?? intl.formatMessage(commonMessages.notAvailable);
+    }
+    if (isPersonalExperience(exp)) {
+      return (
+        exp.organization ?? intl.formatMessage(commonMessages.notAvailable)
+      );
+    }
+    if (isWorkExperience(exp)) {
+      return (
+        exp.organization ?? intl.formatMessage(commonMessages.notAvailable)
+      );
+    }
+
+    // This should be impossible
+    return intl.formatMessage(commonMessages.notAvailable);
+  });
 
   return (
     <Card space="md" className="relative">
@@ -107,25 +289,52 @@ const ProfileExperienceCard = ({ type }: ProfileExperienceCardProps) => {
           />
         </div>
       </div>
-      <Heading level="h3" size="h5" className="mt-0 font-bold">
-        {typeData[type].title}
+      <Heading rank="h3" size="h5" className="mt-0 font-bold">
+        {title}
       </Heading>
-      <p className="mb-4.5 text-gray-600 dark:text-gray-100">
-        {typeData[type].description}
-      </p>
-      <Link
-        href={typeData[type].href}
-        icon={PlusCircleIcon}
-        className="font-bold"
-      >
-        {typeData[type].linkText}
+      <p className="mb-4.5 text-gray-600 dark:text-gray-100">{description}</p>
+      <Link href={href} icon={PlusCircleIcon} className="font-bold">
+        {linkText}
       </Link>
-      <CardSeparator space="sm" />
-      <Notice.Root>
-        <Notice.Content>
-          <p className="text-center">{typeData[type].nullText}</p>
-        </Notice.Content>
-      </Notice.Root>
+      {Object.keys(groupedExperiences).length > 0 ? (
+        Object.keys(groupedExperiences).map((organization) => (
+          <Fragment key={organization}>
+            <CardSeparator space="sm" />
+            <p className="mb-6 font-bold">{organization}</p>
+            <PreviewList.Root>
+              {groupedExperiences[organization].map((experience, i) => (
+                <PreviewList.Item
+                  key={experience.id}
+                  title={getExperienceName(experience, intl)}
+                  metaData={[]}
+                  action={
+                    <PreviewList.Button
+                      label="View preview button one"
+                      onClick={() => {
+                        // Display relevant dialog
+                      }}
+                    />
+                  }
+                  mode="experience"
+                  index={i}
+                  groupLength={groupedExperiences[organization].length}
+                >
+                  <p>internal text</p>
+                </PreviewList.Item>
+              ))}
+            </PreviewList.Root>
+          </Fragment>
+        ))
+      ) : (
+        <>
+          <CardSeparator space="sm" />
+          <Notice.Root>
+            <Notice.Content>
+              <p className="text-center">{nullText}</p>
+            </Notice.Content>
+          </Notice.Root>
+        </>
+      )}
     </Card>
   );
 };
