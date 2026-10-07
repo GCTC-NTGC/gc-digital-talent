@@ -4,25 +4,29 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Separator } from "@gc-digital-talent/ui";
 
+import { getExperienceFormLabels } from "~/utils/experienceUtils";
+
 import ContentSection from "../ExperienceCard/ContentSection";
 
 interface DetailsSectionProps {
-  title: string;
   details?: string | null;
   headingRank?: HeadingRank;
 }
 
 const DetailsSection = ({
-  title,
   details,
   headingRank = "h3",
 }: DetailsSectionProps) => {
   const intl = useIntl();
+  const experienceFormLabels = getExperienceFormLabels(intl);
 
   return (
     <>
       <Separator space="sm" decorative />
-      <ContentSection title={title} headingRank={headingRank}>
+      <ContentSection
+        title={experienceFormLabels.details}
+        headingRank={headingRank}
+      >
         {details ?? intl.formatMessage(commonMessages.notAvailable)}
       </ContentSection>
     </>

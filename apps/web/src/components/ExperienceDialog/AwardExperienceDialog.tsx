@@ -1,7 +1,3 @@
-import { useIntl } from "react-intl";
-
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
-
 import type { AwardDialogContentExperience } from "./AwardDialogContent";
 import AwardDialogContent from "./AwardDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -20,19 +16,11 @@ interface AwardExperienceDialogProps extends ExperienceDialogBaseProps {
 const AwardExperienceDialog = ({
   experience,
   ...rest
-}: AwardExperienceDialogProps) => {
-  const intl = useIntl();
-  const experienceFormLabels = getExperienceFormLabels(intl);
-
-  return (
-    <ExperienceDialog experience={experience} {...rest}>
-      <AwardDialogContent experience={experience} headingRank="h3" />
-      <DetailsSection
-        title={experienceFormLabels.details}
-        details={experience.details}
-      />
-    </ExperienceDialog>
-  );
-};
+}: AwardExperienceDialogProps) => (
+  <ExperienceDialog experience={experience} {...rest}>
+    <AwardDialogContent experience={experience} headingRank="h3" />
+    <DetailsSection details={experience.details} />
+  </ExperienceDialog>
+);
 
 export default AwardExperienceDialog;

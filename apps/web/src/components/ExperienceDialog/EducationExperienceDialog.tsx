@@ -1,7 +1,3 @@
-import { useIntl } from "react-intl";
-
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
-
 import type { EducationDialogContentExperience } from "./EducationDialogContent";
 import EducationDialogContent from "./EducationDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -20,19 +16,11 @@ interface EducationExperienceDialogProps extends ExperienceDialogBaseProps {
 const EducationExperienceDialog = ({
   experience,
   ...rest
-}: EducationExperienceDialogProps) => {
-  const intl = useIntl();
-  const experienceFormLabels = getExperienceFormLabels(intl);
-
-  return (
-    <ExperienceDialog experience={experience} {...rest}>
-      <EducationDialogContent experience={experience} headingRank="h3" />
-      <DetailsSection
-        title={experienceFormLabels.details}
-        details={experience.details}
-      />
-    </ExperienceDialog>
-  );
-};
+}: EducationExperienceDialogProps) => (
+  <ExperienceDialog experience={experience} {...rest}>
+    <EducationDialogContent experience={experience} headingRank="h3" />
+    <DetailsSection details={experience.details} />
+  </ExperienceDialog>
+);
 
 export default EducationExperienceDialog;
