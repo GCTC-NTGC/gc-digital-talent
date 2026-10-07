@@ -6,13 +6,14 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
 
+import type { UserSkillLevel } from "../ExperienceCard/SkillsContent";
 import SkillsContent from "../ExperienceCard/SkillsContent";
 import type { ExperienceWithSkills } from "./types";
 
 export interface ExperienceDialogBaseProps {
   trigger: ReactNode;
-  // Override the edit path if needed
   editPath?: string;
+  userSkills?: UserSkillLevel[];
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -27,6 +28,7 @@ const ExperienceDialog = ({
   experience,
   trigger,
   editPath: editPathProp,
+  userSkills,
   defaultOpen,
   open,
   onOpenChange,
@@ -57,7 +59,11 @@ const ExperienceDialog = ({
         <Dialog.Body>
           {children}
           <Separator space="sm" decorative />
-          <SkillsContent skills={experience.skills} headingRank="h3" />
+          <SkillsContent
+            skills={experience.skills}
+            userSkills={userSkills}
+            headingRank="h3"
+          />
           <Dialog.Footer>
             {editHref && (
               <Link href={editHref} mode="solid" color="primary">
