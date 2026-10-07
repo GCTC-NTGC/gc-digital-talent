@@ -1,17 +1,11 @@
-import { useIntl } from "react-intl";
-
-import { getExperienceFormLabels } from "~/utils/experienceUtils";
-
-import type { CommunityContentExperience } from "../ExperienceCard/CommunityContent";
-import CommunityContent from "../ExperienceCard/CommunityContent";
+import type { CommunityDialogContentExperience } from "./CommunityDialogContent";
+import CommunityDialogContent from "./CommunityDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
-import DetailsSection from "./DetailsSection";
-import type { DialogExperience, ExperienceDetails } from "./types";
+import type { DialogExperience } from "./types";
 
-export type CommunityDialogExperience = DialogExperience<
-  CommunityContentExperience & ExperienceDetails
->;
+export type CommunityDialogExperience =
+  DialogExperience<CommunityDialogContentExperience>;
 
 interface CommunityExperienceDialogProps extends ExperienceDialogBaseProps {
   experience: CommunityDialogExperience;
@@ -20,19 +14,10 @@ interface CommunityExperienceDialogProps extends ExperienceDialogBaseProps {
 const CommunityExperienceDialog = ({
   experience,
   ...rest
-}: CommunityExperienceDialogProps) => {
-  const intl = useIntl();
-  const experienceFormLabels = getExperienceFormLabels(intl);
-
-  return (
-    <ExperienceDialog experience={experience} {...rest}>
-      <CommunityContent experience={experience} headingRank="h3" />
-      <DetailsSection
-        title={experienceFormLabels.keyTasksAndResponsibilities}
-        details={experience.details}
-      />
-    </ExperienceDialog>
-  );
-};
+}: CommunityExperienceDialogProps) => (
+  <ExperienceDialog experience={experience} {...rest}>
+    <CommunityDialogContent experience={experience} headingRank="h3" />
+  </ExperienceDialog>
+);
 
 export default CommunityExperienceDialog;
