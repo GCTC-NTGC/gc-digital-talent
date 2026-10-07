@@ -3,14 +3,6 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import type {
-  Classification,
-  Community,
-  PoolCandidate,
-  Skill,
-  User,
-  WorkStream,
-} from "@gc-digital-talent/graphql";
 import {
   EstimatedLanguageAbility,
   FlexibleWorkLocation,
@@ -31,7 +23,15 @@ import {
   TalentRequestTrackedUserStatus,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
-import type { LocalizedTalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
+import type {
+  Classification,
+  Community,
+  LocalizedTalentRequestSource,
+  PoolCandidate,
+  Skill,
+  User,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   SkillCategory,
   TalentRequestSource,

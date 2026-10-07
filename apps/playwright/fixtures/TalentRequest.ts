@@ -2,14 +2,16 @@ import { expect } from "playwright/test";
 import type { Locator, Page } from "playwright/test";
 
 import type {
-  Classification,
   TalentRequestCompletionDetail,
   TalentRequestInProgressDetail,
   TalentRequestTrackedUserNotReferredReason,
   TalentRequestTrackedUserNotSelectedReason,
+} from "@gc-digital-talent/graphql";
+import type {
+  Classification,
   User,
   WorkStream,
-} from "@gc-digital-talent/graphql";
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   TalentRequestReason,
   TalentRequestStatus,
