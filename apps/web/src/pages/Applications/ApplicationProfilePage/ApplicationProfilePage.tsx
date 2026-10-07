@@ -172,11 +172,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         <CitizenVeteranPriority {...sectionProps} />
         <LanguageProfile
           {...sectionProps}
-          application={{
-            id: application.id,
-            pool: application.pool,
-            user: application.user,
-          }}
+          application={application}
           languagePresetNoticeIsVisible={languagePresetNoticeIsVisible}
           setLanguagePresetNoticeIsVisible={setLanguagePresetNoticeIsVisible}
         />
