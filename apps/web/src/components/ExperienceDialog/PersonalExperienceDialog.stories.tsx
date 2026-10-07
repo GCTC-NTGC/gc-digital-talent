@@ -39,3 +39,12 @@ Default.args = {
   experience,
   userSkills,
 };
+
+export const MissingInfo = Template.bind({});
+MissingInfo.args = {
+  experience: {
+    ...experience,
+    learningDescription: null,
+  },
+  userSkills,
+};

@@ -135,3 +135,12 @@ CanadianArmedForces.args = {
   },
   userSkills,
 };
+
+export const MissingInfo = Template.bind({});
+MissingInfo.args = {
+  experience: {
+    ...experience,
+    division: null,
+  },
+  userSkills,
+};
