@@ -1,3 +1,5 @@
+import { hasEmptyRequiredFields } from "~/validators/experience/work";
+
 import type { WorkDialogContentExperience } from "./WorkDialogContent";
 import WorkDialogContent from "./WorkDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -14,10 +16,18 @@ interface WorkExperienceDialogProps extends ExperienceDialogBaseProps {
 const WorkExperienceDialog = ({
   experience,
   ...rest
-}: WorkExperienceDialogProps) => (
-  <ExperienceDialog experience={experience} {...rest}>
-    <WorkDialogContent experience={experience} headingRank="h3" />
-  </ExperienceDialog>
-);
+}: WorkExperienceDialogProps) => {
+  const isMissingInfo = hasEmptyRequiredFields(experience);
+
+  return (
+    <ExperienceDialog
+      experience={experience}
+      isMissingInfo={isMissingInfo}
+      {...rest}
+    >
+      <WorkDialogContent experience={experience} headingRank="h3" />
+    </ExperienceDialog>
+  );
+};
 
 export default WorkExperienceDialog;

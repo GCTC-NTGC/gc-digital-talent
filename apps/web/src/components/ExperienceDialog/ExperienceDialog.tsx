@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
-import { Button, Dialog, Link, Separator } from "@gc-digital-talent/ui";
+import { Button, Dialog, Link, Notice, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
@@ -21,6 +21,7 @@ export interface ExperienceDialogBaseProps {
 
 interface ExperienceDialogProps extends ExperienceDialogBaseProps {
   experience: ExperienceWithSkills;
+  isMissingInfo?: boolean;
   children: ReactNode;
 }
 
@@ -32,6 +33,7 @@ const ExperienceDialog = ({
   defaultOpen,
   open,
   onOpenChange,
+  isMissingInfo,
   children,
 }: ExperienceDialogProps) => {
   const intl = useIntl();
@@ -57,6 +59,28 @@ const ExperienceDialog = ({
           {titleHtml}
         </Dialog.Header>
         <Dialog.Body>
+          {isMissingInfo && (
+            <Notice.Root color="error" className="mb-6">
+              <Notice.Title>
+                {intl.formatMessage({
+                  defaultMessage: "This experience is missing information",
+                  id: "WwREEi",
+                  description:
+                    "Title for the notice shown when an experience is missing required information",
+                })}
+              </Notice.Title>
+              <Notice.Content>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: `Please review the information you've provided for this experience and use the "Edit experience" button to update any missing, required information.`,
+                    id: "WJzOrB",
+                    description:
+                      "Description for the notice shown when an experience is missing required information",
+                  })}
+                </p>
+              </Notice.Content>
+            </Notice.Root>
+          )}
           {children}
           <Separator space="sm" decorative />
           <SkillsContent

@@ -1,3 +1,5 @@
+import { hasEmptyRequiredFields } from "~/validators/experience/award";
+
 import type { AwardDialogContentExperience } from "./AwardDialogContent";
 import AwardDialogContent from "./AwardDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -16,11 +18,19 @@ interface AwardExperienceDialogProps extends ExperienceDialogBaseProps {
 const AwardExperienceDialog = ({
   experience,
   ...rest
-}: AwardExperienceDialogProps) => (
-  <ExperienceDialog experience={experience} {...rest}>
-    <AwardDialogContent experience={experience} headingRank="h3" />
-    <DetailsSection details={experience.details} />
-  </ExperienceDialog>
-);
+}: AwardExperienceDialogProps) => {
+  const isMissingInfo = hasEmptyRequiredFields(experience);
+
+  return (
+    <ExperienceDialog
+      experience={experience}
+      isMissingInfo={isMissingInfo}
+      {...rest}
+    >
+      <AwardDialogContent experience={experience} headingRank="h3" />
+      <DetailsSection details={experience.details} />
+    </ExperienceDialog>
+  );
+};
 
 export default AwardExperienceDialog;

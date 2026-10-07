@@ -1,3 +1,5 @@
+import { hasEmptyRequiredFields } from "~/validators/experience/education";
+
 import type { EducationDialogContentExperience } from "./EducationDialogContent";
 import EducationDialogContent from "./EducationDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -16,11 +18,19 @@ interface EducationExperienceDialogProps extends ExperienceDialogBaseProps {
 const EducationExperienceDialog = ({
   experience,
   ...rest
-}: EducationExperienceDialogProps) => (
-  <ExperienceDialog experience={experience} {...rest}>
-    <EducationDialogContent experience={experience} headingRank="h3" />
-    <DetailsSection details={experience.details} />
-  </ExperienceDialog>
-);
+}: EducationExperienceDialogProps) => {
+  const isMissingInfo = hasEmptyRequiredFields(experience);
+
+  return (
+    <ExperienceDialog
+      experience={experience}
+      isMissingInfo={isMissingInfo}
+      {...rest}
+    >
+      <EducationDialogContent experience={experience} headingRank="h3" />
+      <DetailsSection details={experience.details} />
+    </ExperienceDialog>
+  );
+};
 
 export default EducationExperienceDialog;

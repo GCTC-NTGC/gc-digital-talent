@@ -1,3 +1,5 @@
+import { hasEmptyRequiredFields } from "~/validators/experience/community";
+
 import type { CommunityDialogContentExperience } from "./CommunityDialogContent";
 import CommunityDialogContent from "./CommunityDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -14,10 +16,18 @@ interface CommunityExperienceDialogProps extends ExperienceDialogBaseProps {
 const CommunityExperienceDialog = ({
   experience,
   ...rest
-}: CommunityExperienceDialogProps) => (
-  <ExperienceDialog experience={experience} {...rest}>
-    <CommunityDialogContent experience={experience} headingRank="h3" />
-  </ExperienceDialog>
-);
+}: CommunityExperienceDialogProps) => {
+  const isMissingInfo = hasEmptyRequiredFields(experience);
+
+  return (
+    <ExperienceDialog
+      experience={experience}
+      isMissingInfo={isMissingInfo}
+      {...rest}
+    >
+      <CommunityDialogContent experience={experience} headingRank="h3" />
+    </ExperienceDialog>
+  );
+};
 
 export default CommunityExperienceDialog;

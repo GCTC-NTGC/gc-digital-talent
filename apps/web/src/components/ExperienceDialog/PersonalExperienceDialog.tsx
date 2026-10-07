@@ -1,3 +1,5 @@
+import { hasEmptyRequiredFields } from "~/validators/experience/personal";
+
 import type { PersonalDialogContentExperience } from "./PersonalDialogContent";
 import PersonalDialogContent from "./PersonalDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
@@ -15,10 +17,18 @@ interface PersonalExperienceDialogProps extends ExperienceDialogBaseProps {
 const PersonalExperienceDialog = ({
   experience,
   ...rest
-}: PersonalExperienceDialogProps) => (
-  <ExperienceDialog experience={experience} {...rest}>
-    <PersonalDialogContent experience={experience} headingRank="h3" />
-  </ExperienceDialog>
-);
+}: PersonalExperienceDialogProps) => {
+  const isMissingInfo = hasEmptyRequiredFields(experience);
+
+  return (
+    <ExperienceDialog
+      experience={experience}
+      isMissingInfo={isMissingInfo}
+      {...rest}
+    >
+      <PersonalDialogContent experience={experience} headingRank="h3" />
+    </ExperienceDialog>
+  );
+};
 
 export default PersonalExperienceDialog;
