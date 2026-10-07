@@ -1685,6 +1685,40 @@ export const experienceDurationMonths = (
   return 0;
 };
 
+export const formatDurationMonths = (
+  durationMonths: number,
+  intl: IntlShape,
+): string => {
+  const yearCount = Math.floor(durationMonths / 12);
+  const monthCount = durationMonths % 12;
+
+  if (yearCount > 0) {
+    return intl.formatMessage(
+      {
+        defaultMessage:
+          "{yearCount, plural,one {# year} other {# years}}, {monthCount, plural, one {# month} other {# months}}",
+        id: "MrfPJb",
+        description: "A duration of a certain number of years and months",
+      },
+      {
+        yearCount,
+        monthCount,
+      },
+    );
+  }
+
+  return intl.formatMessage(
+    {
+      defaultMessage: "{monthCount, plural, one {# month} other {# months}}",
+      id: "dkXjDY",
+      description: "A duration of a certain number of months",
+    },
+    {
+      monthCount,
+    },
+  );
+};
+
 export const experiencesDurationMonths = (
   experiences: ExperienceForDate[],
 ): number =>
