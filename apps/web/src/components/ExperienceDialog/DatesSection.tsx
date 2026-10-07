@@ -28,7 +28,7 @@ const DatesSection = ({ experience, headingRank }: DatesSectionProps) => {
         headingRank={headingRank}
         title={intl.formatMessage(experienceMessages.dates)}
       >
-        {getExperienceDate(experience, intl) ?? notAvailable}
+        {getExperienceDate(experience, intl) || notAvailable}
       </ContentSection>
       <ContentSection
         headingRank={headingRank}
