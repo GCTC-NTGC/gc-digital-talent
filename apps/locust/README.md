@@ -53,7 +53,7 @@ Open http://localhost:8089 for the web UI, or add `--headless -u 5 -r 1 -t 1m` t
 
 `bundle.py` builds one self-contained file per page (with `common.py` and `queries.py` inlined) in `azure/`, so a test is a single upload. The host defaults to Dev.
 
-1. Run the Azure DevOps pipeline from `infrastructure/azure-pipelines-locust.yml` on the branch you want
+1. Run the Locust scripts pipeline in Azure DevOps on the branch you want. It runs `python3 apps/locust/bundle.py`, then publishes `apps/locust/azure` as the `locust-scripts` artifact
 2. Download the `locust-scripts` artifact from the run
 3. In Azure Load Testing, create a test with **Upload a script**, pick **Locust** and upload the page's file
 4. Set users, spawn rate and duration on the **Load** tab
