@@ -9,8 +9,14 @@ const fakedPools = fakePools();
 const fakedPool = fakedPools[0];
 
 const nullPool = {
-  __typename: "Pool" as const,
-  id: "uuid",
+  ...fakedPool,
+  workStream: null,
+  closingDate: null,
+  name: null,
+  classification: null,
+  poolSkills: null,
+  areaOfSelection: null,
+  selectionLimitations: null,
 };
 
 const poolWithoutWhoCanApply = {

@@ -77,6 +77,7 @@ WithValues.args = {
   userSkillQuery: makeFragmentData(
     {
       ...mockUserSkill,
+      skill: mockSkill,
       experiences: mockExperiences.slice(0, 2),
     },
     UpdateUserSkill_Fragment,

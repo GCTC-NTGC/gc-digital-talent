@@ -4,10 +4,12 @@ import { faker } from "@faker-js/faker/locale/en";
 import {
   fakePoolCandidates,
   fakeExperiences,
+  fakePoolSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { notEmpty } from "@gc-digital-talent/helpers";
 import type { Application_PoolCandidateFragment as ApplicationPoolCandidateFragmentType } from "@gc-digital-talent/graphql";
-import { makeFragmentData } from "@gc-digital-talent/graphql";
+import { makeFragmentData, PoolSkillType } from "@gc-digital-talent/graphql";
 
 import type { ApplicationSkillsProps } from "./ApplicationSkillsPage";
 import {
@@ -28,6 +30,7 @@ const experienceSkills = mockExperiences
   .map((experience) => experience.skills)
   .filter(notEmpty)
   .flatMap((skill) => skill);
+const mockPoolSkills = fakePoolSkills(experienceSkills.length);
 
 const noSkills: ApplicationSkillsProps = {
   application: {
@@ -51,10 +54,13 @@ const hasExperiencesProps: ApplicationSkillsProps = {
     },
     pool: {
       ...fakePoolCandidate.pool,
-      poolSkills: experienceSkills.map((skill) => ({
-        id: faker.string.uuid(),
-        ...faker.helpers.arrayElement(
-          fakePoolCandidate?.pool?.poolSkills ?? [],
+      poolSkills: experienceSkills.map((skill, index) => ({
+        ...mockPoolSkills[index],
+        type: toLocalizedEnum(
+          index % 2 === 0
+            ? PoolSkillType.Essential
+            : PoolSkillType.Nonessential,
+          "LocalizedPoolSkillType",
         ),
         skill,
       })),
