@@ -648,7 +648,6 @@ type Mutation {
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
@@ -774,6 +773,7 @@ type Mutation {
   downloadApplicationDoc(id: UUID!): String
   downloadJobPosterTemplateDoc(id: UUID!): String
   downloadNominationDoc(id: UUID!): String
+  migrateMyAccount: Boolean!
 }
 
 type Subscription {
@@ -800,6 +800,9 @@ scalar JSON
 
 "128 bit universally unique identifier (UUID)"
 scalar UUID
+
+"A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
+scalar BigInt
 
 type LocalizedEnumString {
   value: String!
@@ -1644,6 +1647,7 @@ type TalentRequestTrackedUser {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   referralSummary: TalentRequestReferralSummary!
 }
 
@@ -1729,7 +1733,7 @@ type WorkExperience implements Experience {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: LocalizedCSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -1996,6 +2000,7 @@ type TalentRequestResult {
   matchingQualifiedInPoolSources: [PoolCandidate!]
   matchingAtLevelSources: [CommunityInterest!]
   matchingAdvancementSources: [TalentNominationGroup!]
+  matchingLateralMovementSources: [TalentNominationGroup!]
   skillCount: Int
   referralSummary: TalentRequestReferralSummary!
 }
@@ -2378,15 +2383,6 @@ input CreateClassificationInput {
 
 input ClassificationBelongsToMany {
   sync: [ID!]
-}
-
-input CreatePoolCandidateAsAdminInput {
-  pool: PoolBelongsTo!
-  user: UserBelongsTo!
-  expiryDate: Date
-  status: ApplicationStatus = TO_ASSESS
-  notes: String
-  isFlagged: Boolean
 }
 
 input CreateSpecialApplicationInput {
@@ -2826,7 +2822,7 @@ input WorkExperienceInput {
   supervisedEmployees: Boolean
   supervisedEmployeesNumber: Int
   budgetManagement: Boolean
-  annualBudgetAllocation: Int
+  annualBudgetAllocation: BigInt
   seniorManagementStatus: Boolean
   cSuiteRoleTitle: CSuiteRoleTitle
   otherCSuiteRoleTitle: String
@@ -4669,6 +4665,7 @@ enum TalentRequestSource {
   QUALIFIED_IN_POOL
   AT_LEVEL
   ADVANCEMENT
+  LATERAL_MOVEMENT
 }
 
 enum TalentRequestStatus {

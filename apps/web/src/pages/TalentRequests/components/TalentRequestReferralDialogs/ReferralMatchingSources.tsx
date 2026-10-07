@@ -40,18 +40,36 @@ export const ReferralMatchingAdvancementSource_Fragment = graphql(
   `,
 );
 
+export const ReferralMatchingLateralMovementSource_Fragment = graphql(
+  /* GraphQL */ `
+    fragment ReferralMatchingLateralMovementSource on TalentNominationGroup {
+      id
+      talentNominationEvent {
+        id
+        name {
+          localized
+        }
+      }
+    }
+  `,
+);
+
 interface ReferralMatchingSourcesProps {
   sourceLabels: string[];
   matchingPoolSources?:
     FragmentType<typeof ReferralMatchingPoolSource_Fragment>[] | null;
   matchingAdvancementSources?:
     FragmentType<typeof ReferralMatchingAdvancementSource_Fragment>[] | null;
+  matchingLateralMovementSources?:
+    | FragmentType<typeof ReferralMatchingLateralMovementSource_Fragment>[]
+    | null;
 }
 
 const ReferralMatchingSources = ({
   sourceLabels,
   matchingPoolSources,
   matchingAdvancementSources,
+  matchingLateralMovementSources,
 }: ReferralMatchingSourcesProps) => {
   const intl = useIntl();
   const notAvailable = intl.formatMessage(commonMessages.notAvailable);
@@ -65,8 +83,19 @@ const ReferralMatchingSources = ({
       matchingAdvancementSources,
     ),
   );
+  const lateralMovementGroups = unpackMaybes(
+    getFragment(
+      ReferralMatchingLateralMovementSource_Fragment,
+      matchingLateralMovementSources,
+    ),
+  );
 
-  if (!sourceLabels.length && !applications.length && !advancementGroups.length)
+  if (
+    !sourceLabels.length &&
+    !applications.length &&
+    !advancementGroups.length &&
+    !lateralMovementGroups.length
+  )
     return null;
 
   return (
@@ -119,14 +148,41 @@ const ReferralMatchingSources = ({
         <FieldDisplay
           className="mb-6"
           label={intl.formatMessage({
-            defaultMessage: "Talent management events",
-            id: "qutSCs",
+            defaultMessage: "Advancement events",
+            id: "M5QJhh",
             description:
               "Label for the list of advancement nominations a user has been approved for",
           })}
         >
           <Ul>
             {advancementGroups.map((group) => (
+              <li key={group.id}>
+                <Link
+                  href={paths.talentNominationGroup(
+                    group.talentNominationEvent.id,
+                    group.id,
+                  )}
+                  newTab
+                >
+                  {group.talentNominationEvent.name.localized}
+                </Link>
+              </li>
+            ))}
+          </Ul>
+        </FieldDisplay>
+      )}
+      {lateralMovementGroups.length > 0 && (
+        <FieldDisplay
+          className="mb-6"
+          label={intl.formatMessage({
+            defaultMessage: "Lateral movement events",
+            id: "IjlIde",
+            description:
+              "Label for the list of lateral movement nominations a user has been approved for",
+          })}
+        >
+          <Ul>
+            {lateralMovementGroups.map((group) => (
               <li key={group.id}>
                 <Link
                   href={paths.talentNominationGroup(

@@ -37,6 +37,7 @@ use App\Models\WorkExperience;
 use App\Models\WorkStream;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Illuminate\Testing\TestResponse;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
@@ -174,29 +175,47 @@ class TalentRequestMatchesTest extends TestCase
         ?string $advancementDecision = null,
         $advancementReferralExpiryDate = null,
     ): TalentNominationGroup {
+        return $this->nominationGroupUser($community, 'advancement', $classification, $advancementDecision, $advancementReferralExpiryDate);
+    }
+
+    // A user nominated for lateral movement: verified gov employee with a consented Community
+    // Interest and an approved, non-expired TalentNominationGroup, no pool candidacy.
+    private function lateralMovementUser(
+        Community $community,
+        ?Classification $classification = null,
+        ?string $lateralMovementDecision = null,
+        $lateralMovementReferralExpiryDate = null,
+    ): TalentNominationGroup {
+        return $this->nominationGroupUser($community, 'lateral_movement', $classification, $lateralMovementDecision, $lateralMovementReferralExpiryDate);
+    }
+
+    private function nominationGroupUser(
+        Community $community,
+        string $nominationType,
+        ?Classification $classification = null,
+        ?string $decision = null,
+        $referralExpiryDate = null,
+    ): TalentNominationGroup {
         $user = User::factory()->create([
-            'work_email' => 'advancement.user@gc.ca',
+            'work_email' => str_replace('_', '.', $nominationType).'.user@gc.ca',
             'work_email_verified_at' => now(),
             'computed_is_gov_employee' => true,
         ]);
-        CommunityInterest::factory()->consented()->create([
-            'user_id' => $user->id,
-            'community_id' => $community->id,
-        ]);
+        CommunityInterest::factory()->consented()->for($user)->for($community)->create();
         $event = TalentNominationEvent::factory()->create([
             'community_id' => $community->id,
         ]);
         $group = TalentNominationGroup::create([
             'nominee_id' => $user->id,
             'talent_nomination_event_id' => $event->id,
-            'advancement_decision' => $advancementDecision ?? TalentNominationGroupDecision::APPROVED->name,
+            "{$nominationType}_decision" => $decision ?? TalentNominationGroupDecision::APPROVED->name,
         ]);
-        // advancement_referral_expiry_date is not mass-assignable; set it directly.
-        $group->advancement_referral_expiry_date = $advancementReferralExpiryDate ?? now()->addMonths(6);
+        // {nominationType}_referral_expiry_date is not mass-assignable; set it directly.
+        $group->{"{$nominationType}_referral_expiry_date"} = $referralExpiryDate ?? now()->addMonths(6);
         $group->save();
 
         if ($classification) {
-            $group->advancementClassifications()->attach($classification->id);
+            $group->{Str::camel($nominationType).'Classifications'}()->attach($classification->id);
         }
 
         return $group;
@@ -1454,20 +1473,43 @@ class TalentRequestMatchesTest extends TestCase
         }
         GRAPHQL;
 
+    protected string $lateralMovementQuery = <<<'GRAPHQL'
+        query TalentRequestMatches($where: TalentRequestMatchFilterInput) {
+            talentRequestMatches(where: $where) {
+                data {
+                    user { id }
+                    sources { value }
+                    matchingLateralMovementSources { id }
+                }
+                paginatorInfo { total }
+            }
+        }
+        GRAPHQL;
+
     public function testAdvancementSourceMatchesApprovedNominee(): void
     {
         $community = Community::factory()->create();
 
         $group = $this->advancementUser($community);
 
-        // has a Community Interest but no nomination at all — should not match
+        // no Community Interest and no nomination — should not match
         User::factory()->create();
 
         $this->actingAs($this->admin, 'api')
             ->graphQL($this->advancementQuery, ['where' => []])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
-            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $group->nominee_id)
-            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAdvancementSources.0.id', $group->id);
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $group->nominee_id],
+                                'matchingAdvancementSources' => [['id' => $group->id]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
     }
 
     public function testAdvancementExcludesUsersWhoHaveNotConsentedToShareProfile(): void
@@ -1479,10 +1521,7 @@ class TalentRequestMatchesTest extends TestCase
             'work_email_verified_at' => now(),
             'computed_is_gov_employee' => true,
         ]);
-        CommunityInterest::factory()->consented(false)->create([
-            'user_id' => $user->id,
-            'community_id' => $community->id,
-        ]);
+        CommunityInterest::factory()->consented(false)->for($user)->for($community)->create();
         $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
         $group = TalentNominationGroup::create([
             'nominee_id' => $user->id,
@@ -1496,7 +1535,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
@@ -1511,16 +1550,10 @@ class TalentRequestMatchesTest extends TestCase
         ]);
 
         // Consents to share their interest in the nomination's own community...
-        CommunityInterest::factory()->consented()->create([
-            'user_id' => $user->id,
-            'community_id' => $nominationCommunity->id,
-        ]);
+        CommunityInterest::factory()->consented()->for($user)->for($nominationCommunity)->create();
 
         // ...but the work stream the filter asks about lives on a different, non-consenting interest.
-        $otherInterest = CommunityInterest::factory()->consented(false)->withWorkStreams()->create([
-            'user_id' => $user->id,
-            'community_id' => $otherCommunity->id,
-        ]);
+        $otherInterest = CommunityInterest::factory()->consented(false)->withWorkStreams()->for($user)->for($otherCommunity)->create();
         $workStreamId = $otherInterest->workStreams()->first()->id;
 
         $event = TalentNominationEvent::factory()->create(['community_id' => $nominationCommunity->id]);
@@ -1541,7 +1574,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesUnapprovedDecision(): void
@@ -1554,7 +1587,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     // "advancementReferralExpiryDate is current or past" in the source ticket actually means "not yet
@@ -1569,7 +1602,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementExcludesUnverifiedGovEmployee(): void
@@ -1583,7 +1616,7 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
     }
 
     public function testAdvancementWorkStreamFilterMatchesUserWithoutCandidacy(): void
@@ -1664,7 +1697,7 @@ class TalentRequestMatchesTest extends TestCase
                     ],
                 ],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 0);
+            ->assertJsonFragment(['total' => 0]);
 
         // filtering by the group's advancementClassifications should match
         $this->actingAs($this->admin, 'api')
@@ -1693,10 +1726,7 @@ class TalentRequestMatchesTest extends TestCase
             'work_email_verified_at' => now(),
             'computed_is_gov_employee' => true,
         ]);
-        CommunityInterest::factory()->consented()->create([
-            'user_id' => $excludedUser->id,
-            'community_id' => $matching->id,
-        ]);
+        CommunityInterest::factory()->consented()->for($excludedUser)->for($matching)->create();
         $event = TalentNominationEvent::factory()->create(['community_id' => $other->id]);
         $excludedGroup = TalentNominationGroup::create([
             'nominee_id' => $excludedUser->id,
@@ -1715,8 +1745,16 @@ class TalentRequestMatchesTest extends TestCase
                     'talentSources' => [TalentRequestSource::ADVANCEMENT->name],
                 ]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
-            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $included->nominee_id);
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            ['user' => ['id' => $included->nominee_id]],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
     }
 
     public function testTalentSourcesAdvancementOnlyExcludesOtherSourceUsers(): void
@@ -1733,9 +1771,19 @@ class TalentRequestMatchesTest extends TestCase
             ->graphQL($this->advancementQuery, [
                 'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::ADVANCEMENT->name]]],
             ])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
-            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $group->nominee_id)
-            ->assertJsonPath('data.talentRequestMatches.data.0.matchingAdvancementSources.0.id', $group->id);
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $group->nominee_id],
+                                'matchingAdvancementSources' => [['id' => $group->id]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
     }
 
     public function testTalentSourcesAllSourcesReturnsAllThreeSourceUsers(): void
@@ -1760,11 +1808,344 @@ class TalentRequestMatchesTest extends TestCase
 
         $userIds = $this->actingAs($this->admin, 'api')
             ->graphQL($this->advancementQuery, ['where' => []])
-            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 3)
+            ->assertJsonFragment(['total' => 3])
             ->json('data.talentRequestMatches.data.*.user.id');
 
         $this->assertContains($poolUser->id, $userIds);
         $this->assertContains($atLevelUser->id, $userIds);
         $this->assertContains($advancementGroup->nominee_id, $userIds);
+    }
+
+    public function testLateralMovementSourceMatchesApprovedNominee(): void
+    {
+        $community = Community::factory()->create();
+
+        $group = $this->lateralMovementUser($community);
+
+        // no Community Interest and no nomination — should not match
+        User::factory()->create();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, ['where' => []])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $group->nominee_id],
+                                'matchingLateralMovementSources' => [['id' => $group->id]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testLateralMovementExcludesUsersWhoHaveNotConsentedToShareProfile(): void
+    {
+        $community = Community::factory()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'lateral.movement.noconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented(false)->for($user)->for($community)->create();
+        $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+    }
+
+    public function testLateralMovementExcludesMatchWhenEligibilityInterestIsNotConsenting(): void
+    {
+        $nominationCommunity = Community::factory()->create();
+        $otherCommunity = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'lateral.movement.mixedconsent@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+
+        // Consents to share their interest in the nomination's own community...
+        CommunityInterest::factory()->consented()->for($user)->for($nominationCommunity)->create();
+
+        // ...but the work stream the filter asks about lives on a different, non-consenting interest.
+        $otherInterest = CommunityInterest::factory()->consented(false)->withWorkStreams()->for($user)->for($otherCommunity)->create();
+        $workStreamId = $otherInterest->workStreams()->first()->id;
+
+        $event = TalentNominationEvent::factory()->create(['community_id' => $nominationCommunity->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+    }
+
+    public function testLateralMovementExcludesUnapprovedDecision(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->lateralMovementUser($community, lateralMovementDecision: TalentNominationGroupDecision::REJECTED->name);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+    }
+
+    // "referralExpiryDate is current or past" in the source ticket actually means "not yet
+    // expired" — a past expiry date must EXCLUDE the match. Confirmed with product.
+    public function testLateralMovementExcludesPastReferralExpiryDate(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->lateralMovementUser($community, lateralMovementReferralExpiryDate: now()->subDay());
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+    }
+
+    public function testLateralMovementExcludesUnverifiedGovEmployee(): void
+    {
+        $community = Community::factory()->create();
+
+        $group = $this->lateralMovementUser($community);
+        $group->nominee->forceFill(['work_email_verified_at' => null])->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+    }
+
+    public function testLateralMovementWorkStreamFilterMatchesUserWithoutCandidacy(): void
+    {
+        $community = Community::factory()->withWorkStreams()->create();
+
+        $user = User::factory()->create([
+            'work_email' => 'lateral.movement.workstream@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        $interest = CommunityInterest::factory()->consented()->withWorkStreams()->for($user)->for($community)->create();
+        $workStreamId = $interest->workStreams()->first()->id;
+        $event = TalentNominationEvent::factory()->create(['community_id' => $community->id]);
+        $group = TalentNominationGroup::create([
+            'nominee_id' => $user->id,
+            'talent_nomination_event_id' => $event->id,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $group->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $group->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                        'qualifiedInWorkStreams' => [['id' => $workStreamId]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $user->id]]);
+    }
+
+    public function testLateralMovementClassificationFilterMatchesAgainstLateralMovementClassifications(): void
+    {
+        $community = Community::factory()->create();
+        $classification = Classification::factory()->create();
+
+        $group = $this->lateralMovementUser($community, $classification);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $classification->group, 'level' => $classification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $group->nominee_id]]);
+    }
+
+    // Regression/divergence test: unlike AT_LEVEL, the classification filter for LATERAL_MOVEMENT
+    // must match against the nomination group's lateralMovementClassifications, not the nominee's
+    // currentClassification.
+    public function testLateralMovementClassificationFilterIgnoresCurrentClassification(): void
+    {
+        $community = Community::factory()->create();
+        $lateralMovementClassification = Classification::factory()->create();
+        $currentClassification = Classification::factory()->create();
+
+        $group = $this->lateralMovementUser($community, $lateralMovementClassification);
+        WorkExperience::factory()->for($group->nominee)->for($currentClassification)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'end_date' => null,
+        ]);
+
+        // filtering by the nominee's currentClassification (not their lateralMovementClassifications) should not match
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $currentClassification->group, 'level' => $currentClassification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['total' => 0]);
+
+        // filtering by the group's lateralMovementClassifications should match
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => [
+                    'applicantFilter' => [
+                        'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                        'qualifiedInClassifications' => [['group' => $lateralMovementClassification->group, 'level' => $lateralMovementClassification->level]],
+                    ],
+                ],
+            ])
+            ->assertJsonFragment(['user' => ['id' => $group->nominee_id]]);
+    }
+
+    public function testLateralMovementCommunityFilterNarrowsResults(): void
+    {
+        $matching = Community::factory()->create();
+        $other = Community::factory()->create();
+
+        $included = $this->lateralMovementUser($matching);
+
+        // Community Interest is in $matching but the nomination event's community is $other —
+        // should not match.
+        $excludedUser = User::factory()->create([
+            'work_email' => 'lateral.movement.mismatch@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->for($excludedUser)->for($matching)->create();
+        $event = TalentNominationEvent::factory()->create(['community_id' => $other->id]);
+        $excludedGroup = TalentNominationGroup::create([
+            'nominee_id' => $excludedUser->id,
+            'talent_nomination_event_id' => $event->id,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $excludedGroup->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $excludedGroup->save();
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => [
+                    'community' => ['id' => $matching->id],
+                    // scope to LATERAL_MOVEMENT — otherwise $excludedUser's Community Interest in
+                    // $matching alone would also satisfy AT_LEVEL for this community filter.
+                    'talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name],
+                ]],
+            ])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            ['user' => ['id' => $included->nominee_id]],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testTalentSourcesLateralMovementOnlyExcludesOtherSourceUsers(): void
+    {
+        $pool = Pool::factory()->create();
+        $community = Community::factory()->create();
+
+        // QUALIFIED_IN_POOL only — no lateral movement nomination
+        $this->matchingUser($pool);
+
+        $group = $this->lateralMovementUser($community);
+
+        $this->actingAs($this->admin, 'api')
+            ->graphQL($this->lateralMovementQuery, [
+                'where' => ['applicantFilter' => ['talentSources' => [TalentRequestSource::LATERAL_MOVEMENT->name]]],
+            ])
+            ->assertJson([
+                'data' => [
+                    'talentRequestMatches' => [
+                        'data' => [
+                            [
+                                'user' => ['id' => $group->nominee_id],
+                                'matchingLateralMovementSources' => [['id' => $group->id]],
+                            ],
+                        ],
+                        'paginatorInfo' => ['total' => 1],
+                    ],
+                ],
+            ]);
+    }
+
+    public function testTalentSourcesAllSourcesReturnsAllFourSourceUsers(): void
+    {
+        $pool = Pool::factory()->create();
+        $atLevelCommunity = Community::factory()->create();
+        $advancementCommunity = Community::factory()->create();
+        $lateralMovementCommunity = Community::factory()->create();
+
+        $poolUser = $this->matchingUser($pool);
+
+        $atLevelUser = User::factory()->create([
+            'work_email' => 'verified.employee.four@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $atLevelUser->id,
+            'community_id' => $atLevelCommunity->id,
+        ]);
+
+        $advancementGroup = $this->advancementUser($advancementCommunity);
+        $lateralMovementGroup = $this->lateralMovementUser($lateralMovementCommunity);
+
+        $userIds = $this->actingAs($this->admin, 'api')
+            ->graphQL($this->advancementQuery, ['where' => []])
+            ->assertJsonFragment(['total' => 4])
+            ->json('data.talentRequestMatches.data.*.user.id');
+
+        $this->assertContains($poolUser->id, $userIds);
+        $this->assertContains($atLevelUser->id, $userIds);
+        $this->assertContains($advancementGroup->nominee_id, $userIds);
+        $this->assertContains($lateralMovementGroup->nominee_id, $userIds);
     }
 }
