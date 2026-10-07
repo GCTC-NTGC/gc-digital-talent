@@ -130,9 +130,12 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         try {
             // Pre-pass: collect all pool IDs so we can build headers before streaming rows
             // (OpenSpout streams rows sequentially — headers must be written first)
-            // In id order, so the pool columns keep their first-appearance order
-            $this->poolIds = $this->buildQuery()->toBase()->orderBy('pool_candidates.id')
-                ->pluck('pool_candidates.pool_id')->unique()->values()->all();
+            $this->poolIds = $this->buildQuery()->toBase()
+                ->reorder()
+                ->select('pool_candidates.pool_id')
+                ->distinct()
+                ->pluck('pool_candidates.pool_id')
+                ->all();
 
             $localizedHeaders = array_map(function ($key) {
                 return $this->localizeHeading($key);
