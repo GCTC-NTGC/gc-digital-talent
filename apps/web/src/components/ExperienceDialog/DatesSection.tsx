@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 
-import type { ExperienceForDate } from "~/types/experience";
+import type { ExperienceDate } from "~/utils/experienceUtils";
 import {
   experienceDurationMonths,
   formatDurationMonths,
@@ -14,7 +14,7 @@ import experienceMessages from "~/messages/experienceMessages";
 import ContentSection from "../ExperienceCard/ContentSection";
 
 interface DatesSectionProps {
-  experience: ExperienceForDate;
+  experience: ExperienceDate;
   headingRank?: HeadingRank;
 }
 
