@@ -345,58 +345,23 @@ export const Component = () => {
             </Accordion.Item>
             <Accordion.Item value="four">
               <Accordion.Trigger as="h4">
-                {intl.formatMessage(gckeyMessages.questionContactGCkey)}
+                {intl.formatMessage({
+                  defaultMessage:
+                    "What do I do if I last signed in with GCKey and missed the migration window?",
+                  id: "8h6hJc",
+                  description: "FAQ title about missing the migration window",
+                })}
               </Accordion.Trigger>
               <Accordion.Content>
-                <p className="mb-3">
-                  {intl.formatMessage(gckeyMessages.answerContactGCkey1)}
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "If you previously signed in with GCKey, you'll be given the option to link your existing account to your new sign-in method. If the email address and phone number in your CanadaLogin account match the information in your GC Digital Talent profile, your existing profile will be linked automatically. If we are unable to find a matching profile, please proceed with your new CanadaLogin account.",
+                    id: "89pnS1",
+                    description:
+                      "FAQ message about missing the migration window",
+                  })}
                 </p>
-                <p className="mb-3">
-                  {intl.formatMessage(gckeyMessages.answerContactGCkey2)}
-                </p>
-                <p className="mb-3">
-                  <Link
-                    color="black"
-                    external
-                    href="tel:1-855-438-1102"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                    aria-label="1 8 5 5 4 3 8 1 1 0 2"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  >
-                    1-855-438-1102
-                  </Link>
-                </p>
-                <p className="mb-3">
-                  {intl.formatMessage(gckeyMessages.answerContactGCkey3)}
-                </p>
-                <p className="mb-3">
-                  <Link
-                    color="black"
-                    external
-                    href="tel:1-855-438-1103"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                    aria-label="1 8 5 5 4 3 8 1 1 0 3"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  >
-                    1-855-438-1103
-                  </Link>
-                </p>
-                <p className="mb-3">
-                  {intl.formatMessage(gckeyMessages.answerContactGCkey4)}
-                </p>
-                <p className="mb-3">
-                  <Link
-                    color="black"
-                    external
-                    href="tel:1-800-2318-6290"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                    aria-label="1 8 0 0 2 3 1 8 6 2 9 0"
-                    // eslint-disable-next-line formatjs/no-literal-string-in-jsx
-                  >
-                    1-800-2318-6290
-                  </Link>
-                </p>
-                <p>{intl.formatMessage(gckeyMessages.answerContactGCkey5)}</p>
               </Accordion.Content>
             </Accordion.Item>
           </Accordion.Root>
