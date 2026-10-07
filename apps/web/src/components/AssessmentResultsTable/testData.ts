@@ -102,10 +102,10 @@ const applicationScreeningResults = [
 ];
 
 const experience = fakeExperiences(1)[0];
-const experiencePoolSkill = fakePoolSkills(1)[0];
-if (experiencePoolSkill.skill) {
-  experience.skills?.push(experiencePoolSkill?.skill);
-}
+const experiencePoolSkill = {
+  ...fakePoolSkills(1)[0],
+  skill: experience.skills[0],
+};
 
 /* Screening questions step (Unsuccessful status) */
 export const screeningQuestionsStep = makeTestAssessmentStep(
@@ -172,7 +172,7 @@ export const testPoolCandidate = {
       fakeUserSkills(1, essentialPoolSkills[1].skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[0].skill)[0],
       fakeUserSkills(1, nonEssentialPoolSkills[1].skill)[0],
-      fakeUserSkills(1, experiencePoolSkill.skill!)[0],
+      fakeUserSkills(1, experiencePoolSkill.skill)[0],
     ],
     experiences: [experience],
   },
