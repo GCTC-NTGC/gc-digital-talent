@@ -31,8 +31,9 @@ const AccountInformationCard = ({ query }: AccountInformationCardProps) => {
       <p className="font-bold">
         {intl.formatMessage({
           defaultMessage: "Account and contact information",
-          id: "egGUj5",
-          description: "Title for account info card",
+          id: "sx79Vq",
+          description:
+            "Title for the account and contact information information section",
         })}
       </p>
       <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
