@@ -8,7 +8,7 @@ import { getExperienceFormLabels } from "~/utils/experienceUtils";
 import ContentSection from "./ContentSection";
 import type { ContentProps } from "./types";
 
-export interface PersonalContentExperience {
+interface PersonalContentExperience {
   __typename?: "PersonalExperience";
   learningDescription?: string | null;
   organization?: string | null;
