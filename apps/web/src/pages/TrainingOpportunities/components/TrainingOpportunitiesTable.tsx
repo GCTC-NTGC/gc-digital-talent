@@ -14,7 +14,6 @@ import type {
   DeadlineStatus,
   LocalizedString,
   OrderByClause,
-  TrainingOpportunitiesFilterInput,
 } from "@gc-digital-talent/graphql";
 import { graphql, SortOrder } from "@gc-digital-talent/graphql";
 import { notEmpty } from "@gc-digital-talent/helpers";
@@ -292,7 +291,7 @@ const TrainingOpportunitiesTable = ({
   }, [data?.trainingOpportunitiesPaginated?.data]);
 
   return (
-    <Table<TrainingOpportunityRow, TrainingOpportunitiesFilterInput>
+    <Table<TrainingOpportunityRow>
       data={filteredData}
       caption={title}
       columns={columns}
