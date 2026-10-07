@@ -1006,6 +1006,10 @@
     "defaultMessage": "Vous approchez de la limite!",
     "description": "Title for warning message when the user has added many assessments to the assessment plan"
   },
+  "1olsza": {
+    "defaultMessage": "Le fonds de formation en TI a été transféré à GCÉchange. Veuillez noter que l’accès à GCÉchange nécessite une connexion au réseau du gouvernement du Canada.",
+    "description": "Description for moved to GCXchange"
+  },
   "1pFMSH": {
     "defaultMessage": "Remplir la Formulaire d’autodéclaration à l’intention des peuples autochtones",
     "description": "How it works, step 1 heading"
@@ -6007,6 +6011,10 @@
     "defaultMessage": "Tout sélectionner",
     "description": "Label for the checkbox to select all rows in a table"
   },
+  "Luf+Nm": {
+    "defaultMessage": "Cette page a été déplacée",
+    "description": "Title for page has moved"
+  },
   "Lv2AK7": {
     "defaultMessage": "À quoi ressembleront les responsabilités quotidiennes du ou de la titulaire du poste?",
     "description": "list item for job poster template key tasks section, paragraph 2"
@@ -8755,6 +8763,10 @@
   "X8e/zb": {
     "defaultMessage": "personne en situation de handicap.",
     "description": "Statement for when someone indicates they have a disability"
+  },
+  "X91dLK": {
+    "defaultMessage": "Aller à GCÉchange",
+    "description": "Title for GCXchange link"
   },
   "XB3D2p": {
     "defaultMessage": "Justification fournie",
