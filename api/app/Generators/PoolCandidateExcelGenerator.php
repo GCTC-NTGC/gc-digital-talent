@@ -495,7 +495,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'workStreams' => 'whereWorkStreamsIn',
             'processNumber' => 'whereProcessNumber',
             'flexibleWorkLocations' => 'whereFlexibleWorkLocationsIn',
-            'assessmentSteps' => 'whereAssessmentStepsIn',
+            'assessmentSteps' => 'whereAssessmentStepIn',
             'placementTypes' => 'wherePlacementTypeIn',
             'removalReason' => 'whereRemovalReasonIn',
 
