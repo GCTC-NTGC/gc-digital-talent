@@ -151,7 +151,7 @@ const PersonalInformation = ({
         })}
       </p>
       {!alertIsDismissed ? (
-        <Notice.Root onDismiss={() => setNoticeIsDismissed(true)} mode="card">
+        <Notice.Root onDismiss={() => setNoticeIsDismissed(true)}>
           <Notice.Title defaultIcon>
             {intl.formatMessage({
               defaultMessage:
