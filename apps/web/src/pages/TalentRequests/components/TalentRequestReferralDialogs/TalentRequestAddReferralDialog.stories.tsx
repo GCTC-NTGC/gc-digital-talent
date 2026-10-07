@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { fakeLocalizedEnum, fakeUsers } from "@gc-digital-talent/fake-data";
+import {
+  fakeLocalizedEnum,
+  fakeUsers,
+  toLocalizedEnum,
+  toLocalizedString,
+} from "@gc-digital-talent/fake-data";
 import {
   makeFragmentData,
   TalentRequestSource,
@@ -25,6 +30,7 @@ const [user] = fakeUsers(1);
 
 const optionsQuery = makeFragmentData(
   {
+    __typename: "Query",
     referralDecisions: fakeLocalizedEnum(
       TalentRequestTrackedUserReferralDecision,
       "LocalizedTalentRequestTrackedUserReferralDecision",
@@ -40,10 +46,6 @@ const optionsQuery = makeFragmentData(
     notSelectedReasons: fakeLocalizedEnum(
       TalentRequestTrackedUserNotSelectedReason,
       "LocalizedTalentRequestTrackedUserNotSelectedReason",
-    ),
-    talentRequestSources: fakeLocalizedEnum(
-      TalentRequestSource,
-      "LocalizedTalentRequestSource",
     ),
   },
   TalentRequestReferralDialogOptions_Fragment,
@@ -68,58 +70,60 @@ const meta = {
   args: {
     query: makeFragmentData(
       {
+        __typename: "TalentRequestResult",
         user: {
+          __typename: "User",
           id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName: user.firstName ?? null,
+          lastName: user.lastName ?? null,
         },
         sources: [
-          {
-            __typename: "LocalizedTalentRequestSource",
-            label: {
-              __typename: "LocalizedString",
-              localized: "Qualified in pool",
-            },
-          },
+          toLocalizedEnum(
+            TalentRequestSource.QualifiedInPool,
+            "LocalizedTalentRequestSource",
+          ),
         ],
         matchingQualifiedInPoolSources: [
-          makeFragmentData(
-            {
-              __typename: "PoolCandidate",
-              id: "pool-candidate-1",
-              pool: {
-                __typename: "Pool",
-                displayName: {
-                  __typename: "DefinedString",
-                  display: {
-                    __typename: "LocalizedString",
-                    localized: "IT-02",
+          {
+            __typename: "PoolCandidate",
+            ...makeFragmentData(
+              {
+                __typename: "PoolCandidate",
+                id: "pool-candidate-1",
+                pool: {
+                  __typename: "Pool",
+                  displayName: {
+                    __typename: "DefinedString",
+                    display: toLocalizedString("IT-02"),
                   },
                 },
               },
-            },
-            ReferralMatchingPoolSource_Fragment,
-          ),
-        ],
-        referralSummary: makeFragmentData(
-          {
-            __typename: "TalentRequestReferralSummary",
-            referredCount: 3,
-            notSelectedReasons: [
-              {
-                __typename: "TalentRequestNotSelectedReasonCount",
-                reason: {
-                  __typename:
-                    "LocalizedTalentRequestTrackedUserNotSelectedReason",
-                  value: TalentRequestTrackedUserNotSelectedReason.Other,
-                  label: { __typename: "LocalizedString", localized: "Other" },
-                },
-                count: 2,
-              },
-            ],
+              ReferralMatchingPoolSource_Fragment,
+            ),
           },
-          ReferralHistory_Fragment,
-        ),
+        ],
+        matchingAdvancementSources: [],
+        matchingLateralMovementSources: [],
+        referralSummary: {
+          __typename: "TalentRequestReferralSummary",
+          ...makeFragmentData(
+            {
+              __typename: "TalentRequestReferralSummary",
+              referredCount: 3,
+              notSelectedReasons: [
+                {
+                  __typename: "TalentRequestNotSelectedReasonCount",
+                  reason: toLocalizedEnum(
+                    TalentRequestTrackedUserNotSelectedReason.Other,
+                    "LocalizedTalentRequestTrackedUserNotSelectedReason",
+                  ),
+                  count: 2,
+                },
+              ],
+            },
+            ReferralHistory_Fragment,
+          ),
+        },
       },
       TalentRequestAddReferralDialog_Fragment,
     ),

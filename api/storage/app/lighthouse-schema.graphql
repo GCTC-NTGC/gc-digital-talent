@@ -648,7 +648,6 @@ type Mutation {
   sendUserEmailsVerification(sendUserEmailsVerificationInput: SendUserEmailsVerificationInput!): User
   verifyUserEmails(code: String!): User
   removeUserWorkEmail(id: UUID!): User
-  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
   createSpecialApplication(poolCandidate: CreateSpecialApplicationInput!): PoolCandidate
   updatePoolCandidateStatus(id: UUID!, poolCandidate: UpdatePoolCandidateStatusInput!): PoolCandidate @deprecated(reason: "Replaced by specific mutations")
   togglePoolCandidateFlag(id: ID!): Boolean
@@ -774,6 +773,7 @@ type Mutation {
   downloadApplicationDoc(id: UUID!): String
   downloadJobPosterTemplateDoc(id: UUID!): String
   downloadNominationDoc(id: UUID!): String
+  migrateMyAccount: Boolean!
 }
 
 type Subscription {
@@ -2383,15 +2383,6 @@ input CreateClassificationInput {
 
 input ClassificationBelongsToMany {
   sync: [ID!]
-}
-
-input CreatePoolCandidateAsAdminInput {
-  pool: PoolBelongsTo!
-  user: UserBelongsTo!
-  expiryDate: Date
-  status: ApplicationStatus = TO_ASSESS
-  notes: String
-  isFlagged: Boolean
 }
 
 input CreateSpecialApplicationInput {
