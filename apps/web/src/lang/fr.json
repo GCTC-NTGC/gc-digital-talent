@@ -319,10 +319,6 @@
     "defaultMessage": "Si vous avez un profil sur Talents numériques du GC, l'information qu'il contient sera automatiquement ajoutée à la demande d'emploi. Vous pourrez revoir et modifier cette information et ajouter toute information manquante. Toute modification apportée à votre profil aux fins de la demande d'emploi sera sauvegardée dans votre profil afin que vous puissiez utiliser l'information ultérieurement.",
     "description": "Description of how user profiles assist in application completion"
   },
-  "/ANsjm": {
-    "defaultMessage": "Gestion du Fonds",
-    "description": "Heading for the fund management card"
-  },
   "/Bih8t": {
     "defaultMessage": "Tâches principales - Exemples",
     "description": "Long title of the 'key tasks' section of the job poster template page"
@@ -1761,10 +1757,6 @@
   "4rkX89": {
     "defaultMessage": "La nomination doit inclure les trois principales compétences de leadership de la personne nominée.",
     "description": "Label for the include leadership competencies"
-  },
-  "4t9lEL": {
-    "defaultMessage": "Pour en savoir plus et présenter une demande <hidden>pour {trainingOpportunityTitle}</hidden>",
-    "description": "Button label to open a training opportunities dialog"
   },
   "4tIdsX": {
     "defaultMessage": "Talents numériques du GC - Toutes compétences.csv",
