@@ -14,6 +14,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -371,7 +372,13 @@ class UserExcelGeneratorTest extends TestCase
             ->setAuthenticatedUserId($adminUser->id)
             ->setIds(null)
             ->setFilters(['generalSearch' => 'Qwertyville']);
+        DB::enableQueryLog();
         $generator->generate()->write();
+        $queries = array_column(DB::getQueryLog(), 'query');
+        DB::disableQueryLog();
+
+        // assert: users are paged by id. Paging by offset repeats and drops users once the data is large enough, which a test this size can't reproduce
+        $this->assertNotEmpty(preg_grep('/"users"\."id" > \?/', $queries), 'The export should page users by id, not by offset');
 
         // assert: the users sheet has one row per user, with the user id in the first column
         $rows = $this->readSheetRows('test_keyword_search', sheetIndex: 0, rowCount: PHP_INT_MAX);
