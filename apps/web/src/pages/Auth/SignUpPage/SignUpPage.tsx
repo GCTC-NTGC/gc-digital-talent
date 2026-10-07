@@ -118,7 +118,7 @@ export const Component = () => {
 
               <p className="m-0 flex items-center pl-2">
                 <Link
-                  href="#registrationInstructions"
+                  href="#registration-instructions"
                   mode="inline"
                   external
                   className="sm:ml-4"
@@ -137,7 +137,7 @@ export const Component = () => {
       </Hero>
 
       <Container className="my-12">
-        <div id="registrationInstructions" className="scroll-mt-20">
+        <div id="registration-instructions" className="scroll-mt-20">
           <Heading
             rank="h3"
             size="h4"

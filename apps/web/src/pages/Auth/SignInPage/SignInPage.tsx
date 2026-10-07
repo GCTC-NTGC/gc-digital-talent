@@ -247,7 +247,7 @@ export const Component = () => {
             </Link>
             <p>
               <Link
-                href="#registrationInstructions"
+                href="#registration-instructions"
                 mode="inline"
                 external
                 color="warning"
@@ -265,7 +265,7 @@ export const Component = () => {
       </Hero>
 
       <Container className="my-10">
-        <div id="registrationInstructions" className="scroll-mt-20">
+        <div id="registration-instructions" className="scroll-mt-20">
           <InstructionCards />
 
           <Heading
