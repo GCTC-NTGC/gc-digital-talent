@@ -12,11 +12,11 @@ import {
   hasEmptyRequiredFields,
 } from "~/validators/profile/about";
 import useRoutes from "~/hooks/useRoutes";
+import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
+import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import useSectionInfo from "../../hooks/useSectionInfo";
-import NullDisplay from "./NullDisplay";
-import Display from "./Display";
 
 const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
   fragment ProfilePersonalInformation on User {
@@ -24,6 +24,9 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     firstName
     lastName
     telephone
+    isEmailVerified
+    workEmail
+    isWorkEmailVerified
     preferredLang {
       value
     }
@@ -40,17 +43,24 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
       value
     }
     ...PersonalInformationDisplay
+    ...ContactEmailCard
+    ...WorkEmailCard
   }
 `);
 
 interface PersonalInformationProps extends SectionProps<ProfileSectionPool> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
+  enableEmployeeAreaOfSelectionNotice: boolean;
 }
 
 const NoticeDismissedKey =
   "dismissed_alert_account_settings_collection_changed";
 
-const PersonalInformation = ({ query, pool }: PersonalInformationProps) => {
+const PersonalInformation = ({
+  query,
+  enableEmployeeAreaOfSelectionNotice,
+  pool,
+}: PersonalInformationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
@@ -69,17 +79,15 @@ const PersonalInformation = ({ query, pool }: PersonalInformationProps) => {
 
   return (
     <div className="flex flex-col gap-y-6">
-      <div className="flex flex-col items-start justify-between gap-6 xs:flex-row xs:items-center">
-        <Heading
-          className="my-0 grow"
-          icon={icon.icon}
-          color={icon.color}
-          rank={pool ? "h3" : "h2"}
-          size={pool ? "h4" : "h3"}
-        >
-          {title ? intl.formatMessage(title) : null}
-        </Heading>
-      </div>
+      <Heading
+        className="my-0 grow"
+        icon={icon.icon}
+        color={icon.color}
+        rank={pool ? "h3" : "h2"}
+        size={pool ? "h4" : "h3"}
+      >
+        {title ? intl.formatMessage(title) : null}
+      </Heading>
       <p>
         {intl.formatMessage({
           defaultMessage:
@@ -133,7 +141,44 @@ const PersonalInformation = ({ query, pool }: PersonalInformationProps) => {
           </Notice.Content>
         </Notice.Root>
       )}
-      {isNull ? <NullDisplay /> : <Display query={user} />}
+      {!user.isEmailVerified && (
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "A verified contact email is required",
+                id: "O7ubAh",
+                description:
+                  "Error message displayed during application when missing a verified email",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      )}
+      {
+        /* special application bypasses work email verification  */
+        enableEmployeeAreaOfSelectionNotice && (
+          <>
+            {(!user.isWorkEmailVerified || !user.workEmail) && (
+              <Notice.Root color="error">
+                <Notice.Content>
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                      id: "KWgx7f",
+                      description:
+                        "Body for a message informing the user that a contact email is required.",
+                    })}
+                  </p>
+                </Notice.Content>
+              </Notice.Root>
+            )}
+          </>
+        )
+      }
+      <ContactEmailCard query={user} />
+      <WorkEmailCard query={user} />
     </div>
   );
 };

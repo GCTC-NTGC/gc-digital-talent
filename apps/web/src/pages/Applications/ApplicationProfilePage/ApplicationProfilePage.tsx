@@ -1,12 +1,7 @@
 import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
-import {
-  Heading,
-  Notice,
-  Separator,
-  ThrowNotFound,
-} from "@gc-digital-talent/ui";
+import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
 import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
@@ -19,8 +14,6 @@ import WorkPreferences from "~/components/Profile/components/WorkPreferences/Wor
 import DiversityEquityInclusion from "~/components/Profile/components/DiversityEquityInclusion/DiversityEquityInclusion";
 import LanguageProfile from "~/components/Profile/components/LanguageProfile/LanguageProfile";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
-import ContactEmailCard from "~/components/ContactEmailCard/ContactEmailCard";
-import WorkEmailCard from "~/components/WorkEmailCard/WorkEmailCard";
 import CitizenVeteranPriority from "~/components/Profile/components/CitizenVeteranPriority/CitizenVeteranPriority";
 import { KEY_NEW_USER_LANGUAGE_PRESET } from "~/constants/storageKeys";
 
@@ -103,6 +96,10 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     pool: application.pool,
   };
 
+  const enableEmployeeAreaOfSelectionNotice =
+    application.pool.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
+    !application.isSpecialApplication;
+
   return (
     <ProfileFormProvider>
       <Heading size="h3" className="mt-0 mb-6 font-normal">
@@ -117,54 +114,13 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         })}
       </p>
       <div className="mt-18 flex flex-col gap-y-18">
-        <div className="grid grid-cols-1 gap-1.5 xs:grid-cols-2">
-          <div className="col-span-2">
-            <PersonalInformation {...sectionProps} query={application.user} />
-          </div>
-          <>
-            {!application.user.isEmailVerified && (
-              <Notice.Root color="error" className="col-span-2">
-                <Notice.Content>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "A verified contact email is required",
-                      id: "O7ubAh",
-                      description:
-                        "Error message displayed during application when missing a verified email",
-                    })}
-                  </p>
-                </Notice.Content>
-              </Notice.Root>
-            )}
-            {
-              /* special application bypasses work email verification  */
-              application.pool.areaOfSelection?.value ===
-                PoolAreaOfSelection.Employees &&
-                !application.isSpecialApplication && (
-                  <>
-                    {(!application.user.isWorkEmailVerified ||
-                      !application.user.workEmail) && (
-                      <Notice.Root color="error" className="col-span-2">
-                        <Notice.Content>
-                          <p>
-                            {intl.formatMessage({
-                              defaultMessage:
-                                "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
-                              id: "KWgx7f",
-                              description:
-                                "Body for a message informing the user that a contact email is required.",
-                            })}
-                          </p>
-                        </Notice.Content>
-                      </Notice.Root>
-                    )}
-                  </>
-                )
-            }
-          </>
-          <ContactEmailCard query={application.user} />
-          <WorkEmailCard query={application.user} />
-        </div>
+        <PersonalInformation
+          {...sectionProps}
+          query={application.user}
+          enableEmployeeAreaOfSelectionNotice={
+            enableEmployeeAreaOfSelectionNotice
+          }
+        />
         <WorkPreferences {...sectionProps} />
         <div>
           <DiversityEquityInclusion {...sectionProps} />
