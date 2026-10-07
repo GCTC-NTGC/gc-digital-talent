@@ -14,10 +14,9 @@ Environment variables (plus the ones in common.py):
   POOL_IDS     comma separated pool ids to visit instead of every published job
 """
 
-from __future__ import annotations
-
 import os
 import random
+from typing import List
 
 from gevent.lock import Semaphore
 from locust import task
@@ -25,7 +24,7 @@ from locust.exception import StopUser
 
 from common import PublicPageUser
 
-pool_ids: list[str] = [p.strip() for p in os.getenv("POOL_IDS", "").split(",") if p.strip()]
+pool_ids: List[str] = [p.strip() for p in os.getenv("POOL_IDS", "").split(",") if p.strip()]
 pool_ids_lock = Semaphore()
 
 

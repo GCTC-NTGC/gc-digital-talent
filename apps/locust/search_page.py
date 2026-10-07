@@ -15,10 +15,9 @@ Environment variables (plus the ones in common.py):
   MAX_FILTER_CHANGES     most filter changes per visit (default 4)
 """
 
-from __future__ import annotations
-
 import os
 import random
+from typing import Optional
 
 import gevent
 from locust import task
@@ -31,7 +30,7 @@ MAX_FILTER_CHANGES = int(os.getenv("MAX_FILTER_CHANGES", "4"))
 DEFAULT_FILTER = {"flexibleWorkLocations": ["ONSITE"], "pools": [], "talentSources": ["QUALIFIED_IN_POOL"]}
 
 
-def values(options: dict | None, key: str) -> list:
+def values(options: Optional[dict], key: str) -> list:
     return [item["value"] for item in ((options or {}).get(key) or []) if item and item.get("value")]
 
 

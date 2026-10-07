@@ -30,8 +30,6 @@ Environment variables:
   SYNTHETIC_METRICS    record PAGE and SERVER rows (default "true")
 """
 
-from __future__ import annotations
-
 import logging
 import os
 import random
@@ -39,6 +37,7 @@ import re
 import string
 import time
 from collections import Counter, defaultdict
+from typing import Dict, List, Optional
 
 import gevent
 from locust import HttpUser, between, events
@@ -59,18 +58,18 @@ SERVER_TIMING_PATTERN = re.compile(r'([\w-]+);desc="[^"]*";dur=([\d.]+)')
 NORMALIZE_PATTERN = re.compile(r"[0-9a-f]{8}-[0-9a-f-]{27}|\d+")
 
 # Collected for the end of test summary
-server_timings: dict[str, dict[str, list[float]]] = defaultdict(lambda: defaultdict(list))
+server_timings: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
 graphql_errors: Counter = Counter()
 rate_limit = {"min_remaining": None, "limit": None, "hits": 0}
 
 
-def percentile(values: list[float], pct: float) -> float:
+def percentile(values: List[float], pct: float) -> float:
     ordered = sorted(values)
     index = min(len(ordered) - 1, int(round(pct / 100 * (len(ordered) - 1))))
     return ordered[index]
 
 
-def fire_synthetic(request_type: str, name: str, response_time: float, length: int = 0, error: str | None = None):
+def fire_synthetic(request_type: str, name: str, response_time: float, length: int = 0, error: Optional[str] = None):
     if not SYNTHETIC_METRICS:
         return
     events.request.fire(
@@ -84,7 +83,7 @@ def fire_synthetic(request_type: str, name: str, response_time: float, length: i
     )
 
 
-def record_server_timing(operation: str, header: str | None):
+def record_server_timing(operation: str, header: Optional[str]):
     if not header:
         return
     for metric, duration in SERVER_TIMING_PATTERN.findall(header):
@@ -134,8 +133,8 @@ class PublicPageUser(HttpUser):
             return True
 
     def graphql(
-        self, operation: str, variables: dict | None = None, expect: str | None = None, name: str | None = None
-    ) -> dict | None:
+        self, operation: str, variables: Optional[dict] = None, expect: Optional[str] = None, name: Optional[str] = None
+    ) -> Optional[dict]:
         """
         Send a GraphQL operation from queries.py. Returns the response data, or None on failure.
         expect is a top level field that must not be null (eg. "pool"), otherwise the request fails.
@@ -188,16 +187,16 @@ class PublicPageUser(HttpUser):
             response.success()
             return data
 
-    def parallel(self, calls: list[tuple]) -> dict[str, dict | None]:
+    def parallel(self, calls: List[tuple]) -> Dict[str, Optional[dict]]:
         """Send GraphQL calls at the same time, like the browser does. Each call is (operation, variables, expect)."""
         jobs = {call[0]: gevent.spawn(self.graphql, *call) for call in calls}
         gevent.joinall(list(jobs.values()))
         return {operation: job.value for operation, job in jobs.items()}
 
-    def load_page(self, page: str, path: str, page_calls: list[tuple]) -> dict[str, dict | None]:
+    def load_page(self, page: str, path: str, page_calls: List[tuple]) -> Dict[str, Optional[dict]]:
         """Full page load: HTML, then app shell queries, then the page queries. Records a PAGE row."""
         start = time.perf_counter()
-        results: dict[str, dict | None] = {}
+        results: Dict[str, Optional[dict]] = {}
 
         ok = self.html(f"html_{page}", path)
         results.update(self.parallel([("authorizationQuery",), ("SitewideBanner",)]))
