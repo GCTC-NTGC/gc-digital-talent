@@ -210,7 +210,7 @@ const WorkDialogContent = ({
                   title={labels.classificationLevel}
                 >
                   {classification
-                    ? String(classification.level).padStart(2, "0")
+                    ? classification.level.toString().padStart(2, "0")
                     : notAvailable}
                 </ContentSection>
               </div>
