@@ -1786,11 +1786,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: [
-        "whereSkillCount"
-        "whereAuthorizedToViewPoolCandidateAdminView"
-        "withPaginatedEagerLoads"
-      ]
+      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
