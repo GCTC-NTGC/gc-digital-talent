@@ -293,7 +293,7 @@ type UpdateExperienceMutation =
 
 type ExperienceMutation = CreateExperienceMutation | UpdateExperienceMutation;
 
-// typesafe field descriminators
+// typesafe field discriminators
 const awardDiscriminator: keyof CreateAwardExperienceMutation =
   "createAwardExperience";
 const communityDiscriminator: keyof CreateCommunityExperienceMutation =
