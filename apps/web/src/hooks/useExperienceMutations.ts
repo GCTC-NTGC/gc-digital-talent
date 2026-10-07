@@ -6,6 +6,11 @@ import type {
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
+  UpdateAwardExperienceMutation,
+  UpdateCommunityExperienceMutation,
+  UpdateEducationExperienceMutation,
+  UpdatePersonalExperienceMutation,
+  UpdateWorkExperienceMutation,
 } from "@gc-digital-talent/graphql";
 import { GovEmployeeType, graphql } from "@gc-digital-talent/graphql";
 
@@ -279,6 +284,15 @@ type CreateExperienceMutation =
   | CreatePersonalExperienceMutation
   | CreateWorkExperienceMutation;
 
+type UpdateExperienceMutation =
+  | UpdateAwardExperienceMutation
+  | UpdateCommunityExperienceMutation
+  | UpdateEducationExperienceMutation
+  | UpdatePersonalExperienceMutation
+  | UpdateWorkExperienceMutation;
+
+type ExperienceMutation = CreateExperienceMutation | UpdateExperienceMutation;
+
 // typesafe field descriminators
 const awardDiscriminator: keyof CreateAwardExperienceMutation =
   "createAwardExperience";
@@ -293,23 +307,23 @@ const workDiscriminator: keyof CreateWorkExperienceMutation =
 
 // type guards based on discriminators
 const isAwardExperience = (
-  mut: CreateExperienceMutation,
+  mut: ExperienceMutation,
 ): mut is CreateAwardExperienceMutation => awardDiscriminator in mut;
 const isCommunityExperience = (
-  mut: CreateExperienceMutation,
+  mut: ExperienceMutation,
 ): mut is CreateCommunityExperienceMutation => communityDiscriminator in mut;
 const isEducationExperience = (
-  mut: CreateExperienceMutation,
+  mut: ExperienceMutation,
 ): mut is CreateEducationExperienceMutation => eductionDiscriminator in mut;
 const isPersonalExperience = (
-  mut: CreateExperienceMutation,
+  mut: ExperienceMutation,
 ): mut is CreatePersonalExperienceMutation => personalDiscriminator in mut;
 const isWorkExperience = (
-  mut: CreateExperienceMutation,
+  mut: ExperienceMutation,
 ): mut is CreateWorkExperienceMutation => workDiscriminator in mut;
 
 export function isSuccessfulCreate(response: {
-  data?: CreateExperienceMutation;
+  data?: ExperienceMutation;
 }): boolean {
   if (response.data) {
     if (isAwardExperience(response.data)) {
