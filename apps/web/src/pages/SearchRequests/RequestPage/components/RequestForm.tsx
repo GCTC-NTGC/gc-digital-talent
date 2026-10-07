@@ -22,6 +22,7 @@ import {
   enumInputToLocalizedEnum,
   narrowEnumType,
   sortTalentRequestReason,
+  getLocale,
 } from "@gc-digital-talent/i18n";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
 import { toast } from "@gc-digital-talent/toast";
@@ -53,7 +54,7 @@ import { TALENT_REQUEST_STATE_KEY } from "~/constants/storageKeys";
 import { useTalentRequestState } from "../../SearchPage/hooks";
 
 const directiveLink = (chunks: ReactNode, href: string) => (
-  <Link href={href} newTab>
+  <Link href={href} newTab external>
     {chunks}
   </Link>
 );
@@ -239,6 +240,7 @@ export const RequestForm = ({
   handleCreateTalentRequest,
 }: RequestFormProps) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const navigate = useNavigate();
   const [{ applicantFilter, candidateCount }] = useTalentRequestState();
@@ -609,7 +611,12 @@ export const RequestForm = ({
               },
               {
                 directiveLink: (chunks: ReactNode) =>
-                  directiveLink(chunks, paths.directive()),
+                  directiveLink(
+                    chunks,
+                    locale === "en"
+                      ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                      : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749",
+                  ),
               },
             )}
           </p>
