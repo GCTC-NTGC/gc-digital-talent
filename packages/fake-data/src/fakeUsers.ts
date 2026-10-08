@@ -10,6 +10,8 @@ import {
   ProvinceOrTerritory,
   EvaluatedLanguageAbility,
   EstimatedLanguageAbility,
+  ExecCoaching,
+  Mentorship,
   OperationalRequirement,
   GovEmployeeType,
   CitizenshipStatus,
@@ -222,12 +224,18 @@ export const fakeApplicants = (numToGenerate = 20): GeneratedUser[] => {
   return defaultGenerator(numToGenerate);
 };
 
-export const fakeUser = (): User => {
+export const fakeUser = () => {
   const departments = fakeDepartments();
   const classifications = fakeClassifications();
+  const lookingForBilingual = faker.datatype.boolean();
+  const secondLanguageExamCompleted = lookingForBilingual
+    ? faker.datatype.boolean()
+    : null;
+  const hasPriorityEntitlement = faker.datatype.boolean();
+  const eligibleRetirementYearKnown = faker.datatype.boolean();
 
   return {
-    __typename: "User",
+    __typename: "User" as const,
     id: faker.string.uuid(),
 
     // Personal Info
@@ -270,7 +278,17 @@ export const fakeUser = (): User => {
     // Language
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
-    lookingForBilingual: faker.datatype.boolean(),
+    lookingForBilingual,
+    firstOfficialLanguage: lookingForBilingual
+      ? toLocalizedEnum(
+          faker.helpers.arrayElement<Language>(Object.values(Language)),
+          "LocalizedLanguage",
+        )
+      : null,
+    secondLanguageExamCompleted,
+    secondLanguageExamValidity: secondLanguageExamCompleted
+      ? faker.datatype.boolean()
+      : null,
     comprehensionLevel: toLocalizedEnum(
       faker.helpers.arrayElement<EvaluatedLanguageAbility>(
         Object.values(EvaluatedLanguageAbility),
@@ -308,7 +326,8 @@ export const fakeUser = (): User => {
     department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
-    hasPriorityEntitlement: faker.datatype.boolean(),
+    hasPriorityEntitlement,
+    priorityNumber: hasPriorityEntitlement ? faker.lorem.word() : null,
 
     // Employment Equity
     isWoman: faker.datatype.boolean(),
@@ -337,6 +356,32 @@ export const fakeUser = (): User => {
     positionDuration: faker.datatype.boolean()
       ? [PositionDuration.Permanent]
       : [PositionDuration.Permanent, PositionDuration.Temporary],
+    experiences: [],
+    userSkills: [],
+    talentNominationsAsSubmitter: [],
+    talentRequests: [],
+
+    // Employee profile
+    employeeProfile: {
+      __typename: "EmployeeProfile" as const,
+      lateralMoveInterest: faker.datatype.boolean(),
+      promotionMoveInterest: faker.datatype.boolean(),
+      execInterest: faker.datatype.boolean(),
+      eligibleRetirementYearKnown,
+      eligibleRetirementYear: eligibleRetirementYearKnown
+        ? faker.date
+            .between({ from: "2030-01-01", to: "2049-12-31" })
+            .toISOString()
+            .slice(0, 10)
+        : null,
+      mentorshipStatus: faker.helpers
+        .arrayElements<Mentorship>(Object.values(Mentorship))
+        .map((status) => toLocalizedEnum(status, "LocalizedMentorship")),
+      execCoachingStatus: faker.helpers
+        .arrayElements<ExecCoaching>(Object.values(ExecCoaching))
+        .map((status) => toLocalizedEnum(status, "LocalizedExecCoaching")),
+      communityInterests: [],
+    },
   };
 };
 
