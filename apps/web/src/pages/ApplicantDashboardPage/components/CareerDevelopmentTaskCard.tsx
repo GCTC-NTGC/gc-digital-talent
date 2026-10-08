@@ -261,7 +261,7 @@ const CareerDevelopmentTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={careerPlanningMetaData} />
                 <Accordion.Content>
-                  <div className="mt-6 flex flex-col gap-6 border-t border-t-gray-100 pt-6">
+                  <div className="mt-6 flex flex-col gap-6">
                     <FieldDisplay
                       label={careerDevelopmentMessages.lateralMoveInterest}
                     >
