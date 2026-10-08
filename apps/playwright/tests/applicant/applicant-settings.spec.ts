@@ -104,7 +104,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
       page.getByRole("heading", { name: /sign in using canadalogin/i }),
     ).toBeVisible();
     await page
-      .getByRole("link", { name: /get started/i })
+      .getByRole("link", { name: /proceed to canadalogin/i })
       .first()
       .click();
     await page.getByPlaceholder("Enter any user/subject").fill(sub);
@@ -139,7 +139,7 @@ test.describe("Applicant settings page", { tag: "@uat" }, () => {
       }),
     ).toBeVisible();
     await page
-      .getByRole("link", { name: /commencer/i })
+      .getByRole("link", { name: /accéder à connexioncanada/i })
       .first()
       .click();
     await page.getByPlaceholder("Enter any user/subject").fill(sub);
