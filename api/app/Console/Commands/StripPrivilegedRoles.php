@@ -48,17 +48,14 @@ class StripPrivilegedRoles extends Command
         $users = User::withTrashed()
             ->whereHasRole(role: $privilegedRoleNames, boolean: 'or')
             ->where('last_sign_in_iss', 'is distinct from', $this->argument('current-iss'))
+            ->with(['roleAssignments' => fn ($query) => $query->whereHas('role', fn ($subQuery) => $subQuery->whereIn('name', $privilegedRoleNames))])
             ->get();
 
         if ($this->confirm('Do you want to strip privileged roles from '.$users->count().' users?')) {
             $progressBar = $this->output->createProgressBar($users->count());
 
-            $users->each(function ($user) use ($progressBar, $privilegedRoleNames, &$usersUpdatedCount, &$rolesRemovedCount) {
-                $assignmentsToRemove = $user->roleAssignments()
-                    ->whereHas('role', fn ($subQuery) => $subQuery->whereIn('name', $privilegedRoleNames))
-                    ->get();
-
-                $assignmentsToRemove->each(function (RoleAssignment $assignment) use (&$rolesRemovedCount, $user) {
+            $users->each(function ($user) use ($progressBar, &$usersUpdatedCount, &$rolesRemovedCount) {
+                $user->roleAssignments->each(function (RoleAssignment $assignment) use (&$rolesRemovedCount, $user) {
                     $user->removeRole(
                         ['id' => $assignment->role_id],
                         $assignment->team_id ? ['id' => $assignment->team_id] : null
