@@ -179,12 +179,13 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
         $this->writer->addRow($this->row($localizedHeaders));
 
         $query = $this->buildQuery();
-        $query->chunk(200, function ($users) {
+        // General search joins user_search_indices and sorts by rank: reorder and qualify the id to page by it
+        $query->reorder()->chunkById(200, function ($users) {
             foreach ($users as $user) {
                 $this->userIds[] = $user->id;
                 $this->writer->addRow($this->row($this->buildUserRowData($user)));
             }
-        });
+        }, 'users.id', 'id');
     }
 
     /**
@@ -192,7 +193,7 @@ class UserExcelGenerator extends ExcelGenerator implements FileGeneratorInterfac
      */
     private function buildUserRowData(User $user): array
     {
-        $department = $user->department()->first();
+        $department = $user->department;
         $preferences = $user->getOperationalRequirements();
         $indigenousCommunities = Arr::where($user->indigenous_communities ?? [], function ($community) {
             return $community !== IndigenousCommunity::LEGACY_IS_INDIGENOUS->name;
