@@ -10,6 +10,24 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 
+/**
+ * WHEN TO RUN: Has to be run before we turn on our in-app migration tool (FEATURE_AUTH_IN_APP_MIGRATION).
+ *
+ * HOW LONG: We currently have 192 users in prod who will be updated so I don't expect it will take more than a few minutes.
+ *
+ * SAFE TO RERUN: Yes
+ *
+ * VERIFY SUCCESS: After running, confirm this returns 0:
+ *
+ * select count(*)
+ * from users u
+ * join role_user ru on ru.user_id  = u.id
+ * join roles r on ru.role_id  = r.id
+ * where r."name" not in ('base_user', 'applicant')
+ * and u.last_sign_in_iss is distinct from 'https://auth.login-connexion.canada.ca/oauth2'
+ *
+ * WHEN TO REMOVE: Once it has been run successfully once in production.
+ */
 #[Signature('app:strip-privileged-roles {current-iss=https://auth.login-connexion.canada.ca/oauth2}')]
 #[Description('Removes all privileged roles from users who haven\'t migrated yet')]
 class StripPrivilegedRoles extends Command
