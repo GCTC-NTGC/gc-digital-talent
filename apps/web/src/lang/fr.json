@@ -2498,6 +2498,10 @@
     "defaultMessage": "Revenir à la dernière étape sur laquelle je travaillais",
     "description": "Button text to return back to the last step"
   },
+  "89pnS1": {
+    "defaultMessage": "Si l’adresse courriel et le numéro de téléphone de votre compte ConnexionCanada correspondent aux renseignements de votre profil sur la plateforme Talents numériques du GC, votre profil y sera automatiquement lié. Si nous ne parvenons pas à trouver un profil correspondant, veuillez utiliser votre nouveau compte ConnexionCanada.",
+    "description": "FAQ message about missing the migration window"
+  },
   "8BR20I": {
     "defaultMessage": "Nous vous encourageons à tenir votre profil à jour, car c’est sa version actualisée qui servira lors des étapes à venir du processus d’embauche.",
     "description": "List item note 3 for the application review page."
@@ -2609,6 +2613,10 @@
   "8gyWTT": {
     "defaultMessage": "Voir l’annonce",
     "description": "Link text to view a specific pool advertisement"
+  },
+  "8h6hJc": {
+    "defaultMessage": "Que dois-je faire si je me suis connecté avec ma CléGC la dernière fois et que j’ai manqué la fenêtre de migration?",
+    "description": "FAQ title about missing the migration window"
   },
   "8hnMtx": {
     "defaultMessage": "Nous publions constamment de nouvelles offres. En tenant votre profil à jour, vous pourrez soumettre des demandes à la vitesse de l’éclair le moment venu.",

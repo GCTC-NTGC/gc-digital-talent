@@ -41,6 +41,7 @@ export const checkFeatureFlag = (name: string): boolean => {
  */
 export const getFeatureFlags = () => ({
   authInAppMigration: checkFeatureFlag("FEATURE_AUTH_IN_APP_MIGRATION"),
+  disableClMigration: checkFeatureFlag("FEATURE_DISABLE_CL_MIGRATION"),
 });
 
 export type FeatureFlags = ReturnType<typeof getFeatureFlags>;
