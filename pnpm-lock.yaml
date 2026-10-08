@@ -348,8 +348,8 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       motion:
-        specifier: ^13.4.4
-        version: 13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^13.5.1
+        version: 13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -843,8 +843,8 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       motion:
-        specifier: ^13.4.4
-        version: 13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^13.5.1
+        version: 13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tailwind-merge:
         specifier: ^3.7.0
         version: 3.7.0
@@ -1138,8 +1138,8 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       motion:
-        specifier: ^13.4.4
-        version: 13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^13.5.1
+        version: 13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-router:
         specifier: ^8.3.1
         version: 8.3.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -1305,8 +1305,8 @@ importers:
         specifier: ^4.18.1
         version: 4.18.1
       motion:
-        specifier: ^13.4.4
-        version: 13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: ^13.5.1
+        version: 13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-csv-downloader:
         specifier: ^3.3.0
         version: 3.3.0(react@19.2.8)
@@ -5285,8 +5285,8 @@ packages:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
     engines: {node: '>=12.20.0'}
 
-  framer-motion@13.5.0:
-    resolution: {integrity: sha512-5KDKvhGTKKEQPWl8xg2mZRC+pGsenooz9v+ar6BpoXcD1mae4wdhvjxLaK+3jvFbge0jk4C8JeIjIC8m98z7hg==}
+  framer-motion@13.5.1:
+    resolution: {integrity: sha512-HeWOaeHD3kyTSIEMT6+nw7fBn4saIfxxabZyAITbycAl4xr1kzGJKIvGt/OWghSlvIA9qTnZ1zTGelHAe6S8DA==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -6161,14 +6161,14 @@ packages:
   monocart-locator@1.0.3:
     resolution: {integrity: sha512-pe29W2XAoA1WQmZZqxXoP7s06ZEXUhcb81086v68cqjk1HnVL7Q/iU/WJnnetxjPcLqwb4qG8vaSGUOMQU602g==}
 
-  motion-dom@13.5.0:
-    resolution: {integrity: sha512-mSdelbdqc1LDi3m7RkYgnMgdys0qSDsNFpdf0Hjyf8U5Ln0AcjSeApKD4Q4Er3sBPFDzdLehDj4SLgwBf39poQ==}
+  motion-dom@13.5.1:
+    resolution: {integrity: sha512-/7CVCD20Mz1KobktorpdgvowV0V41J7UxqE+qWS3GkSJqrRr5ft+2RloOYtEKv+wvBp3JaSFBclhxt4ja8ovHg==}
 
   motion-utils@13.5.0:
     resolution: {integrity: sha512-Hqe/sqjIKliPZg8sVjWAkdySDPJNIeKH+euVkDOG8ri3DUUU7ZjndmHsGqEPz2iHpiyVaV5I22iguCMHU2he+Q==}
 
-  motion@13.5.0:
-    resolution: {integrity: sha512-W/Vj6RDg9f9yJoaS+ohRYtl1j3Rb86fOCCjzn3M3M10Dg7ap3M7sMUeQs9wTsLQwHHmhioYsJLRRRTXxvhtHDA==}
+  motion@13.5.1:
+    resolution: {integrity: sha512-eV9SUem6KnzEa9+eT+dVBeDlhy5TTdn09YWR1WhUsKoZCJPw/n4TcYhjbxq2Gy5PTwDr//4H3r5vxkcZnNnO1w==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -11668,9 +11668,9 @@ snapshots:
     dependencies:
       fetch-blob: 3.2.0
 
-  framer-motion@13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  framer-motion@13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
-      motion-dom: 13.5.0
+      motion-dom: 13.5.1
       motion-utils: 13.5.0
       tslib: 2.8.1
     optionalDependencies:
@@ -12508,15 +12508,15 @@ snapshots:
 
   monocart-locator@1.0.3: {}
 
-  motion-dom@13.5.0:
+  motion-dom@13.5.1:
     dependencies:
       motion-utils: 13.5.0
 
   motion-utils@13.5.0: {}
 
-  motion@13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
+  motion@13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
-      framer-motion: 13.5.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      framer-motion: 13.5.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tslib: 2.8.1
     optionalDependencies:
       react: 19.2.8
