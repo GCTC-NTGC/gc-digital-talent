@@ -24,6 +24,7 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     firstName
     lastName
     telephone
+    email
     isEmailVerified
     workEmail
     isWorkEmailVerified
@@ -69,7 +70,12 @@ const PersonalInformation = ({
     false,
   );
   const isNull = hasAllEmptyFields(user);
-  const emptyRequired = hasEmptyRequiredFields(user);
+  /* special application bypasses work email verification  */
+  const missingRequiredWorkEmail =
+    enableEmployeeAreaOfSelectionNotice &&
+    (!user.isWorkEmailVerified || !user.workEmail);
+  const emptyRequired =
+    hasEmptyRequiredFields(user) || missingRequiredWorkEmail;
   const { icon, title } = useSectionInfo({
     section: "personal",
     isNull,
@@ -155,28 +161,21 @@ const PersonalInformation = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      {
-        /* special application bypasses work email verification  */
-        enableEmployeeAreaOfSelectionNotice && (
-          <>
-            {(!user.isWorkEmailVerified || !user.workEmail) && (
-              <Notice.Root color="error">
-                <Notice.Content>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
-                      id: "KWgx7f",
-                      description:
-                        "Body for a message informing the user that a contact email is required.",
-                    })}
-                  </p>
-                </Notice.Content>
-              </Notice.Root>
-            )}
-          </>
-        )
-      }
+      {missingRequiredWorkEmail && (
+        <Notice.Root color="error">
+          <Notice.Content>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "This job opportunity is reserved for existing employees. A verified Government of Canada work email is required.",
+                id: "KWgx7f",
+                description:
+                  "Body for a message informing the user that a contact email is required.",
+              })}
+            </p>
+          </Notice.Content>
+        </Notice.Root>
+      )}
       <AccountInformationCard query={user} />
       <GovernmentInformationCard query={user} />
     </div>
