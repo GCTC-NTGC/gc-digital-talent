@@ -1,18 +1,8 @@
 import type { IntlShape } from "react-intl";
 
 import { commonMessages } from "@gc-digital-talent/i18n";
-import type {
-  UpdateUserAsUserInput,
-  ProfilePersonalInformationFragment as UserProfileFragmentType,
-} from "@gc-digital-talent/graphql";
-import {
-  ArmedForcesStatus,
-  CitizenshipStatus,
-} from "@gc-digital-talent/graphql";
 
 import profileMessages from "~/messages/profileMessages";
-
-import type { FormValues } from "./types";
 
 export const getLabels = (intl: IntlShape) => ({
   preferredLang: intl.formatMessage({
@@ -49,38 +39,3 @@ export const getLabels = (intl: IntlShape) => ({
   }),
   armedForcesStatus: intl.formatMessage(profileMessages.veteranStatus),
 });
-
-export const dataToFormValues = (
-  data?: UserProfileFragmentType | null,
-): FormValues => ({
-  preferredLang: data?.preferredLang?.value,
-  preferredLanguageForInterview: data?.preferredLanguageForInterview?.value,
-  preferredLanguageForExam: data?.preferredLanguageForExam?.value,
-  telephone: data?.telephone,
-  firstName: data?.firstName,
-  lastName: data?.lastName,
-  citizenship: data?.citizenship?.value,
-  armedForcesStatus: data?.armedForcesStatus?.value,
-});
-
-export const formValuesToSubmitData = (
-  data: FormValues,
-  userId: string,
-): UpdateUserAsUserInput => {
-  return {
-    ...data,
-    id: userId,
-  };
-};
-
-export const citizenshipStatusesOrdered = [
-  CitizenshipStatus.Citizen,
-  CitizenshipStatus.PermanentResident,
-  CitizenshipStatus.Other,
-];
-
-export const armedForcesStatusOrdered = [
-  ArmedForcesStatus.NonCaf,
-  ArmedForcesStatus.Member,
-  ArmedForcesStatus.Veteran,
-];
