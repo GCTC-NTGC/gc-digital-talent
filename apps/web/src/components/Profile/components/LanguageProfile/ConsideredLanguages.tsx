@@ -173,8 +173,8 @@ const ConsideredLanguages = ({
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "<strong>Please select an appropriate second language proficiency level based on the definitions provided.</strong>",
-          id: "buZsS/",
+            "Please select an appropriate second language proficiency level based on the definitions provided.",
+          id: "/Bd2Ey",
           description:
             "Text requesting language levels given from bilingual evaluation in language information form",
         })}
@@ -208,6 +208,19 @@ const ConsideredLanguages = ({
         id="secondLanguageExamCompleted"
         name="secondLanguageExamCompleted"
         label={labels.secondLanguageExamCompletedLabel}
+        context={intl.formatMessage(
+          {
+            defaultMessage:
+              "The Public Service Commission’s official evaluation provides you with 3 letter grades that indicate your proficiency in your second language. You can <selfAssessmentLink>learn more about this evaluation on their website.</selfAssessmentLink>",
+            id: "J/kDDk",
+            description:
+              "Context message for exam validity in language information form.",
+          },
+          {
+            selfAssessmentLink: (chunks: ReactNode) =>
+              selfAssessmentLink(chunks, locale),
+          },
+        )}
       />
       {hasCompletedSecondLanguageExam ? (
         <>
@@ -220,25 +233,12 @@ const ConsideredLanguages = ({
               required: intl.formatMessage(errorMessages.required),
             }}
             items={getExamValidityOptions(intl)}
-            context={intl.formatMessage(
-              {
-                defaultMessage:
-                  "The Public Service Commission’s official evaluation provides you with 3 letter grades that indicate your proficiency in your second language. You can <selfAssessmentLink>learn more about this evaluation on their website.</selfAssessmentLink>",
-                id: "J/kDDk",
-                description:
-                  "Context message for exam validity in language information form.",
-              },
-              {
-                selfAssessmentLink: (chunks: ReactNode) =>
-                  selfAssessmentLink(chunks, locale),
-              },
-            )}
           />
           <p>
             {intl.formatMessage({
               defaultMessage:
-                "<strong>Please provide your most recent levels obtained from the Public Service Commission.</strong>",
-              id: "aO23nW",
+                "Please provide your most recent levels obtained from the Public Service Commission.",
+              id: "cmVa0p",
               description:
                 "Text requesting language levels given from bilingual evaluation in language information form",
             })}
