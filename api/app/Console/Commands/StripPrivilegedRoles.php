@@ -56,11 +56,13 @@ class StripPrivilegedRoles extends Command
             $users->each(function ($user) use ($progressBar, $privilegedRoleNames, &$usersUpdatedCount, &$rolesRemovedCount) {
                 $assignmentsToRemove = $user->roleAssignments()
                     ->whereHas('role', fn ($subQuery) => $subQuery->whereIn('name', $privilegedRoleNames))
-                    ->with(['role', 'team'])
                     ->get();
 
                 $assignmentsToRemove->each(function (RoleAssignment $assignment) use (&$rolesRemovedCount, $user) {
-                    $user->removeRole($assignment->role, $assignment->team);
+                    $user->removeRole(
+                        ['id' => $assignment->role_id],
+                        $assignment->team_id ? ['id' => $assignment->team_id] : null
+                    );
                     $rolesRemovedCount++;
                 });
 
