@@ -261,8 +261,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       mammoth:
-        specifier: ^1.12.3
-        version: 1.12.3
+        specifier: ^1.13.0
+        version: 1.13.0
       monocart-coverage-reports:
         specifier: ^2.12.12
         version: 2.12.12
@@ -6087,8 +6087,8 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
 
-  mammoth@1.12.3:
-    resolution: {integrity: sha512-kkv2MrSFk3f/w3uLsz4FG/91LdWp2j+qmp7AjG2v7w2xgX5YDxiaFlaWourXrXtyUR6335+9guyIlPBnhHLvKw==}
+  mammoth@1.13.0:
+    resolution: {integrity: sha512-2cawcYFcP7ISfXbBcL9lmVgTNWo88v/52ND1gnywHtVT/pX0//puPnf0iMPV9ZgmuvNOE+zkIhDgZ9M2c2dDDg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
 
@@ -12435,16 +12435,14 @@ snapshots:
     dependencies:
       semver: 7.8.5
 
-  mammoth@1.12.3:
+  mammoth@1.13.0:
     dependencies:
       '@xmldom/xmldom': 0.8.15
       argparse: 1.0.10
       base64-js: 1.5.1
-      bluebird: 3.4.7
       dingbat-to-unicode: 1.0.1
       jszip: 3.10.2
       lop: 0.4.2
-      path-is-absolute: 1.0.1
       underscore: 1.13.8
       xmlbuilder: 10.1.1
 
