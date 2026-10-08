@@ -61,6 +61,7 @@ NORMALIZE_PATTERN = re.compile(r"[0-9a-f]{8}-[0-9a-f-]{27}|\d+")
 server_timings: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
 graphql_errors: Counter = Counter()
 rate_limit = {"min_remaining": None, "limit": None, "hits": 0}
+logged_connection_errors = set()
 
 
 def percentile(values: List[float], pct: float) -> float:
@@ -94,6 +95,17 @@ def record_server_timing(operation: str, header: Optional[str]):
             fire_synthetic("SERVER", f"server_db_{operation}", float(duration))
 
 
+def connection_error(error) -> str:
+    """Short, stable description of why a request got no response, eg. "Connection error: SSLError"."""
+    cause = re.search(r"Caused by (\w+)", str(error))
+    description = type(error).__name__ + (f" ({cause.group(1)})" if cause else "")
+    if description not in logged_connection_errors:
+        # Log the full error once so the cause is in the engine logs
+        logged_connection_errors.add(description)
+        logger.warning("Connection error %s: %s", description, error)
+    return f"Connection error: {description}"
+
+
 def record_rate_limit(headers):
     remaining = headers.get("X-RateLimit-Remaining")
     if remaining is None:
@@ -124,7 +136,7 @@ class PublicPageUser(HttpUser):
     def html(self, name: str, path: str) -> bool:
         with self.client.get(path, name=name, catch_response=True) as response:
             if response.status_code == 0:
-                response.failure("Connection error")
+                response.failure(connection_error(response.error))
                 return False
             if response.status_code != 200:
                 response.failure(f"HTTP {response.status_code}")
@@ -152,7 +164,7 @@ class PublicPageUser(HttpUser):
             catch_response=True,
         ) as response:
             if response.status_code == 0:
-                response.failure("Connection error")
+                response.failure(connection_error(response.error))
                 return None
 
             record_rate_limit(response.headers)
