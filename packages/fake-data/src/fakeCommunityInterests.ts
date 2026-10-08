@@ -46,7 +46,7 @@ const generateCommunityInterest = (
       ? faker.person.jobTitle()
       : null,
     communityInterestAdditionalDuties:
-      financeIsChief ?? procurementIsSDO
+      (financeIsChief ?? procurementIsSDO)
         ? faker.helpers
             .arrayElements<CommunityInterestAdditionalDuty>(
               Object.values(CommunityInterestAdditionalDuty),
