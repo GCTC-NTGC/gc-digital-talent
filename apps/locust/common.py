@@ -28,6 +28,8 @@ Environment variables:
   THINK_TIME_MIN       seconds between visits, lower bound (default 5)
   THINK_TIME_MAX       seconds between visits, upper bound (default 15)
   SYNTHETIC_METRICS    record PAGE and SERVER rows (default "true")
+  SKIP_TLS_VERIFY      skip TLS certificate checks, for networks that re-sign HTTPS traffic
+                       with an internal certificate (default "false")
 """
 
 import logging
@@ -40,6 +42,7 @@ from collections import Counter, defaultdict
 from typing import Dict, List, Optional
 
 import gevent
+import urllib3
 from locust import HttpUser, between, events
 
 import queries
@@ -50,6 +53,10 @@ LOCALES = [l.strip() for l in os.getenv("LOCALES", "en,fr").split(",") if l.stri
 THINK_TIME_MIN = float(os.getenv("THINK_TIME_MIN", "5"))
 THINK_TIME_MAX = float(os.getenv("THINK_TIME_MAX", "15"))
 SYNTHETIC_METRICS = os.getenv("SYNTHETIC_METRICS", "true").lower() == "true"
+SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "false").lower() == "true"
+
+if SKIP_TLS_VERIFY:
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 USER_AGENT = "gcdt-locust-load-test"
 
@@ -125,6 +132,10 @@ class PublicPageUser(HttpUser):
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
 
     def on_start(self):
+        # A trailing slash on the host (eg. from the Azure Load tab) would make every path start with //
+        self.client.base_url = self.client.base_url.rstrip("/")
+        if SKIP_TLS_VERIFY:
+            self.client.verify = False
         # The API rate limits by user, then ai_user cookie, then IP. Load test engines share a
         # few IPs, so give each virtual user its own ai_user like a real browser has.
         self.client.cookies.set("ai_user", "".join(random.choices(string.ascii_letters + string.digits, k=22)))
