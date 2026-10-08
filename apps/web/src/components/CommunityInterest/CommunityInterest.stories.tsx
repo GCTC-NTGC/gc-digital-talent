@@ -25,7 +25,6 @@ const communityInterestQuery = makeFragmentData(
     user: {
       __typename: "User",
       developmentProgramUserRecords:
-         
         mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
           (interest, index) => {
             return {
