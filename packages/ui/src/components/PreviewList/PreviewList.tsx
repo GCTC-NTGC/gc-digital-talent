@@ -23,8 +23,7 @@ const listItem = tv({
   base: "group/item not-last:pb-6",
   variants: {
     mode: {
-      default:
-        "pt-6 not-last:border-b not-last:border-b-gray-100 first:border-t first:border-t-gray-100",
+      default: "not-first:pt-6 not-last:border-b not-last:border-b-gray-100",
       // dot radius is 1.2 so ml-2.7 = 1.5 + 1.2 and pl-4.2 = 3 + 1.2
       experience:
         "relative ml-[calc(var(--spacing)*2.7)] pl-[calc(var(--spacing)*4.2)]",
