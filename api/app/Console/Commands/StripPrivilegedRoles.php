@@ -41,7 +41,7 @@ class StripPrivilegedRoles extends Command
                     ->with(['role', 'team'])
                     ->get();
 
-                $assignmentsToRemove->each(function (RoleAssignment $assignment) use ($rolesRemovedCount, $user) {
+                $assignmentsToRemove->each(function (RoleAssignment $assignment) use (&$rolesRemovedCount, $user) {
                     $user->removeRole($assignment->role, $assignment->team);
                     $rolesRemovedCount++;
                 });
