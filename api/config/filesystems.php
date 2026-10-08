@@ -37,12 +37,12 @@ return [
 
         'user_generated' => [
             'driver' => 'local',
-            'root' => storage_path('app/user_generated'),
+            'root' => env('USER_GENERATED_FILES_ROOT', storage_path('app/user_generated')),
         ],
 
         'public_generated' => [
             'driver' => 'local',
-            'root' => storage_path('app/public_generated'),
+            'root' => env('PUBLIC_GENERATED_FILES_ROOT', storage_path('app/public_generated')),
         ],
 
         'public' => [
