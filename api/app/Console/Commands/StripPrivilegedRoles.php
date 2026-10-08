@@ -68,7 +68,7 @@ class StripPrivilegedRoles extends Command
             });
             $progressBar->finish();
 
-            $this->info('Complete');
+            $this->info(' Complete');
         } else {
             $this->info('Aborting');
         }
