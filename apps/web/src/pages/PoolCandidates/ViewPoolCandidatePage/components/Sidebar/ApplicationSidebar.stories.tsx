@@ -38,6 +38,11 @@ const makeApplication = (data?: ApplicationSidebarData) =>
   makeFragmentData(
     {
       ...application,
+      user: {
+        ...application.user,
+        firstName: application.user.firstName ?? null,
+        lastName: application.user.lastName ?? null,
+      },
       ...data,
     },
     ApplicationSidebar_Fragment,
