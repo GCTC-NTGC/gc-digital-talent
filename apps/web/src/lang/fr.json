@@ -1874,6 +1874,10 @@
     "defaultMessage": "Courriel professionnel du nominateur ou de la nominatrice",
     "description": "Label for the text input for the nominators work email"
   },
+  "5KIRmp": {
+    "defaultMessage": "L’équipe des Talents numériques du GC s’associe au service de justificatifs du gouvernement du Canada, ConnexionCanada, pour vous fournir un accès à votre compte à l’aide d’une connexion unique. Lorsque vous mettez à jour vos renseignements sur le site Web de ConnexionCanada, ils sont automatiquement mis à jour ici.",
+    "description": "Account info card description on account settings page"
+  },
   "5LTlSA": {
     "defaultMessage": "la réalisation et l’examen des évaluations automatisées d’accessibilité, notamment :",
     "description": "List item three, things developers consider for accessibility"
@@ -15610,10 +15614,6 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
-  },
-  "zU8Wo2": {
-    "defaultMessage": "L’équipe des Talents numériques du GC s’associe au service de justificatifs du gouvernement du Canada, ConnexionCanada, pour vous fournir un accès à votre compte à l’aide d’une connexion unique. Lorsque vous mettez à jour vos renseignements sur le site Web de ConnexionCanada, ils sont automatiquement mis à jour ici.",
-    "description": "Account info card description on account settings page"
   },
   "zVGK45": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",

@@ -39,8 +39,8 @@ const AccountInformationCard = ({ query }: AccountInformationCardProps) => {
       <p className="mb-6 text-sm text-gray-600 dark:text-gray-200">
         {intl.formatMessage({
           defaultMessage:
-            "GC Digital Talent partners with the Government of Canada’s credential service, CanadaLogin, to provide you with account access using a single username and password. You can manage related data on the CanadaLogin website and it will automatically reflect here when you access your account.",
-          id: "zU8Wo2",
+            "GC Digital Talent partners with the Government of Canada’s credential service, CanadaLogin, to provide you with account access using a single sign-in. When you update your information on the CanadaLogin website, it will be updated here automatically.",
+          id: "5KIRmp",
           description: "Account info card description on account settings page",
         })}
       </p>
