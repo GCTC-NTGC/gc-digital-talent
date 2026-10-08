@@ -46,7 +46,7 @@ class StripPrivilegedRoles extends Command
             ->toArray();
 
         $users = User::withTrashed()
-            ->whereHasRole(role: $privilegedRoleNames, boolean: 'or')
+            ->whereHasRole($privilegedRoleNames)
             ->where('last_sign_in_iss', 'is distinct from', $this->argument('current-iss'))
             ->with(['roleAssignments' => fn ($query) => $query->whereHas('role', fn ($subQuery) => $subQuery->whereIn('name', $privilegedRoleNames))])
             ->get();
