@@ -173,7 +173,7 @@ const ApplicationsProcessesTaskCard = ({
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />
                 <Accordion.Content>
-                  <div className="pt-6">
+                  <div className="mt-6 border-t border-t-gray-100 pt-6">
                     <ReviewApplicationPreviewList
                       applicationsQuery={unpackMaybes(recruitmentProcesses)}
                     />
