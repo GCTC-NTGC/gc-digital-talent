@@ -9,7 +9,7 @@ import { getRuntimeVariable } from "@gc-digital-talent/env";
 
 import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 
-const AccountAndContactInformation_Fragment = graphql(/** GraphQL */ `
+export const AccountAndContactInformation_Fragment = graphql(/** GraphQL */ `
   fragment AccountAndContactInformation on User {
     ...PersonalInfoBox
   }

@@ -21,7 +21,9 @@ const fakeDepartment = fakeDepartments()[0];
 fakeDepartment.name.localized = fakeDepartment.name.en;
 
 const talentNominationGroup = {
+  __typename: "TalentNominationGroup" as const,
   id: "id-123",
+  consentToShareProfile: true,
   advancementNominationCount: 3,
   advancementDecision: { value: TalentNominationGroupDecision.Approved },
   lateralMovementNominationCount: 1,
@@ -29,26 +31,41 @@ const talentNominationGroup = {
     value: TalentNominationGroupDecision.Rejected,
   },
   status: {
+    __typename: "LocalizedTalentNominationGroupStatus" as const,
     value: TalentNominationGroupStatus.InProgress,
-    label: { localized: "In progress" },
+    label: { __typename: "LocalizedString" as const, localized: "In progress" },
   },
   nominee: {
+    __typename: "BasicGovEmployeeProfile" as const,
     id: "nominee-123",
+    isVerifiedGovEmployee: true,
     firstName: "Forename",
     lastName: "Surname",
+    role: null,
     workEmail: "test@gc.ca",
-    preferredLang: { label: { localized: "LANG" } },
+    preferredLang: {
+      __typename: "LocalizedLanguage" as const,
+      label: { __typename: "LocalizedString" as const, localized: "LANG" },
+    },
     classification: fakeClassifications()[0],
     department: fakeDepartment,
   },
   nominations: [
     {
+      __typename: "TalentNomination" as const,
       id: "nomination-123",
-      nominator: { id: "nominator-123", firstName: "Admin", lastName: "A" },
+      nominator: {
+        __typename: "BasicGovEmployeeProfile" as const,
+        id: "nominator-123",
+        firstName: "Admin",
+        lastName: "A",
+      },
     },
     {
+      __typename: "TalentNomination" as const,
       id: "nomination-456",
       nominator: {
+        __typename: "BasicGovEmployeeProfile" as const,
         id: "nominator-123",
         firstName: "Coordinator",
         lastName: "C",

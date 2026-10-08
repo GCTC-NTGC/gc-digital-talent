@@ -130,7 +130,23 @@ export const WithDefaultValue: Story = {
     defaultValue: users[0].id,
     employeeOption: fragmentToEmployee(
       makeFragmentData(
-        { ...users[0], __typename: "BasicGovEmployeeProfile" },
+        {
+          __typename: "BasicGovEmployeeProfile",
+          id: users[0].id,
+          workEmail: users[0].workEmail ?? null,
+          firstName: users[0].firstName ?? null,
+          lastName: users[0].lastName ?? null,
+          role: null,
+          department: users[0].department
+            ? {
+                __typename: "Department",
+                name: {
+                  __typename: "LocalizedString",
+                  localized: users[0].department.name.localized ?? null,
+                },
+              }
+            : null,
+        },
         EmployeeSearchResult_Fragment,
       ),
     ),
