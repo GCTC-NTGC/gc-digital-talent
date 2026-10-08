@@ -43,7 +43,6 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     armedForcesStatus {
       value
     }
-    ...PersonalInformationDisplay
     ...AccountInformationCard
     ...GovernmentInformationCard
   }
