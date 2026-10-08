@@ -259,10 +259,6 @@
     "defaultMessage": "Voir {name} <hidden>{hiddenLabel}</hidden>",
     "description": "Title displayed for the View Item column."
   },
-  "+z3V06": {
-    "defaultMessage": "Aucune adresse courriel de correspondance fournie",
-    "description": "Error message when contact email is null."
-  },
   "/+naWC": {
     "defaultMessage": "À évaluer",
     "description": "Message displayed when candidate has yet to be assessed at a specific assessment step"
@@ -5212,10 +5208,6 @@
     "defaultMessage": "Masquer les détails de cette expérience",
     "description": "Button text to hide a miscellaneous experience's details"
   },
-  "J+MAUg": {
-    "defaultMessage": "Vos renseignements personnels et vos coordonnées ont été mis à jour avec succès!",
-    "description": "Message displayed when a user successfully updates their personal and contact information."
-  },
   "J+haAz": {
     "defaultMessage": "Actions pour {userName} dans {communityName}",
     "description": "Aria label for the menu trigger for community actions"
@@ -5970,10 +5962,6 @@
   "Lv8q5A": {
     "defaultMessage": "Informations sur la classification",
     "description": "Subtitle for viewing a specific classification"
-  },
-  "LvXaIZ": {
-    "defaultMessage": "Adresse courriel professionnelle du gouvernement of Canada",
-    "description": "Label for gov of canada work email"
   },
   "LvYEdh": {
     "defaultMessage": "Expérience minimale ou combinaison équivalente d'études",
@@ -8468,10 +8456,6 @@
     "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
     "description": "Learn more dialog question six heading"
   },
-  "WE8ZUX": {
-    "defaultMessage": "Modification des renseignements personnels et des coordonnées",
-    "description": "Button text to start editing personal and contact information"
-  },
   "WEVxYV": {
     "defaultMessage": "Quel accomplissement, quelle création ou quelle réalisation avez-vous effectué grâce à cette compétence?",
     "description": "Question for clarifying skill details"
@@ -8787,10 +8771,6 @@
   "XbsYGW": {
     "defaultMessage": "L’expérience de formation vous permet de présenter vos diplômes, certificats, cours en ligne, apprentissages, permis ou autres titres de compétences obtenus auprès d’établissements d’enseignement.",
     "description": "Description for education experience card header"
-  },
-  "Xc3Y7t": {
-    "defaultMessage": "Modifier l'adresse courriel de correspondance",
-    "description": "Link to update the contact email"
   },
   "XcS2q2": {
     "defaultMessage": "Rôle retiré avec succès",
@@ -10095,6 +10075,10 @@
   "dE2WB1": {
     "defaultMessage": "Équité en matière d’emploi ({equityFiltersActive})",
     "description": "Employment equity with a number in parentheses"
+  },
+  "dEs2Uk": {
+    "defaultMessage": "Renseignements des employés du gouvernement du Canada",
+    "description": "Label for gov of canada work email"
   },
   "dFl7AN": {
     "defaultMessage": "Un coordonnateur des talents de la collectivité s’occupe principalement de la mobilité des talents au sein de sa collectivité fonctionnelle. Il peut consulter les profils des membres du personnel qui montrent un intérêt concernant des possibilités d’emploi et de formation dans la collectivité et ceux des personnes nominées dans le cadre d’activités liées à la gestion des talents.",
@@ -14972,10 +14956,6 @@
     "defaultMessage": "La valeur doit correspondre au nom complet du ministère : {name}.",
     "description": "Validation text for department name input"
   },
-  "wmSeI8": {
-    "defaultMessage": "Une fois votre adresse courriel de correspondance ajoutée et confirmée, les notifications parviendront à votre boîte de réception. Cette adresse servira aussi au personnel des ressources humaines et aux gestionnaires responsables de l'embauche pour communiquer avec vous.",
-    "description": "Contact email card description on account settings page"
-  },
   "wpNvbg": {
     "defaultMessage": "Aucune organisation",
     "description": "Placeholder for when the department can not be displayed"
@@ -15630,6 +15610,10 @@
   "zRw5Fs": {
     "defaultMessage": "Retirez {userName} de {poolName}.",
     "description": "Label for the dialog trigger to remove a user from a process/pool"
+  },
+  "zU8Wo2": {
+    "defaultMessage": "L’équipe des Talents numériques du GC s’associe au service de justificatifs du gouvernement du Canada, ConnexionCanada, pour vous fournir un accès à votre compte à l’aide d’une connexion unique. Lorsque vous mettez à jour vos renseignements sur le site Web de ConnexionCanada, ils sont automatiquement mis à jour ici.",
+    "description": "Account info card description on account settings page"
   },
   "zVGK45": {
     "defaultMessage": "Cet utilisateur n'a pas vérifié son statut d'employé(e)",
