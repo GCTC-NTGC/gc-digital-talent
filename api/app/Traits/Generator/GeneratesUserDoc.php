@@ -35,6 +35,7 @@ use App\Enums\OrganizationTypeInterest;
 use App\Enums\PositionDuration;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\SkillLevel;
+use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TargetRole;
 use App\Enums\TimeFrame;
 use App\Enums\WorkRegion;
@@ -738,7 +739,13 @@ trait GeneratesUserDoc
             return;
         }
 
-        $groups = $user->talentNominationGroupsAsNominee;
+        // only display approved nominations
+        $isApproved = fn ($decision, $count) => $decision === TalentNominationGroupDecision::APPROVED->name && $count > 0;
+
+        $groups = $user->talentNominationGroupsAsNominee
+            ->filter(fn ($group) => $isApproved($group->advancement_decision, $group->advancement_nomination_count) ||
+                $isApproved($group->lateral_movement_decision, $group->lateral_movement_nomination_count) ||
+                $isApproved($group->development_programs_decision, $group->development_programs_nomination_count));
 
         if ($groups->isEmpty()) {
             return;
@@ -747,7 +754,7 @@ trait GeneratesUserDoc
         $section->addTitle($this->localizeHeading('talent_management_nominations'), $headingRank);
         $groups
             ->sortBy(fn ($group) => $group->talentNominationEvent->name[$this->lang] ?? '')
-            ->each(function ($group) use ($section, $headingRank) {
+            ->each(function ($group) use ($isApproved, $section, $headingRank) {
                 $event = $group->talentNominationEvent;
 
                 // Talent event
@@ -760,13 +767,13 @@ trait GeneratesUserDoc
 
                 // Nominated for
                 $nominatedFor = [];
-                if ($group->advancement_nomination_count > 0) {
+                if ($isApproved($group->advancement_decision, $group->advancement_nomination_count)) {
                     $nominatedFor[] = "{$this->localizeHeading('advancement')} ({$group->advancement_nomination_count})";
                 }
-                if ($group->lateral_movement_nomination_count > 0) {
+                if ($isApproved($group->lateral_movement_decision, $group->lateral_movement_nomination_count)) {
                     $nominatedFor[] = "{$this->localizeHeading('lateral_movement')} ({$group->lateral_movement_nomination_count})";
                 }
-                if ($group->development_programs_nomination_count > 0) {
+                if ($isApproved($group->development_programs_decision, $group->development_programs_nomination_count)) {
                     $nominatedFor[] = "{$this->localizeHeading('development_programs')} ({$group->development_programs_nomination_count})";
                 }
 
