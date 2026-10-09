@@ -5,7 +5,7 @@ import type {
   LocalizedEnumValue,
 } from "@gc-digital-talent/i18n";
 
-interface AboutPool {
+export interface AboutPool {
   areaOfSelection?: GenericLocalizedEnum<PoolAreaOfSelection> | null;
 }
 
@@ -30,22 +30,27 @@ export function hasAllEmptyFields({
   return !!(!firstName && !lastName && !email && !telephone && !preferredLang);
 }
 
+export function hasMissingRequiredWorkEmail(
+  applicant: PartialUser,
+  pool?: AboutPool | null,
+  isSpecialApplication?: boolean | null,
+): boolean {
+  /* special application bypasses work email verification  */
+  if (
+    pool?.areaOfSelection?.value !== PoolAreaOfSelection.Employees ||
+    isSpecialApplication
+  ) {
+    return false;
+  }
+
+  return !applicant.workEmail || !applicant.isWorkEmailVerified;
+}
+
 export function hasEmptyRequiredFields(
   applicant: PartialUser,
   pool?: AboutPool | null,
   isSpecialApplication?: boolean | null,
 ): boolean {
-  let isWorkEmailVerifiedForInternalJobs: boolean | undefined | null = true;
-
-  if (
-    /* special application bypasses work email verification  */
-    pool?.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
-    !isSpecialApplication
-  ) {
-    isWorkEmailVerifiedForInternalJobs =
-      !!applicant.workEmail && applicant.isWorkEmailVerified;
-  }
-
   return (
     !applicant.firstName ||
     !applicant.lastName ||
@@ -53,6 +58,6 @@ export function hasEmptyRequiredFields(
     !applicant.telephone ||
     !applicant.preferredLang ||
     !applicant.isEmailVerified ||
-    !isWorkEmailVerifiedForInternalJobs
+    hasMissingRequiredWorkEmail(applicant, pool, isSpecialApplication)
   );
 }

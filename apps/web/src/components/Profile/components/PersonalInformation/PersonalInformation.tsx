@@ -10,6 +10,8 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
+  hasMissingRequiredWorkEmail,
+  type AboutPool,
 } from "~/validators/profile/personalInformation";
 import useRoutes from "~/hooks/useRoutes";
 
@@ -48,9 +50,11 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
   }
 `);
 
-interface PersonalInformationProps extends SectionProps<ProfileSectionPool> {
+interface PersonalInformationProps extends SectionProps<
+  ProfileSectionPool & AboutPool
+> {
   query: FragmentType<typeof ProfilePersonalInformation_Fragment>;
-  enableEmployeeAreaOfSelectionNotice: boolean;
+  isSpecialApplication?: boolean | null;
 }
 
 const NoticeDismissedKey =
@@ -58,8 +62,8 @@ const NoticeDismissedKey =
 
 const PersonalInformation = ({
   query,
-  enableEmployeeAreaOfSelectionNotice,
   pool,
+  isSpecialApplication,
 }: PersonalInformationProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -69,12 +73,16 @@ const PersonalInformation = ({
     false,
   );
   const isNull = hasAllEmptyFields(user);
-  /* special application bypasses work email verification  */
-  const missingRequiredWorkEmail =
-    enableEmployeeAreaOfSelectionNotice &&
-    (!user.isWorkEmailVerified || !user.workEmail);
-  const emptyRequired =
-    hasEmptyRequiredFields(user) || missingRequiredWorkEmail;
+  const missingRequiredWorkEmail = hasMissingRequiredWorkEmail(
+    user,
+    pool,
+    isSpecialApplication,
+  );
+  const emptyRequired = hasEmptyRequiredFields(
+    user,
+    pool,
+    isSpecialApplication,
+  );
   const { icon, title } = useSectionInfo({
     section: "personal",
     isNull,

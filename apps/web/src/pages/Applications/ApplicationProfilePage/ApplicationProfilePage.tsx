@@ -2,7 +2,7 @@ import { useIntl } from "react-intl";
 import { useMutation } from "urql";
 
 import { Heading, Separator, ThrowNotFound } from "@gc-digital-talent/ui";
-import { graphql, PoolAreaOfSelection } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -96,10 +96,6 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
     pool: application.pool,
   };
 
-  const enableEmployeeAreaOfSelectionNotice =
-    application.pool.areaOfSelection?.value === PoolAreaOfSelection.Employees &&
-    !application.isSpecialApplication;
-
   return (
     <ProfileFormProvider>
       <Heading size="h3" className="mt-0 mb-6 font-normal">
@@ -117,9 +113,7 @@ export const ApplicationProfile = ({ application }: ApplicationPageProps) => {
         <PersonalInformation
           {...sectionProps}
           query={application.user}
-          enableEmployeeAreaOfSelectionNotice={
-            enableEmployeeAreaOfSelectionNotice
-          }
+          isSpecialApplication={application.isSpecialApplication}
         />
         <WorkPreferences {...sectionProps} />
         <div>
