@@ -175,6 +175,15 @@ export const Test_MeQueryDocument = /* GraphQL */ `
       firstName
       lastName
       email
+      workEmail
+      currentClassification {
+        groupAndLevel
+      }
+      department {
+        name {
+          en
+        }
+      }
       experiences {
         id
         __typename
