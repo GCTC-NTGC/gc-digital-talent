@@ -1,7 +1,7 @@
 import {
-  hasEmptyRequiredFields as aboutSectionHasEmptyRequiredFields,
-  type PartialUser as PartialUserAbout,
-} from "./about";
+  hasEmptyRequiredFields as personalInformationSectionHasEmptyRequiredFields,
+  type PartialUser as PartialUserPersonalInformation,
+} from "./personalInformation";
 import {
   hasEmptyRequiredFields as diversityEquityInclusionSectionHasEmptyRequiredFields,
   type PartialUser as PartialUserDei,
@@ -25,7 +25,7 @@ import { hasMissingResponses as generalQuestionsSectionHasMissingResponses } fro
 import { hasMissingResponses as screeningQuestionsSectionHasMissingResponses } from "./screeningQuestions";
 
 export {
-  aboutSectionHasEmptyRequiredFields,
+  personalInformationSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
   priorityEntitlementsHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
@@ -37,7 +37,7 @@ export {
   screeningQuestionsSectionHasMissingResponses,
 };
 export type {
-  PartialUserAbout,
+  PartialUserPersonalInformation,
   PartialUserDei,
   PartialUserPriority,
   PartialUserLanguage,

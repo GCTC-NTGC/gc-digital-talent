@@ -10,7 +10,7 @@ import { useLocalStorage } from "@gc-digital-talent/storage";
 import {
   hasAllEmptyFields,
   hasEmptyRequiredFields,
-} from "~/validators/profile/about";
+} from "~/validators/profile/personalInformation";
 import useRoutes from "~/hooks/useRoutes";
 
 import type { ProfileSectionPool, SectionProps } from "../../types";
