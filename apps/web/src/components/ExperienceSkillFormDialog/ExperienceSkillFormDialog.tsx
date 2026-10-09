@@ -8,7 +8,9 @@ import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 import type { FragmentType, LocalizedString } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
 
-import ExperienceSkillForm from "./ExperienceSkillForm";
+import ExperienceSkillForm, {
+  ExperienceSkillFormExperience_Fragment,
+} from "./ExperienceSkillForm";
 
 const ExperienceSkillFormDialogExperience_Fragment = graphql(/** GraphQL */ `
   fragment ExperienceSkillFormDialogExperience on Experience {
@@ -38,14 +40,14 @@ interface LinkedSkill {
   experienceSkillRecord?: LinkedSkillRecord | null;
 }
 
-export interface SkillLinkableExperience {
+interface LinkableExperience {
   id: string;
   skills?: LinkedSkill[] | null;
 }
 
 const deriveDefaultValues = (
   skill?: SkillLink,
-  experience?: SkillLinkableExperience,
+  experience?: LinkableExperience,
 ): FormValues => {
   const details = experience?.skills?.find(
     (experienceSkill) => experienceSkill.id === skill?.id,
@@ -60,7 +62,7 @@ const deriveDefaultValues = (
 interface ExperienceSkillFormDialogProps {
   onSave?: () => void;
   skill?: SkillLink;
-  experience?: SkillLinkableExperience;
+  experienceQuery?: FragmentType<typeof ExperienceSkillFormExperience_Fragment>;
   availableExperiencesQuery?: FragmentType<
     typeof ExperienceSkillFormDialogExperience_Fragment
   >[];
@@ -69,7 +71,7 @@ interface ExperienceSkillFormDialogProps {
 
 const ExperienceSkillFormDialog = ({
   skill,
-  experience,
+  experienceQuery,
   trigger,
   availableExperiencesQuery,
   onSave,
@@ -80,14 +82,15 @@ const ExperienceSkillFormDialog = ({
     ExperienceSkillFormDialogExperience_Fragment,
     availableExperiencesQuery,
   );
-  let experiences = availableExperiences ?? [];
-  if (experience) {
-    experiences = !availableExperiences
-      ? [experience]
-      : availableExperiences.filter(
-          (availableExperience) => availableExperience.id !== experience.id,
-        );
-  }
+  const experience = getFragment(
+    ExperienceSkillFormExperience_Fragment,
+    experienceQuery,
+  );
+  const experiences = experienceQuery
+    ? (availableExperiences?.filter(
+        (availableExperience) => availableExperience.id !== experience?.id,
+      ) ?? [experienceQuery])
+    : (availableExperiences ?? []);
 
   const handleSuccess = () => {
     if (onSave) {
