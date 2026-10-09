@@ -16,8 +16,8 @@ class AzureKeyVaultClient
     // error-checked way to get the API endpoint
     protected static function getVaultBaseUrl(): string
     {
-        $url = config('keys.azure.vault_base_url');
-        throw_if(empty($url), RuntimeException::class, 'Missing Freshdesk API endpoint');
+        $url = config('jose.azure.vault_base_url');
+        throw_if(empty($url), RuntimeException::class, 'Missing Azure vault base URL');
 
         return $url;
     }

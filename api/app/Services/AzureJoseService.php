@@ -33,21 +33,21 @@ class AzureJoseService implements JoseService
 
     public function getEncryptionKeyPublicJwk(): JWK
     {
-        $jwk = $this->makeJwkForConfigKey('keys.azure.encryption_key_name');
+        $jwk = $this->makeJwkForConfigKey('jose.azure.encryption_key_name');
 
         return $jwk->toPublic();
     }
 
     public function getSigningKeyPublicJwk(): JWK
     {
-        $jwk = $this->makeJwkForConfigKey('keys.azure.signing_key_name');
+        $jwk = $this->makeJwkForConfigKey('jose.azure.signing_key_name');
 
         return $jwk->toPublic();
     }
 
     public function createSignature(array $values): string
     {
-        $keyName = config('keys.azure.signing_key_name', '');
+        $keyName = config('jose.azure.signing_key_name', '');
         throw_unless(strlen($keyName) > 0, new RuntimeException('Missing Azure signing key name'));
         $publicKey = $this->azureClient->getKey($keyName)['key'];
         $publicJwk = new JWK($publicKey);

@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Key Provider
+    | Default JOSE Provider
     |--------------------------------------------------------------------------
     |
     | This option controls the default key provider that will be used to sign
@@ -13,7 +13,7 @@ return [
     | Supported: "local", "azure"
     |
     */
-    'provider' => env('KEY_PROVIDER', 'local'),
+    'provider' => env('JOSE_PROVIDER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,8 +26,8 @@ return [
     |
     */
     'local' => [
-        'signing_key_path' => env('SIGNING_KEY_PATH', storage_path('app/signing_key.json')),
-        'encryption_key_path' => env('ENCRYPTION_KEY_PATH', storage_path('app/encryption_key.json')),
+        'signing_key_path' => env('JOSE_SIGNING_KEY_PATH', storage_path('app/signing_key.json')),
+        'encryption_key_path' => env('JOSE_ENCRYPTION_KEY_PATH', storage_path('app/encryption_key.json')),
     ],
 
     /*
@@ -41,9 +41,9 @@ return [
     |
     */
     'azure' => [
-        'vault_base_url' => env('AZURE_KEYVAULT_URL'),
-        'signing_key_name' => env('SIGNING_KEY_NAME', 'canadalogin-signing-key'),
-        'encryption_key_name' => env('ENCRYPTION_KEY_NAME', 'canadalogin-encryption-key'),
+        'vault_base_url' => env('JOSE_AZURE_KEYVAULT_URL'),
+        'signing_key_name' => env('JOSE_SIGNING_KEY_NAME', 'canadalogin-signing-key'),
+        'encryption_key_name' => env('JOSE_ENCRYPTION_KEY_NAME', 'canadalogin-encryption-key'),
     ],
 
 ];

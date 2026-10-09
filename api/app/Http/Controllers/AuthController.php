@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\BearerTokenService;
-use App\Contracts\KeyService;
+use App\Contracts\JoseService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
@@ -347,11 +347,11 @@ class AuthController extends Controller
     }
 
     // publishes this app's public signing key(s), for OIDC clients that verify our signatures
-    public function jwks(KeyService $keyService)
+    public function jwks(JoseService $joseService)
     {
         $jwkSet = new JWKSet(array_values(Arr::whereNotNull([
-            $keyService->getEncryptionKeyPublicJwk(),
-            $keyService->getSigningKeyPublicJwk(),
+            $joseService->getEncryptionKeyPublicJwk(),
+            $joseService->getSigningKeyPublicJwk(),
         ])));
 
         return response(json_encode($jwkSet))

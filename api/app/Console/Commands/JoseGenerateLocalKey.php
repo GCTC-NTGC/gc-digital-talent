@@ -15,7 +15,7 @@ class GenerateLocalKey extends Command implements PromptsForMissingInput
      *
      * @var string
      */
-    protected $signature = 'key:generate-local {use : What the key is for (sign or encrypt)} {--force : Overwrite an existing key}';
+    protected $signature = 'jose:generate-local-key {use : What the key is for (sign or encrypt)} {--force : Overwrite an existing key}';
 
     /**
      * The console command description.
@@ -36,12 +36,12 @@ class GenerateLocalKey extends Command implements PromptsForMissingInput
         $keyTypes = [
             'sign' => [
                 'label' => 'signing',
-                'path' => config('keys.local.signing_key_path'),
+                'path' => config('jose.local.signing_key_path'),
                 'values' => ['use' => 'sig', 'alg' => 'RS256'],
             ],
             'encrypt' => [
                 'label' => 'encryption',
-                'path' => config('keys.local.encryption_key_path'),
+                'path' => config('jose.local.encryption_key_path'),
                 'values' => ['use' => 'enc', 'alg' => 'RSA-OAEP-256'],
             ],
         ];

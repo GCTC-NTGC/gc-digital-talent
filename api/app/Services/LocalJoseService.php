@@ -29,20 +29,20 @@ class LocalJoseService implements JoseService
 
     public function getEncryptionKeyPublicJwk(): JWK
     {
-        return self::makeJwkForConfigKey('keys.local.encryption_key_path')->toPublic();
+        return self::makeJwkForConfigKey('jose.local.encryption_key_path')->toPublic();
 
     }
 
     public function getSigningKeyPublicJwk(): JWK
     {
-        return self::makeJwkForConfigKey('keys.local.signing_key_path')->toPublic();
+        return self::makeJwkForConfigKey('jose.local.signing_key_path')->toPublic();
     }
 
     public function createSignature(array $values): string
     {
         $algorithmManager = new AlgorithmManager([new RS256()]);
         $jwsBuilder = new JWSBuilder($algorithmManager);
-        $jwk = self::makeJwkForConfigKey('keys.local.signing_key_path');
+        $jwk = self::makeJwkForConfigKey('jose.local.signing_key_path');
 
         $jws = $jwsBuilder->create()
             ->withPayload(json_encode($values))
