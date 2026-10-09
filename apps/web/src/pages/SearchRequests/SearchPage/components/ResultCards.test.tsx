@@ -5,12 +5,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { vi } from "vitest";
 
 import { renderWithProviders } from "@gc-digital-talent/vitest-helpers";
-import type { SearchResultCard_PoolFragment } from "@gc-digital-talent/graphql";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 
 import type { FormValues } from "~/types/talentRequestForm";
 
 import CommunityResultCard from "./CommunityResultCard";
-import SearchResultCard from "./SearchResultCard";
+import SearchResultCard, {
+  SearchResultCard_PoolFragment,
+} from "./SearchResultCard";
 
 const community = {
   __typename: "Community" as const,
@@ -18,11 +20,11 @@ const community = {
   name: { __typename: "LocalizedString" as const, localized: "Privacy" },
 };
 
-const pool: SearchResultCard_PoolFragment = {
-  __typename: "Pool",
+const pool = {
+  __typename: "Pool" as const,
   id: "privacy-pool",
   name: {
-    __typename: "LocalizedString",
+    __typename: "LocalizedString" as const,
     en: "Privacy analyst",
     fr: "Analyste de la confidentialité",
   },
@@ -31,6 +33,8 @@ const pool: SearchResultCard_PoolFragment = {
   classification: null,
   poolSkills: [],
 };
+
+const poolQuery = makeFragmentData(pool, SearchResultCard_PoolFragment);
 
 const onSubmit = vi.fn<(values: FormValues) => void>();
 
@@ -104,7 +108,7 @@ describe("result cards", () => {
   it("sets pool when the process result card is submitted", async () => {
     renderWithProviders(
       <Harness>
-        <SearchResultCard candidateCount={5} pool={pool} />
+        <SearchResultCard candidateCount={5} poolQuery={poolQuery} />
       </Harness>,
     );
 
@@ -121,7 +125,7 @@ describe("result cards", () => {
   it("leaves pool unset while a process result card is rendered", async () => {
     renderWithProviders(
       <Harness>
-        <SearchResultCard candidateCount={5} pool={pool} />
+        <SearchResultCard candidateCount={5} poolQuery={poolQuery} />
       </Harness>,
     );
 

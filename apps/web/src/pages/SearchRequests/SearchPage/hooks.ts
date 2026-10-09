@@ -3,11 +3,7 @@ import { useIntl } from "react-intl";
 import { useQuery } from "urql";
 
 import { useAnnouncer } from "@gc-digital-talent/ui";
-import type {
-  ApplicantFilterInput,
-  CountTalentRequestMatchesQuery,
-  SearchResultCard_PoolFragment,
-} from "@gc-digital-talent/graphql";
+import type { ApplicantFilterInput } from "@gc-digital-talent/graphql";
 import { graphql } from "@gc-digital-talent/graphql";
 import { useSessionStorage } from "@gc-digital-talent/storage";
 
@@ -59,6 +55,9 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
     countTalentRequestMatchesByPool(where: $where) {
       pool {
         id
+        community {
+          id
+        }
         ...SearchResultCard_Pool
       }
       count
@@ -77,19 +76,7 @@ const CountTalentRequestMatches_Query = graphql(/* GraphQL */ `
   }
 `);
 
-interface UseCandidateCountReturn {
-  fetching: boolean;
-  candidateCount: number;
-  results?: {
-    count: number;
-    pool: SearchResultCard_PoolFragment;
-  }[];
-  communities: CountTalentRequestMatchesQuery["countTalentRequestMatchesByCommunity"];
-}
-
-export const useCandidateCount = (
-  filters: ApplicantFilterInput,
-): UseCandidateCountReturn => {
+export const useCandidateCount = (filters: ApplicantFilterInput) => {
   const intl = useIntl();
   const { announce } = useAnnouncer();
 

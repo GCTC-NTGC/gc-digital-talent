@@ -11,8 +11,12 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType } from "@gc-digital-talent/graphql";
-import { graphql, PoolSkillType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import {
+  getFragment,
+  graphql,
+  PoolSkillType,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
@@ -23,7 +27,7 @@ const testId = (text: ReactNode) => (
 );
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
+export const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
     workStream {
@@ -80,10 +84,14 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
 
 interface SearchResultCardProps {
   candidateCount: number;
-  pool: SearchResultCardPoolFragmentType;
+  poolQuery: FragmentType<typeof SearchResultCard_PoolFragment>;
 }
 
-const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
+const SearchResultCard = ({
+  candidateCount,
+  poolQuery,
+}: SearchResultCardProps) => {
+  const pool = getFragment(SearchResultCard_PoolFragment, poolQuery);
   const intl = useIntl();
   const { register, setValue } = useFormContext();
   const poolSubmitProps = register("pool");
