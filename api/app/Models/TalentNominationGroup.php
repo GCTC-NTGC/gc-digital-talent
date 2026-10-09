@@ -176,7 +176,9 @@ class TalentNominationGroup extends Model
     }
 
     /**
-     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
+     * approvedFor* attributes are used instead of *_decision attributes when we want the nominee see what they were
+     * approved for, without revealing whether other options were rejected, still undecided,
+     * or never nominated in the first place.
      */
     protected function approvedForAdvancement(): Attribute
     {
@@ -185,10 +187,6 @@ class TalentNominationGroup extends Model
                 && $this->advancement_nomination_count > 0
         );
     }
-
-    /**
-     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
-     */
     protected function approvedForLateralMovement(): Attribute
     {
         return Attribute::make(
@@ -196,10 +194,6 @@ class TalentNominationGroup extends Model
                 && $this->lateral_movement_nomination_count > 0
         );
     }
-
-    /**
-     * Lets the nominee see what they were approved for, without revealing whether other options were rejected, still undecided, or never nominated in the first place.
-     */
     protected function approvedForDevelopmentPrograms(): Attribute
     {
         return Attribute::make(
