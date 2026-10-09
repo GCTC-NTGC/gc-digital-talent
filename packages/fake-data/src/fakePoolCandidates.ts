@@ -52,11 +52,8 @@ const generatePoolCandidate = (
     .toISOString()
     .substring(0, 10);
 
-  // Every generated candidate has a submitted_at, so DRAFT is not a state it can be in.
-  const status = faker.helpers.arrayElement(
-    Object.values(ApplicationStatus).filter(
-      (value) => value !== ApplicationStatus.Draft,
-    ),
+  const status = faker.helpers.arrayElement<ApplicationStatus>(
+    Object.values(ApplicationStatus),
   );
   const isQualified = status === ApplicationStatus.Qualified;
 
