@@ -127,6 +127,7 @@ class RolePermissionTest extends TestCase
             'view-own-employeeProfile',
             'update-own-employeeProfile',
             'view-own-talentRequest',
+            'view-own-talentNominationGroupAsNominee',
         ], true));
 
         $this->assertFalse($this->user->isAbleTo('view-any-user'));

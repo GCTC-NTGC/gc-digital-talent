@@ -40,8 +40,13 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property bool $consentToShareProfile
  * @property ?Carbon $advancement_referral_expiry_date
  * @property ?Carbon $lateral_movement_referral_expiry_date
+ * @property-read bool $approved_for_advancement
+ * @property-read bool $approved_for_lateral_movement
+ * @property-read bool $approved_for_development_programs
+ * @property-read string[] $approved_nominator_names
  *
  * @method Builder|static authorizedToView()
+ * @method Builder|static authorizedToViewAsNominee()
  * @method static Builder|static query()
  */
 class TalentNominationGroup extends Model
@@ -171,6 +176,52 @@ class TalentNominationGroup extends Model
     }
 
     /**
+     * approvedFor* attributes are used instead of *_decision attributes when we want the nominee see what they were
+     * approved for, without revealing whether other options were rejected, still undecided,
+     * or never nominated in the first place.
+     */
+    protected function approvedForAdvancement(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->advancement_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->advancement_nomination_count > 0
+        );
+    }
+    protected function approvedForLateralMovement(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->lateral_movement_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->lateral_movement_nomination_count > 0
+        );
+    }
+    protected function approvedForDevelopmentPrograms(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->development_programs_decision === TalentNominationGroupDecision::APPROVED->name
+                && $this->development_programs_nomination_count > 0
+        );
+    }
+
+    /**
+     * Computed here so the nominee never has access to the nominations themselves, and only
+     * learns of nominators who nominated them for an option they were approved for.
+     */
+    protected function approvedNominatorNames(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->nominations
+                ->filter(fn (TalentNomination $nomination) => ($nomination->nominate_for_advancement && $this->approved_for_advancement)
+                    || ($nomination->nominate_for_lateral_movement && $this->approved_for_lateral_movement)
+                    || ($nomination->nominate_for_development_programs && $this->approved_for_development_programs))
+                ->map(fn (TalentNomination $nomination) => $nomination->nominator?->getFullName() ?? $nomination->nominator_fallback_name)
+                ->filter()
+                ->unique()
+                ->values()
+                ->all()
+        );
+    }
+
+    /**
      * Recompute and save the status of the nomination group based on the current decisions.
      * Should only be called by a model observer automatically after another field is updated.
      */
@@ -241,14 +292,25 @@ class TalentNominationGroup extends Model
             return;
         }
 
-        // a nominee can view their own nomination groups
-        if ($user) {
+        // fall through, return nothing
+        $query->where('id', null);
+    }
+
+    /**
+     * Kept separate from authorizedToView, which gates the full model, so that the nominee
+     * can only ever reach the limited TalentNominationGroupAsNominee version.
+     */
+    public function scopeAuthorizedToViewAsNominee(Builder $query): void
+    {
+        /** @var User | null */
+        $user = Auth::user();
+
+        if ($user?->isAbleTo('view-own-talentNominationGroupAsNominee')) {
             $query->where('nominee_id', $user->id);
 
             return;
         }
 
-        // fall through, return nothing
         $query->where('id', null);
     }
 
@@ -284,10 +346,14 @@ class TalentNominationGroup extends Model
         return $query->with(['talentNominationEvent']);
     }
 
-    public static function scopeApproved(Builder $query): Builder
+    /**
+     * Groups where at least one option has been approved.
+     */
+    public static function scopeWithApprovedOption(Builder $query): Builder
     {
         $query->whereIn('computed_status', [
             TalentNominationGroupStatus::APPROVED->name,
+            TalentNominationGroupStatus::PARTIALLY_APPROVED->name,
         ]);
 
         return $query;
