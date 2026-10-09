@@ -55,7 +55,15 @@ const PersonalInfoBox = ({
           </p>
         ) : null}
 
-        {personalInfo.telephone ? <p>{personalInfo.telephone}</p> : null}
+        {personalInfo.telephone ? (
+          <p>{personalInfo.telephone}</p>
+        ) : (
+          <p>
+            {intl.formatMessage(commonMessages.telephone) +
+              intl.formatMessage(commonMessages.dividingColon) +
+              intl.formatMessage(commonMessages.notProvided)}
+          </p>
+        )}
         <p>
           {intl.formatMessage({
             defaultMessage: "Preferred contact language",
