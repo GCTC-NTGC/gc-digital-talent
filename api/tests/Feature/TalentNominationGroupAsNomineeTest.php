@@ -287,19 +287,6 @@ class TalentNominationGroupAsNomineeTest extends TestCase
             ->assertJsonMissing(['id' => $group->id]);
     }
 
-    public function testOnlyNomineeWithPermissionCanViewAsNominee()
-    {
-        $group = $this->createAdvancementAndLateralMovementGroup();
-        $admin = User::factory()->asAdmin()->create();
-
-        $this->assertTrue($this->nominee->can('viewAsNominee', $group));
-        $this->assertFalse($admin->can('viewAsNominee', $group));
-        $this->assertFalse($this->advancementNominator->can('viewAsNominee', $group));
-
-        $this->nominee->removeRole('applicant');
-        $this->assertFalse($this->nominee->fresh()->can('viewAsNominee', $group));
-    }
-
     public static function decisionsProvider(): array
     {
         return [

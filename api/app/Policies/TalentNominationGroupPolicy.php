@@ -30,15 +30,6 @@ class TalentNominationGroupPolicy
     }
 
     /**
-     * Determine whether the user can view the limited TalentNominationGroupAsNominee version of the model.
-     */
-    public function viewAsNominee(User $actor, TalentNominationGroup $talentNominationGroup): bool
-    {
-        return $actor->id === $talentNominationGroup->nominee_id
-            && $actor->isAbleTo('view-own-talentNominationGroupAsNominee');
-    }
-
-    /**
      * Determine whether the user can create models.
      */
     public function create(User $actor): bool
