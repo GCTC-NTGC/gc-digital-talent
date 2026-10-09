@@ -201,6 +201,16 @@ const messages = defineMessages({
     id: "NMo1VF",
     description: "Experience date range when end date is missing",
   },
+  dates: {
+    defaultMessage: "Dates",
+    id: "Bs00Yf",
+    description: "Heading for the date range of an experience",
+  },
+  duration: {
+    defaultMessage: "Duration",
+    id: "X3puDA",
+    description: "Heading for how long an experience lasted",
+  },
 });
 
 export default messages;

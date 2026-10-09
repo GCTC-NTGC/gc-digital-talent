@@ -9,9 +9,7 @@ import {
   Button,
   incrementHeadingRank,
   Separator,
-  Notice,
   useControllableState,
-  Ul,
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
@@ -43,6 +41,7 @@ import WorkContent from "./WorkContent";
 import EditLink from "./EditLink";
 import WorkStreamContent from "./WorkContent/WorkStreamsContent";
 import PersonalContent from "./PersonalContent";
+import SkillsContent from "./SkillsContent";
 
 type EditMode = "link" | "dialog";
 
@@ -445,8 +444,6 @@ const ExperienceCard = ({
       ? experience.skills?.find((skill) => skill.id === showSkills.id)
       : null;
 
-  const skillCount = skills?.length;
-
   const edit =
     (editPath || editParam) && editMode === "link" ? (
       <EditLink
@@ -689,54 +686,7 @@ const ExperienceCard = ({
             {showSkills && !singleSkill && (
               <>
                 <Separator space="sm" />
-                <ContentSection
-                  headingRank={headingRank}
-                  title={intl.formatMessage({
-                    defaultMessage: "Featured skills",
-                    id: "a8wd8c",
-                    description:
-                      "Label displayed for featured skills attached to an experience",
-                  })}
-                >
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You can link new skills by editing this experience or adding the skill to your skills portfolio. Skills added to this experience through job applications also appear here.",
-                    id: "9nwXXJ",
-                    description:
-                      "Lead in text for list of skills linked to a specific experience",
-                  })}
-                </ContentSection>
-                <div className="mt-6">
-                  {skills && skillCount ? (
-                    <Ul space="sm">
-                      {skills.map((skill) => (
-                        <li key={skill.id}>
-                          <span className="block font-bold">
-                            {getLocalizedName(skill.name, intl)}
-                          </span>
-                          <span>
-                            {skill.experienceSkillRecord?.details ??
-                              intl.formatMessage(commonMessages.notAvailable)}
-                          </span>
-                        </li>
-                      ))}
-                    </Ul>
-                  ) : (
-                    <Notice.Root>
-                      <Notice.Content>
-                        <p className="text-center">
-                          {intl.formatMessage({
-                            defaultMessage:
-                              "No skills have been linked to this experience.",
-                            id: "exxM/M",
-                            description:
-                              "Text displayed when no skills have been linked to an experience",
-                          })}
-                        </p>
-                      </Notice.Content>
-                    </Notice.Root>
-                  )}
-                </div>
+                <SkillsContent skills={skills} headingRank={headingRank} />
               </>
             )}
             {isWorkExperience(experience) && (
