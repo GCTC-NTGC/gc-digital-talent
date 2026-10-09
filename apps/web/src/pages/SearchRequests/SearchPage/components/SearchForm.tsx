@@ -266,7 +266,7 @@ export const SearchForm = ({
                           <SearchResultCard
                             key={pool.id}
                             candidateCount={resultsCount}
-                            pool={pool}
+                            poolQuery={pool}
                           />
                         ))}
                       </div>

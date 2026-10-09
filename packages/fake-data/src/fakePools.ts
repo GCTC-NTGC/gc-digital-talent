@@ -5,10 +5,6 @@ import {
   FAR_PAST_DATE,
   PAST_DATE,
 } from "@gc-digital-talent/date-helpers";
-import type {
-  GeneralQuestion,
-  ScreeningQuestion,
-} from "@gc-digital-talent/graphql/schema-types";
 import {
   PoolStatus,
   PoolLanguage,
@@ -135,12 +131,8 @@ const generatePool = (
       "LocalizedPoolOpportunityLength",
     ),
     yourImpact: toLocalizedString(faker.lorem.paragraphs()),
-    generalQuestions: faker.helpers.arrayElements<GeneralQuestion>(
-      fakeGeneralQuestions(),
-    ),
-    screeningQuestions: faker.helpers.arrayElements<ScreeningQuestion>(
-      fakeScreeningQuestions(),
-    ),
+    generalQuestions: faker.helpers.arrayElements(fakeGeneralQuestions()),
+    screeningQuestions: faker.helpers.arrayElements(fakeScreeningQuestions()),
     assessmentSteps: [
       fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening)[0],
       fakeAssessmentSteps(
