@@ -5,12 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Gate;
 
 /**
- * Class User
+ * Class RoleAssignment
  *
  * @property string $id
+ * @property string $role_id
+ * @property string $user_id
+ * @property string $user_type
+ * @property ?string $team_id
+ * @property ?Carbon $created_at
+ * @property ?Carbon $updated_at
  */
 class RoleAssignment extends Model
 {
