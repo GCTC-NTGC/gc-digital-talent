@@ -72,7 +72,8 @@ const PersonalInfoBox = ({
               "Legend text for required language preference in getting started form",
           }) +
             intl.formatMessage(commonMessages.dividingColon) +
-            personalInfo.preferredLang?.label.localized}
+            (personalInfo.preferredLang?.label.localized ??
+              intl.formatMessage(commonMessages.notProvided))}
         </p>
       </Notice.Content>
       {footer ? (
