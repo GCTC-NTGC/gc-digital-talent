@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Enums\ErrorCode;
 use App\GraphQL\Mutations\MigrateMyAccount;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 use Tests\TestCase;
 
 class MigrateMyAccountTest extends TestCase
@@ -108,9 +110,9 @@ class MigrateMyAccountTest extends TestCase
 
         try {
             (new MigrateMyAccount())(null, []);
-            $this->fail('Expected an Error to be thrown');
-        } catch (Error $e) {
-            $this->assertEquals('Need one possible target to migrate.', $e->getMessage());
+            $this->fail('Expected a ValidationException to be thrown');
+        } catch (ValidationException $e) {
+            $this->assertEquals(ErrorCode::MIGRATION_TARGET_NOT_FOUND->name, $e->getMessage());
         }
 
         $this->assertUserUnchanged($actor);
@@ -126,9 +128,9 @@ class MigrateMyAccountTest extends TestCase
 
         try {
             (new MigrateMyAccount())(null, []);
-            $this->fail('Expected an Error to be thrown');
-        } catch (Error $e) {
-            $this->assertEquals('Need one possible target to migrate.', $e->getMessage());
+            $this->fail('Expected a ValidationException to be thrown');
+        } catch (ValidationException $e) {
+            $this->assertEquals(ErrorCode::MIGRATION_TARGET_NOT_FOUND->name, $e->getMessage());
         }
 
         $this->assertUserUnchanged($actor);
