@@ -7,7 +7,7 @@ import type { FragmentType } from "@gc-digital-talent/graphql";
 import { EmailType, getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import EmailVerificationDialog from "~/components/EmailVerificationDialog/EmailVerificationDialog";
-import RemoveWorkEmailDialog from "~/components/WorkEmailCard/RemoveWorkEmailDialog";
+import RemoveWorkEmailDialog from "~/components/RemoveWorkEmailDialog/RemoveWorkEmailDialog";
 
 const GovernmentInformationCard_Fragment = graphql(/** GraphQL */ `
   fragment GovernmentInformationCard on User {
