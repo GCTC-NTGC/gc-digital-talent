@@ -5624,10 +5624,6 @@
     "defaultMessage": "Classification visée",
     "description": "Label for employee profile target classification fields"
   },
-  "Kg8PlJ": {
-    "defaultMessage": "Cette section renferme les renseignements de base à votre sujet, ainsi que vos préférences en matière de contact",
-    "description": "Descriptive text explaining the personal information section of the application profile"
-  },
   "KgG9BM": {
     "defaultMessage": "Titre du rôle de cadre supérieur",
     "description": "Label for c-suite role title field"
@@ -5938,10 +5934,6 @@
   "LphzpW": {
     "defaultMessage": "Que faire si j’ai besoin de choisir plus que {maxSteps} méthodes d’évaluation?",
     "description": "second question in the organize section in the assessment plan builder"
-  },
-  "LqCaFZ": {
-    "defaultMessage": "Commencez <hidden> à entrer vos renseignements personnels et vos coordonnées </hidden>",
-    "description": "Call to action to begin editing personal and contact information"
   },
   "Lqm83x": {
     "defaultMessage": "Révisez tous les renseignements recueillis dans votre formulaire de nomination avant de le soumettre. Chaque section contient un lien permettant de modifier l'étape associée, si vous avez besoin de faire des modifications.",
