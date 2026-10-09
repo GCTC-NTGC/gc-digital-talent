@@ -33,18 +33,6 @@ const ProfilePersonalInformation_Fragment = graphql(/** GraphQL */ `
     preferredLang {
       value
     }
-    preferredLanguageForInterview {
-      value
-    }
-    preferredLanguageForExam {
-      value
-    }
-    citizenship {
-      value
-    }
-    armedForcesStatus {
-      value
-    }
     ...AccountInformationCard
     ...GovernmentInformationCard
   }
