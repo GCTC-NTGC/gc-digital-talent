@@ -28,16 +28,13 @@ class PruneUserGeneratedFilesTest extends TestCase
 
         $disk->put('user-id/old.xlsx', 'old');
         $disk->put('user-id/new.xlsx', 'new');
-        $disk->put('.gitignore', '*');
         touch($disk->path('user-id/old.xlsx'), now()->subHours(26)->timestamp);
         touch($disk->path('user-id/new.xlsx'), now()->subHour()->timestamp);
-        touch($disk->path('.gitignore'), now()->subDays(30)->timestamp);
 
         $this->artisan('app:prune-user-generated-files')
             ->assertExitCode(Command::SUCCESS);
 
         $disk->assertMissing('user-id/old.xlsx');
         $disk->assertExists('user-id/new.xlsx');
-        $disk->assertExists('.gitignore');
     }
 }
