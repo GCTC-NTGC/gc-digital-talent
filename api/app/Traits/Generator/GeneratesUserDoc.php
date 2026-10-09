@@ -728,7 +728,7 @@ trait GeneratesUserDoc
     }
 
     /**
-     * Generates a user's talent management nominations
+     * Generates a user's approved talent management nominations
      *
      * @param  Section  $section  The section to add info to
      * @param  User  $user  The user being generated
