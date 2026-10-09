@@ -10,8 +10,6 @@ import PersonalInfoBox from "~/components/PersonalInfoBox/PersonalInfoBox";
 const AccountInformationCard_Fragment = graphql(/** GraphQL */ `
   fragment AccountInformationCard on User {
     id
-    email
-    isEmailVerified
     ...PersonalInfoBox
   }
 `);
