@@ -212,6 +212,7 @@ return [
 
     // Nomination
     'talent_management_nomination' => 'Talent management nomination',
+    'talent_management_nominations' => 'Talent management nominations',
     'talent_management_event' => 'Talent management event',
     'nominations_opening_date' => 'Nominations opening date',
     'nominations_closing_date' => 'Nominations closing date',
