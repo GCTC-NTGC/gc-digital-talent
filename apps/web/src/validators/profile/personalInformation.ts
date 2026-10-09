@@ -1,9 +1,4 @@
-import { empty } from "@gc-digital-talent/helpers";
-import type {
-  ArmedForcesStatus,
-  CitizenshipStatus,
-  Language,
-} from "@gc-digital-talent/graphql";
+import type { Language } from "@gc-digital-talent/graphql";
 import { PoolAreaOfSelection } from "@gc-digital-talent/graphql";
 import type {
   GenericLocalizedEnum,
@@ -23,10 +18,6 @@ export interface PartialUser {
   workEmail?: string | null;
   isWorkEmailVerified?: boolean | null;
   preferredLang?: LocalizedEnumValue<Language> | null;
-  preferredLanguageForInterview?: LocalizedEnumValue<Language> | null;
-  preferredLanguageForExam?: LocalizedEnumValue<Language> | null;
-  citizenship?: LocalizedEnumValue<CitizenshipStatus> | null;
-  armedForcesStatus?: LocalizedEnumValue<ArmedForcesStatus> | null;
 }
 
 export function hasAllEmptyFields({
@@ -35,18 +26,8 @@ export function hasAllEmptyFields({
   telephone,
   email,
   preferredLang,
-  citizenship,
-  armedForcesStatus,
 }: PartialUser): boolean {
-  return !!(
-    !firstName &&
-    !lastName &&
-    !email &&
-    !telephone &&
-    !preferredLang &&
-    !citizenship &&
-    empty(armedForcesStatus)
-  );
+  return !!(!firstName && !lastName && !email && !telephone && !preferredLang);
 }
 
 export function hasEmptyRequiredFields(
@@ -71,10 +52,6 @@ export function hasEmptyRequiredFields(
     !applicant.email ||
     !applicant.telephone ||
     !applicant.preferredLang ||
-    !applicant.preferredLanguageForInterview ||
-    !applicant.preferredLanguageForExam ||
-    !applicant.citizenship ||
-    empty(applicant.armedForcesStatus) ||
     !applicant.isEmailVerified ||
     !isWorkEmailVerifiedForInternalJobs
   );
