@@ -41,6 +41,12 @@ const messages = defineMessages({
     description:
       "CanadaLogin answer for when user needs to contact CanadaLogin",
   },
+  moreQuestions: {
+    defaultMessage:
+      "Read all the FAQs and still stuck? <helpLink>Contact our team for help</helpLink>",
+    id: "oBLq1i",
+    description: "CanadaLogin question and answer for more support",
+  },
 });
 
 export default messages;

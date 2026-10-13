@@ -10131,10 +10131,6 @@
     "defaultMessage": "Modifier la date de clôture",
     "description": "Title to change the closing date of a process"
   },
-  "dm3BlY": {
-    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
-    "description": "GCKey question and answer for more support"
-  },
   "dnKWUf": {
     "defaultMessage": "Ajouter des compétences à cette liste.",
     "description": "Text displayed when no skills have been added to a ranking"
@@ -12788,6 +12784,10 @@
   "oAC+SM": {
     "defaultMessage": "Je suis une personne occupant un rôle de cadre supérieur désigné (CSD).",
     "description": "Message when user is a Senior Designated Official"
+  },
+  "oBLq1i": {
+    "defaultMessage": "Vous avez lu toute la FAQ et n'y avez pas trouvé la réponse que vous cherchiez? <helpLink>Contactez notre équipe pour obtenir de l'aide</helpLink>",
+    "description": "CanadaLogin question and answer for more support"
   },
   "oCFl63": {
     "defaultMessage": "Approuvée",
