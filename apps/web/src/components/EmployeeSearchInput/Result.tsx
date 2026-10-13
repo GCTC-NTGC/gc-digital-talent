@@ -78,13 +78,24 @@ const Result = ({ employee, id, searchMessageCase = "base" }: ResultProps) => {
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage({
-          defaultMessage: "Department or agency",
-          id: "nym1M2",
-          description: "Label for an employees department",
+          defaultMessage: "Substantive classification",
+          id: "baHWzA",
+          description: "Label for an employees classification",
         })}
       >
-        {employee.department ?? notProvided}
+        {employee.classification ?? notProvided}
       </FieldDisplay>
+      <div className="flex flex-col gap-6 xs:col-span-2">
+        <FieldDisplay
+          label={intl.formatMessage({
+            defaultMessage: "Department or agency",
+            id: "nym1M2",
+            description: "Label for an employees department",
+          })}
+        >
+          {employee.department ?? notProvided}
+        </FieldDisplay>
+      </div>
     </div>
   );
 };
