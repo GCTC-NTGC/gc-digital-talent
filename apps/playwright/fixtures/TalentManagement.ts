@@ -521,6 +521,12 @@ class TalentManagement extends AppPage {
     await this.locators[FIELD.NEXT_STEP].click();
   }
 
+  async searchNominee(workEmail: string) {
+    await this.locators[FIELD.NOMINEE_EMAIL_SEARCH].fill(workEmail);
+    await this.locators[FIELD.SEARCH_WORK_EMAIL].click();
+    await this.waitForGraphqlResponse("EmployeeSearch");
+  }
+
   async fillNominationDetailsStep(details: TalentNominationDetails) {
     if (details.nineBox) {
       // The radios read e.g. "High performance"; the API label is "High"
@@ -735,12 +741,20 @@ class TalentManagement extends AppPage {
 
     await this.locators[FIELD.ELIGIBILITY_CONFIRMED].click();
 
+    const advancementReferralExpiryDate =
+      this.locators[FIELD.REFERRAL_EXPIRY_DATE].first();
+    await this.locators[FIELD.SUBMIT_EVALUATION].click();
+    await expect(
+      this.locators[FIELD.ADVANCEMENT_CLASSIFICATIONS],
+    ).toHaveAccessibleDescription(/this field is required/i);
+    await expect(advancementReferralExpiryDate).toHaveAccessibleDescription(
+      /this field is required/i,
+    );
+
     await this.locators[FIELD.ADVANCEMENT_CLASSIFICATIONS].click();
     await this.locators[FIELD.OPTION].first().click();
     await this.page.keyboard.press("Tab");
 
-    const advancementReferralExpiryDate =
-      this.locators[FIELD.REFERRAL_EXPIRY_DATE].first();
     await advancementReferralExpiryDate
       .getByRole("spinbutton", { name: /year/i })
       .fill("2099");

@@ -320,6 +320,31 @@ test.describe(
       ).toBeVisible();
     });
 
+    test("Verify a non verified gov employee cannot be nominated", async ({
+      appPage,
+    }) => {
+      const talentManagement = new TalentManagement(appPage.page);
+
+      await test.step("Start a nomination", async () => {
+        await loginBySub(appPage.page, platformAdminSub);
+        await appPage.page.goto("/en");
+        await talentManagement.startTalentNomination(
+          talentEvent?.name?.en ?? "",
+        );
+        await appPage.waitForGraphqlResponse("CreateTalentNomination");
+        await talentManagement.fillNominatorStep(activeEventNomination);
+      });
+
+      await test.step("Search the non verified gov employee as the nominee", async () => {
+        await talentManagement.searchNominee(`${unVerifiedNominatorSub}@gc.ca`);
+        await expect(
+          talentManagement.locators.nomineeEmailSearch,
+        ).toHaveAccessibleDescription(
+          /this user hasn't verified their employee status/i,
+        );
+      });
+    });
+
     test("Create Talent event in the past", async ({ appPage }) => {
       const talentManagement = new TalentManagement(appPage.page);
 
