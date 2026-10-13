@@ -338,10 +338,8 @@ test.describe(
       await test.step("Search the non verified gov employee as the nominee", async () => {
         await talentManagement.searchNominee(`${unVerifiedNominatorSub}@gc.ca`);
         await expect(
-          talentManagement.locators.nomineeEmailSearch,
-        ).toHaveAccessibleDescription(
-          /this user hasn't verified their employee status/i,
-        );
+          talentManagement.locators.alertMessage.last(),
+        ).toContainText(/this user hasn't verified their employee status/i);
       });
     });
 
