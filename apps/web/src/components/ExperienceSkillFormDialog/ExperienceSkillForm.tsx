@@ -25,9 +25,15 @@ const TEXT_AREA_MAX_WORDS_EN = 400;
 const getSkillArgs = (skillId: string, details?: string, remove?: boolean) =>
   remove ? { disconnect: [skillId] } : { connect: [{ id: skillId, details }] };
 
-const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
+export const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
   fragment ExperienceSkillFormExperience on Experience {
     id
+    skills {
+      id
+      experienceSkillRecord {
+        details
+      }
+    }
     ... on AwardExperience {
       title
     }
