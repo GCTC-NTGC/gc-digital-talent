@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
-import { allModes } from "@gc-digital-talent/storybook-helpers";
+import { allModes, VIEWPORT } from "@gc-digital-talent/storybook-helpers";
 
 import Chip from "./Chip";
 import Chips from "./Chips";
@@ -14,12 +14,17 @@ export default {
       modes: {
         light: allModes.light,
         dark: allModes.dark,
+        "light mobile": allModes["light mobile"],
+        "dark mobile": allModes["dark mobile"],
       },
     },
     design: {
       type: "figma",
       url: "https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=11-4252",
     },
+  },
+  globals: {
+    viewport: { value: VIEWPORT.PHONE },
   },
 } as Meta<typeof Chip>;
 
@@ -43,6 +48,11 @@ const Template: StoryFn<typeof Chip> = (args) => {
       </Chip>
       <Chip key="gray" color="gray" {...args}>
         Black
+      </Chip>
+      <Chip key="long" color="primary" {...args}>
+        This chip has a really long label that should wrap onto multiple lines
+        when there is not enough horizontal space to display it on a single
+        line
       </Chip>
     </Chips>
   );
