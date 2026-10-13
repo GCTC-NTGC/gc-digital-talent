@@ -2,11 +2,11 @@
 
 namespace Tests\Unit;
 
+use App\Services\LocalJoseService;
 use App\Services\PrivateKeyJwtAuthenticationService;
 use Illuminate\Support\Carbon;
 use Jose\Component\Core\AlgorithmManager;
 use Jose\Component\Core\JWK;
-use Jose\Component\KeyManagement\JWKFactory;
 use Jose\Component\Signature\Algorithm\RS256;
 use Jose\Component\Signature\JWSVerifier;
 use Jose\Component\Signature\Serializer\CompactSerializer;
@@ -24,12 +24,9 @@ class PrivateKeyJwtAuthenticationServiceTest extends TestCase
         parent::setUp();
 
         $this->jwkPath = sys_get_temp_dir().'/oauth-client-jwk-test-'.uniqid().'.json';
-        $this->jwk = JWKFactory::createRSAKey(2048, [
-            'use' => 'sig',
-            'alg' => 'RS256',
-            'kid' => 'test-kid',
-        ]);
-        file_put_contents($this->jwkPath, json_encode($this->jwk));
+        config(['jose.local.signing_key_path' => $this->jwkPath]);
+        $this->artisan('jose:generate-local-key', ['use' => 'sign'])->assertSuccessful();
+        $this->jwk = JWK::createFromJson(file_get_contents($this->jwkPath));
     }
 
     protected function tearDown(): void
@@ -38,11 +35,11 @@ class PrivateKeyJwtAuthenticationServiceTest extends TestCase
         parent::tearDown();
     }
 
-    private function makeService(?string $jwkPath = null): PrivateKeyJwtAuthenticationService
+    private function makeService(): PrivateKeyJwtAuthenticationService
     {
         return new PrivateKeyJwtAuthenticationService(
             'test-client-id',
-            $jwkPath ?? $this->jwkPath,
+            $this->app->make(LocalJoseService::class),
             $this->app->make(ClockInterface::class),
             60,
         );
@@ -72,7 +69,7 @@ class PrivateKeyJwtAuthenticationServiceTest extends TestCase
         $this->assertSame(1577836860, $claims['exp']);
 
         $header = json_decode(base64_decode(strtr(explode('.', $params['client_assertion'])[0], '-_', '+/')), true);
-        $this->assertSame('test-kid', $header['kid']);
+        $this->assertSame($this->jwk->get('kid'), $header['kid']);
         $this->assertSame('RS256', $header['alg']);
     }
 
