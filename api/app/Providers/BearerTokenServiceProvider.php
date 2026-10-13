@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\BearerTokenService;
+use App\Contracts\ClientAuthenticationService;
 use App\Services\CanadaLoginBearerTokenService;
 use App\Services\TestBearerTokenService;
 use Illuminate\Support\ServiceProvider;
@@ -21,7 +22,8 @@ class BearerTokenServiceProvider extends ServiceProvider
             $realService = new CanadaLoginBearerTokenService(
                 config('oauth.server_root').'/.well-known/openid-configuration',
                 $clock,
-                config('oauth.allowable_clock_skew')
+                config('oauth.allowable_clock_skew'),
+                $this->app->make(ClientAuthenticationService::class),
             );
 
             // When TESTING_TOKEN_ENABLED=true and APP_ENV_VERTICAL != production, wrap the

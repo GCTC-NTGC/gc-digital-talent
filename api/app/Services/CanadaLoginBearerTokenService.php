@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Contracts\BearerTokenService;
+use App\Contracts\ClientAuthenticationService;
 use App\Support\LogUtil;
 use DateInterval;
 use Exception;
@@ -54,8 +55,12 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         );
     }
 
-    public function __construct(string $configUri, ClockInterface $clock, DateInterval $allowableClockSkew)
-    {
+    public function __construct(
+        string $configUri,
+        ClockInterface $clock,
+        DateInterval $allowableClockSkew,
+        private readonly ClientAuthenticationService $clientAuth,
+    ) {
         $this->unsecuredConfig = $this->fastSigner();
         $this->clock = $clock;
         $this->configUri = $configUri;
@@ -158,7 +163,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
         $introspectionUri = $this->getConfigProperty('introspection_endpoint');
         $payload = [
             'client_id' => config('oauth.client_id'),
-            'client_secret' => config('oauth.client_secret'),
+            ...$this->clientAuth->paramsFor($introspectionUri),
             'token' => $accessToken,
         ];
         $response = Http::retry(times: config('oauth.request_retries'), sleepMilliseconds: 500, when: function (Throwable $exception) {
