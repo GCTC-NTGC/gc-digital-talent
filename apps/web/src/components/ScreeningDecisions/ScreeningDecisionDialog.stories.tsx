@@ -33,24 +33,22 @@ faker.seed(0);
 
 const poolSkill = fakePoolSkills(1)[0];
 const applicationScreeningStep = {
-  ...fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening, [
-    poolSkill,
-  ])[0],
+  ...fakeAssessmentSteps(1, AssessmentStepType.ApplicationScreening)[0],
   id: AssessmentStepType.ApplicationScreening,
+  poolSkills: [poolSkill],
 };
 const screeningQuestionsStep = {
   ...fakeAssessmentSteps(
     1,
     AssessmentStepType.ScreeningQuestionsAtApplication,
-    [poolSkill],
   )[0],
   id: AssessmentStepType.ScreeningQuestionsAtApplication,
+  poolSkills: [poolSkill],
 };
 const genericStep = {
-  ...fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup, [
-    poolSkill,
-  ])[0],
+  ...fakeAssessmentSteps(1, AssessmentStepType.InterviewFollowup)[0],
   id: "GENERIC",
+  poolSkills: [poolSkill],
 };
 
 const experience = fakeExperiences(1)[0];
@@ -77,6 +75,7 @@ const poolCandidate = {
   pool,
   profileSnapshot: JSON.stringify(snapshot),
   user,
+  assessmentResults: [],
 };
 
 const meta = {
@@ -138,7 +137,9 @@ export const Generic: Story = {
 };
 
 const result = {
-  ...fakeAssessmentResults(1, applicationScreeningStep, poolSkill)[0],
+  ...fakeAssessmentResults(1)[0],
+  assessmentStep: applicationScreeningStep,
+  poolSkill,
   assessmentDecision: toLocalizedEnum(
     AssessmentDecision.Successful,
     "LocalizedAssessmentDecision",

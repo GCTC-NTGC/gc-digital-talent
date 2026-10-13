@@ -91,6 +91,7 @@ return [
         'talentNominationEvent' => 'talentNominationEvent',
         'talentNomination' => 'talentNomination',
         'talentNominationGroup' => 'talentNominationGroup',
+        'talentNominationGroupAsNominee' => 'talentNominationGroupAsNominee',
         'pastTalentNomination' => 'pastTalentNomination',
         'trainingOpportunity' => 'trainingOpportunity',
         'workStream' => 'workStream',
@@ -733,6 +734,10 @@ return [
             'en' => 'View any talent nomination group',
             'fr' => 'Voir tout groupe de nomination des talents',
         ],
+        'view-own-talentNominationGroupAsNominee' => [
+            'en' => 'View the approved options and nominators of your own talent nomination groups as the nominee',
+            'fr' => 'View the approved options and nominators of your own talent nomination groups as the nominee',
+        ],
 
         'view-any-basicGovEmployeeProfile' => [
             'en' => 'View any basic government employee profile',
@@ -1026,6 +1031,9 @@ return [
             ],
             'talentNomination' => [
                 'own' => ['create', 'update', 'view'],
+            ],
+            'talentNominationGroupAsNominee' => [
+                'own' => ['view'],
             ],
             'basicGovEmployeeProfile' => [
                 'any' => ['view'],

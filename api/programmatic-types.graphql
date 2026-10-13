@@ -1053,6 +1053,7 @@ enum Permission {
   UpdateTeamTalentNominationGroup
   ViewTeamTalentNominationGroup
   ViewAnyTalentNominationGroup
+  ViewOwnTalentNominationGroupAsNominee
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
@@ -1511,6 +1512,8 @@ enum ErrorCode {
   RATE_LIMIT
   SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
   SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED
+  MIGRATION_MISSING_CONTACT_INFO
+  MIGRATION_TARGET_NOT_FOUND
 }
 
 enum EstimatedLanguageAbility {
