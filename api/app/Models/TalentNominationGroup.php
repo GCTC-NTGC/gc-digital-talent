@@ -187,6 +187,7 @@ class TalentNominationGroup extends Model
                 && $this->advancement_nomination_count > 0
         );
     }
+
     protected function approvedForLateralMovement(): Attribute
     {
         return Attribute::make(
@@ -194,6 +195,7 @@ class TalentNominationGroup extends Model
                 && $this->lateral_movement_nomination_count > 0
         );
     }
+
     protected function approvedForDevelopmentPrograms(): Attribute
     {
         return Attribute::make(
