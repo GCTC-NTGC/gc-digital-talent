@@ -68,102 +68,106 @@ const YourProcessesPreviewList = ({
   return (
     <>
       {sortedProcesses.length ? (
-        <PreviewList.Root>
-          {sortedProcesses.map((process) => {
-            const processBadge = getProcessStatusBadge(process.status, intl);
+        <div className="mt-6 border-t border-t-gray-100 pt-6">
+          <PreviewList.Root>
+            {sortedProcesses.map((process) => {
+              const processBadge = getProcessStatusBadge(process.status, intl);
 
-            let processMetadata: PreviewMetaData[] = [
-              {
-                key: "status",
-                type: "chip",
-                color: processBadge.color,
-                children:
-                  typeof processBadge.label === "string"
-                    ? processBadge.label
-                    : intl.formatMessage(
-                        processBadge.label ?? commonMessages.notFound,
-                      ),
-              },
-              {
-                key: "classification",
-                type: "text",
-                children: process.classification
-                  ? process.classification.groupAndLevel
-                  : intl.formatMessage(commonMessages.notFound),
-              },
-              {
-                key: "stream",
-                type: "text",
-                children:
-                  process.workStream?.name?.localized ??
-                  intl.formatMessage(commonMessages.notFound),
-              },
-            ];
-
-            if (process.status?.value !== PoolStatus.Draft) {
-              processMetadata = [
-                ...processMetadata,
+              let processMetadata: PreviewMetaData[] = [
                 {
-                  key: "applicationCount",
+                  key: "status",
+                  type: "chip",
+                  color: processBadge.color,
+                  children:
+                    typeof processBadge.label === "string"
+                      ? processBadge.label
+                      : intl.formatMessage(
+                          processBadge.label ?? commonMessages.notFound,
+                        ),
+                },
+                {
+                  key: "classification",
+                  type: "text",
+                  children: process.classification
+                    ? process.classification.groupAndLevel
+                    : intl.formatMessage(commonMessages.notFound),
+                },
+                {
+                  key: "stream",
                   type: "text",
                   children:
-                    process.applicantsCount !== null &&
-                    process.applicantsCount !== undefined
-                      ? intl.formatMessage(
-                          {
-                            defaultMessage:
-                              "{applicantsCount, plural, =0 {0 applications} one {# application} other {# applications}}",
-                            id: "vd8CrA",
-                            description: "Applications count for process",
-                          },
-                          {
-                            applicantsCount: process.applicantsCount,
-                          },
-                        )
-                      : intl.formatMessage(commonMessages.notFound),
+                    process.workStream?.name?.localized ??
+                    intl.formatMessage(commonMessages.notFound),
                 },
               ];
-            }
 
-            const processName =
-              !!process.name?.localized && process.name.localized !== ""
-                ? process.name.localized
-                : intl.formatMessage(commonMessages.notFound);
+              if (process.status?.value !== PoolStatus.Draft) {
+                processMetadata = [
+                  ...processMetadata,
+                  {
+                    key: "applicationCount",
+                    type: "text",
+                    children:
+                      process.applicantsCount !== null &&
+                      process.applicantsCount !== undefined
+                        ? intl.formatMessage(
+                            {
+                              defaultMessage:
+                                "{applicantsCount, plural, =0 {0 applications} one {# application} other {# applications}}",
+                              id: "vd8CrA",
+                              description: "Applications count for process",
+                            },
+                            {
+                              applicantsCount: process.applicantsCount,
+                            },
+                          )
+                        : intl.formatMessage(commonMessages.notFound),
+                  },
+                ];
+              }
 
-            return (
-              <PreviewList.Item
-                key={process.id}
-                title={processName}
-                metaData={processMetadata}
-                action={
-                  <>
-                    <PreviewList.Link
-                      href={paths.poolView(process.id)}
-                      label={
-                        process.name?.localized ??
-                        intl.formatMessage(commonMessages.notFound)
-                      }
-                      icon={ArrowRightStartOnRectangleIcon}
-                    />
-                  </>
-                }
-                headingAs="h4"
-              />
-            );
-          })}
-        </PreviewList.Root>
-      ) : (
-        <Notice.Root className="text-center">
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "You have no recruitment processes at the moment.",
-              id: "L7nLT4",
-              description:
-                "Title for notice when there are no processes to view",
+              const processName =
+                !!process.name?.localized && process.name.localized !== ""
+                  ? process.name.localized
+                  : intl.formatMessage(commonMessages.notFound);
+
+              return (
+                <PreviewList.Item
+                  key={process.id}
+                  title={processName}
+                  metaData={processMetadata}
+                  action={
+                    <>
+                      <PreviewList.Link
+                        href={paths.poolView(process.id)}
+                        label={
+                          process.name?.localized ??
+                          intl.formatMessage(commonMessages.notFound)
+                        }
+                        icon={ArrowRightStartOnRectangleIcon}
+                      />
+                    </>
+                  }
+                  headingAs="h4"
+                />
+              );
             })}
-          </Notice.Title>
-        </Notice.Root>
+          </PreviewList.Root>
+        </div>
+      ) : (
+        <div className="pt-6">
+          <Notice.Root className="text-center">
+            <Notice.Title>
+              {intl.formatMessage({
+                defaultMessage:
+                  "You have no recruitment processes at the moment.",
+                id: "L7nLT4",
+                description:
+                  "Title for notice when there are no processes to view",
+              })}
+            </Notice.Title>
+          </Notice.Root>
+        </div>
       )}
     </>
   );

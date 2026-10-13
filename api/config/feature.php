@@ -3,14 +3,15 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Email verifications
+    | Feature flags
     |--------------------------------------------------------------------------
     |
-    | A feature to ensure pools can only be applied to by applicants
-    | with a verified email. If it is an internal job, only applicants with a
-    | verified work email can apply (both emails are verified if work email is set to verified).
+    | Toggles for turning features on and off. Each flag is read from a
+    | FEATURE_* environment variable and defaults to off (false) when unset.
+    | Access a flag with config('feature.<flag_name>').
     |
     */
 
     'auth_in_app_migration' => (bool) env('FEATURE_AUTH_IN_APP_MIGRATION', false),
+    'disable_cl_migration' => (bool) env('FEATURE_DISABLE_CL_MIGRATION', false),
 ];

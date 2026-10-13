@@ -2,12 +2,14 @@ import type { Locator, Page } from "playwright/test";
 import { expect } from "playwright/test";
 
 import type {
-  Classification,
   EquitySelectionsInput,
-  Skill,
   WorkRegion,
-  WorkStream,
 } from "@gc-digital-talent/graphql";
+import type {
+  Classification,
+  Skill,
+  WorkStream,
+} from "@gc-digital-talent/graphql/schema-types";
 import {
   FlexibleWorkLocation,
   LanguageAbility,

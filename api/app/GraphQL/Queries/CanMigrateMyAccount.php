@@ -21,8 +21,8 @@ final class CanMigrateMyAccount
             return false;
         }
 
-        // if no actor defined, then can't migrate
-        if (is_null($actor)) {
+        // if actor is missing email, or telephone, then can't migrate
+        if (is_null($actor) || is_null($actor->email) || is_null($actor->telephone)) {
             return false;
         }
 

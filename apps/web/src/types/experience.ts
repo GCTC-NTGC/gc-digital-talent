@@ -1,16 +1,9 @@
-import type { OperationResult } from "urql";
-
 import type { FieldLabels } from "@gc-digital-talent/forms";
 import type {
   AwardExperienceInput,
   AwardedScope,
   AwardedTo,
   CommunityExperienceInput,
-  CreateAwardExperienceMutation,
-  CreateCommunityExperienceMutation,
-  CreateEducationExperienceMutation,
-  CreatePersonalExperienceMutation,
-  CreateWorkExperienceMutation,
   EducationExperienceInput,
   EducationStatus,
   EducationType,
@@ -217,20 +210,6 @@ export interface ExperienceDetailsSubmissionData {
   relatedExperienceId?: string | null;
   relatedExperienceType?: string | null;
 }
-
-type ExperienceMutations = CreateAwardExperienceMutation &
-  CreateCommunityExperienceMutation &
-  CreateEducationExperienceMutation &
-  CreatePersonalExperienceMutation &
-  CreateWorkExperienceMutation;
-
-type GenericExperienceMutationResponse<T> = OperationResult<
-  T,
-  Record<string, string | ExperienceDetailsSubmissionData>
->;
-
-export type ExperienceMutationResponse =
-  GenericExperienceMutationResponse<ExperienceMutations>;
 
 export type ExperienceMutationArgs = Exact<{
   id: string;

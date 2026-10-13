@@ -915,16 +915,16 @@ class UserBuilder extends Builder
     /*
      * Find the existing users that would be possible to migrate to
      */
-    public function whereIsPossibleMigrationTarget(string $sourceUserId, ?string $email, ?string $telephone): self
+    public function whereIsPossibleMigrationTarget(string $sourceUserId, string $email, string $telephone): self
     {
         // can't be same account
         $this->whereNot('id', $sourceUserId);
 
         // must have matching email in backup
-        $this->where(new Expression('trim(email_backup)'), 'ilike', trim($email));
+        $this->where(new Expression('lower(trim(email_backup))'), mb_strtolower(trim($email)));
 
         // must have matching phone number, ignoring leading 1s
-        $normalizedTelephone = preg_replace('/\D+/', '', $telephone ?? '');
+        $normalizedTelephone = preg_replace('/\D+/', '', $telephone);
         $normalizedTelephone = ltrim($normalizedTelephone, '01');
         $this->where(
             new Expression("ltrim(regexp_replace(telephone,'\\D+', '', 'g'), '01')"),

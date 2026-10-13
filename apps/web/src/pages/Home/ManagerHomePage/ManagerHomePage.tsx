@@ -6,7 +6,7 @@ import SparklesIcon from "@heroicons/react/24/outline/SparklesIcon";
 import UserPlusIcon from "@heroicons/react/24/outline/UserPlusIcon";
 
 import { CardFlat, Flourish, Heading, CTALink } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import SEO from "~/components/SEO/SEO";
 import useRoutes from "~/hooks/useRoutes";
@@ -22,7 +22,6 @@ import peopleGatheredAroundLaptop from "~/assets/img/people-gathered-around-lapt
 import peopleSittingOnCouch from "~/assets/img/people-sitting-on-couch-discussing-something.webp";
 import peopleSittingInLine from "~/assets/img/people-sitting-in-a-line-smiling-at-another-person.webp";
 import { TALENTSEARCH_SUPPORT_EMAIL } from "~/constants/talentSearchConstants";
-import DirectiveBlock from "~/components/DirectiveBlock/DirectiveBlock";
 
 import HomeHero from "../components/HomeHero";
 
@@ -40,6 +39,7 @@ const pageSubtitle = defineMessage({
 
 const ManagerHomePage = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
   const commonFeatureImgProps = {
     height: 300,
@@ -74,7 +74,11 @@ const ManagerHomePage = () => {
             <CTALink
               color="primary"
               icon={BookmarkSquareIcon}
-              href={paths.directive()}
+              href={
+                locale === "en"
+                  ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                  : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749"
+              }
             >
               {intl.formatMessage({
                 defaultMessage: "Directive responsibilities",
@@ -342,7 +346,6 @@ const ManagerHomePage = () => {
             }}
           />
         </div>
-        <DirectiveBlock />
       </FlourishContainer>
       <Flourish className="relative z-40" />
     </>

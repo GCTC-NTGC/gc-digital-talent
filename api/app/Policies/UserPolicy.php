@@ -286,7 +286,7 @@ class UserPolicy
             case 'applicant':
                 return $actor->isAbleTo('assign-any-role');
             case 'platform_admin':
-                return $actor->isAbleTo('update-any-platformAdminMembership ') || $actor->isAbleTo('assign-any-role');
+                return $actor->isAbleTo('update-any-platformAdminMembership') || $actor->isAbleTo('assign-any-role');
 
         }
 
