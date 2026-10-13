@@ -19,4 +19,5 @@ export interface EmployeeSearchResult {
   lastName?: string | null;
   role?: string | null;
   department?: string | null;
+  classification?: string | null;
 }
