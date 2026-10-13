@@ -20,17 +20,15 @@ import {
 import { useExperienceMutations } from "~/hooks/useExperienceMutations";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
 
-import type { SkillLinkableExperience } from "./ExperienceSkillFormDialog";
-
 const TEXT_AREA_MAX_WORDS_EN = 400;
 
 const getSkillArgs = (
   skillId: string,
-  experience?: SkillLinkableExperience,
+  experienceSkills: { id: string }[] | null | undefined,
   details?: string,
   remove?: boolean,
 ) => {
-  const isExisting = experience?.skills?.find(
+  const isExisting = experienceSkills?.find(
     (experienceSkill) => experienceSkill.id === skillId,
   );
 
@@ -45,9 +43,15 @@ const getSkillArgs = (
   };
 };
 
-const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
+export const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
   fragment ExperienceSkillFormExperience on Experience {
     id
+    skills {
+      id
+      experienceSkillRecord {
+        details
+      }
+    }
     ... on AwardExperience {
       title
     }
@@ -161,7 +165,7 @@ const ExperienceSkillForm = ({
         ? {
             skills: getSkillArgs(
               formValues.skill,
-              selectedExperience,
+              selectedExperience?.skills,
               formValues.details,
               formValues.action === "remove",
             ),
