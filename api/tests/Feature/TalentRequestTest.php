@@ -63,7 +63,57 @@ class TalentRequestTest extends TestCase
         mutation UpdateTalentRequest($id: ID!, $talentRequest: UpdateTalentRequestInput!) {
             updateTalentRequest(id: $id, talentRequest: $talentRequest) {
                 id
-                adminNotes
+                adminData {
+                    adminNotes
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $talentRequestAdminDataQuery = <<<'GRAPHQL'
+        query TalentRequest($id: UUID!) {
+            talentRequest(id: $id) {
+                id
+                jobTitle
+                adminData {
+                    adminNotes
+                    followUpDate
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $talentRequestWithoutAdminDataQuery = <<<'GRAPHQL'
+        query TalentRequest($id: UUID!) {
+            talentRequest(id: $id) {
+                id
+                jobTitle
+            }
+        }
+        GRAPHQL;
+
+    protected string $meTalentRequestsAdminDataQuery = <<<'GRAPHQL'
+        query MeTalentRequests {
+            me {
+                talentRequests {
+                    id
+                    jobTitle
+                    adminData {
+                        adminNotes
+                        followUpDate
+                    }
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $meTalentRequestsWithoutAdminDataQuery = <<<'GRAPHQL'
+        query MeTalentRequests {
+            me {
+                talentRequests {
+                    id
+                    jobTitle
+                }
             }
         }
         GRAPHQL;
@@ -228,5 +278,94 @@ class TalentRequestTest extends TestCase
                 'talentRequest' => ['adminNotes' => 'hardcoded message here'],
             ])
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
+    }
+
+    /**
+     * Create a request with admin data, submitted by the given user to the authorized community.
+     */
+    private function createRequestWithAdminData(?User $submitter = null, ?Community $community = null): TalentRequest
+    {
+        return TalentRequest::factory()->create([
+            'user_id' => $submitter?->id,
+            'community_id' => ($community ?? $this->authorizedCommunity)->id,
+            'job_title' => 'Submitted job title',
+            'admin_notes' => 'Internal note',
+            'follow_up_date' => '2026-12-01',
+        ]);
+    }
+
+    public function testSubmitterCannotViewAdminDataOfOwnRequest(): void
+    {
+        $submitter = User::factory()->asApplicant()->create();
+        $talentRequest = $this->createRequestWithAdminData($submitter);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->meTalentRequestsAdminDataQuery)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testSubmitterCanViewOtherFieldsOfOwnRequest(): void
+    {
+        $submitter = User::factory()->asApplicant()->create();
+        $talentRequest = $this->createRequestWithAdminData($submitter);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->talentRequestWithoutAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['id' => $talentRequest->id, 'jobTitle' => 'Submitted job title']);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->meTalentRequestsWithoutAdminDataQuery)
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['id' => $talentRequest->id, 'jobTitle' => 'Submitted job title']);
+    }
+
+    public function testAdminsAndTeamMembersCanViewAdminData(): void
+    {
+        $talentRequest = $this->createRequestWithAdminData();
+        $communityAdmin = User::factory()->asCommunityAdmin([$this->authorizedCommunity->id])->create();
+
+        collect([$this->adminUser, $this->teamRecruiter, $communityAdmin])
+            ->each(fn (User $user) => $this->actingAs($user, 'api')
+                ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+                ->assertGraphQLErrorFree()
+                ->assertJsonFragment([
+                    'adminData' => [
+                        'adminNotes' => 'Internal note',
+                        'followUpDate' => '2026-12-01',
+                    ],
+                ]));
+    }
+
+    public function testOtherTeamCommunityAdminCannotViewAdminData(): void
+    {
+        $talentRequest = $this->createRequestWithAdminData();
+        $otherCommunityAdmin = User::factory()->asCommunityAdmin([$this->otherCommunity->id])->create();
+
+        $this->assertFalse($otherCommunityAdmin->can('viewAdminData', $talentRequest));
+        $this->actingAs($otherCommunityAdmin, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testTeamMemberCannotViewAdminDataOfOwnRequestToOtherCommunity(): void
+    {
+        $submittingRecruiter = User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter([$this->authorizedCommunity->id])
+            ->create();
+        $talentRequest = $this->createRequestWithAdminData($submittingRecruiter, $this->otherCommunity);
+
+        $this->actingAs($submittingRecruiter, 'api')
+            ->graphQL($this->talentRequestWithoutAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorFree();
+
+        $this->actingAs($submittingRecruiter, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

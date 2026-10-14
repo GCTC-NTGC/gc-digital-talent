@@ -1619,7 +1619,6 @@ type TalentRequest {
   additionalComments: String
   hrAdvisorEmail: Email
   requestedDate: DateTime
-  adminNotes: String
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -1628,7 +1627,6 @@ type TalentRequest {
   community: Community
   user: User
   initialResultCount: Int
-  followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
   completionDetails: LocalizedTalentRequestCompletionDetail
@@ -1637,6 +1635,12 @@ type TalentRequest {
   createdAt: DateTime
   updatedAt: DateTime
   trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+  adminData: TalentRequestAdminData
+}
+
+type TalentRequestAdminData {
+  adminNotes: String
+  followUpDate: Date
 }
 
 input TalentRequestTrackedUserFilterInput {

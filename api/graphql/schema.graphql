@@ -1133,7 +1133,6 @@ type TalentRequest {
   additionalComments: String @rename(attribute: "additional_comments")
   hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   requestedDate: DateTime @rename(attribute: "created_at")
-  adminNotes: String @rename(attribute: "admin_notes")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
@@ -1143,7 +1142,6 @@ type TalentRequest {
   community: Community @belongsTo
   user: User @belongsTo
   initialResultCount: Int @rename(attribute: "initial_result_count")
-  followUpDate: Date @rename(attribute: "follow_up_date")
   talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
   inProgressDetails: LocalizedTalentRequestInProgressDetail
     @rename(attribute: "in_progress_details")
@@ -1157,6 +1155,13 @@ type TalentRequest {
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+  adminData: TalentRequestAdminData @canRoot(ability: "viewAdminData") @self
+}
+
+# Fields only for admins and community teams working on the request, not the submitter
+type TalentRequestAdminData {
+  adminNotes: String @rename(attribute: "admin_notes")
+  followUpDate: Date @rename(attribute: "follow_up_date")
 }
 
 input TalentRequestTrackedUserFilterInput {
@@ -1832,10 +1837,9 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 500
-      scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"]
+      scopes: ["withPolicyEagerLoads", "whereAuthorizedToSearch"]
     )
     @guard
-    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
     talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput

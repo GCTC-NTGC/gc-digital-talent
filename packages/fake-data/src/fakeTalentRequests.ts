@@ -72,7 +72,9 @@ const generateTalentRequest = (
       .toISOString(),
     talentRequestStatus: status,
     details,
-    adminNotes: faker.lorem.sentences(5),
+    adminData: {
+      adminNotes: faker.lorem.sentences(5),
+    },
   };
 };
 

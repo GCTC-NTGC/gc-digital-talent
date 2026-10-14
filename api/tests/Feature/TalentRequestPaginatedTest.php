@@ -534,4 +534,49 @@ class TalentRequestPaginatedTest extends TestCase
                 'where' => [],
             ])->assertJsonFragment(['count' => 0]);
     }
+
+    public function testSubmitterCannotSearchOwnRequests(): void
+    {
+        TalentRequest::factory()->create([
+            'user_id' => $this->applicant->id,
+            'admin_notes' => 'Secret note',
+        ]);
+
+        // submitters see their own requests through `me`, not search, so filtering can't probe notes
+        collect([
+            [],
+            ['adminNotes' => 'secret'],
+            ['generalSearch' => 'secret'],
+        ])->each(fn (array $where) => $this->actingAs($this->applicant, 'api')
+            ->graphQL($this->talentRequestsQuery, ['where' => $where])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['count' => 0]));
+    }
+
+    public function testTeamMemberCannotSearchOwnRequestToOtherCommunity(): void
+    {
+        $community = Community::factory()->create();
+        $otherCommunity = Community::factory()->create();
+        $submittingRecruiter = User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter([$community->id])
+            ->create();
+        $communityRequest = TalentRequest::factory()->create([
+            'community_id' => $community->id,
+            'user_id' => null,
+            'admin_notes' => 'Secret note',
+        ]);
+        $ownRequestToOtherCommunity = TalentRequest::factory()->create([
+            'community_id' => $otherCommunity->id,
+            'user_id' => $submittingRecruiter->id,
+            'admin_notes' => 'Secret note',
+        ]);
+
+        $this->actingAs($submittingRecruiter, 'api')
+            ->graphQL($this->talentRequestsQuery, ['where' => ['adminNotes' => 'secret']])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['count' => 1])
+            ->assertJsonFragment(['id' => $communityRequest->id])
+            ->assertJsonMissing(['id' => $ownRequestToOtherCommunity->id]);
+    }
 }

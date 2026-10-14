@@ -81,7 +81,29 @@ class TalentRequestBuilder extends Builder
         ));
     }
 
+    /**
+     * Restrict to requests the user can view, including their own submitted requests.
+     */
     public function whereAuthorizedToView(): self
+    {
+        return $this->whereAuthorized(includeOwnRequests: true);
+    }
+
+    /**
+     * Restrict to requests the user can search, through any or team access only.
+     *
+     * Search filters match on admin notes, so this must grant exactly the
+     * requests that TalentRequestPolicy::viewAdminData allows.
+     */
+    public function whereAuthorizedToSearch(): self
+    {
+        return $this->whereAuthorized(includeOwnRequests: false);
+    }
+
+    /**
+     * Restrict to requests the user has any or team access to, optionally adding their own requests.
+     */
+    private function whereAuthorized(bool $includeOwnRequests): self
     {
         /** @var User | null */
         $user = Auth::user();
@@ -91,14 +113,14 @@ class TalentRequestBuilder extends Builder
         }
 
         $filterCountBefore = count($this->getQuery()->wheres);
-        $query = $this->where(function (Builder $query) use ($user) {
+        $query = $this->where(function (Builder $query) use ($user, $includeOwnRequests) {
             if ($user?->isAbleTo('view-team-talentRequest')) {
                 $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-talentRequest');
 
                 $query->orWhereHas('community.team', fn (Builder $q) => $q->whereIn('id', $teamIds));
             }
 
-            if ($user?->isAbleTo('view-own-talentRequest')) {
+            if ($includeOwnRequests && $user?->isAbleTo('view-own-talentRequest')) {
                 $query->orWhere('user_id', $user->id);
             }
         });
