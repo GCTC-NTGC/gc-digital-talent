@@ -735,10 +735,6 @@ trait GeneratesUserDoc
      */
     protected function talentManagementNominations(Section $section, User $user, $headingRank = 3)
     {
-        if ($this->anonymous) {
-            return;
-        }
-
         // only display approved nominations
         $isApproved = fn ($decision, $count) => $decision === TalentNominationGroupDecision::APPROVED->name && $count > 0;
 
