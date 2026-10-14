@@ -739,6 +739,7 @@ trait GeneratesUserDoc
         $isApproved = fn ($decision, $count) => $decision === TalentNominationGroupDecision::APPROVED->name && $count > 0;
 
         $groups = $user->talentNominationGroupsAsNominee
+            ->filter(fn ($group) => $group->consent_to_share_profile)
             ->filter(fn ($group) => $isApproved($group->advancement_decision, $group->advancement_nomination_count) ||
                 $isApproved($group->lateral_movement_decision, $group->lateral_movement_nomination_count) ||
                 $isApproved($group->development_programs_decision, $group->development_programs_nomination_count));
