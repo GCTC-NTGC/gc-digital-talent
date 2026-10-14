@@ -42,7 +42,7 @@ jobs:
 
       - name: "Validate lighthouse schema"
         working-directory: api
-        run: php artisan validate-schema
+        run: php artisan lighthouse:validate-schema
 
       - name: Check for uncommitted changes
         id: check_changes
