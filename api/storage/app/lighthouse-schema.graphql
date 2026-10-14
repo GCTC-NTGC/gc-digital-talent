@@ -2892,7 +2892,6 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
-  update: [ConnectExperienceSkills!]
   disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
