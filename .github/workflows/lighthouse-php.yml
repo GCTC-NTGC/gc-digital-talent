@@ -40,6 +40,10 @@ jobs:
       - name: "Print git diff"
         run: git diff
 
+      - name: "Validate lighthouse schema"
+        working-directory: api
+        run: php artisan lighthouse:validate-schema
+
       - name: Check for uncommitted changes
         id: check_changes
         run: echo "changed=$(git status --porcelain | wc -l)" >> $GITHUB_OUTPUT
