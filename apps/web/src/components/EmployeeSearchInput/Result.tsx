@@ -78,8 +78,8 @@ const Result = ({ employee, id, searchMessageCase = "base" }: ResultProps) => {
       </FieldDisplay>
       <FieldDisplay
         label={intl.formatMessage({
-          defaultMessage: "Substantive classification",
-          id: "baHWzA",
+          defaultMessage: "Classification",
+          id: "U8ifHf",
           description: "Label for an employees classification",
         })}
       >
