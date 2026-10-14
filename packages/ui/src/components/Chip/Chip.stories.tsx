@@ -51,8 +51,7 @@ const Template: StoryFn<typeof Chip> = (args) => {
       </Chip>
       <Chip key="long" color="primary" {...args}>
         This chip has a really long label that should wrap onto multiple lines
-        when there is not enough horizontal space to display it on a single
-        line
+        when there is not enough horizontal space to display it on a single line
       </Chip>
     </Chips>
   );
