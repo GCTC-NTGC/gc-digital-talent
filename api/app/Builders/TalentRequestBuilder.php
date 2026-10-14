@@ -81,28 +81,20 @@ class TalentRequestBuilder extends Builder
         ));
     }
 
-    /**
-     * Restrict to requests the user can view, including their own submitted requests.
-     */
     public function whereAuthorizedToView(): self
     {
         return $this->whereAuthorized(includeOwnRequests: true);
     }
 
     /**
-     * Restrict to requests the user can search, through any or team access only.
-     *
-     * Search filters match on admin notes, so this must grant exactly the
-     * requests that TalentRequestPolicy::viewAdminData allows.
+     * Talent Request search allows for filtering by admin data fields,
+     * so the authorization scope must be equivalent to TalentRequestPolicy::viewAdminData.
      */
     public function whereAuthorizedToSearch(): self
     {
         return $this->whereAuthorized(includeOwnRequests: false);
     }
 
-    /**
-     * Restrict to requests the user has any or team access to, optionally adding their own requests.
-     */
     private function whereAuthorized(bool $includeOwnRequests): self
     {
         /** @var User | null */

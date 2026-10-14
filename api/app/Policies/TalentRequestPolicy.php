@@ -47,7 +47,6 @@ class TalentRequestPolicy
     }
 
     /**
-     * Determine whether the user can view the admin-only data of the model, such as notes and follow-up date.
      * Unlike view(), submitters cannot view this data on their own requests.
      *
      * This must grant exactly the requests that TalentRequestBuilder::whereAuthorizedToSearch allows,

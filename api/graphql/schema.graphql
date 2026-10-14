@@ -1158,7 +1158,6 @@ type TalentRequest {
   adminData: TalentRequestAdminData @canRoot(ability: "viewAdminData") @self
 }
 
-# Fields only for admins and community teams working on the request, not the submitter
 type TalentRequestAdminData {
   adminNotes: String @rename(attribute: "admin_notes")
   followUpDate: Date @rename(attribute: "follow_up_date")

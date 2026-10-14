@@ -280,9 +280,6 @@ class TalentRequestTest extends TestCase
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
     }
 
-    /**
-     * Create a request with admin data, submitted by the given user to the authorized community.
-     */
     private function createRequestWithAdminData(?User $submitter = null, ?Community $community = null): TalentRequest
     {
         return TalentRequest::factory()->create([
