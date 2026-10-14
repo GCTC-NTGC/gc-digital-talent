@@ -2,7 +2,7 @@ import type { StoryFn, Meta } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import AcademicCapIcon from "@heroicons/react/20/solid/AcademicCapIcon";
 
-import { allModes, VIEWPORT } from "@gc-digital-talent/storybook-helpers";
+import { allModes } from "@gc-digital-talent/storybook-helpers";
 
 import Chip from "./Chip";
 import Chips from "./Chips";
@@ -22,9 +22,6 @@ export default {
       type: "figma",
       url: "https://www.figma.com/design/guHeIIh8dqFVCks310Wv0G/Component-library?node-id=11-4252",
     },
-  },
-  globals: {
-    viewport: { value: VIEWPORT.PHONE },
   },
 } as Meta<typeof Chip>;
 
