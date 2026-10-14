@@ -79,7 +79,6 @@ const SkillExperiences = ({
             id={`skill-${skill.id}-experience-${experience.id}`}
             key={experience.id}
             experienceQuery={makeFragmentData(
-               
               {
                 ...experience,
                 __typename: experience.__typename ?? "AwardExperience",

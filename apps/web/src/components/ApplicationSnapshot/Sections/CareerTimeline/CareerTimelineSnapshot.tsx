@@ -88,7 +88,6 @@ const CareerTimelineSnapshot = ({
                     This comes from the snapshot so we cant fragmentize it so we are tricking typescript :(
                 */
                   experienceQuery={makeFragmentData(
-                     
                     {
                       ...experience,
                       __typename: experience.__typename ?? "AwardExperience",
