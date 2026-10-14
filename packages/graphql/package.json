@@ -15,7 +15,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^7.4.2",
     "@graphql-codegen/client-preset": "^6.2.0",
-    "@graphql-codegen/typescript": "^5.0.10",
+    "@graphql-codegen/typescript": "^6.1.2",
     "@parcel/watcher": "^2.6.0",
     "graphql": "^17.0.1",
     "tsconfig": "workspace:*",
