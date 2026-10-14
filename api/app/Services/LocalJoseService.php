@@ -13,12 +13,6 @@ use RuntimeException;
 /* Use local key files to provide JOSE operations. */
 class LocalJoseService implements JoseService
 {
-    /* Get a list of keys */
-    public function getKeys(): ?string
-    {
-        return 'hello world';
-    }
-
     protected static function makeJwkForConfigKey(string $configKey): JWK
     {
         $path = config($configKey, '');
