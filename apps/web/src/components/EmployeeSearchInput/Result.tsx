@@ -85,7 +85,7 @@ const Result = ({ employee, id, searchMessageCase = "base" }: ResultProps) => {
       >
         {employee.classification ?? notProvided}
       </FieldDisplay>
-      <div className="flex flex-col gap-6 xs:col-span-2">
+      <div className="xs:col-span-2">
         <FieldDisplay
           label={intl.formatMessage({
             defaultMessage: "Department or agency",
