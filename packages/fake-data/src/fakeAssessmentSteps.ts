@@ -14,7 +14,7 @@ const generateAssessmentStep = (
   sortOrder?: number,
   type?: AssessmentStepType | null,
   poolSkills?: (PoolSkill | null)[],
-): AssessmentStep => {
+) => {
   return {
     __typename: "AssessmentStep",
     id: faker.string.uuid(),
@@ -32,14 +32,14 @@ const generateAssessmentStep = (
       }),
     title: toLocalizedString(faker.lorem.word()),
     poolSkills: poolSkills ?? [],
-  };
+  } satisfies AssessmentStep;
 };
 
 export default (
   numToGenerate?: number,
   type?: AssessmentStepType | null,
   poolSkills?: (PoolSkill | null)[],
-): AssessmentStep[] => {
+) => {
   faker.seed(0); // repeatable results
   const amountToGenerate = numToGenerate ?? 20;
   const otherScreeningTypes = Object.values(AssessmentStepType).filter(

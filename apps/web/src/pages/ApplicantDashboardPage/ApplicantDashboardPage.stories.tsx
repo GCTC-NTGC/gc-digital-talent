@@ -14,7 +14,15 @@ import {
 } from "./ApplicantDashboardPage";
 import { CareerDevelopmentTaskCardOptions_Fragment } from "./components/CareerDevelopmentTaskCard";
 
-const mockUser = fakeUser();
+const fakedUser = fakeUser();
+const mockUser = {
+  ...fakedUser,
+  employeeProfile: {
+    ...fakedUser.employeeProfile,
+    lateralMoveInterest: false,
+    promotionMoveInterest: false,
+  },
+};
 
 const meta: Meta<typeof ApplicantDashboardPage> = {
   component: ApplicantDashboardPage,
@@ -44,10 +52,6 @@ export const VerifiedGovernmentEmployee: Story = {
           {
             ...mockUser,
             isVerifiedGovEmployee: true,
-            employeeProfile: {
-              lateralMoveInterest: false,
-              promotionMoveInterest: false,
-            },
           },
           ApplicantDashboardPage_Fragment,
         ),
@@ -95,14 +99,8 @@ export const NonEmployee: Story = {
         __typename: "User" as const,
         ...makeFragmentData(
           {
-            ...{
-              ...mockUser,
-              isVerifiedGovEmployee: false,
-              employeeProfile: {
-                lateralMoveInterest: false,
-                promotionMoveInterest: false,
-              },
-            },
+            ...mockUser,
+            isVerifiedGovEmployee: false,
           },
           ApplicantDashboardPage_Fragment,
         ),

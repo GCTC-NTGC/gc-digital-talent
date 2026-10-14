@@ -15,7 +15,7 @@ jobs:
     name: Vitest
     runs-on: ubuntu-24.04
     env:
-      PNPM_VERSION: "10.27.0"
+      PNPM_VERSION: "12.9.1"
 
     steps:
       - name: Get number of CPU cores

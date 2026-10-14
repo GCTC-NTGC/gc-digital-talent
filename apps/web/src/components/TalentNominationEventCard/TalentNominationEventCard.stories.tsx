@@ -21,6 +21,7 @@ export default {
   args: {
     talentNominationEventQuery: makeFragmentData(
       {
+        __typename: "TalentNominationEvent",
         id: faker.string.uuid(),
         community: fakeCommunities(1)[0],
         name: {

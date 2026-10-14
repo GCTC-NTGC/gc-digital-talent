@@ -10,7 +10,7 @@ export type EquityKeys =
   "isWoman" | "indigenousCommunities" | "isVisibleMinority" | "hasDisability";
 
 export type UserMutationPromise = Promise<
-  UpdateUserAsUserMutation["updateUserAsUser"]
+  UpdateUserAsUserMutation["updateUserAsUser"] | undefined
 >;
 
 export interface EquityDialogProps {

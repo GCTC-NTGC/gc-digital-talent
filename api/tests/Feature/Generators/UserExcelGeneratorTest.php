@@ -14,8 +14,10 @@ use Database\Seeders\RolePermissionSeeder;
 use Database\Seeders\SkillFamilySeeder;
 use Database\Seeders\SkillSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use OpenSpout\Reader\XLSX\Reader;
 use Tests\ReadsGeneratedFiles;
 use Tests\TestCase;
@@ -343,6 +345,48 @@ class UserExcelGeneratorTest extends TestCase
         $linkedColIndex = array_search($program->name['en'].' - '.Lang::get('headings.linked_experience', [], 'en'), $headers);
 
         $this->assertNull($dataRow[$linkedColIndex] ?: null, 'Linked experience column should be null when no experience is linked');
+    }
+
+    /**
+     * A keyword search download must list every matching user exactly once, even when there are more matches than the
+     * export reads in one batch, and even though keyword search orders users by best match rather than by id.
+     */
+    public function testKeywordSearchDownloadListsEachMatchingUserOnce(): void
+    {
+        // arrange
+        $exportBatchSize = 200; // UserExcelGenerator reads users 200 at a time
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create(['current_city' => 'Elsewhere']);
+
+        // More matches than one batch holds. Users matching the keyword twice (city and first name) rank above users matching it once, they get the highest ids,
+        // so best-match order is the reverse of id order: the case where paging by id behind a best-match sort repeats or drops users.
+        $ids = collect(range(1, $exportBatchSize + 1))->map(fn () => (string) Str::uuid())->sort()->values();
+        $weakMatches = $ids->take($exportBatchSize / 2 + 1)
+            ->map(fn ($id) => User::factory()->create(['id' => $id, 'current_city' => 'Qwertyville']));
+        $strongMatches = $ids->skip($exportBatchSize / 2 + 1)
+            ->map(fn ($id) => User::factory()->create(['id' => $id, 'current_city' => 'Qwertyville', 'first_name' => 'Qwertyville']));
+        $nonMatch = User::factory()->create(['current_city' => 'Elsewhere']);
+
+        // act
+        $generator = new UserExcelGenerator(fileName: 'test_keyword_search', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['generalSearch' => 'Qwertyville']);
+        DB::enableQueryLog();
+        $generator->generate()->write();
+        $queries = array_column(DB::getQueryLog(), 'query');
+        DB::disableQueryLog();
+
+        // assert: users are paged by id. Paging by offset repeats and drops users once the data is large enough, which a test this size can't reproduce
+        $this->assertNotEmpty(preg_grep('/"users"\."id" > \?/', $queries), 'The export should page users by id, not by offset');
+
+        // assert: the users sheet has one row per user, with the user id in the first column
+        $rows = $this->readSheetRows('test_keyword_search', sheetIndex: 0, rowCount: PHP_INT_MAX);
+        $exportedIds = array_column(array_slice($rows, 1), 0);
+        $expectedIds = $strongMatches->concat($weakMatches)->pluck('id')->all();
+
+        $this->assertEqualsCanonicalizing($expectedIds, $exportedIds, 'Every matching user should appear exactly once: none missing, none repeated');
+        $this->assertNotContains($nonMatch->id, $exportedIds, 'A user not matching the keyword should not appear');
     }
 
     /**

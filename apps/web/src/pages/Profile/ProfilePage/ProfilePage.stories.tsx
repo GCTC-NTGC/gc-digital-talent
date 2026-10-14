@@ -19,10 +19,19 @@ const Template: StoryFn<typeof ProfileForm> = (args) => {
 
 export const WithData = Template.bind({});
 WithData.args = {
-  userQuery: makeFragmentData(fakeUserData, UserProfile_Fragment),
+  userQuery: makeFragmentData(
+    {
+      ...fakeUserData,
+      isVerifiedGovEmployee: fakeUserData.isVerifiedGovEmployee ?? null,
+    },
+    UserProfile_Fragment,
+  ),
 };
 
 export const Null = Template.bind({});
 Null.args = {
-  userQuery: makeFragmentData({}, UserProfile_Fragment),
+  userQuery: makeFragmentData(
+    { __typename: "User", isVerifiedGovEmployee: null },
+    UserProfile_Fragment,
+  ),
 };
