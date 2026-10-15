@@ -137,6 +137,13 @@ export const WithDefaultValue: Story = {
           firstName: users[0].firstName ?? null,
           lastName: users[0].lastName ?? null,
           role: null,
+          classification: users[0].currentClassification
+            ? {
+                __typename: "Classification",
+                groupAndLevel:
+                  users[0].currentClassification.groupAndLevel ?? null,
+              }
+            : null,
           department: users[0].department
             ? {
                 __typename: "Department",
