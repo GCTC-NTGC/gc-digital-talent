@@ -192,7 +192,7 @@ fi
 
 # Add a source context block
 BLOCKS="$BLOCKS, { \"type\": \"divider\" }"
-BLOCKS="$BLOCKS, { \"type\": \"context\", \"elements\": [ { \"type\": \"mrkdwn\", \"text\": \"Source: $WEBSITE_SITE_NAME\" } ] }"
+BLOCKS="$BLOCKS, { \"type\": \"context\", \"elements\": [ { \"type\": \"mrkdwn\", \"text\": \"Source: $WEBSITE_SITE_NAME / slot ${DEPLOYMENT_SLOT_NAME:-unset} / instance ${WEBSITE_INSTANCE_ID:0:8} / host $(hostname)\" } ] }"
 
 # Write finished payload to file
 PAYLOAD="{\"blocks\": [$BLOCKS]}"
