@@ -19,6 +19,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Schedule Cache Store
+    |--------------------------------------------------------------------------
+    |
+    | Store used by the scheduler for onOneServer and withoutOverlapping locks.
+    | Must be shared across instances, so it can't be the file store.
+    |
+    */
+
+    'schedule_store' => env('SCHEDULE_CACHE_STORE', 'schedule'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Cache Stores
     |--------------------------------------------------------------------------
     |
@@ -47,6 +59,17 @@ return [
             'table' => 'cache',
             'connection' => null,
             'lock_connection' => null,
+        ],
+
+        // Scheduler locks (onOneServer, withoutOverlapping), shared by every instance and slot on the same DB.
+        // Fixed prefix so slots with a different CACHE_PREFIX/APP_NAME still compete for the same lock.
+        'schedule' => [
+            'driver' => 'database',
+            'table' => 'cache',
+            'lock_table' => 'cache_locks',
+            'connection' => null,
+            'lock_connection' => null,
+            'prefix' => 'gctalent_schedule',
         ],
 
         'file' => [
