@@ -66,8 +66,14 @@ const AddExperienceDialog = ({
       onOpenChange={onOpenChange}
     >
       <Dialog.Trigger>{trigger}</Dialog.Trigger>
-      <Dialog.Content>
-        <Dialog.Header>
+      <Dialog.Content hasSubtitle>
+        <Dialog.Header
+          subtitle={intl.formatMessage({
+            defaultMessage: "Select the type of experience you'd like to add",
+            id: "Q/4kOB",
+            description: "Subtitle for the dialog to add a new experience",
+          })}
+        >
           {intl.formatMessage(experienceMessages.addNewExperience)}
         </Dialog.Header>
         <Dialog.Body>
