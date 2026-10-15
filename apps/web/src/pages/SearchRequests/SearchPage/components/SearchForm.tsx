@@ -72,16 +72,25 @@ export const SearchForm = ({
     applicantFilter: initialFilters,
   });
 
+  // default the talent sources only on a fresh search, so returning to the page keeps the user's selection
+  const talentSources = initialFilters.talentSources
+    ? unpackMaybes(initialFilters.talentSources)
+    : [
+        TalentRequestSource.QualifiedInPool,
+        TalentRequestSource.Advancement,
+        TalentRequestSource.LateralMovement,
+      ];
+
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
-    talentSources: [TalentRequestSource.QualifiedInPool],
+    talentSources,
   } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
-    talentSources: [TalentRequestSource.QualifiedInPool],
+    talentSources,
   } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(

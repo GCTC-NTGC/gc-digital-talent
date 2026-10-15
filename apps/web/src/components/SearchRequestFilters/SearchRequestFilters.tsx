@@ -1,4 +1,4 @@
-import { useIntl } from "react-intl";
+import { useIntl, type MessageDescriptor } from "react-intl";
 
 import {
   notEmpty,
@@ -12,8 +12,14 @@ import {
   commonMessages,
   getLocalizedName,
 } from "@gc-digital-talent/i18n";
-import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
-import { FlexibleWorkLocation } from "@gc-digital-talent/graphql";
+import type {
+  LocalizedEnumString,
+  LocalizedTalentRequestSource,
+} from "@gc-digital-talent/graphql";
+import {
+  TalentRequestSource,
+  FlexibleWorkLocation,
+} from "@gc-digital-talent/graphql";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import { wrapAbbr } from "~/utils/nameUtils";
@@ -22,6 +28,7 @@ import {
   hasDiplomaToEducationLevel,
   positionDurationToEmploymentDuration,
 } from "~/utils/talentRequestUtils";
+import adminMessages from "~/messages/adminMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
 import messages from "~/messages/profileMessages";
 import type { PartialApplicantFilter } from "~/types/talentRequestForm";
@@ -32,9 +39,11 @@ import BoolCheckIcon from "../BoolCheckIcon/BoolCheckIcon";
 const ApplicantFilters = ({
   applicantFilter,
   flexibleWorkLocationOptions,
+  talentSourceOptions,
 }: {
   applicantFilter?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
+  talentSourceOptions: LocalizedTalentRequestSource[];
 }) => {
   const intl = useIntl();
 
@@ -119,10 +128,55 @@ const ApplicantFilters = ({
     applicantFilter?.flexibleWorkLocations?.map((loc) => loc?.value),
   );
 
+  const filterTalentSources = unpackMaybes(
+    applicantFilter?.talentSources?.map((source) => source?.value),
+  );
+  const talentSourceLabels: Partial<
+    Record<TalentRequestSource, MessageDescriptor>
+  > = {
+    [TalentRequestSource.QualifiedInPool]: adminMessages.poolCandidates,
+  };
+
   return (
     <section className="grid gap-6 xs:grid-cols-2">
       <div>
         <div>
+          <FilterBlock
+            title={intl.formatMessage(talentRequestMessages.talentSource)}
+            content={
+              <Ul unStyled noIndent inside>
+                {talentSourceOptions
+                  .filter(
+                    (source) => source.value !== TalentRequestSource.AtLevel,
+                  )
+                  .map((source) => {
+                    const messageDescriptor = talentSourceLabels[source.value];
+                    const label = messageDescriptor
+                      ? intl.formatMessage(messageDescriptor)
+                      : (source.label?.localized ??
+                        intl.formatMessage(commonMessages.notAvailable));
+
+                    return (
+                      <li key={source.value}>
+                        <BoolCheckIcon
+                          value={filterTalentSources.includes(source.value)}
+                          trueLabel={intl.formatMessage({
+                            defaultMessage: "Selected",
+                            id: "W9zlhl",
+                            description: "Label when an item is selected",
+                          })}
+                          falseLabel={intl.formatMessage(
+                            commonMessages.notSelected,
+                          )}
+                        >
+                          {label}
+                        </BoolCheckIcon>
+                      </li>
+                    );
+                  })}
+              </Ul>
+            }
+          />
           <FilterBlock
             title={intl.formatMessage(talentRequestMessages.community)}
             content={communityName}
@@ -260,15 +314,18 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
+  talentSourceOptions: LocalizedTalentRequestSource[];
 }
 
 const SearchRequestFilters = ({
   filters,
   flexibleWorkLocationOptions,
+  talentSourceOptions,
 }: SearchRequestFiltersProps) => (
   <ApplicantFilters
     applicantFilter={filters}
     flexibleWorkLocationOptions={flexibleWorkLocationOptions}
+    talentSourceOptions={talentSourceOptions}
   />
 );
 
