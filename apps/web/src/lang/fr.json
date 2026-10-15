@@ -13053,10 +13053,6 @@
     "defaultMessage": "Modifier<hidden> la classification</hidden>",
     "description": "Breadcrumb title for the edit classification page link."
   },
-  "ozb92E": {
-    "defaultMessage": "Nouvelle méthode de collecte d’information sur le personnel",
-    "description": "title for alert about changed collection"
-  },
   "p+rROQ": {
     "defaultMessage": "Cela indiquera aux candidats que seuls les employés à niveau ou de niveau équivalent seront pris en considération pour cette possibilité.",
     "description": "Caption for the at-level-only selection limitation"
@@ -14712,10 +14708,6 @@
   "vibJ0E": {
     "defaultMessage": "Pour la raison suivante",
     "description": "Lead-in text for the reason an application decision was made"
-  },
-  "vj9jcO": {
-    "defaultMessage": "Afin de mieux saisir les données sur votre parcours professionnel dans la fonction publique, nous recueillons dorénavant de l’information sur votre classification et votre ministère, entre autres, que nous consignons dans la section sur votre <a>expérience professionnelle</a>. Si vous travaillez actuellement au gouvernement du Canada, veuillez mettre à jour votre expérience professionnelle la plus récente.",
-    "description": "body for alert about changed collection"
   },
   "vjZ960": {
     "defaultMessage": "Si vous êtes à la recherche de talents, vous avez frappé à la bonne porte. Notre base de données de talents est ouverte à la plupart des ministères et des agences. Veuillez remplir une demande pour trouver des personnes candidates qualifiées. Tous les candidates et candidats dans ces processus de recrutement ont été évalués et se sont qualifiés.",
