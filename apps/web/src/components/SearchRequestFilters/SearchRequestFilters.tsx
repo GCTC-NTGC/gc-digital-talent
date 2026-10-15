@@ -11,11 +11,9 @@ import {
   getOperationalRequirement,
   commonMessages,
   getLocalizedName,
+  type GenericLocalizedEnum,
 } from "@gc-digital-talent/i18n";
-import type {
-  LocalizedEnumString,
-  LocalizedTalentRequestSource,
-} from "@gc-digital-talent/graphql";
+import type { LocalizedEnumString } from "@gc-digital-talent/graphql";
 import {
   TalentRequestSource,
   FlexibleWorkLocation,
@@ -43,7 +41,7 @@ const ApplicantFilters = ({
 }: {
   applicantFilter?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions: LocalizedTalentRequestSource[];
+  talentSourceOptions: GenericLocalizedEnum<TalentRequestSource>[];
 }) => {
   const intl = useIntl();
 
@@ -314,7 +312,7 @@ const ApplicantFilters = ({
 interface SearchRequestFiltersProps {
   filters?: PartialApplicantFilter | null;
   flexibleWorkLocationOptions: LocalizedEnumString[];
-  talentSourceOptions: LocalizedTalentRequestSource[];
+  talentSourceOptions: GenericLocalizedEnum<TalentRequestSource>[];
 }
 
 const SearchRequestFilters = ({
