@@ -73,6 +73,7 @@ const generateTalentRequest = (
     talentRequestStatus: status,
     details,
     adminData: {
+      __typename: "TalentRequestAdminData",
       adminNotes: faker.lorem.sentences(5),
     },
   };
