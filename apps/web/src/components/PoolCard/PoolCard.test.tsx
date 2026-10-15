@@ -12,8 +12,14 @@ import PoolCard, { PoolCard_Fragment } from "./PoolCard";
 
 const fakedPool = fakePools(1)[0];
 const nullPool = {
-  __typename: "Pool" as const,
-  id: "uuid",
+  ...fakedPool,
+  workStream: null,
+  closingDate: null,
+  name: null,
+  classification: null,
+  poolSkills: null,
+  areaOfSelection: null,
+  selectionLimitations: null,
 };
 
 const renderPoolCard = (props: PoolCardProps) =>

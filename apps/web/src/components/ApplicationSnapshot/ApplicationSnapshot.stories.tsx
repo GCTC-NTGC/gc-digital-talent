@@ -49,6 +49,8 @@ const mockPoolCandidate = {
   pool: mockPool,
   user: mockUser,
   profileSnapshot: JSON.stringify(mockSnapshot),
+  signature: fakeCandidate.signature ?? null,
+  submittedAt: fakeCandidate.submittedAt ?? null,
   generalQuestionResponses,
 };
 

@@ -3,7 +3,7 @@ import MagnifyingGlassCircleIcon from "@heroicons/react/24/outline/MagnifyingGla
 import MegaphoneIcon from "@heroicons/react/24/outline/MegaphoneIcon";
 
 import { CardFlat, Heading } from "@gc-digital-talent/ui";
-import { navigationMessages } from "@gc-digital-talent/i18n";
+import { getLocale, navigationMessages } from "@gc-digital-talent/i18n";
 
 import FeatureBlock from "~/components/FeatureBlock/FeatureBlock";
 import FlourishContainer from "~/components/FlourishContainer/FlourishContainer";
@@ -14,6 +14,7 @@ import pageTitles from "~/messages/pageTitles";
 
 const Featured = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useRoutes();
 
   const featured = [
@@ -124,7 +125,10 @@ const Featured = () => {
             {
               external: true,
               mode: "solid",
-              href: paths.directive(),
+              href:
+                locale === "en"
+                  ? "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32749"
+                  : "https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32749",
               label: intl.formatMessage({
                 defaultMessage: "Check out the Directive",
                 id: "sGPKUt",

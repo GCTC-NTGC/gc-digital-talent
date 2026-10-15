@@ -5,9 +5,9 @@
   "license": "AGPL-3.0",
   "engines": {
     "node": ">=24.15.0",
-    "pnpm": ">=10.27.0"
+    "pnpm": ">=12.9.1"
   },
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@12.9.1",
   "type": "module",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -50,18 +50,18 @@
     "@gc-digital-talent/storybook-helpers": "workspace:*",
     "@gc-digital-talent/toast": "workspace:*",
     "@gc-digital-talent/vitest-helpers": "workspace:*",
-    "@storybook/addon-a11y": "^10.5.10",
-    "@storybook/addon-vitest": "^10.5.10",
-    "@storybook/react-vite": "^10.5.10",
+    "@storybook/addon-a11y": "^10.6.1",
+    "@storybook/addon-vitest": "^10.6.1",
+    "@storybook/react-vite": "^10.6.1",
     "@vitest/browser": "^4.1.11",
     "@vitest/browser-playwright": "^4.1.11",
-    "@vitest/coverage-v8": "^4.1.8",
-    "jsdom": "^30.1.1",
-    "playwright": "^1.63.0",
+    "@vitest/coverage-v8": "^5.0.3",
+    "jsdom": "^30.1.2",
+    "playwright": "^1.64.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "storybook": "^10.5.10",
+    "storybook": "^10.6.1",
     "storybook-react-intl": "^10.2.2",
-    "turbo": "^2.11.4",
+    "turbo": "^2.11.7",
     "vitest": "^4.1.11"
   }
 }

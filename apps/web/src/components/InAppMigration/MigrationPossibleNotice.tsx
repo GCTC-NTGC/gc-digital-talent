@@ -1,20 +1,47 @@
 import { useIntl } from "react-intl";
+import { useMutation } from "urql";
 
 import { Button, Notice, ScrollToLink } from "@gc-digital-talent/ui";
 import { toast } from "@gc-digital-talent/toast";
+import { graphql } from "@gc-digital-talent/graphql";
+import { errorMessages } from "@gc-digital-talent/i18n";
+import { useAuthentication } from "@gc-digital-talent/auth";
 
 import LinkMyProfileDialog from "./LinkMyProfileDialog";
 import WhatDoesThisMeanMigrationPossibleDialog from "./WhatDoesThisMeanMigrationPossibleDialog";
 import type { MigrationNoticeProps } from "./migrationNoticeProps";
+
+const MigrateMyAccount_Mutation = graphql(/* GraphQL */ `
+  mutation MigrateMyAccount {
+    migrateMyAccount
+  }
+`);
 
 const MigrationPossibleNotice = ({
   scrollToIdOnIgnore,
   onDismiss,
 }: MigrationNoticeProps) => {
   const intl = useIntl();
+  const [{ fetching }, executeMigrateMyAccount] = useMutation(
+    MigrateMyAccount_Mutation,
+  );
+  const { logout } = useAuthentication();
 
-  const handleLinkProfile = () => {
-    toast.error("Function not implemented.");
+  const handleLinkProfile = async () => {
+    if (fetching) {
+      return;
+    }
+
+    const result = await executeMigrateMyAccount({});
+    // check for errors
+    if (result.data?.migrateMyAccount) {
+      // success!
+      logout();
+      return;
+    }
+
+    // something went wrong
+    toast.error(intl.formatMessage(errorMessages.error));
   };
 
   return (

@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use App\Enums\TalentNominationGroupStatus;
 use App\Models\TalentNominationGroup;
 use App\Models\Team;
 use App\Models\User;
@@ -15,11 +14,6 @@ class TalentNominationGroupPolicy
     public function view(User $actor, TalentNominationGroup $talentNominationGroup): bool
     {
         if ($actor->isAbleTo('view-any-talentNominationGroup')) {
-            return true;
-        }
-
-        if ($actor->id === $talentNominationGroup->nominee_id
-            && $talentNominationGroup->computed_status === TalentNominationGroupStatus::APPROVED->name) {
             return true;
         }
 

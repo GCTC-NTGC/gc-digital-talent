@@ -8,6 +8,7 @@ import {
   fakeSkills,
   fakeUserSkills,
   toLocalizedEnum,
+  toLocalizedString,
 } from "@gc-digital-talent/fake-data";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import {
@@ -15,6 +16,7 @@ import {
   AssessmentDecisionLevel,
   AssessmentResultType,
   AssessmentStepType,
+  EducationRequirementOption,
   PoolSkillType,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
@@ -25,6 +27,7 @@ const poolCandidate = fakePoolCandidates(1)[0];
 const assessmentSteps = unpackMaybes(poolCandidate.pool.assessmentSteps);
 
 const makeTestPoolSkill = (type: PoolSkillType) => ({
+  __typename: "PoolSkill" as const,
   id: faker.string.uuid(),
   type: toLocalizedEnum(type, "LocalizedPoolSkillType"),
   requiredLevel: SkillLevel.Beginner,
@@ -48,6 +51,7 @@ const makeTestAssessmentStep = (
 ) => ({
   ...assessmentSteps[0],
   id: faker.string.uuid(),
+  title: toLocalizedString(assessmentSteps[0].title ?? {}),
   type: toLocalizedEnum(type, "LocalizedAssessmentStepType"),
   sortOrder,
   poolSkills,
@@ -69,19 +73,31 @@ const getAssessmentResult = (
   decision?: AssessmentDecision,
   level?: AssessmentDecisionLevel,
   poolSkill?: TestPoolSkill,
-) => ({
-  ...fakeAssessmentResults(1)[0],
-  assessmentDecision: decision
-    ? toLocalizedEnum(decision, "LocalizedAssessmentDecision")
-    : undefined,
-  assessmentResultType: type ?? AssessmentResultType.Skill,
-  assessmentDecisionLevel: toLocalizedEnum(
-    level ?? AssessmentDecisionLevel.AtRequired,
-    "LocalizedAssessmentDecisionLevel",
-  ),
-  poolSkill: poolSkill ?? essentialPoolSkills[0],
-  assessmentStep,
-});
+) => {
+  const generatedResult = fakeAssessmentResults(1)[0];
+
+  return {
+    ...generatedResult,
+    assessmentDecision: decision
+      ? toLocalizedEnum(decision, "LocalizedAssessmentDecision")
+      : null,
+    assessmentResultType: type ?? AssessmentResultType.Skill,
+    assessmentDecisionLevel: toLocalizedEnum(
+      level ?? AssessmentDecisionLevel.AtRequired,
+      "LocalizedAssessmentDecisionLevel",
+    ),
+    justifications: unpackMaybes(generatedResult.justifications).map(
+      (justification) =>
+        toLocalizedEnum(
+          justification.value,
+          "LocalizedAssessmentResultJustification",
+        ),
+    ),
+    skillDecisionNotes: generatedResult.skillDecisionNotes ?? null,
+    poolSkill: poolSkill ?? essentialPoolSkills[0],
+    assessmentStep: assessmentStep ?? null,
+  };
+};
 
 /* Application screening step data (To assess status) */
 export const applicationScreeningStep = makeTestAssessmentStep(
@@ -162,9 +178,33 @@ const interviewGroupResults = [
   ),
 ];
 
+const screeningQuestionResponses = unpackMaybes(
+  poolCandidate.screeningQuestionResponses,
+).map((response) => ({
+  __typename: "ScreeningQuestionResponse" as const,
+  id: response.id,
+  answer: response.answer ?? null,
+  screeningQuestion: {
+    __typename: "ScreeningQuestion" as const,
+    id: response.screeningQuestion?.id ?? faker.string.uuid(),
+    question: toLocalizedString(response.screeningQuestion?.question ?? {}),
+  },
+}));
+
 export const testPoolCandidate = {
   ...poolCandidate,
   id: faker.string.uuid(),
+  educationRequirementOption: toLocalizedEnum(
+    EducationRequirementOption.AppliedWork,
+    "LocalizedEducationRequirementOption",
+  ),
+  educationRequirementExperiences: [experience],
+  screeningQuestionResponses,
+  assessmentStatus: {
+    __typename: "AssessmentResultStatus" as const,
+    overallAssessmentStatus:
+      poolCandidate.assessmentStatus?.overallAssessmentStatus ?? null,
+  },
   user: {
     ...poolCandidate.user,
     userSkills: [
@@ -178,6 +218,8 @@ export const testPoolCandidate = {
   },
   pool: {
     ...poolCandidate.pool,
+    name: toLocalizedString(poolCandidate.pool.name ?? {}),
+    classification: poolCandidate.pool.classification ?? null,
     poolSkills: [
       experiencePoolSkill,
       ...essentialPoolSkills,
