@@ -5,11 +5,7 @@ import type {
   SkillCategory,
   SkillLevel,
 } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  getLocalizedName,
-  getSkillLevelName,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getSkillLevelName } from "@gc-digital-talent/i18n";
 import type { HeadingRank } from "@gc-digital-talent/ui";
 import { Notice, Ul } from "@gc-digital-talent/ui";
 
@@ -74,7 +70,8 @@ const SkillsContent = ({
             return (
               <li key={skill.id}>
                 <span className="block font-bold">
-                  {getLocalizedName(skill.name, intl)}
+                  {skill.name?.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
                   {skillLevelName && (
                     <span className="ml-1 font-normal text-gray-600 dark:text-gray-200">
                       {intl.formatMessage(
