@@ -255,8 +255,8 @@ importers:
         specifier: ^9.20.1
         version: 9.39.2(jiti@2.7.0)(supports-color@7.2.0)
       eslint-plugin-playwright:
-        specifier: ^2.12.0
-        version: 2.12.0(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))
+        specifier: ^2.12.1
+        version: 2.12.1(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))
       exceljs:
         specifier: ^4.4.0
         version: 4.4.0
@@ -5091,8 +5091,8 @@ packages:
     peerDependencies:
       eslint: '>=5.16.0'
 
-  eslint-plugin-playwright@2.12.0:
-    resolution: {integrity: sha512-7HpSKR/D2oCH4RKRauFskcrnDrHvLQKopW7Nen8lqrFZtx/SB+FgqVaH+zyQd32noZSZy9Lrsa+DsYrVUpn6hg==}
+  eslint-plugin-playwright@2.12.1:
+    resolution: {integrity: sha512-JhavNuYBIq7SE/Zg9Esf9RGHkXoDbzrEKS383cowzMyvZ4JMbmdNCN6CoW+RU1Cjzwcoea1tou0je58uXmT/9A==}
     engines: {node: '>=16.9.0'}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -11256,7 +11256,7 @@ snapshots:
       resolve: 1.22.12
       semver: 6.3.1
 
-  eslint-plugin-playwright@2.12.0(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0)):
+  eslint-plugin-playwright@2.12.1(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0)):
     dependencies:
       eslint: 9.39.2(jiti@2.7.0)(supports-color@7.2.0)
       globals: 17.12.0
