@@ -6,7 +6,6 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
-  HiddenInput,
   RadioGroup,
   Select,
   localizedEnumToOptions,
