@@ -9,7 +9,7 @@
   ],
   "license": "AGPL-3.0",
   "require": {
-    "php": "^8.4",
+    "php": "^8.5",
     "beyondcode/laravel-server-timing": "^1.6",
     "doctrine/dbal": "^3.1",
     "gctc-ntgc/laravel-scout-postgres-tsvector": "^3.0.1",
@@ -66,7 +66,7 @@
     "sort-packages": true,
     "optimize-autoloader": true,
     "platform": {
-      "php": "8.4.10"
+      "php": "8.5.11"
     },
     "allow-plugins": {
       "composer/package-versions-deprecated": true,

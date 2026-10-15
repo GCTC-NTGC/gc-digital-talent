@@ -22,17 +22,17 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/eslint-config": "workspace:*",
     "@gc-digital-talent/graphql": "workspace:*",
-    "@playwright/test": "^1.63.0",
-    "@types/node": "^26.6.3",
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^26.6.5",
     "axe-core": "^4.13.0",
-    "dotenv": "^18.0.3",
+    "dotenv": "^18.0.7",
     "eslint": "^9.20.1",
-    "eslint-plugin-playwright": "^2.12.0",
+    "eslint-plugin-playwright": "^2.12.1",
     "exceljs": "^4.4.0",
     "mammoth": "^1.13.0",
-    "monocart-coverage-reports": "^2.12.12",
+    "monocart-coverage-reports": "^2.13.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.0"
+    "typescript-eslint": "^8.71.1"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.13.0"
