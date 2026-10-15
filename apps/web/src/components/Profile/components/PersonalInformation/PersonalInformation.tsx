@@ -116,6 +116,7 @@ const PersonalInformation = ({
           </Notice.Content>
         </Notice.Root>
       )}
+      <AccountInformationCard query={user} />
       {missingRequiredWorkEmail && (
         <Notice.Root color="error">
           <Notice.Content>
@@ -131,7 +132,6 @@ const PersonalInformation = ({
           </Notice.Content>
         </Notice.Root>
       )}
-      <AccountInformationCard query={user} />
       <GovernmentInformationCard query={user} />
     </div>
   );
