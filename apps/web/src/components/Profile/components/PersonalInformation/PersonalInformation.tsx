@@ -1,11 +1,9 @@
 import { useIntl } from "react-intl";
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
-import type { ReactNode } from "react";
 
-import { Link, Notice, Heading } from "@gc-digital-talent/ui";
+import { Notice, Heading } from "@gc-digital-talent/ui";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { useLocalStorage } from "@gc-digital-talent/storage";
 
 import {
   hasAllEmptyFields,
@@ -13,7 +11,6 @@ import {
   hasMissingRequiredWorkEmail,
   type AboutPool,
 } from "~/validators/profile/personalInformation";
-import useRoutes from "~/hooks/useRoutes";
 
 import type { ProfileSectionPool, SectionProps } from "../../types";
 import useSectionInfo from "../../hooks/useSectionInfo";
@@ -45,21 +42,13 @@ interface PersonalInformationProps extends SectionProps<
   isSpecialApplication?: boolean | null;
 }
 
-const NoticeDismissedKey =
-  "dismissed_alert_account_settings_collection_changed";
-
 const PersonalInformation = ({
   query,
   pool,
   isSpecialApplication,
 }: PersonalInformationProps) => {
   const intl = useIntl();
-  const paths = useRoutes();
   const user = getFragment(ProfilePersonalInformation_Fragment, query);
-  const [alertIsDismissed, setNoticeIsDismissed] = useLocalStorage<boolean>(
-    NoticeDismissedKey,
-    false,
-  );
   const isNull = hasAllEmptyFields(user);
   const missingRequiredWorkEmail = hasMissingRequiredWorkEmail(
     user,
@@ -98,35 +87,6 @@ const PersonalInformation = ({
             "Description for the Personal and contact information section",
         })}
       </p>
-      {!alertIsDismissed ? (
-        <Notice.Root onDismiss={() => setNoticeIsDismissed(true)}>
-          <Notice.Title defaultIcon>
-            {intl.formatMessage({
-              defaultMessage:
-                "We’ve changed how we collect employee information",
-              id: "ozb92E",
-              description: "title for alert about changed collection",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "To better capture your career journey in the public service, we now collect information about your classification, department and more as part of your <a>career experience</a>. If you currently work in the Government of Canada, please update your latest work experience to include this information.",
-                  id: "vj9jcO",
-                  description: "body for alert about changed collection",
-                },
-                {
-                  a: (chunks: ReactNode) => (
-                    <Link href={paths.careerTimeline()}>{chunks}</Link>
-                  ),
-                },
-              )}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      ) : null}
       {pool && emptyRequired && (
         <Notice.Root color="error">
           <Notice.Content>
