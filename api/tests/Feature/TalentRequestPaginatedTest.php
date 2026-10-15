@@ -542,7 +542,6 @@ class TalentRequestPaginatedTest extends TestCase
             'admin_notes' => 'Secret note',
         ]);
 
-        // submitters see their own requests through `me`, not search, so filtering can't probe notes
         collect([
             [],
             ['adminNotes' => 'secret'],

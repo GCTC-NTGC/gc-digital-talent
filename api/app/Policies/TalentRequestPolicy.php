@@ -60,11 +60,7 @@ class TalentRequestPolicy
             return true;
         }
 
-        if (isset($talentRequest->community->team)) {
-            return $user->isAbleTo('view-team-talentRequest', $talentRequest->community->team);
-        }
-
-        return false;
+        return $this->checkTeamPermission($user, [$talentRequest->community?->team], 'view-team-talentRequest');
     }
 
     /**
