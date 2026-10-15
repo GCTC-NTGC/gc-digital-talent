@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import { AwardedTo } from "@gc-digital-talent/graphql";
 import type { AwardedScope } from "@gc-digital-talent/graphql";
 import { Separator } from "@gc-digital-talent/ui";
@@ -96,17 +96,13 @@ const AwardDialogContent = ({
             headingRank={headingRank}
             title={experienceFormLabels.awardedTo}
           >
-            {awardedTo?.label
-              ? getLocalizedName(awardedTo.label, intl)
-              : notAvailable}
+            {awardedTo?.label?.localized ?? notAvailable}
           </ContentSection>
           <ContentSection
             headingRank={headingRank}
             title={experienceFormLabels.awardedScope}
           >
-            {awardedScope?.label
-              ? getLocalizedName(awardedScope.label, intl)
-              : notAvailable}
+            {awardedScope?.label?.localized ?? notAvailable}
           </ContentSection>
         </div>
         {awardedTo?.value === AwardedTo.MyProject && (

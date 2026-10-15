@@ -1,27 +1,41 @@
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+
 import { hasEmptyRequiredFields } from "~/validators/experience/community";
 
-import type { CommunityDialogContentExperience } from "./CommunityDialogContent";
 import CommunityDialogContent from "./CommunityDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
-import type { DialogExperience } from "./types";
 
-export type CommunityDialogExperience =
-  DialogExperience<CommunityDialogContentExperience>;
+export const CommunityExperienceDialog_Fragment = graphql(/* GraphQL */ `
+  fragment CommunityExperienceDialog on CommunityExperience {
+    ...ExperienceDialog
+    title
+    organization
+    project
+    startDate
+    endDate
+    details
+  }
+`);
 
 interface CommunityExperienceDialogProps extends ExperienceDialogBaseProps {
-  experience: CommunityDialogExperience;
+  experienceQuery: FragmentType<typeof CommunityExperienceDialog_Fragment>;
 }
 
 const CommunityExperienceDialog = ({
-  experience,
+  experienceQuery,
   ...rest
 }: CommunityExperienceDialogProps) => {
+  const experience = getFragment(
+    CommunityExperienceDialog_Fragment,
+    experienceQuery,
+  );
   const isMissingInfo = hasEmptyRequiredFields(experience);
 
   return (
     <ExperienceDialog
-      experience={experience}
+      experienceQuery={experience}
       isMissingInfo={isMissingInfo}
       {...rest}
     >

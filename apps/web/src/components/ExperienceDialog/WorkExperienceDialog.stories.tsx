@@ -18,11 +18,14 @@ import {
   ExternalRoleSeniority,
   ExternalSizeOfOrganization,
   GovEmployeeType,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import WorkExperienceDialog from "./WorkExperienceDialog";
+import WorkExperienceDialog, {
+  WorkExperienceDialog_Fragment,
+} from "./WorkExperienceDialog";
 
 faker.seed(0);
 
@@ -67,20 +70,23 @@ const govEmploymentType = (type: GovEmployeeType) =>
 
 export const ExternalOrganization = Template.bind({});
 ExternalOrganization.args = {
-  experience: {
-    ...experience,
-    employmentCategory: employmentCategory(
-      EmploymentCategory.ExternalOrganization,
-    ),
-    extSizeOfOrganization: toLocalizedEnum(
-      ExternalSizeOfOrganization.OneHundredOneToOneThousand,
-      "LocalizedExternalSizeOfOrganization",
-    ),
-    extRoleSeniority: toLocalizedEnum(
-      ExternalRoleSeniority.Senior,
-      "LocalizedExternalRoleSeniority",
-    ),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      employmentCategory: employmentCategory(
+        EmploymentCategory.ExternalOrganization,
+      ),
+      extSizeOfOrganization: toLocalizedEnum(
+        ExternalSizeOfOrganization.OneHundredOneToOneThousand,
+        "LocalizedExternalSizeOfOrganization",
+      ),
+      extRoleSeniority: toLocalizedEnum(
+        ExternalRoleSeniority.Senior,
+        "LocalizedExternalRoleSeniority",
+      ),
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
@@ -94,53 +100,68 @@ const governmentOfCanada = {
 
 export const GovernmentOfCanadaDepartment = Template.bind({});
 GovernmentOfCanadaDepartment.args = {
-  experience: {
-    ...governmentOfCanada,
-    department: findDepartment("Treasury Board of Canada Secretariat"),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...governmentOfCanada,
+      department: findDepartment("Treasury Board of Canada Secretariat"),
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const GovernmentOfCanadaAgency = Template.bind({});
 GovernmentOfCanadaAgency.args = {
-  experience: {
-    ...governmentOfCanada,
-    department: findDepartment("Canada Revenue Agency"),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...governmentOfCanada,
+      department: findDepartment("Canada Revenue Agency"),
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const GovernmentOfCanadaCrownCorporation = Template.bind({});
 GovernmentOfCanadaCrownCorporation.args = {
-  experience: {
-    ...governmentOfCanada,
-    department: findDepartment("Canada Post"),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...governmentOfCanada,
+      department: findDepartment("Canada Post"),
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const CanadianArmedForces = Template.bind({});
 CanadianArmedForces.args = {
-  experience: {
-    ...experience,
-    employmentCategory: employmentCategory(
-      EmploymentCategory.CanadianArmedForces,
-    ),
-    cafEmploymentType: toLocalizedEnum(
-      CafEmploymentType.RegularForce,
-      "LocalizedCafEmploymentType",
-    ),
-    cafForce: toLocalizedEnum(CafForce.CanadianArmy, "LocalizedCafForce"),
-    cafRank: toLocalizedEnum(CafRank.GeneralFlagOfficer, "LocalizedCafRank"),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      employmentCategory: employmentCategory(
+        EmploymentCategory.CanadianArmedForces,
+      ),
+      cafEmploymentType: toLocalizedEnum(
+        CafEmploymentType.RegularForce,
+        "LocalizedCafEmploymentType",
+      ),
+      cafForce: toLocalizedEnum(CafForce.CanadianArmy, "LocalizedCafForce"),
+      cafRank: toLocalizedEnum(CafRank.GeneralFlagOfficer, "LocalizedCafRank"),
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const MissingInfo = Template.bind({});
 MissingInfo.args = {
-  experience: {
-    ...experience,
-    division: null,
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      division: null,
+    },
+    WorkExperienceDialog_Fragment,
+  ),
   userSkills,
 };

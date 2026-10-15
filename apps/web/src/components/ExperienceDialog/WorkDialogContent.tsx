@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import type {
   CafEmploymentType,
   CafForce,
@@ -134,13 +134,13 @@ const WorkDialogContent = ({
                 headingRank={headingRank}
                 title={labels.extSizeOfOrganization}
               >
-                {getLocalizedName(extSizeOfOrganization?.label, intl)}
+                {extSizeOfOrganization?.label?.localized ?? notAvailable}
               </ContentSection>
               <ContentSection
                 headingRank={headingRank}
                 title={labels.extRoleSeniority}
               >
-                {getLocalizedName(extRoleSeniority?.label, intl)}
+                {extRoleSeniority?.label?.localized ?? notAvailable}
               </ContentSection>
             </div>
           </>
@@ -152,7 +152,7 @@ const WorkDialogContent = ({
                 headingRank={headingRank}
                 title={labels.department}
               >
-                {getLocalizedName(department?.name, intl)}
+                {department?.name?.localized ?? notAvailable}
               </ContentSection>
               {teamSection}
             </div>
@@ -161,14 +161,14 @@ const WorkDialogContent = ({
                 headingRank={headingRank}
                 title={labels.govEmploymentType}
               >
-                {getLocalizedName(govEmploymentType?.label, intl)}
+                {govEmploymentType?.label?.localized ?? notAvailable}
               </ContentSection>
               {govType === GovEmployeeType.Indeterminate && (
                 <ContentSection
                   headingRank={headingRank}
                   title={labels.positionType}
                 >
-                  {getLocalizedName(govPositionType?.label, intl)}
+                  {govPositionType?.label?.localized ?? notAvailable}
                 </ContentSection>
               )}
             </div>
@@ -178,13 +178,13 @@ const WorkDialogContent = ({
                   headingRank={headingRank}
                   title={labels.govContractorRoleSeniority}
                 >
-                  {getLocalizedName(govContractorRoleSeniority?.label, intl)}
+                  {govContractorRoleSeniority?.label?.localized ?? notAvailable}
                 </ContentSection>
                 <ContentSection
                   headingRank={headingRank}
                   title={labels.govContractorType}
                 >
-                  {getLocalizedName(govContractorType?.label, intl)}
+                  {govContractorType?.label?.localized ?? notAvailable}
                 </ContentSection>
               </div>
             )}
@@ -224,13 +224,13 @@ const WorkDialogContent = ({
                 headingRank={headingRank}
                 title={labels.organization}
               >
-                {getLocalizedName(employmentCategory?.label, intl)}
+                {employmentCategory?.label?.localized ?? notAvailable}
               </ContentSection>
               <ContentSection
                 headingRank={headingRank}
                 title={labels.cafEmploymentType}
               >
-                {getLocalizedName(cafEmploymentType?.label, intl)}
+                {cafEmploymentType?.label?.localized ?? notAvailable}
               </ContentSection>
             </div>
             <ContentSection
@@ -241,10 +241,10 @@ const WorkDialogContent = ({
                 description: "Label for the military force radio group",
               })}
             >
-              {getLocalizedName(cafForce?.label, intl)}
+              {cafForce?.label?.localized ?? notAvailable}
             </ContentSection>
             <ContentSection headingRank={headingRank} title={labels.cafRank}>
-              {getLocalizedName(cafRank?.label, intl)}
+              {cafRank?.label?.localized ?? notAvailable}
             </ContentSection>
           </>
         )}

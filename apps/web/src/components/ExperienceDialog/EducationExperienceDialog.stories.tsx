@@ -11,11 +11,14 @@ import {
   EducationStatus,
   EducationType,
   FellowshipType,
+  makeFragmentData,
 } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import EducationExperienceDialog from "./EducationExperienceDialog";
+import EducationExperienceDialog, {
+  EducationExperienceDialog_Fragment,
+} from "./EducationExperienceDialog";
 
 faker.seed(0);
 
@@ -48,79 +51,100 @@ const educationStatus = (status: EducationStatus) =>
 
 export const Degree = Template.bind({});
 Degree.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.DegreeDiplomaCertificate),
-    degreeType: toLocalizedEnum(
-      DegreeType.MastersDegree,
-      "LocalizedDegreeType",
-    ),
-    status: educationStatus(EducationStatus.SuccessCredential),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.DegreeDiplomaCertificate),
+      degreeType: toLocalizedEnum(
+        DegreeType.MastersDegree,
+        "LocalizedDegreeType",
+      ),
+      status: educationStatus(EducationStatus.SuccessCredential),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const LicenseOrAccreditation = Template.bind({});
 LicenseOrAccreditation.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.LicenseAccreditation),
-    status: educationStatus(EducationStatus.Success),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.LicenseAccreditation),
+      status: educationStatus(EducationStatus.Success),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const ProfessionalCertification = Template.bind({});
 ProfessionalCertification.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.ProfessionalCertification),
-    status: educationStatus(EducationStatus.Success),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.ProfessionalCertification),
+      status: educationStatus(EducationStatus.Success),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const IndividualCourse = Template.bind({});
 IndividualCourse.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.IndividualCourse),
-    status: educationStatus(EducationStatus.SuccessCredential),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.IndividualCourse),
+      status: educationStatus(EducationStatus.SuccessCredential),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const Fellowship = Template.bind({});
 Fellowship.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.Fellowship),
-    fellowshipType: toLocalizedEnum(
-      FellowshipType.Other,
-      "LocalizedFellowshipType",
-    ),
-    otherFellowshipType: faker.lorem.words(),
-    status: educationStatus(EducationStatus.SuccessCredential),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.Fellowship),
+      fellowshipType: toLocalizedEnum(
+        FellowshipType.Other,
+        "LocalizedFellowshipType",
+      ),
+      otherFellowshipType: faker.lorem.words(),
+      status: educationStatus(EducationStatus.SuccessCredential),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const Other = Template.bind({});
 Other.args = {
-  experience: {
-    ...experience,
-    educationType: educationType(EducationType.Other),
-    otherEducationType: faker.lorem.words(),
-    status: educationStatus(EducationStatus.SuccessCredential),
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      educationType: educationType(EducationType.Other),
+      otherEducationType: faker.lorem.words(),
+      status: educationStatus(EducationStatus.SuccessCredential),
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const MissingInfo = Template.bind({});
 MissingInfo.args = {
-  experience: {
-    ...experience,
-    institution: null,
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      institution: null,
+    },
+    EducationExperienceDialog_Fragment,
+  ),
   userSkills,
 };

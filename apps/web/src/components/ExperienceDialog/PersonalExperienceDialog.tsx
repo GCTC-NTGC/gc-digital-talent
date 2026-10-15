@@ -1,28 +1,41 @@
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+
 import { hasEmptyRequiredFields } from "~/validators/experience/personal";
 
-import type { PersonalDialogContentExperience } from "./PersonalDialogContent";
 import PersonalDialogContent from "./PersonalDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
-import type { DialogExperience } from "./types";
 
-export type PersonalDialogExperience =
-  DialogExperience<PersonalDialogContentExperience>;
+export const PersonalExperienceDialog_Fragment = graphql(/* GraphQL */ `
+  fragment PersonalExperienceDialog on PersonalExperience {
+    ...ExperienceDialog
+    title
+    organization
+    learningDescription
+    startDate
+    endDate
+  }
+`);
 
 interface PersonalExperienceDialogProps extends ExperienceDialogBaseProps {
-  experience: PersonalDialogExperience;
+  experienceQuery: FragmentType<typeof PersonalExperienceDialog_Fragment>;
 }
 
 // Personal experiences have no details field, matching ExperienceCard
 const PersonalExperienceDialog = ({
-  experience,
+  experienceQuery,
   ...rest
 }: PersonalExperienceDialogProps) => {
+  const experience = getFragment(
+    PersonalExperienceDialog_Fragment,
+    experienceQuery,
+  );
   const isMissingInfo = hasEmptyRequiredFields(experience);
 
   return (
     <ExperienceDialog
-      experience={experience}
+      experienceQuery={experience}
       isMissingInfo={isMissingInfo}
       {...rest}
     >

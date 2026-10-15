@@ -1,7 +1,7 @@
 import { useIntl } from "react-intl";
 
 import type { GenericLocalizedEnum } from "@gc-digital-talent/i18n";
-import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
+import { commonMessages } from "@gc-digital-talent/i18n";
 import {
   DegreeType,
   EducationStatus,
@@ -90,7 +90,7 @@ const EducationDialogContent = ({
   return (
     <div className="flex flex-col gap-y-6">
       <ContentSection headingRank={headingRank} title={labels.educationType}>
-        {getLocalizedName(educationType?.label, intl)}
+        {educationType?.label?.localized ?? notAvailable}
       </ContentSection>
       {type === EducationType.Other && (
         <ContentSection
@@ -109,7 +109,7 @@ const EducationDialogContent = ({
             headingRank={headingRank}
             title={labels.fellowshipType}
           >
-            {getLocalizedName(fellowshipType?.label, intl)}
+            {fellowshipType?.label?.localized ?? notAvailable}
           </ContentSection>
           {fellowshipType?.value === FellowshipType.Other && (
             <ContentSection
@@ -124,7 +124,7 @@ const EducationDialogContent = ({
       {isDegree ? (
         <div className="grid gap-6 sm:grid-cols-2">
           <ContentSection headingRank={headingRank} title={labels.degreeType}>
-            {getLocalizedName(degreeType?.label, intl)}
+            {degreeType?.label?.localized ?? notAvailable}
           </ContentSection>
           {showAreaOfStudy && areaOfStudySection}
         </div>
@@ -150,7 +150,7 @@ const EducationDialogContent = ({
         </ContentSection>
       )}
       <ContentSection headingRank={headingRank} title={labels.educationStatus}>
-        {getLocalizedName(status?.label, intl)}
+        {status?.label?.localized ?? notAvailable}
       </ContentSection>
       {isLicenseOrCertification ? (
         !didNotComplete && (

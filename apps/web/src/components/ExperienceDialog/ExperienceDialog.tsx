@@ -3,12 +3,95 @@ import { useIntl } from "react-intl";
 
 import { Button, Dialog, Link, Notice, Separator } from "@gc-digital-talent/ui";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
 
 import type { UserSkillLevel } from "../ExperienceCard/SkillsContent";
 import SkillsContent from "../ExperienceCard/SkillsContent";
-import type { ExperienceWithSkills } from "./types";
+
+export const ExperienceDialog_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceDialog on Experience {
+    id
+    skills {
+      id
+      name {
+        localized
+      }
+      category {
+        value
+      }
+      experienceSkillRecord {
+        details
+      }
+    }
+    ... on AwardExperience {
+      title
+    }
+    ... on CommunityExperience {
+      title
+      organization
+    }
+    ... on EducationExperience {
+      educationType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      degreeType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      fellowshipType {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      otherEducationType
+      otherFellowshipType
+      areaOfStudy
+      institution
+      licenseOrAccreditation
+      certification
+    }
+    ... on PersonalExperience {
+      title
+    }
+    ... on WorkExperience {
+      role
+      organization
+      employmentCategory {
+        value
+        label {
+          en
+          fr
+        }
+      }
+      department {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      cafForce {
+        value
+        label {
+          en
+          fr
+        }
+      }
+    }
+  }
+`);
 
 export interface ExperienceDialogBaseProps {
   trigger: ReactNode;
@@ -20,13 +103,13 @@ export interface ExperienceDialogBaseProps {
 }
 
 interface ExperienceDialogProps extends ExperienceDialogBaseProps {
-  experience: ExperienceWithSkills;
+  experienceQuery: FragmentType<typeof ExperienceDialog_Fragment>;
   isMissingInfo?: boolean;
   children: ReactNode;
 }
 
 const ExperienceDialog = ({
-  experience,
+  experienceQuery,
   trigger,
   editPath: editPathProp,
   userSkills,
@@ -37,6 +120,7 @@ const ExperienceDialog = ({
   children,
 }: ExperienceDialogProps) => {
   const intl = useIntl();
+  const experience = getFragment(ExperienceDialog_Fragment, experienceQuery);
   const { titleHtml, editPath } = useExperienceInfo(experience);
   const editHref = editPathProp ?? editPath;
 

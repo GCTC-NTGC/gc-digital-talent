@@ -5,10 +5,13 @@ import {
   experienceGenerators,
   fakeUserSkills,
 } from "@gc-digital-talent/fake-data";
+import { makeFragmentData } from "@gc-digital-talent/graphql";
 import { Button } from "@gc-digital-talent/ui";
 import { OverlayOrDialogDecorator } from "@gc-digital-talent/storybook-helpers";
 
-import PersonalExperienceDialog from "./PersonalExperienceDialog";
+import PersonalExperienceDialog, {
+  PersonalExperienceDialog_Fragment,
+} from "./PersonalExperienceDialog";
 
 faker.seed(0);
 
@@ -36,15 +39,21 @@ const userSkills = skills.map((skill, index) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  experience,
+  experienceQuery: makeFragmentData(
+    experience,
+    PersonalExperienceDialog_Fragment,
+  ),
   userSkills,
 };
 
 export const MissingInfo = Template.bind({});
 MissingInfo.args = {
-  experience: {
-    ...experience,
-    learningDescription: null,
-  },
+  experienceQuery: makeFragmentData(
+    {
+      ...experience,
+      learningDescription: null,
+    },
+    PersonalExperienceDialog_Fragment,
+  ),
   userSkills,
 };
