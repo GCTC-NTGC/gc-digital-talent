@@ -33,6 +33,7 @@ class CiSeeder extends Seeder
             AssessmentResultTestSeeder::class,
             EmployeeProfileTalentNominationTestSeeder::class,
             TalentCoordinatorNominationTestSeeder::class,
+            TalentRequestTestSeeder::class,
         ]);
     }
 }
