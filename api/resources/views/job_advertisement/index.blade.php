@@ -9,9 +9,8 @@
 
 
 <ul>
-    @localized($pool->workStream->name)
-        <li>Category: {!! $pool->workStream->name !!} <x-footnote-ref id="1" /></li>
-    @endlocalized
+    <li><x-text-label>Category</x-text-label>{!! $pool->workStream->name !!} <x-footnote-ref id="1" /></li>
+    <li><x-text-label>Department</x-text-label>: {!! $pool->department->name !!}</li>
 </ul>
 
 <hr>
