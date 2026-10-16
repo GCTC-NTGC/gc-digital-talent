@@ -139,6 +139,19 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether a user can toggle field is_dashboard_viewable
+     *
+     * @return Response|bool
+     */
+    public function toggleDashboardViewable(User $user, PoolCandidate $poolCandidate)
+    {
+        $isOwn = $user->id === $poolCandidate->user_id;
+        $isDraft = $poolCandidate->isDraft();
+
+        return $isOwn && ! $isDraft;
+    }
+
+    /**
      * Determine whether the user can count the number of items in the model.
      *
      * Note: Everyone needs to be able to count applicants

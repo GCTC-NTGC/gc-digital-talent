@@ -3981,6 +3981,9 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
     @validator
+  toggleIsDashboardViewable(id: ID!): PoolCandidate
+    @guard
+    @canFind(ability: "toggleDashboardViewable", find: "id")
 
   # Job poster template mutations
   createJobPosterTemplate(
