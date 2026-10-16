@@ -1,0 +1,9 @@
+<h2>@lang('job_advertisement.more_information.title')</h2>
+<h3>@lang('job_advertisement.more_information.label_who_can_apply')</h3>
+<h3>@lang('job_advertisement.more_information.label_equity')</h3>
+<h3>@lang('job_advertisement.more_information.label_start')</h3>
+<h3>@lang('job_advertisement.more_information.label_expect_after')</h3>
+<h3>@lang('job_advertisement.more_information.label_expect_successful')</h3>
+<h3>@lang('job_advertisement.more_information.label_experience_technical_issues')</h3>
+<h3>@lang('job_advertisement.more_information.label_experience_sign_in_issues')</h3>
+<h3>@lang('job_advertisement.more_information.label_questions_accommodation')</h3>
