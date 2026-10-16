@@ -1338,10 +1338,6 @@
     "defaultMessage": "Cette annonce n’exige pas qu’on y joigne une note spéciale.",
     "description": "Message displayed when there is no special note for a process advertisement."
   },
-  "3BeThz": {
-    "defaultMessage": "Date de clôture (heure locale)",
-    "description": "Label for a process' closing date in users local timezone"
-  },
   "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
@@ -2746,10 +2742,6 @@
     "defaultMessage": "Ce formulaire vous permet de modifier une expérience en particulier, ses détails et les compétences qui s’y rattachent. N’oubliez pas que dans vos expériences de travail, vous devez décrire vos expériences de travail à temps partiel, de travail à temps plein, de travailleur autonome, de travail en tant que boursier, de travail au sein d’un organisme sans but lucratif ou de stagiaire.",
     "description": "Instructions on how to add an experience to your career timeline"
   },
-  "9EnhFG": {
-    "defaultMessage": "Afin d'offrir une occasion équitable à toutes les personnes au Canada de postuler un poste, les dates limites se terminent à <strong>23 h 59, heure du Pacifique</strong>, à la date que vous avez choisie. Lorsqu'ils sont montrés aux candidates et candidats, nous leur demandons de présenter leur demande au plus tard à la date que vous avez choisie afin d'éviter toute confusion concernant les fuseaux horaires.",
-    "description": "First paragraph for the pool closing date dialog"
-  },
   "9HEVBb": {
     "defaultMessage": "Utilisez le bouton « Créer un volet de travail » pour commencer.",
     "description": "Instructions for adding a work stream item."
@@ -3513,10 +3505,6 @@
   "C7sYnb": {
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettront aux gestionnaires qui embauchent de vous trouver facilement. Cette page donne un aperçu de nos processus de recrutement ouverts. Revenez-y et consultez cette page fréquemment!",
     "description": "Description of how the application process works, paragraph one"
-  },
-  "C9jYms": {
-    "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidates et candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
-    "description": "Second paragraph for pool closing date dialog"
   },
   "CBedVL": {
     "defaultMessage": "Votre compte",
@@ -5444,10 +5432,6 @@
     "defaultMessage": "Aucune expérience de travail actuelle au gouvernement du Canada n'a été fournie.",
     "description": "Error message when user has no current government experience."
   },
-  "Jqt2vB": {
-    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
-    "description": "Label for a process' closing date in pacific timezone"
-  },
   "JsPXch": {
     "defaultMessage": "Entrez votre mot de passe ConnexionCanada.",
     "description": "Text for first registration -> create step."
@@ -5731,10 +5715,6 @@
   "L47tv9": {
     "defaultMessage": "Aucun modèle d'offre d'emploi n'a été trouvé.",
     "description": "Message displayed when there are no job poster templates meeting a specific criteria"
-  },
-  "L6MgeM": {
-    "defaultMessage": "Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à <strong>23:59 heure du Pacifique</strong>, à la date précisée.",
-    "description": "First paragraph for the pool deadlines dialog"
   },
   "L7Noe0": {
     "defaultMessage": "Comment lier mon profil",
@@ -11234,10 +11214,6 @@
     "defaultMessage": "Sélectionner la durée de l'interruption",
     "description": "Null selection for pause referral select input"
   },
-  "hGlM9B": {
-    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
-    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
-  },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
@@ -14200,10 +14176,6 @@
   "tgPKAn": {
     "defaultMessage": "Nominations",
     "description": "Link text for the nominations of a specific talent nomination event"
-  },
-  "tgtpgb": {
-    "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
-    "description": "Message to direct users to the talent placement page"
   },
   "tgu3Ip": {
     "defaultMessage": "Les personnes candidates sélectionnées ({numOfSelectedCandidates}) seront marquées comme",
