@@ -1,6 +1,6 @@
 @localized($pool->special_note)
     <h2>Special note</h2>
-    {!! $pool->special_note['localized'] !!}
+    {!! $pool->special_note !!}
 @endlocalized
 
 <h2>Employment details</h2>
