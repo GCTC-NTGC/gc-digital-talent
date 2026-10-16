@@ -33,6 +33,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     }
     isSpecialApplication
     specialApplicationClosingDate
+    isDashboardViewable
     pool {
       id
       name {
@@ -50,12 +51,14 @@ interface ReviewApplicationPreviewListProps {
   applicationsQuery: FragmentType<
     typeof ReviewApplicationPreviewList_Fragment
   >[];
+  filterForDashboardViewable?: boolean;
   doNotSort?: boolean;
 }
 
 const ReviewApplicationPreviewList = ({
   applicationsQuery,
   doNotSort,
+  filterForDashboardViewable,
 }: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -77,11 +80,17 @@ const ReviewApplicationPreviewList = ({
       )
     : applications;
 
+  const viewableAndSortedApplications = filterForDashboardViewable
+    ? sortedApplications.filter(
+        (application) => application.isDashboardViewable,
+      )
+    : sortedApplications;
+
   return (
     <>
-      {applications.length ? (
+      {viewableAndSortedApplications.length ? (
         <PreviewList.Root>
-          {sortedApplications.map((application) => {
+          {viewableAndSortedApplications.map((application) => {
             const {
               id,
               pool,
