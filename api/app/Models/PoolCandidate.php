@@ -94,6 +94,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $special_application_justification
  * @property ?Carbon $special_application_closing_date
  * @property bool $is_special_application
+ * @property bool $is_dashboard_viewable
  */
 class PoolCandidate extends Model
 {

@@ -1287,6 +1287,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isBookmarked: Boolean
+  isDashboardViewable: Boolean!
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]

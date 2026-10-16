@@ -665,6 +665,7 @@ type PoolCandidate {
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
   isBookmarked: Boolean
+  isDashboardViewable: Boolean! @rename(attribute: "is_dashboard_viewable")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
