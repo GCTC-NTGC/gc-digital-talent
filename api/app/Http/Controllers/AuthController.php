@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\BearerTokenService;
+use App\Contracts\ClientAuthenticationService;
 use App\Contracts\JoseService;
 use App\Models\Role;
 use App\Models\User;
@@ -27,8 +28,10 @@ class AuthController extends Controller
 {
     protected $fastSigner;
 
-    public function __construct(BearerTokenService $service)
-    {
+    public function __construct(
+        private readonly BearerTokenService $service,
+        private readonly ClientAuthenticationService $clientAuth,
+    ) {
         // inject signer method from service file
         $this->fastSigner = $service->fastSigner();
     }
@@ -102,7 +105,7 @@ class AuthController extends Controller
         $tokenPayload = [
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
-            'client_secret' => config('oauth.client_secret'),
+            ...$this->clientAuth->paramsFor(config('oauth.token_uri')),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
             'code_verifier' => $codeVerifier,
@@ -301,7 +304,7 @@ class AuthController extends Controller
         $payload = [
             'grant_type' => 'refresh_token',
             'client_id' => config('oauth.client_id'),
-            'client_secret' => config('oauth.client_secret'),
+            ...$this->clientAuth->paramsFor(config('oauth.token_uri')),
             'refresh_token' => $refreshToken,
         ];
         $response =
