@@ -6,7 +6,6 @@ use App\Reverb\ReverbLogger;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
@@ -74,21 +73,5 @@ class AppServiceProvider extends ServiceProvider
         //         Log::info("An event was fired: {$event}", $data);
         //     }
         // });
-
-        // Check for localized fields existence in blade
-        Blade::if('localized', function ($field) {
-            return ! empty($field['localized']);
-        });
-
-        // Handle localized strings in blade templates
-        Blade::stringable('iterable', function (iterable $value) {
-            if (is_array($value) && array_key_exists('localized', $value)) {
-                $text = $value['localized'] ?? null;
-
-                return ! blank($text) ? $text : __('common.not_provided');
-            }
-
-            return json_encode($value);
-        });
     }
 }

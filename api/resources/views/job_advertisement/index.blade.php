@@ -1,3 +1,5 @@
+@use('App\Enums\PoolOpportunityLength')
+
 @localized($pool->special_note)
     <h2>Special note</h2>
     {!! $pool->special_note !!}
@@ -9,10 +11,11 @@
 
 
 <ul>
-    <li><x-text-label>Category</x-text-label>{!! $pool->workStream->name !!} <x-footnote-ref id="1" /></li>
-    <li><x-text-label>Department</x-text-label>{!! $pool->department->name !!}</li>
+    <li><x-text-label>Category</x-text-label>{{ $pool->workStream->name }} <x-footnote-ref id="1" /></li>
+    <li><x-text-label>Department</x-text-label>{{ $pool->department->name }}</li>
     <li><x-text-label>Salary range</x-text-label>{{ $pool->classification->salary_range }}</li>
     <li><x-text-label>Deadline</x-text-label>{{ $pool->formatted_closing_date }}</li>
+    <li><x-text-label>Opportunity length</x-text-label>@enum($pool->opportunity_length, PoolOpportunityLength::class)</li>
 </ul>
 
 <hr>
