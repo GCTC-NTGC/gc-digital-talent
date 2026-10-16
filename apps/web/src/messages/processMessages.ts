@@ -31,16 +31,6 @@ const messages = defineMessages({
     id: "CQxGrS",
     description: "Label for a process' closing date",
   },
-  closingDatePacific: {
-    defaultMessage: "Closing date (Pacific timezone)",
-    id: "Jqt2vB",
-    description: "Label for a process' closing date in pacific timezone",
-  },
-  closingDateLocal: {
-    defaultMessage: "Closing date (Local time)",
-    id: "3BeThz",
-    description: "Label for a process' closing date in users local timezone",
-  },
   yourImpact: {
     defaultMessage: "Your impact",
     id: "DwpF2q",
@@ -125,12 +115,6 @@ const messages = defineMessages({
     defaultMessage: "This process does not have an assessment plan.",
     id: "mYnQH4",
     description: "A process has no assessment plan",
-  },
-  viewTalentPlacement: {
-    defaultMessage:
-      "You can view your candidates on the <a>Talent placement</a> page.",
-    id: "tgtpgb",
-    description: "Message to direct users to the talent placement page",
   },
   educationRequirement: {
     defaultMessage: "Education requirement",
