@@ -68,6 +68,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
  * @property array $display_name
+ * @property ?string $formattedClosingDate
  * @property bool $is_hidden
  */
 class Pool extends Model
@@ -523,6 +524,18 @@ class Pool extends Model
         return $classification
             ? $classification.$dividingColon.$name
             : $name;
+    }
+
+    protected function formattedClosingDate(): Attribute
+    {
+        $locale = app()->getLocale();
+
+        return Attribute::get(function () use ($locale) {
+            return $this->closing_date
+                ?->setTimezone('America/Vancouver')
+                ->locale($locale)
+                ->translatedFormat($locale === 'fr' ? 'j F Y' : 'F jS, Y');
+        });
     }
 
     public function requiresBilingual(): Attribute
