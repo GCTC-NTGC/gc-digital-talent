@@ -53,7 +53,10 @@ const columnHelper = createColumnHelper<TalentRequestTableRowFragment>();
 const TalentRequestTableRow_Fragment = graphql(/* GraphQL */ `
   fragment TalentRequestTableRow on TalentRequest {
     additionalComments
-    adminNotes
+    adminData {
+      adminNotes
+      followUpDate
+    }
     applicantFilter {
       id
       qualifiedInClassifications {
@@ -88,7 +91,6 @@ const TalentRequestTableRow_Fragment = graphql(/* GraphQL */ `
     fullName
     id
     jobTitle
-    followUpDate
     requestedDate
     talentRequestStatus {
       value
@@ -283,17 +285,20 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
       enableColumnFilter: false,
       enableSorting: false,
     }),
-    columnHelper.accessor(({ followUpDate }) => accessors.date(followUpDate), {
-      id: "followUpDate",
-      sortDescFirst: false,
-      enableColumnFilter: false,
-      header: intl.formatMessage(talentRequestMessages.followUpDate),
-      cell: ({
-        row: {
-          original: { followUpDate },
-        },
-      }) => followUpDateCell(followUpDate, now, intl),
-    }),
+    columnHelper.accessor(
+      ({ adminData }) => accessors.date(adminData?.followUpDate),
+      {
+        id: "followUpDate",
+        sortDescFirst: false,
+        enableColumnFilter: false,
+        header: intl.formatMessage(talentRequestMessages.followUpDate),
+        cell: ({
+          row: {
+            original: { adminData },
+          },
+        }) => followUpDateCell(adminData?.followUpDate, now, intl),
+      },
+    ),
     columnHelper.accessor(
       ({ requestedDate }) => accessors.date(requestedDate),
       {
@@ -312,7 +317,7 @@ const TalentRequestTable = ({ title }: TalentRequestTableProps) => {
         }) => cells.date(requestedDate, intl),
       },
     ),
-    columnHelper.accessor("adminNotes", {
+    columnHelper.accessor(({ adminData }) => adminData?.adminNotes, {
       id: "adminNotes",
       enableSorting: false,
       header: intl.formatMessage(adminMessages.notes),
