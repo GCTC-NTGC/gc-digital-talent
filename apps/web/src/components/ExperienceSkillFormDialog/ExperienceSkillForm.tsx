@@ -22,26 +22,8 @@ import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants
 
 const TEXT_AREA_MAX_WORDS_EN = 400;
 
-const getSkillArgs = (
-  skillId: string,
-  experienceSkills: { id: string }[] | null | undefined,
-  details?: string,
-  remove?: boolean,
-) => {
-  const isExisting = experienceSkills?.find(
-    (experienceSkill) => experienceSkill.id === skillId,
-  );
-
-  if (!remove) {
-    const args = [{ id: skillId, details }];
-
-    return isExisting ? { update: args } : { connect: args };
-  }
-
-  return {
-    disconnect: [skillId],
-  };
-};
+const getSkillArgs = (skillId: string, details?: string, remove?: boolean) =>
+  remove ? { disconnect: [skillId] } : { connect: [{ id: skillId, details }] };
 
 export const ExperienceSkillFormExperience_Fragment = graphql(/** GraphQL */ `
   fragment ExperienceSkillFormExperience on Experience {
@@ -165,7 +147,6 @@ const ExperienceSkillForm = ({
         ? {
             skills: getSkillArgs(
               formValues.skill,
-              selectedExperience?.skills,
               formValues.details,
               formValues.action === "remove",
             ),

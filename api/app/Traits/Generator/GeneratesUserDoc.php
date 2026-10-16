@@ -735,14 +735,11 @@ trait GeneratesUserDoc
      */
     protected function talentManagementNominations(Section $section, User $user, $headingRank = 3)
     {
-        if ($this->anonymous) {
-            return;
-        }
-
         // only display approved nominations
         $isApproved = fn ($decision, $count) => $decision === TalentNominationGroupDecision::APPROVED->name && $count > 0;
 
         $groups = $user->talentNominationGroupsAsNominee
+            ->filter(fn ($group) => $group->consentToShareProfile)
             ->filter(fn ($group) => $isApproved($group->advancement_decision, $group->advancement_nomination_count) ||
                 $isApproved($group->lateral_movement_decision, $group->lateral_movement_nomination_count) ||
                 $isApproved($group->development_programs_decision, $group->development_programs_nomination_count));

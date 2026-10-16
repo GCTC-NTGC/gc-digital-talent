@@ -7949,6 +7949,10 @@
     "defaultMessage": "Comment cela fonctionnera-t-il?",
     "description": "heading for how the indigenous talent portal will work"
   },
+  "U8ifHf": {
+    "defaultMessage": "Classification",
+    "description": "Label for an employees classification"
+  },
   "U9jw1M": {
     "defaultMessage": "À l’exception de quelques compétences comportementales très particulières, seuls des renseignements techniques sont recueillis auprès des candidats dans la candidature initiale. Cela signifie que lors de votre examen, vous ne verrez que les données d’expérience relatives aux compétences techniques et à quelques compétences comportementales précises. Deux raisons expliquent ce choix.",
     "description": "First paragraph of first answer of the Frequently Asked Questions for logging in"

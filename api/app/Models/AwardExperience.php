@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
@@ -47,9 +48,13 @@ class AwardExperience extends Experience
         'project_name' => 'projectName',
     ];
 
-    public function relatedExperience()
+    /** @return MorphTo<Experience, $this> */
+    public function relatedExperience(): MorphTo
     {
-        return $this->morphTo();
+        /** @var MorphTo<Experience, $this> $relation */
+        $relation = $this->morphTo();
+
+        return $relation;
     }
 
     public function getTitle(?string $lang = 'en'): string
