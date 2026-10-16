@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Number;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
@@ -96,11 +95,10 @@ class Classification extends Model
      */
     protected function salaryRange(): Attribute
     {
-        $locale = App::getLocale() === 'fr' ? 'fr-CA' : 'en-CA';
+        $locale = app()->getLocale() === 'fr' ? 'fr-CA' : 'en-CA';
+        $salaries = array_filter([$this->min_salary, $this->max_salary]);
 
-        return Attribute::get(function (mixed $value, array $attributes) use ($locale) {
-            $salaries = array_filter([$this->min_salary, $this->max_salary]);
-
+        return Attribute::get(function (mixed $value, array $attributes) use ($locale, $salaries) {
             if (empty($salaries)) {
                 return null;
             }
