@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Pool;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,10 @@ Route::prefix('')->group(function () {
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/sector-identifier', [AuthController::class, 'sectorIdentifier']);
+});
+
+Route::get('{locale}/job/{id}', function (string $locale, string $id) {
+    app()->setLocale($locale);
+    $pool = Pool::find($id);
+    return view('job_advertisement.index', ['pool' => $pool ]);
 });
