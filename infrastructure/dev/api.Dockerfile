@@ -1,7 +1,7 @@
 # Development Dockerfile for Laravel API
 # Uses PHP's built-in dev server with hot reloading
 
-FROM php:8.4-cli
+FROM php:8.5-cli
 
 # Install system dependencies and PHP extensions
 RUN apt-get update \

@@ -9,7 +9,9 @@ import SidebarNotesForm from "~/components/SidebarNotesForm/SidebarNotesForm";
 const TalentRequestNotes_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestNotes on TalentRequest {
     id
-    adminNotes
+    adminData {
+      adminNotes
+    }
   }
 `);
 
@@ -20,7 +22,9 @@ const UpdateTalentRequestNotes_Mutation = graphql(/** GraphQL */ `
   ) {
     updateTalentRequest(id: $id, talentRequest: $input) {
       id
-      adminNotes
+      adminData {
+        adminNotes
+      }
     }
   }
 `);
@@ -46,7 +50,7 @@ const TalentRequestNotes = ({ query }: TalentRequestNotesProps) => {
 
   return (
     <SidebarNotesForm
-      values={{ notes: talentRequest.adminNotes }}
+      values={{ notes: talentRequest.adminData?.adminNotes }}
       onSave={handleSubmit}
     />
   );
