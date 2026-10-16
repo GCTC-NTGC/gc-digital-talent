@@ -10,7 +10,8 @@
 
 <ul>
     <li><x-text-label>Category</x-text-label>{!! $pool->workStream->name !!} <x-footnote-ref id="1" /></li>
-    <li><x-text-label>Department</x-text-label>: {!! $pool->department->name !!}</li>
+    <li><x-text-label>Department</x-text-label>{!! $pool->department->name !!}</li>
+    <li><x-text-label>Salary range</x-text-label>{{ $pool->classification->salary_range }}</li>
 </ul>
 
 <hr>
