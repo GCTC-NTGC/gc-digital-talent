@@ -7,7 +7,6 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
-use App\Enums\Language;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -26,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
@@ -624,10 +624,16 @@ class Pool extends Model
     /**
      * Convert the pool to HTML for the job advertisement
      */
-    public function toAdvertisementHtml(Language $lang = Language::EN): string
+    public function toAdvertisementHtml(string $locale = 'en'): string
     {
-        return view('job_advertisement.index', [
-            'pool' => $this,
-        ])->render();
+        $previousLocale = App::getLocale();
+
+        App::setLocale($locale);
+
+        $html = view('job_advertisement.index', ['pool' => $this])->render();
+
+        App::setLocale($previousLocale);
+
+        return $html;
     }
 }
