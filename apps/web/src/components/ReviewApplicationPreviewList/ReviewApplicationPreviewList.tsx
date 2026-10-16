@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import type { RefObject } from "react";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -33,6 +34,7 @@ const ReviewApplicationPreviewList_Fragment = graphql(/* GraphQL */ `
     }
     isSpecialApplication
     specialApplicationClosingDate
+    isDashboardViewable
     pool {
       id
       name {
@@ -50,12 +52,16 @@ interface ReviewApplicationPreviewListProps {
   applicationsQuery: FragmentType<
     typeof ReviewApplicationPreviewList_Fragment
   >[];
+  filterForDashboardViewable?: boolean;
+  fallbackFocusRef?: RefObject<HTMLElement | null>;
   doNotSort?: boolean;
 }
 
 const ReviewApplicationPreviewList = ({
   applicationsQuery,
   doNotSort,
+  filterForDashboardViewable,
+  fallbackFocusRef,
 }: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -77,11 +83,17 @@ const ReviewApplicationPreviewList = ({
       )
     : applications;
 
+  const viewableAndSortedApplications = filterForDashboardViewable
+    ? sortedApplications.filter(
+        (application) => application.isDashboardViewable,
+      )
+    : sortedApplications;
+
   return (
     <>
-      {applications.length ? (
+      {viewableAndSortedApplications.length ? (
         <PreviewList.Root>
-          {sortedApplications.map((application) => {
+          {viewableAndSortedApplications.map((application) => {
             const {
               id,
               pool,
@@ -174,7 +186,11 @@ const ReviewApplicationPreviewList = ({
                         icon={PencilSquareIcon}
                       />
                     ) : (
-                      <ReviewApplicationDialog applicationQuery={application} />
+                      <ReviewApplicationDialog
+                        applicationQuery={application}
+                        filterForDashboardViewable={filterForDashboardViewable}
+                        fallbackFocusRef={fallbackFocusRef}
+                      />
                     )}
                   </>
                 }

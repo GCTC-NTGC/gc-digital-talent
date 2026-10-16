@@ -1,5 +1,7 @@
 import { useIntl } from "react-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { RefObject } from "react";
+import { useMutation } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -27,6 +29,7 @@ import {
   parseDateTimeUtc,
 } from "@gc-digital-talent/date-helpers";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
+import { toast } from "@gc-digital-talent/toast";
 
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -53,6 +56,7 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    isDashboardViewable
     pool {
       id
       name {
@@ -126,17 +130,32 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
+const ToggleIsDashboardViewable_Mutation = graphql(/** GraphQL */ `
+  mutation ToggleIsDashboardViewable($id: UUID!) {
+    toggleIsDashboardViewable(id: $id) {
+      id
+      isDashboardViewable
+    }
+  }
+`);
+
 interface ReviewApplicationDialogProps {
   applicationQuery: FragmentType<typeof ReviewApplicationDialog_Fragment>;
+  filterForDashboardViewable?: boolean;
+  fallbackFocusRef?: RefObject<HTMLElement | null>;
 }
 
 const ReviewApplicationDialog = ({
   applicationQuery,
+  filterForDashboardViewable,
+  fallbackFocusRef,
 }: ReviewApplicationDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const isLeavingListRef = useRef(false);
 
   const application = getFragment(
     ReviewApplicationDialog_Fragment,
@@ -146,6 +165,8 @@ const ReviewApplicationDialog = ({
   const pool = application?.pool;
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
+
+  const poolName = pool.name?.localized ?? nullMessage;
 
   // Separate essential and asset skills, sort them by category, and confirm they include skill data
   const poolSkills = unpackMaybes(pool?.poolSkills);
@@ -164,10 +185,105 @@ const ReviewApplicationDialog = ({
     .flatMap(({ skill }) => skill)
     .filter(notEmpty);
 
+  const [{ fetching }, executeMutation] = useMutation(
+    ToggleIsDashboardViewable_Mutation,
+  );
+  const handleIsDashboardViewableToggle = () => {
+    const originalToggleValue = application.isDashboardViewable;
+    if (fetching) return;
+
+    executeMutation({ id: application.id })
+      .then((res) => {
+        if (res.error) throw new Error(res.error.message);
+        if (!res.data?.toggleIsDashboardViewable?.id)
+          throw new Error("Could not add/remove application from dashboard");
+
+        const newToggleValue =
+          res.data.toggleIsDashboardViewable.isDashboardViewable;
+
+        if (newToggleValue) {
+          toast.success(
+            intl.formatMessage(
+              {
+                defaultMessage: "Successfully added {poolName} to dashboard.",
+                id: "0kUhc0",
+                description:
+                  "Success message for pool visible in dashboard again",
+              },
+              {
+                poolName: poolName,
+              },
+            ),
+          );
+        } else {
+          toast.success(
+            intl.formatMessage(
+              {
+                defaultMessage:
+                  "Successfully removed {poolName} from dashboard.",
+                id: "TF3Bvn",
+                description:
+                  "Success message for pool no longer visible in dashboard",
+              },
+              {
+                poolName: poolName,
+              },
+            ),
+          );
+        }
+        isLeavingListRef.current =
+          !newToggleValue && !!filterForDashboardViewable;
+        setIsOpen(false);
+      })
+      .catch(() => {
+        if (originalToggleValue) {
+          toast.error(
+            intl.formatMessage(
+              {
+                defaultMessage: "Failure removing {poolName} from dashboard.",
+                id: "9HP8+b",
+                description: "Failure message for hiding pool from dashboard",
+              },
+              {
+                poolName: poolName,
+              },
+            ),
+          );
+        } else {
+          toast.error(
+            intl.formatMessage(
+              {
+                defaultMessage: "Failure adding {poolName} to dashboard.",
+                id: "MIicIe",
+                description:
+                  "Failure message for adding pool back to dashboard",
+              },
+              {
+                poolName: poolName,
+              },
+            ),
+          );
+        }
+      });
+  };
+
+  // reference handleDialogCloseAutoFocus() from TalentRequestTrackedUsersInbox.tsx
+  const handleCloseAutoFocus = (event: Event) => {
+    if (!isLeavingListRef.current) return;
+    isLeavingListRef.current = false;
+    event.preventDefault();
+
+    const previousAction = triggerRef.current
+      ?.closest("li")
+      ?.previousElementSibling?.querySelector<HTMLElement>("a[href], button");
+    (previousAction ?? fallbackFocusRef?.current)?.focus();
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <PreviewList.Button
+          ref={triggerRef}
           label={
             pool.name?.localized
               ? intl.formatMessage(
@@ -186,7 +302,7 @@ const ReviewApplicationDialog = ({
           }
         />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content onCloseAutoFocus={handleCloseAutoFocus}>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:
@@ -424,6 +540,32 @@ const ReviewApplicationDialog = ({
                 description: "Label for view job advertisement link",
               })}
             </Link>
+            <Button
+              color="primary"
+              type="button"
+              mode="inline"
+              onClick={handleIsDashboardViewableToggle}
+            >
+              {application.isDashboardViewable ? (
+                <>
+                  {intl.formatMessage({
+                    defaultMessage: "Remove from dashboard",
+                    id: "r0Fp7/",
+                    description:
+                      "Button label to hide application from your dashboard",
+                  })}
+                </>
+              ) : (
+                <>
+                  {intl.formatMessage({
+                    defaultMessage: "Add to dashboard",
+                    id: "TiOiHX",
+                    description:
+                      "Button label to add back application to your dashboard",
+                  })}
+                </>
+              )}
+            </Button>
             <Dialog.Close>
               <Button color="warning" mode="inline">
                 {intl.formatMessage(commonMessages.cancel)}
