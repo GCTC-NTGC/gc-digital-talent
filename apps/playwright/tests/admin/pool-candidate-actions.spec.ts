@@ -131,7 +131,7 @@ test.describe("Pool candidates", { tag: "@uat" }, () => {
 
     // priority verification
     await appPage.page
-      .getByRole("button", { name: "Edit Priority status" })
+      .getByRole("button", { name: "Edit Priority entitlements" })
       .click();
     await appPage.page
       .getByRole("radio", { name: "This claim has been verified" })

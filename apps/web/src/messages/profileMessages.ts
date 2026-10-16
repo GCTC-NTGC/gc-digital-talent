@@ -29,8 +29,8 @@ const messages = defineMessages({
     description: "Title for Veteran status",
   },
   priorityStatus: {
-    defaultMessage: "Priority status",
-    id: "+2PPS3",
+    defaultMessage: "Priority entitlements",
+    id: "Op5hGy",
     description: "Title for priority status",
   },
   contractDuration: {
