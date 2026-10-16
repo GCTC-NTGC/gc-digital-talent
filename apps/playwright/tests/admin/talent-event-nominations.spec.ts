@@ -86,6 +86,7 @@ test.describe(
     let recommendedClassification: Classification;
     let activeEventNomination: TalentNominationDetails;
     let pastTalentEventId: string | undefined;
+    let nominationGroupId: string | undefined;
     let community: Community | undefined;
     let eventStatuses: LocalizedTalentNominationEventStatus[];
     let talentCoordinatorCtx: GraphQLContext;
@@ -99,8 +100,6 @@ test.describe(
     const pastTalentEventName = `Playwright Past Event ${uniqueTestId} EN`;
     const upcomingTalentEventName = `Playwright Upcoming Event ${uniqueTestId} EN`;
 
-    const platformAdminSub =
-      process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB ?? "admin@test.com";
     const talentCoordinatorSub =
       process.env.PLAYWRIGHT_COMMUNITY_TALENT_COORDINATOR_SUB ??
       "talent-coordinator@test.com";
@@ -253,7 +252,7 @@ test.describe(
           skills: skillOptions.slice(0, 3),
         },
       );
-      await loginBySub(appPage.page, platformAdminSub);
+      await loginBySub(appPage.page, talentCoordinatorSub);
       await appPage.page.goto("/en");
       const talentManagement = new TalentManagement(appPage.page);
       await talentManagement.startTalentNomination(talentEvent?.name?.en ?? "");
@@ -288,19 +287,27 @@ test.describe(
         talentEvent?.name?.en ?? "",
       );
       await talentManagement.viewNominations();
-      await talentManagement.viewNominee(uniqueTestId.toString());
+      nominationGroupId = await talentManagement.viewNominee(
+        uniqueTestId.toString(),
+      );
+      const nominatedForDevelopment =
+        !!activeEventNomination.developmentProgram;
 
-      await talentManagement.evaluateNomineeNotSupported();
+      await talentManagement.evaluateNomineeNotSupported(
+        nominatedForDevelopment,
+      );
       await expect(appPage.page.getByRole("alert").last()).toContainText(
         /evaluation submission successful/i,
       );
 
-      await talentManagement.evaluateNomineePartiallySupported();
+      await talentManagement.evaluateNomineePartiallySupported(
+        nominatedForDevelopment,
+      );
       await expect(appPage.page.getByRole("alert").last()).toContainText(
         /evaluation submission successful/i,
       );
 
-      await talentManagement.evaluateNomineeApproved();
+      await talentManagement.evaluateNomineeApproved(nominatedForDevelopment);
       await expect(appPage.page.getByRole("alert").last()).toContainText(
         /evaluation submission successful/i,
       );
@@ -326,7 +333,7 @@ test.describe(
       const talentManagement = new TalentManagement(appPage.page);
 
       await test.step("Start a nomination", async () => {
-        await loginBySub(appPage.page, platformAdminSub);
+        await loginBySub(appPage.page, talentCoordinatorSub);
         await appPage.page.goto("/en");
         await talentManagement.startTalentNomination(
           talentEvent?.name?.en ?? "",
@@ -442,14 +449,9 @@ test.describe(
 
       await test.step("Open the nominee's nomination history", async () => {
         await loginBySub(appPage.page, talentCoordinatorSub);
-        await appPage.page.goto("/en/community");
-        await appPage.waitForGraphqlResponse("CommunityDashboard_Query");
-        await talentManagement.goToTalentManagementTable();
-        await talentManagement.viewTalentNominationEvent(
-          talentEvent?.name?.en ?? "",
+        await appPage.page.goto(
+          `/en/admin/talent-events/${talentEvent?.id}/nominations/${nominationGroupId}`,
         );
-        await talentManagement.viewNominations();
-        await talentManagement.viewNominee(uniqueTestId.toString());
         await talentManagement.viewNominationHistory();
       });
 
@@ -458,7 +460,7 @@ test.describe(
           {
             eventName: talentEvent?.name?.en ?? "",
             details: activeEventNomination,
-            submitter: await me(platformAdminCtx, {}),
+            submitter: await me(talentCoordinatorCtx, {}),
             // Approved in "Evaluate a nominee"
             status: groupStatus(TalentNominationGroupStatus.Approved),
             received,

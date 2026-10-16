@@ -456,11 +456,8 @@ class TalentManagement extends AppPage {
     await this.locators[FIELD.PAGE_SIZE].click();
     await this.locators[FIELD.PAGE_SIZE_500].click();
     await this.page.keyboard.press("Escape");
-    const link = this.page.getByRole("link", { name: eventName, exact: true });
-    while (!(await link.isVisible())) {
-      await this.locators[FIELD.NEXT_PAGE].click();
-    }
-    await link.click();
+    await expect(this.locators[FIELD.NEXT_PAGE]).toBeDisabled();
+    await this.page.getByRole("link", { name: eventName, exact: true }).click();
     await this.waitForGraphqlResponse("TalentEventDetails");
     await expect(
       this.page.getByRole("heading", { name: eventName, level: 1 }),
@@ -478,6 +475,7 @@ class TalentManagement extends AppPage {
       .getByRole("link", { name: nomineeIdentifier })
       .click();
     await this.waitForGraphqlResponse("TalentNominationGroupDetails");
+    return this.page.url().split("/").pop() ?? "";
   }
 
   async startTalentNomination(talentEvent: string) {
@@ -671,7 +669,7 @@ class TalentManagement extends AppPage {
     await expect(this.locators[FIELD.REVIEW_NOMINATION_HEADING]).toBeVisible();
   }
 
-  async evaluateNomineeNotSupported() {
+  async evaluateNomineeNotSupported(nominatedForDevelopment: boolean) {
     await this.locators[FIELD.OPEN_EVALUATION].click();
     await this.waitForGraphqlResponse(
       "NominationGroupEvaluationDialogFormOptions",
@@ -687,15 +685,20 @@ class TalentManagement extends AppPage {
       .nth(1)
       .fill("Additional details");
 
-    await this.locators[FIELD.DEVELOPMENT_PROGRAMS_NOT_SUPPORTED].click();
-    await this.locators[FIELD.NOT_SUPPORTED_REASON]
-      .nth(2)
-      .fill("Additional details");
+    if (nominatedForDevelopment) {
+      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_NOT_SUPPORTED].click();
+      await this.locators[FIELD.NOT_SUPPORTED_REASON]
+        .nth(2)
+        .fill("Additional details");
+    }
 
-    await this.locators[FIELD.SUBMIT_EVALUATION].click();
+    await Promise.all([
+      this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
+      this.locators[FIELD.SUBMIT_EVALUATION].click(),
+    ]);
   }
 
-  async evaluateNomineePartiallySupported() {
+  async evaluateNomineePartiallySupported(nominatedForDevelopment: boolean) {
     await this.locators[FIELD.OPEN_EVALUATION].click();
     await this.waitForGraphqlResponse(
       "NominationGroupEvaluationDialogFormOptions",
@@ -726,12 +729,17 @@ class TalentManagement extends AppPage {
       .getByRole("spinbutton", { name: /day/i })
       .fill("31");
 
-    await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
+    if (nominatedForDevelopment) {
+      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
+    }
 
-    await this.locators[FIELD.SUBMIT_EVALUATION].click();
+    await Promise.all([
+      this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
+      this.locators[FIELD.SUBMIT_EVALUATION].click(),
+    ]);
   }
 
-  async evaluateNomineeApproved() {
+  async evaluateNomineeApproved(nominatedForDevelopment: boolean) {
     await this.locators[FIELD.OPEN_EVALUATION].click();
     await this.waitForGraphqlResponse(
       "NominationGroupEvaluationDialogFormOptions",
@@ -786,15 +794,22 @@ class TalentManagement extends AppPage {
       .getByRole("spinbutton", { name: /day/i })
       .fill("31");
 
-    await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
+    if (nominatedForDevelopment) {
+      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
+    }
 
-    await this.locators[FIELD.SUBMIT_EVALUATION].click();
+    await Promise.all([
+      this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
+      this.locators[FIELD.SUBMIT_EVALUATION].click(),
+    ]);
   }
 
   async verifyErrorMessageOnSubmitTalentNomination() {
-    await expect(this.locators.alertMessage.first()).toContainText(
-      /you must be a verified employee to perform this action/i,
-    );
+    await expect(
+      this.locators.alertMessage.filter({
+        hasText: /you must be a verified employee to perform this action/i,
+      }),
+    ).toBeVisible();
 
     await expect(this.locators.alertMessage.last()).toContainText(
       /sorry, we encountered an error/i,
