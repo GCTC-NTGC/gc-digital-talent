@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import type { RefObject } from "react";
 import PencilSquareIcon from "@heroicons/react/24/outline/PencilSquareIcon";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -52,6 +53,7 @@ interface ReviewApplicationPreviewListProps {
     typeof ReviewApplicationPreviewList_Fragment
   >[];
   filterForDashboardViewable?: boolean;
+  fallbackFocusRef?: RefObject<HTMLElement | null>;
   doNotSort?: boolean;
 }
 
@@ -59,6 +61,7 @@ const ReviewApplicationPreviewList = ({
   applicationsQuery,
   doNotSort,
   filterForDashboardViewable,
+  fallbackFocusRef,
 }: ReviewApplicationPreviewListProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -183,7 +186,11 @@ const ReviewApplicationPreviewList = ({
                         icon={PencilSquareIcon}
                       />
                     ) : (
-                      <ReviewApplicationDialog applicationQuery={application} />
+                      <ReviewApplicationDialog
+                        applicationQuery={application}
+                        filterForDashboardViewable={filterForDashboardViewable}
+                        fallbackFocusRef={fallbackFocusRef}
+                      />
                     )}
                   </>
                 }

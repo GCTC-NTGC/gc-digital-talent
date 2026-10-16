@@ -1,5 +1,6 @@
 import { useIntl } from "react-intl";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import type { RefObject } from "react";
 import { useMutation } from "urql";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -140,15 +141,21 @@ const ToggleIsDashboardViewable_Mutation = graphql(/** GraphQL */ `
 
 interface ReviewApplicationDialogProps {
   applicationQuery: FragmentType<typeof ReviewApplicationDialog_Fragment>;
+  filterForDashboardViewable?: boolean;
+  fallbackFocusRef?: RefObject<HTMLElement | null>;
 }
 
 const ReviewApplicationDialog = ({
   applicationQuery,
+  filterForDashboardViewable,
+  fallbackFocusRef,
 }: ReviewApplicationDialogProps) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useRoutes();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const isLeavingListRef = useRef(false);
 
   const application = getFragment(
     ReviewApplicationDialog_Fragment,
@@ -224,6 +231,8 @@ const ReviewApplicationDialog = ({
             ),
           );
         }
+        isLeavingListRef.current =
+          !newToggleValue && !!filterForDashboardViewable;
         setIsOpen(false);
       })
       .catch(() => {
@@ -258,10 +267,23 @@ const ReviewApplicationDialog = ({
       });
   };
 
+  // reference handleDialogCloseAutoFocus() from TalentRequestTrackedUsersInbox.tsx
+  const handleCloseAutoFocus = (event: Event) => {
+    if (!isLeavingListRef.current) return;
+    isLeavingListRef.current = false;
+    event.preventDefault();
+
+    const previousAction = triggerRef.current
+      ?.closest("li")
+      ?.previousElementSibling?.querySelector<HTMLElement>("a[href], button");
+    (previousAction ?? fallbackFocusRef?.current)?.focus();
+  };
+
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <PreviewList.Button
+          ref={triggerRef}
           label={
             pool.name?.localized
               ? intl.formatMessage(
@@ -280,7 +302,7 @@ const ReviewApplicationDialog = ({
           }
         />
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content onCloseAutoFocus={handleCloseAutoFocus}>
         <Dialog.Header
           subtitle={intl.formatMessage({
             defaultMessage:

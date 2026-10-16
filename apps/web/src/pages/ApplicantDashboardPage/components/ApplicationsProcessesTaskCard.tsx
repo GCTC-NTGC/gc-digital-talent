@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -57,6 +57,7 @@ const ApplicationsProcessesTaskCard = ({
   ] = useState<string>("");
   const [jobApplicationsAccordionValue, setJobApplicationsAccordionValue] =
     useState<string>("");
+  const jobApplicationsTriggerRef = useRef<HTMLButtonElement>(null);
 
   const applicationsProcessesTaskCardFragment = getFragment(
     ApplicationsProcessesTaskCard_Fragment,
@@ -153,6 +154,7 @@ const ApplicationsProcessesTaskCard = ({
             >
               <Accordion.Item value={ACCORDION_ID.JOB_APPLICATIONS}>
                 <Accordion.Trigger
+                  ref={jobApplicationsTriggerRef}
                   as="h3"
                   subtitle={intl.formatMessage({
                     defaultMessage:
@@ -177,6 +179,7 @@ const ApplicationsProcessesTaskCard = ({
                     <ReviewApplicationPreviewList
                       applicationsQuery={unpackMaybes(recruitmentProcesses)}
                       filterForDashboardViewable={true}
+                      fallbackFocusRef={jobApplicationsTriggerRef}
                     />
                   </div>
                 </Accordion.Content>
