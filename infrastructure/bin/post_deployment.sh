@@ -131,9 +131,19 @@ else
 fi
 
 # Load Laravel Scheduler cron
+# Pilot slots share their primary slot's DB, so only the primary runs scheduled jobs (emails, prune, etc.).
+# Instances within a slot are deduplicated by onOneServer() in api/app/Console/Kernel.php.
+# Set SCHEDULER_ENABLED=true/false on a slot to override, e.g. a pilot with its own DB.
+if [[ -z "$SCHEDULER_ENABLED" ]]; then
+    if [[ "$DEPLOYMENT_SLOT_NAME" == *-pilot ]]; then SCHEDULER_ENABLED=false; else SCHEDULER_ENABLED=true; fi
+fi
+
+if [[ "$SCHEDULER_ENABLED" != "true" ]]; then
+    rm -f /etc/cron.d/gc-digital-talent
+    add_section_block ":information_source: Laravel Scheduler cron *skipped* on slot $DEPLOYMENT_SLOT_NAME (SCHEDULER_ENABLED=$SCHEDULER_ENABLED)."
 # For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
 # Write to a drop-in file in /etc/cron.d/ (overwrite) so re-runs are idempotent and changes are always applied
-if cat > /etc/cron.d/gc-digital-talent << 'EOF'
+elif cat > /etc/cron.d/gc-digital-talent << 'EOF'
   *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run
 EOF
 then
@@ -182,7 +192,7 @@ fi
 
 # Add a source context block
 BLOCKS="$BLOCKS, { \"type\": \"divider\" }"
-BLOCKS="$BLOCKS, { \"type\": \"context\", \"elements\": [ { \"type\": \"mrkdwn\", \"text\": \"Source: $WEBSITE_SITE_NAME\" } ] }"
+BLOCKS="$BLOCKS, { \"type\": \"context\", \"elements\": [ { \"type\": \"mrkdwn\", \"text\": \"Source: $WEBSITE_SITE_NAME / slot ${DEPLOYMENT_SLOT_NAME:-unset} / instance ${WEBSITE_INSTANCE_ID:0:8} / host $(hostname)\" } ] }"
 
 # Write finished payload to file
 PAYLOAD="{\"blocks\": [$BLOCKS]}"
