@@ -7,7 +7,6 @@ import type {
   EducationExperienceInput,
   EducationStatus,
   EducationType,
-  Exact,
   LocalizedString,
   PersonalExperienceInput,
   WorkExperienceInput,
@@ -211,26 +210,22 @@ export interface ExperienceDetailsSubmissionData {
   relatedExperienceType?: string | null;
 }
 
-export type ExperienceMutationArgs = Exact<{
+export type ExperienceMutationArgs = {
   id: string;
   awardExperience: AwardExperienceInput;
-}> &
-  Exact<{
-    id: string;
-    communityExperience: CommunityExperienceInput;
-  }> &
-  Exact<{
-    id: string;
-    educationExperience: EducationExperienceInput;
-  }> &
-  Exact<{
-    id: string;
-    personalExperience: PersonalExperienceInput;
-  }> &
-  Exact<{
-    id: string;
-    workExperience: WorkExperienceInput;
-  }>;
+} & {
+  id: string;
+  communityExperience: CommunityExperienceInput;
+} & {
+  id: string;
+  educationExperience: EducationExperienceInput;
+} & {
+  id: string;
+  personalExperience: PersonalExperienceInput;
+} & {
+  id: string;
+  workExperience: WorkExperienceInput;
+};
 
 export interface ExperienceDetailsDefaultValues {
   areaOfStudy?: string;
