@@ -32,6 +32,7 @@ import {
   isWorkExperience,
   useExperienceInfo,
 } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 import type { SkillLink } from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
 import ExperienceSkillFormDialog from "../ExperienceSkillFormDialog/ExperienceSkillFormDialog";
@@ -505,12 +506,7 @@ const ExperienceCard = ({
             <>
               <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
-                {intl.formatMessage({
-                  defaultMessage: "Government of Canada",
-                  id: "OKqOVT",
-                  description:
-                    "Label for goc employment category on work experience card metadata",
-                })}
+                {intl.formatMessage(experienceMessages.governmentOfCanada)}
               </span>
             </>
           )}
@@ -601,15 +597,9 @@ const ExperienceCard = ({
                       )
                       .toString()
                   : intl
-                      .formatMessage(
-                        {
-                          defaultMessage: "Show {experienceName} details",
-                          id: "ge40rv",
-                          description:
-                            "Button text to show a specific experience's details",
-                        },
-                        { experienceName: title },
-                      )
+                      .formatMessage(experienceMessages.showDetails, {
+                        experienceName: title,
+                      })
                       .toString()
               }
             >

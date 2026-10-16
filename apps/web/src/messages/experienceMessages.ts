@@ -259,6 +259,17 @@ const messages = defineMessages({
     description:
       "Text in experience timeline card when user has no experiences",
   },
+  showDetails: {
+    defaultMessage: "Show {experienceName} details",
+    id: "ge40rv",
+    description: "Button text to show a specific experience's details",
+  },
+  governmentOfCanada: {
+    defaultMessage: "Government of Canada",
+    id: "OKqOVT",
+    description:
+      "Label for goc employment category on work experience card metadata",
+  },
 });
 
 export default messages;

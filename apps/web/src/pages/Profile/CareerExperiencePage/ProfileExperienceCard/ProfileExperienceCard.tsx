@@ -29,7 +29,6 @@ import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
-  getExperienceName,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -38,123 +37,34 @@ import {
   type SimpleAnyExperience,
 } from "~/utils/experienceUtils";
 
+import AwardPreviewListItem from "./AwardPreviewListItem";
+import CommunityPreviewListItem from "./CommunityPreviewListItem";
+import EducationPreviewListItem from "./EducationPreviewListItem";
+import PersonalPreviewListItem from "./PersonalPreviewListItem";
+import WorkPreviewListItem from "./WorkPreviewListItem";
+
 export const ProfileExperienceCard_Fragment = graphql(/* GraphQL */ `
   fragment ProfileExperienceCard on Experience {
     id
     ... on AwardExperience {
-      title
       issuedBy
-      relatedExperience {
-        ... on PersonalExperience {
-          title
-        }
-        ... on CommunityExperience {
-          title
-          organization
-        }
-        ... on EducationExperience {
-          educationType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          areaOfStudy
-          institution
-          otherEducationType
-          degreeType {
-            label {
-              en
-              fr
-            }
-          }
-          fellowshipType {
-            value
-            label {
-              en
-              fr
-            }
-          }
-          otherFellowshipType
-          licenseOrAccreditation
-          certification
-        }
-        ... on WorkExperience {
-          role
-          organization
-          employmentCategory {
-            value
-          }
-          department {
-            name {
-              en
-              fr
-            }
-          }
-          cafForce {
-            label {
-              en
-              fr
-            }
-          }
-        }
-      }
+      ...AwardExperienceItem
     }
     ... on PersonalExperience {
-      title
       organization
+      ...PersonalExperienceItem
     }
     ... on CommunityExperience {
-      title
       organization
+      ...CommunityExperienceItem
     }
     ... on EducationExperience {
-      educationType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      areaOfStudy
       institution
-      otherEducationType
-      degreeType {
-        label {
-          en
-          fr
-        }
-      }
-      fellowshipType {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      otherFellowshipType
-      licenseOrAccreditation
-      certification
+      ...EducationExperienceItem
     }
     ... on WorkExperience {
-      role
       organization
-      employmentCategory {
-        value
-      }
-      department {
-        name {
-          en
-          fr
-        }
-      }
-      cafForce {
-        label {
-          en
-          fr
-        }
-      }
+      ...WorkExperienceItem
     }
   }
 `);
@@ -303,24 +213,43 @@ const ProfileExperienceCard = ({
             <p className="mb-6 font-bold">{organization}</p>
             <PreviewList.Root>
               {groupedExperiences[organization].map((experience, i) => (
-                <PreviewList.Item
-                  key={experience.id}
-                  title={getExperienceName(experience, intl)}
-                  metaData={[]}
-                  action={
-                    <PreviewList.Button
-                      label="View preview button one"
-                      onClick={() => {
-                        // Display relevant dialog
-                      }}
+                <>
+                  {isAwardExperience(experience) && (
+                    <AwardPreviewListItem
+                      experienceQuery={experience}
+                      index={i}
+                      listLength={groupedExperiences[organization].length}
                     />
-                  }
-                  mode="experience"
-                  index={i}
-                  groupLength={groupedExperiences[organization].length}
-                >
-                  <p>internal text</p>
-                </PreviewList.Item>
+                  )}
+                  {isCommunityExperience(experience) && (
+                    <CommunityPreviewListItem
+                      experienceQuery={experience}
+                      index={i}
+                      listLength={groupedExperiences[organization].length}
+                    />
+                  )}
+                  {isEducationExperience(experience) && (
+                    <EducationPreviewListItem
+                      experienceQuery={experience}
+                      index={i}
+                      listLength={groupedExperiences[organization].length}
+                    />
+                  )}
+                  {isPersonalExperience(experience) && (
+                    <PersonalPreviewListItem
+                      experienceQuery={experience}
+                      index={i}
+                      listLength={groupedExperiences[organization].length}
+                    />
+                  )}
+                  {isWorkExperience(experience) && (
+                    <WorkPreviewListItem
+                      experienceQuery={experience}
+                      index={i}
+                      listLength={groupedExperiences[organization].length}
+                    />
+                  )}
+                </>
               ))}
             </PreviewList.Root>
           </Fragment>

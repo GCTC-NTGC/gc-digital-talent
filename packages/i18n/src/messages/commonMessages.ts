@@ -395,6 +395,11 @@ const commonMessages = defineMessages({
     description:
       "Message showing the number of days by which something is overdue",
   },
+  showDetails: {
+    defaultMessage: "Show {experienceName} details",
+    id: "ge40rv",
+    description: "Button text to show a specific experience's details",
+  },
 });
 
 export default commonMessages;
