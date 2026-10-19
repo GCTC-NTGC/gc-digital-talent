@@ -4,6 +4,7 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Separator } from "@gc-digital-talent/ui";
 
 import { getExperienceFormLabels } from "~/utils/experienceUtils";
+import BoolCheckIcon from "~/components/BoolCheckIcon/BoolCheckIcon";
 
 import ContentSection from "../ExperienceCard/ContentSection";
 import type { ContentProps } from "../ExperienceCard/types";
@@ -51,6 +52,20 @@ const PersonalDialogContent = ({
           title={experienceFormLabels.learningDescription}
         >
           {learningDescription ?? notAvailable}
+        </ContentSection>
+        <ContentSection
+          headingRank={headingRank}
+          title={experienceFormLabels.disclaimer}
+        >
+          <BoolCheckIcon value={true}>
+            {intl.formatMessage({
+              defaultMessage:
+                "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+              id: "oURESC",
+              description:
+                "Label displayed on Personal Experience form for disclaimer checkbox",
+            })}
+          </BoolCheckIcon>
         </ContentSection>
       </div>
     </>
