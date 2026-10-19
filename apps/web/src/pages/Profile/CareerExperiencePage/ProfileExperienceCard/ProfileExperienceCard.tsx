@@ -29,6 +29,7 @@ import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
 import useRoutes from "~/hooks/useRoutes";
 import {
+  compareByDate,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
@@ -156,8 +157,9 @@ const ProfileExperienceCard = ({
   const { title, description, href, linkText, Icon, nullText, filterFunction } =
     typeData[type];
 
-  const filteredExperiences = experiences?.filter(filterFunction) ?? [];
-  const groupedExperiences = groupBy(filteredExperiences, (exp) => {
+  const sortedAndFilteredExperiences =
+    experiences?.filter(filterFunction).sort(compareByDate) ?? [];
+  const groupedExperiences = groupBy(sortedAndFilteredExperiences, (exp) => {
     if (isAwardExperience(exp)) {
       return exp.issuedBy ?? intl.formatMessage(commonMessages.notAvailable);
     }
