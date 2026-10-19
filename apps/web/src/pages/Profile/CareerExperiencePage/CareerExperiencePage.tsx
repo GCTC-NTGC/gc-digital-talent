@@ -216,11 +216,6 @@ export const CareerExperience = ({
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
-
-              <ProfileExperienceCard
-                type={"timeline"}
-                experiencesQuery={experiencesQuery}
-              />
             </div>
           ) : (
             <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
