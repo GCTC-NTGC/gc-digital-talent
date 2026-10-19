@@ -11,3 +11,4 @@
 @include('job_advertisement.partials.deadline')
 @include('job_advertisement.partials.work_location')
 @include('job_advertisement.partials.language_requirement')
+@include('job_advertisement.partials.security_clearance')

@@ -7,6 +7,6 @@
     <li>@lang('job_advertisement.employment_details.label_employment_length'): @lang('job_advertisement.employment_details.label_employment_length_url')</li>
     <li><a href="#work-location">@lang('job_advertisement.employment_details.label_department_work_location')</a></li>
     <li><a href="#language-requirement">@lang('job_advertisement.employment_details.label_department_language_requirement')</a></li>
-    <li>@lang('job_advertisement.employment_details.label_department_security_clearance')</li>
+    <li><a href="#security-clearance">@lang('job_advertisement.employment_details.label_department_security_clearance')</a></li>
     <li>@lang('job_advertisement.employment_details.label_department_selection_process_number')</li>
 </ul>
