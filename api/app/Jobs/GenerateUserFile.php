@@ -56,7 +56,6 @@ class GenerateUserFile implements ShouldQueue
             if (! is_file($path) || filesize($path) === 0) {
                 throw new \RuntimeException("generated file missing: {$path}");
             }
-            throw new \RuntimeException("generated file missing: {$path}");
             UserFileGenerated::dispatch($this->generator->getFileNameWithExtension(), $this->user->id);
         } catch (\Throwable $e) {
             $this->fail($e);
