@@ -152,8 +152,14 @@ return [
         'paragraph_4' => 'Have questions? <a href="/support">Get in touch</a>',
     ],
     'work_location' => [
-        'title' => '',
-        'content' => '',
+        'title' => 'Work location and terminology',
+        'subtitle' => 'Learn more about how work locations are described in the context of recruitment opportunities.',
+        'paragraph_1' => 'As a reminder, this opportunity requires the following:',
+        'paragraph_2' => 'Recruitment opportunities on this platform have a variety of possible work location requirements. A single job advertisement often encompasses a wide breadth of available jobs, so you’ll often see combinations of location requirements provided. In theses cases, specific location information will be provided to you as job opportunities become available.',
+        'paragraph_3' => 'The definitions for each location possibility are outlined here',
+        'list_item_1' => 'Remote positions offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.',
+        'list_item_2' => 'Hybrid positions require in-office presence for 3 or more days per week, with the remainder allowing you to work from the location of your choice.',
+        'list_item_3' => 'On-site positions require full-time in-office work with no option to work remotely.',
     ],
     'language_requirement' => [
         'title' => '',
