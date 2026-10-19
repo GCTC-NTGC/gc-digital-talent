@@ -10,6 +10,7 @@ use App\Rules\CaseInsensitiveUnique;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -96,14 +97,16 @@ final class VerifyUserEmails
                     ->whereRaw('LOWER(work_email) = ?', [mb_strtolower($newEmailAddress)])
                     ->withTrashed()
                     ->first();
-                if ($existingUser) {
-                    $existingUser->work_email_backup = $existingUser->work_email;
-                    $existingUser->work_email = null;
-                    $existingUser->work_email_verified_at = null;
-                    $existingUser->save();
-                }
-                $user->setVerifiedWorkEmail($newEmailAddress);
-                $user->save();
+                DB::transaction(function () use ($existingUser, $user, $newEmailAddress) {
+                    if ($existingUser) {
+                        $existingUser->work_email_backup = $existingUser->work_email;
+                        $existingUser->work_email = null;
+                        $existingUser->work_email_verified_at = null;
+                        $existingUser->save();
+                    }
+                    $user->setVerifiedWorkEmail($newEmailAddress);
+                    $user->save();
+                });
             } else {
                 // only WORK emails can be verified with this tool right now
                 throw new \Exception('Unexpected email type: '.$emailTypeString);
