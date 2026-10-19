@@ -19,6 +19,7 @@ import {
   Locale,
   NullsOption,
   OrderByRelationWithColumnAggregateFunction,
+  PoolsOrderByColumn,
   SortOrder,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -173,7 +174,7 @@ export function getOrderByColumnSort(
 
   if (sortingRule?.id === "publishedAt") {
     return {
-      column: "published_at",
+      column: PoolsOrderByColumn.PublishedAt,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       nulls: NullsOption.OrderLast,
     };

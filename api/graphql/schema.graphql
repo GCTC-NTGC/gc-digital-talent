@@ -1494,8 +1494,12 @@ input PoolBookmarksOrderByInput {
   order: SortOrder!
 }
 
+enum PoolsOrderByColumn {
+  PUBLISHED_AT @enum(value: "published_at")
+}
+
 input OrderByColumnInput {
-  column: String!
+  column: PoolsOrderByColumn!
   order: SortOrder!
   nulls: NullsOption
 }
