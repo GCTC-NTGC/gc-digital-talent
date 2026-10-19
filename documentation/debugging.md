@@ -6,7 +6,7 @@ There are many ways to debug the code in this project. This guide contains a cou
 
 Debugging PHP in the webserver container allows stepping though Laravel code in your IDE that was launched by a browser request.
 
-1. Open infrastructure/conf/xdebug.ini and set `xdebug.mode=develop,debug`. Restart your web server ` docker compose restart webserver`.
+1. Open infrastructure/conf/xdebug.ini and set `xdebug.mode=develop,debug`. Restart your web server `docker compose restart webserver`.
 
 2. Start your Xdebug debugging client. For example, launch the "PHP Xdebug webserver (WSL)" profile if you are using VSCode with WSL or "PHP Xdebug webserver (native)" if you are running VSCode with a native Linux environment.
 
