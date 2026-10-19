@@ -10,3 +10,4 @@
 @include('job_advertisement.partials.salary_range')
 @include('job_advertisement.partials.deadline')
 @include('job_advertisement.partials.work_location')
+@include('job_advertisement.partials.language_requirement')
