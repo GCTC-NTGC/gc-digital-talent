@@ -83,7 +83,7 @@ return [
                 'description' => 'Graduation from a program of 2 years or more offered by a <a href=":url">recognized post-secondary institution</a>. The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.',
                 'description_post_secondary_url' => 'https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi',
             ],
-        ]
+        ],
     ],
     'skill_requirements' => [
         'title' => 'Skill requirements',
@@ -104,7 +104,7 @@ return [
             'technical_skill_levels_2' => 'Intermediate: Demonstrated ability to consistently deliver on tasks of low to moderate complexity under minimal supervision and tasks of higher-level complexity under moderate supervision and mentoring. Usually associated with intermediate roles.',
             'technical_skill_levels_3' => 'Advanced: Demonstrated ability to scope, undertake, and deliver on tasks of moderate to high complexity under minimal levels of supervision. Demonstrated ability to mentor others in lower levels of skill development, either through direct supervision or by setting examples and providing explanations. Usually associated with senior technical advisor or entry-level supervisory roles.',
             'technical_skill_levels_4' => 'Lead: Demonstrated ability to identify, scope, undertake, and deliver on tasks of significant complexity with wide areas of impact, even in challenging circumstances. Demonstrated ability to lead the development of tasks, and potentially teams, for the organization in this area. Usually associated with manager or technical lead roles.',
-        ]
+        ],
     ],
     'about_role' => [
         'title' => 'About this role',
@@ -214,5 +214,5 @@ return [
         'more_information_paragraph_1' => 'Learn more about <a href=":url-1">security screening</a> or have a look at the <a href=":url-2">Directive on Security Screening</a>.',
         'more_information_paragraph_1_url_1' => 'https://www.canada.ca/en/government/publicservice/workforce/staffing/security-screening.html',
         'more_information_paragraph_1_url_2' => 'https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32805',
-    ]
+    ],
 ];

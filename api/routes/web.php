@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
 use App\Models\Pool;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +33,6 @@ Route::prefix('')->group(function () {
 Route::get('{locale}/job/{id}', function (string $locale, string $id) {
     app()->setLocale($locale);
     $pool = Pool::find($id);
-    return view('job_advertisement.index', ['pool' => $pool ]);
+
+    return view('job_advertisement.index', ['pool' => $pool]);
 });
