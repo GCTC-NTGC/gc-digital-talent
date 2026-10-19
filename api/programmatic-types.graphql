@@ -547,15 +547,6 @@ type UserPaginator {
   data: [User!]!
 }
 
-"A paginated list of UserPublicProfile items."
-type UserPublicProfilePaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserPublicProfile items."
-  data: [UserPublicProfile!]!
-}
-
 enum NullsOrder {
   FIRST
   LAST
@@ -648,6 +639,24 @@ type CommunityInterestWithSkillCountPaginator {
   data: [CommunityInterestWithSkillCount!]!
 }
 
+"Order by clause for Pool.activities.orderBy."
+input PoolActivitiesOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: ActivitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
+"Order by clause for Query.usersPaginated.orderBy."
+input QueryUsersPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: UsersOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
 "Allowed column names for Query.poolsPaginated.orderBy."
 enum QueryPoolsPaginatedOrderByUserColumn {
   FIRST_NAME
@@ -691,6 +700,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
+}
+
+"Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
+input QueryTrainingOpportunitiesPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: TrainingOpportunitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
