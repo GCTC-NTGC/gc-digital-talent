@@ -76,7 +76,9 @@ const TalentRequestStatusDialog_Fragment = graphql(/** GraphQL */ `
     completionDetails {
       value
     }
-    followUpDate
+    adminData {
+      followUpDate
+    }
   }
 `);
 
@@ -145,8 +147,8 @@ const TalentRequestStatusDialog = ({
         TalentRequestStatus.InProgress,
       inProgressDetails: talentRequest.inProgressDetails?.value,
       completionDetails: talentRequest.completionDetails?.value,
-      followUpDate: talentRequest.followUpDate
-        ? strToFormDate(talentRequest.followUpDate)
+      followUpDate: talentRequest.adminData?.followUpDate
+        ? strToFormDate(talentRequest.adminData.followUpDate)
         : null,
     },
   });

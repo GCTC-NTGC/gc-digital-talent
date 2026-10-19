@@ -26,8 +26,8 @@ const isDeleteEvent = (event: KeyboardEvent<HTMLSpanElement>): boolean => {
 
 const chip = tv({
   slots: {
-    base: "inline-flex items-center gap-x-1 rounded-full border px-3 py-0.5 text-sm font-bold",
-    icon: "size-3",
+    base: "inline-flex items-center gap-x-1 rounded-2xl border px-3 py-0.5 text-sm font-bold",
+    icon: "size-3 shrink-0",
   },
   variants: {
     color: {
