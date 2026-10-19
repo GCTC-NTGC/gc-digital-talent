@@ -70,7 +70,6 @@ final class VerifyUserEmails
                     ['email']
                 ),
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
-                (new CaseInsensitiveUnique('users', 'work_email'))->ignore($user?->id, 'id'),
             ],
         ],
             [
@@ -90,12 +89,25 @@ final class VerifyUserEmails
         // by now, token seems good
         foreach ($token['emailTypes'] as $emailTypeString) {
             $emailType = EmailType::fromName($emailTypeString);
-            match ($emailType) {
-                EmailType::WORK => $user->setVerifiedWorkEmail($newEmailAddress),
-                EmailType::CONTACT => throw new \Exception('Unexpected email type: '.$emailTypeString),
-            };
+            if ($emailType == EmailType::WORK) {
+                // similar logic to AuthController::authCallback
+                // if another uer has this work_email we will take it from them
+                $existingUser = User::where('id', '!=', $user->id)
+                    ->whereRaw('LOWER(work_email) = ?', [mb_strtolower($newEmailAddress)])
+                    ->withTrashed()
+                    ->first();
+                if ($existingUser) {
+                    $existingUser->work_email_backup = $existingUser->work_email;
+                    $existingUser->work_email = null;
+                    $existingUser->save();
+                }
+                $user->setVerifiedWorkEmail($newEmailAddress);
+                $user->save();
+            } else {
+                // only WORK emails can be verified with this tool right now
+                throw new \Exception('Unexpected email type: '.$emailTypeString);
+            }
         }
-        $user->save();
 
         Cache::forget($key); // the token is redeemed, don't use it again
 
