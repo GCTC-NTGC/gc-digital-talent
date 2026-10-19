@@ -520,7 +520,7 @@ type Query {
   canMigrateMyAccount: Boolean!
   usersPaginated(
     where: UserFilterInput
-    orderBy: [OrderByClause!]
+    orderBy: [QueryUsersPaginatedOrderByOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -596,7 +596,7 @@ type Query {
   ): NotificationPaginator!
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
-    orderBy: [OrderByClause!]
+    orderBy: [QueryTrainingOpportunitiesPaginatedOrderByOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -1174,7 +1174,7 @@ type Pool implements HasRoleAssignments {
   isHidden: Boolean
   activities(
     where: ProcessActivityFilterInput
-    orderBy: [OrderByClause!]
+    orderBy: [PoolActivitiesOrderByOrderByClause!]
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 50
@@ -2048,6 +2048,30 @@ type TrainingOpportunity {
 input TrainingOpportunitiesFilterInput {
   hidePassedRegistrationDeadline: Boolean
   opportunityLanguage: CourseLanguage
+}
+
+enum TrainingOpportunitiesOrderByColumn {
+  TITLE_EN
+  TITLE_FR
+  COURSE_LANGUAGE
+  REGISTRATION_DEADLINE
+  TRAINING_START
+  TRAINING_END
+}
+
+enum UsersOrderByColumn {
+  ID
+  FIRST_NAME
+  EMAIL
+  WORK_EMAIL
+  TELEPHONE
+  PREFERRED_LANG
+  CREATED_AT
+  UPDATED_AT
+}
+
+enum ActivitiesOrderByColumn {
+  CREATED_AT
 }
 
 input SitewideAnnouncementInput {
@@ -3378,6 +3402,24 @@ type CommunityInterestWithSkillCountPaginator {
   data: [CommunityInterestWithSkillCount!]!
 }
 
+"Order by clause for Pool.activities.orderBy."
+input PoolActivitiesOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: ActivitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
+"Order by clause for Query.usersPaginated.orderBy."
+input QueryUsersPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: UsersOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
+}
+
 "Allowed column names for Query.poolsPaginated.orderBy."
 enum QueryPoolsPaginatedOrderByUserColumn {
   FIRST_NAME
@@ -3421,6 +3463,15 @@ input QueryPoolsPaginatedOrderByRelationOrderByClause {
 
   "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
+}
+
+"Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
+input QueryTrainingOpportunitiesPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: TrainingOpportunitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
