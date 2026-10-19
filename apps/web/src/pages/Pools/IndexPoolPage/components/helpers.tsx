@@ -16,6 +16,7 @@ import type {
   QueryPoolsPaginatedOrderByRelationOrderByClause,
 } from "@gc-digital-talent/graphql";
 import {
+  Locale,
   NullsOption,
   OrderByRelationWithColumnAggregateFunction,
   SortOrder,
@@ -154,7 +155,7 @@ export function getWorkStreamNameSort(
   if (!sortingRule) return undefined;
 
   return {
-    locale: locale ?? "en",
+    locale: locale === "fr" ? Locale.Fr : Locale.En,
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
   };
 }
