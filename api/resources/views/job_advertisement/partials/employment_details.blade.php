@@ -2,7 +2,7 @@
 <ul>
     <li>@lang('job_advertisement.employment_details.label_work_category')</li>
     <li>@lang('job_advertisement.employment_details.label_department')</li>
-    <li>@lang('job_advertisement.employment_details.label_salary_range')</li>
+    <li><a href="#salary-range">@lang('job_advertisement.employment_details.label_salary_range')</a></li>
     <li>@lang('job_advertisement.employment_details.label_deadline')</li>
     <li>@lang('job_advertisement.employment_details.label_employment_length'): @lang('job_advertisement.employment_details.label_employment_length_url')</li>
     <li>@lang('job_advertisement.employment_details.label_department_work_location')</li>

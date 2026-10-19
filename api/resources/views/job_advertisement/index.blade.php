@@ -5,3 +5,5 @@
 @include('job_advertisement.partials.skill_requirements')
 @include('job_advertisement.partials.about_role')
 @include('job_advertisement.partials.more_information')
+
+@include('job_advertisement.partials.salary_range')
