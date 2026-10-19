@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'or' => 'or',
     'subtitle' => 'Learn more about this opportunity and begin an application.',
     'employment_details' => [
         'title' => 'Employment details',
@@ -36,6 +37,51 @@ return [
                 'description_degree_url' => 'https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#deg',
                 'description_post_secondary_url' => 'https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi',
                 'description_foreign_degree_url' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/degree-equivalency.html',
+            ],
+        ],
+        'pm' => [
+            'applied_work_experience' => [
+                'title' => 'Applied work experience',
+                'description' => 'An acceptable combination of education, training, and experience, or a satisfactory score on the Public Service Commission test approved as an alternative to a secondary school diploma.',
+            ],
+            'secondary_school' => [
+                'title' => 'Secondary school diploma',
+                'description' => 'A secondary school diploma.',
+            ],
+        ],
+        'ec' => [
+            'degree' => [
+                'title' => 'Degree in economics, sociology or statistics',
+                'description' => 'Graduation with a degree from a recognized post-secondary institution with acceptable specialization in economics, sociology or statistics.',
+            ],
+            'degree_specialization' => [
+                'title' => 'Other degree with specialization',
+                'description' => 'A degree is still required. However, the specialization in economics, sociology, or statistics may also be obtained through an acceptable combination of education, training, or experience.',
+            ],
+        ],
+        'cr' => [
+            'applied_work_experience' => [
+                'title' => 'Applied work experience',
+                'description' => 'Combination of experience, training or education.',
+            ],
+            'secondary_school' => [
+                'title' => 'Two years of secondary school',
+                'description' => 'Successful completion of two years of secondary school.',
+            ],
+        ],
+        'it' => [
+            'applied_work_experience' => [
+                'title' => 'Applied work experience',
+                'description' => 'Combined experience in computer science, information technology, information management or another specialty relevant to this advertisement, including any of the following:',
+                'on_the_job_learning' => 'On-the-job learning',
+                'non_conventional_training' => 'Non-conventional training',
+                'formal_education' => 'Formal education',
+                'other_experience' => 'Other related experience (e.g. personal, community, family)',
+            ],
+            'post_secondary' => [
+                'title' => '2-year post-secondary',
+                'description' => 'Graduation from a program of 2 years or more offered by a <a href=":url">recognized post-secondary institution</a>. The program must have a specialization in computer science, information technology, information management or another specialty relevant to this advertisement.',
+                'description_post_secondary_url' => 'https://www.canada.ca/en/treasury-board-secretariat/services/staffing/qualification-standards/core.html#rpsi',
             ],
         ]
     ],
