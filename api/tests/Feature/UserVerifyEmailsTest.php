@@ -316,9 +316,11 @@ class UserVerifyEmailsTest extends TestCase
         )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 
-    public function testCannotRequestCodeForDuplicateEmailWithWork()
+    public function testCanRequestCodeForAnotherUsersWorkEmail()
     {
-        // Create another user with their own email
+        Notification::fake();
+
+        // Another user's work email can be requested, it will be adopted on verification
         User::factory()->create([
             'work_email' => 'regular.user.2@gc.ca',
         ]);
@@ -331,14 +333,18 @@ class UserVerifyEmailsTest extends TestCase
                     'emailTypes' => [EmailType::WORK->name],
                 ],
             ]
-        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        )->assertJsonMissingPath('errors');
+
+        Notification::assertSentTo(
+            [$this->regularUser], VerifyEmails::class
+        );
     }
 
     public function testCannotRequestCodeForDuplicateEmailCaseInsensitive()
     {
         // Create another user with their own email
         User::factory()->create([
-            'work_email' => 'regular.user.2@gc.ca',
+            'email' => 'regular.user.2@gc.ca',
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
