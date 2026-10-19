@@ -145,8 +145,11 @@ return [
         'paragraph_4_url_2' => 'https://www.canada.ca/en/treasury-board-secretariat/services/pay/rates-pay/rates-pay-unrepresented-senior-excluded-employees.html',
     ],
     'deadline' => [
-        'title' => '',
-        'content' => '',
+        'title' => 'About application deadlines',
+        'paragraph_1' => 'In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at 11:59 PM Pacific Time on the date specified.',
+        'paragraph_2' => 'For this opportunity, applications must be submitted no later than:',
+        'paragraph_3' => 'In your current time zone, that means applications will be accepted until:',
+        'paragraph_4' => 'Have questions? <a href="/support">Get in touch</a>',
     ],
     'work_location' => [
         'title' => '',
