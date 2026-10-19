@@ -1471,10 +1471,6 @@ input UserFilterInput {
   trashed: Trashed @trashed
 }
 
-input UserPublicProfileFilterInput {
-  publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
-}
-
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1740,19 +1736,6 @@ type Query {
     )
     @guard
     @canResolved(ability: "view")
-  userPublicProfilesPaginated(
-    where: UserPublicProfileFilterInput
-    excludeIds: [ID!] @notIn(key: "id")
-    orderBy: [OrderByClause!] @orderBy
-  ): [UserPublicProfile]!
-    @orderBy(column: "created_at", direction: DESC)
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereAuthorizedToViewBasicInfo"]
-    )
-    @guard
-    @canModel(ability: "viewBasicInfo", model: "User")
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard

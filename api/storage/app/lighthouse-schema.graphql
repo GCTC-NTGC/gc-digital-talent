@@ -528,17 +528,6 @@ type Query {
     "The offset from which items are returned."
     page: Int
   ): UserPaginator!
-  userPublicProfilesPaginated(
-    where: UserPublicProfileFilterInput
-    excludeIds: [ID!]
-    orderBy: [OrderByClause!]
-
-    "Limits number of fetched items. Maximum allowed value: 1000."
-    first: Int! = 10
-
-    "The offset from which items are returned."
-    page: Int
-  ): UserPublicProfilePaginator!
   talentRequestMatches(
     where: TalentRequestMatchFilterInput
     orderBy: [AdvancedOrderByInput!]
@@ -1896,10 +1885,6 @@ input UserFilterInput {
   generalSearch: String
   roles: [ID]
   trashed: Trashed
-}
-
-input UserPublicProfileFilterInput {
-  publicProfileSearch: String
 }
 
 input PoolFilterInput {
@@ -3299,15 +3284,6 @@ type UserPaginator {
 
   "A list of User items."
   data: [User!]!
-}
-
-"A paginated list of UserPublicProfile items."
-type UserPublicProfilePaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserPublicProfile items."
-  data: [UserPublicProfile!]!
 }
 
 enum NullsOrder {
