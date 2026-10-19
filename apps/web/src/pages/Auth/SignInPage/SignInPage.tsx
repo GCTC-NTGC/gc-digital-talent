@@ -27,7 +27,6 @@ import canadaLoginStep1bImage from "~/assets/img/sign-in-step-1b-light.webp";
 import canadaLoginStep1cImage from "~/assets/img/sign-in-step-1c-light.webp";
 import canadaLoginStep1bImageDark from "~/assets/img/sign-in-step-1b-dark.webp";
 import canadaLoginStep1cImageDark from "~/assets/img/sign-in-step-1c-dark.webp";
-import gckeyMessages from "~/messages/gckeyMessages";
 import canadaLoginMessages from "~/messages/canadaLoginMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (
@@ -366,7 +365,7 @@ export const Component = () => {
             </Accordion.Item>
           </Accordion.Root>
           <p className="mt-6">
-            {intl.formatMessage(gckeyMessages.moreQuestions, {
+            {intl.formatMessage(canadaLoginMessages.moreQuestions, {
               helpLink: (chunks: ReactNode) =>
                 helpLink(chunks, paths.support()),
             })}
