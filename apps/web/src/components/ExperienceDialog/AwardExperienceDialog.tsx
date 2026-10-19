@@ -1,8 +1,6 @@
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
-import { hasEmptyRequiredFields } from "~/validators/experience/award";
-
 import AwardDialogContent from "./AwardDialogContent";
 import type { ExperienceDialogBaseProps } from "./ExperienceDialog";
 import ExperienceDialog from "./ExperienceDialog";
@@ -114,14 +112,9 @@ const AwardExperienceDialog = ({
     AwardExperienceDialog_Fragment,
     experienceQuery,
   );
-  const isMissingInfo = hasEmptyRequiredFields(experience);
 
   return (
-    <ExperienceDialog
-      experienceQuery={experience}
-      isMissingInfo={isMissingInfo}
-      {...rest}
-    >
+    <ExperienceDialog experienceQuery={experience} {...rest}>
       <AwardDialogContent experience={experience} headingRank="h3" />
       <DetailsSection details={experience.details} />
     </ExperienceDialog>

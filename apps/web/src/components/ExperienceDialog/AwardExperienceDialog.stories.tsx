@@ -45,15 +45,3 @@ Default.args = {
   experienceQuery: makeFragmentData(experience, AwardExperienceDialog_Fragment),
   userSkills,
 };
-
-export const MissingInfo = Template.bind({});
-MissingInfo.args = {
-  experienceQuery: makeFragmentData(
-    {
-      ...experience,
-      issuedBy: null,
-    },
-    AwardExperienceDialog_Fragment,
-  ),
-  userSkills,
-};

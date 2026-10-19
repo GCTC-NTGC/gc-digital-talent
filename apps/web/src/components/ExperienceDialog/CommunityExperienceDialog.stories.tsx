@@ -45,15 +45,3 @@ Default.args = {
   ),
   userSkills,
 };
-
-export const MissingInfo = Template.bind({});
-MissingInfo.args = {
-  experienceQuery: makeFragmentData(
-    {
-      ...experience,
-      project: null,
-    },
-    CommunityExperienceDialog_Fragment,
-  ),
-  userSkills,
-};
