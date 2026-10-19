@@ -200,10 +200,12 @@ class AuthController extends Controller
                         if (! empty($existingUser->email) && strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
                             $existingUser->email_backup = $existingUser->email;
                             $existingUser->email = null;
+                            $existingUser->email_verified_at = null;
                         }
                         if (! empty($existingUser->work_email) && strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
                             $existingUser->work_email_backup = $existingUser->work_email;
                             $existingUser->work_email = null;
+                            $existingUser->work_email_verified_at = null;
                         }
                         $existingUser->save();
                     }
