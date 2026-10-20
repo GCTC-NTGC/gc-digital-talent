@@ -100,14 +100,16 @@ class TalentRequestFactory extends BaseFactory
     {
         return $this->afterCreating(function (TalentRequest $talentRequest) {
             $filter = $talentRequest->applicantFilter;
-            $selected = TalentRequestSource::selected($filter->talent_sources);
 
-            for ($mask = 1; $mask < (1 << count($selected)); $mask++) {
-                $sources = array_values(array_filter(
-                    $selected,
-                    fn ($index) => $mask & (1 << $index),
-                    ARRAY_FILTER_USE_KEY
-                ));
+            $combinations = [[]];
+            foreach (TalentRequestSource::selected($filter->talent_sources) as $source) {
+                foreach ($combinations as $combination) {
+                    $combinations[] = [...$combination, $source];
+                }
+            }
+            array_shift($combinations);
+
+            foreach ($combinations as $sources) {
                 $this->createUser($filter, $sources);
             }
         });
