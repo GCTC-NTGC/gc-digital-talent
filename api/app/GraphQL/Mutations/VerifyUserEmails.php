@@ -90,7 +90,7 @@ final class VerifyUserEmails
         // by now, token seems good
         foreach ($token['emailTypes'] as $emailTypeString) {
             $emailType = EmailType::fromName($emailTypeString);
-            if ($emailType == EmailType::WORK) {
+            if ($emailType === EmailType::WORK) {
                 // similar logic to AuthController::authCallback
                 // if another user has this work_email we will take it from them
                 $existingUser = User::where('id', '!=', $user->id)
