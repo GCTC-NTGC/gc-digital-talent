@@ -15,7 +15,7 @@
 <hr />
 
 <section aria-labelledby="footnotes">
-    <h2 id="footnotes">@lang('headings.footnotes')</h2>
+    <h2 id="footnotes">@lang('footnote.heading')</h2>
     @include('job_advertisement.partials.salary_range')
     @include('job_advertisement.partials.deadline')
     @include('job_advertisement.partials.work_location')
