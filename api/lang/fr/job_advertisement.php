@@ -10,11 +10,46 @@ return [
         'label_salary_range' => 'Échelle salariale',
         'label_deadline' => 'Date limite',
         'label_employment_length' => 'Durée de l\'emploi',
+        'label_employment_length_url_label' => 'Apprenez-en davantage sur les durées d\'emploi (s\'ouvre dans un nouvel onglet)',
         'label_employment_length_url' => 'https://www.canada.ca/fr/services-publics-approvisionnement/services/paye-pension/communaute-remuneration/procedures-soutien-employeur/emploi-fonction-publique-federale.html#a4',
         'label_department_work_location' => 'Lieu de travail',
         'label_department_language_requirement' => 'Exigences relatives à la langue',
         'label_department_security_clearance' => 'Cote de sécurité',
         'label_department_selection_process_number' => 'Numéro du processus de sélection',
+    ],
+    'area_of_selection' => [
+        'employees' => [
+            'title' => 'Cette possibilité d\'emploi s\'adresse aux employés internes',
+            'title_at_level' => 'Cette possibilité d\'emploi s\'adresse aux employés internes de classification :classification ou équivalente',
+            'title_departmental_preference' => 'Cette possibilité d\'emploi s\'adresse aux employés internes, la préférence étant donnée aux personnes travaillant dans les ministères énumérés*',
+            'title_at_level_departmental_preference' => 'Cette possibilité d\'emploi s\'adresse aux employés internes de classification :classification ou équivalente avec la préférence accordée à ceux aux ministères énumérés*',
+            'content' => 'Cette possibilité d\'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l\'employé que vous fournissez dans votre profil sont à jour.',
+            'content_at_level' => 'Cette possibilité d\'emploi est réservée aux employés actuels du gouvernement du Canada ou aux personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme :classification ou un équivalent organisationnel. En postulant, vous confirmez que vous êtes un employé en service et que les informations sur l\'employé que vous fournissez dans votre profil sont à jour.',
+            'veterans' => '<a href=":url">Les anciens combattants et les membres des Forces armées canadiennes admissibles</a> peuvent également postuler.',
+            'veterans_url' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html',
+            'departmental_preference_note' => '* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : :department.',
+        ],
+        'canadian_citizens' => [
+            'title' => 'Cette possibilité d\'emploi s’adresse uniquement aux personnes ayant la citoyenneté canadienne',
+            'content' => 'La présente offre s’adresse uniquement aux personnes ayant la citoyenneté canadienne. *',
+            'note' => '* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a href=":url">Loi sur l’emploi dans la fonction publique</a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.',
+            'url' => 'https://laws-lois.justice.gc.ca/fra/lois/p-33.01/',
+        ],
+    ],
+    'who_can_apply' => [
+        'employees' => [
+            'content' => 'Les employées et employés du gouvernement du Canada, les personnes employées par une agence du gouvernement du Canada, <a href=":url">et les anciens combattants et les membres des Forces armées canadiennes admissibles.</a>',
+            'content_at_level' => 'Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d\'attache. <a href=":url">Les anciens combattants et les membres des Forces armées canadiennes admissibles</a> peuvent également postuler.',
+            'veterans_url' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html',
+            'departmental_preference_note' => '* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : :department.',
+        ],
+        'canadian_citizens' => [
+            'content' => 'Toute personne ayant la citoyenneté canadienne.',
+        ],
+        'public' => [
+            'content' => 'Toutes les personnes qui résident au Canada, qui sont des citoyennes ou citoyens canadiens ou qui sont des résidentes ou résidents permanents à l\'étranger.',
+            'note' => '* La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.',
+        ],
     ],
     'minimum_education' => [
         'title' => 'Niveau d\'études minimal',
@@ -88,6 +123,11 @@ return [
     'skill_requirements' => [
         'title' => 'Exigences en matière de compétences',
         'description' => 'Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez toutes les compétences marquées « Requises ». Si vous possédez l\'une des compétences « Facultatives » nous vous recommandons de l\'inclure, car elle augmentera vos chances de trouver un emploi. Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.',
+        'required' => 'Requises',
+        'optional' => 'Facultatives',
+        'assessed_initial_application' => 'Évaluées lors de la demande initiale',
+        'assessed_later' => 'Évaluées ultérieurement',
+        'label_level' => 'Niveau',
         'label_skill_levels' => 'En savoir davantage sur les niveaux de compétence',
         'skill_levels' => [
             'title' => 'Comprendre les niveaux de compétence',
@@ -158,6 +198,7 @@ return [
         'list_item_1' => 'Les postes à distance vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.',
         'list_item_2' => 'Les postes hybrides requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.',
         'list_item_3' => 'Les postes sur place requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.',
+        'remote_or_hybrid' => 'À distance, hybride ou sur site',
     ],
     'language_requirement' => [
         'title' => 'Exigences linguistiques et compétences en langue seconde',
