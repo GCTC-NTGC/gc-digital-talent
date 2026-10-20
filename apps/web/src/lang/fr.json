@@ -706,6 +706,10 @@
     "defaultMessage": "Utilisez le bouton « Créer une compétence » pour commencer.",
     "description": "Instructions for adding a skill item."
   },
+  "0kUhc0": {
+    "defaultMessage": "{poolName} a été ajouté au tableau de bord avec succès.",
+    "description": "Success message for pool visible in dashboard again"
+  },
   "0m1utE": {
     "defaultMessage": "Examinez le profil du nominé ou de la nominée et approuver ou rejeter sa nomination.",
     "description": "Description of a talent nomination group"
@@ -2734,6 +2738,10 @@
     "defaultMessage": "Erreur : impossible d’annuler la décision",
     "description": "Error message when status decision could not be reverted"
   },
+  "9HP8+b": {
+    "defaultMessage": "Le retrait de {poolName} du tableau de bord a échoué.",
+    "description": "Failure message for hiding pool from dashboard"
+  },
   "9HXOU+": {
     "defaultMessage": "Modèles d'emplois",
     "description": "Text for the breadcrumb navigation link"
@@ -4737,6 +4745,10 @@
     "defaultMessage": "Créer un programme de perfectionnement",
     "description": "Breadcrumb title for the create development program page link."
   },
+  "HWqXRU": {
+    "defaultMessage": "Toutes les candidatures ({recruitmentProcessesCount})",
+    "description": "Text for all applications page"
+  },
   "HXF9GA": {
     "defaultMessage": "Bassin demandé",
     "description": "Title for the pool block in the manager info section of the single search request view."
@@ -6002,6 +6014,10 @@
   "MIMrQK": {
     "defaultMessage": "Les modifications apportées à vos préférences, à votre expérience professionnelle et à vos compétences sont enregistrées dans votre profil.",
     "description": "Point three, what happens when an application is deleted"
+  },
+  "MIicIe": {
+    "defaultMessage": "L’ajout de {poolName} au tableau de bord a échoué.",
+    "description": "Failure message for adding pool back to dashboard"
   },
   "MLrQQy": {
     "defaultMessage": "Emploi de fichiers situés sur des serveurs autres que ceux du gouvernement du Canada",
@@ -7641,6 +7657,10 @@
     "defaultMessage": "Critères de compétences constituant un atout",
     "description": "Sub title for the pool essential skills"
   },
+  "TF3Bvn": {
+    "defaultMessage": "{poolName} a été retiré du tableau de bord avec succès.",
+    "description": "Success message for pool no longer visible in dashboard"
+  },
   "TFAsYS": {
     "defaultMessage": "Créer la possibilité de formation",
     "description": "Button label to submit the create an opportunity form"
@@ -7744,6 +7764,10 @@
   "TiIkSF": {
     "defaultMessage": "Deux années d'études postsecondaires",
     "description": "Option for education requirement, 2-year post-secondary"
+  },
+  "TiOiHX": {
+    "defaultMessage": "Ajouter au tableau de bord",
+    "description": "Button label to add back application to your dashboard"
   },
   "TjvnvR": {
     "defaultMessage": "Embauchez un(e) apprenti(e) en TI",
@@ -13440,6 +13464,10 @@
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
+  },
+  "r0Fp7/": {
+    "defaultMessage": "Retirer du tableau de bord",
+    "description": "Button label to hide application from your dashboard"
   },
   "r2K3M3": {
     "defaultMessage": "Créer<hidden> une collectivité</hidden>",
