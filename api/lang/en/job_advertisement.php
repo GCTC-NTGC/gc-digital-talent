@@ -16,6 +16,25 @@ return [
         'label_department_security_clearance' => 'Security clearance',
         'label_department_selection_process_number' => 'Selection process number',
     ],
+    'area_of_selection' => [
+        'employees' => [
+            'title' => 'This job opportunity is for internal employees',
+            'title_at_level' => 'This job opportunity is for internal employees with a classification of :classification or equivalent',
+            'title_departmental_preference' => 'This job opportunity is for internal employees with preference given to those at the departments listed*',
+            'title_at_level_departmental_preference' => 'This job opportunity is for internal employees with a classification of :classification or equivalent with preference given to those at the departments listed*',
+            'content' => 'This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.',
+            'content_at_level' => 'This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as :classification or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.',
+            'veterans' => '<a href=":url">Eligible veterans and Canadian Armed Forces members</a> may also apply.',
+            'veterans_url' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html',
+            'departmental_preference_note' => '* Preference will be given to persons employed with the following departments or agencies: :department.',
+        ],
+        'canadian_citizens' => [
+            'title' => 'This opportunity is for Canadian citizens only',
+            'content' => 'This opportunity is reserved for persons with Canadian citizenship*.',
+            'note' => '*This opportunity is with a department or agency that is not subject to the <a href=":url">Public Service Employment Act</a>. As a result, the hiring process and terminology might be different from those typically found in the federal public service.',
+            'url' => 'https://laws-lois.justice.gc.ca/eng/acts/p-33.01/',
+        ],
+    ],
     'minimum_education' => [
         'title' => 'Minimum education',
         'description' => 'This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you\'ll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the <a href=":url">Government of Canada\'s qualification standard</a>.',

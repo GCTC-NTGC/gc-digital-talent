@@ -5,6 +5,7 @@
     {!! $pool->special_note !!}
 @endlocalized
 
+@include('job_advertisement.partials.area_of_selection')
 @include('job_advertisement.partials.employment_details')
 @include('job_advertisement.partials.minimum_education')
 @include('job_advertisement.partials.skill_requirements')
