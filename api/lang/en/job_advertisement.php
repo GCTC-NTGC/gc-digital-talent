@@ -158,6 +158,7 @@ return [
         'list_item_1' => 'Remote positions offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.',
         'list_item_2' => 'Hybrid positions require in-office presence for 3 or more days per week, with the remainder allowing you to work from the location of your choice.',
         'list_item_3' => 'On-site positions require full-time in-office work with no option to work remotely.',
+        'remote_or_hybrid' => 'Remote, hybrid or on-site',
     ],
     'language_requirement' => [
         'title' => 'Language requirements and second language proficiency',
