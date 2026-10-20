@@ -1038,4 +1038,10 @@ class PoolCandidate extends Model
 
         $this->save();
     }
+
+    public function toggleDashboardVisibility()
+    {
+        $this->is_dashboard_viewable = ! $this->is_dashboard_viewable;
+        $this->save();
+    }
 }

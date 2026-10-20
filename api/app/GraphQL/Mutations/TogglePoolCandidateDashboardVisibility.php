@@ -13,8 +13,8 @@ final class TogglePoolCandidateDashboardVisibility
     {
         /** @var PoolCandidate */
         $candidate = PoolCandidate::findOrFail($args['id']);
-        $candidate->is_dashboard_viewable = ! $candidate->is_dashboard_viewable;
-        $candidate->save();
+
+        $candidate->toggleDashboardVisibility();
 
         return $candidate;
     }
