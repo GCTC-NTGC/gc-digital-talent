@@ -1322,10 +1322,6 @@
     "defaultMessage": "Cette annonce n’exige pas qu’on y joigne une note spéciale.",
     "description": "Message displayed when there is no special note for a process advertisement."
   },
-  "3BeThz": {
-    "defaultMessage": "Date de clôture (heure locale)",
-    "description": "Label for a process' closing date in users local timezone"
-  },
   "3BfvIy": {
     "defaultMessage": "Demande de candidats",
     "description": "Button link message on search page that takes user to the request form."
@@ -3482,10 +3478,6 @@
     "defaultMessage": "Cette plateforme vous permet de postuler à des processus de recrutement qui permettront aux gestionnaires qui embauchent de vous trouver facilement. Cette page donne un aperçu de nos processus de recrutement ouverts. Revenez-y et consultez cette page fréquemment!",
     "description": "Description of how the application process works, paragraph one"
   },
-  "C9jYms": {
-    "defaultMessage": "Par exemple, si la date limite choisie est le 1er mars 2024, les candidates et candidats verraient « Postulez au plus tard le 1er mars 2024 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 2 h 59 le 2 mars.",
-    "description": "Second paragraph for pool closing date dialog"
-  },
   "CBedVL": {
     "defaultMessage": "Votre compte",
     "description": "Nav menu trigger for account links sub menu"
@@ -5392,10 +5384,6 @@
     "defaultMessage": "Aucune expérience de travail actuelle au gouvernement du Canada n'a été fournie.",
     "description": "Error message when user has no current government experience."
   },
-  "Jqt2vB": {
-    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
-    "description": "Label for a process' closing date in pacific timezone"
-  },
   "JsPXch": {
     "defaultMessage": "Entrez votre mot de passe ConnexionCanada.",
     "description": "Text for first registration -> create step."
@@ -6629,6 +6617,10 @@
   "P9SZBZ": {
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
+  },
+  "PAIWvU": {
+    "defaultMessage": "Par exemple, si la date limite choisie est le 1 janvier 2027, les candidates et candidats verraient « Postulez au plus tard le 1 janvier 2027 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 1 h 59 le 2 janvier.",
+    "description": "Second paragraph for pool closing date dialog"
   },
   "PAOXlo": {
     "defaultMessage": "* La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
@@ -14064,10 +14056,6 @@
   "tgPKAn": {
     "defaultMessage": "Nominations",
     "description": "Link text for the nominations of a specific talent nomination event"
-  },
-  "tgtpgb": {
-    "defaultMessage": "Vous pouvez visualiser vos candidat(e)s sur la page <a>Placement de talents</a>.",
-    "description": "Message to direct users to the talent placement page"
   },
   "tgu3Ip": {
     "defaultMessage": "Les personnes candidates sélectionnées ({numOfSelectedCandidates}) seront marquées comme",
