@@ -35,6 +35,21 @@ return [
             'url' => 'https://laws-lois.justice.gc.ca/eng/acts/p-33.01/',
         ],
     ],
+    'who_can_apply' => [
+        'employees' => [
+            'content' => 'Employees of the Government of Canada, persons employed by a Government of Canada agency, <a href=":url">and eligible veterans and Canadian Armed Forces members.</a>',
+            'content_at_level' => 'Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an :classification classification or organizational equivalent in their substantive role. <a href=":url">Eligible veterans and Canadian Armed Forces members</a> may also apply.',
+            'veterans_url' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html',
+            'departmental_preference_note' => '* Preference will be given to persons employed with the following departments or agencies: :department.',
+        ],
+        'canadian_citizens' => [
+            'content' => 'Canadian citizens.',
+        ],
+        'public' => [
+            'content' => 'All persons who are residing in Canada, are Canadian citizens, or are Canadian permanent residents abroad.',
+            'note' => '* Preference will be given to veterans, Canadian citizens, and to permanent residents.',
+        ],
+    ],
     'minimum_education' => [
         'title' => 'Minimum education',
         'description' => 'This role requires a minimum amount of experience or a relevant degree. All applicants must meet one of the criteria outlined in this section in order to be considered. If you meet more than one of the options provided, you\'ll be able to specify which option you feel best represents your experience. You can learn more about education and equivalency by visiting the <a href=":url">Government of Canada\'s qualification standard</a>.',
