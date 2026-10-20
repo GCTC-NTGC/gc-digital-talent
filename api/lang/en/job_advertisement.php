@@ -88,6 +88,8 @@ return [
     'skill_requirements' => [
         'title' => 'Skill requirements',
         'description' => 'In order to apply for this job you will need to be able to demonstrate that you have all the skills marked "Required". If you have any of the "Optional" skills you are encouraged to include them because it will increase your chances of a job placement. To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.',
+        'required' => 'Required',
+        'optional' => 'Optional',
         'label_skill_levels' => 'Learn more about skill levels',
         'skill_levels' => [
             'title' => 'Understanding skill levels',
