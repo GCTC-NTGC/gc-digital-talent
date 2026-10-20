@@ -82,7 +82,6 @@ const FIELD = {
   EVENT_CONTACT_EMAIL: "eventContactEmail",
   NOMINATION_START_DATE: "nominationStartDate",
   NOMINATION_CLOSE_DATE: "nominationCloseDate",
-  INCLUDE_NINE_BOX: "includeNineBox",
   CREATE_TALENT_EVENT: "createTalentEvent",
   EDIT_TALENT_EVENT_LINK: "editTalentEventLink",
   SAVE_CHANGES: "saveChanges",
@@ -92,52 +91,36 @@ const FIELD = {
 type ObjectValues<T> = T[keyof T];
 export type Field = ObjectValues<typeof FIELD>;
 
-/**
- * Nomination options with their label and the matching TalentNomination / TalentNominationGroup fields.
- * Labels are the front-end ones; the API's TalentNominationOption labels differ ("development program").
- */
 const nominationOptions = [
   {
     label: "Advancement",
     nominated: "nominateForAdvancement",
-    count: "advancementNominationCount",
-    decision: "advancementDecision",
   },
   {
     label: "Lateral movement",
     nominated: "nominateForLateralMovement",
-    count: "lateralMovementNominationCount",
-    decision: "lateralMovementDecision",
   },
   {
     label: "Development",
     nominated: "nominateForDevelopmentPrograms",
-    count: "developmentProgramsNominationCount",
-    decision: "developmentProgramsDecision",
   },
 ] as const;
 
-/** What a test enters when nominating; the nomination history is validated against it */
 export interface TalentNominationDetails {
-  /** Users with workEmail, currentClassification and department */
   nominator: User;
   nominee: User;
-  /** The advancement reference must be a verified government employee */
   reference: User;
-  /** Option labels as the form shows them */
   submitterRelationship: string;
   nomineeRelationship: string;
   lateralMovementOptions: string[];
   recommendedClassification: Classification;
   rationale: string;
   additionalComments: string;
-  /** Only asked when the event includes them */
   nineBox?: { performance: string; leadershipPotential: string };
   developmentProgram?: string;
   skills: Skill[];
 }
 
-/** A nomination as a spec describes it: option enum values instead of labels */
 export type TalentNominationInput = Omit<
   TalentNominationDetails,
   | "submitterRelationship"
@@ -148,26 +131,20 @@ export type TalentNominationInput = Omit<
   submitterRelationship: TalentNominationSubmitterRelationshipToNominator;
   nomineeRelationship: TalentNominationNomineeRelationshipToNominator;
   lateralMovementOptions: TalentNominationLateralMovementOption[];
-  /** Only for events that include the nine box questions */
   performance?: NineBoxRating;
   leadershipPotential?: NineBoxRating;
 };
-
-/** One nomination as the nominee's nomination history shows it */
 export interface NominationHistoryEntry {
   eventName: string;
   details: TalentNominationDetails;
-  /** With workEmail, currentClassification and department */
   submitter: User;
   status: string;
   received: string;
-  /** The nominee's classification is recorded once the nomination is evaluated */
   evaluated: boolean;
 }
 
 const fullName = (user: User) => `${user.firstName} ${user.lastName}`;
 
-// Always advancement and lateral movement; development only when the event offers programs
 const nominatedFor = (details: TalentNominationDetails) =>
   nominationOptions.filter(
     ({ nominated }) =>
@@ -175,8 +152,37 @@ const nominatedFor = (details: TalentNominationDetails) =>
       !!details.developmentProgram,
   );
 
-/** Builds the nomination details with the option labels the form and history show */
-export const buildTalentNominationDetails = async (
+const commonNominationFields = (
+  details: TalentNominationDetails,
+): [string, string][] => [
+  ["Nominator’s name", fullName(details.nominator)],
+  ["Nominator’s work email", details.nominator.workEmail ?? ""],
+  [
+    "Nominator's classification",
+    details.nominator.currentClassification?.groupAndLevel ?? "",
+  ],
+  [
+    "Nominator’s department or agency",
+    details.nominator.department?.name.en ?? "",
+  ],
+  ["Reference’s name", fullName(details.reference)],
+  [
+    "Reference's classification",
+    details.reference.currentClassification?.groupAndLevel ?? "",
+  ],
+  [
+    "Reference's department or agency",
+    details.reference.department?.name.en ?? "",
+  ],
+  ["Nomination rationale", details.rationale],
+  ...details.skills.map((skill): [string, string] => [
+    "Top 3 key leadership competencies",
+    skill.name.en ?? "",
+  ]),
+  ["Additional comments", details.additionalComments],
+];
+
+export const OtherTalentNominationDetails = async (
   ctx: GraphQLContext,
   {
     submitterRelationship,
@@ -192,7 +198,6 @@ export const buildTalentNominationDetails = async (
     list: T[],
     value: T["value"],
   ) => list.find((option) => option.value === value)?.label.en ?? "";
-
   return {
     ...details,
     submitterRelationship: labelOf(
@@ -219,11 +224,6 @@ export const buildTalentNominationDetails = async (
   };
 };
 
-/**
- * Talent Management
- *
- * Page containing utilities to interact with talent management
- */
 class TalentManagement extends AppPage {
   readonly locators: Record<Field, Locator>;
 
@@ -397,7 +397,6 @@ class TalentManagement extends AppPage {
       [FIELD.EXPAND_ALL_NOMINATIONS]: page.getByRole("button", {
         name: /expand all/i,
       }),
-      // Each expanded event is a region named after its trigger, e.g. "Event name (2)"
       [FIELD.NOMINATION_HISTORY_EVENTS]: page.getByRole("region", {
         name: /\(\d+\)/,
       }),
@@ -428,10 +427,6 @@ class TalentManagement extends AppPage {
       [FIELD.NOMINATION_CLOSE_DATE]: page.getByRole("group", {
         name: /nomination close date/i,
       }),
-      // "Leadership performance questions" checkbox
-      [FIELD.INCLUDE_NINE_BOX]: page.getByRole("checkbox", {
-        name: /performance and leadership potential/i,
-      }),
       [FIELD.CREATE_TALENT_EVENT]: page.getByRole("button", {
         name: /create talent nomination event/i,
       }),
@@ -443,6 +438,26 @@ class TalentManagement extends AppPage {
         name: /closed nomination event/i,
       }),
     };
+  }
+
+  private async fillDate(dateGroup: Locator, date: string) {
+    const [year, month, day] = date.split("-");
+    await dateGroup.getByRole("spinbutton", { name: /year/i }).fill(year);
+    await dateGroup
+      .getByRole("combobox", { name: /month/i })
+      .selectOption(month);
+    await dateGroup.getByRole("spinbutton", { name: /day/i }).fill(day);
+  }
+
+  private async expectFields(
+    container: Page | Locator,
+    fields: [string, string][],
+  ) {
+    for (const [label, value] of fields) {
+      await expect(
+        container.getByText(label, { exact: true }).locator(".."),
+      ).toContainText(value);
+    }
   }
 
   async goToTalentManagementTable() {
@@ -471,6 +486,9 @@ class TalentManagement extends AppPage {
   }
 
   async viewNominee(nomineeIdentifier: string) {
+    await this.locators[FIELD.PAGE_SIZE].click();
+    await this.locators[FIELD.PAGE_SIZE_500].click();
+    await this.page.keyboard.press("Escape");
     await this.locators[FIELD.TALENT_NOMINATIONS_REGION]
       .getByRole("link", { name: nomineeIdentifier })
       .click();
@@ -487,6 +505,17 @@ class TalentManagement extends AppPage {
         name: `Start a nomination for ${talentEvent}`,
       })
       .click();
+  }
+
+  async startTalentNominationFromLink(eventId: string) {
+    await Promise.all([
+      this.waitForGraphqlResponse("CreateTalentNomination"),
+      this.page.goto(
+        `/en/communities/talent-events/${eventId}/create-talent-nomination`,
+      ),
+    ]);
+    await this.page.waitForURL(/talent-nominations\/[0-9a-f-]{36}/);
+    return new URL(this.page.url()).pathname.split("/").pop() ?? "";
   }
 
   async fillNominatorStep(details: TalentNominationDetails) {
@@ -527,7 +556,6 @@ class TalentManagement extends AppPage {
 
   async fillNominationDetailsStep(details: TalentNominationDetails) {
     if (details.nineBox) {
-      // The radios read e.g. "High performance"; the API label is "High"
       await this.locators[FIELD.PERFORMANCE]
         .getByRole("radio", {
           name: new RegExp(`^${details.nineBox.performance}`),
@@ -552,7 +580,6 @@ class TalentManagement extends AppPage {
     await classifications.fill(details.recommendedClassification.groupAndLevel);
     await classifications.press("ArrowDown");
     await classifications.press("Enter");
-    // Option labels are followed by a description
     for (const option of details.lateralMovementOptions) {
       await this.locators[FIELD.LATERAL_MOVEMENT_OPTIONS]
         .getByRole("checkbox", { name: new RegExp(`^${escapeRegExp(option)}`) })
@@ -583,20 +610,10 @@ class TalentManagement extends AppPage {
     await this.locators[FIELD.NEXT_STEP].click();
   }
 
-  /** The "Review and submit" step shows everything that was entered */
   async validateNominationReview(details: TalentNominationDetails) {
     const fields: [string, string][] = [
+      ...commonNominationFields(details),
       ["Your role", "I’m submitting the nomination on the nominator’s behalf"],
-      ["Nominator’s name", fullName(details.nominator)],
-      ["Nominator’s work email", details.nominator.workEmail ?? ""],
-      [
-        "Nominator's classification",
-        details.nominator.currentClassification?.groupAndLevel ?? "",
-      ],
-      [
-        "Nominator’s department or agency",
-        details.nominator.department?.name.en ?? "",
-      ],
       ["Nominee's name", fullName(details.nominee)],
       ["Nominee's work email", details.nominee.workEmail ?? ""],
       [
@@ -611,16 +628,7 @@ class TalentManagement extends AppPage {
         "Nomination options",
         label,
       ]),
-      ["Reference’s name", fullName(details.reference)],
       ["Reference's work email", details.reference.workEmail ?? ""],
-      [
-        "Reference's classification",
-        details.reference.currentClassification?.groupAndLevel ?? "",
-      ],
-      [
-        "Reference's department or agency",
-        details.reference.department?.name.en ?? "",
-      ],
       [
         "Recommended classifications for advancement",
         details.recommendedClassification.groupAndLevel,
@@ -629,12 +637,6 @@ class TalentManagement extends AppPage {
         "Lateral movement options",
         option,
       ]),
-      ["Nomination rationale", details.rationale],
-      ...details.skills.map((skill): [string, string] => [
-        "Top 3 key leadership competencies",
-        skill.name.en ?? "",
-      ]),
-      ["Additional comments", details.additionalComments],
     ];
     if (details.nineBox) {
       fields.push(
@@ -660,95 +662,80 @@ class TalentManagement extends AppPage {
     ).toBeVisible();
   }
 
-  async viewSubmittedTalentNomination(nomineeName: string) {
+  async viewSubmittedTalentNomination(nomineeName: string, eventName: string) {
     await this.locators[FIELD.RETURN_TO_DASHBOARD].click();
     await this.locators[FIELD.TALENT_NOMINATIONS_BUTTON].click();
     await this.page
+      .getByRole("listitem")
+      .filter({ hasText: eventName })
       .getByRole("button", { name: `${nomineeName} talent nomination` })
       .click();
     await expect(this.locators[FIELD.REVIEW_NOMINATION_HEADING]).toBeVisible();
   }
 
-  async evaluateNomineeNotSupported(nominatedForDevelopment: boolean) {
+  private async openEvaluation() {
     await this.locators[FIELD.OPEN_EVALUATION].click();
     await this.waitForGraphqlResponse(
       "NominationGroupEvaluationDialogFormOptions",
     );
-
-    await this.locators[FIELD.ADVANCEMENT_NOT_SUPPORTED].click();
-    await this.locators[FIELD.NOT_SUPPORTED_REASON]
-      .first()
-      .fill("Additional details");
-
-    await this.locators[FIELD.LATERAL_MOVEMENT_NOT_SUPPORTED].click();
-    await this.locators[FIELD.NOT_SUPPORTED_REASON]
-      .nth(1)
-      .fill("Additional details");
-
-    if (nominatedForDevelopment) {
-      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_NOT_SUPPORTED].click();
-      await this.locators[FIELD.NOT_SUPPORTED_REASON]
-        .nth(2)
-        .fill("Additional details");
-    }
-
-    await Promise.all([
-      this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
-      this.locators[FIELD.SUBMIT_EVALUATION].click(),
-    ]);
   }
 
-  async evaluateNomineePartiallySupported(nominatedForDevelopment: boolean) {
-    await this.locators[FIELD.OPEN_EVALUATION].click();
-    await this.waitForGraphqlResponse(
-      "NominationGroupEvaluationDialogFormOptions",
-    );
-
-    await this.locators[FIELD.ADVANCEMENT_NOT_SUPPORTED].click();
-    await this.locators[FIELD.NOT_SUPPORTED_REASON]
-      .first()
-      .fill("Additional details");
-
+  private async approveLateralMovement(referralExpiryDate: Locator) {
     await this.locators[FIELD.LATERAL_MOVEMENT_APPROVED].click();
-
     const lateralClassificationsCombobox =
       this.locators[FIELD.REFERRAL_EQUIVALENCIES];
     await lateralClassificationsCombobox.click();
     await lateralClassificationsCombobox.press("ArrowDown");
     await lateralClassificationsCombobox.press("Enter");
     await this.page.keyboard.press("Tab");
+    await this.fillDate(referralExpiryDate, "2099-12-31");
+  }
 
-    const lateralReferralExpiryDate = this.locators[FIELD.REFERRAL_EXPIRY_DATE];
-    await lateralReferralExpiryDate
-      .getByRole("spinbutton", { name: /year/i })
-      .fill("2099");
-    await lateralReferralExpiryDate
-      .getByRole("combobox", { name: /month/i })
-      .selectOption("12");
-    await lateralReferralExpiryDate
-      .getByRole("spinbutton", { name: /day/i })
-      .fill("31");
-
-    if (nominatedForDevelopment) {
-      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
-    }
-
+  private async submitEvaluation() {
     await Promise.all([
       this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
       this.locators[FIELD.SUBMIT_EVALUATION].click(),
     ]);
   }
 
-  async evaluateNomineeApproved(nominatedForDevelopment: boolean) {
-    await this.locators[FIELD.OPEN_EVALUATION].click();
-    await this.waitForGraphqlResponse(
-      "NominationGroupEvaluationDialogFormOptions",
+  async evaluateNomineeNotSupported(nominatedForDevelopment: boolean) {
+    await this.openEvaluation();
+    await this.locators[FIELD.ADVANCEMENT_NOT_SUPPORTED].click();
+    await this.locators[FIELD.NOT_SUPPORTED_REASON]
+      .first()
+      .fill("Additional details");
+    await this.locators[FIELD.LATERAL_MOVEMENT_NOT_SUPPORTED].click();
+    await this.locators[FIELD.NOT_SUPPORTED_REASON]
+      .nth(1)
+      .fill("Additional details");
+    if (nominatedForDevelopment) {
+      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_NOT_SUPPORTED].click();
+      await this.locators[FIELD.NOT_SUPPORTED_REASON]
+        .nth(2)
+        .fill("Not supported");
+    }
+    await this.submitEvaluation();
+  }
+
+  async evaluateNomineePartiallySupported(nominatedForDevelopment: boolean) {
+    await this.openEvaluation();
+    await this.locators[FIELD.ADVANCEMENT_NOT_SUPPORTED].click();
+    await this.locators[FIELD.NOT_SUPPORTED_REASON]
+      .first()
+      .fill("Not supported");
+    await this.approveLateralMovement(
+      this.locators[FIELD.REFERRAL_EXPIRY_DATE],
     );
+    if (nominatedForDevelopment) {
+      await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
+    }
+    await this.submitEvaluation();
+  }
 
+  async evaluateNomineeApproved(nominatedForDevelopment: boolean) {
+    await this.openEvaluation();
     await this.locators[FIELD.ADVANCEMENT_APPROVED].click();
-
     await this.locators[FIELD.ELIGIBILITY_CONFIRMED].click();
-
     const advancementReferralExpiryDate =
       this.locators[FIELD.REFERRAL_EXPIRY_DATE].first();
     await this.locators[FIELD.SUBMIT_EVALUATION].click();
@@ -758,50 +745,17 @@ class TalentManagement extends AppPage {
     await expect(advancementReferralExpiryDate).toHaveAccessibleDescription(
       /this field is required/i,
     );
-
     await this.locators[FIELD.ADVANCEMENT_CLASSIFICATIONS].click();
     await this.locators[FIELD.OPTION].first().click();
     await this.page.keyboard.press("Tab");
-
-    await advancementReferralExpiryDate
-      .getByRole("spinbutton", { name: /year/i })
-      .fill("2099");
-    await advancementReferralExpiryDate
-      .getByRole("combobox", { name: /month/i })
-      .selectOption("12");
-    await advancementReferralExpiryDate
-      .getByRole("spinbutton", { name: /day/i })
-      .fill("31");
-
-    await this.locators[FIELD.LATERAL_MOVEMENT_APPROVED].click();
-
-    const lateralClassificationsCombobox =
-      this.locators[FIELD.REFERRAL_EQUIVALENCIES];
-    await lateralClassificationsCombobox.click();
-    await lateralClassificationsCombobox.press("ArrowDown");
-    await lateralClassificationsCombobox.press("Enter");
-    await this.page.keyboard.press("Tab");
-
-    const lateralReferralExpiryDate =
-      this.locators[FIELD.REFERRAL_EXPIRY_DATE].last();
-    await lateralReferralExpiryDate
-      .getByRole("spinbutton", { name: /year/i })
-      .fill("2099");
-    await lateralReferralExpiryDate
-      .getByRole("combobox", { name: /month/i })
-      .selectOption("12");
-    await lateralReferralExpiryDate
-      .getByRole("spinbutton", { name: /day/i })
-      .fill("31");
-
+    await this.fillDate(advancementReferralExpiryDate, "2099-12-31");
+    await this.approveLateralMovement(
+      this.locators[FIELD.REFERRAL_EXPIRY_DATE].last(),
+    );
     if (nominatedForDevelopment) {
       await this.locators[FIELD.DEVELOPMENT_PROGRAMS_APPROVED].click();
     }
-
-    await Promise.all([
-      this.waitForGraphqlResponse("NominationGroupEvaluationDialog_Mutation"),
-      this.locators[FIELD.SUBMIT_EVALUATION].click(),
-    ]);
+    await this.submitEvaluation();
   }
 
   async verifyErrorMessageOnSubmitTalentNomination() {
@@ -810,27 +764,11 @@ class TalentManagement extends AppPage {
         hasText: /you must be a verified employee to perform this action/i,
       }),
     ).toBeVisible();
-
     await expect(this.locators.alertMessage.last()).toContainText(
       /sorry, we encountered an error/i,
     );
   }
 
-  /** Opens the event's "Copy nomination link" URL, which creates a draft nomination */
-  /** Creates a nomination from the event's nomination link and returns its id */
-  async startTalentNominationFromLink(eventId: string) {
-    await Promise.all([
-      this.waitForGraphqlResponse("CreateTalentNomination"),
-      this.page.goto(
-        `/en/communities/talent-events/${eventId}/create-talent-nomination`,
-      ),
-    ]);
-    // Lands on the new nomination: /communities/talent-nominations/<id>
-    await this.page.waitForURL(/talent-nominations\/[0-9a-f-]{36}/);
-    return new URL(this.page.url()).pathname.split("/").pop() ?? "";
-  }
-
-  /** Creates a talent event from the talent management table and returns its id */
   async createTalentEvent(event: {
     name: string;
     communityId: string;
@@ -858,9 +796,7 @@ class TalentManagement extends AppPage {
       this.locators[FIELD.NOMINATION_CLOSE_DATE],
       event.closeDate,
     );
-    await this.locators[FIELD.INCLUDE_NINE_BOX].click();
     await this.locators[FIELD.CREATE_TALENT_EVENT].click();
-    // Lands on the new event's page: /admin/talent-events/<id>
     await this.page.waitForURL(/talent-events\/[0-9a-f-]{36}$/);
     await expect(this.locators[FIELD.ALERT_MESSAGE].last()).toContainText(
       /created successfully/i,
@@ -877,21 +813,6 @@ class TalentManagement extends AppPage {
     );
   }
 
-  /** The status chip on a talent event's page, e.g. "Past" */
-  talentEventStatus(status: string) {
-    return this.page.getByText(status, { exact: true });
-  }
-
-  /** Fills a date input group from a yyyy-MM-dd date */
-  private async fillDate(dateGroup: Locator, date: string) {
-    const [year, month, day] = date.split("-");
-    await dateGroup.getByRole("spinbutton", { name: /year/i }).fill(year);
-    await dateGroup
-      .getByRole("combobox", { name: /month/i })
-      .selectOption(month);
-    await dateGroup.getByRole("spinbutton", { name: /day/i }).fill(day);
-  }
-
   async viewNominationHistory() {
     await this.locators[FIELD.NOMINATION_HISTORY_TAB].click();
     await this.waitForGraphqlResponse("TalentNominationGroupsByNominee");
@@ -899,10 +820,8 @@ class TalentManagement extends AppPage {
 
   async validateNominationHistory(entries: NominationHistoryEntry[]) {
     await this.locators[FIELD.EXPAND_ALL_NOMINATIONS].click();
-
     for (const { details, ...entry } of entries) {
       const nominatorName = fullName(details.nominator);
-      // Event heading reads "<event name> (<number of nominations>)"
       const eventName = new RegExp(
         `^${escapeRegExp(entry.eventName)}\\s*\\(${entries.filter((e) => e.eventName === entry.eventName).length}\\)`,
       );
@@ -911,13 +830,11 @@ class TalentManagement extends AppPage {
         name: eventName,
       });
       const options = nominatedFor(details);
-      // A chip for each option the nominee was nominated for in this event
       for (const option of nominationOptions) {
         await expect(
           eventHeading.getByText(option.label, { exact: true }),
         ).toHaveCount(options.includes(option) ? 1 : 0);
       }
-
       const row = this.page
         .getByRole("region", { name: eventName })
         .getByRole("listitem")
@@ -929,8 +846,6 @@ class TalentManagement extends AppPage {
         });
       await expect(row.getByText(entry.status, { exact: true })).toBeVisible();
       await expect(row).toContainText(entry.received);
-
-      // The nomination details dialog shows what was entered when nominating
       await row
         .getByRole("button", {
           name: `View nomination details for ${nominatorName}`,
@@ -940,6 +855,7 @@ class TalentManagement extends AppPage {
         name: `${details.nominee.firstName}’s nomination to ${entry.eventName}`,
       });
       const fields: [string, string][] = [
+        ...commonNominationFields(details),
         ["Date received", entry.received],
         ["Submitter's name", fullName(entry.submitter)],
         ["Submitter's work email", entry.submitter.workEmail ?? ""],
@@ -955,32 +871,7 @@ class TalentManagement extends AppPage {
           "Submitter’s relationship to the nominator",
           details.submitterRelationship,
         ],
-        ["Nominator’s name", nominatorName],
-        ["Nominator’s work email", details.nominator.workEmail ?? ""],
-        [
-          "Nominator's classification",
-          details.nominator.currentClassification?.groupAndLevel ?? "",
-        ],
-        [
-          "Nominator’s department or agency",
-          details.nominator.department?.name.en ?? "",
-        ],
-        ["Reference’s name", fullName(details.reference)],
         ["Reference’s work email", details.reference.workEmail ?? ""],
-        [
-          "Reference's classification",
-          details.reference.currentClassification?.groupAndLevel ?? "",
-        ],
-        [
-          "Reference's department or agency",
-          details.reference.department?.name.en ?? "",
-        ],
-        ["Nomination rationale", details.rationale],
-        ...details.skills.map((skill): [string, string] => [
-          "Top 3 key leadership competencies",
-          skill.name.en ?? "",
-        ]),
-        ["Additional comments", details.additionalComments],
       ];
       if (entry.evaluated) {
         fields.push([
@@ -990,18 +881,6 @@ class TalentManagement extends AppPage {
       }
       await this.expectFields(dialog, fields);
       await dialog.getByRole("button", { name: "Okay" }).click();
-    }
-  }
-
-  /** Each field shows its label followed by its value */
-  private async expectFields(
-    container: Page | Locator,
-    fields: [string, string][],
-  ) {
-    for (const [label, value] of fields) {
-      await expect(
-        container.getByText(label, { exact: true }).locator(".."),
-      ).toContainText(value);
     }
   }
 }

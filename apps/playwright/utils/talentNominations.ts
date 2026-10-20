@@ -95,6 +95,43 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
     .then((res) => res.createTalentNominationEvent);
 };
 
+const Test_TalentNominationEventsQueryDocument = /* GraphQL */ `
+  query Test_TalentNominationEvents {
+    talentNominationEvents {
+      id
+      name {
+        en
+        fr
+      }
+      communityDevelopmentPrograms {
+        developmentProgram {
+          name {
+            en
+          }
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * Get an existing talent nomination event by its name
+ */
+export const getTalentNominationEventByName: GraphQLRequestFunc<
+  TalentNominationEvent,
+  { name: string }
+> = async (ctx, { name }) => {
+  const event = await ctx
+    .post<GraphQLResponse<"talentNominationEvents", TalentNominationEvent[]>>(
+      Test_TalentNominationEventsQueryDocument,
+    )
+    .then((res) => res.talentNominationEvents.find((e) => e.name.en === name));
+  if (!event) {
+    throw new Error(`No talent nomination event named "${name}"`);
+  }
+  return event;
+};
+
 const Test_UpdateTalentNominationMutation = /* GraphQL */ `
   mutation Test_UpdateTalentNomination(
     $talentNomination: UpdateTalentNominationInput!
@@ -105,9 +142,6 @@ const Test_UpdateTalentNominationMutation = /* GraphQL */ `
   }
 `;
 
-/**
- * Privileged so community roles apply, e.g. talent coordinators nominating for a past event
- */
 export const updateTalentNomination: GraphQLRequestFunc<
   TalentNomination | undefined,
   UpdateTalentNominationInput
@@ -186,7 +220,7 @@ const Test_TalentNominationEventStatusesQueryDocument = /* GraphQL */ `
 `;
 
 /**
- * Get the talent event statuses (e.g. Upcoming) and their labels using the graphql API
+ * Get the talent event statuses and their labels using the graphql API
  */
 export const getTalentNominationEventStatuses: GraphQLRequestFunc<
   LocalizedTalentNominationEventStatus[]
