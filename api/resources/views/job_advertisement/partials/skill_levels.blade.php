@@ -1,6 +1,6 @@
-<h4>@lang('job_advertisement.skill_requirements.skill_levels.title')</h4>
+<h3>@lang('job_advertisement.skill_requirements.skill_levels.title')</h3>
 <p>@lang('job_advertisement.skill_requirements.skill_levels.subtitle')</p>
-<h5>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_heading')</h5>
+<h4>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_heading')</h4>
 <p>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_description')</p>
 <ul>
     <li>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_1')</li>
@@ -8,7 +8,7 @@
     <li>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_3')</li>
     <li>@lang('job_advertisement.skill_requirements.skill_levels.behavioural_skill_levels_4')</li>
 </ul>
-<h5>@lang('job_advertisement.skill_requirements.skill_levels.technical_skill_levels_heading')</h5>
+<h4>@lang('job_advertisement.skill_requirements.skill_levels.technical_skill_levels_heading')</h4>
 <p>@lang('job_advertisement.skill_requirements.skill_levels.technical_skill_levels_description')</p>
 <ul>
     <li>@lang('job_advertisement.skill_requirements.skill_levels.technical_skill_levels_1')</li>
