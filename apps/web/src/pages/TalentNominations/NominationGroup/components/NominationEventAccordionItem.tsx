@@ -16,7 +16,6 @@ import {
   Button,
   Chip,
   wrapParens,
-  UNICODE_CHAR,
   type ChipProps,
   type IconType,
   PreviewList,
