@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Support\FilePath;
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -24,6 +25,7 @@ class PruneUserGeneratedFilesTest extends TestCase
         // fake both disks so the command never touches real storage
         Storage::fake(FilePath::GUARDED_DISK);
         Storage::fake(FilePath::PUBLIC_DISK);
+        /** @var FilesystemAdapter $disk */
         $disk = Storage::disk($diskName);
 
         $disk->put('user-id/old.xlsx', 'old');
