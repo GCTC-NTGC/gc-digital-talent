@@ -34,7 +34,6 @@ import canadaLoginStep9Dark from "~/assets/img/canada_login_registration_step_9_
 import InstructionsStepCard, {
   InstructionsCardGrid,
 } from "~/components/Instructions/RegisterInstructionStep";
-import gckeyMessages from "~/messages/gckeyMessages";
 import canadaLoginMessages from "~/messages/canadaLoginMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (
@@ -510,7 +509,7 @@ export const Component = () => {
           </Accordion.Item>
         </Accordion.Root>
         <p className="mt-5">
-          {intl.formatMessage(gckeyMessages.moreQuestions, {
+          {intl.formatMessage(canadaLoginMessages.moreQuestions, {
             helpLink: (chunks: ReactNode) => helpLink(chunks, paths.support()),
           })}
         </p>
