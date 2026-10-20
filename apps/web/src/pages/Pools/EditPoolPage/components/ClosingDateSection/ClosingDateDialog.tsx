@@ -50,16 +50,16 @@ const ClosingDateDialog = ({ title }: { title: ReactNode }): JSX.Element => {
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59PM Vancouver time</strong> on the date you select. When shown to applicants, we ask them to apply on or before the date you've chosen to avoid confusion around time zones.",
-              id: "q9jUS8",
+                "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59PM Pacific time</strong> on the date you select. When shown to applicants, we ask them to apply on or before the date you've chosen to avoid confusion around time zones.",
+              id: "9EnhFG",
               description: "First paragraph for the pool closing date dialog",
             })}
           </p>
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "For example, if the deadline chosen is January 1st, 2027, applicants would see “Apply on or before January 1st, 2027”, with a hard deadline of 11:59PM Vancouver time. For an applicant in the Eastern time zone, this would mean that they can technically apply before 1:59AM on January 2nd.",
-              id: "C09qq3",
+                "For example, if the deadline chosen is January 1st, 2027, applicants would see “Apply on or before January 1st, 2027”, with a hard deadline of 11:59PM Pacific time. For an applicant in the Eastern time zone, this would mean that they can technically apply before 1:59AM on January 2nd.",
+              id: "PAIWvU",
               description: "Second paragraph for pool closing date dialog",
             })}
           </p>

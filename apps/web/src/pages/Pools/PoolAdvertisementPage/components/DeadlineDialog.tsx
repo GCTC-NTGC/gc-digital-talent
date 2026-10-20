@@ -60,8 +60,8 @@ const DeadlineDialog = ({ deadline }: DeadlineDialogProps) => {
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59 PM Vancouver Time</strong> on the date specified.",
-                id: "cYoJe9",
+                  "In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at <strong>11:59 PM Pacific Time</strong> on the date specified.",
+                id: "L6MgeM",
                 description: "First paragraph for the pool deadlines dialog",
               })}
             </p>
