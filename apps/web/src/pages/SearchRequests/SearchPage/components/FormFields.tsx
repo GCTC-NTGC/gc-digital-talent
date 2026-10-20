@@ -195,19 +195,20 @@ const FormFields = ({
           <p className="-mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "Use this section to choose where your talent comes from:",
-              id: "JnnUjI",
+                "Use this section to choose where your talent comes from",
+              id: "iTmnvH",
               description:
                 "Message describing the talent source filter in the search form.",
             })}
+            {intl.formatMessage(commonMessages.dividingColon)}
           </p>
           <Ul space="md">
             <li>
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "<strong>Pool candidates</strong> are people that have successfully qualified in a community or departmental recruitment processes.",
-                  id: "MtDwyu",
+                    "<strong>Pool candidates</strong> are people who have successfully qualified in a community or departmental recruitment process.",
+                  id: "5nFcq3",
                   description:
                     "Description for pool candidates talent source filter in search form",
                 })}
