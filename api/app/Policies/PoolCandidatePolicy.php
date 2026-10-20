@@ -140,6 +140,7 @@ class PoolCandidatePolicy
 
     /**
      * Determine whether a user can toggle field is_dashboard_viewable
+     * if you could submit it, you can definitely toggle it
      *
      * @return Response|bool
      */
@@ -148,7 +149,7 @@ class PoolCandidatePolicy
         $isOwn = $user->id === $poolCandidate->user_id;
         $isDraft = $poolCandidate->isDraft();
 
-        return $isOwn && ! $isDraft;
+        return $isOwn && ! $isDraft && $user->isAbleTo('submit-own-draftApplication');
     }
 
     /**
