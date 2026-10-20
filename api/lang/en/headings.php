@@ -55,7 +55,6 @@ return [
     'education_requirement_experiences' => 'Education requirement experiences',
     'skills' => 'Skills',
     'featured_skills' => 'Featured skills',
-    'footnotes' => 'Footnotes',
     // new columns
     'career_planning_lateral_move_interest' => 'Interest in lateral movement',
     'career_planning_lateral_move_time_frame' => 'Target time frame for lateral movement',

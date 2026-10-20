@@ -4,4 +4,4 @@
 
 {{ $slot }}
 
-<p><a href="#footnote-ref-{{ $id }}">&#8617; Back to reference ({{ $heading }})</a></p>
+<p><a href="#footnote-ref-{{ $id }}">&#8617; @lang('footnote.return', ['reference' => $heading])</a></p>

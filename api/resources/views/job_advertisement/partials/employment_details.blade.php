@@ -30,7 +30,7 @@
 
         <a href="{{ __('job_advertisement.employment_details.label_employment_length_url') }}" target="_blank"
             rel="noreferrer noopener">
-            Learn more about employment durations (opens in new tab)
+            @lang('job_advertisement.employment_details.label_employment_length_url_label')
         </a>
     </li>
 

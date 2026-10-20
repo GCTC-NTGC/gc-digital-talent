@@ -1,4 +1,4 @@
 @props(['id'])
 
 <sup><a href="#footnote-{{ $id }}" id="footnote-ref-{{ $id }}"
-        aria-label="Footnote {{ $id }}">[{{ $id }}]</a></sup>
+        aria-label="{{ __('footnote.label', ['id' => $id]) }}">[{{ $id }}]</a></sup>

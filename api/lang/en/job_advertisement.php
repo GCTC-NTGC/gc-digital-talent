@@ -10,6 +10,7 @@ return [
         'label_salary_range' => 'Salary range',
         'label_deadline' => 'Deadline',
         'label_employment_length' => 'Employment length',
+        'label_employment_length_url_label' => 'Learn more about employment durations (opens in new tab)',
         'label_employment_length_url' => 'https://www.canada.ca/en/public-services-procurement/services/pay-pension/compensation-community/employer-support-procedures/employment-federal-public-service.html#a4',
         'label_department_work_location' => 'Work location',
         'label_department_language_requirement' => 'Language requirement',
