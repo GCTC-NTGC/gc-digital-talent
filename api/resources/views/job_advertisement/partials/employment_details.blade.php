@@ -27,7 +27,11 @@
     <li>
         <x-text-label>@lang('job_advertisement.employment_details.label_employment_length')</x-text-label>
         @enum($pool->opportunity_length, PoolOpportunityLength::class)
-        @lang('job_advertisement.employment_details.label_employment_length_url')
+
+        <a href="{{ __('job_advertisement.employment_details.label_employment_length_url') }}" target="_blank"
+            rel="noreferrer noopener">
+            Learn more about employment durations (opens in new tab)
+        </a>
     </li>
 
 
