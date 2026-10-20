@@ -204,26 +204,22 @@ const FormFields = ({
           </p>
           <Ul space="md">
             <li>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Pool candidates</strong> are people who have successfully qualified in a community or departmental recruitment process.",
-                  id: "5nFcq3",
-                  description:
-                    "Description for pool candidates talent source filter in search form",
-                })}
-              </p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Pool candidates</strong> are people who have successfully qualified in a community or departmental recruitment process.",
+                id: "5nFcq3",
+                description:
+                  "Description for pool candidates talent source filter in search form",
+              })}
             </li>
             <li>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "<strong>Nominated employees</strong> are GC employees who have been put forward for lateral movement or advancement by their departments as part of a community talent management process.",
-                  id: "CaGMw5",
-                  description:
-                    "Description for nominated employees talent source filter in search form",
-                })}
-              </p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Nominated employees</strong> are GC employees who have been put forward for lateral movement or advancement by their departments as part of a community talent management process.",
+                id: "CaGMw5",
+                description:
+                  "Description for nominated employees talent source filter in search form",
+              })}
             </li>
           </Ul>
           <Checklist
