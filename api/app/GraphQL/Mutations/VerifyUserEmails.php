@@ -101,7 +101,6 @@ final class VerifyUserEmails
                     if ($existingUser) {
                         $existingUser->work_email_backup = $existingUser->work_email;
                         $existingUser->work_email = null;
-                        $existingUser->work_email_verified_at = null;
                         $existingUser->save();
                     }
                     $user->setVerifiedWorkEmail($newEmailAddress);
