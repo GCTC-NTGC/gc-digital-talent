@@ -7,6 +7,7 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Enums\Language;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -618,5 +619,15 @@ class Pool extends Model
     protected function hasRequiredLocation(): bool
     {
         return $this->is_remote || filled($this->advertisement_location);
+    }
+
+    /**
+     * Convert the pool to HTML for the job advertisement
+     */
+    public function toAdvertisementHtml(Language $lang = Language::EN): string
+    {
+        return view('job_advertisement.index', [
+            'pool' => $this,
+        ])->render();
     }
 }
