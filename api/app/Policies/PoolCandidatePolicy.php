@@ -144,7 +144,7 @@ class PoolCandidatePolicy
      *
      * @return Response|bool
      */
-    public function toggleDashboardViewable(User $user, PoolCandidate $poolCandidate)
+    public function toggleDashboardVisibility(User $user, PoolCandidate $poolCandidate)
     {
         $isOwn = $user->id === $poolCandidate->user_id;
         $isDraft = $poolCandidate->isDraft();

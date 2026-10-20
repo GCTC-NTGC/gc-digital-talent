@@ -130,9 +130,9 @@ const ReviewApplicationDialog_Fragment = graphql(/* GraphQL */ `
   }
 `);
 
-const ToggleIsDashboardViewable_Mutation = graphql(/** GraphQL */ `
-  mutation ToggleIsDashboardViewable($id: UUID!) {
-    toggleIsDashboardViewable(id: $id) {
+const TogglePoolCandidateDashboardVisibility_Mutation = graphql(/** GraphQL */ `
+  mutation TogglePoolCandidateDashboardVisibility($id: UUID!) {
+    togglePoolCandidateDashboardVisibility(id: $id) {
       id
       isDashboardViewable
     }
@@ -186,7 +186,7 @@ const ReviewApplicationDialog = ({
     .filter(notEmpty);
 
   const [{ fetching }, executeMutation] = useMutation(
-    ToggleIsDashboardViewable_Mutation,
+    TogglePoolCandidateDashboardVisibility_Mutation,
   );
   const handleIsDashboardViewableToggle = () => {
     const originalToggleValue = application.isDashboardViewable;
@@ -195,11 +195,11 @@ const ReviewApplicationDialog = ({
     executeMutation({ id: application.id })
       .then((res) => {
         if (res.error) throw new Error(res.error.message);
-        if (!res.data?.toggleIsDashboardViewable?.id)
+        if (!res.data?.togglePoolCandidateDashboardVisibility?.id)
           throw new Error("Could not add/remove application from dashboard");
 
         const newToggleValue =
-          res.data.toggleIsDashboardViewable.isDashboardViewable;
+          res.data.togglePoolCandidateDashboardVisibility.isDashboardViewable;
 
         if (newToggleValue) {
           toast.success(

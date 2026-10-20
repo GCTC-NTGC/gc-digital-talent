@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\PoolCandidate;
 
-final class ToggleIsDashboardViewable
+final class TogglePoolCandidateDashboardVisibility
 {
     /**
      * Toggles the pool candidates is_dashboard_viewable
