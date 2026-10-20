@@ -31,5 +31,3 @@ Debugging PHP in the native CLI allows stepping though Laravel code running in P
 Troubleshooting:
 
 1. Run `php -r "xdebug_info();"` and confirm that the Diagnostic Log shows no errors and that Step Debugging shows "Active" with a Connected Client.
-
-2. In your terminal, run `env | grep -i XDEBUG_SESSION` to ensure that an XDEBUG_SESSION variable is present.
