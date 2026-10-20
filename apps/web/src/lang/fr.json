@@ -6690,6 +6690,10 @@
     "defaultMessage": "Sélectionnez les filtres",
     "description": "Candidate search filter dialog: title"
   },
+  "PAIWvU": {
+    "defaultMessage": "Par exemple, si la date limite choisie est le 1 janvier 2027, les candidates et candidats verraient « Postulez au plus tard le 1 janvier 2027 », avec une date limite ferme de 23 h 59, heure du Pacifique. Pour une personne qui se trouve dans le fuseau horaire de l'Est, cela signifie qu'elle peut techniquement présenter sa candidature avant 1 h 59 le 2 janvier.",
+    "description": "Second paragraph for pool closing date dialog"
+  },
   "PAOXlo": {
     "defaultMessage": "* La préférence sera accordée aux anciens combattants, aux citoyens canadiens et aux résidents permanents.",
     "description": "Fine print for hiring policy for pool advertisement"
