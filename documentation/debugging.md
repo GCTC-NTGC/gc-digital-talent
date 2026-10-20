@@ -26,7 +26,7 @@ Debugging PHP in the native CLI allows stepping though Laravel code running in P
 
 2. Set a code breakpoint. For example, the line in AuthControllerTest::setUp.
 
-3. In your terminal with the variable, run a test, like `./artisan test tests/Unit/AuthControllerTest.php`. Observe that testing is interrupted and the debugger has stopped at your breakpoint.
+3. Run a test, like `./artisan test tests/Unit/AuthControllerTest.php`. Observe that testing is interrupted and the debugger has stopped at your breakpoint.
 
 Troubleshooting:
 
