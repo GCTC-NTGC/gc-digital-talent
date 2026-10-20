@@ -142,51 +142,56 @@ const NominationEventAccordionItem = ({
     nominationGroup.talentNominationEvent.name.localized ??
     intl.formatMessage(commonMessages.notFound);
 
+  type AccordionMetaDataItems = React.ComponentProps<
+    typeof Accordion.MetaData
+  >["metadata"];
+  const metaDataProps: AccordionMetaDataItems = [
+    {
+      key: "decisions",
+      type: "text",
+      children: (
+        <span className="flex flex-wrap items-center gap-1.5">
+          {decisionChips.map(({ key, decision, label }) => {
+            const { color, icon } = decisionAppearance(decision);
+            return (
+              <Chip key={key} color={color} icon={icon}>
+                <span className="font-normal">{intl.formatMessage(label)}</span>
+              </Chip>
+            );
+          })}
+        </span>
+      ),
+    },
+    {
+      key: "download",
+      type: "button-component",
+      component: (
+        <Button
+          type="button"
+          mode="inline"
+          icon={downloadingDoc ? SpinnerIcon : ArrowDownTrayIcon}
+          disabled={downloadingDoc}
+          onClick={() => downloadDoc({ id: nominationGroup.id })}
+          className="font-normal text-black dark:text-white"
+        >
+          {intl.formatMessage(commonMessages.download)}
+        </Button>
+      ),
+    },
+  ];
+
   return (
     <Accordion.Item value={nominationGroup.id}>
       <div className="xxs:pl-1 sm:pl-4">
-        <Accordion.Trigger
-          as="h3"
-          title={eventName}
-          subtitle={
-            decisionChips.length > 0 ? (
-              <span className="mt-1.5 flex flex-wrap items-center gap-1.5">
-                {decisionChips.map(({ key, decision, label }) => {
-                  const { color, icon } = decisionAppearance(decision);
-                  return (
-                    <Chip key={key} color={color} icon={icon}>
-                      <span className="font-normal">
-                        {intl.formatMessage(label)}
-                      </span>
-                    </Chip>
-                  );
-                })}
-                <span className="ml-2 text-gray-400">
-                  {UNICODE_CHAR.BULLET}
-                </span>
-                <Button
-                  type="button"
-                  mode="inline"
-                  icon={downloadingDoc ? SpinnerIcon : ArrowDownTrayIcon}
-                  disabled={downloadingDoc}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    downloadDoc({ id: nominationGroup.id });
-                  }}
-                  className="ml-1 font-normal text-black dark:text-white"
-                >
-                  {intl.formatMessage(commonMessages.download)}
-                </Button>
-              </span>
-            ) : null
-          }
-        >
+        <Accordion.Trigger as="h3" title={eventName}>
           <span>{eventName}</span>
           <span className="ml-1.5 font-normal text-gray-500 dark:text-gray-200">
             {wrapParens(nominations.length)}
           </span>
         </Accordion.Trigger>
-
+        {decisionChips.length > 0 && (
+          <Accordion.MetaData metadata={metaDataProps} />
+        )}
         <Accordion.Content>
           <PreviewList.Root>
             {nominations.map((nomination) => (
