@@ -202,7 +202,7 @@ const FormFields = ({
             })}
             {intl.formatMessage(commonMessages.dividingColon)}
           </p>
-          <Ul space="md">
+          <Ul id="talent-source-description" space="md">
             <li>
               {intl.formatMessage({
                 defaultMessage:
@@ -231,6 +231,7 @@ const FormFields = ({
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
+            aria-describedby="talent-source-description"
           />
         </div>
       </FilterBlock>
