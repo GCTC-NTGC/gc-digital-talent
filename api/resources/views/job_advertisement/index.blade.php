@@ -1,4 +1,4 @@
-<h1>{{ $pool->display_name['display'][App::currentLocale()] }}</h1>
+<h1>{{ $pool->display_name['display'] }}</h1>
 <p>@lang('job_advertisement.subtitle')</p>
 
 @localized($pool->special_note)
