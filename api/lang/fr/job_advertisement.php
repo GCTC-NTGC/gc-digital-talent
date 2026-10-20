@@ -39,7 +39,7 @@ return [
     'who_can_apply' => [
         'employees' => [
             'content' => 'Les employées et employés du gouvernement du Canada, les personnes employées par une agence du gouvernement du Canada, <a href=":url">et les anciens combattants et les membres des Forces armées canadiennes admissibles.</a>',
-            'content_at_level' => 'Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d\'attache. <a href=":url">Les anciens combattants et les membres des Forces armées canadiennes admissibles</a> peuvent également postuler.',
+            'content_at_level' => 'Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme :classification ou un équivalent organisationnel dans leur poste d\'attache. <a href=":url">Les anciens combattants et les membres des Forces armées canadiennes admissibles</a> peuvent également postuler.',
             'veterans_url' => 'https://www.canada.ca/fr/commission-fonction-publique/emplois/services/emplois-gc/anciens-combattants-militaires.html',
             'departmental_preference_note' => '* La préférence sera accordée aux personnes employées par les ministères ou agences (ministère) suivants : :department.',
         ],
