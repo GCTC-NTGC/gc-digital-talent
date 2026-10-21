@@ -345,7 +345,7 @@ export const getExperienceFormLabels = (
       id: "d1FYv4",
       description: "Label displayed on Work Experience card for classification",
     }),
-    positionType: intl.formatMessage({
+    govPositionType: intl.formatMessage({
       defaultMessage: "Position type",
       id: "0Dp1N4",
       description: "Label for the position type radio group",
