@@ -206,7 +206,7 @@ return [
         'screening_item_2' => 'secret security clearance',
         'screening_item_3' => 'top secret security clearance',
         'clearance_heading' => 'Obtaining your security status or clearance',
-        'clearance_paragraph_1' => 'As part of a background check, you\'ll need to provide certain personal information by filling out sections of the Security Screening Application and Consent Form.',
+        'clearance_paragraph_1' => 'As part of a background check, you\'ll need to provide certain personal information by filling out sections of the <a href=":url">Security Screening Application and Consent Form</a>.',
         'clearance_paragraph_1_url' => 'https://www.canada.ca/en/treasury-board-secretariat/corporate/forms/security-screening-application-consent-form.html',
         'clearance_paragraph_2' => 'Among the security screening activities, all levels require individuals to undergo a financial inquiry (credit check) and a criminal records check (fingerprinting).',
         'clearance_paragraph_3' => 'Reliability status and secret clearance are valid for up to 10 years, while top secret clearance is valid for up to 5 years.',
