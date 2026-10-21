@@ -319,22 +319,20 @@ export const DashboardPage = ({
         crumbs={crumbs}
         overlap
       >
-        <div className="mb-18">
-          {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
-            <div className="mb-6">
-              {canMigrateMyAccount ? (
-                <MigrationPossibleNotice
-                  onDismiss={() => setMigrationNoticeIsVisible(false)}
-                />
-              ) : (
-                <MigrationNotPossibleNotice
-                  onDismiss={() => setMigrationNoticeIsVisible(false)}
-                />
-              )}
-            </div>
-          ) : null}
+        <div className="mt-12 mb-18">
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
+              {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
+                canMigrateMyAccount ? (
+                  <MigrationPossibleNotice
+                    onDismiss={() => setMigrationNoticeIsVisible(false)}
+                  />
+                ) : (
+                  <MigrationNotPossibleNotice
+                    onDismiss={() => setMigrationNoticeIsVisible(false)}
+                  />
+                )
+              ) : null}
               <ApplicationsProcessesTaskCard
                 applicationsProcessesTaskCardQuery={currentUser}
               />
