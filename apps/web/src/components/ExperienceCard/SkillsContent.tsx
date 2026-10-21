@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useIntl } from "react-intl";
 
 import type {
@@ -48,9 +49,10 @@ const SkillsContent = ({
   return (
     <ContentSection
       title={intl.formatMessage({
-        defaultMessage: "Linked skills",
-        id: "bgVX2E",
-        description: "Heading for the list of skills linked to an experience",
+        defaultMessage: "Featured skills",
+        id: "G+19bL",
+        description:
+          "Heading for the list of skills connected to an experience",
       })}
       headingRank={headingRank}
     >
@@ -60,31 +62,35 @@ const SkillsContent = ({
             const skillLevel = userSkills?.find(
               (userSkill) => userSkill.skillId === skill.id,
             )?.skillLevel;
-            const skillLevelName =
-              skillLevel && skill.category
-                ? intl.formatMessage(
-                    getSkillLevelName(skillLevel, skill.category.value),
-                  )
-                : null;
+            const skillName =
+              skill.name?.localized ??
+              intl.formatMessage(commonMessages.notAvailable);
 
             return (
               <li key={skill.id}>
                 <span className="block font-bold">
-                  {skill.name?.localized ??
-                    intl.formatMessage(commonMessages.notAvailable)}
-                  {skillLevelName && (
-                    <span className="ml-1 font-normal text-gray-600 dark:text-gray-200">
-                      {intl.formatMessage(
+                  {skillLevel && skill.category
+                    ? intl.formatMessage(
                         {
-                          defaultMessage: "({skillLevel})",
-                          id: "Gy+gGq",
+                          defaultMessage:
+                            "{skillName} <level>({skillLevel})</level>",
+                          id: "7s9m+f",
                           description:
-                            "The user's level for a skill, shown in brackets after the skill name",
+                            "A skill name followed by the user's level for that skill in brackets",
                         },
-                        { skillLevel: skillLevelName },
-                      )}
-                    </span>
-                  )}
+                        {
+                          skillName,
+                          skillLevel: intl.formatMessage(
+                            getSkillLevelName(skillLevel, skill.category.value),
+                          ),
+                          level: (chunks: ReactNode) => (
+                            <span className="font-normal text-gray-600 dark:text-gray-200">
+                              {chunks}
+                            </span>
+                          ),
+                        },
+                      )
+                    : skillName}
                 </span>
                 <span>
                   {skill.experienceSkillRecord?.details ??

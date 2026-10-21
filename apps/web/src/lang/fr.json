@@ -2382,6 +2382,10 @@
     "defaultMessage": "Sélectionnez une exigence linguistique",
     "description": "Placeholder for language requirement field"
   },
+  "7s9m+f": {
+    "defaultMessage": "{skillName} <level>({skillLevel})</level>",
+    "description": "A skill name followed by the user's level for that skill in brackets"
+  },
   "7tAIPo": {
     "defaultMessage": "Notifications marquées comme lues avec succès.",
     "description": "Message announced to assistive technology when notifications marked as read"
@@ -3438,6 +3442,10 @@
     "defaultMessage": "Mise à jour des réponses aux questions réussie!",
     "description": "Message displayed to users when saving question responses is successful."
   },
+  "Bs00Yf": {
+    "defaultMessage": "Dates",
+    "description": "Heading for the date range of an experience"
+  },
   "BsNhUK": {
     "defaultMessage": "Postes en français uniquement",
     "description": "Label for language for french field"
@@ -3904,6 +3912,10 @@
   "DqM+mu": {
     "defaultMessage": "Erreur : Le désarchivage du processus a échoué",
     "description": "Message displayed to user after pool fails to get un-archived."
+  },
+  "Dr9vKe": {
+    "defaultMessage": "Consultez les détails de cette expérience ou modifiez ses informations.",
+    "description": "Subtitle for the dialog displaying an experience"
   },
   "DrR/rp": {
     "defaultMessage": "Utilisez le bouton « Ajouter un membre » pour commencer.",
@@ -4412,6 +4424,10 @@
   "FzaSAD": {
     "defaultMessage": "Transfert latéral",
     "description": "Label for the lateral movement nomination type"
+  },
+  "G+19bL": {
+    "defaultMessage": "Compétences en vedette",
+    "description": "Heading for the list of skills connected to an experience"
   },
   "G+rsNw": {
     "defaultMessage": "Divers (anglais ou français)",
@@ -6869,6 +6885,10 @@
     "defaultMessage": "Trouver et associer une compétence à votre expérience de parcours professionnel",
     "description": "Title for the find a skill dialog within an experience"
   },
+  "Q/4kOB": {
+    "defaultMessage": "Sélectionnez le type d'expérience que vous souhaitez ajouter",
+    "description": "Subtitle for the dialog to add a new experience"
+  },
   "Q/Fbat": {
     "defaultMessage": "Interrompre la recommandation de la candidature",
     "description": "Label for pause referral status checkbox input"
@@ -8566,6 +8586,10 @@
   "X3pHUD": {
     "defaultMessage": "Selon la <link>définition de Statistique Canada</link>, ce groupe ",
     "description": "Link to Statistics Canada's employment equity definitions"
+  },
+  "X3puDA": {
+    "defaultMessage": "Durée",
+    "description": "Heading for how long an experience lasted"
   },
   "X5tRR4": {
     "defaultMessage": "Il n’existe aucune compétence jusqu’à présent.",
