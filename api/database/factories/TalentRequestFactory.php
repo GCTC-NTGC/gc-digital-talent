@@ -6,6 +6,7 @@ use App\Enums\IndigenousCommunity;
 use App\Enums\LanguageAbility;
 use App\Enums\PositionDuration;
 use App\Enums\SkillLevel;
+use App\Enums\TalentNominationGroupDecision;
 use App\Enums\TalentRequestCompletionDetail;
 use App\Enums\TalentRequestInProgressDetail;
 use App\Enums\TalentRequestPositionType;
@@ -14,11 +15,14 @@ use App\Enums\TalentRequestSource;
 use App\Enums\TalentRequestStatus;
 use App\Enums\WhenSkillUsed;
 use App\Models\ApplicantFilter;
+use App\Models\Classification;
 use App\Models\Community;
 use App\Models\CommunityInterest;
 use App\Models\Department;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\TalentNomination;
+use App\Models\TalentNominationEvent;
 use App\Models\TalentRequest;
 use App\Models\TalentRequestTrackedUser;
 use App\Models\User;
@@ -92,14 +96,58 @@ class TalentRequestFactory extends BaseFactory
         });
     }
 
-    private function createUser(ApplicantFilter $filter): User
+    public function withMatchingUserPerSourceCombination(): self
     {
-        $user = User::factory()->create($this->matchingUserAttributes($filter));
+        return $this->afterCreating(function (TalentRequest $talentRequest) {
+            $filter = $talentRequest->applicantFilter;
+
+            $combinations = [[]];
+            foreach (TalentRequestSource::selected($filter->talent_sources) as $source) {
+                foreach ($combinations as $combination) {
+                    $combinations[] = [...$combination, $source];
+                }
+            }
+            array_shift($combinations);
+
+            foreach ($combinations as $sources) {
+                $this->createUser($filter, $sources);
+            }
+        });
+    }
+
+    private function randomSources(ApplicantFilter $filter): array
+    {
         $selected = TalentRequestSource::selected($filter->talent_sources);
 
         $matchesQualifiedInPool = in_array(TalentRequestSource::QUALIFIED_IN_POOL, $selected, true);
         $matchesAtLevel = in_array(TalentRequestSource::AT_LEVEL, $selected, true)
             && (! $matchesQualifiedInPool || $this->faker->boolean());
+        $matchesAdvancement = in_array(TalentRequestSource::ADVANCEMENT, $selected, true)
+            && (! ($matchesQualifiedInPool || $matchesAtLevel) || $this->faker->boolean());
+        $matchesLateralMovement = in_array(TalentRequestSource::LATERAL_MOVEMENT, $selected, true)
+            && (! ($matchesQualifiedInPool || $matchesAtLevel || $matchesAdvancement) || $this->faker->boolean());
+
+        return array_values(array_filter([
+            $matchesQualifiedInPool ? TalentRequestSource::QUALIFIED_IN_POOL : null,
+            $matchesAtLevel ? TalentRequestSource::AT_LEVEL : null,
+            $matchesAdvancement ? TalentRequestSource::ADVANCEMENT : null,
+            $matchesLateralMovement ? TalentRequestSource::LATERAL_MOVEMENT : null,
+        ]));
+    }
+
+    private function createUser(ApplicantFilter $filter, ?array $sources = null): User
+    {
+        $sources ??= $this->randomSources($filter);
+
+        $matchesQualifiedInPool = in_array(TalentRequestSource::QUALIFIED_IN_POOL, $sources, true);
+        $matchesAtLevel = in_array(TalentRequestSource::AT_LEVEL, $sources, true);
+        $matchesAdvancement = in_array(TalentRequestSource::ADVANCEMENT, $sources, true);
+        $matchesLateralMovement = in_array(TalentRequestSource::LATERAL_MOVEMENT, $sources, true);
+        $matchesNomination = $matchesAdvancement || $matchesLateralMovement;
+
+        $user = User::factory()
+            ->when($matchesNomination, fn ($factory) => $factory->asApplicant()->withGovEmployeeProfile())
+            ->create($this->matchingUserAttributes($filter));
 
         if ($matchesQualifiedInPool) {
             $pool = $filter->pools->isNotEmpty()
@@ -121,7 +169,9 @@ class TalentRequestFactory extends BaseFactory
                     'classification_id' => $classification->id,
                 ]);
             }
+        }
 
+        if ($matchesAtLevel || $matchesNomination) {
             $communityInterest = CommunityInterest::factory()->create([
                 'user_id' => $user->id,
                 'community_id' => $filter->community_id,
@@ -132,6 +182,10 @@ class TalentRequestFactory extends BaseFactory
             if ($workStream) {
                 $communityInterest->workStreams()->attach($workStream->id);
             }
+        }
+
+        if ($matchesNomination) {
+            $this->nominate($user, $filter, $matchesAdvancement, $matchesLateralMovement);
         }
 
         $skills = $filter->skills;
@@ -148,6 +202,68 @@ class TalentRequestFactory extends BaseFactory
         }
 
         return $user;
+    }
+
+    public function withNominee(User $user, bool $forAdvancement = true, bool $forLateralMovement = true): self
+    {
+        return $this->afterCreating(function (TalentRequest $talentRequest) use ($user, $forAdvancement, $forLateralMovement) {
+            $this->nominate($user, $talentRequest->applicantFilter, $forAdvancement, $forLateralMovement);
+
+            TalentRequestTrackedUser::factory()
+                ->for($talentRequest)
+                ->create(['user_id' => $user->id]);
+        });
+    }
+
+    private function nominate(User $user, ApplicantFilter $filter, bool $forAdvancement, bool $forLateralMovement): void
+    {
+        $event = TalentNominationEvent::where('community_id', $filter->community_id)
+            ->where('open_date', '<=', now())
+            ->whereDoesntHave('talentNominationGroups', fn ($query) => $query->where('nominee_id', $user->id))
+            ->inRandomOrder()
+            ->firstOr(fn () => TalentNominationEvent::factory()->create([
+                'community_id' => $filter->community_id,
+                'open_date' => now()->subMonth(),
+                'close_date' => now()->addYear(),
+            ]));
+
+        $nomination = TalentNomination::factory()
+            ->submittedReviewAndSubmit()
+            ->create([
+                'talent_nomination_event_id' => $event->id,
+                'nominee_id' => $user->id,
+                'nominate_for_advancement' => $forAdvancement,
+                'nominate_for_lateral_movement' => $forLateralMovement,
+                'nominate_for_development_programs' => false,
+            ]);
+
+        $group = $nomination->talentNominationGroup;
+        $classificationIds = ($filter->qualifiedInClassifications->isNotEmpty()
+            ? $filter->qualifiedInClassifications
+            : Classification::inRandomOrder()->limit($this->faker->numberBetween(1, 3))->get())
+            ->pluck('id');
+
+        $itOne = Classification::where('group', 'IT')->where('level', 1)->first();
+        $classifications = $itOne
+            ? $classificationIds->push($itOne->id)->unique()->values()
+            : $classificationIds;
+
+        if ($forAdvancement) {
+            $group->advancement_decision = TalentNominationGroupDecision::APPROVED->name;
+            $group->advancement_reference_confirmed = $this->faker->boolean();
+            $group->advancement_notes = $this->faker->sentence();
+            $group->advancement_referral_expiry_date = $this->faker->dateTimeBetween('+6 month', '+12 month');
+            $group->advancementClassifications()->sync($classifications);
+        }
+
+        if ($forLateralMovement) {
+            $group->lateral_movement_decision = TalentNominationGroupDecision::APPROVED->name;
+            $group->lateral_movement_notes = $this->faker->sentence();
+            $group->lateral_movement_referral_expiry_date = $this->faker->dateTimeBetween('+6 month', '+12 month');
+            $group->lateralMovementClassifications()->sync($classifications);
+        }
+
+        $group->save();
     }
 
     /**
