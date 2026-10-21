@@ -83,7 +83,8 @@ fi
 # Laravel database migrations
 # stderr is captured too (exceptions render there) and streamed through tee so the
 # persistent log has partial output even if killed mid-migration (see #16961)
-MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate --no-interaction --force --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
+# migrate:locked waits behind a DB lock so containers starting together don't migrate at the same time
+MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate:locked --no-interaction --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
 
 if [ $MIGRATION_STATUS -eq 0 ]; then
