@@ -4,13 +4,7 @@ import { useQuery } from "urql";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
-import {
-  Pending,
-  ResourceBlock,
-  NotFound,
-  Container,
-  Ul,
-} from "@gc-digital-talent/ui";
+import { Pending, ResourceBlock, NotFound, Ul } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
@@ -323,9 +317,9 @@ export const DashboardPage = ({
           description: "Subtitle for applicant dashboard",
         })}
         crumbs={crumbs}
-      />
-      <section className="my-18">
-        <Container>
+        overlap
+      >
+        <div className="mb-18">
           {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
             <div className="mb-6">
               {canMigrateMyAccount ? (
@@ -548,8 +542,8 @@ export const DashboardPage = ({
               </ResourceBlock.Root>
             </div>
           </div>
-        </Container>
-      </section>
+        </div>
+      </Hero>
     </>
   );
 };
