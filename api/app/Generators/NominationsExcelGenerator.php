@@ -2,6 +2,7 @@
 
 namespace App\Generators;
 
+use App\Enums\ApplicationStatus;
 use App\Enums\ArmedForcesStatus;
 use App\Enums\CitizenshipStatus;
 use App\Enums\CSuiteRoleTitle;
@@ -412,7 +413,9 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
      */
     private function getAppliedPools(User $user): string
     {
-        return $user->poolCandidates->map(function ($candidate) {
+        return $user->poolCandidates->filter(function ($candidate) {
+            return $candidate->application_status === ApplicationStatus::QUALIFIED->name;
+        })->map(function ($candidate) {
             return sprintf(
                 '%s - %s - %s - %s',
                 $candidate->pool->classification->formattedGroupAndLevel,
