@@ -4,9 +4,11 @@ namespace App\Services;
 
 use App\Contracts\BearerTokenService;
 use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Token\DataSet;
+use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
@@ -33,11 +35,6 @@ class TestBearerTokenService implements BearerTokenService
         private readonly ClockInterface $clock,
     ) {}
 
-    public function fastSigner(): Configuration
-    {
-        return $this->realService->fastSigner();
-    }
-
     public function verifyJwtWithIntrospection(string $accessToken): void
     {
         if ($this->isTestToken($accessToken)) {
@@ -59,7 +56,7 @@ class TestBearerTokenService implements BearerTokenService
     private function isTestToken(string $bearerToken): bool
     {
         try {
-            $parsed = $this->fastSigner()->parser()->parse($bearerToken);
+            $parsed = (new Parser(new JoseEncoder()))->parse($bearerToken);
 
             if (! ($parsed instanceof UnencryptedToken)) {
                 return false;

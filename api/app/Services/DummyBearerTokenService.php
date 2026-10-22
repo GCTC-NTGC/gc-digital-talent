@@ -4,10 +4,7 @@ namespace App\Services;
 
 use App\Contracts\BearerTokenService;
 use InvalidArgumentException;
-use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Encoding\JoseEncoder;
-use Lcobucci\JWT\Signer;
-use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Token\DataSet;
 
 /**
@@ -27,15 +24,6 @@ class DummyBearerTokenService implements BearerTokenService
     public function __construct()
     {
         $this->encoder = new JoseEncoder();
-    }
-
-    public function fastSigner(): Configuration
-    {
-        // parser-only configuration, same as the CanadaLogin service
-        return Configuration::forSymmetricSigner(
-            new Signer\Blake2b(),
-            InMemory::base64Encoded('MpQd6dDPiqnzFSWmpUfLy4+Rdls90Ca4C8e0QD0IxqY=')
-        );
     }
 
     public function verifyJwtWithIntrospection(string $accessToken): void
