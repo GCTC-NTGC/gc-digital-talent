@@ -52,19 +52,12 @@ class DummyAuthController extends Controller
     // lets scripts like Playwright and Locust log in without a browser
     public function token(Request $request): JsonResponse
     {
-        // read the raw body - the global middleware would turn empty string claims into nulls
-        $body = json_decode($request->getContent(), true);
-        $sub = is_array($body) ? ($body['sub'] ?? null) : null;
-        if (! is_string($sub) || $sub === '') {
-            return response()->json(['error' => 'A "sub" string is required.'], 422);
-        }
-        try {
-            $claims = $this->parseClaims($body['claims'] ?? null);
-        } catch (ValidationException $e) {
-            return response()->json(['error' => $e->getMessage()], 422);
-        }
+        $request->validate([
+            'sub' => ['required', 'string'],
+            'claims' => ['nullable', 'array'],
+        ]);
 
-        $token = $this->tokenService->issueToken($sub, $claims);
+        $token = $this->tokenService->issueToken($request->input('sub'), $request->input('claims') ?? []);
         $this->userLoginService->applyClaims($this->tokenService->validateAndGetClaims($token));
 
         return response()->json($this->tokenResponse($token));
@@ -83,18 +76,16 @@ class DummyAuthController extends Controller
     }
 
     /**
-     * Claims arrive as a JSON object string from the form or an object from the JSON body.
+     * Parse the form's claims textarea, which holds a JSON object.
      *
      * @return array<string, mixed>
      */
-    private function parseClaims(mixed $claims): array
+    private function parseClaims(?string $claims): array
     {
-        if ($claims === null || $claims === '') {
+        if ($claims === null) {
             return [];
         }
-        if (is_string($claims)) {
-            $claims = json_decode($claims, true);
-        }
+        $claims = json_decode($claims, true);
         if (! is_array($claims) || (array_is_list($claims) && $claims !== [])) {
             throw ValidationException::withMessages(['claims' => 'Claims must be a JSON object.']);
         }

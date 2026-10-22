@@ -177,7 +177,7 @@ class DummyAuthTest extends TestCase
     public function testTokenRouteRejectsBadInput()
     {
         $this->postJson('/api/dummy-auth/token', [])->assertStatus(422);
-        $this->postJson('/api/dummy-auth/token', ['sub' => 'a-sub', 'claims' => [1, 2]])->assertStatus(422);
+        $this->postJson('/api/dummy-auth/token', ['sub' => 'a-sub', 'claims' => 'not-an-object'])->assertStatus(422);
     }
 
     public function testDummyTokenAuthenticatesExistingUser()
