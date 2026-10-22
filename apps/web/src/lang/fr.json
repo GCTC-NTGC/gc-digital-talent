@@ -4445,6 +4445,10 @@
     "defaultMessage": "Expérience associée",
     "description": "Label displayed on Award form for related experience input"
   },
+  "G1+Rz+": {
+    "defaultMessage": "Vous n’avez aucune candidature sur votre tableau de bord pour le moment.",
+    "description": "Title for notice when there are no applications in the dashboard"
+  },
   "G1OWMo": {
     "defaultMessage": "Vous pouvez ajouter des expériences lorsque vous <link>créer une nouvelle expérience de parcours professionnel à l’étape précédente.</link>",
     "description": "Secondary alert message informing user to add experience in application education page."
@@ -5078,6 +5082,10 @@
   "IWWSkL": {
     "defaultMessage": "Information sur le processus",
     "description": "Page title for the individual pool page"
+  },
+  "IYUqNY": {
+    "defaultMessage": "Pour commencer une nouvelle candidature, consultez la page « Parcourir les offres d’emploi » ou réajoutez des candidatures à votre tableau de bord à partir de la page « Candidatures ».",
+    "description": "Body for notice when there are no applications in the dashboard"
   },
   "IYWL4H": {
     "defaultMessage": "Vous devez sélectionner un ministère dont vous êtes membre.",

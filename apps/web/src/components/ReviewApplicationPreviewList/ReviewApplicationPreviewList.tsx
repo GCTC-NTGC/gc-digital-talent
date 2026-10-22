@@ -202,20 +202,37 @@ const ReviewApplicationPreviewList = ({
       ) : (
         <Notice.Root className="text-center">
           <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "You don't have any active applications at the moment.",
-              id: "Y93ht7",
-              description: "Title for notice when there are no applications",
-            })}
+            {filterForDashboardViewable
+              ? intl.formatMessage({
+                  defaultMessage:
+                    "You don't have any applications on your dashboard at the moment.",
+                  id: "G1+Rz+",
+                  description:
+                    "Title for notice when there are no applications in the dashboard",
+                })
+              : intl.formatMessage({
+                  defaultMessage:
+                    "You don't have any active applications at the moment.",
+                  id: "Y93ht7",
+                  description:
+                    "Title for notice when there are no applications",
+                })}
           </Notice.Title>
           <Notice.Content>
             <p>
-              {intl.formatMessage({
-                defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
-                id: "0K7Upw",
-                description: "Body for notice when there are no applications",
-              })}
+              {filterForDashboardViewable
+                ? intl.formatMessage({
+                    defaultMessage: `You can start a new application by visiting the "Browse jobs" page or re-add applications to your dashboard from your “Applications” page.`,
+                    id: "IYUqNY",
+                    description:
+                      "Body for notice when there are no applications in the dashboard",
+                  })
+                : intl.formatMessage({
+                    defaultMessage: `You can start a new application by visiting the "Browse jobs" page and selecting an opportunity.`,
+                    id: "0K7Upw",
+                    description:
+                      "Body for notice when there are no applications",
+                  })}
             </p>
           </Notice.Content>
         </Notice.Root>
