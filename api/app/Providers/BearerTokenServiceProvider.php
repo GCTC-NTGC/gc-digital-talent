@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Contracts\BearerTokenService;
 use App\Services\CanadaLoginBearerTokenService;
+use App\Services\DummyBearerTokenService;
 use App\Services\TestBearerTokenService;
 use Illuminate\Support\ServiceProvider;
 use Psr\Clock\ClockInterface;
@@ -15,6 +16,13 @@ class BearerTokenServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        if (config('auth.login_provider') === 'dummy') {
+            $this->app->singleton(DummyBearerTokenService::class);
+            $this->app->singleton(BearerTokenService::class, DummyBearerTokenService::class);
+
+            return;
+        }
+
         $this->app->singleton(BearerTokenService::class, function () {
             $clock = $this->app->make(ClockInterface::class);
 

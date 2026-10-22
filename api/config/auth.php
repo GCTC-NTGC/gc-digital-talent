@@ -6,6 +6,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Login Provider
+    |--------------------------------------------------------------------------
+    |
+    | Which system users log in through and which issues the bearer tokens
+    | the API accepts. Supported: "canadalogin", "dummy". The dummy provider
+    | lets anyone log in as any user and must never be used in production.
+    |
+    */
+
+    'login_provider' => env('AUTH_PROVIDER', 'canadalogin'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Authentication Defaults
     |--------------------------------------------------------------------------
     |
