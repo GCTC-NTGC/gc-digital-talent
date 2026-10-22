@@ -28,8 +28,8 @@ class DummyAuthController extends Controller
         return view('dummy_auth.login');
     }
 
-    // the login form posts here
-    public function authCallback(Request $request)
+    // the login form posts back to /login
+    public function submitLogin(Request $request)
     {
         $request->validate(['sub' => ['required', 'string']]);
         $sub = $request->input('sub');

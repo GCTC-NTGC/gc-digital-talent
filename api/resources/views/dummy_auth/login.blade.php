@@ -134,7 +134,7 @@
 
   <div>
     <h1>GC Digital Talent test sign in</h1>
-    <form method="post" action="auth-callback">
+    <form method="post" action="login">
       @csrf
       <p class="warning" role="alert">
         <strong>Test authentication.</strong> This environment does not use a real sign-in service.

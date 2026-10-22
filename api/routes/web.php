@@ -20,7 +20,7 @@ $authRoutes = function () {
     if (config('auth.login_provider') === 'dummy') {
         Route::get('/login', [DummyAuthController::class, 'login']);
         Route::get('/register', [DummyAuthController::class, 'login']);
-        Route::post('/auth-callback', [DummyAuthController::class, 'authCallback']);
+        Route::post('/login', [DummyAuthController::class, 'submitLogin']);
         Route::post('/refresh', [DummyAuthController::class, 'refresh']);
     } else {
         Route::get('/login', [AuthController::class, 'login']);

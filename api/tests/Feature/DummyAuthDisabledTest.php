@@ -14,7 +14,7 @@ class DummyAuthDisabledTest extends TestCase
 
         $this->postJson('/api/dummy-auth/token', ['sub' => 'a-sub'])->assertNotFound();
         $this->get('/api/dummy-auth/logout')->assertNotFound();
-        $this->post('/auth-callback', ['sub' => 'a-sub'])->assertStatus(405);
+        $this->post('/login', ['sub' => 'a-sub'])->assertStatus(405);
     }
 
     public function testDummyTokensAreNotAccepted()

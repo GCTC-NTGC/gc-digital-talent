@@ -102,7 +102,7 @@ class DummyAuthTest extends TestCase
 
     public function testFormLoginCreatesUserAndHandsOffTokens()
     {
-        $response = $this->post('/auth-callback', [
+        $response = $this->post('/login', [
             'sub' => 'new-sub',
             'claims' => json_encode(['given_name' => 'Ada', 'family_name' => 'Lovelace', 'locale' => 'fr']),
         ]);
@@ -124,7 +124,7 @@ class DummyAuthTest extends TestCase
     {
         User::factory()->create(['sub' => 'existing-sub', 'first_name' => 'Old', 'last_name' => 'Name']);
 
-        $response = $this->post('/auth-callback', [
+        $response = $this->post('/login', [
             'sub' => 'existing-sub',
             'claims' => json_encode(['given_name' => '']),
         ]);
@@ -137,9 +137,9 @@ class DummyAuthTest extends TestCase
 
     public function testFormLoginRejectsMissingSubAndInvalidClaims()
     {
-        $this->post('/auth-callback', ['claims' => '{}'])->assertSessionHasErrors('sub');
-        $this->post('/auth-callback', ['sub' => 'a-sub', 'claims' => 'not json'])->assertSessionHasErrors('claims');
-        $this->post('/auth-callback', ['sub' => 'a-sub', 'claims' => '[1, 2]'])->assertSessionHasErrors('claims');
+        $this->post('/login', ['claims' => '{}'])->assertSessionHasErrors('sub');
+        $this->post('/login', ['sub' => 'a-sub', 'claims' => 'not json'])->assertSessionHasErrors('claims');
+        $this->post('/login', ['sub' => 'a-sub', 'claims' => '[1, 2]'])->assertSessionHasErrors('claims');
         $this->assertSame(0, User::count());
     }
 
