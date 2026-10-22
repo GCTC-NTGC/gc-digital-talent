@@ -63,7 +63,7 @@
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-focus-on": "^3.10.2",
-    "react-hook-form": "^7.89.0",
+    "react-hook-form": "^7.90.0",
     "react-idle-timer": "^5.7.3",
     "react-intl": "^10.1.26",
     "react-router": "^8.4.0",
