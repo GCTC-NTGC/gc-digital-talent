@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 $authRoutes = function () {
     // the provider is fixed when routes load, so switching AUTH_PROVIDER needs a route cache rebuild
     if (config('auth.login_provider') === 'dummy') {
-        Route::get('/login', [DummyAuthController::class, 'login']);
-        Route::get('/register', [DummyAuthController::class, 'login']);
-        Route::post('/login', [DummyAuthController::class, 'submitLogin']);
+        Route::get('/login', [DummyAuthController::class, 'getLogin']);
+        Route::get('/register', [DummyAuthController::class, 'getLogin']);
+        Route::post('/login', [DummyAuthController::class, 'postLogin']);
         Route::post('/refresh', [DummyAuthController::class, 'refresh']);
     } else {
         Route::get('/login', [AuthController::class, 'login']);

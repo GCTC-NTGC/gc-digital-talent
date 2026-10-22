@@ -20,7 +20,7 @@ class DummyAuthController extends Controller
         protected UserLoginService $userLoginService,
     ) {}
 
-    public function login(Request $request)
+    public function getLogin(Request $request)
     {
         $request->session()->put('from', $request->input('from'));
         $request->session()->put('devServer', $request->input('devServer'));
@@ -28,8 +28,7 @@ class DummyAuthController extends Controller
         return view('dummy_auth.login');
     }
 
-    // the login form posts back to /login
-    public function submitLogin(Request $request)
+    public function postLogin(Request $request)
     {
         $request->validate(['sub' => ['required', 'string']]);
         $sub = $request->input('sub');
