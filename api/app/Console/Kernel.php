@@ -30,7 +30,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(PruneUserGeneratedFiles::class)
             ->timezone('America/Toronto')
             ->dailyAt('1:00')
-            ->withoutOverlapping()
             ->onOneServer()
             ->appendOutputTo(storage_path('logs/prune-user-generated-files.log'));
 
@@ -53,7 +52,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(ResumeReferrals::class)
             ->timezone('America/Toronto')
             ->dailyAt('1:00')
-            ->withoutOverlapping()
             ->onOneServer()
             ->appendOutputTo(storage_path('logs/resume-referrals.log'));
 

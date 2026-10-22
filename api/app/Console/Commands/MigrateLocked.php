@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -18,6 +17,9 @@ class MigrateLocked extends Command
 {
     // Arbitrary app-wide key; only needs to be the same for every container
     public const LOCK_KEY = 1834762811;
+
+    // SQLSTATE for lock_timeout expiring while waiting for a lock
+    private const LOCK_NOT_AVAILABLE = '55P03';
 
     /**
      * The name and signature of the console command.
@@ -41,10 +43,6 @@ class MigrateLocked extends Command
     {
         $connection = DB::connection();
 
-        if ($connection->getDriverName() !== 'pgsql') {
-            return Artisan::call('migrate', ['--force' => true], $this->getOutput());
-        }
-
         // lock_timeout also applies to advisory lock waits
         $timeoutMs = max(0, (int) $this->option('timeout')) * 1000;
         $connection->statement("SET lock_timeout = $timeoutMs");
@@ -52,18 +50,29 @@ class MigrateLocked extends Command
         try {
             $connection->select('SELECT pg_advisory_lock(?)', [self::LOCK_KEY]);
         } catch (QueryException $e) {
+            // Only a lock wait timeout means another container is migrating, anything else is a real error
+            if ($e->getCode() !== self::LOCK_NOT_AVAILABLE) {
+                throw $e;
+            }
+
             $this->error('Timed out waiting for another container to finish migrating.');
 
             return self::FAILURE;
         } finally {
-            $connection->statement('SET lock_timeout = 0');
+            $connection->statement('RESET lock_timeout');
         }
 
         try {
-            // Same process, same connection: the lock is held for the whole migration
-            return Artisan::call('migrate', ['--force' => true], $this->getOutput());
+            // Same process, same session: the lock is held for the whole migration.
+            // Session-level advisory locks need a direct connection, not a transaction-pooled one (e.g. PgBouncer).
+            return $this->call('migrate', ['--force' => true]);
         } finally {
-            $connection->select('SELECT pg_advisory_unlock(?)', [self::LOCK_KEY]);
+            try {
+                $connection->select('SELECT pg_advisory_unlock(?)', [self::LOCK_KEY]);
+            } catch (QueryException $e) {
+                // Don't hide a migration error; Postgres releases the lock anyway when the session ends
+                $this->warn('Could not release the migration lock: '.$e->getMessage());
+            }
         }
     }
 }

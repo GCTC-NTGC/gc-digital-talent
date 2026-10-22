@@ -83,8 +83,9 @@ fi
 # Laravel database migrations
 # stderr is captured too (exceptions render there) and streamed through tee so the
 # persistent log has partial output even if killed mid-migration (see #16961)
-# migrate:locked waits behind a DB lock so containers starting together don't migrate at the same time
-MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate:locked --no-interaction --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
+# migrate:locked waits behind a DB lock so containers starting together don't migrate at the same time.
+# The timeout keeps a stuck migration from blocking every other container's startup.
+MIGRATION_STDOUT=$(LOG_CHANNEL=cli php artisan migrate:locked --timeout="${MIGRATE_LOCK_TIMEOUT:-180}" --no-interaction --no-ansi 2>&1 | tee -a "$POST_DEPLOY_LOG_FILE"; exit "${PIPESTATUS[0]}")
 MIGRATION_STATUS=$?
 
 if [ $MIGRATION_STATUS -eq 0 ]; then
@@ -139,11 +140,11 @@ if [[ -z "$SCHEDULER_ENABLED" ]]; then
     if [[ "$DEPLOYMENT_SLOT_NAME" == *-pilot ]]; then SCHEDULER_ENABLED=false; else SCHEDULER_ENABLED=true; fi
 fi
 
+# For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
+# Write to a drop-in file in /etc/cron.d/ (overwrite) so re-runs are idempotent and changes are always applied
 if [[ "$SCHEDULER_ENABLED" != "true" ]]; then
     rm -f /etc/cron.d/gc-digital-talent
     add_section_block ":information_source: Laravel Scheduler cron *skipped* on slot $DEPLOYMENT_SLOT_NAME (SCHEDULER_ENABLED=$SCHEDULER_ENABLED)."
-# For extra debugging you can add `>> /tmp/run_laravel_scheduler.log 2>&1` to the end of the cron'd command
-# Write to a drop-in file in /etc/cron.d/ (overwrite) so re-runs are idempotent and changes are always applied
 elif cat > /etc/cron.d/gc-digital-talent << 'EOF'
   *  *  *  *  * www-data . /etc/profile ; php /home/site/wwwroot/api/artisan schedule:run
 EOF

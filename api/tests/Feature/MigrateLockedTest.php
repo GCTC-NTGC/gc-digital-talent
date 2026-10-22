@@ -49,7 +49,7 @@ class MigrateLockedTest extends TestCase
         $this->assertTrue($this->tryLock(), 'Lock should be free once migrating is done');
     }
 
-    public function testWaitsForAnotherContainerThatIsMigrating(): void
+    public function testTimesOutWhileAnotherContainerIsMigrating(): void
     {
         $this->assertTrue($this->tryLock());
 

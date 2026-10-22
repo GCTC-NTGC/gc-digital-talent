@@ -38,6 +38,7 @@ class ScheduleOnOneServerTest extends TestCase
     {
         $event = collect($this->app->make(Kernel::class)->resolveConsoleSchedule()->events())
             ->first(fn ($event) => str_contains($event->command, 'send-notifications:pool-published'));
+        $this->assertNotNull($event, 'send-notifications:pool-published is no longer scheduled, pick another event');
         $time = Carbon::now();
 
         // A fresh mutex per "server", sharing only the configured schedule store
