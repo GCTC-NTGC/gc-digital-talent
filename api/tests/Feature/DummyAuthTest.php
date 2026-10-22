@@ -7,17 +7,41 @@ use App\Models\User;
 use App\Services\DummyBearerTokenService;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use RuntimeException;
 use Tests\TestCase;
 
 class DummyAuthTest extends TestCase
 {
     use RefreshDatabase;
 
+    private const DUMMY_ENV = [
+        'AUTH_PROVIDER' => 'dummy',
+        'APP_ENV_VERTICAL' => 'uat',
+        'OAUTH_API_CLIENT_ID' => '',
+        'OAUTH_API_CLIENT_SECRET' => '',
+    ];
+
+    /**
+     * @param  array<string, ?string>  $values  null removes the variable
+     */
+    private function setEnv(array $values): void
+    {
+        foreach ($values as $name => $value) {
+            if ($value === null) {
+                putenv($name);
+                unset($_ENV[$name], $_SERVER[$name]);
+            } else {
+                putenv("{$name}={$value}");
+                $_ENV[$name] = $_SERVER[$name] = $value;
+            }
+        }
+    }
+
     protected function setUp(): void
     {
         // routes and bindings are chosen when the app boots
-        putenv('AUTH_PROVIDER=dummy');
-        $_ENV['AUTH_PROVIDER'] = $_SERVER['AUTH_PROVIDER'] = 'dummy';
+        $this->setEnv(self::DUMMY_ENV);
 
         parent::setUp();
 
@@ -31,8 +55,7 @@ class DummyAuthTest extends TestCase
 
     protected function tearDown(): void
     {
-        putenv('AUTH_PROVIDER');
-        unset($_ENV['AUTH_PROVIDER'], $_SERVER['AUTH_PROVIDER']);
+        $this->setEnv(array_fill_keys(array_keys(self::DUMMY_ENV), null));
 
         parent::tearDown();
     }
@@ -42,6 +65,25 @@ class DummyAuthTest extends TestCase
         parse_str(parse_url($response->headers->get('Location'), PHP_URL_QUERY), $query);
 
         return $query;
+    }
+
+    public static function unsafeEnvProvider(): array
+    {
+        return [
+            'production vertical' => [['APP_ENV_VERTICAL' => 'production'], 'APP_ENV_VERTICAL=production'],
+            'client id set' => [['OAUTH_API_CLIENT_ID' => 'real-client'], 'OAUTH_API_CLIENT_ID'],
+            'client secret set' => [['OAUTH_API_CLIENT_SECRET' => 'real-secret'], 'OAUTH_API_CLIENT_ID'],
+        ];
+    }
+
+    #[DataProvider('unsafeEnvProvider')]
+    public function testRefusesToBootInUnsafeEnvironment(array $env, string $message)
+    {
+        $this->setEnv($env);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage($message);
+        $this->createApplication();
     }
 
     public function testDummyTokenServiceIsBound()
