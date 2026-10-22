@@ -20,7 +20,6 @@ const meta = {
     ),
   ],
   args: {
-    userId: "test",
     experiencesQuery: [],
   },
 } satisfies Meta<typeof CareerExperience>;

@@ -214,45 +214,53 @@ const ProfileExperienceCard = ({
             <CardSeparator space="sm" />
             <p className="mb-6 font-bold">{organization}</p>
             <PreviewList.Root>
-              {groupedExperiences[organization].map((experience, i) => (
-                <>
-                  {isAwardExperience(experience) && (
+              {groupedExperiences[organization].map((experience, i) => {
+                if (isAwardExperience(experience)) {
+                  return (
                     <AwardPreviewListItem
+                      key={experience.id}
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
                     />
-                  )}
-                  {isCommunityExperience(experience) && (
+                  );
+                } else if (isCommunityExperience(experience)) {
+                  return (
                     <CommunityPreviewListItem
+                      key={experience.id}
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
                     />
-                  )}
-                  {isEducationExperience(experience) && (
+                  );
+                } else if (isEducationExperience(experience)) {
+                  return (
                     <EducationPreviewListItem
+                      key={experience.id}
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
                     />
-                  )}
-                  {isPersonalExperience(experience) && (
+                  );
+                } else if (isPersonalExperience(experience)) {
+                  return (
                     <PersonalPreviewListItem
+                      key={experience.id}
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
                     />
-                  )}
-                  {isWorkExperience(experience) && (
+                  );
+                } else
+                  return (
                     <WorkPreviewListItem
+                      key={experience.id}
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
                     />
-                  )}
-                </>
-              ))}
+                  );
+              })}
             </PreviewList.Root>
           </Fragment>
         ))

@@ -86,54 +86,54 @@ export const CareerExperience = ({
             <TableOfContents.AnchorLink id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
               {intl.formatMessage(pageTitle)}
             </TableOfContents.AnchorLink>
+            <TableOfContents.List>
+              {sortBy === "type" ? (
+                <>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.WORK_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.work)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.education)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.community)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.personal)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.AWARD_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.award)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                </>
+              ) : (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={PAGE_SECTION_ID.TIMELINE}>
+                    {intl.formatMessage(experienceMessages.timeline)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
+            </TableOfContents.List>
           </TableOfContents.ListItem>
-          <TableOfContents.List>
-            {sortBy === "type" ? (
-              <>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={PAGE_SECTION_ID.WORK_EXPERIENCE}
-                  >
-                    {intl.formatMessage(experienceMessages.work)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
-                  >
-                    {intl.formatMessage(experienceMessages.education)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
-                  >
-                    {intl.formatMessage(experienceMessages.community)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}
-                  >
-                    {intl.formatMessage(experienceMessages.personal)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-                <TableOfContents.ListItem>
-                  <TableOfContents.AnchorLink
-                    id={PAGE_SECTION_ID.AWARD_EXPERIENCE}
-                  >
-                    {intl.formatMessage(experienceMessages.award)}
-                  </TableOfContents.AnchorLink>
-                </TableOfContents.ListItem>
-              </>
-            ) : (
-              <TableOfContents.ListItem>
-                <TableOfContents.AnchorLink id={PAGE_SECTION_ID.TIMELINE}>
-                  {intl.formatMessage(experienceMessages.timeline)}
-                </TableOfContents.AnchorLink>
-              </TableOfContents.ListItem>
-            )}
-          </TableOfContents.List>
         </TableOfContents.List>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
