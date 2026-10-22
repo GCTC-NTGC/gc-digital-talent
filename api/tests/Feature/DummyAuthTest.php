@@ -6,6 +6,8 @@ use App\Contracts\BearerTokenService;
 use App\Models\User;
 use App\Services\DummyBearerTokenService;
 use Database\Seeders\RolePermissionSeeder;
+use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use RuntimeException;
@@ -15,34 +17,38 @@ class DummyAuthTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const DUMMY_ENV = [
-        'AUTH_PROVIDER' => 'dummy',
-        'APP_ENV_VERTICAL' => 'uat',
-        'OAUTH_API_CLIENT_ID' => '',
-        'OAUTH_API_CLIENT_SECRET' => '',
+    private const DUMMY_CONFIG = [
+        'auth.login_provider' => 'dummy',
+        'app.vertical' => 'uat',
+        'oauth.client_id' => '',
+        'oauth.client_secret' => '',
     ];
 
     /**
-     * @param  array<string, ?string>  $values  null removes the variable
+     * Config applied on top of DUMMY_CONFIG when the app boots.
+     *
+     * @var array<string, mixed>
      */
-    private function setEnv(array $values): void
+    private array $configOverrides = [];
+
+    /**
+     * Routes and bindings are chosen when the app boots, so set the config right after it
+     * loads. Changing env vars instead is unreliable: Laravel caches the env repository
+     * across test apps, so a later boot reloads .env over them.
+     */
+    public function createApplication()
     {
-        foreach ($values as $name => $value) {
-            if ($value === null) {
-                putenv($name);
-                unset($_ENV[$name], $_SERVER[$name]);
-            } else {
-                putenv("{$name}={$value}");
-                $_ENV[$name] = $_SERVER[$name] = $value;
-            }
-        }
+        $app = require __DIR__.'/../../bootstrap/app.php';
+        $app->afterBootstrapping(LoadConfiguration::class, function ($app) {
+            $app['config']->set([...self::DUMMY_CONFIG, ...$this->configOverrides]);
+        });
+        $app->make(Kernel::class)->bootstrap();
+
+        return $app;
     }
 
     protected function setUp(): void
     {
-        // routes and bindings are chosen when the app boots
-        $this->setEnv(self::DUMMY_ENV);
-
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
@@ -51,13 +57,6 @@ class DummyAuthTest extends TestCase
             'oauth.post_login_redirect' => 'http://app.test/after-login',
             'oauth.post_login_registration_redirect' => 'http://app.test/register',
         ]);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->setEnv(array_fill_keys(array_keys(self::DUMMY_ENV), null));
-
-        parent::tearDown();
     }
 
     private function queryFromRedirect($response): array
@@ -70,16 +69,16 @@ class DummyAuthTest extends TestCase
     public static function unsafeEnvProvider(): array
     {
         return [
-            'production vertical' => [['APP_ENV_VERTICAL' => 'production'], 'APP_ENV_VERTICAL=production'],
-            'client id set' => [['OAUTH_API_CLIENT_ID' => 'real-client'], 'OAUTH_API_CLIENT_ID'],
-            'client secret set' => [['OAUTH_API_CLIENT_SECRET' => 'real-secret'], 'OAUTH_API_CLIENT_ID'],
+            'production vertical' => [['app.vertical' => 'production'], 'APP_ENV_VERTICAL=production'],
+            'client id set' => [['oauth.client_id' => 'real-client'], 'OAUTH_API_CLIENT_ID'],
+            'client secret set' => [['oauth.client_secret' => 'real-secret'], 'OAUTH_API_CLIENT_ID'],
         ];
     }
 
     #[DataProvider('unsafeEnvProvider')]
-    public function testRefusesToBootInUnsafeEnvironment(array $env, string $message)
+    public function testRefusesToBootInUnsafeEnvironment(array $config, string $message)
     {
-        $this->setEnv($env);
+        $this->configOverrides = $config;
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage($message);
