@@ -11,12 +11,13 @@ test.describe("Login and logout", () => {
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
-        request.url().includes("/auth-callback") && request.method() === "GET",
+        new URL(request.url()).pathname === "/login" &&
+        request.method() === "POST",
     );
 
     // start login process
     await page.goto("/login");
-    await page.locator("input[name=username]").fill("applicant@test.com");
+    await page.locator("input[name=sub]").fill("applicant@test.com");
     await page
       .getByRole("button", {
         name: "Sign in",
@@ -89,7 +90,7 @@ test.describe("Login and logout", () => {
 
     // start login process
     await page.goto("/login");
-    await page.locator("input[name=username]").fill("applicant@test.com");
+    await page.locator("input[name=sub]").fill("applicant@test.com");
     await page
       .getByRole("button", {
         name: "Sign in",
@@ -106,6 +107,11 @@ test.describe("Login and logout", () => {
   });
 
   test("refresh the token", async ({ page }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
+      "Dummy auth tokens don't expire or refresh",
+    );
     await loginBySub(page, "applicant@test.com", false);
     const fixture = new AuthTokenFixture(page);
 
@@ -139,6 +145,11 @@ test.describe("Login and logout", () => {
 
   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
   test("share the refresh", async ({ page, context }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
+      "Dummy auth tokens don't expire or refresh",
+    );
     await loginBySub(page, "applicant@test.com", false);
     await page.goto("/en/applicant");
 
@@ -170,6 +181,11 @@ test.describe("Login and logout", () => {
 
   // will log in, do a token refresh, and do a second token refresh from that
   test("chain two refreshes", async ({ page }) => {
+    // eslint-disable-next-line playwright/no-skipped-test
+    test.skip(
+      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
+      "Dummy auth tokens don't expire or refresh",
+    );
     // log in
     await loginBySub(page, "applicant-employee@test.com", false);
 
@@ -243,7 +259,7 @@ test.describe("Login and logout", () => {
   test("log out", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
-        request.url().includes("/oxauth/endsession") &&
+        request.url().includes("/api/dummy-auth/logout") &&
         request.method() === "GET",
     );
 
