@@ -9,11 +9,14 @@ import { PreviewList } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
+import CommunityExperienceDialog from "~/components/ExperienceDialog/CommunityExperienceDialog";
 
 import type { ExperienceItemProps } from "./types";
 
 export const CommunityExperienceItem_Fragment = graphql(/* GraphQL */ `
   fragment CommunityExperienceItem on CommunityExperience {
+    ...CommunityExperienceDialog
     id
     title
     organization
@@ -65,11 +68,15 @@ const CommunityPreviewListItem = ({
         },
       ]}
       action={
-        <PreviewList.Button
-          label={title}
-          onClick={() => {
-            // Display relevant dialog
-          }}
+        <CommunityExperienceDialog
+          experienceQuery={experience}
+          trigger={
+            <PreviewList.Button
+              label={intl.formatMessage(experienceMessages.showDetails, {
+                experienceName: title,
+              })}
+            />
+          }
         />
       }
       mode="experience"

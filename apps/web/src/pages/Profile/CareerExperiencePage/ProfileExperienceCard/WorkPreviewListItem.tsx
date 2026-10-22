@@ -17,11 +17,13 @@ import {
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
+import WorkExperienceDialog from "~/components/ExperienceDialog/WorkExperienceDialog";
 
 import type { ExperienceItemProps } from "./types";
 
 export const WorkExperienceItem_Fragment = graphql(/* GraphQL */ `
   fragment WorkExperienceItem on WorkExperience {
+    ...WorkExperienceDialog
     id
     role
     organization
@@ -132,13 +134,15 @@ const WorkPreviewListItem = ({
         },
       ]}
       action={
-        <PreviewList.Button
-          label={intl.formatMessage(experienceMessages.showDetails, {
-            experienceName: title,
-          })}
-          onClick={() => {
-            // Display relevant dialog
-          }}
+        <WorkExperienceDialog
+          experienceQuery={experience}
+          trigger={
+            <PreviewList.Button
+              label={intl.formatMessage(experienceMessages.showDetails, {
+                experienceName: title,
+              })}
+            />
+          }
         />
       }
       mode="experience"

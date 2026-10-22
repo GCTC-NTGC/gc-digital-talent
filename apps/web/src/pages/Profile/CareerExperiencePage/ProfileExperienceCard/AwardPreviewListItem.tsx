@@ -10,11 +10,13 @@ import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
+import AwardExperienceDialog from "~/components/ExperienceDialog/AwardExperienceDialog";
 
 import type { ExperienceItemProps } from "./types";
 
 export const AwardExperienceItem_Fragment = graphql(/* GraphQL */ `
   fragment AwardExperienceItem on AwardExperience {
+    ...AwardExperienceDialog
     id
     title
     issuedBy
@@ -117,13 +119,15 @@ const AwardPreviewListItem = ({
         },
       ]}
       action={
-        <PreviewList.Button
-          label={intl.formatMessage(experienceMessages.showDetails, {
-            experienceName: title,
-          })}
-          onClick={() => {
-            // Display relevant dialog
-          }}
+        <AwardExperienceDialog
+          experienceQuery={experience}
+          trigger={
+            <PreviewList.Button
+              label={intl.formatMessage(experienceMessages.showDetails, {
+                experienceName: title,
+              })}
+            />
+          }
         />
       }
       mode="experience"

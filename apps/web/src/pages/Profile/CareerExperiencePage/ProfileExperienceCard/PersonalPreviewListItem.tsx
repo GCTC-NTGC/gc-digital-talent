@@ -9,11 +9,14 @@ import { PreviewList } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
+import PersonalExperienceDialog from "~/components/ExperienceDialog/PersonalExperienceDialog";
 
 import type { ExperienceItemProps } from "./types";
 
 export const PersonalExperienceItem_Fragment = graphql(/* GraphQL */ `
   fragment PersonalExperienceItem on PersonalExperience {
+    ...PersonalExperienceDialog
     id
     title
     organization
@@ -65,11 +68,15 @@ const PersonalPreviewListItem = ({
         },
       ]}
       action={
-        <PreviewList.Button
-          label={title}
-          onClick={() => {
-            // Display relevant dialog
-          }}
+        <PersonalExperienceDialog
+          experienceQuery={experience}
+          trigger={
+            <PreviewList.Button
+              label={intl.formatMessage(experienceMessages.showDetails, {
+                experienceName: title,
+              })}
+            />
+          }
         />
       }
       mode="experience"

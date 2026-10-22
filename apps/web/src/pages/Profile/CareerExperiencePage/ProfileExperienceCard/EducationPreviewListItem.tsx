@@ -9,11 +9,14 @@ import { PreviewList } from "@gc-digital-talent/ui";
 import { navigationMessages } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
+import EducationExperienceDialog from "~/components/ExperienceDialog/EducationExperienceDialog";
 
 import type { ExperienceItemProps } from "./types";
 
 export const EducationExperienceItem_Fragment = graphql(/* GraphQL */ `
   fragment EducationExperienceItem on EducationExperience {
+    ...EducationExperienceDialog
     id
     educationType {
       value
@@ -90,11 +93,15 @@ const EducationPreviewListItem = ({
         },
       ]}
       action={
-        <PreviewList.Button
-          label={title}
-          onClick={() => {
-            // Display relevant dialog
-          }}
+        <EducationExperienceDialog
+          experienceQuery={experience}
+          trigger={
+            <PreviewList.Button
+              label={intl.formatMessage(experienceMessages.showDetails, {
+                experienceName: title,
+              })}
+            />
+          }
         />
       }
       mode="experience"
