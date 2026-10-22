@@ -6,6 +6,7 @@ use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Traits\LogsCustomActivity;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -21,6 +22,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property string $skill_id
  * @property string $type
  * @property string $required_skill_level
+ * @property string $formatted_level
  */
 class PoolSkill extends Model
 {
@@ -104,6 +106,13 @@ class PoolSkill extends Model
     public function assessmentResults(): HasMany
     {
         return $this->hasMany(AssessmentResult::class);
+    }
+
+    protected function formattedLevel(): Attribute
+    {
+        return Attribute::get(function () {
+            return __('skill_level.name.'.strtolower($this->skill->category).'.'.strtolower($this->required_skill_level));
+        });
     }
 
     public static function scopeWithPolicyEagerLoads(Builder $query): Builder
