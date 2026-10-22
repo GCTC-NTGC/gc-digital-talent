@@ -9,7 +9,6 @@ use App\Console\Commands\SendNotificationsApplicationDeadlineApproaching;
 use App\Console\Commands\SendNotificationsPoolPublished;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -61,12 +60,6 @@ class Kernel extends ConsoleKernel
             ->everyFiveMinutes()
             ->onOneServer()
             ->appendOutputTo(storage_path('logs/auth-ping.log'));
-
-        // TEMPORARY: lets reviewers check onOneServer() locally without waiting for a 5 minute tick (PR #18352)
-        $schedule->call(fn () => Log::channel('jobs')->info('onOneServer sample ran', ['pid' => getmypid()]))
-            ->name('onOneServer sample')
-            ->everyMinute()
-            ->onOneServer();
     }
 
     /**
