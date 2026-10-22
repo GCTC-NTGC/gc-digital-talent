@@ -2,6 +2,7 @@ import { defineMessage, useIntl } from "react-intl";
 import { useQuery } from "urql";
 import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
 import { useState } from "react";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
 import {
   Button,
@@ -13,12 +14,19 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
-import { commonMessages, formMessages } from "@gc-digital-talent/i18n";
+import {
+  commonMessages,
+  formMessages,
+  navigationMessages,
+} from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import profileMessages from "~/messages/profileMessages";
 import experienceMessages from "~/messages/experienceMessages";
 import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
+import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
+import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 
 import type { ProfileExperienceCard_Fragment } from "./ProfileExperienceCard/ProfileExperienceCard";
 import ProfileExperienceCard from "./ProfileExperienceCard/ProfileExperienceCard";
@@ -32,11 +40,7 @@ const pageTitle = defineMessage({
 });
 
 export const handle = {
-  pageTitle: defineMessage({
-    defaultMessage: "Career experience",
-    id: "iAMDPG",
-    description: "Breadcrumb for the career experience page",
-  }),
+  pageTitle: navigationMessages.careerExperience,
 };
 
 export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
@@ -45,6 +49,7 @@ export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
       id
       experiences {
         ...ProfileExperienceCard
+        ...CareerTimelineSectionExperience
       }
     }
   }
@@ -231,18 +236,73 @@ export const CareerExperience = ({
   );
 };
 
+interface CareerTimelineProps {
+  userId: string;
+  experiencesQuery: FragmentType<
+    typeof CareerTimelineSectionExperience_Fragment
+  >[];
+}
+
+export const CareerTimeline = ({
+  userId,
+  experiencesQuery,
+}: CareerTimelineProps) => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <Heading
+        icon={BookmarkSquareIcon}
+        color="error"
+        size="h3"
+        className="mt-0 mb-6 font-normal"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Manage your career timeline",
+          id: "eZYP/W",
+          description:
+            "Titles for a page section to manage your career timeline",
+        })}
+      </Heading>
+      <p className="mb-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+          id: "0m3FMH",
+          description: "Descriptive paragraph for the career timeline page.",
+        })}
+      </p>
+      <div className="mb-18">
+        <CareerTimelineSection
+          experiencesQuery={experiencesQuery}
+          userId={userId}
+        />
+      </div>
+    </>
+  );
+};
+
 const CareerExperiencePage = () => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useQuery({
     query: CareerExperiencePage_Query,
   });
 
+  const featureFlags = useFeatureFlags();
+
   return (
     <Pending fetching={fetching} error={error}>
       {data?.me ? (
-        <CareerExperience
-          experiencesQuery={unpackMaybes(data?.me.experiences)}
-        />
+        featureFlags.careerExperience ? (
+          <CareerExperience
+            experiencesQuery={unpackMaybes(data?.me.experiences)}
+          />
+        ) : (
+          <CareerTimeline
+            userId={data.me.id}
+            experiencesQuery={unpackMaybes(data?.me.experiences)}
+          />
+        )
       ) : (
         <ThrowNotFound
           message={intl.formatMessage(profileMessages.userNotFound)}
