@@ -19,8 +19,20 @@ const staticDate = new Date(parseISO(fakedPool.publishedAt));
 Date.now = () => Number(staticDate); // set now to be static
 
 const nullPool = {
-  __typename: "Pool" as const,
-  id: "uuid",
+  ...fakedPool,
+  department: null,
+  workStream: null,
+  closingDate: null,
+  name: null,
+  classification: null,
+  poolSkills: null,
+  areaOfSelection: null,
+  selectionLimitations: null,
+  isRemote: null,
+  location: null,
+  language: null,
+  publishedAt: null,
+  applicantsCount: null,
 };
 
 export default {

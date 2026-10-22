@@ -17,6 +17,10 @@ import AppPage from "./AppPage";
 import LocationPreferenceUpdatePage from "./locationPreferenceUpdatePage";
 import AssessmentPage from "./AssessmentPage";
 
+function escapeRegExp(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const FIELD = {
   GENERIC_TABLE_ROW: "genericTableRow",
   SHOW_HIDE_COLUMNS: "showHideColumns",
@@ -288,8 +292,31 @@ class GenericTableValidationFixture extends AppPage {
     ).toBe(isAvailableForReferral);
   }
 
-  async noCandidatesFound() {
-    await expect(this.locators.noCandidatesFound).toBeVisible();
+  async verifyDefaultApplicantFilters(defaults: {
+    talentSource: string;
+    classification: string;
+    workStream: string;
+    process: string;
+    skill: string;
+  }) {
+    const dialog = this.page.getByRole("dialog");
+    await expect(
+      dialog.getByRole("checkbox", { name: defaults.talentSource }),
+    ).toBeChecked();
+    await expect(
+      dialog.getByRole("button", {
+        name: new RegExp(`${escapeRegExp(defaults.classification)}$`),
+      }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.workStream }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.process }),
+    ).toBeVisible();
+    await expect(
+      dialog.getByRole("button", { name: defaults.skill }),
+    ).toBeVisible();
   }
 }
 export default GenericTableValidationFixture;

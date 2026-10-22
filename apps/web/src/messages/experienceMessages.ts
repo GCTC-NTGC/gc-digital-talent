@@ -270,6 +270,16 @@ const messages = defineMessages({
     description:
       "Label for goc employment category on work experience card metadata",
   },
+  dates: {
+    defaultMessage: "Dates",
+    id: "Bs00Yf",
+    description: "Heading for the date range of an experience",
+  },
+  duration: {
+    defaultMessage: "Duration",
+    id: "X3puDA",
+    description: "Heading for how long an experience lasted",
+  },
 });
 
 export default messages;

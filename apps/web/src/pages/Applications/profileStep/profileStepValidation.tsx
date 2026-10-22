@@ -5,14 +5,14 @@ import type {
   ApplicationStepPool,
 } from "~/types/applicationStep";
 import type {
-  PartialUserAbout,
+  PartialUserPersonalInformation,
   PartialUserDei,
   PartialUserPriority,
   PartialUserLanguage,
   PartialUserPreferences,
 } from "~/validators/profile";
 import {
-  aboutSectionHasEmptyRequiredFields,
+  personalInformationSectionHasEmptyRequiredFields,
   diversityEquityInclusionSectionHasEmptyRequiredFields,
   priorityEntitlementsHasEmptyRequiredFields,
   languageInformationSectionHasEmptyRequiredFields,
@@ -22,7 +22,7 @@ import {
 
 interface PartialUser
   extends
-    PartialUserAbout,
+    PartialUserPersonalInformation,
     PartialUserDei,
     PartialUserPriority,
     PartialUserLanguage,
@@ -35,7 +35,7 @@ const stepHasError = (
   browserState: ApplicationBrowserState | null | undefined,
 ) => {
   const hasEmptyRequiredFields =
-    aboutSectionHasEmptyRequiredFields(
+    personalInformationSectionHasEmptyRequiredFields(
       user,
       pool,
       _application?.isSpecialApplication,

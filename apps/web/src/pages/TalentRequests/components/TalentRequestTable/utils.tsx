@@ -175,9 +175,9 @@ export const notesCell = (
   searchRequest: TalentRequestTableRowFragment,
   intl: IntlShape,
 ) =>
-  searchRequest?.adminNotes ? (
+  searchRequest?.adminData?.adminNotes ? (
     <Spoiler
-      text={searchRequest.adminNotes}
+      text={searchRequest.adminData.adminNotes}
       linkSuffix={intl.formatMessage(
         {
           defaultMessage: "notes for {name}",

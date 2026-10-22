@@ -50,6 +50,7 @@ type EditMode = "link" | "dialog";
 export const ExperienceCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceCard on Experience {
     id
+    ...ExperienceSkillFormExperience
     skills {
       id
       key
@@ -472,7 +473,7 @@ const ExperienceCard = ({
         onSave={onSave}
         skill={linkTo}
         trigger={editTrigger}
-        experience={experience}
+        experienceQuery={experience}
       />
     );
 

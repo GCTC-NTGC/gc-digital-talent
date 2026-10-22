@@ -187,10 +187,8 @@ type User {
   talentNominationsAsSubmitter: [TalentNomination!]
     @hasMany
     @canResolved(ability: "view") # Search talent requests submitted by a user
-  talentNominationGroupsAsNominee: [TalentNominationGroup!]
-    @hasMany(
-      scopes: ["withPolicyEagerLoads", "approved", "whereAuthorizedToView"]
-    )
+  talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
+    @hasMany(scopes: ["withApprovedOption", "whereAuthorizedToViewAsNominee"])
 }
 
 type CommunityInterest {
@@ -1014,7 +1012,6 @@ type TalentNominationGroup {
     @rename(attribute: "consent_to_share_profile")
     @with(relation: "talentNominationEvent")
   status: LocalizedTalentNominationGroupStatus
-  consentToShareProfile: Boolean @rename(attribute: "consent_to_share_profile")
   comments: String
   classificationAtTimeOfLastApproval: Classification @belongsTo
   advancementClassifications: [Classification!] @belongsToMany
@@ -1023,6 +1020,26 @@ type TalentNominationGroup {
   lateralMovementClassifications: [Classification!] @belongsToMany
   lateralMovementReferralExpiryDate: Date
     @rename(attribute: "lateral_movement_referral_expiry_date")
+}
+
+# The nominee's view of their own nomination group, limited to the options they were approved for
+type TalentNominationGroupAsNominee
+  @model(class: "\\App\\Models\\TalentNominationGroup") {
+  id: UUID!
+  talentNominationEvent: TalentNominationEvent! @belongsTo
+  approvedForAdvancement: Boolean!
+    @rename(attribute: "approved_for_advancement")
+    @with(relation: "nominations")
+  approvedForLateralMovement: Boolean!
+    @rename(attribute: "approved_for_lateral_movement")
+    @with(relation: "nominations")
+  approvedForDevelopmentPrograms: Boolean!
+    @rename(attribute: "approved_for_development_programs")
+    @with(relation: "nominations")
+  nominatorNames: [String!]!
+    @rename(attribute: "approved_nominator_names")
+    @with(relation: "nominations.nominator")
+  updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
 type Team implements HasRoleAssignments {
@@ -1115,7 +1132,6 @@ type TalentRequest {
   additionalComments: String @rename(attribute: "additional_comments")
   hrAdvisorEmail: Email @rename(attribute: "hr_advisor_email")
   requestedDate: DateTime @rename(attribute: "created_at")
-  adminNotes: String @rename(attribute: "admin_notes")
   applicantFilter: ApplicantFilter @belongsTo
   wasEmpty: Boolean @rename(attribute: "was_empty")
   managerJobTitle: String @rename(attribute: "manager_job_title")
@@ -1125,7 +1141,6 @@ type TalentRequest {
   community: Community @belongsTo
   user: User @belongsTo
   initialResultCount: Int @rename(attribute: "initial_result_count")
-  followUpDate: Date @rename(attribute: "follow_up_date")
   talentRequestStatus: LocalizedTalentRequestStatus @rename(attribute: "status")
   inProgressDetails: LocalizedTalentRequestInProgressDetail
     @rename(attribute: "in_progress_details")
@@ -1139,6 +1154,12 @@ type TalentRequest {
     where: TalentRequestTrackedUserFilterInput
   ): [TalentRequestTrackedUser!]
     @hasMany(scopes: ["whereAuthorizedToView", "withSkillCount"])
+  adminData: TalentRequestAdminData @canRoot(ability: "viewAdminData") @self
+}
+
+type TalentRequestAdminData {
+  adminNotes: String @rename(attribute: "admin_notes")
+  followUpDate: Date @rename(attribute: "follow_up_date")
 }
 
 input TalentRequestTrackedUserFilterInput {
@@ -1786,11 +1807,7 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 1000
-      scopes: [
-        "whereSkillCount"
-        "whereAuthorizedToViewPoolCandidateAdminView"
-        "withPaginatedEagerLoads"
-      ]
+      scopes: ["whereSkillCount", "whereAuthorizedToViewPoolCandidateAdminView"]
       model: "App\\Models\\PoolCandidate"
     )
   classification(id: UUID! @eq): Classification @find @canModel(ability: "view")
@@ -1818,10 +1835,9 @@ type Query {
     @paginate(
       defaultCount: 10
       maxCount: 500
-      scopes: ["withPolicyEagerLoads", "whereAuthorizedToView"]
+      scopes: ["withPolicyEagerLoads", "whereAuthorizedToSearch"]
     )
     @guard
-    @canResolved(ability: "view", scopes: ["withPolicyEagerLoads"])
   talentRequestTrackedUsers(
     talentRequestId: UUID! @eq(key: "talent_request_id")
     where: TalentRequestTrackedUserFilterInput
@@ -2926,9 +2942,6 @@ input AwardExperienceInput @validator {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
-  # This is an alias of connect since it is a custom command that can do both (insert and update)
-  # It is here to avoid confusion when using it on the frontend
-  update: [ConnectExperienceSkills!] @resolveWith(method: "connectSkills")
   disconnect: [ID!] @resolveWith(method: "disconnectSkills")
   sync: [ConnectExperienceSkills!] @resolveWith(method: "syncSkills")
 }
@@ -3756,7 +3769,6 @@ type Mutation {
       model: "TalentRequest"
       injectArgs: true
     )
-    @update
     @validator
 
   # SkillFamily mutations

@@ -21,7 +21,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-24.04
     env:
-      PNPM_VERSION: "10.27.0"
+      PNPM_VERSION: "12.9.1"
 
     services:
       postgres:
@@ -88,7 +88,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.4"
+          php-version: "8.5"
           extensions: bcmath
 
       - name: Install composer dependencies

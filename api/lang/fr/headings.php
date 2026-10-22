@@ -214,6 +214,7 @@ return [
 
     // Nomination
     'talent_management_nomination' => 'Nomination pour la gestion des talents',
+    'talent_management_nominations' => 'Nominations en gestion de talent',
     'talent_management_event' => 'Événement axé sur la gestion des talents',
     'nominations_opening_date' => "Date d'ouverture des nominations",
     'nominations_closing_date' => 'Date de clôture des nominations',

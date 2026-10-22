@@ -36,10 +36,6 @@ export default [
             "./pages/InclusivityEquityPage/InclusivityEquityPage.tsx",
           ),
           route(
-            "directive-on-digital-talent",
-            "./pages/DirectivePage/DirectivePage.tsx",
-          ),
-          route(
             "hr/resources",
             "./pages/HumanResources/PlatformResourcesForProfessionalsPage.tsx",
           ),

@@ -97,6 +97,61 @@ class PoolCandidateAdminViewTest extends TestCase
         }
     ';
 
+    // the candidates table's row selection, mirroring PoolCandidatesTable.tsx
+    public string $candidatesTableQuery =
+        /** GraphQL */
+        '
+        query ($first: Int) {
+            poolCandidatesPaginated(first: $first) {
+                data {
+                    poolCandidate {
+                        id
+                        notes
+                        isFlagged
+                        status { value }
+                        candidateStatus { value }
+                        placementType { value }
+                        placedDepartment { id name { en fr } }
+                        category { weight value }
+                        screeningStage { value }
+                        statusUpdatedAt
+                        assessmentStep { sortOrder title { localized } type { value } }
+                        isBeingReferred
+                        screeningResult { value }
+                        assessmentStatus { overallAssessmentStatus }
+                        submittedAt
+                        suspendedAt
+                        pool {
+                            id
+                            processNumber
+                            name { en fr }
+                            classification { id groupAndLevel }
+                            workStream { id name { en fr } }
+                            closingDate
+                            areaOfSelection { value }
+                            contactEmail
+                        }
+                        user {
+                            id
+                            email
+                            firstName
+                            lastName
+                            preferredLang { value }
+                            lookingForEnglish
+                            lookingForFrench
+                            lookingForBilingual
+                            flexibleWorkLocations { value }
+                            currentCity
+                            department { id name { localized } }
+                            currentProvince { value }
+                        }
+                    }
+                    skillCount
+                }
+            }
+        }
+    ';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -1063,5 +1118,82 @@ class PoolCandidateAdminViewTest extends TestCase
                 ],
             ])->assertJsonFragment(['total' => 1])
             ->assertJsonFragment(['id' => $communityCandidate->id]);
+    }
+
+    // the candidates table's candidates, all alike so page sizes differ only in row count
+    private function seedCandidatesTableRows(): void
+    {
+        PoolCandidate::factory()->count(4)->availableInSearch()->create([
+            'pool_id' => $this->pool->id,
+            'application_status' => ApplicationStatus::TO_ASSESS->name,
+        ]);
+
+        // factory departments are random, so pin one to make the batched department lookup run at every page size
+        User::whereIn('id', PoolCandidate::where('pool_id', $this->pool->id)->select('user_id'))
+            ->update(['computed_department' => $this->department->id]);
+    }
+
+    // with nothing eager loaded by the builder, the table still resolves and shows each candidate's own user and pool
+    public function testCandidatesTableResolvesWithoutBuilderEagerLoads(): void
+    {
+        $this->seedCandidatesTableRows();
+
+        $rows = $this->actingAs($this->communityAdmin, 'api')
+            ->graphQL($this->candidatesTableQuery, ['first' => 10])
+            ->assertGraphQLErrorFree()
+            ->json('data.poolCandidatesPaginated.data');
+
+        $this->assertCount(5, $rows);
+        foreach ($rows as $row) {
+            $candidate = PoolCandidate::with(['user', 'pool'])->findOrFail($row['poolCandidate']['id']);
+            $user = $row['poolCandidate']['user'];
+            $pool = $row['poolCandidate']['pool'];
+
+            $this->assertSame([
+                $candidate->user->id,
+                $candidate->user->email,
+                $candidate->user->first_name,
+                $candidate->user->last_name,
+                $candidate->user->preferred_lang,
+                $candidate->user->computed_department,
+                $candidate->pool->id,
+                $candidate->pool->process_number,
+            ], [
+                $user['id'],
+                $user['email'],
+                $user['firstName'],
+                $user['lastName'],
+                $user['preferredLang']['value'] ?? null,
+                $user['department']['id'] ?? null,
+                $pool['id'],
+                $pool['processNumber'],
+            ]);
+        }
+    }
+
+    // the table's selection is batched, and users are read once rather than again for a builder eager load
+    public function testCandidatesTableDoesNotQueryPerRow(): void
+    {
+        $this->seedCandidatesTableRows();
+
+        $queries = function (int $first): array {
+            DB::enableQueryLog();
+            DB::flushQueryLog();
+            $this->actingAs($this->communityAdmin, 'api')
+                ->graphQL($this->candidatesTableQuery, ['first' => $first])
+                ->assertGraphQLErrorFree()
+                ->assertJsonCount($first, 'data.poolCandidatesPaginated.data');
+            $log = array_column(DB::getQueryLog(), 'query');
+            DB::disableQueryLog();
+
+            return $log;
+        };
+
+        // warm permission caches so the measured requests start equal
+        $queries(5);
+
+        $page = $queries(5);
+        $this->assertCount(count($queries(1)), $page);
+        $this->assertCount(1, array_filter($page, fn (string $sql) => str_contains($sql, 'from "users"')));
     }
 }
