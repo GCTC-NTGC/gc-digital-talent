@@ -31,7 +31,7 @@ return [
         ],
         'canadian_citizens' => [
             'title' => 'Cette possibilité d\'emploi s’adresse uniquement aux personnes ayant la citoyenneté canadienne',
-            'content' => 'La présente offre s’adresse uniquement aux personnes ayant la citoyenneté canadienne. *',
+            'content' => 'La présente offre s’adresse uniquement aux personnes ayant la citoyenneté canadienne*.',
             'note' => '* Il s’agit d’une offre d’emploi au sein d’un ministère ou d’un organisme qui n’est pas assujetti à la <a href=":url">Loi sur l’emploi dans la fonction publique</a>. Par conséquent, le processus d’embauche et la terminologie employée peuvent différer de ceux habituellement utilisés dans la fonction publique fédérale.',
             'url' => 'https://laws-lois.justice.gc.ca/fra/lois/p-33.01/',
         ],
