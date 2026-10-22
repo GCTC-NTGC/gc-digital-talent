@@ -106,8 +106,6 @@ class TalentNominationFactory extends Factory
             ->state(function (array $attributes) {
                 $stepsArray = $attributes['submitted_steps'];
                 $stepsArray[] = TalentNominationStep::NOMINEE_INFORMATION->name;
-                $eventId = value($attributes['talent_nomination_event_id'], $attributes);
-                $parentEvent = TalentNominationEvent::find($eventId);
 
                 return [
                     'submitted_steps' => $stepsArray,
@@ -121,10 +119,10 @@ class TalentNominationFactory extends Factory
                             ? $this->faker->jobTitle()
                             : null,
                     // the nine box data might be collected on the nominee step but we're not yet sure
-                    'nine_box_performance' => fn ($_) => $parentEvent->include_nine_box
+                    'nine_box_performance' => fn ($attributes) => $this->parentEvent($attributes)->include_nine_box
                         ? $this->faker->enum(NineBoxRating::class)
                         : null,
-                    'nine_box_leadership_potential' => fn ($_) => $parentEvent->include_nine_box
+                    'nine_box_leadership_potential' => fn ($attributes) => $this->parentEvent($attributes)->include_nine_box
                         ? $this->faker->enum(NineBoxRating::class)
                         : null,
                 ];
@@ -138,15 +136,13 @@ class TalentNominationFactory extends Factory
             ->state(function (array $attributes) {
                 $stepsArray = $attributes['submitted_steps'];
                 $stepsArray[] = TalentNominationStep::NOMINATION_DETAILS->name;
-                $eventId = value($attributes['talent_nomination_event_id'], $attributes);
-                $parentEvent = TalentNominationEvent::find($eventId);
 
                 return [
                     'submitted_steps' => $stepsArray,
 
                     'nominate_for_advancement' => $this->faker->boolean(),
                     'nominate_for_lateral_movement' => $this->faker->boolean(),
-                    'nominate_for_development_programs' => $parentEvent->developmentProgramsThroughPivot->count() > 0 && $this->faker->boolean(),
+                    'nominate_for_development_programs' => fn ($attributes) => $this->parentEvent($attributes)->developmentProgramsThroughPivot->count() > 0 && $this->faker->boolean(),
 
                     'advancement_reference_id' => fn ($attributes) => $attributes['nominate_for_advancement'] && $this->faker->boolean()
                         // nominated for advancement and we have the user id
@@ -178,11 +174,11 @@ class TalentNominationFactory extends Factory
                         ? $this->faker->jobTitle()
                         : null,
 
-                    'development_program_options_other' => function ($attributes) use ($parentEvent) {
+                    'development_program_options_other' => function ($attributes) {
                         // if nomination for development programs was selected then it is possible to have an 'other' program
                         $nominateForDevelopmentProgramsOptionsSelected = $attributes['nominate_for_development_programs'];
                         // if nominated for development programs then it is possible to have an 'other' program
-                        $thereAreDevelopmentProgramsForEvent = $parentEvent->developmentProgramsThroughPivot->count() > 0;
+                        $thereAreDevelopmentProgramsForEvent = $this->parentEvent($attributes)->developmentProgramsThroughPivot->count() > 0;
 
                         $fakedOtherOption = $this->faker->jobTitle();
 
@@ -314,5 +310,10 @@ class TalentNominationFactory extends Factory
 
                 $talentNominationGroup->save();
             });
+    }
+
+    private function parentEvent(array $attributes): TalentNominationEvent
+    {
+        return TalentNominationEvent::findOrFail(value($attributes['talent_nomination_event_id'], $attributes));
     }
 }
