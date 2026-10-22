@@ -4,12 +4,12 @@ trigger: none
 pr: none
 
 parameters:
+  # Playwright needs the target running with AUTH_PROVIDER=dummy, which only UAT does for now.
   - name: vertical
     displayName: Environment
     type: string
-    default: dev
+    default: uat
     values:
-      - dev
       - uat
 
 variables:
@@ -25,9 +25,6 @@ variables:
     baseUrl: "https://uat-talentcloud.tbs-sct.gc.ca"
     smokeArgs: "--project=uat-*"
     integrationArgs: "--project=chromium --grep=@uat"
-  ${{ else }}:
-    baseUrl: "https://dev-talentcloud.tbs-sct.gc.ca"
-    integrationArgs: "--project=chromium"
 
 pool:
   vmImage: ubuntu-24.04
@@ -87,7 +84,7 @@ jobs:
             env:
               CI: "true"
               BASE_URL: $(baseUrl)
-              TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+              PLAYWRIGHT_TARGET: uat
               PLAYWRIGHT_WORKERS: $(playwrightWorkers)
               PLAYWRIGHT_PLATFORM_ADMIN_SUB: $(PLAYWRIGHT_PLATFORM_ADMIN_SUB)
               PLAYWRIGHT_COMMUNITY_ADMIN_SUB: $(PLAYWRIGHT_COMMUNITY_ADMIN_SUB)
@@ -169,7 +166,7 @@ jobs:
         env:
           CI: "true"
           BASE_URL: $(baseUrl)
-          TESTING_ENDPOINT_SECRET: $(TESTING_ENDPOINT_SECRET)
+          PLAYWRIGHT_TARGET: uat
           PLAYWRIGHT_WORKERS: $(playwrightWorkers)
           PLAYWRIGHT_PLATFORM_ADMIN_SUB: $(PLAYWRIGHT_PLATFORM_ADMIN_SUB)
           PLAYWRIGHT_COMMUNITY_ADMIN_SUB: $(PLAYWRIGHT_COMMUNITY_ADMIN_SUB)
