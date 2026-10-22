@@ -1,5 +1,6 @@
 import type {
   CreateTalentNominationEventInput,
+  CreateTalentNominationInput,
   LocalizedNineBoxRating,
   LocalizedTalentNominationEventStatus,
   LocalizedTalentNominationGroupStatus,
@@ -8,12 +9,25 @@ import type {
   LocalizedTalentNominationSubmitterRelationshipToNominator,
   TalentNomination,
   TalentNominationEvent,
+  TalentNominationGroup,
+  UpdateTalentNominationGroupInput,
   UpdateTalentNominationInput,
+  User,
 } from "@gc-digital-talent/graphql/schema-types";
+import {
+  EmploymentCategory,
+  GovEmployeeType,
+  GovPositionType,
+} from "@gc-digital-talent/graphql/schema-types";
+import { nowUTCDateTime, PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
-import { getMyCommunity } from "./communities";
+import graphql from "./graphql";
+import { createCommunityInterest, getMyCommunity } from "./communities";
 import { getCommunityDevelopmentProgramsForCommunity } from "./developmentPrograms";
+import { defaultWorkExperience } from "./experiences";
+import { generateUniqueTestId } from "./id";
+import { createUserWithRoles } from "./user";
 
 const oldDate = new Date();
 const newDate = new Date();
@@ -132,6 +146,31 @@ export const getTalentNominationEventByName: GraphQLRequestFunc<
   return event;
 };
 
+const Test_CreateTalentNominationMutation = /* GraphQL */ `
+  mutation Test_CreateTalentNomination(
+    $talentNomination: CreateTalentNominationInput!
+  ) {
+    createTalentNomination(talentNomination: $talentNomination) {
+      id
+    }
+  }
+`;
+
+export const createTalentNomination: GraphQLRequestFunc<
+  TalentNomination | undefined,
+  CreateTalentNominationInput
+> = async (ctx, talentNomination) => {
+  return ctx
+    .post<GraphQLResponse<"createTalentNomination", TalentNomination>>(
+      Test_CreateTalentNominationMutation,
+      {
+        isPrivileged: true,
+        variables: { talentNomination },
+      },
+    )
+    .then((res) => res.createTalentNomination);
+};
+
 const Test_UpdateTalentNominationMutation = /* GraphQL */ `
   mutation Test_UpdateTalentNomination(
     $talentNomination: UpdateTalentNominationInput!
@@ -178,6 +217,171 @@ export const submitTalentNomination: GraphQLRequestFunc<
       },
     )
     .then((res) => res.submitTalentNomination);
+};
+
+const Test_TalentNominationGroupsByNomineeQueryDocument = /* GraphQL */ `
+  query Test_TalentNominationGroupsByNominee($nomineeUserId: UUID!) {
+    talentNominationGroupsByNominee(nomineeUserId: $nomineeUserId) {
+      id
+      talentNominationEvent {
+        id
+        name {
+          en
+        }
+      }
+    }
+  }
+`;
+
+export const getTalentNominationGroupsByNominee: GraphQLRequestFunc<
+  TalentNominationGroup[],
+  { nomineeUserId: string }
+> = async (ctx, { nomineeUserId }) => {
+  return ctx
+    .post<
+      GraphQLResponse<
+        "talentNominationGroupsByNominee",
+        TalentNominationGroup[]
+      >
+    >(Test_TalentNominationGroupsByNomineeQueryDocument, {
+      isPrivileged: true,
+      variables: { nomineeUserId },
+    })
+    .then((res) => res.talentNominationGroupsByNominee);
+};
+
+const Test_UpdateTalentNominationGroupMutation = /* GraphQL */ `
+  mutation Test_UpdateTalentNominationGroup(
+    $id: UUID!
+    $talentNominationGroup: UpdateTalentNominationGroupInput!
+  ) {
+    updateTalentNominationGroup(
+      id: $id
+      talentNominationGroup: $talentNominationGroup
+    ) {
+      id
+    }
+  }
+`;
+
+/**
+ * Evaluate a nomination group, e.g. approve the advancement and lateral movement nominations
+ */
+export const updateTalentNominationGroup: GraphQLRequestFunc<
+  TalentNominationGroup | undefined,
+  { id: string; talentNominationGroup: UpdateTalentNominationGroupInput }
+> = async (ctx, { id, talentNominationGroup }) => {
+  return ctx
+    .post<
+      GraphQLResponse<"updateTalentNominationGroup", TalentNominationGroup>
+    >(Test_UpdateTalentNominationGroupMutation, {
+      isPrivileged: true,
+      variables: { id, talentNominationGroup },
+    })
+    .then((res) => res.updateTalentNominationGroup);
+};
+
+interface CreateNomineeArgs {
+  classificationId: string;
+  departmentId: string;
+  communityId: string;
+  workStreamId: string;
+}
+
+/**
+ * Create a verified government employee who shares their profile with the community's work stream
+ */
+export const createNominee: GraphQLRequestFunc<
+  User,
+  CreateNomineeArgs
+> = async (
+  ctx,
+  { classificationId, departmentId, communityId, workStreamId },
+) => {
+  const nomineeUniqueId = generateUniqueTestId();
+  const sub = `playwright.sub.${nomineeUniqueId}`;
+  const nominee = await createUserWithRoles(ctx, {
+    user: {
+      firstName: `Playwright ${nomineeUniqueId}`,
+      email: `${sub}@example.org`,
+      emailVerifiedAt: PAST_DATE,
+      sub,
+      workEmail: `${nomineeUniqueId}@gc.ca`,
+      workEmailVerifiedAt: nowUTCDateTime(),
+      workExperiences: {
+        create: [
+          {
+            ...defaultWorkExperience,
+            startDate: PAST_DATE,
+            employmentCategory: EmploymentCategory.GovernmentOfCanada,
+            govEmploymentType: GovEmployeeType.Indeterminate,
+            govPositionType: GovPositionType.Substantive,
+            department: { connect: departmentId },
+            classificationId,
+          },
+        ],
+      },
+    },
+    roles: ["guest", "base_user", "applicant"],
+  });
+  const nomineeCtx = await graphql.newContext(sub);
+  await createCommunityInterest(nomineeCtx, {
+    userId: nominee?.id ?? "",
+    communityInterest: {
+      communityId,
+      jobInterest: true,
+      workStreams: { sync: [workStreamId] },
+      consentToShareProfile: true,
+    },
+  });
+  return nominee!;
+};
+
+const noDecisions: UpdateTalentNominationGroupInput = {
+  advancementDecision: null,
+  advancementClassifications: { sync: [] },
+  advancementReferralExpiryDate: null,
+  lateralMovementDecision: null,
+  lateralMovementClassifications: { sync: [] },
+  lateralMovementReferralExpiryDate: null,
+  developmentProgramsDecision: null,
+};
+
+interface NominateAndApproveArgs {
+  talentNominationEventId: string;
+  nomineeId: string;
+  nomination: Omit<UpdateTalentNominationInput, "id" | "nominee">;
+  decision: UpdateTalentNominationGroupInput;
+}
+
+/**
+ * Create and submit a nomination, then approve the nominee's nomination group
+ */
+export const nominateAndApprove: GraphQLRequestFunc<
+  TalentNominationGroup,
+  NominateAndApproveArgs
+> = async (
+  ctx,
+  { talentNominationEventId, nomineeId, nomination, decision },
+) => {
+  const talentNomination = await createTalentNomination(ctx, {
+    talentNominationEvent: { connect: talentNominationEventId },
+  });
+  await updateTalentNomination(ctx, {
+    ...nomination,
+    id: talentNomination?.id ?? "",
+    nominee: { connect: nomineeId },
+  });
+  await submitTalentNomination(ctx, { id: talentNomination?.id ?? "" });
+
+  const [nominationGroup] = await getTalentNominationGroupsByNominee(ctx, {
+    nomineeUserId: nomineeId,
+  });
+  await updateTalentNominationGroup(ctx, {
+    id: nominationGroup.id,
+    talentNominationGroup: { ...noDecisions, ...decision },
+  });
+  return nominationGroup;
 };
 
 const Test_TalentNominationGroupStatusesQueryDocument = /* GraphQL */ `

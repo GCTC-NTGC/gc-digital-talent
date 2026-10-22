@@ -9,9 +9,12 @@ import type {
 } from "@gc-digital-talent/graphql";
 import type {
   Classification,
+  LocalizedTalentRequestSource,
+  TalentNominationGroup,
   User,
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
+import { TalentRequestSource } from "@gc-digital-talent/graphql/schema-types";
 import {
   TalentRequestReason,
   TalentRequestStatus,
@@ -263,6 +266,21 @@ class TalentRequest extends AppPage {
     ).toBeVisible();
   }
 
+  async validateTalentSourceSelected(
+    talentSource: string,
+    isSelected: boolean,
+  ) {
+    await expect(
+      this.page
+        .getByRole("listitem")
+        .filter({ hasText: talentSource })
+        .getByRole("img", {
+          name: isSelected ? "Selected" : "Not selected",
+          exact: true,
+        }),
+    ).toBeVisible();
+  }
+
   async validateCandidateCriteriaCard(
     criteria: TalentRequestCandidateCriteria,
   ): Promise<void> {
@@ -434,6 +452,53 @@ class TalentRequest extends AppPage {
       profilePage.getByRole("heading", { name: fullName, level: 1 }),
     ).toBeVisible();
     await profilePage.close();
+    await this.closeTrackedCandidateEditDialog();
+  }
+
+  async validateCandidateNominationSource(
+    user: User,
+    talentSource: LocalizedTalentRequestSource,
+    nominationGroup: TalentNominationGroup,
+  ) {
+    let eventsLabel: string;
+    switch (talentSource.value) {
+      case TalentRequestSource.Advancement:
+        eventsLabel = "Advancement events";
+        break;
+      case TalentRequestSource.LateralMovement:
+        eventsLabel = "Lateral movement events";
+        break;
+      default:
+        throw new Error(
+          `Unsupported nomination talent source: ${talentSource.value}`,
+        );
+    }
+
+    await this.page
+      .getByRole("button", {
+        name: `${user.firstName} ${user.lastName}`,
+        exact: true,
+      })
+      .click();
+    const dialog = this.page.getByRole("dialog");
+    await expect(
+      dialog
+        .getByRole("listitem")
+        .filter({ hasText: talentSource.label.en ?? "" }),
+    ).toBeVisible();
+
+    const { talentNominationEvent } = nominationGroup;
+    await expect(
+      dialog
+        .getByText(eventsLabel, { exact: true })
+        .locator("xpath=..")
+        .getByRole("link", { name: talentNominationEvent.name.en ?? "" }),
+    ).toHaveAttribute(
+      "href",
+      new RegExp(
+        `/admin/talent-events/${talentNominationEvent.id}/nominations/${nominationGroup.id}$`,
+      ),
+    );
     await this.closeTrackedCandidateEditDialog();
   }
 

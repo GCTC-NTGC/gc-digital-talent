@@ -1,5 +1,7 @@
 import type {
+  CreateTalentRequestInput,
   LocalizedTalentRequestSource,
+  TalentRequest,
   TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
   UpdateTalentRequestTrackedUserInput,
@@ -118,4 +120,27 @@ export const getTalentRequestSources: GraphQLRequestFunc<
       GraphQLResponse<"localizedEnumOptions", LocalizedTalentRequestSource[]>
     >(Test_TalentRequestSourcesQueryDocument)
     .then((res) => res.localizedEnumOptions);
+};
+
+const Test_CreateTalentRequestMutationDocument = /* GraphQL */ `
+  mutation Test_CreateTalentRequest($talentRequest: CreateTalentRequestInput!) {
+    createTalentRequest(talentRequest: $talentRequest) {
+      id
+    }
+  }
+`;
+
+/**
+ * Create a talent request using the graphql API
+ */
+export const createTalentRequest: GraphQLRequestFunc<
+  TalentRequest | undefined,
+  CreateTalentRequestInput
+> = async (ctx, talentRequest) => {
+  return ctx
+    .post<GraphQLResponse<"createTalentRequest", TalentRequest>>(
+      Test_CreateTalentRequestMutationDocument,
+      { variables: { talentRequest } },
+    )
+    .then((res) => res.createTalentRequest);
 };
