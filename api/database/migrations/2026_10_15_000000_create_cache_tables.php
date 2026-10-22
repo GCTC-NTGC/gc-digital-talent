@@ -11,7 +11,14 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        // Backs the scheduler locks in the `schedule` cache store (config/cache.php)
+        // Laravel's standard database cache tables (same as make:cache-table).
+        // The `schedule` cache store (config/cache.php) only uses cache_locks today.
+        Schema::create('cache', function (Blueprint $table) {
+            $table->string('key')->primary();
+            $table->mediumText('value');
+            $table->integer('expiration')->index();
+        });
+
         Schema::create('cache_locks', function (Blueprint $table) {
             $table->string('key')->primary();
             $table->string('owner');
@@ -25,5 +32,6 @@ return new class() extends Migration
     public function down(): void
     {
         Schema::dropIfExists('cache_locks');
+        Schema::dropIfExists('cache');
     }
 };

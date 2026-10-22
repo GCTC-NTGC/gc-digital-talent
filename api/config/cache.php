@@ -63,7 +63,6 @@ return [
 
         // Scheduler locks (onOneServer), shared by every instance and slot on the same DB.
         // Fixed prefix so slots with a different CACHE_PREFIX/APP_NAME still compete for the same lock.
-        // Only lock_table is used; the driver requires a table name but the scheduler never reads or writes it.
         'schedule' => [
             'driver' => 'database',
             'table' => 'cache',
