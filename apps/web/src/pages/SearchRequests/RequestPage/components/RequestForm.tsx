@@ -691,11 +691,13 @@ export const RequestForm = ({
               description: "Title of Summary of filters section",
             })}
           </Heading>
+
           <SearchRequestFilters
             filters={applicantFilterInputToType}
             flexibleWorkLocationOptions={unpackMaybes(
               optionsData?.flexibleWorkLocations,
             )}
+            talentSourceOptions={talentSourceOptionsData}
           />
           <Separator />
           <p className="mb-6 font-bold">
