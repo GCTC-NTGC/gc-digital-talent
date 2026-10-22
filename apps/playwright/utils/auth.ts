@@ -65,7 +65,7 @@ export async function getTokenForSub(
   const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
   const res = await fetch(`${baseUrl}/api/dummy-auth/token`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: JSON.stringify({ sub: resolveFixtureSub(sub), claims }),
   });
   const body = await res.text();

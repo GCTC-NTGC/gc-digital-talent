@@ -9,7 +9,7 @@ export default async () => {
   const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
   const res = await fetch(`${baseUrl}/api/dummy-auth/token`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
     body: "{}",
   });
   process.env.PLAYWRIGHT_DUMMY_AUTH = String(res.status === 422);

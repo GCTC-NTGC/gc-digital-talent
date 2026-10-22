@@ -18,6 +18,7 @@ class TestSearchPage(HttpUser):
             "/api/dummy-auth/token",
             name="Dummy auth token",
             json={"sub": random.choice(SUBS)},
+            headers={"Accept": "application/json"},
         )
         response.raise_for_status()
         self.access_token = response.json()["access_token"]
