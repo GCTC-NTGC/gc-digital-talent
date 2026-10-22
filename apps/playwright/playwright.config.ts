@@ -38,6 +38,7 @@ export default defineConfig({
         ["html", { open: "never", outputFolder: "playwright-report" }],
       ]
     : [["line"], ["html", { open: "on-failure" }]],
+  globalSetup: "./dummy-auth-setup",
   globalTeardown:
     process.env.E2E_COVERAGE === "true" ? "./e2e-coverage-teardown" : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
@@ -57,9 +58,9 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // UAT projects — only registered when TESTING_ENDPOINT_SECRET is set.
+    // UAT projects — only registered when PLAYWRIGHT_TARGET=uat.
     // Without it these projects fail immediately, breaking local runs.
-    ...(process.env.TESTING_ENDPOINT_SECRET
+    ...(process.env.PLAYWRIGHT_TARGET === "uat"
       ? [
           {
             // Smoke + regression tests: read-only checks against persistent UAT users.
