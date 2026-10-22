@@ -10,11 +10,46 @@ return [
         'label_salary_range' => 'Salary range',
         'label_deadline' => 'Deadline',
         'label_employment_length' => 'Employment length',
+        'label_employment_length_url_label' => 'Learn more about employment durations (opens in new tab)',
         'label_employment_length_url' => 'https://www.canada.ca/en/public-services-procurement/services/pay-pension/compensation-community/employer-support-procedures/employment-federal-public-service.html#a4',
         'label_department_work_location' => 'Work location',
         'label_department_language_requirement' => 'Language requirement',
         'label_department_security_clearance' => 'Security clearance',
         'label_department_selection_process_number' => 'Selection process number',
+    ],
+    'area_of_selection' => [
+        'employees' => [
+            'title' => 'This job opportunity is for internal employees',
+            'title_at_level' => 'This job opportunity is for internal employees with a classification of :classification or equivalent',
+            'title_departmental_preference' => 'This job opportunity is for internal employees with preference given to those at the departments listed*',
+            'title_at_level_departmental_preference' => 'This job opportunity is for internal employees with a classification of :classification or equivalent with preference given to those at the departments listed*',
+            'content' => 'This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.',
+            'content_at_level' => 'This job opportunity is reserved for existing employees of the Government of Canada or persons employed by a Government of Canada agency who are currently classified as :classification or an organizational equivalent. By applying you are confirming that you are an active employee and that the employee information you provide as a part of your profile is up-to-date.',
+            'veterans' => '<a href=":url">Eligible veterans and Canadian Armed Forces members</a> may also apply.',
+            'veterans_url' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html',
+            'departmental_preference_note' => '* Preference will be given to persons employed with the following departments or agencies: :department.',
+        ],
+        'canadian_citizens' => [
+            'title' => 'This opportunity is for Canadian citizens only',
+            'content' => 'This opportunity is reserved for persons with Canadian citizenship*.',
+            'note' => '*This opportunity is with a department or agency that is not subject to the <a href=":url">Public Service Employment Act</a>. As a result, the hiring process and terminology might be different from those typically found in the federal public service.',
+            'url' => 'https://laws-lois.justice.gc.ca/eng/acts/p-33.01/',
+        ],
+    ],
+    'who_can_apply' => [
+        'employees' => [
+            'content' => 'Employees of the Government of Canada, persons employed by a Government of Canada agency, <a href=":url">and eligible veterans and Canadian Armed Forces members.</a>',
+            'content_at_level' => 'Employees of the Government of Canada or persons employed by a Government of Canada agency who currently hold an :classification classification or organizational equivalent in their substantive role. <a href=":url">Eligible veterans and Canadian Armed Forces members</a> may also apply.',
+            'veterans_url' => 'https://www.canada.ca/en/public-service-commission/jobs/services/gc-jobs/canadian-armed-forces-members-veterans.html',
+            'departmental_preference_note' => '* Preference will be given to persons employed with the following departments or agencies: :department.',
+        ],
+        'canadian_citizens' => [
+            'content' => 'Canadian citizens.',
+        ],
+        'public' => [
+            'content' => 'All persons who are residing in Canada, are Canadian citizens, or are Canadian permanent residents abroad.',
+            'note' => '* Preference will be given to veterans, Canadian citizens, and to permanent residents.',
+        ],
     ],
     'minimum_education' => [
         'title' => 'Minimum education',
@@ -88,6 +123,11 @@ return [
     'skill_requirements' => [
         'title' => 'Skill requirements',
         'description' => 'In order to apply for this job you will need to be able to demonstrate that you have all the skills marked "Required". If you have any of the "Optional" skills you are encouraged to include them because it will increase your chances of a job placement. To make the application process shorter, information is only collected on specific skills during the application stage. These are each identified under the skill name using "Assessed during initial application". Additional assessments will follow later if your application is successful. These additional assessments may be conducted on any of the required or optional skills.',
+        'required' => 'Required',
+        'optional' => 'Optional',
+        'assessed_initial_application' => 'Assessed during initial application',
+        'assessed_later' => 'Assessed at a later time',
+        'label_level' => 'Level',
         'label_skill_levels' => 'Learn more about skill levels',
         'skill_levels' => [
             'title' => 'Understanding skill levels',
@@ -158,6 +198,7 @@ return [
         'list_item_1' => 'Remote positions offer the ability to work 100% from a location of your choice (e.g. home office) within Canada.',
         'list_item_2' => 'Hybrid positions require in-office presence for 3 or more days per week, with the remainder allowing you to work from the location of your choice.',
         'list_item_3' => 'On-site positions require full-time in-office work with no option to work remotely.',
+        'remote_or_hybrid' => 'Remote, hybrid or on-site',
     ],
     'language_requirement' => [
         'title' => 'Language requirements and second language proficiency',

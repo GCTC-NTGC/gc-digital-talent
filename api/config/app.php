@@ -3,6 +3,7 @@
 use App\Facades\Notify;
 use App\Providers\AppServiceProvider;
 use App\Providers\BearerTokenServiceProvider;
+use App\Providers\BladeServiceProvider;
 use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\FakerServiceProvider;
@@ -278,6 +279,7 @@ return [
          * Application Service Providers...
          */
         AppServiceProvider::class,
+        BladeServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         EventServiceProvider::class,

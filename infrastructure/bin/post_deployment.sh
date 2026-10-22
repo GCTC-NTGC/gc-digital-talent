@@ -56,6 +56,17 @@ else
     add_section_block ":X: Install packages from repository *failed*. $MENTION"
 fi
 
+# Install the ev event loop extension for Reverb, so it isn't capped at ~1024 connections by stream_select
+# Skip the build if it's already loaded so re-runs are idempotent (pecl install fails if already installed)
+if php -m | grep -qi '^ev$' || \
+    ( yes "" | pecl install ev && \
+      echo 'extension=ev.so' > /usr/local/etc/php/conf.d/docker-php-ext-ev.ini && \
+      php -m | grep -qi '^ev$' ) ; then
+    add_section_block ":white_check_mark: Install PHP ev extension *successful*."
+else
+    add_section_block ":X: Install PHP ev extension *failed*. $MENTION"
+fi
+
 cd /home/site/wwwroot/api
 
 # Laravel local cache

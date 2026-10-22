@@ -6,7 +6,6 @@ import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
   Checklist,
   Field,
-  HiddenInput,
   RadioGroup,
   Select,
   localizedEnumToOptions,
@@ -15,17 +14,19 @@ import {
   commonMessages,
   errorMessages,
   getEmploymentEquityGroup,
+  narrowEnumType,
   sortFlexibleWorkLocations,
   sortWorkRegion,
 } from "@gc-digital-talent/i18n";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
   FlexibleWorkLocation,
+  TalentRequestSource,
   WorkRegion,
   graphql,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
-import { Link } from "@gc-digital-talent/ui";
+import { Link, Ul } from "@gc-digital-talent/ui";
 
 import type {
   TalentRequestClassification,
@@ -37,6 +38,7 @@ import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/Skill
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
+import adminMessages from "~/messages/adminMessages";
 import useRoutes from "~/hooks/useRoutes";
 
 import FilterBlock from "./FilterBlock";
@@ -161,8 +163,78 @@ const FormFields = ({
     };
   });
 
+  const talentSourceOptionsData = narrowEnumType(
+    unpackMaybes(data?.talentSources),
+    "TalentRequestSource",
+  );
+
+  const talentSourceOptions: CheckboxOption[] = talentSourceOptionsData
+    .filter((source) => source.value !== TalentRequestSource.AtLevel)
+    .map((source) => {
+      if (source.value === TalentRequestSource.QualifiedInPool) {
+        return {
+          value: source.value,
+          label: intl.formatMessage(adminMessages.poolCandidates),
+        };
+      }
+      return {
+        value: source.value,
+        label:
+          source.label?.localized ??
+          intl.formatMessage(commonMessages.notAvailable),
+      };
+    });
+
   return (
     <>
+      <FilterBlock
+        id="talentSourceFilter"
+        title={intl.formatMessage(talentRequestMessages.talentSource)}
+      >
+        <div className="flex flex-col gap-y-6">
+          <p className="-mb-3">
+            {intl.formatMessage({
+              defaultMessage:
+                "Use this section to choose where your talent comes from",
+              id: "iTmnvH",
+              description:
+                "Message describing the talent source filter in the search form.",
+            })}
+            {intl.formatMessage(commonMessages.dividingColon)}
+          </p>
+          <Ul id="talent-source-description" space="md">
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Pool candidates</strong> are people who have successfully qualified in a community or departmental recruitment process.",
+                id: "5nFcq3",
+                description:
+                  "Description for pool candidates talent source filter in search form",
+              })}
+            </li>
+            <li>
+              {intl.formatMessage({
+                defaultMessage:
+                  "<strong>Nominated employees</strong> are GC employees who have been put forward for lateral movement or advancement by their departments as part of a community talent management process.",
+                id: "CaGMw5",
+                description:
+                  "Description for nominated employees talent source filter in search form",
+              })}
+            </li>
+          </Ul>
+          <Checklist
+            idPrefix="talentSources"
+            id="talentSources"
+            name="talentSources"
+            legend={intl.formatMessage(talentRequestMessages.talentSource)}
+            items={talentSourceOptions}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+            }}
+            aria-describedby="talent-source-description"
+          />
+        </div>
+      </FilterBlock>
       <FilterBlock
         id="classificationsFilter"
         title={intl.formatMessage(talentRequestMessages.classification)}
@@ -175,7 +247,6 @@ const FormFields = ({
         })}
       >
         <div className="flex flex-col gap-y-6">
-          <HiddenInput name="talentSources" />
           <p>
             {intl.formatMessage({
               defaultMessage:

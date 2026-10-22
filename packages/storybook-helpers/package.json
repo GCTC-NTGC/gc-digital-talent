@@ -17,10 +17,10 @@
     "@gc-digital-talent/env": "workspace:*",
     "@gc-digital-talent/theme": "workspace:*",
     "@urql/core": "^6.0.3",
-    "chromatic": "^18.11.0",
+    "chromatic": "^18.12.2",
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
-    "motion": "^13.5.1",
+    "motion": "^14.0.0",
     "react-router": "^8.4.0",
     "urql": "^5.0.4",
     "wonka": "^6.3.6"
@@ -30,7 +30,7 @@
     "@storybook/addon-themes": "^10.6.1",
     "@storybook/react-vite": "^10.6.1",
     "eslint": "^9.20.1",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "storybook": "^10.6.1",
     "tsconfig": "workspace:*"
   }
