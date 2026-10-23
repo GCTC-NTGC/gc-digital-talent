@@ -81,7 +81,6 @@ class PoolTest extends TestCase
             ]);
 
         $this->guestUser = User::factory()
-            ->asGuest()
             ->create();
 
         $this->baseUser = User::factory()->create();

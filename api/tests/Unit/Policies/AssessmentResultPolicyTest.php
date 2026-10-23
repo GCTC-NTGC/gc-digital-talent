@@ -34,7 +34,7 @@ class AssessmentResultPolicyTest extends PolicyTestCase
     {
         return [
             'platform admin can view globally' => ['asAdmin', true],
-            'guest cannot view globally' => ['asGuest', false],
+            'applicant cannot view globally' => ['asApplicant', false],
         ];
     }
 

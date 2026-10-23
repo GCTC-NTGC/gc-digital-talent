@@ -51,7 +51,6 @@ class CommunityInterestPolicyTest extends TestCase
         $this->department = Department::factory()->create();
 
         $this->guest = User::factory()
-            ->asGuest()
             ->create([
                 'email' => 'guest-user@test.com',
                 'sub' => 'guest-user@test.com',

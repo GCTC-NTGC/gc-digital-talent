@@ -3644,7 +3644,6 @@ enum NotificationType {
 }
 
 enum RoleName {
-  Guest
   BaseUser
   Applicant
   ProcessOperator

@@ -17,7 +17,6 @@ class ProtectedRequestUserChecker extends UserDefaultChecker
 {
     // these are the role names with limited permissions that can safely be used on unprotected requests
     const LIMITED_ROLES = [
-        'guest',
         'base_user',
         'applicant',
     ];

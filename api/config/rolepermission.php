@@ -790,18 +790,6 @@ return [
     |
     */
     'roles' => [
-        'guest' => [
-            'display_name' => [
-                'en' => 'Guest',
-                'fr' => 'Invité',
-            ],
-            'description' => [
-                'en' => 'These permissions are available to anyone, even not logged in.',
-                'fr' => 'Ces permissions sont accessibles à quiconque, même sans avoir ouvert de session.',
-            ],
-            'is_team_based' => false,
-        ],
-
         'base_user' => [
             'display_name' => [
                 'en' => 'Base User',
@@ -926,51 +914,6 @@ return [
     |
     */
     'seeders' => [
-        'guest' => [
-            'classification' => [
-                'any' => ['view'],
-            ],
-            'department' => [
-                'any' => ['view'],
-            ],
-            'developmentProgram' => [
-                'any' => ['view'],
-            ],
-            'genericJobTitle' => [
-                'any' => ['view'],
-            ],
-            'skill' => [
-                'any' => ['view'],
-            ],
-            'skillFamily' => [
-                'any' => ['view'],
-            ],
-            'community' => [
-                'any' => ['view'],
-            ],
-            'role' => [
-                'any' => ['view'],
-            ],
-            'publishedPool' => [
-                'any' => ['view'],
-            ],
-            'applicantCount' => [
-                'any' => ['view'],
-            ],
-            'jobPosterTemplate' => [
-                'any' => ['view'],
-            ],
-            'talentRequest' => [
-                'any' => ['create'],
-            ],
-            'talentNominationEvent' => [
-                'any' => ['view'],
-            ],
-            'announcement' => [
-                'any' => ['view'],
-            ],
-        ],
-
         'base_user' => [
             'classification' => [
                 'any' => ['view'],
@@ -1040,9 +983,6 @@ return [
             ],
             'communityInterest' => [
                 'own' => ['delete'],
-            ],
-            'talentNominationEvent' => [
-                'any' => ['view'],
             ],
             'employeeProfile' => [
                 'own' => ['view', 'update'],
