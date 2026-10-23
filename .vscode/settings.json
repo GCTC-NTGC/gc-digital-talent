@@ -88,7 +88,7 @@
         "compose",
         "run",
         "--rm",
-        "--workdir=/var/www/html",
+        "--workdir=/home/site/wwwroot",
         "maintenance",
         "bash"
       ],
@@ -103,7 +103,7 @@
         "compose",
         "run",
         "--rm",
-        "--workdir=/var/www/html",
+        "--workdir=/home/site/wwwroot",
         "maintenance",
         "bash"
       ],
