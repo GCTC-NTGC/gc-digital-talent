@@ -90,7 +90,7 @@ test.describe("Candidate Table Validation", { tag: "@uat" }, () => {
       users = await Promise.all(
         Array.from({ length: 8 }, (_, i) =>
           createUserWithRoles(platformAdminCtx, {
-            roles: ["guest", "base_user", "applicant"],
+            roles: ["base_user", "applicant"],
             user: {
               firstName: `Playwright${i}`,
               lastName: "Test",
