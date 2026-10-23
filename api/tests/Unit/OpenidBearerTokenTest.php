@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Services\CanadaLoginBearerTokenService;
+use App\Services\OpenidBearerTokenService;
 use DateTimeImmutable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -13,7 +13,7 @@ use Lcobucci\JWT\Signer\Key\InMemory;
 use Psr\Clock\ClockInterface;
 use Tests\TestCase;
 
-class CanadaLoginBearerTokenTest extends TestCase
+class OpenidBearerTokenTest extends TestCase
 {
     /**
      * @var App\Contracts\BearerTokenService
@@ -92,7 +92,7 @@ class CanadaLoginBearerTokenTest extends TestCase
 
         Carbon::setTestNow('2020-01-01 00:02:00');
         $this->allowableClockSkew = \DateInterval::createFromDateString('4 minutes');
-        $this->service_provider = new CanadaLoginBearerTokenService(
+        $this->service_provider = new OpenidBearerTokenService(
             self::fakeConfigUrl,
             $this->app->make(ClockInterface::class),
             $this->allowableClockSkew
