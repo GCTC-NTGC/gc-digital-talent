@@ -26,14 +26,37 @@ type LighouseSubscriptionHandler = (
 ) => void;
 
 function createSubscription(
-  pusher: Pusher,
+  createPusherClient: () => Pusher,
   subscriptionUrl: string,
 ): SubscriptionForwarder {
+  let pusher: Pusher | undefined;
+  let activeSubscriptions = 0;
+
+  // Create a pusher client, increment subscriptions for tracking and then connect
+  const acquirePusher = (): Pusher => {
+    pusher ??= createPusherClient();
+    activeSubscriptions += 1;
+    if (activeSubscriptions === 1) {
+      pusher.connect();
+    }
+    return pusher;
+  };
+
+  // Decrements the number of subscriptions and disconnect if it reaches 0
+  const releasePusher = (): void => {
+    activeSubscriptions -= 1;
+    if (activeSubscriptions === 0) {
+      pusher?.disconnect();
+    }
+  };
+
   return function (_request, operation) {
     return {
       subscribe: ({ next, error, complete }) => {
         const subscriptionId = String(operation.key);
+        const activePusher = acquirePusher();
 
+        let cancelled = false;
         let channelName: string | undefined;
         let channel: Channel | undefined;
         let subscriptionHandler: LighouseSubscriptionHandler | undefined;
@@ -68,12 +91,12 @@ function createSubscription(
           .then((res: LighthouseResponse) => {
             channelName = res?.extensions?.lighthouse_subscriptions?.channel;
 
-            if (!channelName) {
+            if (!channelName || cancelled) {
               return;
             }
 
             try {
-              channel = pusher.subscribe(channelName);
+              channel = activePusher.subscribe(channelName);
 
               subscriptionHandler = (payload) => {
                 if (payload.result) {
@@ -94,10 +117,17 @@ function createSubscription(
 
         return {
           unsubscribe: () => {
+            if (cancelled) {
+              return;
+            }
+            cancelled = true;
+
             if (channel && subscriptionHandler && channelName) {
               channel.unbind("lighthouse-subscription", subscriptionHandler);
-              pusher.unsubscribe(channelName);
+              activePusher.unsubscribe(channelName);
             }
+
+            releasePusher();
           },
         };
       },
@@ -105,8 +135,8 @@ function createSubscription(
   };
 }
 
-const createPusher = () => {
-  const pusher = new Pusher(reverbAppKey, {
+export const createPusherClient = () =>
+  new Pusher(reverbAppKey, {
     cluster: "mt1",
     wsHost: window.location.hostname,
     wsPort: parseInt(window.location.port) || 80,
@@ -125,7 +155,7 @@ const createPusher = () => {
     },
   });
 
-  return createSubscription(pusher, `${apiHost}${apiUri}`);
-};
+const createPusher = () =>
+  createSubscription(createPusherClient, `${apiHost}${apiUri}`);
 
 export default createPusher;
