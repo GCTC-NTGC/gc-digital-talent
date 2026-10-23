@@ -50,17 +50,6 @@ return [
     */
     'allowable_clock_skew' => DateInterval::createFromDateString('4 minutes'),
 
-    /*
-    |--------------------------------------------------------------------------
-    | Default User
-    |--------------------------------------------------------------------------
-    |
-    | If this is set to a valid user email, then any authenticated request will be treated as this user.
-    | THIS SHOULD BE NULL IN PRODUCTION!
-    |
-    */
-    'default_user' => env('AUTH_DEFAULT_USER', null),
-
     /**
      * The urls of the OAuth server we connect to for authentication.
      */

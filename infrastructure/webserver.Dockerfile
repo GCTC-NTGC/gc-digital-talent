@@ -1,10 +1,14 @@
 # This setup should only install things that are set up in infrastructure/bin/post_deployment.sh as well
 
 # All images: https://mcr.microsoft.com/v2/appsvc/php/tags/list
-FROM mcr.microsoft.com/appsvc/php:8.4-fpm-xdebug_20260527.2.tuxprod
+FROM mcr.microsoft.com/appsvc/php:8.5-fpm-xdebug_20261008.3.tuxprod
 
 RUN echo 'memory_limit=256M' >> /usr/local/etc/php/conf.d/php.ini
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends supervisor cron postgresql-client \
     && apt-get clean
+
+# ev event loop for Reverb, so it isn't capped at ~1024 connections by stream_select
+RUN yes "" | pecl install ev \
+    && echo 'extension=ev.so' > /usr/local/etc/php/conf.d/docker-php-ext-ev.ini

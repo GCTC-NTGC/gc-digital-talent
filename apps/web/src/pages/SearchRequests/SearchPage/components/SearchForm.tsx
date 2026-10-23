@@ -72,16 +72,25 @@ export const SearchForm = ({
     applicantFilter: initialFilters,
   });
 
+  // default the talent sources only on a fresh search, so returning to the page keeps the user's selection
+  const talentSources = initialFilters.talentSources
+    ? unpackMaybes(initialFilters.talentSources)
+    : [
+        TalentRequestSource.QualifiedInPool,
+        TalentRequestSource.Advancement,
+        TalentRequestSource.LateralMovement,
+      ];
+
   // set some fields to a desired default (form)
   const defaultValuesAdjusted = {
     ...defaultValues,
-    talentSources: [TalentRequestSource.QualifiedInPool],
+    talentSources,
   } satisfies FormValues;
 
   // set some fields to a desired default (query)
   const initialFiltersAdjusted = {
     ...initialFilters,
-    talentSources: [TalentRequestSource.QualifiedInPool],
+    talentSources,
   } satisfies ApplicantFilterInput;
 
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
@@ -172,19 +181,19 @@ export const SearchForm = ({
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <div className="grid gap-12 xs:grid-cols-[1fr_22rem]">
             <div>
-              <Heading rank="h2" size="h3" className="font-normal">
+              <Heading rank="h2" size="h3" className="mb-6 font-normal">
                 {intl.formatMessage({
-                  defaultMessage: "How to use this tool",
-                  id: "HvD7jI",
+                  defaultMessage: "About this tool",
+                  id: "pS/eg+",
                   description:
                     "Heading displayed in the How To area of the hero section of the Search page.",
                 })}
               </Heading>
-              <p className="mb-6">
+              <p className="mb-3">
                 {intl.formatMessage({
                   defaultMessage:
-                    "If you're looking for talent, you've come to the right place. Our talent database is open to most departments and agencies. Complete a request to find qualified candidates. All candidates in these recruitment processes have been assessed and successfully qualified.",
-                  id: "vjZ960",
+                    "If you're looking for talent, you've come to the right place. Our talent database is open to most Government of Canada departments and agencies.",
+                  id: "6z9VG8",
                   description:
                     "Content displayed in the find talent page explaining the page and what it offers to users.",
                 })}
@@ -192,10 +201,10 @@ export const SearchForm = ({
               <p className="mb-6">
                 {intl.formatMessage({
                   defaultMessage:
-                    "Based on your filters, we’ll show you an estimated number of qualified candidates who match your criteria.",
-                  id: "q3JL9y",
+                    "Based on your filters, we'll show you an estimated number of people who match your criteria.",
+                  id: "Rk7ay0",
                   description:
-                    "Content displayed in the How To area of the hero section of the Search page.",
+                    "Content displayed in the find talent page explaining how the page works.",
                 })}
               </p>
               <FormFields
@@ -266,7 +275,7 @@ export const SearchForm = ({
                           <SearchResultCard
                             key={pool.id}
                             candidateCount={resultsCount}
-                            pool={pool}
+                            poolQuery={pool}
                           />
                         ))}
                       </div>

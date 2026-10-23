@@ -34,7 +34,6 @@ import canadaLoginStep9Dark from "~/assets/img/canada_login_registration_step_9_
 import InstructionsStepCard, {
   InstructionsCardGrid,
 } from "~/components/Instructions/RegisterInstructionStep";
-import gckeyMessages from "~/messages/gckeyMessages";
 import canadaLoginMessages from "~/messages/canadaLoginMessages";
 
 const helpLink = (chunks: ReactNode, path: string) => (
@@ -101,7 +100,7 @@ export const Component = () => {
             </p>
             <div className="flex flex-col items-start gap-4 pt-6 pl-2 xs:flex-row xs:items-center">
               <Link
-                href={`${loginPath}&skipmigration=true`}
+                href={loginPath}
                 mode="solid"
                 color="primary"
                 utilityIcon={ChevronDoubleRightIcon}
@@ -118,7 +117,7 @@ export const Component = () => {
 
               <p className="m-0 flex items-center pl-2">
                 <Link
-                  href="#registrationInstructions"
+                  href="#registration-instructions"
                   mode="inline"
                   external
                   className="sm:ml-4"
@@ -137,7 +136,7 @@ export const Component = () => {
       </Hero>
 
       <Container className="my-12">
-        <div id="registrationInstructions" className="scroll-mt-20">
+        <div id="registration-instructions" className="scroll-mt-20">
           <Heading
             rank="h3"
             size="h4"
@@ -510,7 +509,7 @@ export const Component = () => {
           </Accordion.Item>
         </Accordion.Root>
         <p className="mt-5">
-          {intl.formatMessage(gckeyMessages.moreQuestions, {
+          {intl.formatMessage(canadaLoginMessages.moreQuestions, {
             helpLink: (chunks: ReactNode) => helpLink(chunks, paths.support()),
           })}
         </p>

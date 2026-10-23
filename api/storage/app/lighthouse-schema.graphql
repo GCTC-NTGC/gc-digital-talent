@@ -726,6 +726,7 @@ type Mutation {
   deleteApplication(id: ID!): PoolCandidate
   submitApplication(id: ID!, signature: String!): PoolCandidate
   updateApplication(id: ID!, application: UpdateApplicationInput!): PoolCandidate
+  togglePoolCandidateDashboardVisibility(id: UUID!): PoolCandidate
   createJobPosterTemplate(jobPosterTemplate: CreateJobPosterTemplateInput!): JobPosterTemplate
   updateJobPosterTemplate(jobPosterTemplate: UpdateJobPosterTemplateInput!): JobPosterTemplate
   deleteJobPosterTemplate(id: UUID!): JobPosterTemplate
@@ -787,7 +788,7 @@ scalar Date
 scalar DateTime
 
 "A RFC 5321 compliant email."
-scalar Email
+scalar Email @specifiedBy(url: "https://github.com/mll-lab/graphql-php-scalars#email")
 
 "A phone number string, accepts any string"
 scalar PhoneNumber
@@ -796,7 +797,7 @@ scalar PhoneNumber
 scalar KeyString
 
 "Arbitrary data encoded in JavaScript Object Notation. See https://www.json.org."
-scalar JSON
+scalar JSON @specifiedBy(url: "https://github.com/mll-lab/graphql-php-scalars#json")
 
 "128 bit universally unique identifier (UUID)"
 scalar UUID
@@ -907,7 +908,7 @@ type User {
   poolCandidateBookmarks: [PoolCandidate]
   talentRequests: [TalentRequest!]
   talentNominationsAsSubmitter: [TalentNomination!]
-  talentNominationGroupsAsNominee: [TalentNominationGroup!]
+  talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
 }
 
 type CommunityInterest {
@@ -1287,6 +1288,7 @@ type PoolCandidate {
   suspendedAt: DateTime
   deletedDate: DateTime
   isBookmarked: Boolean
+  isDashboardViewable: Boolean!
   profileSnapshot: JSON
   signature: String
   submittedSteps: [ApplicationStep!]
@@ -1532,6 +1534,16 @@ type TalentNominationGroup {
   lateralMovementReferralExpiryDate: Date
 }
 
+type TalentNominationGroupAsNominee {
+  id: UUID!
+  talentNominationEvent: TalentNominationEvent!
+  approvedForAdvancement: Boolean!
+  approvedForLateralMovement: Boolean!
+  approvedForDevelopmentPrograms: Boolean!
+  nominatorNames: [String!]!
+  updatedAt: DateTime
+}
+
 type Team implements HasRoleAssignments {
   id: ID!
   name: String!
@@ -1609,7 +1621,6 @@ type TalentRequest {
   additionalComments: String
   hrAdvisorEmail: Email
   requestedDate: DateTime
-  adminNotes: String
   applicantFilter: ApplicantFilter
   wasEmpty: Boolean
   managerJobTitle: String
@@ -1618,7 +1629,6 @@ type TalentRequest {
   community: Community
   user: User
   initialResultCount: Int
-  followUpDate: Date
   talentRequestStatus: LocalizedTalentRequestStatus
   inProgressDetails: LocalizedTalentRequestInProgressDetail
   completionDetails: LocalizedTalentRequestCompletionDetail
@@ -1627,6 +1637,12 @@ type TalentRequest {
   createdAt: DateTime
   updatedAt: DateTime
   trackedUsers(where: TalentRequestTrackedUserFilterInput): [TalentRequestTrackedUser!]
+  adminData: TalentRequestAdminData
+}
+
+type TalentRequestAdminData {
+  adminNotes: String
+  followUpDate: Date
 }
 
 input TalentRequestTrackedUserFilterInput {
@@ -2882,7 +2898,6 @@ input AwardExperienceInput {
 
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
-  update: [ConnectExperienceSkills!]
   disconnect: [ID!]
   sync: [ConnectExperienceSkills!]
 }
@@ -3621,7 +3636,7 @@ Loose type that allows any value. Be careful when passing in large `Int` or `Flo
 as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
 """
-scalar Mixed
+scalar Mixed @specifiedBy(url: "https://github.com/mll-lab/graphql-php-scalars#mixed")
 
 enum NotificationType {
   UserFileGenerated
@@ -3789,6 +3804,7 @@ enum Permission {
   UpdateTeamTalentNominationGroup
   ViewTeamTalentNominationGroup
   ViewAnyTalentNominationGroup
+  ViewOwnTalentNominationGroupAsNominee
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
@@ -4247,6 +4263,8 @@ enum ErrorCode {
   RATE_LIMIT
   SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
   SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED
+  MIGRATION_MISSING_CONTACT_INFO
+  MIGRATION_TARGET_NOT_FOUND
 }
 
 enum EstimatedLanguageAbility {

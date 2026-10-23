@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
@@ -67,6 +68,7 @@ use Spatie\Activitylog\Support\LogOptions;
  * @property ?string $contact_email
  * @property ?AssessmentStep $screening_step
  * @property array $display_name
+ * @property ?string $formattedClosingDate
  * @property bool $is_hidden
  */
 class Pool extends Model
@@ -524,6 +526,18 @@ class Pool extends Model
             : $name;
     }
 
+    protected function formattedClosingDate(): Attribute
+    {
+        $locale = app()->getLocale();
+
+        return Attribute::get(function () use ($locale) {
+            return $this->closing_date
+                ?->setTimezone('America/Vancouver')
+                ->locale($locale)
+                ->translatedFormat($locale === 'fr' ? 'j F Y' : 'F jS, Y');
+        });
+    }
+
     public function requiresBilingual(): Attribute
     {
         return Attribute::get(function ($_, $attributes) {
@@ -618,5 +632,21 @@ class Pool extends Model
     protected function hasRequiredLocation(): bool
     {
         return $this->is_remote || filled($this->advertisement_location);
+    }
+
+    /**
+     * Convert the pool to HTML for the job advertisement
+     */
+    public function toAdvertisementHtml(string $locale = 'en'): string
+    {
+        $previousLocale = App::getLocale();
+
+        App::setLocale($locale);
+
+        $html = view('job_advertisement.index', ['pool' => $this])->render();
+
+        App::setLocale($previousLocale);
+
+        return $html;
     }
 }

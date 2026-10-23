@@ -14,8 +14,6 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       ...ProfileCitizenVeteranPriority
       ...ProfileLanguageProfile
       ...ProfilePersonalInformation
-      ...ContactEmailCard
-      ...WorkEmailCard
       id
       firstName
       lastName
