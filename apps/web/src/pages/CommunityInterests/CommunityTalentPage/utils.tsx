@@ -8,6 +8,7 @@ import type {
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
+  CommunityInterestsOrderByColumn,
   SortOrder,
   OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
@@ -27,13 +28,13 @@ export function transformSortStateToOrderByClause(
   filterState?: CommunityInterestFilterInput,
 ): QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
   const columnMap = new Map<string, string>([
-    ["createdAt", "created_at"],
-    ["jobInterest", "job_interest"],
-    ["trainingInterest", "training_interest"],
+    ["createdAt", CommunityInterestsOrderByColumn.CreatedAt],
+    ["jobInterest", CommunityInterestsOrderByColumn.JobInterest],
+    ["trainingInterest", CommunityInterestsOrderByColumn.TrainingInterest],
     ["userName", "FIRST_NAME"],
     ["workEmail", "WORK_EMAIL"],
     ["preferredLang", "PREFERRED_LANG"],
-    ["skillCount", "skill_count"],
+    ["skillCount", CommunityInterestsOrderByColumn.SkillCount],
   ]);
 
   const sortingRule = sortingRules?.find((rule) => {
@@ -47,7 +48,7 @@ export function transformSortStateToOrderByClause(
   ) {
     const columnName = columnMap.get(sortingRule.id);
     return {
-      column: columnName,
+      column: columnName as CommunityInterestsOrderByColumn,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };
@@ -74,7 +75,7 @@ export function transformSortStateToOrderByClause(
     filterState.skills.length > 0
   ) {
     return {
-      column: "skill_count",
+      column: CommunityInterestsOrderByColumn.SkillCount,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };

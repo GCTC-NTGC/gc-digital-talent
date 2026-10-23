@@ -1351,7 +1351,7 @@ class PoolTest extends TestCase
             ],
             'orderBy' => [
                 [
-                    'column' => 'created_at',
+                    'column' => 'CREATED_AT',
                     'order' => 'ASC',
                 ],
             ],

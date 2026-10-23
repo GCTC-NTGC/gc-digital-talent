@@ -690,7 +690,7 @@ input QueryPoolsPaginatedOrderByClassification {
 "Order by clause for Query.poolsPaginated.orderBy."
 input QueryPoolsPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
-  column: String
+  column: PoolsOrderByColumn
 
   "The direction that is used for ordering."
   order: SortOrder!
@@ -730,7 +730,7 @@ input QueryCommunityInterestsPaginatedOrderByUser {
 "Order by clause for Query.communityInterestsPaginated.orderBy."
 input QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
-  column: String
+  column: CommunityInterestsOrderByColumn
 
   "The direction that is used for ordering."
   order: SortOrder!

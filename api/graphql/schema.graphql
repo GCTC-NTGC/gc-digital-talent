@@ -1491,7 +1491,20 @@ input PoolBookmarksOrderByInput {
 }
 
 enum PoolsOrderByColumn {
+  ID @enum(value: "id")
+  NAME @enum(value: "name")
+  PROCESS_NUMBER @enum(value: "process_number")
+  CREATED_AT @enum(value: "created_at")
+  UPDATED_AT @enum(value: "updated_at")
+  CLOSING_DATE @enum(value: "closing_date")
   PUBLISHED_AT @enum(value: "published_at")
+}
+
+enum CommunityInterestsOrderByColumn {
+  CREATED_AT @enum(value: "created_at")
+  JOB_INTEREST @enum(value: "job_interest")
+  TRAINING_INTEREST @enum(value: "training_interest")
+  SKILL_COUNT @enum(value: "skill_count")
 }
 
 input OrderByColumnInput {
@@ -1794,6 +1807,7 @@ type Query {
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
+        columnsEnum: "PoolsOrderByColumn"
         relations: [
           { relation: "user", columns: ["first_name", "email"] }
           { relation: "classification", columns: ["group", "level"] }
@@ -1940,6 +1954,7 @@ type Query {
     orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
+        columnsEnum: "CommunityInterestsOrderByColumn"
         relations: [
           {
             relation: "user"

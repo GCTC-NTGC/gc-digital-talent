@@ -89,12 +89,12 @@ export function getOrderByClause(
   sortingRules?: SortingState,
 ): QueryPoolsPaginatedOrderByRelationOrderByClause[] | undefined {
   const columnMap = new Map<string, string>([
-    ["id", "id"],
-    ["name", "name"],
-    ["processNumber", "process_number"],
+    ["id", PoolsOrderByColumn.Id],
+    ["name", PoolsOrderByColumn.Name],
+    ["processNumber", PoolsOrderByColumn.ProcessNumber],
     // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
-    ["createdDate", "created_at"],
-    ["updatedDate", "updated_at"],
+    ["createdDate", PoolsOrderByColumn.CreatedAt],
+    ["updatedDate", PoolsOrderByColumn.UpdatedAt],
     ["classification", "classification"],
     ["team", "team"],
     ["poolBookmarks", "poolBookmarks"],
@@ -136,7 +136,7 @@ export function getOrderByClause(
     const columnName = columnMap.get(sortingRule.id);
     return [
       {
-        column: columnName,
+        column: columnName as PoolsOrderByColumn,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         user: undefined,
       },
