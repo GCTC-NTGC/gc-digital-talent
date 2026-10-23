@@ -201,6 +201,75 @@ const messages = defineMessages({
     id: "NMo1VF",
     description: "Experience date range when end date is missing",
   },
+  type: {
+    defaultMessage: "Type",
+    id: "trerKD",
+    description: "Button to filter experiences by type",
+  },
+  timeline: {
+    defaultMessage: "Experience timeline",
+    id: "WRhqCk",
+    description: "Title of experience timeline card",
+  },
+  timelineDescription: {
+    defaultMessage:
+      "A chronological view of all of your experience across all 5 types, grouped by organization.",
+    id: "PpivFz",
+    description: "Description of experience timeline card",
+  },
+  addExperience: {
+    defaultMessage: "Add an experience",
+    id: "RcoCL+",
+    description:
+      "Button to open modal to choose a type of experience to add to the profile",
+  },
+  nullWork: {
+    defaultMessage: "You haven't added any work experience yet.",
+    id: "qBEpsi",
+    description:
+      "Text in work experience card when user has no work experiences",
+  },
+  nullEducation: {
+    defaultMessage: "You haven't added any education or certificates yet.",
+    id: "BO+Uwx",
+    description:
+      "Text in education experience card when user has no education experiences",
+  },
+  nullCommunity: {
+    defaultMessage: "You haven't added any community participation yet.",
+    id: "i5/pKP",
+    description:
+      "Text in community experience card when user has no community experiences",
+  },
+  nullPersonal: {
+    defaultMessage: "You haven't added any personal learning yet.",
+    id: "ddHZal",
+    description:
+      "Text in personal experience card when user has no personal experiences",
+  },
+  nullAward: {
+    defaultMessage: "You haven't added any awards or recognition yet.",
+    id: "LHBUjl",
+    description:
+      "Text in award experience card when user has no award experiences",
+  },
+  nullTimeline: {
+    defaultMessage: "You haven't added any experience yet.",
+    id: "oIfVFk",
+    description:
+      "Text in experience timeline card when user has no experiences",
+  },
+  showDetails: {
+    defaultMessage: "Show {experienceName} details",
+    id: "ge40rv",
+    description: "Button text to show a specific experience's details",
+  },
+  governmentOfCanada: {
+    defaultMessage: "Government of Canada",
+    id: "OKqOVT",
+    description:
+      "Label for goc employment category on work experience card metadata",
+  },
   dates: {
     defaultMessage: "Dates",
     id: "Bs00Yf",

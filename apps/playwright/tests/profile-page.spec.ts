@@ -92,7 +92,7 @@ test.describe("Profile Page", { tag: "@uat" }, () => {
       expect(appPage.page.url()).toMatch(/\/en\/applicant/);
       await expect(
         appPage.page.getByRole("heading", {
-          name: /manage your career timeline/i,
+          name: /your career experience/i,
           level: 2,
         }),
       ).toBeVisible();
