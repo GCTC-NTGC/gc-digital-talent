@@ -984,9 +984,6 @@ return [
             'communityInterest' => [
                 'own' => ['delete'],
             ],
-            'talentNominationEvent' => [
-                'any' => ['view'],
-            ],
             'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
