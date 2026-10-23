@@ -7,6 +7,9 @@ Load tests for public pages, run with [Locust](https://locust.io/) locally or in
 | Search      | `search_page.py`      | `search-page.yaml`      |
 | Browse jobs | `browse_jobs_page.py` | `browse-jobs-page.yaml` |
 | Job poster  | `job_poster_page.py`  | `job-poster-page.yaml`  |
+| Public mix  | `public_journeys.py`  | `public-journeys.yaml`  |
+
+`public_journeys.py` mixes browse open jobs, browse closed jobs and search in one test, weighted by `OPEN_JOBS_WEIGHT`, `CLOSED_JOBS_WEIGHT` and `SEARCH_WEIGHT` (default 50/20/30, a weight of 0 turns a journey off). Try 30/10/60 for search heavy or 70/20/10 for jobs heavy. It defaults to UAT pilot, 20 to 60 seconds of think time, 2 filter changes and `SKIP_TLS_VERIFY=true`, and logs its settings when the test starts.
 
 Each visit loads a page the way the browser does: the page HTML, then the app shell GraphQL queries (`authorizationQuery`, `SitewideBanner`) in parallel, then the page's own queries in parallel. This hits PHP-FPM and Postgres, not just Nginx. Static assets (JS, CSS, images) aren't requested, since browsers cache them.
 
@@ -38,6 +41,8 @@ Load settings (host, users, spawn rate, run time) are in `locust.conf`. Script s
 | `SYNTHETIC_METRICS`  | `true`             | all        |
 | `SKIP_TLS_VERIFY`    | `false`            | all        |
 | `MAX_FILTER_CHANGES` | `4`                | search     |
+| `FILTER_PAUSE_MIN`   | `2`                | search     |
+| `FILTER_PAUSE_MAX`   | `6`                | search     |
 | `POOL_IDS`           | all published jobs | job poster |
 
 ## Running locally

@@ -55,9 +55,6 @@ THINK_TIME_MAX = float(os.getenv("THINK_TIME_MAX", "15"))
 SYNTHETIC_METRICS = os.getenv("SYNTHETIC_METRICS", "true").lower() == "true"
 SKIP_TLS_VERIFY = os.getenv("SKIP_TLS_VERIFY", "false").lower() == "true"
 
-if SKIP_TLS_VERIFY:
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
 USER_AGENT = "gcdt-locust-load-test"
 
 SERVER_TIMING_PATTERN = re.compile(r'([\w-]+);desc="[^"]*";dur=([\d.]+)')
@@ -144,11 +141,14 @@ class PublicPageUser(HttpUser):
     # Used when no host is given on the command line, in locust.conf or in the Azure Load tab
     host = "https://dev-talentcloud.tbs-sct.gc.ca"
     wait_time = between(THINK_TIME_MIN, THINK_TIME_MAX)
+    # Subclasses can change the default, the SKIP_TLS_VERIFY environment variable still wins
+    skip_tls_verify = SKIP_TLS_VERIFY
 
     def on_start(self):
         # A trailing slash on the host (eg. from the Azure Load tab) would make every path start with //
         self.client.base_url = self.client.base_url.rstrip("/")
-        if SKIP_TLS_VERIFY:
+        if self.skip_tls_verify:
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             self.client.verify = False
         # The API rate limits by user, then ai_user cookie, then IP. Load test engines share a
         # few IPs, so give each virtual user its own ai_user like a real browser has.

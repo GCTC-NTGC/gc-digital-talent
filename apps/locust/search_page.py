@@ -3,7 +3,7 @@ Load test for the Search page (/[locale]/search).
 
 Each visit loads the page the way the browser does (HTML, app shell, SearchForm,
 SearchRequestOptions, AdvancedFilterOptions and the default CountTalentRequestMatches),
-then narrows the search a few times. Every filter change sends CountTalentRequestMatches,
+then narrows the search up to MAX_FILTER_CHANGES times. Every filter change sends CountTalentRequestMatches,
 which is the expensive query on this page.
 
 Filter values are picked from the page's own option queries, so they always exist on the target.
@@ -13,6 +13,8 @@ Run locally:
 
 Environment variables (plus the ones in common.py):
   MAX_FILTER_CHANGES     most filter changes per visit (default 4)
+  FILTER_PAUSE_MIN       seconds before each filter change, lower bound (default 2)
+  FILTER_PAUSE_MAX       seconds before each filter change, upper bound (default 6)
 """
 
 import os
@@ -25,6 +27,8 @@ from locust import task
 from common import PublicPageUser
 
 MAX_FILTER_CHANGES = int(os.getenv("MAX_FILTER_CHANGES", "4"))
+FILTER_PAUSE_MIN = float(os.getenv("FILTER_PAUSE_MIN", "2"))
+FILTER_PAUSE_MAX = float(os.getenv("FILTER_PAUSE_MAX", "6"))
 
 # What SearchForm sends before anything is selected
 DEFAULT_FILTER = {
@@ -95,28 +99,33 @@ def narrow(applicant_filter: dict, form: dict, options: dict, advanced: dict) ->
     return {**applicant_filter, **change(items)}
 
 
+def search_visit(user: PublicPageUser, max_filter_changes: int):
+    """Load the search page, then make 0 to max_filter_changes filter changes."""
+    results = user.load_page(
+        "search",
+        f"/{user.locale()}/search",
+        [
+            ("SearchForm", None, "skills"),
+            ("SearchRequestOptions",),
+            ("AdvancedFilterOptions",),
+            ("CountTalentRequestMatches", {"where": {"applicantFilter": DEFAULT_FILTER}}),
+        ],
+    )
+
+    form = results.get("SearchForm")
+    if not form:
+        return
+
+    applicant_filter = DEFAULT_FILTER
+    for _ in range(random.randint(0, max_filter_changes)):
+        gevent.sleep(random.uniform(FILTER_PAUSE_MIN, FILTER_PAUSE_MAX))
+        applicant_filter = narrow(
+            applicant_filter, form, results.get("SearchRequestOptions"), results.get("AdvancedFilterOptions")
+        )
+        user.graphql("CountTalentRequestMatches", {"where": {"applicantFilter": applicant_filter}})
+
+
 class SearchPageUser(PublicPageUser):
     @task
     def search(self):
-        results = self.load_page(
-            "search",
-            f"/{self.locale()}/search",
-            [
-                ("SearchForm", None, "skills"),
-                ("SearchRequestOptions",),
-                ("AdvancedFilterOptions",),
-                ("CountTalentRequestMatches", {"where": {"applicantFilter": DEFAULT_FILTER}}),
-            ],
-        )
-
-        form = results.get("SearchForm")
-        if not form:
-            return
-
-        applicant_filter = DEFAULT_FILTER
-        for _ in range(random.randint(1, MAX_FILTER_CHANGES)):
-            gevent.sleep(random.uniform(2, 6))
-            applicant_filter = narrow(
-                applicant_filter, form, results.get("SearchRequestOptions"), results.get("AdvancedFilterOptions")
-            )
-            self.graphql("CountTalentRequestMatches", {"where": {"applicantFilter": applicant_filter}})
+        search_visit(self, MAX_FILTER_CHANGES)
