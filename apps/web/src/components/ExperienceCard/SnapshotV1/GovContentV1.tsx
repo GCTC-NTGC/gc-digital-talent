@@ -117,7 +117,7 @@ const GovContentV1 = ({
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
-            title={experienceFormLabels.positionType}
+            title={experienceFormLabels.govPositionType}
             headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
