@@ -933,7 +933,6 @@ enum Permission {
   CreateAnyUser
   ViewAnyUser
   ViewOwnUser
-  ViewAnyUserBasicInfo
   ViewAnyUserWorkEmail
   UpdateAnyUser
   UpdateAnyUserSub
