@@ -1,0 +1,24 @@
+# Builds the single-file Locust scripts in apps/locust and publishes them as the
+# "locust-scripts" pipeline artifact, ready to upload to Azure Load Testing.
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-24.04
+
+steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 1
+
+  - script: python3 bundle.py
+    displayName: Bundle Locust scripts
+    workingDirectory: apps/locust
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish Locust scripts
+    inputs:
+      targetPath: apps/locust/azure
+      artifact: locust-scripts
