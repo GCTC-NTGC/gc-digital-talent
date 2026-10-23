@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\AssessmentStepType;
+use App\Enums\JobAdvertisementArchiveType;
 use App\Enums\OperationalRequirement;
 use App\Enums\PoolAreaOfSelection;
 use App\Enums\PoolLanguage;
@@ -149,6 +150,9 @@ class PoolFactory extends BaseFactory
                     'required_skill_level' => $this->faker->enum(SkillLevel::class),
                 ]
             );
+
+            $pool->storeArchive(JobAdvertisementArchiveType::PUBLISHED);
+
         });
     }
 
@@ -160,7 +164,9 @@ class PoolFactory extends BaseFactory
         return $this->published()->state([
             'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
             'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
-        ]);
+        ])->afterCreating(function (Pool $pool) {
+            $pool->storeArchive(JobAdvertisementArchiveType::CLOSED);
+        });
     }
 
     /**
