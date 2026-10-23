@@ -138,7 +138,6 @@ export function getOrderByClause(
       {
         column: columnName as PoolsOrderByColumn,
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: undefined,
       },
     ];
   }

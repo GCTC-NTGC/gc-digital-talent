@@ -1808,10 +1808,7 @@ type Query {
     orderBy: _
       @orderBy(
         columnsEnum: "PoolsOrderByColumn"
-        relations: [
-          { relation: "user", columns: ["first_name", "email"] }
-          { relation: "classification", columns: ["group", "level"] }
-        ]
+        relations: [{ relation: "classification", columns: ["group", "level"] }]
       )
   ): [Pool]!
     @paginate(
