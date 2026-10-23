@@ -27,59 +27,72 @@ from common import PublicPageUser
 MAX_FILTER_CHANGES = int(os.getenv("MAX_FILTER_CHANGES", "4"))
 
 # What SearchForm sends before anything is selected
-DEFAULT_FILTER = {"flexibleWorkLocations": ["ONSITE"], "pools": [], "talentSources": ["QUALIFIED_IN_POOL"]}
+DEFAULT_FILTER = {
+    "flexibleWorkLocations": ["ONSITE"],
+    "pools": [],
+    "talentSources": ["QUALIFIED_IN_POOL", "ADVANCEMENT", "LATERAL_MOVEMENT"],
+}
 
 
 def values(options: Optional[dict], key: str) -> list:
     return [item["value"] for item in ((options or {}).get(key) or []) if item and item.get("value")]
 
 
+def some(items: list, most: int) -> list:
+    return random.sample(items, random.randint(1, min(most, len(items))))
+
+
 def narrow(applicant_filter: dict, form: dict, options: dict, advanced: dict) -> dict:
     """Add one filter selection, like a user changing one field in the search form."""
-    choices = {
-        "classification": lambda: {
-            "qualifiedInClassifications": [
-                {"group": c["group"], "level": c["level"]} for c in random.sample(form["classifications"], 1)
-            ]
-        },
-        "workStream": lambda: {"qualifiedInWorkStreams": [{"id": random.choice(form["workStreams"])["id"]}]},
-        "skills": lambda: {
-            "skills": (applicant_filter.get("skills") or [])
-            + [{"id": s["id"]} for s in random.sample(form["skills"], random.randint(1, 3))]
-        },
-        "languageAbility": lambda: {"languageAbility": random.choice(values(options, "languageAbilities"))},
-        "locationPreferences": lambda: {
-            "locationPreferences": random.sample(values(options, "workRegions"), random.randint(1, 3))
-        },
-        "flexibleWorkLocations": lambda: {
-            "flexibleWorkLocations": sorted(
-                set(random.sample(values(options, "flexibleWorkLocations"), random.randint(1, 2))) | {"ONSITE"}
-            )
-        },
-        "talentSources": lambda: {
-            "talentSources": random.sample(values(options, "talentSources"), random.randint(1, 2))
-        },
-        "operationalRequirements": lambda: {
-            "operationalRequirements": random.sample(values(advanced, "operationalRequirements"), 1)
-        },
+    # field: (items to pick from, change built from those items)
+    fields = {
+        "classification": (
+            form.get("classifications"),
+            lambda items: {
+                "qualifiedInClassifications": [{"group": c["group"], "level": c["level"]} for c in some(items, 1)]
+            },
+        ),
+        "workStream": (
+            form.get("workStreams"),
+            lambda items: {"qualifiedInWorkStreams": [{"id": random.choice(items)["id"]}]},
+        ),
+        "skills": (
+            form.get("skills"),
+            lambda items: {
+                "skills": [
+                    {"id": skill_id}
+                    for skill_id in dict.fromkeys(
+                        [s["id"] for s in applicant_filter.get("skills") or []] + [s["id"] for s in some(items, 3)]
+                    )
+                ]
+            },
+        ),
+        "languageAbility": (
+            values(options, "languageAbilities"),
+            lambda items: {"languageAbility": random.choice(items)},
+        ),
+        "locationPreferences": (
+            values(options, "workRegions"),
+            lambda items: {"locationPreferences": some(items, 3)},
+        ),
+        "flexibleWorkLocations": (
+            values(options, "flexibleWorkLocations"),
+            lambda items: {"flexibleWorkLocations": sorted(set(some(items, 2)) | {"ONSITE"})},
+        ),
+        "talentSources": (
+            values(options, "talentSources"),
+            lambda items: {"talentSources": some(items, 2)},
+        ),
+        "operationalRequirements": (
+            values(advanced, "operationalRequirements"),
+            lambda items: {"operationalRequirements": some(items, 1)},
+        ),
     }
-    available = [
-        name
-        for name, enabled in {
-            "classification": form.get("classifications"),
-            "workStream": form.get("workStreams"),
-            "skills": form.get("skills"),
-            "languageAbility": values(options, "languageAbilities"),
-            "locationPreferences": values(options, "workRegions"),
-            "flexibleWorkLocations": values(options, "flexibleWorkLocations"),
-            "talentSources": values(options, "talentSources"),
-            "operationalRequirements": values(advanced, "operationalRequirements"),
-        }.items()
-        if enabled
-    ]
+    available = [field for field, (items, _change) in fields.items() if items]
     if not available:
         return applicant_filter
-    return {**applicant_filter, **choices[random.choice(available)]()}
+    items, change = fields[random.choice(available)]
+    return {**applicant_filter, **change(items)}
 
 
 class SearchPageUser(PublicPageUser):
@@ -100,7 +113,7 @@ class SearchPageUser(PublicPageUser):
         if not form:
             return
 
-        applicant_filter = dict(DEFAULT_FILTER)
+        applicant_filter = DEFAULT_FILTER
         for _ in range(random.randint(1, MAX_FILTER_CHANGES)):
             gevent.sleep(random.uniform(2, 6))
             applicant_filter = narrow(

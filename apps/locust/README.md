@@ -36,6 +36,7 @@ Load settings (host, users, spawn rate, run time) are in `locust.conf`. Script s
 | `THINK_TIME_MIN`     | `5`                | all        |
 | `THINK_TIME_MAX`     | `15`               | all        |
 | `SYNTHETIC_METRICS`  | `true`             | all        |
+| `SKIP_TLS_VERIFY`    | `false`            | all        |
 | `MAX_FILTER_CHANGES` | `4`                | search     |
 | `POOL_IDS`           | all published jobs | job poster |
 

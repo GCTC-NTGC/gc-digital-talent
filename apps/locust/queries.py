@@ -209,6 +209,10 @@ query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
   countTalentRequestMatchesByPool(where: $where) {
     pool {
       id
+      community {
+        id
+        __typename
+      }
       ...SearchResultCard_Pool
       __typename
     }

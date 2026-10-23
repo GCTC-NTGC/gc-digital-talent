@@ -71,8 +71,8 @@ rate_limit = {"min_remaining": None, "limit": None, "hits": 0}
 logged_connection_errors = set()
 
 
-def percentile(values: List[float], pct: float) -> float:
-    ordered = sorted(values)
+def percentile(ordered: List[float], pct: float) -> float:
+    """Percentile of an already sorted list."""
     index = min(len(ordered) - 1, int(round(pct / 100 * (len(ordered) - 1))))
     return ordered[index]
 
@@ -123,6 +123,20 @@ def record_rate_limit(headers):
         rate_limit["min_remaining"] = remaining
 
 
+def ok_status(response) -> bool:
+    """Marks the response failed and returns False unless it is a 200."""
+    if response.status_code == 200:
+        return True
+    if response.status_code == 0:
+        response.failure(connection_error(response.error))
+    elif response.status_code == 429:
+        rate_limit["hits"] += 1
+        response.failure("HTTP 429 rate limited")
+    else:
+        response.failure(f"HTTP {response.status_code}")
+    return False
+
+
 class PublicPageUser(HttpUser):
     """Anonymous visitor. Subclasses add @task methods that call load_page()."""
 
@@ -146,11 +160,7 @@ class PublicPageUser(HttpUser):
 
     def html(self, name: str, path: str) -> bool:
         with self.client.get(path, name=name, catch_response=True) as response:
-            if response.status_code == 0:
-                response.failure(connection_error(response.error))
-                return False
-            if response.status_code != 200:
-                response.failure(f"HTTP {response.status_code}")
+            if not ok_status(response):
                 return False
             response.success()
             return True
@@ -162,6 +172,7 @@ class PublicPageUser(HttpUser):
         Send a GraphQL operation from queries.py. Returns the response data, or None on failure.
         expect is a top level field that must not be null (eg. "pool"), otherwise the request fails.
         """
+        label = name or operation
         payload = {
             "operationName": operation,
             "query": getattr(queries, operation),
@@ -169,24 +180,15 @@ class PublicPageUser(HttpUser):
         }
         with self.client.post(
             "/graphql",
-            name=name or operation,
+            name=label,
             json=payload,
             headers={"Accept": "application/graphql-response+json, application/json"},
             catch_response=True,
         ) as response:
-            if response.status_code == 0:
-                response.failure(connection_error(response.error))
-                return None
-
-            record_rate_limit(response.headers)
-            record_server_timing(name or operation, response.headers.get("Server-Timing"))
-
-            if response.status_code == 429:
-                rate_limit["hits"] += 1
-                response.failure("HTTP 429 rate limited")
-                return None
-            if response.status_code != 200:
-                response.failure(f"HTTP {response.status_code}")
+            if response.status_code:
+                record_rate_limit(response.headers)
+                record_server_timing(label, response.headers.get("Server-Timing"))
+            if not ok_status(response):
                 return None
 
             try:
@@ -198,7 +200,7 @@ class PublicPageUser(HttpUser):
             errors = body.get("errors")
             if errors:
                 message = NORMALIZE_PATTERN.sub("#", str(errors[0].get("message", "unknown")))[:120]
-                graphql_errors[f"{name or operation}: {message}"] += 1
+                graphql_errors[f"{label}: {message}"] += 1
                 response.failure(f"GraphQL error: {message}")
                 return None
 
@@ -241,11 +243,11 @@ def log_summary(environment, **_kwargs):
         lines.append("Server-Timing per operation (ms): metric count p50 p95 p99 max")
         for operation in sorted(server_timings):
             for metric in sorted(server_timings[operation]):
-                values = server_timings[operation][metric]
+                values = sorted(server_timings[operation][metric])
                 lines.append(
                     f"  {operation:<28} {metric:<22} {len(values):>7} "
                     f"{percentile(values, 50):>8.1f} {percentile(values, 95):>8.1f} "
-                    f"{percentile(values, 99):>8.1f} {max(values):>8.1f}"
+                    f"{percentile(values, 99):>8.1f} {values[-1]:>8.1f}"
                 )
     else:
         lines.append("No Server-Timing headers received (SERVER_TIMING_ENABLED may be off on the target)")
