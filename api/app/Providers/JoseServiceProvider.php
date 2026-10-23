@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Contracts\JoseService;
+use App\Services\AzureJoseService;
 use App\Services\LocalJoseService;
+use App\Support\Azure\AzureKeyVaultClient;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +20,11 @@ class JoseServiceProvider extends ServiceProvider implements DeferrableProvider
 
             return match (config('jose.provider')) {
                 'local' => $this->app->make(LocalJoseService::class),
+                'azure' => $this->app->make(AzureJoseService::class, [
+                    'azureClient' => $this->app->make(AzureKeyVaultClient::class, [
+                        'vaultBaseUrl' => config('jose.azure.vault_base_url'),
+                    ]),
+                ]),
                 default => throw new \Error('Unexpected JOSE service: '.config('jose.provider'))
             };
         });
