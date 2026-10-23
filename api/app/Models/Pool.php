@@ -386,6 +386,12 @@ class Pool extends Model
         return $this->hasMany(ScreeningQuestion::class);
     }
 
+    /** @returns HasMany<JobAdvertisementArchive, $this> */
+    public function jobAdvertisementArchives(): HasMany
+    {
+        return $this->hasMany(JobAdvertisementArchive::class);
+    }
+
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
