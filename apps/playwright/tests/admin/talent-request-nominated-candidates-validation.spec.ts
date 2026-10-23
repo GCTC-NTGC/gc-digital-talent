@@ -258,6 +258,7 @@ test.describe(
           applicantFilter: {
             create: {
               community: { connect: workStream.community?.id ?? "" },
+              locationPreferences: [WorkRegion.Ontario],
               qualifiedInClassifications: {
                 sync: [requestClassification.id],
               },
