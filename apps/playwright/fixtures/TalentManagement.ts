@@ -820,21 +820,20 @@ class TalentManagement extends AppPage {
 
   async validateNominationHistory(entries: NominationHistoryEntry[]) {
     await this.locators[FIELD.EXPAND_ALL_NOMINATIONS].click();
+    for (const option of nominationOptions) {
+      await expect(
+        this.page.getByText(option.label, { exact: true }),
+      ).toHaveCount(
+        entries.filter(({ details }) => nominatedFor(details).includes(option))
+          .length,
+      );
+    }
     for (const { details, ...entry } of entries) {
       const nominatorName = fullName(details.nominator);
       const eventName = new RegExp(
         `^${escapeRegExp(entry.eventName)}\\s*\\(${entries.filter((e) => e.eventName === entry.eventName).length}\\)`,
       );
-      const eventHeading = this.page.getByRole("heading", {
-        level: 3,
-        name: eventName,
-      });
       const options = nominatedFor(details);
-      for (const option of nominationOptions) {
-        await expect(
-          eventHeading.getByText(option.label, { exact: true }),
-        ).toHaveCount(options.includes(option) ? 1 : 0);
-      }
       const row = this.page
         .getByRole("region", { name: eventName })
         .getByRole("listitem")
