@@ -1638,6 +1638,11 @@ enum IndigenousCommunity {
   LEGACY_IS_INDIGENOUS
 }
 
+enum JobAdvertisementArchiveType {
+  PUBLISHED
+  CLOSED
+}
+
 enum Language {
   EN
   FR
