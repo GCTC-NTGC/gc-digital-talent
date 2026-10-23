@@ -25,6 +25,13 @@ class JobAdvertisementArchive extends Model
 
     protected $fillable = ['html', 'type'];
 
+    public static $generationEagerLoads = [
+        'classification',
+        'department',
+        'poolSkills.skill',
+        'workStream',
+    ];
+
     /** @return BelongsTo<Pool, $this> */
     public function pool(): BelongsTo
     {

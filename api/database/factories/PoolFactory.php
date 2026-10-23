@@ -17,6 +17,7 @@ use App\Models\Classification;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\GeneralQuestion;
+use App\Models\JobAdvertisementArchive;
 use App\Models\Pool;
 use App\Models\ScreeningQuestion;
 use App\Models\Skill;
@@ -151,8 +152,9 @@ class PoolFactory extends BaseFactory
                 ]
             );
 
-            $pool->storeArchive(JobAdvertisementArchiveType::PUBLISHED);
-
+            $pool
+                ->load(JobAdvertisementArchive::$generationEagerLoads)
+                ->storeArchive(JobAdvertisementArchiveType::PUBLISHED);
         });
     }
 
@@ -165,7 +167,9 @@ class PoolFactory extends BaseFactory
             'published_at' => $this->faker->dateTimeBetween('-6 months', '-2 months'),
             'closing_date' => $this->faker->dateTimeBetween('-1 months', '-1 day'),
         ])->afterCreating(function (Pool $pool) {
-            $pool->storeArchive(JobAdvertisementArchiveType::CLOSED);
+            $pool
+                ->load(JobAdvertisementArchive::$generationEagerLoads)
+                ->storeArchive(JobAdvertisementArchiveType::CLOSED);
         });
     }
 
