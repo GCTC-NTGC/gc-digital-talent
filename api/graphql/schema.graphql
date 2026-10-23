@@ -23,11 +23,6 @@ scalar UUID @scalar(class: "UUID")
 "A signed integer, not limited to the 32-bit range of the built-in `Int` scalar, but capped to JavaScript's safe integer range (±2^53 - 1)."
 scalar BigInt
 
-enum Locale {
-  en
-  fr
-}
-
 type LocalizedEnumString {
   value: String!
   label: LocalizedString!
@@ -1486,7 +1481,7 @@ input PoolFilterInput {
 }
 
 input PoolWorkStreamNameOrderByInput {
-  locale: Locale!
+  locale: Language!
   order: SortOrder!
 }
 
