@@ -8,9 +8,9 @@ use Tests\TestCase;
 
 class DummyAuthDisabledTest extends TestCase
 {
-    public function testDummyRoutesDoNotExistWithCanadaLogin()
+    public function testDummyRoutesDoNotExistWithOpenid()
     {
-        $this->assertSame('canadalogin', config('auth.login_provider'));
+        $this->assertSame('openid', config('auth.login_provider'));
 
         $this->postJson('/api/dummy-auth/token', ['sub' => 'a-sub'])->assertNotFound();
         $this->get('/api/dummy-auth/logout')->assertNotFound();
