@@ -599,7 +599,7 @@
     "description": "Explanation about profile 2"
   },
   "0P05iS": {
-    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme PM-01 ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
+    "defaultMessage": "Les employées et employés du gouvernement du Canada ou les personnes employées par une agence du gouvernement du Canada qui sont présentement classés comme {classificationString} ou un équivalent organisationnel dans leur poste d'attache. <link>Les anciens combattants et les membres des Forces armées canadiennes admissibles</link> peuvent également postuler.",
     "description": "At-level application criteria"
   },
   "0P591/": {
