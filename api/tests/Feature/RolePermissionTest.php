@@ -44,36 +44,6 @@ class RolePermissionTest extends TestCase
     }
 
     /**
-     * Test the Guest User Role
-     *
-     * @return void
-     */
-    public function testGuestRole()
-    {
-        $guestRole = Role::where('name', 'guest')->sole();
-        $this->user->addRole($guestRole);
-
-        $this->assertTrue($this->user->hasRole('guest'));
-        $this->assertTrue($this->user->isAbleTo([
-            'view-any-classification',
-            'view-any-department',
-            'view-any-genericJobTitle',
-            'view-any-skill',
-            'view-any-skillFamily',
-            'view-any-publishedPool',
-            'view-any-applicantCount',
-            'create-any-talentRequest',
-            'view-any-role',
-            'view-any-community',
-            'view-any-developmentProgram',
-        ], true)); // The `true` as a second argument means user must have ALL permissions, instead of just one.
-
-        $this->assertFalse($this->user->isAbleTo('view-any-user'));
-
-        $this->cleanup();
-    }
-
-    /**
      * Test the Base User Role
      *
      * @return void
@@ -574,10 +544,9 @@ class RolePermissionTest extends TestCase
             $this->ownedTeam
         );
 
-        $guestRole = Role::where('name', 'guest')->sole();
-        $this->user->addRole($guestRole);
+        $this->user->addRole(Role::where('name', 'base_user')->sole());
 
-        $guestPermission = 'view-any-skill';
+        $nonTeamPermission = 'view-any-skill';
         $teamPermission = 'view-team-draftPool';
 
         // This should be true because even though the role is associated with a team context, we're asking about the permission outside of a team context.
@@ -586,13 +555,13 @@ class RolePermissionTest extends TestCase
 
         // This should be true because we're asking about the permission without a team context, and the user only has this permission outside of a team context anyway.
         // That means this should pass regardless whether team_strict_check is true or false.
-        $this->assertTrue($this->user->isAbleTo($guestPermission, null));
+        $this->assertTrue($this->user->isAbleTo($nonTeamPermission, null));
 
         // This should be true because the user has this permission in the team context
         $this->assertTrue($this->user->isAbleTo($teamPermission, $this->ownedTeam));
 
         // This should be false because the user only has this permission outside of a team context
-        $this->assertFalse($this->user->isAbleTo($guestPermission, $this->ownedTeam));
+        $this->assertFalse($this->user->isAbleTo($nonTeamPermission, $this->ownedTeam));
     }
 
     private function cleanup()

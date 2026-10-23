@@ -1822,7 +1822,7 @@ class UserTest extends TestCase
 
         // Create users
         User::factory(1)->asAdmin()->create();
-        User::factory(3)->asGuest()->create();
+        User::factory(3)->create();
         User::factory(11)->asApplicant()->create();
 
         User::factory(2)->asProcessOperator($testPool->id)->create();

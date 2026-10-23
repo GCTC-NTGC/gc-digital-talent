@@ -170,7 +170,6 @@ class PoolCandidateUpdateTest extends TestCase
         ]);
 
         $this->guestUser = User::factory()
-            ->asGuest()
             ->create([
                 'email' => 'guest-user@test.com',
                 'sub' => 'guest-user@test.com',
