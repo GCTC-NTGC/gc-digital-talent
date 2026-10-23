@@ -117,7 +117,7 @@ const GovContentV1 = ({
             {getLocalizedName(govEmploymentType.label, intl)}
           </ContentSection>
           <ContentSection
-            title={experienceFormLabels.positionType}
+            title={experienceFormLabels.govPositionType}
             headingRank={headingRank}
             className="sm:border-r sm:border-gray-200 dark:border-gray-500"
           >
@@ -169,7 +169,7 @@ const GovContentV1 = ({
           {division ?? intl.formatMessage(commonMessages.notAvailable)}
         </ContentSection>
         <Separator space="sm" decorative />
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid gap-6 sm:grid-cols-3">
           <ContentSection
             title={experienceFormLabels.govEmploymentType}
             headingRank={headingRank}

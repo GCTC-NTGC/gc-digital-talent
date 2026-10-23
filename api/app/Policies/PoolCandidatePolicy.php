@@ -139,6 +139,20 @@ class PoolCandidatePolicy
     }
 
     /**
+     * Determine whether a user can toggle field is_dashboard_viewable
+     * if you could submit it, you can definitely toggle it
+     *
+     * @return Response|bool
+     */
+    public function toggleDashboardVisibility(User $user, PoolCandidate $poolCandidate)
+    {
+        $isOwn = $user->id === $poolCandidate->user_id;
+        $isDraft = $poolCandidate->isDraft();
+
+        return $isOwn && ! $isDraft && $user->isAbleTo('archive-own-submittedApplication');
+    }
+
+    /**
      * Determine whether the user can count the number of items in the model.
      *
      * Note: Everyone needs to be able to count applicants

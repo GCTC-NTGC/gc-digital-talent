@@ -665,6 +665,7 @@ type PoolCandidate {
   suspendedAt: DateTime @rename(attribute: "suspended_at")
   deletedDate: DateTime @rename(attribute: "deleted_at")
   isBookmarked: Boolean
+  isDashboardViewable: Boolean! @rename(attribute: "is_dashboard_viewable")
 
   profileSnapshot: JSON @rename(attribute: "profile_snapshot")
   signature: String
@@ -3980,6 +3981,9 @@ type Mutation {
     @guard
     @canFind(ability: "update", find: "id", model: "PoolCandidate")
     @validator
+  togglePoolCandidateDashboardVisibility(id: UUID!): PoolCandidate
+    @guard
+    @canFind(ability: "toggleDashboardVisibility", find: "id")
 
   # Job poster template mutations
   createJobPosterTemplate(

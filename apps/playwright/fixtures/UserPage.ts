@@ -83,6 +83,11 @@ class UserPage extends AppPage {
       .click();
     await this.page.keyboard.press("Escape");
     await this.page.getByRole("textbox", { name: /search/i }).fill(name);
+    // The search is debounced and then written to the URL, which would
+    // override a navigation (e.g. clicking a user) started before it lands
+    await expect(this.page).toHaveURL(
+      (url) => url.searchParams.get("st") === name,
+    );
   }
 }
 
