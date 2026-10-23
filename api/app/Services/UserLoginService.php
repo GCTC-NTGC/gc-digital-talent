@@ -25,15 +25,15 @@ class UserLoginService
      */
     public function completeLogin(Request $request, DataSet $claims, array $tokens): RedirectResponse
     {
-        [, $newUserCreated] = $this->applyClaims($claims);
+        $newUserCreated = $this->applyClaims($claims);
 
         return $this->postLoginRedirect($request, $newUserCreated, $tokens);
     }
 
     /**
-     * @return array{0: User, 1: bool} the matched user and whether they were newly created
+     * @return bool whether the user was newly created
      */
-    public function applyClaims(DataSet $claims): array
+    public function applyClaims(DataSet $claims): bool
     {
         // preferred language
         $localeCode = null;
@@ -136,7 +136,7 @@ class UserLoginService
         }
         $userMatch->save();
 
-        return [$userMatch, $newUserCreated];
+        return $newUserCreated;
     }
 
     /**
