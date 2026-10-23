@@ -17,7 +17,7 @@ use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
 
-class AuthController extends Controller
+class OpenidAuthController extends Controller
 {
     public function __construct(protected UserLoginService $userLoginService) {}
 
