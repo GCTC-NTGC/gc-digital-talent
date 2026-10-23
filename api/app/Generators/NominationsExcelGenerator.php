@@ -785,6 +785,7 @@ class NominationsExcelGenerator extends ExcelGenerator implements FileGeneratorI
                     ],
                     'poolCandidates' => function ($query) {
                         $query->whereAuthorizedToView(['userId' => $this->authenticatedUserId])
+                            ->whereQualified()
                             ->with('pool.classification');
                     },
                     'offPlatformRecruitmentProcesses.classification',
