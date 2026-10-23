@@ -1,8 +1,28 @@
+import os
 import string
 import random
 from locust import HttpUser, task, between
 
+# Comma-separated subs to sign in as, e.g. LOCUST_SUBS=applicant@test.com,admin@test.com
+# Needs the API running with AUTH_PROVIDER=dummy. Leave unset to send requests anonymously.
+# The API rate limit is per user, so use several subs for high load.
+SUBS = [sub.strip() for sub in os.environ.get("LOCUST_SUBS", "").split(",") if sub.strip()]
+
 class TestSearchPage(HttpUser):
+    access_token = None
+
+    def on_start(self):
+        if not SUBS:
+            return
+        response = self.client.post(
+            "/api/dummy-auth/token",
+            name="Dummy auth token",
+            json={"sub": random.choice(SUBS)},
+            headers={"Accept": "application/json"},
+        )
+        response.raise_for_status()
+        self.access_token = response.json()["access_token"]
+
     @task
     def candidate_count(self):
         query = """
@@ -113,7 +133,8 @@ fragment SearchResultCard_Pool on Pool {
 {"where":{"applicantFilter":{"pools":[]}}}
         """
         headerDict={}
-        # headerDict['authorization'] = 'Bearer ...'
+        if self.access_token:
+            headerDict['authorization'] = 'Bearer ' + self.access_token
 
         cookieDict={}
         cookieDict['ai_user'] = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))

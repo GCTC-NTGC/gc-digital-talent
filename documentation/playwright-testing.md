@@ -2,6 +2,20 @@
 
 This project uses [Playwright](https://playwright.dev/) for end-to-end testing. Tests can run against a local Docker environment or the live UAT environment.
 
+Playwright signs in with dummy auth, so the API under test must run with `AUTH_PROVIDER=dummy` (see [How Authentication Works](#how-authentication-works)).
+
+# Running Locally
+
+CI sets up dummy auth automatically. For a local Docker environment, edit `api/.env`:
+
+```
+AUTH_PROVIDER=dummy
+OAUTH_API_CLIENT_ID=
+OAUTH_API_CLIENT_SECRET=
+```
+
+and set `OAUTH_LOGOUT_URI="http://localhost:8000/api/dummy-auth/logout"` in `apps/web/.env`. Then run `php artisan optimize:clear` and rebuild the frontend. Revert those changes to go back to signing in through the mock OAuth server.
+
 # Running Against UAT
 
 ## Prerequisites
@@ -18,14 +32,14 @@ Create `apps/playwright/.env.uat` (gitignored) with the following content:
 
 ```
 BASE_URL=https://uat-talentcloud.tbs-sct.gc.ca
-TESTING_ENDPOINT_SECRET=<ask a team member with Azure access>
+PLAYWRIGHT_TARGET=uat
 PLAYWRIGHT_PLATFORM_ADMIN_SUB=<sub of any UAT account with the Platform Admin role>
 PLAYWRIGHT_COMMUNITY_ADMIN_SUB=<sub of any UAT account with the Community Admin role>
 PLAYWRIGHT_APPLICANT_SUB=<sub of any UAT account with the Applicant role only>
 PLAYWRIGHT_NO_ROLES_SUB=<sub of any UAT account having no roles at all>
 ```
 
-All values must be filled in. `TESTING_ENDPOINT_SECRET` is stored in Azure Key Vault. The `_SUB` values are the `sub` UUID of existing UAT users with the respective roles — use Laravel tinker on the App Service Kudu console to look them up.
+All values must be filled in. The `_SUB` values are the `sub` UUID of existing UAT users with the respective roles — use Laravel tinker on the App Service Kudu console to look them up.
 
 **Important:** `PLAYWRIGHT_APPLICANT_SUB` must point to a user with **only** the applicant role and no team memberships. Use this tinker query (single line) to find one:
 
@@ -49,13 +63,22 @@ All commands run from `apps/playwright/`:
 
 ## How Authentication Works
 
-Tests send `POST /refresh` with a JSON body of `{ "sub": "<uuid>" }` and an `X-Testing-Secret` header to the UAT app. The app returns JWT tokens which are injected into `localStorage`. No Canada Login browser flow is required.
+Playwright needs the API to run with dummy auth (`AUTH_PROVIDER=dummy`), which lets anyone sign in as any `sub` with no external auth provider:
 
-If tests fail with a 400 or HTML response from the token endpoint:
+- `loginBySub` fills in the dummy sign in form at `/login`.
+- `getTokenForSub` (used by `graphql.newContext()`) calls `POST /api/dummy-auth/token` with `{ "sub": "<sub>", "claims": { ... } }`.
 
-- Check that `TESTING_TOKEN_ENABLED=true` is set in the App Service environment settings.
-- Check that `APP_ENV_VERTICAL=uat` is set — it defaults to `production` if unset, which blocks the test token path.
-- If env vars were changed after the last deployment, run `php artisan config:clear` in the Kudu console — Laravel's config cache persists across restarts and must be cleared manually.
+Both create the user if the `sub` doesn't exist yet and apply any claims, the same way a CanadaLogin sign in does. Dummy tokens never expire, so the token refresh tests skip themselves when a global setup detects dummy auth.
+
+If tests fail with a 404 or HTML response from the token route, check the API's App Service settings:
+
+- `AUTH_PROVIDER=dummy`
+- `APP_ENV_VERTICAL` is set to something other than `production`
+- `OAUTH_API_CLIENT_ID` and `OAUTH_API_CLIENT_SECRET` are empty
+
+The API refuses to start in dummy mode if either of the last two is wrong. If env vars were changed after the last deployment, run `php artisan optimize:clear` in the Kudu console. The config and route caches persist across restarts and must be cleared manually.
+
+To switch UAT back to CanadaLogin, remove `AUTH_PROVIDER` (or set it to `canadalogin`), restore the OAuth client settings and `OAUTH_LOGOUT_URI`, and redeploy. Playwright won't run against UAT while it uses CanadaLogin.
 
 # Test Categories
 

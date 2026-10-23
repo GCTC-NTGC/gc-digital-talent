@@ -32,6 +32,14 @@ source ${parent_path}/lib/common.sh
 cd /var/www/html/api
 cp .env.example .env --preserve=all
 ${parent_path}/update_env_secrets.sh .env
+if [ "$GCDT_CI" = true ]; then
+  # Playwright runs against dummy auth, which refuses to start with OAuth client credentials set
+  sed -i \
+    -e 's/^# AUTH_PROVIDER=dummy/AUTH_PROVIDER=dummy/' \
+    -e 's/^OAUTH_API_CLIENT_ID=.*/OAUTH_API_CLIENT_ID=/' \
+    -e 's/^OAUTH_API_CLIENT_SECRET=.*/OAUTH_API_CLIENT_SECRET=/' \
+    .env
+fi
 touch ./storage/logs/laravel.log
 rm ./bootstrap/cache/*.php --force
 composer install --prefer-dist
@@ -50,6 +58,9 @@ chmod -R a+r,a+w ./storage ./vendor ./bootstrap/cache
 
 cd /var/www/html/apps/web
 cp .env.example .env --preserve=all
+if [ "$GCDT_CI" = true ]; then
+  sed -i 's|^OAUTH_LOGOUT_URI=.*|OAUTH_LOGOUT_URI="http://localhost:8000/api/dummy-auth/logout"|' .env
+fi
 
 # build projects
 git config --global --add safe.directory /var/www/html

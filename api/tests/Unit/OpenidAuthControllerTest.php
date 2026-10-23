@@ -374,45 +374,6 @@ class OpenidAuthControllerTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testRefreshIssuesTestTokenViaPostBodySub()
-    {
-        config([
-            'testing.token_enabled' => true,
-            'testing.endpoint_secret' => 'test-secret',
-            'testing.jwt_secret' => base64_encode(random_bytes(32)),
-            'app.vertical' => 'local',
-        ]);
-
-        $this->seed(RolePermissionSeeder::class);
-        $user = User::factory()->create(['sub' => 'test-token-sub']);
-
-        $response = $this->postJson('/refresh', ['sub' => $user->sub], [
-            'X-Testing-Secret' => 'test-secret',
-        ]);
-
-        $response->assertStatus(200);
-        $response->assertJsonStructure(['access_token', 'refresh_token', 'id_token']);
-    }
-
-    public function testRefreshTestTokenIgnoresSubPassedAsQueryParam()
-    {
-        config([
-            'testing.token_enabled' => true,
-            'testing.endpoint_secret' => 'test-secret',
-            'testing.jwt_secret' => base64_encode(random_bytes(32)),
-            'app.vertical' => 'local',
-        ]);
-
-        $this->seed(RolePermissionSeeder::class);
-        $user = User::factory()->create(['sub' => 'test-token-sub-2']);
-
-        $response = $this->postJson('/refresh?sub='.$user->sub, [], [
-            'X-Testing-Secret' => 'test-secret',
-        ]);
-
-        $response->assertStatus(422);
-    }
-
     /**
      * Run the auth callback with an unsigned id_token built from the given claims.
      * The callback does not verify the token signature.

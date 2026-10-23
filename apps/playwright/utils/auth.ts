@@ -1,6 +1,5 @@
-/* eslint-disable camelcase */
 import type { Cookie, Page } from "@playwright/test";
-import { expect, request } from "@playwright/test";
+import { expect } from "@playwright/test";
 import type { JwtPayload } from "jwt-decode";
 import { jwtDecode } from "jwt-decode";
 
@@ -16,9 +15,8 @@ export interface AuthTokenResponse {
   refresh_token?: string;
 }
 
-// Maps local/CI fixture email subs to real UUIDs via env vars.
-// Only needed for graphql.newContext() bootstrap — all other test users are created dynamically.
-// Add an entry here only if a fixture sub is used as the graphql.newContext() default.
+// Maps local/CI fixture email subs to real UUIDs on UAT via env vars.
+// Add an entry here only if a fixture sub is used against UAT.
 const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
   "admin@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
   "platform@test.com": process.env.PLAYWRIGHT_PLATFORM_ADMIN_SUB,
@@ -34,13 +32,14 @@ const FIXTURE_SUB_MAP: Record<string, string | undefined> = {
 };
 
 /**
- * Resolves a fixture email sub to a real UUID when running against a remote environment.
+ * Resolves a fixture email sub to a real UUID when running against UAT.
  *
  * Email subs (local/CI fixture seeds) are mapped to real UUIDs via FIXTURE_SUB_MAP.
  * Non-email subs (dynamic, e.g. playwright.sub.xxx created by createUserWithRoles)
- * pass through unchanged — the user already exists in the remote DB by the time we call /refresh.
+ * pass through unchanged.
  */
 function resolveFixtureSub(sub: string): string {
+  if (process.env.PLAYWRIGHT_TARGET !== "uat") return sub;
   if (!sub.includes("@")) return sub;
   if (!(sub in FIXTURE_SUB_MAP)) return sub;
   const resolved = FIXTURE_SUB_MAP[sub];
@@ -53,69 +52,29 @@ function resolveFixtureSub(sub: string): string {
 }
 
 /**
- * Creates an access token for a specific sub.
+ * Creates tokens for a specific sub with the API's dummy auth token route.
  *
- * On UAT (TESTING_ENDPOINT_SECRET set): calls the /refresh test-token endpoint.
- * BASE_URL must also be set to the target environment URL (e.g. https://uat-talentcloud.tbs-sct.gc.ca).
+ * Like logging in, this creates the user if they don't exist yet and applies any claims.
  *
- * On local/CI: calls the local Janssen mock at /oxauth/token.
- *
- * Used by both loginBySub (page auth) and graphql.newContext() (API auth),
- * so changing this function makes both work consistently across environments.
+ * Used by graphql.newContext() (API auth).
  */
-export async function getTokenForSub(sub: string) {
-  if (process.env.TESTING_ENDPOINT_SECRET) {
-    const uatSub = resolveFixtureSub(sub);
-    const secret = process.env.TESTING_ENDPOINT_SECRET;
-    const baseUrl = process.env.BASE_URL;
-    if (!baseUrl) {
-      throw new Error(
-        "BASE_URL must be set when TESTING_ENDPOINT_SECRET is configured (e.g. https://uat-talentcloud.tbs-sct.gc.ca)",
-      );
-    }
-    const url = `${baseUrl}/refresh`;
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "X-Testing-Secret": secret,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ sub: uatSub }),
-    });
-    const body = await res.text();
-    if (!res.ok || body.trimStart().startsWith("<")) {
-      throw new Error(
-        `Test token request failed (${res.status}) for "${sub}":\n${body.slice(0, 200)}`,
-      );
-    }
-    const json = JSON.parse(body) as AuthTokenResponse;
-    return {
-      idToken: json.id_token,
-      accessToken: json.access_token,
-      refreshToken: json.refresh_token,
-    };
-  }
-
-  // Local/CI: use local Janssen mock OAuth
-  const ctx = await request.newContext();
-  const query = new URLSearchParams({
-    grant_type: "password",
-    client_id: "e2e",
-    client_secret: "e2e",
-    username: sub,
-    password: "e2e",
-    scope: "openid offline_access",
-    sub,
+export async function getTokenForSub(
+  sub: string,
+  claims?: Record<string, string>,
+): Promise<AuthTokens> {
+  const baseUrl = process.env.BASE_URL ?? "http://localhost:8000";
+  const res = await fetch(`${baseUrl}/api/dummy-auth/token`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ sub: resolveFixtureSub(sub), claims }),
   });
-  const json = (await ctx
-    .post(`/oxauth/token`, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: query.toString(),
-    })
-    .then((res) => res.json())) as AuthTokenResponse;
-
+  const body = await res.text();
+  if (!res.ok || body.trimStart().startsWith("<")) {
+    throw new Error(
+      `Dummy auth token request failed (${res.status}) for "${sub}". Is the API running with AUTH_PROVIDER=dummy?\n${body.slice(0, 200)}`,
+    );
+  }
+  const json = JSON.parse(body) as AuthTokenResponse;
   return {
     idToken: json.id_token,
     accessToken: json.access_token,
@@ -126,8 +85,7 @@ export async function getTokenForSub(sub: string) {
 /**
  * Login by sub
  *
- * On UAT (TESTING_ENDPOINT_SECRET set): injects tokens directly into localStorage.
- * On local/CI: navigates through the mock auth UI.
+ * Navigates through the dummy auth sign in form.
  *
  * @param {Page} page
  * @param {String} sub
@@ -139,23 +97,6 @@ export async function loginBySub(
   notAuthorized?: boolean,
   claims?: Record<string, string>,
 ) {
-  if (process.env.TESTING_ENDPOINT_SECRET) {
-    const tokens = await getTokenForSub(sub);
-    await page.goto("/en");
-    await page.evaluate(
-      ({ at, rt, it }) => {
-        localStorage.setItem("access_token", at ?? "");
-        localStorage.setItem("refresh_token", rt ?? "");
-        localStorage.setItem("id_token", it ?? "");
-      },
-      { at: tokens.accessToken, rt: tokens.refreshToken, it: tokens.idToken },
-    );
-    await page.reload();
-    await page.waitForLoadState("load");
-    return;
-  }
-
-  // Local: navigate through mock auth UI
   await page.goto("/en/login-info");
   await expect(
     page.getByRole("heading", { name: /sign in using canadalogin/i }),
@@ -164,7 +105,9 @@ export async function loginBySub(
     .getByRole("link", { name: /proceed to canadalogin/i })
     .first()
     .click();
-  await page.getByPlaceholder("Enter any user/subject").fill(sub);
+  await page
+    .getByPlaceholder("Enter any user/subject")
+    .fill(resolveFixtureSub(sub));
   if (claims) {
     await page
       .getByRole("textbox", { name: "Claims" })
