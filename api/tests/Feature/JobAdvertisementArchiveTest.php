@@ -23,7 +23,7 @@ class JobAdvertisementArchiveTest extends TestCase
 
     protected Pool $pool;
 
-    protected $query = <<<'GRAPHQL'
+    protected string $query = <<<'GRAPHQL'
         query JobAdvertisementArchiveTest($id: UUID!, $type: JobAdvertisementArchiveType) {
             pool(id: $id) {
                 archives(type: $type) {
