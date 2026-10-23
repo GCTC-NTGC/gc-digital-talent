@@ -12,7 +12,7 @@ use Tests\TestCase;
 use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertSame;
 
-class AuthControllerTest extends TestCase
+class OpenidAuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 

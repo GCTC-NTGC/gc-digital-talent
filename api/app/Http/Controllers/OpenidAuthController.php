@@ -2,33 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\BearerTokenService;
-use App\Models\Role;
-use App\Models\User;
-use App\Rules\GovernmentEmailRegex;
+use App\Services\UserLoginService;
 use App\Support\LogUtil;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Jose\Component\Core\Util\Base64UrlSafe;
-use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
 
-class AuthController extends Controller
+class OpenidAuthController extends Controller
 {
-    protected $fastSigner;
-
-    public function __construct(BearerTokenService $service)
-    {
-        // inject signer method from service file
-        $this->fastSigner = $service->fastSigner();
-    }
+    public function __construct(protected UserLoginService $userLoginService) {}
 
     public function login(Request $request)
     {
@@ -121,10 +112,8 @@ class AuthController extends Controller
             throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
-        $config = $this->fastSigner;
-        assert($config instanceof Configuration);
-
-        $idToken = $config->parser()->parse($encodedIdToken);
+        // read the claims without verifying the signature - the token came straight from the provider's token endpoint
+        $idToken = (new Parser(new JoseEncoder()))->parse($encodedIdToken);
         assert($idToken instanceof UnencryptedToken);
 
         // grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
@@ -134,147 +123,7 @@ class AuthController extends Controller
             new InvalidArgumentException('Invalid session nonce')
         );
 
-        // preferred language
-        $idTokenLocaleCode = null;
-        if ($idToken->claims()->has('locale')) {
-            $normalizedValue = strtolower(substr($idToken->claims()->get('locale'), 0, 2));
-            if ($normalizedValue == 'en' || $normalizedValue == 'fr') {
-                $idTokenLocaleCode = $normalizedValue;
-            }
-        }
-
-        // track whether a new user was created
-        $newUserCreated = false;
-
-        // find the corresponding User
-        $sub = $idToken->claims()->get('sub');
-        $userMatch = User::where('sub', $sub)->withTrashed()->firstOr(function () use ($sub, &$newUserCreated, $idTokenLocaleCode) {
-            // No user found for given subscriber - lets auto-register them
-            $newUser = new User();
-            $newUser->sub = $sub;
-            if ($idTokenLocaleCode == 'en') {
-                $newUser->looking_for_english = true;
-            }
-            if ($idTokenLocaleCode == 'fr') {
-                $newUser->looking_for_french = true;
-            }
-            if (! empty($idTokenLocaleCode)) {
-                $newUser->preferred_language_for_interview = $idTokenLocaleCode;
-                $newUser->preferred_language_for_exam = $idTokenLocaleCode;
-            }
-            $newUser->save();
-            $newUser->syncRoles([  // every new user is automatically an base_user and an applicant
-                Role::where('name', 'base_user')->sole(),
-                Role::where('name', 'applicant')->sole(),
-            ], null);
-            $newUserCreated = true;
-
-            return $newUser;
-        });
-
-        // update the user with values from logging in
-        $userMatch->last_sign_in_at = Carbon::now();
-        $userMatch->last_sign_in_iss = $idToken->claims()->get('iss', null);
-        if ($idToken->claims()->has('given_name')) {
-            $userMatch->first_name = $idToken->claims()->get('given_name');
-        }
-        if ($idToken->claims()->has('family_name')) {
-            $userMatch->last_name = $idToken->claims()->get('family_name');
-        }
-        if ($idToken->claims()->has('email')) {
-            $incomingEmailAddress = $idToken->claims()->get('email');
-
-            // if email is not null, check if existing users have this email and take it from them
-            if (! empty($incomingEmailAddress)) {
-                try {
-                    $existingUser = User::where('id', '!=', $userMatch->id)
-                        ->where(fn ($subquery) => $subquery
-                            ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
-                            ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)]))
-                        ->withTrashed()
-                        ->first();
-                    if ($existingUser) {
-                        if (! empty($existingUser->email) && strcasecmp($existingUser->email, $incomingEmailAddress) == 0) {
-                            $existingUser->email_backup = $existingUser->email;
-                            $existingUser->email = null;
-                        }
-                        if (! empty($existingUser->work_email) && strcasecmp($existingUser->work_email, $incomingEmailAddress) == 0) {
-                            $existingUser->work_email_backup = $existingUser->work_email;
-                            $existingUser->work_email = null;
-                        }
-                        $existingUser->save();
-                    }
-                } catch (Throwable $e) {
-                    // log and continue - don't break log in for failure to take address
-                    Log::error('Failed to take email address on log in.', [
-                        'message' => $e->getMessage(),
-                        'sub' => $sub,
-                        'email address' => $incomingEmailAddress,
-                    ]);
-                }
-            }
-
-            // email should be clear now so save if possible
-            if (User::where('sub', '!=', $sub)
-                ->where(fn ($subquery) => $subquery
-                    ->whereRaw('LOWER(email) = ?', [mb_strtolower($incomingEmailAddress)])
-                    ->orWhereRaw('LOWER(work_email) = ?', [mb_strtolower($incomingEmailAddress)])
-                )->count() == 0
-            ) {
-                $userMatch->setVerifiedContactEmail($incomingEmailAddress);
-                if (preg_match(GovernmentEmailRegex::PATTERN, $incomingEmailAddress)) {
-                    $userMatch->setVerifiedWorkEmail($incomingEmailAddress);
-                }
-            }
-        }
-        if ($idToken->claims()->has('phone_number')) {
-            $userMatch->telephone = $idToken->claims()->get('phone_number');
-        }
-        if (! empty($idTokenLocaleCode)) {
-            $userMatch->preferred_lang = $idTokenLocaleCode;
-        }
-        $userMatch->save();
-
-        // start with token payload
-        $authCallbackResponseQuery = $tokenResponse->json();
-
-        $from = $request->session()->pull('from');
-
-        if ($from != filter_var($from, FILTER_SANITIZE_URL)) {
-            $from = null;
-        } // Contains unsanitary characters. Throw it away.
-        if (substr($from, 0, 1) != '/') {
-            $from = null;
-        } // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
-
-        if ($newUserCreated) {
-            // new user, go to registration
-            if (strlen($from) > 0) {
-                $authCallbackResponseQuery['from'] = $from;
-            }
-            $navigateToUri = config('oauth.post_login_registration_redirect');
-        } else {
-            // existing user, go where they want
-            $appUrl = config('app.url');
-            $navigateToUri = strlen($from) > 0 ? $appUrl.$from : config('oauth.post_login_redirect');
-        }
-
-        // duplicate logic for running with watch mode
-        if ($request->session()->pull('devServer')) {
-            if ($newUserCreated) {
-                // new user, go to registration
-                if (strlen($from) > 0) {
-                    $authCallbackResponseQuery['from'] = $from;
-                }
-                $navigateToUri = config('oauth.dev_post_login_registration_redirect');
-            } else {
-                // existing user, go where they want
-                $appUrl = config('app.dev_url');
-                $navigateToUri = strlen($from) > 0 ? $appUrl.$from : config('oauth.dev_post_login_redirect');
-            }
-        }
-
-        return redirect($navigateToUri.'?'.http_build_query($authCallbackResponseQuery));
+        return $this->userLoginService->completeLogin($request, $idToken->claims(), $tokenResponse->json());
     }
 
     public function refresh(Request $request)
