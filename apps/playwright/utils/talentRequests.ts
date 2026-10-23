@@ -4,6 +4,7 @@ import type {
   TalentRequest,
   TalentRequestTrackedUserFilterInput,
   TalentRequestTrackedUserStatus,
+  UpdateTalentRequestStatusInput,
   UpdateTalentRequestTrackedUserInput,
 } from "@gc-digital-talent/graphql/schema-types";
 
@@ -143,4 +144,33 @@ export const createTalentRequest: GraphQLRequestFunc<
       { variables: { talentRequest } },
     )
     .then((res) => res.createTalentRequest);
+};
+
+const Test_UpdateTalentRequestStatusMutationDocument = /* GraphQL */ `
+  mutation Test_UpdateTalentRequestStatus(
+    $id: ID!
+    $talentRequest: UpdateTalentRequestStatusInput!
+  ) {
+    updateTalentRequestStatus(id: $id, talentRequest: $talentRequest) {
+      id
+    }
+  }
+`;
+
+/**
+ * Update a talent request's status (e.g. Completed) using the graphql API
+ */
+export const setTalentRequestStatus: GraphQLRequestFunc<
+  TalentRequest | undefined,
+  { id: string; talentRequest: UpdateTalentRequestStatusInput }
+> = async (ctx, { id, talentRequest }) => {
+  return ctx
+    .post<GraphQLResponse<"updateTalentRequestStatus", TalentRequest>>(
+      Test_UpdateTalentRequestStatusMutationDocument,
+      {
+        isPrivileged: true,
+        variables: { id, talentRequest },
+      },
+    )
+    .then((res) => res.updateTalentRequestStatus);
 };

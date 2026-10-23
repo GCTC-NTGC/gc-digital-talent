@@ -10,7 +10,6 @@ import type {
 import type {
   Classification,
   LocalizedTalentRequestSource,
-  TalentNominationGroup,
   User,
   WorkStream,
 } from "@gc-digital-talent/graphql/schema-types";
@@ -170,6 +169,25 @@ class TalentRequest extends AppPage {
     return this.page.getByRole("row").filter({ hasText: name });
   }
 
+  async filterMatchingCandidatesByTalentSource(
+    requestId: string,
+    talentSource: string,
+  ) {
+    await Promise.all([
+      this.waitForGraphqlResponse("TalentRequestMatchingUsers"),
+      this.goToDetails(requestId),
+    ]);
+    await this.page.getByRole("button", { name: /filters/i }).click();
+    await this.page
+      .getByRole("dialog")
+      .getByRole("checkbox", { name: talentSource, exact: true })
+      .check();
+    await Promise.all([
+      this.waitForGraphqlResponse("TalentRequestMatchingUsers"),
+      this.page.getByRole("button", { name: /show results/i }).click(),
+    ]);
+  }
+
   async selectMatchingCandidate(name: string) {
     await this.page.getByRole("button", { name: `Select ${name}` }).click();
   }
@@ -263,21 +281,6 @@ class TalentRequest extends AppPage {
         .getByRole("listitem")
         .filter({ hasText: sourceOfTalent.selectedTalentSource })
         .getByRole("img", { name: "Selected", exact: true }),
-    ).toBeVisible();
-  }
-
-  async validateTalentSourceSelected(
-    talentSource: string,
-    isSelected: boolean,
-  ) {
-    await expect(
-      this.page
-        .getByRole("listitem")
-        .filter({ hasText: talentSource })
-        .getByRole("img", {
-          name: isSelected ? "Selected" : "Not selected",
-          exact: true,
-        }),
     ).toBeVisible();
   }
 
@@ -458,7 +461,7 @@ class TalentRequest extends AppPage {
   async validateCandidateNominationSource(
     user: User,
     talentSource: LocalizedTalentRequestSource,
-    nominationGroup: TalentNominationGroup,
+    talentEventName: string,
   ) {
     let eventsLabel: string;
     switch (talentSource.value) {
@@ -487,18 +490,12 @@ class TalentRequest extends AppPage {
         .filter({ hasText: talentSource.label.en ?? "" }),
     ).toBeVisible();
 
-    const { talentNominationEvent } = nominationGroup;
     await expect(
       dialog
         .getByText(eventsLabel, { exact: true })
         .locator("xpath=..")
-        .getByRole("link", { name: talentNominationEvent.name.en ?? "" }),
-    ).toHaveAttribute(
-      "href",
-      new RegExp(
-        `/admin/talent-events/${talentNominationEvent.id}/nominations/${nominationGroup.id}$`,
-      ),
-    );
+        .getByRole("link", { name: talentEventName }),
+    ).toBeVisible();
     await this.closeTrackedCandidateEditDialog();
   }
 

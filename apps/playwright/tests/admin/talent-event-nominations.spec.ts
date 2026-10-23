@@ -9,7 +9,6 @@ import {
 import type {
   Classification,
   Community,
-  CreateUserInput,
   LocalizedTalentNominationEventStatus,
   Skill,
   TalentNominationEvent,
@@ -35,12 +34,11 @@ import TalentManagement, {
 import type { TalentNominationDetails } from "~/fixtures/TalentManagement";
 import type { GraphQLContext } from "~/utils/graphql";
 import graphql from "~/utils/graphql";
-import { createUserWithRoles, deleteUser, me, NO_USER } from "~/utils/user";
+import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import {
   createTalentNominationEvent,
-  getTalentNominationEventByName,
-  getTalentNominationEventStatuses,
-  getTalentNominationGroupStatuses,
+  getTalentNominationEvent,
+  getTalentNominationOptions,
   submitTalentNomination,
   updateTalentNomination,
 } from "~/utils/talentNominations";
@@ -69,11 +67,8 @@ const nominationTestData = {
   additionalComments: "Ready to take on a larger leadership role.",
 };
 
-// Talent events can't be deleted, so UAT runs use these existing events instead of creating new ones
-const uatTalentEvents = {
-  active: "2026_Ninebox talent event",
-  past: "Digital_past_talent_event",
-};
+// Talent events can't be deleted, so UAT runs use an existing active event and this existing past event instead of creating new ones
+const uatPastTalentEventName = "Digital_past_talent_event";
 
 test.describe("Talent event and nominations management", () => {
   test.describe.configure({ mode: "serial" });
@@ -101,11 +96,8 @@ test.describe("Talent event and nominations management", () => {
   const referenceSub = `playwright.reference.sub.${uniqueTestId}.reference`;
   const unVerifiedNominatorSub = `playwright.unverified.sub${uniqueTestId}.nominee`;
   const isUat = !!process.env.TESTING_ENDPOINT_SECRET;
-  const talentEventName = isUat
-    ? uatTalentEvents.active
-    : `Playwright Event ${uniqueTestId} EN`;
   const pastTalentEventName = isUat
-    ? uatTalentEvents.past
+    ? uatPastTalentEventName
     : `Playwright Past Event ${uniqueTestId} EN`;
   const upcomingTalentEventName = `Playwright Upcoming Event ${uniqueTestId} EN`;
 
@@ -125,34 +117,37 @@ test.describe("Talent event and nominations management", () => {
     platformAdminCtx = await graphql.newContext();
     talentCoordinatorCtx = await graphql.newContext(talentCoordinatorSub);
     community = await getMyCommunity(talentCoordinatorCtx, {});
-    eventStatuses = await getTalentNominationEventStatuses(
+    ({ eventStatuses } = await getTalentNominationOptions(
       talentCoordinatorCtx,
       {},
-    );
-    skillOptions = await getSkills(platformAdminCtx, {}).then((skills) => {
+    ));
+    skillOptions = await getSkills(talentCoordinatorCtx, {}).then((skills) => {
       return skills.filter((s) =>
         s.families?.some((family) => family.key === "klc"),
       );
     });
-    const classifications = await getClassifications(platformAdminCtx, {});
+    const classifications = await getClassifications(talentCoordinatorCtx, {});
     const classification = classifications[0];
     recommendedClassification = classifications[1];
-    const department = (await getDepartments(platformAdminCtx, {})).find(
+    const department = (await getDepartments(talentCoordinatorCtx, {})).find(
       (dep) => !dep.isCorePublicAdministration,
     );
 
-    const govEmployees =
+    nominationUsers =
       await test.step("Create verified government users", async () => {
-        const createGovEmployee = (
-          sub: string,
-          user: Partial<CreateUserInput> = {},
-        ) =>
-          createUserWithRoles(platformAdminCtx, {
+        const users: User[] = [];
+        for (const { sub, user } of [
+          { sub: nominatorSub, user: {} },
+          { sub: nomineeSub, user: { lastName: uniqueTestId } },
+          { sub: referenceSub, user: { lastName: "Reference" } },
+        ]) {
+          const workEmail = `${sub}@gc.ca`;
+          const govEmployee = await createUserWithRoles(platformAdminCtx, {
             user: {
               email: `${sub}@example.org`,
               sub,
               isGovEmployee: true,
-              workEmail: `${sub}@gc.ca`,
+              workEmail,
               workEmailVerifiedAt: nowUTCDateTime(),
               workExperiences: {
                 create: [
@@ -171,33 +166,19 @@ test.describe("Talent event and nominations management", () => {
             },
             roles: ["guest", "base_user", "applicant"],
           });
-        const nominator = await createGovEmployee(nominatorSub);
-        nominatorId = nominator?.id;
-        const nominee = await createGovEmployee(nomineeSub, {
-          lastName: uniqueTestId,
-        });
-        nomineeId = nominee?.id;
-        const reference = await createGovEmployee(referenceSub, {
-          lastName: "Reference",
-        });
-        referenceId = reference?.id;
+          users.push({
+            ...govEmployee!,
+            workEmail,
+            currentClassification: classification,
+            department,
+          });
+        }
+        const [nominator, nominee, reference] = users;
+        nominatorId = nominator.id;
+        nomineeId = nominee.id;
+        referenceId = reference.id;
         return { nominator, nominee, reference };
       });
-
-    const withGovEmployeeDetails = (
-      user: User | undefined,
-      sub: string,
-    ): User => ({
-      ...(user ?? NO_USER),
-      workEmail: `${sub}@gc.ca`,
-      currentClassification: classification,
-      department,
-    });
-    nominationUsers = {
-      nominator: withGovEmployeeDetails(govEmployees.nominator, nominatorSub),
-      nominee: withGovEmployeeDetails(govEmployees.nominee, nomineeSub),
-      reference: withGovEmployeeDetails(govEmployees.reference, referenceSub),
-    };
 
     await test.step("Create unverified government user", async () => {
       const unverifiedNominator = await createUserWithRoles(platformAdminCtx, {
@@ -213,23 +194,21 @@ test.describe("Talent event and nominations management", () => {
       unVerifiedNominatorId = unverifiedNominator?.id;
     });
 
-    await test.step("Create Talent nomination event through API", async (step) => {
-      step.skip(isUat, "UAT uses an existing talent event");
-      await createTalentNominationEvent(talentCoordinatorCtx, {
-        name: {
-          en: talentEventName,
-          fr: `Playwright Event ${uniqueTestId} FR`,
-        },
-        includeLeadershipCompetencies: true,
-        includeNineBox: true,
-      });
-    });
-
-    await test.step("Get the active talent event for UAT", async () => {
-      talentEvent = await getTalentNominationEventByName(talentCoordinatorCtx, {
-        name: talentEventName,
-      });
-    });
+    talentEvent = isUat
+      ? await test.step("Get an active talent event", () =>
+          getTalentNominationEvent(talentCoordinatorCtx, {
+            status: TalentNominationEventStatus.Active,
+            communityId: community?.id ?? "",
+          }))
+      : await test.step("Create Talent nomination event through API", () =>
+          createTalentNominationEvent(talentCoordinatorCtx, {
+            name: {
+              en: `Playwright Event ${uniqueTestId} EN`,
+              fr: `Playwright Event ${uniqueTestId} FR`,
+            },
+            includeLeadershipCompetencies: true,
+            includeNineBox: true,
+          }));
   });
 
   test.afterAll(async () => {
@@ -250,7 +229,7 @@ test.describe("Talent event and nominations management", () => {
   test("Create a talent nomination", { tag: "@uat" }, async ({ appPage }) => {
     test.setTimeout(90_000);
     activeEventNomination = await OtherTalentNominationDetails(
-      platformAdminCtx,
+      talentCoordinatorCtx,
       {
         ...nominationTestData,
         ...nominationUsers,
@@ -258,7 +237,15 @@ test.describe("Talent event and nominations management", () => {
         developmentProgram:
           talentEvent?.communityDevelopmentPrograms?.[0]?.developmentProgram
             .name.en ?? undefined,
-        skills: skillOptions.slice(0, 3),
+        performance: talentEvent?.includeNineBox
+          ? nominationTestData.performance
+          : undefined,
+        leadershipPotential: talentEvent?.includeNineBox
+          ? nominationTestData.leadershipPotential
+          : undefined,
+        skills: talentEvent?.includeLeadershipCompetencies
+          ? skillOptions.slice(0, 3)
+          : [],
       },
     );
     await loginBySub(appPage.page, talentCoordinatorSub);
@@ -294,6 +281,11 @@ test.describe("Talent event and nominations management", () => {
     await talentManagement.viewTalentNominationEvent(
       talentEvent?.name?.en ?? "",
     );
+    await expect(
+      appPage.page.getByText(eventStatus(TalentNominationEventStatus.Active), {
+        exact: true,
+      }),
+    ).toBeVisible();
     await talentManagement.viewNominations();
     nominationGroupId = await talentManagement.viewNominee(uniqueTestId);
     const nominatedForDevelopment = !!activeEventNomination.developmentProgram;
@@ -387,9 +379,12 @@ test.describe("Talent event and nominations management", () => {
       let pastTalentNominationId = "";
 
       await test.step("Start a nomination and verify the closed event dialog", async () => {
-        const pastTalentEvent = await getTalentNominationEventByName(
+        const pastTalentEvent = await getTalentNominationEvent(
           talentCoordinatorCtx,
-          { name: pastTalentEventName },
+          {
+            status: TalentNominationEventStatus.Past,
+            name: pastTalentEventName,
+          },
         );
         await loginBySub(appPage.page, talentCoordinatorSub);
         pastTalentNominationId =
@@ -461,7 +456,7 @@ test.describe("Talent event and nominations management", () => {
     { tag: "@uat" },
     async ({ appPage }) => {
       const talentManagement = new TalentManagement(appPage.page);
-      const groupStatuses = await getTalentNominationGroupStatuses(
+      const { groupStatuses } = await getTalentNominationOptions(
         talentCoordinatorCtx,
         {},
       );
@@ -469,7 +464,7 @@ test.describe("Talent event and nominations management", () => {
         groupStatuses.find(({ value }) => value === status)?.label.en ?? "";
       const received = rawFormat(new Date(), DATE_FORMAT_LOCALIZED);
       const pastEventNomination = await OtherTalentNominationDetails(
-        platformAdminCtx,
+        talentCoordinatorCtx,
         {
           ...nominationTestData,
           ...nominationUsers,
