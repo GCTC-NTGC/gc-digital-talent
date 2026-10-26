@@ -1079,10 +1079,6 @@
     "defaultMessage": "Échelle salariale",
     "description": "Title for salary range"
   },
-  "cS1siE": {
-    "defaultMessage": "La date doit être égale ou supérieure au {date}.",
-    "description": "Error message when a date was entered that is less than the minimum required"
-  },
   "clDpR4": {
     "defaultMessage": "Modérément développée",
     "description": "The behavioural skill level for intermediate"
@@ -1098,10 +1094,6 @@
   "dBc/+T": {
     "defaultMessage": "Bibliothèque de compétences",
     "description": "Name of the skills library page"
-  },
-  "dK8pdO": {
-    "defaultMessage": "Trouver un modèle d'emploi",
-    "description": "Name of job template page"
   },
   "dKY52V": {
     "defaultMessage": "Je souhaite participer à un programme d'études.",

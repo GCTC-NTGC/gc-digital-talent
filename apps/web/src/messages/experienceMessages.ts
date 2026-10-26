@@ -95,16 +95,6 @@ const messages = defineMessages({
     id: "U/Lv8i",
     description: "Title for unknown experiences",
   },
-  awardIssuedBy: {
-    defaultMessage: "{title} issued by {issuedBy}",
-    id: "4BpFoX",
-    description: "The award title is issued by some group",
-  },
-  awardIssuedByHtml: {
-    defaultMessage: "<strong>{title}</strong> issued by {issuedBy}",
-    id: "mHT8kp",
-    description: "The award title is issued by some group, HTML",
-  },
   communityAt: {
     defaultMessage: "{title} at {organization}",
     id: "vV0SDz",
