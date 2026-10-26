@@ -190,7 +190,7 @@ class OpenidBearerTokenService implements BearerTokenService
     }
 
     // call the introspection endpoint to check if the OP considers the access token still valid
-    public function verifyJwtWithIntrospection(string $accessToken)
+    private function verifyJwtWithIntrospection(string $accessToken)
     {
         $values = $this->getIntrospectionValues($accessToken);
 

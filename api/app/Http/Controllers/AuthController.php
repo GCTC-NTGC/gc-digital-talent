@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\BearerTokenService;
 use App\Models\Role;
 use App\Models\User;
 use App\Rules\GovernmentEmailRegex;
@@ -16,20 +15,13 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Jose\Component\Core\Util\Base64UrlSafe;
-use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Encoding\JoseEncoder;
+use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\UnencryptedToken;
 use Throwable;
 
 class AuthController extends Controller
 {
-    protected $fastSigner;
-
-    public function __construct(BearerTokenService $service)
-    {
-        // inject signer method from service file
-        $this->fastSigner = $service->fastSigner();
-    }
-
     public function login(Request $request)
     {
         $state = Str::random(40);
@@ -121,10 +113,8 @@ class AuthController extends Controller
             throw new InvalidArgumentException('id token is a '.gettype($encodedIdToken));
         }
 
-        $config = $this->fastSigner;
-        assert($config instanceof Configuration);
-
-        $idToken = $config->parser()->parse($encodedIdToken);
+        // read the claims without verifying the signature - the token came straight from the provider's token endpoint
+        $idToken = (new Parser(new JoseEncoder()))->parse($encodedIdToken);
         assert($idToken instanceof UnencryptedToken);
 
         // grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
