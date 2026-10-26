@@ -1577,7 +1577,7 @@ class UserTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query getUsersPaginated($orderBy: [OrderByClause!]) {
+            query getUsersPaginated($orderBy: [QueryUsersPaginatedOrderByOrderByClause!]) {
                 usersPaginated(orderBy: $orderBy) {
                     data {
                         id
@@ -1588,7 +1588,7 @@ class UserTest extends TestCase
             [
                 'orderBy' => [
                     [
-                        'column' => 'first_name',
+                        'column' => 'FIRST_NAME',
                         'order' => 'ASC',
                     ],
                 ],

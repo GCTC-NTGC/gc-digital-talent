@@ -1,6 +1,6 @@
 import { useIntl } from "react-intl";
 import WrenchScrewdriverIcon from "@heroicons/react/24/outline/WrenchScrewdriverIcon";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import {
@@ -35,6 +35,7 @@ const ApplicationsProcessesTaskCard_Fragment = graphql(/* GraphQL */ `
       candidateStatus {
         value
       }
+      isDashboardViewable
     }
     ...ReviewRecruitmentProcessPreviewList
   }
@@ -57,11 +58,18 @@ const ApplicationsProcessesTaskCard = ({
   ] = useState<string>("");
   const [jobApplicationsAccordionValue, setJobApplicationsAccordionValue] =
     useState<string>("");
+  const jobApplicationsTriggerRef = useRef<HTMLButtonElement>(null);
 
   const applicationsProcessesTaskCardFragment = getFragment(
     ApplicationsProcessesTaskCard_Fragment,
     applicationsProcessesTaskCardQuery,
   );
+  const recruitmentProcesses = unpackMaybes(
+    applicationsProcessesTaskCardFragment?.poolCandidates,
+  );
+  const recruitmentProcessesFilteredCount = recruitmentProcesses.filter(
+    ({ isDashboardViewable }) => isDashboardViewable,
+  ).length;
 
   const jobApplicationsMetaData: AccordionMetaData = [
     {
@@ -78,19 +86,19 @@ const ApplicationsProcessesTaskCard = ({
       color: "primary",
       children: (
         <>
-          {intl.formatMessage({
-            defaultMessage: "All applications",
-            id: "ImKTX7",
-            description: "Text for all applications page",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage: "All applications ({recruitmentProcessesCount})",
+              id: "HWqXRU",
+              description: "Text for all applications page",
+            },
+            { recruitmentProcessesCount: recruitmentProcesses.length },
+          )}
         </>
       ),
     },
   ];
 
-  const recruitmentProcesses = unpackMaybes(
-    applicationsProcessesTaskCardFragment?.poolCandidates,
-  );
   const recruitmentProcessesFiltered = recruitmentProcesses.filter(
     ({ candidateStatus }) =>
       candidateStatus?.value === CandidateStatus.Qualified,
@@ -153,6 +161,7 @@ const ApplicationsProcessesTaskCard = ({
             >
               <Accordion.Item value={ACCORDION_ID.JOB_APPLICATIONS}>
                 <Accordion.Trigger
+                  ref={jobApplicationsTriggerRef}
                   as="h3"
                   subtitle={intl.formatMessage({
                     defaultMessage:
@@ -168,7 +177,7 @@ const ApplicationsProcessesTaskCard = ({
                     description: "Job applications expandable",
                   })}
                   <span className="ml-1">
-                    {wrapParens(recruitmentProcesses?.length ?? 0)}
+                    {wrapParens(recruitmentProcessesFilteredCount)}
                   </span>
                 </Accordion.Trigger>
                 <Accordion.MetaData metadata={jobApplicationsMetaData} />
@@ -176,6 +185,8 @@ const ApplicationsProcessesTaskCard = ({
                   <div className="mt-6 border-t border-t-gray-100 pt-6">
                     <ReviewApplicationPreviewList
                       applicationsQuery={unpackMaybes(recruitmentProcesses)}
+                      filterForDashboardViewable={true}
+                      fallbackFocusRef={jobApplicationsTriggerRef}
                     />
                   </div>
                 </Accordion.Content>

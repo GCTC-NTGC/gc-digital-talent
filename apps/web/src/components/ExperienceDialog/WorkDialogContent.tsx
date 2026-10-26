@@ -166,7 +166,7 @@ const WorkDialogContent = ({
               {govType === GovEmployeeType.Indeterminate && (
                 <ContentSection
                   headingRank={headingRank}
-                  title={labels.positionType}
+                  title={labels.govPositionType}
                 >
                   {govPositionType?.label?.localized ?? notAvailable}
                 </ContentSection>

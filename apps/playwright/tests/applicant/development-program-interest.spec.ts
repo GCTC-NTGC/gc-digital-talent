@@ -19,7 +19,7 @@ import {
   assignCommunityAdminRole,
   assignCommunityTalentCoordinatorRole,
 } from "~/utils/communities";
-import { createTalentNominationEvent } from "~/utils/talentNominationEvent";
+import { createTalentNominationEvent } from "~/utils/talentNominations";
 import { createWorkStream } from "~/utils/workStreams";
 import { createUserWithRoles, deleteUser, me } from "~/utils/user";
 import { createEducationExperience } from "~/utils/experiences";

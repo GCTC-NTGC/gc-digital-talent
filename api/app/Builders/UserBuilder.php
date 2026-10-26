@@ -495,20 +495,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function wherePublicProfileSearch(?string $search): self
-    {
-        if ($search) {
-            $this->where(function ($query) use ($search) {
-                $query->whereName($search);
-                $query->orWhere(function ($query) use ($search) {
-                    $query->whereEmail($search);
-                });
-            });
-        }
-
-        return $this;
-    }
-
     public function whereName(?string $name): self
     {
         if (! $name) {
@@ -784,20 +770,6 @@ class UserBuilder extends Builder
 
         // fall through - return nothing
         return $this->where('users.id', null);
-    }
-
-    public function whereAuthorizedToViewBasicInfo(): self
-    {
-        /** @var User | null */
-        $user = Auth::user();
-
-        // special case: can see any basic info - return all users with no filters added
-        if ($user?->isAbleTo('view-any-userBasicInfo')) {
-            return $this;
-        }
-
-        // otherwise: use the regular authorized to view scope
-        return $this->whereAuthorizedToView();
     }
 
     // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
