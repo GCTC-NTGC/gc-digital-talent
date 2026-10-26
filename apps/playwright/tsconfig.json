@@ -13,7 +13,6 @@
     }
   },
   "include": [
-    "dummy-auth-setup.ts",
     "e2e-coverage-teardown.ts",
     "eslint.config.mjs",
     "playwright.config.ts",

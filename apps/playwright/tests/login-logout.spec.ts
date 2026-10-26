@@ -107,11 +107,6 @@ test.describe("Login and logout", () => {
   });
 
   test("refresh the token", async ({ page }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
-    test.skip(
-      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
-      "Dummy auth tokens don't expire or refresh",
-    );
     await loginBySub(page, "applicant@test.com", false);
     const fixture = new AuthTokenFixture(page);
 
@@ -145,11 +140,6 @@ test.describe("Login and logout", () => {
 
   // When you have two tabs open, a refresh in one will allow the second tab to make an API call with the new tokens and no refresh.
   test("share the refresh", async ({ page, context }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
-    test.skip(
-      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
-      "Dummy auth tokens don't expire or refresh",
-    );
     await loginBySub(page, "applicant@test.com", false);
     await page.goto("/en/applicant");
 
@@ -181,11 +171,6 @@ test.describe("Login and logout", () => {
 
   // will log in, do a token refresh, and do a second token refresh from that
   test("chain two refreshes", async ({ page }) => {
-    // eslint-disable-next-line playwright/no-skipped-test
-    test.skip(
-      process.env.PLAYWRIGHT_DUMMY_AUTH === "true",
-      "Dummy auth tokens don't expire or refresh",
-    );
     // log in
     await loginBySub(page, "applicant-employee@test.com", false);
 

@@ -38,7 +38,6 @@ export default defineConfig({
         ["html", { open: "never", outputFolder: "playwright-report" }],
       ]
     : [["line"], ["html", { open: "on-failure" }]],
-  globalSetup: "./dummy-auth-setup",
   globalTeardown:
     process.env.E2E_COVERAGE === "true" ? "./e2e-coverage-teardown" : undefined,
   timeout: Number(process.env.TEST_TIMEOUT ?? 60 * 1000),
