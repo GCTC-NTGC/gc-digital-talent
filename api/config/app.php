@@ -2,12 +2,12 @@
 
 use App\Facades\Notify;
 use App\Providers\AppServiceProvider;
-use App\Providers\BearerTokenServiceProvider;
 use App\Providers\BladeServiceProvider;
 use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\FakerServiceProvider;
 use App\Providers\GraphQLServiceProvider;
+use App\Providers\LoginProviderServiceProvider;
 use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
 use App\Providers\RouteServiceProvider;
@@ -303,7 +303,7 @@ return [
         TinkerServiceProvider::class,
 
         GraphQLServiceProvider::class,
-        BearerTokenServiceProvider::class,
+        LoginProviderServiceProvider::class,
         NotifyServiceProvider::class,
         PostgresEngineServiceProvider::class,
         ScoutServiceProvider::class,

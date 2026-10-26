@@ -3,18 +3,22 @@
 namespace App\Providers;
 
 use App\Contracts\BearerTokenService;
+use App\Contracts\LoginProvider;
 use App\Services\OpenidBearerTokenService;
+use App\Services\OpenidLoginProvider;
 use App\Services\TestBearerTokenService;
 use Illuminate\Support\ServiceProvider;
 use Psr\Clock\ClockInterface;
 
-class BearerTokenServiceProvider extends ServiceProvider
+class LoginProviderServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
+        $this->app->bind(LoginProvider::class, OpenidLoginProvider::class);
+
         $this->app->singleton(BearerTokenService::class, function () {
             $clock = $this->app->make(ClockInterface::class);
 
