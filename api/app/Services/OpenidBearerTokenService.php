@@ -32,7 +32,7 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 use Throwable;
 
-class CanadaLoginBearerTokenService implements BearerTokenService
+class OpenidBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
