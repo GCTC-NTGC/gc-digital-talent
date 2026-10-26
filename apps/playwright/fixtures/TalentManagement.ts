@@ -820,29 +820,34 @@ class TalentManagement extends AppPage {
 
   async validateNominationHistory(entries: NominationHistoryEntry[]) {
     await this.locators[FIELD.EXPAND_ALL_NOMINATIONS].click();
-    for (const option of nominationOptions) {
-      await expect(
-        this.page.getByText(option.label, { exact: true }),
-      ).toHaveCount(
-        entries.filter(({ details }) => nominatedFor(details).includes(option))
-          .length,
-      );
-    }
     for (const { details, ...entry } of entries) {
       const nominatorName = fullName(details.nominator);
       const eventName = new RegExp(
         `^${escapeRegExp(entry.eventName)}\\s*\\(${entries.filter((e) => e.eventName === entry.eventName).length}\\)`,
       );
+      const eventHeading = this.page.getByRole("heading", {
+        level: 3,
+        name: eventName,
+      });
+      const eventRegion = this.page.getByRole("region", { name: eventName });
+      // Decision chips render in the accordion metadata, beside the heading
+      const eventItem = this.page
+        .locator("div")
+        .filter({ has: eventHeading })
+        .filter({ has: eventRegion })
+        .last();
       const options = nominatedFor(details);
-      const row = this.page
-        .getByRole("region", { name: eventName })
-        .getByRole("listitem")
-        .filter({
-          has: this.page.getByRole("heading", {
-            name: `Nominated for ${options.map(({ label }) => label.toLowerCase()).join(", ")} by ${nominatorName}`,
-            exact: true,
-          }),
-        });
+      for (const option of nominationOptions) {
+        await expect(
+          eventItem.getByText(option.label, { exact: true }),
+        ).toHaveCount(options.includes(option) ? 1 : 0);
+      }
+      const row = eventRegion.getByRole("listitem").filter({
+        has: this.page.getByRole("heading", {
+          name: `Nominated for ${options.map(({ label }) => label.toLowerCase()).join(", ")} by ${nominatorName}`,
+          exact: true,
+        }),
+      });
       await expect(row.getByText(entry.status, { exact: true })).toBeVisible();
       await expect(row).toContainText(entry.received);
       await row
