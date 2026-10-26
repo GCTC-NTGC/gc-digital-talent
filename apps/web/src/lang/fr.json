@@ -1590,10 +1590,6 @@
     "defaultMessage": "Ajouter une nouvelle compétence",
     "description": "Button text to open the skill dialog and add a skill to the users library"
   },
-  "4L9rHO": {
-    "defaultMessage": "Actif",
-    "description": "Status message if the application is not suspended"
-  },
   "4LN+P9": {
     "defaultMessage": "Niveau de classification visé",
     "description": "Label for a employee profile target classification level field"
@@ -9319,6 +9315,10 @@
     "defaultMessage": "Erreur : Vous n’avez pas réussi à établir un lien avec l’expérience",
     "description": "Message displayed to user after experience fails to be linked to a skill."
   },
+  "a49DTz": {
+    "defaultMessage": "Intérêt pour les offres d'emploi",
+    "description": "Interest in job offers label"
+  },
   "a5YBuH": {
     "defaultMessage": "Je ne connais pas l'année à laquelle je suis admissible à la retraite.",
     "description": "The eligible retirement year described as unknown."
@@ -11544,6 +11544,10 @@
     "defaultMessage": "Nous contacter - ConnexionCanada",
     "description": "CanadaLogin contact us link"
   },
+  "iggSb/": {
+    "defaultMessage": "Non intéressé(e)",
+    "description": "Status message if the application is suspended"
+  },
   "iiEGjW": {
     "defaultMessage": "Nous avons bien reçu votre message.",
     "description": "Support form success title"
@@ -12467,10 +12471,6 @@
   "md/sEi": {
     "defaultMessage": "Choisissez parmi une variété de compétences et déterminez le niveau requis des candidats",
     "description": "Subtitle for the find a skill dialog within a pool"
-  },
-  "mevv+t": {
-    "defaultMessage": "Disponibilité",
-    "description": "Availability label"
   },
   "mf8++l": {
     "defaultMessage": "Il semble que vous n’ayez pas encore sélectionné de formation requise.",
@@ -14224,10 +14224,6 @@
     "defaultMessage": "Demander des candidats faisant partie d’un bassin",
     "description": "Page title for the request candidates form page"
   },
-  "u5UAJn": {
-    "defaultMessage": "Inactif",
-    "description": "Status message if the application is suspended"
-  },
   "u5z9bK": {
     "defaultMessage": "Vos 10 principales compétences techniques",
     "description": "Page title for the top technical skills page"
@@ -15153,6 +15149,10 @@
   "y4JZuf": {
     "defaultMessage": "Question {questionNumber}",
     "description": "Label for screening question input on the assessment details dialog"
+  },
+  "y4bRNU": {
+    "defaultMessage": "Ouvert(e) aux offres d'emploi",
+    "description": "Status message if the application is not suspended"
   },
   "y5Pf0S": {
     "defaultMessage": "Soumission de l'évaluation réussie",
