@@ -313,35 +313,6 @@ const SearchForm_Query = graphql(/* GraphQL */ `
     }
     skills {
       ...SkillBrowserSkill
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-      }
     }
   }
 `);
