@@ -56,7 +56,7 @@ const PoolActivityPage_Query = graphql(/* GraphQL */ `
         first: $first
         page: $page
         where: $where
-        orderBy: [{ column: "created_at", order: DESC }]
+        orderBy: [{ column: CREATED_AT, order: DESC }]
       ) {
         data {
           id
