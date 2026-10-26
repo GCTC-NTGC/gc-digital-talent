@@ -216,6 +216,15 @@ class AdvancedOrderByDirective extends BaseDirective implements ArgBuilderDirect
             throw new UserError("Only one JSON key is supported: {$column}");
         }
 
+        // reference resolveRelationExpression()
+        // block json request on non-json columns
+        $columnType = $builder->getConnection()->getSchemaBuilder()
+            ->getColumnType($table ?? $builder->getModel()->getTable(), $baseColumn);
+
+        if (! in_array($columnType, ['json', 'jsonb'])) {
+            throw new UserError("Column does not support a JSON key: {$baseColumn}");
+        }
+
         $query->addBinding($jsonKey, 'order');
 
         return "{$wrappedColumn}->>?::text";

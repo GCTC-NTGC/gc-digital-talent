@@ -548,7 +548,7 @@ type Pool implements HasRoleAssignments {
   ): [JobAdvertisementArchive!] @hasMany(relation: "jobAdvertisementArchives")
   activities(
     where: ProcessActivityFilterInput @spread
-    orderBy: _ @orderBy
+    orderBy: _ @orderBy(columnsEnum: "ActivitiesOrderByColumn")
   ): [Activity!]
     @paginate(
       type: PAGINATOR
@@ -1476,10 +1476,6 @@ input UserFilterInput {
   trashed: Trashed @trashed
 }
 
-input UserPublicProfileFilterInput {
-  publicProfileSearch: String @scope(name: "wherePublicProfileSearch")
-}
-
 input PoolFilterInput {
   generalSearch: String @scope
   name: String @scope
@@ -1494,7 +1490,7 @@ input PoolFilterInput {
 }
 
 input PoolWorkStreamNameOrderByInput {
-  locale: String!
+  locale: Language!
   order: SortOrder!
 }
 
@@ -1503,8 +1499,25 @@ input PoolBookmarksOrderByInput {
   order: SortOrder!
 }
 
+enum PoolsOrderByColumn {
+  ID @enum(value: "id")
+  NAME @enum(value: "name")
+  PROCESS_NUMBER @enum(value: "process_number")
+  CREATED_AT @enum(value: "created_at")
+  UPDATED_AT @enum(value: "updated_at")
+  CLOSING_DATE @enum(value: "closing_date")
+  PUBLISHED_AT @enum(value: "published_at")
+}
+
+enum CommunityInterestsOrderByColumn {
+  CREATED_AT @enum(value: "created_at")
+  JOB_INTEREST @enum(value: "job_interest")
+  TRAINING_INTEREST @enum(value: "training_interest")
+  SKILL_COUNT @enum(value: "skill_count")
+}
+
 input OrderByColumnInput {
-  column: String!
+  column: PoolsOrderByColumn!
   order: SortOrder!
   nulls: NullsOption
 }
@@ -1665,6 +1678,30 @@ input TrainingOpportunitiesFilterInput {
   opportunityLanguage: CourseLanguage @scope
 }
 
+enum TrainingOpportunitiesOrderByColumn {
+  TITLE_EN @enum(value: "title->en")
+  TITLE_FR @enum(value: "title->fr")
+  COURSE_LANGUAGE @enum(value: "course_language")
+  REGISTRATION_DEADLINE @enum(value: "registration_deadline")
+  TRAINING_START @enum(value: "training_start")
+  TRAINING_END @enum(value: "training_end")
+}
+
+enum UsersOrderByColumn {
+  ID @enum(value: "id")
+  FIRST_NAME @enum(value: "first_name")
+  EMAIL @enum(value: "email")
+  WORK_EMAIL @enum(value: "work_email")
+  TELEPHONE @enum(value: "telephone")
+  PREFERRED_LANG @enum(value: "preferred_lang")
+  CREATED_AT @enum(value: "created_at")
+  UPDATED_AT @enum(value: "updated_at")
+}
+
+enum ActivitiesOrderByColumn {
+  CREATED_AT @enum(value: "created_at")
+}
+
 input SitewideAnnouncementInput @validator {
   title: LocalizedStringInput!
   message: LocalizedStringInput!
@@ -1735,7 +1772,7 @@ type Query {
   usersPaginated(
     where: UserFilterInput
       @scope(name: "whereUserFilterInputToSpecialLocationMatching")
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _ @orderBy(columnsEnum: "UsersOrderByColumn")
   ): [User]!
     @orderBy(column: "created_at", direction: DESC)
     @paginate(
@@ -1745,19 +1782,6 @@ type Query {
     )
     @guard
     @canResolved(ability: "view")
-  userPublicProfilesPaginated(
-    where: UserPublicProfileFilterInput
-    excludeIds: [ID!] @notIn(key: "id")
-    orderBy: [OrderByClause!] @orderBy
-  ): [UserPublicProfile]!
-    @orderBy(column: "created_at", direction: DESC)
-    @paginate(
-      defaultCount: 10
-      maxCount: 1000
-      scopes: ["whereAuthorizedToViewBasicInfo"]
-    )
-    @guard
-    @canModel(ability: "viewBasicInfo", model: "User")
   trashedExperienceSkill(
     where: TrashedExperienceSkillInput! @spread
   ): ExperienceSkillRecord @guard
@@ -1792,10 +1816,8 @@ type Query {
     orderByColumn: OrderByColumnInput @scope
     orderBy: _
       @orderBy(
-        relations: [
-          { relation: "user", columns: ["first_name", "email"] }
-          { relation: "classification", columns: ["group", "level"] }
-        ]
+        columnsEnum: "PoolsOrderByColumn"
+        relations: [{ relation: "classification", columns: ["group", "level"] }]
       )
   ): [Pool]!
     @paginate(
@@ -1915,7 +1937,7 @@ type Query {
   trainingOpportunity(id: UUID! @eq): TrainingOpportunity @find
   trainingOpportunitiesPaginated(
     where: TrainingOpportunitiesFilterInput
-    orderBy: [OrderByClause!] @orderBy
+    orderBy: _ @orderBy(columnsEnum: "TrainingOpportunitiesOrderByColumn")
   ): [TrainingOpportunity]
     @paginate(
       defaultCount: 10
@@ -1938,6 +1960,7 @@ type Query {
     orderByClassification: SortOrder @scope
     orderBy: _
       @orderBy(
+        columnsEnum: "CommunityInterestsOrderByColumn"
         relations: [
           {
             relation: "user"

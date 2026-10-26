@@ -12,12 +12,14 @@ import type {
   PoolBookmarksOrderByInput,
   PoolFilterInput,
   PoolWorkStreamNameOrderByInput,
-  QueryPoolsPaginatedOrderByClassificationColumn,
   QueryPoolsPaginatedOrderByRelationOrderByClause,
 } from "@gc-digital-talent/graphql";
 import {
+  Language,
   NullsOption,
   OrderByRelationWithColumnAggregateFunction,
+  PoolsOrderByColumn,
+  QueryPoolsPaginatedOrderByClassificationColumn,
   SortOrder,
 } from "@gc-digital-talent/graphql";
 import { unpackMaybes } from "@gc-digital-talent/helpers";
@@ -86,23 +88,21 @@ export function transformPoolInput({
 export function getOrderByClause(
   sortingRules?: SortingState,
 ): QueryPoolsPaginatedOrderByRelationOrderByClause[] | undefined {
-  const columnMap = new Map<string, string>([
-    ["id", "id"],
-    ["name", "name"],
-    ["processNumber", "process_number"],
+  const columnMap = new Map<string, PoolsOrderByColumn>([
+    ["id", PoolsOrderByColumn.Id],
+    ["name", PoolsOrderByColumn.Name],
+    ["processNumber", PoolsOrderByColumn.ProcessNumber],
     // ["publishedAt", "published_at"], // moved to getOrderByColumnSort to handle nulls
-    ["createdDate", "created_at"],
-    ["updatedDate", "updated_at"],
-    ["classification", "classification"],
-    ["team", "team"],
-    ["poolBookmarks", "poolBookmarks"],
+    ["createdDate", PoolsOrderByColumn.CreatedAt],
+    ["updatedDate", PoolsOrderByColumn.UpdatedAt],
     // ["status", "status"],
   ]);
+  // sorted by a relation or another arg, not a column
+  const otherSortIds = ["classification", "team", "poolBookmarks"];
 
-  const sortingRule = sortingRules?.find((rule) => {
-    const columnName = columnMap.get(rule.id);
-    return !!columnName;
-  });
+  const sortingRule = sortingRules?.find(
+    (rule) => columnMap.has(rule.id) || otherSortIds.includes(rule.id),
+  );
 
   // PoolBookmarks is handled by another arg
   if (sortingRule?.id === "poolBookmarks") return undefined;
@@ -116,7 +116,7 @@ export function getOrderByClause(
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         classification: {
           aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: "GROUP" as QueryPoolsPaginatedOrderByClassificationColumn,
+          column: QueryPoolsPaginatedOrderByClassificationColumn.Group,
         },
       },
       {
@@ -124,19 +124,17 @@ export function getOrderByClause(
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
         classification: {
           aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-          column: "LEVEL" as QueryPoolsPaginatedOrderByClassificationColumn,
+          column: QueryPoolsPaginatedOrderByClassificationColumn.Level,
         },
       },
     ];
   }
 
   if (sortingRule) {
-    const columnName = columnMap.get(sortingRule.id);
     return [
       {
-        column: columnName,
+        column: columnMap.get(sortingRule.id),
         order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
-        user: undefined,
       },
     ];
   }
@@ -154,7 +152,7 @@ export function getWorkStreamNameSort(
   if (!sortingRule) return undefined;
 
   return {
-    locale: locale ?? "en",
+    locale: locale === "fr" ? Language.Fr : Language.En,
     order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
   };
 }
@@ -172,7 +170,7 @@ export function getOrderByColumnSort(
 
   if (sortingRule?.id === "publishedAt") {
     return {
-      column: "published_at",
+      column: PoolsOrderByColumn.PublishedAt,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       nulls: NullsOption.OrderLast,
     };
