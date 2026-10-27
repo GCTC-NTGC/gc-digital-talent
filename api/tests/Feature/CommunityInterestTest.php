@@ -104,7 +104,6 @@ class CommunityInterestTest extends TestCase
         $this->seed(RolePermissionSeeder::class);
 
         $this->applicant = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->withGovEmployeeProfile()
             ->withCommunityInterests(Community::factory()->count(3)->withWorkStreams()->create()->pluck('id')->toArray())

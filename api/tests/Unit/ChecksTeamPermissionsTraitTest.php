@@ -24,8 +24,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
 
     protected User $adminUser;
 
-    protected User $guestUser;
-
     protected User $processOperatorUser;
 
     protected User $communityRecruiterUser;
@@ -51,8 +49,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
             'community_id' => $this->community->id,
             'department_id' => $this->department->id,
         ]);
-
-        $this->guestUser = User::factory()->asGuest()->create();
 
         $this->processOperatorUser = User::factory()
             ->asApplicant()
@@ -82,7 +78,6 @@ class ChecksTeamPermissionsTraitTest extends TestCase
     public static function permissionProvider(): array
     {
         return [
-            'guest has no permission' => ['guestUser', false],
             'process operator has permission' => ['processOperatorUser', true],
             'community recruiter has permission' => ['communityRecruiterUser', true],
         ];

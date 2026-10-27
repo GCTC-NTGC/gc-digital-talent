@@ -135,7 +135,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
           ],
         },
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
 
     const applicantCtx = await graphql.newContext(candidateSub);

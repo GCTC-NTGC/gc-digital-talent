@@ -9,7 +9,6 @@ export type LogoutReason =
 
 // These constants come from api/config/rolepermission.php
 export const ROLE_NAME = {
-  Guest: "guest",
   BaseUser: "base_user",
   Applicant: "applicant",
   ProcessOperator: "process_operator",
