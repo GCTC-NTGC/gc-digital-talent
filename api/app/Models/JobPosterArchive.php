@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
- * Class JobAdvertisementArchive
+ * Class JobPosterArchive
  *
  * @property string $id
  * @property array $html
@@ -17,7 +17,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon $created_at
  * @property ?Carbon $updated_at
  */
-class JobAdvertisementArchive extends Model
+class JobPosterArchive extends Model
 {
     protected $keyType = 'string';
 

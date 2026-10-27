@@ -1116,9 +1116,9 @@ type Activity {
   updatedAt: DateTime
 }
 
-type JobAdvertisementArchive {
+type JobPosterArchive {
   id: UUID!
-  type: JobAdvertisementArchiveType!
+  type: JobPosterArchiveType!
   html: LocalizedString!
 }
 
@@ -1172,7 +1172,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
-  archives(type: JobAdvertisementArchiveType): [JobAdvertisementArchive!]
+  archives(type: JobPosterArchiveType): [JobPosterArchive!]
   applicantsCount: Int
   isHidden: Boolean
   activities(
@@ -4421,7 +4421,7 @@ enum IndigenousCommunity {
   LEGACY_IS_INDIGENOUS
 }
 
-enum JobAdvertisementArchiveType {
+enum JobPosterArchiveType {
   PUBLISHED
   CLOSED
 }

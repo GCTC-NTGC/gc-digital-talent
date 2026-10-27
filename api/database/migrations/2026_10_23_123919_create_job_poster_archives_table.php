@@ -12,7 +12,7 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_advertisement_archives', function (Blueprint $table) {
+        Schema::create('job_poster_archives', function (Blueprint $table) {
             $table->uuid('id')->primary('id')->default(new Expression('gen_random_uuid()'));
             $table->string('type');
             $table->jsonb('html');
@@ -27,6 +27,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('job_advertisement_archives');
+        Schema::dropIfExists('job_poster_archives');
     }
 };

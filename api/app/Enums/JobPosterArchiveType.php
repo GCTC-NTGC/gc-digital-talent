@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum JobAdvertisementArchiveType
+enum JobPosterArchiveType
 {
     case PUBLISHED;
     case CLOSED;

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Enums\JobAdvertisementArchiveType;
+use App\Enums\JobPosterArchiveType;
 use App\Models\Pool;
 use App\Models\User;
 use Database\Seeders\RolePermissionSeeder;
@@ -12,7 +12,7 @@ use Nuwave\Lighthouse\Testing\RefreshesSchemaCache;
 use Tests\TestCase;
 use Tests\UsesProtectedGraphqlEndpoint;
 
-class JobAdvertisementArchiveTest extends TestCase
+class JobPosterArchiveTest extends TestCase
 {
     use MakesGraphQLRequests;
     use RefreshDatabase;
@@ -24,7 +24,7 @@ class JobAdvertisementArchiveTest extends TestCase
     protected Pool $pool;
 
     protected string $query = <<<'GRAPHQL'
-        query JobAdvertisementArchiveTest($id: UUID!, $type: JobAdvertisementArchiveType) {
+        query JobPosterArchiveTest($id: UUID!, $type: JobPosterArchiveType) {
             pool(id: $id) {
                 archives(type: $type) {
                     type
@@ -51,8 +51,8 @@ class JobAdvertisementArchiveTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->pool->id,
             ])
-            ->assertJsonFragment(['type' => JobAdvertisementArchiveType::PUBLISHED->name])
-            ->assertJsonFragment(['type' => JobAdvertisementArchiveType::CLOSED->name])
+            ->assertJsonFragment(['type' => JobPosterArchiveType::PUBLISHED->name])
+            ->assertJsonFragment(['type' => JobPosterArchiveType::CLOSED->name])
             ->assertJsonCount(2, 'data.pool.archives');
     }
 
@@ -61,19 +61,19 @@ class JobAdvertisementArchiveTest extends TestCase
         $this->actingAs($this->user, 'api')
             ->graphQL($this->query, [
                 'id' => $this->pool->id,
-                'type' => JobAdvertisementArchiveType::PUBLISHED->name,
+                'type' => JobPosterArchiveType::PUBLISHED->name,
             ])
-            ->assertJsonFragment(['type' => JobAdvertisementArchiveType::PUBLISHED->name])
-            ->assertJsonMissing(['type' => JobAdvertisementArchiveType::CLOSED->name])
+            ->assertJsonFragment(['type' => JobPosterArchiveType::PUBLISHED->name])
+            ->assertJsonMissing(['type' => JobPosterArchiveType::CLOSED->name])
             ->assertJsonCount(1, 'data.pool.archives');
 
         $this->actingAs($this->user, 'api')
             ->graphQL($this->query, [
                 'id' => $this->pool->id,
-                'type' => JobAdvertisementArchiveType::CLOSED->name,
+                'type' => JobPosterArchiveType::CLOSED->name,
             ])
-            ->assertJsonMissing(['type' => JobAdvertisementArchiveType::PUBLISHED->name])
-            ->assertJsonFragment(['type' => JobAdvertisementArchiveType::CLOSED->name])
+            ->assertJsonMissing(['type' => JobPosterArchiveType::PUBLISHED->name])
+            ->assertJsonFragment(['type' => JobPosterArchiveType::CLOSED->name])
             ->assertJsonCount(1, 'data.pool.archives');
     }
 
@@ -88,7 +88,7 @@ class JobAdvertisementArchiveTest extends TestCase
             ->graphQL($this->query, [
                 'id' => $this->pool->id,
             ])->assertJsonFragment([
-                'type' => JobAdvertisementArchiveType::CLOSED->name,
+                'type' => JobPosterArchiveType::CLOSED->name,
                 'html' => $expected,
             ]);
     }
