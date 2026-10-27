@@ -665,14 +665,12 @@ class Pool extends Model
 
     public function storeArchive(JobPosterArchiveType $type)
     {
-        if (! $this->hasArchive($type)) {
-            $this->jobPosterArchives()->create([
-                'type' => $type->name,
-                'html' => [
-                    'en' => $this->toJobPosterHtml('en'),
-                    'fr' => $this->toJobPosterHtml('fr'),
-                ],
-            ]);
-        }
+        $this->jobPosterArchives()->create([
+            'type' => $type->name,
+            'html' => [
+                'en' => $this->toJobPosterHtml('en'),
+                'fr' => $this->toJobPosterHtml('fr'),
+            ],
+        ]);
     }
 }
