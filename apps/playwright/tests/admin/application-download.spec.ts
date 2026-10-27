@@ -53,7 +53,7 @@ test.describe("Application download", { tag: "@uat" }, () => {
     });
 
     await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         email: `${sub}@example.org`,
         emailVerifiedAt: PAST_DATE,

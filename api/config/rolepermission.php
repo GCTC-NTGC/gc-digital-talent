@@ -62,7 +62,6 @@ return [
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
         'user' => 'user',
-        'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
         'userWorkEmail' => 'userWorkEmail',
         'employeeProfile' => 'employeeProfile',
@@ -234,10 +233,6 @@ return [
         'view-own-user' => [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur',
-        ],
-        'view-any-userBasicInfo' => [
-            'en' => 'View basic info of any User',
-            'fr' => 'Afficher les informations de base de tout utilisateur',
         ],
         'view-any-userWorkEmail' => [
             'en' => 'View the work email of any User',
@@ -790,18 +785,6 @@ return [
     |
     */
     'roles' => [
-        'guest' => [
-            'display_name' => [
-                'en' => 'Guest',
-                'fr' => 'Invité',
-            ],
-            'description' => [
-                'en' => 'These permissions are available to anyone, even not logged in.',
-                'fr' => 'Ces permissions sont accessibles à quiconque, même sans avoir ouvert de session.',
-            ],
-            'is_team_based' => false,
-        ],
-
         'base_user' => [
             'display_name' => [
                 'en' => 'Base User',
@@ -926,51 +909,6 @@ return [
     |
     */
     'seeders' => [
-        'guest' => [
-            'classification' => [
-                'any' => ['view'],
-            ],
-            'department' => [
-                'any' => ['view'],
-            ],
-            'developmentProgram' => [
-                'any' => ['view'],
-            ],
-            'genericJobTitle' => [
-                'any' => ['view'],
-            ],
-            'skill' => [
-                'any' => ['view'],
-            ],
-            'skillFamily' => [
-                'any' => ['view'],
-            ],
-            'community' => [
-                'any' => ['view'],
-            ],
-            'role' => [
-                'any' => ['view'],
-            ],
-            'publishedPool' => [
-                'any' => ['view'],
-            ],
-            'applicantCount' => [
-                'any' => ['view'],
-            ],
-            'jobPosterTemplate' => [
-                'any' => ['view'],
-            ],
-            'talentRequest' => [
-                'any' => ['create'],
-            ],
-            'talentNominationEvent' => [
-                'any' => ['view'],
-            ],
-            'announcement' => [
-                'any' => ['view'],
-            ],
-        ],
-
         'base_user' => [
             'classification' => [
                 'any' => ['view'],
@@ -1041,9 +979,6 @@ return [
             'communityInterest' => [
                 'own' => ['delete'],
             ],
-            'talentNominationEvent' => [
-                'any' => ['view'],
-            ],
             'employeeProfile' => [
                 'own' => ['view', 'update'],
             ],
@@ -1092,9 +1027,6 @@ return [
         ],
 
         'community_recruiter' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1152,9 +1084,6 @@ return [
         ],
 
         'community_admin' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1262,9 +1191,6 @@ return [
             ],
             'userSub' => [
                 'any' => ['update'],
-            ],
-            'userBasicInfo' => [
-                'any' => ['view'],
             ],
             'userWorkEmail' => [
                 'any' => ['view'],
@@ -1392,9 +1318,6 @@ return [
         ],
 
         'department_admin' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1446,9 +1369,6 @@ return [
         ],
 
         'department_hr_advisor' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],

@@ -1,12 +1,6 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  profileCompleted: {
-    defaultMessage:
-      "All required fields are complete. You can now change your status.",
-    id: "hTJgV2",
-    description: "Message displayed to user when user profile completed.",
-  },
   updatingFailed: {
     defaultMessage: "Error: updating user failed",
     id: "5FFRV2",
