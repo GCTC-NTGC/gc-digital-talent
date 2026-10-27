@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ArchiveClosedJobPosters;
 use App\Console\Commands\AuthPing;
 use App\Console\Commands\PruneUserGeneratedFiles;
 use App\Console\Commands\ResumeReferrals;
@@ -42,6 +43,12 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Toronto')
             ->dailyAt('3:00')
             ->appendOutputTo(storage_path('logs/send-notifications-pool-published.log'));
+
+        // Archive closed job posters
+        $schedule->command(ArchiveClosedJobPosters::class)
+            ->timezone('America/Toronto')
+            ->dailyAt('3:00')
+            ->appendOutputTo(storage_path('logs/archive-closed-job-posters.log'));
 
         // Unpause candidate referrals if date is up, every day at 1:00 AM
         $schedule->command(ResumeReferrals::class)
