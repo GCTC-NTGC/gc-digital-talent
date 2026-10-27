@@ -280,6 +280,11 @@ const messages = defineMessages({
     id: "X3puDA",
     description: "Heading for how long an experience lasted",
   },
+  skillCount: {
+    defaultMessage: "{count, plural, one {# skill} other {# skills}}",
+    id: "EQI4l2",
+    description: "Number of skills on an experience",
+  },
 });
 
 export default messages;

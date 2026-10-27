@@ -9,11 +9,7 @@ import {
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { PreviewList } from "@gc-digital-talent/ui";
-import {
-  commonMessages,
-  getLocalizedName,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import { useExperienceInfo } from "~/utils/experienceUtils";
 import experienceMessages from "~/messages/experienceMessages";
@@ -122,10 +118,9 @@ const WorkPreviewListItem = ({
         {
           key: `${experience.id}-skillCount`,
           type: "text",
-          children:
-            (experience?.skills?.length ?? 0) +
-            " " +
-            intl.formatMessage(navigationMessages.skills),
+          children: intl.formatMessage(experienceMessages.skillCount, {
+            count: experience?.skills?.length,
+          }),
         },
       ]}
       action={
