@@ -80,8 +80,8 @@ class JobPosterArchiveTest extends TestCase
     public function testRetrievesHtml()
     {
         $expected = [
-            'en' => $this->pool->toAdvertisementHtml('en'),
-            'fr' => $this->pool->toAdvertisementHtml('fr'),
+            'en' => $this->pool->toJobPosterHtml('en'),
+            'fr' => $this->pool->toJobPosterHtml('fr'),
         ];
 
         $this->actingAs($this->user, 'api')

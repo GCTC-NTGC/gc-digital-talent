@@ -644,13 +644,13 @@ class Pool extends Model
     /**
      * Convert the pool to HTML for the job advertisement
      */
-    public function toAdvertisementHtml(string $locale = 'en'): string
+    public function toJobPosterHtml(string $locale = 'en'): string
     {
         $previousLocale = App::getLocale();
 
         App::setLocale($locale);
 
-        $html = view('job_advertisement.index', ['pool' => $this])->render();
+        $html = view('job_poster.index', ['pool' => $this])->render();
 
         App::setLocale($previousLocale);
 
@@ -662,8 +662,8 @@ class Pool extends Model
         $this->jobPosterArchives()->create([
             'type' => $type->name,
             'html' => [
-                'en' => $this->toAdvertisementHtml('en'),
-                'fr' => $this->toAdvertisementHtml('fr'),
+                'en' => $this->toJobPosterHtml('en'),
+                'fr' => $this->toJobPosterHtml('fr'),
             ],
         ]);
     }
