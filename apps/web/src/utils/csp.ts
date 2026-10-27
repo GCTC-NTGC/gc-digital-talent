@@ -34,4 +34,4 @@ export const applyCspNonce = (): void => {
 };
 
 export const getDocumentNonce = (): string =>
-  getNonceElement()?.getAttribute("nonce") ?? NONCE_PLACEHOLDER;
+  getNonceElement()?.nonce ?? NONCE_PLACEHOLDER;
