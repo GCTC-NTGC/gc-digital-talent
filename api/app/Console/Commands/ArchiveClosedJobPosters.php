@@ -21,7 +21,7 @@ class ArchiveClosedJobPosters extends Command
         Pool::with(JobPosterArchive::$generationEagerLoads)
             ->whereClosed()
             ->whereDoesntHaveArchive(JobPosterArchiveType::CLOSED)
-            ->chunk(200, function ($pools) {
+            ->chunkById(200, function ($pools) {
                 foreach ($pools as $pool) {
                     $pool->storeArchive(JobPosterArchiveType::CLOSED);
                 }
