@@ -556,6 +556,7 @@ class Pool extends Model
     {
         $this->disableCustomLogging(function ($pool) {
             $pool->update(['published_at' => Carbon::now()]);
+            $pool->storeArchive(JobPosterArchiveType::PUBLISHED);
         });
 
         $this->logActivity(ActivityEvent::PUBLISHED);
@@ -641,6 +642,11 @@ class Pool extends Model
         return $this->is_remote || filled($this->advertisement_location);
     }
 
+    protected function hasArchive(JobPosterArchiveType $type): bool
+    {
+        return $this->jobPosterArchives()->where('type', $type->name)->exists();
+    }
+
     /**
      * Convert the pool to HTML for the job advertisement
      */
@@ -659,12 +665,14 @@ class Pool extends Model
 
     public function storeArchive(JobPosterArchiveType $type)
     {
-        $this->jobPosterArchives()->create([
-            'type' => $type->name,
-            'html' => [
-                'en' => $this->toJobPosterHtml('en'),
-                'fr' => $this->toJobPosterHtml('fr'),
-            ],
-        ]);
+        if (! $this->hasArchive($type)) {
+            $this->jobPosterArchives()->create([
+                'type' => $type->name,
+                'html' => [
+                    'en' => $this->toJobPosterHtml('en'),
+                    'fr' => $this->toJobPosterHtml('fr'),
+                ],
+            ]);
+        }
     }
 }
