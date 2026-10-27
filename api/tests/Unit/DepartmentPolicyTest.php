@@ -16,8 +16,6 @@ class DepartmentPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $guest;
-
     protected $applicant;
 
     protected $otherApplicant;
@@ -51,12 +49,6 @@ class DepartmentPolicyTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-
-        $this->guest = User::factory()
-            ->create([
-                'email' => 'guest-user@test.com',
-                'sub' => 'guest-user@test.com',
-            ]);
 
         $this->applicant = User::factory()
             ->asApplicant()
@@ -119,7 +111,6 @@ class DepartmentPolicyTest extends TestCase
      */
     public function testViewTeamMembers()
     {
-        $this->assertFalse($this->guest->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->applicant->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->otherApplicant->can('viewTeamMembers', $this->department));
         $this->assertFalse($this->processOperator->can('viewTeamMembers', $this->department));

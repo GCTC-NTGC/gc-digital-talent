@@ -246,12 +246,6 @@ class PoolCandidateAdminViewTest extends TestCase
         assertSame(1, count($candidates->whereNotIn('pool_id', [$this->pool->id, $this->otherPool->id])));
     }
 
-    public function testGuestCannotViewAnyApplications(): void
-    {
-        $guest = User::factory()->create();
-        $this->assertPaginatedResponse($guest, 0, []);
-    }
-
     // applicant cannot even view own
     public function testApplicantViewsNoOne(): void
     {

@@ -46,8 +46,6 @@ class PoolTest extends TestCase
 
     protected $adminUser;
 
-    protected $guestUser;
-
     protected $baseUser;
 
     protected $communityAdmin;
@@ -79,9 +77,6 @@ class PoolTest extends TestCase
                 'email' => 'admin@test.com',
                 'sub' => 'admin@test.com',
             ]);
-
-        $this->guestUser = User::factory()
-            ->create();
 
         $this->baseUser = User::factory()->create();
     }
@@ -1655,17 +1650,16 @@ class PoolTest extends TestCase
         assertSame($candidateCount, 2);
 
         // assert guest can query for and sees an applicant count of 1 for the pool
-        $this->actingAs($this->guestUser, 'api')
-            ->graphQL(<<<'GRAPHQL'
-                query Pool($id: UUID!) {
-                    pool(id: $id) {
-                        applicantsCount
-                    }
+        $this->graphQL(<<<'GRAPHQL'
+            query Pool($id: UUID!) {
+                pool(id: $id) {
+                    applicantsCount
                 }
-                GRAPHQL,
-                [
-                    'id' => $publishedPool->id,
-                ])
+            }
+            GRAPHQL,
+            [
+                'id' => $publishedPool->id,
+            ])
             ->assertExactJson([
                 'data' => [
                     'pool' => [

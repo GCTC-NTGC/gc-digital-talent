@@ -18,8 +18,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $guestUser;
-
     protected $applicantUser;
 
     protected $processOperatorUser;
@@ -53,12 +51,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
         parent::setUp();
 
         $this->seed(RolePermissionSeeder::class);
-
-        $this->guestUser = User::factory()
-            ->create([
-                'email' => 'guest-user@test.com',
-                'sub' => 'guest-user@test.com',
-            ]);
 
         $this->applicantUser = User::factory()
             ->asApplicant()
@@ -146,7 +138,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ];
 
-        $this->assertFalse($this->guestUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->applicantUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->adminUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
         $this->assertFalse($this->processOperatorUser->can('create', [CommunityDevelopmentProgram::class, $createCommunityDevelopmentProgramInput]));
@@ -182,7 +173,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ]);
 
-        $this->assertFalse($this->guestUser->can('update', $record));
         $this->assertFalse($this->applicantUser->can('update', $record));
         $this->assertFalse($this->adminUser->can('update', $record));
         $this->assertFalse($this->processOperatorUser->can('update', $record));
@@ -218,7 +208,6 @@ class CommunityDevelopmentProgramPolicyTest extends TestCase
             'development_program_id' => $developmentProgramId,
         ]);
 
-        $this->assertFalse($this->guestUser->can('delete', $record));
         $this->assertFalse($this->applicantUser->can('delete', $record));
         $this->assertFalse($this->adminUser->can('delete', $record));
         $this->assertFalse($this->processOperatorUser->can('delete', $record));

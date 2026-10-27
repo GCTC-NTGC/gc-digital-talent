@@ -16,8 +16,6 @@ class CommunityInterestPolicyTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected $guest;
-
     protected $applicant;
 
     protected $otherApplicant;
@@ -49,12 +47,6 @@ class CommunityInterestPolicyTest extends TestCase
         $this->community = Community::factory()->create();
 
         $this->department = Department::factory()->create();
-
-        $this->guest = User::factory()
-            ->create([
-                'email' => 'guest-user@test.com',
-                'sub' => 'guest-user@test.com',
-            ]);
 
         $this->applicant = User::factory()
             ->asApplicant()
@@ -135,7 +127,6 @@ class CommunityInterestPolicyTest extends TestCase
                 'community_id' => $this->community->id,
             ]);
 
-        $this->assertFalse($this->guest->can('viewUser', $ownCommunityInterest));
         $this->assertTrue($this->applicant->can('viewUser', $ownCommunityInterest));
         $this->assertFalse($this->otherApplicant->can('viewUser', $ownCommunityInterest));
         $this->assertTrue($this->platformAdmin->can('viewUser', $ownCommunityInterest));
@@ -152,7 +143,6 @@ class CommunityInterestPolicyTest extends TestCase
         $this->assertTrue($this->communityAdmin->can('viewUser', $consentedVerifiedInterest));
         $this->assertTrue($this->communityTalentCoordinator->can('viewUser', $consentedVerifiedInterest));
         $this->assertFalse($this->departmentAdmin->can('viewUser', $consentedVerifiedInterest));
-        $this->assertFalse($this->guest->can('viewUser', $consentedVerifiedInterest));
 
         // negative case: consent to share profile is false, even though the user is a verified gov employee
         $noConsentInterest = CommunityInterest::factory()

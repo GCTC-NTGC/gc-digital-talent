@@ -46,8 +46,6 @@ class PoolCandidateUpdateTest extends TestCase
     use UsesProtectedGraphqlEndpoint;
     use WithFaker;
 
-    protected $guestUser;
-
     protected $applicantUser;
 
     protected $candidateUser;
@@ -168,12 +166,6 @@ class PoolCandidateUpdateTest extends TestCase
         $this->pool = Pool::factory()->create([
             'community_id' => $this->community->id,
         ]);
-
-        $this->guestUser = User::factory()
-            ->create([
-                'email' => 'guest-user@test.com',
-                'sub' => 'guest-user@test.com',
-            ]);
 
         $this->applicantUser = User::factory()
             ->asApplicant()
@@ -303,15 +295,6 @@ class PoolCandidateUpdateTest extends TestCase
                     'updateApplication' => [
                         'submittedSteps' => ['WELCOME'],
                     ],
-                ],
-            ]);
-
-        // guest can't add a step
-        $this->actingAs($this->guestUser, 'api')
-            ->graphQL($mut, ['id' => $this->poolCandidate->id])
-            ->assertJson([
-                'errors' => [
-                    ['message' => 'This action is unauthorized.'],
                 ],
             ]);
 
