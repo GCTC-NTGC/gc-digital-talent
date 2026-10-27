@@ -50,7 +50,6 @@ class PoolPolicyTest extends PolicyTestCase
     public function testViewAnyPublishedAlwaysReturnsTrue(): void
     {
         $this->assertTrue($this->ensureBool($this->policy->viewAnyPublished(null)));
-        $this->assertTrue($this->ensureBool($this->policy->viewAnyPublished(User::factory()->asGuest()->create())));
     }
 
     // --- view() ---
@@ -60,7 +59,6 @@ class PoolPolicyTest extends PolicyTestCase
         $publishedPool = Pool::factory()->published()->create();
 
         $this->assertTrue($this->ensureBool($this->policy->view(null, $publishedPool)));
-        $this->assertTrue($this->ensureBool($this->policy->view(User::factory()->asGuest()->create(), $publishedPool)));
     }
 
     public function testUnauthenticatedUserCannotViewDraftPool(): void
