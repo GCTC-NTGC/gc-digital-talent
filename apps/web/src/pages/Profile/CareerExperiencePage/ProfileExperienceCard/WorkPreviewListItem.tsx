@@ -59,8 +59,7 @@ export const WorkExperienceItem_Fragment = graphql(/* GraphQL */ `
       }
     }
     classification {
-      group
-      level
+      groupAndLevel
     }
     startDate
     endDate
@@ -89,12 +88,8 @@ const WorkPreviewListItem = ({
     experience.govPositionType?.value === GovPositionType.Acting;
 
   const classification =
-    experience.classification?.group && experience.classification?.level
-      ? experience.classification?.group +
-        "-" +
-        (experience.classification?.level < 10 ? "0" : "") +
-        experience.classification?.level
-      : intl.formatMessage(commonMessages.notAvailable);
+    experience.classification?.groupAndLevel ??
+    intl.formatMessage(commonMessages.notAvailable);
 
   const title =
     (isActing
