@@ -159,7 +159,7 @@ class PoolBuilder extends Builder
 
     }
 
-    public function whereDoesntHaveArchive(JobPosterArchiveType $type): self
+    public function whereDoesNotHaveArchive(JobPosterArchiveType $type): self
     {
         return $this->whereDoesntHave('jobPosterArchives', function ($query) use ($type) {
             $query->where('type', $type->name);
