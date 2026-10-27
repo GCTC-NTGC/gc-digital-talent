@@ -136,7 +136,6 @@ class RolePermissionTest extends TestCase
             'delete-any-community',
             'create-any-user',
             'view-any-user',
-            'view-any-userBasicInfo',
             'update-any-user',
             'update-any-userSub',
             'delete-any-user',
@@ -257,7 +256,6 @@ class RolePermissionTest extends TestCase
         $communityRecruiter->removeRole('base_user'); // isolate community_recruiter
 
         $permissionsToCheck = [
-            'view-any-userBasicInfo',
             'view-team-applicantProfile',
             'view-team-draftPool',
             'create-team-draftPool',
@@ -316,7 +314,6 @@ class RolePermissionTest extends TestCase
         $communityAdmin->removeRole('base_user'); // isolate community_admin
 
         $permissionsToCheck = [
-            'view-any-userBasicInfo',
             'view-team-applicantProfile',
             'view-team-draftPool',
             'create-team-draftPool',
@@ -432,7 +429,6 @@ class RolePermissionTest extends TestCase
         $departmentAdmin->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
-            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'update-team-departmentHRAdvisorMembership',
             'view-team-departmentTeamMembers',
@@ -490,7 +486,6 @@ class RolePermissionTest extends TestCase
         $departmentAdvisor->removeRole('base_user'); // isolate
 
         $permissionsToCheck = [
-            'view-any-userBasicInfo',
             'update-team-processOperatorMembership',
             'view-team-departmentTeamMembers',
             'view-team-draftPool',

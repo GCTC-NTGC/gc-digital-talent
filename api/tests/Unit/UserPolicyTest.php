@@ -195,25 +195,6 @@ class UserPolicyTest extends TestCase
     }
 
     /**
-     * Able to viewBasicInfo
-     * Only Platform Admins, Community Recruiter, Community Admin, Department Admin, and Department Advisor
-     *
-     * @return void
-     */
-    public function testViewBasicInfo()
-    {
-        $this->assertFalse($this->applicant->can('viewBasicInfo', $this->applicant));
-        $this->assertTrue($this->platformAdmin->can('viewBasicInfo', $this->applicant));
-
-        $this->assertFalse($this->processOperator->can('viewBasicInfo', $this->applicant));
-        $this->assertTrue($this->communityRecruiter->can('viewBasicInfo', $this->applicant));
-        $this->assertTrue($this->communityAdmin->can('viewBasicInfo', $this->applicant));
-        $this->assertFalse($this->communityTalentCoordinator->can('viewBasicInfo', $this->applicant));
-        $this->assertTrue($this->departmentAdmin->can('viewBasicInfo', $this->applicant));
-        $this->assertTrue($this->departmentHRAdvisor->can('viewBasicInfo', $this->applicant));
-    }
-
-    /**
      * Only Platform Admins and the own user should be able to update
      *
      * @return void

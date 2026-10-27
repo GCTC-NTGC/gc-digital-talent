@@ -62,7 +62,6 @@ return [
         'skill' => 'skill',
         'skillFamily' => 'skillFamily',
         'user' => 'user',
-        'userBasicInfo' => 'userBasicInfo',
         'userSub' => 'userSub',
         'userWorkEmail' => 'userWorkEmail',
         'employeeProfile' => 'employeeProfile',
@@ -234,10 +233,6 @@ return [
         'view-own-user' => [
             'en' => 'View Own User',
             'fr' => 'Visionner son propre utilisateur',
-        ],
-        'view-any-userBasicInfo' => [
-            'en' => 'View basic info of any User',
-            'fr' => 'Afficher les informations de base de tout utilisateur',
         ],
         'view-any-userWorkEmail' => [
             'en' => 'View the work email of any User',
@@ -1032,9 +1027,6 @@ return [
         ],
 
         'community_recruiter' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1092,9 +1084,6 @@ return [
         ],
 
         'community_admin' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1202,9 +1191,6 @@ return [
             ],
             'userSub' => [
                 'any' => ['update'],
-            ],
-            'userBasicInfo' => [
-                'any' => ['view'],
             ],
             'userWorkEmail' => [
                 'any' => ['view'],
@@ -1332,9 +1318,6 @@ return [
         ],
 
         'department_admin' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
@@ -1386,9 +1369,6 @@ return [
         ],
 
         'department_hr_advisor' => [
-            'userBasicInfo' => [
-                'any' => ['view'],
-            ],
             'userWorkEmail' => [
                 'any' => ['view'],
             ],
