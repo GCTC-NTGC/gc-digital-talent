@@ -144,6 +144,7 @@ const PoolStatusTable = ({
     ),
     columnHelper.accessor(({ pool }) => pool.processNumber, {
       id: "processNumber",
+      enableHiding: false,
       header: intl.formatMessage(processMessages.processNumber),
     }),
     columnHelper.accessor(
