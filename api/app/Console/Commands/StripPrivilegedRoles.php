@@ -23,7 +23,7 @@ use Illuminate\Console\Command;
  * from users u
  * join role_user ru on ru.user_id  = u.id
  * join roles r on ru.role_id  = r.id
- * where r."name" not in ('guest', 'base_user', 'applicant')
+ * where r."name" not in ('base_user', 'applicant')
  * and u.last_sign_in_iss is distinct from 'https://auth.login-connexion.canada.ca/oauth2'
  *
  * WHEN TO REMOVE: Once it has been run successfully once in production.
@@ -41,7 +41,7 @@ class StripPrivilegedRoles extends Command
         $rolesRemovedCount = 0;
 
         $privilegedRoleNames = Role::query()
-            ->whereNotIn('name', ['guest', 'base_user', 'applicant'])
+            ->whereNotIn('name', ['base_user', 'applicant'])
             ->pluck('name')
             ->toArray();
 
