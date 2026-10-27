@@ -1116,6 +1116,12 @@ type Activity {
   updatedAt: DateTime
 }
 
+type JobPosterArchive {
+  id: UUID!
+  type: JobPosterArchiveType!
+  html: LocalizedString!
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -1166,6 +1172,7 @@ type Pool implements HasRoleAssignments {
   areaOfSelection: LocalizedPoolAreaOfSelection
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
   contactEmail: String
+  archives(type: JobPosterArchiveType): [JobPosterArchive!]
   applicantsCount: Int
   isHidden: Boolean
   activities(
@@ -4412,6 +4419,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum JobPosterArchiveType {
+  PUBLISHED
+  CLOSED
 }
 
 enum Language {

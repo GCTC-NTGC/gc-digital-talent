@@ -11,27 +11,27 @@
 @if ($areaOfSelection === PoolAreaOfSelection::EMPLOYEES->name)
     <p>
         @if (in_array(PoolSelectionLimitation::AT_LEVEL_ONLY->name, $limitations))
-            @lang('job_advertisement.who_can_apply.employees.content_at_level', [
+            @lang('job_poster.who_can_apply.employees.content_at_level', [
                 'classification' => $classification,
-                'url' => __('job_advertisement.who_can_apply.employees.veterans_url'),
+                'url' => __('job_poster.who_can_apply.employees.veterans_url'),
             ])
         @else
-            @lang('job_advertisement.who_can_apply.employees.content', [
-                'url' => __('job_advertisement.who_can_apply.employees.veterans_url'),
+            @lang('job_poster.who_can_apply.employees.content', [
+                'url' => __('job_poster.who_can_apply.employees.veterans_url'),
             ])
         @endif
     </p>
 
     @if (in_array(PoolSelectionLimitation::DEPARTMENTAL_PREFERENCE->name, $limitations))
         <p>
-            @lang('job_advertisement.who_can_apply.employees.departmental_preference_note', ['department' => $department])
+            @lang('job_poster.who_can_apply.employees.departmental_preference_note', ['department' => $department])
         </p>
     @endif
 @elseif (
     $areaOfSelection === PoolAreaOfSelection::PUBLIC->name &&
         in_array(PoolSelectionLimitation::CANADIAN_CITIZENS->name, $limitations))
-    <p>@lang('job_advertisement.who_can_apply.canadian_citizens.content')</p>
+    <p>@lang('job_poster.who_can_apply.canadian_citizens.content')</p>
 @else
-    <p>@lang('job_advertisement.who_can_apply.public.content')</p>
-    <p>@lang('job_advertisement.who_can_apply.public.note')</p>
+    <p>@lang('job_poster.who_can_apply.public.content')</p>
+    <p>@lang('job_poster.who_can_apply.public.note')</p>
 @endif
