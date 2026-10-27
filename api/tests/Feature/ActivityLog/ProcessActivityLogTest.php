@@ -396,6 +396,14 @@ class ProcessActivityLogTest extends TestCase
         );
     }
 
+    public function testUnauthorizedUserCannotViewActivities(): void
+    {
+        $this->graphQL($this->query, [
+            'id' => $this->process->id,
+        ])
+            ->assertJsonCount(0, 'data.pool.activities.data');
+    }
+
     public function testApplicantCannotViewActivities(): void
     {
         $applicant = User::factory()->asApplicant()->create();

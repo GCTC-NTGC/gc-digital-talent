@@ -287,6 +287,10 @@ class PoolCandidateUpdateTest extends TestCase
         $this->poolCandidate->submitted_steps = [];
         $this->poolCandidate->save();
 
+        // guest can't add a step
+        $this->graphQL($mut, ['id' => $this->poolCandidate->id])
+            ->assertGraphQLErrorMessage('Unauthenticated.');
+
         // candidate owner can add a step
         $this->actingAs($this->candidateUser, 'api')
             ->graphQL($mut, ['id' => $this->poolCandidate->id])

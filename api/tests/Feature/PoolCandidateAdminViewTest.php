@@ -246,6 +246,12 @@ class PoolCandidateAdminViewTest extends TestCase
         assertSame(1, count($candidates->whereNotIn('pool_id', [$this->pool->id, $this->otherPool->id])));
     }
 
+    public function testGuestCannotViewAnyApplications(): void
+    {
+        $this->graphQL($this->paginatedAdminViewQuery)
+            ->assertGraphQLErrorMessage('Unauthenticated.');
+    }
+
     // applicant cannot even view own
     public function testApplicantViewsNoOne(): void
     {
