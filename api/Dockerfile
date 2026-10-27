@@ -1,4 +1,4 @@
-FROM php:8.5.11-apache-trixie AS base
+FROM php:8.5.12-apache-trixie AS base
 
 # Install pdo_pgsql extension.
 RUN apt-get update \
