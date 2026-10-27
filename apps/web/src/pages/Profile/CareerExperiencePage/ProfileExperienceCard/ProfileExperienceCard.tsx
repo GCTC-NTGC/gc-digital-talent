@@ -201,10 +201,14 @@ const ProfileExperienceCard = ({
           />
         </div>
       </div>
-      <Heading rank="h3" size="h5" className="mt-0 font-bold">
+      <Heading
+        rank="h3"
+        size="h6"
+        className="mt-0 font-bold text-gray-700 dark:text-gray-100"
+      >
         {title}
       </Heading>
-      <p className="mb-4.5 text-gray-600 dark:text-gray-100">{description}</p>
+      <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
       <Link href={href} icon={PlusCircleIcon} className="font-bold">
         {linkText}
       </Link>
