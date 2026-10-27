@@ -47,7 +47,7 @@ class Kernel extends ConsoleKernel
         // Archive closed job posters
         $schedule->command(ArchiveClosedJobPosters::class)
             ->timezone('America/Toronto')
-            ->dailyAt('3:00')
+            ->dailyAt('3:30')
             ->appendOutputTo(storage_path('logs/archive-closed-job-posters.log'));
 
         // Unpause candidate referrals if date is up, every day at 1:00 AM

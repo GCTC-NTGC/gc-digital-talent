@@ -136,13 +136,13 @@ class JobPosterArchiveTest extends TestCase
         $this->assertEquals($published->toJobPosterHtml('fr'), $archive->html['fr']);
     }
 
-    public function testCommandIsScheduledDailyAtThree()
+    public function testCommandIsScheduledDailyAtThreeThirty()
     {
         $events = collect(app(Schedule::class)->events())
             ->filter(fn ($event) => str_contains($event->command ?? '', 'app:archive-closed-job-posters'));
 
         $this->assertEquals(1, $events->count());
-        $this->assertEquals('0 3 * * *', $events->first()->expression);
+        $this->assertEquals('30 3 * * *', $events->first()->expression);
         $this->assertEquals('America/Toronto', (string) $events->first()->timezone);
     }
 
