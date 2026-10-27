@@ -51,11 +51,6 @@ export default defineMessages({
     id: "0E9hiS",
     description: "Title for skill families",
   },
-  skillsList: {
-    defaultMessage: "Skills list",
-    id: "J6atIv",
-    description: "Link text for explore skills page",
-  },
   talentRequests: {
     defaultMessage: "Talent requests",
     id: "3NW70Q",
