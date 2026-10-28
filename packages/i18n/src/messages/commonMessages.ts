@@ -60,7 +60,6 @@ const commonMessages = defineMessages({
       "Message for when specific item has missing optional information",
   },
   dividingColon: {
-    // eslint-disable-next-line formatjs/prefer-full-sentence
     defaultMessage: ": ",
     id: "i3Jl6C",
     description: "Dividing colon with trailing space",

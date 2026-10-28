@@ -43,6 +43,8 @@ export default [
       "formatjs/no-id": "off",
       // We use this a bit and have not had issue with it...yet
       "formatjs/no-multiple-plurals": "off",
+      // Too many false positives with our patterns to be useful
+      "formatjs/prefer-full-sentence": "off",
       "formatjs/enforce-id": [
         "error",
         {
