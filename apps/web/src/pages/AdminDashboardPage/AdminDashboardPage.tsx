@@ -21,8 +21,13 @@ import type {
   AuthRole,
   AuthRoleAssignment,
   RoleName,
+  RoleRequirement,
 } from "@gc-digital-talent/auth";
-import { useAuthorization, hasRole, ROLE_NAME } from "@gc-digital-talent/auth";
+import {
+  useAuthorization,
+  ROLE_NAME,
+  hasRequiredRoles,
+} from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 import {
@@ -57,14 +62,16 @@ interface RoleChipsProps {
 
 // short-circuit hasRole if no roles were required so an empty array
 const hasRolesHandleNoRolesRequired = (
-  checkRole: RoleName | RoleName[],
+  checkRole: RoleRequirement | RoleRequirement[],
   userRoles: (AuthRoleAssignment | null | undefined)[] | null | undefined,
 ): boolean => {
   if (Array.isArray(checkRole) && checkRole.length === 0) {
     return true;
   }
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  return hasRole(checkRole, userRoles);
+  return hasRequiredRoles({
+    toCheck: checkRole,
+    userRoles: userRoles,
+  });
 };
 
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
@@ -132,7 +139,10 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
     },
   ];
   const recruitmentCollectionFiltered = recruitmentCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRolesHandleNoRolesRequired(
+      item.roles.map((name) => ({ name })),
+      roleAssignments,
+    ),
   );
   const recruitmentCollectionSorted = recruitmentCollectionFiltered.sort(
     sortAlphaBy((item) => item.label),
@@ -162,7 +172,10 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
     },
   ];
   const resourcesCollectionFiltered = resourcesCollection.filter((item) =>
-    hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    hasRolesHandleNoRolesRequired(
+      item.roles.map((name) => ({ name })),
+      roleAssignments,
+    ),
   );
   const resourcesCollectionSorted = resourcesCollectionFiltered.sort(
     sortAlphaBy((item) => item.label),
@@ -231,7 +244,11 @@ export const DashboardPage = ({ query }: DashboardPageProps) => {
     },
   ];
   const administrationCollectionFiltered = administrationCollection.filter(
-    (item) => hasRolesHandleNoRolesRequired(item.roles, roleAssignments),
+    (item) =>
+      hasRolesHandleNoRolesRequired(
+        item.roles.map((name) => ({ name })),
+        roleAssignments,
+      ),
   );
   const administrationCollectionSorted = administrationCollectionFiltered.sort(
     sortAlphaBy((item) => item.label),
