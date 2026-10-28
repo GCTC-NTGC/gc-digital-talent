@@ -6658,7 +6658,7 @@
     "description": "Button text for editing verification of candidate claim"
   },
   "PNtGco": {
-    "defaultMessage": "Évaluées ultérieurement",
+    "defaultMessage": "Évaluée ultérieurement",
     "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
   },
   "PO94zE": {
@@ -9680,7 +9680,7 @@
     "description": "Legend for the radio group of program participation"
   },
   "c70xDW": {
-    "defaultMessage": "Requises",
+    "defaultMessage": "Requise",
     "description": "Label for a required skill"
   },
   "c8DrIs": {
@@ -10846,7 +10846,7 @@
     "description": "Link text to update work streams for an experience"
   },
   "gLNQYB": {
-    "defaultMessage": "Évaluées lors de la demande initiale",
+    "defaultMessage": "Évaluée lors de la demande initiale",
     "description": "Message displayed for technical skills telling users at what point it will be assessed"
   },
   "gMaDG/": {
