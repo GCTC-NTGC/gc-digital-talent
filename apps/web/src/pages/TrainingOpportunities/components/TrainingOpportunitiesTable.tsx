@@ -109,7 +109,7 @@ function transformSortStateToOrderByClause(
 
 const TrainingOpportunitiesPaginated_Query = graphql(/* GraphQL */ `
   query TrainingOpportunitiesPaginated(
-    $first: Int
+    $first: Int!
     $page: Int
     $orderBy: [QueryTrainingOpportunitiesPaginatedOrderByOrderByClause!]
   ) {

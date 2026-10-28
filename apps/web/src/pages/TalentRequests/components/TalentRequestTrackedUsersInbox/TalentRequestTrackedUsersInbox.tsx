@@ -55,7 +55,7 @@ const TalentRequestTrackedUsersInbox_Query = graphql(/* GraphQL */ `
   query TalentRequestTrackedUsersInbox(
     $talentRequestId: UUID!
     $where: TalentRequestTrackedUserFilterInput
-    $first: Int
+    $first: Int!
     $page: Int
   ) {
     statuses: localizedEnumOptions(enumName: "TalentRequestTrackedUserStatus") {

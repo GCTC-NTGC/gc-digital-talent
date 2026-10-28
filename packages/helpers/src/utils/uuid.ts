@@ -1,13 +1,14 @@
-import type { GraphQLError } from "graphql";
 import type { CombinedError } from "urql";
 
-interface ErrorWithDebugMessage extends Error {
-  debugMessage?: string;
+interface ErrorWithDebugMessage {
+  debugMessage: string;
 }
 
-interface GraphqlErrorWithDebugMessage extends GraphQLError {
-  originalError: ErrorWithDebugMessage | undefined;
-}
+const hasDebugMessage = (cause: unknown): cause is ErrorWithDebugMessage =>
+  typeof cause === "object" &&
+  cause !== null &&
+  "debugMessage" in cause &&
+  typeof cause.debugMessage === "string";
 
 const isUuidError = (combinedError: CombinedError | undefined) => {
   /**
@@ -15,9 +16,9 @@ const isUuidError = (combinedError: CombinedError | undefined) => {
    * Error type rather than cause, so we need to cast it here
    */
   return combinedError?.graphQLErrors?.some(
-    (error: GraphqlErrorWithDebugMessage) => {
-      return error?.originalError?.debugMessage?.includes("validation.uuid");
-    },
+    (error) =>
+      hasDebugMessage(error.cause) &&
+      error.cause.debugMessage.includes("validation.uuid"),
   );
 };
 
