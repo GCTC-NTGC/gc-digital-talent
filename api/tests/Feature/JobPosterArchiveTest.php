@@ -136,7 +136,7 @@ class JobPosterArchiveTest extends TestCase
         $this->assertEquals($published->toJobPosterHtml('fr'), $archive->html['fr']);
     }
 
-    public function testCommandIsScheduledDailyAtThreeThirty()
+    public function testCommandIsScheduledDailyAtFour()
     {
         $events = collect(app(Schedule::class)->events())
             ->filter(fn ($event) => str_contains($event->command ?? '', 'app:archive-closed-job-posters'));

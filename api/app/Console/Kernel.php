@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
         // send out 'new pool' emails overnight
         $schedule->command(SendNotificationsPoolPublished::class)
             ->timezone('America/Toronto')
-            ->dailyAt('3:00')
+            ->dailyAt('4:00')
             ->appendOutputTo(storage_path('logs/send-notifications-pool-published.log'));
 
         // Archive closed job posters
