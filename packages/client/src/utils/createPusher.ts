@@ -61,6 +61,25 @@ function createSubscription(
         let channel: Channel | undefined;
         let subscriptionHandler: LighouseSubscriptionHandler | undefined;
 
+        const cleanup = (): void => {
+          if (cancelled) {
+            return;
+          }
+          cancelled = true;
+
+          if (channel && subscriptionHandler && channelName) {
+            channel.unbind("lighthouse-subscription", subscriptionHandler);
+            activePusher.unsubscribe(channelName);
+          }
+
+          releasePusher();
+        };
+
+        const handleError = (err: unknown): void => {
+          error(err);
+          cleanup();
+        };
+
         const fetchBody = JSON.stringify({
           query: print(operation.query),
           variables: operation.variables,
@@ -92,6 +111,7 @@ function createSubscription(
             channelName = res?.extensions?.lighthouse_subscriptions?.channel;
 
             if (!channelName || cancelled) {
+              cleanup();
               return;
             }
 
@@ -110,25 +130,13 @@ function createSubscription(
               channel.bind("lighthouse-subscription", subscriptionHandler);
               next(res);
             } catch (err) {
-              error(err);
+              handleError(err);
             }
           })
-          .catch(error);
+          .catch(handleError);
 
         return {
-          unsubscribe: () => {
-            if (cancelled) {
-              return;
-            }
-            cancelled = true;
-
-            if (channel && subscriptionHandler && channelName) {
-              channel.unbind("lighthouse-subscription", subscriptionHandler);
-              activePusher.unsubscribe(channelName);
-            }
-
-            releasePusher();
-          },
+          unsubscribe: cleanup,
         };
       },
     };
