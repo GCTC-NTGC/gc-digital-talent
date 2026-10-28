@@ -29,18 +29,17 @@ class ArchiveClosedJobPosters extends Command
             ->whereDoesNotHaveArchive(JobPosterArchiveType::CLOSED)
             ->chunkById(200, function ($pools) use (&$successCount, &$failureCount) {
                 foreach ($pools as $pool) {
-                    $context = [
+                    Log::withContext([
                         'id' => $pool->id,
                         'name' => $pool->name['en'],
-                    ];
+                    ]);
 
                     try {
                         $pool->storeArchive(JobPosterArchiveType::CLOSED);
-                        Log::channel('jobs')->info('Archived closed job poster', $context);
+                        Log::channel('jobs')->info('Archived closed job poster');
                         $successCount++;
                     } catch (Throwable $e) {
                         Log::channel('jobs')->error('Failed to archive closed job poster', [
-                            ...$context,
                             'exception' => $e->getMessage(),
                         ]);
                         $failureCount++;
