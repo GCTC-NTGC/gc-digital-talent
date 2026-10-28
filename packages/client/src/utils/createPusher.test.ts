@@ -155,4 +155,13 @@ describe("createPusher connection lifetime", () => {
     expect(pushers[0].subscribe).not.toHaveBeenCalled();
     expect(pushers[0].disconnect).toHaveBeenCalledTimes(1);
   });
+
+  it("disconnects when the subscription request rejects", async () => {
+    const rejects: typeof fetch = () => Promise.reject(new Error("offline"));
+
+    startSubscription(createPusher(), rejects);
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(pushers[0].disconnect).toHaveBeenCalledTimes(1);
+  });
 });
