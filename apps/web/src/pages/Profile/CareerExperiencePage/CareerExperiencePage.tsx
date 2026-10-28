@@ -27,9 +27,8 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
 import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
-
-import type { ProfileExperienceCard_Fragment } from "./ProfileExperienceCard/ProfileExperienceCard";
-import ProfileExperienceCard from "./ProfileExperienceCard/ProfileExperienceCard";
+import type { ExperienceListCard_Fragment } from "~/components/ExperienceListCard/ExperienceListCard";
+import ExperienceListCard from "~/components/ExperienceListCard/ExperienceListCard";
 
 type SortValues = "type" | "timeline";
 
@@ -48,7 +47,7 @@ export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
     me {
       id
       experiences {
-        ...ProfileExperienceCard
+        ...ExperienceListCard
         ...CareerTimelineSectionExperience
       }
     }
@@ -68,7 +67,7 @@ const unselectedFilterStyle: Record<string, string> = {
 };
 
 interface CareerExperienceProps {
-  experiencesQuery: FragmentType<typeof ProfileExperienceCard_Fragment>[];
+  experiencesQuery: FragmentType<typeof ExperienceListCard_Fragment>[];
 }
 
 export const CareerExperience = ({
@@ -188,7 +187,7 @@ export const CareerExperience = ({
           {sortBy === "type" ? (
             <div className="grid gap-6">
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>
-                <ProfileExperienceCard
+                <ExperienceListCard
                   type={"work"}
                   experiencesQuery={experiencesQuery}
                 />
@@ -196,7 +195,7 @@ export const CareerExperience = ({
               <TableOfContents.Section
                 id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
               >
-                <ProfileExperienceCard
+                <ExperienceListCard
                   type={"education"}
                   experiencesQuery={experiencesQuery}
                 />
@@ -204,19 +203,19 @@ export const CareerExperience = ({
               <TableOfContents.Section
                 id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
               >
-                <ProfileExperienceCard
+                <ExperienceListCard
                   type={"community"}
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}>
-                <ProfileExperienceCard
+                <ExperienceListCard
                   type={"personal"}
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.AWARD_EXPERIENCE}>
-                <ProfileExperienceCard
+                <ExperienceListCard
                   type={"award"}
                   experiencesQuery={experiencesQuery}
                 />
@@ -224,7 +223,7 @@ export const CareerExperience = ({
             </div>
           ) : (
             <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
-              <ProfileExperienceCard
+              <ExperienceListCard
                 type={"timeline"}
                 experiencesQuery={experiencesQuery}
               />

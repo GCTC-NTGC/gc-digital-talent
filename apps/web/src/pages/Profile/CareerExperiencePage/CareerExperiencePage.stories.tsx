@@ -4,8 +4,9 @@ import { fakeExperiences } from "@gc-digital-talent/fake-data";
 import { Container } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
+import { ExperienceListCard_Fragment } from "~/components/ExperienceListCard/ExperienceListCard";
+
 import { CareerExperience } from "./CareerExperiencePage";
-import { ProfileExperienceCard_Fragment } from "./ProfileExperienceCard/ProfileExperienceCard";
 
 const mockExperiences = fakeExperiences(10);
 
@@ -30,7 +31,7 @@ type Story = StoryObj<typeof CareerExperience>;
 export const WithExperiences: Story = {
   args: {
     experiencesQuery: mockExperiences.map((experience) =>
-      makeFragmentData(experience, ProfileExperienceCard_Fragment),
+      makeFragmentData(experience, ExperienceListCard_Fragment),
     ),
   },
 };

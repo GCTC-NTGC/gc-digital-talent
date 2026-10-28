@@ -44,8 +44,8 @@ import EducationPreviewListItem from "./EducationPreviewListItem";
 import PersonalPreviewListItem from "./PersonalPreviewListItem";
 import WorkPreviewListItem from "./WorkPreviewListItem";
 
-export const ProfileExperienceCard_Fragment = graphql(/* GraphQL */ `
-  fragment ProfileExperienceCard on Experience {
+export const ExperienceListCard_Fragment = graphql(/* GraphQL */ `
+  fragment ExperienceListCard on Experience {
     id
     ... on AwardExperience {
       issuedBy
@@ -82,19 +82,19 @@ interface TypeDetails {
   filterFunction: (e: SimpleAnyExperience) => boolean;
 }
 
-interface ProfileExperienceCardProps {
+interface ExperienceListCardProps {
   type: ExperienceTypeOrTimeline;
-  experiencesQuery?: FragmentType<typeof ProfileExperienceCard_Fragment>[];
+  experiencesQuery?: FragmentType<typeof ExperienceListCard_Fragment>[];
 }
 
-const ProfileExperienceCard = ({
+const ExperienceListCard = ({
   type,
   experiencesQuery,
-}: ProfileExperienceCardProps) => {
+}: ExperienceListCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
   const experiences = getFragment(
-    ProfileExperienceCard_Fragment,
+    ExperienceListCard_Fragment,
     experiencesQuery,
   );
 
@@ -281,4 +281,4 @@ const ProfileExperienceCard = ({
     </Card>
   );
 };
-export default ProfileExperienceCard;
+export default ExperienceListCard;
