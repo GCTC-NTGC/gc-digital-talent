@@ -27,11 +27,14 @@ const matchMediaMock = vi
     matches: false,
     media: query,
     onchange: null,
-    addListener: vi.fn(), // deprecated
-    removeListener: vi.fn(), // deprecated
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
     dispatchEvent: vi.fn(),
+    // Both add/remove are deprecated but,
+    // we do not control these and need to satisfy the type
+    /* eslint-disable @typescript-eslint/no-deprecated */
+    addListener: vi.fn(), // deprecated
+    removeListener: vi.fn(), // deprecated
   }));
 
 Object.defineProperty(window, "matchMedia", {
