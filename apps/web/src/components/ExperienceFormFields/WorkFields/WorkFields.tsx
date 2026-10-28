@@ -150,13 +150,15 @@ const WorkFields = ({
   } as const;
 
   /**
-   * Reset endDate when roleStatus field is changed
+   * Reset endDate when roleStatus field is changed to current
    */
   useEffect(() => {
-    resetField("endDate", {
-      keepDirty: false,
-      defaultValue: null,
-    });
+    if (isCurrent) {
+      resetField("endDate", {
+        keepDirty: false,
+        defaultValue: null,
+      });
+    }
   }, [resetField, isCurrent]);
 
   /**
