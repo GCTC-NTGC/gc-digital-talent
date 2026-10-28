@@ -43,6 +43,7 @@ import type {
   AuthTeamTeamable,
 } from "./types";
 import { setTokensFromLocation } from "./utils/setTokensFromLocation";
+import { hasRolesHandleNoRolesRequired } from "./utils/hasRolesHandleNoRolesRequired";
 
 export {
   AuthenticationProvider,
@@ -55,6 +56,7 @@ export {
   useApiRoutes,
   apiRoutes,
   hasRequiredRoles,
+  hasRolesHandleNoRolesRequired,
   checkPermissions,
   useHasPermissions,
   narrowTeamableType,
