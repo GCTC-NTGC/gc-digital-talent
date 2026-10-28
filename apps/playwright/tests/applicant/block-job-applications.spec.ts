@@ -76,7 +76,7 @@ test.describe("Block job applications", { tag: "@uat" }, () => {
         ],
         positionDuration: [PositionDuration.Permanent],
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
 
     unverifiedContactEmailUser = {
@@ -103,7 +103,7 @@ test.describe("Block job applications", { tag: "@uat" }, () => {
         ],
         positionDuration: [PositionDuration.Permanent],
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
 
     unverifiedWorkEmailUser = {

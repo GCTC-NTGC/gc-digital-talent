@@ -90,6 +90,24 @@ export const getExperienceFormLabels = (
     });
   }
 
+  const keyTasksAndResponsibilities = intl.formatMessage({
+    defaultMessage: "Key tasks and responsibilities",
+    id: "0J8XAX",
+    description:
+      "Label displayed on Experience form for key tasks and responsibilities field.",
+  });
+
+  let details = intl.formatMessage({
+    defaultMessage: "Additional details",
+    id: "fPIZn9",
+    description:
+      "Label displayed on experience form/card for additional details input/section",
+  });
+
+  if (experienceType === "work" || experienceType === "community") {
+    details = keyTasksAndResponsibilities;
+  }
+
   return {
     type: intl.formatMessage({
       defaultMessage: "Experience type",
@@ -311,12 +329,7 @@ export const getExperienceFormLabels = (
       description:
         "Label displayed on Work Experience form for team/division input",
     }),
-    details: intl.formatMessage({
-      defaultMessage: "Additional details",
-      id: "fPIZn9",
-      description:
-        "Label displayed on experience form/card for additional details input/section",
-    }),
+    details,
     howIUsed: intl.formatMessage({
       defaultMessage: "How I used",
       id: "jH5egG",
@@ -345,7 +358,7 @@ export const getExperienceFormLabels = (
       id: "d1FYv4",
       description: "Label displayed on Work Experience card for classification",
     }),
-    positionType: intl.formatMessage({
+    govPositionType: intl.formatMessage({
       defaultMessage: "Position type",
       id: "0Dp1N4",
       description: "Label for the position type radio group",
@@ -436,12 +449,7 @@ export const getExperienceFormLabels = (
       id: "ZijW8r",
       description: "Label displayed on Experience form for past role option.",
     }),
-    keyTasksAndResponsibilities: intl.formatMessage({
-      defaultMessage: "Key tasks and responsibilities",
-      id: "0J8XAX",
-      description:
-        "Label displayed on Experience form for key tasks and responsibilities field.",
-    }),
+    keyTasksAndResponsibilities,
     keyTasksDescription: intl.formatMessage({
       defaultMessage:
         "The following section should be a high-level overview focusing on what you did in the role. Try to keep this field clear and concise as you'll be able to provide more detailed information when linking skills to this experience.",
@@ -1683,6 +1691,40 @@ export const experienceDurationMonths = (
     return ceilingMonths;
   }
   return 0;
+};
+
+export const formatDurationMonths = (
+  durationMonths: number,
+  intl: IntlShape,
+): string => {
+  const yearCount = Math.floor(durationMonths / 12);
+  const monthCount = durationMonths % 12;
+
+  if (yearCount > 0) {
+    return intl.formatMessage(
+      {
+        defaultMessage:
+          "{yearCount, plural,one {# year} other {# years}}, {monthCount, plural, one {# month} other {# months}}",
+        id: "MrfPJb",
+        description: "A duration of a certain number of years and months",
+      },
+      {
+        yearCount,
+        monthCount,
+      },
+    );
+  }
+
+  return intl.formatMessage(
+    {
+      defaultMessage: "{monthCount, plural, one {# month} other {# months}}",
+      id: "dkXjDY",
+      description: "A duration of a certain number of months",
+    },
+    {
+      monthCount,
+    },
+  );
 };
 
 export const experiencesDurationMonths = (

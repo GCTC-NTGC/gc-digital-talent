@@ -4,10 +4,11 @@ import type { JSX } from "react";
 
 import type {
   QueryCommunityInterestsPaginatedOrderByRelationOrderByClause,
-  QueryCommunityInterestsPaginatedOrderByUserColumn,
   CommunityInterestFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
+  CommunityInterestsOrderByColumn,
+  QueryCommunityInterestsPaginatedOrderByUserColumn,
   SortOrder,
   OrderByRelationWithColumnAggregateFunction,
   PositionDuration,
@@ -26,28 +27,34 @@ export function transformSortStateToOrderByClause(
   sortingRules: SortingState,
   filterState?: CommunityInterestFilterInput,
 ): QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
-  const columnMap = new Map<string, string>([
-    ["createdAt", "created_at"],
-    ["jobInterest", "job_interest"],
-    ["trainingInterest", "training_interest"],
-    ["userName", "FIRST_NAME"],
-    ["workEmail", "WORK_EMAIL"],
-    ["preferredLang", "PREFERRED_LANG"],
-    ["skillCount", "skill_count"],
+  const columnMap = new Map<string, CommunityInterestsOrderByColumn>([
+    ["createdAt", CommunityInterestsOrderByColumn.CreatedAt],
+    ["jobInterest", CommunityInterestsOrderByColumn.JobInterest],
+    ["trainingInterest", CommunityInterestsOrderByColumn.TrainingInterest],
+    ["skillCount", CommunityInterestsOrderByColumn.SkillCount],
+  ]);
+  const userColumnMap = new Map<
+    string,
+    QueryCommunityInterestsPaginatedOrderByUserColumn
+  >([
+    ["userName", QueryCommunityInterestsPaginatedOrderByUserColumn.FirstName],
+    ["workEmail", QueryCommunityInterestsPaginatedOrderByUserColumn.WorkEmail],
+    [
+      "preferredLang",
+      QueryCommunityInterestsPaginatedOrderByUserColumn.PreferredLang,
+    ],
   ]);
 
-  const sortingRule = sortingRules?.find((rule) => {
-    const columnName = columnMap.get(rule.id);
-    return !!columnName;
-  });
+  const sortingRule = sortingRules?.find(
+    (rule) => columnMap.has(rule.id) || userColumnMap.has(rule.id),
+  );
 
   if (
     sortingRule &&
     ["jobInterest", "trainingInterest", "createdAt"].includes(sortingRule.id)
   ) {
-    const columnName = columnMap.get(sortingRule.id);
     return {
-      column: columnName,
+      column: columnMap.get(sortingRule.id),
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };
@@ -57,13 +64,12 @@ export function transformSortStateToOrderByClause(
     sortingRule &&
     ["userName", "preferredLang", "workEmail"].includes(sortingRule.id)
   ) {
-    const columnName = columnMap.get(sortingRule.id);
     return {
       column: undefined,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: {
         aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-        column: columnName as QueryCommunityInterestsPaginatedOrderByUserColumn,
+        column: userColumnMap.get(sortingRule.id),
       },
     };
   }
@@ -74,7 +80,7 @@ export function transformSortStateToOrderByClause(
     filterState.skills.length > 0
   ) {
     return {
-      column: "skill_count",
+      column: CommunityInterestsOrderByColumn.SkillCount,
       order: sortingRule.desc ? SortOrder.Desc : SortOrder.Asc,
       user: undefined,
     };
@@ -86,7 +92,7 @@ export function transformSortStateToOrderByClause(
     order: SortOrder.Asc,
     user: {
       aggregate: OrderByRelationWithColumnAggregateFunction.Max,
-      column: "FIRST_NAME" as QueryCommunityInterestsPaginatedOrderByUserColumn,
+      column: QueryCommunityInterestsPaginatedOrderByUserColumn.FirstName,
     },
   };
 }
