@@ -458,6 +458,12 @@ type Activity @model(class: "\\App\\Models\\Activity") {
   updatedAt: DateTime @rename(attribute: "updated_at")
 }
 
+type JobPosterArchive {
+  id: UUID!
+  type: JobPosterArchiveType!
+  html: LocalizedString!
+}
+
 interface HasRoleAssignments {
   id: ID!
   roleAssignments: [RoleAssignment!]
@@ -537,6 +543,9 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
+  archives(
+    type: JobPosterArchiveType @where
+  ): [JobPosterArchive!] @hasMany(relation: "jobPosterArchives")
   activities(
     where: ProcessActivityFilterInput @spread
     orderBy: _ @orderBy(columnsEnum: "ActivitiesOrderByColumn")

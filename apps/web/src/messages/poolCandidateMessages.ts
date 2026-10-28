@@ -1,32 +1,10 @@
 import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
-  qualified: {
-    defaultMessage: "Qualified",
-    id: "OdfEyd",
-    description: "Simplified status label for qualified recruitments",
-  },
   expired: {
     defaultMessage: "Expired",
     id: "LYCaEd",
     description: "Simplified status label for expired recruitments",
-  },
-  suspendedAvailability: {
-    defaultMessage:
-      "You are not receiving opportunities from this recruitment.",
-    id: "eKPE3F",
-    description:
-      "Message displayed when a user has suspended an application to a recruitment",
-  },
-  openAvailability: {
-    defaultMessage: "You are open to opportunities from this recruitment.",
-    id: "uIWFvk",
-    description: "Message displayed when a user is appearing in a recruitment",
-  },
-  targetedRecruitment: {
-    defaultMessage: "Targeted recruitment",
-    id: "04smVa",
-    description: "Label for an targeting (active) qualified recruitment",
   },
   toAssess: {
     defaultMessage: "To assess",
@@ -39,17 +17,6 @@ const messages = defineMessages({
     id: "ndW6vI",
     description:
       "Message displayed when candidate is on hold at a specific assessment step",
-  },
-  pendingDecision: {
-    defaultMessage: "Pending decision",
-    id: "Jzhd0N",
-    description:
-      "Message displayed when candidate is qualified or disqualified according to assessment results, but a final decision is yet to be made.",
-  },
-  disqualified: {
-    defaultMessage: "Disqualified",
-    id: "/dy2CX",
-    description: "Message displayed when candidate has been disqualified",
   },
   notPlaced: {
     defaultMessage: "Not placed",
@@ -75,12 +42,6 @@ const messages = defineMessages({
     description:
       "Message displayed when candidate has not passed an assessment step",
   },
-  onHold: {
-    defaultMessage: "On hold",
-    id: "qA8+f5",
-    description:
-      "Message displayed when candidate was unsuccessful but put on hold",
-  },
   unclaimed: {
     defaultMessage: "Unclaimed",
     id: "N2/Y9w",
@@ -91,18 +52,6 @@ const messages = defineMessages({
     defaultMessage: "Step {stepNumber}",
     id: "6lcN/j",
     description: "Number of a specific step",
-  },
-  underConsiderationDesc: {
-    defaultMessage: "Temporarily reserved for partner department",
-    id: "vQAVRN",
-    description:
-      "Description for the under consideration candidate placement type",
-  },
-  PlacedTentativeDesc: {
-    defaultMessage: "Tentatively placed (verbal or email confirmation)",
-    id: "G8P9fw",
-    description:
-      "Description for the offer in progress candidate placement type",
   },
   availableForReferral: {
     defaultMessage: "Available for referral",

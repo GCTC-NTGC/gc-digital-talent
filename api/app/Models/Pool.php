@@ -7,6 +7,7 @@ use App\Casts\LocalizedString;
 use App\Enums\ActivityEvent;
 use App\Enums\ActivityLog;
 use App\Enums\AssessmentStepType;
+use App\Enums\JobPosterArchiveType;
 use App\Enums\PoolLanguage;
 use App\Enums\PoolSkillType;
 use App\Enums\PoolStatus;
@@ -386,6 +387,12 @@ class Pool extends Model
         return $this->hasMany(ScreeningQuestion::class);
     }
 
+    /** @returns HasMany<JobPosterArchive, $this> */
+    public function jobPosterArchives(): HasMany
+    {
+        return $this->hasMany(JobPosterArchive::class);
+    }
+
     /* accessor to obtain Status, depends on two variables regarding published and expiry */
     public function getStatusAttribute()
     {
@@ -637,16 +644,27 @@ class Pool extends Model
     /**
      * Convert the pool to HTML for the job advertisement
      */
-    public function toAdvertisementHtml(string $locale = 'en'): string
+    public function toJobPosterHtml(string $locale = 'en'): string
     {
         $previousLocale = App::getLocale();
 
         App::setLocale($locale);
 
-        $html = view('job_advertisement.index', ['pool' => $this])->render();
+        $html = view('job_poster.index', ['pool' => $this])->render();
 
         App::setLocale($previousLocale);
 
         return $html;
+    }
+
+    public function storeArchive(JobPosterArchiveType $type)
+    {
+        $this->jobPosterArchives()->create([
+            'type' => $type->name,
+            'html' => [
+                'en' => $this->toJobPosterHtml('en'),
+                'fr' => $this->toJobPosterHtml('fr'),
+            ],
+        ]);
     }
 }

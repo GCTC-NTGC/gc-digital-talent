@@ -164,7 +164,7 @@ test.describe("Talent event and nominations management", () => {
               },
               ...user,
             },
-            roles: ["guest", "base_user", "applicant"],
+            roles: ["base_user", "applicant"],
           });
           users.push({
             ...govEmployee!,
@@ -189,7 +189,7 @@ test.describe("Talent event and nominations management", () => {
           isGovEmployee: false,
           workEmail: `${unVerifiedNominatorSub}@gc.ca`,
         },
-        roles: ["guest", "base_user", "applicant"],
+        roles: ["base_user", "applicant"],
       });
       unVerifiedNominatorId = unverifiedNominator?.id;
     });

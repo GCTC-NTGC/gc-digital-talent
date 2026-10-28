@@ -25,7 +25,7 @@ import type {
   TalentRequestWorkStream,
 } from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
-import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
 
 import { formValuesToData } from "../utils";
 import {
@@ -54,7 +54,7 @@ const submitOnlyFields: string[] = [
 
 interface SearchFormProps {
   classifications: TalentRequestClassification[];
-  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  skills: FragmentType<typeof SkillBrowser_Fragment>[];
   workStreams: TalentRequestWorkStream[];
 }
 
@@ -312,36 +312,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       }
     }
     skills {
-      ...SkillBrowserSkill
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-      }
+      ...SkillBrowser
     }
   }
 `);

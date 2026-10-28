@@ -35,6 +35,6 @@ if (app()->environment('local')) {
         app()->setLocale($locale);
         $pool = Pool::with(['poolSkills.skill'])->find($id);
 
-        return view('job_advertisement.index', ['pool' => $pool]);
+        return view('job_poster.index', ['pool' => $pool]);
     });
 }

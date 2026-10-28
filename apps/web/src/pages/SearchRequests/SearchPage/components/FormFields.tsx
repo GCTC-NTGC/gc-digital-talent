@@ -34,7 +34,7 @@ import type {
 } from "~/types/talentRequestForm";
 import { NullSelection } from "~/types/talentRequestForm";
 import SkillBrowser from "~/components/SkillBrowser/SkillBrowser";
-import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
 import processMessages from "~/messages/processMessages";
 import messages from "~/messages/profileMessages";
 import talentRequestMessages from "~/messages/talentRequestMessages";
@@ -82,7 +82,7 @@ const SearchRequestOptions_Query = graphql(/* GraphQL */ `
 
 interface FormFieldsProps {
   classifications: TalentRequestClassification[];
-  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  skills: FragmentType<typeof SkillBrowser_Fragment>[];
   workStreams: TalentRequestWorkStream[];
 }
 

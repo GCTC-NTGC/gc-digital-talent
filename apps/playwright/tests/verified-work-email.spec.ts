@@ -28,7 +28,7 @@ test.describe("Verified work email", { tag: "@uat" }, () => {
     const unverifiedSub = `unverified.${testId}@gc.ca`;
 
     const verifiedUser = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         email: `verified.contact.${testId}@test.com`,
         sub: verifiedSub,
@@ -43,7 +43,7 @@ test.describe("Verified work email", { tag: "@uat" }, () => {
     };
 
     const unverifiedUser = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         email: `unverified.contact.${testId}@test.com`,
         sub: unverifiedSub,
