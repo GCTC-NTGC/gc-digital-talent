@@ -30,4 +30,4 @@
 </p>
 
 <h3>@lang('job_poster.more_information.label_questions_accommodation')</h3>
-<p>@lang('job_poster.more_information.value_questions_accommodation')</p>
+<p>@lang('job_poster.more_information.value_questions_accommodation') <a href="mailto:{{ $pool->contact_email }}">{{ $pool->contact_email }}</a>.</p>
