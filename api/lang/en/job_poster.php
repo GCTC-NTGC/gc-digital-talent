@@ -128,7 +128,6 @@ return [
         'assessed_initial_application' => 'Assessed during initial application',
         'assessed_later' => 'Assessed at a later time',
         'label_level' => 'Level',
-        'label_skill_levels' => 'Learn more about skill levels',
         'skill_levels' => [
             'title' => 'Understanding skill levels',
             'subtitle' => 'Skills are divided into technical and behavioural types, and each type has a unique 4 level scale.',

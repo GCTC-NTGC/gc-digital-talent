@@ -1,8 +1,6 @@
 <h2>@lang('job_poster.skill_requirements.title')</h2>
 <p>@lang('job_poster.skill_requirements.description')</p>
 
-@lang('job_poster.skill_requirements.label_skill_levels')
-
 @include('job_poster.partials.skill_levels')
 
 @if (!empty($pool->poolSkills))

@@ -128,7 +128,6 @@ return [
         'assessed_initial_application' => 'Évaluées lors de la demande initiale',
         'assessed_later' => 'Évaluées ultérieurement',
         'label_level' => 'Niveau',
-        'label_skill_levels' => 'En savoir davantage sur les niveaux de compétence',
         'skill_levels' => [
             'title' => 'Comprendre les niveaux de compétence',
             'subtitle' => 'Les compétences sont divisées en types techniques et comportementaux, et chaque type possède une échelle unique à 4 niveaux.',
