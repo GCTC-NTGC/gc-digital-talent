@@ -9,6 +9,7 @@ import MapIcon from "@heroicons/react/24/outline/MapIcon";
 import { Fragment } from "react/jsx-runtime";
 
 import {
+  Button,
   Card,
   CardSeparator,
   Heading,
@@ -43,6 +44,7 @@ import CommunityPreviewListItem from "./CommunityPreviewListItem";
 import EducationPreviewListItem from "./EducationPreviewListItem";
 import PersonalPreviewListItem from "./PersonalPreviewListItem";
 import WorkPreviewListItem from "./WorkPreviewListItem";
+import AddExperienceDialog from "../ExperienceDialog/AddExperienceDialog";
 
 export const ExperienceListCard_Fragment = graphql(/* GraphQL */ `
   fragment ExperienceListCard on Experience {
@@ -75,8 +77,8 @@ type ExperienceTypeOrTimeline = ExperienceType | "timeline";
 interface TypeDetails {
   title: string;
   description: string;
-  addLink: string;
-  linkText: string;
+  addLink: string | null;
+  addText: string;
   Icon: IconType;
   nullText: string;
   filterFunction: (e: SimpleAnyExperience) => boolean;
@@ -109,7 +111,7 @@ const ExperienceListCard = ({
       addLink: applicationId
         ? paths.applicationCareerTimelineAdd(applicationId)
         : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addAward),
+      addText: intl.formatMessage(experienceMessages.addAward),
       Icon: StarIcon,
       nullText: intl.formatMessage(experienceMessages.nullAward),
       filterFunction: isAwardExperience,
@@ -120,7 +122,7 @@ const ExperienceListCard = ({
       addLink: applicationId
         ? paths.applicationCareerTimelineAdd(applicationId)
         : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addCommunity),
+      addText: intl.formatMessage(experienceMessages.addCommunity),
       Icon: UserGroupIcon,
       nullText: intl.formatMessage(experienceMessages.nullCommunity),
       filterFunction: isCommunityExperience,
@@ -131,7 +133,7 @@ const ExperienceListCard = ({
       addLink: applicationId
         ? paths.applicationCareerTimelineAdd(applicationId)
         : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addEducation),
+      addText: intl.formatMessage(experienceMessages.addEducation),
       Icon: BookmarkSquareIcon,
       nullText: intl.formatMessage(experienceMessages.nullEducation),
       filterFunction: isEducationExperience,
@@ -142,7 +144,7 @@ const ExperienceListCard = ({
       addLink: applicationId
         ? paths.applicationCareerTimelineAdd(applicationId)
         : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addPersonal),
+      addText: intl.formatMessage(experienceMessages.addPersonal),
       Icon: LightBulbIcon,
       nullText: intl.formatMessage(experienceMessages.nullPersonal),
       filterFunction: isPersonalExperience,
@@ -153,7 +155,7 @@ const ExperienceListCard = ({
       addLink: applicationId
         ? paths.applicationCareerTimelineAdd(applicationId)
         : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addWork),
+      addText: intl.formatMessage(experienceMessages.addWork),
       Icon: BriefcaseIcon,
       nullText: intl.formatMessage(experienceMessages.nullWork),
       filterFunction: isWorkExperience,
@@ -161,10 +163,8 @@ const ExperienceListCard = ({
     ["timeline"]: {
       title: intl.formatMessage(experienceMessages.timeline),
       description: intl.formatMessage(experienceMessages.timelineDescription),
-      addLink: applicationId
-        ? paths.applicationCareerTimelineAdd(applicationId)
-        : paths.createExperience(),
-      linkText: intl.formatMessage(experienceMessages.addExperience),
+      addLink: null,
+      addText: intl.formatMessage(experienceMessages.addExperience),
       Icon: MapIcon,
       nullText: intl.formatMessage(experienceMessages.nullTimeline),
       filterFunction: () => true,
@@ -174,7 +174,7 @@ const ExperienceListCard = ({
     title,
     description,
     addLink,
-    linkText,
+    addText,
     Icon,
     nullText,
     filterFunction,
@@ -232,10 +232,18 @@ const ExperienceListCard = ({
         {title}
       </Heading>
       <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
-      {showEdit && (
+      {showEdit && addLink ? (
         <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
-          {linkText}
+          {addText}
         </Link>
+      ) : (
+        <AddExperienceDialog
+          trigger={
+            <Button color="primary" icon={PlusCircleIcon} mode="inline">
+              {addText}
+            </Button>
+          }
+        />
       )}
       {Object.keys(groupedExperiences).length > 0 ? (
         Object.keys(groupedExperiences).map((organization) => (
