@@ -32,6 +32,8 @@ const PersonalPreviewListItem = ({
   experienceQuery,
   index,
   listLength,
+  editPath,
+  showEdit,
 }: ExperienceItemProps<
   FragmentType<typeof PersonalExperienceItem_Fragment>
 >) => {
@@ -77,6 +79,8 @@ const PersonalPreviewListItem = ({
               })}
             />
           }
+          editPath={editPath}
+          showEdit={showEdit}
         />
       }
       mode="experience"

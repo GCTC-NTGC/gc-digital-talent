@@ -75,7 +75,7 @@ type ExperienceTypeOrTimeline = ExperienceType | "timeline";
 interface TypeDetails {
   title: string;
   description: string;
-  href: string;
+  addLink: string;
   linkText: string;
   Icon: IconType;
   nullText: string;
@@ -84,12 +84,16 @@ interface TypeDetails {
 
 interface ExperienceListCardProps {
   type: ExperienceTypeOrTimeline;
-  experiencesQuery?: FragmentType<typeof ExperienceListCard_Fragment>[];
+  experiencesQuery: FragmentType<typeof ExperienceListCard_Fragment>[];
+  applicationId?: string;
+  showEdit?: boolean;
 }
 
 const ExperienceListCard = ({
   type,
   experiencesQuery,
+  applicationId,
+  showEdit = true,
 }: ExperienceListCardProps) => {
   const intl = useIntl();
   const paths = useRoutes();
@@ -102,7 +106,9 @@ const ExperienceListCard = ({
     ["award"]: {
       title: intl.formatMessage(experienceMessages.award),
       description: intl.formatMessage(experienceMessages.awardDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addAward),
       Icon: StarIcon,
       nullText: intl.formatMessage(experienceMessages.nullAward),
@@ -111,7 +117,9 @@ const ExperienceListCard = ({
     ["community"]: {
       title: intl.formatMessage(experienceMessages.community),
       description: intl.formatMessage(experienceMessages.communityDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addCommunity),
       Icon: UserGroupIcon,
       nullText: intl.formatMessage(experienceMessages.nullCommunity),
@@ -120,7 +128,9 @@ const ExperienceListCard = ({
     ["education"]: {
       title: intl.formatMessage(experienceMessages.education),
       description: intl.formatMessage(experienceMessages.educationDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addEducation),
       Icon: BookmarkSquareIcon,
       nullText: intl.formatMessage(experienceMessages.nullEducation),
@@ -129,7 +139,9 @@ const ExperienceListCard = ({
     ["personal"]: {
       title: intl.formatMessage(experienceMessages.personal),
       description: intl.formatMessage(experienceMessages.personalDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addPersonal),
       Icon: LightBulbIcon,
       nullText: intl.formatMessage(experienceMessages.nullPersonal),
@@ -138,7 +150,9 @@ const ExperienceListCard = ({
     ["work"]: {
       title: intl.formatMessage(experienceMessages.work),
       description: intl.formatMessage(experienceMessages.workDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addWork),
       Icon: BriefcaseIcon,
       nullText: intl.formatMessage(experienceMessages.nullWork),
@@ -147,15 +161,24 @@ const ExperienceListCard = ({
     ["timeline"]: {
       title: intl.formatMessage(experienceMessages.timeline),
       description: intl.formatMessage(experienceMessages.timelineDescription),
-      href: paths.createExperience(),
+      addLink: applicationId
+        ? paths.applicationCareerTimelineAdd(applicationId)
+        : paths.createExperience(),
       linkText: intl.formatMessage(experienceMessages.addExperience),
       Icon: MapIcon,
       nullText: intl.formatMessage(experienceMessages.nullTimeline),
       filterFunction: () => true,
     },
   };
-  const { title, description, href, linkText, Icon, nullText, filterFunction } =
-    typeData[type];
+  const {
+    title,
+    description,
+    addLink,
+    linkText,
+    Icon,
+    nullText,
+    filterFunction,
+  } = typeData[type];
 
   const sortedAndFilteredExperiences =
     experiences?.filter(filterFunction).sort(compareByDate) ?? [];
@@ -209,9 +232,11 @@ const ExperienceListCard = ({
         {title}
       </Heading>
       <p className="mb-4.5 text-gray-500 dark:text-gray-200">{description}</p>
-      <Link href={href} icon={PlusCircleIcon} className="font-bold">
-        {linkText}
-      </Link>
+      {showEdit && (
+        <Link href={addLink} icon={PlusCircleIcon} className="font-bold">
+          {linkText}
+        </Link>
+      )}
       {Object.keys(groupedExperiences).length > 0 ? (
         Object.keys(groupedExperiences).map((organization) => (
           <Fragment key={organization}>
@@ -226,6 +251,15 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
+                      editPath={
+                        applicationId
+                          ? paths.applicationCareerTimelineEdit(
+                              applicationId,
+                              experience.id,
+                            )
+                          : paths.editExperience(experience.id)
+                      }
+                      showEdit={showEdit}
                     />
                   );
                 } else if (isCommunityExperience(experience)) {
@@ -235,6 +269,15 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
+                      editPath={
+                        applicationId
+                          ? paths.applicationCareerTimelineEdit(
+                              applicationId,
+                              experience.id,
+                            )
+                          : paths.editExperience(experience.id)
+                      }
+                      showEdit={showEdit}
                     />
                   );
                 } else if (isEducationExperience(experience)) {
@@ -244,6 +287,15 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
+                      editPath={
+                        applicationId
+                          ? paths.applicationCareerTimelineEdit(
+                              applicationId,
+                              experience.id,
+                            )
+                          : paths.editExperience(experience.id)
+                      }
+                      showEdit={showEdit}
                     />
                   );
                 } else if (isPersonalExperience(experience)) {
@@ -253,6 +305,15 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
+                      editPath={
+                        applicationId
+                          ? paths.applicationCareerTimelineEdit(
+                              applicationId,
+                              experience.id,
+                            )
+                          : paths.editExperience(experience.id)
+                      }
+                      showEdit={showEdit}
                     />
                   );
                 } else
@@ -262,6 +323,15 @@ const ExperienceListCard = ({
                       experienceQuery={experience}
                       index={i}
                       listLength={groupedExperiences[organization].length}
+                      editPath={
+                        applicationId
+                          ? paths.applicationCareerTimelineEdit(
+                              applicationId,
+                              experience.id,
+                            )
+                          : paths.editExperience(experience.id)
+                      }
+                      showEdit={showEdit}
                     />
                   );
               })}

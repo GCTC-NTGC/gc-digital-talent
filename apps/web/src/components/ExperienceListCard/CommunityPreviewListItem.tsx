@@ -32,6 +32,8 @@ const CommunityPreviewListItem = ({
   experienceQuery,
   index,
   listLength,
+  editPath,
+  showEdit,
 }: ExperienceItemProps<
   FragmentType<typeof CommunityExperienceItem_Fragment>
 >) => {
@@ -77,6 +79,8 @@ const CommunityPreviewListItem = ({
               })}
             />
           }
+          editPath={editPath}
+          showEdit={showEdit}
         />
       }
       mode="experience"

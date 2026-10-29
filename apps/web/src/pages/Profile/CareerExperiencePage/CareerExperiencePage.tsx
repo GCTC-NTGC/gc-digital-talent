@@ -5,7 +5,6 @@ import { useState } from "react";
 import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
 
 import {
-  Button,
   Heading,
   Pending,
   TableOfContents,
@@ -14,11 +13,7 @@ import {
 import { unpackMaybes } from "@gc-digital-talent/helpers";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
-import {
-  commonMessages,
-  formMessages,
-  navigationMessages,
-} from "@gc-digital-talent/i18n";
+import { navigationMessages } from "@gc-digital-talent/i18n";
 import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import profileMessages from "~/messages/profileMessages";
@@ -29,8 +24,9 @@ import type { CareerTimelineSectionExperience_Fragment } from "~/components/Care
 import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
 import type { ExperienceListCard_Fragment } from "~/components/ExperienceListCard/ExperienceListCard";
 import ExperienceListCard from "~/components/ExperienceListCard/ExperienceListCard";
-
-type SortValues = "type" | "timeline";
+import ExperienceListSortSelector, {
+  type SortValue,
+} from "~/components/ExperienceListCard/ExperienceListSortSelector";
 
 const pageTitle = defineMessage({
   defaultMessage: "Your career experience",
@@ -54,18 +50,6 @@ export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const selectedFilterStyle: Record<string, string> = {
-  mode: "inline",
-  color: "black",
-  className: "[&_*]:no-underline pointer-events-none",
-};
-
-const unselectedFilterStyle: Record<string, string> = {
-  mode: "inline",
-  color: "black",
-  className: "font-normal text-gray-500",
-};
-
 interface CareerExperienceProps {
   experiencesQuery: FragmentType<typeof ExperienceListCard_Fragment>[];
 }
@@ -75,7 +59,7 @@ export const CareerExperience = ({
 }: CareerExperienceProps) => {
   const intl = useIntl();
 
-  const [sortBy, setSortBy] = useState<SortValues>("type");
+  const [sortBy, setSortBy] = useState<SortValue>("type");
 
   return (
     <TableOfContents.Wrapper>
@@ -154,36 +138,7 @@ export const CareerExperience = ({
                 "Descriptive paragraph for the career experience page.",
             })}
           </p>
-          <div
-            role="group"
-            aria-labelledby="sortFilter"
-            className="mt-6 mb-1.5 flex items-center gap-3"
-          >
-            <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
-              {intl.formatMessage(formMessages.sortBy)}
-              {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
-            <Button
-              onClick={() => setSortBy("type")}
-              {...(sortBy === "type"
-                ? selectedFilterStyle
-                : unselectedFilterStyle)}
-            >
-              {intl.formatMessage(experienceMessages.type)}
-            </Button>
-            <Button
-              onClick={() => setSortBy("timeline")}
-              {...(sortBy === "timeline"
-                ? selectedFilterStyle
-                : unselectedFilterStyle)}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Timeline",
-                id: "V+cJvn",
-                description: "Button to filter experiences by timeline",
-              })}
-            </Button>
-          </div>
+          <ExperienceListSortSelector sortBy={sortBy} setSortBy={setSortBy} />
           {sortBy === "type" ? (
             <div className="grid gap-6">
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>

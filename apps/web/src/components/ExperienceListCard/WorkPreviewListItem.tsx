@@ -69,6 +69,8 @@ const WorkPreviewListItem = ({
   experienceQuery,
   index,
   listLength,
+  editPath,
+  showEdit,
 }: ExperienceItemProps<FragmentType<typeof WorkExperienceItem_Fragment>>) => {
   const intl = useIntl();
   const experience = getFragment(WorkExperienceItem_Fragment, experienceQuery);
@@ -133,6 +135,8 @@ const WorkPreviewListItem = ({
               })}
             />
           }
+          editPath={editPath}
+          showEdit={showEdit}
         />
       }
       mode="experience"

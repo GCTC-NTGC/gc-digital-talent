@@ -88,6 +88,8 @@ const AwardPreviewListItem = ({
   experienceQuery,
   index,
   listLength,
+  editPath,
+  showEdit,
 }: ExperienceItemProps<FragmentType<typeof AwardExperienceItem_Fragment>>) => {
   const intl = useIntl();
   const experience = getFragment(AwardExperienceItem_Fragment, experienceQuery);
@@ -128,6 +130,8 @@ const AwardPreviewListItem = ({
               })}
             />
           }
+          editPath={editPath}
+          showEdit={showEdit}
         />
       }
       mode="experience"
