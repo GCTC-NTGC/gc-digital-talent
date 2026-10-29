@@ -194,7 +194,7 @@ return [
         'subtitle' => 'En savoir plus sur la façon dont les lieux de travail sont décrits dans les possibilités d\'emploi.',
         'paragraph_1' => 'Il ne faut pas oublier que cette possibilité requiert ce qui suit : ',
         'paragraph_2' => 'Les possibilités d\'emploi sur cette plateforme sont assorties de diverses exigences concernant le lieu de travail. Une seule annonce d\'emploi peut comprendre plusieurs emplois disponibles. Vous verrez donc souvent des combinaisons d\'exigences concernant le lieu de travail. Dans un tel cas, vous obtiendrez de l\'information précise sur le lieu de travail à mesure qu\'une possibilité d\'emploi se présente.',
-        'paragraph_3' => 'Les définitions de chaque possibilité de lieu de travail sont présentées ici',
+        'paragraph_3' => 'Les définitions de chaque possibilité de lieu de travail sont présentées ici : ',
         'list_item_1' => 'Les postes à distance vous offre la possibilité de travailler à temps plein depuis le lieu de votre choix (p. ex., bureau à domicile) au Canada.',
         'list_item_2' => 'Les postes hybrides requièrent une présence au bureau au moins trois jours par semaine, le reste du temps pouvant être travaillé depuis le lieu de votre choix.',
         'list_item_3' => 'Les postes sur place requièrent une présence à temps plein au bureau, sans possibilité de travailler à distance.',
