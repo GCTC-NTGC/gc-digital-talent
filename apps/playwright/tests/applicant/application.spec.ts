@@ -158,10 +158,9 @@ test.describe("Application", () => {
     ).toBeDisabled();
 
     // Quit trying to skip and continue step three honestly
+    await application.page.getByRole("button", { name: /timeline/i }).click();
     await expect(
-      application.page.getByText(
-        /you don’t have any career timeline experiences yet./i,
-      ),
+      application.page.getByText(/you haven't added any experience yet./i),
     ).toBeVisible();
     await application.saveAndContinue();
     // Expect error when no experiences added
@@ -173,7 +172,10 @@ test.describe("Application", () => {
 
     // Add an experience
     await application.page
-      .getByRole("link", { name: /add a new experience/i })
+      .getByRole("button", { name: /add an experience/i })
+      .click();
+    await application.page
+      .getByRole("link", { name: /add education or a certificate/i })
       .click();
     await application.addExperience();
     await expect(
@@ -337,10 +339,9 @@ test.describe("Application", () => {
       await expect(
         application.page.getByText(/Your career timeline currently includes:/i),
       ).toBeHidden();
+      await application.page.getByRole("button", { name: /timeline/i }).click();
       await expect(
-        application.page.getByText(
-          /you don’t have any career timeline experiences yet./i,
-        ),
+        application.page.getByText(/you haven't added any experience yet./i),
       ).toBeVisible();
       await application.saveAndContinue();
       // Expect error when no experiences added
@@ -352,7 +353,10 @@ test.describe("Application", () => {
 
       // Add an experience
       await application.page
-        .getByRole("link", { name: /add a new experience/i })
+        .getByRole("button", { name: /add an experience/i })
+        .click();
+      await application.page
+        .getByRole("link", { name: /add education or a certificate/i })
         .click();
       await application.addExperience();
       await expect(
