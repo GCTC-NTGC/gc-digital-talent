@@ -187,7 +187,7 @@ return [
         'paragraph_1' => 'In order to provide an equitable opportunity for all Canadians to apply to a position, deadlines close at 11:59 PM Pacific Time on the date specified.',
         'paragraph_2' => 'For this opportunity, applications must be submitted no later than:',
         'paragraph_3' => 'In your current time zone, that means applications will be accepted until:',
-        'paragraph_4' => 'Have questions? <a href="/support">Get in touch</a>',
+        'paragraph_4' => 'Have questions? <a href="/support">Get in touch</a>.',
     ],
     'work_location' => [
         'title' => 'Work location and terminology',

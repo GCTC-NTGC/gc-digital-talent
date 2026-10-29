@@ -187,7 +187,7 @@ return [
         'paragraph_1' => 'Afin d’offrir une possibilité équitable afin que tous les Canadiens et toutes les Canadiennes puissant postuler ce poste, la date limite aura lieu à 23:59 heure du Pacifique, à la date précisée.',
         'paragraph_2' => 'Pour cette possibilité, les demandes doivent être soumises au plus tard, le :',
         'paragraph_3' => 'Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :',
-        'paragraph_4' => 'Vous avez des questions? <a href="/support">Contactez-nous</a>',
+        'paragraph_4' => 'Vous avez des questions? <a href="/support">Contactez-nous</a>.',
     ],
     'work_location' => [
         'title' => 'Lieu de travail et terminologie',
