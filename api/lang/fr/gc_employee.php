@@ -22,7 +22,7 @@ return [
     'not_participating' => 'Je ne participe à aucun programme de coaching des cadres.',
     'not_provided' => 'Renseignements manquants',
     'exec_coaching_interest' => 'Intérêt pour le coaching des cadres',
-    'interested_coaching' => 'Je n\'ai pas envie de coacher quelqu\'un d\'autre.',
+    'interested_coaching' => 'Je souhaite coacher quelqu\'un d\'autre.',
     'interested_receiving' => 'Je souhaite bénéficier du coaching des cadres.',
 
     // Next Role Section
