@@ -17,6 +17,7 @@ import { getId, nodeToString, unpackMaybes } from "@gc-digital-talent/helpers";
 import { defaultLogger } from "@gc-digital-talent/logger";
 
 import type { Node } from "./components/RichTextInput/types";
+import descriptionList from "./components/RichTextInput/descriptionList";
 import type { OptGroupOrOption } from "./types";
 
 /**
@@ -224,7 +225,7 @@ export const objectsToSortedOptions = (
 };
 
 export function htmlToRichTextJSON(html: string): Node {
-  return generateJSON(html, [StarterKit]) as Node;
+  return generateJSON(html, [StarterKit, ...descriptionList]) as Node;
 }
 
 /**
