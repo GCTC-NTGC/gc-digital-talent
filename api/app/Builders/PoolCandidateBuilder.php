@@ -20,8 +20,6 @@ use App\Models\Skill;
 use App\Models\Team;
 use App\Models\User;
 use App\Support\Query\AdvancedOrder;
-use App\Utilities\PostgresTextSearch;
-use App\Utilities\PostgresTextSearchMatchingType;
 use Database\Helpers\TeamHelpers as HelpersTeamHelpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;
@@ -235,27 +233,16 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
             return $this;
         }
 
-        $prefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
-        $exactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
-        $config = config('scout.pgsql.config');
-
         // Look up the matching users once, instead of searching again for every candidate.
-        // Keep the prefix and exact searches joined in one condition
-        // Dropping either one changes the results (partial words, or searches with a minus), and two separate conditions can stop Postgres using the search index
         $maxUserIds = 2000;
-        $userIds = DB::table('user_search_indices')
-            ->whereRaw('searchable @@ (to_tsquery(?::regconfig, ?) || to_tsquery(?::regconfig, ?))', [$config, $prefixMatch, $config, $exactMatch])
+        $userIds = UserBuilder::idsMatchingSearch($searchTerm)
             ->limit($maxUserIds + 1) // fetch one extra so we know when there are too many
             ->pluck('id');
 
         // too many users being passed along tanks performance for high match count cases so branch off a tested decent breakpoint locally of 2000
-        if ($userIds->count() > $maxUserIds) {
-            return $this->whereHas('user', function ($userQuery) use ($searchTerm) {
-                $userQuery->whereGeneralSearch($searchTerm);
-            });
-        }
-
-        return $this->whereIn('pool_candidates.user_id', $userIds);
+        return $this->whereIn('pool_candidates.user_id', $userIds->count() > $maxUserIds
+            ? UserBuilder::idsMatchingSearch($searchTerm)
+            : $userIds);
     }
 
     public function whereName(?string $name): self
