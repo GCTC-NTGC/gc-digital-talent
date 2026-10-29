@@ -25,7 +25,7 @@ test.describe("User soft delete", { tag: "@uat" }, () => {
         email: `${uniqueTestId}@test.com`,
         sub: uniqueTestId,
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
 
     user = createdUser ?? NO_USER;

@@ -21,7 +21,7 @@
     "graphql": "^16.14.2",
     "lodash": "^4.18.1",
     "motion": "^14.0.0",
-    "react-router": "^8.4.0",
+    "react-router": "^8.5.0",
     "urql": "^5.0.4",
     "wonka": "^6.3.6"
   },
