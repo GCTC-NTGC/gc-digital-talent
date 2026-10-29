@@ -61,7 +61,7 @@ test.describe("Process candidate assessment", { tag: "@uat" }, () => {
       if (poolPublished) {
         await retirePublishedPool(adminCtx, poolId);
       } else {
-        await deletePool(platformAdminCtx, { id: poolId });
+        await deletePool(adminCtx, { id: poolId });
       }
     }
   });
