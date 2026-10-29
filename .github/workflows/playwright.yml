@@ -23,7 +23,7 @@ concurrency:
 jobs:
   playwright:
     name: Playwright (${{ matrix.project }} ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
@@ -119,7 +119,7 @@ jobs:
     # Merge reports after playwright-tests, even if some shards have failed
     if: ${{ !cancelled() }}
     needs: [playwright]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       PNPM_VERSION: "12.9.1"
     steps:
