@@ -69,16 +69,6 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can view a more limited version of the User model.
-     *
-     * @return Response|bool
-     */
-    public function viewBasicInfo(User $user)
-    {
-        return $user->isAbleTo('view-any-userBasicInfo');
-    }
-
-    /**
      * Determine whether the user can create models.
      *
      * @return Response|bool
@@ -279,8 +269,6 @@ class UserPolicy
         $role = Role::findOrFail($roleId);
 
         switch ($role->name) {
-            case 'guest':
-                return $actor->isAbleTo('assign-any-role');
             case 'base_user':
                 return $actor->isAbleTo('assign-any-role');
             case 'applicant':

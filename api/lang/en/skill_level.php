@@ -8,6 +8,22 @@ return [
     'advanced' => Lang::get('common.advanced', [], 'en'),
     'lead' => 'Lead',
 
+    // Names
+    'name' => [
+        'behavioural' => [
+            'beginner' => 'In early development',
+            'intermediate' => 'Moderately developed',
+            'advanced' => 'Strongly developed',
+            'lead' => 'Deep-level mastery',
+        ],
+        'technical' => [
+            'beginner' => 'Entry-level',
+            'intermediate' => 'Intermediate',
+            'advanced' => 'Advanced',
+            'lead' => 'Lead',
+        ],
+    ],
+
     // Definitions
     'definition' => [
         'behavioural' => [

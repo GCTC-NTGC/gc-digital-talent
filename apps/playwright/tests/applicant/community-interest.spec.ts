@@ -39,7 +39,7 @@ test.describe("Community Interest", { tag: "@uat" }, () => {
         workEmail: `${applicantSub}@gc.ca`,
         workEmailVerifiedAt: nowUTCDateTime(),
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
   });
 

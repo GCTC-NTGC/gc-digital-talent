@@ -33,8 +33,8 @@ Route::prefix('')->group(function () {
 if (app()->environment('local')) {
     Route::get('{locale}/job/{id}', function (string $locale, string $id) {
         app()->setLocale($locale);
-        $pool = Pool::find($id);
+        $pool = Pool::with(['poolSkills.skill'])->find($id);
 
-        return view('job_advertisement.index', ['pool' => $pool]);
+        return view('job_poster.index', ['pool' => $pool]);
     });
 }

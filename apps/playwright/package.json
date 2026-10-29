@@ -25,16 +25,16 @@
     "@playwright/test": "^1.64.0",
     "@types/node": "^26.6.5",
     "axe-core": "^4.14.0",
-    "dotenv": "^18.0.7",
+    "dotenv": "^18.0.8",
     "eslint": "^9.20.1",
     "eslint-plugin-playwright": "^2.12.1",
     "exceljs": "^4.4.0",
     "mammoth": "^1.13.0",
     "monocart-coverage-reports": "^2.13.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.71.1"
+    "typescript-eslint": "^8.71.2"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.13.0"
+    "@axe-core/playwright": "^4.14.0"
   }
 }
