@@ -930,4 +930,30 @@ class KeywordSearchTest extends TestCase
                 'id' => $user3->id,
             ])->assertJsonCount(3, 'data.usersPaginated.data');
     }
+
+    // Test results are ranked: a whole-word match comes before a partial-word one
+    public function testUserSearchRanksExactMatchesFirst()
+    {
+        // without ranking the list is newest first, so make the exact match older: only ranking can put it first
+        $exactMatch = User::factory()->create(['first_name' => 'Zebulonqx', 'created_at' => '2020-01-01 00:00:00']);
+        $partialMatch = User::factory()->create(['first_name' => 'Zebulonqxsmith', 'created_at' => '2021-01-01 00:00:00']);
+
+        $ids = $this->actingAs($this->platformAdmin, 'api')->graphQL(
+            /** @lang GraphQL */
+            '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+                'where' => [
+                    'generalSearch' => 'zebulonqx',
+                ],
+            ])->json('data.usersPaginated.data.*.id');
+
+        $this->assertSame([$exactMatch->id, $partialMatch->id], $ids);
+    }
 }

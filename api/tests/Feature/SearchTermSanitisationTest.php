@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Activity;
+use App\Models\CommunityInterest;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresLike;
@@ -122,5 +123,14 @@ class SearchTermSanitisationTest extends TestCase
 
         $this->assertCount(0, PoolCandidate::query()->whereGeneralSearch('   ')->get());
         $this->assertGreaterThan(0, PoolCandidate::query()->count());
+    }
+
+    // the above test but through CommunityInterest
+    public function testCommunityInterestGeneralSearchReturnsNothingWhenTheTermSanitizesToNothing(): void
+    {
+        CommunityInterest::factory()->count(3)->state(fn () => ['user_id' => User::factory()])->create();
+
+        $this->assertCount(0, CommunityInterest::query()->generalSearch('   ')->get());
+        $this->assertGreaterThan(0, CommunityInterest::query()->count());
     }
 }
