@@ -24,6 +24,7 @@ const TextNode: NodeRenderer = ({ node }) => {
       const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
       linkProps = {
         href: attrs?.href ? String(attrs.href) : "",
+        id: attrs?.id ? String(attrs.id) : undefined,
         newTab:
           attrs?.target === "_blank" &&
           !attrs?.href?.startsWith("#") &&
@@ -36,7 +37,7 @@ const TextNode: NodeRenderer = ({ node }) => {
   });
 
   return isLink ? (
-    <Link href={linkProps.href} newTab={linkProps.newTab}>
+    <Link href={linkProps.href} id={linkProps.id} newTab={linkProps.newTab}>
       {content}
     </Link>
   ) : (
@@ -88,7 +89,11 @@ const HeadingNode: NodeRenderer = ({ node, children }) => {
   }
 
   return (
-    <Heading rank={rankMap[level] ?? "h6"} size={rankMap[size] ?? "h6"}>
+    <Heading
+      id={node.attrs?.id ? String(node.attrs.id) : undefined}
+      rank={rankMap[level] ?? "h6"}
+      size={rankMap[size] ?? "h6"}
+    >
       {children}
     </Heading>
   );
