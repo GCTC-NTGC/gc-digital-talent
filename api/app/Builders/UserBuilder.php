@@ -495,20 +495,6 @@ class UserBuilder extends Builder
         });
     }
 
-    public function wherePublicProfileSearch(?string $search): self
-    {
-        if ($search) {
-            $this->where(function ($query) use ($search) {
-                $query->whereName($search);
-                $query->orWhere(function ($query) use ($search) {
-                    $query->whereEmail($search);
-                });
-            });
-        }
-
-        return $this;
-    }
-
     public function whereName(?string $name): self
     {
         if (! $name) {
@@ -786,20 +772,6 @@ class UserBuilder extends Builder
         return $this->where('users.id', null);
     }
 
-    public function whereAuthorizedToViewBasicInfo(): self
-    {
-        /** @var User | null */
-        $user = Auth::user();
-
-        // special case: can see any basic info - return all users with no filters added
-        if ($user?->isAbleTo('view-any-userBasicInfo')) {
-            return $this;
-        }
-
-        // otherwise: use the regular authorized to view scope
-        return $this->whereAuthorizedToView();
-    }
-
     // special scope for search page with custom logic to simultaneously handle WORK REGION and FLEXIBLE WORK LOCATION
     public function whereFlexibleLocationAndRegionSpecialMatching(?array $workRegions, ?array $flexibleLocations): self
     {
@@ -932,11 +904,10 @@ class UserBuilder extends Builder
         );
 
         // can't be logged into CanadaLogin last
-        $this->where(function ($subQuery) {
-            $subQuery
-                ->whereNull('last_sign_in_iss')
-                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
-        });
+        // "is distinct from" also keeps rows where last_sign_in_iss is null
+        $this->where('last_sign_in_iss', 'is distinct from', 'https://auth.login-connexion.canada.ca/oauth2') // prod
+            ->where('last_sign_in_iss', 'is distinct from', 'https://auth.login-connexion.alpha.canada.ca/oauth2') // staging
+            ->where('last_sign_in_iss', 'is distinct from', 'https://auth.test.login-connexion.alpha.canada.ca/oauth2'); // dev
 
         // can't be soft deleted
         // handled by global scope

@@ -48,7 +48,6 @@ export const NavContext = createContext<NavContextState>({
 
 export function convertRoleToNavRole(role: RoleName): NavRole {
   switch (role) {
-    case "guest":
     case "base_user":
       return null;
     case "department_admin":
