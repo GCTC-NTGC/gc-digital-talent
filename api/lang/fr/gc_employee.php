@@ -9,7 +9,7 @@ return [
     'org_types_lateral' => 'Types d\'organisations que vous envisageriez pour un transfert latéral',
     'promotion_interest' => 'Intérêt pour la promotion et l\'avancement',
     'target_time_frame_promotion' => 'Échéancier visé pour une promotion ou un avancement',
-    'org_types_promotion' => 'Intérêt pour les possibilités d\'apprentissage',
+    'org_types_promotion' => 'Types d\'organisations envisagées pour une promotion ou un avancement',
     'learning_interest' => 'Intérêt pour les possibilités d\'apprentissage ',
     'retirement_year' => 'Année d\'admissibilité à la retraite',
     'mentorship_status' => 'État du mentorat',
