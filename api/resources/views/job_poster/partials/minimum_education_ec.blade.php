@@ -2,7 +2,7 @@
 <p>
     @lang('job_poster.minimum_education.ec.degree.description')
 </p>
-<p>@lang('job_poster.or')</p>
+<pre>@lang('job_poster.or')</pre>
 <h3>@lang('job_poster.minimum_education.ec.degree_specialization.title')</h3>
 <p>
     @lang('job_poster.minimum_education.ec.degree_specialization.description')
