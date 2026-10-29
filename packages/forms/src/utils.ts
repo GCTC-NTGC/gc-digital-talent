@@ -1,5 +1,5 @@
 import type { IntlShape } from "react-intl";
-import { Extension, generateJSON } from "@tiptap/react";
+import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import type { FieldErrors, FieldValues } from "react-hook-form";
 
