@@ -96,6 +96,10 @@ export default [
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
+            route(
+              ":poolId/closed",
+              "./pages/Pools/JobPosterArchivePage/JobPosterArchivePage.tsx",
+            ),
             route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
