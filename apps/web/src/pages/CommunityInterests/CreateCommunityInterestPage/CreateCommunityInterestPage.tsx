@@ -39,7 +39,7 @@ const CreateCommunityInterestFormOptions_Fragment = graphql(/* GraphQL */ `
 
     communities {
       id
-      associatedDevelopmentPrograms {
+      communityDevelopmentPrograms {
         id
       }
     }
@@ -77,7 +77,7 @@ const CreateCommunityInterestForm = ({
   const developmentProgramCount: number =
     formOptions?.communities?.find(
       (community) => community?.id === selectedCommunityId,
-    )?.associatedDevelopmentPrograms?.length ?? 0;
+    )?.communityDevelopmentPrograms?.length ?? 0;
 
   return (
     <>
