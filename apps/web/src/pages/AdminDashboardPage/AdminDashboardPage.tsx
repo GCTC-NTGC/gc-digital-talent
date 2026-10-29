@@ -17,11 +17,16 @@ import {
   Pending,
   Ul,
 } from "@gc-digital-talent/ui";
-import type { AuthRole, RoleName } from "@gc-digital-talent/auth";
+import type {
+  AuthRole,
+  AuthRoleAssignment,
+  RoleName,
+  RoleRequirement,
+} from "@gc-digital-talent/auth";
 import {
   useAuthorization,
   ROLE_NAME,
-  hasRolesHandleNoRolesRequired,
+  hasRequiredRoles,
 } from "@gc-digital-talent/auth";
 import type { FragmentType } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
@@ -54,6 +59,20 @@ interface RoleChipsProps {
   roles: AuthRole[];
   intl: IntlShape;
 }
+
+// short-circuit hasRole if no roles were required so an empty array
+const hasRolesHandleNoRolesRequired = (
+  checkRole: RoleRequirement | RoleRequirement[],
+  userRoles: (AuthRoleAssignment | null | undefined)[] | null | undefined,
+): boolean => {
+  if (Array.isArray(checkRole) && checkRole.length === 0) {
+    return true;
+  }
+  return hasRequiredRoles({
+    toCheck: checkRole,
+    userRoles: userRoles,
+  });
+};
 
 const RoleChips = ({ roles, intl }: RoleChipsProps) => {
   const uniqueRoles = uniqBy(roles, "name");
