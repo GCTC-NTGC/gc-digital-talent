@@ -16,6 +16,7 @@ use App\Utilities\PostgresLike;
 use App\Utilities\PostgresTextSearch;
 use App\Utilities\PostgresTextSearchMatchingType;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -835,53 +836,47 @@ class UserBuilder extends Builder
         return $this;
     }
 
+    /**
+     * Subquery selecting ids of users whose profile matches the search term, as prefix or exact words.
+     * A term that sanitizes away to nothing gives an empty tsquery, which matches no one.
+     */
+    public static function idsMatchingSearch(string $searchTerm): QueryBuilder
+    {
+        $config = config('scout.pgsql.config');
+
+        // Keep the prefix and exact searches in one condition. Dropping either one changes the results
+        // (partial words, or searches with a minus), and two separate conditions can stop Postgres using the search index.
+        return DB::table('user_search_indices')
+            ->select('id')
+            ->whereRaw('searchable @@ (to_tsquery(?::regconfig, ?) || to_tsquery(?::regconfig, ?))', [
+                $config, PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX),
+                $config, PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT),
+            ]);
+    }
+
     public function whereGeneralSearch(?string $searchTerm): self
     {
         if (empty($searchTerm)) {
             return $this;
         }
 
-        $queryTextPrefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
-        $queryTextExactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
+        $config = config('scout.pgsql.config');
+        $prefixMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::PREFIX);
+        $exactMatch = PostgresTextSearch::searchStringToQueryText($searchTerm, PostgresTextSearchMatchingType::EXACT);
 
-        if ($queryTextPrefixMatch && $queryTextExactMatch) {
-            $this
-                ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
-                // attach the queries to every row to use for filtering
-                ->crossJoinSub(function ($query) use ($queryTextPrefixMatch, $queryTextExactMatch) {
-                    $query->selectRaw(
-                        'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS prefix_match_query',
-                        [config('scout.pgsql.config'), $queryTextPrefixMatch]
-                    );
-                    $query->selectRaw(
-                        'to_tsquery(coalesce(?, get_current_ts_config()), ?) AS exact_match_query',
-                        [config('scout.pgsql.config'), $queryTextExactMatch]
-                    );
-                }, 'calculations')
-                // filter rows against the queries (OR)
-                ->where(function ($query) {
-                    $query->whereColumn('user_search_indices.searchable', '@@', 'calculations.prefix_match_query');
-                    $query->orWhereColumn('user_search_indices.searchable', '@@', 'calculations.exact_match_query');
-                })
-                // add the calculated rank column to allow for ordering by text search rank
-                // weighting the exact matches a little heavier
-                ->addSelect(DB::raw(<<<'SQL'
-                        (
-                            (ts_rank(user_search_indices.searchable, calculations.prefix_match_query) * 0.9) +
-                            (ts_rank(user_search_indices.searchable, calculations.exact_match_query) * 1.1)
-                        ) / 2 AS search_rank
-                        SQL))
-                // Now that we have added a column, query builder no longer will add a * to the select.  Add all possible columns manually.
-                ->addSelect(['users.*'])
-                ->from('users')
-                ->orderByDesc('search_rank');
-        } else {
-            // The term sanitized away to nothing, e.g. all whitespace.
-            // Match nothing rather than everything.
-            $this->whereRaw('1 = 0');
-        }
-
-        return $this;
+        return $this
+            ->whereIn('users.id', self::idsMatchingSearch($searchTerm))
+            // joined only to rank the results, weighting exact matches a little heavier
+            ->join('user_search_indices', 'users.id', '=', 'user_search_indices.id')
+            // list the user columns; adding the rank column drops the default *
+            ->addSelect('users.*')
+            ->selectRaw(<<<'SQL'
+                (
+                    ts_rank(user_search_indices.searchable, to_tsquery(?::regconfig, ?)) * 0.9 +
+                    ts_rank(user_search_indices.searchable, to_tsquery(?::regconfig, ?)) * 1.1
+                ) / 2 AS search_rank
+                SQL, [$config, $prefixMatch, $config, $exactMatch])
+            ->orderByDesc('search_rank');
     }
 
     /*
