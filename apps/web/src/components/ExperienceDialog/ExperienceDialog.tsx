@@ -96,6 +96,7 @@ export const ExperienceDialog_Fragment = graphql(/* GraphQL */ `
 export interface ExperienceDialogBaseProps {
   trigger: ReactNode;
   editPath?: string;
+  showEdit?: boolean;
   userSkills?: UserSkillLevel[];
   defaultOpen?: boolean;
   open?: boolean;
@@ -111,6 +112,7 @@ const ExperienceDialog = ({
   experienceQuery,
   trigger,
   editPath: editPathProp,
+  showEdit = true,
   userSkills,
   defaultOpen,
   open,
@@ -149,7 +151,7 @@ const ExperienceDialog = ({
             headingRank="h3"
           />
           <Dialog.Footer>
-            {editHref && (
+            {showEdit && editHref && (
               <Link href={editHref} mode="solid" color="primary">
                 {intl.formatMessage({
                   defaultMessage: "Edit experience",

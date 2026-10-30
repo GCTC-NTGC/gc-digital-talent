@@ -169,6 +169,7 @@ const Application_PoolCandidateFragment = graphql(/* GraphQL */ `
       experiences {
         id
         ...ExperienceCard
+        ...ExperienceListCard
         ...SkillTreeExperience
         ...ApplicationSkillsExperience
       }

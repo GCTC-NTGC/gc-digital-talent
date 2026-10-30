@@ -31,6 +31,7 @@ import {
   useExperienceInfo,
   type SnapshotExperience,
 } from "~/utils/experienceUtils";
+import experienceMessages from "~/messages/experienceMessages";
 
 import ContentSection from "../ContentSection";
 import CommunityContent from "../CommunityContent";
@@ -127,12 +128,7 @@ const ExperienceCardV1 = ({
             <>
               <span aria-hidden="true">{UNICODE_CHAR.BULLET}</span>
               <span>
-                {intl.formatMessage({
-                  defaultMessage: "Government of Canada",
-                  id: "OKqOVT",
-                  description:
-                    "Label for goc employment category on work experience card metadata",
-                })}
+                {intl.formatMessage(experienceMessages.governmentOfCanada)}
               </span>
             </>
           )}

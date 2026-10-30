@@ -13,6 +13,8 @@ import {
   type HeadingRank,
 } from "@gc-digital-talent/ui";
 
+import experienceMessages from "~/messages/experienceMessages";
+
 interface LinkedExperienceProps {
   title: string;
   href: string;
@@ -78,15 +80,9 @@ const LinkedExperience = ({
               experienceType,
               dateRange,
               skillCount !== undefined
-                ? intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "{count, plural, one {# skill} other {# skills}}",
-                      id: "EQI4l2",
-                      description: "Number of skills on an experience",
-                    },
-                    { count: skillCount },
-                  )
+                ? intl.formatMessage(experienceMessages.skillCount, {
+                    count: skillCount,
+                  })
                 : undefined,
             ]
               .filter(Boolean)

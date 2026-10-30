@@ -1,0 +1,277 @@
+import { defineMessage, useIntl } from "react-intl";
+import { useQuery } from "urql";
+import NewspaperIcon from "@heroicons/react/24/outline/NewspaperIcon";
+import { useState } from "react";
+import BookmarkSquareIcon from "@heroicons/react/24/outline/BookmarkSquareIcon";
+
+import {
+  Heading,
+  Pending,
+  TableOfContents,
+  ThrowNotFound,
+} from "@gc-digital-talent/ui";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
+import { ROLE_NAME } from "@gc-digital-talent/auth";
+import { graphql, type FragmentType } from "@gc-digital-talent/graphql";
+import { navigationMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
+
+import profileMessages from "~/messages/profileMessages";
+import experienceMessages from "~/messages/experienceMessages";
+import RequireAuth from "~/components/RequireAuth/RequireAuth";
+import { PAGE_SECTION_ID } from "~/constants/sections/careerExperiencePage";
+import type { CareerTimelineSectionExperience_Fragment } from "~/components/CareerTimelineSection/CareerTimelineSection";
+import CareerTimelineSection from "~/components/CareerTimelineSection/CareerTimelineSection";
+import type { ExperienceListCard_Fragment } from "~/components/ExperienceListCard/ExperienceListCard";
+import ExperienceListCard from "~/components/ExperienceListCard/ExperienceListCard";
+import ExperienceListSortSelector, {
+  type SortValue,
+} from "~/components/ExperienceListCard/ExperienceListSortSelector";
+
+const pageTitle = defineMessage({
+  defaultMessage: "Your career experience",
+  id: "kLl/xh",
+  description: "Name of career experience page",
+});
+
+export const handle = {
+  pageTitle: navigationMessages.careerExperience,
+};
+
+export const CareerExperiencePage_Query = graphql(/* GraphQL */ `
+  query CareerExperiencePage {
+    me {
+      id
+      experiences {
+        ...ExperienceListCard
+        ...CareerTimelineSectionExperience
+      }
+    }
+  }
+`);
+
+interface CareerExperienceProps {
+  experiencesQuery: FragmentType<typeof ExperienceListCard_Fragment>[];
+}
+
+export const CareerExperience = ({
+  experiencesQuery,
+}: CareerExperienceProps) => {
+  const intl = useIntl();
+
+  const [sortBy, setSortBy] = useState<SortValue>("type");
+
+  return (
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        <TableOfContents.List>
+          <TableOfContents.ListItem>
+            <TableOfContents.AnchorLink id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
+              {intl.formatMessage(pageTitle)}
+            </TableOfContents.AnchorLink>
+            <TableOfContents.List>
+              {sortBy === "type" ? (
+                <>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.WORK_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.work)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.education)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.community)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.personal)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                  <TableOfContents.ListItem>
+                    <TableOfContents.AnchorLink
+                      id={PAGE_SECTION_ID.AWARD_EXPERIENCE}
+                    >
+                      {intl.formatMessage(experienceMessages.award)}
+                    </TableOfContents.AnchorLink>
+                  </TableOfContents.ListItem>
+                </>
+              ) : (
+                <TableOfContents.ListItem>
+                  <TableOfContents.AnchorLink id={PAGE_SECTION_ID.TIMELINE}>
+                    {intl.formatMessage(experienceMessages.timeline)}
+                  </TableOfContents.AnchorLink>
+                </TableOfContents.ListItem>
+              )}
+            </TableOfContents.List>
+          </TableOfContents.ListItem>
+        </TableOfContents.List>
+      </TableOfContents.Navigation>
+      <TableOfContents.Content>
+        <TableOfContents.Section id={PAGE_SECTION_ID.CAREER_EXPERIENCE}>
+          <Heading
+            icon={NewspaperIcon}
+            color="primary"
+            size="h3"
+            className="mt-0 mb-6 font-normal"
+          >
+            {intl.formatMessage(pageTitle)}
+          </Heading>
+          <p className="mb-6">
+            {intl.formatMessage({
+              defaultMessage:
+                "This section of your profile acts as your resume, where you can describe your experience across work, school, and life. You'll be able to reuse this information on each application you submit, speeding up the process and ensuring that your information is always up-to-date.",
+              id: "V4oTbX",
+              description:
+                "Descriptive paragraph for the career experience page.",
+            })}
+          </p>
+          <ExperienceListSortSelector sortBy={sortBy} setSortBy={setSortBy} />
+          {sortBy === "type" ? (
+            <div className="grid gap-6">
+              <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>
+                <ExperienceListCard
+                  type={"work"}
+                  experiencesQuery={experiencesQuery}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
+              >
+                <ExperienceListCard
+                  type={"education"}
+                  experiencesQuery={experiencesQuery}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section
+                id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
+              >
+                <ExperienceListCard
+                  type={"community"}
+                  experiencesQuery={experiencesQuery}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}>
+                <ExperienceListCard
+                  type={"personal"}
+                  experiencesQuery={experiencesQuery}
+                />
+              </TableOfContents.Section>
+              <TableOfContents.Section id={PAGE_SECTION_ID.AWARD_EXPERIENCE}>
+                <ExperienceListCard
+                  type={"award"}
+                  experiencesQuery={experiencesQuery}
+                />
+              </TableOfContents.Section>
+            </div>
+          ) : (
+            <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
+              <ExperienceListCard
+                type={"timeline"}
+                experiencesQuery={experiencesQuery}
+              />
+            </TableOfContents.Section>
+          )}
+        </TableOfContents.Section>
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
+  );
+};
+
+interface CareerTimelineProps {
+  userId: string;
+  experiencesQuery: FragmentType<
+    typeof CareerTimelineSectionExperience_Fragment
+  >[];
+}
+
+export const CareerTimeline = ({
+  userId,
+  experiencesQuery,
+}: CareerTimelineProps) => {
+  const intl = useIntl();
+
+  return (
+    <>
+      <Heading
+        icon={BookmarkSquareIcon}
+        color="error"
+        size="h3"
+        className="mt-0 mb-6 font-normal"
+      >
+        {intl.formatMessage({
+          defaultMessage: "Manage your career timeline",
+          id: "eZYP/W",
+          description:
+            "Titles for a page section to manage your career timeline",
+        })}
+      </Heading>
+      <p className="mb-6">
+        {intl.formatMessage({
+          defaultMessage:
+            "This section is similar to your traditional resume. This is where you can describe your experiences across work, school, and life. You'll be able to reuse this information on each application you submit on the platform, speeding up the process and ensuring that your information is always up-to-date.",
+          id: "0m3FMH",
+          description: "Descriptive paragraph for the career timeline page.",
+        })}
+      </p>
+      <div className="mb-18">
+        <CareerTimelineSection
+          experiencesQuery={experiencesQuery}
+          userId={userId}
+        />
+      </div>
+    </>
+  );
+};
+
+const CareerExperiencePage = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useQuery({
+    query: CareerExperiencePage_Query,
+  });
+
+  const featureFlags = useFeatureFlags();
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        featureFlags.careerExperience ? (
+          <CareerExperience
+            experiencesQuery={unpackMaybes(data?.me.experiences)}
+          />
+        ) : (
+          <CareerTimeline
+            userId={data.me.id}
+            experiencesQuery={unpackMaybes(data?.me.experiences)}
+          />
+        )
+      ) : (
+        <ThrowNotFound
+          message={intl.formatMessage(profileMessages.userNotFound)}
+        />
+      )}
+    </Pending>
+  );
+};
+
+export const Component = () => (
+  <RequireAuth roles={[ROLE_NAME.Applicant]}>
+    <CareerExperiencePage />
+  </RequireAuth>
+);
+
+Component.displayName = "CareerExperiencePage";
+
+export default Component;

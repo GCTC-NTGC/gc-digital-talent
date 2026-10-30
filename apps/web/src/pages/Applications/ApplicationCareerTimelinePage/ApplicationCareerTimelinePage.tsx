@@ -16,9 +16,13 @@ import {
 import { toast } from "@gc-digital-talent/toast";
 import { ErrorMessage, Field, HiddenInput } from "@gc-digital-talent/forms";
 import { groupBy, notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import type { ExperienceCardFragment } from "@gc-digital-talent/graphql";
+import type {
+  ExperienceCardFragment,
+  ExperienceListCardFragment,
+} from "@gc-digital-talent/graphql";
 import { ApplicationStep, makeFragmentData } from "@gc-digital-talent/graphql";
 import { commonMessages } from "@gc-digital-talent/i18n";
+import { useFeatureFlags } from "@gc-digital-talent/env";
 
 import useRoutes from "~/hooks/useRoutes";
 import type { GetPageNavInfo } from "~/types/applicationStep";
@@ -33,6 +37,12 @@ import type { FormValues as ExperienceSortAndFilterFormValues } from "~/componen
 import ExperienceSortAndFilter from "~/components/ExperienceSortAndFilter/ExperienceSortAndFilter";
 import { sortAndFilterExperiences } from "~/components/ExperienceSortAndFilter/sortAndFilterUtil";
 import poolCandidateMessages from "~/messages/poolCandidateMessages";
+import ExperienceListSortSelector, {
+  type SortValue,
+} from "~/components/ExperienceListCard/ExperienceListSortSelector";
+import ExperienceListCard, {
+  ExperienceListCard_Fragment,
+} from "~/components/ExperienceListCard/ExperienceListCard";
 
 import useUpdateApplicationMutation from "../useUpdateApplicationMutation";
 import type { ApplicationPageProps } from "../ApplicationApi";
@@ -190,12 +200,16 @@ export const ApplicationCareerTimeline = ({
     useUpdateApplicationMutation();
   const cancelPath = paths.profileAndApplications();
   const applicationWasSubmitted = !!application.submittedAt;
+  const featureFlags = useFeatureFlags();
 
   const methods = useForm<FormValues>();
   const {
     setValue,
     formState: { isSubmitting, errors },
   } = methods;
+
+  // Used by the new cards behind the careerExperience flag
+  const [sortBy, setSortBy] = useState<SortValue>("type");
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     useState<ExperienceSortAndFilterFormValues>({
@@ -326,68 +340,150 @@ export const ApplicationCareerTimeline = ({
         </>
       )}
 
-      <div className="mb-3 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-        <ExperienceSortAndFilter
-          initialFormValues={sortAndFilterValues}
-          onChange={(formValues) => setSortAndFilterValues(formValues)}
-        />
-        <div className="mb-4">
-          <Link
-            mode="inline"
-            href={paths.applicationCareerTimelineAdd(application.id)}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Add a new experience",
-              id: "ARFz8L",
-              description:
-                "A link to add a new experience to your career timeline",
-            })}
-          </Link>
-        </div>
-      </div>
-      {hasSomeExperience ? (
-        <div className="flex flex-col gap-y-3">
-          {hasExperiencesByType ? (
-            experienceList.map((experience) => {
-              return (
-                <ExperienceCard
-                  key={experience.id}
-                  headingRank="h3"
-                  showSkills={false}
-                  editPath={paths.applicationCareerTimelineEdit(
-                    application.id,
-                    experience.id,
-                  )}
-                  showEdit={!applicationWasSubmitted}
-                  experienceQuery={makeFragmentData(
-                    experience as ExperienceCardFragment,
-                    ExperienceCard_Fragment,
-                  )}
-                />
-              );
-            })
+      {featureFlags.careerExperience ? (
+        <>
+          <ExperienceListSortSelector sortBy={sortBy} setSortBy={setSortBy} />
+          {sortBy === "type" ? (
+            <div className="grid gap-6">
+              <ExperienceListCard
+                type={"work"}
+                experiencesQuery={experiences.map((exp) =>
+                  makeFragmentData(
+                    exp as ExperienceListCardFragment,
+                    ExperienceListCard_Fragment,
+                  ),
+                )}
+                applicationId={application.id}
+                showEdit={!applicationWasSubmitted}
+              />
+              <ExperienceListCard
+                type={"education"}
+                experiencesQuery={experiences.map((exp) =>
+                  makeFragmentData(
+                    exp as ExperienceListCardFragment,
+                    ExperienceListCard_Fragment,
+                  ),
+                )}
+                applicationId={application.id}
+                showEdit={!applicationWasSubmitted}
+              />
+              <ExperienceListCard
+                type={"community"}
+                experiencesQuery={experiences.map((exp) =>
+                  makeFragmentData(
+                    exp as ExperienceListCardFragment,
+                    ExperienceListCard_Fragment,
+                  ),
+                )}
+                applicationId={application.id}
+                showEdit={!applicationWasSubmitted}
+              />
+              <ExperienceListCard
+                type={"personal"}
+                experiencesQuery={experiences.map((exp) =>
+                  makeFragmentData(
+                    exp as ExperienceListCardFragment,
+                    ExperienceListCard_Fragment,
+                  ),
+                )}
+                applicationId={application.id}
+                showEdit={!applicationWasSubmitted}
+              />
+              <ExperienceListCard
+                type={"award"}
+                experiencesQuery={experiences.map((exp) =>
+                  makeFragmentData(
+                    exp as ExperienceListCardFragment,
+                    ExperienceListCard_Fragment,
+                  ),
+                )}
+                applicationId={application.id}
+                showEdit={!applicationWasSubmitted}
+              />
+            </div>
           ) : (
-            <Notice.Root className="text-center">
+            <ExperienceListCard
+              type={"timeline"}
+              experiencesQuery={experiences.map((exp) =>
+                makeFragmentData(
+                  exp as ExperienceListCardFragment,
+                  ExperienceListCard_Fragment,
+                ),
+              )}
+              applicationId={application.id}
+              showEdit={!applicationWasSubmitted}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <div className="mb-3 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <ExperienceSortAndFilter
+              initialFormValues={sortAndFilterValues}
+              onChange={(formValues) => setSortAndFilterValues(formValues)}
+            />
+            <div className="mb-4">
+              <Link
+                mode="inline"
+                href={paths.applicationCareerTimelineAdd(application.id)}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Add a new experience",
+                  id: "ARFz8L",
+                  description:
+                    "A link to add a new experience to your career timeline",
+                })}
+              </Link>
+            </div>
+          </div>
+          {hasSomeExperience ? (
+            <div className="flex flex-col gap-y-3">
+              {hasExperiencesByType ? (
+                experienceList.map((experience) => {
+                  return (
+                    <ExperienceCard
+                      key={experience.id}
+                      headingRank="h3"
+                      showSkills={false}
+                      editPath={paths.applicationCareerTimelineEdit(
+                        application.id,
+                        experience.id,
+                      )}
+                      showEdit={!applicationWasSubmitted}
+                      experienceQuery={makeFragmentData(
+                        experience as ExperienceCardFragment,
+                        ExperienceCard_Fragment,
+                      )}
+                    />
+                  );
+                })
+              ) : (
+                <Notice.Root className="text-center">
+                  <Notice.Content>
+                    <p>
+                      {intl.formatMessage(commonMessages.noExperiencesOfType)}
+                    </p>
+                  </Notice.Content>
+                </Notice.Root>
+              )}
+            </div>
+          ) : (
+            <Notice.Root>
               <Notice.Content>
-                <p>{intl.formatMessage(commonMessages.noExperiencesOfType)}</p>
+                <p className="text-center">
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "You don’t have any career timeline experiences yet.",
+                    id: "YqQuy8",
+                    description: "Null state messages for career timeline list",
+                  })}
+                </p>
               </Notice.Content>
             </Notice.Root>
           )}
-        </div>
-      ) : (
-        <Notice.Root>
-          <Notice.Content>
-            <p className="text-center">
-              {intl.formatMessage({
-                defaultMessage:
-                  "You don’t have any career timeline experiences yet.",
-                id: "YqQuy8",
-                description: "Null state messages for career timeline list",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
+        </>
       )}
+
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(handleSubmit)}>
           <HiddenInput
