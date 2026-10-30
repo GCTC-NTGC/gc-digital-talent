@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes, JSX } from "react";
 
-import type { LinkProps } from "@gc-digital-talent/ui";
+import type { HeadingRank, LinkProps } from "@gc-digital-talent/ui";
 import { Heading, Link, Ul } from "@gc-digital-talent/ui";
 
 import type { RenderMap, Node, NodeRenderer } from "./types";
@@ -24,7 +24,11 @@ const TextNode: NodeRenderer = ({ node }) => {
       const attrs = mark.attrs as AnchorHTMLAttributes<HTMLAnchorElement>;
       linkProps = {
         href: attrs?.href ? String(attrs.href) : "",
-        newTab: attrs?.target === "_blank",
+        id: attrs?.id ? String(attrs.id) : undefined,
+        newTab:
+          attrs?.target === "_blank" &&
+          !attrs?.href?.startsWith("#") &&
+          !attrs?.href?.startsWith("/"),
       };
       return true;
     }
@@ -33,7 +37,7 @@ const TextNode: NodeRenderer = ({ node }) => {
   });
 
   return isLink ? (
-    <Link href={linkProps.href} newTab={linkProps.newTab}>
+    <Link href={linkProps.href} id={linkProps.id} newTab={linkProps.newTab}>
       {content}
     </Link>
   ) : (
@@ -53,9 +57,43 @@ const ListItemNode: NodeRenderer = ({ children }) => {
   return <li>{children}</li>;
 };
 
-const HeadingNode: NodeRenderer = ({ children }) => {
+const DescriptionListNode: NodeRenderer = ({ children }) => {
+  return <dl className="my-6">{children}</dl>;
+};
+
+const DescriptionTermNode: NodeRenderer = ({ children }) => {
+  return <dt className="font-bold">{children}</dt>;
+};
+
+const DescriptionDetailsNode: NodeRenderer = ({ children }) => {
+  return <dd className="mb-3 ml-6 block">{children}</dd>;
+};
+
+const rankMap: Record<number, HeadingRank> = {
+  1: "h1",
+  2: "h2",
+  3: "h3",
+  4: "h4",
+  5: "h5",
+  6: "h6",
+};
+
+const HeadingNode: NodeRenderer = ({ node, children }) => {
+  let level = 3;
+  if (node.attrs && "level" in node.attrs) {
+    level = Number(node.attrs.level);
+  }
+  let size = level + 1;
+  if (level > 6) {
+    size = 6;
+  }
+
   return (
-    <Heading rank="h3" size="h4">
+    <Heading
+      id={node.attrs?.id ? String(node.attrs.id) : undefined}
+      rank={rankMap[level] ?? "h6"}
+      size={rankMap[size] ?? "h6"}
+    >
       {children}
     </Heading>
   );
@@ -68,6 +106,9 @@ const nodeRenderMap: RenderMap = {
   bulletList: BulletListNode,
   listItem: ListItemNode,
   heading: HeadingNode,
+  descriptionList: DescriptionListNode,
+  descriptionTerm: DescriptionTermNode,
+  descriptionDetails: DescriptionDetailsNode,
 };
 
 interface RichTextRendererProps {
