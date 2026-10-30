@@ -122,11 +122,11 @@ return [
     ],
     'skill_requirements' => [
         'title' => 'Exigences en matière de compétences',
-        'description' => 'Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez toutes les compétences marquées « Requises ». Si vous possédez l\'une des compétences « Facultatives » nous vous recommandons de l\'inclure, car elle augmentera vos chances de trouver un emploi. Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.',
-        'required' => 'Requises',
-        'optional' => 'Facultatives',
-        'assessed_initial_application' => 'Évaluées lors de la demande initiale',
-        'assessed_later' => 'Évaluées ultérieurement',
+        'description' => 'Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez toutes les compétences marquées « Requise ». Si vous possédez l\'une des compétences « Facultative » nous vous recommandons de l\'inclure, car elle augmentera vos chances de trouver un emploi. Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluée lors de la demande initiale ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.',
+        'required' => 'Requise',
+        'optional' => 'Facultative',
+        'assessed_initial_application' => 'Évaluée lors de la demande initiale',
+        'assessed_later' => 'Évaluée ultérieurement',
         'label_level' => 'Niveau',
         'label_skill_levels' => 'En savoir davantage sur les niveaux de compétence',
         'skill_levels' => [
