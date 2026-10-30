@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useQuery } from "urql";
-import type { MessageDescriptor } from "react-intl";
+import type { TypedMessageDescriptor } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 
 import { ApplicationStatus, graphql } from "@gc-digital-talent/graphql";
@@ -47,7 +47,7 @@ const ApplicationStatusFormOptions_Query = graphql(/** GraphQL */ `
   }
 `);
 
-const statusMessageMap = new Map<ApplicationStatus, MessageDescriptor>([
+const statusMessageMap = new Map<ApplicationStatus, TypedMessageDescriptor>([
   [
     ApplicationStatus.ToAssess,
     defineMessage({
