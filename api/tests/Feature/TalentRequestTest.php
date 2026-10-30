@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
 use App\Enums\TalentRequestSource;
+use App\Enums\WorkRegion;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\TalentRequest;
@@ -162,6 +163,7 @@ class TalentRequestTest extends TestCase
             'applicantFilter' => [
                 'create' => [
                     'hasDiploma' => true,
+                    'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
                     'community' => ['connect' => Community::inRandomOrder()->first()->id],
                 ],
             ],
@@ -194,6 +196,7 @@ class TalentRequestTest extends TestCase
                 'applicantFilter' => [
                     'create' => [
                         'hasDiploma' => true,
+                        'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
                         'community' => ['connect' => Community::inRandomOrder()->first()->id],
                         'talentSources' => [
                             TalentRequestSource::QUALIFIED_IN_POOL->name,
@@ -211,6 +214,46 @@ class TalentRequestTest extends TestCase
             [TalentRequestSource::QUALIFIED_IN_POOL->name, TalentRequestSource::AT_LEVEL->name],
             $talentRequest->applicantFilter->talent_sources,
         );
+    }
+
+    public function testCreateRequiresLocationPreferences(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences']);
+
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [],
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences']);
+    }
+
+    public function testCreateRequiresApplicantFilterCommunity(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.community.connect']);
     }
 
     public function testCreateRejectsNonGovernmentEmail(): void

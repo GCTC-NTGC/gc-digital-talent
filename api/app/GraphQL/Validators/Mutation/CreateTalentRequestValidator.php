@@ -31,6 +31,8 @@ final class CreateTalentRequestValidator extends Validator
                 Rule::in(array_column(TalentRequestReason::cases(), 'name')),
             ],
             'talentRequest.initialResultCount' => ['nullable', 'integer', 'min:0'],
+            'talentRequest.applicantFilter.create.locationPreferences' => ['required', 'array', 'min:1'],
+            'talentRequest.applicantFilter.create.community.connect' => ['required', 'uuid', 'exists:communities,id'],
         ];
     }
 
