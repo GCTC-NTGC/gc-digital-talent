@@ -2,21 +2,23 @@
 FROM node:24.15.0 AS node
 
 # base
-FROM ubuntu:24.04
+FROM ubuntu:26.04
+
+# set up the Ondrej PPA
+RUN apt-get update \
+  && apt-get -y install lsb-release ca-certificates curl \
+  && curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb \
+  && dpkg -i /tmp/debsuryorg-archive-keyring.deb \
+  && sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' \
 
 # install apt packages
-# first install software-properties-common to get add-apt-repository
-# then add ondrej PPA
-# then update again and install everything else
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common \
-  && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y \
-  && apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
-  && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php8.5 php8.5-mbstring php8.5-xml php8.5-pgsql php8.5-zip php8.5-curl php8.5-bcmath php8.5-gd php8.5-intl \
-  && apt-get install --yes --no-install-recommends git postgresql-client \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    tzdata \
+    perl unzip wget curl \
+    php8.5 php8.5-cli php8.5-mbstring php8.5-xml php8.5-pgsql php8.5-zip php8.5-curl php8.5-bcmath php8.5-gd php8.5-dom php8.5-intl \
+    git postgresql-client \
   && apt-get clean
 
 # install node from official image
