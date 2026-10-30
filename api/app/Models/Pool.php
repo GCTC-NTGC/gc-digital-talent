@@ -556,6 +556,7 @@ class Pool extends Model
     {
         $this->disableCustomLogging(function ($pool) {
             $pool->update(['published_at' => Carbon::now()]);
+            $pool->storeArchive(JobPosterArchiveType::PUBLISHED);
         });
 
         $this->logActivity(ActivityEvent::PUBLISHED);
@@ -639,6 +640,11 @@ class Pool extends Model
     protected function hasRequiredLocation(): bool
     {
         return $this->is_remote || filled($this->advertisement_location);
+    }
+
+    protected function hasArchive(JobPosterArchiveType $type): bool
+    {
+        return $this->jobPosterArchives()->where('type', $type->name)->exists();
     }
 
     /**
