@@ -96,11 +96,11 @@ export default [
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
             ),
+            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
             route(
-              ":poolId/closed",
+              "closed/:poolId",
               "./pages/Pools/JobPosterArchivePage/JobPosterArchivePage.tsx",
             ),
-            route("closed", "./pages/Pools/BrowseJobsPage/ClosedJobsPage.tsx"),
           ]),
 
           // Job templates

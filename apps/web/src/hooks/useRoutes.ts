@@ -227,7 +227,7 @@ const getRoutes = (lang: Locales) => {
     closedJobs: () => `${baseUrl}/jobs/closed`,
     jobPoster: (processId: string) => `${baseUrl}/jobs/${processId}`,
     jobPosterArchive: (processId: string) =>
-      `${baseUrl}/jobs/${processId}/closed`,
+      `${baseUrl}/jobs/closed/${processId}`,
 
     // Applications
     application: (applicationId: string) =>
