@@ -101,17 +101,28 @@ const CreateCommunityInterestForm = ({
       (communityDevelopmentProgram) =>
         communityDevelopmentProgram.developmentProgram,
     );
-    const { interestInDevelopmentPrograms } = apiDataToFormValues(
+    const defaultValues = apiDataToFormValues(
       null,
       unpackMaybes(developmentProgramUserRecords),
       null,
       developmentProgramsForCommunity,
     );
 
-    resetField("interestInDevelopmentPrograms", {
-      keepDirty: false,
-      defaultValue: interestInDevelopmentPrograms,
-    });
+    const resetDirtyField = (name: keyof FormValues) => {
+      resetField(name, { keepDirty: false, defaultValue: defaultValues[name] });
+    };
+
+    resetDirtyField("jobInterest");
+    resetDirtyField("trainingInterest");
+    resetDirtyField("interestInWorkStreamIds");
+    resetDirtyField("interestInDevelopmentPrograms");
+    resetDirtyField("financeIsChief");
+    resetDirtyField("financeOtherRoles");
+    resetDirtyField("financeOtherRolesOther");
+    resetDirtyField("procurementIsSDO");
+    resetDirtyField("communityInterestAdditionalDuties");
+    resetDirtyField("additionalInformation");
+    resetDirtyField("consent");
   };
 
   return (
