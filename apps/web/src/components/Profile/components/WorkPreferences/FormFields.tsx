@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useWatch } from "react-hook-form";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
@@ -28,6 +29,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import type { FormValues } from "./types";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
@@ -70,6 +72,17 @@ const FormFields = ({
   const intl = useIntl();
   const data = getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery);
   useDirtyFields("work");
+
+  const selectedFlexibleWorkLocations = useWatch<
+    FormValues,
+    "flexibleWorkLocations"
+  >({
+    name: "flexibleWorkLocations",
+  });
+
+  const locationPreferencesRequired =
+    selectedFlexibleWorkLocations?.includes(FlexibleWorkLocation.Onsite) ||
+    selectedFlexibleWorkLocations?.includes(FlexibleWorkLocation.Hybrid);
 
   // taking the enum collection from the API request
   // turn them into options, append a content-below node
@@ -228,6 +241,11 @@ const FormFields = ({
             ),
             intl,
           )}
+          rules={{
+            required: locationPreferencesRequired
+              ? intl.formatMessage(errorMessages.required)
+              : undefined,
+          }}
         />
         <p>{labels.locationExemptions}</p>
         <TextArea
