@@ -64,6 +64,8 @@ const FIELD = {
   NOT_REFERRED_REASON: "notReferredReason",
   NOT_SELECTED_REASON: "notSelectedReason",
   VIEW_PROFILE: "viewProfile",
+  SEARCH_BY_KEYWORD: "searchByKeyword",
+  NO_MATCHING_CANDIDATES: "noMatchingCandidates",
 } as const;
 
 type ObjectValues<T> = T[keyof T];
@@ -137,6 +139,13 @@ class TalentRequest extends AppPage {
       [FIELD.VIEW_PROFILE]: page
         .getByRole("dialog")
         .getByRole("link", { name: /view profile/i }),
+      [FIELD.SEARCH_BY_KEYWORD]: page.getByRole("textbox", {
+        name: /search by keyword/i,
+      }),
+      [FIELD.NO_MATCHING_CANDIDATES]: page.getByRole("heading", {
+        name: /There aren't any items here./i,
+        level: 2,
+      }),
     };
   }
 
@@ -169,19 +178,27 @@ class TalentRequest extends AppPage {
     return this.page.getByRole("row").filter({ hasText: name });
   }
 
-  async filterMatchingCandidatesByTalentSource(
+  async filterMatchingCandidates(
     requestId: string,
-    talentSource: string,
+    candidateName: string,
+    excludedTalentSource: LocalizedTalentRequestSource,
   ) {
     await Promise.all([
       this.waitForGraphqlResponse("TalentRequestMatchingUsers"),
       this.goToDetails(requestId),
     ]);
+    await Promise.all([
+      this.waitForGraphqlResponse("TalentRequestMatchingUsers"),
+      this.locators[FIELD.SEARCH_BY_KEYWORD].fill(candidateName),
+    ]);
     await this.page.getByRole("button", { name: /filters/i }).click();
     await this.page
       .getByRole("dialog")
-      .getByRole("checkbox", { name: talentSource, exact: true })
-      .check();
+      .getByRole("checkbox", {
+        name: excludedTalentSource.label.en ?? "",
+        exact: true,
+      })
+      .uncheck();
     await Promise.all([
       this.waitForGraphqlResponse("TalentRequestMatchingUsers"),
       this.page.getByRole("button", { name: /show results/i }).click(),
@@ -261,6 +278,7 @@ class TalentRequest extends AppPage {
 
   async validateSourceOfTalentCard(
     sourceOfTalent: TalentRequestSourceOfTalent,
+    talentSources: LocalizedTalentRequestSource[],
   ): Promise<void> {
     await expect(
       this.page.getByRole("heading", { name: /source of talent/i }),
@@ -276,12 +294,14 @@ class TalentRequest extends AppPage {
     ).toBeVisible();
     await expect(list.getByText(sourceOfTalent.poolName)).toBeVisible();
     await expect(this.page.getByText(sourceOfTalent.community)).toBeVisible();
-    await expect(
-      this.page
-        .getByRole("listitem")
-        .filter({ hasText: sourceOfTalent.selectedTalentSource })
-        .getByRole("img", { name: "Selected", exact: true }),
-    ).toBeVisible();
+    for (const { label } of talentSources) {
+      await expect(
+        this.page
+          .getByRole("listitem")
+          .filter({ hasText: label.en ?? "" })
+          .getByRole("img", { name: "Selected", exact: true }),
+      ).toBeVisible();
+    }
   }
 
   async validateCandidateCriteriaCard(
@@ -393,12 +413,7 @@ class TalentRequest extends AppPage {
     }
 
     await this.saveAndExpectAlert(/tracked users updated successfully/i);
-    await expect(
-      this.page.getByRole("heading", {
-        name: /There aren't any items here./i,
-        level: 2,
-      }),
-    ).toBeVisible();
+    await expect(this.locators[FIELD.NO_MATCHING_CANDIDATES]).toBeVisible();
   }
 
   async quickUpdateTrackedCandidateStatus(

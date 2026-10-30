@@ -263,7 +263,11 @@ test.describe(
                 sync: [requestClassification.id],
               },
               qualifiedInWorkStreams: { sync: [workStream.id] },
-              talentSources: [TalentRequestSource.QualifiedInPool],
+              talentSources: [
+                TalentRequestSource.QualifiedInPool,
+                TalentRequestSource.Advancement,
+                TalentRequestSource.LateralMovement,
+              ],
             },
           },
         });
@@ -295,6 +299,9 @@ test.describe(
     }) => {
       await loginBySub(appPage.page, adminSub);
       const talentRequestPage = new TalentRequest(appPage.page);
+      const qualifiedInPoolSource = talentSources.find(
+        (source) => source.value === TalentRequestSource.QualifiedInPool,
+      )!;
       const advancementSource = talentSources.find(
         (source) => source.value === TalentRequestSource.Advancement,
       )!;
@@ -303,12 +310,15 @@ test.describe(
         advancementNominee.firstName ?? "",
       );
 
-      await test.step("Filter by 'Nominated for advancement' and verify the nominee isn't listed while the nomination isn't approved", async () => {
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+      await test.step("Uncheck 'Qualified in pool', search for the nominee and verify they aren't listed while the nomination isn't approved", async () => {
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          advancementLabel,
+          advancementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
-        await expect(nomineeRow).toBeHidden();
+        await expect(
+          talentRequestPage.locators.noMatchingCandidates,
+        ).toBeVisible();
       });
 
       await test.step("Approve the advancement nomination", async () => {
@@ -326,10 +336,11 @@ test.describe(
         });
       });
 
-      await test.step("Filter by 'Nominated for advancement' and verify the nominee is listed with that source", async () => {
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+      await test.step("Search for the nominee and verify they're listed as 'Nominated for advancement'", async () => {
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          advancementLabel,
+          advancementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
         await expect(nomineeRow).toContainText(advancementLabel);
       });
@@ -355,11 +366,14 @@ test.describe(
             developmentProgramsDecision: null,
           },
         });
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          advancementLabel,
+          advancementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
-        await expect(nomineeRow).toBeHidden();
+        await expect(
+          talentRequestPage.locators.noMatchingCandidates,
+        ).toBeVisible();
       });
     });
 
@@ -368,6 +382,9 @@ test.describe(
     }) => {
       await loginBySub(appPage.page, adminSub);
       const talentRequestPage = new TalentRequest(appPage.page);
+      const qualifiedInPoolSource = talentSources.find(
+        (source) => source.value === TalentRequestSource.QualifiedInPool,
+      )!;
       const lateralMovementSource = talentSources.find(
         (source) => source.value === TalentRequestSource.LateralMovement,
       )!;
@@ -376,12 +393,15 @@ test.describe(
         lateralMovementNominee.firstName ?? "",
       );
 
-      await test.step("Filter by 'Nominated for lateral movement' and verify the nominee isn't listed while the nomination isn't approved", async () => {
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+      await test.step("Uncheck 'Qualified in pool', search for the nominee and verify they aren't listed while the nomination isn't approved", async () => {
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          lateralMovementLabel,
+          lateralMovementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
-        await expect(nomineeRow).toBeHidden();
+        await expect(
+          talentRequestPage.locators.noMatchingCandidates,
+        ).toBeVisible();
       });
 
       await test.step("Approve the lateral movement nomination", async () => {
@@ -401,10 +421,11 @@ test.describe(
         });
       });
 
-      await test.step("Filter by 'Nominated for lateral movement' and verify the nominee is listed with that source", async () => {
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+      await test.step("Search for the nominee and verify they're listed as 'Nominated for lateral movement'", async () => {
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          lateralMovementLabel,
+          lateralMovementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
         await expect(nomineeRow).toContainText(lateralMovementLabel);
       });
@@ -432,11 +453,14 @@ test.describe(
             developmentProgramsDecision: null,
           },
         });
-        await talentRequestPage.filterMatchingCandidatesByTalentSource(
+        await talentRequestPage.filterMatchingCandidates(
           requestId,
-          lateralMovementLabel,
+          lateralMovementNominee.firstName ?? "",
+          qualifiedInPoolSource,
         );
-        await expect(nomineeRow).toBeHidden();
+        await expect(
+          talentRequestPage.locators.noMatchingCandidates,
+        ).toBeVisible();
       });
     });
   },
