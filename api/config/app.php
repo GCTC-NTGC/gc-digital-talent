@@ -8,6 +8,7 @@ use App\Providers\ClockInterfaceProvider;
 use App\Providers\EventServiceProvider;
 use App\Providers\FakerServiceProvider;
 use App\Providers\GraphQLServiceProvider;
+use App\Providers\JoseServiceProvider;
 use App\Providers\ManagedIdentityProvider;
 use App\Providers\NotifyServiceProvider;
 use App\Providers\RouteServiceProvider;
@@ -286,6 +287,7 @@ return [
         RouteServiceProvider::class,
         ClockInterfaceProvider::class,
         ManagedIdentityProvider::class,
+        JoseServiceProvider::class,
         ValidationRulesServiceProvider::class,
 
         // Additional Providers
