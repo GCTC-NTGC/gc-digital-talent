@@ -221,7 +221,7 @@ const FormFields = ({
         </p>
         <Checklist
           idPrefix="work-location"
-          legend={labels.flexibleWorkLocationOptions}
+          legend={labels.flexibleWorkLocations}
           name="flexibleWorkLocations"
           id="flexibleWorkLocations"
           items={formOptionsWithContentBelow}
@@ -231,7 +231,7 @@ const FormFields = ({
         />
         <Checklist
           idPrefix="work-location"
-          legend={labels.workLocationPreferences}
+          legend={labels.locationPreferences}
           name="locationPreferences"
           id="locationPreferences"
           items={localizedEnumToOptions(
