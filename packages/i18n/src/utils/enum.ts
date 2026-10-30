@@ -70,6 +70,7 @@ export function getLocalizedEnumStringByValue(
   intl: IntlShape,
   emptyNotFound = false,
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return getLocalizedName(
     getLocalizedEnumByValue(value, localizedEnumArray)?.label,
     intl,
