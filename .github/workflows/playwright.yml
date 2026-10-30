@@ -31,6 +31,10 @@ jobs:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
     env:
+      # Keep the containers running as root, as they always have in CI. Locally
+      # they detect the checkout's owner instead; see .env.example.
+      HOST_UID: "0"
+      HOST_GID: "0"
       # Use native docker command within docker compose
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
