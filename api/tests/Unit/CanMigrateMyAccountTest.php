@@ -8,6 +8,7 @@ use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class CanMigrateMyAccountTest extends TestCase
@@ -88,7 +89,17 @@ class CanMigrateMyAccountTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function testCanMigrateIfExactlyOnePossibleTargetWithNoLastSignIn()
+    public static function provideSicIssValues(): array
+    {
+        return [
+            'null' => [null], // most SIC accounts were created before we stared tracking this field
+            'prod' => ['https://auth.id.canada.ca'],
+            'testing' => ['https://te-auth.id.tbs-sct.gc.ca'],
+        ];
+    }
+
+    #[DataProvider('provideSicIssValues')]
+    public function testCanMigrateIfExactlyOnePossibleTargetWithSicLastSignIn(?string $iss)
     {
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
@@ -99,32 +110,24 @@ class CanMigrateMyAccountTest extends TestCase
         User::factory()->create([
             'email_backup' => 'test@example.com',
             'telephone' => '5551234567',
-            'last_sign_in_iss' => null,
+            'last_sign_in_iss' => $iss,
         ]);
         Auth::login($user);
         $result = (new CanMigrateMyAccount())();
         $this->assertTrue($result);
     }
 
-    public function testCanMigrateIfExactlyOnePossibleTargetWithSicLastSignIn()
+    public static function provideCanadaLoginIssValues(): array
     {
-        Config::set('feature.auth_in_app_migration', true);
-        $user = User::factory()->create([
-            'email' => 'test@example.com',
-            'telephone' => '5551234567',
-        ]);
-        // Create one possible target
-        User::factory()->create([
-            'email_backup' => 'test@example.com',
-            'telephone' => '5551234567',
-            'last_sign_in_iss' => 'auth.id.tbs-sct.gc.ca',
-        ]);
-        Auth::login($user);
-        $result = (new CanMigrateMyAccount())();
-        $this->assertTrue($result);
+        return [
+            'prod' => ['https://auth.login-connexion.canada.ca/oauth2'],
+            'staging' => ['https://auth.login-connexion.alpha.canada.ca/oauth2'],
+            'dev' => ['https://auth.test.login-connexion.alpha.canada.ca/oauth2'],
+        ];
     }
 
-    public function testCannotMigrateIfTargetWasLastLoggedInWithCanadalogin()
+    #[DataProvider('provideCanadaLoginIssValues')]
+    public function testCannotMigrateIfTargetWasLastLoggedInWithCanadalogin(?string $iss)
     {
         Config::set('feature.auth_in_app_migration', true);
         $user = User::factory()->create([
@@ -135,7 +138,7 @@ class CanMigrateMyAccountTest extends TestCase
         User::factory()->create([
             'email_backup' => 'test@example.com',
             'telephone' => '5551234567',
-            'last_sign_in_iss' => 'https://auth.login-connexion.canada.ca/oauth2',
+            'last_sign_in_iss' => $iss,
         ]);
         Auth::login($user);
         $result = (new CanMigrateMyAccount())();

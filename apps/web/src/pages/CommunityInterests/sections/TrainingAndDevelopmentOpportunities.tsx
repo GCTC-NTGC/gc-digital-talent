@@ -39,15 +39,18 @@ const TrainingAndDevelopmentOpportunitiesOptions_Fragment = graphql(
     fragment TrainingAndDevelopmentOpportunitiesOptions_Fragment on Query {
       communities {
         id
-        associatedDevelopmentPrograms {
+        communityDevelopmentPrograms {
           id
-          name {
-            localized
+          developmentProgram {
+            id
+            name {
+              localized
+            }
+            descriptionForProfile {
+              localized
+            }
           }
-          descriptionForProfile {
-            localized
-          }
-          eligibleClassifications {
+          classifications {
             id
             displayName
           }
@@ -190,10 +193,14 @@ const TrainingAndDevelopmentOpportunities = ({
     });
   }, [selectedInterestInDevelopmentPrograms, setValue]);
 
-  const developmentPrograms =
+  const developmentPrograms = unpackMaybes(
     optionsData.communities.find(
       (community) => community?.id === selectedCommunityId,
-    )?.associatedDevelopmentPrograms ?? [];
+    )?.communityDevelopmentPrograms,
+  ).map((communityDevelopmentProgram) => ({
+    ...communityDevelopmentProgram.developmentProgram,
+    classifications: communityDevelopmentProgram.classifications,
+  }));
 
   // sort programs
   developmentPrograms.sort(
@@ -201,8 +208,8 @@ const TrainingAndDevelopmentOpportunities = ({
   );
 
   developmentPrograms.forEach((developmentProgram) => {
-    if (developmentProgram.eligibleClassifications) {
-      developmentProgram.eligibleClassifications.sort((a, b) =>
+    if (developmentProgram.classifications) {
+      developmentProgram.classifications.sort((a, b) =>
         a.displayName.localeCompare(b.displayName),
       );
     }
@@ -307,7 +314,7 @@ const TrainingAndDevelopmentOpportunities = ({
               </p>
             </div>
             {/* classification list */}
-            {developmentProgram?.eligibleClassifications?.length ? (
+            {developmentProgram?.classifications?.length ? (
               <div className="mb-6 flex gap-1.5">
                 <span>
                   {intl.formatMessage({
@@ -318,13 +325,13 @@ const TrainingAndDevelopmentOpportunities = ({
                   {intl.formatMessage(commonMessages.dividingColon)}
                 </span>
                 <Chips>
-                  {unpackMaybes(
-                    developmentProgram?.eligibleClassifications,
-                  ).map((classification) => (
-                    <Chip key={classification.id} color="primary">
-                      {classification.displayName}
-                    </Chip>
-                  ))}
+                  {unpackMaybes(developmentProgram?.classifications).map(
+                    (classification) => (
+                      <Chip key={classification.id} color="primary">
+                        {classification.displayName}
+                      </Chip>
+                    ),
+                  )}
                 </Chips>
               </div>
             ) : null}
