@@ -2,6 +2,7 @@
 // Note: Disable camelcase since variables are being used by API
 import type { SubmitHandler } from "react-hook-form";
 import { FormProvider, useForm } from "react-hook-form";
+import type { MessageTag } from "react-intl";
 import { defineMessage, useIntl } from "react-intl";
 import type { Location } from "react-router";
 import { useLocation, useSearchParams } from "react-router";
@@ -263,14 +264,21 @@ const SupportFormUser_Query = graphql(/* GraphQL */ `
   }
 `);
 
-const defaultErrorMessage = defineMessage({
+const defaultErrorMessage = defineMessage<{
+  anchorTag: MessageTag;
+  emailAddress: string;
+  errorCode: string;
+}>({
   defaultMessage:
     "Sorry, something went wrong. Please email <anchorTag>{emailAddress}</anchorTag> and mention this error code: {errorCode}.",
   id: "rNVDaA",
   description: "Support form toast message error",
 });
 
-const emailErrorMessage = defineMessage({
+const emailErrorMessage = defineMessage<{
+  anchorTag: MessageTag;
+  emailAddress: string;
+}>({
   defaultMessage:
     "Invalid email address. Try again or send an email to <anchorTag>{emailAddress}</anchorTag>.",
   id: "DOn3Hm",
@@ -315,7 +323,9 @@ const SupportFormApi = () => {
       })
       .catch((err: Error) => {
         // default error message if we don't recognize the error
-        let errorMessage = defaultErrorMessage;
+        let errorMessage:
+          typeof defaultErrorMessage | typeof emailErrorMessage =
+          defaultErrorMessage;
         if (err.name === SUPPORT_TICKET_ERROR.INVALID_EMAIL) {
           errorMessage = emailErrorMessage;
         }

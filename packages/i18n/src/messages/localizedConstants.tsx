@@ -1,4 +1,4 @@
-import type { MessageDescriptor } from "react-intl";
+import type { TypedMessageDescriptor } from "react-intl";
 import { defineMessage, defineMessages } from "react-intl";
 
 import {
@@ -33,11 +33,11 @@ const enumNotFound = defineMessage({
  * @param key
  * @param errorMessage
  */
-function getOrDisplayError<T>(
-  object: Record<string, T>,
+function getOrDisplayError(
+  object: Record<string, TypedMessageDescriptor>,
   key: string | number,
   msg: string,
-): T | MessageDescriptor {
+): TypedMessageDescriptor {
   if (!hasKey(object, key)) {
     defaultLogger.error(msg);
     return enumNotFound;
@@ -70,7 +70,7 @@ const employmentEquityGroups = defineMessages({
 
 export const getEmploymentEquityGroup = (
   equityGroup: keyof typeof employmentEquityGroups,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     employmentEquityGroups,
     equityGroup,
@@ -104,7 +104,7 @@ const employmentEquityStatements = defineMessages({
 
 export const getEmploymentEquityStatement = (
   equityStatement: keyof typeof employmentEquityStatements,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     employmentEquityStatements,
     equityStatement,
@@ -127,56 +127,56 @@ const citizenshipStatusesProfile = defineMessages({
 
 export const getCitizenshipStatusesProfile = (
   citizenshipId: string | number,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     citizenshipStatusesProfile,
     citizenshipId,
     `Invalid Language '${citizenshipId}'`,
   );
 
-const armedForcesStatusesProfile = defineMessages({
-  [ArmedForcesStatus.Veteran]: {
+const armedForcesStatusesProfile = {
+  [ArmedForcesStatus.Veteran]: defineMessage({
     defaultMessage:
       "I am a <strong>veteran</strong> of the Canadian Armed Forces.",
     id: "ZpTNbt",
     description: "declare self to be a CAF veteran",
-  },
-  [ArmedForcesStatus.Member]: {
+  }),
+  [ArmedForcesStatus.Member]: defineMessage({
     defaultMessage:
       "I am an <strong>active member</strong> of the Canadian Armed Forces.",
     id: "iYNLo1",
     description: "declare self to be a CAF member",
-  },
-  [ArmedForcesStatus.NonCaf]: {
+  }),
+  [ArmedForcesStatus.NonCaf]: defineMessage({
     defaultMessage:
       "I am <strong>not a member</strong> of the Canadian Armed Forces.",
     id: "bAaDat",
     description: "declare self to not be in the CAF",
-  },
-});
+  }),
+};
 
-const armedForcesStatusesProfileNoBold = defineMessages({
-  [ArmedForcesStatus.Veteran]: {
+const armedForcesStatusesProfileNoBold = {
+  [ArmedForcesStatus.Veteran]: defineMessage({
     defaultMessage: "I am a veteran of the Canadian Armed Forces.",
     id: "jqyjFm",
     description: "declare self to be a CAF veteran without bolding",
-  },
-  [ArmedForcesStatus.Member]: {
+  }),
+  [ArmedForcesStatus.Member]: defineMessage({
     defaultMessage: "I am an active member of the Canadian Armed Forces.",
     id: "TRDfnp",
     description: "declare self to be a CAF member without bolding",
-  },
-  [ArmedForcesStatus.NonCaf]: {
+  }),
+  [ArmedForcesStatus.NonCaf]: defineMessage({
     defaultMessage: "I am not a member of the Canadian Armed Forces.",
     id: "vPDtGU",
     description: "declare self to not be in the CAF without bolding",
-  },
-});
+  }),
+};
 
 export const getArmedForcesStatusesProfile = (
   armedForcesId: string | number,
   bold = true,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     bold ? armedForcesStatusesProfile : armedForcesStatusesProfileNoBold,
     armedForcesId,
@@ -185,49 +185,49 @@ export const getArmedForcesStatusesProfile = (
 
 const educationRequirementOptions = (classificationGroup?: string) =>
   classificationGroup === "EX"
-    ? defineMessages({
-        [EducationRequirementOption.AppliedWork]: {
+    ? {
+        [EducationRequirementOption.AppliedWork]: defineMessage({
           defaultMessage: "Applied work experience",
           description: "Title for the applied work experience requirements",
           id: "dwYJOo",
-        },
-        [EducationRequirementOption.Education]: {
+        }),
+        [EducationRequirementOption.Education]: defineMessage({
           defaultMessage: "Graduation with degree",
           id: "aTHtqQ",
           description:
             "Option for education requirement, graduation with degree",
-        },
-        [EducationRequirementOption.ProfessionalDesignation]: {
+        }),
+        [EducationRequirementOption.ProfessionalDesignation]: defineMessage({
           defaultMessage: "Professional designation",
           id: "TblXEE",
           description:
             "Option for education requirement, professional designation",
-        },
-      })
-    : defineMessages({
-        [EducationRequirementOption.AppliedWork]: {
+        }),
+      }
+    : {
+        [EducationRequirementOption.AppliedWork]: defineMessage({
           defaultMessage: "Applied work experience",
           description: "Title for the applied work experience requirements",
           id: "dwYJOo",
-        },
-        [EducationRequirementOption.Education]: {
+        }),
+        [EducationRequirementOption.Education]: defineMessage({
           defaultMessage: "2-year post-secondary",
           description:
             "Option for education requirement, 2-year post-secondary",
           id: "TiIkSF",
-        },
-        [EducationRequirementOption.ProfessionalDesignation]: {
+        }),
+        [EducationRequirementOption.ProfessionalDesignation]: defineMessage({
           defaultMessage: "Professional designation",
           id: "TblXEE",
           description:
             "Option for education requirement, professional designation",
-        },
-      });
+        }),
+      };
 
 export const getEducationRequirementOption = (
   educationRequirementOptionId: string,
   classificationGroup?: string,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     educationRequirementOptions(classificationGroup),
     educationRequirementOptionId,
@@ -243,37 +243,37 @@ type ObjectValues<T> = T[keyof T];
 
 export type TEmploymentDuration = ObjectValues<typeof EmploymentDuration>;
 
-const employmentDurationShort = defineMessages({
-  [EmploymentDuration.Term]: {
+const employmentDurationShort = {
+  [EmploymentDuration.Term]: defineMessage({
     defaultMessage: "Term",
     id: "jwPlv1",
     description:
       "Duration of a non-permanent length (short-form for limited space)",
-  },
-  [EmploymentDuration.Indeterminate]: {
+  }),
+  [EmploymentDuration.Indeterminate]: defineMessage({
     defaultMessage: "Indeterminate",
     id: "FqsPMv",
     description: "Duration that is permanent (short-form for limited space)",
-  },
-});
+  }),
+};
 
-const employmentDurationLong = defineMessages({
-  [EmploymentDuration.Term]: {
+const employmentDurationLong = {
+  [EmploymentDuration.Term]: defineMessage({
     defaultMessage: "Term duration (short term or long term)",
     id: "AyaZQZ",
     description: "Duration of a non-permanent length",
-  },
-  [EmploymentDuration.Indeterminate]: {
+  }),
+  [EmploymentDuration.Indeterminate]: defineMessage({
     defaultMessage: "Indeterminate duration (permanent)",
     id: "rYodJu",
     description: "Duration that is permanent",
-  },
-});
+  }),
+};
 
 export const getEmploymentDuration = (
   employmentDurationId: string | number,
   format: "long" | "short" = "long",
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   const messageDictionary = {
     long: employmentDurationLong,
     short: employmentDurationShort,
@@ -337,100 +337,100 @@ const workRegionsDetailed = defineMessages({
 
 export const getWorkRegionsDetailed = (
   workRegionId: string | number,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     workRegionsDetailed,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
 
-const operationalRequirementLabelFirstPerson = defineMessages({
-  [OperationalRequirement.OvertimeOccasional]: {
+const operationalRequirementLabelFirstPerson = {
+  [OperationalRequirement.OvertimeOccasional]: defineMessage({
     defaultMessage:
       "I am willing to work <strong>occasional overtime</strong>.",
     id: "PKkPSW",
     description:
       "The operational requirement described as occasional overtime.",
-  },
-  [OperationalRequirement.OvertimeRegular]: {
+  }),
+  [OperationalRequirement.OvertimeRegular]: defineMessage({
     defaultMessage: "I am willing to work <strong>regular overtime</strong>.",
     id: "nVodgK",
     description: "The operational requirement described as regular overtime.",
-  },
-  [OperationalRequirement.ShiftWork]: {
+  }),
+  [OperationalRequirement.ShiftWork]: defineMessage({
     defaultMessage:
       "I am willing to work a job with <strong>shift-work</strong>.",
     id: "quCf/v",
     description: "The operational requirement described as shift work.",
-  },
-  [OperationalRequirement.OnCall]: {
+  }),
+  [OperationalRequirement.OnCall]: defineMessage({
     defaultMessage:
       "I am willing to work a job that has <strong>24/7 on-call shifts</strong>.",
     id: "vpTBA0",
     description: "The operational requirement described as 24/7 on-call.",
-  },
-  [OperationalRequirement.Travel]: {
+  }),
+  [OperationalRequirement.Travel]: defineMessage({
     defaultMessage:
       "I am willing to work a job that <strong>requires travel</strong>.",
     id: "j47/Ct",
     description: "The operational requirement described as travel as required.",
-  },
-  [OperationalRequirement.TransportEquipment]: {
+  }),
+  [OperationalRequirement.TransportEquipment]: defineMessage({
     defaultMessage:
       "I am willing to work a job that requires me to <strong>transport, lift and set down equipment weighing up to 20kg</strong>.",
     id: "Y2w/me",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
-  },
-  [OperationalRequirement.DriversLicense]: {
+  }),
+  [OperationalRequirement.DriversLicense]: defineMessage({
     defaultMessage:
       "I am willing to work a job that requires me to <strong>have a valid driver's license</strong> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
     id: "iC7Wsq",
     description: "The operational requirement described as driver's license.",
-  },
-});
+  }),
+};
 
-const operationalRequirementLabelFirstPersonNoBold = defineMessages({
-  [OperationalRequirement.OvertimeOccasional]: {
+const operationalRequirementLabelFirstPersonNoBold = {
+  [OperationalRequirement.OvertimeOccasional]: defineMessage({
     defaultMessage: "I am willing to work occasional overtime.",
     id: "2Tm9BE",
     description:
       "The operational requirement described as occasional overtime.",
-  },
-  [OperationalRequirement.OvertimeRegular]: {
+  }),
+  [OperationalRequirement.OvertimeRegular]: defineMessage({
     defaultMessage: "I am willing to work regular overtime.",
     id: "QP+Skh",
     description: "The operational requirement described as regular overtime.",
-  },
-  [OperationalRequirement.ShiftWork]: {
+  }),
+  [OperationalRequirement.ShiftWork]: defineMessage({
     defaultMessage: "I am willing to work a job with shift-work.",
     id: "P+e8z7",
     description: "The operational requirement described as shift work.",
-  },
-  [OperationalRequirement.OnCall]: {
+  }),
+  [OperationalRequirement.OnCall]: defineMessage({
     defaultMessage: "I am willing to work a job that has 24/7 on-call shifts.",
     id: "l2XtbB",
     description: "The operational requirement described as 24/7 on-call.",
-  },
-  [OperationalRequirement.Travel]: {
+  }),
+  [OperationalRequirement.Travel]: defineMessage({
     defaultMessage: "I am willing to work a job that requires me to travel.",
     id: "U3QEUu",
     description: "The operational requirement described as travel as required.",
-  },
-  [OperationalRequirement.TransportEquipment]: {
+  }),
+  [OperationalRequirement.TransportEquipment]: defineMessage({
     defaultMessage:
       "I am willing to work a job that requires me to transport, lift and set down equipment weighing up to 20kg.",
     id: "MAeNit",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
-  },
-  [OperationalRequirement.DriversLicense]: {
+  }),
+  [OperationalRequirement.DriversLicense]: defineMessage({
     defaultMessage:
       "I am willing to work a job that requires me to have a valid driver's license or personal mobility to the degree normally associated with the possession of a valid driver's license.",
     id: "uu2OuP",
     description: "The operational requirement described as driver's license.",
-  },
-});
+  }),
+};
 
 export const OperationalRequirements = [
   OperationalRequirement.OvertimeOccasional,
@@ -451,56 +451,56 @@ export const GenericJobTitlesSorted = [
   GenericJobTitleKey.ManagerIt04,
 ];
 
-const operationalRequirementLabelFull = defineMessages({
-  [OperationalRequirement.ShiftWork]: {
+const operationalRequirementLabelFull = {
+  [OperationalRequirement.ShiftWork]: defineMessage({
     defaultMessage: "Availability, willingness and ability to work shift-work",
     id: "X+DDtG",
     description: "The operational requirement described as shift work.",
-  },
-  [OperationalRequirement.OnCall]: {
+  }),
+  [OperationalRequirement.OnCall]: defineMessage({
     defaultMessage:
       "Availability, willingness and ability to work 24/7 on-call status",
     id: "4XgOuf",
     description: "The operational requirement described as 24/7 on-call.",
-  },
-  [OperationalRequirement.Travel]: {
+  }),
+  [OperationalRequirement.Travel]: defineMessage({
     defaultMessage:
       "Availability, willingness and ability to travel as required",
     id: "DyrwXU",
     description: "The operational requirement described as travel as required.",
-  },
-  [OperationalRequirement.TransportEquipment]: {
+  }),
+  [OperationalRequirement.TransportEquipment]: defineMessage({
     defaultMessage:
       "Availability, willingness and ability to transport, lift and set down equipment weighing up to 20kg",
     id: "xSCksA",
     description:
       "The operational requirement described as transport equipment up to 20kg",
-  },
-  [OperationalRequirement.DriversLicense]: {
+  }),
+  [OperationalRequirement.DriversLicense]: defineMessage({
     defaultMessage:
       "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license",
     id: "q2m/4E",
     description: "The operational requirement described as driver's license.",
-  },
-  [OperationalRequirement.OvertimeRegular]: {
+  }),
+  [OperationalRequirement.OvertimeRegular]: defineMessage({
     defaultMessage:
       "Availability, willingness and ability to work overtime (regularly)",
     id: "W2CzAY",
     description: "The operational requirement described as regular overtime.",
-  },
-  [OperationalRequirement.OvertimeOccasional]: {
+  }),
+  [OperationalRequirement.OvertimeOccasional]: defineMessage({
     defaultMessage:
       "Availability, willingness and ability to work overtime (occasionally)",
     id: "8RX9iJ",
     description:
       "The operational requirement described as occasional overtime.",
-  },
-});
+  }),
+};
 
 export const getOperationalRequirement = (
   operationalRequirementId: string | number,
   format: "firstPerson" | "firstPersonNoBold" | "full" = "full",
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   const messageDictionary = {
     firstPerson: operationalRequirementLabelFirstPerson,
     firstPersonNoBold: operationalRequirementLabelFirstPersonNoBold,
@@ -539,7 +539,7 @@ const govEmployeeType = defineMessages({
 
 export const getGovEmployeeType = (
   govEmployeeTypeId: string | number,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     govEmployeeType,
     govEmployeeTypeId,
@@ -591,7 +591,7 @@ const abbreviations = defineMessages({
 
 export const getAbbreviations = (
   abbreviation: keyof typeof abbreviations,
-): MessageDescriptor =>
+): TypedMessageDescriptor =>
   getOrDisplayError(
     abbreviations,
     abbreviation,
@@ -701,7 +701,7 @@ const behaviouralSkillLevelDefinitions = defineMessages({
 export const getSkillLevelName = (
   skillLevel: string | SkillLevel,
   skillCategory: SkillCategory,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   if (skillCategory === SkillCategory.Technical) {
     return getOrDisplayError(
       technicalSkillLevelNames,
@@ -720,7 +720,7 @@ export const getSkillLevelName = (
 export const getSkillLevelDefinition = (
   skillLevel: string | SkillLevel,
   skillCategory: SkillCategory,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   if (skillCategory === SkillCategory.Technical) {
     return getOrDisplayError(
       technicalSkillLevelDefinitions,
@@ -739,7 +739,7 @@ export const getSkillLevelDefinition = (
 export const getSkillLevelMessages = (
   skillLevel: string | SkillLevel,
   skillCategory: SkillCategory,
-): { name: MessageDescriptor; definition: MessageDescriptor } => {
+): { name: TypedMessageDescriptor; definition: TypedMessageDescriptor } => {
   return {
     name: getSkillLevelName(skillLevel, skillCategory),
     definition: getSkillLevelDefinition(skillLevel, skillCategory),
@@ -778,7 +778,7 @@ const mentorshipStatusLabels = defineMessages({
 
 export const getMentorshipStatus = (
   mentorshipStatusId: string | number,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   return getOrDisplayError(
     mentorshipStatusLabels,
     mentorshipStatusId,
@@ -786,36 +786,36 @@ export const getMentorshipStatus = (
   );
 };
 
-const mentorshipInterestLabels = defineMessages({
-  [Mentorship.Mentee]: {
+const mentorshipInterestLabels = {
+  [Mentorship.Mentee]: defineMessage({
     defaultMessage: "I'm interested in having someone mentor me.",
     id: "OLs1UJ",
     description: "The mentorship interest described as mentee.",
-  },
-  [Mentorship.Mentor]: {
+  }),
+  [Mentorship.Mentor]: defineMessage({
     defaultMessage: "I'm interested in being a mentor.",
     id: "by5WLz",
     description: "The mentorship interest described as mentor.",
-  },
-});
+  }),
+};
 
-const mentorshipInterestFalseLabels = defineMessages({
-  [Mentorship.Mentee]: {
+const mentorshipInterestFalseLabels = {
+  [Mentorship.Mentee]: defineMessage({
     defaultMessage: "I'm not interested in having someone mentor me.",
     id: "P7AWrP",
     description: "The mentorship interest described as mentee.",
-  },
-  [Mentorship.Mentor]: {
+  }),
+  [Mentorship.Mentor]: defineMessage({
     defaultMessage: "I'm not interested in being a mentor.",
     id: "QUnymn",
     description: "The mentorship interest described as mentor.",
-  },
-});
+  }),
+};
 
 export const getMentorshipInterest = (
   mentorshipInterestId: string | number,
   type?: boolean,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   return getOrDisplayError(
     type || type === undefined
       ? mentorshipInterestLabels
@@ -859,7 +859,7 @@ const execCoachingStatusLabels = defineMessages({
 
 export const getExecCoachingStatus = (
   execCoachingId: string | number,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   return getOrDisplayError(
     execCoachingStatusLabels,
     execCoachingId,
@@ -867,40 +867,40 @@ export const getExecCoachingStatus = (
   );
 };
 
-const execCoachingInterestLabels = defineMessages({
-  [ExecCoachingStatus.LEARNING]: {
+const execCoachingInterestLabels = {
+  [ExecCoachingStatus.LEARNING]: defineMessage({
     defaultMessage: "I'm interested in receiving executive coaching.",
     id: "tHeY7N",
     description:
       "The executive coaching interest status described as learning.",
-  },
-  [ExecCoachingStatus.COACHING]: {
+  }),
+  [ExecCoachingStatus.COACHING]: defineMessage({
     defaultMessage: "I'm interested in coaching another employee.",
     id: "3I0zLF",
     description:
       "The executive coaching interest status described as coaching.",
-  },
-});
+  }),
+};
 
-const execCoachingInterestFalseLabels = defineMessages({
-  [ExecCoachingStatus.LEARNING]: {
+const execCoachingInterestFalseLabels = {
+  [ExecCoachingStatus.LEARNING]: defineMessage({
     defaultMessage: "I'm not interested in receiving executive coaching.",
     id: "APggfy",
     description:
       "The executive coaching interest status described as learning.",
-  },
-  [ExecCoachingStatus.COACHING]: {
+  }),
+  [ExecCoachingStatus.COACHING]: defineMessage({
     defaultMessage: "I'm not interested in coaching another employee.",
     id: "0pIr++",
     description:
       "The executive coaching interest status described as coaching.",
-  },
-});
+  }),
+};
 
 export const getExecCoachingInterest = (
   execCoachingInterestId: string | number,
   type?: boolean,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   return getOrDisplayError(
     type || type === undefined
       ? execCoachingInterestLabels
@@ -957,7 +957,7 @@ const talentNominationLateralMovementOptionDescriptions = defineMessages({
 
 export const getTalentNominationLateralMovementOption = (
   talentNominationLateralMovementOptionId: string | number,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   return getOrDisplayError(
     talentNominationLateralMovementOptionDescriptions,
     talentNominationLateralMovementOptionId,
@@ -965,58 +965,58 @@ export const getTalentNominationLateralMovementOption = (
   );
 };
 
-const learningOpportunitiesInterestLabels = defineMessages({
-  [LearningOpportunitiesInterest.Interchange]: {
+const learningOpportunitiesInterestLabels = {
+  [LearningOpportunitiesInterest.Interchange]: defineMessage({
     defaultMessage: "I'm interested in interchange opportunities.",
     id: "3PQs15",
     description: "Interest label for interchange opportunities.",
-  },
-  [LearningOpportunitiesInterest.AcademicProgram]: {
+  }),
+  [LearningOpportunitiesInterest.AcademicProgram]: defineMessage({
     defaultMessage: "I'm interested in participating in an academic program.",
     id: "dKY52V",
     description: "Interest label for academic programs.",
-  },
-  [LearningOpportunitiesInterest.PeerNetworking]: {
+  }),
+  [LearningOpportunitiesInterest.PeerNetworking]: defineMessage({
     defaultMessage: "I'm interested in peer networking opportunities.",
     id: "a+twlj",
     description: "Interest label for peer networking.",
-  },
-  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
+  }),
+  [LearningOpportunitiesInterest.ProfessionalAccreditation]: defineMessage({
     defaultMessage: "I'm interested in pursuing professional accreditation.",
     id: "vYi9m5",
     description: "Interest label for professional accreditation.",
-  },
-});
+  }),
+};
 
-const learningOpportunitiesInterestFalseLabels = defineMessages({
-  [LearningOpportunitiesInterest.Interchange]: {
+const learningOpportunitiesInterestFalseLabels = {
+  [LearningOpportunitiesInterest.Interchange]: defineMessage({
     defaultMessage: "I'm not interested in interchange opportunities.",
     id: "nEyBtD",
     description: "Not interested label for interchange opportunities.",
-  },
-  [LearningOpportunitiesInterest.AcademicProgram]: {
+  }),
+  [LearningOpportunitiesInterest.AcademicProgram]: defineMessage({
     defaultMessage:
       "I'm not interested in participating in an academic program.",
     id: "6bpSqk",
     description: "Not interested label for academic programs.",
-  },
-  [LearningOpportunitiesInterest.PeerNetworking]: {
+  }),
+  [LearningOpportunitiesInterest.PeerNetworking]: defineMessage({
     defaultMessage: "I'm not interested in peer networking opportunities.",
     id: "jPxgBV",
     description: "Not interested label for peer networking.",
-  },
-  [LearningOpportunitiesInterest.ProfessionalAccreditation]: {
+  }),
+  [LearningOpportunitiesInterest.ProfessionalAccreditation]: defineMessage({
     defaultMessage:
       "I'm not interested in pursuing professional accreditation.",
     id: "oxhIEK",
     description: "Not interested label for professional accreditation.",
-  },
-});
+  }),
+};
 
 export const getLearningOpportunitiesInterest = (
   messageKey: string,
   iconValue?: boolean,
-): MessageDescriptor => {
+): TypedMessageDescriptor => {
   if (!(messageKey in learningOpportunitiesInterestLabels)) {
     throw new Error(`Invalid learning opportunity interest '${messageKey}'`);
   }

@@ -77,7 +77,7 @@ export const candidateStatusDesc = ({
           {
             contactEmail:
               contactEmail ?? intl.formatMessage(commonMessages.notFound),
-            link: (chunks) => contactEmailTag(chunks, contactEmail),
+            link: (chunks: ReactNode) => contactEmailTag(chunks, contactEmail),
           },
         )
       : intl.formatMessage(applicationStatusDescriptions.UNSUCCESSFUL_PUBLIC);

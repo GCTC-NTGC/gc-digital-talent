@@ -96,7 +96,6 @@ export const getV1ExperienceName = <T extends ExperienceName>(
           ? experienceMessages.educationAtWithoutTypeHtml
           : experienceMessages.educationAtWithoutType,
         {
-          educationType,
           areaOfStudy,
           institution,
         },
