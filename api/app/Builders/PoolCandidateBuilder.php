@@ -235,9 +235,19 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
 
         // Look up the matching users once, instead of searching again for every candidate.
         $maxUserIds = 2000;
-        $userIds = UserBuilder::idsMatchingSearch($searchTerm)
-            ->limit($maxUserIds + 1) // fetch one extra so we know when there are too many
-            ->pluck('id');
+        $userIds = DB::transaction(function () use ($searchTerm, $maxUserIds) {
+            // use the search index: with a limit, Postgres may otherwise read every profile, which is slow
+            DB::statement('SET LOCAL enable_seqscan = off');
+
+            try {
+                return UserBuilder::idsMatchingSearch($searchTerm)
+                    ->limit($maxUserIds + 1) // fetch one extra so we know when there are too many
+                    ->pluck('id');
+            } finally {
+                // SET LOCAL lasts until an outer transaction ends, so switch it back for whatever runs next
+                DB::statement('SET LOCAL enable_seqscan = on');
+            }
+        });
 
         // too many users being passed along tanks performance for high match count cases so branch off a tested decent breakpoint locally of 2000
         return $this->whereIn('pool_candidates.user_id', $userIds->count() > $maxUserIds
