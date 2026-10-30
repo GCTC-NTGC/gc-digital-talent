@@ -1,5 +1,6 @@
 import type {
   CreateTalentNominationEventInput,
+  CreateTalentNominationInput,
   LocalizedNineBoxRating,
   LocalizedTalentNominationEventStatus,
   LocalizedTalentNominationGroupStatus,
@@ -8,8 +9,11 @@ import type {
   LocalizedTalentNominationSubmitterRelationshipToNominator,
   TalentNomination,
   TalentNominationEvent,
+  TalentNominationGroup,
+  UpdateTalentNominationGroupInput,
   UpdateTalentNominationInput,
 } from "@gc-digital-talent/graphql/schema-types";
+import { TalentNominationEventStatus } from "@gc-digital-talent/graphql/schema-types";
 
 import type { GraphQLRequestFunc, GraphQLResponse } from "./graphql";
 import { getMyCommunity } from "./communities";
@@ -27,6 +31,7 @@ export const defaultTalentNominationEvent: Partial<CreateTalentNominationEventIn
     openDate: oldDate.toISOString().slice(0, 19).replace("T", " "),
     closeDate: newDate.toISOString().slice(0, 19).replace("T", " "),
     contactEmail: "example@example.org",
+    includeLeadershipCompetencies: false,
   };
 
 const Test_CreateTalentNominationEventMutation = /* GraphQL */ `
@@ -42,6 +47,8 @@ const Test_CreateTalentNominationEventMutation = /* GraphQL */ `
       community {
         id
       }
+      includeNineBox
+      includeLeadershipCompetencies
       communityDevelopmentPrograms {
         developmentProgram {
           name {
@@ -96,13 +103,21 @@ export const createTalentNominationEvent: GraphQLRequestFunc<
 };
 
 const Test_TalentNominationEventsQueryDocument = /* GraphQL */ `
-  query Test_TalentNominationEvents {
-    talentNominationEvents {
+  query Test_TalentNominationEvents(
+    $status: TalentNominationEventStatus!
+    $isActive: Boolean!
+  ) {
+    talentNominationEvents(where: { status: $status }) {
       id
       name {
         en
         fr
       }
+      community {
+        id
+      }
+      includeNineBox
+      includeLeadershipCompetencies @include(if: $isActive)
       communityDevelopmentPrograms {
         developmentProgram {
           name {
@@ -113,23 +128,61 @@ const Test_TalentNominationEventsQueryDocument = /* GraphQL */ `
     }
   }
 `;
-
-/**
- * Get an existing talent nomination event by its name
- */
-export const getTalentNominationEventByName: GraphQLRequestFunc<
+export const getTalentNominationEvent: GraphQLRequestFunc<
   TalentNominationEvent,
-  { name: string }
-> = async (ctx, { name }) => {
+  { status: TalentNominationEventStatus; name?: string; communityId?: string }
+> = async (ctx, { status, name, communityId }) => {
   const event = await ctx
     .post<GraphQLResponse<"talentNominationEvents", TalentNominationEvent[]>>(
       Test_TalentNominationEventsQueryDocument,
+      {
+        variables: {
+          status,
+          isActive: status === TalentNominationEventStatus.Active,
+        },
+      },
     )
-    .then((res) => res.talentNominationEvents.find((e) => e.name.en === name));
+    .then((res) =>
+      res.talentNominationEvents
+        .filter((e) =>
+          name
+            ? e.name.en === name
+            : e.community.id === communityId &&
+              !e.name.en?.startsWith("Playwright"),
+        )
+        .pop(),
+    );
   if (!event) {
-    throw new Error(`No talent nomination event named "${name}"`);
+    throw new Error(
+      `No ${status} talent nomination event ${name ? `named "${name}"` : `in community ${communityId}`}`,
+    );
   }
   return event;
+};
+
+const Test_CreateTalentNominationMutation = /* GraphQL */ `
+  mutation Test_CreateTalentNomination(
+    $talentNomination: CreateTalentNominationInput!
+  ) {
+    createTalentNomination(talentNomination: $talentNomination) {
+      id
+    }
+  }
+`;
+
+export const createTalentNomination: GraphQLRequestFunc<
+  TalentNomination | undefined,
+  CreateTalentNominationInput
+> = async (ctx, talentNomination) => {
+  return ctx
+    .post<GraphQLResponse<"createTalentNomination", TalentNomination>>(
+      Test_CreateTalentNominationMutation,
+      {
+        isPrivileged: true,
+        variables: { talentNomination },
+      },
+    )
+    .then((res) => res.createTalentNomination);
 };
 
 const Test_UpdateTalentNominationMutation = /* GraphQL */ `
@@ -180,35 +233,67 @@ export const submitTalentNomination: GraphQLRequestFunc<
     .then((res) => res.submitTalentNomination);
 };
 
-const Test_TalentNominationGroupStatusesQueryDocument = /* GraphQL */ `
-  query Test_TalentNominationGroupStatuses {
-    localizedEnumOptions(enumName: "TalentNominationGroupStatus") {
-      ... on LocalizedTalentNominationGroupStatus {
-        value
-        label {
-          en
-        }
-      }
+const Test_TalentNominationGroupsByNomineeQueryDocument = /* GraphQL */ `
+  query Test_TalentNominationGroupsByNominee($nomineeUserId: UUID!) {
+    talentNominationGroupsByNominee(nomineeUserId: $nomineeUserId) {
+      id
     }
   }
 `;
 
-export const getTalentNominationGroupStatuses: GraphQLRequestFunc<
-  LocalizedTalentNominationGroupStatus[]
-> = async (ctx) => {
+export const getTalentNominationGroupsByNominee: GraphQLRequestFunc<
+  TalentNominationGroup[],
+  { nomineeUserId: string }
+> = async (ctx, { nomineeUserId }) => {
   return ctx
     .post<
       GraphQLResponse<
-        "localizedEnumOptions",
-        LocalizedTalentNominationGroupStatus[]
+        "talentNominationGroupsByNominee",
+        TalentNominationGroup[]
       >
-    >(Test_TalentNominationGroupStatusesQueryDocument)
-    .then((res) => res.localizedEnumOptions);
+    >(Test_TalentNominationGroupsByNomineeQueryDocument, {
+      isPrivileged: true,
+      variables: { nomineeUserId },
+    })
+    .then((res) => res.talentNominationGroupsByNominee);
 };
 
-const Test_TalentNominationEventStatusesQueryDocument = /* GraphQL */ `
-  query Test_TalentNominationEventStatuses {
-    localizedEnumOptions(enumName: "TalentNominationEventStatus") {
+const Test_UpdateTalentNominationGroupMutation = /* GraphQL */ `
+  mutation Test_UpdateTalentNominationGroup(
+    $id: UUID!
+    $talentNominationGroup: UpdateTalentNominationGroupInput!
+  ) {
+    updateTalentNominationGroup(
+      id: $id
+      talentNominationGroup: $talentNominationGroup
+    ) {
+      id
+    }
+  }
+`;
+
+/**
+ * Evaluate a nomination group, e.g. approve the advancement and lateral movement nominations
+ */
+export const updateTalentNominationGroup: GraphQLRequestFunc<
+  TalentNominationGroup | undefined,
+  { id: string; talentNominationGroup: UpdateTalentNominationGroupInput }
+> = async (ctx, { id, talentNominationGroup }) => {
+  return ctx
+    .post<
+      GraphQLResponse<"updateTalentNominationGroup", TalentNominationGroup>
+    >(Test_UpdateTalentNominationGroupMutation, {
+      isPrivileged: true,
+      variables: { id, talentNominationGroup },
+    })
+    .then((res) => res.updateTalentNominationGroup);
+};
+
+const Test_TalentNominationOptionsQueryDocument = /* GraphQL */ `
+  query Test_TalentNominationOptions {
+    eventStatuses: localizedEnumOptions(
+      enumName: "TalentNominationEventStatus"
+    ) {
       ... on LocalizedTalentNominationEventStatus {
         value
         label {
@@ -216,27 +301,16 @@ const Test_TalentNominationEventStatusesQueryDocument = /* GraphQL */ `
         }
       }
     }
-  }
-`;
-
-/**
- * Get the talent event statuses and their labels using the graphql API
- */
-export const getTalentNominationEventStatuses: GraphQLRequestFunc<
-  LocalizedTalentNominationEventStatus[]
-> = async (ctx) => {
-  return ctx
-    .post<
-      GraphQLResponse<
-        "localizedEnumOptions",
-        LocalizedTalentNominationEventStatus[]
-      >
-    >(Test_TalentNominationEventStatusesQueryDocument)
-    .then((res) => res.localizedEnumOptions);
-};
-
-const Test_TalentNominationOptionsQueryDocument = /* GraphQL */ `
-  query Test_TalentNominationOptions {
+    groupStatuses: localizedEnumOptions(
+      enumName: "TalentNominationGroupStatus"
+    ) {
+      ... on LocalizedTalentNominationGroupStatus {
+        value
+        label {
+          en
+        }
+      }
+    }
     submitterRelationships: localizedEnumOptions(
       enumName: "TalentNominationSubmitterRelationshipToNominator"
     ) {
@@ -279,15 +353,14 @@ const Test_TalentNominationOptionsQueryDocument = /* GraphQL */ `
 `;
 
 interface TalentNominationOptions {
+  eventStatuses: LocalizedTalentNominationEventStatus[];
+  groupStatuses: LocalizedTalentNominationGroupStatus[];
   submitterRelationships: LocalizedTalentNominationSubmitterRelationshipToNominator[];
   nomineeRelationships: LocalizedTalentNominationNomineeRelationshipToNominator[];
   lateralMovementOptions: LocalizedTalentNominationLateralMovementOption[];
   nineBoxRatings: LocalizedNineBoxRating[];
 }
 
-/**
- * Get the options a nominator picks from (relationships, lateral movement, nine box) and their labels using the graphql API
- */
 export const getTalentNominationOptions: GraphQLRequestFunc<
   TalentNominationOptions
 > = async (ctx) => {
