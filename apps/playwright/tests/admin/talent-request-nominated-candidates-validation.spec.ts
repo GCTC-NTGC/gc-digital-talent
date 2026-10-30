@@ -146,7 +146,7 @@ test.describe(
                 ],
               },
             },
-            roles: ["guest", "base_user", "applicant"],
+            roles: ["base_user", "applicant"],
           });
           await createCommunityInterest(await graphql.newContext(sub), {
             userId: user?.id ?? "",
