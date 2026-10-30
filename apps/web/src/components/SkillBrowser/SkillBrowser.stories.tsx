@@ -6,12 +6,11 @@ import { BasicForm } from "@gc-digital-talent/forms";
 import { Button } from "@gc-digital-talent/ui";
 import { makeFragmentData } from "@gc-digital-talent/graphql";
 
-import SkillBrowser from "./SkillBrowser";
-import { SkillBrowserSkill_Fragment } from "./SkillSelection";
+import SkillBrowser, { SkillBrowser_Fragment } from "./SkillBrowser";
 import type { FormValues } from "./types";
 
 const mockSkills = getStaticSkills().map((skill) =>
-  makeFragmentData(skill, SkillBrowserSkill_Fragment),
+  makeFragmentData(skill, SkillBrowser_Fragment),
 );
 
 export default {

@@ -893,7 +893,6 @@ enum NotificationType {
 }
 
 enum RoleName {
-  Guest
   BaseUser
   Applicant
   ProcessOperator
@@ -1635,6 +1634,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum JobPosterArchiveType {
+  PUBLISHED
+  CLOSED
 }
 
 enum Language {

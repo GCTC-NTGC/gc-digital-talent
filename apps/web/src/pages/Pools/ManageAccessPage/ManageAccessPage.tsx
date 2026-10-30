@@ -6,7 +6,11 @@ import { useQuery } from "urql";
 
 import { Pending, ThrowNotFound } from "@gc-digital-talent/ui";
 import { notEmpty, unpackMaybes } from "@gc-digital-talent/helpers";
-import { hasRole, ROLE_NAME, useAuthorization } from "@gc-digital-talent/auth";
+import {
+  hasRequiredRoles,
+  ROLE_NAME,
+  useAuthorization,
+} from "@gc-digital-talent/auth";
 import { commonMessages } from "@gc-digital-talent/i18n";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
@@ -50,16 +54,15 @@ const ManageAccessPool = ({ poolQuery }: ManageAccessPoolProps) => {
 
   const { userAuthInfo } = useAuthorization();
   const roleAssignments = unpackMaybes(userAuthInfo?.roleAssignments);
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const canAddRemoveRoles = hasRole(
-    [
+  const canAddRemoveRoles = hasRequiredRoles({
+    toCheck: [
       ROLE_NAME.CommunityRecruiter,
       ROLE_NAME.CommunityAdmin,
       ROLE_NAME.DepartmentAdmin,
       ROLE_NAME.DepartmentHRAdvisor,
-    ],
-    roleAssignments,
-  );
+    ].map((name) => ({ name })),
+    userRoles: roleAssignments,
+  });
 
   const members: PoolTeamMember[] = useMemo(
     () => groupRoleAssignmentsByUser(pool.roleAssignments ?? []),

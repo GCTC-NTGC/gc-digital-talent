@@ -1,0 +1,9 @@
+<h3>@lang('job_poster.minimum_education.pm.applied_work_experience.title')</h3>
+<p>
+    @lang('job_poster.minimum_education.pm.applied_work_experience.description')
+</p>
+<p>@lang('job_poster.or')</p>
+<h3>@lang('job_poster.minimum_education.pm.secondary_school.title')</h3>
+<p>
+    @lang('job_poster.minimum_education.pm.secondary_school.description')
+</p>

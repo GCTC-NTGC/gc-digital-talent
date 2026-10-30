@@ -38,18 +38,6 @@ const messages = defineMessages({
     description:
       "Title displayed on the Pool Candidates table Date received column.",
   },
-  rowSelection: {
-    defaultMessage: "Row Selection",
-    id: "pFYfVv",
-    description:
-      "Label for the row-selection column in the tables column-selection modal.",
-  },
-  finalDecision: {
-    defaultMessage: "Final decision",
-    id: "7oq1Qa",
-    description:
-      "Title displayed on the Pool Candidates table final decision column",
-  },
   candidateFacingStatus: {
     defaultMessage: "Candidate-facing status",
     id: "1rnUt3",
