@@ -102,7 +102,7 @@ const AdditionalInformation = ({
     };
 
     // if not a finance chief then clear all finance fields
-    if (!selectedFinanceIsChief) {
+    if (!selectedFinanceIsChief && selectedFinanceOtherRoles?.length) {
       resetDirtyField("financeOtherRoles", []);
       resetDirtyField("financeOtherRolesOther", null);
     }
