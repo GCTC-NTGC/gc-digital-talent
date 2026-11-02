@@ -543,9 +543,8 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  archives(
-    type: JobPosterArchiveType @where
-  ): [JobPosterArchive!] @hasMany(relation: "jobPosterArchives")
+  archives(type: JobPosterArchiveType @where): [JobPosterArchive!]
+    @hasMany(relation: "jobPosterArchives")
   activities(
     where: ProcessActivityFilterInput @spread
     orderBy: _ @orderBy(columnsEnum: "ActivitiesOrderByColumn")
@@ -3350,11 +3349,6 @@ input UpdateJobPosterTemplateInput @validator {
   jobPosterTemplateSkills: UpdateJobPosterTemplateSkillsInput
 }
 
-input SendUserEmailsVerificationInput @validator {
-  emailAddress: String!
-  emailTypes: [EmailType]
-}
-
 input CreateCommunityDevelopmentProgramInput {
   communityId: UUID! @rename(attribute: "community_id")
   developmentProgramId: UUID! @rename(attribute: "development_program_id")
@@ -3457,10 +3451,8 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
 
-  sendUserEmailsVerification(
-    sendUserEmailsVerificationInput: SendUserEmailsVerificationInput! @spread
-  ): User @guard
-  verifyUserEmails(code: String!): User @guard
+  sendUserWorkEmailVerification(emailAddress: String!): User @guard @validator
+  verifyUserWorkEmail(code: String!): User @guard
   removeUserWorkEmail(id: UUID!): User
     @guard
     @canFind(ability: "removeWorkEmailInformation")

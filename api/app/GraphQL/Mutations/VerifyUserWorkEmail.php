@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Enums\EmailType;
 use App\Enums\ErrorCode;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Models\User;
@@ -13,15 +12,14 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
 
-final class VerifyUserEmails
+final class VerifyUserWorkEmail
 {
     /**
      * Verify an email address with a code
      */
-    public function __invoke($_, array $args)
+    public function __invoke(null $_, array $args)
     {
         /** @var User | null */
         $user = Auth::user();
@@ -39,37 +37,23 @@ final class VerifyUserEmails
         }
         RateLimiter::increment($rateLimiterKey);
 
-        $key = 'email-verification-'.$user->id;
-        $token = Cache::get($key); // refer to VerifyEmails->createVerificationCode
+        $key = 'work-email-verification-'.$user->id;
+        $token = Cache::get($key); // refer to VerifyWorkEmail->createVerificationCode
 
         if (is_null($token)) {
             throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);
         }
 
-        // these rules should stay similar to api/app/GraphQL/Validators/SendUserEmailsVerificationInputValidator.php
+        // these rules should stay similar to api/app/GraphQL/Validators/SendUserWorkEmailVerificationValidator.php
         $validator = Validator::make($token, [
             'code' => [
                 'required',
                 'string',
             ],
-            'emailTypes' => [
-                'required',
-                'array',
-                'min:1',
-            ],
-            'emailTypes.*' => [
-                'required',
-                'distinct',
-                // we only have one email type that can be validated now
-                'in:'.EmailType::WORK->name,
-            ],
             'emailAddress' => [
                 'required',
-                'string',
-                Rule::when(fn ($attributes) => in_array(EmailType::WORK->name, $attributes['emailTypes']),
-                    [new GovernmentEmailRegex()],
-                    ['email']
-                ),
+                'email',
+                new GovernmentEmailRegex(),
                 (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
             ],
         ],
@@ -88,29 +72,11 @@ final class VerifyUserEmails
         $newEmailAddress = $token['emailAddress'];
 
         // by now, token seems good
-        foreach ($token['emailTypes'] as $emailTypeString) {
-            $emailType = EmailType::fromName($emailTypeString);
-            if ($emailType === EmailType::WORK) {
-                // similar logic to AuthController::authCallback
-                // if another user has this work_email we will take it from them
-                $existingUser = User::where('id', '!=', $user->id)
-                    ->whereRaw('LOWER(work_email) = ?', [mb_strtolower($newEmailAddress)])
-                    ->withTrashed()
-                    ->first();
-                DB::transaction(function () use ($existingUser, $user, $newEmailAddress) {
-                    if ($existingUser) {
-                        $existingUser->work_email_backup = $existingUser->work_email;
-                        $existingUser->work_email = null;
-                        $existingUser->save();
-                    }
-                    $user->setVerifiedWorkEmail($newEmailAddress);
-                    $user->save();
-                });
-            } else {
-                // only WORK emails can be verified with this tool right now
-                throw new \Exception('Unexpected email type: '.$emailTypeString);
-            }
-        }
+        DB::transaction(function () use ($user, $newEmailAddress) {
+            User::releaseWorkEmail($newEmailAddress, $user->id);
+            $user->setVerifiedWorkEmail($newEmailAddress);
+            $user->save();
+        });
 
         Cache::forget($key); // the token is redeemed, don't use it again
 

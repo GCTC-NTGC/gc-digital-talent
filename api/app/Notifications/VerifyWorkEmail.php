@@ -2,7 +2,6 @@
 
 namespace App\Notifications;
 
-use App\Enums\EmailType;
 use App\Enums\Language;
 use App\Models\User;
 use App\Notifications\Messages\GcNotifyEmailMessage;
@@ -12,26 +11,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
 use Random\Randomizer;
 
-// based on Illuminate\Auth\Notifications\VerifyEmail.php
-class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
+class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
 {
     use Queueable;
 
     public string $emailAddress;
 
-    /** @var EmailType[] */
-    public array $emailTypes;
-
     /**
      * Create a new notification instance.
      *
-     * @param  EmailType[]  $emailTypes  The types of email addresses to update on the user.
      * @param  string  $emailAddress  The new email addresses to set on the user.
      */
-    public function __construct(string $emailAddress, array $emailTypes)
+    public function __construct(string $emailAddress)
     {
         $this->emailAddress = $emailAddress;
-        $this->emailTypes = $emailTypes;
     }
 
     /**
@@ -80,14 +73,13 @@ class VerifyEmails extends Notification implements CanBeSentViaGcNotifyEmail
      */
     protected function createVerificationCode(User $user)
     {
-        $key = 'email-verification-'.$user->id;
+        $key = 'work-email-verification-'.$user->id;
 
         $randomizer = new Randomizer();
         $code = $randomizer->getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
 
         $token = [
             'code' => $code,
-            'emailTypes' => $this->emailTypes,
             'emailAddress' => $this->emailAddress,
         ];
         Cache::put($key, $token, now()->addHours(2));
