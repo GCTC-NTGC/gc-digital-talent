@@ -1,5 +1,5 @@
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
@@ -72,6 +72,8 @@ const FormFields = ({
   const intl = useIntl();
   const data = getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery);
   useDirtyFields("work");
+
+  const { clearErrors, getValues } = useFormContext<FormValues>();
 
   const selectedFlexibleWorkLocations = useWatch<
     FormValues,
@@ -227,6 +229,16 @@ const FormFields = ({
           items={formOptionsWithContentBelow}
           rules={{
             required: intl.formatMessage(errorMessages.required),
+            // clear stale required error if user unselects hybrid or onsite options
+            onChange: () => {
+              const locations = getValues("flexibleWorkLocations");
+              if (
+                !locations?.includes(FlexibleWorkLocation.Onsite) &&
+                !locations?.includes(FlexibleWorkLocation.Hybrid)
+              ) {
+                clearErrors("locationPreferences");
+              }
+            },
           }}
         />
         <Checklist
