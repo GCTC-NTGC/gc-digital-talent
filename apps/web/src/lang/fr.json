@@ -3210,10 +3210,6 @@
     "defaultMessage": "Rechercher le courriel professionnel du nominé ou de la nominée",
     "description": "Label for search nominee input field on a nomination"
   },
-  "AxLO/M": {
-    "defaultMessage": "Renseignements sur le programme de perfectionnement",
-    "description": "Heading for the 'create a development program' form"
-  },
   "Ay4Syt": {
     "defaultMessage": "Cette section fournit des renseignements sur les exigences associées à cette demande.",
     "description": "Description of the details submitted with a talent request"
@@ -3233,6 +3229,10 @@
   "B+3gE4": {
     "defaultMessage": "Grâce aux processus de recrutement annoncés sur la plateforme, nous avons pu établir une vaste base de données sur les talents préqualifiés. Les personnes qui postulent sont évaluées en fonction d’une classification particulière, et celles qui se qualifient sont inscrites dans un bassin de talents dans lequel les ministères peuvent puiser pour pourvoir des postes vacants.",
     "description": "Paragraph one, answer about prequalified talent"
+  },
+  "B/tCpX": {
+    "defaultMessage": "Informations sur le programme de perfectionnement",
+    "description": "Heading for development program"
   },
   "B0OL/n": {
     "defaultMessage": "{customTitle} ({title}) évaluation - {skillName}",
@@ -3527,7 +3527,7 @@
     "description": "Error message when work email is null."
   },
   "CTl5IT": {
-    "defaultMessage": "Modifier notes",
+    "defaultMessage": "Modifier les notes",
     "description": "Button text to start editing pool candidate notes"
   },
   "CTxxiq": {
@@ -7058,7 +7058,7 @@
     "description": "Application step for additional questions, introduction description, paragraph one"
   },
   "Qmo6Wc": {
-    "defaultMessage": "Consultez les activités de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
+    "defaultMessage": "Consultez les événements de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
     "description": "Paragraph explaining what employees nominated are and how they work"
   },
   "QnfjbI": {
@@ -7809,7 +7809,7 @@
     "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
-    "defaultMessage": "Pour l’instant, enregistrer et quittez",
+    "defaultMessage": "Pour l’instant, enregistrer et quitter",
     "description": "Action button to save and exit an application"
   },
   "U8Qnok": {
@@ -11497,7 +11497,7 @@
     "description": "Support form subject field feedback option label"
   },
   "ixjaCE": {
-    "defaultMessage": "Activités passées",
+    "defaultMessage": "Événements passés",
     "description": "Toggle option to view closed nominations"
   },
   "iy3pRH": {
@@ -14327,10 +14327,6 @@
   "v9mTgX": {
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
     "description": "Learn more dialog question eleven paragraph one"
-  },
-  "vAkaZH": {
-    "defaultMessage": "Renseignements sur le programme de perfectionnement",
-    "description": "Heading for the 'create a developmentProgram' form"
   },
   "vC8yrC": {
     "defaultMessage": "Vous allez quitter notre site pour vous connecter avec ConnexionCanada. En cas de problème, des instructions supplémentaires sont disponibles pour vous guider.",
