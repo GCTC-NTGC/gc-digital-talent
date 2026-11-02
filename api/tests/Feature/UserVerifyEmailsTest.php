@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Enums\EmailType;
 use App\Enums\ErrorCode;
 use App\Facades\Notify;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\Models\User;
-use App\Notifications\VerifyEmails;
+use App\Notifications\VerifyWorkEmail;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -31,25 +30,25 @@ class UserVerifyEmailsTest extends TestCase
     use RefreshesSchemaCache;
     use UsesUnprotectedGraphqlEndpoint;
 
-    // should match the limit in App\GraphQL\Mutations\VerifyUserEmails
+    // should match the limit in App\GraphQL\Mutations\VerifyUserWorkEmail
     private const MAX_VERIFY_ATTEMPTS = 10;
 
-    protected $regularUser;
+    protected User $regularUser;
 
-    protected $adminUser;
+    protected User $adminUser;
 
-    private $sendVerificationEmailsMutation =
+    private $sendVerificationEmailMutation =
         /** @lang GraphQL */
-        'mutation SendVerificationEmail($input: SendUserEmailsVerificationInput!) {
-            sendUserEmailsVerification(sendUserEmailsVerificationInput: $input) {
+        'mutation SendVerificationEmail($emailAddress: String!) {
+            sendUserWorkEmailVerification(emailAddress: $emailAddress) {
                 id
             }
         }';
 
-    private $verifyEmailsMutation =
+    private $verifyEmailMutation =
         /** @lang GraphQL */
-        'mutation VerifyMyEmails($code: String!) {
-            verifyUserEmails(code: $code) {
+        'mutation VerifyMyEmail($code: String!) {
+            verifyUserWorkEmail(code: $code) {
                 id
                 email
                 isEmailVerified
@@ -88,10 +87,9 @@ class UserVerifyEmailsTest extends TestCase
     private function putVerificationToken(string $code = '1234', string $emailAddress = 'regular.user.2@gc.ca'): void
     {
         Cache::put(
-            'email-verification-'.$this->regularUser->id,
+            'work-email-verification-'.$this->regularUser->id,
             [
                 'code' => $code,
-                'emailTypes' => [EmailType::WORK->name],
                 'emailAddress' => $emailAddress,
             ],
             now()->addHours(2)
@@ -104,7 +102,7 @@ class UserVerifyEmailsTest extends TestCase
     private function attemptVerify(User $user, string $code): TestResponse
     {
         return $this->actingAs($user, 'api')->graphQL(
-            $this->verifyEmailsMutation,
+            $this->verifyEmailMutation,
             ['code' => $code]
         );
     }
@@ -125,17 +123,14 @@ class UserVerifyEmailsTest extends TestCase
         Notification::fake();
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
+            $this->sendVerificationEmailMutation,
             [
-                'input' => [
-                    'emailAddress' => 'regular.user.2@gc.ca',
-                    'emailTypes' => [EmailType::WORK->name],
-                ],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ]
         );
 
         Notification::assertSentTo(
-            [$this->regularUser], VerifyEmails::class
+            [$this->regularUser], VerifyWorkEmail::class
         );
 
     }
@@ -143,17 +138,16 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithBadCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'work-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::WORK->name],
                 'emailAddress' => 'regular.user.2@gc.ca',
             ],
             now()->addHours(2)
         );
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
+            $this->verifyEmailMutation,
             [
                 'code' => '6789',
             ]
@@ -169,17 +163,16 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithBadField()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'work-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::WORK->name],
                 'emailAddress' => 'regular.user.2@example.org',
             ],
             now()->addHours(2)
         );
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
+            $this->verifyEmailMutation,
             [
                 'code' => '1234',
             ]
@@ -195,10 +188,9 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithExpiredCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'work-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::WORK->name],
                 'emailAddress' => 'regular.user.2@gc.ca',
             ],
             now()->addHours(2)
@@ -207,7 +199,7 @@ class UserVerifyEmailsTest extends TestCase
         $this->travel(3)->hours();
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
+            $this->verifyEmailMutation,
             [
                 'code' => '1234',
             ]
@@ -238,29 +230,24 @@ class UserVerifyEmailsTest extends TestCase
     public function testWorkEmailCodeSaved()
     {
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
+            $this->sendVerificationEmailMutation,
             [
-                'input' => [
-                    'emailAddress' => 'regular.user.2@gc.ca',
-                    'emailTypes' => [EmailType::WORK->name],
-                ],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ]
         );
 
-        $token = Cache::get('email-verification-00000000-0000-0000-0000-000000000001');
+        $token = Cache::get('work-email-verification-00000000-0000-0000-0000-000000000001');
         assertNotNull($token);
         assertNotNull($token['code']);
-        assertEquals([EmailType::WORK->name], $token['emailTypes']);
         assertEquals('regular.user.2@gc.ca', $token['emailAddress']);
     }
 
     public function testCanVerifyWorkEmailWithCode()
     {
         Cache::put(
-            'email-verification-00000000-0000-0000-0000-000000000001',
+            'work-email-verification-00000000-0000-0000-0000-000000000001',
             [
                 'code' => '1234',
-                'emailTypes' => [EmailType::WORK->name],
                 'emailAddress' => 'regular.user.2@gc.ca',
             ],
             now()->addHours(2)
@@ -270,7 +257,7 @@ class UserVerifyEmailsTest extends TestCase
         Carbon::setTestNow('2000-01-01 00:00:00');
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->verifyEmailsMutation,
+            $this->verifyEmailMutation,
             [
                 'code' => '1234',
             ]
@@ -306,14 +293,11 @@ class UserVerifyEmailsTest extends TestCase
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
+            $this->sendVerificationEmailMutation,
             [
-                'input' => [
-                    'emailAddress' => 'regular.user.2@gc.ca',
-                    'emailTypes' => [EmailType::WORK->name],
-                ],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ]
-        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 
     public function testCanRequestCodeForAnotherUsersWorkEmail()
@@ -326,17 +310,14 @@ class UserVerifyEmailsTest extends TestCase
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
+            $this->sendVerificationEmailMutation,
             [
-                'input' => [
-                    'emailAddress' => 'regular.user.2@gc.ca',
-                    'emailTypes' => [EmailType::WORK->name],
-                ],
+                'emailAddress' => 'regular.user.2@gc.ca',
             ]
         )->assertJsonMissingPath('errors');
 
         Notification::assertSentTo(
-            [$this->regularUser], VerifyEmails::class
+            [$this->regularUser], VerifyWorkEmail::class
         );
     }
 
@@ -348,14 +329,11 @@ class UserVerifyEmailsTest extends TestCase
         ]);
 
         $this->actingAs($this->regularUser, 'api')->graphQL(
-            $this->sendVerificationEmailsMutation,
+            $this->sendVerificationEmailMutation,
             [
-                'input' => [
-                    'emailAddress' => 'REGULAR.USER.2@GC.CA',
-                    'emailTypes' => [EmailType::WORK->name],
-                ],
+                'emailAddress' => 'REGULAR.USER.2@GC.CA',
             ]
-        )->assertGraphQLValidationError('sendUserEmailsVerificationInput.emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
+        )->assertGraphQLValidationError('emailAddress', ErrorCode::EMAIL_ADDRESS_IN_USE->name);
     }
 
     public function testVerifyAdoptsWorkEmailFromAnotherUser()
@@ -370,10 +348,10 @@ class UserVerifyEmailsTest extends TestCase
         // stable verified_at timestamps
         Carbon::setTestNow('2000-01-01 00:00:00');
 
-        $this->attemptVerify($this->regularUser, '5679')
+        $response = $this->attemptVerify($this->regularUser, '5679')
             ->assertJsonMissingPath('errors')
-            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca')
-            ->assertJsonPath('data.verifyUserEmails.isWorkEmailVerified', true);
+            ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'work.duplicate@gc.ca')
+            ->assertJsonPath('data.verifyUserWorkEmail.isWorkEmailVerified', true);
 
         // the other user's work email is moved to the backup
         $otherUser->refresh();
@@ -400,7 +378,7 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->attemptVerify($this->regularUser, '5680')
             ->assertJsonMissingPath('errors')
-            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca');
+            ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'work.duplicate@gc.ca');
 
         // the backup keeps the original casing
         $otherUser->refresh();
@@ -419,7 +397,7 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->attemptVerify($this->regularUser, '5681')
             ->assertJsonMissingPath('errors')
-            ->assertJsonPath('data.verifyUserEmails.workEmail', 'work.duplicate@gc.ca');
+            ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'work.duplicate@gc.ca');
 
         $otherUser = User::withTrashed()->findOrFail($otherUser->id);
         $this->assertNull($otherUser->work_email);
@@ -437,7 +415,7 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->attemptVerify($this->regularUser, '5682')
             ->assertJsonMissingPath('errors')
-            ->assertJsonPath('data.verifyUserEmails.workEmail', 'a_b@gc.ca');
+            ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'a_b@gc.ca');
 
         $otherUser->refresh();
         $this->assertSame('axb@gc.ca', $otherUser->work_email);
@@ -537,7 +515,7 @@ class UserVerifyEmailsTest extends TestCase
 
         $this->attemptVerify($this->regularUser, '1234')
             ->assertJsonMissingPath('errors')
-            ->assertJsonPath('data.verifyUserEmails.workEmail', 'regular.user.2@gc.ca');
+            ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'regular.user.2@gc.ca');
     }
 
     public function testRateLimitIsPerUser()
