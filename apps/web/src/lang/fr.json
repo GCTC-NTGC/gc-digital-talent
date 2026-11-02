@@ -7058,7 +7058,7 @@
     "description": "Application step for additional questions, introduction description, paragraph one"
   },
   "Qmo6Wc": {
-    "defaultMessage": "Consultez les activités de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
+    "defaultMessage": "Consultez les événements de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
     "description": "Paragraph explaining what employees nominated are and how they work"
   },
   "QnfjbI": {
@@ -11497,7 +11497,7 @@
     "description": "Support form subject field feedback option label"
   },
   "ixjaCE": {
-    "defaultMessage": "Activités passées",
+    "defaultMessage": "Événements passés",
     "description": "Toggle option to view closed nominations"
   },
   "iy3pRH": {
