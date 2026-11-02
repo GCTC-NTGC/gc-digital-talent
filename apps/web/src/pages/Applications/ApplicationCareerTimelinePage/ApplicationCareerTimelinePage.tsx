@@ -210,6 +210,12 @@ export const ApplicationCareerTimeline = ({
 
   // Used by the new cards behind the careerExperience flag
   const [sortBy, setSortBy] = useState<SortValue>("type");
+  const experiencesQuery = experiences.map((exp) =>
+    makeFragmentData(
+      exp as ExperienceListCardFragment,
+      ExperienceListCard_Fragment,
+    ),
+  );
 
   const [sortAndFilterValues, setSortAndFilterValues] =
     useState<ExperienceSortAndFilterFormValues>({
@@ -347,56 +353,31 @@ export const ApplicationCareerTimeline = ({
             <div className="grid gap-6">
               <ExperienceListCard
                 type={"work"}
-                experiencesQuery={experiences.map((exp) =>
-                  makeFragmentData(
-                    exp as ExperienceListCardFragment,
-                    ExperienceListCard_Fragment,
-                  ),
-                )}
+                experiencesQuery={experiencesQuery}
                 applicationId={application.id}
                 showEdit={!applicationWasSubmitted}
               />
               <ExperienceListCard
                 type={"education"}
-                experiencesQuery={experiences.map((exp) =>
-                  makeFragmentData(
-                    exp as ExperienceListCardFragment,
-                    ExperienceListCard_Fragment,
-                  ),
-                )}
+                experiencesQuery={experiencesQuery}
                 applicationId={application.id}
                 showEdit={!applicationWasSubmitted}
               />
               <ExperienceListCard
                 type={"community"}
-                experiencesQuery={experiences.map((exp) =>
-                  makeFragmentData(
-                    exp as ExperienceListCardFragment,
-                    ExperienceListCard_Fragment,
-                  ),
-                )}
+                experiencesQuery={experiencesQuery}
                 applicationId={application.id}
                 showEdit={!applicationWasSubmitted}
               />
               <ExperienceListCard
                 type={"personal"}
-                experiencesQuery={experiences.map((exp) =>
-                  makeFragmentData(
-                    exp as ExperienceListCardFragment,
-                    ExperienceListCard_Fragment,
-                  ),
-                )}
+                experiencesQuery={experiencesQuery}
                 applicationId={application.id}
                 showEdit={!applicationWasSubmitted}
               />
               <ExperienceListCard
                 type={"award"}
-                experiencesQuery={experiences.map((exp) =>
-                  makeFragmentData(
-                    exp as ExperienceListCardFragment,
-                    ExperienceListCard_Fragment,
-                  ),
-                )}
+                experiencesQuery={experiencesQuery}
                 applicationId={application.id}
                 showEdit={!applicationWasSubmitted}
               />
@@ -404,12 +385,7 @@ export const ApplicationCareerTimeline = ({
           ) : (
             <ExperienceListCard
               type={"timeline"}
-              experiencesQuery={experiences.map((exp) =>
-                makeFragmentData(
-                  exp as ExperienceListCardFragment,
-                  ExperienceListCard_Fragment,
-                ),
-              )}
+              experiencesQuery={experiencesQuery}
               applicationId={application.id}
               showEdit={!applicationWasSubmitted}
             />
