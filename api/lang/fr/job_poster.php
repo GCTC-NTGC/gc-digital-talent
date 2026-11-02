@@ -2,7 +2,6 @@
 
 return [
     'or' => 'ou',
-    'subtitle' => 'Apprenez-en davantage sur cette possibilité d’emploi et commencez à rédiger votre candidature.',
     'employment_details' => [
         'title' => 'Information détaillée sur l\'emploi',
         'label_work_category' => 'Catégorie de travail',
