@@ -2,7 +2,8 @@
 <p>@lang('job_poster.subtitle')</p>
 
 @localized($pool->special_note)
-    {!! $pool->special_note !!}
+<h2>@lang('job_poster.label_special_note')</h2>
+{!! $pool->special_note !!}
 @endlocalized
 
 @include('job_poster.partials.area_of_selection')
