@@ -143,7 +143,7 @@ export const CareerExperience = ({
             <div className="grid gap-6">
               <TableOfContents.Section id={PAGE_SECTION_ID.WORK_EXPERIENCE}>
                 <ExperienceListCard
-                  type={"work"}
+                  type="work"
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
@@ -151,7 +151,7 @@ export const CareerExperience = ({
                 id={PAGE_SECTION_ID.EDUCATION_EXPERIENCE}
               >
                 <ExperienceListCard
-                  type={"education"}
+                  type="education"
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
@@ -159,19 +159,19 @@ export const CareerExperience = ({
                 id={PAGE_SECTION_ID.COMMUNITY_EXPERIENCE}
               >
                 <ExperienceListCard
-                  type={"community"}
+                  type="community"
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.PERSONAL_EXPERIENCE}>
                 <ExperienceListCard
-                  type={"personal"}
+                  type="personal"
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
               <TableOfContents.Section id={PAGE_SECTION_ID.AWARD_EXPERIENCE}>
                 <ExperienceListCard
-                  type={"award"}
+                  type="award"
                   experiencesQuery={experiencesQuery}
                 />
               </TableOfContents.Section>
@@ -179,7 +179,7 @@ export const CareerExperience = ({
           ) : (
             <TableOfContents.Section id={PAGE_SECTION_ID.TIMELINE}>
               <ExperienceListCard
-                type={"timeline"}
+                type="timeline"
                 experiencesQuery={experiencesQuery}
               />
             </TableOfContents.Section>
