@@ -109,7 +109,7 @@ const EducationPreviewListItem = ({
       mode="experience"
       index={index}
       groupLength={listLength}
-    ></PreviewList.Item>
+    />
   );
 };
 
