@@ -1,5 +1,4 @@
 <h1>{{ $pool->display_name['display'] }}</h1>
-<p>@lang('job_poster.subtitle')</p>
 
 @localized($pool->special_note)
 <h2>@lang('job_poster.label_special_note')</h2>

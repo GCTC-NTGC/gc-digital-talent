@@ -2,7 +2,6 @@
 
 return [
     'or' => 'or',
-    'subtitle' => 'Learn more about this opportunity and begin an application.',
     'label_special_note' => 'Special note for this process',
     'employment_details' => [
         'title' => 'Employment details',
