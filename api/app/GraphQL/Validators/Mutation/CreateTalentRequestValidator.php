@@ -7,6 +7,7 @@ namespace App\GraphQL\Validators\Mutation;
 use App\Enums\ErrorCode;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
+use App\Enums\WorkRegion;
 use App\Rules\GovernmentEmailRegex;
 use Illuminate\Validation\Rule;
 use Nuwave\Lighthouse\Validation\Validator;
@@ -32,6 +33,10 @@ final class CreateTalentRequestValidator extends Validator
             ],
             'talentRequest.initialResultCount' => ['nullable', 'integer', 'min:0'],
             'talentRequest.applicantFilter.create.locationPreferences' => ['required', 'array', 'min:1'],
+            'talentRequest.applicantFilter.create.locationPreferences.*' => [
+                'required',
+                Rule::in(array_column(WorkRegion::cases(), 'name')),
+            ],
             'talentRequest.applicantFilter.create.community.connect' => ['required', 'uuid', 'exists:communities,id'],
         ];
     }

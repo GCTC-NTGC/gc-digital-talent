@@ -242,6 +242,21 @@ class TalentRequestTest extends TestCase
         ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences']);
     }
 
+    public function testCreateRejectsNullLocationPreference(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [null],
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences.0']);
+    }
+
     public function testCreateRequiresApplicantFilterCommunity(): void
     {
         $this->graphQL($this->createMutation, [
