@@ -42,12 +42,14 @@ const ExperienceListSortSelector = ({
       </span>
       <Button
         onClick={() => setSortBy("type")}
+        aria-pressed={sortBy === "type"}
         {...(sortBy === "type" ? selectedFilterStyle : unselectedFilterStyle)}
       >
         {intl.formatMessage(experienceMessages.type)}
       </Button>
       <Button
         onClick={() => setSortBy("timeline")}
+        aria-pressed={sortBy === "timeline"}
         {...(sortBy === "timeline"
           ? selectedFilterStyle
           : unselectedFilterStyle)}
