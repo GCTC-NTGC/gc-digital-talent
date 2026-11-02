@@ -133,6 +133,8 @@ if [ "${#ROLEPERMISSION_SEEDER_CLEANED_STDOUT}" -gt "2500" ] ; then
 fi
 add_section_block "$TRIPLE_BACK_TICK $ROLEPERMISSION_SEEDER_CLEANED_STDOUT $TRIPLE_BACK_TICK"
 
+# Never run `cache:clear` here: with CACHE_DRIVER=redis it runs FLUSHDB, which wipes
+# every slot's cache, rate limits and locks on the shared Redis
 # Cache config/routes now that migrations and seeding are done, so LOG_CHANNEL=cli
 # above resolves live instead of a stale cached value (see PR #17457 review)
 if php artisan optimize ; then
