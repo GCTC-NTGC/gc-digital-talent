@@ -5,7 +5,7 @@ import { useMutation } from "urql";
 
 import { Caption, Link, Separator } from "@gc-digital-talent/ui";
 import { commonMessages, errorMessages } from "@gc-digital-talent/i18n";
-import { EmailType, graphql } from "@gc-digital-talent/graphql";
+import { graphql } from "@gc-digital-talent/graphql";
 import { Input, Submit } from "@gc-digital-talent/forms";
 
 import useRoutes from "~/hooks/useRoutes";
@@ -19,7 +19,7 @@ import labels from "../labels";
 
 const GettingStartedVerifyEmail_Mutation = graphql(/* GraphQL */ `
   mutation GettingStartedVerifyEmail($code: String!) {
-    verifyUserEmails(code: $code) {
+    verifyUserWorkEmail(code: $code) {
       id
     }
   }
@@ -96,7 +96,7 @@ const BottomHalfEmployeeNoEmail = ({
           );
           throw new Error(API_CODE_VERIFICATION_FAILED);
         }
-        if (!verifyEmailResult.data?.verifyUserEmails?.id) {
+        if (!verifyEmailResult.data?.verifyUserWorkEmail?.id) {
           throw new Error("Failed to verify email");
         }
       })
@@ -124,7 +124,6 @@ const BottomHalfEmployeeNoEmail = ({
       </div>
       <div className="mb-6">
         <EmailVerification.RequestVerificationCodeForm
-          emailType={EmailType.Work}
           emailAddress={initialWorkEmail ?? null}
         />
       </div>
