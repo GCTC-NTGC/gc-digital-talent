@@ -158,7 +158,7 @@ const WorkPreviewListItem = ({
                 experience.govEmploymentType?.label,
                 intl,
               ),
-              department: experience.organization,
+              department: getLocalizedName(experience.department?.name, intl),
             },
           )}
         </p>

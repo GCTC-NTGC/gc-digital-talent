@@ -19,12 +19,13 @@ import {
   type IconType,
 } from "@gc-digital-talent/ui";
 import {
+  EmploymentCategory,
   getFragment,
   graphql,
   type FragmentType,
 } from "@gc-digital-talent/graphql";
 import { groupBy } from "@gc-digital-talent/helpers";
-import { commonMessages } from "@gc-digital-talent/i18n";
+import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
 
 import type { ExperienceType } from "~/types/experience";
 import experienceMessages from "~/messages/experienceMessages";
@@ -67,6 +68,21 @@ export const ExperienceListCard_Fragment = graphql(/* GraphQL */ `
     }
     ... on WorkExperience {
       organization
+      employmentCategory {
+        value
+      }
+      department {
+        name {
+          en
+          fr
+        }
+      }
+      cafForce {
+        label {
+          en
+          fr
+        }
+      }
       ...WorkExperienceItem
     }
   }
@@ -200,9 +216,16 @@ const ExperienceListCard = ({
       );
     }
     if (isWorkExperience(exp)) {
-      return (
-        exp.organization ?? intl.formatMessage(commonMessages.notAvailable)
-      );
+      switch (exp.employmentCategory?.value) {
+        case EmploymentCategory.ExternalOrganization:
+          return (
+            exp.organization ?? intl.formatMessage(commonMessages.notAvailable)
+          );
+        case EmploymentCategory.GovernmentOfCanada:
+          return getLocalizedName(exp.department?.name, intl);
+        case EmploymentCategory.CanadianArmedForces:
+          return getLocalizedName(exp.cafForce?.label, intl);
+      }
     }
 
     // This should be impossible
