@@ -542,12 +542,17 @@ class UserBuilder extends Builder
     // just calls another scope, but calling the scope from Lighthouse requires accepting an args array
     public function whereWorkEmailSearch(?array $args): self
     {
-        return $this->whereWorkEmail($args['search'] ?? null);
+        return $this->whereWorkEmailMatches($args['search'] ?? null);
     }
 
-    public function whereExactWorkEmail(string $email): self
+    public function whereContactEmailMatches(string $email): self
     {
-        return $this->whereRaw('LOWER("work_email") = ?', [strtolower($email)]);
+        return $this->whereRaw('LOWER("email") = ?', [mb_strtolower($email)]);
+    }
+
+    public function whereWorkEmailMatches(string $email): self
+    {
+        return $this->whereRaw('LOWER("work_email") = ?', [mb_strtolower($email)]);
     }
 
     public function whereWorkEmailIsVerified(): self

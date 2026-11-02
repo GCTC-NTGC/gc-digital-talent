@@ -1063,4 +1063,36 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             }
         );
     }
+
+    // Clear the contact email address from any user who has it (except the user we are releasing it for)
+    public static function releaseContactEmail(string $emailAddress, string $exceptUserId)
+    {
+        $existingUser = User::where('id', '!=', $exceptUserId)
+            ->whereContactEmailMatches($emailAddress)
+            ->withTrashed()
+            ->first();
+
+        if ($existingUser) {
+            $existingUser->email_backup = $existingUser->email;
+            $existingUser->email = null;
+            $existingUser->email_verified_at = null;
+            $existingUser->save();
+        }
+    }
+
+    // Clear the work email address from any user who has it (except the user we are releasing it for)
+    public static function releaseWorkEmail(string $emailAddress, string $exceptUserId)
+    {
+        $existingUser = User::where('id', '!=', $exceptUserId)
+            ->whereWorkEmailMatches($emailAddress)
+            ->withTrashed()
+            ->first();
+
+        if ($existingUser) {
+            $existingUser->work_email_backup = $existingUser->work_email;
+            $existingUser->work_email = null;
+            $existingUser->work_email_verified_at = null;
+            $existingUser->save();
+        }
+    }
 }

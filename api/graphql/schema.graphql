@@ -1756,7 +1756,7 @@ type Query {
   me: User @auth
   user(id: UUID! @eq): User @find @softDeletes @guard @canQuery(ability: "view")
   govEmployeeProfile(
-    workEmail: String! @scope(name: "whereExactWorkEmail")
+    workEmail: String! @scope(name: "whereWorkEmailMatches")
   ): BasicGovEmployeeProfile
     @guard
     @validator
