@@ -56,6 +56,7 @@ import type {
   ExperienceForDate,
   ExperienceFormValues,
   ExperienceType,
+  FormSkills,
 } from "~/types/experience";
 
 import { formattedDate, getDateRange } from "./dateUtils";
@@ -1156,6 +1157,17 @@ export interface ExperienceFields
   skills?: ExperienceSkill[] | null;
 }
 
+export const experienceSkillsToFormSkills = (
+  skills?: ExperienceSkill[] | null,
+): FormSkills | undefined =>
+  skills
+    ? skills.map(({ id, name, experienceSkillRecord }) => ({
+        skillId: id,
+        name,
+        details: experienceSkillRecord?.details ?? "",
+      }))
+    : undefined;
+
 export const queryResultToDefaultValues = (
   experienceType: ExperienceType,
   experience: ExperienceFields,
@@ -1179,13 +1191,7 @@ export const queryResultToDefaultValues = (
 
   return {
     ...unsharedValues,
-    skills: experience.skills
-      ? experience.skills.map(({ id, name, experienceSkillRecord }) => ({
-          skillId: id,
-          name,
-          details: experienceSkillRecord?.details ?? "",
-        }))
-      : undefined,
+    skills: experienceSkillsToFormSkills(experience.skills),
     experienceType,
   };
 };
