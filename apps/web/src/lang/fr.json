@@ -11425,7 +11425,7 @@
     "description": "Button text to print the request confirmation page"
   },
   "idv7rY": {
-    "defaultMessage": "Erreur : la fermeture du processus a échoué",
+    "defaultMessage": "Erreur : la suppression du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "idwHJf": {
