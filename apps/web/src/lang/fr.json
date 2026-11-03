@@ -324,7 +324,7 @@
     "description": "The classification group for a job poster template"
   },
   "/OP7BB": {
-    "defaultMessage": "Votre mise en candidature pour une mutation latérale signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
+    "defaultMessage": "Votre nomination pour un transfert latéral signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
     "description": "Description for lateral movement nomination meaning"
   },
   "/SLyVF": {
@@ -1379,7 +1379,7 @@
     "description": "Title for notice when there are no pool candidate search requests"
   },
   "3REesV": {
-    "defaultMessage": "Votre mise en candidature pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
     "description": "Description for development nomination meaning"
   },
   "3Rad8l": {
@@ -2939,7 +2939,7 @@
     "description": "Label for the action filter for activity log"
   },
   "9zzr+g": {
-    "defaultMessage": "Abonnez-vous au bulletin d’information de la collectivité de l’approvisionnement",
+    "defaultMessage": "Abonnez-vous<hidden> au bulletin d’information de la collectivité de l’approvisionnement</hidden>",
     "description": "External button link to subscribe to a newsletter"
   },
   "A+4huJ": {
@@ -3629,10 +3629,6 @@
     "defaultMessage": "Trouver des candidatures correspondantes",
     "description": "Heading for the table that contains users who match talent request criteria"
   },
-  "CtftRC": {
-    "defaultMessage": "Ce qu’une nomination signifie ",
-    "description": "Label for the meaning of a nomination status, with the status name as a variable"
-  },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
@@ -3950,7 +3946,7 @@
     "description": "list a number of work experiences"
   },
   "E6/qXV": {
-    "defaultMessage": "Votre mise en candidature pour une promotion signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que la promotion est peut-être le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. <link>Veuillez communiquer avec l’équipe des activités de la collectivité</link> pour en savoir plus sur celles-ci.",
+    "defaultMessage": "Votre nomination pour un avancement signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que l’avancement est peut-être le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. <link>Veuillez communiquer avec l’équipe des activités de la collectivité</link> pour en savoir plus sur celles-ci.",
     "description": "Description for advancement nomination meaning"
   },
   "E8q/Zm": {
@@ -6251,7 +6247,7 @@
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
   },
   "NT3jrI": {
-    "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
+    "defaultMessage": "Ce champ accepte les mots-clés associés à la compétence, séparés par des virgules.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
   },
   "NTwwfL": {
@@ -8872,7 +8868,7 @@
     "description": "IT-04 manager path description"
   },
   "YW+ZVh": {
-    "defaultMessage": "Pour évaluer vos compétences en langue seconde, vous devrez subir une évaluation de chacune des trois compétences. Après chaque évaluation, vous obtiendrez un code de trois lettres indiquant le niveau de compétence que vous avez démontré pour cette compétence.",
+    "defaultMessage": "Pour évaluer vos compétences en langue seconde, vous devrez subir une évaluation de chacune des trois compétences. Après chaque évaluation, vous obtiendrez un code alphabétique indiquant le niveau de compétence que vous avez démontré pour cette compétence.",
     "description": "Description for second language proficiency on language requirement dialog"
   },
   "YW3A7H": {
@@ -11254,7 +11250,7 @@
     "description": "Heading for closing the accordion with available employment equity options."
   },
   "i+wcDH": {
-    "defaultMessage": "Apprenez-en plus sur l’équipe de développement de la collectivité de l’approvisionnement",
+    "defaultMessage": "En savoir plus<hidden> sur l’équipe de développement de la collectivité de l’approvisionnement</hidden>",
     "description": "External link button, learn more about the named team"
   },
   "i0K4Sb": {
@@ -12589,7 +12585,7 @@
     "description": "Label for a employee profile desired functional community field"
   },
   "njfu1M": {
-    "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
+    "defaultMessage": "Sélectionnez les volets de travail pour cette expérience",
     "description": "Subtitle for work streams for an experience dialog"
   },
   "nl2Trd": {
@@ -13368,6 +13364,10 @@
     "defaultMessage": "Source de talent",
     "description": "Heading for the source of the matching user."
   },
+  "qzzqI0": {
+    "defaultMessage": "Ce que signifie une nomination pour « {nominationOptions} »",
+    "description": "Label for the meaning of a nomination status, with the status name as a variable"
+  },
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
     "description": "Paragraph three for the self-declaration explanation dialog"
@@ -14117,7 +14117,7 @@
     "description": "Button text to add a new general question to a pool"
   },
   "uEzDbH": {
-    "defaultMessage": "Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
+    "defaultMessage": "Pour définir vos volets de travail, commencez par sélectionner l'une de nos collectivités fonctionnelles partenaires. Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
@@ -14297,7 +14297,7 @@
     "description": "Section title for the Add work experience section."
   },
   "v21LPW": {
-    "defaultMessage": "Mises à jour de l'application",
+    "defaultMessage": "Mises à jour des candidatures",
     "description": "Title for application updates checklist"
   },
   "v3CrHe": {
@@ -14629,7 +14629,7 @@
     "description": "Lead-in for the list of not-selected reasons in referral history"
   },
   "wRsQe+": {
-    "defaultMessage": "Pourquoi vous méritez une nomination",
+    "defaultMessage": "Type de nomination",
     "description": "Label for the type(s) of a received nomination"
   },
   "wSlABO": {
