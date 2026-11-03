@@ -2939,7 +2939,7 @@
     "description": "Label for the action filter for activity log"
   },
   "9zzr+g": {
-    "defaultMessage": "Abonnez-vous au bulletin d’information de la collectivité de l’approvisionnement",
+    "defaultMessage": "Abonnez-vous<hidden> au bulletin d’information de la collectivité de l’approvisionnement</hidden>",
     "description": "External button link to subscribe to a newsletter"
   },
   "A+4huJ": {
