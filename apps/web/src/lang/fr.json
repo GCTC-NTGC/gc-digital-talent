@@ -1399,7 +1399,7 @@
     "description": "Message displayed to user after training opportunity is updated successfully."
   },
   "3Z4fra": {
-    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requises »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultatives »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
+    "defaultMessage": "Pour postuler à cet emploi, vous devrez être en mesure de démontrer que vous possédez <strong>toutes les compétences</strong> marquées <heavySecondary>« Requise »</heavySecondary>. Si vous possédez l'une des compétences <heavyPrimary>« Facultative »</heavyPrimary> nous vous recommandons de l'inclure, car elle augmentera vos chances de trouver un emploi.",
     "description": "Descriptive text about how skills are defined and used for pool advertisements and applications"
   },
   "3ZPZqo": {
@@ -1817,10 +1817,6 @@
   "5FFRV2": {
     "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
     "description": "Message displayed to user after user fails to get updated."
-  },
-  "5FXFyB": {
-    "defaultMessage": "En savoir plus sur la façon dont les lieux de travail sont décrits dans les possibilités d'emploi.",
-    "description": "Subtitle for the pool work location dialog"
   },
   "5G+j56": {
     "defaultMessage": "Numéro de priorité accordé par la Commission de la fonction publique du Canada",
@@ -3214,10 +3210,6 @@
     "defaultMessage": "Rechercher le courriel professionnel du nominé ou de la nominée",
     "description": "Label for search nominee input field on a nomination"
   },
-  "AxLO/M": {
-    "defaultMessage": "Renseignements sur le programme de perfectionnement",
-    "description": "Heading for the 'create a development program' form"
-  },
   "Ay4Syt": {
     "defaultMessage": "Cette section fournit des renseignements sur les exigences associées à cette demande.",
     "description": "Description of the details submitted with a talent request"
@@ -3237,6 +3229,10 @@
   "B+3gE4": {
     "defaultMessage": "Grâce aux processus de recrutement annoncés sur la plateforme, nous avons pu établir une vaste base de données sur les talents préqualifiés. Les personnes qui postulent sont évaluées en fonction d’une classification particulière, et celles qui se qualifient sont inscrites dans un bassin de talents dans lequel les ministères peuvent puiser pour pourvoir des postes vacants.",
     "description": "Paragraph one, answer about prequalified talent"
+  },
+  "B/tCpX": {
+    "defaultMessage": "Informations sur le programme de perfectionnement",
+    "description": "Heading for development program"
   },
   "B0OL/n": {
     "defaultMessage": "{customTitle} ({title}) évaluation - {skillName}",
@@ -3531,7 +3527,7 @@
     "description": "Error message when work email is null."
   },
   "CTl5IT": {
-    "defaultMessage": "Modifier notes",
+    "defaultMessage": "Modifier les notes",
     "description": "Button text to start editing pool candidate notes"
   },
   "CTxxiq": {
@@ -6658,7 +6654,7 @@
     "description": "Button text for editing verification of candidate claim"
   },
   "PNtGco": {
-    "defaultMessage": "Évaluées ultérieurement",
+    "defaultMessage": "Évaluée ultérieurement",
     "description": "Message displayed for behavioural skills telling users at what point it will be assessed"
   },
   "PO94zE": {
@@ -7062,7 +7058,7 @@
     "description": "Application step for additional questions, introduction description, paragraph one"
   },
   "Qmo6Wc": {
-    "defaultMessage": "Consultez les activités de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
+    "defaultMessage": "Consultez les événements de gestion des talents en vigueur et soumettez des nominations de talents admissibles aux fins de possibilités d’avancement, de transfert latéral ou de perfectionnement. Cette section vous permet de consulter l’information sur les nominations que vous avez présentées et d’en faire le suivi. Ces renseignements sont également disponibles dans la section « Gestion des talents » de votre tableau de bord.",
     "description": "Paragraph explaining what employees nominated are and how they work"
   },
   "QnfjbI": {
@@ -7122,7 +7118,7 @@
     "description": "The essential technical skills special note for a job poster template"
   },
   "Qxl9Ec": {
-    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluées à l’étape initiale de la demande ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
+    "defaultMessage": "Afin d’écourter le processus de demande, l’information n’est recueillie que sur certaines compétences particulières à l’étape de la demande. Celles-ci sont identifiées individuellement sous le nom de la compétence en se servant de la mention « Évaluée lors de la demande initiale ». D’autres évaluations suivront plus tard au cours de votre processus de demande si elle s’avère réussie. Ces évaluations supplémentaires peuvent être menées sur toutes les compétences obligatoires ou facultatives.",
     "description": "Descriptive text about how skills are used during the application process"
   },
   "QzU2SL": {
@@ -7813,7 +7809,7 @@
     "description": "Message displayed if employee hasn't filled out next role"
   },
   "U86N4g": {
-    "defaultMessage": "Pour l’instant, enregistrer et quittez",
+    "defaultMessage": "Pour l’instant, enregistrer et quitter",
     "description": "Action button to save and exit an application"
   },
   "U8Qnok": {
@@ -9680,7 +9676,7 @@
     "description": "Legend for the radio group of program participation"
   },
   "c70xDW": {
-    "defaultMessage": "Requises",
+    "defaultMessage": "Requise",
     "description": "Label for a required skill"
   },
   "c8DrIs": {
@@ -10846,7 +10842,7 @@
     "description": "Link text to update work streams for an experience"
   },
   "gLNQYB": {
-    "defaultMessage": "Évaluées lors de la demande initiale",
+    "defaultMessage": "Évaluée lors de la demande initiale",
     "description": "Message displayed for technical skills telling users at what point it will be assessed"
   },
   "gMaDG/": {
@@ -11501,7 +11497,7 @@
     "description": "Support form subject field feedback option label"
   },
   "ixjaCE": {
-    "defaultMessage": "Activités passées",
+    "defaultMessage": "Événements passés",
     "description": "Toggle option to view closed nominations"
   },
   "iy3pRH": {
@@ -14331,10 +14327,6 @@
   "v9mTgX": {
     "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
     "description": "Learn more dialog question eleven paragraph one"
-  },
-  "vAkaZH": {
-    "defaultMessage": "Renseignements sur le programme de perfectionnement",
-    "description": "Heading for the 'create a developmentProgram' form"
   },
   "vC8yrC": {
     "defaultMessage": "Vous allez quitter notre site pour vous connecter avec ConnexionCanada. En cas de problème, des instructions supplémentaires sont disponibles pour vous guider.",
