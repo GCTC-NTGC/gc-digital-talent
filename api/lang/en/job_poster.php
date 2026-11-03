@@ -2,6 +2,7 @@
 
 return [
     'or' => 'or',
+    'label_special_note' => 'Special note for this process',
     'employment_details' => [
         'title' => 'Employment details',
         'label_work_category' => 'Work category',

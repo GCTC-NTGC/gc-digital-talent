@@ -2,6 +2,7 @@
 
 return [
     'or' => 'ou',
+    'label_special_note' => 'Note spéciale pour ce processus',
     'employment_details' => [
         'title' => 'Information détaillée sur l\'emploi',
         'label_work_category' => 'Catégorie de travail',

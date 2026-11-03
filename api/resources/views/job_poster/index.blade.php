@@ -1,7 +1,8 @@
 <h1>{{ $pool->display_name['display'] }}</h1>
 
 @localized($pool->special_note)
-    {!! $pool->special_note !!}
+<h2>@lang('job_poster.label_special_note')</h2>
+{!! $pool->special_note !!}
 @endlocalized
 
 @include('job_poster.partials.area_of_selection')
