@@ -2,7 +2,6 @@ import type { StoryFn } from "@storybook/react-vite";
 import { action } from "storybook/actions";
 import { within, userEvent, screen } from "storybook/test";
 
-import { EmailType } from "@gc-digital-talent/graphql";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 
 import EmailVerificationDialog from "./EmailVerificationDialog";
@@ -39,22 +38,14 @@ const Template: StoryFn<typeof EmailVerificationDialog> = (args) => {
   );
 };
 
-export const ContactEmail = Template.bind({});
-ContactEmail.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "user@example.com",
-};
-
 export const WorkEmail = Template.bind({});
 WorkEmail.args = {
-  emailType: EmailType.Work,
-  emailAddress: "user@canada.ca",
+  emailAddress: "user@gc.ca",
 };
 
 export const CodeRequested = Template.bind({});
 CodeRequested.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "user@example.com",
+  emailAddress: "user@gc.ca",
 };
 CodeRequested.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -64,8 +55,7 @@ CodeRequested.play = async () => {
 
 export const Throttled = Template.bind({});
 Throttled.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "user@example.com",
+  emailAddress: "user@gc.ca",
 };
 Throttled.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -76,8 +66,7 @@ Throttled.play = async () => {
 
 export const EmailChanged = Template.bind({});
 EmailChanged.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "user@example.com",
+  emailAddress: "user@gc.ca",
 };
 EmailChanged.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
@@ -85,24 +74,12 @@ EmailChanged.play = async () => {
   const emailInput = dialog.getByRole("textbox", { name: /contact/i });
   await userEvent.click(submitBtn);
   await userEvent.clear(emailInput);
-  await userEvent.type(emailInput, "user2@example.com");
+  await userEvent.type(emailInput, "user2@gc.ca");
   await userEvent.click(emailInput);
-};
-
-export const ContactMatchesWork = Template.bind({});
-ContactMatchesWork.args = {
-  emailType: EmailType.Contact,
-  emailAddress: "user@gc.ca",
-};
-ContactMatchesWork.play = async () => {
-  const dialog = within(screen.getByRole("dialog"));
-  const submitBtn = dialog.getByRole("button", { name: /send/i });
-  await userEvent.click(submitBtn);
 };
 
 export const MustRequestCode = Template.bind({});
 MustRequestCode.args = {
-  emailType: EmailType.Contact,
   emailAddress: "user@gc.ca",
 };
 MustRequestCode.play = async () => {

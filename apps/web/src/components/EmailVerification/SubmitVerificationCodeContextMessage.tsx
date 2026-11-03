@@ -5,7 +5,7 @@ import { Notice } from "@gc-digital-talent/ui";
 
 import { useEmailVerification } from "./EmailVerification";
 
-export type ContextMessage = "contact-matches-work" | "must-request-code";
+export type ContextMessage = "must-request-code";
 
 const SubmitVerificationCodeContextMessage = () => {
   const intl = useIntl();
@@ -17,31 +17,6 @@ const SubmitVerificationCodeContextMessage = () => {
   if (message == null) return null;
 
   switch (message) {
-    case "contact-matches-work":
-      return (
-        <Notice.Root>
-          <Notice.Title>
-            {intl.formatMessage({
-              defaultMessage:
-                "Your contact email will be used to verify your employee status",
-              id: "PvS4Lq",
-              description:
-                "Title for a message informing the user that their contact email will be used as a work email.",
-            })}
-          </Notice.Title>
-          <Notice.Content>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "We noticed that the email you've provided is also a Government of Canada employee work email. Once verified, this email will automatically act as both your contact email and the email used to verify your status as an employee.",
-                id: "zn/6gt",
-                description:
-                  "Body for a message informing the user that their contact email will be used as a work email.",
-              })}
-            </p>
-          </Notice.Content>
-        </Notice.Root>
-      );
     case "must-request-code":
       return (
         <Notice.Root color="error">
