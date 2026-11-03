@@ -197,18 +197,18 @@ A `default` / `roleAdded` row for a User. `team_id` is present only for team-sco
 
 Platform-wide announcements displayed to users in the application UI, such as maintenance notices or feature updates. Supports scheduling and dismissal.
 
-| Column | Description | Relationship | Constraints |
-|--------|-------------|--------------|-------------|
-| `id` | Unique identifier for the announcement. |  |  |
-| `key` | Unique human-readable slug for the announcement. |  | Unique; only `sitewide_announcement` is used |
-| `title` | Bilingual (EN/FR) title text shown as the announcement headline. |  | Bilingual: en and fr both required |
-| `message` | Bilingual (EN/FR) body text of the announcement. |  | Bilingual: en and fr both required |
-| `is_enabled` | Whether the announcement is currently active and visible. |  | Default false |
-| `is_dismissible` | Whether users can permanently dismiss this announcement. |  | Default false |
-| `publish_date` | Date and time when the announcement becomes visible. |  | Required (via mutation) |
-| `expiry_date` | Date and time when the announcement stops being shown. |  | Required (via mutation); must be after publish_date |
-| `created_at` | Timestamp when the announcement was created. |  |  |
-| `updated_at` | Timestamp when the announcement was last modified. |  |  |
+| Column           | Description                                                                                                                                                                        | Relationship | Constraints                                                                                                                                                             |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`             | Unique identifier for the announcement.                                                                                                                                            |              |                                                                                                                                                                         |
+| `key`            | Unique human-readable slug for the announcement.                                                                                                                                   |              | Unique; only `sitewide_announcement` is used                                                                                                                            |
+| `title`          | Bilingual (EN/FR) title text shown as the announcement headline.                                                                                                                   |              | Bilingual: en and fr both required. JSON: `{"en": "Scheduled maintenance", "fr": "Maintenance planifiée"}`                                                              |
+| `message`        | Bilingual (EN/FR) body text of the announcement.                                                                                                                                   |              | Bilingual: en and fr both required. JSON: `{"en": "The site will be unavailable Saturday 8–10 a.m. ET.", "fr": "Le site sera indisponible samedi de 8 h à 10 h (HE)."}` |
+| `is_enabled`     | Whether the announcement is currently active and visible. App client only displays an announcment if is_enabled is true AND current date is between publishe_date and expiry_date. |              | Default false                                                                                                                                                           |
+| `is_dismissible` | Whether users can permanently dismiss this announcement.                                                                                                                           |              | Default false                                                                                                                                                           |
+| `publish_date`   | Date and time when the announcement becomes visible.                                                                                                                               |              | Required (via mutation)                                                                                                                                                 |
+| `expiry_date`    | Date and time when the announcement stops being shown.                                                                                                                             |              | Required (via mutation); must be after publish_date                                                                                                                     |
+| `created_at`     | Timestamp when the announcement was created.                                                                                                                                       |              |                                                                                                                                                                         |
+| `updated_at`     | Timestamp when the announcement was last modified.                                                                                                                                 |              |                                                                                                                                                                         |
 
 ---
 
