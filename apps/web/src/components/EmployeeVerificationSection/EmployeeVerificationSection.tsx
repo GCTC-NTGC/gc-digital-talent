@@ -398,7 +398,7 @@ const EmployeeVerificationSection = ({
                     </Link>
                   )
                 ) : (
-                  <span className="font-bold text-gray underline">
+                  <span className="font-bold text-gray-500 underline dark:text-gray-200">
                     {intl.formatMessage({
                       defaultMessage: "Join a community",
                       id: "BeCVcA",
