@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Validators\Mutation;
+namespace App\GraphQL\Validators;
 
 use App\Enums\ErrorCode;
 use App\Rules\CaseInsensitiveUnique;
@@ -8,7 +8,12 @@ use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Nuwave\Lighthouse\Validation\Validator;
 
-final class SendUserWorkEmailVerificationValidator extends Validator
+/**
+ * Validates a work email address the user wants to verify.
+ * Used by the sendUserWorkEmailVerification mutation (via @validator) and by
+ * VerifyUserWorkEmail to re-check the address stored in the token.
+ */
+final class WorkEmailAddressValidator extends Validator
 {
     public function __construct() {}
 

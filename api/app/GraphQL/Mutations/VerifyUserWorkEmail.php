@@ -4,9 +4,8 @@ namespace App\GraphQL\Mutations;
 
 use App\Enums\ErrorCode;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
+use App\GraphQL\Validators\WorkEmailAddressValidator;
 use App\Models\User;
-use App\Rules\CaseInsensitiveUnique;
-use App\Rules\GovernmentEmailRegex;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -44,22 +43,16 @@ final class VerifyUserWorkEmail
             throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);
         }
 
-        // these rules should stay similar to api/app/GraphQL/Validators/SendUserWorkEmailVerificationValidator.php
-        $validator = Validator::make($token, [
-            'code' => [
-                'required',
-                'string',
-            ],
-            'emailAddress' => [
-                'required',
-                'email',
-                new GovernmentEmailRegex(),
-                (new CaseInsensitiveUnique('users', 'email'))->ignore($user?->id, 'id'),
-            ],
-        ],
+        // re-check the address in the token, in case it was taken since the code was sent
+        $emailAddressValidator = new WorkEmailAddressValidator();
+        $validator = Validator::make(
+            $token,
             [
-                'emailAddress.case_insensitive_unique' => ErrorCode::EMAIL_ADDRESS_IN_USE->name,
-            ]);
+                'code' => ['required', 'string'],
+                ...$emailAddressValidator->rules(),
+            ],
+            $emailAddressValidator->messages(),
+        );
 
         if ($validator->fails()) {
             throw ValidationException::withMessages($validator->errors()->toArray());

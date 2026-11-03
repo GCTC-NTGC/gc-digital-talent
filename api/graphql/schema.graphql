@@ -3451,7 +3451,9 @@ type Mutation {
     @guard
     @canFind(ability: "restore", find: "id")
 
-  sendUserWorkEmailVerification(emailAddress: String!): User @guard @validator
+  sendUserWorkEmailVerification(emailAddress: String!): User
+    @guard
+    @validator(class: "WorkEmailAddressValidator")
   verifyUserWorkEmail(code: String!): User @guard
   removeUserWorkEmail(id: UUID!): User
     @guard
