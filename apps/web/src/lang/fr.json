@@ -3629,10 +3629,6 @@
     "defaultMessage": "Trouver des candidatures correspondantes",
     "description": "Heading for the table that contains users who match talent request criteria"
   },
-  "CtftRC": {
-    "defaultMessage": "Ce que signifie une nomination pour « {nominationOptions} »",
-    "description": "Label for the meaning of a nomination status, with the status name as a variable"
-  },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
@@ -13367,6 +13363,10 @@
   "qy4Ohw": {
     "defaultMessage": "Source de talent",
     "description": "Heading for the source of the matching user."
+  },
+  "qzzqI0": {
+    "defaultMessage": "Ce que signifie une nomination pour « {nominationOptions} »",
+    "description": "Label for the meaning of a nomination status, with the status name as a variable"
   },
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
