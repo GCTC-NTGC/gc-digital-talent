@@ -843,7 +843,7 @@
     "description": "Button label to download users associated with selected candidates as Excel"
   },
   "1Q/4Yb": {
-    "defaultMessage": "Publier une annonce",
+    "defaultMessage": "Publier l’annonce",
     "description": "Title to publish an advertisement of a process"
   },
   "1Q4qv9": {
@@ -5415,10 +5415,6 @@
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
   },
-  "K+roYh": {
-    "defaultMessage": "Date de clôture",
-    "description": "Closing Date field label for publish pool dialog"
-  },
   "K/01hq": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
@@ -5642,6 +5638,10 @@
   "L0ugLs": {
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
+  },
+  "L2Hilv": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Closing date field label for publish pool dialog in the Pacific time zone"
   },
   "L2xLV8": {
     "defaultMessage": "Ajouter un signet",
@@ -7293,8 +7293,8 @@
     "description": "Button text to duplicate a process"
   },
   "RauOed": {
-    "defaultMessage": "Erreur : le publication du processus a échoué",
-    "description": "Message displayed to user after pool fails to get publish."
+    "defaultMessage": "Le processus a été publié avec succès",
+    "description": "Message displayed to user after pool is published"
   },
   "RcRh+P": {
     "defaultMessage": "Créer un recrutement",
@@ -9624,7 +9624,7 @@
     "description": "Legend text for written exam language preference for exams"
   },
   "bok2jV": {
-    "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature",
+    "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature.",
     "description": "Second paragraph for publish process dialog"
   },
   "bozF1y": {
@@ -11125,10 +11125,6 @@
     "defaultMessage": "Sélectionner la durée de l'interruption",
     "description": "Null selection for pause referral select input"
   },
-  "hGlM9B": {
-    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
-    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
-  },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
@@ -11465,7 +11461,7 @@
     "description": "Button text to print the request confirmation page"
   },
   "idv7rY": {
-    "defaultMessage": "Erreur : la fermeture du processus a échoué",
+    "defaultMessage": "Erreur : la suppression du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "idwHJf": {
@@ -12927,6 +12923,10 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
+  },
+  "p4CGX2": {
+    "defaultMessage": "Date de clôture",
+    "description": "Closing date field label for publish pool dialog"
   },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
