@@ -3630,7 +3630,7 @@
     "description": "Heading for the table that contains users who match talent request criteria"
   },
   "CtftRC": {
-    "defaultMessage": "Ce qu’une nomination signifie ",
+    "defaultMessage": "Ce que signifie une nomination pour « {nominationOptions} »",
     "description": "Label for the meaning of a nomination status, with the status name as a variable"
   },
   "Cu+CH3": {
