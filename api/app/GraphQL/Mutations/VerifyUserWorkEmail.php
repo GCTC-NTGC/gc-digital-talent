@@ -6,6 +6,7 @@ use App\Enums\ErrorCode;
 use App\GraphQL\Exceptions\ClientSafeTooManyRequestsException;
 use App\GraphQL\Validators\WorkEmailAddressValidator;
 use App\Models\User;
+use App\Notifications\VerifyWorkEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -36,8 +37,8 @@ final class VerifyUserWorkEmail
         }
         RateLimiter::increment($rateLimiterKey);
 
-        $key = 'work-email-verification-'.$user->id;
-        $token = Cache::get($key); // refer to VerifyWorkEmail->createVerificationCode
+        $key = VerifyWorkEmail::tokenCacheKey($user->id);
+        $token = Cache::get($key);
 
         if (is_null($token)) {
             throw ValidationException::withMessages(['code' => ErrorCode::VERIFICATION_FAILED->name]);

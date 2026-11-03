@@ -87,7 +87,7 @@ class UserVerifyEmailsTest extends TestCase
     private function putVerificationToken(string $code = '1234', string $emailAddress = 'regular.user.2@gc.ca'): void
     {
         Cache::put(
-            'work-email-verification-'.$this->regularUser->id,
+            VerifyWorkEmail::tokenCacheKey($this->regularUser->id),
             [
                 'code' => $code,
                 'emailAddress' => $emailAddress,
@@ -138,7 +138,7 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithBadCode()
     {
         Cache::put(
-            'work-email-verification-00000000-0000-0000-0000-000000000001',
+            VerifyWorkEmail::tokenCacheKey('00000000-0000-0000-0000-000000000001'),
             [
                 'code' => '1234',
                 'emailAddress' => 'regular.user.2@gc.ca',
@@ -163,7 +163,7 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithBadField()
     {
         Cache::put(
-            'work-email-verification-00000000-0000-0000-0000-000000000001',
+            VerifyWorkEmail::tokenCacheKey('00000000-0000-0000-0000-000000000001'),
             [
                 'code' => '1234',
                 'emailAddress' => 'regular.user.2@example.org',
@@ -188,7 +188,7 @@ class UserVerifyEmailsTest extends TestCase
     public function testCantVerifyWithExpiredCode()
     {
         Cache::put(
-            'work-email-verification-00000000-0000-0000-0000-000000000001',
+            VerifyWorkEmail::tokenCacheKey('00000000-0000-0000-0000-000000000001'),
             [
                 'code' => '1234',
                 'emailAddress' => 'regular.user.2@gc.ca',
@@ -236,7 +236,7 @@ class UserVerifyEmailsTest extends TestCase
             ]
         );
 
-        $token = Cache::get('work-email-verification-00000000-0000-0000-0000-000000000001');
+        $token = Cache::get(VerifyWorkEmail::tokenCacheKey('0000000-0000-0000-0000-000000000001'));
         assertNotNull($token);
         assertNotNull($token['code']);
         assertEquals('regular.user.2@gc.ca', $token['emailAddress']);
@@ -245,7 +245,7 @@ class UserVerifyEmailsTest extends TestCase
     public function testCanVerifyWorkEmailWithCode()
     {
         Cache::put(
-            'work-email-verification-00000000-0000-0000-0000-000000000001',
+            VerifyWorkEmail::tokenCacheKey('00000000-0000-0000-0000-000000000001'),
             [
                 'code' => '1234',
                 'emailAddress' => 'regular.user.2@gc.ca',

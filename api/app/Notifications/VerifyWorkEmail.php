@@ -10,6 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Cache;
 use Random\Randomizer;
+use RuntimeException;
 
 class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
 {
@@ -67,14 +68,22 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
     }
 
     /**
+     * Get the cache key for where the token is stored
+     */
+    public static function tokenCacheKey(string $userId): string
+    {
+        throw_if(empty($userId), RuntimeException::class, 'Missing user ID');
+
+        return "work-email-verification:$userId";
+    }
+
+    /**
      * Get the verification code for the given notifiable.
      *
      * @return string
      */
     protected function createVerificationCode(User $user)
     {
-        $key = 'work-email-verification-'.$user->id;
-
         $randomizer = new Randomizer();
         $code = $randomizer->getBytesFromString('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6);
 
@@ -82,7 +91,7 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
             'code' => $code,
             'emailAddress' => $this->emailAddress,
         ];
-        Cache::put($key, $token, now()->addHours(2));
+        Cache::put(self::tokenCacheKey($user->id), $token, now()->addHours(2));
 
         return $code;
     }
