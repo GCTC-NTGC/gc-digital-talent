@@ -134,6 +134,14 @@ export const SearchForm = ({
   const showAtLevel =
     !hasTalentSourceSelection ||
     !!applicantFilter?.talentSources?.includes(TalentRequestSource.AtLevel);
+  const showAdvancement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(TalentRequestSource.Advancement);
+  const showLateralMovement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(
+      TalentRequestSource.LateralMovement,
+    );
 
   const selectedWorkStream = workStreams.find(
     (workStream) =>
@@ -243,6 +251,8 @@ export const SearchForm = ({
                           community,
                           qualifiedInPoolCount,
                           atLevelCount,
+                          advancementCount,
+                          lateralMovementCount,
                           count: communityCount,
                         }) => (
                           <CommunityResultCard
@@ -251,9 +261,13 @@ export const SearchForm = ({
                             workStreamName={selectedWorkStreamName}
                             qualifiedInPoolCount={qualifiedInPoolCount}
                             atLevelCount={atLevelCount}
+                            advancementCount={advancementCount}
+                            lateralMovementCount={lateralMovementCount}
                             count={communityCount}
                             showQualifiedInPool={showQualifiedInPool}
                             showAtLevel={showAtLevel}
+                            showAdvancement={showAdvancement}
+                            showLateralMovement={showLateralMovement}
                           />
                         ),
                       )}
