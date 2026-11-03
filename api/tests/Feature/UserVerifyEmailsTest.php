@@ -348,7 +348,7 @@ class UserVerifyEmailsTest extends TestCase
         // stable verified_at timestamps
         Carbon::setTestNow('2000-01-01 00:00:00');
 
-        $response = $this->attemptVerify($this->regularUser, '5679')
+        $this->attemptVerify($this->regularUser, '5679')
             ->assertJsonMissingPath('errors')
             ->assertJsonPath('data.verifyUserWorkEmail.workEmail', 'work.duplicate@gc.ca')
             ->assertJsonPath('data.verifyUserWorkEmail.isWorkEmailVerified', true);

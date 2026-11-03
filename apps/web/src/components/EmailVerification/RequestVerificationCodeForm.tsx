@@ -20,7 +20,7 @@ import {
 
 import { useEmailVerification } from "./EmailVerification";
 
-const sendUserWorkEmailVerification_Mutation = graphql(/* GraphQL */ `
+const SendUserWorkEmailVerification_Mutation = graphql(/* GraphQL */ `
   mutation SendUserWorkEmailVerification($emailAddress: String!) {
     sendUserWorkEmailVerification(emailAddress: $emailAddress) {
       id
@@ -54,7 +54,7 @@ const RequestVerificationCodeForm = ({
   } = useEmailVerification();
 
   const [, executeMutation] = useMutation(
-    sendUserWorkEmailVerification_Mutation,
+    SendUserWorkEmailVerification_Mutation,
   );
 
   const formMethods = useForm<FormValues>({

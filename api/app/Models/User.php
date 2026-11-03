@@ -1064,8 +1064,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
-    // Clear the contact email address from any user who has it (except the user we are releasing it for)
-    public static function releaseContactEmail(string $emailAddress, string $exceptUserId)
+    /*
+     * Clear the contact email address from any user who has it (except the user we are releasing it for)
+     */
+    public static function releaseContactEmail(string $emailAddress, string $exceptUserId): void
     {
         $existingUser = User::where('id', '!=', $exceptUserId)
             ->whereContactEmailMatches($emailAddress)
@@ -1080,8 +1082,10 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
     }
 
-    // Clear the work email address from any user who has it (except the user we are releasing it for)
-    public static function releaseWorkEmail(string $emailAddress, string $exceptUserId)
+    /*
+     * Clear the work email address from any user who has it (except the user we are releasing it for)
+     */
+    public static function releaseWorkEmail(string $emailAddress, string $exceptUserId): void
     {
         $existingUser = User::where('id', '!=', $exceptUserId)
             ->whereWorkEmailMatches($emailAddress)
