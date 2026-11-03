@@ -1,6 +1,6 @@
 # GC Digital Talent — Data dictionary
 
-**78 tables · 763 columns · 137 foreign key relationships**
+**84 tables · 833 columns · 150 foreign key relationships**
 
 > GC Digital Talent is the Government of Canada platform for managing recruitment pools, job postings, talent nominations, and applicant tracking across the federal public service. Data is bilingual (English/French stored as jsonb), uses UUIDs as primary keys, and soft-deletes via `deleted_at`.
 
@@ -23,6 +23,9 @@
 - [classification_community_development_program](#classification-community-development-program)
 - [classification_development_program](#classification-development-program)
 - [classification_pool_candidate_filter](#classification-pool-candidate-filter)
+- [classification_talent_nomination_advancement](#classification-talent-nomination-advancement)
+- [classification_talent_nomination_group_advancement](#classification-talent-nomination-group-advancement)
+- [classification_talent_nomination_group_lateral_movement](#classification-talent-nomination-group-lateral-movement)
 - [classifications](#classifications)
 - [communities](#communities)
 - [community_development_program](#community-development-program)
@@ -46,6 +49,7 @@
 - [general_questions](#general-questions)
 - [generic_job_title_user](#generic-job-title-user)
 - [generic_job_titles](#generic-job-titles)
+- [job_poster_archives](#job-poster-archives)
 - [job_poster_template_skill](#job-poster-template-skill)
 - [job_poster_templates](#job-poster-templates)
 - [jobs](#jobs)
@@ -76,6 +80,8 @@
 - [talent_nomination_events](#talent-nomination-events)
 - [talent_nomination_groups](#talent-nomination-groups)
 - [talent_nominations](#talent-nominations)
+- [talent_request_tracked_users](#talent-request-tracked-users)
+- [talent_requests](#talent-requests)
 - [teams](#teams)
 - [training_opportunities](#training-opportunities)
 - [user_search_indices](#user-search-indices)
@@ -102,11 +108,11 @@ Audit log of system events, tracking who did what and to which record. Used for 
 | `subject_id` | UUID of the specific record that was acted upon. |  |  |
 | `causer_type` | The model class of the actor who triggered the event. |  |  |
 | `causer_id` | UUID of the user or system actor who triggered the event. |  |  |
-| `properties` | JSON snapshot of the before/after attribute values involved in the change. |  |  |
+| `properties` | JSON of custom properties logged with the event (before/after values now live in `attribute_changes`). |  |  |
 | `created_at` | Timestamp when the log entry was created. |  |  |
 | `updated_at` | Timestamp when the log entry was last updated. |  |  |
 | `event` | The type of event (e.g. 'created', 'updated', 'deleted'). |  | Enum `ActivityEvent` (stored lowercase): CREATED, UPDATED, DELETED, SUBMITTED, QUALIFIED, DISQUALIFIED, PLACED, ADDED, REMOVED, REINSTATED, REVERTED, PUBLISHED, SPECIAL_APPLICATION_CREATED, SPECIAL_APPLICATION_SUBMITTED |
-| `batch_uuid` | Groups related log entries that occurred in the same batch operation. |  | Column dropped by 2026_05_21 activity_log v5 upgrade |
+| `attribute_changes` | Before/after attribute values for the change, as `attributes` and `old` keys (moved out of `properties` in the Activity Log v5 upgrade). |  |  |
 
 ---
 
@@ -218,8 +224,9 @@ Stores the search criteria used by managers and HR advisors when searching for p
 | `qualified_streams` | JSON array of work streams the candidate must be qualified in. |  | Not null, default []; legacy column, not exposed in GraphQL |
 | `community_id` | FK to the community (functional group) being searched within. | FK → `communities.id` | Not null |
 | `flexible_work_locations` | JSON array of flexible/remote work location preferences. |  | Array of `FlexibleWorkLocation`: REMOTE, HYBRID, ONSITE; default [] |
+| `talent_sources` | JSON array of the talent sources a request wants matched against. |  | Array of `TalentRequestSource`: QUALIFIED_IN_POOL, AT_LEVEL, ADVANCEMENT, LATERAL_MOVEMENT. Default []; empty means all sources |
 
-**Referenced by:** `applicant_filter_classification.applicant_filter_id`, `applicant_filter_pool.applicant_filter_id`, `applicant_filter_qualified_classification.applicant_filter_id`, `applicant_filter_skill.applicant_filter_id`, `applicant_filter_work_stream.applicant_filter_id`, `pool_candidate_search_requests.applicant_filter_id`
+**Referenced by:** `applicant_filter_classification.applicant_filter_id`, `applicant_filter_pool.applicant_filter_id`, `applicant_filter_qualified_classification.applicant_filter_id`, `applicant_filter_skill.applicant_filter_id`, `applicant_filter_work_stream.applicant_filter_id`, `pool_candidate_search_requests.applicant_filter_id`, `talent_requests.applicant_filter_id`
 
 ---
 
@@ -292,6 +299,9 @@ Applicant-reported awards, recognitions, or honours on their GC Talent profile. 
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the record is active. |  |  |
+| `project_name` | Name of the project that received the award. |  | Required if awarded_to = MY_PROJECT |
+| `related_experience_type` | Model class of another of the user's experiences this award is linked to. |  | One of App\Models\WorkExperience, PersonalExperience, CommunityExperience, EducationExperience. Required with related_experience_id |
+| `related_experience_id` | UUID of the linked experience (polymorphic with related_experience_type). |  | Must be one of the current user's own experiences of related_experience_type |
 
 ---
 
@@ -333,6 +343,48 @@ Junction table linking pool candidate filters (legacy search filters) to classif
 
 ---
 
+## classification_talent_nomination_advancement
+
+Junction table linking a talent nomination to the classifications the nominator recommends the nominee for advancement into. Rolled up into the nominations Excel export alongside the group's approved classifications.
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for this link. |  |  |
+| `created_at` | Timestamp when the link was created. |  |  |
+| `updated_at` | Timestamp when the link was last modified. |  |  |
+| `classification_id` | FK to the recommended advancement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_id); synced list must be distinct and exist in classifications |
+| `talent_nomination_id` | FK to the nomination making the recommendation. | FK → `talent_nominations.id` | Links only allowed when the nomination's nominate_for_advancement is true (prohibited otherwise, on save and submit) |
+
+---
+
+## classification_talent_nomination_group_advancement
+
+Junction table recording the classifications an admin has approved a nominee for advancement into, at the talent nomination group level. Set when an advancement decision is made on the group.
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for this link. |  |  |
+| `created_at` | Timestamp when the link was created. |  |  |
+| `updated_at` | Timestamp when the link was last modified. |  |  |
+| `classification_id` | FK to the approved advancement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_group_id); synced list must be distinct and exist in classifications |
+| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` | At least one link required when advancement_decision is APPROVED; links prohibited otherwise |
+
+---
+
+## classification_talent_nomination_group_lateral_movement
+
+Junction table recording the classifications an admin has approved a nominee for lateral movement into, at the talent nomination group level. Set when a lateral movement decision is made on the group.
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for this link. |  |  |
+| `created_at` | Timestamp when the link was created. |  |  |
+| `updated_at` | Timestamp when the link was last modified. |  |  |
+| `classification_id` | FK to the approved lateral movement classification. | FK → `classifications.id` | Unique per (classification_id, talent_nomination_group_id); synced list must be distinct and exist in classifications |
+| `talent_nomination_group_id` | FK to the nomination group the decision applies to. | FK → `talent_nomination_groups.id` | At least one link required when lateral_movement_decision is APPROVED; links prohibited otherwise |
+
+---
+
 ## classifications
 
 Reference table of GC occupational group and level classifications (e.g. EC-06, CS-03, AS-04). Used across pools, users, work experiences, and nominations to define seniority and salary bands.
@@ -350,7 +402,7 @@ Reference table of GC occupational group and level classifications (e.g. EC-06, 
 | `deleted_at` | Soft-delete timestamp; null means the classification is active. |  |  |
 | `is_available_in_search` | Whether this classification appears in search filters. |  | Not null, default false |
 
-**Referenced by:** `applicant_filter_classification.classification_id`, `applicant_filter_qualified_classification.classification_id`, `classification_community_development_program.classification_id`, `classification_development_program.classification_id`, `classification_pool_candidate_filter.classification_id`, `generic_job_titles.classification_id`, `job_poster_templates.classification_id`, `off_platform_recruitment_processes.classification_id`, `pools.classification_id`, `talent_nominations.advancement_reference_fallback_classification_id`, `talent_nominations.nominator_fallback_classification_id`, `users.career_objective_classification_id`, `users.computed_classification`, `users.next_role_classification_id`, `work_experiences.classification_id`
+**Referenced by:** `applicant_filter_classification.classification_id`, `applicant_filter_qualified_classification.classification_id`, `classification_community_development_program.classification_id`, `classification_development_program.classification_id`, `classification_pool_candidate_filter.classification_id`, `classification_talent_nomination_advancement.classification_id`, `classification_talent_nomination_group_advancement.classification_id`, `classification_talent_nomination_group_lateral_movement.classification_id`, `generic_job_titles.classification_id`, `job_poster_templates.classification_id`, `off_platform_recruitment_processes.classification_id`, `pools.classification_id`, `talent_nomination_groups.classification_at_time_of_last_approval_id`, `talent_nominations.advancement_reference_fallback_classification_id`, `talent_nominations.nominator_fallback_classification_id`, `users.career_objective_classification_id`, `users.computed_classification`, `users.next_role_classification_id`, `work_experiences.classification_id`
 
 ---
 
@@ -370,7 +422,7 @@ Functional communities within the GC (e.g. Data Science, Digital, Finance). Comm
 | `information_url` | Link to external information about the community. |  | Bilingual: en and fr required together; must be http/https URLs |
 | `contact_email` | Contact email address for the community team. |  |  |
 
-**Referenced by:** `applicant_filters.community_id`, `community_development_program.community_id`, `community_interests.community_id`, `development_programs.community_id`, `pool_candidate_search_requests.community_id`, `pools.community_id`, `talent_nomination_events.community_id`, `users.career_objective_community_id`, `users.next_role_community_id`, `work_streams.community_id`
+**Referenced by:** `applicant_filters.community_id`, `community_development_program.community_id`, `community_interests.community_id`, `development_programs.community_id`, `pool_candidate_search_requests.community_id`, `pools.community_id`, `talent_nomination_events.community_id`, `talent_requests.community_id`, `users.career_objective_community_id`, `users.next_role_community_id`, `work_streams.community_id`
 
 ---
 
@@ -517,13 +569,13 @@ Reference table of GC departments and agencies (e.g. Treasury Board, DND, PSC). 
 | `is_regulatory` | Whether this is a regulatory body. |  | Required on create; default false |
 | `archived_at` | Timestamp when the department was archived (no longer active). |  | When set, department can no longer be connected to pools, nominations, etc. (`DepartmentNotArchived` rule) |
 
-**Referenced by:** `department_user_career_objective.department_id`, `department_user_next_role.department_id`, `off_platform_recruitment_processes.department_id`, `pool_candidate_search_requests.department_id`, `pool_candidates.placed_department_id`, `pools.department_id`, `talent_nominations.advancement_reference_fallback_department_id`, `talent_nominations.nominator_fallback_department_id`, `users.computed_department`, `work_experiences.department_id`
+**Referenced by:** `department_user_career_objective.department_id`, `department_user_next_role.department_id`, `off_platform_recruitment_processes.department_id`, `pool_candidate_search_requests.department_id`, `pool_candidates.placed_department_id`, `pools.department_id`, `talent_nominations.advancement_reference_fallback_department_id`, `talent_nominations.nominator_fallback_department_id`, `talent_requests.department_id`, `users.computed_department`, `work_experiences.department_id`
 
 ---
 
 ## development_program_interests
 
-Records a user's interest or participation in a specific development program, linked through their community interest. Tracks participation status and completion.
+Records a user's interest or participation in a specific development program, linked through their community interest. Tracks participation status and completion. Deprecated in GraphQL in favour of `development_program_user`.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -600,7 +652,7 @@ Catalogue of GC talent development programs (e.g. leadership programs, interchan
 
 ## education_experiences
 
-Applicant-reported educational credentials on their GC Talent profile, including degrees, diplomas, and certifications. Used to verify education requirements and demonstrate skills.
+Applicant-reported education on their GC Talent profile: degrees, diplomas, licenses, certifications, courses and fellowships. Used to verify education requirements and demonstrate skills.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -611,12 +663,20 @@ Applicant-reported educational credentials on their GC Talent profile, including
 | `thesis_title` | Title of thesis or major research project, if applicable. |  | Only allowed for DEGREE_DIPLOMA_CERTIFICATE with degree MASTERS_DEGREE or PHD |
 | `start_date` | Date when the program of study began. |  | Required, except prohibited when status DID_NOT_COMPLETE for license/certification types; must be today or earlier (today or later for in-progress license/certification) |
 | `end_date` | Date when the program of study ended; null if ongoing. |  | Must be on or after start_date; required unless IN_PROGRESS (non-license/certification types); prohibited when IN_PROGRESS; cannot be in future for non-license/certification types |
-| `type` | Type of credential (e.g. bachelor's, master's, diploma, certificate). |  |  |
 | `status` | Completion status (e.g. completed, in progress). |  | Enum `EducationStatus`: SUCCESS_CREDENTIAL, SUCCESS_NO_CREDENTIAL, IN_PROGRESS, AUDITED, DID_NOT_COMPLETE, SUCCESS (AUDITED not accepted by API); cannot be empty if provided |
 | `details` | Additional context or description of the educational experience. |  |  |
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the record is active. |  |  |
+| `education_type` | Kind of education (degree, license, certification, course, fellowship or other). |  | Enum `EducationType`: DEGREE_DIPLOMA_CERTIFICATE, LICENSE_ACCREDITATION, PROFESSIONAL_CERTIFICATION, INDIVIDUAL_COURSE, FELLOWSHIP, OTHER |
+| `other_education_type` | Free-text education type when education_type is OTHER. |  | Required if education_type = OTHER, otherwise prohibited |
+| `degree_type` | Level of degree or diploma. |  | Enum `DegreeType`: HIGH_SCHOOL, COLLEGE_DIPLOMA, BACHELORS_DEGREE, MASTERS_DEGREE, PHD. Required if education_type = DEGREE_DIPLOMA_CERTIFICATE, otherwise prohibited |
+| `license_or_accreditation` | Name of the license or accreditation. |  | Required if education_type = LICENSE_ACCREDITATION, otherwise prohibited |
+| `certification` | Name of the professional certification. |  | Required if education_type = PROFESSIONAL_CERTIFICATION, otherwise prohibited |
+| `course_name` | Name of the individual course. |  | Required if education_type = INDIVIDUAL_COURSE, otherwise prohibited |
+| `fellowship_type` | Kind of fellowship. |  | Enum `FellowshipType`: POST_DOCTORAL, INDUSTRY, OTHER. Required if education_type = FELLOWSHIP, otherwise prohibited |
+| `other_fellowship_type` | Free-text fellowship type when fellowship_type is OTHER. |  | Required if fellowship_type = OTHER |
+| `prospective_end_date` | Expected completion date for education still in progress. |  | On or after today and start_date. Required when status is IN_PROGRESS (except license/certification types); prohibited otherwise |
 
 **Referenced by:** `development_program_user.education_experience_id`
 
@@ -718,6 +778,21 @@ Reference table of standardized plain-language job titles (e.g. 'Data Scientist'
 | `classification_id` | FK to the GC classification this title maps to. | FK → `classifications.id` |  |
 
 **Referenced by:** `generic_job_title_user.generic_job_title_id`
+
+---
+
+## job_poster_archives
+
+Point-in-time snapshots of a pool's rendered job poster HTML (English and French), captured at a lifecycle stage such as publishing or closing. Exposed via Pool.archives in GraphQL so the advertisement as it appeared can be retrieved later.
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for this archive snapshot. |  |  |
+| `type` | The lifecycle stage at which the snapshot was taken. |  | Enum `JobPosterArchiveType`: PUBLISHED, CLOSED; not unique per pool, so multiple snapshots of a type may exist |
+| `html` | Bilingual rendered job poster HTML, generated from the job_poster.index Blade view in each locale. |  | Localized JSON {en, fr}; both populated by Pool::storeArchive |
+| `pool_id` | FK to the pool whose poster was archived. | FK → `pools.id` |  |
+| `created_at` | Timestamp when the snapshot was taken. |  |  |
+| `updated_at` | Timestamp when the snapshot was last modified. |  |  |
 
 ---
 
@@ -882,6 +957,8 @@ Applicant-reported personal life experiences on their GC Talent profile (e.g. ca
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the record is active. |  |  |
+| `learning_description` | What the user learned from the experience (backfilled from description and details). |  |  |
+| `organization` | Organization associated with the experience, if any. |  |  |
 
 ---
 
@@ -925,7 +1002,7 @@ Legacy filter configuration for candidate search requests (predating applicant_f
 
 ## pool_candidate_search_requests
 
-Records manager and HR advisor requests to search for qualified candidates from recruitment pools. Captures the requestor's details, filter criteria, status, and admin notes.
+Legacy table of manager and HR advisor requests to search for qualified candidates. Superseded by `talent_requests` (migration 2026_05_26_140000 copied rows that had an applicant filter); kept for history.
 
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
@@ -949,16 +1026,14 @@ Records manager and HR advisor requests to search for qualified candidates from 
 | `reason` | Reason for the staffing request. |  | Enum `TalentRequestReason`: IMMEDIATE_HIRE, UPCOMING_NEED, GENERAL_INTEREST, REQUIRED_BY_DIRECTIVE |
 | `hr_advisor_email` | Email of the HR advisor assisting with the request. |  |  |
 | `request_status_weight` | Computed numeric weight for sorting requests by status. |  | Generated (stored) from request_status: NEW=10, IN_PROGRESS=20, WAITING=30, DONE=40, DONE_NO_CANDIDATES=41, NOT_COMPLIANT=50 |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `ELSE` |  |  |  |
 | `community_id` | FK to the community the request is directed to. | FK → `communities.id` | Required (NOT NULL) |
 | `user_id` | FK to the platform user who submitted the request. | FK → `users.id` |  |
 | `initial_result_count` | Number of candidates returned when the request was first processed. |  |  |
+| `follow_up_date` | Date an admin plans to follow up on the request. |  |  |
+| `status` | Current status of the request (replaces request_status). |  | Enum `TalentRequestStatus`: NEW, IN_PROGRESS, COMPLETED. Default NEW |
+| `in_progress_details` | Sub-status describing progress on an in-progress request. |  | Enum `TalentRequestInProgressDetail`: INITIAL_CONVERSATION, TALENT_SENT, FOLLOW_UP_SENT, DISCUSSION_ONGOING, OTHER |
+| `completion_details` | Outcome of a completed request (renamed from closed_details). |  | Enum `TalentRequestCompletionDetail`: HIRE_MADE, PROCESS_WILL_BE_LAUNCHED, HIRING_MANAGER_NOT_RESPONSIVE, NO_CANDIDATES_FOUND, NO_LONGER_REQUIRED, DUPLICATE_REQUEST, NON_COMPLIANT |
+| `status_weight` | Computed numeric weight for sorting requests by status. |  | Generated (stored) from status: NEW=10, IN_PROGRESS=20, COMPLETED=30 |
 
 ---
 
@@ -1014,15 +1089,15 @@ The core application record representing a user's submission to a specific recru
 | `status_updated_at` | Timestamp when the application status last changed. |  |  |
 | `placement_type` | Type of placement (e.g. indeterminate, term, acting). |  | Enum `PlacementType`: NOT_PLACED, UNDER_CONSIDERATION, PLACED_TENTATIVE, PLACED_ACTING, PLACED_CASUAL, PLACED_TERM, PLACED_INDETERMINATE. Null unless QUALIFIED (set to NOT_PLACED on qualify) |
 | `status_weight` | Computed numeric weight for sorting applications by status. |  | Generated (stored) from application_status: DRAFT=10, TO_ASSESS=20, DISQUALIFIED=30, QUALIFIED=40, REMOVED=50 |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `ELSE` |  |  |  |
 | `pause_referrals_at` | Timestamp when referrals for this candidate were paused. |  | Set when referrals paused; auto-paused when placed PLACED_INDETERMINATE |
 | `resume_referrals_at` | Timestamp when referrals are scheduled to resume. |  | Derived from `PauseReferralsLength` (ONE_MONTH, THREE_MONTHS, SIX_MONTHS, ONE_YEAR, UNTIL_EXPIRY, OTHER); if OTHER must be after today and on or before expiry_date |
 | `pause_referrals_reason` | Reason referrals were paused for this candidate. |  | Required when pausing referrals |
+| `placed_start_date` | Start date of the candidate's placement. |  | Only for placement types other than NOT_PLACED, UNDER_CONSIDERATION, PLACED_TENTATIVE |
+| `placed_end_date` | End date of a term placement. |  | On or after placed_start_date. Not used for PLACED_INDETERMINATE |
+| `special_application_type` | Reason an admin created this application outside the normal application window. |  | Enum `SpecialApplicationType`: VETERAN, PRIORITY, MINISTERS_STAFF, ACCOMMODATION, TECHNICAL_SUPPORT, PSC_REQUEST, EMPLOYEE_CURRENTLY_ON_LEAVE, OTHER. Required for special applications |
+| `special_application_justification` | Admin's justification for the special application. |  | Required for special applications |
+| `special_application_closing_date` | Deadline for the candidate to submit a special application. |  | Required for special applications; after today and on or after the pool's closing_date. Pool must be published and not archived |
+| `is_dashboard_viewable` | Whether the application shows on the applicant's own dashboard. |  | Default true. Applicant can toggle it on their own non-draft applications |
 
 **Referenced by:** `assessment_results.pool_candidate_id`, `general_question_responses.pool_candidate_id`, `pool_candidate_education_requirement_experience.pool_candidate_id`, `pool_candidate_user_bookmarks.pool_candidate_id`, `screening_question_responses.pool_candidate_id`
 
@@ -1084,7 +1159,6 @@ Recruitment pools (job advertisements) at the heart of the GC Digital Talent pla
 | `created_at` | Timestamp when the pool was created. |  |  |
 | `updated_at` | Timestamp when the pool was last modified. |  |  |
 | `name` | Bilingual name of the pool/advertisement. |  | Required to publish; bilingual (en and fr both or neither). Default {en:'', fr:''} |
-| `user_id` | FK to the user who owns or created the pool. | FK → `users.id` |  |
 | `deleted_at` | Soft-delete timestamp; null means the pool is active. |  |  |
 | `operational_requirements` | JSON array of operational conditions required for the role. |  | Array of `OperationalRequirement`: SHIFT_WORK, ON_CALL, TRAVEL, TRANSPORT_EQUIPMENT, DRIVERS_LICENSE, OVERTIME_OCCASIONAL, OVERTIME_REGULAR |
 | `key_tasks` | Bilingual description of key tasks and responsibilities. |  | Required to publish; bilingual: en and fr both required |
@@ -1095,7 +1169,6 @@ Recruitment pools (job advertisements) at the heart of the GC Digital Talent pla
 | `advertisement_language` | Language(s) in which the advertisement is posted. |  | Required to publish. Enum `PoolLanguage`: ENGLISH, FRENCH, VARIOUS, VARIOUS_BILINGUAL, BILINGUAL_INTERMEDIATE, BILINGUAL_ADVANCED |
 | `is_remote` | Whether the position is remote-eligible. |  | Required to publish (boolean) |
 | `process_number` | Official GC selection process number. |  |  |
-| `publishing_group` | Group controlling publication (e.g. IT, EC). |  |  |
 | `published_at` | Timestamp when the pool was published publicly. |  | Set by publishPool (only from DRAFT, after completeness and assessment plan checks). Status is computed: DRAFT if null, ARCHIVED if archived_at passed, CLOSED if closing_date passed, else PUBLISHED |
 | `what_to_expect` | Bilingual description of the assessment process for applicants. |  | Bilingual: en and fr both or neither |
 | `archived_at` | Timestamp when the pool was archived. |  | Can only be set when status is CLOSED; unarchive (set null) only when ARCHIVED |
@@ -1112,8 +1185,9 @@ Recruitment pools (job advertisements) at the heart of the GC Digital Talent pla
 | `selection_limitations` | Any limitations on who may apply. |  | Array of `PoolSelectionLimitation`: AT_LEVEL_ONLY, DEPARTMENTAL_PREFERENCE, CANADIAN_CITIZENS (distinct; allowed set depends on area_of_selection). NOT NULL, default [] |
 | `work_stream_id` | FK to the work stream this pool is in. | FK → `work_streams.id` | Required to publish; must belong to the pool's community when the pool has one |
 | `contact_email` | Contact email for inquiries about this pool. |  | Required to publish |
+| `is_hidden` | Whether the pool is hidden from talent search matching and published-pool notifications. |  | Default false |
 
-**Referenced by:** `applicant_filter_pool.pool_id`, `assessment_steps.pool_id`, `general_questions.pool_id`, `pool_candidates.pool_id`, `pool_pool_candidate_filter.pool_id`, `pool_skill.pool_id`, `pool_user_bookmarks.pool_id`, `screening_questions.pool_id`
+**Referenced by:** `applicant_filter_pool.pool_id`, `assessment_steps.pool_id`, `general_questions.pool_id`, `job_poster_archives.pool_id`, `pool_candidates.pool_id`, `pool_pool_candidate_filter.pool_id`, `pool_skill.pool_id`, `pool_user_bookmarks.pool_id`, `screening_questions.pool_id`
 
 ---
 
@@ -1262,6 +1336,10 @@ Time-bound nomination campaigns organized by a community, during which managers 
 | `learn_more_url` | Bilingual URL linking to more information about the event. |  | Localized string; each value must be a valid URL |
 | `include_leadership_competencies` | Whether nominators are asked to assess leadership competencies. |  |  |
 | `community_id` | FK to the community organizing this event. | FK → `communities.id` | Required; must exist; cannot change while event is ACTIVE |
+| `include_nine_box` | Whether nominations for this event collect nine-box performance and leadership-potential ratings. |  | Default false |
+| `require_reference_for_advancement` | Whether advancement nominations for this event require a reference. |  | Default false |
+| `custom_instructions` | Bilingual event-specific instructions shown to nominators. |  | Bilingual |
+| `contact_email` | Contact email for questions about the event. |  | Required; email format |
 
 **Referenced by:** `community_development_program_talent_nomination_event.talent_nomination_event_id`, `development_program_talent_nomination_event.talent_nomination_event_id`, `talent_nomination_groups.talent_nomination_event_id`, `talent_nominations.talent_nomination_event_id`
 
@@ -1287,8 +1365,11 @@ Aggregates all nominations received for a single nominee within a given nominati
 | `development_programs_notes` | Notes supporting the development programs decision. |  |  |
 | `computed_status` | Computed overall status of the nomination group. |  | Enum `TalentNominationGroupStatus`: IN_PROGRESS, APPROVED, PARTIALLY_APPROVED, REJECTED; default IN_PROGRESS; computed from the three decisions (not directly editable) |
 | `comments` | General reviewer comments about the nominee. |  |  |
+| `classification_at_time_of_last_approval_id` | FK to the nominee's classification when a decision on the group last changed. | FK → `classifications.id` | Set automatically by an observer from the nominee's current classification whenever a decision changes |
+| `advancement_referral_expiry_date` | Date until which an approved advancement nomination can be referred. |  | Must be present whenever a decision is given; a date when advancement_decision = APPROVED, otherwise prohibited. Referral lookups only match while on or after today |
+| `lateral_movement_referral_expiry_date` | Date until which an approved lateral-movement nomination can be referred. |  | Must be present whenever a decision is given; a date when lateral_movement_decision = APPROVED, otherwise prohibited. Referral lookups only match while on or after today |
 
-**Referenced by:** `talent_nominations.talent_nomination_group_id`
+**Referenced by:** `classification_talent_nomination_group_advancement.talent_nomination_group_id`, `classification_talent_nomination_group_lateral_movement.talent_nomination_group_id`, `talent_nominations.talent_nomination_group_id`
 
 ---
 
@@ -1332,8 +1413,64 @@ An individual nomination submitted by a manager (nominator) for an employee (nom
 | `nomination_rationale` | Bilingual narrative justifying why the employee is being nominated. |  | Required to submit |
 | `additional_comments` | Free-text additional comments from the nominator. |  |  |
 | `talent_nomination_group_id` | FK to the nomination group aggregating all nominations for this nominee. | FK → `talent_nomination_groups.id` |  |
+| `nine_box_performance` | Nominator's nine-box rating of the nominee's performance. |  | Enum `NineBoxRating`: LOW, MODERATE, HIGH. Required to submit when the event has include_nine_box, otherwise prohibited |
+| `nine_box_leadership_potential` | Nominator's nine-box rating of the nominee's leadership potential. |  | Enum `NineBoxRating`: LOW, MODERATE, HIGH. Required to submit when the event has include_nine_box, otherwise prohibited |
 
-**Referenced by:** `community_development_program_talent_nomination.talent_nomination_id`, `development_program_talent_nomination.talent_nomination_id`, `skill_talent_nomination.talent_nomination_id`
+**Referenced by:** `classification_talent_nomination_advancement.talent_nomination_id`, `community_development_program_talent_nomination.talent_nomination_id`, `development_program_talent_nomination.talent_nomination_id`, `skill_talent_nomination.talent_nomination_id`
+
+---
+
+## talent_request_tracked_users
+
+Tracks individual candidates an admin has considered for a talent request, recording whether each was referred to the requesting manager and whether they were ultimately selected. Feeds the tracked-user list, Excel download, and each user's referral summary.
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for this tracked candidate record. |  |  |
+| `user_id` | FK to the candidate being tracked. | FK → `users.id` | Unique per (talent_request_id, user_id); cascades on user delete; bulk create upserts existing rows |
+| `talent_request_id` | FK to the talent request the candidate is tracked against. | FK → `talent_requests.id` | Cascades on talent request delete |
+| `referral_decision` | Whether the candidate was referred to the requesting manager. |  | Enum `TalentRequestTrackedUserReferralDecision`: REFERRED, NOT_REFERRED; required on update; forced to REFERRED when a selection decision is set |
+| `selection_decision` | Whether a referred candidate was selected by the manager. |  | Enum `TalentRequestTrackedUserSelectionDecision`: SELECTED, NOT_SELECTED; prohibited if referral_decision is NOT_REFERRED; cleared on any referral change; supersedes referral_decision in computed status |
+| `not_referred_reason` | Reason the candidate was not referred. |  | Enum `TalentRequestTrackedUserNotReferredReason`: MISMATCH_IN_QUALIFICATIONS, JOB_MISMATCHES_EXPECTATIONS, OTHER; required iff referral_decision is NOT_REFERRED, else prohibited/cleared |
+| `not_selected_reason` | Reason a referred candidate was not selected. |  | Enum `TalentRequestTrackedUserNotSelectedReason`: LACKS_EXPERIENCE, REQUIREMENT_MISMATCH, DECLINED_BY_CANDIDATE, OTHER_CANDIDATE_SELECTED, NO_REASON, OTHER; required iff selection_decision is NOT_SELECTED, else prohibited/cleared |
+| `created_at` | Timestamp when the candidate started being tracked. |  |  |
+| `updated_at` | Timestamp when the tracking record was last modified. |  |  |
+
+---
+
+## talent_requests
+
+A request submitted by a hiring manager for referrals of qualified talent matching a saved applicant filter, which admins then triage through a NEW, IN_PROGRESS, COMPLETED workflow. Replaced the legacy pool_candidate_search_requests table (rows with an applicant_filter_id and their activity log were copied over in 2026_05_26).
+
+| Column | Description | Relationship | Constraints |
+|--------|-------------|--------------|-------------|
+| `id` | Unique identifier for the talent request (preserved from pool_candidate_search_requests for migrated rows). |  |  |
+| `full_name` | Name of the manager submitting the request. |  | Required; max 255 |
+| `email` | Work email of the requesting manager; receives the submission confirmation. |  | Required; valid email matching government domain regex (`GovernmentEmailRegex`); max 255 |
+| `job_title` | Title of the position the manager is hiring for. |  | Required; max 255 |
+| `hr_advisor_email` | Optional email of the manager's HR advisor. |  | Valid email; max 255 |
+| `manager_job_title` | The requesting manager's own job title. |  | Required on create (nullable in DB for legacy rows); max 255 |
+| `position_type` | Whether the position is an individual contributor or team lead role. |  | Enum `TalentRequestPositionType`: INDIVIDUAL_CONTRIBUTOR, TEAM_LEAD; required on create |
+| `reason` | Why the manager is requesting talent. |  | Enum `TalentRequestReason`: IMMEDIATE_HIRE, UPCOMING_NEED, GENERAL_INTEREST, REQUIRED_BY_DIRECTIVE; required on create |
+| `additional_comments` | Free-text comments from the requesting manager. |  |  |
+| `was_empty` | Whether the manager's search returned no matching candidates when the request was submitted. |  | Default false |
+| `initial_result_count` | Number of matching candidates the search returned at submission time. |  | Integer >= 0 |
+| `applicant_filter_id` | FK to the saved search criteria describing the talent wanted. | FK → `applicant_filters.id` | Required; created inline on submit; filter must include at least one location preference and a community |
+| `department_id` | FK to the requesting manager's department. | FK → `departments.id` | Required |
+| `community_id` | FK to the functional community the request is routed to. | FK → `communities.id` | Required |
+| `user_id` | FK to the signed-in user who submitted the request, if any. | FK → `users.id` | Defaults to the authenticated user on create (observer); null for anonymous submissions |
+| `admin_notes` | Internal notes added by admins handling the request. |  |  |
+| `status` | Current triage status of the request. |  | Enum `TalentRequestStatus`: NEW, IN_PROGRESS, COMPLETED; default NEW; status mutation only accepts IN_PROGRESS or COMPLETED |
+| `in_progress_details` | Sub-status explaining progress while the request is in progress. |  | Enum `TalentRequestInProgressDetail`: INITIAL_CONVERSATION, TALENT_SENT, FOLLOW_UP_SENT, DISCUSSION_ONGOING, OTHER; required when status set to IN_PROGRESS; cleared on completion |
+| `completion_details` | Outcome recorded when the request is completed. |  | Enum `TalentRequestCompletionDetail`: HIRE_MADE, PROCESS_WILL_BE_LAUNCHED, HIRING_MANAGER_NOT_RESPONSIVE, NO_CANDIDATES_FOUND, NO_LONGER_REQUIRED, DUPLICATE_REQUEST, NON_COMPLIANT; required when status set to COMPLETED; cleared on progress |
+| `follow_up_date` | Date an admin plans to follow up on an in-progress request. |  | Set with IN_PROGRESS status; cleared on completion |
+| `status_changed_at` | Timestamp of the last change to status or its detail fields. |  | Set automatically by observer when status, in_progress_details or completion_details change (without touching updated_at) |
+| `created_at` | Timestamp when the request was submitted (exposed as requestedDate). |  |  |
+| `updated_at` | Timestamp when the request was last modified. |  |  |
+| `deleted_at` | Soft-delete timestamp; null means the request is active. |  |  |
+| `status_weight` | Sort key derived from status so requests order by workflow stage. |  | Generated (stored): NEW=10, IN_PROGRESS=20, COMPLETED=30, else null |
+
+**Referenced by:** `talent_request_tracked_users.talent_request_id`
 
 ---
 
@@ -1472,10 +1609,6 @@ The central user record for all platform participants — applicants, managers, 
 | `has_priority_entitlement` | Whether the user has a GC priority entitlement for staffing. |  |  |
 | `priority_number` | Official priority entitlement number. |  |  |
 | `priority_weight` | Computed numeric weight reflecting priority entitlement type. |  | Generated column: 10 if has_priority_entitlement, 20 if VETERAN, 30 if CITIZEN or PERMANENT_RESIDENT, else 40 |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `WHEN` |  |  |  |
-| `ELSE` |  |  |  |
 | `position_duration` | JSON array of acceptable position durations. |  | Array of `PositionDuration`: TEMPORARY, PERMANENT |
 | `indigenous_declaration_signature` | Confirmation that the user has signed the Indigenous identity declaration. |  |  |
 | `indigenous_communities` | JSON array of Indigenous communities the user identifies with. |  | Array of `IndigenousCommunity`: STATUS_FIRST_NATIONS, NON_STATUS_FIRST_NATIONS, INUIT, METIS, OTHER, LEGACY_IS_INDIGENOUS; cannot include both STATUS and NON_STATUS |
@@ -1527,14 +1660,13 @@ The central user record for all platform participants — applicants, managers, 
 | `career_objective_is_c_suite_role` | Whether the user's long-term goal is a C-suite executive position. |  |  |
 | `next_role_c_suite_role_title` | Title of the C-suite role the user wants next. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if next_role_is_c_suite_role true, prohibited if false |
 | `career_objective_c_suite_role_title` | Title of the C-suite role the user wants long-term. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if career_objective_is_c_suite_role true, prohibited if false |
-| `off_platform_recruitment_processes` | JSON summary of off-platform recruitment processes (denormalized). |  |  |
 | `career_planning_learning_opportunities_interest` | Whether the user is interested in learning opportunities. |  | Array of `LearningOpportunitiesInterest`: INTERCHANGE, ACADEMIC_PROGRAM, PEER_NETWORKING, PROFESSIONAL_ACCREDITATION |
 | `flexible_work_locations` | JSON array of flexible or remote work location preferences. |  | Array of `FlexibleWorkLocation`: REMOTE, HYBRID, ONSITE; default [] |
 | `last_sign_in_iss` | OIDC issuer of the identity provider used at last sign-in. |  |  |
 | `email_backup` | Backup email address for account recovery. |  | Holds email after soft delete; restored on user restore if no other user has that email |
 | `work_email_backup` | Backup GC work email address. |  | Holds work_email after soft delete or when another user verifies the same work email |
 
-**Referenced by:** `award_experiences.user_id`, `community_experiences.user_id`, `community_interests.user_id`, `department_user_career_objective.user_id`, `department_user_next_role.user_id`, `development_program_user.user_id`, `education_experiences.user_id`, `generic_job_title_user.user_id`, `off_platform_recruitment_processes.user_id`, `permission_user.user_id`, `personal_experiences.user_id`, `pool_candidate_search_requests.user_id`, `pool_candidate_user_bookmarks.user_id`, `pool_candidates.user_id`, `pool_user_bookmarks.user_id`, `pools.user_id`, `role_user.user_id`, `talent_nomination_groups.nominee_id`, `talent_nominations.advancement_reference_id`, `talent_nominations.nominator_id`, `talent_nominations.nominee_id`, `talent_nominations.submitter_id`, `user_search_indices.id`, `user_skills.user_id`, `user_work_stream_career_objective.user_id`, `user_work_stream_next_role.user_id`, `work_experiences.user_id`
+**Referenced by:** `award_experiences.user_id`, `community_experiences.user_id`, `community_interests.user_id`, `department_user_career_objective.user_id`, `department_user_next_role.user_id`, `development_program_user.user_id`, `education_experiences.user_id`, `generic_job_title_user.user_id`, `off_platform_recruitment_processes.user_id`, `permission_user.user_id`, `personal_experiences.user_id`, `pool_candidate_search_requests.user_id`, `pool_candidate_user_bookmarks.user_id`, `pool_candidates.user_id`, `pool_user_bookmarks.user_id`, `role_user.user_id`, `talent_nomination_groups.nominee_id`, `talent_nominations.advancement_reference_id`, `talent_nominations.nominator_id`, `talent_nominations.nominee_id`, `talent_nominations.submitter_id`, `talent_request_tracked_users.user_id`, `talent_requests.user_id`, `user_search_indices.id`, `user_skills.user_id`, `user_work_stream_career_objective.user_id`, `user_work_stream_next_role.user_id`, `work_experiences.user_id`
 
 ---
 
@@ -1584,10 +1716,10 @@ Applicant-reported employment history on their GC Talent profile. Captures both 
 | `supervised_employees` | Whether the user directly supervised other employees. |  |  |
 | `supervised_employees_number` | Approximate number of employees supervised. |  | Required if supervisory_position and supervised_employees are true |
 | `budget_management` | Whether the role involved managing a budget. |  |  |
-| `annual_budget_allocation` | Approximate annual budget managed, if applicable. |  | bigint; required if supervisory_position and budget_management are true |
 | `senior_management_status` | Whether the role was at a senior management level. |  |  |
 | `c_suite_role_title` | C-suite title if the role was at the executive level. |  | Enum `CSuiteRoleTitle` (14 cases, e.g. CHIEF_DATA_OFFICER, CHIEF_FINANCIAL_OFFICER, DEPUTY_CHIEF_INFORMATION_OFFICER, OTHER); required if supervisory_position and senior_management_status are true |
 | `other_c_suite_role_title` | Free-text C-suite title if not in the standard list. |  |  |
+| `annual_budget_allocation` | Approximate annual budget managed, if applicable. |  | bigint; required if supervisory_position and budget_management are true |
 
 **Referenced by:** `work_experience_work_stream.work_experience_id`
 
@@ -1611,4 +1743,3 @@ Functional specializations within a community (e.g. 'Data Science', 'Cloud Opera
 **Referenced by:** `applicant_filter_work_stream.work_stream_id`, `community_interest_work_stream.work_stream_id`, `job_poster_templates.work_stream_id`, `pools.work_stream_id`, `user_work_stream_career_objective.work_stream_id`, `user_work_stream_next_role.work_stream_id`, `work_experience_work_stream.work_stream_id`
 
 ---
-
