@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useFormContext, useWatch } from "react-hook-form";
 
 import type { CheckboxOption } from "@gc-digital-talent/forms";
 import {
@@ -28,6 +29,7 @@ import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import type { FormFieldProps } from "../../types";
 import useDirtyFields from "../../hooks/useDirtyFields";
+import type { FormValues } from "./types";
 
 const WorkPreferencesFormOptions_Fragment = graphql(/* GraphQL */ `
   fragment WorkPreferencesFormOptions on Query {
@@ -70,6 +72,19 @@ const FormFields = ({
   const intl = useIntl();
   const data = getFragment(WorkPreferencesFormOptions_Fragment, optionsQuery);
   useDirtyFields("work");
+
+  const { clearErrors, getValues } = useFormContext<FormValues>();
+
+  const selectedFlexibleWorkLocations = useWatch<
+    FormValues,
+    "flexibleWorkLocations"
+  >({
+    name: "flexibleWorkLocations",
+  });
+
+  const locationPreferencesRequired =
+    selectedFlexibleWorkLocations?.includes(FlexibleWorkLocation.Onsite) ||
+    selectedFlexibleWorkLocations?.includes(FlexibleWorkLocation.Hybrid);
 
   // taking the enum collection from the API request
   // turn them into options, append a content-below node
@@ -208,17 +223,27 @@ const FormFields = ({
         </p>
         <Checklist
           idPrefix="work-location"
-          legend={labels.flexibleWorkLocationOptions}
+          legend={labels.flexibleWorkLocations}
           name="flexibleWorkLocations"
           id="flexibleWorkLocations"
           items={formOptionsWithContentBelow}
           rules={{
             required: intl.formatMessage(errorMessages.required),
+            // clear stale required error if user unselects hybrid or onsite options
+            onChange: () => {
+              const locations = getValues("flexibleWorkLocations");
+              if (
+                !locations?.includes(FlexibleWorkLocation.Onsite) &&
+                !locations?.includes(FlexibleWorkLocation.Hybrid)
+              ) {
+                clearErrors("locationPreferences");
+              }
+            },
           }}
         />
         <Checklist
           idPrefix="work-location"
-          legend={labels.workLocationPreferences}
+          legend={labels.locationPreferences}
           name="locationPreferences"
           id="locationPreferences"
           items={localizedEnumToOptions(
@@ -228,6 +253,11 @@ const FormFields = ({
             ),
             intl,
           )}
+          rules={{
+            required: locationPreferencesRequired
+              ? intl.formatMessage(errorMessages.required)
+              : undefined,
+          }}
         />
         <p>{labels.locationExemptions}</p>
         <TextArea
