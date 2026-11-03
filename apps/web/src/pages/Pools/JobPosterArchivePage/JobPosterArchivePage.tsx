@@ -43,7 +43,7 @@ const JobPosterArchivePage = () => {
   }
 
   return (
-    <Container className="my-18">
+    <Container className="my-18 **:[[id]]:scroll-mt-24">
       <RichTextRenderer node={htmlToRichTextJSON(html)} />
     </Container>
   );
