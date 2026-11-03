@@ -35,6 +35,17 @@ Use exactly these three sections, in this order, and nothing else:
 - Plain bullets. Short headings inside a section only if the list gets long.
 - Keep the whole issue skimmable — usually under 40 lines.
 
+## Tone and style
+
+Match the voice of the team's other tickets (see the write-ticket skill):
+
+- Direct and functional. No filler or preamble. State the problem, state what's wanted.
+- Explain the "why" up front: one sentence on the user problem or business driver before the details.
+- Light informality is fine.
+- Use backticks for code, model, URL and environment references (e.g. `training.talent.canada.ca`, `TalentRequest`).
+- State the environment (UAT, Prod, etc.) when the idea is environment-specific.
+- Link related issues with `#number`.
+
 ## Title
 
 A short, plain name for the initiative, e.g. "Training server for GC Talent". No `[Roadmap]` prefix — the issue type marks it.
