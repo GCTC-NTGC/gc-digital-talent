@@ -29,7 +29,7 @@ class ExperiencePage extends AppPage {
 
   async goToIndex() {
     await this.page.goto("/en/applicant/career-timeline");
-    await this.waitForGraphqlResponse("CareerTimelineExperiences");
+    await this.waitForGraphqlResponse("CareerExperiencePage");
   }
 
   async create() {
