@@ -10,7 +10,7 @@ on:
 jobs:
   phpunit:
     name: PHPUnit
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       GCNOTIFY_API_KEY: ${{ secrets.GCNOTIFY_API_KEY }}
       GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN: ${{ vars.GCNOTIFY_TEMPLATE_APPLICATION_DEADLINE_APPROACHING_EN }}
@@ -55,7 +55,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.4"
+          php-version: "8.5"
           extensions: bcmath
           coverage: pcov
 

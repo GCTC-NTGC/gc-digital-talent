@@ -11,19 +11,18 @@ import {
   UNICODE_CHAR,
 } from "@gc-digital-talent/ui";
 import { commonMessages, getLocalizedName } from "@gc-digital-talent/i18n";
-import type { SearchResultCard_PoolFragment as SearchResultCardPoolFragmentType } from "@gc-digital-talent/graphql";
-import { graphql, PoolSkillType } from "@gc-digital-talent/graphql";
+import type { FragmentType } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 import { getShortPoolTitleHtml } from "~/utils/poolUtils";
 import useRoutes from "~/hooks/useRoutes";
-import { filterPoolSkillsByType } from "~/utils/skillUtils";
 
 const testId = (text: ReactNode) => (
   <span data-testid="candidateCount">{text}</span>
 );
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
+export const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
   fragment SearchResultCard_Pool on Pool {
     id
     workStream {
@@ -47,32 +46,11 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
       }
     }
     poolSkills(type: ESSENTIAL) {
-      id
-      type {
-        value
-        label {
-          en
-          fr
-        }
-      }
       skill {
         id
         name {
-          en
-          fr
+          localized
         }
-        description {
-          en
-          fr
-        }
-        category {
-          value
-          label {
-            en
-            fr
-          }
-        }
-        key
       }
     }
   }
@@ -80,17 +58,20 @@ const SearchResultCard_PoolFragment = graphql(/* GraphQL */ `
 
 interface SearchResultCardProps {
   candidateCount: number;
-  pool: SearchResultCardPoolFragmentType;
+  poolQuery: FragmentType<typeof SearchResultCard_PoolFragment>;
 }
 
-const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
+const SearchResultCard = ({
+  candidateCount,
+  poolQuery,
+}: SearchResultCardProps) => {
+  const pool = getFragment(SearchResultCard_PoolFragment, poolQuery);
   const intl = useIntl();
   const { register, setValue } = useFormContext();
   const poolSubmitProps = register("pool");
   const paths = useRoutes();
-  const essentialSkills = filterPoolSkillsByType(
-    pool.poolSkills,
-    PoolSkillType.Essential,
+  const essentialSkills = unpackMaybes(
+    unpackMaybes(pool.poolSkills).map((poolSkill) => poolSkill.skill),
   );
 
   return (
@@ -173,7 +154,8 @@ const SearchResultCard = ({ candidateCount, pool }: SearchResultCardProps) => {
                   key={skill.id}
                   className="text-gray-600 dark:text-gray-200"
                 >
-                  {getLocalizedName(skill?.name, intl)}
+                  {skill.name?.localized ??
+                    intl.formatMessage(commonMessages.notAvailable)}
                 </span>
               </Fragment>
             ))

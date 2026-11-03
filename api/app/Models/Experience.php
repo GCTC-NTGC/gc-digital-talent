@@ -168,9 +168,9 @@ abstract class Experience extends Model
     {
         parent::boot();
 
-        static::saving(function ($experience) {
+        static::saved(function ($experience) {
             $user = $experience->user;
-            if ($user) {
+            if ($user && $experience->isDirty()) {
                 $user->searchable();
             }
         });

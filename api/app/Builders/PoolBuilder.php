@@ -168,7 +168,7 @@ class PoolBuilder extends Builder
     public function orderByWorkStreamName(?array $args): self
     {
         $order = $args['order'] ?? null;
-        $locale = $args['locale'] ?? null;
+        $locale = isset($args['locale']) ? strtolower($args['locale']) : null;
 
         if ($order && $locale) {
             return $this->withMax('workStream', 'name->'.$locale)->orderBy('work_stream_max_name'.$locale, $order);

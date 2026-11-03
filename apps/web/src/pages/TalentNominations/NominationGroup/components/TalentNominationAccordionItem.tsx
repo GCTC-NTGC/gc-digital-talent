@@ -590,7 +590,7 @@ const TalentNominationAccordionItem = ({
           label={intl.formatMessage(nominationLabels.additionalComments)}
         >
           {talentNomination.additionalComments ??
-            intl.formatMessage(commonMessages.notFound)}
+            intl.formatMessage(commonMessages.notProvided)}
         </FieldDisplay>
       </Accordion.Content>
     </Accordion.Item>

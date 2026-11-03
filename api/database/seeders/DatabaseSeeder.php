@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             TrainingOpportunityTestSeeder::class,
             EmployeeProfileTalentNominationTestSeeder::class,
             TalentCoordinatorNominationTestSeeder::class,
+            TalentRequestTestSeeder::class,
 
             // random data to fill it out
             PoolRandomSeeder::class,

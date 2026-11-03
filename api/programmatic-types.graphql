@@ -547,15 +547,6 @@ type UserPaginator {
   data: [User!]!
 }
 
-"A paginated list of UserPublicProfile items."
-type UserPublicProfilePaginator {
-  "Pagination information about the list of items."
-  paginatorInfo: PaginatorInfo!
-
-  "A list of UserPublicProfile items."
-  data: [UserPublicProfile!]!
-}
-
 enum NullsOrder {
   FIRST
   LAST
@@ -648,19 +639,22 @@ type CommunityInterestWithSkillCountPaginator {
   data: [CommunityInterestWithSkillCount!]!
 }
 
-"Allowed column names for Query.poolsPaginated.orderBy."
-enum QueryPoolsPaginatedOrderByUserColumn {
-  FIRST_NAME
-  EMAIL
+"Order by clause for Pool.activities.orderBy."
+input PoolActivitiesOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: ActivitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
-"Aggregate specification for Query.poolsPaginated.orderBy.user."
-input QueryPoolsPaginatedOrderByUser {
-  "The aggregate function to apply to the column."
-  aggregate: OrderByRelationWithColumnAggregateFunction!
+"Order by clause for Query.usersPaginated.orderBy."
+input QueryUsersPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: UsersOrderByColumn!
 
-  "Name of the column to use."
-  column: QueryPoolsPaginatedOrderByUserColumn
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Allowed column names for Query.poolsPaginated.orderBy."
@@ -681,16 +675,22 @@ input QueryPoolsPaginatedOrderByClassification {
 "Order by clause for Query.poolsPaginated.orderBy."
 input QueryPoolsPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
-  column: String
+  column: PoolsOrderByColumn
 
   "The direction that is used for ordering."
   order: SortOrder!
 
   "Aggregate specification."
-  user: QueryPoolsPaginatedOrderByUser
-
-  "Aggregate specification."
   classification: QueryPoolsPaginatedOrderByClassification
+}
+
+"Order by clause for Query.trainingOpportunitiesPaginated.orderBy."
+input QueryTrainingOpportunitiesPaginatedOrderByOrderByClause {
+  "The column that is used for ordering."
+  column: TrainingOpportunitiesOrderByColumn!
+
+  "The direction that is used for ordering."
+  order: SortOrder!
 }
 
 "Allowed column names for Query.communityInterestsPaginated.orderBy."
@@ -712,7 +712,7 @@ input QueryCommunityInterestsPaginatedOrderByUser {
 "Order by clause for Query.communityInterestsPaginated.orderBy."
 input QueryCommunityInterestsPaginatedOrderByRelationOrderByClause {
   "The column that is used for ordering."
-  column: String
+  column: CommunityInterestsOrderByColumn
 
   "The direction that is used for ordering."
   order: SortOrder!
@@ -885,7 +885,7 @@ Loose type that allows any value. Be careful when passing in large `Int` or `Flo
 as they may not be parsed correctly on the server side. Use `String` literals if you are
 dealing with really large numbers to be on the safe side.
 """
-scalar Mixed
+scalar Mixed @specifiedBy(url: "https://github.com/mll-lab/graphql-php-scalars#mixed")
 
 enum NotificationType {
   UserFileGenerated
@@ -893,7 +893,6 @@ enum NotificationType {
 }
 
 enum RoleName {
-  Guest
   BaseUser
   Applicant
   ProcessOperator
@@ -933,7 +932,6 @@ enum Permission {
   CreateAnyUser
   ViewAnyUser
   ViewOwnUser
-  ViewAnyUserBasicInfo
   ViewAnyUserWorkEmail
   UpdateAnyUser
   UpdateAnyUserSub
@@ -1053,6 +1051,7 @@ enum Permission {
   UpdateTeamTalentNominationGroup
   ViewTeamTalentNominationGroup
   ViewAnyTalentNominationGroup
+  ViewOwnTalentNominationGroupAsNominee
   ViewAnyBasicGovEmployeeProfile
   ViewAnyPoolActivityLog
   ViewTeamPoolActivityLog
@@ -1511,6 +1510,8 @@ enum ErrorCode {
   RATE_LIMIT
   SPECIAL_APPLICATIONS_USER_ALREADY_APPLIED
   SPECIAL_APPLICATIONS_POOL_NOT_PUBLISHED
+  MIGRATION_MISSING_CONTACT_INFO
+  MIGRATION_TARGET_NOT_FOUND
 }
 
 enum EstimatedLanguageAbility {
@@ -1633,6 +1634,11 @@ enum IndigenousCommunity {
   METIS
   OTHER
   LEGACY_IS_INDIGENOUS
+}
+
+enum JobPosterArchiveType {
+  PUBLISHED
+  CLOSED
 }
 
 enum Language {

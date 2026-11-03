@@ -1,29 +1,35 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type {
-  Community,
-  CommunityInterest,
-  DevelopmentProgram,
-  WorkStream,
+import {
+  CommunityInterestAdditionalDuty,
+  DevelopmentProgramParticipationStatus,
+  FinanceChiefRole,
 } from "@gc-digital-talent/graphql/schema-types";
-import { DevelopmentProgramParticipationStatus } from "@gc-digital-talent/graphql/schema-types";
 import { FAR_PAST_DATE } from "@gc-digital-talent/date-helpers";
 
 import fakeCommunities from "./fakeCommunities";
+import toLocalizedEnum from "./fakeLocalizedEnum";
 import { fakeUser } from "./fakeUsers";
 
 const generateCommunityInterest = (
-  communities: Community[],
-): CommunityInterest => {
-  const community = faker.helpers.arrayElement<Community>(communities);
-  const workStreams = faker.helpers.arrayElements<WorkStream>(
-    community.workStreams ?? [],
+  communities: ReturnType<typeof fakeCommunities>,
+) => {
+  const community = faker.helpers.arrayElement(communities);
+  const workStreams = faker.helpers.arrayElements(community.workStreams);
+  const developmentPrograms = faker.helpers.arrayElements(
+    community.associatedDevelopmentPrograms,
   );
-  const developmentPrograms = faker.helpers.arrayElements<DevelopmentProgram>(
-    community?.associatedDevelopmentPrograms ?? [],
-  );
+  const financeIsChief =
+    community.key === "finance" ? faker.datatype.boolean() : null;
+  const procurementIsSDO =
+    community.key === "procurement" ? faker.datatype.boolean() : null;
+  const financeOtherRoles = financeIsChief
+    ? faker.helpers
+        .arrayElements<FinanceChiefRole>(Object.values(FinanceChiefRole))
+        .map((role) => toLocalizedEnum(role, "LocalizedFinanceChiefRole"))
+    : [];
   return {
-    __typename: "CommunityInterest",
+    __typename: "CommunityInterest" as const,
     id: faker.string.uuid(),
     community,
     workStreams,
@@ -31,6 +37,24 @@ const generateCommunityInterest = (
     jobInterest: faker.datatype.boolean(),
     trainingInterest: faker.datatype.boolean(),
     additionalInformation: faker.lorem.paragraph(),
+    financeIsChief,
+    procurementIsSDO,
+    financeOtherRoles,
+    financeOtherRolesOther: financeOtherRoles.some(
+      (role) => role.value === FinanceChiefRole.Other,
+    )
+      ? faker.person.jobTitle()
+      : null,
+    communityInterestAdditionalDuties:
+      (financeIsChief ?? procurementIsSDO)
+        ? faker.helpers
+            .arrayElements<CommunityInterestAdditionalDuty>(
+              Object.values(CommunityInterestAdditionalDuty),
+            )
+            .map((duty) =>
+              toLocalizedEnum(duty, "LocalizedCommunityInterestAdditionalDuty"),
+            )
+        : [],
     interestInDevelopmentPrograms: developmentPrograms.map(
       (developmentProgram) => ({
         __typename: "DevelopmentProgramInterest" as const,
@@ -51,7 +75,7 @@ const generateCommunityInterest = (
   };
 };
 
-export default (numToGenerate = 10): CommunityInterest[] => {
+export default (numToGenerate = 10) => {
   faker.seed(0); // repeatable results
   const communities = fakeCommunities();
   return Array.from({ length: numToGenerate }, () =>

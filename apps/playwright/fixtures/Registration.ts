@@ -157,8 +157,17 @@ class Registration extends AppPage {
       this.uniqueEmailAddress,
       "Contact email address",
     );
-    await this.page.locator(`a:has-text("${userName}")`).click();
-    await this.waitForGraphqlResponse("AdminApplicantProfilePage");
+    // Target the row with this user's unique email so we don't click another
+    // "Playwright Test" user before the search results have been applied
+    const profileResponse = this.waitForGraphqlResponse(
+      "AdminApplicantProfilePage",
+    );
+    await this.page
+      .getByRole("row")
+      .filter({ hasText: this.uniqueEmailAddress })
+      .getByRole("link", { name: userName })
+      .click();
+    await profileResponse;
     const userID = fetchIdentificationNumber(this.page.url(), "users");
     const adminCtx = await graphql.newContext();
     await deleteUser(adminCtx, { id: userID });

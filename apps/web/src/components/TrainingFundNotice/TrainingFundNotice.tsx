@@ -34,8 +34,8 @@ const TrainingFundNotice = () => {
           color="black"
           href={
             locale === "en"
-              ? "https://gcxgce.sharepoint.com/teams/10001173/SitePages/IT-Community-Training-and-Development-Fund.aspx"
-              : "https://gcxgce.sharepoint.com/teams/10001173/SitePages/fr/IT-Community-Training-and-Development-Fund.aspx"
+              ? "https://gcxgce.sharepoint.com/teams/10001173/SitePages/IT-training-fund.aspx"
+              : "https://gcxgce.sharepoint.com/teams/10001173/SitePages/fr/IT-training-fund.aspx"
           }
           external
         >

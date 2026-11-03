@@ -7,11 +7,10 @@ import { commonMessages } from "@gc-digital-talent/i18n";
 import { Combobox, Select } from "@gc-digital-talent/forms";
 import { normalizeString } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
-import { getFragment } from "@gc-digital-talent/graphql";
+import { getFragment, graphql } from "@gc-digital-talent/graphql";
 
 import type { FormValues } from "./types";
 import skillBrowserMessages from "./messages";
-import { SkillBrowserSkill_Fragment } from "./SkillSelection";
 import {
   INPUT_NAME,
   getFamilyOptions,
@@ -19,8 +18,23 @@ import {
   getFilteredSkills,
 } from "./utils";
 
+export const SkillBrowser_Fragment = graphql(/* GraphQL */ `
+  fragment SkillBrowser on Skill {
+    id
+    name {
+      localized
+    }
+    families {
+      id
+      name {
+        localized
+      }
+    }
+  }
+`);
+
 interface SkillBrowserProps {
-  query: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  query: FragmentType<typeof SkillBrowser_Fragment>[];
   name: string;
   isMulti?: boolean;
   rules?: RegisterOptions;
@@ -33,7 +47,7 @@ const SkillBrowser = ({
   isMulti = true,
 }: SkillBrowserProps) => {
   const intl = useIntl();
-  const skills = getFragment(SkillBrowserSkill_Fragment, query);
+  const skills = getFragment(SkillBrowser_Fragment, query);
   const id = useId();
   const inputNames = {
     category: `${id}-${INPUT_NAME.CATEGORY}`,

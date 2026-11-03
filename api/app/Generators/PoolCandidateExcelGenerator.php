@@ -23,6 +23,7 @@ use App\Enums\PoolSkillType;
 use App\Enums\PriorityWeight;
 use App\Enums\ProvinceOrTerritory;
 use App\Enums\WorkRegion;
+use App\Models\Department;
 use App\Models\Experience;
 use App\Models\GeneralQuestion;
 use App\Models\Pool;
@@ -129,15 +130,12 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
         try {
             // Pre-pass: collect all pool IDs so we can build headers before streaming rows
             // (OpenSpout streams rows sequentially — headers must be written first)
-            // NB: each pass needs its own builder — chunk() leaves offset/limit state on
-            // the builder, so reusing it for the second pass silently under-reads rows.
-            $this->buildQuery()->chunk(200, function ($candidates) {
-                foreach ($candidates as $candidate) {
-                    if (! in_array($candidate->pool_id, $this->poolIds)) {
-                        $this->poolIds[] = $candidate->pool_id;
-                    }
-                }
-            });
+            $this->poolIds = $this->buildQuery()->toBase()
+                ->reorder()
+                ->select('pool_candidates.pool_id')
+                ->distinct()
+                ->pluck('pool_candidates.pool_id')
+                ->all();
 
             $localizedHeaders = array_map(function ($key) {
                 return $this->localizeHeading($key);
@@ -154,7 +152,9 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                 ...$this->generatedHeaders['ROD_details'] ?? [],
             ]));
 
-            $this->buildQuery()->chunk(200, function ($candidates) {
+            $departments = Department::get(['id', 'name', 'department_number'])->keyBy('id');
+
+            $this->buildQuery()->chunkById(200, function ($candidates) use ($departments) {
                 foreach ($candidates as $candidate) {
 
                     // pull data from application snapshot
@@ -165,7 +165,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
                     $snapshotExperiences = isset($snapshot['experiences']) ? $snapshot['experiences'] : [];
                     $experiencesHydrated = Experience::hydrateSnapshot($snapshotExperiences);
 
-                    $department = $userHydrated->department()->first();
+                    $department = $departments->get($userHydrated->computed_department);
                     $preferences = $userHydrated->getOperationalRequirements();
                     $educationRequirementExperiences = $candidate->educationRequirementExperiences->map(function ($experience) {
                         return $experience->getTitle($this->lang);
@@ -345,7 +345,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
 
                     $this->writer->addRow($this->row($values));
                 }
-            });
+            }, 'pool_candidates.id', 'id');
         } finally {
             $this->writer->close();
         }
@@ -495,7 +495,7 @@ class PoolCandidateExcelGenerator extends ExcelGenerator implements FileGenerato
             'workStreams' => 'whereWorkStreamsIn',
             'processNumber' => 'whereProcessNumber',
             'flexibleWorkLocations' => 'whereFlexibleWorkLocationsIn',
-            'assessmentSteps' => 'whereAssessmentStepsIn',
+            'assessmentSteps' => 'whereAssessmentStepIn',
             'placementTypes' => 'wherePlacementTypeIn',
             'removalReason' => 'whereRemovalReasonIn',
 

@@ -6,11 +6,6 @@ const messages = defineMessages({
     id: "DA7fMg",
     description: "Title for unique ID of a resource",
   },
-  view: {
-    defaultMessage: "View",
-    id: "KjbjQU",
-    description: "Title displayed for a tables View column.",
-  },
   assessmentResults: {
     defaultMessage: "Assessment results",
     id: "+Xn2ke",
@@ -46,11 +41,6 @@ const messages = defineMessages({
     id: "S6x9Sg",
     description: "Title for category",
   },
-  team: {
-    defaultMessage: "Team",
-    id: "kKSGje",
-    description: "Title for team",
-  },
   community: {
     defaultMessage: "Community",
     id: "LOjdrP",
@@ -80,11 +70,6 @@ const messages = defineMessages({
     defaultMessage: "Streams",
     id: "RW0Ukc",
     description: "Title for streams",
-  },
-  manager: {
-    defaultMessage: "Manager",
-    id: "TXl1qY",
-    description: "Title for manager full name",
   },
   jobTitle: {
     defaultMessage: "Job title",
@@ -129,12 +114,6 @@ const messages = defineMessages({
     id: "m54J0C",
     description: "Heading for updating a users roles and permissions",
   },
-  noRowsSelected: {
-    defaultMessage: "Download failed: No rows selected",
-    id: "k4xm25",
-    description:
-      "Alert message displayed when a user attempts to print without selecting items first",
-  },
   assessmentPlan: {
     defaultMessage: "Assessment plan",
     id: "fkYYe3",
@@ -149,30 +128,6 @@ const messages = defineMessages({
     defaultMessage: "Key",
     id: "ae3u1t",
     description: "Title for key field",
-  },
-  rolesAdded: {
-    defaultMessage: "Role(s) added successfully",
-    id: "/17wgm",
-    description:
-      "Message displayed to user when one or more roles have been added to a user",
-  },
-  rolesUpdated: {
-    defaultMessage: "Member roles updated successfully",
-    id: "ALIgEC",
-    description:
-      "Alert displayed to user when a team member's roles have been updated",
-  },
-  rolesUpdateFailed: {
-    defaultMessage: "Member role update failed",
-    id: "Ly2bBb",
-    description:
-      "Alert displayed to user when an error occurs while editing a team member's roles",
-  },
-  roleRemoved: {
-    defaultMessage: "Role removed successfully",
-    id: "XcS2q2",
-    description:
-      "Message displayed to user when a role has been removed from a user",
   },
   searchByKeyword: {
     defaultMessage: "Search by keyword",

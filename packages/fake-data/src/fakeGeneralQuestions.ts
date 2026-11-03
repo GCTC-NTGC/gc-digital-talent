@@ -1,23 +1,21 @@
 import { faker } from "@faker-js/faker/locale/en";
 
-import type { GeneralQuestion } from "@gc-digital-talent/graphql/schema-types";
-
 import toLocalizedString from "./fakeLocalizedString";
 
-export default (): GeneralQuestion[] => {
+export default () => {
   return [
     {
-      __typename: "GeneralQuestion",
+      __typename: "GeneralQuestion" as const,
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },
     {
-      __typename: "GeneralQuestion",
+      __typename: "GeneralQuestion" as const,
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },
     {
-      __typename: "GeneralQuestion",
+      __typename: "GeneralQuestion" as const,
       id: faker.string.uuid(),
       question: toLocalizedString(`${faker.lorem.sentence()}?`),
     },

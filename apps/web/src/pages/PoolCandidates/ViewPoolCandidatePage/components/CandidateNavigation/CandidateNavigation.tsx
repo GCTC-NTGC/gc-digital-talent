@@ -20,11 +20,6 @@ const messages = defineMessages({
     description:
       "Link label to view previous candidate on view pool candidate page",
   },
-  backToAssessments: {
-    defaultMessage: "Back to assessments tracker",
-    id: "nUokX9",
-    description: "Link label to return to assessment tracker",
-  },
 });
 
 interface CandidateNavigationProps {

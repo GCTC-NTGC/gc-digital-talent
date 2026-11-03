@@ -55,7 +55,15 @@ const PersonalInfoBox = ({
           </p>
         ) : null}
 
-        {personalInfo.telephone ? <p>{personalInfo.telephone}</p> : null}
+        {personalInfo.telephone ? (
+          <p>{personalInfo.telephone}</p>
+        ) : (
+          <p>
+            {intl.formatMessage(commonMessages.telephone) +
+              intl.formatMessage(commonMessages.dividingColon) +
+              intl.formatMessage(commonMessages.notProvided)}
+          </p>
+        )}
         <p>
           {intl.formatMessage({
             defaultMessage: "Preferred contact language",
@@ -64,7 +72,8 @@ const PersonalInfoBox = ({
               "Legend text for required language preference in getting started form",
           }) +
             intl.formatMessage(commonMessages.dividingColon) +
-            personalInfo.preferredLang?.label.localized}
+            (personalInfo.preferredLang?.label.localized ??
+              intl.formatMessage(commonMessages.notProvided))}
         </p>
       </Notice.Content>
       {footer ? (

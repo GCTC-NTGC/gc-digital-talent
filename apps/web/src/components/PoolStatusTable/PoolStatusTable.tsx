@@ -144,6 +144,7 @@ const PoolStatusTable = ({
     ),
     columnHelper.accessor(({ pool }) => pool.processNumber, {
       id: "processNumber",
+      enableHiding: false,
       header: intl.formatMessage(processMessages.processNumber),
     }),
     columnHelper.accessor(
@@ -165,22 +166,22 @@ const PoolStatusTable = ({
       (row) =>
         isSuspended(row.suspendedAt)
           ? intl.formatMessage({
-              defaultMessage: "Inactive",
-              id: "u5UAJn",
+              defaultMessage: "Not interested",
+              id: "iggSb/",
               description: "Status message if the application is suspended",
             })
           : intl.formatMessage({
-              defaultMessage: "Active",
-              id: "4L9rHO",
+              defaultMessage: "Open to job offers",
+              id: "y4bRNU",
               description: "Status message if the application is not suspended",
             }),
       {
         id: "availability",
         enableHiding: false,
         header: intl.formatMessage({
-          defaultMessage: "Availability",
-          id: "mevv+t",
-          description: "Availability label",
+          defaultMessage: "Interest in job offers",
+          id: "a49DTz",
+          description: "Interest in job offers label",
         }),
       },
     ),

@@ -83,6 +83,20 @@ class TalentRequestBuilder extends Builder
 
     public function whereAuthorizedToView(): self
     {
+        return $this->whereAuthorized(includeOwnRequests: true);
+    }
+
+    /**
+     * Talent Request search allows for filtering by admin data fields,
+     * so the authorization scope must be equivalent to TalentRequestPolicy::viewAdminData.
+     */
+    public function whereAuthorizedToSearch(): self
+    {
+        return $this->whereAuthorized(includeOwnRequests: false);
+    }
+
+    private function whereAuthorized(bool $includeOwnRequests): self
+    {
         /** @var User | null */
         $user = Auth::user();
 
@@ -91,14 +105,14 @@ class TalentRequestBuilder extends Builder
         }
 
         $filterCountBefore = count($this->getQuery()->wheres);
-        $query = $this->where(function (Builder $query) use ($user) {
+        $query = $this->where(function (Builder $query) use ($user, $includeOwnRequests) {
             if ($user?->isAbleTo('view-team-talentRequest')) {
                 $teamIds = TeamHelpers::getTeamIdsForPermission($user, 'view-team-talentRequest');
 
                 $query->orWhereHas('community.team', fn (Builder $q) => $q->whereIn('id', $teamIds));
             }
 
-            if ($user?->isAbleTo('view-own-talentRequest')) {
+            if ($includeOwnRequests && $user?->isAbleTo('view-own-talentRequest')) {
                 $query->orWhere('user_id', $user->id);
             }
         });

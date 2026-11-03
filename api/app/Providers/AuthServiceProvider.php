@@ -108,14 +108,6 @@ class AuthServiceProvider extends ServiceProvider
             }
         }
 
-        // If a default user is set, and there is no bearer token, treat the request as if it were from the default user.
-        if (config('oauth.default_user')) {
-            $user = User::where('sub', config('oauth.default_user'))->first();
-            if ($user) {
-                return $user;
-            }
-        }
-
         return null;
     }
 }

@@ -11,7 +11,7 @@ export const NominationsReceived_Fragment = graphql(/* GraphQL */ `
   fragment NominationsReceived on User {
     talentNominationGroupsAsNominee {
       id
-      createdAt
+      updatedAt
       ...NominationsReceivedListItem
     }
   }
@@ -29,24 +29,26 @@ const NominationsReceived = ({
   const intl = useIntl();
   const user = getFragment(NominationsReceived_Fragment, userQuery);
 
-  // Sort nomination groups by received date most recent first.
+  // Sort nomination groups by accepted date most recent first.
   const nominationGroups = unpackMaybes(
     user?.talentNominationGroupsAsNominee,
   ).sort((a, b) => {
-    const aDate = a?.createdAt ? new Date(a.createdAt).getTime() : 0;
-    const bDate = b?.createdAt ? new Date(b.createdAt).getTime() : 0;
+    const aDate = a?.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+    const bDate = b?.updatedAt ? new Date(b.updatedAt).getTime() : 0;
     return bDate - aDate;
   });
 
   return nominationGroups.length > 0 ? (
-    <PreviewList.Root>
-      {nominationGroups.map((nominationGroup) => (
-        <NominationsReceivedListItem
-          key={nominationGroup.id}
-          nominationGroupQuery={nominationGroup}
-        />
-      ))}
-    </PreviewList.Root>
+    <div className="border-t border-t-gray-100 pt-6">
+      <PreviewList.Root>
+        {nominationGroups.map((nominationGroup) => (
+          <NominationsReceivedListItem
+            key={nominationGroup.id}
+            nominationGroupQuery={nominationGroup}
+          />
+        ))}
+      </PreviewList.Root>
+    </div>
   ) : (
     isVerifiedGovEmployee && (
       <Notice.Root className="mt-6.75">

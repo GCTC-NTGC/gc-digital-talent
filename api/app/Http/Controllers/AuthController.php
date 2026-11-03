@@ -73,7 +73,6 @@ class AuthController extends Controller
             'nonce' => $nonce,
             'acr_values' => config('oauth.acr_values'),
             'lang' => $lang,
-            'skipmigration' => $request->input('skipmigration', null),
             'code_challenge' => $codeChallenge,
             'code_challenge_method' => 'S256',
         ]);

@@ -166,7 +166,6 @@ class SnapshotShapeTest extends TestCase
             'createdAt',
             'updatedAt',
             'deletedAt',
-            'annualBudgetAllocationBigInt',
         ],
     ];
 

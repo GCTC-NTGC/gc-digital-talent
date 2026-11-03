@@ -25,15 +25,8 @@ const WorkLocationDialog = ({ workLocation }: WorkLocationDialogProps) => {
           })}
         />
       </Dialog.Trigger>
-      <Dialog.Content hasSubtitle>
-        <Dialog.Header
-          subtitle={intl.formatMessage({
-            defaultMessage:
-              "Learn more about how work locations are described in the context of recruitment opportunities.",
-            id: "5FXFyB",
-            description: "Subtitle for the pool work location dialog",
-          })}
-        >
+      <Dialog.Content>
+        <Dialog.Header>
           {intl.formatMessage({
             defaultMessage: "Work location and terminology",
             id: "kbMB6R",

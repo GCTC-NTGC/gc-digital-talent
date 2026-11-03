@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Enums\ErrorCode;
 use App\Models\User;
 use GraphQL\Error\Error;
 use Illuminate\Database\Eloquent\Collection;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
+use Nuwave\Lighthouse\Exceptions\ValidationException;
 
 final class MigrateMyAccount
 {
@@ -32,6 +34,11 @@ final class MigrateMyAccount
         // if no actor defined, then can't migrate
         if (is_null($actor)) {
             throw new AuthorizationException();
+        }
+
+        // if actor is missing email, or telephone, then can't migrate
+        if (is_null($actor->email) || is_null($actor->telephone)) {
+            throw ValidationException::withMessages(['id' => ErrorCode::MIGRATION_MISSING_CONTACT_INFO->name]);
         }
 
         /**
@@ -77,6 +84,6 @@ final class MigrateMyAccount
             return true;
         }
 
-        throw new Error('Need one possible target to migrate.');
+        throw ValidationException::withMessages(['id' => ErrorCode::MIGRATION_TARGET_NOT_FOUND->name]);
     }
 }

@@ -35,7 +35,9 @@ const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
   ) {
     updateTalentRequest(id: $id, talentRequest: $input) {
       id
-      followUpDate
+      adminData {
+        followUpDate
+      }
     }
   }
 `);
@@ -43,7 +45,9 @@ const UpdateTalentRequestFollowUpDate_Mutation = graphql(/* GraphQL */ `
 const TalentRequestFollowUpDate_Fragment = graphql(/** GraphQL */ `
   fragment TalentRequestFollowUpDate on TalentRequest {
     id
-    followUpDate
+    adminData {
+      followUpDate
+    }
   }
 `);
 
@@ -65,8 +69,9 @@ const TalentRequestFollowUpDate = ({
     UpdateTalentRequestFollowUpDate_Mutation,
   );
   const talentRequest = getFragment(TalentRequestFollowUpDate_Fragment, query);
-  const followUpDate = talentRequest?.followUpDate
-    ? parseDateTimeUtc(talentRequest.followUpDate)
+  const savedFollowUpDate = talentRequest?.adminData?.followUpDate;
+  const followUpDate = savedFollowUpDate
+    ? parseDateTimeUtc(savedFollowUpDate)
     : null;
   const { isOverdue, isDueToday, daysOverdue } = followUpDateOverdueInfo(
     followUpDate,
@@ -76,9 +81,7 @@ const TalentRequestFollowUpDate = ({
 
   const methods = useForm<FormValues>({
     defaultValues: {
-      followUpDate: talentRequest.followUpDate
-        ? strToFormDate(talentRequest.followUpDate)
-        : null,
+      followUpDate: savedFollowUpDate ? strToFormDate(savedFollowUpDate) : null,
     },
   });
 

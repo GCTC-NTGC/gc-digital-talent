@@ -9,13 +9,14 @@ import {
 import { commonMessages, EmploymentDuration } from "@gc-digital-talent/i18n";
 import type {
   LocalizedString,
-  OrderByClause,
+  QueryUsersPaginatedOrderByOrderByClause,
   UserFilterInput,
 } from "@gc-digital-talent/graphql";
 import {
   PositionDuration,
   SortOrder,
   Trashed,
+  UsersOrderByColumn,
 } from "@gc-digital-talent/graphql";
 
 import { durationToEnumPositionDuration } from "~/utils/userUtils";
@@ -78,16 +79,19 @@ export function transformUserInput(
 
 export function transformSortStateToOrderByClause(
   sortingRule?: SortingState,
-): OrderByClause | OrderByClause[] | undefined {
-  const columnMap = new Map<string, string>([
-    ["id", "id"],
-    ["candidateName", "first_name"],
-    ["email", "email"],
-    ["workEmail", "work_email"],
-    ["telephone", "telephone"],
-    ["preferredLang", "preferred_lang"],
-    ["createdDate", "created_at"],
-    ["updatedDate", "updated_at"],
+):
+  | QueryUsersPaginatedOrderByOrderByClause
+  | QueryUsersPaginatedOrderByOrderByClause[]
+  | undefined {
+  const columnMap = new Map<string, UsersOrderByColumn>([
+    ["id", UsersOrderByColumn.Id],
+    ["candidateName", UsersOrderByColumn.FirstName],
+    ["email", UsersOrderByColumn.Email],
+    ["workEmail", UsersOrderByColumn.WorkEmail],
+    ["telephone", UsersOrderByColumn.Telephone],
+    ["preferredLang", UsersOrderByColumn.PreferredLang],
+    ["createdDate", UsersOrderByColumn.CreatedAt],
+    ["updatedDate", UsersOrderByColumn.UpdatedAt],
   ]);
 
   const orderBy = sortingRule

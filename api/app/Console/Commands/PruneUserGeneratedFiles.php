@@ -6,6 +6,7 @@ use App\Support\FilePath;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Throwable;
 
 class PruneUserGeneratedFiles extends Command
 {
@@ -34,12 +35,21 @@ class PruneUserGeneratedFiles extends Command
         foreach ($diskNames as $diskName) {
             $disk = Storage::disk($diskName);
             foreach ($disk->allFiles() as $file) {
-                $lastModified = Carbon::createFromTimestamp($disk->lastModified($file));
-                $hoursOld = $now->diffInHours($lastModified);
+                // storage may be shared between instances, so another one could delete the file first
+                try {
+                    $lastModified = Carbon::createFromTimestamp($disk->lastModified($file));
+                } catch (Throwable $e) {
+                    $this->error("Failed to read $diskName/$file: ".$e->getMessage());
+
+                    continue;
+                }
+                $hoursOld = (int) $lastModified->diffInHours($now);
                 $shouldDelete = $hoursOld > 24;
                 if ($shouldDelete) {
                     $this->info("Deleting $diskName/$file - $hoursOld hours old");
-                    $disk->delete($file);
+                    if (! $disk->delete($file)) {
+                        $this->error("Failed to delete $diskName/$file");
+                    }
                 }
             }
         }

@@ -7,7 +7,6 @@ import { commonMessages, navigationMessages } from "@gc-digital-talent/i18n";
 import { getLabels as getLangLabels } from "~/utils/languageUtils";
 import { getLabels as getWorkLabels } from "~/utils/workPreferenceUtils";
 
-import { getLabels as getPersonalLabels } from "./components/PersonalInformation/utils";
 import { getLabels as getCitizenVeteranPriorityLabels } from "./components/CitizenVeteranPriority/utils";
 import type { SectionKey } from "./types";
 
@@ -61,7 +60,6 @@ export const getSectionTitle = (key: SectionKey): MessageDescriptor => {
 type LabelAccessorFunc = (intl: IntlShape) => FieldLabels;
 
 const labelAccessorMap = new Map<SectionKey, LabelAccessorFunc>([
-  ["personal", getPersonalLabels],
   ["work", getWorkLabels],
   ["citizen-veteran-priority", getCitizenVeteranPriorityLabels],
   ["language", getLangLabels],

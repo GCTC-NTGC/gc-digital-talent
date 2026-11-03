@@ -36,7 +36,7 @@ class TalentRequestStatusMutationTest extends TestCase
                 talentRequestStatus { value }
                 inProgressDetails { value }
                 completionDetails { value }
-                followUpDate
+                adminData { followUpDate }
             }
         }
         GRAPHQL;

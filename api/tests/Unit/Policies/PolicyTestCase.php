@@ -36,7 +36,7 @@ class PolicyTestCase extends TestCase
 
     protected function createContextualUser(string $method, Pool $pool): User
     {
-        if (in_array($method, ['asAdmin', 'asGuest', 'asApplicant'])) {
+        if (in_array($method, ['asAdmin', 'asApplicant'])) {
             return User::factory()->{$method}()->create();
         }
 

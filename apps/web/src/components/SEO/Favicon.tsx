@@ -1,7 +1,7 @@
 import { Helmet } from "@dr.pogodin/react-helmet";
 
 type Locale = "en" | "fr";
-export type Project = "digital-talent" | "iap" | "admin";
+export type Project = "digital-talent" | "iap";
 
 interface FaviconProps {
   locale: Locale;
@@ -11,7 +11,6 @@ interface FaviconProps {
 const colourMap = new Map<Project, string>([
   ["digital-talent", "#4CC9CD"],
   ["iap", "#6e1d41"],
-  ["admin", "#4CC9CD"],
 ]);
 
 const Favicon = ({ locale, project }: FaviconProps) => {

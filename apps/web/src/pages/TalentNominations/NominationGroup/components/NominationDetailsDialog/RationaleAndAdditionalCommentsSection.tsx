@@ -45,6 +45,8 @@ const RationaleAndAdditionalCommentsSection = ({
 
   const nullMessage = intl.formatMessage(commonMessages.notFound);
 
+  const notProvidedMessage = intl.formatMessage(commonMessages.notProvided);
+
   return (
     <div>
       <Heading rank="h3" size="h6" className="mt-0 mb-6">
@@ -88,7 +90,7 @@ const RationaleAndAdditionalCommentsSection = ({
               "Label for additional comments on a nomination's rationale",
           })}
         >
-          {nomination.additionalComments ?? nullMessage}
+          {nomination.additionalComments ?? notProvidedMessage}
         </FieldDisplay>
       </div>
     </div>

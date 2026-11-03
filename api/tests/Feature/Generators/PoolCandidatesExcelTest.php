@@ -180,6 +180,45 @@ class PoolCandidatesExcelTest extends TestCase
         $this->assertStringNotContainsString($outsideUser->email, $text, 'Candidate outside the filtered community should not appear');
     }
 
+    // The "assessment step" filter should exclude candidates at other steps of the pool
+    public function testAssessmentStepFilterExcludesCandidatesAtOtherSteps(): void
+    {
+        // arrange
+        $adminUser = User::factory()->asApplicant()->asAdmin()->create();
+        $pool = Pool::factory()->withAssessmentSteps(2)->create();
+        [$step, $otherStep] = $pool->assessmentSteps;
+
+        $userAtStep = User::factory()->asApplicant()->withNonGovProfile()->create();
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->withSnapshot()
+            ->for($userAtStep)
+            ->for($pool)
+            ->create(['assessment_step_id' => $step->id]);
+
+        $userAtOtherStep = User::factory()->asApplicant()->withNonGovProfile()->create();
+        PoolCandidate::factory()
+            ->availableInSearch()
+            ->withSnapshot()
+            ->for($userAtOtherStep)
+            ->for($pool)
+            ->create(['assessment_step_id' => $otherStep->id]);
+
+        // act
+        $generator = new PoolCandidateExcelGenerator(fileName: 'test_assessment_step_filter', dir: 'test', lang: 'en');
+        $generator
+            ->setAuthenticatedUserId($adminUser->id)
+            ->setIds(null)
+            ->setFilters(['assessmentSteps' => [$step->sort_order]]);
+        $generator->generate()->write();
+
+        // assert
+        $text = $this->readWorkbookText('test_assessment_step_filter');
+
+        $this->assertStringContainsString($userAtStep->email, $text, 'Candidate at the filtered step should appear');
+        $this->assertStringNotContainsString($userAtOtherStep->email, $text, 'Candidate at another step should not appear');
+    }
+
     // FilePath::sanitize() must keep stripping directory traversal characters
     public function testSanitizeStripsDirectoryTraversalSequences(): void
     {

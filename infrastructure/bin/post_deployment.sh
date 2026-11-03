@@ -34,14 +34,6 @@ fi
 # First block is the header
 BLOCKS="{ \"type\": \"header\", \"text\": { \"type\": \"plain_text\", \"text\": \"Post-deployment script was run\" } }"
 
-# Remove bad source file (see: https://github.com/GCTC-NTGC/gc-digital-talent/issues/16650)
-# This block can be removed once the base image stops shipping with this file present.
-if rm -f /etc/apt/sources.list.d/nginx.list ; then
-    add_section_block ":white_check_mark: Remove bad source *successful*."
-else
-    add_section_block ":X: Remove bad source *failed*.. $MENTION"
-fi
-
 # Configure PHP CLI — write to a drop-in file (not append) so re-runs are idempotent
 if echo 'memory_limit=256M' > /usr/local/etc/php/conf.d/memory-limit.ini ; then
     add_section_block ":white_check_mark: Configure PHP CLI *successful*."
@@ -54,6 +46,17 @@ if apt-get update && apt-get install --yes --no-install-recommends supervisor cr
     add_section_block ":white_check_mark: Install packages from repository *successful*."
 else
     add_section_block ":X: Install packages from repository *failed*. $MENTION"
+fi
+
+# Install the ev event loop extension for Reverb, so it isn't capped at ~1024 connections by stream_select
+# Skip the build if it's already loaded so re-runs are idempotent (pecl install fails if already installed)
+if php -m | grep -qi '^ev$' || \
+    ( yes "" | pecl install ev && \
+      echo 'extension=ev.so' > /usr/local/etc/php/conf.d/docker-php-ext-ev.ini && \
+      php -m | grep -qi '^ev$' ) ; then
+    add_section_block ":white_check_mark: Install PHP ev extension *successful*."
+else
+    add_section_block ":X: Install PHP ev extension *failed*. $MENTION"
 fi
 
 cd /home/site/wwwroot/api

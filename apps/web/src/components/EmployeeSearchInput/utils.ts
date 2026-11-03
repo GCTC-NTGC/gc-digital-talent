@@ -61,6 +61,9 @@ export const EmployeeSearchResult_Fragment = graphql(/* GraphQL */ `
         localized
       }
     }
+    classification {
+      groupAndLevel
+    }
   }
 `);
 
@@ -74,5 +77,6 @@ export const fragmentToEmployee = (
     ...employee,
     workEmail: employee.workEmail, // NOTE: For some reason this errors otherwise
     department: employee.department?.name.localized,
+    classification: employee.classification?.groupAndLevel ?? null,
   };
 };

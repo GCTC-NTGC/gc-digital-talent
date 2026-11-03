@@ -20,12 +20,10 @@ import { notEmpty } from "@gc-digital-talent/helpers";
 import talentNominationMessages from "~/messages/talentNominationMessages";
 import adminMessages from "~/messages/adminMessages";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
-import { getNominatorName } from "~/utils/talentNominations";
 
 export const NominationsReceivedDialog_Fragment = graphql(/* GraphQL */ `
-  fragment NominationsReceivedDialog on TalentNominationGroup {
+  fragment NominationsReceivedDialog on TalentNominationGroupAsNominee {
     id
-    createdAt
     talentNominationEvent {
       id
       name {
@@ -41,17 +39,10 @@ export const NominationsReceivedDialog_Fragment = graphql(/* GraphQL */ `
       }
       contactEmail
     }
-    advancementNominationCount
-    lateralMovementNominationCount
-    developmentProgramsNominationCount
-    nominations {
-      id
-      nominatorFallbackName
-      nominator {
-        firstName
-        lastName
-      }
-    }
+    approvedForAdvancement
+    approvedForLateralMovement
+    approvedForDevelopmentPrograms
+    nominatorNames
   }
 `);
 
@@ -81,31 +72,19 @@ const NominationsReceivedDialog = ({
 
   const contactEmail = nominationGroup.talentNominationEvent?.contactEmail;
 
-  const nominatorNames = [
-    ...new Set(
-      (nominationGroup.nominations ?? [])
-        .filter(notEmpty)
-        .map((nomination) =>
-          getNominatorName(
-            nomination.nominator,
-            nomination.nominatorFallbackName,
-            intl,
-          ),
-        ),
-    ),
-  ];
+  const { nominatorNames } = nominationGroup;
   const nominatedBy =
     nominatorNames.length > 0 ? intl.formatList(nominatorNames) : notProvided;
 
-  // Filter and build the nomination options list only showing what they were nominated for
+  // Filter and build the nomination options list only showing what they were approved for
   const nominationOptionsList = [
-    (nominationGroup.advancementNominationCount ?? 0) > 0
+    nominationGroup.approvedForAdvancement
       ? talentNominationMessages.nominateForAdvancement
       : null,
-    (nominationGroup.lateralMovementNominationCount ?? 0) > 0
+    nominationGroup.approvedForLateralMovement
       ? talentNominationMessages.nominateForLateralMovement
       : null,
-    (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
+    nominationGroup.approvedForDevelopmentPrograms
       ? adminMessages.developmentOpportunities
       : null,
   ]
@@ -113,7 +92,7 @@ const NominationsReceivedDialog = ({
     .map((message) => intl.formatMessage(message));
 
   const nominationMeanings = [
-    (nominationGroup.advancementNominationCount ?? 0) > 0
+    nominationGroup.approvedForAdvancement
       ? {
           option: intl.formatMessage(
             talentNominationMessages.nominateForAdvancement,
@@ -138,7 +117,7 @@ const NominationsReceivedDialog = ({
           ),
         }
       : null,
-    (nominationGroup.lateralMovementNominationCount ?? 0) > 0
+    nominationGroup.approvedForLateralMovement
       ? {
           option: intl.formatMessage(
             talentNominationMessages.nominateForLateralMovement,
@@ -151,7 +130,7 @@ const NominationsReceivedDialog = ({
           }),
         }
       : null,
-    (nominationGroup.developmentProgramsNominationCount ?? 0) > 0
+    nominationGroup.approvedForDevelopmentPrograms
       ? {
           option: intl.formatMessage(adminMessages.developmentOpportunities),
           meaning: intl.formatMessage({

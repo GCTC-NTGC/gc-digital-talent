@@ -10,6 +10,7 @@ import { sortAlphaBy } from "@gc-digital-talent/helpers";
 import experienceMessages from "~/messages/experienceMessages";
 import {
   compareByDate,
+  formatDurationMonths,
   experiencesDurationMonths,
   isAwardExperience,
   isCommunityExperience,
@@ -17,41 +18,6 @@ import {
   isPersonalExperience,
   isWorkExperience,
 } from "~/utils/experienceUtils";
-
-// turn a duration in months to a localized subtitle string
-function durationMonthsToSubtitle(
-  durationMonths: number,
-  intl: IntlShape,
-): string {
-  const yearCount = Math.floor(durationMonths / 12);
-  const monthCount = durationMonths % 12;
-
-  if (yearCount > 0) {
-    return intl.formatMessage(
-      {
-        defaultMessage:
-          "{yearCount, plural,one {# year} other {# years}}, {monthCount, plural, one {# month} other {# months}}",
-        id: "MrfPJb",
-        description: "A duration of a certain number of years and months",
-      },
-      {
-        yearCount,
-        monthCount,
-      },
-    );
-  }
-
-  return intl.formatMessage(
-    {
-      defaultMessage: "{monthCount, plural, one {# month} other {# months}}",
-      id: "dkXjDY",
-      description: "A duration of a certain number of months",
-    },
-    {
-      monthCount,
-    },
-  );
-}
 
 type ExperienceItem = NonNullable<
   NonNullable<FullCareerExperiencesUserFragment["experiences"]>[number]
@@ -149,7 +115,7 @@ export function buildExperienceByWorkStreamData(
       title:
         bundle.workStream.name?.localized ??
         intl.formatMessage(commonMessages.notProvided),
-      subtitle: durationMonthsToSubtitle(
+      subtitle: formatDurationMonths(
         experiencesDurationMonths(bundle.experiences),
         intl,
       ),

@@ -1577,7 +1577,7 @@ class UserTest extends TestCase
         $this->actingAs($this->platformAdmin, 'api')->graphQL(
             /** @lang GraphQL */
             '
-            query getUsersPaginated($orderBy: [OrderByClause!]) {
+            query getUsersPaginated($orderBy: [QueryUsersPaginatedOrderByOrderByClause!]) {
                 usersPaginated(orderBy: $orderBy) {
                     data {
                         id
@@ -1588,7 +1588,7 @@ class UserTest extends TestCase
             [
                 'orderBy' => [
                     [
-                        'column' => 'first_name',
+                        'column' => 'FIRST_NAME',
                         'order' => 'ASC',
                     ],
                 ],
@@ -1822,7 +1822,7 @@ class UserTest extends TestCase
 
         // Create users
         User::factory(1)->asAdmin()->create();
-        User::factory(3)->asGuest()->create();
+        User::factory(3)->create();
         User::factory(11)->asApplicant()->create();
 
         User::factory(2)->asProcessOperator($testPool->id)->create();

@@ -25,7 +25,6 @@ const communityInterestQuery = makeFragmentData(
     user: {
       __typename: "User",
       developmentProgramUserRecords:
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         mockCommunityInterests[0].interestInDevelopmentPrograms?.map(
           (interest, index) => {
             return {

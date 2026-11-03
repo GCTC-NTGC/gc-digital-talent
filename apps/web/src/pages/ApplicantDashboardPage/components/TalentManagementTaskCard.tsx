@@ -211,7 +211,7 @@ const TalentManagementTaskCard = ({
                     </Accordion.Trigger>
                     <Accordion.MetaData metadata={talentNominationMetaData} />
                     <Accordion.Content>
-                      <div className="mt-3 flex flex-col gap-6">
+                      <div className="mt-6 flex flex-col gap-6 border-t border-t-gray-100 pt-6">
                         {sortedNominations.length ? (
                           <PreviewList.Root>
                             {sortedNominations.map((talentNominationItem) => (

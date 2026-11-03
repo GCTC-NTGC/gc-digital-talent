@@ -26,7 +26,7 @@ test.describe("User search", { tag: "@uat" }, () => {
         email: `${sub}@test.org`,
         sub,
       },
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
     });
 
     user = createdUser ?? NO_USER;

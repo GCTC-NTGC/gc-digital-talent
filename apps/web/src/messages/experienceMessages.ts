@@ -95,16 +95,6 @@ const messages = defineMessages({
     id: "U/Lv8i",
     description: "Title for unknown experiences",
   },
-  awardIssuedBy: {
-    defaultMessage: "{title} issued by {issuedBy}",
-    id: "4BpFoX",
-    description: "The award title is issued by some group",
-  },
-  awardIssuedByHtml: {
-    defaultMessage: "<strong>{title}</strong> issued by {issuedBy}",
-    id: "mHT8kp",
-    description: "The award title is issued by some group, HTML",
-  },
   communityAt: {
     defaultMessage: "{title} at {organization}",
     id: "vV0SDz",
@@ -200,6 +190,16 @@ const messages = defineMessages({
     defaultMessage: "{startDate} - <red>Missing end date</red>",
     id: "NMo1VF",
     description: "Experience date range when end date is missing",
+  },
+  dates: {
+    defaultMessage: "Dates",
+    id: "Bs00Yf",
+    description: "Heading for the date range of an experience",
+  },
+  duration: {
+    defaultMessage: "Duration",
+    id: "X3puDA",
+    description: "Heading for how long an experience lasted",
   },
 });
 

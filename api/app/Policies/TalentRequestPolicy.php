@@ -47,6 +47,23 @@ class TalentRequestPolicy
     }
 
     /**
+     * Unlike view(), submitters cannot view this data on their own requests.
+     *
+     * This must grant exactly the requests that TalentRequestBuilder::whereAuthorizedToSearch allows,
+     * since search filters match on admin notes.
+     *
+     * @return Response|bool
+     */
+    public function viewAdminData(User $user, TalentRequest $talentRequest)
+    {
+        if ($user->isAbleTo('view-any-talentRequest')) {
+            return true;
+        }
+
+        return $this->checkTeamPermission($user, [$talentRequest->community?->team], 'view-team-talentRequest');
+    }
+
+    /**
      * Determine whether the user can create models.
      * Note: This action is possible for everyone, including anonymous users
      *

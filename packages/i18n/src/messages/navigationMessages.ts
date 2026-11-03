@@ -126,11 +126,6 @@ const navigationMessages = defineMessages({
     id: "TuZKOY",
     description: "Name of skill library page",
   },
-  jobTemplates: {
-    defaultMessage: "Find a job template",
-    id: "dK8pdO",
-    description: "Name of job template page",
-  },
   jobTemplatesLibrary: {
     defaultMessage: "Job templates library",
     id: "Ux22rt",

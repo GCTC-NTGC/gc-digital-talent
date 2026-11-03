@@ -161,6 +161,17 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
 
     protected $hidden = [];
 
+    // users table columns read by toSearchableArray()
+    private const SEARCH_INDEX_COLUMNS = [
+        'first_name',
+        'last_name',
+        'email',
+        'telephone',
+        'current_province',
+        'current_city',
+        'last_sign_in_at', // isn't indexed, kept as a low impact redundant reindex, safety net
+    ];
+
     public function searchableOptions()
     {
         return [
@@ -186,6 +197,15 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
     public function searchableAs(): string
     {
         return 'user_search_indices';
+    }
+
+    // rebuilds are triggered by the created and updated hooks in boot() instead
+    // by default Scout reindexes regardless of what attributes were modified, which means reindexes when irrelevant fields updated
+    // not the docs' wasChanged() example: with scout.after_commit it only sees the last save in a transaction
+    // https://laravel.com/framework/docs/13.x/scout#conditionally-updating-the-search-index
+    public function searchIndexShouldBeUpdated(): bool
+    {
+        return false;
     }
 
     /**
@@ -455,7 +475,6 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
         // If this User instance continues to be used, ensure the in-memory instance has the updated skills.
         $this->refresh();
-        $this->searchable();
     }
 
     public function getFullName(?bool $anonymous = false)
@@ -735,6 +754,12 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         parent::boot();
         static::created(function (User $user) {
             $user->searchable();
+        });
+        static::updated(function (User $user) {
+            // reindex if a relevant users column is dirty only
+            if ($user->isDirty(self::SEARCH_INDEX_COLUMNS)) {
+                $user->searchable();
+            }
         });
         static::deleting(function (User $user) {
             // We only need to run this if the user is being soft deleted

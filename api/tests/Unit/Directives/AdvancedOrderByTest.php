@@ -232,6 +232,10 @@ class AdvancedOrderByTest extends TestCase
                 [['relation' => ['name' => 'pool', 'column' => 'name->en->fr']]],
                 'Only one JSON key is supported: name->en->fr',
             ],
+            'JSON key on a non-JSON column' => [
+                [['column' => 'created_at->x']],
+                'Column does not support a JSON key: created_at',
+            ],
         ];
     }
 

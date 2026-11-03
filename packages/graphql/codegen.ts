@@ -1,6 +1,7 @@
 import { type CodegenConfig } from "@graphql-codegen/cli";
 
 const scalars = {
+  ID: "string",
   Date: "string",
   DateTime: "string",
   Email: "string",
@@ -26,6 +27,8 @@ const config: CodegenConfig = {
       preset: "client",
       config: {
         scalars,
+        enumType: "native",
+        nonOptionalTypename: true,
       },
       presetConfig: {
         fragmentMasking: {
@@ -39,6 +42,7 @@ const config: CodegenConfig = {
       plugins: ["typescript"],
       config: {
         scalars,
+        nonOptionalTypename: true,
       },
     },
   },

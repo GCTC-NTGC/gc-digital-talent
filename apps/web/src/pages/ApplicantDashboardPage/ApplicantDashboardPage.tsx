@@ -4,13 +4,7 @@ import { useQuery } from "urql";
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 
-import {
-  Pending,
-  ResourceBlock,
-  NotFound,
-  Container,
-  Ul,
-} from "@gc-digital-talent/ui";
+import { Pending, ResourceBlock, NotFound, Ul } from "@gc-digital-talent/ui";
 import { ROLE_NAME } from "@gc-digital-talent/auth";
 import type { ApplicantDashboardQuery } from "@gc-digital-talent/graphql";
 import { graphql, getFragment } from "@gc-digital-talent/graphql";
@@ -323,24 +317,22 @@ export const DashboardPage = ({
           description: "Subtitle for applicant dashboard",
         })}
         crumbs={crumbs}
-      />
-      <section className="my-18">
-        <Container>
-          {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
-            <div className="mb-6">
-              {canMigrateMyAccount ? (
-                <MigrationPossibleNotice
-                  onDismiss={() => setMigrationNoticeIsVisible(false)}
-                />
-              ) : (
-                <MigrationNotPossibleNotice
-                  onDismiss={() => setMigrationNoticeIsVisible(false)}
-                />
-              )}
-            </div>
-          ) : null}
+        overlap
+      >
+        <div className="mt-12 mb-18">
           <div className="flex flex-col gap-6 xs:flex-row">
             <div className="flex flex-col gap-6">
+              {featureFlags.authInAppMigration && migrationNoticeIsVisible ? (
+                canMigrateMyAccount ? (
+                  <MigrationPossibleNotice
+                    onDismiss={() => setMigrationNoticeIsVisible(false)}
+                  />
+                ) : (
+                  <MigrationNotPossibleNotice
+                    onDismiss={() => setMigrationNoticeIsVisible(false)}
+                  />
+                )
+              ) : null}
               <ApplicationsProcessesTaskCard
                 applicationsProcessesTaskCardQuery={currentUser}
               />
@@ -548,8 +540,8 @@ export const DashboardPage = ({
               </ResourceBlock.Root>
             </div>
           </div>
-        </Container>
-      </section>
+        </div>
+      </Hero>
     </>
   );
 };

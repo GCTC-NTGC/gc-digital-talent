@@ -5,7 +5,7 @@ import type { HeadingRank } from "@gc-digital-talent/ui";
 interface FilterBlockProps {
   id: string;
   title?: string | ReactNode;
-  text: ReactNode;
+  text?: ReactNode;
   children?: ReactNode;
   headingRank?: HeadingRank;
 }
@@ -25,7 +25,7 @@ const FilterBlock = ({
           {title}
         </Heading>
       )}
-      <p className="mt-3 mb-6">{text}</p>
+      {text && <p className="mt-3 mb-6">{text}</p>}
       {children}
     </>
   );

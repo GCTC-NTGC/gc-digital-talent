@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\TalentRequestPositionType;
 use App\Enums\TalentRequestReason;
 use App\Enums\TalentRequestSource;
+use App\Enums\WorkRegion;
 use App\Models\Community;
 use App\Models\Department;
 use App\Models\TalentRequest;
@@ -63,7 +64,57 @@ class TalentRequestTest extends TestCase
         mutation UpdateTalentRequest($id: ID!, $talentRequest: UpdateTalentRequestInput!) {
             updateTalentRequest(id: $id, talentRequest: $talentRequest) {
                 id
-                adminNotes
+                adminData {
+                    adminNotes
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $talentRequestAdminDataQuery = <<<'GRAPHQL'
+        query TalentRequest($id: UUID!) {
+            talentRequest(id: $id) {
+                id
+                jobTitle
+                adminData {
+                    adminNotes
+                    followUpDate
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $talentRequestWithoutAdminDataQuery = <<<'GRAPHQL'
+        query TalentRequest($id: UUID!) {
+            talentRequest(id: $id) {
+                id
+                jobTitle
+            }
+        }
+        GRAPHQL;
+
+    protected string $meTalentRequestsAdminDataQuery = <<<'GRAPHQL'
+        query MeTalentRequests {
+            me {
+                talentRequests {
+                    id
+                    jobTitle
+                    adminData {
+                        adminNotes
+                        followUpDate
+                    }
+                }
+            }
+        }
+        GRAPHQL;
+
+    protected string $meTalentRequestsWithoutAdminDataQuery = <<<'GRAPHQL'
+        query MeTalentRequests {
+            me {
+                talentRequests {
+                    id
+                    jobTitle
+                }
             }
         }
         GRAPHQL;
@@ -112,6 +163,7 @@ class TalentRequestTest extends TestCase
             'applicantFilter' => [
                 'create' => [
                     'hasDiploma' => true,
+                    'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
                     'community' => ['connect' => Community::inRandomOrder()->first()->id],
                 ],
             ],
@@ -144,6 +196,7 @@ class TalentRequestTest extends TestCase
                 'applicantFilter' => [
                     'create' => [
                         'hasDiploma' => true,
+                        'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
                         'community' => ['connect' => Community::inRandomOrder()->first()->id],
                         'talentSources' => [
                             TalentRequestSource::QUALIFIED_IN_POOL->name,
@@ -161,6 +214,61 @@ class TalentRequestTest extends TestCase
             [TalentRequestSource::QUALIFIED_IN_POOL->name, TalentRequestSource::AT_LEVEL->name],
             $talentRequest->applicantFilter->talent_sources,
         );
+    }
+
+    public function testCreateRequiresLocationPreferences(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences']);
+
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [],
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences']);
+    }
+
+    public function testCreateRejectsNullLocationPreference(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [null],
+                        'community' => ['connect' => Community::inRandomOrder()->first()->id],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.locationPreferences.0']);
+    }
+
+    public function testCreateRequiresApplicantFilterCommunity(): void
+    {
+        $this->graphQL($this->createMutation, [
+            'talentRequest' => $this->buildCreateInput([
+                'applicantFilter' => [
+                    'create' => [
+                        'hasDiploma' => true,
+                        'locationPreferences' => [WorkRegion::NATIONAL_CAPITAL->name],
+                    ],
+                ],
+            ]),
+        ])->assertGraphQLValidationKeys(['talentRequest.applicantFilter.create.community.connect']);
     }
 
     public function testCreateRejectsNonGovernmentEmail(): void
@@ -228,5 +336,91 @@ class TalentRequestTest extends TestCase
                 'talentRequest' => ['adminNotes' => 'hardcoded message here'],
             ])
             ->assertJsonFragment(['message' => 'This action is unauthorized.']);
+    }
+
+    private function createRequestWithAdminData(?User $submitter = null, ?Community $community = null): TalentRequest
+    {
+        return TalentRequest::factory()->create([
+            'user_id' => $submitter?->id,
+            'community_id' => ($community ?? $this->authorizedCommunity)->id,
+            'job_title' => 'Submitted job title',
+            'admin_notes' => 'Internal note',
+            'follow_up_date' => '2026-12-01',
+        ]);
+    }
+
+    public function testSubmitterCannotViewAdminDataOfOwnRequest(): void
+    {
+        $submitter = User::factory()->asApplicant()->create();
+        $talentRequest = $this->createRequestWithAdminData($submitter);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->meTalentRequestsAdminDataQuery)
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testSubmitterCanViewOtherFieldsOfOwnRequest(): void
+    {
+        $submitter = User::factory()->asApplicant()->create();
+        $talentRequest = $this->createRequestWithAdminData($submitter);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->talentRequestWithoutAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['id' => $talentRequest->id, 'jobTitle' => 'Submitted job title']);
+
+        $this->actingAs($submitter, 'api')
+            ->graphQL($this->meTalentRequestsWithoutAdminDataQuery)
+            ->assertGraphQLErrorFree()
+            ->assertJsonFragment(['id' => $talentRequest->id, 'jobTitle' => 'Submitted job title']);
+    }
+
+    public function testAdminsAndTeamMembersCanViewAdminData(): void
+    {
+        $talentRequest = $this->createRequestWithAdminData();
+        $communityAdmin = User::factory()->asCommunityAdmin([$this->authorizedCommunity->id])->create();
+
+        collect([$this->adminUser, $this->teamRecruiter, $communityAdmin])
+            ->each(fn (User $user) => $this->actingAs($user, 'api')
+                ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+                ->assertGraphQLErrorFree()
+                ->assertJsonFragment([
+                    'adminData' => [
+                        'adminNotes' => 'Internal note',
+                        'followUpDate' => '2026-12-01',
+                    ],
+                ]));
+    }
+
+    public function testOtherTeamCommunityAdminCannotViewAdminData(): void
+    {
+        $talentRequest = $this->createRequestWithAdminData();
+        $otherCommunityAdmin = User::factory()->asCommunityAdmin([$this->otherCommunity->id])->create();
+
+        $this->assertFalse($otherCommunityAdmin->can('viewAdminData', $talentRequest));
+        $this->actingAs($otherCommunityAdmin, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
+    }
+
+    public function testTeamMemberCannotViewAdminDataOfOwnRequestToOtherCommunity(): void
+    {
+        $submittingRecruiter = User::factory()
+            ->asApplicant()
+            ->asCommunityRecruiter([$this->authorizedCommunity->id])
+            ->create();
+        $talentRequest = $this->createRequestWithAdminData($submittingRecruiter, $this->otherCommunity);
+
+        $this->actingAs($submittingRecruiter, 'api')
+            ->graphQL($this->talentRequestWithoutAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorFree();
+
+        $this->actingAs($submittingRecruiter, 'api')
+            ->graphQL($this->talentRequestAdminDataQuery, ['id' => $talentRequest->id])
+            ->assertGraphQLErrorMessage('This action is unauthorized.');
     }
 }

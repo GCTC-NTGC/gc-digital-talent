@@ -58,8 +58,8 @@ const ClosingDateDialog = ({ title }: { title: ReactNode }): JSX.Element => {
           <p className="mb-3">
             {intl.formatMessage({
               defaultMessage:
-                "For example, if the deadline chosen is March 1st, 2024, applicants would see “Apply on or before March 1st, 2024”, with a hard deadline of 11:59PM Pacific time. For an applicant in the Eastern time zone, this would mean that they can technically apply before 2:59AM on March 2nd.",
-              id: "C9jYms",
+                "For example, if the deadline chosen is January 1st, 2027, applicants would see “Apply on or before January 1st, 2027”, with a hard deadline of 11:59PM Pacific time. For an applicant in the Eastern time zone, this would mean that they can technically apply before 1:59AM on January 2nd.",
+              id: "PAIWvU",
               description: "Second paragraph for pool closing date dialog",
             })}
           </p>
