@@ -6251,7 +6251,7 @@
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
   },
   "NT3jrI": {
-    "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
+    "defaultMessage": "Ce champ accepte les mots-clés associés à la compétence, séparés par des virgules.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
   },
   "NTwwfL": {
