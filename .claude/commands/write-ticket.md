@@ -1,5 +1,5 @@
 ---
-description: Write or edit GitHub issues for gc-digital-talent. Use when the user asks to create a ticket, write an issue, file a bug, draft a feature request, or work with GH issues/tickets for the project.
+description: Write or edit GitHub issues for gc-digital-talent. Use when the user asks to create a ticket, write an issue, file a bug, draft a feature request, or work with GH issues/tickets for the project. For roadmap items, use roadmap-issue instead.
 ---
 
 Write a GitHub issue for the gc-digital-talent project (GCTC-NTGC/gc-digital-talent) based on the following request:
