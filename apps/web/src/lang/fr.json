@@ -11254,7 +11254,7 @@
     "description": "Heading for closing the accordion with available employment equity options."
   },
   "i+wcDH": {
-    "defaultMessage": "Apprenez-en plus sur l’équipe de développement de la collectivité de l’approvisionnement",
+    "defaultMessage": "En savoir plus<hidden> sur l’équipe de développement de la collectivité de l’approvisionnement</hidden>",
     "description": "External link button, learn more about the named team"
   },
   "i0K4Sb": {
