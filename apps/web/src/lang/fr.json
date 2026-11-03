@@ -7273,8 +7273,8 @@
     "description": "Button text to duplicate a process"
   },
   "RauOed": {
-    "defaultMessage": "Erreur : le publication du processus a échoué",
-    "description": "Message displayed to user after pool fails to get publish."
+    "defaultMessage": "Le processus a été publié avec succès",
+    "description": "Message displayed to user after pool is published"
   },
   "RcRh+P": {
     "defaultMessage": "Créer un recrutement",
