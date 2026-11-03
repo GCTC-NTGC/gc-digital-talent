@@ -1188,6 +1188,25 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
     }
 
+    public function testDeletedCandidacyDoesNotMatch(): void
+    {
+        $pool = Pool::factory()->create();
+        $matching = $this->matchingUser($pool);
+
+        $deletedUser = User::factory()->create();
+        PoolCandidate::factory()->availableInSearch()->create([
+            'user_id' => $deletedUser->id,
+            'pool_id' => $pool->id,
+        ])->delete();
+
+        // one source, and all sources combined
+        foreach ([[TalentRequestSource::QUALIFIED_IN_POOL->name], []] as $talentSources) {
+            $this->runMatches(['applicantFilter' => ['talentSources' => $talentSources]])
+                ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+                ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $matching->id);
+        }
+    }
+
     public function testAlreadyPlacedIndeterminateCandidacyDoesNotMatch(): void
     {
         $pool = Pool::factory()->create();
@@ -1458,6 +1477,48 @@ class TalentRequestMatchesTest extends TestCase
 
         $this->assertContains($poolUser->id, $userIds);
         $this->assertContains($atLevelUser->id, $userIds);
+    }
+
+    public function testUserMatchingTwoSourcesIsOneRowAndCountedOnce(): void
+    {
+        $pool = Pool::factory()->create();
+        $community = Community::factory()->create();
+
+        // qualified in a pool and interested at level
+        $user = $this->matchingUser($pool, [
+            'work_email' => 'both.sources.user@gc.ca',
+            'work_email_verified_at' => now(),
+        ]);
+        // a current government job, so the user stays a verified employee whatever experience the application factory adds
+        WorkExperience::factory()->for($user)->create([
+            'employment_category' => EmploymentCategory::GOVERNMENT_OF_CANADA->name,
+            'gov_employment_type' => GovEmployeeType::INDETERMINATE->name,
+            'gov_position_type' => GovPositionType::SUBSTANTIVE->name,
+            'classification_id' => Classification::factory()->create()->id,
+            'end_date' => null,
+        ]);
+        CommunityInterest::factory()->consented()->create([
+            'user_id' => $user->id,
+            'community_id' => $community->id,
+        ]);
+
+        $where = ['applicantFilter' => ['talentSources' => [
+            TalentRequestSource::QUALIFIED_IN_POOL->name,
+            TalentRequestSource::AT_LEVEL->name,
+        ]]];
+
+        $sources = $this->runMatches($where)
+            ->assertJsonPath('data.talentRequestMatches.paginatorInfo.total', 1)
+            ->assertJsonCount(1, 'data.talentRequestMatches.data')
+            ->assertJsonPath('data.talentRequestMatches.data.0.user.id', $user->id)
+            ->json('data.talentRequestMatches.data.0.sources.*.value');
+        $this->assertEqualsCanonicalizing([
+            TalentRequestSource::QUALIFIED_IN_POOL->name,
+            TalentRequestSource::AT_LEVEL->name,
+        ], $sources);
+
+        $this->runCountMatches($where)
+            ->assertJson(['data' => ['countTalentRequestMatches' => 1]]);
     }
 
     protected string $advancementQuery = <<<'GRAPHQL'
