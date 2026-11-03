@@ -200,7 +200,7 @@ Platform-wide announcements displayed to users in the application UI, such as ma
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the announcement. |  |  |
-| `key` | Unique machine-readable slug for the announcement. |  | Unique; only `sitewide_announcement` is used |
+| `key` | Unique human-readable slug for the announcement. |  | Unique; only `sitewide_announcement` is used |
 | `title` | Bilingual (EN/FR) title text shown as the announcement headline. |  | Bilingual: en and fr both required |
 | `message` | Bilingual (EN/FR) body text of the announcement. |  | Bilingual: en and fr both required |
 | `is_enabled` | Whether the announcement is currently active and visible. |  | Default false |
@@ -492,7 +492,7 @@ Functional communities within the GC (e.g. Data Science, Digital, Finance). Comm
 | `id` | Unique identifier for the community. |  |  |
 | `created_at` | Timestamp when the community was created. |  |  |
 | `updated_at` | Timestamp when the community was last modified. |  |  |
-| `key` | Machine-readable unique slug for the community. |  | Not null; unique |
+| `key` | Human-readable unique slug for the community. |  | Not null; unique |
 | `name` | Bilingual display name of the community. |  | Bilingual: en and fr required together |
 | `description` | Bilingual description of the community's mandate and focus. |  | Bilingual: en and fr required together |
 | `mandate_authority` | The GC body or authority responsible for this community. |  | Bilingual: en and fr required together |
@@ -850,7 +850,7 @@ Reference table of standardized plain-language job titles (e.g. 'Data Scientist'
 | `created_at` | Timestamp when the record was created. |  |  |
 | `updated_at` | Timestamp when the record was last modified. |  |  |
 | `deleted_at` | Soft-delete timestamp; null means the title is active. |  |  |
-| `key` | Machine-readable slug for the title. |  | Unique; Enum `GenericJobTitleKey`: TECHNICIAN_IT01, ANALYST_IT02, TEAM_LEADER_IT03, TECHNICAL_ADVISOR_IT03, SENIOR_ADVISOR_IT04, MANAGER_IT04, DIGITAL_LEADER_EX_03 |
+| `key` | Human-readable slug for the title. |  | Unique; Enum `GenericJobTitleKey`: TECHNICIAN_IT01, ANALYST_IT02, TEAM_LEADER_IT03, TECHNICAL_ADVISOR_IT03, SENIOR_ADVISOR_IT04, MANAGER_IT04, DIGITAL_LEADER_EX_03 |
 | `name` | Bilingual plain-language display name. |  | Localized JSON (en, fr); NOT NULL, defaults to empty strings |
 | `classification_id` | FK to the GC classification this title maps to. | FK → `classifications.id` |  |
 
@@ -1008,7 +1008,7 @@ Reference table of all defined platform permissions (e.g. view-pool, update-cand
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the permission. |  |  |
-| `name` | Machine-readable permission slug (e.g. view-any-pool). |  | Unique. Format `action-scope-resource` (e.g. update-team-publishedPool), seeded from config/rolepermission.php |
+| `name` | Human-readable permission slug (e.g. view-any-pool). |  | Unique. Format `action-scope-resource` (e.g. update-team-publishedPool), seeded from config/rolepermission.php |
 | `display_name` | Human-readable bilingual label for the permission. |  |  |
 | `description` | Bilingual explanation of what this permission grants. |  |  |
 | `created_at` | Timestamp when the permission was created. |  |  |
@@ -1291,7 +1291,7 @@ Reference table of platform roles (e.g. Admin, Pool Operator, Applicant, Communi
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the role. |  |  |
-| `name` | Machine-readable role slug (e.g. pool-operator, community-manager). |  | Unique. Seeded: base_user, applicant, process_operator, community_recruiter, community_admin, platform_admin, community_talent_coordinator, department_admin, department_hr_advisor |
+| `name` | Human-readable role slug (e.g. process_operator, community_recruiter). |  | Unique. Seeded: base_user, applicant, process_operator, community_recruiter, community_admin, platform_admin, community_talent_coordinator, department_admin, department_hr_advisor |
 | `display_name` | Bilingual human-readable label for the role. |  |  |
 | `description` | Bilingual description of what this role can do. |  |  |
 | `created_at` | Timestamp when the role was created. |  |  |
@@ -1342,7 +1342,7 @@ Groups related skills into broad categories (e.g. 'Leadership', 'Technical', 'Co
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the skill family. |  |  |
-| `key` | Machine-readable slug for the skill family. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
+| `key` | Human-readable slug for the skill family. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
 | `name` | Bilingual display name of the skill family. |  | Localized string {en, fr}; required on create |
 | `description` | Bilingual description of the skill family and what it covers. |  | Localized string {en, fr} |
 | `created_at` | Timestamp when the record was created. |  |  |
@@ -1384,7 +1384,7 @@ The platform's catalogue of skills and competencies (e.g. 'Python', 'Strategic T
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the skill. |  |  |
-| `key` | Machine-readable slug for the skill. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
+| `key` | Human-readable slug for the skill. |  | Unique; `KeyString` format (lowercase letters, digits, underscores; starts with a letter); set on create only |
 | `name` | Bilingual display name of the skill. |  | Localized string {en, fr}; required |
 | `description` | Bilingual description of what this skill entails. |  | Localized string {en, fr} |
 | `created_at` | Timestamp when the skill was created. |  |  |
@@ -1809,7 +1809,7 @@ Functional specializations within a community (e.g. 'Data Science', 'Cloud Opera
 | Column | Description | Relationship | Constraints |
 |--------|-------------|--------------|-------------|
 | `id` | Unique identifier for the work stream. |  |  |
-| `key` | Machine-readable slug for the work stream. |  | Unique |
+| `key` | Human-readable slug for the work stream. |  | Unique |
 | `name` | Bilingual display name of the work stream. |  | Localized string {en, fr}; required on create; each language value must be unique across work streams |
 | `plain_language_name` | Bilingual plain-language label for non-specialist audiences. |  |  |
 | `community_id` | FK to the community this work stream belongs to. | FK → `communities.id` | Required |
