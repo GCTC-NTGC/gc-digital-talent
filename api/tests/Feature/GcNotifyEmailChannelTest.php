@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Enums\EmailType;
 use App\Jobs\GcNotifyApiRequest;
 use App\Models\User;
 use App\Notifications\AdHocEmail;
-use App\Notifications\VerifyEmails;
+use App\Notifications\VerifyWorkEmail;
 use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
@@ -43,7 +42,7 @@ class GcNotifyEmailChannelTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $user->notify(new VerifyEmails($user->email, [EmailType::CONTACT]));
+        $user->notify(new VerifyWorkEmail($user->email));
 
         Queue::assertPushedOn('default', GcNotifyApiRequest::class);
     }
