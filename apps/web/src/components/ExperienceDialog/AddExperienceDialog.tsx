@@ -20,6 +20,7 @@ interface AddExperienceDialogProps {
   defaultOpen?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  applicationId?: string;
 }
 
 const AddExperienceDialog = ({
@@ -27,9 +28,14 @@ const AddExperienceDialog = ({
   defaultOpen,
   open,
   onOpenChange,
+  applicationId,
 }: AddExperienceDialogProps) => {
   const intl = useIntl();
   const paths = useRoutes();
+
+  const href = applicationId
+    ? paths.applicationCareerTimelineAdd(applicationId)
+    : paths.createExperience();
 
   const experienceTypes: Record<ExperienceType, ExperienceTypeDetails> = {
     work: {
@@ -86,11 +92,7 @@ const AddExperienceDialog = ({
                 <p className="mb-3 text-gray-600 dark:text-gray-100">
                   {details.description}
                 </p>
-                <Link
-                  href={paths.createExperience()}
-                  icon={PlusCircleIcon}
-                  className="font-bold"
-                >
+                <Link href={href} icon={PlusCircleIcon} className="font-bold">
                   {details.linkText}
                 </Link>
               </div>

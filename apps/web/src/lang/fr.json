@@ -324,7 +324,7 @@
     "description": "The classification group for a job poster template"
   },
   "/OP7BB": {
-    "defaultMessage": "Votre mise en candidature pour une mutation latérale signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
+    "defaultMessage": "Votre nomination pour un transfert latéral signifie qu’il pourrait être avantageux pour vous de diversifier votre expérience en occupant des postes similaires au vôtre, ce qui vous permettra d’approfondir votre connaissance du gouvernement, et de ses programmes et services. Les mutations latérales peuvent vous aider à atteindre vos objectifs professionnels : elles vous permettent de connaître de nouvelles perspectives, de renforcer vos compétences et d’acquérir toute l’expérience nécessaire en vue de futures promotions.",
     "description": "Description for lateral movement nomination meaning"
   },
   "/SLyVF": {
@@ -843,7 +843,7 @@
     "description": "Button label to download users associated with selected candidates as Excel"
   },
   "1Q/4Yb": {
-    "defaultMessage": "Publier une annonce",
+    "defaultMessage": "Publier l’annonce",
     "description": "Title to publish an advertisement of a process"
   },
   "1Q4qv9": {
@@ -1330,6 +1330,10 @@
     "defaultMessage": "L’utilisateur perdra tous les rôles suivants dans le ministère",
     "description": "Lead text for the list of roles the user will lose"
   },
+  "3EA8GO": {
+    "defaultMessage": "{position} à {department}, Gouvernement du Canada",
+    "description": "Text about an experience with the government of Canada"
+  },
   "3EI6TE": {
     "defaultMessage": "L'ajout de l'utilisateur au processus a échoué.",
     "description": "Error message displayed when an attempt to add users to known pools"
@@ -1379,7 +1383,7 @@
     "description": "Title for notice when there are no pool candidate search requests"
   },
   "3REesV": {
-    "defaultMessage": "Votre mise en candidature pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
+    "defaultMessage": "Votre nomination pour des possibilités de perfectionnement signifie que votre profil a été signalé en vue d’une participation potentielle aux programmes de perfectionnement figurant sur la liste. Ces programmes servent souvent à enrichir les compétences en vue de nouvelles possibilités de carrière.",
     "description": "Description for development nomination meaning"
   },
   "3Rad8l": {
@@ -1893,6 +1897,10 @@
   "5bdLGy": {
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
+  },
+  "5bjzAS": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour avancement} other {<strong>#</strong> Nominés pour avancement} }",
+    "description": "Count of candidates nominated for advancement, on the community results card."
   },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
@@ -2939,7 +2947,7 @@
     "description": "Label for the action filter for activity log"
   },
   "9zzr+g": {
-    "defaultMessage": "Abonnez-vous au bulletin d’information de la collectivité de l’approvisionnement",
+    "defaultMessage": "Abonnez-vous<hidden> au bulletin d’information de la collectivité de l’approvisionnement</hidden>",
     "description": "External button link to subscribe to a newsletter"
   },
   "A+4huJ": {
@@ -3314,6 +3322,10 @@
     "defaultMessage": "Nominations que vous avez reçues",
     "description": "Title for the nominations received section"
   },
+  "BO+Uwx": {
+    "defaultMessage": "Vous n'avez pas encore ajouté d'éducation ni de certificat.",
+    "description": "Text in education experience card when user has no education experiences"
+  },
   "BOPQKQ": {
     "defaultMessage": "Acceptée le",
     "description": "Label for accepted date of a nomination received"
@@ -3629,10 +3641,6 @@
     "defaultMessage": "Trouver des candidatures correspondantes",
     "description": "Heading for the table that contains users who match talent request criteria"
   },
-  "CtftRC": {
-    "defaultMessage": "Ce qu’une nomination signifie ",
-    "description": "Label for the meaning of a nomination status, with the status name as a variable"
-  },
   "Cu+CH3": {
     "defaultMessage": "Utilisez le bouton « Créer une collectivité » pour commencer.",
     "description": "Instructions for adding a community item"
@@ -3917,6 +3925,10 @@
     "defaultMessage": "Masquer plus de renseignements sur les types d’expériences que vous pouvez ajouter à votre chronologie de carrière",
     "description": "Button text to close accordion describing skill experience"
   },
+  "DylhBF": {
+    "defaultMessage": "Poste intérimaire",
+    "description": "Text when government position is acting"
+  },
   "DzCUmx": {
     "defaultMessage": "Que vous envisagiez de travailler pour le gouvernement ou que vous soyez déjà en poste, que vous souhaitiez embaucher ou que vous envisagiez un nouveau rôle, vous êtes au bon endroit pour faire partie de la collectivité numérique du GC.",
     "description": "Description of the application on the homepage"
@@ -3950,7 +3962,7 @@
     "description": "list a number of work experiences"
   },
   "E6/qXV": {
-    "defaultMessage": "Votre mise en candidature pour une promotion signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que la promotion est peut-être le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. <link>Veuillez communiquer avec l’équipe des activités de la collectivité</link> pour en savoir plus sur celles-ci.",
+    "defaultMessage": "Votre nomination pour un avancement signifie que vous avez le profil d’une personne qui pourrait bénéficier de nouvelles possibilités stimulantes, mais aussi que l’avancement est peut-être le moyen le plus efficace de maximiser votre apport à l’organisation et à la fonction publique en général. <link>Veuillez communiquer avec l’équipe des activités de la collectivité</link> pour en savoir plus sur celles-ci.",
     "description": "Description for advancement nomination meaning"
   },
   "E8q/Zm": {
@@ -4599,6 +4611,10 @@
   "GkX/KN": {
     "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
+  },
+  "GkcCus": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour transfert latéral} other {<strong>#</strong> Nominés pour transfert latéral} }",
+    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "GmGDq8": {
     "defaultMessage": "Perfectionnement professionnel créé avec succès!",
@@ -5407,10 +5423,6 @@
     "defaultMessage": "Lieux de travail",
     "description": "Job locations label"
   },
-  "K+roYh": {
-    "defaultMessage": "Date de clôture",
-    "description": "Closing Date field label for publish pool dialog"
-  },
   "K/01hq": {
     "defaultMessage": "Énoncé de confidentialité",
     "description": "Label for the privacy link in the Footer."
@@ -5635,6 +5647,10 @@
     "defaultMessage": "Apprenez-en davantage sur la Directive sur les talents numériques. Liée à la Politique sur les services et le numérique, cette Directive établit de exigences pour les ministères en matière d’établissement de rapports et de coordination en ce qui a trait à la recherche de talents numériques, de la planification anticipée à l’embauche et à l’octroi de contrats.",
     "description": "Summary of the directive on digital talent featured item"
   },
+  "L2Hilv": {
+    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
+    "description": "Closing date field label for publish pool dialog in the Pacific time zone"
+  },
   "L2xLV8": {
     "defaultMessage": "Ajouter un signet",
     "description": "Label for adding a bookmark"
@@ -5734,6 +5750,10 @@
   "LGSw+f": {
     "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
     "description": "Learn more dialog question two paragraph two"
+  },
+  "LHBUjl": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de prix ni de reconnaissance.",
+    "description": "Text in award experience card when user has no award experiences"
   },
   "LHv3/N": {
     "defaultMessage": "Vous avez postulé à {poolName} sur Talents numériques du GC. L’état d’avancement de votre demande a été modifié. Pour voir son nouvel état, veuillez consulter votre profil.",
@@ -6251,7 +6271,7 @@
     "description": "Link text to go to IAP homepage on Browse IT jobs page"
   },
   "NT3jrI": {
-    "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
+    "defaultMessage": "Ce champ accepte les mots-clés associés à la compétence, séparés par des virgules.",
     "description": "Additional context describing the purpose of the skills 'keyword' field."
   },
   "NTwwfL": {
@@ -6797,6 +6817,10 @@
     "defaultMessage": "Allons-y!",
     "description": "Action button to move to the next step"
   },
+  "PpivFz": {
+    "defaultMessage": "Un aperçu chronologique de l'ensemble de votre expérience dans les cinq types, regroupée par organisation.",
+    "description": "Description of experience timeline card"
+  },
   "Pq0Jyv": {
     "defaultMessage": "Vous vous apprêtez à lier votre identifiant ConnexionCanada à votre profil Talents numériques du GC antérieur. Ce faisant, vous supprimerez votre profil actuel et vous le remplacerez par vos renseignements actuels. Lorsque vous serez connecté, vous serez déconnecté, puis vous pourrez vous connecter à nouveau au moyen de votre identifiant ConnexionCanada. Vous pourrez ainsi consulter les renseignements de votre profil antérieur, notamment les emplois auxquels vous avez postulé et votre expérience professionnelle.",
     "description": "Paragraph explaining what happens when a user links their profile"
@@ -7277,12 +7301,16 @@
     "description": "Button text to duplicate a process"
   },
   "RauOed": {
-    "defaultMessage": "Erreur : le publication du processus a échoué",
-    "description": "Message displayed to user after pool fails to get publish."
+    "defaultMessage": "Le processus a été publié avec succès",
+    "description": "Message displayed to user after pool is published"
   },
   "RcRh+P": {
     "defaultMessage": "Créer un recrutement",
     "description": "Title for advertisement information of a process"
+  },
+  "RcoCL+": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Button to open modal to choose a type of experience to add to the profile"
   },
   "Rd3PKk": {
     "defaultMessage": "Volets de travail de la collectivité",
@@ -7680,10 +7708,6 @@
     "defaultMessage": "Soumettez votre demande filtrée pour obtenir un talent.",
     "description": "Subtitle displayed on hero for Search and Request pages."
   },
-  "TUfJUD": {
-    "defaultMessage": "Parcours professionnel",
-    "description": "Name of Career timeline page"
-  },
   "TUi+jx": {
     "defaultMessage": "Conçu par la communauté autochtone pour la communauté autochtone, ce programme recrute des candidats au niveau débutant pour des occasions d’apprentissage et de perfectionnement en matière de TI au sein du gouvernement.",
     "description": "Summary of the IT Apprenticeship Program for Indigenous Peoples for the homepage"
@@ -8015,6 +8039,10 @@
     "defaultMessage": "Participation de la collectivité",
     "description": "Title for community experience section"
   },
+  "V+cJvn": {
+    "defaultMessage": "Chronologie",
+    "description": "Button to filter experiences by timeline"
+  },
   "V/bSTW": {
     "defaultMessage": "Durée des postes pour lesquels vous souhaitez être pris en considération",
     "description": "Legend Text for required work preferences options in work preferences form"
@@ -8051,13 +8079,13 @@
     "defaultMessage": "Possibilités de formation dirigées par un instructeur ou une instructrice",
     "description": "Title for the instructor led training page"
   },
+  "V4oTbX": {
+    "defaultMessage": "La présente section sert de curriculum vitæ : vous pouvez y décrire votre parcours professionnel, vos antécédents scolaires et votre vécu. Vous pourrez réutiliser ces renseignements chaque fois que vous soumettez une demande, ce qui accélérera le processus et garantira que vos renseignements demeurent à jour.",
+    "description": "Descriptive paragraph for the career experience page."
+  },
   "V6Y2Np": {
     "defaultMessage": "Réduire toutes les sections d'informations complémentaires",
     "description": "Accessible link text to collapse all accordions for more information"
-  },
-  "V7aX6/": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> candidat du bassin s'est qualifié dans le processus de dotation.} other {<strong>#</strong> candidats du bassin se sont qualifiés dans le processus de dotation.} }",
-    "description": "Count of candidates qualified in a pool, on the community results card."
   },
   "V95g4E": {
     "defaultMessage": "Possibilités de formation",
@@ -8370,6 +8398,10 @@
   "WNgaJf": {
     "defaultMessage": "Restaurez le ministère",
     "description": "Button to trigger department restoring functionality"
+  },
+  "WRhqCk": {
+    "defaultMessage": "Chronologie de l'expérience",
+    "description": "Title of experience timeline card"
   },
   "WSMupE": {
     "defaultMessage": "Processus",
@@ -8872,7 +8904,7 @@
     "description": "IT-04 manager path description"
   },
   "YW+ZVh": {
-    "defaultMessage": "Pour évaluer vos compétences en langue seconde, vous devrez subir une évaluation de chacune des trois compétences. Après chaque évaluation, vous obtiendrez un code de trois lettres indiquant le niveau de compétence que vous avez démontré pour cette compétence.",
+    "defaultMessage": "Pour évaluer vos compétences en langue seconde, vous devrez subir une évaluation de chacune des trois compétences. Après chaque évaluation, vous obtiendrez un code alphabétique indiquant le niveau de compétence que vous avez démontré pour cette compétence.",
     "description": "Description for second language proficiency on language requirement dialog"
   },
   "YW3A7H": {
@@ -9596,7 +9628,7 @@
     "description": "Legend text for written exam language preference for exams"
   },
   "bok2jV": {
-    "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature",
+    "defaultMessage": "Votre annonce sera ainsi mise à la disposition des candidats pour qu'ils soumettent leur candidature.",
     "description": "Second paragraph for publish process dialog"
   },
   "bozF1y": {
@@ -10041,6 +10073,10 @@
   "dcvRbO": {
     "defaultMessage": "Veuillez préciser si vous souhaitez exclure une ville d'une région.",
     "description": "Location Exemptions field label for work location preference form"
+  },
+  "ddHZal": {
+    "defaultMessage": "Vous n'avez pas encore ajouté d'apprentissage personnel.",
+    "description": "Text in personal experience card when user has no personal experiences"
   },
   "deE+LO": {
     "defaultMessage": "Le présent formulaire vous permet d’entrer du texte tant en français qu’en anglais pour votre question.",
@@ -11093,10 +11129,6 @@
     "defaultMessage": "Sélectionner la durée de l'interruption",
     "description": "Null selection for pause referral select input"
   },
-  "hGlM9B": {
-    "defaultMessage": "Date de clôture (fuseau horaire du Pacifique)",
-    "description": "Closing Date field label for publish pool dialog in the Pacific time zone"
-  },
   "hHYn/8": {
     "defaultMessage": "Erreur : Une erreur s’est produite. Veuillez essayer de nouveau dans une minute ou communiquez avec votre administrateur.",
     "description": "Message displayed to user after pool fails to get duplicated."
@@ -11254,7 +11286,7 @@
     "description": "Heading for closing the accordion with available employment equity options."
   },
   "i+wcDH": {
-    "defaultMessage": "Apprenez-en plus sur l’équipe de développement de la collectivité de l’approvisionnement",
+    "defaultMessage": "En savoir plus<hidden> sur l’équipe de développement de la collectivité de l’approvisionnement</hidden>",
     "description": "External link button, learn more about the named team"
   },
   "i0K4Sb": {
@@ -11288,6 +11320,10 @@
   "i4OGTD": {
     "defaultMessage": "Créer un groupe de compétences",
     "description": "Page title for the skill family creation page"
+  },
+  "i5/pKP": {
+    "defaultMessage": "Vous n'avez pas encore ajouté de participation à la collectivité.",
+    "description": "Text in community experience card when user has no community experiences"
   },
   "i9E0ka": {
     "defaultMessage": "Aller à la page d'accueil",
@@ -11429,7 +11465,7 @@
     "description": "Button text to print the request confirmation page"
   },
   "idv7rY": {
-    "defaultMessage": "Erreur : la fermeture du processus a échoué",
+    "defaultMessage": "Erreur : la suppression du processus a échoué",
     "description": "Message displayed to user after pool fails to get deleted."
   },
   "idwHJf": {
@@ -11855,6 +11891,10 @@
   "kLGIuJ": {
     "defaultMessage": "<strong>Note :</strong> Les résultats tiendront compte de tout candidat qui correspond à <strong>l’une ou plusieurs</strong> des compétences ayant été sélectionnées",
     "description": "Context for skills selection filter in search form."
+  },
+  "kLl/xh": {
+    "defaultMessage": "Votre expérience professionnelle",
+    "description": "Name of career experience page"
   },
   "kPQVe/": {
     "defaultMessage": "Gérer la durée pendant laquelle le candidat sera dans ce bassin",
@@ -12356,6 +12396,10 @@
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
   },
+  "mfXS89": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Candidat du bassin} other {<strong>#</strong> Candidats du bassin} }",
+    "description": "Count of candidates qualified in a pool, on the community results card."
+  },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
     "description": "Message describing the education requirement filter of the search form."
@@ -12589,7 +12633,7 @@
     "description": "Label for a employee profile desired functional community field"
   },
   "njfu1M": {
-    "defaultMessage": "Sélectionnez les volets de travail pour cette expérience.",
+    "defaultMessage": "Sélectionnez les volets de travail pour cette expérience",
     "description": "Subtitle for work streams for an experience dialog"
   },
   "nl2Trd": {
@@ -12748,6 +12792,10 @@
     "defaultMessage": "Autre expérience dans un domaine connexe",
     "description": "Experience requirement, other."
   },
+  "oIfVFk": {
+    "defaultMessage": "Vous n'avez pas encore ajouté d'expérience.",
+    "description": "Text in experience timeline card when user has no experiences"
+  },
   "oN0FFl": {
     "defaultMessage": "Activités au sein de votre collectivité qui vous ont aidé à vous perfectionner, y compris le bénévolat et l'organisation de cérémonies ou d'autres activités.",
     "description": "Description for community experience section"
@@ -12883,6 +12931,10 @@
   "p2sBh3": {
     "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les personnes autochtones du gouvernement du Canada?",
     "description": "Learn more dialog question one heading"
+  },
+  "p4CGX2": {
+    "defaultMessage": "Date de clôture",
+    "description": "Closing date field label for publish pool dialog"
   },
   "p4YIkl": {
     "defaultMessage": "Par compétences techniques, on entend les connaissances et les aptitudes techniques qui sont pertinentes pour des emplois ou des rôles particuliers au sein de l'organisation. Les compétences techniques sont en général acquises par le biais d'un apprentissage spécifique ou d'une expérience professionnelle dans l'application des connaissances et des compétences. Elles comprennent les niveaux suivants :",
@@ -13200,6 +13252,10 @@
     "defaultMessage": "Se connecter avec ConnexionCanada",
     "description": "Page title for the sign in page using CanadaLogin"
   },
+  "qBEpsi": {
+    "defaultMessage": "Vous n'avez pas encore ajouté d'expérience professionnelle.",
+    "description": "Text in work experience card when user has no work experiences"
+  },
   "qBHA+W": {
     "defaultMessage": "Cette liste vous permet de spécifier <strong>jusqu’à 3 compétences comportementales ou « générales »</strong> que vous vous efforcez activement de développer et d’améliorer grâce à votre expérience ou à des possibilités de perfectionnement.",
     "description": "Description of a users behavioural skills to improve"
@@ -13367,6 +13423,10 @@
   "qy4Ohw": {
     "defaultMessage": "Source de talent",
     "description": "Heading for the source of the matching user."
+  },
+  "qzzqI0": {
+    "defaultMessage": "Ce que signifie une nomination pour « {nominationOptions} »",
+    "description": "Label for the meaning of a nomination status, with the status name as a variable"
   },
   "r01z4D": {
     "defaultMessage": "Afin de garantir que le programme reste accessible aux peuples autochtones du Canada, vous devez remplir le formulaire d’auto-déclaration des peuples autochtones et confirmer que vous êtes membre d’une ou plusieurs des communautés autochtones du Canada.",
@@ -14117,7 +14177,7 @@
     "description": "Button text to add a new general question to a pool"
   },
   "uEzDbH": {
-    "defaultMessage": "Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
+    "defaultMessage": "Pour définir vos volets de travail, commencez par sélectionner l'une de nos collectivités fonctionnelles partenaires. Si vous ne trouvez pas de collectivité pertinente, vous pouvez sauter cette étape jusqu'à ce qu'une collectivité plus pertinente se joigne à la plateforme.",
     "description": "Description for work streams for an experience dialog"
   },
   "uG1ZWN": {
@@ -14297,7 +14357,7 @@
     "description": "Section title for the Add work experience section."
   },
   "v21LPW": {
-    "defaultMessage": "Mises à jour de l'application",
+    "defaultMessage": "Mises à jour des candidatures",
     "description": "Title for application updates checklist"
   },
   "v3CrHe": {
@@ -14629,7 +14689,7 @@
     "description": "Lead-in for the list of not-selected reasons in referral history"
   },
   "wRsQe+": {
-    "defaultMessage": "Pourquoi vous méritez une nomination",
+    "defaultMessage": "Type de nomination",
     "description": "Label for the type(s) of a received nomination"
   },
   "wSlABO": {
