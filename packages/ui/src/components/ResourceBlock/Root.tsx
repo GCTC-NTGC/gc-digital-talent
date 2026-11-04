@@ -57,9 +57,7 @@ const Root = ({
           {title}
         </Heading>
       </div>
-      <div className="flex flex-col" role="list">
-        {children}
-      </div>
+      <ul className="flex list-none flex-col">{children}</ul>
     </nav>
   );
 };
