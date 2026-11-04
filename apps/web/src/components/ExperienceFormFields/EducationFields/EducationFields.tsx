@@ -226,7 +226,7 @@ const EducationFields = ({
                 <datalist id="organizationSuggestions">
                   {organizationSuggestions.map((suggestion) => {
                     return (
-                      <option key={suggestion} value={suggestion}></option>
+                      <option key={suggestion} value={suggestion} aria-label={suggestion} />
                     );
                   })}
                 </datalist>

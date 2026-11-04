@@ -220,7 +220,7 @@ const AwardFields = ({
             {organizationSuggestions.length > 0 && (
               <datalist id="organizationSuggestions">
                 {organizationSuggestions.map((suggestion) => {
-                  return <option key={suggestion} value={suggestion}></option>;
+                  return <option key={suggestion} value={suggestion} aria-label={suggestion} />;
                 })}
               </datalist>
             )}
