@@ -9,9 +9,13 @@ interface CommunityResultCardProps {
   workStreamName?: string;
   qualifiedInPoolCount: number;
   atLevelCount: number;
+  advancementCount: number;
+  lateralMovementCount: number;
   count: number;
   showQualifiedInPool: boolean;
   showAtLevel: boolean;
+  showAdvancement: boolean;
+  showLateralMovement: boolean;
 }
 
 const CommunityResultCard = ({
@@ -19,9 +23,13 @@ const CommunityResultCard = ({
   workStreamName,
   qualifiedInPoolCount,
   atLevelCount,
+  advancementCount,
+  lateralMovementCount,
   count,
   showQualifiedInPool,
   showAtLevel,
+  showAdvancement,
+  showLateralMovement,
 }: CommunityResultCardProps) => {
   const intl = useIntl();
   const { register, setValue } = useFormContext();
@@ -67,10 +75,10 @@ const CommunityResultCard = ({
             {intl.formatMessage(
               {
                 defaultMessage: `{count, plural,
-                  one {<strong>#</strong> Pool candidate qualified in a staffing process.}
-                  other {<strong>#</strong> Pool candidates qualified in a staffing process.}
+                  one {<strong>#</strong> Pool candidate}
+                  other {<strong>#</strong> Pool candidates}
                 }`,
-                id: "V7aX6/",
+                id: "mfXS89",
                 description:
                   "Count of candidates qualified in a pool, on the community results card.",
               },
@@ -91,6 +99,38 @@ const CommunityResultCard = ({
                   "Count of candidates matched at level, on the community results card.",
               },
               { count: atLevelCount },
+            )}
+          </li>
+        ) : null}
+        {showAdvancement ? (
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: `{count, plural,
+                  one {<strong>#</strong> Nominated for advancement}
+                  other {<strong>#</strong> Nominated for advancement}
+                }`,
+                id: "5bjzAS",
+                description:
+                  "Count of candidates nominated for advancement, on the community results card.",
+              },
+              { count: advancementCount },
+            )}
+          </li>
+        ) : null}
+        {showLateralMovement ? (
+          <li>
+            {intl.formatMessage(
+              {
+                defaultMessage: `{count, plural,
+                  one {<strong>#</strong> Nominated for lateral movement}
+                  other {<strong>#</strong> Nominated for lateral movement}
+                }`,
+                id: "GkcCus",
+                description:
+                  "Count of candidates nominated for lateral movement, on the community results card.",
+              },
+              { count: lateralMovementCount },
             )}
           </li>
         ) : null}
