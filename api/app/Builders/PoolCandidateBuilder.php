@@ -234,6 +234,7 @@ class PoolCandidateBuilder extends Builder implements TalentRequestMatchable
         }
 
         // Look up the matching users once, instead of searching again for every candidate.
+        // max number picked after running some tests on production
         $maxUserIds = 2000;
         $userIds = DB::transaction(function () use ($searchTerm, $maxUserIds) {
             // use the search index: with a limit, Postgres may otherwise read every profile, which is slow
