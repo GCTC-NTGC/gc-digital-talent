@@ -1898,6 +1898,10 @@
     "defaultMessage": "Ce que nous pouvons faire pour vous",
     "description": "Heading for the executive opportunities"
   },
+  "5bjzAS": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour avancement} other {<strong>#</strong> Nominés pour avancement} }",
+    "description": "Count of candidates nominated for advancement, on the community results card."
+  },
   "5cll86": {
     "defaultMessage": "Date de publication (UTC)",
     "description": "A date at which data will be published, in the UTC time standard"
@@ -4607,6 +4611,10 @@
   "GkX/KN": {
     "defaultMessage": "Avertissement! Il s'agit d'actions sensibles qui affecteront l'ensemble de la plateforme. Veuillez donc faire preuve d'une extrême prudence si vous modifiez ces paramètres.",
     "description": "Warning that you are making changes of possibly very high impact"
+  },
+  "GkcCus": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Nominé pour transfert latéral} other {<strong>#</strong> Nominés pour transfert latéral} }",
+    "description": "Count of candidates nominated for lateral movement, on the community results card."
   },
   "GmGDq8": {
     "defaultMessage": "Perfectionnement professionnel créé avec succès!",
@@ -8078,10 +8086,6 @@
   "V6Y2Np": {
     "defaultMessage": "Réduire toutes les sections d'informations complémentaires",
     "description": "Accessible link text to collapse all accordions for more information"
-  },
-  "V7aX6/": {
-    "defaultMessage": "{count, plural, one {<strong>#</strong> candidat du bassin s'est qualifié dans le processus de dotation.} other {<strong>#</strong> candidats du bassin se sont qualifiés dans le processus de dotation.} }",
-    "description": "Count of candidates qualified in a pool, on the community results card."
   },
   "V95g4E": {
     "defaultMessage": "Possibilités de formation",
@@ -12391,6 +12395,10 @@
   "mfBsJY": {
     "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
     "description": "Learn more dialog question eight heading"
+  },
+  "mfXS89": {
+    "defaultMessage": "{count, plural, one {<strong>#</strong> Candidat du bassin} other {<strong>#</strong> Candidats du bassin} }",
+    "description": "Count of candidates qualified in a pool, on the community results card."
   },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",

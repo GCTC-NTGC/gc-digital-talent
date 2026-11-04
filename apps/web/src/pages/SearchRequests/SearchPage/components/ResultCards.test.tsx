@@ -36,6 +36,18 @@ const pool = {
 
 const poolQuery = makeFragmentData(pool, SearchResultCard_PoolFragment);
 
+const defaultProps = {
+  qualifiedInPoolCount: 5,
+  atLevelCount: 0,
+  advancementCount: 0,
+  lateralMovementCount: 0,
+  count: 5,
+  showQualifiedInPool: true,
+  showAtLevel: false,
+  showAdvancement: false,
+  showLateralMovement: false,
+};
+
 const onSubmit = vi.fn<(values: FormValues) => void>();
 
 const Harness = ({ children }: { children: ReactNode }) => {
@@ -67,14 +79,7 @@ describe("result cards", () => {
   it("sets communityId when the community result card is submitted", async () => {
     renderWithProviders(
       <Harness>
-        <CommunityResultCard
-          community={community}
-          qualifiedInPoolCount={5}
-          atLevelCount={0}
-          count={5}
-          showQualifiedInPool
-          showAtLevel={false}
-        />
+        <CommunityResultCard community={community} {...defaultProps} />
       </Harness>,
     );
 
@@ -91,14 +96,7 @@ describe("result cards", () => {
   it("leaves communityId unset while a community result card is rendered", async () => {
     renderWithProviders(
       <Harness>
-        <CommunityResultCard
-          community={community}
-          qualifiedInPoolCount={5}
-          atLevelCount={0}
-          count={5}
-          showQualifiedInPool
-          showAtLevel={false}
-        />
+        <CommunityResultCard community={community} {...defaultProps} />
       </Harness>,
     );
 
