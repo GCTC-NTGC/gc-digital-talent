@@ -102,19 +102,15 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
               description: "Description for all applications",
             })}
           </p>
-          <div
-            role="group"
-            aria-labelledby="sortFilter"
-            className="my-6 flex items-center gap-3"
-          >
-            <span id="sortFilter">
+          <fieldset className="my-6 flex items-center gap-3">
+            <legend>
               {intl.formatMessage({
                 defaultMessage: "Order by",
                 id: "idkbRt",
                 description: "Text to filter order",
               })}
               {intl.formatMessage(commonMessages.dividingColon)}
-            </span>
+            </legend>
             <Button
               onClick={() => setOrderBy("newest")}
               mode="inline"
@@ -139,7 +135,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
                 description: "Order by oldest",
               })}
             </Button>
-          </div>
+          </fieldset>
           <Card>
             <ReviewApplicationPreviewList
               applicationsQuery={sortedApplications}

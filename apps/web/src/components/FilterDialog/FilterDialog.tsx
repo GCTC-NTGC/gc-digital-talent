@@ -66,6 +66,8 @@ const FilterDialog = <TFieldValues extends FieldValues>({
   } = methods;
   // Spreading removes the `ReadOnly` type
   const [activeFilters, setActiveFilters] = useState<Partial<TFieldValues>>({
+    // TFieldValues is a generic, so the rule cannot tell that the value is a plain object
+    // oxlint-disable-next-line typescript/no-misused-spread
     ...options?.defaultValues,
   });
   const filterCount = Object.values(activeFilters ?? {}).filter((value) => {

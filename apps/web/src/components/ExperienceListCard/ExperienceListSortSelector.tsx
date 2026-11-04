@@ -31,15 +31,11 @@ const ExperienceListSortSelector = ({
   const intl = useIntl();
 
   return (
-    <div
-      role="group"
-      aria-labelledby="sortFilter"
-      className="mt-6 mb-1.5 flex items-center gap-3"
-    >
-      <span id="sortFilter" className="text-gray-500 dark:text-gray-200">
+    <fieldset className="mt-6 mb-1.5 flex items-center gap-3">
+      <legend id="sortFilter" className="text-gray-500 dark:text-gray-200">
         {intl.formatMessage(formMessages.sortBy)}
         {intl.formatMessage(commonMessages.dividingColon)}
-      </span>
+      </legend>
       <Button
         onClick={() => setSortBy("type")}
         aria-pressed={sortBy === "type"}
@@ -60,7 +56,7 @@ const ExperienceListSortSelector = ({
           description: "Button to filter experiences by timeline",
         })}
       </Button>
-    </div>
+    </fieldset>
   );
 };
 

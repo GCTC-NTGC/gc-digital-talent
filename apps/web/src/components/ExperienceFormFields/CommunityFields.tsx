@@ -134,7 +134,13 @@ const CommunityFields = ({
       {organizationSuggestions.length > 0 && (
         <datalist id="organizationSuggestions">
           {organizationSuggestions.map((suggestion) => {
-            return <option key={suggestion} value={suggestion} aria-label={suggestion} />;
+            return (
+              <option
+                key={suggestion}
+                value={suggestion}
+                aria-label={suggestion}
+              />
+            );
           })}
         </datalist>
       )}
