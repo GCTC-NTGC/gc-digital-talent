@@ -57,9 +57,9 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // UAT projects — only registered when TESTING_ENDPOINT_SECRET is set.
+    // UAT projects — only registered when PLAYWRIGHT_TARGET=uat.
     // Without it these projects fail immediately, breaking local runs.
-    ...(process.env.TESTING_ENDPOINT_SECRET
+    ...(process.env.PLAYWRIGHT_TARGET === "uat"
       ? [
           {
             // Smoke + regression tests: read-only checks against persistent UAT users.

@@ -100,7 +100,7 @@ test.describe("Talent event and nominations management", () => {
   const nomineeSub = `playwright.sub.${uniqueTestId}.nominee`;
   const referenceSub = `playwright.reference.sub.${uniqueTestId}.reference`;
   const unVerifiedNominatorSub = `playwright.unverified.sub${uniqueTestId}.nominee`;
-  const isUat = !!process.env.TESTING_ENDPOINT_SECRET;
+  const isUat = process.env.PLAYWRIGHT_TARGET === "uat";
   const talentEventName = isUat
     ? uatTalentEvents.active
     : `Playwright Event ${uniqueTestId} EN`;

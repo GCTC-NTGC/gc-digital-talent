@@ -49,7 +49,7 @@ class UserPage extends AppPage {
     const now = new Date();
     const today = now.toISOString().split("T")[0];
 
-    if (process.env.TESTING_ENDPOINT_SECRET) {
+    if (process.env.PLAYWRIGHT_TARGET === "uat") {
       await expect(
         this.page.getByRole("alert").filter({ hasText: /ready for download/i }),
       ).toBeVisible({ timeout: 90_000 });

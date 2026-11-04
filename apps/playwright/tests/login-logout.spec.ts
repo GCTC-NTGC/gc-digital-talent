@@ -11,12 +11,13 @@ test.describe("Login and logout", () => {
   test("log in", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
-        request.url().includes("/auth-callback") && request.method() === "GET",
+        new URL(request.url()).pathname === "/login" &&
+        request.method() === "POST",
     );
 
     // start login process
     await page.goto("/login");
-    await page.locator("input[name=username]").fill("applicant@test.com");
+    await page.locator("input[name=sub]").fill("applicant@test.com");
     await page
       .getByRole("button", {
         name: "Sign in",
@@ -89,7 +90,7 @@ test.describe("Login and logout", () => {
 
     // start login process
     await page.goto("/login");
-    await page.locator("input[name=username]").fill("applicant@test.com");
+    await page.locator("input[name=sub]").fill("applicant@test.com");
     await page
       .getByRole("button", {
         name: "Sign in",
@@ -243,7 +244,7 @@ test.describe("Login and logout", () => {
   test("log out", async ({ page }) => {
     const requestPromise = page.waitForRequest(
       (request) =>
-        request.url().includes("/oxauth/endsession") &&
+        request.url().includes("/api/dummy-auth/logout") &&
         request.method() === "GET",
     );
 
