@@ -141,7 +141,7 @@ const AssessmentStepCard = ({
           }}
           trigger={
             <CardRepeater.Edit
-              label={intl.formatMessage(formMessages.repeaterEdit, {
+              label={intl.formatMessage(formMessages.repeaterCardEdit, {
                 index: index + 1,
                 title: assessmentStepDisplayName(
                   assessmentStep.title?.localized,
