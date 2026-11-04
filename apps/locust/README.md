@@ -59,7 +59,7 @@ Open http://localhost:8089 for the web UI, or add `--headless -u 5 -r 1 -t 1m` t
 
 `bundle.py` builds one self-contained file per page (with `common.py` and `queries.py` inlined) in `azure/`, so a test is a single upload. The host defaults to Dev.
 
-1. Run the Locust scripts pipeline (`infrastructure/azure-pipelines-locust.yml`) in Azure DevOps on the branch you want. It runs `python3 apps/locust/bundle.py`, then publishes `apps/locust/azure` as the `locust-scripts` artifact
+1. Run the Locust scripts pipeline (`infrastructure/azure-pipelines-locust.yml`) in Azure DevOps on the branch you want. It regenerates `queries.py`, runs `python3 apps/locust/bundle.py`, then publishes `apps/locust/azure` as the `locust-scripts` artifact
 2. Download the `locust-scripts` artifact from the run
 3. In Azure Load Testing, create a test with **Upload a script**, pick **Locust** and upload the page's file
 4. Set users, spawn rate and duration on the **Load** tab
@@ -75,7 +75,7 @@ az load test create --load-test-resource <resource> --resource-group <group> \
 
 ## Keeping the queries in sync
 
-`queries.py` is generated from the frontend so the tests send the same queries as the app. Regenerate it after page queries change:
+`queries.py` is generated from the frontend so the tests send the same queries as the app. The pipeline regenerates it on every run, so the Azure scripts always match the branch. For local runs, regenerate it after pulling main:
 
 ```sh
 pnpm --filter @gc-digital-talent/graphql codegen

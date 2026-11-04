@@ -78,59 +78,15 @@ query SearchForm {
     __typename
   }
   skills {
-    ...SkillBrowserSkill
-    id
-    key
-    name {
-      en
-      fr
-      __typename
-    }
-    category {
-      value
-      label {
-        en
-        fr
-        __typename
-      }
-      __typename
-    }
-    description {
-      en
-      fr
-      __typename
-    }
-    keywords {
-      en
-      fr
-      __typename
-    }
-    families {
-      id
-      key
-      name {
-        en
-        fr
-        __typename
-      }
-      __typename
-    }
+    ...SkillBrowser
     __typename
   }
 }
 
-fragment SkillBrowserSkill on Skill {
+fragment SkillBrowser on Skill {
   id
   name {
     localized
-    __typename
-  }
-  description {
-    localized
-    __typename
-  }
-  category {
-    value
     __typename
   }
   families {
@@ -230,6 +186,8 @@ query CountTalentRequestMatches($where: TalentRequestMatchFilterInput) {
     }
     qualifiedInPoolCount
     atLevelCount
+    advancementCount
+    lateralMovementCount
     count
     __typename
   }
@@ -264,38 +222,12 @@ fragment SearchResultCard_Pool on Pool {
     __typename
   }
   poolSkills(type: ESSENTIAL) {
-    id
-    type {
-      value
-      label {
-        en
-        fr
-        __typename
-      }
-      __typename
-    }
     skill {
       id
       name {
-        en
-        fr
+        localized
         __typename
       }
-      description {
-        en
-        fr
-        __typename
-      }
-      category {
-        value
-        label {
-          en
-          fr
-          __typename
-        }
-        __typename
-      }
-      key
       __typename
     }
     __typename
@@ -309,7 +241,7 @@ query OpenJobsPage {
   poolsPaginated(
     where: {statuses: [PUBLISHED], isHidden: false}
     first: 500
-    orderBy: {column: "closing_date", order: ASC}
+    orderBy: {column: CLOSING_DATE, order: ASC}
   ) {
     data {
       id
@@ -432,7 +364,7 @@ query ClosedJobsPage {
   poolsPaginated(
     where: {statuses: [CLOSED], isHidden: false}
     first: 500
-    orderBy: {column: "closing_date", order: DESC}
+    orderBy: {column: CLOSING_DATE, order: DESC}
   ) {
     data {
       id
