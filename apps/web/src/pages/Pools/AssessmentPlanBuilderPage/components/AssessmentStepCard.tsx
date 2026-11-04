@@ -143,6 +143,11 @@ const AssessmentStepCard = ({
             <CardRepeater.Edit
               label={intl.formatMessage(formMessages.repeaterEdit, {
                 index: index + 1,
+                title: assessmentStepDisplayName(
+                  assessmentStep.title?.localized,
+                  assessmentStep.type?.label?.localized,
+                  intl,
+                ),
               })}
             />
           }
