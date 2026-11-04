@@ -32,7 +32,7 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Psr\Clock\ClockInterface;
 use Throwable;
 
-class CanadaLoginBearerTokenService implements BearerTokenService
+class OpenidBearerTokenService implements BearerTokenService
 {
     private Configuration $unsecuredConfig;
 
@@ -190,7 +190,7 @@ class CanadaLoginBearerTokenService implements BearerTokenService
     }
 
     // call the introspection endpoint to check if the OP considers the access token still valid
-    public function verifyJwtWithIntrospection(string $accessToken)
+    private function verifyJwtWithIntrospection(string $accessToken)
     {
         $values = $this->getIntrospectionValues($accessToken);
 
