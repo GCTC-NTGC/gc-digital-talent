@@ -106,6 +106,11 @@ const formMessages = defineMessages({
     id: "T/97gk",
     description: "Button text to remove an item from repeatable fields",
   },
+  repeaterDelete: {
+    defaultMessage: "Delete item {index} - {title}",
+    id: "NBTHzR",
+    description: "Button text to delete an item from repeatable fields",
+  },
   repeaterEdit: {
     defaultMessage: "Edit item {index}",
     id: "Gz8vAO",

@@ -155,6 +155,14 @@ const AssessmentStepCard = ({
             assessmentStep.type?.label?.localized,
             intl,
           )}
+          label={intl.formatMessage(formMessages.repeaterDelete, {
+            index: index + 1,
+            title: assessmentStepDisplayName(
+              assessmentStep.title?.localized,
+              assessmentStep.type?.label?.localized,
+              intl,
+            ),
+          })}
           onRemove={() => handleRemove(index)}
         />
       }
