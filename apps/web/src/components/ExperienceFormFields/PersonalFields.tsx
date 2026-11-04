@@ -20,6 +20,7 @@ import type {
   SubExperienceFormProps,
 } from "~/types/experience";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 
 const TEXT_AREA_ROWS = 3;
 const TEXT_AREA_MAX_WORDS_EN = 300;
@@ -30,7 +31,7 @@ const PersonalFields = ({
 }: SubExperienceFormProps & { organizationSuggestions: string[] }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   const {
     setValue,
     formState: { defaultValues },

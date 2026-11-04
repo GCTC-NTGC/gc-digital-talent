@@ -23,6 +23,7 @@ import { strToFormDate } from "@gc-digital-talent/date-helpers";
 import { getFullNameLabel } from "~/utils/nameUtils";
 import FieldDisplay from "~/components/FieldDisplay/FieldDisplay";
 import { getShortPoolTitleLabel } from "~/utils/poolUtils";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import {
   createSpecialApplicationDialogFormValuesToSubmitData,
@@ -188,7 +189,7 @@ const CreateSpecialApplicationDialog = ({
   };
 
   const fullName = getFullNameLabel(user?.firstName, user?.lastName, intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   const TEXT_AREA_MAX_WORDS_EN = 500;
   const TEXT_AREA_MAX_WORDS_FR = 650;
 
