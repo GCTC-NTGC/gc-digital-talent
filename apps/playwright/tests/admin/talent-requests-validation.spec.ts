@@ -91,6 +91,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   let candidateCriteria: TalentRequestCandidateCriteria;
   let sourceOfTalent: TalentRequestSourceOfTalent;
   let qualifiedInPoolSource: LocalizedTalentRequestSource | undefined;
+  let selectedTalentSources: LocalizedTalentRequestSource[];
   const positionJobTitle = "Test job title";
   const requestComments = "Test comments";
   const requestReason = TalentRequestReason.GeneralInterest;
@@ -170,6 +171,9 @@ test.describe("Talent search", { tag: "@uat" }, () => {
     adminCtx = await graphql.newContext(
       process.env.PLAYWRIGHT_COMMUNITY_ADMIN_SUB ?? "admin@test.com",
     );
+    selectedTalentSources = (
+      await getTalentRequestSources(adminCtx, {})
+    ).filter(({ value }) => value !== TalentRequestSource.AtLevel);
 
     await test.step("Create a test pool", async () => {
       technicalSkill = await getSkills(platformAdminCtx, {}).then((skills) => {
@@ -229,6 +233,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
         classification,
         workStream,
         candidateCriteria,
+        selectedTalentSources,
       );
       await talentSearch.waitForGraphqlResponse(
         "RequestForm_SearchRequestData",
@@ -349,8 +354,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
   test.describe("End to end validation of talent request", () => {
     test.beforeAll(async () => {
       await ResumeCandidateReferrals(adminCtx, { id: candidate.id });
-      const talentSources = await getTalentRequestSources(adminCtx, {});
-      qualifiedInPoolSource = talentSources.find(
+      qualifiedInPoolSource = selectedTalentSources.find(
         (source) => source.value === TalentRequestSource.QualifiedInPool,
       );
       sourceOfTalent = {
@@ -388,7 +392,10 @@ test.describe("Talent search", { tag: "@uat" }, () => {
           reason: requestReason,
         });
 
-        await talentRequestPage.validateSourceOfTalentCard(sourceOfTalent);
+        await talentRequestPage.validateSourceOfTalentCard(
+          sourceOfTalent,
+          selectedTalentSources,
+        );
         await talentRequestPage.validateCandidateCriteriaCard(
           candidateCriteria,
         );
@@ -413,7 +420,7 @@ test.describe("Talent search", { tag: "@uat" }, () => {
         ).toBeVisible();
         await tableValidation.locators.filters.click();
         await tableValidation.verifyDefaultApplicantFilters({
-          talentSource: qualifiedInPoolSource?.label.en ?? "",
+          talentSources: selectedTalentSources,
           classification: classification.groupAndLevel,
           workStream: workStream.name?.en ?? "",
           process: poolName,

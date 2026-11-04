@@ -138,6 +138,8 @@ class TalentRequestMatchesTest extends TestCase
                     community { id }
                     qualifiedInPoolCount
                     atLevelCount
+                    advancementCount
+                    lateralMovementCount
                     count
                 }
             }',
@@ -773,6 +775,54 @@ class TalentRequestMatchesTest extends TestCase
             ->assertJsonPath('data.countTalentRequestMatchesByCommunity.0.count', 3);
     }
 
+    public function testCountByCommunityCountsAdvancementAndLateralMovementBreakdown(): void
+    {
+        $community = Community::factory()->create();
+
+        $this->advancementUser($community);
+        $this->lateralMovementUser($community);
+
+        // approved for both nomination types — should count once in the total
+        $bothUser = User::factory()->create([
+            'work_email' => 'both.nominations.user@gc.ca',
+            'work_email_verified_at' => now(),
+            'computed_is_gov_employee' => true,
+        ]);
+        CommunityInterest::factory()->consented()->for($bothUser)->for($community)->create();
+        $event = TalentNominationEvent::factory()->for($community)->create();
+        $bothGroup = TalentNominationGroup::create([
+            'nominee_id' => $bothUser->id,
+            'talent_nomination_event_id' => $event->id,
+            'advancement_decision' => TalentNominationGroupDecision::APPROVED->name,
+            'lateral_movement_decision' => TalentNominationGroupDecision::APPROVED->name,
+        ]);
+        $bothGroup->advancement_referral_expiry_date = now()->addMonths(6);
+        $bothGroup->lateral_movement_referral_expiry_date = now()->addMonths(6);
+        $bothGroup->save();
+
+        $this->runCountByCommunity([
+            'applicantFilter' => [
+                'talentSources' => [
+                    TalentRequestSource::ADVANCEMENT->name,
+                    TalentRequestSource::LATERAL_MOVEMENT->name,
+                ],
+            ],
+        ])->assertExactJson([
+            'data' => [
+                'countTalentRequestMatchesByCommunity' => [
+                    [
+                        'community' => ['id' => $community->id],
+                        'qualifiedInPoolCount' => 0,
+                        'atLevelCount' => 0,
+                        'advancementCount' => 2,
+                        'lateralMovementCount' => 2,
+                        'count' => 3,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     public function testCountByCommunityDefaultsToAllSourcesWhenTalentSourcesOmitted(): void
     {
         $classification = Classification::factory()->create();
@@ -872,7 +922,7 @@ class TalentRequestMatchesTest extends TestCase
         ])->assertExactJson([
             'data' => [
                 'countTalentRequestMatchesByCommunity' => [
-                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'count' => 1],
+                    ['community' => ['id' => $community->id], 'qualifiedInPoolCount' => 1, 'atLevelCount' => 0, 'advancementCount' => 0, 'lateralMovementCount' => 0, 'count' => 1],
                 ],
             ],
         ]);
