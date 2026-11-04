@@ -31,6 +31,7 @@ final class WorkEmailAddressValidator extends Validator
                 'required',
                 'email',
                 new GovernmentEmailRegex(),
+                // can't set a work email that another user is using for their contact email
                 new CaseInsensitiveUnique('users', 'email')->ignore($user?->id, 'id'),
             ],
         ];

@@ -21,7 +21,7 @@ class VerifyWorkEmail extends Notification implements CanBeSentViaGcNotifyEmail
     /**
      * Create a new notification instance.
      *
-     * @param  string  $emailAddress  The new email addresses to set on the user.
+     * @param  string  $emailAddress  The new email address to set on the user.
      */
     public function __construct(string $emailAddress)
     {

@@ -791,8 +791,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if (is_null($user->email) && ! is_null($user->email_backup)) {
                 $existingUserCount = User::where('id', '!=', $user->id)
                     ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $user->email_backup)
-                        ->orWhere('work_email', 'ilike', $user->email_backup))
+                        ->whereContactEmailMatches($user->email_backup)
+                        ->orWhere(fn ($q) => $q->whereWorkEmailMatches($user->email_backup)))
                     ->withTrashed()
                     ->count();
 
@@ -806,8 +806,8 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
             if (is_null($user->work_email) && ! is_null($user->work_email_backup)) {
                 $existingUserCount = User::where('id', '!=', $user->id)
                     ->where(fn ($subquery) => $subquery
-                        ->where('email', 'ilike', $user->work_email_backup)
-                        ->orWhere('work_email', 'ilike', $user->work_email_backup))
+                        ->whereContactEmailMatches($user->work_email_backup)
+                        ->orWhere(fn ($q) => $q->whereWorkEmailMatches($user->work_email_backup)))
                     ->withTrashed()
                     ->count();
 
@@ -1064,7 +1064,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         );
     }
 
-    /*
+    /**
      * Clear the contact email address from any user who has it (except the user we are releasing it for)
      */
     public static function releaseContactEmail(string $emailAddress, string $exceptUserId): void
@@ -1082,7 +1082,7 @@ class User extends Model implements Authenticatable, HasLocalePreference, Laratr
         }
     }
 
-    /*
+    /**
      * Clear the work email address from any user who has it (except the user we are releasing it for)
      */
     public static function releaseWorkEmail(string $emailAddress, string $exceptUserId): void

@@ -71,7 +71,7 @@ EmailChanged.args = {
 EmailChanged.play = async () => {
   const dialog = within(screen.getByRole("dialog"));
   const submitBtn = dialog.getByRole("button", { name: /send/i });
-  const emailInput = dialog.getByRole("textbox", { name: /contact/i });
+  const emailInput = dialog.getByRole("textbox", { name: /work email/i });
   await userEvent.click(submitBtn);
   await userEvent.clear(emailInput);
   await userEvent.type(emailInput, "user2@gc.ca");

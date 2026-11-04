@@ -236,7 +236,7 @@ class UserVerifyEmailsTest extends TestCase
             ]
         );
 
-        $token = Cache::get(VerifyWorkEmail::tokenCacheKey('0000000-0000-0000-0000-000000000001'));
+        $token = Cache::get(VerifyWorkEmail::tokenCacheKey('00000000-0000-0000-0000-000000000001'));
         assertNotNull($token);
         assertNotNull($token['code']);
         assertEquals('regular.user.2@gc.ca', $token['emailAddress']);

@@ -40,9 +40,11 @@ class GcNotifyEmailChannelTest extends TestCase
 
     public function testOtherNotificationIsQueuedOnTheMainQueue(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create([
+            'work_email' => 'example@gc.ca',
+        ]);
 
-        $user->notify(new VerifyWorkEmail($user->email));
+        $user->notify(new VerifyWorkEmail($user->work_email));
 
         Queue::assertPushedOn('default', GcNotifyApiRequest::class);
     }
