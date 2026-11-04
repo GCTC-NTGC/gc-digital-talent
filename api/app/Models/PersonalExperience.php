@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Lang;
  * @property Carbon $updated_at
  * @property string $learning_description
  * @property string $organization
+ * @property ?string $description Replaced by learning_description - used in V1 snapshots
+ * @property ?string $details Replaced by learning_description - used in V1 snapshots
  */
 class PersonalExperience extends Experience
 {
