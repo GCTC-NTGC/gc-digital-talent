@@ -197,8 +197,8 @@ export const getExamValidityOptions = (intl: IntlShape) => [
   {
     label: intl.formatMessage({
       defaultMessage:
-        "“All three of my language level exams are currently valid.”",
-      id: "+SYNdJ",
+        "All three of my language level exams are currently valid.",
+      id: "NMnXFf",
       description:
         "Radio option for exam validity input on language information form.",
     }),
@@ -206,9 +206,8 @@ export const getExamValidityOptions = (intl: IntlShape) => [
   },
   {
     label: intl.formatMessage({
-      defaultMessage:
-        "“One or more of my language levels are <strong>expired</strong>.”",
-      id: "KehmPp",
+      defaultMessage: "One or more of my language levels are expired.",
+      id: "Rx5nAz",
       description:
         "Radio option for exam validity input on language information form.",
     }),

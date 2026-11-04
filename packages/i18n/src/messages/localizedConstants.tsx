@@ -113,13 +113,13 @@ export const getEmploymentEquityStatement = (
 
 const citizenshipStatusesProfile = defineMessages({
   [CitizenshipStatus.Citizen]: {
-    defaultMessage: "Canadian citizen",
-    id: "TSscCR",
+    defaultMessage: "I am a Canadian citizen",
+    id: "5vrCDC",
     description: "declaring one to be a Canadian citizen",
   },
   [CitizenshipStatus.PermanentResident]: {
-    defaultMessage: "Permanent resident of Canada",
-    id: "xsZTQv",
+    defaultMessage: "I am a permanent resident of Canada",
+    id: "FrIl8e",
     description: "declaring one to be a permanent resident",
   },
   [CitizenshipStatus.Other]: commonMessages.other,

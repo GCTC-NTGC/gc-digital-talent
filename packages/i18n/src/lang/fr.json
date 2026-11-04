@@ -219,6 +219,10 @@
     "defaultMessage": "Langue de travail",
     "description": "Title displayed working language ability"
   },
+  "5vrCDC": {
+    "defaultMessage": "J'ai la citoyenneté canadienne",
+    "description": "declaring one to be a Canadian citizen"
+  },
   "5xaEhL": {
     "defaultMessage": "Titre",
     "description": "Label for toggling a heading in the rich text editor"
@@ -454,6 +458,10 @@
   "FqsPMv": {
     "defaultMessage": "Indéterminé",
     "description": "Duration that is permanent (short-form for limited space)"
+  },
+  "FrIl8e": {
+    "defaultMessage": "J'ai la résidence permanente au Canada",
+    "description": "declaring one to be a permanent resident"
   },
   "GiYTD4": {
     "defaultMessage": "Ce champ doit contenir moins de {value} caractères.",
@@ -834,10 +842,6 @@
   "TO/Q6I": {
     "defaultMessage": "Femme",
     "description": "Group for when someone indicates they are a woman"
-  },
-  "TSscCR": {
-    "defaultMessage": "Citoyen(ne) canadien(ne)",
-    "description": "declaring one to be a Canadian citizen"
   },
   "TUfJUD": {
     "defaultMessage": "Parcours professionnel",
@@ -1722,10 +1726,6 @@
   "xmzq/b": {
     "defaultMessage": "Un champ obligatoire est vide : Votre contribution (anglais)",
     "description": "Error message that Your Impact in English must be filled"
-  },
-  "xsZTQv": {
-    "defaultMessage": "Résident permanent ou Résidente permanente du Canada",
-    "description": "declaring one to be a permanent resident"
   },
   "y4oBW4": {
     "defaultMessage": "Décembre",

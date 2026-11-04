@@ -123,10 +123,6 @@
     "defaultMessage": "Correspondance des compétences",
     "description": "Heading displayed on the candidate skill match dialog."
   },
-  "+SYNdJ": {
-    "defaultMessage": "« Mes trois examens de niveau linguistique sont actuellement valides. »",
-    "description": "Radio option for exam validity input on language information form."
-  },
   "+SbEuu": {
     "defaultMessage": "Ajouter {name} à vos signets.",
     "description": "Bookmarking button label for an object"
@@ -5551,10 +5547,6 @@
     "defaultMessage": "Salaire maximal",
     "description": "Title displayed for the Classification table Maximum Salary column."
   },
-  "KehmPp": {
-    "defaultMessage": "« Un ou plusieurs de mes niveaux de langue ne sont <strong>plus valides</strong>. »",
-    "description": "Radio option for exam validity input on language information form."
-  },
   "Kf+7FN": {
     "defaultMessage": "Classification visée",
     "description": "Label for employee profile target classification fields"
@@ -6257,6 +6249,10 @@
   "NJIdH1": {
     "defaultMessage": "Compétences de ce groupe",
     "description": "Label for skills input in skill family form"
+  },
+  "NMnXFf": {
+    "defaultMessage": "Mes trois examens de niveau linguistique sont actuellement valides.",
+    "description": "Radio option for exam validity input on language information form."
   },
   "NMo1VF": {
     "defaultMessage": "Date de fin manquante",
@@ -7399,6 +7395,10 @@
   "Rw9JVt": {
     "defaultMessage": "Ce tableau ne contient pas de données à afficher.",
     "description": "Null message title for talent nominations table."
+  },
+  "Rx5nAz": {
+    "defaultMessage": "Un ou plusieurs de mes niveaux de langue ne sont plus valides.",
+    "description": "Radio option for exam validity input on language information form."
   },
   "RzXSJ9": {
     "defaultMessage": "Modifier une expérience",
