@@ -5775,10 +5775,6 @@
     "defaultMessage": "Actions pour {userName} dans {departmentName}",
     "description": "Aria label for the menu trigger for department actions"
   },
-  "LMHLDs": {
-    "defaultMessage": "« J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle. »",
-    "description": "Label for official exam status in language information form"
-  },
   "LN3sPI": {
     "defaultMessage": "Aidez les gestionnaires à comprendre quelles sont les compétences comportementales que vous aimeriez améliorer. Vous pouvez les modifier à tout moment et vous êtes libre de mettre les compétences dans l’ordre qui vous convient. Les compétences que vous ajoutez ici qui ne sont pas déjà dans votre portfolio seront ajoutées automatiquement.",
     "description": "Page blurb for the improve behavioural skills page"
@@ -9538,6 +9534,10 @@
   "bMfecw": {
     "defaultMessage": "Ajouter des rôles dans des processus",
     "description": "Header for the form to add a process membership to a user"
+  },
+  "bNSeBU": {
+    "defaultMessage": "J’ai fait l’objet d’une évaluation par la Commission de la fonction publique dans ma deuxième langue officielle.",
+    "description": "Label for official exam status in language information form"
   },
   "bNc3Zd": {
     "defaultMessage": "Rechercher des rôles liés à un ministère",
