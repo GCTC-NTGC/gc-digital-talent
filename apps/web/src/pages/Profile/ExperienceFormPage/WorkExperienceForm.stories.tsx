@@ -7,6 +7,7 @@ import {
   fakeDepartments,
   fakeLocalizedEnum,
   getStaticSkills,
+  toLocalizedEnum,
 } from "@gc-digital-talent/fake-data";
 import { MockGraphqlDecorator } from "@gc-digital-talent/storybook-helpers";
 import {
@@ -32,7 +33,15 @@ import WorkExperienceForm, {
 const skillFragments = getStaticSkills().map((skill) =>
   makeFragmentData(skill, ExperienceFormSkill_Fragment),
 );
-const experience = experienceGenerators.workExperiences()[0];
+const departments = fakeDepartments();
+const experience = {
+  ...experienceGenerators.workExperiences()[0],
+  department: departments[5],
+  govContractorRoleSeniority: toLocalizedEnum(
+    GovContractorRoleSeniority.Senior,
+    "LocalizedGovContractorRoleSeniority",
+  ),
+};
 
 const meta = {
   component: WorkExperienceForm,
@@ -77,7 +86,7 @@ const meta = {
       GovFieldOptions: {
         data: {
           me: { workExperiences: [] },
-          departments: fakeDepartments(),
+          departments,
           classifications: fakeClassifications(),
           govEmploymentTypes: fakeLocalizedEnum(
             GovEmployeeType,
