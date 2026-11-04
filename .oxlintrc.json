@@ -173,6 +173,7 @@
       }
     ],
     "turbo/no-undeclared-env-vars": "error",
+    "vitest/require-mock-type-parameters": "off",
     "vitest/expect-expect": [
       "error",
       {
