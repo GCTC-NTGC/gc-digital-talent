@@ -2039,6 +2039,8 @@ type TalentRequestMatchCommunityCount {
   community: Community!
   qualifiedInPoolCount: Int!
   atLevelCount: Int!
+  advancementCount: Int!
+  lateralMovementCount: Int!
   count: Int!
 }
 
@@ -3677,7 +3679,6 @@ enum NotificationType {
 }
 
 enum RoleName {
-  Guest
   BaseUser
   Applicant
   ProcessOperator

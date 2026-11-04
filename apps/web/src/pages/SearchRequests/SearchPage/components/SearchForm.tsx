@@ -25,7 +25,7 @@ import type {
   TalentRequestWorkStream,
 } from "~/types/talentRequestForm";
 import useRoutes from "~/hooks/useRoutes";
-import type { SkillBrowserSkill_Fragment } from "~/components/SkillBrowser/SkillSelection";
+import type { SkillBrowser_Fragment } from "~/components/SkillBrowser/SkillBrowser";
 
 import { formValuesToData } from "../utils";
 import {
@@ -54,7 +54,7 @@ const submitOnlyFields: string[] = [
 
 interface SearchFormProps {
   classifications: TalentRequestClassification[];
-  skills: FragmentType<typeof SkillBrowserSkill_Fragment>[];
+  skills: FragmentType<typeof SkillBrowser_Fragment>[];
   workStreams: TalentRequestWorkStream[];
 }
 
@@ -134,6 +134,14 @@ export const SearchForm = ({
   const showAtLevel =
     !hasTalentSourceSelection ||
     !!applicantFilter?.talentSources?.includes(TalentRequestSource.AtLevel);
+  const showAdvancement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(TalentRequestSource.Advancement);
+  const showLateralMovement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(
+      TalentRequestSource.LateralMovement,
+    );
 
   const selectedWorkStream = workStreams.find(
     (workStream) =>
@@ -243,6 +251,8 @@ export const SearchForm = ({
                           community,
                           qualifiedInPoolCount,
                           atLevelCount,
+                          advancementCount,
+                          lateralMovementCount,
                           count: communityCount,
                         }) => (
                           <CommunityResultCard
@@ -251,9 +261,13 @@ export const SearchForm = ({
                             workStreamName={selectedWorkStreamName}
                             qualifiedInPoolCount={qualifiedInPoolCount}
                             atLevelCount={atLevelCount}
+                            advancementCount={advancementCount}
+                            lateralMovementCount={lateralMovementCount}
                             count={communityCount}
                             showQualifiedInPool={showQualifiedInPool}
                             showAtLevel={showAtLevel}
+                            showAdvancement={showAdvancement}
+                            showLateralMovement={showLateralMovement}
                           />
                         ),
                       )}
@@ -312,36 +326,7 @@ const SearchForm_Query = graphql(/* GraphQL */ `
       }
     }
     skills {
-      ...SkillBrowserSkill
-      id
-      key
-      name {
-        en
-        fr
-      }
-      category {
-        value
-        label {
-          en
-          fr
-        }
-      }
-      description {
-        en
-        fr
-      }
-      keywords {
-        en
-        fr
-      }
-      families {
-        id
-        key
-        name {
-          en
-          fr
-        }
-      }
+      ...SkillBrowser
     }
   }
 `);

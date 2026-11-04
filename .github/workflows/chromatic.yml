@@ -21,7 +21,7 @@ jobs:
     name: Chromatic
     # On pull request open, merge, or rerun
     if: (github.event.action == 'opened' || github.ref_name == 'main' || github.run_attempt > 1) && github.actor != 'dependabot[bot]'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     env:
       PNPM_VERSION: "12.9.1"
     steps:
@@ -61,7 +61,7 @@ jobs:
           pnpm build
 
       - name: "Publish Storybook: all"
-        uses: chromaui/action@v18.13.0
+        uses: chromaui/action@v18.13.3
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Auto-accept UI Tests on Chromatic platform.

@@ -57,7 +57,6 @@ class ClassificationTest extends TestCase
             'sub' => 'base-user@test.com',
         ]);
         $this->baseUser->syncRoles([
-            'guest',
             'base_user',
             'process_operator',
         ]);

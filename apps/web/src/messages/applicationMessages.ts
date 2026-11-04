@@ -63,13 +63,6 @@ const messages = {
       id: "GSHQHG",
       description: "Experience requirement, other.",
     },
-    confirmationLead: {
-      defaultMessage:
-        "You made it! By signing your name below you confirm that:",
-      id: "i4CKlO",
-      description:
-        "Confirmation message before signature form on sign and submit page.",
-    },
     confirmationReview: {
       defaultMessage: `"I've reviewed everything written in my application"`,
       id: "iIMpOW",
@@ -156,11 +149,6 @@ const messages = {
       description:
         "Description for the `other education with specialization` option for EC education requirements",
     },
-    finalDecision: {
-      defaultMessage: "Final decision",
-      id: "vtnz6B",
-      description: "Label for an applications final decision",
-    },
     screeningStage: {
       defaultMessage: "Screening stage",
       id: "OUcpGx",
@@ -175,11 +163,6 @@ const messages = {
       defaultMessage: "Application status",
       id: "Aw67A5",
       description: "Label for the status of an application",
-    },
-    reinstate: {
-      defaultMessage: "Reinstate candidate",
-      id: "fP0gCn",
-      description: "Title for action to reinstate a candidate",
     },
     reason: {
       defaultMessage: "Reason",

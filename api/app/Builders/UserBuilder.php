@@ -904,11 +904,10 @@ class UserBuilder extends Builder
         );
 
         // can't be logged into CanadaLogin last
-        $this->where(function ($subQuery) {
-            $subQuery
-                ->whereNull('last_sign_in_iss')
-                ->orWhere('last_sign_in_iss', 'not ilike', '%.canada.ca%'); // CanadaLogin lives on canada.ca
-        });
+        // "is distinct from" also keeps rows where last_sign_in_iss is null
+        $this->where('last_sign_in_iss', 'is distinct from', 'https://auth.login-connexion.canada.ca/oauth2') // prod
+            ->where('last_sign_in_iss', 'is distinct from', 'https://auth.login-connexion.alpha.canada.ca/oauth2') // staging
+            ->where('last_sign_in_iss', 'is distinct from', 'https://auth.test.login-connexion.alpha.canada.ca/oauth2'); // dev
 
         // can't be soft deleted
         // handled by global scope

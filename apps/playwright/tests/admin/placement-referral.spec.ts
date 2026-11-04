@@ -71,7 +71,7 @@ test.describe("Placement and Referral", { tag: "@uat" }, () => {
     });
 
     user = await createUserWithRoles(platformAdminCtx, {
-      roles: ["guest", "base_user", "applicant"],
+      roles: ["base_user", "applicant"],
       user: {
         firstName: "Playwright_placement_referral",
         lastName: "Test",

@@ -15,6 +15,7 @@ import {
 import {
   FlexibleWorkLocation,
   LanguageAbility,
+  PoolSkillType,
   WorkRegion,
 } from "@gc-digital-talent/graphql";
 
@@ -23,7 +24,14 @@ import { SearchForm } from "./SearchForm";
 faker.seed(0);
 
 const mockPools = fakePools(10);
-const poolResponse = fakePools(3);
+// Mirror the `poolSkills(type: ESSENTIAL)` argument in SearchResultCard_Pool
+const poolResponse = fakePools(3).map((pool) => ({
+  ...pool,
+  poolSkills: pool.poolSkills?.filter(
+    (poolSkill) =>
+      String(poolSkill?.type?.value) === String(PoolSkillType.Essential),
+  ),
+}));
 const mockClassifications = fakeClassifications();
 const mockWorkStreams = fakeWorkStreams();
 const skills = getStaticSkills();

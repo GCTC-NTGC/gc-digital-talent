@@ -59,12 +59,14 @@ interface FindANewCommunityProps {
   optionsQuery: FragmentType<typeof FindANewCommunityOptions_Fragment>;
   formDisabled: boolean;
   mode: "create" | "update";
+  onCommunityChange?: () => void;
 }
 
 const FindANewCommunity = ({
   optionsQuery,
   formDisabled,
   mode,
+  onCommunityChange,
 }: FindANewCommunityProps) => {
   const intl = useIntl();
   const optionsData = getFragment(
@@ -176,6 +178,7 @@ const FindANewCommunity = ({
             disabled={formDisabled}
             rules={{
               required: intl.formatMessage(errorMessages.required),
+              onChange: onCommunityChange,
             }}
           />
         )}

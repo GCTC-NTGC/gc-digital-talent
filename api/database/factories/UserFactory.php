@@ -359,18 +359,6 @@ class UserFactory extends Factory
     }
 
     /**
-     * Attach the guest role to a user after creation.
-     *
-     * @return $this
-     */
-    public function asGuest()
-    {
-        return $this->afterCreating(function (User $user) {
-            $user->addRole('guest');
-        });
-    }
-
-    /**
      * Attach the applicant role to a user after creation.
      *
      * @return $this

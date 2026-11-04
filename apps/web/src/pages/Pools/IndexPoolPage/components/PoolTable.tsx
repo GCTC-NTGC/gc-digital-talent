@@ -23,7 +23,7 @@ import type {
   PoolTable_PoolFragment as PoolTablePoolFragmentType,
 } from "@gc-digital-talent/graphql";
 import { getFragment, graphql } from "@gc-digital-talent/graphql";
-import { hasRole, useAuthorization } from "@gc-digital-talent/auth";
+import { hasRequiredRoles, useAuthorization } from "@gc-digital-talent/auth";
 
 import useRoutes from "~/hooks/useRoutes";
 import Table, {
@@ -220,11 +220,10 @@ const PoolTable = ({ title, initialFilterInput }: PoolTableProps) => {
   };
 
   const { roleAssignments } = useAuthorization();
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const canCreatePool = hasRole(
-    permissionConstants.createProcess,
-    roleAssignments,
-  );
+  const canCreatePool = hasRequiredRoles({
+    toCheck: permissionConstants.createProcess.map((name) => ({ name })),
+    userRoles: roleAssignments,
+  });
 
   const [{ data, fetching }] = useQuery({
     query: PoolTable_Query,

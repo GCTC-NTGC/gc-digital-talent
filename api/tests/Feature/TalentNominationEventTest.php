@@ -97,7 +97,6 @@ class TalentNominationEventTest extends TestCase
                 ->id;
 
         $this->admin = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->asCommunityAdmin([$this->communityId])
             ->create([
@@ -106,13 +105,11 @@ class TalentNominationEventTest extends TestCase
             ]);
 
         $this->platformAdmin = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->asAdmin()
             ->create();
 
         $this->talentCoordinator = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->asCommunityTalentCoordinator([$this->communityId])
             ->create();
@@ -594,7 +591,6 @@ class TalentNominationEventTest extends TestCase
         $newCommunity = Community::factory()->create();
 
         $doubleAdmin = User::factory()
-            ->asGuest()
             ->asApplicant()
             ->asCommunityAdmin([$this->communityId, $newCommunity->id])
             ->create();

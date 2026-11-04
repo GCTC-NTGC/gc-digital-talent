@@ -269,8 +269,6 @@ class UserPolicy
         $role = Role::findOrFail($roleId);
 
         switch ($role->name) {
-            case 'guest':
-                return $actor->isAbleTo('assign-any-role');
             case 'base_user':
                 return $actor->isAbleTo('assign-any-role');
             case 'applicant':

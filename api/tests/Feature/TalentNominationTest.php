@@ -72,7 +72,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'employee1@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asGuest()
             ->asApplicant()
             ->create();
 
@@ -83,7 +82,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'employee2@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asGuest()
             ->asApplicant()
             ->create();
 
@@ -94,7 +92,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => null,
                 'work_email_verified_at' => null,
             ])
-            ->asGuest()
             ->asApplicant()
             ->create();
 
@@ -520,7 +517,6 @@ class TalentNominationTest extends TestCase
                 'work_email' => 'coordinator@gc.ca',
                 'work_email_verified_at' => now(),
             ])
-            ->asGuest()
             ->asApplicant()
             ->asCommunityTalentCoordinator($event->community_id)
             ->create();
