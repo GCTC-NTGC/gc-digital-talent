@@ -19,10 +19,6 @@
     "defaultMessage": "Développement de carrière",
     "description": "Card title for career development"
   },
-  "+24DRY": {
-    "defaultMessage": "« Je suis parfaitement bilingue. »",
-    "description": "Message for the advanced language ability option"
-  },
   "+2vO9m": {
     "defaultMessage": "J’occupe actuellement un rôle de cadre supérieur désigné",
     "description": "Message when user is a Senior Designated Official"
@@ -4081,6 +4077,10 @@
     "defaultMessage": "Modifier les principales compétences comportementales",
     "description": "Link text for editing a users top behavioural skills"
   },
+  "EWnihZ": {
+    "defaultMessage": "Je suis parfaitement bilingue.",
+    "description": "Message for the advanced language ability option"
+  },
   "EWq+u3": {
     "defaultMessage": "Évaluation des langues officielles dans le processus de nomination",
     "description": "Link to second language evaluations PSC info page on language requirements dialog"
@@ -6361,6 +6361,10 @@
   "NxIPbD": {
     "defaultMessage": "Gérer les collectivités",
     "description": "Link to manage the users community interests"
+  },
+  "NzAXdY": {
+    "defaultMessage": "J'ai des compétences robustes en lecture, écriture et communication verbale.",
+    "description": "Message for the intermediate language ability option"
   },
   "NzUwa2": {
     "defaultMessage": "parfaitement bilingue.",
@@ -9847,10 +9851,6 @@
     "defaultMessage": "Langue de communication",
     "description": "Legend text for communication language preference"
   },
-  "cfZo2h": {
-    "defaultMessage": "« Je possède des compétences de base en lecture, écriture et communication verbale. »",
-    "description": "Message for the beginner language ability option"
-  },
   "cgLdec": {
     "defaultMessage": "<strong>Les compétences techniques</strong> sont des connaissances précises que l’on peut enseigner et qui sont pertinentes pour certains emplois ou postes au sein d’une organisation. On les acquiert habituellement au cours d’études, de formations ou d’une expérience de travail pratique.",
     "description": "Definition of technical skills"
@@ -12048,10 +12048,6 @@
     "defaultMessage": "Dans votre fuseau horaire actuel, ceci veut dire que les demandes seront acceptées jusqu’à :",
     "description": "Third paragraph for pool deadlines dialog"
   },
-  "kzkW5D": {
-    "defaultMessage": "« J'ai des compétences robustes en lecture, écriture et communication verbale. »",
-    "description": "Message for the intermediate language ability option"
-  },
   "kzmlCw": {
     "defaultMessage": "Cette nomination pour un transfert latéral n'est pas retenue.",
     "description": "Label for lateral movement nomination is rejected"
@@ -12255,6 +12251,10 @@
   "m54J0C": {
     "defaultMessage": "Rôles et autorisations",
     "description": "Heading for updating a users roles and permissions"
+  },
+  "m5j7yx": {
+    "defaultMessage": "Je possède des compétences de base en lecture, écriture et communication verbale.",
+    "description": "Message for the beginner language ability option"
   },
   "m6eIBH": {
     "defaultMessage": "Votre prochain type de poste",

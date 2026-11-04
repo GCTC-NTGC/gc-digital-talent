@@ -159,8 +159,8 @@ export const getEstimatedAbilityOptions = (intl: IntlShape) => [
     }),
     contentBelow: intl.formatMessage({
       defaultMessage:
-        '"I have basic reading, writing and verbal communication skills."',
-      id: "cfZo2h",
+        "I have basic reading, writing and verbal communication skills.",
+      id: "m5j7yx",
       description: "Message for the beginner language ability option",
     }),
   },
@@ -173,8 +173,8 @@ export const getEstimatedAbilityOptions = (intl: IntlShape) => [
     }),
     contentBelow: intl.formatMessage({
       defaultMessage:
-        '"I have strong reading, writing and verbal communication skills."',
-      id: "kzkW5D",
+        "I have strong reading, writing and verbal communication skills.",
+      id: "NzAXdY",
       description: "Message for the intermediate language ability option",
     }),
   },
@@ -186,8 +186,8 @@ export const getEstimatedAbilityOptions = (intl: IntlShape) => [
       description: "Message for the advanced language ability level",
     }),
     contentBelow: intl.formatMessage({
-      defaultMessage: '"I am completely fluent."',
-      id: "+24DRY",
+      defaultMessage: "I am completely fluent.",
+      id: "EWnihZ",
       description: "Message for the advanced language ability option",
     }),
   },
