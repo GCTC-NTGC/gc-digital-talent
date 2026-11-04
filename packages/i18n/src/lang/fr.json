@@ -475,17 +475,9 @@
     "defaultMessage": "Votre demande n'a pas été complétée. Veuillez réessayer ou contactez notre équipe pour obtenir de l'aide.",
     "description": "Message for Unauthorized or Request Rejected server response"
   },
-  "h+Jet+": {
-    "defaultMessage": "Modifier l'élément {index} - {title}",
-    "description": "Button text to edit an item from repeatable fields"
-  },
   "Gz8vAO": {
     "defaultMessage": "Modifier l’article {index}",
     "description": "Button text to edit an item from repeatable fields"
-  },
-  "NBTHzR": {
-    "defaultMessage": "Supprimer l'élément {index} - {title}",
-    "description": "Button text to delete an item from repeatable fields"
   },
   "HVMI8t": {
     "defaultMessage": "Systèmes d'ordinateurs",
@@ -626,6 +618,10 @@
   "NAKad/": {
     "defaultMessage": "Supprimer",
     "description": "Remove action"
+  },
+  "NBTHzR": {
+    "defaultMessage": "Supprimer l'élément {index} - {title}",
+    "description": "Button text to delete an item from repeatable fields"
   },
   "NCQBQz": {
     "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
@@ -1454,6 +1450,10 @@
   "oXrkBM": {
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
+  },
+  "ogcCD3": {
+    "defaultMessage": "Modifier l'élément {index} - {title}",
+    "description": "Button text to edit an item from repeatable fields, including the item's title"
   },
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
