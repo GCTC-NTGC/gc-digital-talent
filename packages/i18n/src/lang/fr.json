@@ -1,8 +1,4 @@
 {
-  "+2CQiW": {
-    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes",
-    "description": "declare self to not be in the CAF without bolding"
-  },
   "+6/qCF": {
     "defaultMessage": "Supprimer",
     "description": "Button text for a dismissible chip"
@@ -82,6 +78,10 @@
   "0OSmXn": {
     "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones",
     "description": "Title of IT Apprenticeship Program for Indigenous Peoples"
+  },
+  "0RVc/y": {
+    "defaultMessage": "Ancien combattant des Forces armées canadiennes",
+    "description": "declare self to be a CAF veteran without bolding"
   },
   "0ieoVD": {
     "defaultMessage": "Chargement des résultats…",
@@ -447,10 +447,6 @@
     "defaultMessage": "Refaire",
     "description": "Label for redoing an action in the rich text editor"
   },
-  "F7WbTs": {
-    "defaultMessage": "Je suis un membre actif des Forces armées canadiennes",
-    "description": "declare self to be a CAF member without bolding"
-  },
   "F9efQO": {
     "defaultMessage": "Je consens à travailler dans la Région de la capitale nationale (Ottawa, en Ontario et Gatineau, au Québec).",
     "description": "The work region of Canada described as National Capital."
@@ -579,6 +575,10 @@
     "defaultMessage": "Mois",
     "description": "Label for a month input field"
   },
+  "L864l0": {
+    "defaultMessage": "Membre actif des Forces armées canadiennes",
+    "description": "declare self to be a CAF member without bolding"
+  },
   "LBqw5w": {
     "defaultMessage": "Vous devez répondre à toutes les questions filtres",
     "description": "Message displayed when user attempts to apply to a pool without answering all screening questions"
@@ -658,10 +658,6 @@
   "Nf2jAz": {
     "defaultMessage": "J'ai un poste doté pour une période déterminée.",
     "description": "Term selection for government employee type."
-  },
-  "NpmkGJ": {
-    "defaultMessage": "Je suis un ancien combattant des Forces armées canadiennes",
-    "description": "declare self to be a CAF veteran without bolding"
   },
   "O5Lq+h": {
     "defaultMessage": "Je consens à travailler dans la région de l'Atlantique (Nouveau-Brunswick, Terre-Neuve-et-Labrador, Nouvelle-Écosse et Île-du-Prince-Édouard).",
@@ -902,6 +898,10 @@
   "V3+fXY": {
     "defaultMessage": "L’exigence relative à l’éducation est incomplete",
     "description": "Message displayed when user attempts to apply to a pool with incomplete education requirement"
+  },
+  "V4n55A": {
+    "defaultMessage": "N'est pas membre des Forces armées canadiennes",
+    "description": "declare self to not be in the CAF without bolding"
   },
   "V9HdOK": {
     "defaultMessage": "La date d’expiration ne peut pas être dans le passé. Entrez une date dans le futur.",
