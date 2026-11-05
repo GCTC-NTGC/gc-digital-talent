@@ -15,8 +15,7 @@ export interface FormValues {
   lateralMovementDecision: TalentNominationGroupDecision | null;
   lateralMovementApprovedNotes: string | null;
   lateralMovementRejectedNotes: string | null;
-  lateralMovementClassificationSubstantive: string | null;
-  lateralMovementClassificationsAdditional: string[] | null;
+  lateralMovementClassifications: string[] | null;
   lateralMovementReferralExpiryDate: string | null;
   developmentProgramsDecision: TalentNominationGroupDecision | null;
   developmentProgramsApprovedNotes: string | null;
@@ -80,13 +79,11 @@ export function convertQueryDataToFormData(
       queryData?.lateralMovementDecision,
       queryData?.lateralMovementNotes,
     ),
-    lateralMovementClassificationSubstantive:
-      queryData.nominee?.classification?.id ?? null,
-    lateralMovementClassificationsAdditional: unpackMaybes(
-      queryData?.lateralMovementClassifications,
-    )
-      .map(({ id }) => id)
-      .filter((id) => id !== queryData.nominee?.classification?.id), // only want the additional classifications, the substantive is in the field above
+    lateralMovementClassifications: unpackMaybes(
+      queryData?.lateralMovementClassifications?.length
+        ? queryData.lateralMovementClassifications
+        : [queryData?.nominee?.classification],
+    ).map(({ id }) => id),
     lateralMovementReferralExpiryDate:
       queryData?.lateralMovementReferralExpiryDate ?? null,
     developmentProgramsDecision:
@@ -125,16 +122,7 @@ export function convertFormValuesToMutationInput(
       formValues.lateralMovementRejectedNotes,
     ),
     lateralMovementClassifications: {
-      sync: uniqueItems(
-        unpackMaybes([
-          // pack the substantive (if approved) and the additional classifications together
-          formValues.lateralMovementDecision ==
-          TalentNominationGroupDecision.Approved
-            ? formValues.lateralMovementClassificationSubstantive
-            : null,
-          ...(formValues.lateralMovementClassificationsAdditional ?? []),
-        ]),
-      ),
+      sync: formValues.lateralMovementClassifications,
     },
     lateralMovementReferralExpiryDate:
       formValues.lateralMovementReferralExpiryDate ?? null,
