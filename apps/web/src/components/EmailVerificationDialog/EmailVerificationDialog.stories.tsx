@@ -17,9 +17,9 @@ export default {
       },
     },
     apiResponses: {
-      SendUserEmailsVerification: {
+      SendUserWorkEmailVerification: {
         data: {
-          sendUserEmailsVerification: {
+          sendUserWorkEmailVerification: {
             id: 1,
           },
         },
