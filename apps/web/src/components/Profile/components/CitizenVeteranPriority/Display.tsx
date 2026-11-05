@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import {
   commonMessages,
   getArmedForcesStatusesProfile,
-  getCitizenshipStatusesProfile,
+  getCitizenshipStatusesProfileView,
 } from "@gc-digital-talent/i18n";
 import { empty } from "@gc-digital-talent/helpers";
 import type { FragmentType } from "@gc-digital-talent/graphql";
@@ -68,7 +68,9 @@ const Display = ({ query }: DisplayProps) => {
         className="xs:col-span-2 sm:col-span-3"
       >
         {citizenship?.value
-          ? intl.formatMessage(getCitizenshipStatusesProfile(citizenship.value))
+          ? intl.formatMessage(
+              getCitizenshipStatusesProfileView(citizenship.value),
+            )
           : notProvided}
       </FieldDisplay>
 
