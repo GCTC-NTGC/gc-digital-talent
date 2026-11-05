@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Console\Commands\MigrateLocked;
 use Illuminate\Database\Connection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +13,9 @@ class MigrateLockedTest extends TestCase
 
     // A failed lock wait aborts the surrounding Postgres transaction, so don't wrap these tests in one
     protected $connectionsToTransact = [];
+
+    // Own key, so the tests don't depend on the default the deploy uses
+    private const LOCK_KEY = 42;
 
     private ?Connection $otherContainer = null;
 
@@ -28,9 +30,9 @@ class MigrateLockedTest extends TestCase
         return $this->otherContainer;
     }
 
-    private function tryLock(): bool
+    private function otherContainerTakesLock(): bool
     {
-        return (bool) $this->otherContainer()->selectOne('SELECT pg_try_advisory_lock(?) AS locked', [MigrateLocked::LOCK_KEY])->locked;
+        return (bool) $this->otherContainer()->selectOne('SELECT pg_try_advisory_lock(?) AS locked', [self::LOCK_KEY])->locked;
     }
 
     protected function tearDown(): void
@@ -42,18 +44,18 @@ class MigrateLockedTest extends TestCase
 
     public function testMigratesAndReleasesTheLock(): void
     {
-        $this->artisan('migrate:locked')
+        $this->artisan('migrate:locked', ['--key' => self::LOCK_KEY])
             ->expectsOutputToContain('Nothing to migrate')
             ->assertSuccessful();
 
-        $this->assertTrue($this->tryLock(), 'Lock should be free once migrating is done');
+        $this->assertTrue($this->otherContainerTakesLock(), 'Lock should be free once migrating is done');
     }
 
     public function testTimesOutWhileAnotherContainerIsMigrating(): void
     {
-        $this->assertTrue($this->tryLock());
+        $this->assertTrue($this->otherContainerTakesLock());
 
-        $this->artisan('migrate:locked', ['--timeout' => 1])
+        $this->artisan('migrate:locked', ['--key' => self::LOCK_KEY, '--timeout' => 1])
             ->expectsOutputToContain('Timed out waiting for another container to finish migrating.')
             ->assertFailed();
     }
