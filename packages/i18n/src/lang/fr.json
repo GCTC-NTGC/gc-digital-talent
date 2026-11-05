@@ -619,6 +619,10 @@
     "defaultMessage": "Supprimer",
     "description": "Remove action"
   },
+  "NBTHzR": {
+    "defaultMessage": "Supprimer l'élément {index} - {title}",
+    "description": "Button text to delete an item from repeatable fields"
+  },
   "NCQBQz": {
     "defaultMessage": "La date d’expiration du statut d’ancien combattant ne peut pas être dans le passé. Entrez une date dans le futur.",
     "description": "Error message that the veteran status date cannot be in the past."
@@ -1446,6 +1450,10 @@
   "oXrkBM": {
     "defaultMessage": "Groupe de la direction",
     "description": "Full name of abbreviation for EX"
+  },
+  "ogcCD3": {
+    "defaultMessage": "Modifier l'élément {index} - {title}",
+    "description": "Button text to edit an item from repeatable fields, including the item's title"
   },
   "or2gwQ": {
     "defaultMessage": "Une erreur s’est produite pendant la qualification. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
