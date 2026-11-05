@@ -6162,10 +6162,6 @@
     "defaultMessage": "Postes bilingues",
     "description": "Label for language for bilingual field"
   },
-  "MwviYD": {
-    "defaultMessage": "Équivalences de recommandation pertinentes",
-    "description": "Label for lateral movement classifications field"
-  },
   "MxmB1v": {
     "defaultMessage": "Utilisez le bouton « Ajouter un rôle dans une collectivité » pour commencer.",
     "description": "Instructions for adding community membership to a user."
