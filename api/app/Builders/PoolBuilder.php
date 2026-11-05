@@ -2,6 +2,7 @@
 
 namespace App\Builders;
 
+use App\Enums\JobPosterArchiveType;
 use App\Enums\PoolStatus;
 use App\Models\Team;
 use App\Models\User;
@@ -156,6 +157,13 @@ class PoolBuilder extends Builder
             });
         });
 
+    }
+
+    public function whereDoesNotHaveArchive(JobPosterArchiveType $type): self
+    {
+        return $this->whereDoesntHave('jobPosterArchives', function ($query) use ($type) {
+            $query->where('type', $type->name);
+        });
     }
 
     /**
