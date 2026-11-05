@@ -12,7 +12,7 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import Field from "../Field";
 import WordCounter from "../WordCounter";
 import type { CommonInputProps } from "../../types";
-import { countNumberOfWords } from "../../utils";
+import { countNumberOfWords, parseValidationRules } from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { inputStyles } from "../../styles";
@@ -134,7 +134,7 @@ const TextArea = ({
           {...register(name, {
             ...rules,
             validate: {
-              ...rules.validate,
+              ...parseValidationRules(rules.validate),
               ...wordLimitRule,
             },
             onBlur: normalizeInput,

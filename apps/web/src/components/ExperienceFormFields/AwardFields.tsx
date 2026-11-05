@@ -34,6 +34,7 @@ import {
   isAwardExperience,
 } from "~/utils/experienceUtils";
 import { FRENCH_WORDS_PER_ENGLISH_WORD } from "~/constants/talentSearchConstants";
+import { useStableDate } from "~/hooks/useStableDate";
 
 const AwardOptions_Query = graphql(/* GraphQL */ `
   query AwardOptions {
@@ -131,7 +132,7 @@ const AwardFields = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const experienceLabels = getExperienceFormLabels(intl);
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   const [{ data, fetching }] = useQuery({ query: AwardOptions_Query });
   const myExperiences = unpackMaybes(data?.me?.experiences).filter(
     (experience) => !isAwardExperience(experience),
@@ -219,7 +220,13 @@ const AwardFields = ({
             {organizationSuggestions.length > 0 && (
               <datalist id="organizationSuggestions">
                 {organizationSuggestions.map((suggestion) => {
-                  return <option key={suggestion} value={suggestion}></option>;
+                  return (
+                    <option
+                      key={suggestion}
+                      value={suggestion}
+                      aria-label={suggestion}
+                    />
+                  );
                 })}
               </datalist>
             )}

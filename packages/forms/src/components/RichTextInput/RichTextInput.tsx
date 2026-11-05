@@ -7,7 +7,10 @@ import { errorMessages } from "@gc-digital-talent/i18n";
 import type { CommonInputProps } from "../../types";
 import Field from "../Field";
 import ControlledInput from "./ControlledInput";
-import { countNumberOfWordsAfterReplacingHTML } from "../../utils";
+import {
+  countNumberOfWordsAfterReplacingHTML,
+  parseValidationRules,
+} from "../../utils";
 import useFieldState from "../../hooks/useFieldState";
 import useInputDescribedBy from "../../hooks/useInputDescribedBy";
 import { useRegisterFormLabel } from "../FormLabelsProvider";
@@ -84,7 +87,7 @@ const RichTextInput = ({
         rules={{
           ...rules,
           validate: {
-            ...rules.validate,
+            ...parseValidationRules(rules.validate),
             ...wordLimitRule,
           },
         }}

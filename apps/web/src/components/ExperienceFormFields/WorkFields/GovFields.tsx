@@ -36,6 +36,7 @@ import type {
   WorkFormValues,
 } from "~/types/experience";
 import { splitAndJoin } from "~/utils/nameUtils";
+import { useStableDate } from "~/hooks/useStableDate";
 
 import SupervisoryFields from "./SupervisoryFields";
 
@@ -135,7 +136,7 @@ const GovFields = ({ labels }: SubExperienceFormProps) => {
   });
   const { resetField } = useFormContext<WorkFormValues>();
 
-  const todayDate = new Date();
+  const todayDate = useStableDate();
   // to toggle whether expected End date is required, the state of the role status radio must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch<WorkFormValues>({ name: "roleStatus" }) !== "past";
   const watchGroupSelection = useWatch<WorkFormValues>({

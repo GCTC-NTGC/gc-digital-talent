@@ -1483,9 +1483,8 @@ export const getExperienceDate = (
   experience: ExperienceDate,
   intl: IntlShape,
 ): undefined | ReactNode => {
-  let dateString;
   if (!experience) {
-    return dateString;
+    return undefined;
   }
 
   if (isAwardExperience(experience)) {

@@ -1,7 +1,11 @@
 import type { IntlShape } from "react-intl";
 import { generateJSON } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
-import type { FieldErrors, FieldValues } from "react-hook-form";
+import type {
+  FieldErrors,
+  FieldValues,
+  RegisterOptions,
+} from "react-hook-form";
 
 import type {
   LocalizedEnumString,
@@ -295,4 +299,8 @@ export function alphaSortOptions(
         ),
       )
     : [];
+}
+
+export function parseValidationRules(validators: RegisterOptions["validate"]) {
+  return typeof validators === "function" ? { validators } : validators;
 }

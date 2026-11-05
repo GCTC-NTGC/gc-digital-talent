@@ -39,8 +39,8 @@ export function hasAllEmptyFields({
     !careerObjectiveJobTitle &&
     !careerObjectiveCommunity &&
     !careerObjectiveCommunityOther &&
-    !(careerObjectiveWorkStreams?.length ?? 0 > 0) &&
-    !(careerObjectiveDepartments?.length ?? 0 > 0) &&
+    !((careerObjectiveWorkStreams?.length ?? 0) > 0) &&
+    !((careerObjectiveDepartments?.length ?? 0) > 0) &&
     !careerObjectiveAdditionalInformation &&
     (careerObjectiveIsCSuiteRole === undefined ||
       careerObjectiveIsCSuiteRole === null) &&
