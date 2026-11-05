@@ -37,7 +37,7 @@
     "@radix-ui/react-toggle-group": "^1.2.1",
     "chromatic": "^18.13.6",
     "lodash": "^4.18.1",
-    "motion": "^14.0.0",
+    "motion": "^14.7.1",
     "react-csv-downloader": "^3.3.0",
     "react-router": "^8.5.0",
     "tailwind-merge": "^3.7.0",
