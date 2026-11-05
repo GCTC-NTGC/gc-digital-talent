@@ -108,6 +108,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedClassificationSalaryRange implements LocalizedEnumOption {
+  value: ClassificationSalaryRange!
+  label: LocalizedString!
+}
+
 type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   value: CommunityInterestAdditionalDuty!
   label: LocalizedString!
@@ -305,6 +310,11 @@ type LocalizedPoolLanguage implements LocalizedEnumOption {
 
 type LocalizedPoolOpportunityLength implements LocalizedEnumOption {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolPublishedRange implements LocalizedEnumOption {
+  value: PoolPublishedRange!
   label: LocalizedString!
 }
 
@@ -546,6 +556,15 @@ type Query {
     orderByWorkStreamName: PoolWorkStreamNameOrderByInput
     orderByColumn: OrderByColumnInput
     orderBy: [QueryPoolsPaginatedOrderByRelationOrderByClause!]
+
+    "Limits number of fetched items. Maximum allowed value: 1000."
+    first: Int! = 10
+
+    "The offset from which items are returned."
+    page: Int
+  ): PoolPaginator!
+  publishedPoolsSearch(
+    where: PublishedPoolsSearchInput
 
     "Limits number of fetched items. Maximum allowed value: 1000."
     first: Int! = 10
@@ -1901,6 +1920,17 @@ input PoolFilterInput {
   classifications: [ClassificationFilterInput!]
   canAdmin: Boolean
   isHidden: Boolean
+}
+
+input PublishedPoolsSearchInput {
+  keywordSearch: String
+  eligibility: [PoolAreaOfSelection!]
+  departments: [UUID!]
+  classifications: [UUID!]
+  publishedAtRange: [PoolPublishedRange!]
+  languages: [LanguageAbility!]
+  salaryRange: [ClassificationSalaryRange!]
+  processNumber: String
 }
 
 input PoolWorkStreamNameOrderByInput {
@@ -4048,6 +4078,15 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum ClassificationSalaryRange {
+  BETWEEN_0_39999
+  BETWEEN_40000_59999
+  BETWEEN_60000_79999
+  BETWEEN_80000_99999
+  BETWEEN_100000_119999
+  OVER_120000
+}
+
 enum CommunityInterestAdditionalDuty {
   CORPORATE_COMMUNICATIONS
   FACILITIES_MANAGEMENT_AND_SECURITY
@@ -4545,6 +4584,12 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolPublishedRange {
+  UNDER_48_HOURS
+  UNDER_30_DAYS
+  OVER_30_DAYS
 }
 
 enum PoolSelectionLimitation {

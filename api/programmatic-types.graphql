@@ -119,6 +119,11 @@ type LocalizedCitizenshipStatus implements LocalizedEnumOption {
   label: LocalizedString!
 }
 
+type LocalizedClassificationSalaryRange implements LocalizedEnumOption {
+  value: ClassificationSalaryRange!
+  label: LocalizedString!
+}
+
 type LocalizedCommunityInterestAdditionalDuty implements LocalizedEnumOption {
   value: CommunityInterestAdditionalDuty!
   label: LocalizedString!
@@ -316,6 +321,11 @@ type LocalizedPoolLanguage implements LocalizedEnumOption {
 
 type LocalizedPoolOpportunityLength implements LocalizedEnumOption {
   value: PoolOpportunityLength!
+  label: LocalizedString!
+}
+
+type LocalizedPoolPublishedRange implements LocalizedEnumOption {
+  value: PoolPublishedRange!
   label: LocalizedString!
 }
 
@@ -1262,6 +1272,15 @@ enum ClaimVerificationResult {
   UNVERIFIED
 }
 
+enum ClassificationSalaryRange {
+  BETWEEN_0_39999
+  BETWEEN_40000_59999
+  BETWEEN_60000_79999
+  BETWEEN_80000_99999
+  BETWEEN_100000_119999
+  OVER_120000
+}
+
 enum CommunityInterestAdditionalDuty {
   CORPORATE_COMMUNICATIONS
   FACILITIES_MANAGEMENT_AND_SECURITY
@@ -1759,6 +1778,12 @@ enum PoolOpportunityLength {
   TERM_TWO_YEARS
   INDETERMINATE
   VARIOUS
+}
+
+enum PoolPublishedRange {
+  UNDER_48_HOURS
+  UNDER_30_DAYS
+  OVER_30_DAYS
 }
 
 enum PoolSelectionLimitation {
