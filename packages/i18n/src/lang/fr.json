@@ -311,6 +311,10 @@
     "defaultMessage": "Je consens à travailler à distance.",
     "description": "The work region of Canada described as Telework."
   },
+  "9KqZo4": {
+    "defaultMessage": "Résident permanent ou Résidente permanente du Canada",
+    "description": "Permanent resident of Canada"
+  },
   "9QsHXO": {
     "defaultMessage": "Une erreur s’est produite pendant l'attribution de rôles. Veuillez communiquer avec le personnel de soutien si le problème persiste.",
     "description": "Error message for when an error occurs during role assignment"
@@ -1130,6 +1134,10 @@
   "e6YQ8t": {
     "defaultMessage": "Ouvrir le menu",
     "description": "Text label for button that opens side menu."
+  },
+  "e87Xqo": {
+    "defaultMessage": "Citoyen canadien ou Citoyenne canadienne",
+    "description": "Canadian citizen"
   },
   "eQ8bTh": {
     "defaultMessage": "Expire",

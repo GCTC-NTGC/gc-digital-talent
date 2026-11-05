@@ -133,6 +133,28 @@ export const getCitizenshipStatusesProfile = (
     citizenshipId,
     `Invalid Language '${citizenshipId}'`,
   );
+const citizenshipStatusesProfileView = defineMessages({
+  [CitizenshipStatus.Citizen]: {
+    defaultMessage: "Canadian citizen",
+    id: "e87Xqo",
+    description: "Canadian citizen",
+  },
+  [CitizenshipStatus.PermanentResident]: {
+    defaultMessage: "Permanent resident of Canada",
+    id: "9KqZo4",
+    description: "Permanent resident of Canada",
+  },
+  [CitizenshipStatus.Other]: commonMessages.other,
+});
+
+export const getCitizenshipStatusesProfileView = (
+  citizenshipId: string | number,
+): MessageDescriptor =>
+  getOrDisplayError(
+    citizenshipStatusesProfileView,
+    citizenshipId,
+    `Invalid Language '${citizenshipId}'`,
+  );
 
 const armedForcesStatusesProfile = defineMessages({
   [ArmedForcesStatus.Veteran]: {
