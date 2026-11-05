@@ -1676,7 +1676,7 @@
     "description": "Error message that the pool advertisement must have a stream."
   },
   "w6i1rO": {
-    "defaultMessage": "Je ne suis pas un membre des Forces armées canadiennes",
+    "defaultMessage": "Je ne suis pas membre des Forces armées canadiennes",
     "description": "declare self to not be in the CAF"
   },
   "wUJqDi": {
