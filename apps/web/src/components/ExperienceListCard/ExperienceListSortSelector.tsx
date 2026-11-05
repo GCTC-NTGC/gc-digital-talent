@@ -32,7 +32,10 @@ const ExperienceListSortSelector = ({
 
   return (
     <fieldset className="mt-6 mb-1.5 flex items-center gap-3">
-      <legend id="sortFilter" className="text-gray-500 dark:text-gray-200">
+      <legend
+        id="sortFilter"
+        className="float-left text-gray-500 dark:text-gray-200"
+      >
         {intl.formatMessage(formMessages.sortBy)}
         {intl.formatMessage(commonMessages.dividingColon)}
       </legend>

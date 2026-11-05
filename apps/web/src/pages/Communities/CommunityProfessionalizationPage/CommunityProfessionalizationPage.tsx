@@ -145,7 +145,7 @@ export const CommunityProfessionalizationForm = ({
             <fieldset className="mt-6 flex items-center gap-3">
               <legend
                 id="sortFilter"
-                className="text-gray-500 dark:text-gray-200"
+                className="float-left text-gray-500 dark:text-gray-200"
               >
                 {intl.formatMessage(formMessages.sortBy)}
                 {intl.formatMessage(commonMessages.dividingColon)}

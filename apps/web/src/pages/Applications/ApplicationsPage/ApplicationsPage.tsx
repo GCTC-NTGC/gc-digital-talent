@@ -103,7 +103,7 @@ export const ApplicationsPage = ({ query }: ApplicationsPageProps) => {
             })}
           </p>
           <fieldset className="my-6 flex items-center gap-3">
-            <legend>
+            <legend className="float-left">
               {intl.formatMessage({
                 defaultMessage: "Order by",
                 id: "idkbRt",
