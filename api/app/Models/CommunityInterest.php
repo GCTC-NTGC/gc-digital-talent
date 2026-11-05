@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Builders\CommunityInterestBuilder;
+use App\Builders\UserBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -103,13 +104,8 @@ class CommunityInterest extends Model
             return $query;
         }
 
-        $query->where(function ($query) use ($searchTerm) {
-            $query->whereHas('user', function ($query) use ($searchTerm) {
-                $query->whereGeneralSearch($searchTerm);
-            });
-        });
-
-        return $query;
+        // filter only, no ranking needed
+        return $query->whereIn('community_interests.user_id', UserBuilder::idsMatchingSearch($searchTerm));
     }
 
     // scope to search records by name of attached user
