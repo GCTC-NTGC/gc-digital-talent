@@ -213,7 +213,7 @@ const Display = ({ query, context }: DisplayProps) => {
               : notProvided}
           </FieldDisplay>
           <FieldDisplay label={labels.estimatedLanguageAbility}>
-            {estimatedLanguageAbility?.label ? (
+            {estimatedAbility?.label ? (
               <>
                 <span className="block">{estimatedAbility?.label}</span>
                 <span className="text-gray-500 dark:text-gray-200">
