@@ -719,8 +719,8 @@ importers:
         specifier: ^4.4.5
         version: 4.4.5(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
       eslint-plugin-formatjs:
-        specifier: ^6.4.19
-        version: 6.4.19(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))
+        specifier: ^8.1.2
+        version: 8.1.2(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))
       eslint-plugin-import:
         specifier: ^2.32.0
         version: 2.32.0(@typescript-eslint/parser@8.72.0(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3))(eslint-import-resolver-typescript@4.4.5)(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
@@ -1965,20 +1965,23 @@ packages:
   '@formatjs/fast-memoize@3.1.7':
     resolution: {integrity: sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA==}
 
-  '@formatjs/icu-messageformat-parser@3.5.15':
-    resolution: {integrity: sha512-5o4grXKotAB3JqQuisLApHG43g17N+paoRTa92Jiz35Zvfemq0cVf4EDvuxyHAzmsJji7igaEowicLO/VmfJ8Q==}
-
   '@formatjs/icu-messageformat-parser@3.5.17':
     resolution: {integrity: sha512-cN9jhVqT7u0K9tix43fhjoUwL0nazyW6zsNIXs2QdPADr+nurPfYyssUiMqcSCGlPcCiqnYVxgSn7zBSuI+5Bg==}
+
+  '@formatjs/icu-messageformat-parser@3.5.22':
+    resolution: {integrity: sha512-YuwN+dDKgssfuYwtOyGQD0CSn7K46g9cv1Fp0VgKpjZDDFvv8b8crzP990IcJhRPWHhKzCGsbUSJVIguyyFA5A==}
 
   '@formatjs/icu-skeleton-parser@2.1.11':
     resolution: {integrity: sha512-j8cUmOJzVgkHuS0QiQ6ga76UIoLOFSAMWhs7aZJztH3aAdCOAE6vpC8KVvFB4cU10ON0y2/5oOVmPJ43s2lTwA==}
 
+  '@formatjs/icu-skeleton-parser@2.1.12':
+    resolution: {integrity: sha512-ca7tZMLpfHX3sUD7hP6gE/qr6Iq89EDd3ZLeRhbsB7r0UD55DGJq+tmFLzrGrnx5StahUevQmQQVtbDRHsfDHA==}
+
   '@formatjs/intl@4.1.20':
     resolution: {integrity: sha512-q3gaFvc1mXrl0fcSY2QKSS+WzJxpbIXs48O+QLA3UsRtIwVhazvxtLrLGKEse5Mq4U8hAYyTB6Y9buU2ZRFz/w==}
 
-  '@formatjs/ts-transformer@4.4.17':
-    resolution: {integrity: sha512-20NZFTZhKyhtE0Nmiuwr6rh9FkA0L5dHkTi8pX8UNMwKmhVvEWK3yyra8MVmmOZ2PC5tIp9cqjo5H84UscSo6Q==}
+  '@formatjs/ts-transformer@4.5.1':
+    resolution: {integrity: sha512-h0c4wWAm6yZjLsf3W1GyQmMlJzgIXpf/l51+8+Ymwi65UGOLv8gboIqaYwoUSyNh2reatmfWnU1t5i5LlZWS/w==}
     engines: {node: '>= 20.12.0'}
     peerDependencies:
       ts-jest: '29'
@@ -4074,8 +4077,9 @@ packages:
     resolution: {integrity: sha512-E2mroviasaWecDzTGiGMtuEguuLVOeRggnrIn93CJuxYJzQBHbyymlT08aVQydbBal5538o+JkBKXh2sRuCyIA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@unicode/unicode-17.0.0@1.6.17':
-    resolution: {integrity: sha512-TcBN39y5g7rmQbjnIDsW+4XlEXk6BnJMlhGyUHqUljp00affwlSLv5v7nB37pbdD/ks1BpptvILVQRMp34wPPw==}
+  '@unicode/unicode-17.0.0@2.1.0':
+    resolution: {integrity: sha512-vin4t0thqky14tLee7x9dAQRNoCVCSQTNcm4csNyKH5cbA0fpqLQ8TJvOYyHFbYDwRTngN6curl2Ae9+YjJjtA==}
+    engines: {node: '>=12'}
 
   '@unrs/resolver-binding-android-arm-eabi@1.12.2':
     resolution: {integrity: sha512-g5T90pqg1bo/7mytQx6F4iBNC0Wsh9cu+z9veDbFjc7HjpesJFWD7QMS0NGStXM075+7dJPPVvBbpZlnrdpi/w==}
@@ -5041,8 +5045,8 @@ packages:
     peerDependencies:
       eslint: '>=4.19.1'
 
-  eslint-plugin-formatjs@6.4.19:
-    resolution: {integrity: sha512-5J9wmbHibrZl4JOJx5VNjY6Jj4kI+eLqgyScwlFwtp1xy6kXI6V4iuRQYldrltHDXbodbtn7etbInaFnIVa0vQ==}
+  eslint-plugin-formatjs@8.1.2:
+    resolution: {integrity: sha512-xQEgjhtl+wmWc0elcS1CqtHfawwWZKRJS1ADB+04z0WAyQq1Yfk6TJo1PChTfZx1vjdGKqgoVvfnhLHWNJ6F6w==}
     peerDependencies:
       eslint: 9 || 10
 
@@ -6486,9 +6490,6 @@ packages:
 
   prosemirror-tables@1.8.5:
     resolution: {integrity: sha512-V/0cDCsHKHe/tfWkeCmthNUcEp1IVO3p6vwN8XtwE9PZQLAZJigbw3QoraAdfJPir4NKJtNvOB8oYGKRl+t0Dw==}
-
-  prosemirror-transform@1.12.0:
-    resolution: {integrity: sha512-GxboyN4AMIsoHNtz5uf2r2Ru551i5hWeCMD6E2Ib4Eogqoub0NflniaBPVQ4MrGE5yZ8JV9tUHg9qcZTTrcN4w==}
 
   prosemirror-transform@1.12.2:
     resolution: {integrity: sha512-PE/aY0HEY4zczvmqrilgkUK/WautF0chvMqkmM/iN5/aPHvwrCWaQZjS6CIZp+K84YrvPFqrL+YArrfJX8xX7g==}
@@ -7951,15 +7952,17 @@ snapshots:
 
   '@formatjs/fast-memoize@3.1.7': {}
 
-  '@formatjs/icu-messageformat-parser@3.5.15':
-    dependencies:
-      '@formatjs/icu-skeleton-parser': 2.1.11
-
   '@formatjs/icu-messageformat-parser@3.5.17':
     dependencies:
       '@formatjs/icu-skeleton-parser': 2.1.11
 
+  '@formatjs/icu-messageformat-parser@3.5.22':
+    dependencies:
+      '@formatjs/icu-skeleton-parser': 2.1.12
+
   '@formatjs/icu-skeleton-parser@2.1.11': {}
+
+  '@formatjs/icu-skeleton-parser@2.1.12': {}
 
   '@formatjs/intl@4.1.20':
     dependencies:
@@ -7967,9 +7970,9 @@ snapshots:
       '@formatjs/icu-messageformat-parser': 3.5.17
       intl-messageformat: 11.2.14
 
-  '@formatjs/ts-transformer@4.4.17':
+  '@formatjs/ts-transformer@4.5.1':
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.15
+      '@formatjs/icu-messageformat-parser': 3.5.22
       '@types/babel__core': 7.20.5
       '@types/node': 24.13.3
       json-stable-stringify: 1.3.0
@@ -10030,7 +10033,7 @@ snapshots:
       '@typescript-eslint/types': 8.72.0
       eslint-visitor-keys: 5.0.1
 
-  '@unicode/unicode-17.0.0@1.6.17': {}
+  '@unicode/unicode-17.0.0@2.1.0': {}
 
   '@unrs/resolver-binding-android-arm-eabi@1.12.2':
     optional: true
@@ -11060,15 +11063,15 @@ snapshots:
       eslint-utils: 2.1.0
       regexpp: 3.2.0
 
-  eslint-plugin-formatjs@6.4.19(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0)):
+  eslint-plugin-formatjs@8.1.2(eslint@9.39.2(jiti@2.7.0)(supports-color@7.2.0)):
     dependencies:
-      '@formatjs/icu-messageformat-parser': 3.5.15
-      '@formatjs/ts-transformer': 4.4.17
+      '@formatjs/icu-messageformat-parser': 3.5.22
+      '@formatjs/ts-transformer': 4.5.1
       '@types/estree-jsx': 1.0.5
       '@types/picomatch': 4.0.3
-      '@unicode/unicode-17.0.0': 1.6.17
+      '@unicode/unicode-17.0.0': 2.1.0
       eslint: 9.39.2(jiti@2.7.0)(supports-color@7.2.0)
-      magic-string: 0.30.21
+      magic-string: 1.4.3
       picomatch: 4.0.7
     transitivePeerDependencies:
       - ts-jest
@@ -12469,18 +12472,18 @@ snapshots:
 
   prosemirror-changeset@2.4.4:
     dependencies:
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
 
   prosemirror-commands@1.7.2:
     dependencies:
       prosemirror-model: 1.25.12
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
 
   prosemirror-dropcursor@1.8.4:
     dependencies:
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
       prosemirror-view: 1.42.6
 
   prosemirror-gapcursor@1.4.1:
@@ -12493,14 +12496,14 @@ snapshots:
   prosemirror-history@1.5.1:
     dependencies:
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
       prosemirror-view: 1.42.6
       rope-sequence: 1.3.4
 
   prosemirror-inputrules@1.5.1:
     dependencies:
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
 
   prosemirror-keymap@1.2.3:
     dependencies:
@@ -12515,12 +12518,12 @@ snapshots:
     dependencies:
       prosemirror-model: 1.25.12
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
 
   prosemirror-state@1.4.4:
     dependencies:
       prosemirror-model: 1.25.12
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
       prosemirror-view: 1.42.6
 
   prosemirror-tables@1.8.5:
@@ -12528,12 +12531,8 @@ snapshots:
       prosemirror-keymap: 1.2.3
       prosemirror-model: 1.25.12
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
       prosemirror-view: 1.42.6
-
-  prosemirror-transform@1.12.0:
-    dependencies:
-      prosemirror-model: 1.25.12
 
   prosemirror-transform@1.12.2:
     dependencies:
@@ -12543,7 +12542,7 @@ snapshots:
     dependencies:
       prosemirror-model: 1.25.12
       prosemirror-state: 1.4.4
-      prosemirror-transform: 1.12.0
+      prosemirror-transform: 1.12.2
 
   punycode@2.3.1: {}
 
