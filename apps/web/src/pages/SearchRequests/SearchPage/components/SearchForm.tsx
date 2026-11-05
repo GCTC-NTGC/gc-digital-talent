@@ -2,7 +2,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { useNavigate } from "react-router";
 import { useQuery } from "urql";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import debounce from "lodash/debounce";
 
 import {
   Container,
@@ -96,6 +97,7 @@ export const SearchForm = ({
   const [applicantFilter, setApplicantFilter] = useState<ApplicantFilterInput>(
     initialFiltersAdjusted,
   );
+  const [filterPending, setFilterPending] = useState(false);
 
   const { fetching, candidateCount, results, communities } =
     useCandidateCount(applicantFilter);
@@ -107,6 +109,15 @@ export const SearchForm = ({
   });
   const { watch } = methods;
 
+  const setFilterDebounced = useMemo(
+    () =>
+      debounce((newFilters: ApplicantFilterInput) => {
+        setApplicantFilter(newFilters);
+        setFilterPending(false);
+      }, 300),
+    [],
+  );
+
   useEffect(() => {
     const subscription = watch((newValues, { name }) => {
       if (name && submitOnlyFields.includes(name)) {
@@ -117,11 +128,15 @@ export const SearchForm = ({
         newValues as FormValues,
         classifications,
       );
-      setApplicantFilter(newFilters);
+      setFilterPending(true);
+      setFilterDebounced(newFilters);
     });
 
     return () => subscription.unsubscribe();
-  }, [classifications, watch]);
+  }, [classifications, watch, setFilterDebounced]);
+
+  // Filters are pending during a debounce, fetching once the query actually gets sent
+  const updatePending = fetching || filterPending;
 
   // An empty selection means "all sources" on the backend (TalentRequestSource::selected()),
   // so show both breakdown lines until the user narrows it down to one.
@@ -134,6 +149,14 @@ export const SearchForm = ({
   const showAtLevel =
     !hasTalentSourceSelection ||
     !!applicantFilter?.talentSources?.includes(TalentRequestSource.AtLevel);
+  const showAdvancement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(TalentRequestSource.Advancement);
+  const showLateralMovement =
+    !hasTalentSourceSelection ||
+    !!applicantFilter?.talentSources?.includes(
+      TalentRequestSource.LateralMovement,
+    );
 
   const selectedWorkStream = workStreams.find(
     (workStream) =>
@@ -216,12 +239,12 @@ export const SearchForm = ({
             <div className="hidden sm:block">
               <EstimatedCandidates
                 candidateCount={candidateCount}
-                updatePending={fetching}
+                updatePending={updatePending}
               />
             </div>
           </div>
           <Separator />
-          {fetching ? (
+          {updatePending ? (
             <Loading inline />
           ) : (
             <>
@@ -243,6 +266,8 @@ export const SearchForm = ({
                           community,
                           qualifiedInPoolCount,
                           atLevelCount,
+                          advancementCount,
+                          lateralMovementCount,
                           count: communityCount,
                         }) => (
                           <CommunityResultCard
@@ -251,9 +276,13 @@ export const SearchForm = ({
                             workStreamName={selectedWorkStreamName}
                             qualifiedInPoolCount={qualifiedInPoolCount}
                             atLevelCount={atLevelCount}
+                            advancementCount={advancementCount}
+                            lateralMovementCount={lateralMovementCount}
                             count={communityCount}
                             showQualifiedInPool={showQualifiedInPool}
                             showAtLevel={showAtLevel}
+                            showAdvancement={showAdvancement}
+                            showLateralMovement={showLateralMovement}
                           />
                         ),
                       )}

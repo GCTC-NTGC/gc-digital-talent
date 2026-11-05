@@ -88,6 +88,8 @@ final class CountTalentRequestMatchesByCommunity
             ->addSelect('community_id')
             ->selectRaw("count(distinct case when source = 'pool' then user_id end) as qualified_in_pool_count")
             ->selectRaw("count(distinct case when source = 'interest' then user_id end) as at_level_count")
+            ->selectRaw("count(distinct case when source = 'advancement' then user_id end) as advancement_count")
+            ->selectRaw("count(distinct case when source = 'lateral_movement' then user_id end) as lateral_movement_count")
             ->selectRaw('count(distinct user_id) as count')
             ->groupBy('community_id')
             ->get();
@@ -100,6 +102,8 @@ final class CountTalentRequestMatchesByCommunity
             'community' => $communities->get($row->community_id),
             'qualifiedInPoolCount' => (int) $row->qualified_in_pool_count,
             'atLevelCount' => (int) $row->at_level_count,
+            'advancementCount' => (int) $row->advancement_count,
+            'lateralMovementCount' => (int) $row->lateral_movement_count,
             'count' => (int) $row->count,
         ]);
     }
