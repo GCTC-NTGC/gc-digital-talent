@@ -3,7 +3,7 @@ import type {
   UpdateTalentNominationGroupInput,
 } from "@gc-digital-talent/graphql";
 import { TalentNominationGroupDecision } from "@gc-digital-talent/graphql";
-import { uniqueItems, unpackMaybes } from "@gc-digital-talent/helpers";
+import { unpackMaybes } from "@gc-digital-talent/helpers";
 
 export interface FormValues {
   advancementDecision: TalentNominationGroupDecision | null;
