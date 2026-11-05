@@ -189,6 +189,8 @@ test.describe("Snapshot", () => {
     await expect(signature.getByText(/Playwright signature/i)).toBeVisible();
 
     // assert experience appears three times, twice in snapshot and once in career timeline
-    await expect(appPage.page.getByText(/Test experience/i)).toHaveCount(3);
+    await expect(
+      appPage.page.getByRole("heading").getByText(/Test experience/i),
+    ).toHaveCount(3);
   });
 });
