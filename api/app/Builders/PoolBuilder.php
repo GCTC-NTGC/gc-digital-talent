@@ -174,6 +174,7 @@ class PoolBuilder extends Builder
         });
     }
 
+    // filter by enum PoolAreaOfSelection options
     public function whereAreaOfSelectionIn(?array $areasOfSelection): self
     {
         // TODO
@@ -239,7 +240,7 @@ class PoolBuilder extends Builder
     }
 
     // filter given enum LanguageAbility options, map to pool's enum PoolLanguage
-    public function whereLanguageIn(?array $languageAbilities): self
+    public function whereLanguagesIn(?array $languageAbilities): self
     {
         // TODO
         // should an additional early return be added if all possible enum values are selected?
