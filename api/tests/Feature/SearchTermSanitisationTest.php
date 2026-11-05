@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Activity;
+use App\Models\CommunityInterest;
+use App\Models\PoolCandidate;
 use App\Models\User;
 use App\Utilities\PostgresLike;
 use Database\Seeders\RolePermissionSeeder;
@@ -105,12 +107,30 @@ class SearchTermSanitisationTest extends TestCase
         $this->assertCount(1, Activity::query()->wherePropertiesLike('second')->get());
     }
 
-    public function testGeneralSearchReturnsNothingWhenTheTermSanitisesToNothing(): void
+    public function testGeneralSearchReturnsNothingWhenTheTermSanitizesToNothing(): void
     {
         User::factory()->count(3)->create();
 
-        // whitespace passes the empty() guard but sanitises away to nothing
+        // whitespace passes the empty() guard but sanitizes away to nothing
         $this->assertCount(0, User::query()->whereGeneralSearch('   ')->get());
         $this->assertGreaterThan(0, User::query()->count());
+    }
+
+    // the above test but through PoolCandidate
+    public function testCandidateGeneralSearchReturnsNothingWhenTheTermSanitizesToNothing(): void
+    {
+        PoolCandidate::factory()->count(3)->create();
+
+        $this->assertCount(0, PoolCandidate::query()->whereGeneralSearch('   ')->get());
+        $this->assertGreaterThan(0, PoolCandidate::query()->count());
+    }
+
+    // the above test but through CommunityInterest
+    public function testCommunityInterestGeneralSearchReturnsNothingWhenTheTermSanitizesToNothing(): void
+    {
+        CommunityInterest::factory()->count(3)->state(fn () => ['user_id' => User::factory()])->create();
+
+        $this->assertCount(0, CommunityInterest::query()->generalSearch('   ')->get());
+        $this->assertGreaterThan(0, CommunityInterest::query()->count());
     }
 }
