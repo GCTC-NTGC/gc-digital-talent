@@ -7688,10 +7688,6 @@
     "defaultMessage": "Employé(e)s",
     "description": "Combined eligibility string for 'employees only' with no other limitations"
   },
-  "TPFMK3": {
-    "defaultMessage": "La personne nominée sera recommandée pour un transfert latéral vers des possibilités d’emploi correspondant à la classification actuelle de son poste d’attache ainsi qu’aux classifications sélectionnées ci‑dessus jusqu’à cette date (inclusivement).",
-    "description": "Help text for lateral movement referral expiry date field"
-  },
   "TPw/0u": {
     "defaultMessage": "sont menaçants, violents, intimidants ou harcelants",
     "description": "Comments or contributions list item"
@@ -11160,10 +11156,6 @@
   "hOnqmx": {
     "defaultMessage": "Le candidat n’a pas réussi une évaluation requise",
     "description": "Description of the 'disqualified' application status"
-  },
-  "hPq1v7": {
-    "defaultMessage": "Par défaut, la personne nominée sera recommandée en fonction de la classification actuelle de son poste d’attache. Si cette classification comporte des équivalences admissibles qui peuvent convenir à un transfert latéral, veuillez les préciser dans le champ prévu à cet effet.",
-    "description": "Lateral movement classifications introduction"
   },
   "hQ2+aE": {
     "defaultMessage": "Enregistrer la décision",
