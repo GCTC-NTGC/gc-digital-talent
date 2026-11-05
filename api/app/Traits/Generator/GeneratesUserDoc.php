@@ -1013,8 +1013,8 @@ trait GeneratesUserDoc
         }
 
         // Learning Opportunities
-        $section->addText($this->localize('gc_employee.learning_interest'));
         if (! empty($profile->career_planning_learning_opportunities_interest)) {
+            $section->addText($this->localize('gc_employee.learning_interest'));
             foreach ($profile->career_planning_learning_opportunities_interest as $interest) {
                 $section->addListItem(
                     $this->localizeEnum($interest, LearningOpportunitiesInterest::class)
