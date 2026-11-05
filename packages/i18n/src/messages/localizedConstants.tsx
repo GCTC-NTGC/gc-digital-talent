@@ -156,18 +156,18 @@ const armedForcesStatusesProfile = defineMessages({
 
 const armedForcesStatusesProfileNoBold = defineMessages({
   [ArmedForcesStatus.Veteran]: {
-    defaultMessage: "Veteran of the Canadian Armed Forces",
-    id: "0RVc/y",
+    defaultMessage: "I am a veteran of the Canadian Armed Forces",
+    id: "NpmkGJ",
     description: "declare self to be a CAF veteran without bolding",
   },
   [ArmedForcesStatus.Member]: {
-    defaultMessage: "Active member of the Canadian Armed Forces",
-    id: "L864l0",
+    defaultMessage: "I am an active member of the Canadian Armed Forces",
+    id: "F7WbTs",
     description: "declare self to be a CAF member without bolding",
   },
   [ArmedForcesStatus.NonCaf]: {
-    defaultMessage: "Not a member of the Canadian Armed Forces",
-    id: "V4n55A",
+    defaultMessage: "I am not a member of the Canadian Armed Forces",
+    id: "+2CQiW",
     description: "declare self to not be in the CAF without bolding",
   },
 });

@@ -81,7 +81,7 @@ class AccountSettings extends AppPage {
       .click();
     await this.locators[FIELD.VETERAN_STATUS]
       .getByRole("radio", {
-        name: /Not a member of the Canadian Armed Forces/i,
+        name: /I am not a member of the Canadian Armed Forces/i,
       })
       .click();
     await this.locators[FIELD.CITIZENSHIP_STATUS]
