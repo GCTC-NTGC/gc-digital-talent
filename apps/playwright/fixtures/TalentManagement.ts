@@ -383,7 +383,7 @@ class TalentManagement extends AppPage {
       }),
       [FIELD.OPTION]: page.getByRole("option"),
       [FIELD.REFERRAL_EQUIVALENCIES]: page.getByRole("combobox", {
-        name: /relevant referral equivalencies/i,
+        name: /classifications for lateral movement/i,
       }),
       [FIELD.REFERRAL_EXPIRY_DATE]: page.getByRole("group", {
         name: /referral expiry date/i,
