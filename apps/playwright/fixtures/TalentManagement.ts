@@ -682,12 +682,6 @@ class TalentManagement extends AppPage {
 
   private async approveLateralMovement(referralExpiryDate: Locator) {
     await this.locators[FIELD.LATERAL_MOVEMENT_APPROVED].click();
-    const lateralClassificationsCombobox =
-      this.locators[FIELD.REFERRAL_EQUIVALENCIES];
-    await lateralClassificationsCombobox.click();
-    await lateralClassificationsCombobox.press("ArrowDown");
-    await lateralClassificationsCombobox.press("Enter");
-    await this.page.keyboard.press("Tab");
     await this.fillDate(referralExpiryDate, "2099-12-31");
   }
 
