@@ -9,7 +9,7 @@ import TalentNominationHistoryListItem from "./TalentNominationHistoryListItem";
 
 export const TalentNominationHistory_Fragment = graphql(/* GraphQL */ `
   fragment TalentNominationHistory on User {
-    talentNominationGroupsAsNominee {
+    talentNominationGroupsAsRecruiter {
       id
       updatedAt
       ...TalentNominationHistoryListItem
@@ -29,7 +29,7 @@ const TalentNominationHistory = ({
 
   // Sort nomination groups by accepted date most recent first.
   const nominationGroups = unpackMaybes(
-    user?.talentNominationGroupsAsNominee,
+    user?.talentNominationGroupsAsRecruiter,
   ).sort((a, b) => {
     const aDate = a?.updatedAt ? new Date(a.updatedAt).getTime() : 0;
     const bDate = b?.updatedAt ? new Date(b.updatedAt).getTime() : 0;

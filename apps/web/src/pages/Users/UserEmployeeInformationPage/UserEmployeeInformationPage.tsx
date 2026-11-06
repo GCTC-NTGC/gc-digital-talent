@@ -25,6 +25,7 @@ import RequireAuth from "~/components/RequireAuth/RequireAuth";
 import type { CommunityInterestOptions_Fragment } from "~/components/CommunityInterest/CommunityInterest";
 import CommunityInterest from "~/components/CommunityInterest/CommunityInterest";
 import EmployeeVerificationSection from "~/components/EmployeeVerificationSection/EmployeeVerificationSection";
+import TalentNominationHistory from "~/components/TalentNominationHistory/TalentNominationHistory";
 
 import type { CareerDevelopmentOptions_Fragment } from "./components/CareerDevelopmentSection";
 import CareerDevelopmentSection from "./components/CareerDevelopmentSection";
@@ -46,6 +47,7 @@ const EmployeeInformationUser_Fragment = graphql(/** GraphQL */ `
   fragment EmployeeInformationUser on User {
     ...UserEmployeeVerification
     ...NextRoleAndCareerObjective
+    ...TalentNominationHistory
   }
 `);
 
@@ -386,6 +388,7 @@ export const UserEmployeeInformation = ({
               })}
             </p>
           </TableOfContents.Section>
+          <TalentNominationHistory userQuery={user} />
         </div>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>

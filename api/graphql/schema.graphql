@@ -189,6 +189,11 @@ type User {
     @canResolved(ability: "view") # Search talent requests submitted by a user
   talentNominationGroupsAsNominee: [TalentNominationGroupAsNominee!]
     @hasMany(scopes: ["withApprovedOption", "whereAuthorizedToViewAsNominee"])
+  talentNominationGroupsAsRecruiter: [TalentNominationGroupAsNominee!]
+    @hasMany(
+      relation: "talentNominationGroupsAsNominee"
+      scopes: ["withApprovedOption", "whereAuthorizedToView"]
+    )
 }
 
 type CommunityInterest {
@@ -543,9 +548,8 @@ type Pool implements HasRoleAssignments {
   selectionLimitations: [LocalizedPoolSelectionLimitation!]
     @rename(attribute: "selection_limitations")
   contactEmail: String @rename(attribute: "contact_email")
-  archives(
-    type: JobPosterArchiveType @where
-  ): [JobPosterArchive!] @hasMany(relation: "jobPosterArchives")
+  archives(type: JobPosterArchiveType @where): [JobPosterArchive!]
+    @hasMany(relation: "jobPosterArchives")
   activities(
     where: ProcessActivityFilterInput @spread
     orderBy: _ @orderBy(columnsEnum: "ActivitiesOrderByColumn")
