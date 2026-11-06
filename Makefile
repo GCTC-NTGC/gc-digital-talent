@@ -8,8 +8,8 @@ COMPOSE_FLAGS := -f docker-compose.yml
 endif
 
 DOCKER_RUN=docker compose $(COMPOSE_FLAGS) run --rm maintenance bash
-DOCKER_API=docker compose $(COMPOSE_FLAGS) run --rm -w /var/www/html/api maintenance sh -c
-DOCKER_PNPM=docker compose $(COMPOSE_FLAGS) run -w /var/www/html --rm maintenance pnpm
+DOCKER_API=docker compose $(COMPOSE_FLAGS) run --rm -w /home/site/wwwroot/api maintenance sh -c
+DOCKER_PNPM=docker compose $(COMPOSE_FLAGS) run -w /home/site/wwwroot --rm maintenance pnpm
 
 up:
 	docker compose $(COMPOSE_FLAGS) up --build --detach

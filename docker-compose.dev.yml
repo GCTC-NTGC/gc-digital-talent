@@ -16,10 +16,18 @@ services:
       dockerfile: infrastructure/dev/api.Dockerfile
     restart: unless-stopped
     volumes:
-      - ./api:/var/www/html/api
-      - ./.git:/var/www/html/.git:ro
+      - ./api:/home/site/wwwroot/api
+      - ./.git:/home/site/wwwroot/.git:ro
     env_file:
       - ./api/.env
+    environment:
+      # Optional override for the uid detection in entrypoint-uid.sh.
+      HOST_UID: "${HOST_UID:-}"
+      HOST_GID: "${HOST_GID:-}"
+      GCDT_FIX_PATHS: >-
+        /home/site/wwwroot/api/vendor
+        /home/site/wwwroot/api/storage
+        /home/site/wwwroot/api/bootstrap/cache
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -31,41 +39,39 @@ services:
       retries: 30
       start_period: 15s
 
-  # Ensures ./node_modules exists and is owned by the host user before the
-  # web container starts. Docker creates missing bind-mount directories as
-  # root; this service corrects that so pnpm install can write to it.
-  node-init:
-    image: alpine
-    command: chown "${UID:-1000}:${GID:-1000}" /node_modules
-    volumes:
-      - ./node_modules:/node_modules
-
   web:
     build:
       context: ./
       dockerfile: infrastructure/dev/web.Dockerfile
     restart: unless-stopped
-    user: "${UID:-1000}:${GID:-1000}"
     volumes:
-      - ./apps:/var/www/html/apps
-      - ./packages:/var/www/html/packages
-      - ./package.json:/var/www/html/package.json
-      - ./pnpm-lock.yaml:/var/www/html/pnpm-lock.yaml
-      - ./pnpm-workspace.yaml:/var/www/html/pnpm-workspace.yaml
-      - ./.npmrc:/var/www/html/.npmrc
-      - ./turbo.json:/var/www/html/turbo.json
-      - ./.git:/var/www/html/.git:ro
-      - ./node_modules:/var/www/html/node_modules
+      - ./apps:/home/site/wwwroot/apps
+      - ./packages:/home/site/wwwroot/packages
+      - ./package.json:/home/site/wwwroot/package.json
+      - ./pnpm-lock.yaml:/home/site/wwwroot/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/home/site/wwwroot/pnpm-workspace.yaml
+      - ./.npmrc:/home/site/wwwroot/.npmrc
+      - ./turbo.json:/home/site/wwwroot/turbo.json
+      - ./.git:/home/site/wwwroot/.git:ro
+      - ./node_modules:/home/site/wwwroot/node_modules
       # Share the API storage directory for GraphQL codegen to access the lighthouse schema
-      - ./api/storage/app:/var/www/html/api/storage/app:ro
+      - ./api/storage/app:/home/site/wwwroot/api/storage/app:ro
     env_file:
       - ./apps/web/.env
     environment:
       # Disable devServer redirect since nginx proxy handles routing
       DOCKER_DEV: "true"
+      # Optional override for the uid detection in entrypoint-uid.sh.
+      HOST_UID: "${HOST_UID:-}"
+      HOST_GID: "${HOST_GID:-}"
+      # The api dir is not mounted here, so probe something that is.
+      GCDT_UID_PROBE: /home/site/wwwroot/apps
+      # Docker creates node_modules as root if it does not already exist; the
+      # entrypoint taking it over is what the old node-init service did.
+      GCDT_FIX_PATHS: /home/site/wwwroot/node_modules
+      # pnpm and turbo write into the workspace root itself.
+      GCDT_FIX_DIRS: /home/site/wwwroot
     depends_on:
-      node-init:
-        condition: service_completed_successfully
       api:
         condition: service_healthy
     healthcheck:
