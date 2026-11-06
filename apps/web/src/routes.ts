@@ -91,7 +91,7 @@ export default [
 
           // Browse jobs
           ...prefix("jobs", [
-            index("./pages/Pools/BrowseJobsPage/OpenJobsPage.tsx"),
+            index("./pages/Pools/BrowseJobsPage/OpenJobsPageDeprecated.tsx"),
             route(
               ":poolId",
               "./pages/Pools/PoolAdvertisementPage/PoolAdvertisementPage.tsx",
